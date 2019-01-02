@@ -1,0 +1,5 @@
+# Custom Authentication<a name="iot-custom-authentication"></a>
+
+AWS IoT allows you to define custom authorizers that allow you to manage your own authentication and authorization strategy using a custom authentication service and a Lambda function\. Custom authorizers allow AWS IoT to authenticate your devices and authorize operations using bearer token authentication and authorization strategies\.
+
+When an HTTP connection is established \(and optionally upgraded to a WebSocket connection\) and Signature Version 4 headers are not present, the AWS IoT device gateway checks if a custom authorizer is configured for the endpoint, and if so, it is used to authenticate the connection and authorize the device\. Custom authorizers can implement various authentication strategies \(for example: JWT verification, OAuth provider callout, and so on\) and must return policy documents that are used by the device gateway to authorize MQTT operations\.
