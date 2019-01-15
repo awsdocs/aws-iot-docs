@@ -448,7 +448,7 @@ You can use the TestAuthorization command to test whether an MQTT action is allo
 ```
 $ aws iot test-authorization \
   --principal "arn:aws:iot:us-east-1:123456789012:cert/a0c01f5835079de0a7514643d68ef8414ab739a1e94ee4162977b02b12842847" \
-  --auth-infos "[ \"actionType": \"PUBLISH\", \"resources\": [ \"arn:aws:iot:us-east-1:123456789012:topic/iotButton/G030JF053216F1BS\" ] ]"
+  --auth-infos "{ \"actionType\": \"PUBLISH\", \"resources\": [ \"arn:aws:iot:us-east-1:123456789012:topic/iotButton/G030JF053216F1BS\" ] }"
 ```
 
 Use the `--principal` parameter to specify the ARN of the certificate attached to the thing\. If using Amazon Cognito Identity authentication, specify a Cognito Identity as the `--principal` or use the `--cognito-identity-pool-id` parameter, or both\. \(If you specify only the `--cognito-identity-pool-id` then the policies associated with that identity pool's role for unauthenticated users are considered\. If you use both, the policies associated with that identity pool's role for authenticated users are considered\.
