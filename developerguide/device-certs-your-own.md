@@ -130,6 +130,14 @@ You can use a CA certificate registered with AWS IoT to create a device certific
    ```
    openssl x509 -req -in deviceCert.csr -CA rootCA.pem -CAkey rootCA.key -CAcreateserial -out deviceCert.pem -days 500 -sha256
    ```
+1. (Required for [auto-registration](#auto-register-device-cert)) Create a certificate file that contains the device certificate and your CA certificate. Here is the Linux command:
+
+   ```
+   cat deviceCert.crt sampleCACertificate.pem > deviceCertAndCACert.crt
+   ```
+   
+   Use ```deviceCertAndCACert.crt``` as the device certificate when connecting to AWS IoT. It is important to note that to connect to AWS IoT you will need to use the AWS IoT root certificate to verify the servers identity. You can find that certificate [here](https://www.amazontrust.com/repository/AmazonRootCA1.pem). By combining your own CA certificate and the newly generate certificate in the device certificate AWS IoT will be able to identify your own CA and autoregister the newly generated certificate.
+   
 **Note**  
 You must use the CA certificate registered with AWS IoT to create device certificates\. If you have more than one CA certificate \(with the same subject field and public key\) registered in your AWS account, you must specify the CA certificate used to create the device certificate when you register your device certificate\.
 
