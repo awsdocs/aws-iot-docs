@@ -37,7 +37,7 @@ In this tutorial, you create a rule that sends the name of the AWS IoT thing tha
 1. A new tab opens in your browser\. Enter a topic name, and then choose **Create**\.  
 ![\[Image NOT FOUND\]](http://alpha-docs-aws.amazon.com/iot/latest/developerguide/images/sns-name-topic.png)
 
-1. On the **Configure action** page, for **SNS target**, choose the SNS topic you just created\. For **Message format**, choose **JSON**\. For **IAM role name**, choose **Create a new role**\.  
+1. On the **Configure action** page, for **SNS target**, choose the SNS topic you just created\. For **Message format**, choose **RAW**\. For **IAM role name**, choose **Create a new role**\.  
 ![\[Image NOT FOUND\]](http://alpha-docs-aws.amazon.com/iot/latest/developerguide/images/sns-configure-action-1.png)
 
 1. Enter a name for the role, and then choose **Create a new role**\.  
