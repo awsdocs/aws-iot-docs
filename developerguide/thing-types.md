@@ -3,13 +3,9 @@
 Thing types allow you to store description and configuration information that is common to all things associated with the same thing type\. This simplifies the management of things in the registry\. For example, you can define a LightBulb thing type\. All things associated with the LightBulb thing type share a set of attributes: serial number, manufacturer, and wattage\. When you create a thing of type LightBulb \(or change the type of an existing thing to LightBulb\) you can specify values for each of the attributes defined in the LightBulb thing type\. 
 
 Although thing types are optional, their use provides better discovery of things\.
-
 + Things with a thing type can have up to 50 attributes\.
-
 + Things without a thing type can have up to three attributes\.
-
 + A thing can be associated with only one thing type\.
-
 + There is no limit on the number of thing types you can create in your account\.
 
 Thing types are immutable\. You cannot change a thing type name after it has been created\. You can deprecate a thing type at any time to prevent new things from being associated with it\. You can also delete thing types that have no things associated with them\. 
@@ -106,7 +102,7 @@ You can use the UpdateThing command at any time to change the thing type associa
 
 ```
 $ aws iot update-thing --thing-name "MyLightBulb"
-				--thing-type-name "LightBulb" --attribute-payload  "{\"attributes\": {\"wattage\":\"75\", \"model\":\"123\"}}"
+                --thing-type-name "LightBulb" --attribute-payload  "{\"attributes\": {\"wattage\":\"75\", \"model\":\"123\"}}"
 ```
 
 You can also use the UpdateThing command to disassociate a thing from a thing type\.

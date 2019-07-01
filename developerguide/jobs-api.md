@@ -1,9 +1,7 @@
 # Using the AWS IoT Jobs APIs<a name="jobs-api"></a>
 
 There are two categories of API used in the AWS IoT Jobs service: 
-
 + Those used for management and control of jobs\.
-
 + Those used by the devices executing those jobs\.
 
 In general, job management and control uses an HTTPS protocol API\. Devices can use either an MQTT or an HTTPS protocol API\. \(The HTTPS API is designed for a low volume of calls typical when creating and tracking jobs\. It usually opens a connection for a single request, and then closes the connection after the response is received\. The MQTT API allows long polling\. It is designed for large amounts of traffic that can scale to millions of devices\.\)
@@ -46,14 +44,14 @@ The `Job` object contains details about a job\.
     "completedAt": timestamp,
     "jobProcessDetails": {
         "processingTargets": ["string"],
-        "numberOfCanceledThings": "long", 
-        "numberOfSucceededThings": "long", 
-        "numberOfFailedThings": "long",
-        "numberOfRejectedThings": "long", 
-        "numberOfQueuedThings": "long", 
-        "numberOfInProgressThings": "long", 
-        "numberOfRemovedThings": "long", 
-        "numberOfTimedOutThings": "long"
+        "numberOfCanceledThings": long, 
+        "numberOfSucceededThings": long, 
+        "numberOfFailedThings": long,
+        "numberOfRejectedThings": long, 
+        "numberOfQueuedThings": long, 
+        "numberOfInProgressThings": long, 
+        "numberOfRemovedThings": long, 
+        "numberOfTimedOutThings": long
     }, 
     "presignedUrlConfig": {
         "expiresInSec": number, 
@@ -81,7 +79,7 @@ The `Job` object contains details about a job\.
        ]
     },
     "timeoutConfig": {
-        "inProgressTimeoutInMinutes": "long"
+        "inProgressTimeoutInMinutes": long
     }
 }
 ```
@@ -111,13 +109,13 @@ A list of AWS IoT things and thing groups to which the job should be sent\.
 A short text description of the job\.
 
 `createdAt`  
-The time, in milliseconds since the epoch, when the job was created\. 
+The time, in seconds since the epoch, when the job was created\. 
 
 `lastUpdatedAt`  
-The time, in milliseconds since the epoch, when the job was last updated\.
+The time, in seconds since the epoch, when the job was last updated\.
 
 `completedAt`  
-The time, in milliseconds since the epoch, when the job was completed\.
+The time, in seconds since the epoch, when the job was completed\.
 
 `jobProcessDetails`  
 Details about the job process:    
@@ -178,7 +176,8 @@ Minimum number of executed things before evaluating an abort rule\.
 The threshold as a percentage of the total number of executed things that initiate a job abort\.
 
 `timeoutConfig`  
-Optional\. Specifies the amount of time each device has to finish its execution of the job\. The timer is started when the job execution status is set to `IN_PROGRESS`\. If the job execution status is not set to another terminal state before the time expires, it is set to `TIMED_OUT`\.     
+Optional\. Specifies the amount of time each device has to finish its execution of the job\. The timer is started when the job execution status is set to `IN_PROGRESS`\. If the job execution status is not set to another terminal state before the time expires, it is set to `TIMED_OUT`\.   
+The job timeout feature isn't currently available in the PDT \(us\-gov\-west\-1\) Region\.  
 `inProgressTimeoutInMinutes`  
 Specifies the amount of time, in minutes, this device has to finish execution of this job\. A timer is started, or restarted, whenever this job's execution status is specified as `IN_PROGRESS` with this field populated\. If the job execution status is not set to a terminal state before the timer expires, or before another job execution status update is sent with this field populated, the status is set to `TIMED_OUT`\.
 
@@ -284,13 +283,13 @@ A number that identifies this job execution on this device\. It can be used late
 The AWS IoT thing ARN\.
 
 `queuedAt`  
-The time, in milliseconds since the epoch, when the job execution was queued\.
+The time, in seconds since the epoch, when the job execution was queued\.
 
 `lastUpdatedAt`  
-The time, in milliseconds since the epoch, when the job execution was last updated\.
+The time, in seconds since the epoch, when the job execution was last updated\.
 
 `startedAt`  
-The time, in milliseconds since the epoch, when the job execution was started\.
+The time, in seconds since the epoch, when the job execution was started\.
 
 `status`  
 The status of the job execution\. Can be one of `QUEUED`, `IN_PROGRESS`, `FAILED`, `SUCCEEDED`, `CANCELED`, `TIMED_OUT`, `REJECTED`, or `REMOVED`\.
@@ -327,13 +326,13 @@ The `JobExecutionSummary` object contains job execution summary information:
 A number that identifies a job execution on a device\. It can be used later in commands that return or update job execution information\.
 
 `queuedAt`  
-The time, in milliseconds since the epoch, when the job execution was queued\.
+The time, in seconds since the epoch, when the job execution was queued\.
 
 `lastUpdatedAt`  
-The time, in milliseconds since the epoch, when the job execution was last updated\.
+The time, in seconds since the epoch, when the job execution was last updated\.
 
 `startAt`  
-The time, in milliseconds since the epoch, when the job execution was started\.
+The time, in seconds since the epoch, when the job execution was started\.
 
 `status`  
 The status of the job execution: `QUEUED`, `IN_PROGRESS`, `FAILED`, `SUCCEEDED`, `CANCELED`, `TIMED_OUT`, `REJECTED`, or `REMOVED`\.
@@ -352,11 +351,16 @@ The `JobExecutionSummaryForJob` object contains a summary of information about j
 
 ```
 {
-    "executionSummary": [
+    "executionSummaries": [
         {
-            "thingArn": "string", 
-            "jobExecutionSummary": { JobExecutionSummary }
-        } 
+            "thingArn": "arn:aws:iot:us-west-2:123456789012:thing/MyThing", 
+            "jobExecutionSummary": {
+                "status": "IN_PROGRESS", 
+                "lastUpdatedAt": 1549395301.389, 
+                "queuedAt": 1541526002.609, 
+                "executionNumber": 1
+            }
+        }, 
         ...
     ]
 }
@@ -385,8 +389,18 @@ The `JobExecutionSummaryForThing` object contains a summary of information about
 
 ```
 {
-    "jobId": "string",
-    "jobExecutionSummary": { JobExecutionSummary }
+    "executionSummaries": [
+        {
+            "jobExecutionSummary": {
+                "status": "IN_PROGRESS", 
+                "lastUpdatedAt": 1549395301.389, 
+                "queuedAt": 1541526002.609, 
+                "executionNumber": 1
+            }, 
+            "jobId": "MyThingJob"
+        },
+        ...
+    ]
 }
 ```
 
@@ -411,11 +425,8 @@ The following commands are available for management and control applications ove
 #### [ AssociateTargetsWithJob command ]
 
 Associates a group with a continuous job\. For more information, see [CreateJob](#jobs-CreateJob)\. The following criteria must be met: 
-
 + The job must have been created with the `targetSelection` field set to `CONTINUOUS`\.
-
 + The job status must currently be `IN_PROGRESS`\.
-
 + The total number of targets associated with a job must not exceed 100\.
 
 ------
@@ -538,7 +549,7 @@ Request:
 PUT /jobs/jobId/cancel
 
 { 
-    "force": "boolean",
+    "force": boolean,
     "comment": "string",
     "reasonCode": "string"
 }
@@ -596,7 +607,7 @@ aws iot  cancel-job \
 ```
 {
   "jobId": "string",
-  "force": "boolean",
+  "force": boolean,
   "comment": "string"
 }
 ```
@@ -653,7 +664,7 @@ Request:
 PUT /things/thingName/jobs/jobId/cancel
 
 { 
-    "force": "boolean",
+    "force": boolean,
     "expectedVersion": "string",
     "statusDetails": {
         "string": "string"
@@ -707,8 +718,8 @@ aws iot  cancel-job-execution \
 {
   "jobId": "string",
   "thingName": "string",
-  "force": "boolean",
-  "expectedVersion": "long",
+  "force": boolean,
+  "expectedVersion": long,
   "statusDetails": {
     "string": "string"
   }
@@ -748,18 +759,16 @@ Creates a job\. You can provide the job document as a link to a file in an Amazo
 
 A job can be made *continuous* by setting the optional `targetSelection` parameter to `CONTINUOUS`\. \(The default is `SNAPSHOT`\.\) A continuous job can be used to onboard or upgrade devices as they are added to a group because it continues to run and is executed on newly added things, even after the things in the group at the time the job was created have completed the job\.
 
-A job can have an optional [TimeoutConfig](http://alpha-docs-aws.amazon.com/iot/latest/apireference/API_TimeoutConfig.html), which sets the value of the in\-progress timer\. The in\-progress timer can't be updated and applies to all executions of the job\.
+A job can have an optional [TimeoutConfig](https://docs.aws.amazon.com/iot/latest/apireference/API_TimeoutConfig.html), which sets the value of the in\-progress timer\. The in\-progress timer can't be updated and applies to all executions of the job\.
+
+**Note**  
+The job timeout feature isn't currently available in the PDT \(us\-gov\-west\-1\) Region\.
 
 The following validations are performed on arguments to the `CreateJob` API:
-
 + The `targets` argument must be a list of valid thing or thing group ARNs\. All things and thing groups must be in your AWS account\.
-
 + The `documentSource` argument must be a valid Amazon S3 URL to a job document\. Amazon S3 URLs are of the form: `https://s3.amazonaws.com/bucketName/objectName`\.
-
 + The document stored in the URL specified by the `documentSource` argument must be a UTF\-8 encoded JSON document\.
-
 + The size of a job document is limited to 32 KB due to the limit on the size of an MQTT message\(128 KB\) and encryption\.
-
 + The `jobId` must be unique in your AWS account\.
 
 ------
@@ -802,7 +811,7 @@ PUT /jobs/jobId
        ]
     },
     "timeoutConfig": { 
-      "inProgressTimeoutInMinutes": "long"
+      "inProgressTimeoutInMinutes": long
    }
 }
 ```
@@ -863,7 +872,8 @@ Minimum number of executed things before evaluating an abort rule\.
 The threshold as a percentage of the total number of executed things that initiate a job abort\.
 
 `timeoutConfig`  
-Optional\. Specifies the amount of time each device has to finish its execution of the job\. The timer is started when the job execution status is set to `IN_PROGRESS`\. If the job execution status is not set to another terminal state before the time expires, it is set to `TIMED_OUT`\.     
+Optional\. Specifies the amount of time each device has to finish its execution of the job\. The timer is started when the job execution status is set to `IN_PROGRESS`\. If the job execution status is not set to another terminal state before the time expires, it is set to `TIMED_OUT`\.   
+The job timeout feature isn't currently available in the PDT \(us\-gov\-west\-1\) Region\.  
 `inProgressTimeoutInMinutes`  
 Specifies the amount of time, in minutes, this device has to finish execution of this job\. A timer is started, or restarted, whenever this job's execution status is specified as `IN_PROGRESS` with this field populated\. If the job execution status is not set to a terminal state before the timer expires, or before another job execution status update is sent with this field populated, the status is set to `TIMED_OUT`\.
 
@@ -921,7 +931,7 @@ aws iot  create-job \
   "description": "string",
   "presignedUrlConfig": {
     "roleArn": "string",
-    "expiresInSec": "long"
+    "expiresInSec": long
   },
   "targetSelection": "string",
   "jobExecutionsRolloutConfig": { 
@@ -946,7 +956,7 @@ aws iot  create-job \
       ]
     },
   "timeoutConfig": { 
-      "inProgressTimeoutInMinutes": "long"
+      "inProgressTimeoutInMinutes": long
    },
   "documentParameters": {
     "string": "string"
@@ -968,7 +978,7 @@ aws iot  create-job \
 |  presignedUrlConfig  |  PresignedUrlConfig  |  Configuration information for presigned S3 URLs\.  | 
 |  roleArn  |  string  length max:2048 min:20  |  The ARN of an IAM role that grants permission to download files from the Amazon S3 bucket where the job data or updates are stored\. The role must also grant permission for AWS IoT to download the files\.  | 
 |  expiresInSec  |  long  java class: java\.lang\.Long  range\- max:3600 min:60  |  How long \(in seconds\) presigned URLs are valid\. Valid values are 60 \- 3600\. The default value is 3600 seconds\. Presigned URLs are generated when the AWS IoT Jobs service receives an MQTT request for the job document\.  | 
-|  targetSelection  |  string  enum: CONTINUOUS | SNAPSHOT  java class: com\.amazonaws\.iot\.laser\.TargetSelection  |  Specifies whether the job continues to run \(CONTINUOUS\), or is complete after all those things specified as targets have completed the job \(SNAPSHOT\)\. If continuous, the job can also be run on a thing when a change is detected in a target\. For example, a job runs on a thing when the thing is added to a target group, even after the job was completed by all things originally in the group\.  | 
+|  targetSelection  |  string  enum: CONTINUOUS \| SNAPSHOT  |  Specifies whether the job continues to run \(CONTINUOUS\), or is complete after all those things specified as targets have completed the job \(SNAPSHOT\)\. If continuous, the job can also be run on a thing when a change is detected in a target\. For example, a job runs on a thing when the thing is added to a target group, even after the job was completed by all things originally in the group\.  | 
 |  jobExecutionsRolloutConfig  |  JobExecutionsRolloutConfig  |  Allows you to create a staged rollout of the job\.  | 
 |  maximumPerMinute  |  integer  java class: java\.lang\.Integer  range\- max:1000 min:1  |  The maximum number of things that are notified of a pending job, per minute\. This parameter allows you to create a staged rollout\.  | 
 | exponentialRate | ExponentialRolloutRate | The rate of increase for a job rollout\. This parameter allows you to define an exponential rate for a job rollout\.  | 
@@ -980,10 +990,10 @@ aws iot  create-job \
 | abortConfig | AbortConfig | Allows you to create criteria to abort a job\. | 
 | criteriaList | AbortCriteria | The list of abort criteria to define rules to abort the job\. | 
 | action | java class: java\.lang\.String \(CANCEL\) | The type of abort action to initiate a job abort\. | 
-| failureType | java class: java\.lang\.String \(FAILED | REJECTED | TIMED\_OUT | ALL\) | The type of job execution failure to define a rule to initiate a job abort\. | 
+| failureType | java class: java\.lang\.String \(FAILED \| REJECTED \| TIMED\_OUT \| ALL\) | The type of job execution failure to define a rule to initiate a job abort\. | 
 | minNumberOfExecutedThings | java class: java\.lang\.Integer\) | Minimum number of executed things before evaluating an abort rule\. | 
 | thresholdPercentage | java class: java\.lang\.Double\) | The threshold as a percentage of the total number of executed things that will initiate a job abort\. AWS IoT supports up to two digits after the decimal \(for example, 10\.9 and 10\.99, but not 10\.999\)\.   | 
-|  timeoutConfig  |  TimeoutConfig  |  Specifies the amount of time each device has to finish its execution of the job\. The timer is started when the job execution status is set to `IN_PROGRESS`\. If the job execution status is not set to another terminal state before the time expires, it is set to `TIMED_OUT`\.  | 
+|  timeoutConfig  |  TimeoutConfig  |  Specifies the amount of time each device has to finish its execution of the job\. The timer is started when the job execution status is set to `IN_PROGRESS`\. If the job execution status is not set to another terminal state before the time expires, it is set to `TIMED_OUT`\. The job timeout feature isn't currently available in the PDT \(us\-gov\-west\-1\) Region\.  | 
 |  inProgressTimeoutInMinutes  |  long  |  Specifies the amount of time, in minutes, this device has to finish execution of this job\. A timer is started, or restarted, whenever this job's execution status is specified as `IN_PROGRESS` with this field populated\. If the job execution status is not set to a terminal state before the timer expires, or before another job execution status update is sent with this field populated, the status is set to `TIMED_OUT`\.  | 
 |  documentParameters  |  map  key: ParameterKey  value: ParameterValue  |  Parameters for the job document\.  | 
 |  ParameterKey  |  string  length max:128 min:1  pattern: \[a\-zA\-Z0\-9:\_\-\]\+  |   | 
@@ -1081,7 +1091,7 @@ aws iot  delete-job \
 ```
 {
   "jobId": "string",
-  "force": "boolean"
+  "force": boolean
 }
 ```
 
@@ -1173,8 +1183,8 @@ aws iot  delete-job-execution \
 {
   "jobId": "string",
   "thingName": "string",
-  "executionNumber": "long",
-  "force": "boolean"
+  "executionNumber": long,
+  "force": boolean
 }
 ```
 
@@ -1270,7 +1280,7 @@ Output:
     "jobId": "string",
     "targetSelection": "string",
     "status": "string",
-    "forceCanceled": "boolean",
+    "forceCanceled": boolean,
     "comment": "string",
     "targets": [
       "string"
@@ -1278,7 +1288,7 @@ Output:
     "description": "string",
     "presignedUrlConfig": {
       "roleArn": "string",
-      "expiresInSec": "long"
+      "expiresInSec": long
     },
     "jobExecutionsRolloutConfig": { 
         "exponentialRate": { 
@@ -1336,8 +1346,8 @@ Output:
 |  job  |  Job  |  Information about the job\.  | 
 |  jobArn  |  string  |  An ARN identifying the job with format "arn:aws:iot:region:account:job/jobId"\.  | 
 |  jobId  |  string  length max:64 min:1  pattern: \[a\-zA\-Z0\-9\_\-\]\+  |  The unique identifier you assigned to this job when it was created\.  | 
-|  targetSelection  |  string  enum: CONTINUOUS | SNAPSHOT  java class: com\.amazonaws\.iot\.laser\.TargetSelection  |  Specifies whether the job continues to run \(CONTINUOUS\), or is complete after all those things specified as targets have completed the job \(SNAPSHOT\)\. If continuous, the job can also be run on a thing when a change is detected in a target\. For example, a job runs on a device when the thing representing the device is added to a target group, even after the job was completed by all things originally in the group\.   | 
-|  status  |  string  enum: IN\_PROGRESS | CANCELED | SUCCEEDED  java class: ccom\.amazonaws\.iot\.laser\.common\.JobStatus  |  The status of the job, one of `IN_PROGRESS`, `CANCELED`, or `SUCCEEDED`\.   | 
+|  targetSelection  |  string  enum: CONTINUOUS \| SNAPSHOT  |  Specifies whether the job continues to run \(CONTINUOUS\), or is complete after all those things specified as targets have completed the job \(SNAPSHOT\)\. If continuous, the job can also be run on a thing when a change is detected in a target\. For example, a job runs on a device when the thing representing the device is added to a target group, even after the job was completed by all things originally in the group\.   | 
+|  status  |  string  enum: IN\_PROGRESS \| CANCELED \| SUCCEEDED  |  The status of the job, one of `IN_PROGRESS`, `CANCELED`, or `SUCCEEDED`\.   | 
 |  forceCanceled  |  boolean  java class: java\.lang\.Boolean  |  Is `true` if the job was canceled with the optional `force` parameter set to `true`\.  | 
 |  comment  |  string  length max:2028  pattern: \[^\\\\p\{C\}\]\+  |  If the job was updated, describes the reason for the update\.  | 
 |  targets  |  list  member: TargetArn  |  A list of AWS IoT things and thing groups to which the job should be sent\.  | 
@@ -1357,12 +1367,12 @@ Output:
 |  abortConfig  |  AbortConfig  |  Allows you to create criteria to abort a job\.  | 
 |  criteriaList  |  AbortCriteria  |  The list of abort criteria to define rules to abort the job\.  | 
 |  action  |  java class: java\.lang\.String \(CANCEL\)  |  The type of abort action to initiate a job abort\.  | 
-|  failureType  |  java class: java\.lang\.String \(FAILED | REJECTED | TIMED\_OUT | ALL\)  |  The type of job execution failure to define a rule to initiate a job abort\.  | 
+|  failureType  |  java class: java\.lang\.String \(FAILED \| REJECTED \| TIMED\_OUT \| ALL\)  |  The type of job execution failure to define a rule to initiate a job abort\.  | 
 |  minNumberOfExecutedThings  |  java class: java\.lang\.Integer\)  |  Minimum number of executed things before evaluating an abort rule\.  | 
 |  thresholdPercentage  |  java class: java\.lang\.Double\)  |  The threshold as a percentage of the total number of executed things that initiate a job abort\. AWS IoT supports up to two digits after the decimal \(for example, 10\.9 and 10\.99, but not 10\.999\)\.   | 
-|  createdAt  |  timestamp  |  The time, in milliseconds since the epoch, when the job was created\.  | 
-|  lastUpdatedAt  |  timestamp  |  The time, in milliseconds since the epoch, when the job was last updated\.  | 
-|  completedAt  |  timestamp  |  The time, in milliseconds since the epoch, when the job was completed\.  | 
+|  createdAt  |  timestamp  |  The time, in seconds since the epoch, when the job was created\.  | 
+|  lastUpdatedAt  |  timestamp  |  The time, in seconds since the epoch, when the job was last updated\.  | 
+|  completedAt  |  timestamp  |  The time, in seconds since the epoch, when the job was completed\.  | 
 |  jobProcessDetails  |  JobProcessDetails  |  Details about the job process\.  | 
 |  processingTargets  |  list  member: ProcessingTargetName  java class: java\.util\.List  |  The devices on which the job is executing\.  | 
 |  ProcessingTargetName  |  string  |   | 
@@ -1377,7 +1387,7 @@ Output:
 |  documentParameters  |  map  key: ParameterKey  value: ParameterValue  |  The parameters specified for the job document\.  | 
 |  ParameterKey  |  string  length max:128 min:1  pattern: \[a\-zA\-Z0\-9:\_\-\]\+  |   | 
 |  ParameterValue  |  string  length max:1024 min:1  pattern: \[^\\\\p\{C\}\]\+  |   | 
-|  timeoutConfig  |  TimeoutConfig  |  Specifies the amount of time each device has to finish its execution of the job\. A timer is started when the job execution status is set to `IN_PROGRESS`\. If the job execution status is not set to another terminal state before the timer expires, it is set to `TIMED_OUT`\.   | 
+|  timeoutConfig  |  TimeoutConfig  |  Specifies the amount of time each device has to finish its execution of the job\. A timer is started when the job execution status is set to `IN_PROGRESS`\. If the job execution status is not set to another terminal state before the timer expires, it is set to `TIMED_OUT`\.  The job timeout feature isn't currently available in the PDT \(us\-gov\-west\-1\) Region\.  | 
 |  inProgressTimeoutInMinutes  |  long  |  Specifies the amount of time, in minutes, this device has to finish execution of this job\. The timeout interval can be anywhere between 1 minute and 7 days \(1 to 10080 minutes\)\. The in\-progress timer can't be updated and applies to all job executions for the job\. Whenever a job execution remains in the `IN_PROGRESS` status for longer than this interval, the job execution fails and switches to the terminal `TIMED_OUT` status\.   | 
 
 ------
@@ -1443,7 +1453,7 @@ aws iot  describe-job-execution \
 {
   "jobId": "string",
   "thingName": "string",
-  "executionNumber": "long"
+  "executionNumber": long
 }
 ```
 
@@ -1464,7 +1474,7 @@ Output:
     "approximateSecondsBeforeTimedOut": "number"
     "jobId": "string",
     "status": "string",
-    "forceCanceled": "boolean",
+    "forceCanceled": boolean,
     "statusDetails": {
       "detailsMap": {
         "string": "string"
@@ -1474,8 +1484,8 @@ Output:
     "queuedAt": "timestamp",
     "startedAt": "timestamp",
     "lastUpdatedAt": "timestamp",
-    "executionNumber": "long",
-    "versionNumber": "long"
+    "executionNumber": long,
+    "versionNumber": long
   }
 }
 ```
@@ -1488,16 +1498,16 @@ Output:
 |  execution  |  JobExecution  |  Information about the job execution\.  | 
 |  approximateSecondsBeforeTimedOut  |  long  |   The estimated number of seconds that remain before the job execution status is changed to `TIMED_OUT`\. The timeout interval can be anywhere between 1 minute and 7 days \(1 to 10080 minutes\)\. The actual job execution timeout can occur up to 60 seconds later than the estimated duration\. This value is not included if the job execution has reached a terminal status\.   | 
 |  jobId  |  string  length max:64 min:1  pattern: \[a\-zA\-Z0\-9\_\-\]\+  |  The unique identifier you assigned to the job when it was created\.  | 
-|  status  |  string  enum: QUEUED | IN\_PROGRESS | SUCCEEDED | FAILED | | TIMED\_OUT | REJECTED | REMOVED | CANCELED  java class: com\.amazonaws\.iot\.laser\.common\.JobExecutionStatus  |  The status of the job execution \(IN\_PROGRESS, QUEUED, FAILED, SUCCEEDED, TIMED\_OUT, CANCELED, or REJECTED\)\.  | 
+|  status  |  string  enum: QUEUED \| IN\_PROGRESS \| SUCCEEDED \| FAILED \| \| TIMED\_OUT \| REJECTED \| REMOVED \| CANCELED  |  The status of the job execution \(IN\_PROGRESS, QUEUED, FAILED, SUCCEEDED, TIMED\_OUT, CANCELED, or REJECTED\)\.  | 
 |  forceCanceled  |  boolean  java class: java\.lang\.Boolean  |  Is `true` if the job execution was canceled with the optional `force` parameter set to `true`\.  | 
 |  statusDetails  |  JobExecutionStatusDetails  |  A collection of name\-value pairs that describe the status of the job execution\.  | 
 |  detailsMap  |  map  key: DetailsKey  value: DetailsValue  |  The job execution status\.  | 
 |  DetailsKey  |  string  length max:128 min:1  pattern: \[a\-zA\-Z0\-9:\_\-\]\+  |   | 
 |  DetailsValue  |  string  length max:1024 min:1  pattern: \[^\\\\p\{C\}\]\*\+  |   | 
 |  thingArn  |  string  |  The ARN of the thing on which the job execution is running\.  | 
-|  queuedAt  |  timestamp  |  The time, in milliseconds since the epoch, when the job execution was queued\.  | 
-|  startedAt  |  timestamp  |  The time, in milliseconds since the epoch, when the job execution started\.  | 
-|  lastUpdatedAt  |  timestamp  |  The time, in milliseconds since the epoch, when the job execution was last updated\.  | 
+|  queuedAt  |  timestamp  |  The time, in seconds since the epoch, when the job execution was queued\.  | 
+|  startedAt  |  timestamp  |  The time, in seconds since the epoch, when the job execution started\.  | 
+|  lastUpdatedAt  |  timestamp  |  The time, in seconds since the epoch, when the job execution was last updated\.  | 
 |  executionNumber  |  long  java class: java\.lang\.Long  |  A string \(consisting of the digits "0" through "9"\) that identifies this job execution on this device\. It can be used in commands that return or update job execution information\.   | 
 |  versionNumber  |  long  |  The version of the job execution\. Job execution versions are incremented each time they are updated by a device\.  | 
 
@@ -1661,7 +1671,7 @@ aws iot  list-job-executions-for-job \
 |  Name  |  Type  |  Description  | 
 | --- | --- | --- | 
 |  jobId  |  string  length max:64 min:1  pattern: \[a\-zA\-Z0\-9\_\-\]\+  |  The unique identifier you assigned to this job when it was created\.  | 
-|  status  |  string  enum: QUEUED | IN\_PROGRESS | SUCCEEDED | FAILED | TIMED\_OUT | REJECTED | REMOVED | CANCELED  java class: com\.amazonaws\.iot\.laser\.common\.JobExecutionStatus  |  The status of the job\.  | 
+|  status  |  string  enum: QUEUED \| IN\_PROGRESS \| SUCCEEDED \| FAILED \| TIMED\_OUT \| REJECTED \| REMOVED \| CANCELED  |  The status of the job\.  | 
 |  maxResults  |  integer  java class: java\.lang\.Integer  range\- max:250 min:1  |  The maximum number of results to be returned per request\.  | 
 |  nextToken  |  string  |  The token to retrieve the next set of results\.  | 
 
@@ -1677,7 +1687,7 @@ Output:
         "queuedAt": "timestamp",
         "startedAt": "timestamp",
         "lastUpdatedAt": "timestamp",
-        "executionNumber": "long"
+        "executionNumber": long
       }
     }
   ],
@@ -1694,10 +1704,10 @@ Output:
 |  JobExecutionSummaryForJob  |  JobExecutionSummaryForJob  |   | 
 |  thingArn  |  string  |  The ARN of the thing on which the job execution is running\.  | 
 |  jobExecutionSummary  |  JobExecutionSummary  |  Contains a subset of information about a job execution\.  | 
-|  status  |  string  enum: QUEUED | IN\_PROGRESS | SUCCEEDED | FAILED | TIMED\_OUT | REJECTED | REMOVED | CANCELED  java class: com\.amazonaws\.iot\.laser\.common\.JobExecutionStatus  |  The status of the job execution\.  | 
-|  queuedAt  |  timestamp  |  The time, in milliseconds since the epoch, when the job execution was queued\.  | 
-|  startedAt  |  timestamp  |  The time, in milliseconds since the epoch, when the job execution started\.  | 
-|  lastUpdatedAt  |  timestamp  |  The time, in milliseconds since the epoch, when the job execution was last updated\.  | 
+|  status  |  string  enum: QUEUED \| IN\_PROGRESS \| SUCCEEDED \| FAILED \| TIMED\_OUT \| REJECTED \| REMOVED \| CANCELED  |  The status of the job execution\.  | 
+|  queuedAt  |  timestamp  |  The time, in seconds since the epoch, when the job execution was queued\.  | 
+|  startedAt  |  timestamp  |  The time, in seconds since the epoch, when the job execution started\.  | 
+|  lastUpdatedAt  |  timestamp  |  The time, in seconds since the epoch, when the job execution was last updated\.  | 
 |  executionNumber  |  long  java class: java\.lang\.Long  |  A string \(consisting of the digits "0" through "9"\) that identifies this job execution on this device\. It can be used later in commands that return or update job execution information\.  | 
 |  nextToken  |  string  |  The token for the next set of results, or **null** if there are no additional results\.  | 
 
@@ -1779,7 +1789,7 @@ aws iot  list-job-executions-for-thing \
 |  Name  |  Type  |  Description  | 
 | --- | --- | --- | 
 |  thingName  |  string  length max:128 min:1  pattern: \[a\-zA\-Z0\-9:\_\-\]\+  |  The thing name\.  | 
-|  status  |  string  enum: QUEUED | IN\_PROGRESS | SUCCEEDED | FAILED | TIMED\_OUT | REJECTED | REMOVED | CANCELED  java class: com\.amazonaws\.iot\.laser\.common\.JobExecutionStatus  |  An optional filter that lets you search for jobs that have the specified status\.  | 
+|  status  |  string  enum: QUEUED \| IN\_PROGRESS \| SUCCEEDED \| FAILED \| TIMED\_OUT \| REJECTED \| REMOVED \| CANCELED  |  An optional filter that lets you search for jobs that have the specified status\.  | 
 |  maxResults  |  integer  java class: java\.lang\.Integer  range\- max:250 min:1  |  The maximum number of results to be returned per request\.  | 
 |  nextToken  |  string  |  The token to retrieve the next set of results\.  | 
 
@@ -1795,7 +1805,7 @@ Output:
         "queuedAt": "timestamp",
         "startedAt": "timestamp",
         "lastUpdatedAt": "timestamp",
-        "executionNumber": "long"
+        "executionNumber": long
       }
     }
   ],
@@ -1812,10 +1822,10 @@ Output:
 |  JobExecutionSummaryForThing  |  JobExecutionSummaryForThing  |   | 
 |  jobId  |  string  length max:64 min:1  pattern: \[a\-zA\-Z0\-9\_\-\]\+  |  The unique identifier you assigned to this job when it was created\.  | 
 |  jobExecutionSummary  |  JobExecutionSummary  |  Contains a subset of information about a job execution\.  | 
-|  status  |  string  enum: QUEUED | IN\_PROGRESS | SUCCEEDED | FAILED | TIMED\_OUT| REJECTED | REMOVED | CANCELED  java class: com\.amazonaws\.iot\.laser\.common\.JobExecutionStatus  |  The status of the job execution\.  | 
-|  queuedAt  |  timestamp  |  The time, in milliseconds since the epoch, when the job execution was queued\.  | 
-|  startedAt  |  timestamp  |  The time, in milliseconds since the epoch, when the job execution started\.  | 
-|  lastUpdatedAt  |  timestamp  |  The time, in milliseconds since the epoch, when the job execution was last updated\.  | 
+|  status  |  string  enum: QUEUED \| IN\_PROGRESS \| SUCCEEDED \| FAILED \| TIMED\_OUT\| REJECTED \| REMOVED \| CANCELED  |  The status of the job execution\.  | 
+|  queuedAt  |  timestamp  |  The time, in seconds since the epoch, when the job execution was queued\.  | 
+|  startedAt  |  timestamp  |  The time, in seconds since the epoch, when the job execution started\.  | 
+|  lastUpdatedAt  |  timestamp  |  The time, in seconds since the epoch, when the job execution was last updated\.  | 
 |  executionNumber  |  long  java class: java\.lang\.Long  |  A string \(consisting of the digits "0" through "9"\) that identifies this job execution on this device\. It can be used later in commands that return or update job execution information\.  | 
 |  nextToken  |  string  |  The token for the next set of results, or **null** if there are no additional results\.  | 
 
@@ -1906,8 +1916,8 @@ aws iot  list-jobs \
 
 |  Name  |  Type  |  Description  | 
 | --- | --- | --- | 
-|  status  |  string  enum: IN\_PROGRESS | CANCELED | SUCCEEDED  java class: ccom\.amazonaws\.iot\.laser\.common\.JobStatus  |  An optional filter that lets you search for jobs that have the specified status\.  | 
-|  targetSelection  |  string  enum: CONTINUOUS | SNAPSHOT  java class: com\.amazonaws\.iot\.laser\.TargetSelection  |  Specifies whether the job continues to run \(CONTINUOUS\), or is complete after all those things specified as targets have completed the job \(SNAPSHOT\)\. If continuous, the job can also be run on a thing when a change is detected in a target\. For example, a job runs on a thing when the thing is added to a target group, even after the job was completed by all things originally in the group\.   | 
+|  status  |  string  enum: IN\_PROGRESS \| CANCELED \| SUCCEEDED  |  An optional filter that lets you search for jobs that have the specified status\.  | 
+|  targetSelection  |  string  enum: CONTINUOUS \| SNAPSHOT  |  Specifies whether the job continues to run \(CONTINUOUS\), or is complete after all those things specified as targets have completed the job \(SNAPSHOT\)\. If continuous, the job can also be run on a thing when a change is detected in a target\. For example, a job runs on a thing when the thing is added to a target group, even after the job was completed by all things originally in the group\.   | 
 |  maxResults  |  integer  java class: java\.lang\.Integer  range\- max:250 min:1  |  The maximum number of results to return per request\.  | 
 |  nextToken  |  string  |  The token to retrieve the next set of results\.  | 
 |  thingGroupName  |  string  length max:128 min:1  pattern: \[a\-zA\-Z0\-9:\_\-\]\+  |  A filter that limits the returned jobs to those for the specified group\.  | 
@@ -1943,11 +1953,11 @@ Output:
 |  jobArn  |  string  |  The job ARN\.  | 
 |  jobId  |  string  length max:64 min:1  pattern: \[a\-zA\-Z0\-9\_\-\]\+  |  The unique identifier you assigned to this job when it was created\.  | 
 |  thingGroupId  |  string  length max:128 min:1  pattern: \[a\-zA\-Z0\-9\-\]\+  |  The ID of the thing group\.  | 
-|  targetSelection  |  string  enum: CONTINUOUS | SNAPSHOT  java class: com\.amazonaws\.iot\.laser\.TargetSelection  |  Specifies whether the job continues to run \(CONTINUOUS\), or is complete after all those things specified as targets have completed the job \(SNAPSHOT\)\. If continuous, the job can also be run on a thing when a change is detected in a target\. For example, a job runs on a thing when the thing is added to a target group, even after the job was completed by all things originally in the group\.  | 
-|  status  |  string  enum: IN\_PROGRESS | CANCELED | SUCCEEDED  java class: ccom\.amazonaws\.iot\.laser\.common\.JobStatus  |  The job summary status\.  | 
-|  createdAt  |  timestamp  |  The time, in milliseconds since the epoch, when the job was created\.  | 
-|  lastUpdatedAt  |  timestamp  |  The time, in milliseconds since the epoch, when the job was last updated\.  | 
-|  completedAt  |  timestamp  |  The time, in milliseconds since the epoch, when the job completed\.  | 
+|  targetSelection  |  string  enum: CONTINUOUS \| SNAPSHOT  |  Specifies whether the job continues to run \(CONTINUOUS\), or is complete after all those things specified as targets have completed the job \(SNAPSHOT\)\. If continuous, the job can also be run on a thing when a change is detected in a target\. For example, a job runs on a thing when the thing is added to a target group, even after the job was completed by all things originally in the group\.  | 
+|  status  |  string  enum: IN\_PROGRESS \| CANCELED \| SUCCEEDED  |  The job summary status\.  | 
+|  createdAt  |  timestamp  |  The time, in seconds since the epoch, when the job was created\.  | 
+|  lastUpdatedAt  |  timestamp  |  The time, in seconds since the epoch, when the job was last updated\.  | 
+|  completedAt  |  timestamp  |  The time, in seconds since the epoch, when the job completed\.  | 
 |  nextToken  |  string  |  The token for the next set of results, or **null** if there are no additional results\.  | 
 
 ------
@@ -2133,10 +2143,10 @@ aws iot  update-job \
 |  abortConfig  |  AbortConfig  |  Allows you to create criteria to abort a job\.  | 
 |  criteriaList  |  AbortCriteria  |  The list of abort criteria to define rules to abort the job\.  | 
 |  action  |  java class: java\.lang\.String \(CANCEL\)  |  The type of abort action to initiate a job abort\.  | 
-|  failureType  |  java class: java\.lang\.String \(FAILED | REJECTED | TIMED\_OUT | ALL\)  |  The type of job execution failure to define a rule to initiate a job abort\.  | 
+|  failureType  |  java class: java\.lang\.String \(FAILED \| REJECTED \| TIMED\_OUT \| ALL\)  |  The type of job execution failure to define a rule to initiate a job abort\.  | 
 |  minNumberOfExecutedThings  |  java class: java\.lang\.Integer\)  |  Minimum number of executed things before evaluating an abort rule\.  | 
 |  thresholdPercentage  |  java class: java\.lang\.Double\)  |  The threshold as a percentage of the total number of executed things that initiate a job abort\. AWS IoT supports up to two digits after the decimal \(for example, 10\.9 and 10\.99, but not 10\.999\)\.   | 
-|  timeoutConfig  |  TimeoutConfig  |  Specifies the amount of time each device has to finish its execution of the job\. The timer is started when the job execution status is set to `IN_PROGRESS`\. If the job execution status is not set to another terminal state before the time expires, it is set to `TIMED_OUT`\.  | 
+|  timeoutConfig  |  TimeoutConfig  |  Specifies the amount of time each device has to finish its execution of the job\. The timer is started when the job execution status is set to `IN_PROGRESS`\. If the job execution status is not set to another terminal state before the time expires, it is set to `TIMED_OUT`\. The job timeout feature isn't currently available in the PDT \(us\-gov\-west\-1\) Region\.  | 
 |  inProgressTimeoutInMinutes  |  long  |  Specifies the amount of time, in minutes, this device has to finish execution of this job\. A timer is started, or restarted, whenever this job's execution status is specified as `IN_PROGRESS` with this field populated\. If the job execution status is not set to a terminal state before the timer expires, or before another job execution status update is sent with this field populated, the status is set to `TIMED_OUT`\.  | 
 |  documentParameters  |  map  key: ParameterKey  value: ParameterValue  |  Parameters for the job document\.  | 
 |  ParameterKey  |  string  length max:128 min:1  pattern: \[a\-zA\-Z0\-9:\_\-\]\+  |   | 
@@ -2186,7 +2196,7 @@ Contains data about a job execution\.
     "startedAt" : "timestamp",
     "lastUpdatedAt" : "timestamp",
     "versionNumber" : "number",
-    "executionNumber": "long"
+    "executionNumber": long
 }
 ```
 
@@ -2209,13 +2219,13 @@ The status of the job execution\. Can be one of: QUEUED, IN\_PROGRESS, FAILED, S
 A collection of name\-value pairs that describe the status of the job execution\. 
 
 `queuedAt`  
-The time, in milliseconds since the epoch, when the job execution was enqueued\. 
+The time, in seconds since the epoch, when the job execution was enqueued\. 
 
 `startedAt`  
-The time, in milliseconds since the epoch, when the job execution was started\. 
+The time, in seconds since the epoch, when the job execution was started\. 
 
 `lastUpdatedAt`  
-The time, in milliseconds since the epoch, when the job execution was last updated\.
+The time, in seconds since the epoch, when the job execution was last updated\.
 
 `versionNumber`  
 The version of the job execution\. Job execution versions are incremented each time they are updated by a device\.
@@ -2277,7 +2287,7 @@ Contains a subset of information about a job execution\.
     "startedAt": timestamp,
     "lastUpdatedAt": timestamp,
     "versionNumber": "number",
-    "executionNumber": "long" 
+    "executionNumber": long 
 }
 ```
 
@@ -2288,13 +2298,13 @@ Contains a subset of information about a job execution\.
 The unique identifier you assigned to this job when it was created\.
 
 `queuedAt`  
-The time, in milliseconds since the epoch, when the job execution was enqueued\.
+The time, in seconds since the epoch, when the job execution was enqueued\.
 
 `startedAt`  
-The time, in milliseconds since the epoch, when the job execution started\.
+The time, in seconds since the epoch, when the job execution started\.
 
 `lastUpdatedAt`  
-The time, in milliseconds since the epoch, when the job execution was last updated\.
+The time, in seconds since the epoch, when the job execution was last updated\.
 
 `versionNumber`  
 The version of the job execution\. Job execution versions are incremented each time the AWS IoT Jobs service receives an update from a device\.
@@ -2355,7 +2365,7 @@ An error message string\.
 An arbitrary string used to correlate a request with its reply\.
 
 `timestamp`  
-The time, in milliseconds since the epoch\.
+The time, in seconds since the epoch\.
 
 `executionState`  
 A [JobExecutionState](#jobs-mqtt-job-execution-state) object\. This field is included only when the `code` field has the value `InvalidStateTransition` or `VersionMismatch`\. This makes it unnecessary in these cases to perform a separate `DescribeJobExecution` request to obtain the current job execution status data\.
@@ -2388,11 +2398,8 @@ Request payload:
 Optional\. A client token used to correlate requests and responses\. Enter an arbitrary value here and it is reflected in the response\.
 
 To receive the response, subscribe to:
-
 +  `$aws/things/thingName/jobs/get/accepted` and 
-
 +  `$aws/things/thingName/jobs/get/rejected` or 
-
 +  `$aws/things/thingName/jobs/get/#` for both\. 
 
 Response payload:
@@ -2416,7 +2423,7 @@ A list of [JobExecutionSummary](#jobs-mqtt-job-execution-summary) objects with s
 A client token used to correlate requests and responses\.
 
 `timestamp`  
-The time, in milliseconds since the epoch, when the message was sent\.
+The time, in seconds since the epoch, when the message was sent\.
 
 ------
 #### [ HTTPS \(12\) ]
@@ -2479,21 +2486,21 @@ Output:
   "inProgressJobs": [
     {
       "jobId": "string",
-      "queuedAt": "long",
-      "startedAt": "long",
-      "lastUpdatedAt": "long",
-      "versionNumber": "long",
-      "executionNumber": "long"
+      "queuedAt": long,
+      "startedAt": long,
+      "lastUpdatedAt": long,
+      "versionNumber": long,
+      "executionNumber": long
     }
   ],
   "queuedJobs": [
     {
       "jobId": "string",
-      "queuedAt": "long",
-      "startedAt": "long",
-      "lastUpdatedAt": "long",
-      "versionNumber": "long",
-      "executionNumber": "long"
+      "queuedAt": long,
+      "startedAt": long,
+      "lastUpdatedAt": long,
+      "versionNumber": long,
+      "executionNumber": long
     }
   ]
 }
@@ -2507,17 +2514,17 @@ Output:
 |  inProgressJobs  |  list  member: JobExecutionSummary  java class: java\.util\.List  |  A list of JobExecutionSummary objects with status IN\_PROGRESS\.  | 
 |  JobExecutionSummary  |  JobExecutionSummary  |   | 
 |  jobId  |  string  length max:64 min:1  pattern: \[a\-zA\-Z0\-9\_\-\]\+  |  The unique identifier you assigned to this job when it was created\.  | 
-|  queuedAt  |  long  |  The time, in milliseconds since the epoch, when the job execution was enqueued\.  | 
-|  startedAt  |  long  java class: java\.lang\.Long  |  The time, in milliseconds since the epoch, when the job execution started\.  | 
-|  lastUpdatedAt  |  long  |  The time, in milliseconds since the epoch, when the job execution was last updated\.  | 
+|  queuedAt  |  long  |  The time, in seconds since the epoch, when the job execution was enqueued\.  | 
+|  startedAt  |  long  java class: java\.lang\.Long  |  The time, in seconds since the epoch, when the job execution started\.  | 
+|  lastUpdatedAt  |  long  |  The time, in seconds since the epoch, when the job execution was last updated\.  | 
 |  versionNumber  |  long  |  The version of the job execution\. Job execution versions are incremented each time the AWS IoT Jobs service receives an update from a device\.  | 
 |  executionNumber  |  long  java class: java\.lang\.Long  |  A number that identifies a job execution on a device\.  | 
 |  queuedJobs  |  list  member: JobExecutionSummary  java class: java\.util\.List  |  A list of JobExecutionSummary objects with status QUEUED\.  | 
 |  JobExecutionSummary  |  JobExecutionSummary  |   | 
 |  jobId  |  string  length max:64 min:1  pattern: \[a\-zA\-Z0\-9\_\-\]\+  |  The unique identifier you assigned to this job when it was created\.  | 
-|  queuedAt  |  long  |  The time, in milliseconds since the epoch, when the job execution was enqueued\.  | 
-|  startedAt  |  long  java class: java\.lang\.Long  |  The time, in milliseconds since the epoch, when the job execution started\.  | 
-|  lastUpdatedAt  |  long  |  The time, in milliseconds since the epoch, when the job execution was last updated\.  | 
+|  queuedAt  |  long  |  The time, in seconds since the epoch, when the job execution was enqueued\.  | 
+|  startedAt  |  long  java class: java\.lang\.Long  |  The time, in seconds since the epoch, when the job execution started\.  | 
+|  lastUpdatedAt  |  long  |  The time, in seconds since the epoch, when the job execution was last updated\.  | 
 |  versionNumber  |  long  |  The version of the job execution\. Job execution versions are incremented each time the AWS IoT Jobs service receives an update from a device\.  | 
 |  executionNumber  |  long  java class: java\.lang\.Long  |  A number that identifies a job execution on a device\.  | 
 
@@ -2529,17 +2536,11 @@ Output:
 #### [ StartNextPendingJobExecution command ]
 
 Gets and starts the next pending job execution for a thing \(status IN\_PROGRESS or QUEUED\)\. 
-
 + Any job executions with status IN\_PROGRESS are returned first\.
-
 + Job executions are returned in the order in which they were created\.
-
 + If the next pending job execution is QUEUED, its state is changed to IN\_PROGRESS and the job execution's status details are set as specified\.
-
 + If the next pending job execution is already IN\_PROGRESS, its status details are not changed\.
-
 + If no job executions are pending, the response does not include the `execution` field\.
-
 + You can optionally create a step timer by setting a value for the `stepTimeoutInMinutes` property\. If you don't update the value of this property by running `UpdateJobExecution`, the job execution times out when the step timer expires\.
 
 ------
@@ -2555,7 +2556,7 @@ Request payload:
         "string": "job-execution-state"
         ...
     },
-    "stepTimeoutInMinutes": "long",
+    "stepTimeoutInMinutes": long,
     "clientToken": "string"
 }
 ```
@@ -2570,11 +2571,8 @@ Specifies the amount of time this device has to finish execution of this job\. I
 A client token used to correlate requests and responses\. Enter an arbitrary value here and it is reflected in the response\.
 
 To receive the response, subscribe to:
-
 +  `$aws/things/thingName/jobs/start-next/accepted` and 
-
 +  `$aws/things/thingName/jobs/start-next/rejected` or 
-
 +  `$aws/things/thingName/jobs/start-next/#` for both\. 
 
 Response payload:
@@ -2625,7 +2623,7 @@ PUT /things/thingName/jobs/$next
         "string": "string" 
         ... 
     },
-    "stepTimeoutInMinutes": "long"
+    "stepTimeoutInMinutes": long
 }
 ```
 
@@ -2688,7 +2686,7 @@ aws iot-jobs-data  start-next-pending-job-execution \
   "statusDetails": {
     "string": "string"
   },
-    "stepTimeoutInMinutes": "long"
+    "stepTimeoutInMinutes": long
 }
 ```
 
@@ -2714,11 +2712,11 @@ Output:
     "statusDetails": {
       "string": "string"
     },
-    "queuedAt": "long",
-    "startedAt": "long",
-    "lastUpdatedAt": "long",
-    "versionNumber": "long",
-    "executionNumber": "long",
+    "queuedAt": long,
+    "startedAt": long,
+    "lastUpdatedAt": long,
+    "versionNumber": long,
+    "executionNumber": long,
     "jobDocument": "string"
   }
 }
@@ -2732,13 +2730,13 @@ Output:
 |  execution  |  JobExecution  |  A JobExecution object\.  | 
 |  jobId  |  string  length max:64 min:1  pattern: \[a\-zA\-Z0\-9\_\-\]\+  |  The unique identifier you assigned to this job when it was created\.  | 
 |  thingName  |  string  length max:128 min:1  pattern: \[a\-zA\-Z0\-9:\_\-\]\+  |  The name of the thing that is executing the job\.  | 
-|  status  |  string  enum: QUEUED | IN\_PROGRESS | SUCCEEDED | FAILED | TIMED\_OUT | REJECTED | REMOVED | CANCELED  java class: com\.amazonaws\.iot\.laser\.common\.JobExecutionStatus  |  The status of the job execution\. Can be one of: QUEUED, IN\_PROGRESS, FAILED, SUCCEEDED, CANCELED, TIMED\_OUT, REJECTED, or REMOVED\.  | 
+|  status  |  string  enum: QUEUED \| IN\_PROGRESS \| SUCCEEDED \| FAILED \| TIMED\_OUT \| REJECTED \| REMOVED \| CANCELED  |  The status of the job execution\. Can be one of: QUEUED, IN\_PROGRESS, FAILED, SUCCEEDED, CANCELED, TIMED\_OUT, REJECTED, or REMOVED\.  | 
 |  statusDetails  |  map  key: DetailsKey  value: DetailsValue  |  A collection of name\-value pairs that describe the status of the job execution\.  | 
 |  DetailsKey  |  string  length max:128 min:1  pattern: \[a\-zA\-Z0\-9:\_\-\]\+  |   | 
 |  DetailsValue  |  string  length max:1024 min:1  pattern: \[^\\\\p\{C\}\]\*\+  |   | 
-|  queuedAt  |  long  |  The time, in milliseconds since the epoch, when the job execution was enqueued\.  | 
-|  startedAt  |  long  java class: java\.lang\.Long  |  The time, in milliseconds since the epoch, when the job execution was started\.  | 
-|  lastUpdatedAt  |  long  |  The time, in milliseconds since the epoch, when the job execution was last updated\.   | 
+|  queuedAt  |  long  |  The time, in seconds since the epoch, when the job execution was enqueued\.  | 
+|  startedAt  |  long  java class: java\.lang\.Long  |  The time, in seconds since the epoch, when the job execution was started\.  | 
+|  lastUpdatedAt  |  long  |  The time, in seconds since the epoch, when the job execution was last updated\.   | 
 |  versionNumber  |  long  |  The version of the job execution\. Job execution versions are incremented each time they are updated by a device\.  | 
 |  executionNumber  |  long  java class: java\.lang\.Long  |  A number that identifies a job execution on a device\. It can be used later in commands that return or update job execution information\.  | 
 |  jobDocument  |  string  length max:32768  |  The content of the job document\.  | 
@@ -2763,8 +2761,8 @@ Request payload:
 
 ```
 { 
-    "executionNumber": "long",
-    "includeJobDocument": "boolean",
+    "executionNumber": long,
+    "includeJobDocument": boolean,
     "clientToken": "string" 
 }
 ```
@@ -2780,17 +2778,14 @@ Or use `$next` to return the next pending job execution for a thing \(status IN\
 Optional\. A number that identifies a job execution on a device\. If not specified, the latest job execution is returned\.
 
 `includeJobDocument`  
-Optional\. When set to `true`, the response contains the job document\. The default is `true`\.
+Optional\. Unless set to `false`, the response contains the job document\. The default is `true`\.
 
 `clientToken`  
 A client token used to correlate requests and responses\. Enter an arbitrary value here and it is reflected in the response\.
 
 To receive the response, subscribe to:
-
 +  `$aws/things/thingName/jobs/jobId/get/accepted` and 
-
 +  `$aws/things/thingName/jobs/jobId/get/rejected` or 
-
 +  `$aws/things/thingName/jobs/jobId/get/#` for both\. 
 
 Response payload:
@@ -2807,7 +2802,7 @@ Response payload:
 A [JobExecution](#jobs-mqtt-job-execution-data) object\.
 
 `timestamp`  
-The time, in milliseconds since the epoch, when the message was sent\.
+The time, in seconds since the epoch, when the message was sent\.
 
 `clientToken`  
 A client token used to correlate requests and responses\.
@@ -2831,7 +2826,7 @@ The unique identifier assigned to this job when it was created\.
 Or use `$next` to return the next pending job execution for a thing \(status IN\_PROGRESS or QUEUED\)\. In this case, any job executions with status IN\_PROGRESS are returned first\. Job executions are returned in the order in which they were created\.
 
 `includeJobDocument`  
-Optional\. When set to `true`, the response contains the job document\. The default is `false`\.
+Optional\. Unless set to `false`, the response contains the job document\. The default is `true`\.
 
 `executionNumber`  
 Optional\. A number that identifies a job execution on a device\. If not specified, the latest job execution is returned\.
@@ -2870,8 +2865,8 @@ aws iot-jobs-data  describe-job-execution \
 {
   "jobId": "string",
   "thingName": "string",
-  "includeJobDocument": "boolean",
-  "executionNumber": "long"
+  "includeJobDocument": boolean,
+  "executionNumber": long
 }
 ```
 
@@ -2880,9 +2875,9 @@ aws iot-jobs-data  describe-job-execution \
 
 |  Name  |  Type  |  Description  | 
 | --- | --- | --- | 
-|  jobId  |  string  pattern: \[a\-zA\-Z0\-9\_\-\]\+|^$next  |  The unique identifier assigned to this job when it was created, or `$next` to return the next pending job execution for a thing \(status IN\_PROGRESS or QUEUED\)\. In this case, any job executions with status IN\_PROGRESS are returned first\. Job executions are returned in the order in which they were created\.  | 
+|  jobId  |  string  pattern: \[a\-zA\-Z0\-9\_\-\]\+\|^$next  |  The unique identifier assigned to this job when it was created, or `$next` to return the next pending job execution for a thing \(status IN\_PROGRESS or QUEUED\)\. In this case, any job executions with status IN\_PROGRESS are returned first\. Job executions are returned in the order in which they were created\.  | 
 |  thingName  |  string  length max:128 min:1  pattern: \[a\-zA\-Z0\-9:\_\-\]\+  |  The thing name associated with the device the job execution is running on\.  | 
-|  includeJobDocument  |  boolean  java class: java\.lang\.Boolean  |  Optional\. When set to true, the response contains the job document\. The default is false\.  | 
+|  includeJobDocument  |  boolean  java class: java\.lang\.Boolean  |  Optional\. Unless set to false, the response contains the job document\. The default is true\.  | 
 |  executionNumber  |  long  java class: java\.lang\.Long  |  Optional\. A number that identifies a job execution on a device\. If not specified, the latest job execution is returned\.  | 
 
 Output:
@@ -2896,11 +2891,11 @@ Output:
     "statusDetails": {
       "string": "string"
     },
-    "queuedAt": "long",
-    "startedAt": "long",
-    "lastUpdatedAt": "long",
-    "versionNumber": "long",
-    "executionNumber": "long",
+    "queuedAt": long,
+    "startedAt": long,
+    "lastUpdatedAt": long,
+    "versionNumber": long,
+    "executionNumber": long,
     "jobDocument": "string"
   }
 }
@@ -2914,13 +2909,13 @@ Output:
 |  execution  |  JobExecution  |  Contains data about a job execution\.  | 
 |  jobId  |  string  length max:64 min:1  pattern: \[a\-zA\-Z0\-9\_\-\]\+  |  The unique identifier you assigned to this job when it was created\.  | 
 |  thingName  |  string  length max:128 min:1  pattern: \[a\-zA\-Z0\-9:\_\-\]\+  |  The name of the thing that is executing the job\.  | 
-|  status  |  string  enum: QUEUED | IN\_PROGRESS | SUCCEEDED | FAILED | TIMED\_OUT | REJECTED | REMOVED | CANCELED  java class: com\.amazonaws\.iot\.laser\.common\.JobExecutionStatus  |  The status of the job execution\. Can be one of: QUEUED, IN\_PROGRESS, FAILED, SUCCEEDED, CANCELED, TIMED\_OUT, REJECTED, or REMOVED\.  | 
+|  status  |  string  enum: QUEUED \| IN\_PROGRESS \| SUCCEEDED \| FAILED \| TIMED\_OUT \| REJECTED \| REMOVED \| CANCELED  |  The status of the job execution\. Can be one of: QUEUED, IN\_PROGRESS, FAILED, SUCCEEDED, CANCELED, TIMED\_OUT, REJECTED, or REMOVED\.  | 
 |  statusDetails  |  map  key: DetailsKey  value: DetailsValue  |  A collection of name\-value pairs that describe the status of the job execution\.  | 
 |  DetailsKey  |  string  length max:128 min:1  pattern: \[a\-zA\-Z0\-9:\_\-\]\+  |   | 
 |  DetailsValue  |  string  length max:1024 min:1  pattern: \[^\\\\p\{C\}\]\*\+  |   | 
-|  queuedAt  |  long  |  The time, in milliseconds since the epoch, when the job execution was enqueued\.  | 
-|  startedAt  |  long  java class: java\.lang\.Long  |  The time, in milliseconds since the epoch, when the job execution was started\.  | 
-|  lastUpdatedAt  |  long  |  The time, in milliseconds since the epoch, when the job execution was last updated\.   | 
+|  queuedAt  |  long  |  The time, in seconds since the epoch, when the job execution was enqueued\.  | 
+|  startedAt  |  long  java class: java\.lang\.Long  |  The time, in seconds since the epoch, when the job execution was started\.  | 
+|  lastUpdatedAt  |  long  |  The time, in seconds since the epoch, when the job execution was last updated\.   | 
 |  versionNumber  |  long  |  The version of the job execution\. Job execution versions are incremented each time they are updated by a device\.  | 
 |  executionNumber  |  long  java class: java\.lang\.Long  |  A number that identifies a job execution on a device\. It can be used later in commands that return or update job execution information\.  | 
 |  jobDocument  |  string  length max:32768  |  The content of the job document\.  | 
@@ -2949,10 +2944,10 @@ Request payload:
         ...
     },
     "expectedVersion": "number",
-    "executionNumber": "long",
-    "includeJobExecutionState": "boolean",
-    "includeJobDocument": "boolean",
-    "stepTimeoutInMinutes": "long",
+    "executionNumber": long,
+    "includeJobExecutionState": boolean,
+    "includeJobDocument": boolean,
+    "stepTimeoutInMinutes": long,
     "clientToken": "string"
 }
 ```
@@ -2982,11 +2977,8 @@ Specifies the amount of time this device has to finish execution of this job\. I
 A client token used to correlate requests and responses\. Enter an arbitrary value here and it is reflected in the response\.
 
 To receive the response, subscribe to:
-
 +  `$aws/things/thingName/jobs/jobId/update/accepted` and 
-
 +  `$aws/things/thingName/jobs/jobId/update/rejected` or 
-
 +  `$aws/things/thingName/jobs/jobId/update/#` for both\. 
 
 Response payload:
@@ -3004,10 +2996,10 @@ Response payload:
 A [JobExecutionState](#jobs-mqtt-job-execution-state) object\.
 
 `jobDocument`  
-A job document object\.
+A [job document](iot-jobs.md#key-concepts-jobs) object\.
 
 `timestamp`  
-The time, in milliseconds since the epoch, when the message was sent\.
+The time, in seconds since the epoch, when the message was sent\.
 
 `clientToken`  
 A client token used to correlate requests and responses\.
@@ -3026,10 +3018,10 @@ POST /things/thingName/jobs/jobId
         ...
     },
     "expectedVersion": "number",
-    "includeJobExecutionState": "boolean",
-    "includeJobDocument": "boolean",
+    "includeJobExecutionState": boolean,
+    "includeJobDocument": boolean,
     "stepTimeoutInMinutes": long,
-    "executionNumber": "long" 
+    "executionNumber": long 
 }
 ```
 
@@ -3073,7 +3065,7 @@ Response:
 A [JobExecutionState](#jobs-mqtt-job-execution-state) object\.
 
 `jobDocument`  
-The contents of the job document\.
+The contents of the [job document](iot-jobs.md#key-concepts-jobs)\.
 
 ------
 #### [ CLI \(15\) ]
@@ -3106,10 +3098,10 @@ aws iot-jobs-data  update-job-execution \
     "string": "string"
   },
   "stepTimeoutInMinutes": number,
-  "expectedVersion": "long",
-  "includeJobExecutionState": "boolean",
-  "includeJobDocument": "boolean",
-  "executionNumber": "long"
+  "expectedVersion": long,
+  "includeJobExecutionState": boolean,
+  "includeJobDocument": boolean,
+  "executionNumber": long
 }
 ```
 
@@ -3120,7 +3112,7 @@ aws iot-jobs-data  update-job-execution \
 | --- | --- | --- | 
 |  jobId  |  string  length max:64 min:1  pattern: \[a\-zA\-Z0\-9\_\-\]\+  |  The unique identifier assigned to this job when it was created\.  | 
 |  thingName  |  string  length max:128 min:1  pattern: \[a\-zA\-Z0\-9:\_\-\]\+  |  The name of the thing associated with the device\.  | 
-|  status  |  string  enum: QUEUED | IN\_PROGRESS | SUCCEEDED | FAILED | TIMED\_OUT | REJECTED | REMOVED | CANCELED  java class: com\.amazonaws\.iot\.laser\.common\.JobExecutionStatus  |  The new status for the job execution \(IN\_PROGRESS, FAILED, SUCCEEDED, or REJECTED\)\. This must be specified on every update\.  | 
+|  status  |  string  enum: QUEUED \| IN\_PROGRESS \| SUCCEEDED \| FAILED \| TIMED\_OUT \| REJECTED \| REMOVED \| CANCELED  |  The new status for the job execution \(IN\_PROGRESS, FAILED, SUCCEEDED, or REJECTED\)\. This must be specified on every update\.  | 
 |  statusDetails  |  map  key: DetailsKey  value: DetailsValue  |   Optional\. A collection of name\-value pairs that describe the status of the job execution\. If not specified, the statusDetails are unchanged\.  | 
 |  DetailsKey  |  string  length max:128 min:1  pattern: \[a\-zA\-Z0\-9:\_\-\]\+  |   | 
 |  DetailsValue  |  string  length max:1024 min:1  pattern: \[^\\\\p\{C\}\]\*\+  |   | 
@@ -3139,7 +3131,7 @@ Output:
     "statusDetails": {
       "string": "string"
     },
-    "versionNumber": "long"
+    "versionNumber": long
   },
   "jobDocument": "string"
 }
@@ -3151,7 +3143,7 @@ Output:
 |  Name  |  Type  |  Description  | 
 | --- | --- | --- | 
 |  executionState  |  JobExecutionState  |  A JobExecutionState object\.  | 
-|  status  |  string  enum: QUEUED | IN\_PROGRESS | SUCCEEDED | FAILED | TIMED\_OUT | REJECTED | REMOVED | CANCELED  java class: com\.amazonaws\.iot\.laser\.common\.JobExecutionStatus  |  The status of the job execution\. Can be one of: QUEUED, IN\_PROGRESS, FAILED, SUCCEEDED, CANCELED, TIMED\_OUT, REJECTED, or REMOVED\.  | 
+|  status  |  string  enum: QUEUED \| IN\_PROGRESS \| SUCCEEDED \| FAILED \| TIMED\_OUT \| REJECTED \| REMOVED \| CANCELED  |  The status of the job execution\. Can be one of: QUEUED, IN\_PROGRESS, FAILED, SUCCEEDED, CANCELED, TIMED\_OUT, REJECTED, or REMOVED\.  | 
 |  statusDetails  |  map  key: DetailsKey  value: DetailsValue  |  A collection of name\-value pairs that describe the status of the job execution\.  | 
 |  DetailsKey  |  string  length max:128 min:1  pattern: \[a\-zA\-Z0\-9:\_\-\]\+  |   | 
 |  DetailsValue  |  string  length max:1024 min:1  pattern: \[^\\\\p\{C\}\]\*\+  |   | 
@@ -3177,7 +3169,7 @@ Message payload:
 ```
 {
     "jobs" : {
-        "JobExecutionState": [ JobExecutionSummary ... ]
+        "JobExecutionState": [ [JobExecutionSummary](#jobs-job-execution-summary) ... ]
     },
     "timestamp": timestamp,
 }
@@ -3211,7 +3203,7 @@ Message payload:
 
 ```
 {
-    "execution" : JobExecutionData,
+    "execution" : [JobExecution](#jobs-job-execution),
     "timestamp": timestamp,
 }
 ```

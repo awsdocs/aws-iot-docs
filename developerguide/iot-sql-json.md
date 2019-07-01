@@ -19,7 +19,7 @@ SELECT * FROM 'a/b'
 ```
 
 **Applying a Function to an Attribute Value**  
-The following is an example JSON payload that could be published by a device:
+The following is an example JSON payload that might be published by a device:
 
 ```
 {

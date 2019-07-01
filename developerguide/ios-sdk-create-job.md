@@ -5,26 +5,23 @@
 This topic shows how to create and deploy a sample job to a device\. It walks you through the steps required to create a job and track its events on a device that is configured to communicate with AWS IoT\. These instructions assume that you're using a Raspberry Pi, but they could be adapted for other Linux\-based devices\. 
 
 Here are some possible scenarios for using jobs:
-
 + Updating device firmware, software, or files, such as security certificates\.
-
 + Performing administrative tasks, such as restarting devices or performing diagnostics\.
-
 + Restoring devices to factory settings or other known good states\.
 
 ## Connect Your Device to AWS IoT<a name="ios-sdk-jobs-device-setup"></a>
 
 Perform the following steps to connect a Raspberry Pi to AWS IoT\.
 
-1. Complete the [Connecting Your Raspberry Pi](iot-sdk-setup.html) tutorial\. When you're done, you'll have an AWS IoT thing registered in your AWS account named *MyRaspberryPi*\. You'll also have fully configured security certificates on your device\.
+1. Complete the [Connecting Your Raspberry Pi](https://docs.aws.amazon.com/iot/latest/developerguide/sdk-tutorials.html#iot-sdk-create-thing) tutorial\. When you're done, you'll have an AWS IoT thing registered in your AWS account named *MyRaspberryPi*\. You'll also have fully configured security certificates on your device\.
 
-1. Complete the [Using the AWS IoT Device SDK for JavaScript](iot-device-sdk-node.html) tutorial\. When you're done, your device will be connected to AWS IoT, and you'll be able to run the sample code that comes with the \.
+1. Complete the [Using the AWS IoT Device SDK for JavaScript](iot-device-sdk-node.html) tutorial\. When you're done, your device will be connected to AWS IoT, and you'll be able to run the sample code that comes with the AWS IoT Device SDK for JavaScript\.
 
 Now your device is ready to use AWS IoT jobs\.
 
 ## Run the Jobs Sample<a name="ios-sdk-jobs-run-sample"></a>
 
-The includes a sample named [jobs\-example\.js](https://github.com/aws/aws-iot-device-sdk-js/blob/master/examples/jobs-example.js)\. This sample can receive messages from the [AWS IoT console](https://console.aws.amazon.com/iot) to verify connectivity with the AWS IoT platform\. It can also receive and process job executions that originate from the AWS IoT jobs service\.
+The AWS IoT Device SDK for JavaScript includes a sample named [jobs\-example\.js](https://github.com/aws/aws-iot-device-sdk-js/blob/master/examples/jobs-example.js)\. This sample can receive messages from the [AWS IoT console](https://console.aws.amazon.com/iot) to verify connectivity with the AWS IoT platform\. It can also receive and process job executions that originate from the AWS IoT jobs service\.
 
 You can run this sample by using the following command\. Use the REST endpoint of your Raspberry Pi as the value of the `-H` parameter\.
 
@@ -40,7 +37,7 @@ node examples/jobs-example.js –f ./certs –F your config file name.json
 
 ## Create a Job Document<a name="ios-sdk-jobs-create-job-document"></a>
 
-A job document is a JSON document that provides all of the information that your device needs to execute a job\. The uses a property named `operation`to route job documents to specific handlers\. The `jobs-example.js` program has a sample handler for an operation named *customJob*\. We're going to create a job document named `example-job.json` for this handler\. The `example-job.json` file should contain the following JSON object\.
+A job document is a JSON document that provides all of the information that your device needs to execute a job\. The AWS IoT Device SDK for JavaScript uses a property named `operation`to route job documents to specific handlers\. The `jobs-example.js` program has a sample handler for an operation named *customJob*\. We're going to create a job document named `example-job.json` for this handler\. The `example-job.json` file should contain the following JSON object\.
 
 ```
 {
@@ -55,7 +52,7 @@ For more sample job documents, see the documentation for the [jobs\-agent\.js](h
 
 Now you're ready to create a job that delivers the job document to all of the devices that you specify\. To create a job, you can use the AWS IoT console, the AWS IoT SDK, or the AWS IoT CLI\.
 
-The following example shows how to create a job by using the [AWS IoT CLI](http://alpha-docs-aws.amazon.com/cli/latest/reference/iot/create-job.html)\.
+The following example shows how to create a job by using the [AWS IoT CLI](https://docs.aws.amazon.com/cli/latest/reference/iot/create-job.html)\.
 
 ```
  aws iot create-job \
@@ -70,30 +67,34 @@ If you store your job document in Amazon Simple Storage Service, use the `–doc
 
 If you prefer to use the AWS IoT console, follow these steps to create a job:
 
-1. Upload the job document to an Amazon S3 bucket\. For information about uploading documents to Amazon S3, see [How Do I Upload Files and Folders to an S3 Bucket?](http://alpha-docs-aws.amazon.com/AmazonS3/latest/user-guide/upload-objects.html) in the *Amazon Simple Storage Service Console User Guide*\.
+1. Upload the job document to an Amazon S3 bucket\. For information about uploading documents to Amazon S3, see [How Do I Upload Files and Folders to an S3 Bucket?](https://docs.aws.amazon.com/AmazonS3/latest/user-guide/upload-objects.html) in the *Amazon Simple Storage Service Console User Guide*\.
 
 1. In the AWS IoT console, choose **Manage**, and then choose **Jobs**\.
 
 1. Choose **Create a job**\.  
-![\[Image NOT FOUND\]](http://alpha-docs-aws.amazon.com/iot/latest/developerguide/images/start-job.png)
+![\[Image NOT FOUND\]](http://docs.aws.amazon.com/iot/latest/developerguide/images/start-job.png)
 
 1. On the **Select a job** page, choose **Create custom job**\.  
-![\[Image NOT FOUND\]](http://alpha-docs-aws.amazon.com/iot/latest/developerguide/images/select-job.png)
+![\[Image NOT FOUND\]](http://docs.aws.amazon.com/iot/latest/developerguide/images/select-job.png)
 
-1. On the **Create a job** page, enter a unique job ID\. Under **Select devices to update**, select the device that you connected to AWS IoT\.  
-![\[Image NOT FOUND\]](http://alpha-docs-aws.amazon.com/iot/latest/developerguide/images/create-job.png)
+1. On the **Create a job** page, enter a unique job ID\.
+**Note**  
+We do not recommend using personally identifiable information in your job ID\.
+
+   Under **Select devices to update**, select the device that you connected to AWS IoT\.  
+![\[Image NOT FOUND\]](http://docs.aws.amazon.com/iot/latest/developerguide/images/create-job.png)
 
 1. Scroll down to **Add a job file** and choose the job document file that you uploaded to Amazon S3\. Under **Job type**, select **Your job will complete after deploying to the selected devices/groups \(snapshot\)**\. \(The other option, **Your job will continue deploying to any devices added to the selected groups \(continuous\)**, is for deploying a job to groups of devices as devices are added to each group\.\) Leave the **Job executions rollout configuration** unchanged\. Choose **Create**\.  
-![\[Image NOT FOUND\]](http://alpha-docs-aws.amazon.com/iot/latest/developerguide/images/add-job-file.png)
+![\[Image NOT FOUND\]](http://docs.aws.amazon.com/iot/latest/developerguide/images/add-job-file.png)
 
 1. Your new job appears on the **Jobs** page\.  
-![\[Image NOT FOUND\]](http://alpha-docs-aws.amazon.com/iot/latest/developerguide/images/newly-created-job.png)
+![\[Image NOT FOUND\]](http://docs.aws.amazon.com/iot/latest/developerguide/images/newly-created-job.png)
 
 For more information about creating and deploying jobs, see the [AWS IoT Jobs documentation](https://docs.aws.amazon.com/iot/latest/developerguide/iot-jobs.html)\.
 
 ## Execute the Job on a Device<a name="ios-sdk-jobs-execute-job"></a>
 
-After your job is created, the jobs service sends a notification of a pending job to your device\. Your device gets the job details and job document through the [NextJobExecutionChanged](jobs-api.html#jobs-mqtt-api) API\. The `jobs-example.js` sample that you've already run executes the job on the device\. When the job is complete, the sample publishes its completed status by using the [UpdateJobExecution](http://alpha-docs-aws.amazon.com/iot/latest/apireference/API_iot-jobs-data_UpdateJobExecution.html) API\. When you run the sample on your device, you'll see the following output\.
+After your job is created, the jobs service sends a notification of a pending job to your device\. Your device gets the job details and job document through the [NextJobExecutionChanged](jobs-api.html#jobs-mqtt-api) API\. The `jobs-example.js` sample that you've already run executes the job on the device\. When the job is complete, the sample publishes its completed status by using the [UpdateJobExecution](https://docs.aws.amazon.com/iot/latest/apireference/API_iot-jobs-data_UpdateJobExecution.html) API\. When you run the sample on your device, you'll see the following output\.
 
 ```
 node examples/jobs-example.js -f ./certs -F config.json
@@ -104,7 +105,7 @@ customJob operation handler invoked, jobId: example-job-01
 
 When you refresh the **Jobs** page, you can see that your job has successfully completed\.
 
-![\[Image NOT FOUND\]](http://alpha-docs-aws.amazon.com/iot/latest/developerguide/images/completed-job.png)
+![\[Image NOT FOUND\]](http://docs.aws.amazon.com/iot/latest/developerguide/images/completed-job.png)
 
 ## Tracking Job Progress with Job and Job Execution Events<a name="ios-sdk-jobs-track-job"></a>
 
@@ -129,14 +130,14 @@ $aws/events/jobExecution/example-job-01/canceled
 $aws/events/jobExecution/example-job-01/removed
 ```
 
-When the job execution on your device succeeds, AWS IoT publishes a [JobExecution](http://alpha-docs-aws.amazon.com/iot/latest/apireference/API_iot-jobs-data_JobExecution.html)succeeded event\. You can see this event by navigating to the AWS IoT **Test** page and subscribing to the `$aws/events/jobExecution/example-job-01/succeeded` topic in the MQTT client\.
+When the job execution on your device succeeds, AWS IoT publishes a [JobExecution](https://docs.aws.amazon.com/iot/latest/apireference/API_iot-jobs-data_JobExecution.html)succeeded event\. You can see this event by navigating to the AWS IoT **Test** page and subscribing to the `$aws/events/jobExecution/example-job-01/succeeded` topic in the MQTT client\.
 
-![\[Image NOT FOUND\]](http://alpha-docs-aws.amazon.com/iot/latest/developerguide/images/subscribe-job-topic.png)
+![\[Image NOT FOUND\]](http://docs.aws.amazon.com/iot/latest/developerguide/images/subscribe-job-topic.png)
 
 The following message appears when the job execution for your device has successfully completed\.
 
-![\[Image NOT FOUND\]](http://alpha-docs-aws.amazon.com/iot/latest/developerguide/images/job-mqtt-message-succeeded.png)
+![\[Image NOT FOUND\]](http://docs.aws.amazon.com/iot/latest/developerguide/images/job-mqtt-message-succeeded.png)
 
 AWS IoT also publishes a completed `job` event\. You can see this event by subscribing to the `$aws/events/job/example-job-01/completed` topic in the MQTT client\.
 
-![\[Image NOT FOUND\]](http://alpha-docs-aws.amazon.com/iot/latest/developerguide/images/job-mqtt-message-completed.png)
+![\[Image NOT FOUND\]](http://docs.aws.amazon.com/iot/latest/developerguide/images/job-mqtt-message-completed.png)

@@ -4,7 +4,7 @@ The Device Shadow service uses reserved MQTT topics to enable applications and d
 
 The following are the MQTT topics used for interacting with shadows\.
 
-
+**Topics**
 + [/update](#update-pub-sub-topic)
 + [/update/accepted](#update-accepted-pub-sub-topic)
 + [/update/documents](#update-documents-pub-sub-topic)
@@ -87,16 +87,18 @@ The following is an example of the required policy:
 ```
 {
     "Version": "2012-10-17",
-    "Statement": [{
+    "Statement": [
+      {
         "Effect": "Allow",
         "Action": ["iot:Subscribe"],
         "Resource": ["arn:aws:iot:region:account:topicfilter/$aws/things/thingName/shadow/update/accepted"]
-    },
-    {
+      },
+      {
         "Effect": "Allow",
         "Action": ["iot:Receive"],
         "Resource": ["arn:aws:iot:region:account:topic/$aws/things/thingName/shadow/update/accepted"]
-    }]
+      }
+    ]
 }
 ```
 
@@ -117,16 +119,18 @@ The following is an example of the required policy:
 ```
 {
     "Version": "2012-10-17",
-    "Statement": [{
+    "Statement": [
+      {
         "Effect": "Allow",
         "Action": ["iot:Subscribe"],
         "Resource": ["arn:aws:iot:region:account:topicfilter/$aws/things/thingName/shadow/update/documents"]
-    },
-    {
+      },
+      {
         "Effect": "Allow",
         "Action": ["iot:Receive"],
         "Resource": ["arn:aws:iot:region:account:topic/$aws/things/thingName/shadow/update/accepted"]
-    }]
+      }
+    ]
 }
 ```
 
@@ -147,16 +151,18 @@ The following is an example of the required policy:
 ```
 {
     "Version": "2012-10-17",
-    "Statement": [{
+    "Statement": [
+      {
         "Effect": "Allow",
         "Action": ["iot:Subscribe"],
         "Resource": ["arn:aws:iot:region:account:topicfilter/$aws/things/thingName/shadow/update/rejected"]
-    },
-    {
+      },
+      {
         "Effect": "Allow",
         "Action": ["iot:Receive"],
         "Resource": ["arn:aws:iot:region:account:topic/$aws/things/thingName/shadow/update/rejected"]
-    }]
+      }
+    ]
 }
 ```
 
@@ -171,13 +177,9 @@ $aws/things/thingName/shadow/update/delta
 For more information, see [Response State Documents](device-shadow-document-syntax.md#device-shadow-example-response-json)\.
 
 ### Publishing Details<a name="update-delta-rules"></a>
-
 + A message published on `update/delta` includes only the desired attributes that differ between the `desired` and `reported` sections\. It contains all of these attributes, regardless of whether these attributes were contained in the current update message or were already stored in AWS IoT\. Attributes that do not differ between the `desired` and `reported` sections are not included\.
-
 + If an attribute is in the `reported` section but has no equivalent in the `desired` section, it is not included\.
-
 + If an attribute is in the `desired` section but has no equivalent in the `reported` section, it is included\.
-
 + If an attribute is deleted from the `reported` section but still exists in the `desired` section, it is included\.
 
 ### Example Policy<a name="update-delta-policy"></a>
@@ -187,16 +189,18 @@ The following is an example of the required policy:
 ```
 {
     "Version": "2012-10-17",
-    "Statement": [{
+    "Statement": [
+      {
         "Effect": "Allow",
         "Action": ["iot:Subscribe"],
         "Resource": ["arn:aws:iot:region:account:topicfilter/$aws/things/thingName/shadow/update/delta"]
-    },
-    {
+      },
+      {
         "Effect": "Allow",
         "Action": ["iot:Receive"],
         "Resource": ["arn:aws:iot:region:account:topic/$aws/things/thingName/shadow/update/delta"]
-    }]
+      }
+    ]
 }
 ```
 
@@ -217,13 +221,13 @@ The following is an example of the required policy:
 ```
 {
     "Version": "2012-10-17",
-    "Statement": [{
+    "Statement": [
+      {
         "Effect": "Allow",
-        "Action": [
-            "iot:Publish"
-        ],
+        "Action": [ "iot:Publish" ],
         "Resource": ["arn:aws:iot:region:account:topic/$aws/things/thingName/shadow/get"]
-    }]
+      }
+    ]
 }
 ```
 
@@ -244,16 +248,18 @@ The following is an example of the required policy:
 ```
 {
     "Version": "2012-10-17",
-    "Statement": [{
+    "Statement": [
+      {
         "Effect": "Allow",
         "Action": ["iot:Subscribe"],
         "Resource": ["arn:aws:iot:region:account:topicfilter/$aws/things/thingName/shadow/get/accepted"]
-    },
-    {
+      },
+      {
         "Effect": "Allow",
         "Action": ["iot:Receive"],
         "Resource": ["arn:aws:iot:region:account:topic/$aws/things/thingName/shadow/get/accepted"]
-    }]
+      }
+    ]
 }
 ```
 
@@ -274,15 +280,17 @@ The following is an example of the required policy:
 ```
 {
     "Version": "2012-10-17",
-    "Statement": [{
-    	"Effect": "Allow",
+    "Statement": [
+      {
+        "Effect": "Allow",
         "Action": ["iot:Subscribe"],
         "Resource": ["arn:aws:iot:region:account:topicfilter/$aws/things/thingName/shadow/get/rejected"]
-    },
-    {
+      },
+      {
         "Action": ["iot:Receive"],
         "Resource": ["arn:aws:iot:region:account:topic/$aws/things/thingName/shadow/get/rejected"]
-    }]
+      }
+    ]
 }
 ```
 
@@ -305,16 +313,18 @@ The following is an example of the required policy:
 ```
 {
     "Version": "2012-10-17",
-    "Statement": [{
+    "Statement": [
+      {
         "Effect": "Allow",
         "Action": ["iot:Subscribe"],
         "Resource": ["arn:aws:iot:region:account:topicfilter/$aws/things/thingName/shadow/delete"]
-    },
-    {
+      },
+      {
         "Effect": "Allow",
         "Action": ["iot:Receive"],
         "Resource": ["arn:aws:iot:region:account:topic/$aws/things/thingName/shadow/delete"]
-    }]
+      }
+    ]
 }
 ```
 
@@ -333,16 +343,18 @@ The following is an example of the required policy:
 ```
 {
     "Version": "2012-10-17",
-    "Statement": [{
+    "Statement": [
+      {
         "Effect": "Allow",
         "Action": ["iot:Subscribe"],
         "Resource": ["arn:aws:iot:region:account:topicfilter/$aws/things/thingName/shadow/delete/accepted"]
-    },
-     {
+      },
+      {
         "Effect": "Allow",
         "Action": ["iot:Receive"],
         "Resource": ["arn:aws:iot:region:account:topic/$aws/things/thingName/shadow/delete/accepted"]
-    }]
+      }
+    ]
 }
 ```
 
@@ -363,15 +375,17 @@ The following is an example of the required policy:
 ```
 {
     "Version": "2012-10-17",
-    "Statement": [{
+    "Statement": [
+      {
         "Effect": "Allow",
         "Action": ["iot:Subscribe"],
         "Resource": ["arn:aws:iot:region:account:topicfilter/$aws/things/thingName/shadow/delete/rejected"]
-    },
-    {
+      },
+      {
         "Effect": "Allow",
         "Action": ["iot:Receive"],
         "Resource": ["arn:aws:iot:region:account:topic/$aws/things/thingName/shadow/delete/rejected"]
-    }]
+      }
+    ]
 }
 ```

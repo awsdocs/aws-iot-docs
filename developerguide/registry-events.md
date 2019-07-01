@@ -1,20 +1,17 @@
 # Registry Events<a name="registry-events"></a>
 
-The Registry publishes event messages when things, thing types, and thing groups are created, updated, or deleted\. The Registry currently supports the following event types:
+The registry publishes event messages when things, thing types, and thing groups are created, updated, or deleted\. The registry currently supports the following event types:
 
 Thing Created/Updated/Deleted  
-The Registry publishes the following event messages when things are created, updated, or deleted:  
-
+The registry publishes the following event messages when things are created, updated, or deleted:  
 + `$aws/events/thing/<thingName>/created`
-
 + `$aws/events/thing/<thingName>/updated`
-
 + `$aws/events/thing/<thingName>/deleted`
 The messages contain the following example payload:  
 
 ```
 {
-    "eventType" : "thingEvent",
+    "eventType" : "THING_EVENT",
     "eventId" : "f5ae9b94-8b8e-4d8e-8c8f-b3266dd89853",
     "timestamp" : 1234567890123,
     "operation" : "CREATED|UPDATED|DELETED",
@@ -32,18 +29,15 @@ The messages contain the following example payload:
 ```
 The payloads contain the following attributes:    
 eventType  
-Set to "thingEvent"\.  
+Set to "THING\_EVENT"\.  
 eventId  
 A unique event ID \(string\)\.  
 timestamp  
 The UNIX timestamp of when the event occurred\.  
 operation  
 The operation that triggered the event\. Valid values are:  
-
 + CREATED
-
 + UPDATED
-
 + DELETED  
 accountId  
 Your AWS account ID\.  
@@ -59,18 +53,15 @@ attributes
 A collection of name\-value pairs associated with the thing\.
 
 Thing Type Created/Deprecated/Undeprecated/Deleted  
-The Registry publishes the following event messages when thing types are created, deprecated, undeprecated, or deleted:  
-
+The registry publishes the following event messages when thing types are created, deprecated, undeprecated, or deleted:  
 + `$aws/events/thingType/<thingTypeName>/created`
-
 + `$aws/events/thingType/<thingTypeName>/updated`
-
 + `$aws/events/thingType/<thingTypeName>/deleted`
 The message contains the following example payload:  
 
 ```
 {
-    "eventType" : "thingTypeEvent",
+    "eventType" : "THING_TYPE_EVENT",
     "eventId" : "8827376c-4b05-49a3-9b3b-733729df7ed5",
     "timestamp" : 1234567890123,
     "operation" : "CREATED|UPDATED|DELETED",
@@ -85,18 +76,15 @@ The message contains the following example payload:
 ```
 The payloads contain the following attributes:    
 eventType  
-Set to "thingTypeEvent"\.  
+Set to "THING\_TYPE\_EVENT"\.  
 eventId  
 A unique event ID \(string\)\.  
 timestamp  
 The UNIX timestamp of when the event occurred\.  
 operation  
 The operation that triggered the event\. Valid values are:  
-
 + CREATED
-
 + UPDATED
-
 + DELETED  
 accountId  
 Your AWS account ID\.  
@@ -113,9 +101,8 @@ A collection of name\-value pairs associated with the thing type that can be use
 description  
 A description of the thing type\.
 
-Thing Type Associated/Disassociated With a Thing  
-The Registry publishes the following event messages when a thing type is associated or disassociated with a thing\.  
-
+Thing Type Associated or Disassociated with a Thing  
+The registry publishes the following event messages when a thing type is associated or disassociated with a thing\.  
 + `$aws/events/thingTypeAssociation/thing/<thingName>/<typeName>`
 The messages contain the following example payload:  
 
@@ -137,9 +124,7 @@ eventType
 Set to "THING\_TYPE\_ASSOCIATION\_EVENT"\.  
 operation  
 The operation that triggered the event\. Valid values are:  
-
 + CREATED
-
 + DELETED  
 thingId  
 The ID of the thing whose type association was changed\.  
@@ -151,18 +136,15 @@ timestamp
 The UNIX timestamp of when the event occurred\.
 
 Thing Group Created/Updated/Deleted  
-The Registry publishes the following event messages when a thing group is created, updated or deleted\.  
-
+The registry publishes the following event messages when a thing group is created, updated, or deleted\.  
 + `$aws/events/thingGroup/<groupName>/created`
-
 + `$aws/events/thingGroup/<groupName>/updated`
-
 + `$aws/events/thingGroup/<groupName>/deleted`
 The messages contain the following example payload:  
 
 ```
 {
-    "eventType" : "thingGroupEvent",
+    "eventType" : "THING_GROUP_EVENT",
     "eventId" : "87f8e095-531c-47b3-aab5-5171364d138d",
     "timestamp" : 1234567890123,
     "operation" : "CREATED|UPDATED|DELETED",
@@ -183,18 +165,15 @@ The messages contain the following example payload:
 ```
 The payloads contain the following attributes:    
 eventType  
-Set to "thingGroupEvent"\.  
+Set to "THING\_GROUP\_EVENT"\.  
 eventId  
 A unique event ID \(string\)\.  
 timestamp  
 The UNIX timestamp of when the event occurred\.  
 operation  
 The operation that triggered the event\. Valid values are:  
-
 + CREATED
-
 + UPDATED
-
 + DELETED  
 accountId  
 Your AWS account ID\.  
@@ -205,9 +184,9 @@ The name of the thing group being created, updated, or deleted\.
 versionNumber  
 The version of the thing group\. This value is set to 1 when a thing group is created\. It is incremented by 1 each time the thing group is updated\.  
 parentGroupName  
-The name of the parent thing group \(if one exists\)\.  
+The name of the parent thing group, if one exists\.  
 parentGroupId  
-The ID of the parent thing group \(if one exists\)\.  
+The ID of the parent thing group, if one exists\.  
 description  
 A description of the thing group\.  
 rootToParentThingGroups  
@@ -215,17 +194,15 @@ An array of information about the parent thing group\. There is one entry for ea
 attributes  
 A collection of name\-value pairs associated with the thing group\.
 
-Thing Added To/Removed From a Thing Group  
-The Registry publishes the following event messages when a thing is added to or removed from a thing group\.  
-
+Thing Added to or Removed from a Thing Group  
+The registry publishes the following event messages when a thing is added to or removed from a thing group\.  
 + `$aws/events/thingGroupMembership/thingGroup/<thingGroupName>/thing/<thingName>/added`
-
 + `$aws/events/thingGroupMembership/thingGroup/<thingGroupName>/thing/<thingName>/removed`
 The messages contain the following example payload:  
 
 ```
 {
-    "eventType" : "thingGroupMembershipEvent",
+    "eventType" : "THING_GROUP_MEMBERSHIP_EVENT",
     "eventId" : "d684bd5f-6f6e-48e1-950c-766ac7f02fd1",
     "timestamp" : 1234567890123,
     "operation" : "ADDED|REMOVED",
@@ -239,7 +216,7 @@ The messages contain the following example payload:
 ```
 The payloads contain the following attributes:    
 eventType  
-Set to "thingGroupMembershipEvent"\.  
+Set to "THING\_GROUP\_MEMBERSHIP\_EVENT"\.  
 eventId  
 The event ID\.  
 timestamp  
@@ -259,17 +236,15 @@ The ID of the thing that was added or removed from the thing group\.
 membershipId  
 An ID that represents the relationship between the thing and the thing group\. This value is generated when you add a thing to a thing group\.
 
-Thing Group Added To/Deleted From Thing Group  
-The Registry publishes the following event messages when a thing group is added to or removed from another thing group\.  
-
+Thing Group Added to or Deleted from a Thing Group  
+The registry publishes the following event messages when a thing group is added to or removed from another thing group\.  
 + `$aws/events/thingGroupHierarchy/thingGroup/<parentThingGroupName>/childThingGroup/<childThingGroupName>/added`
-
 + `$aws/events/thingGroupHierarchy/thingGroup/<parentThingGroupName>/childThingGroup/<childThingGroupName>/removed`
 The message contains the following example payload:  
 
 ```
 {
-    "eventType" : "thingGroupHierarchyEvent",
+    "eventType" : "THING_GROUP_HIERARCHY_EVENT",
     "eventId" : "264192c7-b573-46ef-ab7b-489fcd47da41",
     "timestamp" : 1234567890123,
     "operation" : "ADDED|REMOVED",
@@ -282,7 +257,7 @@ The message contains the following example payload:
 ```
 The payloads contain the following attributes:    
 eventType  
-Set to "thingGroupHierarchyEvent"\.  
+Set to "THING\_GROUP\_HIERARCHY\_EVENT"\.  
 eventId  
 The event ID\.  
 timestamp  

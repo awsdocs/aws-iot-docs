@@ -5,6 +5,7 @@ In this step, you use the Python programming language to run some code on the Ra
 1. Use an available code editor on the Raspberry Pi \(for example, nano, IDLE, or vi\) to create a file with the following code\.
 
    ```
+                         
    import RPi.GPIO as GPIO
    import time
    
@@ -23,7 +24,7 @@ In this step, you use the Python programming language to run some code on the Ra
      if GPIO.input(channel):
        print("No water detected")
      else:
-       # 'Water' = 0/False (microcontroller light is on).  
+       # 'Water' = 0/False (microcontroller light is on).
        print("Water detected!")
    
      # Wait 5 seconds before checking again.

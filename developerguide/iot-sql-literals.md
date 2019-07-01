@@ -3,7 +3,7 @@
 You can directly specify literal objects in the SELECT and WHERE clauses of your rule SQL, which can be useful for passing information\. 
 
 **Note**  
-Literals are only available when using SQL Version 2016\-03\-23 or newer\.
+Literals are available only when using SQL version 2016\-03\-23 or later\.
 
 JSON object syntax is used \(key\-value pairs, comma\-separated, where keys are strings and values are JSON values, wrapped in curly brackets \{\}\)\. For example:
 

@@ -41,13 +41,16 @@ aws iot create-job  \
       --document-source https://s3.amazonaws.com/my-s3-bucket/job-document.json  \
       --timeout-config inProgressTimeoutInMinutes=100 \
       --job-executions-rollout-config "{ \"exponentialRate\": { \"baseRatePerMinute\": 50, \"incrementFactor\": 2, \"rateIncreaseCriteria\": { \"numberOfNotifiedThings\": 1000, \"numberOfSucceededThings\": 1000}, \"maximumPerMinute\": 1000}}" \
-      --abort-config "{ \"criteriaList\": [ { \"action\": \"CANCEL\", \"failureType\": \"FAILED\", \"minNumberOfExecutedThings\": 100, \"thresholdPercentage\": 20}, { \"action\": \"CANCEL\", \"failureType\": \"TIMED_OUT\", \"minNumberOfExecutedThings\": 200, \"thresholdPercentage\": 50}]}" \	      
+      --abort-config "{ \"criteriaList\": [ { \"action\": \"CANCEL\", \"failureType\": \"FAILED\", \"minNumberOfExecutedThings\": 100, \"thresholdPercentage\": 20}, { \"action\": \"CANCEL\", \"failureType\": \"TIMED_OUT\", \"minNumberOfExecutedThings\": 200, \"thresholdPercentage\": 50}]}" \          
       --presigned-url-config "{\"roleArn\":\"arn:aws:iam::123456789012:role/S3DownloadRole\", \"expiresInSec\":3600}"
 ```
 
 The job is executed on *thingOne*\.
 
 The optional `timeout-config` parameter specifies the amount of time each device has to finish its execution of the job\. The timer starts when the job execution status is set to `IN_PROGRESS`\. If the job execution status is not set to another terminal state  before the time expires, it is set to `TIMED_OUT`\.
+
+**Note**  
+The job timeout feature isn't currently available in the PDT \(us\-gov\-west\-1\) Region\.
 
 The in\-progress timer can't be updated and applies to all job executions for the job\. Whenever a job execution remains in the `IN_PROGRESS` status for longer than this interval, the job execution fails and switches to the terminal `TIMED_OUT` status\. AWS IoT also publishes an MQTT notification\.
 
@@ -66,7 +69,7 @@ aws iot update-job  \
   --description "updated description" \
   --timeout-config inProgressTimeoutInMinutes=100 \
   --job-executions-rollout-config "{ \"exponentialRate\": { \"baseRatePerMinute\": 50, \"incrementFactor\": 2, \"rateIncreaseCriteria\": { \"numberOfNotifiedThings\": 1000, \"numberOfSucceededThings\": 1000}, \"maximumPerMinute\": 1000}}" \
-  --abort-config "{ \"criteriaList\": [ { \"action\": \"CANCEL\", \"failureType\": \"FAILED\", \"minNumberOfExecutedThings\": 100, \"thresholdPercentage\": 20}, { \"action\": \"CANCEL\", \"failureType\": \"TIMED_OUT\", \"minNumberOfExecutedThings\": 200, \"thresholdPercentage\": 50}]}" \	      
+  --abort-config "{ \"criteriaList\": [ { \"action\": \"CANCEL\", \"failureType\": \"FAILED\", \"minNumberOfExecutedThings\": 100, \"thresholdPercentage\": 20}, { \"action\": \"CANCEL\", \"failureType\": \"TIMED_OUT\", \"minNumberOfExecutedThings\": 200, \"thresholdPercentage\": 50}]}" \          
   --presigned-url-config "{\"roleArn\":\"arn:aws:iam::123456789012:role/S3DownloadRole\", \"expiresInSec\":3600}"
 ```
 
@@ -82,7 +85,15 @@ The following command shows how to cancel a job with ID 010\.
 aws iot cancel-job --job-id 010
 ```
 
-The command displays no output\.
+The command displays the following output:
+
+```
+{
+    "jobArn": "string",
+    "jobId": "string",
+    "description": "string"
+}
+```
 
 When you cancel a job, job executions that are in a `QUEUED` state are canceled\. Job executions that are in an `IN_PROGRESS` state are canceled if you specify the optional `--force` parameter\. Job executions in a terminal state are not canceled\.
 
@@ -393,7 +404,7 @@ The command returns the [JobExecution](jobs-api.md#jobs-job-execution)\. For exa
 
 ## Delete Job Execution<a name="delete-job-execution"></a>
 
-Run the DeleteJobExecution command to delete a job execution\. You must specify a job ID and a thing name and, optionally, an execution number to identify the job execution\. The following shows how to delete a job execution:
+Run the DeleteJobExecution command to delete a job execution\. You must specify a job ID, a thing name, and an execution number to identify the job execution\. The following shows how to delete a job execution:
 
 ```
 aws iot delete-job-execution --job-id 017 --thing-name thingOne --execution-number 1234567890 --force|--no-force

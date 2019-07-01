@@ -2,9 +2,9 @@
 
 The following information might help you troubleshoot common issues in AWS IoT\.
 
-
+**Topics**
 + [Diagnosing Connectivity Issues](diagnosing-connectivity-issues.md)
-+ [Setting Up CloudWatch Logs with AWS IoT](cloud-watch-logs.md)
++ [Diagnosing Rules Issues](diagnosing-rules.md)
 + [Diagnosing Problems with Shadows](diagnosing-shadows.md)
 + [Diagnosing Salesforce IoT Input Stream Action Issues](diagnosing-salesforce.md)
 + [AWS IoT Limits](limits-iot.md)

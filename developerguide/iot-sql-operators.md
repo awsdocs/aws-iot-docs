@@ -1,10 +1,10 @@
 # Operators<a name="iot-sql-operators"></a>
 
-The following operators can be used in SELECT, FROM, and WHERE clauses\. 
+The following operators can be used in SELECT and WHERE clauses\. 
 
 ## AND operator<a name="iot-sql-operators-and"></a>
 
-Returns a `Boolean` result\. Performs a logical AND operation\. Returns true if left and right operands are true\. Otherwise, returns false\. `Boolean` operands or case\-insensitive "true" or "false" string operands are required\.
+Returns a `Boolean` result\. Performs a logical AND operation\. Returns true if left and right operands are true\. Otherwise, returns false\. `Boolean` operands or case insensitive "true" or "false" string operands are required\.
 
 *Syntax:* ` expression AND expression`\.
 
@@ -14,12 +14,12 @@ Returns a `Boolean` result\. Performs a logical AND operation\. Returns true if 
 | Left Operand | Right Operand | Output | 
 | --- | --- | --- | 
 | Boolean | Boolean | Boolean\. True if both operands are true\. Otherwise, false\. | 
-| String/Boolean | String/Boolean | If all strings are "true" or "false" \(case\-insensitive\), they are converted to Boolean and processed normally as boolean AND boolean\. | 
+| String/Boolean | String/Boolean | If all strings are "true" or "false" \(case insensitive\), they are converted to Boolean and processed normally as boolean AND boolean\. | 
 | Other Value | Other Value | Undefined\. | 
 
 ## OR operator<a name="iot-sql-operators-or"></a>
 
-Returns a `Boolean` result\. Performs a logical OR operation\. Returns true if either the left or the right operands are true\. Otherwise, returns false\. `Boolean` operands or case\-insensitive "true" or "false" string operands are required\.
+Returns a `Boolean` result\. Performs a logical OR operation\. Returns true if either the left or the right operands are true\. Otherwise, returns false\. `Boolean` operands or case insensitive "true" or "false" string operands are required\.
 
 *Syntax:* ` expression OR expression`\.
 
@@ -29,12 +29,12 @@ Returns a `Boolean` result\. Performs a logical OR operation\. Returns true if e
 | Left Operand | Right Operand | Output | 
 | --- | --- | --- | 
 | Boolean | Boolean | Boolean\. True if either operand is true\. Otherwise, false\. | 
-| String/Boolean | String/Boolean | If all strings are "true" or "false" \(case\-insensitive\), they are converted to Booleans and processed normally as boolean OR boolean\. | 
+| String/Boolean | String/Boolean | If all strings are "true" or "false" \(case insensitive\), they are converted to Booleans and processed normally as boolean OR boolean\. | 
 | Other Value | Other Value | Undefined\. | 
 
 ## NOT operator<a name="iot-sql-operators-not"></a>
 
-Returns a `Boolean` result\. Performs a logical NOT operation\. Returns true if the operand is false\. Otherwise, returns true\. A boolean operand or case\-insensitive "true" or "false" string operand is required\.
+Returns a `Boolean` result\. Performs a logical NOT operation\. Returns true if the operand is false\. Otherwise, returns true\. A `Boolean` operand or case insensitive "true" or "false" string operand is required\.
 
 *Syntax:* `NOT expression`\.
 
@@ -44,7 +44,7 @@ Returns a `Boolean` result\. Performs a logical NOT operation\. Returns true if 
 | Operand | Output | 
 | --- | --- | 
 | Boolean | Boolean\. True if operand is false\. Otherwise, true\. | 
-| String | If string is "true" or "false" \(case\-insensitive\), it is converted to the corresponding boolean value, and the opposite value is returned\. | 
+| String | If string is "true" or "false" \(case insensitive\), it is converted to the corresponding boolean value, and the opposite value is returned\. | 
 | Other Value | Undefined\. | 
 
 ## > operator<a name="iot-sql-operators-greater"></a>
@@ -99,7 +99,7 @@ Returns a `Boolean` result\. Returns true if the left operand is less than or eq
 *Syntax:* `expression <= expression`\.
 
 
-**>= Operator**  
+**<= Operator**  
 
 | Left Operand | Right Operand | Output | 
 | --- | --- | --- | 
@@ -178,7 +178,7 @@ Subtracts the right operand from the left operand\.
 | --- | --- | --- | 
 | Int | Int | Int value\. Subtracts right operand from left operand\. | 
 | Int/Decimal | Int/Decimal | Decimal value\. Subtracts right operand from left operand\. | 
-| String/Int/Decimal | String/Int/Decimal | If all strings convert to Decimals correctly, a Decimal value is returned\. Subtracts right operand from left operand\. Otherwise, returns Undefined\. | 
+| String/Int/Decimal | String/Int/Decimal | If all strings convert to decimals correctly, a Decimal value is returned\. Subtracts right operand from left operand\. Otherwise, returns Undefined\. | 
 | Other Value | Other value | Undefined\. | 
 | Other Value | Other Value | Undefined\. | 
 
@@ -195,7 +195,7 @@ Multiplies the left operand by the right operand\.
 | --- | --- | --- | 
 | Int | Int | Int value\. Multiplies the left operand by the right operand\. | 
 | Int/Decimal | Int/Decimal | Decimal value\. Multiplies the left operand by the right operand\. | 
-| String/Int/Decimal | String/Int/Decimal | If all strings convert to Decimals correctly, a Decimal value is returned\. Multiplies the left operand by the right operand\. Otherwise, returns Undefined\. | 
+| String/Int/Decimal | String/Int/Decimal | If all strings convert to decimals correctly, a Decimal value is returned\. Multiplies the left operand by the right operand\. Otherwise, returns Undefined\. | 
 | Other Value | Other value | Undefined\. | 
 
 ## / operator<a name="iot-sql-operators-div"></a>
@@ -211,7 +211,7 @@ Divides the left operand by the right operand\.
 | --- | --- | --- | 
 | Int | Int | Int value\. Divides the left operand by the right operand\. | 
 | Int/Decimal | Int/Decimal | Decimal value\. Divides the left operand by the right operand\. | 
-| String/Int/Decimal | String/Int/Decimal | If all strings convert to Decimals correctly, a Decimal value is returned\. Divides the left operand by the right operand\. Otherwise, returns Undefined\. | 
+| String/Int/Decimal | String/Int/Decimal | If all strings convert to decimals correctly, a Decimal value is returned\. Divides the left operand by the right operand\. Otherwise, returns Undefined\. | 
 | Other Value | Other value | Undefined\. | 
 
 ## % operator<a name="iot-sql-operators-mod"></a>
@@ -226,5 +226,5 @@ Returns the remainder from dividing the left operand by the right operand\.
 | Left Operand | Right Operand | Output | 
 | --- | --- | --- | 
 | Int | Int | Int value\. Returns the remainder from dividing the left operand by the right operand\. | 
-| String/Int/Decimal | String/Int/Decimal | If all Strings convert to Decimals correctly, a Decimal value is returned\. Returns the remainder from dividing the left operand by the right operand\. Otherwise, Undefined\. | 
+| String/Int/Decimal | String/Int/Decimal | If all strings convert to decimals correctly, a Decimal value is returned\. Returns the remainder from dividing the left operand by the right operand\. Otherwise, Undefined\. | 
 | Other Value | Other value | Undefined\. | 

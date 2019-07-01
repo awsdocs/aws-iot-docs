@@ -15,7 +15,6 @@ Insert a blank microSDHC card into your desktop or laptop computer\. Use an SD c
 1. For **Formatting options**, choose **Overwrite format**\.
 
 1. Choose **Format**\.  
-![\[SD Card Formatter app with Overwrite format and
-                  Format highlighted.\]](http://alpha-docs-aws.amazon.com/iot/latest/developerguide/images/sd-card-formatter.png)
+![\[SD Card Formatter app with Overwrite format and Format highlighted.\]](http://docs.aws.amazon.com/iot/latest/developerguide/images/sd-card-formatter.png)
 
    When prompted to continue formatting the microSDHC card, choose **Yes**\. The format operation can take a while\.

@@ -19,7 +19,7 @@ HTTP 200
 BODY: response state document
 ```
 
-For more information, see Example Response State Document\.
+For more information, see [Example Response State Document](device-shadow-document-syntax.md#device-shadow-example-response-json)\.
 
 **Authorization**  
 Retrieving a shadow requires a policy that allows the caller to perform the `iot:GetThingShadow` action\. The Device Shadow service accepts two forms of authentication: Signature Version 4 with IAM credentials or TLS mutual authentication with a client certificate\.

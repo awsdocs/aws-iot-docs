@@ -3,7 +3,7 @@
 In this step, you set up Amazon Simple Notification Service \(Amazon SNS\) to automatically send an email alert to the houseplant’s owner as a reminder to water it whenever the soil moisture level is too low\.
 
 1. Create an AWS IoT rule to trigger the email alert through Amazon SNS\. To do this, with the [ AWS IoT console](https://console.aws.amazon.com/iot/home) open, in the service navigation pane, choose **Act**\.  
-![\[AWS IoT navigation menu with Act highlighted.\]](http://alpha-docs-aws.amazon.com/iot/latest/developerguide/images/console-act.png)
+![\[AWS IoT navigation menu with Act highlighted.\]](http://docs.aws.amazon.com/iot/latest/developerguide/images/console-act.png)
 
 1. If a **You don’t have any rules yet** dialog box appears, choose **Create a rule**\. Otherwise, choose **Create**\.
 
@@ -16,8 +16,7 @@ In this step, you set up Amazon Simple Notification Service \(Amazon SNS\) to au
    ```
    SELECT * FROM '$aws/things/MyRPi/shadow/update/accepted' WHERE state.reported.moisture = 'low'
    ```  
-![\[Rule query statement with the SQL statement
-                highlighted.\]](http://alpha-docs-aws.amazon.com/iot/latest/developerguide/images/console-rule-query-statement.png)
+![\[Rule query statement with the SQL statement highlighted.\]](http://docs.aws.amazon.com/iot/latest/developerguide/images/console-rule-query-statement.png)
 
    This statement triggers the rule whenever the `moisture` value is reported as `low` for the specified MQTT topic\.
 **Important**  
@@ -26,8 +25,7 @@ If you named your thing something other than **MyRPi**, be sure to substitute yo
 1. For **Set one or more actions**, choose **Add action**\.
 
 1. On the **Select an action** page, choose **Send a message as an SNS push notification**\.  
-![\[Select an action page with Send a message as an
-                  SNS push notification highlighted.\]](http://alpha-docs-aws.amazon.com/iot/latest/developerguide/images/console-select-sns-action.png)
+![\[Select an action page with Send a message as an SNS push notification highlighted.\]](http://docs.aws.amazon.com/iot/latest/developerguide/images/console-select-sns-action.png)
 
 1. Choose **Configure action**\.
 
@@ -42,25 +40,22 @@ If you named your thing something other than **MyRPi**, be sure to substitute yo
 1. For **IAM role name**, choose **MyRPiLowMoistureTopicRole**\.
 
 1. Choose **Add action**\.  
-![\[Configure action page with five inputs
-                highlighted.\]](http://alpha-docs-aws.amazon.com/iot/latest/developerguide/images/console-configure-sns-rule.png)
+![\[Configure action page with five inputs highlighted.\]](http://docs.aws.amazon.com/iot/latest/developerguide/images/console-configure-sns-rule.png)
 
 1. Choose **Create rule**\.
 
 1. Set up Amazon SNS to send the messages through your Amazon SNS topic to your email inbox\. On the AWS navigation bar, choose **Services**\. In the **Find a service by name or feature** box, enter **SNS**, and then press **Enter**\.
 
-1. In the service navigation pane, choose **Topics**\.  
-![\[Navigation pane with Topics highlighted.\]](http://alpha-docs-aws.amazon.com/iot/latest/developerguide/images/console-sns-topics.png)
+1. In the service navigation pane, choose **Subscriptions**\.  
+![\[Navigation pane with Subscriptions highlighted.\]](http://docs.aws.amazon.com/iot/latest/developerguide/images/console-sns-subscriptions.png)
 
-1. Select the check box next to **MyRPiLowMoistureTopic**\.  
-![\[Topics list with a check box selected for
-                  MyRPiLowMoistureTopic.\]](http://alpha-docs-aws.amazon.com/iot/latest/developerguide/images/console-sns-choose-topic.png)
+1. In the **Subscriptions** page, choose **Create subscription**\.  
+![\[Subscriptions page with Create subscription highlighted.\]](http://docs.aws.amazon.com/iot/latest/developerguide/images/console-sns-create-subscription.png)
 
-1. For **Actions**, choose **Subscribe to topic**\.  
-![\[Topics list with the Subscribe to topic action
-                selected.\]](http://alpha-docs-aws.amazon.com/iot/latest/developerguide/images/console-sns-subscribe.png)
+1. For **Topic ARN**, choose the ARN for the topic that you created when you configured the action earlier in this procedure\.  
+![\[Create subscription page with the actions highlighted.\]](http://docs.aws.amazon.com/iot/latest/developerguide/images/console-sns-subscription-details.png)
 
-1. In the **Create subscription** dialog box, for **Protocol**, choose **Email**\.
+1. For **Protocol**, choose **Email**\.
 
 1. For **Endpoint**, enter your email address\.
 

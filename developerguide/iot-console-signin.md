@@ -11,6 +11,6 @@ If you do not have an AWS account, create one\.
 1. Sign in to the AWS Management Console and open the [ AWS IoT console](https://console.aws.amazon.com/iot/home)\.
 
 1. On the **Welcome** page, choose **Get started**\.  
-![\[Image NOT FOUND\]](http://alpha-docs-aws.amazon.com/iot/latest/developerguide/images/main-iot-page.png)
+![\[Image NOT FOUND\]](http://docs.aws.amazon.com/iot/latest/developerguide/images/main-iot-page.png)
 
    If this is your first time using the AWS IoT console, you see the **Welcome to the AWS IoT Console** page\.

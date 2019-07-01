@@ -9,24 +9,21 @@ Devices connected to AWS IoT are represented by things in the AWS IoT registry\.
 1. If an **Introducing AWS IoT Device Management** dialog box is displayed, choose **Show me later**, or press **Esc**\.
 
 1. In the service navigation pane, with **Manage** expanded, choose **Things**\.  
-![\[Choose Things in the Manage section
-                of the AWS IoT console .\]](http://alpha-docs-aws.amazon.com/iot/latest/developerguide/images/console-manage-things.png)
+![\[Choose Things in the Manage section of the AWS IoT console .\]](http://docs.aws.amazon.com/iot/latest/developerguide/images/console-manage-things.png)
 
 1. If a **You don’t have any things yet** dialog box is displayed, choose **Register a thing**\. Otherwise, choose **Create**\.
 
 1. On the **Creating AWS IoT things** page, for **Register a single AWS IoT thing**, choose **Create a single thing**\.  
-![\[Choose Create a single thing on the Creating
-                  AWS IoT things page.\]](http://alpha-docs-aws.amazon.com/iot/latest/developerguide/images/console-create-a-single-thing.png)
+![\[Choose Create a single thing on the Creating AWS IoT things page.\]](http://docs.aws.amazon.com/iot/latest/developerguide/images/console-create-a-single-thing.png)
 
-1. On the **Add your device to the thing registry** page, provide a **Name** that represents your Raspberry Pi \(or your development computer as a device simulator\), for example, *MyRPi*\.
+1. On the **Add your device to the device registry** page, provide a **Name** that represents your Raspberry Pi \(or your development computer as a device simulator\), for example, *MyRPi*\.
 **Note**  
 If you choose to use a different name, be sure to substitute it throughout this sample\.
 
 1. Leave the rest of this page unchanged, and then choose **Next**\.
 
 1. On the **Add a certificate for your thing** page, choose **Create certificate**\.  
-![\[Choose Create certificate on the Add a
-                  certificate for your thing page.\]](http://alpha-docs-aws.amazon.com/iot/latest/developerguide/images/console-create-certificate.png)
+![\[Choose Create certificate on the Add a certificate for your thing page.\]](http://docs.aws.amazon.com/iot/latest/developerguide/images/console-create-certificate.png)
 
 1. For **A certificate for this thing**, choose **Download**\. Then follow your web browser’s onscreen directions to save the file ending in `certificate.pem.crt.txt` to your local development computer\.
 **Note**  
@@ -39,11 +36,10 @@ Although the dialog box shows a file ending in `cert.pem`, the file that you dow
 You can download the files for **A certificate for this thing** and **A root CA for AWS** at any time\. However, this is your only opportunity to download the files for **A public key** and **A private key for this thing**\.
 
 1. Choose **Activate**\.  
-![\[Activate highlighted on the Certificate
-                  created! page.\]](http://alpha-docs-aws.amazon.com/iot/latest/developerguide/images/console-download-certificates.png)
+![\[Activate highlighted on the Certificate created! page.\]](http://docs.aws.amazon.com/iot/latest/developerguide/images/console-download-certificates.png)
 
 1. Choose **Attach a policy**\.
 
 1. For **Add a policy for your thing**, select **PlantWateringPolicy** \(**0 policies selected** changes to **1 policy selected\)**\. Then choose **Register Thing**\.
 
-1. If an **Introducing ** dialog box is displayed again, choose **Show me later**, or press **Esc**\.
+1. If an **Introducing AWS IoT Device Management** dialog box is displayed again, choose **Show me later**, or press **Esc**\.

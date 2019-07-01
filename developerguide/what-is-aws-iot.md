@@ -42,38 +42,26 @@ Custom authorizers can implement various authentication strategies \(for example
 Allows you to define a set of remote operations that are sent to and executed on one or more devices connected to AWS IoT\. For example, you can define a job that instructs a set of devices to download and install application or firmware updates, reboot, rotate certificates, or perform remote troubleshooting operations\.  
 To create a job, you specify a description of the remote operations to be performed and a list of targets that should perform them\. The targets can be individual devices, groups or both\.
 
-For information about AWS IoT limits, see [AWS IoT Limits](http://alpha-docs-aws.amazon.com/general/latest/gr/aws_service_limits.html#limits_iot)\.
+For information about AWS IoT limits, see [AWS IoT Limits](https://docs.aws.amazon.com/general/latest/gr/aws_service_limits.html#limits_iot)\.
 
 ## How to Get Started with AWS IoT<a name="aws-iot-get-started"></a>
-
 + To learn more about AWS IoT, see [How AWS IoT Works](aws-iot-how-it-works.md)\.
-
 + To learn how to connect a device to AWS IoT, see [Getting Started with AWS IoT](iot-gs.md)\.
 
 ## Accessing AWS IoT<a name="aws-iot-interfaces"></a>
 
 AWS IoT provides the following interfaces to create and interact with your devices:
-
-+ **AWS Command Line Interface \(AWS CLI\)**—Run commands for AWS IoT on Windows, macOS, and Linux\. These commands allow you to create and manage things, certificates, rules, and policies\. To get started, see the [AWS Command Line Interface User Guide](http://alpha-docs-aws.amazon.com/cli/latest/userguide/)\. For more information about the commands for AWS IoT, see [iot](http://alpha-docs-aws.amazon.com/cli/latest/reference/iot/index.html) in the *AWS Command Line Interface Reference*\.
-
-+ **AWS IoT API**—Build your IoT applications using HTTP or HTTPS requests\. These API actions allow you to programmatically create and manage things, certificates, rules, and policies\. For more information about the API actions for AWS IoT, see [Actions](http://alpha-docs-aws.amazon.com/iot/latest/apireference/API_Operations.html) in the *AWS IoT API Reference*\.
-
++ **AWS Command Line Interface \(AWS CLI\)**—Run commands for AWS IoT on Windows, macOS, and Linux\. These commands allow you to create and manage things, certificates, rules, and policies\. To get started, see the [AWS Command Line Interface User Guide](https://docs.aws.amazon.com/cli/latest/userguide/)\. For more information about the commands for AWS IoT, see [iot](https://docs.aws.amazon.com/cli/latest/reference/iot/index.html) in the *AWS CLI Command Reference*\.
++ **AWS IoT API**—Build your IoT applications using HTTP or HTTPS requests\. These API actions allow you to programmatically create and manage things, certificates, rules, and policies\. For more information about the API actions for AWS IoT, see [Actions](https://docs.aws.amazon.com/iot/latest/apireference/API_Operations.html) in the *AWS IoT API Reference*\.
 + **AWS SDKs**—Build your IoT applications using language\-specific APIs\. These SDKs wrap the HTTP/HTTPS API and allow you to program in any of the supported languages\. For more information, see [AWS SDKs and Tools](http://aws.amazon.com/tools/#sdk)\.
-
-+ **AWS IoT Device SDKs**—Build applications that run on devices that send messages to and receive messages from AWS IoT\. For more information see, [AWS IoT SDKs](http://alpha-docs-aws.amazon.com/iot/latest/developerguide/iot-sdks.html)\.
++ **AWS IoT Device SDKs**—Build applications that run on devices that send messages to and receive messages from AWS IoT\. For more information see, [AWS IoT SDKs](https://docs.aws.amazon.com/iot/latest/developerguide/iot-sdks.html)\.
 
 ## Related Services<a name="aws-iot-related-services"></a>
 
 AWS IoT integrates directly with the following AWS services:
-
 + **Amazon Simple Storage Service**—Provides scalable storage in the AWS Cloud\. For more information, see [Amazon S3](https://aws.amazon.com/s3/)\.
-
 + **Amazon DynamoDB**—Provides managed NoSQL databases\. For more information, see [Amazon DynamoDB](https://aws.amazon.com/dynamodb/)\.
-
 + **Amazon Kinesis**—Enables real\-time processing of streaming data at a massive scale\. For more information, see [Amazon Kinesis](https://aws.amazon.com/kinesis/)\.
-
 + **AWS Lambda**—Runs your code on virtual servers from Amazon EC2 in response to events\. For more information, see [AWS Lambda](https://aws.amazon.com/lambda/)\.
-
 + **Amazon Simple Notification Service**—Sends or receives notifications\. For more information, see [Amazon SNS](https://aws.amazon.com/sns/)\.
-
 + **Amazon Simple Queue Service**—Stores data in a queue to be retrieved by applications\. For more information, see [Amazon SQS](https://aws.amazon.com/sqs/)\.

@@ -1,6 +1,6 @@
 # Example Thing Group Queries<a name="example-thinggroup-queries"></a>
 
-Queries are specified in a query string using a query syntax and passed to the [http://alpha-docs-aws.amazon.com/iot/latest/apireference/API_SearchIndex.html](http://alpha-docs-aws.amazon.com/iot/latest/apireference/API_SearchIndex.html) API\. The following table lists some example query strings\.
+Queries are specified in a query string using a query syntax and passed to the [https://docs.aws.amazon.com/iot/latest/apireference/API_SearchIndex.html](https://docs.aws.amazon.com/iot/latest/apireference/API_SearchIndex.html) API\. The following table lists some example query strings\.
 
 
 ****  

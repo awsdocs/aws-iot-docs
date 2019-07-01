@@ -1,6 +1,6 @@
 # Programmatic Provisioning<a name="programmatic-provisioning"></a>
 
-To provision a thing, use the [RegisterThing](http://alpha-docs-aws.amazon.com/iot/latest/apireference/API_RegisterThing.html) API or the `register-thing` CLI command\. The `register-thing` CLI command takes the following arguments:
+To provision a thing, use the [RegisterThing](https://docs.aws.amazon.com/iot/latest/apireference/API_RegisterThing.html) API or the `register-thing` CLI command\. The `register-thing` CLI command takes the following arguments:
 
 \-\-template\-body  
 The provisioning template\.
@@ -10,7 +10,7 @@ A list of name/value pairs for the parameters used in the provisioning template,
 
 See [Provisioning Templates](provision-template.md)\.
 
-[RegisterThing](http://alpha-docs-aws.amazon.com/iot/latest/apireference/API_RegisterThing.html) or `register-thing` returns the ARNs for the resources and the text of the certificate it created:
+[RegisterThing](https://docs.aws.amazon.com/iot/latest/apireference/API_RegisterThing.html) or `register-thing` returns the ARNs for the resources and the text of the certificate it created:
 
 ```
 {

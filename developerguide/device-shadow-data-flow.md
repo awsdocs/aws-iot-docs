@@ -37,7 +37,10 @@ We recommend that you subscribe to the `.../rejected` topics to see any errors s
 
 When the light bulb comes online, it sends its current state to the Device Shadow service by sending an MQTT message to the `$aws/things/myLightBulb/shadow/update` topic\.
 
- To simulate this, use the AWS IoT MQTT client to publish the following message to the `$aws/things/myLightbulb/shadow/update` topic:
+**Note**  
+Device Shadows are created the first time an attempt is made to update it\. The Device Shadow service will detect that a shadow doesn't exist and will create one\. If the shadow exists, it will be updated\.
+
+ To simulate this, use the AWS IoT MQTT client to publish the following message to the `$aws/things/myLightBulb/shadow/update` topic:
 
 ```
 {
@@ -208,48 +211,48 @@ The Device Shadow service also publishes a message to the `$aws/things/myLightBu
 ```
 {
     "previous":{
-        "state":{
-            "reported":{
-                "color":"red"
-            }
-        },
-        "metadata":{
-            "reported":{
-                "color":{
-                    "timestamp":1483467764
-                }
-            }
-        },
-        "version":1
+      "state":{
+        "reported":{
+          "color":"red"
+        }
+      },
+      "metadata":{
+        "reported":{
+          "color":{
+            "timestamp":1483467764
+          }
+        }
+      },
+      "version":1
     },
     "current":{
-        "state":{
-            "desired":{
-                "color":"green"
-            },
-            "reported":{
-                "color":"red"
-            }
+      "state":{
+        "desired":{
+          "color":"green"
         },
-        "metadata":{
-            "desired":{
-                "color":{
-                    "timestamp":1483468612
-                }
-            },
-            "reported":{
-                "color":{
-                    "timestamp":1483467764
-                }
-            }
-       },
-       "version":2
-   },
-   "timestamp":1483468612
+        "reported":{
+          "color":"red"
+        }
+      },
+      "metadata":{
+        "desired":{
+          "color":{
+            "timestamp":1483468612
+          }
+        },
+        "reported":{
+          "color":{
+            "timestamp":1483467764
+          }
+        }
+      },
+      "version":2
+    },
+    "timestamp":1483468612
 }
 ```
 
-The light bulb is subscribed to the `$aws/things/myLightBulb/shadow/update/delta` topic, so it receives the message, changes its color, and publishes its new state\. To simulate this, use the AWS IoT MQTT client to publish the following message to the `$aws/things/myLightbulb/shadow/update` topic to update the shadow state:
+The light bulb is subscribed to the `$aws/things/myLightBulb/shadow/update/delta` topic, so it receives the message, changes its color, and publishes its new state\. To simulate this, use the AWS IoT MQTT client to publish the following message to the `$aws/things/myLightBulb/shadow/update` topic to update the shadow state:
 
 ```
 {
@@ -299,9 +302,9 @@ and to the `$aws/things/myLightBulb/shadow/update/documents` topic:
 {
     "previous":{
     "state":{
-        "reported":{
-            "color":"red"
-        }
+      "reported":{
+        "color":"red"
+      }
     },
     "metadata":{
          "reported":{
@@ -313,19 +316,19 @@ and to the `$aws/things/myLightBulb/shadow/update/documents` topic:
       "version":3
     },
     "current":{
-        "state":{
-            "reported":{
-                "color":"green"
-            }
-        },
-        "metadata":{
-            "reported":{
-                "color":{
-                    "timestamp":1483470364
-                }
-            }
-        },
-        "version":4
+      "state":{
+        "reported":{
+          "color":"green"
+        }
+      },
+      "metadata":{
+        "reported":{
+          "color":{
+            "timestamp":1483470364
+          }
+        }
+      },
+      "version":4
     },
     "timestamp":1483470364
 }
@@ -345,16 +348,16 @@ The Device Shadow service returns the shadow document:
 ```
 {
     "state":{
-        "reported":{
-            "color":"green"
-        }
+      "reported":{
+        "color":"green"
+      }
     },
     "metadata":{
-        "reported":{
-            "color":{
-                "timestamp":1469564801
-            }
+      "reported":{
+        "color":{
+          "timestamp":1469564801
         }
+      }
     },
     "version":3,
     "timestamp":1469564864}
@@ -397,8 +400,7 @@ When a device connects, it registers an LWT that sets the connected setting to `
 ```
 {
     "state": {        
-        "reported":
-        {
+        "reported": {
             "connected":"false"
         }
     }
@@ -410,8 +412,7 @@ It also publishes a message on its update topic \(`$aws/things/myLightBulb/shado
 ```
 {
      "state": {        
-        "reported":
-        {
+        "reported": {
             "connected":"true"
         }
     }
@@ -423,7 +424,7 @@ When the device disconnects gracefully, it publishes a message on its update top
 ```
 {
     "state": {        
-        "reported":{
+        "reported": {
             "connected":"false"
         }
     }

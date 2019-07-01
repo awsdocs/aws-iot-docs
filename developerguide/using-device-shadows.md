@@ -2,13 +2,13 @@
 
 AWS IoT provides three methods for working with a device's shadow:
 
-`UPDATE`  
+`UPDATE`  <a name="update"></a>
 Creates a device's shadow if it doesn't exist, or updates the contents of a device's shadow with the data provided in the request\. The data is stored with timestamp information to indicate when it was last updated\. Messages are sent to all subscribers with the difference between `desired` or `reported` state \(delta\)\. Things or apps that receive a message can perform an action based on the difference between `desired` or `reported` states\. For example, a device can update its state to the desired state, or an app can update its UI to show the change in the device's state\.
 
-`GET`  
+`GET`  <a name="get"></a>
 Retrieves the latest state stored in the device's shadow \(for example, during start\-up of a device to retrieve configuration and the last state of operation\)\. This method returns the full JSON document, including metadata\.
 
-`DELETE`  
+`DELETE`  <a name="delete"></a>
 Deletes a device's shadow, including all of its content\. This removes the JSON document from the data store\. You can't restore a device's shadow you deleted, but you can create a new shadow with the same name\.
 
 ## Protocol Support<a name="protocol-support"></a>
@@ -415,9 +415,7 @@ Arrays are treated like values\. If an array in the `desired` section doesn't ma
 ## Observing State Changes<a name="observing-state-changes"></a>
 
  When a device's shadow is updated, messages are published on two MQTT topics: 
-
 + $aws/things/*thing\-name*/shadow/update/accepted
-
 + $aws/things/*thing\-name*/shadow/update/delta
 
 The message sent to the `update/delta` topic is intended for the thing whose state is being updated\. This message contains only the difference between the `desired` and `reported` sections of the device's shadow document\. Upon receiving this message, the device should decide whether to make the requested change\. If the device's state is changed, it should publish its new current state to the `$aws/things/thing-name/shadow/update` topic\.
@@ -523,4 +521,4 @@ The rule is specified in JSON and should look like the following:
 }
 ```
 
-The SELECT statement determines which fields from the message will be republished to the specified topic\. A "\+" wild card is used to match all shadow names\. The rule specifies that all matching messages should be republished to the specified topic\. In this case, the `"topic()"` function is used to specify the topic on which to republish\. `topic(2)` evaluates to the thing name in the original topic\. For more information about creating rules, see [Rules](http://alpha-docs-aws.amazon.com/iot/latest/developerguide//iot-rules.html)\.
+The SELECT statement determines which fields from the message will be republished to the specified topic\. A "\+" wild card is used to match all shadow names\. The rule specifies that all matching messages should be republished to the specified topic\. In this case, the `"topic()"` function is used to specify the topic on which to republish\. `topic(2)` evaluates to the thing name in the original topic\. For more information about creating rules, see [Rules](https://docs.aws.amazon.com/iot/latest/developerguide//iot-rules.html)\.

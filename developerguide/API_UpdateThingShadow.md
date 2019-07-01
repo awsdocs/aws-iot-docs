@@ -12,7 +12,7 @@ HTTP POST https://endpoint/things/thingName/shadow
 BODY: request state document
 ```
 
-For more information, see Example Request State Document\.
+For more information, see [Example Request State Document](device-shadow-document-syntax.md#device-shadow-example-request-json)\.
 
 **Response**  
 Upon success, the response includes the standard HTTP headers plus the following code and body:
@@ -22,7 +22,7 @@ HTTP 200
 BODY: response state document
 ```
 
-For more information, see Example Response State Document\.
+For more information, see [Example Response State Document](device-shadow-document-syntax.md#device-shadow-example-response-json)\.
 
 **Authorization**  
 Updating a shadow requires a policy that allows the caller to perform the `iot:UpdateThingShadow` action\. The Device Shadow service accepts two forms of authentication: Signature Version 4 with IAM credentials or TLS mutual authentication with a client certificate\.

@@ -10,6 +10,6 @@ We recommend that all devices that connect to AWS IoT have an entry in the regis
 
 You can create rules that define one or more actions to perform based on the data in a message\. For example, you can insert, update, or query a DynamoDB table or invoke a Lambda function\. Rules use expressions to filter messages\. When a rule matches a message, the rules engine triggers the action using the selected properties\. Rules also contain an IAM role that grants AWS IoT permission to the AWS resources used to perform the action\.
 
-![\[A high-level view of AWS IoT\]](http://alpha-docs-aws.amazon.com/iot/latest/developerguide/images/aws_iot_data_services.png)
+![\[A high-level view of AWS IoT\]](http://docs.aws.amazon.com/iot/latest/developerguide/images/aws_iot_data_services.png)
 
 Each device has a shadow that stores and retrieves state information\. Each item in the state information has two entries: the state last reported by the device and the desired state requested by an application\. An application can request the current state information for a device\. The shadow responds to the request by providing a JSON document with the state information \(both reported and desired\), metadata, and a version number\. An application can control a device by requesting a change in its state\. The shadow accepts the state change request, updates its state information, and sends a message to indicate the state information has been updated\. The device receives the message, changes its state, and then reports its new state\.

@@ -2,24 +2,39 @@
 
 ## Set Up the Runtime Environment for the AWS IoT Embedded C SDK<a name="iot-c-sdk-runtime"></a>
 
-1. Download the AWS IoT Device SDK for C from the following GitHub repository:
+Download the AWS IoT Embedded C SDK to your Raspberry Pi from [GitHub](https://github.com/aws/aws-iot-device-sdk-embedded-C):
 
-   `git clone https://github.com/aws/aws-iot-device-sdk-embedded-C.git -b release`
+git clone https://github\.com/aws/aws\-iot\-device\-sdk\-embedded\-C\.git \-b release
 
-1. Before you can use the AWS IoT Embedded C SDK, you must download all required third\-party libraries from GitHub\. You can find instructions for doing this in the `deviceSDK/external_libs` folder\.
+This will create a directory called `aws-iot-device-sdk-embedded-C` in the current directory\. By default you will be in your user's home directory \(`/home/pi`\)\.
+
+Download mbed TLS to your Raspberry Pi from [GitHub](https://github.com/ARMmbed/mbedtls)\.
+
+**Note**  
+This link will bring up the potentially unstable `development` branch by default\. We do not recommend using the `development` branch\. For more information about officially released branches see [arm MBED](https://tls.mbed.org/)\.
+
+Copy the contents of the mbed TLS directory into the aws\-iot\-device\-sdk\-embedded\-C/external\_libs/mbedTLS directory\.
 
 ## Sample App Configuration<a name="iot-c-sdk-app-config"></a>
 
-The AWS IoT Embedded C SDK includes sample apps for you to try\. For simplicity, we are going to run subscribe\_publish\_sample\.
+The AWS IoT Embedded C SDK includes sample applications for you to try\. For simplicity, we are going to run the subscribe\_publish\_sample application\. This application illustrates how to connect to the AWS IoT Message Broker and subscribe and publish to MQTT topics\.
 
-1. Copy your certificate, private key, and root CA certificate into the `deviceSDK/certs` directory\. 
+1. Follow the instructions on [Getting Started with AWS IoT](iot-gs.md) to create an IoT thing, certificate, private key, and IoT policy\.
 
-   To get the root CA certificate, review the documentation on [Server Authentication in AWS IoT Core](managing-device-certs.html#server-authentication) and follow the links to the appropriate CA certificate\. Copy the root CA text from the browser, paste it into a file, and then copy it into the `deviceSDK/certs` directory\.
+1. Copy your certificate, private key, and root CA certificate into the `aws-iot-device-sdk-embedded-C/certs` directory\.
 **Note**  
 Device and root CA certificates are subject to expiration or revocation\. If this should occur, you must copy a new CA certificate or private key and device certificate onto your device\.
 
-1. Navigate to the `deviceSDK/sample_apps/subscribe_publish_sample` directory\. You must configure your personal endpoint, private key, and certificate\. The personal endpoint is the REST API endpoint you noted earlier\. If you don't remember the endpoint and you have access to a machine with the AWS CLI installed, you can use the `aws iot describe-endpoint` command to find your personal endpoint URL\. Or, go to the AWS IoT console\. Choose **Registry**, choose **Things**, and then choose the thing that represents your Raspberry Pi\. On the **Details** page for the thing, in the left navigation pane, choose **Interact**\. Copy everything, including "\.com", from **REST API endpoint**\.  
-![\[Image NOT FOUND\]](http://alpha-docs-aws.amazon.com/iot/latest/developerguide/images/thing-details-interact-raspberry.png)
+1. Navigate to the `aws-iot-device-sdk-embedded-C/samples/linux/subscribe_publish_sample` directory\. You must configure your personal AWS IoT endpoint, private key, and certificate\. The personal endpoint is the REST API endpoint you noted earlier\. If you don't remember the endpoint and you have access to a machine with the AWS CLI installed, you can use the aws iot describe\-endpoint command to find your personal endpoint URL\. Or, go to the AWS IoT console:
+
+   1. Choose **Registry**\.
+
+   1. Choose **Things**\.
+
+   1. choose the thing that represents your Raspberry Pi\. On the **Details** page for the thing, in the left navigation pane, choose **Interact**\.
+
+   1. Copy everything, including "\.com", from **REST API endpoint**\.  
+![\[Image NOT FOUND\]](http://docs.aws.amazon.com/iot/latest/developerguide/images/thing-details-interact-raspberry.png)
 
 1. Open the `aws_iot_config.h` file and, in the `//Get from console` section, update the values for the following:  
 AWS\_IOT\_MQTT\_HOST  
@@ -50,14 +65,16 @@ Your private key\.
 
 ## Run Sample Applications<a name="iot-c-sdk-app-run"></a>
 
+**Run the AWS IoT Device SDK for Embedded C sample applications**
+
 1. Compile the `subscribe_publish_sample_app` using the included makefile\.
 
    `make -f Makefile`
 
    This generates an executable file\.  
-![\[Image NOT FOUND\]](http://alpha-docs-aws.amazon.com/iot/latest/developerguide/images/successful-build.png)
+![\[Image NOT FOUND\]](http://docs.aws.amazon.com/iot/latest/developerguide/images/successful-build.png)
 
-1. Now run the subscribe\_publish\_sample\_app\. You should see output similar to the following:  
-![\[Image NOT FOUND\]](http://alpha-docs-aws.amazon.com/iot/latest/developerguide/images/successful-run.png)
+1. Run the subscribe\_publish\_sample\_app\. You should see output similar to the following:  
+![\[Image NOT FOUND\]](http://docs.aws.amazon.com/iot/latest/developerguide/images/successful-run.png)
 
-Your Raspberry Pi is now connected to AWS IoT using the AWS IoT Device SDK for C\.
+Your Raspberry Pi is now connected to AWS IoT using the AWS IoT Device SDK for Embedded C\.

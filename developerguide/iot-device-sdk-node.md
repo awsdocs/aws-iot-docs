@@ -1,109 +1,117 @@
 # Using the AWS IoT Device SDK for JavaScript<a name="iot-device-sdk-node"></a>
 
-The easiest way to install the AWS IoT Device SDK for Node\.js is to use `npm`\. In this section we describe how to install Node and npm\.
+This tutorial shows you how to install Node\.js, the npm package manager, and the AWS IoT Device SDK for JavaScript on a Raspberry Pi and run the device SDK sample applications\.
 
 ## Set Up the Runtime Environment for the AWS IoT Device SDK for JavaScript<a name="iot-sdk-node-runtime"></a>
 
-To use the AWS IoT Device SDK for JavaScript, install Node and the npm development tool on your Raspberry Pi\. These packages are not installed by default\. 
-
-**Note**  
-Before you continue, you might want to configure the keyboard mapping for your Raspberry Pi\. For more information, see [Configure Raspberry Pi Keyboard Mapping](https://www.raspberrypi.org/documentation/configuration/localisation.md)\.
+To use the AWS IoT Device SDK for JavaScript, install Node and the npm package manager on your Raspberry Pi\.
 
 1. To add the Node repository, open a terminal and run the following command: 
 
-   ```
-   curl -sL https://deb.nodesource.com/setup_8.x | sudo -E bash -
-   ```
+   curl \-sL https://deb\.nodesource\.com/setup\_11\.x \| sudo \-E bash \-
 
-1. To install Node, run 
+1. To install Node and npm, run the following command:
 
-   ```
-   sudo apt-get install nodejs
-   ```
+   sudo apt\-get install \-y nodejs
 
-1. Run `npm -v` to determine if npm is installed\. If no version information is returned, install npm as follows:
+1. To verify the installation of Node and npm, run the following commands:
 
-   ```
-   sudo apt-get install npm
-   ```
-
-   You should see output similar to the following:  
-![\[Image NOT FOUND\]](http://alpha-docs-aws.amazon.com/iot/latest/developerguide/images/Selection_035.png)
-
-1. To verify the installation of Node and npm, run the following:
-
-   ```
-   node -v
-   ```
+   node \-v
 
    and
 
-   ```
-   npm -v
-   ```
+   npm \-v
 
-   You should see output similar to the following:  
-![\[Image NOT FOUND\]](http://alpha-docs-aws.amazon.com/iot/latest/developerguide/images/Selection_036.png)
+   If a version number is displayed by these commands, node and npm are installed correctly\.
 
 ## Install the AWS IoT Device SDK for JavaScript<a name="iot-sdk-node-intall-sdk"></a>
 
-To install the AWS IoT Device SDK for JavaScript/Node\.js on your Raspberry Pi, open a console window and from your `~/deviceSDK` directory, use npm to install the SDK:
+To install the AWS IoT Device SDK for JavaScript on your Raspberry Pi, create a `~/deviceSDK` directory using the following command:
 
-```
-npm install aws-iot-device-sdk
-```
+mkdir deviceSDK
+
+Use npm to install the SDK:
+
+npm install aws\-iot\-device\-sdk
 
 After the installation is complete, you should find a `node_modules` directory in your `~/deviceSDK` directory\.
 
 ## Prepare to Run the Sample Applications<a name="iot-sdk-node-config-app"></a>
 
-The AWS IoT Device SDK for JavaScript includes sample apps for you to try\. To run them, you must configure your certificates and private key\. 
+Follow the instructions at [Getting Started with AWS IoT](iot-gs.md) to register your Raspberry Pi with AWS IoT\. Under `aws-device-sdk-js`, create a `certs` directory and copy your private key, certificate, and root CA files to the `certs` directory\.
++ Rename your private key `node-private-key.pem`\.
++ Rename your certificate `node-cert.pem`\.
 
-Edit the file \~/deviceSDK/node\_modules/aws\-iot\-device\-sdk/examples/lib/cmdline\.js to change the default names for the private key \(`privateKey`\), certificate \(`clientCert`\), and CA root certificate \(`caCert`\) used by the samples\. For example:
+To run the AWS IoT Device SDK for JavaScript samples, you need the following information:
 
-```
-default: {
-    region: 'us-east-1',
-    clientId: clientIdDefault,
-    privateKey: '4bbdc778b9-private.pem.key',
-    clientCert: '4bbdc778b9-certificate.pem.crt',
-    caCert: 'root-CA.crt,
-    testMode: 1,
-    reconnectPeriod: 3 * 1000, 	/* milliseconds */
-    delay: 4 * 1000						/* milliseconds */   
-};
-```
+Your AWS Region  
+You can find the region you are using by browsing to the AWS IoT console and looking at the URL\. The region appears immediately after the `https://` in the URL\. For example:  
+`https://us-west-2.console.aws.amazon.com/iot/home?region=us-west-2#/dashboard`  
+The AWS Region also appears after the `?` in the URL\. For more information, see [AWS Regions and Endpoints](https://docs.aws.amazon.com/general/latest/gr/rande.html)\. For region information specific to AWS IoT, see [ AWS IoT Regions and Endpoints](https://docs.aws.amazon.com/general/latest/gr/rande.html#iot_region)\.
+
+A client ID  
+An arbitrary alphanumeric string used to identify a device or application connecting to AWS IoT\.
+
+Your private key  
+The fully\-qualified path to your private key on your Raspberry Pi\. This is the key that is generated when you registered your Raspberry Pi with AWS IoT\.
+
+Your AWS IoT X\.509 certificate  
+The fully\-qualified path to your AWS IoT certificate on your Raspberry Pi\. This is the certifiate that is generated when you registered your Raspberry Pi with AWS IoT\.
+
+The STS Amazon root CA  
+The fully\-qualified path to the Amazon Root CA on your Raspberry Pi\.
+
+Your AWS IoT endpoint  
+You can find your endpoint by running the describe\-endpoint CLI command:  
+aws iot describe\-endpoint \-\-endpoint\-type iot:Data\-ATS  
+You can also find your endpoint by browsing to the AWS IoT console, choosing the IoT thing for your Raspberry Pi, and then choosing **Interact**\. Your endpoint is displayed under **HTTPS** and **Update your Device Shadow using this Rest API endpoint**\.
+
+The port on which the AWS IoT message broker listens  
+This is always `8883`\.
+
+Your IoT thing name  
+This is the name you specifed when you registered your Raspberry Pi with AWS IoT\.
 
 ## Run the Sample Applications<a name="iot-sdk-node-app-run"></a>
 
-Run the examples using 
+The AWS IoT Device SDK for JavaScript contains a number of samples in the `aws-iot-device-sdk-js/examples` directory\. We recommend that you start with device\-example\.js\. This example runs in two modes\. In mode 1, it subscribes to the MQTT topic `topic_1` and publishes a message every 4 seconds on `topic_2`\. In mode 2, it subscribes to `topic_2` and publishes a message every 4 seconds on `topic_1`\. You can run two instances of device\-example\.js, one in mode 1 and one in mode 2, and see the messages being sent and received\.
 
-```
-node examples/<YourDesiredExample>.js -f <certs location> -H <PREFIX>.iot.<REGION>.amazonaws.com
-```
+From the `aws-iot-device-sdk-js/examples` directory, run the following command to start an instance of the sample:
 
-Assuming you are in the directory `~/deviceSDK/node_modules/aws-iot-device-sdk/`, the certificates location should be `~/deviceSDK/certs/`\. Use the REST endpoint of your Raspberry Pi as the value of the \-H parameter\.
+node device\-example \-k "\.\./certs/node\-private\-key\.pem" \-c "\.\./certs/node\-cert\.pem" \-i "*client\-id\-1*" \-H "*<your\-iot\-endpoint>*" \-p 8883 \-T "*your\-thing\-name*" \-\-test\-mode 1
 
-To see all available command line parameters for each sample, run the program and specify the '\-h' parameter:
+Start another instance of device\-example\.js running in mode 2:
 
-```
-node examples/<YourDesiredExample>.js -h
-```
+node device\-example \-k "\.\./certs/node\-private\-key\.pem" \-c "\.\./certs/node\-cert\.pem" \-i "*client\-id\-2*" \-H "*<your\-iot\-endpoint>*" \-p 8883 \-T "*your\-thing\-name*" \-\-test\-mode 2
 
-For more information about how you can use command line options to specify the certificates location and your own host address, see the [Certificates](https://github.com/aws/aws-iot-device-sdk-js#certificates) section of the AWS IoT Device SDK for JavaScript Readme on GitHub\. The sample descriptions that follow this section of the Readme show additional command line parameters that are required for each sample\.
-
-If you want to create a configuration file for use with the command line option `--configuration-file (-F)`, create a file \(in JSON format\) with the following properties\. For example:
-
-```
-{
-    "host":           "a22j5sm6o3yzc5.iot.us-east-1.amazonaws.com",
-    "port":           8883,
-    "clientId":       "MyRaspberryPi",
-    "thingName":      "MyRaspberryPi",
-    "caCert":         "root-CA.crt",
-    "clientCert":     "4bbdc778b9-certificate.pem.crt",
-    "privateKey":     "4bbdc778b9-private.pem.key"
-}
-```
+**Important**  
+Make sure that you use different client IDs when you run the two instances of device\-example\.js\. No two clients \(devices or applications\) can connect to AWS IoT using a the same client ID\. The first client's connection is termniated and the second client connection is established\.  
+The thing name is important only when you create a policy specific to an IoT thing\. In the AWS IoT Getting Started tutorial, you do not create such a policy, so you can use the same thing name for both instances\.
 
 Your Raspberry Pi is now connected to AWS IoT using the AWS IoT SDK for JavaScript\.
+
+If the sample instances are running correctly, the output from the instance running in mode 1 should look like this:
+
+```
+substituting 250ms dely for truems...
+connect
+message topic_1 {"mode1Process":1}
+message topic_1 {"mode1Process":2}
+message topic_1 {"mode1Process":3}
+message topic_1 {"mode1Process":4}
+...
+```
+
+The output from the instance running in mode 2 should look like this:
+
+```
+substituting 250ms dely for truems...
+connect
+message topic_2 {"mode2Process":1}
+message topic_2 {"mode2Process":2}
+message topic_2 {"mode2Process":3}
+message topic_2 {"mode2Process":4}
+...
+```
+
+If the sample does not run correctly, try adding the `-d` option when running the sample to display debug information\.

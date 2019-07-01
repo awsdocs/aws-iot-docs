@@ -1,52 +1,14 @@
 # Detect Commands<a name="DetectCommands"></a>
 
-## AttachSecurityProfile<a name="dd-api-iot-AttachSecurityProfile-doc"></a>
+## AttachSecurityProfile<a name="dd-api-iot-AttachSecurityProfile"></a>
 
-Associates an security profile with a thing group or with this account\. Each thing group or account can have up to five security profiles associated with it\.
+Associates an AWS IoT Device Defender security profile with one of the following target types: 
++ All devices
++ All registered devices \(things in the AWS IoT registry\)
++ All unregistered devices
++ Devices in a thing group
 
-### https<a name="dd-api-iot-AttachSecurityProfile-https"></a>
-
- **Request syntax:**
-
-```
-PUT /security-profiles/securityProfileName/targets?securityProfileTargetArn=securityProfileTargetArn 
-```
-
-
-**URI Request Parameters:**  
-
-|  Name |  Type |  Req? |  Description | 
-| --- | --- | --- | --- | 
-|  securityProfileName |  SecurityProfileName |  yes |  The security profile that is attached\. | 
-|  securityProfileTargetArn |  SecurityProfileTargetArn |  yes |  The ARN of the target \(thing group\) to which the security profile is attached\. | 
-
- **Errors:**
-
-`InvalidRequestException`  
-The contents of the request were invalid\. For example, this code is returned when an UpdateJobExecution request contains invalid status details\. The message contains details about the error\.  
-HTTP response code: 400
-
-`ResourceNotFoundException`  
-The specified resource does not exist\.  
-HTTP response code: 404
-
-`LimitExceededException`  
-A limit has been exceeded\.  
-HTTP response code: 410
-
-`VersionConflictException`  
-An exception thrown when the version of a thing passed to a command is different than the version specified with the \-\-version parameter\.  
-HTTP response code: 409
-
-`ThrottlingException`  
-The rate exceeds the limit\.  
-HTTP response code: 429
-
-`InternalFailureException`  
-An unexpected error has occurred\.  
-HTTP response code: 500
-
-### cli<a name="dd-api-iot-AttachSecurityProfile-cli"></a>
+Each target type can have up to five security profiles associated with it\.
 
  **Synopsis:**
 
@@ -75,6 +37,30 @@ aws iot  attach-security-profile \
 |  securityProfileName |  string  length\- max:128 min:1  pattern: \[a\-zA\-Z0\-9:\_\-\]\+  |  The security profile that is attached\. | 
 |  securityProfileTargetArn |  string |  The ARN of the target \(thing group\) to which the security profile is attached\. | 
 
+To attach a security profile to a group of devices, you must specify the ARN of the thing group that contains them\. A thing group ARN has the following format: 
+
+```
+arn:aws:iot:<region>:<accountid>:thinggroup/<thing-group-name>
+```
+
+To attach a security profile to all of the registered things in an account \(ignoring unregistered things\), you must specify an ARN with the following format:
+
+```
+arn:aws:iot:<region>:<accountid>:all/registered-things
+```
+
+To attach a security profile to all unregistered things, you must specify an ARN with the following format:
+
+```
+arn:aws:iot:<region>:<accountid>:all/unregistered-things
+```
+
+To attach a security profile to all devices, you must specify an ARN with the following format: 
+
+```
+arn:aws:iot:<region>:<accountid>:all/things
+```
+
 Output:
 
 None
@@ -82,7 +68,7 @@ None
  **Errors:**
 
 `InvalidRequestException`  
-The contents of the request were invalid\. For example, this code is returned when an UpdateJobExecution request contains invalid status details\. The message contains details about the error\.
+The contents of the request were invalid\.
 
 `ResourceNotFoundException`  
 The specified resource does not exist\.
@@ -91,7 +77,7 @@ The specified resource does not exist\.
 A limit has been exceeded\.
 
 `VersionConflictException`  
-An exception thrown when the version of a thing passed to a command is different than the version specified with the \-\-version parameter\.
+An exception thrown when the version of a thing passed to a command is different from the version specified with the `--version` parameter\.
 
 `ThrottlingException`  
 The rate exceeds the limit\.
@@ -99,102 +85,9 @@ The rate exceeds the limit\.
 `InternalFailureException`  
 An unexpected error has occurred\.
 
-## CreateSecurityProfile<a name="dd-api-iot-CreateSecurityProfile-doc"></a>
+## CreateSecurityProfile<a name="dd-api-iot-CreateSecurityProfile"></a>
 
-Creates an security profile\.
-
-### https<a name="dd-api-iot-CreateSecurityProfile-https"></a>
-
- **Request syntax:**
-
-```
-POST /security-profiles/securityProfileName 
-Content-type: application/json
-
-{
-  "securityProfileDescription": "string",
-  "behaviors": [
-    {
-      "name": "string",
-      "metric": "string",
-      "criteria": {
-        "comparisonOperator": "string",
-        "value": {
-          "count": "long",
-          "cidrs": [
-            "string"
-          ],
-          "ports": [
-            "integer"
-          ]
-        },
-        "durationSeconds": "integer"
-      }
-    }
-  ],
-  "alertTargets": {
-    "string": {
-      "alertTargetArn": "string",
-      "roleArn": "string"
-    }
-  }
-}
-```
-
-
-**URI Request Parameters:**  
-
-|  Name |  Type |  Req? |  Description | 
-| --- | --- | --- | --- | 
-|  securityProfileName |  SecurityProfileName |  yes |  The name you are giving to the security profile\. | 
-
-
-**Request Body Parameters:**  
-
-|  Name |  Type |  Req? |  Description | 
-| --- | --- | --- | --- | 
-|  securityProfileDescription |  SecurityProfileDescription |  no |  A description of the security profile\. | 
-|  behaviors |  Behaviors |  yes |  Specifies the behaviors that, when violated by a device \(thing\), cause an alert\. | 
-|  alertTargets |  AlertTargets |  no |  Specifies the destinations to which alerts are sent\. \(Alerts are always sent to the console\.\) Alerts are generated when a device \(thing\) violates a behavior\.  | 
-
- **Response syntax:**
-
-```
-Content-type: application/json
-
-{
-  "securityProfileName": "string",
-  "securityProfileArn": "string"
-}
-```
-
-
-**Response Body Parameters:**  
-
-|  Name |  Type |  Req? |  Description | 
-| --- | --- | --- | --- | 
-|  securityProfileName |   SecurityProfileName  |  no |  The name you gave to the security profile\. | 
-|  securityProfileArn |   SecurityProfileArn  |  no |  The ARN of the security profile\. | 
-
- **Errors:**
-
-`InvalidRequestException`  
-The contents of the request were invalid\. For example, this code is returned when an UpdateJobExecution request contains invalid status details\. The message contains details about the error\.  
-HTTP response code: 400
-
-`ResourceAlreadyExistsException`  
-The resource already exists\.  
-HTTP response code: 409
-
-`ThrottlingException`  
-The rate exceeds the limit\.  
-HTTP response code: 429
-
-`InternalFailureException`  
-An unexpected error has occurred\.  
-HTTP response code: 500
-
-### cli<a name="dd-api-iot-CreateSecurityProfile-cli"></a>
+Creates a Device Defender security profile\.
 
  **Synopsis:**
 
@@ -202,8 +95,10 @@ HTTP response code: 500
 aws iot  create-security-profile \
     --security-profile-name <value> \
     [--security-profile-description <value>] \
-    --behaviors <value> \
-    [--alert-targets <value>]  \
+    [--behaviors <value>] \
+    [--alert-targets <value>] \
+    [--additional-metrics-to-retain <value>] \
+    [--tags <value>]  \
     [--cli-input-json <value>] \
     [--generate-cli-skeleton]
 ```
@@ -229,7 +124,12 @@ aws iot  create-security-profile \
             "integer"
           ]
         },
-        "durationSeconds": "integer"
+        "durationSeconds": "integer",
+        "consecutiveDatapointsToAlarm": "integer",
+        "consecutiveDatapointsToClear": "integer",
+        "statisticalThreshold": {
+          "statistic": "string"
+        }
       }
     }
   ],
@@ -238,7 +138,16 @@ aws iot  create-security-profile \
       "alertTargetArn": "string",
       "roleArn": "string"
     }
-  }
+  },
+  "additionalMetricsToRetain": [
+    "string"
+  ],
+  "tags": [
+    {
+      "Key": "string",
+      "Value": "string"
+    }
+  ]
 }
 ```
 
@@ -253,15 +162,23 @@ aws iot  create-security-profile \
 |  name |  string  length\- max:128 min:1  pattern: \[a\-zA\-Z0\-9:\_\-\]\+  |  The name you have given to the behavior\. | 
 |  metric |  string |  What is measured by the behavior\. | 
 |  criteria |  BehaviorCriteria |  The criteria that determine if a device is behaving normally in regard to the `metric`\.  | 
-|  comparisonOperator |  string |  The operator that relates the thing measured \(`metric`\) to the criteria \(`value`\)\.  enum: less\-than | less\-than\-equals | greater\-than | greater\-than\-equals | in\-cidr\-set | not\-in\-cidr\-set | in\-port\-set | not\-in\-port\-set  | 
+|  comparisonOperator |  string |  The operator that relates the thing measured \(`metric`\) to the criteria \(containing a `value` or `statisticalThreshold`\)\.  enum: less\-than \| less\-than\-equals \| greater\-than \| greater\-than\-equals \| in\-cidr\-set \| not\-in\-cidr\-set \| in\-port\-set \| not\-in\-port\-set  | 
 |  value |  MetricValue |  The value to be compared with the `metric`\. | 
 |  count |  long  range\- min:0  |  If the `comparisonOperator` calls for a numeric value, use this to specify that numeric value to be compared with the `metric`\.  | 
 |  cidrs |  list  member: Cidr  |  If the `comparisonOperator` calls for a set of CIDRs, use this to specify that set to be compared with the `metric`\.  | 
 |  ports |  list  member: Port  |  If the `comparisonOperator` calls for a set of ports, use this to specify that set to be compared with the `metric`\.  | 
-|  durationSeconds |  integer |  Use this to specify the period of time over which the behavior is evaluated, for those criteria which have a time dimension \(for example, `NUM_MESSAGES_SENT`\)\.  | 
+|  durationSeconds |  integer |  Use this to specify the time duration over which the behavior is evaluated, for those criteria that have a time dimension \(for example, `NUM_MESSAGES_SENT`\)\. For a `statisticalThreshhold` metric comparison, measurements from all devices are accumulated over this time duration before being used to calculate percentiles, and later, measurements from an individual device are also accumulated over this time duration before being given a percentile rank\.  | 
+|  consecutiveDatapointsToAlarm |  integer  range\- max:10 min:1  |  If a device is in violation of the behavior for the specified number of consecutive datapoints, an alarm occurs\. If not specified, the default is 1\.  | 
+|  consecutiveDatapointsToClear |  integer  range\- max:10 min:1  |  If an alarm has occurred and the offending device is no longer in violation of the behavior for the specified number of consecutive datapoints, the alarm is cleared\. If not specified, the default is 1\.  | 
+|  statisticalThreshold |  StatisticalThreshold |  A statistical ranking \(percentile\) that indicates a threshold value by which a behavior is determined to be in compliance or in violation of the behavior\.  | 
+|  statistic |  string  pattern: \(p0\|p0\.1\|p0\.01\|p1\|p10\|p50\|p90\|p99\|p99\.9\|p99\.99\|p100\)  |  The percentile that resolves to a threshold value by which compliance with a behavior is determined\. Metrics are collected over the specified period \(`durationSeconds`\) from all reporting devices in your account and statistical ranks are calculated\. Then, the measurements from a device are collected over the same period\. If the accumulated measurements from the device fall above or below \(`comparisonOperator`\) the value associated with the percentile specified, then the device is considered to be in compliance with the behavior, otherwise a violation occurs\.  | 
 |  alertTargets |  map |  Specifies the destinations to which alerts are sent\. \(Alerts are always sent to the console\.\) Alerts are generated when a device \(thing\) violates a behavior\.  | 
 |  alertTargetArn |  string |  The ARN of the notification target to which alerts are sent\. | 
 |  roleArn |  string  length\- max:2048 min:20  |  The ARN of the role that grants permission to send alerts to the notification target\.  | 
+|  additionalMetricsToRetain |  list  member: BehaviorMetric  |  A list of metrics whose data is retained \(stored\)\. By default, data is retained for any metric used in the profile's `behaviors` but it is also retained for any metric specified here\.  | 
+|  tags |  list  member: Tag  java class: java\.util\.List  |  Metadata that can be used to manage the security profile\. | 
+|  Key |  string |  The tag's key\. | 
+|  Value |  string |  The tag's value\. | 
 
 Output:
 
@@ -283,7 +200,7 @@ Output:
  **Errors:**
 
 `InvalidRequestException`  
-The contents of the request were invalid\. For example, this code is returned when an UpdateJobExecution request contains invalid status details\. The message contains details about the error\.
+The contents of the request were invalid\.
 
 `ResourceAlreadyExistsException`  
 The resource already exists\.
@@ -294,45 +211,9 @@ The rate exceeds the limit\.
 `InternalFailureException`  
 An unexpected error has occurred\.
 
-## DeleteSecurityProfile<a name="dd-api-iot-DeleteSecurityProfile-doc"></a>
+## DeleteSecurityProfile<a name="dd-api-iot-DeleteSecurityProfile"></a>
 
-Deletes an security profile\.
-
-### https<a name="dd-api-iot-DeleteSecurityProfile-https"></a>
-
- **Request syntax:**
-
-```
-DELETE /security-profiles/securityProfileName?expectedVersion=expectedVersion 
-```
-
-
-**URI Request Parameters:**  
-
-|  Name |  Type |  Req? |  Description | 
-| --- | --- | --- | --- | 
-|  securityProfileName |  SecurityProfileName |  yes |  The name of the security profile to be deleted\. | 
-|  expectedVersion |  OptionalVersion |  no |  The expected version of the security profile\. A new version is generated whenever the security profile is updated\. If you specify a value that is different than the actual version, a `VersionConflictException` is thrown\.  | 
-
- **Errors:**
-
-`InvalidRequestException`  
-The contents of the request were invalid\. For example, this code is returned when an UpdateJobExecution request contains invalid status details\. The message contains details about the error\.  
-HTTP response code: 400
-
-`ThrottlingException`  
-The rate exceeds the limit\.  
-HTTP response code: 429
-
-`InternalFailureException`  
-An unexpected error has occurred\.  
-HTTP response code: 500
-
-`VersionConflictException`  
-An exception thrown when the version of a thing passed to a command is different than the version specified with the \-\-version parameter\.  
-HTTP response code: 409
-
-### cli<a name="dd-api-iot-DeleteSecurityProfile-cli"></a>
+Deletes a Device Defender security profile\.
 
  **Synopsis:**
 
@@ -359,7 +240,7 @@ aws iot  delete-security-profile \
 |  Name |  Type |  Description | 
 | --- | --- | --- | 
 |  securityProfileName |  string  length\- max:128 min:1  pattern: \[a\-zA\-Z0\-9:\_\-\]\+  |  The name of the security profile to be deleted\. | 
-|  expectedVersion |  long |  The expected version of the security profile\. A new version is generated whenever the security profile is updated\. If you specify a value that is different than the actual version, a `VersionConflictException` is thrown\.  | 
+|  expectedVersion |  long |  The expected version of the security profile\. A new version is generated whenever the security profile is updated\. If you specify a value that is different from the actual version, a `VersionConflictException` is thrown\.  | 
 
 Output:
 
@@ -368,7 +249,7 @@ None
  **Errors:**
 
 `InvalidRequestException`  
-The contents of the request were invalid\. For example, this code is returned when an UpdateJobExecution request contains invalid status details\. The message contains details about the error\.
+The contents of the request were invalid\.
 
 `ThrottlingException`  
 The rate exceeds the limit\.
@@ -377,100 +258,11 @@ The rate exceeds the limit\.
 An unexpected error has occurred\.
 
 `VersionConflictException`  
-An exception thrown when the version of a thing passed to a command is different than the version specified with the \-\-version parameter\.
+An exception thrown when the version of a thing passed to a command is different from the version specified with the `--version` parameter\.
 
-## DescribeSecurityProfile<a name="dd-api-iot-DescribeSecurityProfile-doc"></a>
+## DescribeSecurityProfile<a name="dd-api-iot-DescribeSecurityProfile"></a>
 
-Gets information about an security profile\.
-
-### https<a name="dd-api-iot-DescribeSecurityProfile-https"></a>
-
- **Request syntax:**
-
-```
-GET /security-profiles/securityProfileName 
-```
-
-
-**URI Request Parameters:**  
-
-|  Name |  Type |  Req? |  Description | 
-| --- | --- | --- | --- | 
-|  securityProfileName |  SecurityProfileName |  yes |  The name of the security profile whose information you want to get\. | 
-
- **Response syntax:**
-
-```
-Content-type: application/json
-
-{
-  "securityProfileName": "string",
-  "securityProfileArn": "string",
-  "securityProfileDescription": "string",
-  "behaviors": [
-    {
-      "name": "string",
-      "metric": "string",
-      "criteria": {
-        "comparisonOperator": "string",
-        "value": {
-          "count": "long",
-          "cidrs": [
-            "string"
-          ],
-          "ports": [
-            "integer"
-          ]
-        },
-        "durationSeconds": "integer"
-      }
-    }
-  ],
-  "alertTargets": {
-    "string": {
-      "alertTargetArn": "string",
-      "roleArn": "string"
-    }
-  },
-  "version": "long",
-  "creationDate": "timestamp",
-  "lastModifiedDate": "timestamp"
-}
-```
-
-
-**Response Body Parameters:**  
-
-|  Name |  Type |  Req? |  Description | 
-| --- | --- | --- | --- | 
-|  securityProfileName |   SecurityProfileName  |  no |  The name of the security profile\. | 
-|  securityProfileArn |   SecurityProfileArn  |  no |  The ARN of the security profile\. | 
-|  securityProfileDescription |   SecurityProfileDescription  |  no |  A description of the security profile \(associated with the security profile when it was created or updated\)\.  | 
-|  behaviors |   Behaviors  |  no |  Specifies the behaviors that, when violated by a device \(thing\), cause an alert\. | 
-|  alertTargets |   AlertTargets  |  no |  Where the alerts are sent\. \(Alerts are always sent to the console\.\) | 
-|  version |   Version  |  no |  The version of the security profile\. A new version is generated whenever the security profile is updated\.  | 
-|  creationDate |   Timestamp  |  no |  The time the security profile was created\. | 
-|  lastModifiedDate |   Timestamp  |  no |  The time the security profile was last modified\. | 
-
- **Errors:**
-
-`InvalidRequestException`  
-The contents of the request were invalid\. For example, this code is returned when an UpdateJobExecution request contains invalid status details\. The message contains details about the error\.  
-HTTP response code: 400
-
-`ResourceNotFoundException`  
-The specified resource does not exist\.  
-HTTP response code: 404
-
-`ThrottlingException`  
-The rate exceeds the limit\.  
-HTTP response code: 429
-
-`InternalFailureException`  
-An unexpected error has occurred\.  
-HTTP response code: 500
-
-### cli<a name="dd-api-iot-DescribeSecurityProfile-cli"></a>
+Gets information about a Device Defender security profile\.
 
  **Synopsis:**
 
@@ -518,7 +310,12 @@ Output:
             "integer"
           ]
         },
-        "durationSeconds": "integer"
+        "durationSeconds": "integer",
+        "consecutiveDatapointsToAlarm": "integer",
+        "consecutiveDatapointsToClear": "integer",
+        "statisticalThreshold": {
+          "statistic": "string"
+        }
       }
     }
   ],
@@ -528,6 +325,9 @@ Output:
       "roleArn": "string"
     }
   },
+  "additionalMetricsToRetain": [
+    "string"
+  ],
   "version": "long",
   "creationDate": "timestamp",
   "lastModifiedDate": "timestamp"
@@ -546,15 +346,20 @@ Output:
 |  name |  string  length\- max:128 min:1  pattern: \[a\-zA\-Z0\-9:\_\-\]\+  |  The name you have given to the behavior\. | 
 |  metric |  string |  What is measured by the behavior\. | 
 |  criteria |  BehaviorCriteria |  The criteria that determine if a device is behaving normally in regard to the `metric`\.  | 
-|  comparisonOperator |  string |  The operator that relates the thing measured \(`metric`\) to the criteria \(`value`\)\.  enum: less\-than | less\-than\-equals | greater\-than | greater\-than\-equals | in\-cidr\-set | not\-in\-cidr\-set | in\-port\-set | not\-in\-port\-set  | 
+|  comparisonOperator |  string |  The operator that relates the thing measured \(`metric`\) to the criteria \(containing a `value` or `statisticalThreshold`\)\.  enum: less\-than \| less\-than\-equals \| greater\-than \| greater\-than\-equals \| in\-cidr\-set \| not\-in\-cidr\-set \| in\-port\-set \| not\-in\-port\-set  | 
 |  value |  MetricValue |  The value to be compared with the `metric`\. | 
 |  count |  long  range\- min:0  |  If the `comparisonOperator` calls for a numeric value, use this to specify that numeric value to be compared with the `metric`\.  | 
 |  cidrs |  list  member: Cidr  |  If the `comparisonOperator` calls for a set of CIDRs, use this to specify that set to be compared with the `metric`\.  | 
 |  ports |  list  member: Port  |  If the `comparisonOperator` calls for a set of ports, use this to specify that set to be compared with the `metric`\.  | 
-|  durationSeconds |  integer |  Use this to specify the period of time over which the behavior is evaluated, for those criteria which have a time dimension \(for example, `NUM_MESSAGES_SENT`\)\.  | 
+|  durationSeconds |  integer |  Use this to specify the time duration over which the behavior is evaluated, for those criteria that have a time dimension \(for example, `NUM_MESSAGES_SENT`\)\. For a `statisticalThreshhold` metric comparison, measurements from all devices are accumulated over this time duration before being used to calculate percentiles, and later, measurements from an individual device are also accumulated over this time duration before being given a percentile rank\.  | 
+|  consecutiveDatapointsToAlarm |  integer  range\- max:10 min:1  |  If a device is in violation of the behavior for the specified number of consecutive datapoints, an alarm occurs\. If not specified, the default is 1\.  | 
+|  consecutiveDatapointsToClear |  integer  range\- max:10 min:1  |  If an alarm has occurred and the offending device is no longer in violation of the behavior for the specified number of consecutive datapoints, the alarm is cleared\. If not specified, the default is 1\.  | 
+|  statisticalThreshold |  StatisticalThreshold |  A statistical ranking \(percentile\) that indicates a threshold value by which a behavior is determined to be in compliance or in violation of the behavior\.  | 
+|  statistic |  string  pattern: \(p0\|p0\.1\|p0\.01\|p1\|p10\|p50\|p90\|p99\|p99\.9\|p99\.99\|p100\)  |  The percentile that resolves to a threshold value by which compliance with a behavior is determined\. Metrics are collected over the specified period \(`durationSeconds`\) from all reporting devices in your account and statistical ranks are calculated\. Then, the measurements from a device are collected over the same period\. If the accumulated measurements from the device fall above or below \(`comparisonOperator`\) the value associated with the percentile specified, then the device is considered to be in compliance with the behavior\. Otherwise, a violation occurs\.  | 
 |  alertTargets |  map |  Where the alerts are sent\. \(Alerts are always sent to the console\.\) | 
 |  alertTargetArn |  string |  The ARN of the notification target to which alerts are sent\. | 
 |  roleArn |  string  length\- max:2048 min:20  |  The ARN of the role that grants permission to send alerts to the notification target\.  | 
+|  additionalMetricsToRetain |  list  member: BehaviorMetric  |  A list of metrics whose data is retained \(stored\)\. By default, data is retained for any metric used in the profile's `behaviors` but it is also retained for any metric specified here\.  | 
 |  version |  long |  The version of the security profile\. A new version is generated whenever the security profile is updated\.  | 
 |  creationDate |  timestamp |  The time the security profile was created\. | 
 |  lastModifiedDate |  timestamp |  The time the security profile was last modified\. | 
@@ -562,7 +367,7 @@ Output:
  **Errors:**
 
 `InvalidRequestException`  
-The contents of the request were invalid\. For example, this code is returned when an UpdateJobExecution request contains invalid status details\. The message contains details about the error\.
+The contents of the request were invalid\.
 
 `ResourceNotFoundException`  
 The specified resource does not exist\.
@@ -573,45 +378,9 @@ The rate exceeds the limit\.
 `InternalFailureException`  
 An unexpected error has occurred\.
 
-## DetachSecurityProfile<a name="dd-api-iot-DetachSecurityProfile-doc"></a>
+## DetachSecurityProfile<a name="dd-api-iot-DetachSecurityProfile"></a>
 
-Disassociates an security profile from a thing group or from this account\.
-
-### https<a name="dd-api-iot-DetachSecurityProfile-https"></a>
-
- **Request syntax:**
-
-```
-DELETE /security-profiles/securityProfileName/targets?securityProfileTargetArn=securityProfileTargetArn 
-```
-
-
-**URI Request Parameters:**  
-
-|  Name |  Type |  Req? |  Description | 
-| --- | --- | --- | --- | 
-|  securityProfileName |  SecurityProfileName |  yes |  The security profile that is detached\. | 
-|  securityProfileTargetArn |  SecurityProfileTargetArn |  yes |  The ARN of the thing group from which the security profile is detached\. | 
-
- **Errors:**
-
-`InvalidRequestException`  
-The contents of the request were invalid\. For example, this code is returned when an UpdateJobExecution request contains invalid status details\. The message contains details about the error\.  
-HTTP response code: 400
-
-`ResourceNotFoundException`  
-The specified resource does not exist\.  
-HTTP response code: 404
-
-`ThrottlingException`  
-The rate exceeds the limit\.  
-HTTP response code: 429
-
-`InternalFailureException`  
-An unexpected error has occurred\.  
-HTTP response code: 500
-
-### cli<a name="dd-api-iot-DetachSecurityProfile-cli"></a>
+Disassociates a Device Defender security profile from a thing group or from this account\.
 
  **Synopsis:**
 
@@ -647,7 +416,7 @@ None
  **Errors:**
 
 `InvalidRequestException`  
-The contents of the request were invalid\. For example, this code is returned when an UpdateJobExecution request contains invalid status details\. The message contains details about the error\.
+The contents of the request were invalid\.
 
 `ResourceNotFoundException`  
 The specified resource does not exist\.
@@ -658,100 +427,9 @@ The rate exceeds the limit\.
 `InternalFailureException`  
 An unexpected error has occurred\.
 
-## ListActiveViolations<a name="dd-api-iot-ListActiveViolations-doc"></a>
+## ListActiveViolations<a name="dd-api-iot-ListActiveViolations"></a>
 
-Lists the active violations for a given security profile\.
-
-### https<a name="dd-api-iot-ListActiveViolations-https"></a>
-
- **Request syntax:**
-
-```
-GET /active-violations?maxResults=maxResults&nextToken=nextToken&thingName=thingName&securityProfileName=securityProfileName 
-```
-
-
-**URI Request Parameters:**  
-
-|  Name |  Type |  Req? |  Description | 
-| --- | --- | --- | --- | 
-|  thingName |  ThingName |  no |  The name of the thing whose active violations are listed\. | 
-|  securityProfileName |  SecurityProfileName |  no |  The name of the security profile for which violations are listed\. | 
-|  nextToken |  NextToken |  no |  The token for the next set of results\. | 
-|  maxResults |  MaxResults |  no |  The maximum number of results to return at one time\. | 
-
- **Response syntax:**
-
-```
-Content-type: application/json
-
-{
-  "activeViolations": [
-    {
-      "violationId": "string",
-      "thingName": "string",
-      "securityProfileName": "string",
-      "behavior": {
-        "name": "string",
-        "metric": "string",
-        "criteria": {
-          "comparisonOperator": "string",
-          "value": {
-            "count": "long",
-            "cidrs": [
-              "string"
-            ],
-            "ports": [
-              "integer"
-            ]
-          },
-          "durationSeconds": "integer"
-        }
-      },
-      "lastViolationValue": {
-        "count": "long",
-        "cidrs": [
-          "string"
-        ],
-        "ports": [
-          "integer"
-        ]
-      },
-      "lastViolationTime": "timestamp",
-      "violationStartTime": "timestamp"
-    }
-  ],
-  "nextToken": "string"
-}
-```
-
-
-**Response Body Parameters:**  
-
-|  Name |  Type |  Req? |  Description | 
-| --- | --- | --- | --- | 
-|  activeViolations |   ActiveViolations  |  no |  The list of active violations\. | 
-|  nextToken |   NextToken  |  no |  A token that can be used to retrieve the next set of results, or `null` if there are no additional results\.  | 
-
- **Errors:**
-
-`InvalidRequestException`  
-The contents of the request were invalid\. For example, this code is returned when an UpdateJobExecution request contains invalid status details\. The message contains details about the error\.  
-HTTP response code: 400
-
-`ResourceNotFoundException`  
-The specified resource does not exist\.  
-HTTP response code: 404
-
-`ThrottlingException`  
-The rate exceeds the limit\.  
-HTTP response code: 429
-
-`InternalFailureException`  
-An unexpected error has occurred\.  
-HTTP response code: 500
-
-### cli<a name="dd-api-iot-ListActiveViolations-cli"></a>
+Lists the active violations for a given Device Defender security profile\.
 
  **Synopsis:**
 
@@ -782,7 +460,7 @@ aws iot  list-active-violations \
 |  Name |  Type |  Description | 
 | --- | --- | --- | 
 |  thingName |  string  length\- max:128 min:1  pattern: \[a\-zA\-Z0\-9:\_\-\]\+  |  The name of the thing whose active violations are listed\. | 
-|  securityProfileName |  string  length\- max:128 min:1  pattern: \[a\-zA\-Z0\-9:\_\-\]\+  |  The name of the security profile for which violations are listed\. | 
+|  securityProfileName |  string  length\- max:128 min:1  pattern: \[a\-zA\-Z0\-9:\_\-\]\+  |  The name of the Device Defender security profile for which violations are listed\. | 
 |  nextToken |  string |  The token for the next set of results\. | 
 |  maxResults |  integer  range\- max:250 min:1  |  The maximum number of results to return at one time\. | 
 
@@ -809,7 +487,12 @@ Output:
               "integer"
             ]
           },
-          "durationSeconds": "integer"
+          "durationSeconds": "integer",
+          "consecutiveDatapointsToAlarm": "integer",
+          "consecutiveDatapointsToClear": "integer",
+          "statisticalThreshold": {
+            "statistic": "string"
+          }
         }
       },
       "lastViolationValue": {
@@ -838,16 +521,20 @@ Output:
 |  violationId |  string  length\- max:128 min:1  pattern: \[a\-zA\-Z0\-9\-\]\+  |  The ID of the active violation\. | 
 |  thingName |  string  length\- max:128 min:1  pattern: \[a\-zA\-Z0\-9:\_\-\]\+  |  The name of the thing responsible for the active violation\. | 
 |  securityProfileName |  string  length\- max:128 min:1  pattern: \[a\-zA\-Z0\-9:\_\-\]\+  |  The security profile whose behavior is in violation\. | 
-|  behavior |  Behavior |  The behavior which is being violated\. | 
+|  behavior |  Behavior |  The behavior that is being violated\. | 
 |  name |  string  length\- max:128 min:1  pattern: \[a\-zA\-Z0\-9:\_\-\]\+  |  The name you have given to the behavior\. | 
 |  metric |  string |  What is measured by the behavior\. | 
 |  criteria |  BehaviorCriteria |  The criteria that determine if a device is behaving normally in regard to the `metric`\.  | 
-|  comparisonOperator |  string |  The operator that relates the thing measured \(`metric`\) to the criteria \(`value`\)\.  enum: less\-than | less\-than\-equals | greater\-than | greater\-than\-equals | in\-cidr\-set | not\-in\-cidr\-set | in\-port\-set | not\-in\-port\-set  | 
+|  comparisonOperator |  string |  The operator that relates the thing measured \(`metric`\) to the criteria \(containing a `value` or `statisticalThreshold`\)\.  enum: less\-than \| less\-than\-equals \| greater\-than \| greater\-than\-equals \| in\-cidr\-set \| not\-in\-cidr\-set \| in\-port\-set \| not\-in\-port\-set  | 
 |  value |  MetricValue |  The value to be compared with the `metric`\. | 
 |  count |  long  range\- min:0  |  If the `comparisonOperator` calls for a numeric value, use this to specify that numeric value to be compared with the `metric`\.  | 
 |  cidrs |  list  member: Cidr  |  If the `comparisonOperator` calls for a set of CIDRs, use this to specify that set to be compared with the `metric`\.  | 
 |  ports |  list  member: Port  |  If the `comparisonOperator` calls for a set of ports, use this to specify that set to be compared with the `metric`\.  | 
-|  durationSeconds |  integer |  Use this to specify the period of time over which the behavior is evaluated, for those criteria which have a time dimension \(for example, `NUM_MESSAGES_SENT`\)\.  | 
+|  durationSeconds |  integer |  Use this to specify the time duration over which the behavior is evaluated, for those criteria that have a time dimension \(for example, `NUM_MESSAGES_SENT`\)\. For a `statisticalThreshhold` metric comparison, measurements from all devices are accumulated over this time duration before being used to calculate percentiles, and later, measurements from an individual device are also accumulated over this time duration before being given a percentile rank\.  | 
+|  consecutiveDatapointsToAlarm |  integer  range\- max:10 min:1  |  If a device is in violation of the behavior for the specified number of consecutive datapoints, an alarm occurs\. If not specified, the default is 1\.  | 
+|  consecutiveDatapointsToClear |  integer  range\- max:10 min:1  |  If an alarm has occurred and the offending device is no longer in violation of the behavior for the specified number of consecutive datapoints, the alarm is cleared\. If not specified, the default is 1\.  | 
+|  statisticalThreshold |  StatisticalThreshold |  A statistical ranking \(percentile\) which indicates a threshold value by which a behavior is determined to be in compliance or in violation of the behavior\.  | 
+|  statistic |  string  pattern: \(p0\|p0\.1\|p0\.01\|p1\|p10\|p50\|p90\|p99\|p99\.9\|p99\.99\|p100\)  |  The percentile which resolves to a threshold value by which compliance with a behavior is determined\. Metrics are collected over the specified period \(`durationSeconds`\) from all reporting devices in your account and statistical ranks are calculated\. Then, the measurements from a device are collected over the same period\. If the accumulated measurements from the device fall above or below \(`comparisonOperator`\) the value associated with the percentile specified, then the device is considered to be in compliance with the behavior, otherwise a violation occurs\.  | 
 |  lastViolationValue |  MetricValue |  The value of the metric \(the measurement\) which caused the most recent violation\. | 
 |  count |  long  range\- min:0  |  If the `comparisonOperator` calls for a numeric value, use this to specify that numeric value to be compared with the `metric`\.  | 
 |  cidrs |  list  member: Cidr  |  If the `comparisonOperator` calls for a set of CIDRs, use this to specify that set to be compared with the `metric`\.  | 
@@ -859,7 +546,7 @@ Output:
  **Errors:**
 
 `InvalidRequestException`  
-The contents of the request were invalid\. For example, this code is returned when an UpdateJobExecution request contains invalid status details\. The message contains details about the error\.
+The contents of the request were invalid\.
 
 `ResourceNotFoundException`  
 The specified resource does not exist\.
@@ -870,65 +557,9 @@ The rate exceeds the limit\.
 `InternalFailureException`  
 An unexpected error has occurred\.
 
-## ListSecurityProfiles<a name="dd-api-iot-ListSecurityProfiles-doc"></a>
+## ListSecurityProfiles<a name="dd-api-iot-ListSecurityProfiles"></a>
 
-Lists the security profiles you have created\. You can use filters to list only those security profiles associated with a thing group or only those associated with your account\.
-
-### https<a name="dd-api-iot-ListSecurityProfiles-https"></a>
-
- **Request syntax:**
-
-```
-GET /security-profiles?maxResults=maxResults&nextToken=nextToken 
-```
-
-
-**URI Request Parameters:**  
-
-|  Name |  Type |  Req? |  Description | 
-| --- | --- | --- | --- | 
-|  nextToken |  NextToken |  no |  The token for the next set of results\. | 
-|  maxResults |  MaxResults |  no |  The maximum number of results to return at one time\. | 
-
- **Response syntax:**
-
-```
-Content-type: application/json
-
-{
-  "securityProfileIdentifiers": [
-    {
-      "name": "string",
-      "arn": "string"
-    }
-  ],
-  "nextToken": "string"
-}
-```
-
-
-**Response Body Parameters:**  
-
-|  Name |  Type |  Req? |  Description | 
-| --- | --- | --- | --- | 
-|  securityProfileIdentifiers |   SecurityProfileIdentifiers  |  no |  A list of security profile identifiers \(names and ARNs\)\. | 
-|  nextToken |   NextToken  |  no |  A token that can be used to retrieve the next set of results, or `null` if there are no additional results\.  | 
-
- **Errors:**
-
-`InvalidRequestException`  
-The contents of the request were invalid\. For example, this code is returned when an UpdateJobExecution request contains invalid status details\. The message contains details about the error\.  
-HTTP response code: 400
-
-`ThrottlingException`  
-The rate exceeds the limit\.  
-HTTP response code: 429
-
-`InternalFailureException`  
-An unexpected error has occurred\.  
-HTTP response code: 500
-
-### cli<a name="dd-api-iot-ListSecurityProfiles-cli"></a>
+Lists the Device Defender security profiles you have created\. You can use filters to list only those security profiles associated with a thing group or only those associated with your account\.
 
  **Synopsis:**
 
@@ -984,7 +615,7 @@ Output:
  **Errors:**
 
 `InvalidRequestException`  
-The contents of the request were invalid\. For example, this code is returned when an UpdateJobExecution request contains invalid status details\. The message contains details about the error\.
+The contents of the request were invalid\.
 
 `ThrottlingException`  
 The rate exceeds the limit\.
@@ -992,76 +623,9 @@ The rate exceeds the limit\.
 `InternalFailureException`  
 An unexpected error has occurred\.
 
-## ListSecurityProfilesForTarget<a name="dd-api-iot-ListSecurityProfilesForTarget-doc"></a>
+## ListSecurityProfilesForTarget<a name="dd-api-iot-ListSecurityProfilesForTarget"></a>
 
-Lists the security profiles attached to a target \(thing group\)\.
-
-### https<a name="dd-api-iot-ListSecurityProfilesForTarget-https"></a>
-
- **Request syntax:**
-
-```
-GET /security-profiles-for-target?maxResults=maxResults&nextToken=nextToken&recursive=recursive&securityProfileTargetArn=securityProfileTargetArn 
-```
-
-
-**URI Request Parameters:**  
-
-|  Name |  Type |  Req? |  Description | 
-| --- | --- | --- | --- | 
-|  nextToken |  NextToken |  no |  The token for the next set of results\. | 
-|  maxResults |  MaxResults |  no |  The maximum number of results to return at one time\. | 
-|  recursive |  Recursive |  no |  If true, return child groups as well\. | 
-|  securityProfileTargetArn |  SecurityProfileTargetArn |  yes |  The ARN of the target \(thing group\) whose attached security profiles you want to get\. | 
-
- **Response syntax:**
-
-```
-Content-type: application/json
-
-{
-  "securityProfileTargetMappings": [
-    {
-      "securityProfileIdentifier": {
-        "name": "string",
-        "arn": "string"
-      },
-      "target": {
-        "arn": "string"
-      }
-    }
-  ],
-  "nextToken": "string"
-}
-```
-
-
-**Response Body Parameters:**  
-
-|  Name |  Type |  Req? |  Description | 
-| --- | --- | --- | --- | 
-|  securityProfileTargetMappings |   SecurityProfileTargetMappings  |  no |  A list of security profiles and their associated targets\. | 
-|  nextToken |   NextToken  |  no |  A token that can be used to retrieve the next set of results, or `null` if there are no additional results\.  | 
-
- **Errors:**
-
-`InvalidRequestException`  
-The contents of the request were invalid\. For example, this code is returned when an UpdateJobExecution request contains invalid status details\. The message contains details about the error\.  
-HTTP response code: 400
-
-`ThrottlingException`  
-The rate exceeds the limit\.  
-HTTP response code: 429
-
-`InternalFailureException`  
-An unexpected error has occurred\.  
-HTTP response code: 500
-
-`ResourceNotFoundException`  
-The specified resource does not exist\.  
-HTTP response code: 404
-
-### cli<a name="dd-api-iot-ListSecurityProfilesForTarget-cli"></a>
+Lists the Device Defender security profiles attached to a target \(thing group\)\.
 
  **Synopsis:**
 
@@ -1131,7 +695,7 @@ Output:
  **Errors:**
 
 `InvalidRequestException`  
-The contents of the request were invalid\. For example, this code is returned when an UpdateJobExecution request contains invalid status details\. The message contains details about the error\.
+The contents of the request were invalid\.
 
 `ThrottlingException`  
 The rate exceeds the limit\.
@@ -1142,69 +706,9 @@ An unexpected error has occurred\.
 `ResourceNotFoundException`  
 The specified resource does not exist\.
 
-## ListTargetsForSecurityProfile<a name="dd-api-iot-ListTargetsForSecurityProfile-doc"></a>
+## ListTargetsForSecurityProfile<a name="dd-api-iot-ListTargetsForSecurityProfile"></a>
 
-Lists the targets \(thing groups\) associated with a given security profile\.
-
-### https<a name="dd-api-iot-ListTargetsForSecurityProfile-https"></a>
-
- **Request syntax:**
-
-```
-GET /security-profiles/securityProfileName/targets?maxResults=maxResults&nextToken=nextToken 
-```
-
-
-**URI Request Parameters:**  
-
-|  Name |  Type |  Req? |  Description | 
-| --- | --- | --- | --- | 
-|  securityProfileName |  SecurityProfileName |  yes |  The security profile\. | 
-|  nextToken |  NextToken |  no |  The token for the next set of results\. | 
-|  maxResults |  MaxResults |  no |  The maximum number of results to return at one time\. | 
-
- **Response syntax:**
-
-```
-Content-type: application/json
-
-{
-  "securityProfileTargets": [
-    {
-      "arn": "string"
-    }
-  ],
-  "nextToken": "string"
-}
-```
-
-
-**Response Body Parameters:**  
-
-|  Name |  Type |  Req? |  Description | 
-| --- | --- | --- | --- | 
-|  securityProfileTargets |   SecurityProfileTargets  |  no |  The thing groups to which the security profile is attached\. | 
-|  nextToken |   NextToken  |  no |  A token that can be used to retrieve the next set of results, or `null` if there are no additional results\.  | 
-
- **Errors:**
-
-`InvalidRequestException`  
-The contents of the request were invalid\. For example, this code is returned when an UpdateJobExecution request contains invalid status details\. The message contains details about the error\.  
-HTTP response code: 400
-
-`ResourceNotFoundException`  
-The specified resource does not exist\.  
-HTTP response code: 404
-
-`ThrottlingException`  
-The rate exceeds the limit\.  
-HTTP response code: 429
-
-`InternalFailureException`  
-An unexpected error has occurred\.  
-HTTP response code: 500
-
-### cli<a name="dd-api-iot-ListTargetsForSecurityProfile-cli"></a>
+Lists the targets \(thing groups\) associated with a given Device Defender security profile\.
 
  **Synopsis:**
 
@@ -1261,7 +765,7 @@ Output:
  **Errors:**
 
 `InvalidRequestException`  
-The contents of the request were invalid\. For example, this code is returned when an UpdateJobExecution request contains invalid status details\. The message contains details about the error\.
+The contents of the request were invalid\.
 
 `ResourceNotFoundException`  
 The specified resource does not exist\.
@@ -1272,98 +776,9 @@ The rate exceeds the limit\.
 `InternalFailureException`  
 An unexpected error has occurred\.
 
-## ListViolationEvents<a name="dd-api-iot-ListViolationEvents-doc"></a>
+## ListViolationEvents<a name="dd-api-iot-ListViolationEvents"></a>
 
-Lists the security profile violations discovered during the given time period\. You can use filters to limit the results to those alerts issued for a particular security profile, behavior or thing \(device\)\.
-
-### https<a name="dd-api-iot-ListViolationEvents-https"></a>
-
- **Request syntax:**
-
-```
-GET /violation-events?maxResults=maxResults&nextToken=nextToken&startTime=startTime&endTime=endTime&thingName=thingName&securityProfileName=securityProfileName 
-```
-
-
-**URI Request Parameters:**  
-
-|  Name |  Type |  Req? |  Description | 
-| --- | --- | --- | --- | 
-|  startTime |  Timestamp |  yes |  The start time for the alerts to be listed\. | 
-|  endTime |  Timestamp |  yes |  The end time for the alerts to be listed\. | 
-|  thingName |  ThingName |  no |  A filter to limit results to those alerts caused by the specified thing\. | 
-|  securityProfileName |  SecurityProfileName |  no |  A filter to limit results to those alerts generated by the specified security profile\. | 
-|  nextToken |  NextToken |  no |  The token for the next set of results\. | 
-|  maxResults |  MaxResults |  no |  The maximum number of results to return at one time\. | 
-
- **Response syntax:**
-
-```
-Content-type: application/json
-
-{
-  "violationEvents": [
-    {
-      "violationId": "string",
-      "thingName": "string",
-      "securityProfileName": "string",
-      "behavior": {
-        "name": "string",
-        "metric": "string",
-        "criteria": {
-          "comparisonOperator": "string",
-          "value": {
-            "count": "long",
-            "cidrs": [
-              "string"
-            ],
-            "ports": [
-              "integer"
-            ]
-          },
-          "durationSeconds": "integer"
-        }
-      },
-      "metricValue": {
-        "count": "long",
-        "cidrs": [
-          "string"
-        ],
-        "ports": [
-          "integer"
-        ]
-      },
-      "violationEventType": "string",
-      "violationEventTime": "timestamp"
-    }
-  ],
-  "nextToken": "string"
-}
-```
-
-
-**Response Body Parameters:**  
-
-|  Name |  Type |  Req? |  Description | 
-| --- | --- | --- | --- | 
-|  violationEvents |   ViolationEvents  |  no |  The security profile violation alerts issued for this account during the given time frame, potentially filtered by security profile, behavior violated, or thing \(device\) violating\.  | 
-|  nextToken |   NextToken  |  no |  A token that can be used to retrieve the next set of results, or `null` if there are no additional results\.  | 
-
- **Errors:**
-
-`InvalidRequestException`  
-The contents of the request were invalid\. For example, this code is returned when an UpdateJobExecution request contains invalid status details\. The message contains details about the error\.  
-HTTP response code: 400
-
-`ThrottlingException`  
-The rate exceeds the limit\.  
-HTTP response code: 429
-
-`InternalFailureException`  
-An unexpected error has occurred\.  
-HTTP response code: 500
-
-### cli<a name="dd-api-iot-ListViolationEvents-cli"></a>
+Lists the Device Defender security profile violations discovered during the given time period\. You can use filters to limit the results to those alerts issued for a particular security profile, behavior or thing \(device\)\.
 
  **Synopsis:**
 
@@ -1427,7 +842,12 @@ Output:
               "integer"
             ]
           },
-          "durationSeconds": "integer"
+          "durationSeconds": "integer",
+          "consecutiveDatapointsToAlarm": "integer",
+          "consecutiveDatapointsToClear": "integer",
+          "statisticalThreshold": {
+            "statistic": "string"
+          }
         }
       },
       "metricValue": {
@@ -1456,28 +876,32 @@ Output:
 |  violationId |  string  length\- max:128 min:1  pattern: \[a\-zA\-Z0\-9\-\]\+  |  The ID of the violation event\. | 
 |  thingName |  string  length\- max:128 min:1  pattern: \[a\-zA\-Z0\-9:\_\-\]\+  |  The name of the thing responsible for the violation event\. | 
 |  securityProfileName |  string  length\- max:128 min:1  pattern: \[a\-zA\-Z0\-9:\_\-\]\+  |  The name of the security profile whose behavior was violated\. | 
-|  behavior |  Behavior |  The behavior which was violated\. | 
+|  behavior |  Behavior |  The behavior that was violated\. | 
 |  name |  string  length\- max:128 min:1  pattern: \[a\-zA\-Z0\-9:\_\-\]\+  |  The name you have given to the behavior\. | 
 |  metric |  string |  What is measured by the behavior\. | 
 |  criteria |  BehaviorCriteria |  The criteria that determine if a device is behaving normally in regard to the `metric`\.  | 
-|  comparisonOperator |  string |  The operator that relates the thing measured \(`metric`\) to the criteria \(`value`\)\.  enum: less\-than | less\-than\-equals | greater\-than | greater\-than\-equals | in\-cidr\-set | not\-in\-cidr\-set | in\-port\-set | not\-in\-port\-set  | 
+|  comparisonOperator |  string |  The operator that relates the thing measured \(`metric`\) to the criteria \(containing a `value` or `statisticalThreshold`\)\.  enum: less\-than \| less\-than\-equals \| greater\-than \| greater\-than\-equals \| in\-cidr\-set \| not\-in\-cidr\-set \| in\-port\-set \| not\-in\-port\-set  | 
 |  value |  MetricValue |  The value to be compared with the `metric`\. | 
 |  count |  long  range\- min:0  |  If the `comparisonOperator` calls for a numeric value, use this to specify that numeric value to be compared with the `metric`\.  | 
 |  cidrs |  list  member: Cidr  |  If the `comparisonOperator` calls for a set of CIDRs, use this to specify that set to be compared with the `metric`\.  | 
 |  ports |  list  member: Port  |  If the `comparisonOperator` calls for a set of ports, use this to specify that set to be compared with the `metric`\.  | 
-|  durationSeconds |  integer |  Use this to specify the period of time over which the behavior is evaluated, for those criteria which have a time dimension \(for example, `NUM_MESSAGES_SENT`\)\.  | 
+|  durationSeconds |  integer |  Use this to specify the time duration over which the behavior is evaluated, for those criteria that have a time dimension \(for example, `NUM_MESSAGES_SENT`\)\. For a `statisticalThreshhold` metric comparison, measurements from all devices are accumulated over this time duration before being used to calculate percentiles, and later, measurements from an individual device are also accumulated over this time duration before being given a percentile rank\.  | 
+|  consecutiveDatapointsToAlarm |  integer  range\- max:10 min:1  |  If a device is in violation of the behavior for the specified number of consecutive datapoints, an alarm occurs\. If not specified, the default is 1\.  | 
+|  consecutiveDatapointsToClear |  integer  range\- max:10 min:1  |  If an alarm has occurred and the offending device is no longer in violation of the behavior for the specified number of consecutive datapoints, the alarm is cleared\. If not specified, the default is 1\.  | 
+|  statisticalThreshold |  StatisticalThreshold |  A statistical ranking \(percentile\) that indicates a threshold value by which a behavior is determined to be in compliance or in violation of the behavior\.  | 
+|  statistic |  string  pattern: \(p0\|p0\.1\|p0\.01\|p1\|p10\|p50\|p90\|p99\|p99\.9\|p99\.99\|p100\)  |  The percentile that resolves to a threshold value by which compliance with a behavior is determined\. Metrics are collected over the specified period \(`durationSeconds`\) from all reporting devices in your account and statistical ranks are calculated\. Then, the measurements from a device are collected over the same period\. If the accumulated measurements from the device fall above or below \(`comparisonOperator`\) the value associated with the percentile specified, then the device is considered to be in compliance with the behavior, otherwise a violation occurs\.  | 
 |  metricValue |  MetricValue |  The value of the metric \(the measurement\)\. | 
 |  count |  long  range\- min:0  |  If the `comparisonOperator` calls for a numeric value, use this to specify that numeric value to be compared with the `metric`\.  | 
 |  cidrs |  list  member: Cidr  |  If the `comparisonOperator` calls for a set of CIDRs, use this to specify that set to be compared with the `metric`\.  | 
 |  ports |  list  member: Port  |  If the `comparisonOperator` calls for a set of ports, use this to specify that set to be compared with the `metric`\.  | 
-|  violationEventType |  string |  The type of violation event\.  enum: in\-alarm | alarm\-cleared | alarm\-invalidated  | 
+|  violationEventType |  string |  The type of violation event\.  enum: in\-alarm \| alarm\-cleared \| alarm\-invalidated  | 
 |  violationEventTime |  timestamp |  The time the violation event occurred\. | 
 |  nextToken |  string |  A token that can be used to retrieve the next set of results, or `null` if there are no additional results\.  | 
 
  **Errors:**
 
 `InvalidRequestException`  
-The contents of the request were invalid\. For example, this code is returned when an UpdateJobExecution request contains invalid status details\. The message contains details about the error\.
+The contents of the request were invalid\.
 
 `ThrottlingException`  
 The rate exceeds the limit\.
@@ -1485,142 +909,9 @@ The rate exceeds the limit\.
 `InternalFailureException`  
 An unexpected error has occurred\.
 
-## UpdateSecurityProfile<a name="dd-api-iot-UpdateSecurityProfile-doc"></a>
+## UpdateSecurityProfile<a name="dd-api-iot-UpdateSecurityProfile"></a>
 
-Updates an security profile\.
-
-### https<a name="dd-api-iot-UpdateSecurityProfile-https"></a>
-
- **Request syntax:**
-
-```
-PATCH /security-profiles/securityProfileName?expectedVersion=expectedVersion 
-Content-type: application/json
-
-{
-  "securityProfileDescription": "string",
-  "behaviors": [
-    {
-      "name": "string",
-      "metric": "string",
-      "criteria": {
-        "comparisonOperator": "string",
-        "value": {
-          "count": "long",
-          "cidrs": [
-            "string"
-          ],
-          "ports": [
-            "integer"
-          ]
-        },
-        "durationSeconds": "integer"
-      }
-    }
-  ],
-  "alertTargets": {
-    "string": {
-      "alertTargetArn": "string",
-      "roleArn": "string"
-    }
-  }
-}
-```
-
-
-**URI Request Parameters:**  
-
-|  Name |  Type |  Req? |  Description | 
-| --- | --- | --- | --- | 
-|  securityProfileName |  SecurityProfileName |  yes |  The name of the security profile you want to update\. | 
-|  expectedVersion |  OptionalVersion |  no |  The expected version of the security profile\. A new version is generated whenever the security profile is updated\. If you specify a value that is different than the actual version, a `VersionConflictException` is thrown\.  | 
-
-
-**Request Body Parameters:**  
-
-|  Name |  Type |  Req? |  Description | 
-| --- | --- | --- | --- | 
-|  securityProfileDescription |  SecurityProfileDescription |  no |  A description of the security profile\. | 
-|  behaviors |  Behaviors |  no |  Specifies the behaviors that, when violated by a device \(thing\), cause an alert\. | 
-|  alertTargets |  AlertTargets |  no |  Where the alerts are sent\. \(Alerts are always sent to the console\.\) | 
-
- **Response syntax:**
-
-```
-Content-type: application/json
-
-{
-  "securityProfileName": "string",
-  "securityProfileArn": "string",
-  "securityProfileDescription": "string",
-  "behaviors": [
-    {
-      "name": "string",
-      "metric": "string",
-      "criteria": {
-        "comparisonOperator": "string",
-        "value": {
-          "count": "long",
-          "cidrs": [
-            "string"
-          ],
-          "ports": [
-            "integer"
-          ]
-        },
-        "durationSeconds": "integer"
-      }
-    }
-  ],
-  "alertTargets": {
-    "string": {
-      "alertTargetArn": "string",
-      "roleArn": "string"
-    }
-  },
-  "version": "long",
-  "creationDate": "timestamp",
-  "lastModifiedDate": "timestamp"
-}
-```
-
-
-**Response Body Parameters:**  
-
-|  Name |  Type |  Req? |  Description | 
-| --- | --- | --- | --- | 
-|  securityProfileName |   SecurityProfileName  |  no |  The name of the security profile that was updated\. | 
-|  securityProfileArn |   SecurityProfileArn  |  no |  The ARN of the security profile that was updated\. | 
-|  securityProfileDescription |   SecurityProfileDescription  |  no |  The description of the security profile\. | 
-|  behaviors |   Behaviors  |  no |  Specifies the behaviors that, when violated by a device \(thing\), cause an alert\. | 
-|  alertTargets |   AlertTargets  |  no |  Where the alerts are sent\. \(Alerts are always sent to the console\.\) | 
-|  version |   Version  |  no |  The updated version of the security profile\. | 
-|  creationDate |   Timestamp  |  no |  The time the security profile was created\. | 
-|  lastModifiedDate |   Timestamp  |  no |  The time the security profile was last modified\. | 
-
- **Errors:**
-
-`InvalidRequestException`  
-The contents of the request were invalid\. For example, this code is returned when an UpdateJobExecution request contains invalid status details\. The message contains details about the error\.  
-HTTP response code: 400
-
-`ResourceNotFoundException`  
-The specified resource does not exist\.  
-HTTP response code: 404
-
-`VersionConflictException`  
-An exception thrown when the version of a thing passed to a command is different than the version specified with the \-\-version parameter\.  
-HTTP response code: 409
-
-`ThrottlingException`  
-The rate exceeds the limit\.  
-HTTP response code: 429
-
-`InternalFailureException`  
-An unexpected error has occurred\.  
-HTTP response code: 500
-
-### cli<a name="dd-api-iot-UpdateSecurityProfile-cli"></a>
+Updates a Device Defender security profile\.
 
  **Synopsis:**
 
@@ -1630,6 +921,10 @@ aws iot  update-security-profile \
     [--security-profile-description <value>] \
     [--behaviors <value>] \
     [--alert-targets <value>] \
+    [--additional-metrics-to-retain <value>] \
+    [--delete-behaviors | --no-delete-behaviors] \
+    [--delete-alert-targets | --no-delete-alert-targets] \
+    [--delete-additional-metrics-to-retain | --no-delete-additional-metrics-to-retain] \
     [--expected-version <value>]  \
     [--cli-input-json <value>] \
     [--generate-cli-skeleton]
@@ -1656,7 +951,12 @@ aws iot  update-security-profile \
             "integer"
           ]
         },
-        "durationSeconds": "integer"
+        "durationSeconds": "integer",
+        "consecutiveDatapointsToAlarm": "integer",
+        "consecutiveDatapointsToClear": "integer",
+        "statisticalThreshold": {
+          "statistic": "string"
+        }
       }
     }
   ],
@@ -1666,6 +966,12 @@ aws iot  update-security-profile \
       "roleArn": "string"
     }
   },
+  "additionalMetricsToRetain": [
+    "string"
+  ],
+  "deleteBehaviors": "boolean",
+  "deleteAlertTargets": "boolean",
+  "deleteAdditionalMetricsToRetain": "boolean",
   "expectedVersion": "long"
 }
 ```
@@ -1681,16 +987,24 @@ aws iot  update-security-profile \
 |  name |  string  length\- max:128 min:1  pattern: \[a\-zA\-Z0\-9:\_\-\]\+  |  The name you have given to the behavior\. | 
 |  metric |  string |  What is measured by the behavior\. | 
 |  criteria |  BehaviorCriteria |  The criteria that determine if a device is behaving normally in regard to the `metric`\.  | 
-|  comparisonOperator |  string |  The operator that relates the thing measured \(`metric`\) to the criteria \(`value`\)\.  enum: less\-than | less\-than\-equals | greater\-than | greater\-than\-equals | in\-cidr\-set | not\-in\-cidr\-set | in\-port\-set | not\-in\-port\-set  | 
+|  comparisonOperator |  string |  The operator that relates the thing measured \(`metric`\) to the criteria \(containing a `value` or `statisticalThreshold`\)\.  enum: less\-than \| less\-than\-equals \| greater\-than \| greater\-than\-equals \| in\-cidr\-set \| not\-in\-cidr\-set \| in\-port\-set \| not\-in\-port\-set  | 
 |  value |  MetricValue |  The value to be compared with the `metric`\. | 
 |  count |  long  range\- min:0  |  If the `comparisonOperator` calls for a numeric value, use this to specify that numeric value to be compared with the `metric`\.  | 
 |  cidrs |  list  member: Cidr  |  If the `comparisonOperator` calls for a set of CIDRs, use this to specify that set to be compared with the `metric`\.  | 
 |  ports |  list  member: Port  |  If the `comparisonOperator` calls for a set of ports, use this to specify that set to be compared with the `metric`\.  | 
-|  durationSeconds |  integer |  Use this to specify the period of time over which the behavior is evaluated, for those criteria which have a time dimension \(for example, `NUM_MESSAGES_SENT`\)\.  | 
+|  durationSeconds |  integer |  Use this to specify the time duration over which the behavior is evaluated, for those criteria that have a time dimension \(for example, `NUM_MESSAGES_SENT`\)\. For a `statisticalThreshhold` metric comparison, measurements from all devices are accumulated over this time duration before being used to calculate percentiles, and later, measurements from an individual device are also accumulated over this time duration before being given a percentile rank\.  | 
+|  consecutiveDatapointsToAlarm |  integer  range\- max:10 min:1  |  If a device is in violation of the behavior for the specified number of consecutive datapoints, an alarm occurs\. If not specified, the default is 1\.  | 
+|  consecutiveDatapointsToClear |  integer  range\- max:10 min:1  |  If an alarm has occurred and the offending device is no longer in violation of the behavior for the specified number of consecutive datapoints, the alarm is cleared\. If not specified, the default is 1\.  | 
+|  statisticalThreshold |  StatisticalThreshold |  A statistical ranking \(percentile\) that indicates a threshold value by which a behavior is determined to be in compliance or in violation of the behavior\.  | 
+|  statistic |  string  pattern: \(p0\|p0\.1\|p0\.01\|p1\|p10\|p50\|p90\|p99\|p99\.9\|p99\.99\|p100\)  |  The percentile that resolves to a threshold value by which compliance with a behavior is determined\. Metrics are collected over the specified period \(`durationSeconds`\) from all reporting devices in your account and statistical ranks are calculated\. Then, the measurements from a device are collected over the same period\. If the accumulated measurements from the device fall above or below \(`comparisonOperator`\) the value associated with the percentile specified, then the device is considered to be in compliance with the behavior, otherwise a violation occurs\.  | 
 |  alertTargets |  map |  Where the alerts are sent\. \(Alerts are always sent to the console\.\) | 
 |  alertTargetArn |  string |  The ARN of the notification target to which alerts are sent\. | 
 |  roleArn |  string  length\- max:2048 min:20  |  The ARN of the role that grants permission to send alerts to the notification target\.  | 
-|  expectedVersion |  long |  The expected version of the security profile\. A new version is generated whenever the security profile is updated\. If you specify a value that is different than the actual version, a `VersionConflictException` is thrown\.  | 
+|  additionalMetricsToRetain |  list  member: BehaviorMetric  |  A list of metrics whose data is retained \(stored\)\. By default, data is retained for any metric used in the profile's `behaviors` but it is also retained for any metric specified here\.  | 
+|  deleteBehaviors |  boolean |  If true, delete all `behaviors` defined for this security profile\. If any `behaviors` are defined in the current invocation an exception occurs\.  | 
+|  deleteAlertTargets |  boolean |  If true, delete all `alertTargets` defined for this security profile\. If any `alertTargets` are defined in the current invocation an exception occurs\.  | 
+|  deleteAdditionalMetricsToRetain |  boolean |  If true, delete all `additionalMetricsToRetain` defined for this security profile\. If any `additionalMetricsToRetain` are defined in the current invocation an exception occurs\.  | 
+|  expectedVersion |  long |  The expected version of the security profile\. A new version is generated whenever the security profile is updated\. If you specify a value that is different from the actual version, a `VersionConflictException` is thrown\.  | 
 
 Output:
 
@@ -1714,7 +1028,12 @@ Output:
             "integer"
           ]
         },
-        "durationSeconds": "integer"
+        "durationSeconds": "integer",
+        "consecutiveDatapointsToAlarm": "integer",
+        "consecutiveDatapointsToClear": "integer",
+        "statisticalThreshold": {
+          "statistic": "string"
+        }
       }
     }
   ],
@@ -1724,6 +1043,9 @@ Output:
       "roleArn": "string"
     }
   },
+  "additionalMetricsToRetain": [
+    "string"
+  ],
   "version": "long",
   "creationDate": "timestamp",
   "lastModifiedDate": "timestamp"
@@ -1742,15 +1064,20 @@ Output:
 |  name |  string  length\- max:128 min:1  pattern: \[a\-zA\-Z0\-9:\_\-\]\+  |  The name you have given to the behavior\. | 
 |  metric |  string |  What is measured by the behavior\. | 
 |  criteria |  BehaviorCriteria |  The criteria that determine if a device is behaving normally in regard to the `metric`\.  | 
-|  comparisonOperator |  string |  The operator that relates the thing measured \(`metric`\) to the criteria \(`value`\)\.  enum: less\-than | less\-than\-equals | greater\-than | greater\-than\-equals | in\-cidr\-set | not\-in\-cidr\-set | in\-port\-set | not\-in\-port\-set  | 
+|  comparisonOperator |  string |  The operator that relates the thing measured \(`metric`\) to the criteria \(containing a `value` or `statisticalThreshold`\)\.  enum: less\-than \| less\-than\-equals \| greater\-than \| greater\-than\-equals \| in\-cidr\-set \| not\-in\-cidr\-set \| in\-port\-set \| not\-in\-port\-set  | 
 |  value |  MetricValue |  The value to be compared with the `metric`\. | 
 |  count |  long  range\- min:0  |  If the `comparisonOperator` calls for a numeric value, use this to specify that numeric value to be compared with the `metric`\.  | 
 |  cidrs |  list  member: Cidr  |  If the `comparisonOperator` calls for a set of CIDRs, use this to specify that set to be compared with the `metric`\.  | 
 |  ports |  list  member: Port  |  If the `comparisonOperator` calls for a set of ports, use this to specify that set to be compared with the `metric`\.  | 
-|  durationSeconds |  integer |  Use this to specify the period of time over which the behavior is evaluated, for those criteria which have a time dimension \(for example, `NUM_MESSAGES_SENT`\)\.  | 
+|  durationSeconds |  integer |  Use this to specify the time duration over which the behavior is evaluated, for those criteria that have a time dimension \(for example, `NUM_MESSAGES_SENT`\)\. For a `statisticalThreshhold` metric comparison, measurements from all devices are accumulated over this time duration before being used to calculate percentiles, and later, measurements from an individual device are also accumulated over this time duration before being given a percentile rank\.  | 
+|  consecutiveDatapointsToAlarm |  integer  range\- max:10 min:1  |  If a device is in violation of the behavior for the specified number of consecutive datapoints, an alarm occurs\. If not specified, the default is 1\.  | 
+|  consecutiveDatapointsToClear |  integer  range\- max:10 min:1  |  If an alarm has occurred and the offending device is no longer in violation of the behavior for the specified number of consecutive datapoints, the alarm is cleared\. If not specified, the default is 1\.  | 
+|  statisticalThreshold |  StatisticalThreshold |  A statistical ranking \(percentile\) that indicates a threshold value by which a behavior is determined to be in compliance or in violation of the behavior\.  | 
+|  statistic |  string  pattern: \(p0\|p0\.1\|p0\.01\|p1\|p10\|p50\|p90\|p99\|p99\.9\|p99\.99\|p100\)  |  The percentile that resolves to a threshold value by which compliance with a behavior is determined\. Metrics are collected over the specified period \(`durationSeconds`\) from all reporting devices in your account and statistical ranks are calculated\. Then, the measurements from a device are collected over the same period\. If the accumulated measurements from the device fall above or below \(`comparisonOperator`\) the value associated with the percentile specified, then the device is considered to be in compliance with the behavior\. Otherwise, a violation occurs\.  | 
 |  alertTargets |  map |  Where the alerts are sent\. \(Alerts are always sent to the console\.\) | 
 |  alertTargetArn |  string |  The ARN of the notification target to which alerts are sent\. | 
 |  roleArn |  string  length\- max:2048 min:20  |  The ARN of the role that grants permission to send alerts to the notification target\.  | 
+|  additionalMetricsToRetain |  list  member: BehaviorMetric  |  A list of metrics whose data is retained \(stored\)\. By default, data is retained for any metric used in the security profile's `behaviors`, but it is also retained for any metric specified here\.  | 
 |  version |  long |  The updated version of the security profile\. | 
 |  creationDate |  timestamp |  The time the security profile was created\. | 
 |  lastModifiedDate |  timestamp |  The time the security profile was last modified\. | 
@@ -1758,13 +1085,13 @@ Output:
  **Errors:**
 
 `InvalidRequestException`  
-The contents of the request were invalid\. For example, this code is returned when an UpdateJobExecution request contains invalid status details\. The message contains details about the error\.
+The contents of the request were invalid\.
 
 `ResourceNotFoundException`  
 The specified resource does not exist\.
 
 `VersionConflictException`  
-An exception thrown when the version of a thing passed to a command is different than the version specified with the \-\-version parameter\.
+An exception thrown when the version of a thing passed to a command is different from the version specified with the `--version` parameter\.
 
 `ThrottlingException`  
 The rate exceeds the limit\.
@@ -1772,86 +1099,9 @@ The rate exceeds the limit\.
 `InternalFailureException`  
 An unexpected error has occurred\.
 
-## ValidateSecurityProfileBehaviors<a name="dd-api-iot-ValidateSecurityProfileBehaviors-doc"></a>
+## ValidateSecurityProfileBehaviors<a name="dd-api-iot-ValidateSecurityProfileBehaviors"></a>
 
-Validates an security profile behaviors specification\.
-
-### https<a name="dd-api-iot-ValidateSecurityProfileBehaviors-https"></a>
-
- **Request syntax:**
-
-```
-POST /security-profile-behaviors/validate 
-Content-type: application/json
-
-{
-  "behaviors": [
-    {
-      "name": "string",
-      "metric": "string",
-      "criteria": {
-        "comparisonOperator": "string",
-        "value": {
-          "count": "long",
-          "cidrs": [
-            "string"
-          ],
-          "ports": [
-            "integer"
-          ]
-        },
-        "durationSeconds": "integer"
-      }
-    }
-  ]
-}
-```
-
-
-**Request Body Parameters:**  
-
-|  Name |  Type |  Req? |  Description | 
-| --- | --- | --- | --- | 
-|  behaviors |  Behaviors |  yes |  Specifies the behaviors that, when violated by a device \(thing\), cause an alert\. | 
-
- **Response syntax:**
-
-```
-Content-type: application/json
-
-{
-  "valid": "boolean",
-  "validationErrors": [
-    {
-      "errorMessage": "string"
-    }
-  ]
-}
-```
-
-
-**Response Body Parameters:**  
-
-|  Name |  Type |  Req? |  Description | 
-| --- | --- | --- | --- | 
-|  valid |   Valid  |  no |  True if the behaviors were valid\. | 
-|  validationErrors |   ValidationErrors  |  no |  The list of any errors found in the behaviors\. | 
-
- **Errors:**
-
-`InvalidRequestException`  
-The contents of the request were invalid\. For example, this code is returned when an UpdateJobExecution request contains invalid status details\. The message contains details about the error\.  
-HTTP response code: 400
-
-`ThrottlingException`  
-The rate exceeds the limit\.  
-HTTP response code: 429
-
-`InternalFailureException`  
-An unexpected error has occurred\.  
-HTTP response code: 500
-
-### cli<a name="dd-api-iot-ValidateSecurityProfileBehaviors-cli"></a>
+Validates a Device Defender security profile behaviors specification\.
 
  **Synopsis:**
 
@@ -1881,7 +1131,12 @@ aws iot  validate-security-profile-behaviors \
             "integer"
           ]
         },
-        "durationSeconds": "integer"
+        "durationSeconds": "integer",
+        "consecutiveDatapointsToAlarm": "integer",
+        "consecutiveDatapointsToClear": "integer",
+        "statisticalThreshold": {
+          "statistic": "string"
+        }
       }
     }
   ]
@@ -1897,12 +1152,16 @@ aws iot  validate-security-profile-behaviors \
 |  name |  string  length\- max:128 min:1  pattern: \[a\-zA\-Z0\-9:\_\-\]\+  |  The name you have given to the behavior\. | 
 |  metric |  string |  What is measured by the behavior\. | 
 |  criteria |  BehaviorCriteria |  The criteria that determine if a device is behaving normally in regard to the `metric`\.  | 
-|  comparisonOperator |  string |  The operator that relates the thing measured \(`metric`\) to the criteria \(`value`\)\.  enum: less\-than | less\-than\-equals | greater\-than | greater\-than\-equals | in\-cidr\-set | not\-in\-cidr\-set | in\-port\-set | not\-in\-port\-set  | 
+|  comparisonOperator |  string |  The operator that relates the thing measured \(`metric`\) to the criteria \(containing a `value` or `statisticalThreshold`\)\.  enum: less\-than \| less\-than\-equals \| greater\-than \| greater\-than\-equals \| in\-cidr\-set \| not\-in\-cidr\-set \| in\-port\-set \| not\-in\-port\-set  | 
 |  value |  MetricValue |  The value to be compared with the `metric`\. | 
 |  count |  long  range\- min:0  |  If the `comparisonOperator` calls for a numeric value, use this to specify that numeric value to be compared with the `metric`\.  | 
 |  cidrs |  list  member: Cidr  |  If the `comparisonOperator` calls for a set of CIDRs, use this to specify that set to be compared with the `metric`\.  | 
 |  ports |  list  member: Port  |  If the `comparisonOperator` calls for a set of ports, use this to specify that set to be compared with the `metric`\.  | 
-|  durationSeconds |  integer |  Use this to specify the period of time over which the behavior is evaluated, for those criteria which have a time dimension \(for example, `NUM_MESSAGES_SENT`\)\.  | 
+|  durationSeconds |  integer |  Use this to specify the time duration over which the behavior is evaluated, for those criteria that have a time dimension \(for example, `NUM_MESSAGES_SENT`\)\. For a `statisticalThreshhold` metric comparison, measurements from all devices are accumulated over this time duration before being used to calculate percentiles, and later, measurements from an individual device are also accumulated over this time duration before being given a percentile rank\.  | 
+|  consecutiveDatapointsToAlarm |  integer  range\- max:10 min:1  |  If a device is in violation of the behavior for the specified number of consecutive datapoints, an alarm occurs\. If not specified, the default is 1\.  | 
+|  consecutiveDatapointsToClear |  integer  range\- max:10 min:1  |  If an alarm has occurred and the offending device is no longer in violation of the behavior for the specified number of consecutive datapoints, the alarm is cleared\. If not specified, the default is 1\.  | 
+|  statisticalThreshold |  StatisticalThreshold |  A statistical ranking \(percentile\) that indicates a threshold value by which a behavior is determined to be in compliance or in violation of the behavior\.  | 
+|  statistic |  string  pattern: \(p0\|p0\.1\|p0\.01\|p1\|p10\|p50\|p90\|p99\|p99\.9\|p99\.99\|p100\)  |  The percentile that resolves to a threshold value by which compliance with a behavior is determined\. Metrics are collected over the specified period \(`durationSeconds`\) from all reporting devices in your account and statistical ranks are calculated\. Then, the measurements from a device are collected over the same period\. If the accumulated measurements from the device fall above or below \(`comparisonOperator`\) the value associated with the percentile specified, then the device is considered to be in compliance with the behavior\. Otherwise, a violation occurs\.  | 
 
 Output:
 
@@ -1929,7 +1188,7 @@ Output:
  **Errors:**
 
 `InvalidRequestException`  
-The contents of the request were invalid\. For example, this code is returned when an UpdateJobExecution request contains invalid status details\. The message contains details about the error\.
+The contents of the request were invalid\.
 
 `ThrottlingException`  
 The rate exceeds the limit\.

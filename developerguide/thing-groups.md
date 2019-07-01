@@ -3,45 +3,27 @@
 Thing groups allow you to manage several things at once by categorizing them into groups\. Groups can also contain groups — you can build a hierarchy of groups\. You can attach a policy to a parent group and it will be inherited by its child groups, and by all of the things in the group and in its child groups as well\. This makes control of permissions easy for large numbers of things\.
 
 Here are the things you can do with thing groups:
-
 + Create, describe or delete a group\.
-
 + Add a thing to a group, or to more than one group\.
-
 + Remove a thing from a group\.
-
 + List the groups you have created\.
-
 + List all child groups of a group \(its direct and indirect descendants\.\)
-
 + List the things in a group, including all the things in its child groups\.
-
 + List all ancestor groups of a group \(its direct and indirect parents\.\)
-
 + Add, delete or update the attributes of a group\. \(Attributes are name\-value pairs you can use to store information about a group\.\)
-
 + Attach or detach a policy to or from a group\.
-
 + List the policies attached to a group\.
-
 + List the policies inherited by a thing \(by virtue of the policies attached to its group, or one of its parent groups\.\)
-
-+ Configure logging options for things in a group \(see \.\) 
-
-+ Create jobs that will be sent to and executed on every thing in a group and its child groups \(see \.\)
++ Configure logging options for things in a group \(see [Configure AWS IoT Logging](cloud-watch-logs.md#configure-logging)\.\) 
++ Create jobs that will be sent to and executed on every thing in a group and its child groups \(see [Jobs](iot-jobs.md)\.\)
 
 Here are some limitations of thing groups:
-
++ A group can have at most one direct parent\.
 + If a group will be a child of another group, this must be specified at the time it is created\.
-
 + You can't change a group's parent later\. \(So be sure to plan your group hierarchy and create a parent group before creating any child groups it will contain\.
-
 + You cannot add a thing to more than than 10 groups\.
-
 + You cannot add a thing to more than one group in the same hierarchy\. \(In other words, you cannot add a thing to two groups which share a common parent\.\)
-
 + You cannot rename a group\.
-
 + Thing group names can't contain international characters, such as û, é and ñ\.
 
 Attaching and detaching policies to groups can enhance the security of your AWS IoT operations in a number of significant ways\. The per device method of attaching a policy to a certificate, which is then attached to a thing, is time consuming and makes it difficult to quickly update or change policies across a fleet of devices\. Having a policy attached to the thing's group saves steps when it is time to rotate the certificates on a thing\. And policies are dynamically applied to things when they change group membership, so you aren't required to re\-create a complex set of permissions each time a device changes membership in a group\.
@@ -63,6 +45,9 @@ The CreateThingGroup command returns a response that contains the thing group, i
     "thingGroupArn": "arn:aws:iot:us-west-2:123456789012:thinggroup/LightBulbs"
 }
 ```
+
+**Note**  
+We do not recommend using personally identifiable information in your thing group names\.
 
 Here is an example that specifies a parent of the thing group when it is created:
 
@@ -120,7 +105,7 @@ The DescribeThingGroup command returns information about the specified group:
     "thingGroupProperties": {
         "attributePayload": {
             "attributes": {
-                "brightness": "3400 lumens"
+                "brightness": "3400_lumens"
             },
         },
         "thingGroupDescription": "string"
@@ -140,7 +125,7 @@ The AddThingToThingGroup command does not produce any output\.
 
 **Important**  
 You can add a thing to a maximum of 10 groups\. But you cannot add a thing to more than one group in the same hierarchy\. \(In other words, you cannot add a thing to two groups which share a common parent\.\)  
-If a thing belongs to 10 thing groups, and one or more of those groups is a dynamic thing group, you can use the [overrideDynamicGroups](http://alpha-docs-aws.amazon.com/iot/latest/apireference/API_AddThingToThingGroup.html#iot-AddThingToThingGroup-request-overrideDynamicGroups) flag to make static groups take priority over dynamic groups\.
+If a thing belongs to 10 thing groups, and one or more of those groups is a dynamic thing group, you can use the [overrideDynamicGroups](https://docs.aws.amazon.com/iot/latest/apireference/API_AddThingToThingGroup.html#iot-AddThingToThingGroup-request-overrideDynamicGroups) flag to make static groups take priority over dynamic groups\.
 
 ## Remove a Thing from a Thing Group<a name="remove-thing-from-group"></a>
 
@@ -358,7 +343,10 @@ The AttachPolicy command does not produce any output
 **Important**  
 You can attach a maximum number of two policies to a group\.
 
-The `--target` parameter can be a thing group ARN \(as above\), a certificate ARN, or an Amazon Cognito Identity\. For more information about policies, certificates and authentication, see \.
+**Note**  
+We do not recommend using personally identifiable information in your policy names\.
+
+The `--target` parameter can be a thing group ARN \(as above\), a certificate ARN, or an Amazon Cognito Identity\. For more information about policies, certificates and authentication, see [Security and Identity for AWS IoT ](iot-security-identity.md)\.
 
 ## Detach a Policy from a Thing Group<a name="group-detach-policy"></a>
 
@@ -446,14 +434,14 @@ The GetEffectivePolicies command returns a list of policies:
 You can use the TestAuthorization command to test whether an MQTT action is allowed for a thing:
 
 ```
-$ aws iot test-authorization \
-  --principal "arn:aws:iot:us-east-1:123456789012:cert/a0c01f5835079de0a7514643d68ef8414ab739a1e94ee4162977b02b12842847" \
-  --auth-infos "[ \"actionType": \"PUBLISH\", \"resources\": [ \"arn:aws:iot:us-east-1:123456789012:topic/iotButton/G030JF053216F1BS\" ] ]"
+aws iot test-authorization \
+    --principal "arn:aws:iot:us-east-1:123456789012:cert/a0c01f5835079de0a7514643d68ef8414ab739a1e94ee4162977b02b12842847" \
+    --auth-infos "{\"actionType\": \"PUBLISH\", \"resources\": [ \"arn:aws:iot:us-east-1:123456789012:topic/my/topic\"]}"
 ```
 
 Use the `--principal` parameter to specify the ARN of the certificate attached to the thing\. If using Amazon Cognito Identity authentication, specify a Cognito Identity as the `--principal` or use the `--cognito-identity-pool-id` parameter, or both\. \(If you specify only the `--cognito-identity-pool-id` then the policies associated with that identity pool's role for unauthenticated users are considered\. If you use both, the policies associated with that identity pool's role for authenticated users are considered\.
 
-Specify one or more MQTT actions you want to test by listing sets of resources and action types following the `--auth-infos` parameter\. The `actionType` field should contain "PUBLISH", "SUBSCRIBE", "RECEIVE", or "CONNECT"\. The `resources` field should contain a list of resource ARNs\. See  for more information\.
+Specify one or more MQTT actions you want to test by listing sets of resources and action types following the `--auth-infos` parameter\. The `actionType` field should contain "PUBLISH", "SUBSCRIBE", "RECEIVE", or "CONNECT"\. The `resources` field should contain a list of resource ARNs\. See [AWS IoT Policies](iot-policies.md) for more information\.
 
 You can test the effects of adding policies by specifying them with the `--policy-names-to-add` parameter\. Or you can test the effects of removing policies by them with the `--policy-names-to-skip` parameter\.
 

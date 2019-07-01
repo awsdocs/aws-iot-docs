@@ -10,7 +10,7 @@ SQL statement: SELECT * FROM 'a/b'
 Outgoing payload: {"color":"red", "temperature":50}
 ```
 
-If the payload is a JSON object, you can reference keys in the object\. Your outgoing payload will contain the key\-value pair\. For example:
+If the payload is a JSON object, you can reference keys in the object\. Your outgoing payload contains the key\-value pair\. For example:
 
 ```
 Incoming payload published on topic 'a/b': {"color":"red", "temperature":50}
@@ -37,9 +37,9 @@ Outgoing payload: {"my_color":"red","farenheit":50}
 You can select multiple items including '\*' to add items to the incoming payload\. For example:
 
 ```
-Incoming payload published on topic 'a/b': {"color":"red", "temperature:50}
+Incoming payload published on topic 'a/b': {"color":"red", "temperature":50}
 SQL: SELECT *, 15 as speed FROM 'a/b'
-Outgoing payload: {"color":"red", "temperature:50, speed:15}"
+Outgoing payload: {"color":"red", "temperature":50, "speed":15}
 ```
 
 You can use the `"VALUE"` keyword to produce outgoing payloads that are not JSON objects\. You may only select one item\. For example:
@@ -72,7 +72,7 @@ When the message payload should be handled as raw binary data \(rather than a JS
 
 These rules must be followed to use \* to refer to the message payload as raw binary data:
 
-1. The SQL statement and templates must not refer to JSON names, other than \*\. 
+1. The SQL statement and templates must not refer to JSON names other than \*\. 
 
 1. The SELECT statement must have \* as the only item, or must have only functions, for example:
 
@@ -92,25 +92,25 @@ The following `SELECT` clause can be used with binary payloads because it doesn'
 SELECT * FROM 'a/b'
 ```
 
-The following `SELECT` can not be used with binary payloads because it refers to `device_type` in the WHERE clause\.
+The following `SELECT` cannot be used with binary payloads because it refers to `device_type` in the WHERE clause\.
 
 ```
 SELECT * FROM 'a/b' WHERE device_type = 'thermostat'
 ```
 
-The following `SELECT` can not be used with binary payloads because it violates rule \#2\.
+The following `SELECT` cannot be used with binary payloads because it violates rule \#2\.
 
 ```
 SELECT *, timestamp() AS timestamp FROM 'a/b'
 ```
 
-The following `SELECT` can be used with binary payloads because it doesn't violate either rule \#1 or \#2\.
+The following `SELECT` can be used with binary payloads because it doesn't violate rule \#1 or rule \#2\.
 
 ```
 SELECT * FROM 'a/b' WHERE timestamp() % 12 = 0
 ```
 
-The following AWS IoT rule can not be used with payloads because it violates rule \#1\.
+The following AWS IoT rule cannot be used with payloads because it violates rule \#1\.
 
 ```
 {

@@ -1,42 +1,68 @@
 # Detect<a name="device-defender-detect"></a>
 
- Detect allows you to identify unusual behavior that may indicate a compromised device by monitoring the behavior of your devices\. Using a combination of cloud\-side metrics \(from AWS IoT\) and device\-side metrics \(from agents you install on your devices\) you can detect changes in connection patterns, devices that communicate to unauthorized or unrecognized endpoints, and changes in inbound and outbound device traffic patterns\. You create security profiles, which contain definitions of expected device behaviors, and assign them to a group of devices or to all the devices in your fleet\. Detect uses these security profiles to detect anomalies and send alerts via AWS CloudWatch metrics and AWS SNS notifications\. 
+AWS IoT Device Defender Detect allows you to identify unusual behavior that might indicate a compromised device by monitoring the behavior of your devices\. Using a combination of cloud\-side metrics \(from AWS IoT\) and device\-side metrics \(from agents you install on your devices\) you can detect changes in connection patterns, devices that communicate to unauthorized or unrecognized endpoints, and changes in inbound and outbound device traffic patterns\. You create security profiles, which contain definitions of expected device behaviors, and assign them to a group of devices or to all the devices in your fleet\. AWS IoT Device Defender Detect uses these security profiles to detect anomalies and send alerts through Amazon CloudWatch metrics and Amazon Simple Notification Service notifications\. 
 
- Detect is capable of detecting a variety of security issues frequently found in connected devices: 
-
+AWS IoT Device Defender Detect is capable of detecting security issues frequently found in connected devices: 
 + Traffic from a device to a known malicious IP address or to an unauthorized endpoint that indicates a potential malicious command and control channel\.
-
 + Anomalous traffic, such as a spike in outbound traffic, that indicates a device is participating in a DDoS\.
-
 + Devices with remote management interfaces and ports that are remotely accessible\.
-
 + A spike in the rate of messages sent to your account— so that a rogue device does not end up costing you in per\-message charges\.Use cases:
 
 Measure attack surface  
-You can use Detect to measure the attack surface of your devices\. For example, you can identify devices with service ports which are often the target of attack campaigns \(telnet service running on ports 23/2323, SSH service running on port 22, HTTP/S services running on ports 80/443/8080/8081\)\. While these service ports might have legitimate reasons to be used on the devices, they are also usually part of the attack surface for adversaries and carry associated risks\. After Detect alerts you to the attack surface, you can either decide to minimize it \(by eliminating unused network services\) or run additional assessments to identify security weaknesses \(for example, telnet configured with common, default or weak passwords\)\. 
+You can use AWS IoT Device Defender Detect to measure the attack surface of your devices\. For example, you can identify devices with service ports that are often the target of attack campaigns \(telnet service running on ports 23/2323, SSH service running on port 22, HTTP/S services running on ports 80/443/8080/8081\)\. While these service ports might have legitimate reasons to be used on the devices, they are also usually part of the attack surface for adversaries and carry associated risks\. After Detect alerts you to the attack surface, you can either decide to minimize it \(by eliminating unused network services\) or run additional assessments to identify security weaknesses \(for example, telnet configured with common, default, or weak passwords\)\. 
 
 Detect device behavioral anomalies with possible security root causes  
-You can use Detect to alert you to unexpected device behavioral metrics \(the number of open ports, number of connections, an unexpected open port, connections to unexpected IP addresses\) which might indicate a security breach\. For example, a higher than expected number of TCP connections may indicate a device is being used for a DDoS attack\. A process listening on a port other than the one you expect may indicate a backdoor installed on a device for remote control\. You can use Detect to probe the health of your device fleets and verify your security assumptions \(for example, no device is listening on port 23 or 2323\)\. 
+You can use AWS IoT Device Defender Detect to alert you to unexpected device behavioral metrics \(the number of open ports, number of connections, an unexpected open port, connections to unexpected IP addresses\) that might indicate a security breach\. For example, a higher than expected number of TCP connections might indicate a device is being used for a DDoS attack\. A process listening on a port other than the one you expect might indicate a backdoor installed on a device for remote control\. You can use Detect to probe the health of your device fleets and verify your security assumptions \(for example, no device is listening on port 23 or 2323\)\. 
 
-Detect a mis\-configured device  
-A spike in the number or size of messages sent from a device to your account might indicate a mis\-configured device\. Such a device could increase your per\-message charges\. Similarly, a device with many authorization failures could require a re\-configured policy\.
+Detect an incorrectly configured device  
+A spike in the number or size of messages sent from a device to your account might indicate an incorrectly configured device\. Such a device could increase your per\-message charges\. Similarly, a device with many authorization failures could require a reconfigured policy\.
 
 ## Concepts<a name="detect-concepts"></a>
 
 metric  
- Detect uses metrics to detect anomalous behavior\. Detect compares the reported value of a metric with the expected value you provide\. These metrics can be taken from two sources: \(a\) cloud\-side metrics, and \(b\) device\-side metrics:   
-\(a\) Abnormal behavior on the AWS IoT network is detected by using cloud\-side metrics such as the number of authorization failures, or the number or size of messages a device sends or receives via AWS IoT\.   
-\(b\) Detect can also collect, aggregate, and monitor metrics data generated by AWS IoT devices, for example, the ports a device is listening on, the number of bytes or packets sent, or the device's TCP connections\.  
-You can use Detect with cloud\-side metrics alone\. To use device\-side metrics you must first deploy an agent on your AWS IoT connected devices or device gateways to collect the metrics and send them to AWS IoT\. See [Sending Metrics from Devices](#DetectMetricsMessages) 
+AWS IoT Device Defender Detect uses metrics to detect anomalous behavior\. Detect compares the reported value of a metric with the expected value you provide\. These metrics can be taken from two sources: cloud\-side metrics and device\-side metrics:   
+Abnormal behavior on the AWS IoT network is detected by using cloud\-side metrics such as the number of authorization failures, or the number or size of messages a device sends or receives via AWS IoT\.   
+AWS IoT Device Defender Detect can also collect, aggregate, and monitor metrics data generated by AWS IoT devices \(for example, the ports a device is listening on, the number of bytes or packets sent, or the device's TCP connections\)\.  
+You can use AWS IoT Device Defender Detect with cloud\-side metrics alone\. To use device\-side metrics, you must first deploy the AWS IoT SDK on your AWS IoT connected devices or device gateways to collect the metrics and send them to AWS IoT\. See [Sending Metrics from Devices](#DetectMetricsMessages)\. 
 
 security profile  
-A security profile defines anomalous behaviors for a group of devices \(a [ thing group](https://docs.aws.amazon.com/iot/latest/developerguide/thing-groups.html)\) or for all devices in your account, and specifies what actions to take when an anomaly is detected\. You can create a security profile and associate it with a group of devices using the console or with AWS IoT API commands\. Detect starts recording security\-related data and uses the behaviors defined in the security profile to detect anomalies in the behavior of the devices\. 
+A security profile defines anomalous behaviors for a group of devices \(a [thing group](https://docs.aws.amazon.com/iot/latest/developerguide/thing-groups.html)\) or for all devices in your account, and specifies which actions to take when an anomaly is detected\. You can use the AWS IoT console or API commands to create a security profile and associate it with a group of devices\. AWS IoT Device Defender Detect starts recording security\-related data and uses the behaviors defined in the security profile to detect anomalies in the behavior of the devices\. 
 
 behavior  
-A behavior tells Detect how to recognize when a device is doing something abnormal\. Each behavior consists of a name, a metric, an operator, a value, and, in some cases, a time period \(duration\)\. Any device action that does not match a defined behavior statement triggers an alert\. 
+A behavior tells AWS IoT Device Defender Detect how to recognize when a device is doing something abnormal\. Each behavior consists of a name, a metric, an operator, and a value or a statistical threshold\. For some metrics, a time period \(`durationSeconds`\) is also required\. Any device action that does not match a defined behavior statement triggers an alert\. 
 
 alert  
-When an anomaly is detected, an alert notification can be sent via a CloudWatch metric or an SNS notification\. An alert notification is also displayed in the AWS IoT CDM console along with additional information about the alert, and a history of alerts for the device\. An alert is also sent when a monitored device stops exhibiting anomalous behavior or when it had been causing an alert but stops reporting for an extended period\.
+When an anomaly is detected, an alert notification can be sent through a CloudWatch metric \(see [AWS IoT Metrics](metrics_dimensions.md#aws-iot-metrics)\) or an SNS notification\. An alert notification is also displayed in the AWS IoT CDM console along with information about the alert, and a history of alerts for the device\. An alert is also sent when a monitored device stops exhibiting anomalous behavior or when it had been causing an alert but stops reporting for an extended period\.
+
+## Behaviors<a name="detect-behaviors"></a>
+
+A security profile contains a set of behaviors\. Each behavior contains a metric that specifies the normal behavior for a group of devices or for all devices in your account\. \(See [Metrics](#detect-metrics) and [ CreateSecurityProfile](DetectCommands.md#dd-api-iot-CreateSecurityProfile)\.\) 
+
+The following describes some of the fields that are used in the definition of a `behavior`:
+
+`name`  
+The name for the behavior\.
+
+`metric`  
+The name of the metric used \(that is, what is measured by the behavior\)\.
+
+`criteria`  
+The criteria that determine if a device is behaving normally in regard to the `metric`\.    
+`comparisonOperator`  
+The operator that relates the thing measured \(`metric`\) to the criteria \(`value` or `statisticalThreshold`\)\.  
+Possible values are: "less\-than", "less\-than\-equals", "greater\-than", "greater\-than\-equals", "in\-cidr\-set", "not\-in\-cidr\-set", "in\-port\-set", and "not\-in\-port\-set"\. Not all operators are valid for every metric\. Operators for CIDR sets and ports are only for use with metrics involving such entities\.  
+`value`  
+The value to be compared with the `metric`\. Depending on the type of metric, this should contain a `count` \(a value\), `cidrs` \(a list of CIDRs\), or `ports` \(a list of ports\)\.  
+`statisticalThreshold`  
+The statistical threshold by which a behavior violation is determined\. This field contains a `statistic` field that has the following possible values: "p0", "p0\.1", "p0\.01", "p1", "p10", "p50", "p90", "p99", "p99\.9", "p99\.99", or "p100"\.  
+This `statistic` indicates a percentile\. It resolves to a value by which compliance with the behavior is determined\. Metrics are collected one or more times over the specified duration \(`durationSeconds`\) from all reporting devices associated with this security profile, and percentiles are calculated based on that data\. After that, measurements are collected for a device and accumulated over the same duration\. If the resulting value for the device falls above or below \(`comparisonOperator`\) the value associated with the percentile specified, then the device is considered to be in compliance with the behavior, otherwise it is in violation of the behavior\.  
+A [percentile](https://en.wikipedia.org/wiki/Percentile) indicates the percentage of all the measurements considered that fall below the associated value\. For example, if the value associated with "p90" \(the 90th percentile\) is 123, then 90% of all measurements were below 123\.  
+`durationSeconds`  
+Use this to specify the period of time over which the behavior is evaluated, for those criteria that have a time dimension \(for example, `NUM_MESSAGES_SENT`\)\. For a `statisticalThreshhold` metric comparison, this is the time period during which measurements are collected for all devices to determine the `statisticalThreshold` values, and then for each device to determine how its behavior ranks in comparison\.  
+`consecutiveDatapointsToAlarm`  
+If a device is in violation of the behavior for the specified number of consecutive datapoints, an alarm occurs\. If not specified, the default is 1\. \(This differs from the AWS IoT console where a value of 3 is presented by default, but can be overridden\.\)  
+`consecutiveDatapointsToClear`  
+If an alert has occurred and the offending device is no longer in violation of the behavior for the specified number of consecutive datapoints, the alarm is cleared\. If not specified, the default is 1\. \(This differs from the AWS IoT console where a value of 3 is presented by default, but can be overridden\.\)
 
 ## Metrics<a name="detect-metrics"></a>
 
@@ -52,7 +78,7 @@ Use this metric to specify the maximum or minimum size \(in bytes\) of each mess
 
 Source: cloud\-side
 
-Operators: less\-than | less\-than\-equals | greater\-than | greater\-than\-equals 
+Operators: less\-than \| less\-than\-equals \| greater\-than \| greater\-than\-equals 
 
 Value: a non\-negative integer 
 
@@ -68,10 +94,32 @@ Example:
     "comparisonOperator": "less-than",
     "value": {
       "count": 1024
-    }
+    },
+    "consecutiveDatapointsToAlarm": 3,
+    "consecutiveDatapointsToClear": 3
   }
 }
 ```
+
+Example using a `statisticalThreshold`:
+
+```
+{
+  "name": "Large Message Size",
+  "metric": "aws:message-byte-size",
+  "criteria": {
+    "comparisonOperator": "less-than",
+    "statisticalThreshold": {
+      "statistic": "p90"
+    },
+    "durationSeconds": 300,
+    "consecutiveDatapointsToAlarm": 3,
+    "consecutiveDatapointsToClear": 3
+  }
+}
+```
+
+An alarm occurs for a device if, during three consecutive five\-minute periods, it transmits messages whose cumulative size is more than that measured for 90 percent of all other devices reporting for this security profile behavior\.
 
 ------
 
@@ -85,11 +133,11 @@ The number of messages received or sent by a device during a given time period\.
 ------
 #### [ more info \(2\) ]
 
-Use this metric to specify the maximum or minimum number of messages that may be sent or received between AWS IoT and each device in a given period of time\.
+Use this metric to specify the maximum or minimum number of messages that can be sent or received between AWS IoT and each device in a given period of time\.
 
 Source: cloud\-side
 
-Operators: less\-than | less\-than\-equals | greater\-than | greater\-than\-equals 
+Operators: less\-than \| less\-than\-equals \| greater\-than \| greater\-than\-equals 
 
 Value: a non\-negative integer 
 
@@ -108,7 +156,27 @@ Example:
     "value": {
       "count": 50
     },
-    "durationSeconds": "300"
+    "durationSeconds": 300,
+    "consecutiveDatapointsToAlarm": 2,
+    "consecutiveDatapointsToClear": 2
+  }
+}
+```
+
+Example using a `statisticalThreshold`:
+
+```
+{
+  "name": "Out bound message rate",
+  "metric": "aws:num-messages-sent",
+  "criteria": {
+    "comparisonOperator": "less-than",
+    "statisticalThreshold": {
+      "statistic": "p99"
+    },
+    "durationSeconds": 300,
+    "consecutiveDatapointsToAlarm": 2,
+    "consecutiveDatapointsToClear": 2
   }
 }
 ```
@@ -125,11 +193,11 @@ The number of outbound bytes from a device during a given time period\.
 ------
 #### [ more info \(3\) ]
 
-Use this metric to specify the maximum or minimum amount of out\-bound traffic that a device should send, measured in bytes in a given period of time\.
+Use this metric to specify the maximum or minimum amount of outbound traffic that a device should send, measured in bytes in a given period of time\.
 
 Source: device\-side
 
-Operators: less\-than | less\-than\-equals | greater\-than | greater\-than\-equals 
+Operators: less\-than \| less\-than\-equals \| greater\-than \| greater\-than\-equals 
 
 Value: a non\-negative integer 
 
@@ -148,7 +216,27 @@ Example:
     "value": {
       "count": 4096
     },
-    "durationSeconds": "300"
+    "durationSeconds": 300,
+    "consecutiveDatapointsToAlarm": 5,
+    "consecutiveDatapointsToClear": 4
+  }
+}
+```
+
+Example using a `statisticalThreshold`:
+
+```
+{
+  "name": "TCP outbound traffic",
+  "metric": "aws:all-bytes-out",
+  "criteria": {
+    "comparisonOperator": "less-than",
+    "statisticalThreshold": {
+      "statistic": "p50"
+    },
+    "durationSeconds": 900,
+    "consecutiveDatapointsToAlarm": 5,
+    "consecutiveDatapointsToClear": 4
   }
 }
 ```
@@ -165,11 +253,11 @@ The number of inbound bytes to a device during a given time period\.
 ------
 #### [ more info \(4\) ]
 
-Use this metric to specify the maximum or minimum amount of in\-bound traffic that a device should receive, measured in bytes in a given period of time\.
+Use this metric to specify the maximum or minimum amount of inbound traffic that a device should receive, measured in bytes in a given period of time\.
 
 Source: device\-side
 
-Operators: less\-than | less\-than\-equals | greater\-than | greater\-than\-equals 
+Operators: less\-than \| less\-than\-equals \| greater\-than \| greater\-than\-equals 
 
 Value: a non\-negative integer 
 
@@ -188,7 +276,27 @@ Example:
     "value": {
       "count": 4096
     },
-    "durationSeconds": "300"
+    "durationSeconds": 300,
+    "consecutiveDatapointsToAlarm": 1,
+    "consecutiveDatapointsToClear": 3
+  }
+}
+```
+
+Example using a `statisticalThreshold`:
+
+```
+{
+  "name": "TCP inbound traffic",
+  "metric": "aws:all-bytes-in",
+  "criteria": {
+    "comparisonOperator": "less-than",
+    "statisticalThreshold": {
+      "statistic": "p90"
+    },
+    "durationSeconds": 300,
+    "consecutiveDatapointsToAlarm": 1,
+    "consecutiveDatapointsToClear": 3
   }
 }
 ```
@@ -209,13 +317,13 @@ Use this metric to specify the maximum or minimum amount of total outbound traff
 
 Source: device\-side
 
-Operators: less\-than | less\-than\-equals | greater\-than | greater\-than\-equals 
+Operators: less\-than \| less\-than\-equals \| greater\-than \| greater\-than\-equals 
 
 Value: a non\-negative integer 
 
 Units: packets 
 
-Duration: a non\-negative integer, valid values are 300, 600, 900, 1800 or 3600 seconds
+Duration: a non\-negative integer\. Valid values are 300, 600, 900, 1800 or 3600 seconds\.
 
 Example:
 
@@ -228,7 +336,27 @@ Example:
     "value": {
       "count": 100
     },
-    "durationSeconds": "300"
+    "durationSeconds": 300,
+    "consecutiveDatapointsToAlarm": 1,
+    "consecutiveDatapointsToClear": 3
+  }
+}
+```
+
+Example using a `statisticalThreshold`:
+
+```
+{
+  "name": "TCP outbound traffic",
+  "metric": "aws:all-packets-out",
+  "criteria": {
+    "comparisonOperator": "less-than",
+    "statisticalThreshold": {
+      "statistic": "p90"
+    },
+    "durationSeconds": 300,
+    "consecutiveDatapointsToAlarm": 1,
+    "consecutiveDatapointsToClear": 3
   }
 }
 ```
@@ -249,13 +377,13 @@ Use this metric to specify the maximum or minimum amount of total inbound traffi
 
 Source: device\-side
 
-Operators: less\-than | less\-than\-equals | greater\-than | greater\-than\-equals 
+Operators: less\-than \| less\-than\-equals \| greater\-than \| greater\-than\-equals 
 
 Value: a non\-negative integer 
 
 Units: packets 
 
-Duration: a non\-negative integer, valid values are 300, 600, 900, 1800 or 3600 seconds
+Duration: a non\-negative integer\. Valid values are 300, 600, 900, 1800 or 3600 seconds\.
 
 Example:
 
@@ -268,7 +396,27 @@ Example:
     "value": {
       "count": 100
     },
-    "durationSeconds": "300"
+    "durationSeconds": 300,
+    "consecutiveDatapointsToAlarm": 2,
+    "consecutiveDatapointsToClear": 1
+  }
+}
+```
+
+Example using a `statisticalThreshold`:
+
+```
+{
+  "name": "TCP inbound traffic",
+  "metric": "aws:all-packets-in",
+  "criteria": {
+    "comparisonOperator": "less-than",
+    "statisticalThreshold": {
+      "statistic": "p90"
+    },
+    "durationSeconds": 300,
+    "consecutiveDatapointsToAlarm": 2,
+    "consecutiveDatapointsToClear": 1
   }
 }
 ```
@@ -285,19 +433,19 @@ The number of authorization failures during a given time period\.
 ------
 #### [ more info \(7\) ]
 
-Use this metric to specify the maximum number of authorization failures allowed for each device in a given period of time\. An authorization failure occurs when a request from a device to AWS IoT is denied, for example, if a device attempts to publish to a topic for which it does not have sufficient permissions\. 
+Use this metric to specify the maximum number of authorization failures allowed for each device in a given period of time\. An authorization failure occurs when a request from a device to AWS IoT is denied \(for example, if a device attempts to publish to a topic for which it does not have sufficient permissions\)\. 
 
 Source: cloud\-side
 
 Unit: failures 
 
-Operators: less\-than | less\-than\-equals | greater\-than | greater\-than\-equals 
+Operators: less\-than \| less\-than\-equals \| greater\-than \| greater\-than\-equals 
 
 Value: a non\-negative integer 
 
 Units: failures 
 
-Duration: a non\-negative integer, valid values are 300, 600, 900, 1800 or 3600 seconds
+Duration: a non\-negative integer\. Valid values are 300, 600, 900, 1800, or 3600 seconds\.
 
 Example:
 
@@ -310,7 +458,27 @@ Example:
     "value": {
       "count": 5
     },
-    "durationSeconds": "300"
+    "durationSeconds": 300,
+    "consecutiveDatapointsToAlarm": 2,
+    "consecutiveDatapointsToClear": 1
+  }
+}
+```
+
+Example using a `statisticalThreshold`:
+
+```
+{
+  "name": "Authorization Failures",
+  "metric": "aws:num-authorization-failures",
+  "criteria": {
+    "comparisonOperator": "less-than",
+    "statisticalThreshold": {
+      "statistic": "p50"
+    },
+    "durationSeconds": 300,
+    "consecutiveDatapointsToAlarm": 2,
+    "consecutiveDatapointsToClear": 1
   }
 }
 ```
@@ -331,7 +499,7 @@ Use this metric to specify a set of whitelisted or blacklisted CIDRs from which 
 
 Source: cloud\-side
 
-Operators: in\-cidr\-set | not\-in\-cidr\-set 
+Operators: in\-cidr\-set \| not\-in\-cidr\-set 
 
 Values: a list of CIDRs
 
@@ -368,7 +536,7 @@ Use this metric to specify a set of whitelisted or blacklisted CIDRs that each d
 
 Source: device\-side
 
-Operators: in\-cidr\-set | not\-in\-cidr\-set 
+Operators: in\-cidr\-set \| not\-in\-cidr\-set 
 
 Values: a list of CIDRs
 
@@ -399,13 +567,13 @@ Example:
 The TCP or UDP ports that the device is listening on\.
 
 ------
-#### [ more info \(11\) ]
+#### [ more info \(10\) ]
 
 Use this metric to specify a set of whitelisted or blacklisted TCP/UDP ports that each device must or must not listen on\.
 
 Source: device\-side
 
-Operators: in\-port\-set | not\-in\-port\-set 
+Operators: in\-port\-set \| not\-in\-port\-set 
 
 Values: a list of ports 
 
@@ -436,13 +604,13 @@ Example:
 The number of TCP or UDP ports the device is listening on\.
 
 ------
-#### [ more info \(12\) ]
+#### [ more info \(11\) ]
 
 Use this metric to specify the maximum or minimum number of TCP or UDP ports that each device should listen on\.
 
 Source: device\-side
 
-Operators: less\-than | less\-than\-equals | greater\-than | greater\-than\-equals 
+Operators: less\-than \| less\-than\-equals \| greater\-than \| greater\-than\-equals 
 
 Value: a non\-negative integer 
 
@@ -458,7 +626,27 @@ Example:
     "comparisonOperator": "less-than-equals",
     "value": {
       "count": 4
-    }
+    },
+    "consecutiveDatapointsToAlarm": 2,
+    "consecutiveDatapointsToClear": 1
+  }
+}
+```
+
+Example using a `statisticalThreshold`:
+
+```
+{
+  "name": "Max TCP Ports",
+  "metric": "aws:num-listening-tcp-ports",
+  "criteria": {
+    "comparisonOperator": "less-than-equals",
+    "statisticalThreshold": {
+      "statistic": "p90"
+    },
+    "durationSeconds": 300,
+    "consecutiveDatapointsToAlarm": 2,
+    "consecutiveDatapointsToClear": 1
   }
 }
 ```
@@ -473,13 +661,13 @@ Example:
 The number of TCP connections for a device\.
 
 ------
-#### [ more info \(13\) ]
+#### [ more info \(12\) ]
 
 Use this metric to specify the maximum or minimum number of active TCP connections that each device should have\. \(All TCP states\) 
 
 Source: device\-side
 
-Operators: less\-than | less\-than\-equals | greater\-than | greater\-than\-equals 
+Operators: less\-than \| less\-than\-equals \| greater\-than \| greater\-than\-equals 
 
 Value: a non\-negative integer 
 
@@ -495,54 +683,227 @@ Example:
     "comparisonOperator": "less-than",
     "value": {
       "count": 3
-    }
+    },
+    "consecutiveDatapointsToAlarm": 3,
+    "consecutiveDatapointsToClear": 3
+  }
+}
+```
+
+Example using a `statisticalThreshold`:
+
+```
+{
+  "name": "TCP Connection Count",
+  "metric": "aws:num-established-tcp-connections",
+  "criteria": {
+    "comparisonOperator": "less-than",
+    "statisticalThreshold": {
+      "statistic": "p90"
+    },
+    "durationSeconds": 900,
+    "consecutiveDatapointsToAlarm": 3,
+    "consecutiveDatapointsToClear": 3
   }
 }
 ```
 
 ------
 
-## How To Use Detect<a name="detect-HowTo"></a>
+ 
 
-1. You can use Detect with just cloud\-side metrics, but if you plan to use device reported metrics, you must first deploy an agent on your AWS IoT connected devices or device gateways\. See [Sending Metrics from Devices](#DetectMetricsMessages)\. 
+------
+#### [ aws:num\-connection\-attempts ]
 
-1. Create a set of behaviors that go in your security profile\. Behaviors contain metrics that specify normal behavior for a group of devices or for all devices in your account\. You can find more information, including examples, in [Metrics](#detect-metrics)\. After you have created a set of behaviors you can validate them with [ ValidateSecurityProfileBehaviors](DetectCommands.md#dd-api-iot-ValidateSecurityProfileBehaviors-doc)\. 
+The number of times a device has attempted to make a connection in a given time period\.
 
-1. Use [ CreateSecurityProfile](DetectCommands.md#dd-api-iot-CreateSecurityProfile-doc) to create a security profile that includes your behaviors\. You can have alerts sent to a target \(an SNS topic\) when a device violates a behavior by using the `alertTargets` parameter\. \(If you do send alerts using SNS be aware that these will count against your account's SNS limit\. It is possible for a large burst of violations to exhaust your capacity\.\) 
+------
+#### [ more info \(13\) ]
 
-1. Use [ AttachSecurityProfile](DetectCommands.md#dd-api-iot-AttachSecurityProfile-doc) to attach the security profile to a group of devices \(a thing group\) or to all the devices in your account\. Detect will begin checking for abnormal behavior and will send alerts if any behavior violations are detected\. 
+Use this metric to specify the maximum or minimum number of connection attempts for each device\. Both successful and unsuccessful attempts are counted\.
 
-   To attach a security profile to a group of devices, you must specify the ARN of the thing group which contains them\. A thing group ARN has the following format: 
+Source: cloud\-side
+
+Operators: less\-than \| less\-than\-equals \| greater\-than \| greater\-than\-equals 
+
+Value: a non\-negative integer 
+
+Units: connection attempts
+
+Duration: a non\-negative integer\. Valid values are 300, 600, 900, 1800, or 3600 seconds\.
+
+Example:
+
+```
+{
+  "name": "Connection Attempts",
+  "metric": "aws:num-connection-attempts",
+  "criteria": {
+    "comparisonOperator": "greater-than",
+    "value": {
+      "count": 5
+    },
+    "durationSeconds": 600,
+    "consecutiveDatapointsToAlarm": 1,
+    "consecutiveDatapointsToClear": 2
+  }
+}
+```
+
+Example using a `statisticalThreshold`:
+
+```
+{
+  "name": "Connection Attempts",
+  "metric": "aws:num-connection-attempts",
+  "criteria": {
+    "comparisonOperator": "greater-than",
+    "statisticalThreshold": {
+      "statistic": "p10"
+    },
+    "durationSeconds": 300,
+    "consecutiveDatapointsToAlarm": 1,
+    "consecutiveDatapointsToClear": 2
+  }
+}
+```
+
+------
+
+ 
+
+------
+#### [ aws:num\-disconnects ]
+
+The number of times a device has disconnected from AWS IoT during a given time period\.
+
+------
+#### [ more info \(14\) ]
+
+Use this metric to specify the maximum or minimum number of times a device has disconnected from AWS IoT during a given time period\.
+
+Source: cloud\-side
+
+Operators: less\-than \| less\-than\-equals \| greater\-than \| greater\-than\-equals 
+
+Value: a non\-negative integer 
+
+Units: disconnects
+
+Duration: a non\-negative integer\. Valid values are 300, 600, 900, 1800, or 3600 seconds\.
+
+Example:
+
+```
+{
+  "name": "Disconnections",
+  "metric": "aws:num-disconnects",
+  "criteria": {
+    "comparisonOperator": "greater-than",
+    "value": {
+      "count": 5
+    },
+    "durationSeconds": 600,
+    "consecutiveDatapointsToAlarm": 1,
+    "consecutiveDatapointsToClear": 2
+  }
+}
+```
+
+Example using a statisticalThreshold:
+
+```
+{
+  "name": "Disconnections",
+  "metric": "aws:num-disconnects",
+  "criteria": {
+    "comparisonOperator": "greater-than",
+    "statisticalThreshold": {
+      "statistic": "p10"
+    },
+    "durationSeconds": 300,
+    "consecutiveDatapointsToAlarm": 1,
+    "consecutiveDatapointsToClear": 2
+  }
+}
+```
+
+------
+
+## Monitoring the Behavior of Unregistered Devices<a name="detect-unregistered-devices"></a>
+
+AWS IoT Device Defender makes it possible to identify unusual behaviors for devices that are not registered in the AWS IoT registry\. You can define security profiles that are specific to one of the following target types:
++ All devices
++ All registered devices \(things in the AWS IoT registry\)
++ All unregistered devices
++ Devices in a thing group
+
+A security profile defines a set of expected behaviors for devices in your account and specifies the actions to take when an anomaly is detected\. Security profiles should be attached to the most specific targets to give you fine\-grained control over which devices are being evaluated against that profile\.
+
+Unregistered devices must provide a consistent MQTT client identifier or thing name \(for devices that report device metrics\) over the device lifetime so all violations and metrics are attributed to the same device\. 
+
+**Important**  
+Messages reported by devices are rejected if the thing name contains control characters or if the thing name is longer than 128 bytes of UTF\-8 encoded characters\.
+
+## How to Use AWS IoT Device Defender Detect<a name="detect-HowTo"></a>
+
+1. You can use AWS IoT Device Defender Detect with just cloud\-side metrics, but if you plan to use device\-reported metrics, you must first deploy the AWS IoT SDK on your AWS IoT connected devices or device gateways\. For more information, see [Sending Metrics from Devices](#DetectMetricsMessages)\. 
+
+1. Consider viewing the metrics that your devices generate before you define behaviors and create alarms\. AWS IoT can collect metrics from your devices so you can first identify usual or unusual behavior for a group of devices, or for all devices in your account\. Use [ CreateSecurityProfile](DetectCommands.md#dd-api-iot-CreateSecurityProfile), but specify only those `additionalMetricsToRetain` in which you are interested\. Do not specify any `behaviors` at this point\. 
+
+   Use the AWS IoT console to look at your device metrics to see what constitutes typical behavior for your devices\.
+
+1. Create a set of behaviors for your security profile\. Behaviors contain metrics that specify normal behavior for a group of devices or for all devices in your account\. For information, including examples, see [Metrics](#detect-metrics)\. After you have created a set of behaviors, you can validate them with [ ValidateSecurityProfileBehaviors](DetectCommands.md#dd-api-iot-ValidateSecurityProfileBehaviors)\. 
+
+1. Use [ CreateSecurityProfile](DetectCommands.md#dd-api-iot-CreateSecurityProfile) to create a security profile that includes your behaviors\. You can use the `alertTargets` parameter to have alerts sent to a target \(an SNS topic\) when a device violates a behavior\. \(If you do send alerts using SNS, be aware that these count against your account's SNS limit\. It is possible for a large burst of violations to exhaust your capacity\.\) You can also use CloudWatch metrics to check for violations\. For more information, see [AWS IoT Metrics](metrics_dimensions.md#aws-iot-metrics)\. 
+
+1. Use [ AttachSecurityProfile](DetectCommands.md#dd-api-iot-AttachSecurityProfile) to attach the security profile to a group of devices \(a thing group\), all registered things in your account, all unregistered things, or all devices\. AWS IoT Device Defender Detect starts checking for abnormal behavior and, if any behavior violations are detected, sends alerts\. You might want to attach a security profile to all unregistered things if, for example, you expect to interact with mobile devices that are not in your account's thing registry\. You can define different sets of behaviors for different groups of devices to meet your needs\.
+
+   To attach a security profile to a group of devices, you must specify the ARN of the thing group that contains them\. A thing group ARN has the following format: 
 
    ```
    arn:aws:iot:<region>:<accountid>:thinggroup/<thing-group-name>
    ```
 
-   To attach a security profile to all of the devices in an account, you must specify an ARN with the following format: 
+   To attach a security profile to all of the registered things in an account \(ignoring unregistered things\), you must specify an ARN with the following format:
+
+   ```
+   arn:aws:iot:<region>:<accountid>:all/registered-things
+   ```
+
+   To attach a security profile to all unregistered things, you must specify an ARN with the following format:
+
+   ```
+   arn:aws:iot:<region>:<accountid>:all/unregistered-things
+   ```
+
+   To attach a security profile to all devices, you must specify an ARN with the following format: 
 
    ```
    arn:aws:iot:<region>:<accountid>:all/things
    ```
 
-1. You can also keep track of violations with [ ListActiveViolations](DetectCommands.md#dd-api-iot-ListActiveViolations-doc) which allows you to see what violations have been detected for a given security profile or target device\.
+1. You can also keep track of violations with [ ListActiveViolations](DetectCommands.md#dd-api-iot-ListActiveViolations), which allows you to see which violations have been detected for a given security profile or target device\.
 
-   Use [ ListViolationEvents](DetectCommands.md#dd-api-iot-ListViolationEvents-doc) to see what violations have been detected during a specified time period\. You can filter these results by a given security profile or device\. 
+   Use [ ListViolationEvents](DetectCommands.md#dd-api-iot-ListViolationEvents) to see which violations have been detected during a specified time period\. You can filter these results by security profile or device\.
 
-1. If you need to review the security profiles you have set up and the devices that are being monitored, use [ ListSecurityProfiles](DetectCommands.md#dd-api-iot-ListSecurityProfiles-doc), [ ListSecurityProfilesForTarget](DetectCommands.md#dd-api-iot-ListSecurityProfilesForTarget-doc), and [ ListTargetsForSecurityProfile](DetectCommands.md#dd-api-iot-ListTargetsForSecurityProfile-doc)\. 
+1. If your devices violate the defined behaviors too often, or not often enough, you should fine\-tune the behavior definitions\. 
 
-   You can get more details about a particular security profile with [ DescribeSecurityProfile](DetectCommands.md#dd-api-iot-DescribeSecurityProfile-doc)\. 
+1. To review the security profiles you have set up and the devices that are being monitored, use [ ListSecurityProfiles](DetectCommands.md#dd-api-iot-ListSecurityProfiles), [ ListSecurityProfilesForTarget](DetectCommands.md#dd-api-iot-ListSecurityProfilesForTarget), and [ ListTargetsForSecurityProfile](DetectCommands.md#dd-api-iot-ListTargetsForSecurityProfile)\. 
 
-1. To make changes to a security profile, use [ UpdateSecurityProfile](DetectCommands.md#dd-api-iot-UpdateSecurityProfile-doc)\. You may detach it from an account or target thing group with [ DetachSecurityProfile](DetectCommands.md#dd-api-iot-DetachSecurityProfile-doc) or delete a security profile with [ DeleteSecurityProfile](DetectCommands.md#dd-api-iot-DeleteSecurityProfile-doc)\. 
+   Use [ DescribeSecurityProfile](DetectCommands.md#dd-api-iot-DescribeSecurityProfile) to get more details about a security profile\. 
+
+1. To make changes to a security profile, use [ UpdateSecurityProfile](DetectCommands.md#dd-api-iot-UpdateSecurityProfile)\. Use [ DetachSecurityProfile](DetectCommands.md#dd-api-iot-DetachSecurityProfile) to detach a security profile from an account or target thing group\. Use [ DeleteSecurityProfile](DetectCommands.md#dd-api-iot-DeleteSecurityProfile) to delete a security profile entirely\. 
 
 ## Permissions<a name="device-defender-detect-permissions"></a>
 
-This section contains information on how to set up the AWS IAM roles and policies required to manage Detect\. For more information on AWS IAM, see the [AWS Identity and Access Management User Guide](https://docs.aws.amazon.com/IAM/latest/UserGuide/introduction.html)\.
+This section contains information about how to set up the IAM roles and policies required to manage AWS IoT Device Defender Detect\. For more information, see the [AWS Identity and Access Management User Guide](https://docs.aws.amazon.com/IAM/latest/UserGuide/introduction.html)\.
 
-### Give Detect permission to publish alerts to an SNS topic\.<a name="device-defender-detect-permissions-publish"></a>
+### Give AWS IoT Device Defender Detect Permission to Publish Alerts to an SNS Topic<a name="device-defender-detect-permissions-publish"></a>
 
-If you use the `alertTargets` parameter in [ CreateSecurityProfile](DetectCommands.md#dd-api-iot-CreateSecurityProfile-doc), you must specify an IAM Role with two policies, a permissions policy and a trust policy\. The permissions policy grants permission to to publish notifications to your SNS topic\. The trust policy grants permission to assume the required role\.
+If you use the `alertTargets` parameter in [ CreateSecurityProfile](DetectCommands.md#dd-api-iot-CreateSecurityProfile), you must specify an IAM role with two policies: a permissions policy and a trust policy\. The permissions policy grants permission to AWS IoT Device Defender to publish notifications to your SNS topic\. The trust policy grants AWS IoT Device Defender permission to assume the required role\.
 
-#### permissions policy<a name="detect-account-sns-permissions-policy"></a>
+#### Permissions policy<a name="detect-account-sns-permissions-policy"></a>
 
 ```
 {
@@ -561,7 +922,7 @@ If you use the `alertTargets` parameter in [ CreateSecurityProfile](DetectComman
 }
 ```
 
-#### trust policy<a name="detect-account-sns-trust-policy"></a>
+#### Trust policy<a name="detect-account-sns-trust-policy"></a>
 
 ```
 {
@@ -579,33 +940,76 @@ If you use the `alertTargets` parameter in [ CreateSecurityProfile](DetectComman
 }
 ```
 
+#### Pass role policy<a name="detect-account-passrole-policy"></a>
+
+You also need an IAM permissions policy attached to the IAM user that allows the user to pass roles\. See [Granting a User Permissions to Pass a Role to an AWS Service](https://docs.aws.amazon.com/IAM/latest/UserGuide/id_roles_use_passrole.html)\.
+
+```
+{
+  "Version": "2012-10-17",
+  "Statement": [
+    {
+      "Sid": "",
+      "Effect": "Allow",
+      "Action": [
+          "iam:GetRole",
+          "iam:PassRole"
+      ],
+      "Resource": "arn:aws:iam::>account-id<:role/Role_To_Pass"
+    }
+  ]
+}
+```
+
 ## Service Limits<a name="detect-limits"></a>
-
 + The maximum number of security profiles per target \(thing group or user account\) is 5\.
-
 + The maximum number of behaviors per security profile is 100\.
-
 + The maximum number of `value` elements \(counts, IP addresses, ports\) per security profile is 1000\. 
-
-+ Device metric reporting is throttled to one metric per 5 minutes per device \(a device may not report more than one metric every 5 minutes\)\.
-
-+  Detect violations are stored for 90 days after they have been generated\.
++ Device metric reporting may be throttled to one metric report per 5 minutes per device\. So limit your device reporting to one metric report every 5 minutes to avoid throttling\.
++ AWS IoT Device Defender Detect violations are stored for 30 days after they have been generated\.
 
 ## Sending Metrics from Devices<a name="DetectMetricsMessages"></a>
 
- Detect can collect, aggregate, and monitor metrics data generated by AWS IoT devices to identify devices that are exhibiting abnormal behavior\. This section contains information on how to send metrics from a device to \.
+AWS IoT Device Defender Detect can collect, aggregate, and monitor metrics data generated by AWS IoT devices to identify devices that are exhibiting abnormal behavior\. This section contains information about how to send metrics from a device to AWS IoT Device Defender\.
 
-You must securely deploy an agent on your AWS IoT connected devices or device gateways to collect device\-side metrics\. provides a sample agent to use as an example when creating your own\. Alternatively, you can provide device\-side metrics to in a pre\-determined format and frequency\. If you are unable to provide device metrics in one of these ways, you can still get limited functionality based on cloud\-side metrics\.
+You must securely deploy the AWS IoT SDK on your AWS IoT connected devices or device gateways to collect device\-side metrics\. AWS IoT Device Defender provides sample agents to use as examples when creating your own\. If you are unable to provide device metrics, you can still get limited functionality based on cloud\-side metrics\.
 
-Please note the following:
+Note the following:
++ A sample device metric reporting agent is currently available in C at [https://github\.com/aws\-samples/aws\-iot\-device\-defender\-agent\-c](https://github.com/aws-samples/aws-iot-device-defender-agent-c)\. There is also a sample device metric reporting agent available in Python on GitHub at [ https://github\.com/aws\-samples/aws\-iot\-device\-defender\-agent\-sdk\-python](https://github.com/aws-samples/aws-iot-device-defender-agent-sdk-python) \(specifically, [here](https://github.com/aws-samples/aws-iot-device-defender-agent-sdk-python/tree/master/samples/greengrass/greengrass_core_metrics_agent)\)\.
++ To use the sample agents or create your own custom agent, you must install the AWS IoT Device SDK\. To see the links for your development language, go to [AWS IoT Core Resources](https://aws.amazon.com/iot-core/resources)\.
++ All agents must create a connection to AWS IoT and publish metrics to one of these reserved Device Defender MQTT topics: 
 
-+ A sample device metric reporting agent is currently available in Python on GitHub at [ https://github\.com/aws\-samples/aws\-iot\-device\-defender\-agent\-sdk\-python](https://github.com/aws-samples/aws-iot-device-defender-agent-sdk-python) \(specifically [ here](https://github.com/aws-samples/aws-iot-device-defender-agent-sdk-python/tree/master/samples/greengrass/greengrass_core_metrics_agent)\)\.
+  ```
+  $aws/things/THING_NAME/Defender/metrics/json
+  ```
 
-+ In order to report metrics, a device must be registered as a thing in AWS IoT\.
+  or
 
-+ A device should, generally, send metrics once every 5 minutes\. Device metric reporting is throttled to one metric per minute per device \(a device may not report more than one metric per minute\)\.
+  ```
+  $aws/things/THING_NAME/Defender/metrics/cbor
+  ```
 
-+ Devices must report current metrics; historical metrics reporting is not supported\.
+  Device Defender uses one of these topics to reply with the receipt status of your metrics reports:
+
+  ```
+  $aws/things/THING_NAME/Defender/metrics/json/accepted
+  ```
+
+  ```
+  $aws/things/THING_NAME/Defender/metrics/cbor/accepted
+  ```
+
+  ```
+  $aws/things/THING_NAME/Defender/metrics/json/rejected
+  ```
+
+  ```
+  $aws/things/THING_NAME/Defender/metrics/cbor/rejected
+  ```
++ To report metrics, a device must be registered as a thing in AWS IoT\.
++ A device should, generally, send a metric report once every 5 minutes\. Devices are throttled to one metric report every 5 minutes\. \(A device cannot make more than one metric report every 5 minutes\.\)
++ Devices must report current metrics\. Historical metrics reporting is not supported\.
++ You can use [Jobs](iot-jobs.md) to set the metrics reporting interval of your device metric reporting agent instances\. An example is included with the Device Defender Agent C samples\. For more information, see the [README\.md](https://github.com/aws-samples/aws-iot-device-defender-agent-c/blob/master/README.md)\.
 
 ### Device Metrics Document Specification<a name="DetectMetricsMessagesSpec"></a>
 
@@ -622,8 +1026,8 @@ Please note the following:
 
 | Long Name | Short Name | Required | Type | Constraints | Notes | 
 | --- | --- | --- | --- | --- | --- | 
-| report\_id | rid | Y | Integer |  | Monotonically increasing value, epoch timestamp recommended | 
-| version | v | Y | String | Major\.Minor | minor increments with addition of field, major increments if metrics removed | 
+| report\_id | rid | Y | Integer |  | Monotonically increasing value\. Epoch timestamp recommended\. | 
+| version | v | Y | String | Major\.Minor | Minor increments with addition of field\. Major increments if metrics removed\. | 
 
 **Metrics Block:**
 
@@ -635,7 +1039,7 @@ Please note the following:
 | tcp\_connections | tc | metrics | N | Object |  |  | 
 | established\_connections | ec | tcp\_connections | N | List<Connection> |  | ESTABLISHED TCP State | 
 | connections | cs | established\_connections | N | List<Object> |  |  | 
-| remote\_addr | rad | connections | Y | Number | ip:port | ip can be ipv6 or ipv4 | 
+| remote\_addr | rad | connections | Y | Number | ip:port | ip can be IPv6 or IPv4 | 
 | local\_port | lp | connections | N | Number | >= 0 |  | 
 | local\_interface | li | connections | N | String |  | interface name | 
 | total | t | established\_connections | N | Number | >= 0 | Number of established connections | 

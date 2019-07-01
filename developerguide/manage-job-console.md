@@ -1,6 +1,6 @@
 # Creating and Managing Jobs \(Console\)<a name="manage-job-console"></a>
 
-If you are using Code\-signing for AWS IoT , you must add two placeholder URLs in your job document:
+If you are using Code\-signing for AWS IoT, you must add two placeholder URLs in your job document:
 
 A placeholder for the code file should look like this: `${aws:iot:s3-presigned-url:https://s3.amazonaws.com/<my-s3-bucket>/<my-code-file>}`\. 
 
@@ -20,6 +20,8 @@ A placeholder for the signature should look like this: `${aws:iot:code-sign-sign
 1. Choose **Create a custom job**\.
 
 1. Enter an alphanumeric ID for your job and an optional description\.
+**Note**  
+We do not recommend using personally identifiable information in your job IDs or descriptions\.
 
 1. Select the device or device groups that you want to update\.
 

@@ -4,7 +4,12 @@ The policy you use depends on how you are connecting to AWS IoT\. You can connec
 
 ## Policies for MQTT Clients<a name="pub-sub-policy-cert"></a>
 
-When you specify topic filters in AWS IoT policies for MQTT clients, MQTT wildcard characters "\+" and "\#" are treated as literal characters\. Their use might result in unexpected behavior\. For example, the following policy allows a client to subscribe to the topic filter `foo/+/bar` only:
+When you specify topic filters in AWS IoT policies for MQTT clients, MQTT wildcard characters "\+" and "\#" are treated as literal characters\. Their use might result in unexpected behavior\.
+
+------
+#### [ Registered devices \(4\) ]
+
+For devices registered as things in the AWS IoT registry, the following policy grants permission to connect to AWS IoT with the client id that matches the thing name, and to subscribe to the topic filter `some/+/topic` only:
 
 ```
 {
@@ -16,7 +21,7 @@ When you specify topic filters in AWS IoT policies for MQTT clients, MQTT wildca
                 "iot:Connect"
             ],
             "Resource": [
-                "*"
+                "arn:aws:iot:us-east-1:123456789012:client/${iot:Connection.Thing.ThingName}"
             ]
         },
         {
@@ -25,56 +30,55 @@ When you specify topic filters in AWS IoT policies for MQTT clients, MQTT wildca
                 "iot:Subscribe"
             ],
             "Resource": [
-                "arn:aws:iot:us-east-1:123456789012:topicfilter/foo/+/bar"
+                "arn:aws:iot:us-east-1:123456789012:topicfilter/some/+/topic"
             ]
         }
     ]
 }
 ```
+
+------
+#### [ Unregistered devices \(4\) ]
+
+For devices not registered as things in the AWS IoT registry, the following policy grants permission to connect to AWS IoT with client ID `client1` and subscribe to the topic filter `some/+/topic` only:
+
+```
+{
+    "Version": "2012-10-17",
+    "Statement": [
+      {
+        "Effect": "Allow",
+        "Action": [
+          "iot:Connect"
+        ],
+        "Resource": [
+          "arn:aws:iot:us-east-1:123456789012:client/client1"
+        ]
+      },
+      {
+        "Effect": "Allow",
+        "Action": [
+          "iot:Subscribe"
+        ],
+        "Resource": [
+          "arn:aws:iot:us-east-1:123456789012:topicfilter/some/+/topic"
+        ]
+      }
+    ]
+}
+```
+
+------
 
 **Note**  
-The MQTT wildcard character '\+' is not treated as a wildcard within a policy\. Attempts to subscribe to topic filters that match the pattern `foo/+/bar` like `foo/baz/bar` or `foo/goo/bar` fails and causes the client to disconnect\.
+Within a policy, the MQTT wildcard character '\+' is treated as a literal, not a wildcard\. Attempts to subscribe to topic filters that match the pattern `some/+/topic` fail and cause the client to disconnect\.
 
-You can use "\*" as a wildcard in the resource attribute of the policy\. For example, the following policy allows the certificate holder to publish to all topics and subscribe to all topic filters in the AWS account:
+You can use "\*" as a wildcard in the resource attribute of the policy\. For example, if each device in your account must publish on a unique topic reserved for it alone, use the following policy:
 
-```
-{
-    "Version": "2012-10-17",
-    "Statement": [
-        {
-            "Effect": "Allow",
-            "Action": [
-                "iot:*"
-            ],
-            "Resource": [
-                "*"
-            ]
-        }
-    ]
-}
-```
+------
+#### [ Registered devices \(5\) ]
 
-The following policy allows the certificate holder to publish to all topics in the AWS account:
-
-```
-{
-    "Version": "2012-10-17",
-    "Statement": [
-        {
-            "Effect": "Allow",
-            "Action": [
-                "iot:Publish",
-                "iot:Connect"
-            ],
-            "Resource": [
-                "*"
-            ]
-        }
-    ]
-}
-```
-
-You can also use the "\*" wildcard at the end of a topic filter\. For example, the following policy allows the certificate holder to subscribe to a topic filter matching the pattern `foo/bar/*`:
+For devices registered as things in the AWS IoT registry, the following policy grants permission to connect to AWS IoT using a client ID that matches the thing name and to publish to any topic prefixed by the thing name:
 
 ```
 {
@@ -86,7 +90,75 @@ You can also use the "\*" wildcard at the end of a topic filter\. For example, t
                 "iot:Connect"
             ],
             "Resource": [
-                "*"
+                "arn:aws:iot:us-east-1:123456789012:client/${iot:Connection.Thing.ThingName}",
+            ]
+        }
+        {
+            "Effect": "Allow",
+            "Action": [
+                "iot:Publish"
+            ],
+            "Resource": [
+                "arn:aws:iot:us-east-1:123456789012:topic/${iot:Connection.Thing.ThingName}/*"
+            ]
+        }
+    ]
+}
+```
+
+------
+#### [ Unregistered devices \(5\) ]
+
+For devices not registered as things in the AWS IoT registry, the following policy grants permission to connect to AWS IoT using client id `client1`, `client2`, or `client3` and to publish to any topic prefixed by the client id:
+
+```
+{
+    "Version": "2012-10-17",
+    "Statement": [
+        {
+            "Effect": "Allow",
+            "Action": [
+                "iot:Connect"
+            ],
+            "Resource": [
+                "arn:aws:iot:us-east-1:123456789012:client/client1",
+                "arn:aws:iot:us-east-1:123456789012:client/client2",
+                "arn:aws:iot:us-east-1:123456789012:client/client3"
+            ]
+        }
+        {
+            "Effect": "Allow",
+            "Action": [
+                "iot:Publish"
+            ],
+            "Resource": [
+                "arn:aws:iot:us-east-1:123456789012:topic/${iot:ClientId}/*"
+            ]
+        }
+    ]
+}
+```
+
+------
+
+You can also use the "\*" wildcard at the end of a topic filter\. Using wildcard characters could lead to granting unintended privileges, so they should only be used after careful consideration\. One situation in which they might be useful is when devices must subscribe to messages with many different topics, for example if a device must subscribe to reports from temperature sensors in multiple locations\. 
+
+------
+#### [ registered devices \(6\) ]
+
+For devices registered as things in the AWS IoT registry, the following policy grants permission to connect to AWS IoT using the device's thing name as the client id, and to subscribe to a topic prefixed by the thing name, followed by `room`, followed by any string\. \(It is expected that these topics will be, for example, `thing1/room1`, `thing1/room2`\.\.\.\):
+
+```
+{
+    "Version": "2012-10-17",
+    "Statement": [
+        {
+            "Effect": "Allow",
+            "Action": [
+                "iot:Connect"
+            ],
+            "Resource": [
+                "arn:aws:iot:us-east-1:123456789012:client/${iot:Connection.Thing.ThingName}"
             ]
         },
         {
@@ -95,14 +167,17 @@ You can also use the "\*" wildcard at the end of a topic filter\. For example, t
                 "iot:Subscribe"
             ],
             "Resource": [
-                "arn:aws:iot:us-east-1:123456789012:topicfilter/foo/bar/*"
+                "arn:aws:iot:us-east-1:123456789012:topicfilter/${iot:Connection.Thing.ThingName}/room*"
             ]
         }
     ]
 }
 ```
 
-The following policy allows the certificate holder to publish to the `foo/bar` and `foo/baz` topics:
+------
+#### [ unregistered devices \(6\) ]
+
+For devices not registered as things in the AWS IoT registry, the following policy grants permission to connect to AWS IoT using client ids `client1`, `client2`, `client3`, and to subscribe to a topic prefixed by the client id, followed by `room`, followed by any string\. \(It is expected that these topics will be, for example, `client1/room1`, `client1/room2`\.\.\.\):
 
 ```
 {
@@ -114,101 +189,9 @@ The following policy allows the certificate holder to publish to the `foo/bar` a
                 "iot:Connect"
             ],
             "Resource": [
-                "*"
-            ]
-        },
-        {
-            "Effect": "Allow",
-            "Action": [
-                "iot:Publish"
-            ],
-            "Resource": [
-                "arn:aws:iot:us-east-1:123456789012:topic/foo/bar",
-                "arn:aws:iot:us-east-1:123456789012:topic/foo/baz"
-            ]
-        }
-    ]
-}
-```
-
-The following policy prevents the certificate holder from publishing to the `foo/bar` topic:
-
-```
-{
-    "Version": "2012-10-17",
-    "Statement": [
-        {
-            "Effect": "Allow",
-            "Action": [
-                "iot:Connect"
-            ],
-            "Resource": [
-                "*"
-            ]
-        },
-        {
-            "Effect": "Deny",
-            "Action": [
-                "iot:Publish"
-            ],
-            "Resource": [
-                "arn:aws:iot:us-east-1:123456789012:topic/foo/bar"
-            ]
-        }
-    ]
-}
-```
-
-The following policy allows the certificate holder to publish on topic `foo` and prevents the certificate holder from publishing to topic `bar`:
-
-```
-{
-    "Version": "2012-10-17",
-    "Statement": [
-        {
-            "Effect": "Allow",
-            "Action": [
-                "iot:Connect"
-            ],
-            "Resource": [
-                "*"
-            ]
-        },
-        {
-            "Effect": "Allow",
-            "Action": [
-                "iot:Publish"
-            ],
-            "Resource": [
-                "arn:aws:iot:us-east-1:123456789012:topic/foo"
-            ]
-        },
-        {
-            "Effect": "Deny",
-            "Action": [
-                "iot:Publish"
-            ],
-            "Resource": [
-                "arn:aws:iot:us-east-1:123456789012:topic/bar"
-            ]
-        }
-    ]
-}
-```
-
-The following policy allows the certificate holder to subscribe to topic filter `foo/bar`:
-
-```
-{
-    "Version": "2012-10-17",
-    "Statement": [
-        {
-            "Effect": "Allow",
-            "Action": [
-                "iot:Connect"
-            ],
-            "Resource": [
-                "*"
+                "arn:aws:iot:us-east-1:123456789012:client/client1",
+                "arn:aws:iot:us-east-1:123456789012:client/client2",
+                "arn:aws:iot:us-east-1:123456789012:client/client3"
             ]
         },
         {
@@ -217,14 +200,19 @@ The following policy allows the certificate holder to subscribe to topic filter 
                 "iot:Subscribe"
             ],
             "Resource": [
-                "arn:aws:iot:us-east-1:123456789012:topicfilter/foo/bar"
+                "arn:aws:iot:us-east-1:123456789012:topicfilter/${iot:ClientId}/room*"
             ]
         }
     ]
 }
 ```
 
-The following policy allows the certificate holder to publish on the `arn:aws:iot:us-east-1:123456789012:topic/iotmonitor/provisioning/8050373158915119971` topic and allows the certificate holder to subscribe to the topic filter `arn:aws:iot:us-east-1:123456789012:topicfilter/iotmonitor/provisioning/8050373158915119971`:
+------
+
+------
+#### [ registered devices \(7\) ]
+
+For devices registered as things in the AWS IoT registry, the following policy grants permission to connect to AWS IoT using the device's thing name as the client id, and to subscribe to the topics `my/topic` and `my/othertopic`:
 
 ```
 {
@@ -236,7 +224,290 @@ The following policy allows the certificate holder to publish on the `arn:aws:io
                 "iot:Connect"
             ],
             "Resource": [
-                "*"
+                "arn:aws:iot:us-east-1:123456789012:client/${iot:Connection.Thing.ThingName}"
+            ]
+        },
+        {
+            "Effect": "Allow",
+            "Action": [
+                "iot:Subscribe"
+            ],
+            "Resource": [
+                "arn:aws:iot:us-east-1:123456789012:topicfilter/my/topic",
+                "arn:aws:iot:us-east-1:123456789012:topicfilter/my/othertopic"
+            ]
+        }
+    ]
+}
+```
+
+------
+#### [ unregistered devices \(7\) ]
+
+For devices not registered as things in the AWS IoT registry, the following policy grants permission to connect to AWS IoT using client id `client1`, and to subscribe to the topics `my/topic` and `my/othertopic`:
+
+```
+{
+    "Version": "2012-10-17",
+    "Statement": [
+        {
+            "Effect": "Allow",
+            "Action": [
+                "iot:Connect"
+            ],
+            "Resource": [
+                "arn:aws:iot:us-east-1:123456789012:client/client1"
+            ]
+        },
+        {
+            "Effect": "Allow",
+            "Action": [
+                "iot:Subscribe"
+            ],
+            "Resource": [
+                "arn:aws:iot:us-east-1:123456789012:topicfilter/my/topic",
+                "arn:aws:iot:us-east-1:123456789012:topicfilter/my/othertopic"
+            ]
+        }
+    ]
+}
+```
+
+------
+
+------
+#### [ registered devices \(8\) ]
+
+For devices registered as things in the AWS IoT registry, the following policy grants permission to connect to AWS IoT using the device's thing name as the client id and to subscribe to a topic unique to that thing name/client id:
+
+```
+{
+    "Version": "2012-10-17",
+    "Statement": [
+        {
+            "Effect": "Allow",
+            "Action": [
+                "iot:Connect"
+            ],
+            "Resource": [
+                "arn:aws:iot:us-east-1:123456789012:client/${iot:Connection.Thing.ThingName}"
+            ]
+        },
+        {
+            "Effect": "Allow",
+            "Action": [
+                "iot:Publish"
+            ],
+            "Resource": [
+                "arn:aws:iot:us-east-1:123456789012:topic/my/topic/${iot:Thing.ThingName}"
+            ]
+        }
+    ]
+}
+```
+
+------
+#### [ unregistered devices \(8\) ]
+
+For devices not registered as things in the AWS IoT registry, the following policy grants permission to connect to AWS IoT using client id `client1`, and to publish to a topic unique to that client ID:
+
+```
+{
+    "Version": "2012-10-17",
+    "Statement": [
+        {
+            "Effect": "Allow",
+            "Action": [
+                "iot:Connect"
+            ],
+            "Resource": [
+                "arn:aws:iot:us-east-1:123456789012:client/client1"
+            ]
+        },
+        {
+            "Effect": "Allow",
+            "Action": [
+                "iot:Publish"
+            ],
+            "Resource": [
+                "arn:aws:iot:us-east-1:123456789012:topic/my/topic/${iot:ClientId}"
+            ]
+        }
+    ]
+}
+```
+
+------
+
+------
+#### [ registered devices \(9\) ]
+
+For devices registered as things in the AWS IoT registry, the following policy grants permission to connect to AWS IoT using the device's thing name as the client id and to publish to any topic prefixed by that thing name/client except for one topic ending with `bar`:
+
+```
+{
+    "Version": "2012-10-17",
+    "Statement": [
+        {
+            "Effect": "Allow",
+            "Action": [
+                "iot:Connect"
+            ],
+            "Resource": [
+                "arn:aws:iot:us-east-1:123456789012:client/${iot:Connection.Thing.ThingName}"
+            ]
+        },
+        {
+            "Effect": "Allow",
+            "Action": [
+                "iot:Publish"
+            ],
+            "Resource": [
+                "arn:aws:iot:us-east-1:123456789012:topic/${iot:Thing.ThingName}/*"
+            ]
+        },
+        {
+            "Effect": "Deny",
+            "Action": [
+                "iot:Publish"
+            ],
+            "Resource": [
+                "arn:aws:iot:us-east-1:123456789012:topic/${iot:Thing.ThingName}/bar"
+            ]
+        }
+    ]
+}
+```
+
+------
+#### [ unregistered devices \(9\) ]
+
+For devices not registered as things in the AWS IoT registry, the following policy grants permission to connect to AWS IoT using client ids `client1` and `client1` and to publish to any topic prefixed by the client id used to connect, except for one topic ending with `bar`:
+
+```
+{
+    "Version": "2012-10-17",
+    "Statement": [
+        {
+            "Effect": "Allow",
+            "Action": [
+                "iot:Connect"
+            ],
+            "Resource": [
+                "arn:aws:iot:us-east-1:123456789012:client/client1",
+                "arn:aws:iot:us-east-1:123456789012:client/client2"
+            ]
+        },
+        {
+            "Effect": "Allow",
+            "Action": [
+                "iot:Publish"
+            ],
+            "Resource": [
+                "arn:aws:iot:us-east-1:123456789012:topic/${iot:ClientId}/*"
+            ]
+        },
+        {
+            "Effect": "Deny",
+            "Action": [
+                "iot:Publish"
+            ],
+            "Resource": [
+                "arn:aws:iot:us-east-1:123456789012:topic/${iot:ClientId}/bar"
+            ]
+        }
+    ]
+}
+```
+
+------
+
+------
+#### [ registered devices \(10\) ]
+
+For devices registered as things in the AWS IoT registry, the following policy grants permission to connect to AWS IoT using the device's thing name as the client id\. The device can subscribe to the topic `my/topic`, but cannot publish to the `<thing-name> /bar` where *<thing\-name>* is the name of the IoT thing connecting to AWS IoT:
+
+```
+{
+    "Version": "2012-10-17",
+    "Statement": [
+        {
+            "Effect": "Allow",
+            "Action": [
+                "iot:Connect"
+            ],
+            "Resource": [
+                "arn:aws:iot:us-east-1:123456789012:client/${iot:Connection.Thing.ThingName}"
+            ]
+        },
+        {
+            "Effect": "Allow",
+            "Action": [
+                "iot:Subscribe"
+            ],
+            "Resource": [
+                "arn:aws:iot:us-east-1:123456789012:topicfilter/my/topic"
+            ]
+        },
+        {
+            "Effect": "Deny",
+            "Action": [
+                "iot:Publish"
+            ],
+            "Resource": [
+                "arn:aws:iot:us-east-1:123456789012:topic/${iot:Thing.ThingName}/bar"
+            ]
+        }
+    ]
+}
+```
+
+------
+#### [ unregistered devices \(10\) ]
+
+For devices not registered as things in the AWS IoT registry, the following policy grants permission to connect to AWS IoT using client id `client1` and to subscribe to the topic `my/topic`:
+
+```
+{
+    "Version": "2012-10-17",
+    "Statement": [
+        {
+            "Effect": "Allow",
+            "Action": [
+                "iot:Connect"
+            ],
+            "Resource": [
+                "arn:aws:iot:us-east-1:123456789012:client/client1"
+            ]
+        },
+        {
+            "Effect": "Allow",
+            "Action": [
+                "iot:Subscribe"
+            ],
+            "Resource": [
+                "arn:aws:iot:us-east-1:123456789012:topicfilter/my/topic"
+            ]
+        }
+    ]
+}
+```
+
+------
+
+Thing policy variables are also replaced when a certificate or authenticated Amazon Cognito identity is attached to a thing\. The following policy grants permission to connect to AWS IoT with client id `client1` and to publish and receive to topic `iotmonitor/provisioning/987654321098`\. It also allows the certificate holder to subscribe to this same topic\. 
+
+```
+{
+    "Version": "2012-10-17",
+    "Statement": [
+        {
+            "Effect": "Allow",
+            "Action": [
+                "iot:Connect"
+            ],
+            "Resource": [
+                "arn:aws:iot:us-east-1:123456789012:client/client1"
             ]
         },
         {
@@ -246,7 +517,7 @@ The following policy allows the certificate holder to publish on the `arn:aws:io
                 "iot:Receive"
             ],
             "Resource": [
-                "arn:aws:iot:us-east-1:123456789012:topic/iotmonitor/provisioning/8050373158915119971"
+                "arn:aws:iot:us-east-1:123456789012:topic/iotmonitor/provisioning/987654321098"
             ]
         },
         {
@@ -255,7 +526,7 @@ The following policy allows the certificate holder to publish on the `arn:aws:io
                 "iot:Subscribe"
             ],
             "Resource": [
-                "arn:aws:iot:us-east-1:123456789012:topicfilter/iotmonitor/provisioning/8050373158915119971"
+                "arn:aws:iot:us-east-1:123456789012:topicfilter/iotmonitor/provisioning/987654321098"
             ]
         }
     ]
@@ -265,206 +536,78 @@ The following policy allows the certificate holder to publish on the `arn:aws:io
 ## Policies for HTTP and WebSocket Clients<a name="pub-sub-policy-cognito"></a>
 
 For the following operations, AWS IoT uses AWS IoT policies attached to Amazon Cognito identities \(through the `AttachPolicy` API\) to scope down the permissions attached to the Amazon Cognito identity pool with authenticated identities\. That means an Amazon Cognito identity needs permission from the IAM role policy attached to the pool and the AWS IoT policy attached to the Amazon Cognito identity through the AWS IoT `AttachPolicy` API\.
-
 + `iot:Connect`
-
 + `iot:Publish`
-
 + `iot:Subscribe`
-
 + `iot:Receive`
-
 + `iot:GetThingShadow`
-
 + `iot:UpdateThingShadow`
-
 + `iot:DeleteThingShadow`​
 
 **Note**  
 For other AWS IoT operations or for unauthenticated identities, AWS IoT does not scope down the permissions attached to the Amazon Cognito identity pool role\. For both authenticated and unauthenticated identities, this is the most permissive policy that we recommend attaching to the Amazon Cognito pool role\.
 
-To allow unauthenticated Amazon Cognito identities to publish messages over HTTP on any topic, attach the following policy to the Amazon Cognito identity pool role:
+**HTTP**
+
+To allow unauthenticated Amazon Cognito identities to publish messages over HTTP on a topic specific to the Cognito identity, attach the following policy to the Amazon Cognito identity pool role:
 
 ```
 {
     "Version": "2012-10-17",
     "Statement": [
-    {
-        "Effect": "Allow",
-        "Action": [
-            "iot:Connect",
-            "iot:Publish",
-            "iot:Subscribe",
-            "iot:Receive",
-            "iot:GetThingShadow",
-            "iot:UpdateThingShadow",
-            "iot:DeleteThingShadow​"
-        ],
-        "Resource": ["*"]
-    }]
-}
-```
-
-To allow unauthenticated Amazon Cognito identities to publish MQTT messages over HTTP on any topic in your account, attach the following policy to the Amazon Cognito identity pool role:
-
-```
-{
-    "Version": "2012-10-17",
-    "Statement": [{
-        "Effect": "Allow",
-        "Action": ["iot:Publish"],
-        "Resource": ["*"]
-    }]
-}
-```
-
-**Note**  
-This example is for illustration only\. Unless your service absolutely requires it, we recommend the use of a more restrictive policy, one that does not allow unauthenticated Amazon Cognito identities to publish on any topic\.
-
-To allow unauthenticated Amazon Cognito identities to publish MQTT messages over HTTP on `topic1` in your account, attach the following policy to your Amazon Cognito identity pool role:
-
-```
-{
-    "Version": "2012-10-17",
-    "Statement": [{
-        "Effect": "Allow",
-        "Action": ["iot:Publish"],
-        "Resource": ["arn:aws:iot:us-east-1:123456789012:topic/topic1"]
-    }]
-}
-```
-
-For an authenticated Amazon Cognito identity to publish MQTT messages over HTTP on `topic1` in your AWS account, you must specify two policies, as outlined here\. The first policy must be attached to an Amazon Cognito identity pool role\. It allows identities from that pool to make a publish call\. The second policy must be attached to an Amazon Cognito user using the AWS IoT [AttachPolicy](http://alpha-docs-aws.amazon.com//iot/latest/apireference/API_AttachPolicy.html) API\. It allows the specified Amazon Cognito user access to the `topic1` topic\.
-
-Amazon Cognito identity pool policy:
-
-```
-{
-    "Version": "2012-10-17",
-    "Statement": [{
-        "Effect": "Allow",
-        "Action": [ "iot:Publish"],
-        "Resource": ["arn:aws:iot:us-east-1:123456789012:topic/topic1"]
-    }]
-}
-```
-
-Amazon Cognito user policy: 
-
-```
-{
-    "Version": "2012-10-17",
-    "Statement": [{
-        "Effect": "Allow",
-        "Action": ["iot:Publish"],
-        "Resource": ["arn:aws:iot:us-east-1:123456789012:topic/topic1"]
-    }]
-}
-```
-
-Similarly, the following example policy allows the Amazon Cognito user to publish MQTT messages over HTTP on the `topic1` and `topic2` topics\. Two policies are required\. The first policy gives the Amazon Cognito identity pool role the ability to make the publish call\. The second policy gives the Amazon Cognito user access to the `topic1` and `topic2` topics\. 
-
-Amazon Cognito identity pool policy:
-
-```
-{
-    "Version": "2012-10-17",
-    "Statement": [{
-        "Effect": "Allow",
-        "Action": ["iot:Publish"],
-        "Resource": ["*"]
-    }]
-}
-```
-
-Amazon Cognito user policy:
-
-```
-{
-    "Version": "2012-10-17",
-    "Statement": [{
-        "Effect": "Allow",
-        "Action": ["iot:Publish"],
-        "Resource": [
-            "arn:aws:iot:us-east-1:123456789012:topic/topic1",
-            "arn:aws:iot:us-east-1:123456789012:topic/topic2"
-        ]
-    }]
-}
-```
-
-The following policies allow multiple Amazon Cognito users to publish to a topic\. Two policies per Amazon Cognito identity are required\. The first policy gives the Amazon Cognito identity pool role the ability to make the publish call\. The second and third policies give the Amazon Cognito users access to the topics `topic1` and `topic2`, respectively\.
-
-Amazon Cognito identity pool policy:
-
-```
-{
-    "Version": "2012-10-17",
-    "Statement": [{
-        "Effect": "Allow",
-        "Action": ["iot:Publish"],
-        "Resource": ["*"]
-    }]
-}
-```
-
-Amazon Cognito user1 policy:
-
-```
-{
-    "Version": "2012-10-17",
-    "Statement": [{
-        "Effect": "Allow",
-        "Action": ["iot:Publish"],
-        "Resource": ["arn:aws:iot:us-east-1:123456789012:topic/topic1"]
-    }]
-}
-```
-
-Amazon Cognito user2 policy:
-
-```
-{
-    "Version": "2012-10-17",
-    "Statement": [{
-        "Effect": "Allow",
-        "Action": ["iot:Publish"],
-        "Resource": ["arn:aws:iot:us-east-1:123456789012:topic/topic2"]
-    }]
-}
-```
-
-## Receive Policy Examples<a name="receive-policy"></a>
-
-The following policy prevents the certificate holder using any client ID from receiving messages from a topic:
-
-```
-{
-    "Version": "2012-10-17",
-    "Statement": [
-        {
-            "Effect": "Deny",
-            "Action": [
-                "iot:Receive"
-            ],
-            "Resource": [
-                "arn:aws:iot:us-east-1:123456789012:topic/foo/restricted"
-            ]
-        },
         {
             "Effect": "Allow",
             "Action": [
-                "iot:*"
+                "iot:Publish",
             ],
-            "Resource": [
-                "*"
-            ]
+            "Resource": ["arn:aws:iot:us-east-1:123456789012:topic/${cognito-identity.amazonaws.com:sub}"]
         }
     ]
 }
 ```
 
-The following policy allows the certificate holder using any client ID to subscribe and receive messages on one topic:
+To allow authenticated users, attach the preceding policy to the Amazon Cognito identity pool role and to the Cognito identity using the AWS IoT [AttachPrincipalPolicy](https://docs.aws.amazon.com//iot/latest/apireference/API_AttachPrincipalPolicy.html) API\.
+
+**Note**  
+When authorizing Cognito identities, AWS IoT will consider both these policies and grant the least privileges specified\. An action is only allowed if both the policies allow the requested action, and if either one of these policies disallow an action, that action will be unauthorized\.
+
+**MQTT**
+
+To allow unauthenticated Amazon Cognito identities to publish MQTT messages over WebSockets on a topic specific to the Cognito identity in your account, attach the following policy to the Amazon Cognito identity pool role:
+
+```
+{
+    "Version": "2012-10-17",
+    "Statement": [
+        {
+            "Effect": "Allow",
+            "Action": [
+                "iot:Publish",
+            ],
+            "Resource": ["arn:aws:iot:us-east-1:123456789012:topic/${cognito-identity.amazonaws.com:sub}"]
+        },
+        {
+            "Effect": "Allow",
+            "Action": [
+                "iot:Connect",
+            ],
+            "Resource": ["arn:aws:iot:us-east-1:123456789012:topic/${cognito-identity.amazonaws.com:sub}"]
+        }
+    ]
+}
+```
+
+To allow authenticated users, attach the preceding policy to the Amazon Cognito identity pool role and to the Cognito identity using the AWS IoT [AttachPrincipalPolicy](https://docs.aws.amazon.com//iot/latest/apireference/API_AttachPrincipalPolicy.html) API\.
+
+**Note**  
+When authorizing Cognito identities, AWS IoT will consider both these policies and grant the least privileges specified\. An action is only allowed if both the policies allow the requested action, and if either one of these policies disallow an action, that action will be unauthorized\.
+
+## Receive Policy Examples<a name="receive-policy"></a>
+
+------
+#### [ registered devices \(11\) ]
+
+For devices registered in AWS IoT registry, the following policy grants permission to connect to AWS IoT with a client id that matches the thing name and to subscribe to and receive messages on the `my/topic` topic:
 
 ```
 {
@@ -475,7 +618,7 @@ The following policy allows the certificate holder using any client ID to subscr
             "Action": [
                 "iot:Connect"
             ],
-            "Resource": [*]
+            "Resource": ["arn:aws:iot:us-east-1:123456789012:client/${iot:Connection.Thing.ThingName}"]
         },
         {
             "Effect": "Allow",
@@ -483,7 +626,7 @@ The following policy allows the certificate holder using any client ID to subscr
                 "iot:Subscribe"
             ],
             "Resource": [
-                "arn:aws:iot:us-east-1:123456789012:topicfilter/foo/bar"
+                "arn:aws:iot:us-east-1:123456789012:topicfilter/my/topic"
             ]
         },
         {
@@ -492,9 +635,49 @@ The following policy allows the certificate holder using any client ID to subscr
                 "iot:Receive"
             ],
             "Resource": [
-                "arn:aws:iot:us-east-1:123456789012:topic/foo/bar"
+                "arn:aws:iot:us-east-1:123456789012:topic/my/topic"
             ]
         }
     ]
 }
 ```
+
+------
+#### [ unregistered devices \(11\) ]
+
+For devices not registered in AWS IoT registry, the following policy grants permission to connect to AWS IoT with client id `client1` and to subscribe to and receive messages on one topic:
+
+```
+{
+    "Version": "2012-10-17",
+    "Statement": [
+        {
+            "Effect": "Allow",
+            "Action": [
+                "iot:Connect"
+            ],
+            "Resource": ["arn:aws:iot:us-east-1:123456789012:client/client1"]
+        },
+        {
+            "Effect": "Allow",
+            "Action": [
+                "iot:Subscribe"
+            ],
+            "Resource": [
+                "arn:aws:iot:us-east-1:123456789012:topicfilter/my/topic"
+            ]
+        },
+        {
+            "Effect": "Allow",
+            "Action": [
+                "iot:Receive"
+            ],
+            "Resource": [
+                "arn:aws:iot:us-east-1:123456789012:topic/my/topic"
+            ]
+        }
+    ]
+}
+```
+
+------

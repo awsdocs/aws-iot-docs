@@ -7,12 +7,12 @@ The Device Shadow service publishes a message on the error topic \(over MQTT\) w
 
 | HTTP Error Code | Error Messages | 
 | --- | --- | 
-| 400 \(Bad Request\) |  [\[See the AWS documentation website for more details\]](http://alpha-docs-aws.amazon.com/iot/latest/developerguide/device-shadow-error-messages.html)  | 
-| 401 \(Unauthorized\) |  [\[See the AWS documentation website for more details\]](http://alpha-docs-aws.amazon.com/iot/latest/developerguide/device-shadow-error-messages.html)  | 
-| 403 \(Forbidden\) |  [\[See the AWS documentation website for more details\]](http://alpha-docs-aws.amazon.com/iot/latest/developerguide/device-shadow-error-messages.html)  | 
-| 404 \(Not Found\) |  [\[See the AWS documentation website for more details\]](http://alpha-docs-aws.amazon.com/iot/latest/developerguide/device-shadow-error-messages.html)  | 
-| 409 \(Conflict\) |  [\[See the AWS documentation website for more details\]](http://alpha-docs-aws.amazon.com/iot/latest/developerguide/device-shadow-error-messages.html)  | 
-| 413 \(Payload Too Large\) |  [\[See the AWS documentation website for more details\]](http://alpha-docs-aws.amazon.com/iot/latest/developerguide/device-shadow-error-messages.html)  | 
-| 415 \(Unsupported Media Type\) |  [\[See the AWS documentation website for more details\]](http://alpha-docs-aws.amazon.com/iot/latest/developerguide/device-shadow-error-messages.html)  | 
-| 429 \(Too Many Requests\) |  [\[See the AWS documentation website for more details\]](http://alpha-docs-aws.amazon.com/iot/latest/developerguide/device-shadow-error-messages.html)  | 
-| 500 \(Internal Server Error\) |  [\[See the AWS documentation website for more details\]](http://alpha-docs-aws.amazon.com/iot/latest/developerguide/device-shadow-error-messages.html)  | 
+| 400 \(Bad Request\) |  [\[See the AWS documentation website for more details\]](http://docs.aws.amazon.com/iot/latest/developerguide/device-shadow-error-messages.html)  | 
+| 401 \(Unauthorized\) |  [\[See the AWS documentation website for more details\]](http://docs.aws.amazon.com/iot/latest/developerguide/device-shadow-error-messages.html)  | 
+| 403 \(Forbidden\) |  [\[See the AWS documentation website for more details\]](http://docs.aws.amazon.com/iot/latest/developerguide/device-shadow-error-messages.html)  | 
+| 404 \(Not Found\) |  [\[See the AWS documentation website for more details\]](http://docs.aws.amazon.com/iot/latest/developerguide/device-shadow-error-messages.html)  | 
+| 409 \(Conflict\) |  [\[See the AWS documentation website for more details\]](http://docs.aws.amazon.com/iot/latest/developerguide/device-shadow-error-messages.html)  | 
+| 413 \(Payload Too Large\) |  [\[See the AWS documentation website for more details\]](http://docs.aws.amazon.com/iot/latest/developerguide/device-shadow-error-messages.html)  | 
+| 415 \(Unsupported Media Type\) |  [\[See the AWS documentation website for more details\]](http://docs.aws.amazon.com/iot/latest/developerguide/device-shadow-error-messages.html)  | 
+| 429 \(Too Many Requests\) |  [\[See the AWS documentation website for more details\]](http://docs.aws.amazon.com/iot/latest/developerguide/device-shadow-error-messages.html)  | 
+| 500 \(Internal Server Error\) |  [\[See the AWS documentation website for more details\]](http://docs.aws.amazon.com/iot/latest/developerguide/device-shadow-error-messages.html)  | 

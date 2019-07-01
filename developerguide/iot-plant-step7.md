@@ -7,8 +7,7 @@ In this step you download Raspbian onto the formatted microSDHC card\. Raspbian 
 1. Choose **Raspbian**\.
 
 1. On the **Download Raspbian** page, for **Raspbian Stretch with Desktop**, choose **Download ZIP**\.  
-![\[Download Raspbian page, with Download
-                  ZIP highlighted.\]](http://alpha-docs-aws.amazon.com/iot/latest/developerguide/images/download-raspbian-stretch.png)
+![\[Download Raspbian page, with Download ZIP highlighted.\]](http://docs.aws.amazon.com/iot/latest/developerguide/images/download-raspbian-stretch.png)
 
 1. Use an image flashing app or utility to flash the \.zip file that you just downloaded onto the microSDHC card\. For example, for Windows, macOS, or Linux:
 
@@ -23,6 +22,6 @@ In this step you download Raspbian onto the formatted microSDHC card\. Raspbian 
    1. Next to the picture of the drive, if the microSDHC card is not selected, choose it\.
 
    1. Choose **Flash\!**  
-![\[Screenshot of the Etcher page, with the file name and Flash! highlighted.\]](http://alpha-docs-aws.amazon.com/iot/latest/developerguide/images/etcher.png)
+![\[Screenshot of the Etcher page, with the file name and Flash! highlighted.\]](http://docs.aws.amazon.com/iot/latest/developerguide/images/etcher.png)
 
       The flashing operation can take a while\.

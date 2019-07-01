@@ -5,9 +5,7 @@ Policies determine what an authenticated identity can do\. An authenticated iden
 Both AWS IoT policies and IAM policies are used with AWS IoT to control the operations an identity \(also called a *principal*\) can perform\. The policy type you use depends on the type of identity you are using to authenticate with AWS IoT\. The following table shows the identity types, the protocols they use, and the policy types that can be used for authorization\.
 
 AWS IoT operations are divided into two groups: 
-
 + Control plane API allows you to perform administrative tasks like creating or updating certificates, things, rules, and so on\.
-
 + Data plane API allows you send data to and receive data from AWS IoT\. 
 
 The type of policy you use depends on whether you are using control plane or data plane API\.
@@ -17,7 +15,7 @@ The type of policy you use depends on whether you are using control plane or dat
 
 | Protocol and Authentication Mechanism  | SDK  | Identity Type | Policy Type | 
 | --- | --- | --- | --- | 
-| MQTT over mutual authentication \(port 8883 or 443†\) | AWS IoT Device SDK | X\.509 certificates | AWS IoT policy | 
+| MQTT over mutual authentication \(port 8883 or 443[†](protocols.md#protocol-port)\) | AWS IoT Device SDK | X\.509 certificates | AWS IoT policy | 
 | MQTT over WebSocket \(port 443\) | AWS Mobile SDK | Amazon Cognito, IAM, or federated identity |  AWS IoT policy for Amazon Cognito identities IAM policy for other identities  | 
 | HTTP over server authentication \(port 443\) | AWS CLI | Amazon Cognito, IAM, or federated identity |  AWS IoT policy for Amazon Cognito identities IAM policy for other identities  | 
 | HTTP over mutual authentication \(port 8443\) | No SDK support | X\.509 certificates | AWS IoT policy | 

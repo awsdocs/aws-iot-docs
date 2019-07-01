@@ -8,31 +8,8 @@ Lifecycle messages might be sent out of order\. You might receive duplicate mess
 ## Connect/Disconnect Events<a name="connect-disconnect"></a>
 
 AWS IoT publishes a message to the following MQTT topics when a client connects or disconnects:
-
-```
-$aws/events/presence/connected/clientId
-```
-
- or 
-
-```
-$aws/events/presence/disconnected/clientId
-```
-
-Where `clientId` is the MQTT client ID that connects to or disconnects from the AWS IoT message broker\.
-
-The message published to this topic has the following structure:
-
-```
-{
-    "clientId": "a1b2c3d4e5f6a7b8c9d0e1f2a3b4c5d6",
-    "timestamp": 1460065214626,
-    "eventType": "connected",
-    "sessionIdentifier": "00000000-0000-0000-0000-000000000000",
-    "principalIdentifier": "000000000000/ABCDEFGHIJKLMNOPQRSTU:some-user/ABCDEFGHIJKLMNOPQRSTU:some-user",
-    "clientInitiatedDisconnect": false
-}
-```
++ `$aws/events/presence/connected/clientId`: A client connected to the message broker\.
++ `$aws/events/presence/disconnected/clientId`: A client disconnected from the message broker\.
 
 The following is a list of JSON elements that are contained in the connection/disconnection messages published to the `$aws/events/presence/connected/clientId` topic\.
 
@@ -41,7 +18,7 @@ The client ID of the connecting or disconnecting client\.
 Client IDs that contain \# or \+ do not receive lifecycle events\.
 
 clientInitiatedDisconnect  
-Only found in disconnection messages\. True if the client initiated the disconnect, otherwise False\.
+Only found in disconnection messages\. True if the client initiated the disconnect\. Otherwise, False\.
 
 eventType  
 The type of event\. Valid values are `connected` or `disconnected`\. 
@@ -54,6 +31,16 @@ A globally unique identifier in AWS IoT that exists for the life of the session\
 
 timestamp  
 An approximation of when the event occurred, expressed in milliseconds since the Unix epoch\. The accuracy of the timestamp is \+/\- 2 minutes\.
+
+versionNumber  
+The version number for the lifecycle event\. This is a monotonically increasing long integer value for each client ID connection\. The version number can be used by a subscriber to infer the order of lifecycle events\.  
+The Connect and Disconnect messages for a client connection have the same version number\.  
+The version number might skip values and is not guaranteed to be consistently increasing by 1 for each event\.  
+If a client is not connected for approximately one hour, the version number is reset to 0\. For persistent sessions, the version number is reset to 0 after a client has been disconnected longer than the configured time\-to\-live \(TTL\) for the persistent session\.
+
+### Handling Client Disconnections<a name="reconnect"></a>
+
+Best practice is to always have a wait state implemented for lifecycle events, including Last Will and Testament \(LWT\) messages\. When a disconnect message is received, your code should wait a period of time and verify a device is still offline before taking action\. One way to do this is by using [SQS Delay Queues](https://docs.aws.amazon.com/AWSSimpleQueueService/latest/SQSDeveloperGuide/sqs-delay-queues.html)\. When a client receives a LWT or a lifecycle event, you can enqueue a message \(for example, for 5 seconds\)\. When that message becomes available and is processed \(by Lambda or another service\), you can first check if the device is still offline before taking further action\.
 
 ## Subscribe/Unsubscribe Events<a name="subscribe-unsubscribe-events"></a>
 

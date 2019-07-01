@@ -1,43 +1,27 @@
 # AWS IoT Rule Actions<a name="iot-rule-actions"></a>
 
 AWS IoT rule actions are used to specify what to do when a rule is triggered\. You can define actions to write data to a DynamoDB database or a Kinesis stream or to invoke a Lambda function, and more\. The following actions are supported: 
-
 + `cloudwatchAlarm` to change a CloudWatch alarm\.
-
 + `cloudwatchMetric` to capture a CloudWatch metric\.
-
 + `dynamoDB` to write data to a DynamoDB database\. 
-
 + `dynamoDBv2` to write data to a DynamoDB database\. 
-
 + `elasticsearch` to write data to an Amazon Elasticsearch Service domain\. 
-
-+ `firehose` to write data to an Amazon Kinesis Firehose stream\.
-
++ `firehose` to write data to an Amazon Kinesis Data Firehose stream\.
 + `iotAnalytics` to send data to an AWS IoT Analytics channel\.
-
 + `iotEvents` to send data to an AWS IoT Events input\.
-
 + `kinesis` to write data to a Kinesis stream\.
-
 + `lambda` to invoke a Lambda function\.
-
 + `republish` to republish the message on another MQTT topic\.
-
 + `s3` to write data to an Amazon S3 bucket\.
-
 + `salesforce` to write a message to a Salesforce IoT input stream\.
-
 + `sns` to write data as a push notification\.
-
 + `sqs` to write data to an SQS queue\.
-
 + `stepFunctions` to start execution of a Step Functions state machine\.
 
 **Note**  
-The AWS IoT rules engine does not currently retry delivery for messages that fail to be published to another service\.
+The AWS IoT rules engine might make multiple attempts to perform an action in case of intermittent errors\. If all attempts fail, the message is discarded and the error is available in your CloudWatch logs\. You can specify an error action for each rule that is invoked after a failure occurs\. For more information, see [Error Handling \(Error Action\)](rule-error-handling.md)\.
 
-The following discusses each action in detail\.
+Each action is described in detail\.
 
 ## CloudWatch Alarm Action<a name="cloudwatch-alarm-action"></a>
 
@@ -64,15 +48,16 @@ stateValue
 The value of the alarm state\. Acceptable values are `OK`, `ALARM`, `INSUFFICIENT_DATA`\.
 
 **Note**  
-Ensure the role associated with the rule has a policy that grants the `cloudwatch:SetAlarmState` permission\.
+Make sure the role associated with the rule has a policy that grants the `cloudwatch:SetAlarmState` permission\.
 
 The following JSON example shows how to define a CloudWatch alarm action in an AWS IoT rule:
 
 ```
 {
-    "rule": {
+    "topicRulePayload": {
         "sql": "SELECT * FROM 'some/topic'", 
         "ruleDisabled": false, 
+        "awsIotSqlVersion": "2016-03-23",
         "actions": [{
             "cloudwatchAlarm": {
                 "roleArn": "arn:aws:iam::123456789012:role/aws_iot_cw", 
@@ -85,7 +70,7 @@ The following JSON example shows how to define a CloudWatch alarm action in an A
 }
 ```
 
-For more information, see [CloudWatch Alarms](http://alpha-docs-aws.amazon.com/AmazonCloudWatch/latest/DeveloperGuide/AlarmThatSendsEmail.html)\.
+For more information, see [CloudWatch Alarms](https://docs.aws.amazon.com/AmazonCloudWatch/latest/DeveloperGuide/AlarmThatSendsEmail.html)\.
 
 ------
 
@@ -120,15 +105,16 @@ metricTimestamp
 An optional Unix timestamp\.
 
 **Note**  
-Ensure the role associated with the rule has a policy granting the `cloudwatch:PutMetricData` permission\.
+Make sure that the role associated with the rule has a policy granting the `cloudwatch:PutMetricData` permission\.
 
 The following JSON example shows how to define a CloudWatch metric action in an AWS IoT rule:
 
 ```
 {
-    "rule": {
+    "topicRulePayload": {
         "sql": "SELECT * FROM 'some/topic'", 
         "ruleDisabled": false, 
+        "awsIotSqlVersion": "2016-03-23",
         "actions": [{
             "cloudwatchMetric": {
                 "roleArn": "arn:aws:iam::123456789012:role/aws_iot_cw", 
@@ -143,7 +129,7 @@ The following JSON example shows how to define a CloudWatch metric action in an 
 }
 ```
 
-For more information, see [CloudWatch Metrics\.](http://alpha-docs-aws.amazon.com/AmazonCloudWatch/latest/DeveloperGuide/CW_Support_For_AWS.html)
+For more information, see [CloudWatch Metrics\.](https://docs.aws.amazon.com/AmazonCloudWatch/latest/DeveloperGuide/CW_Support_For_AWS.html)
 
 ------
 
@@ -193,16 +179,17 @@ The data written to the DynamoDB table is the result from the SQL statement of t
 
 **Note**  
 Non\-JSON data is written to DynamoDB as binary data\. The DynamoDB console displays the data as Base64\-encoded text\.  
-Ensure the role associated with the rule has a policy granting the `dynamodb:PutItem` permission\.
+Make sure that the role associated with the rule has a policy granting the `dynamodb:PutItem` permission\.
 
 The following JSON example shows how to define a `dynamoDB` action in an AWS IoT rule:
 
 ```
 {
-    "rule": {
+    "topicRulePayload": {
         "ruleDisabled": false, 
         "sql": "SELECT * AS message FROM 'some/topic'", 
         "description": "A test Dynamo DB rule", 
+        "awsIotSqlVersion": "2016-03-23",
         "actions": [{
             "dynamoDB": {
                 "hashKeyField": "key", 
@@ -217,7 +204,7 @@ The following JSON example shows how to define a `dynamoDB` action in an AWS IoT
 }
 ```
 
-For more information, see the [Amazon DynamoDB Getting Started Guide](http://alpha-docs-aws.amazon.com/amazondynamodb/latest/gettingstartedguide/)\.
+For more information, see the [Amazon DynamoDB Getting Started Guide](https://docs.aws.amazon.com/amazondynamodb/latest/gettingstartedguide/)\.
 
 ------
 
@@ -245,16 +232,17 @@ The MQTT message payload must contain a root\-level key that matches the table's
 The data written to the DynamoDB table is the result from the SQL statement of the rule\.
 
 **Note**  
-Ensure the role associated with the rule has a policy granting the `dynamodb:PutItem` permission\.
+Make sure that the role associated with the rule has a policy granting the `dynamodb:PutItem` permission\.
 
 The following JSON example shows how to define a `dynamoDB` action in an AWS IoT rule:
 
 ```
 {
-    "rule": {
-        "ruleDisabled": false, 
+    "topicRulePayload": {
         "sql": "SELECT * AS message FROM 'some/topic'", 
+        "ruleDisabled": false, 
         "description": "A test DynamoDBv2 rule", 
+        "awsIotSqlVersion": "2016-03-23",
         "actions": [{
             "dynamoDBv2": {
                 "roleArn": "arn:aws:iam::123456789012:role/aws_iot_dynamoDBv2", 
@@ -267,16 +255,16 @@ The following JSON example shows how to define a `dynamoDB` action in an AWS IoT
 }
 ```
 
-For more information, see the [Amazon DynamoDB Getting Started Guide](http://alpha-docs-aws.amazon.com/amazondynamodb/latest/gettingstartedguide/)\.
+For more information, see the [Amazon DynamoDB Getting Started Guide](https://docs.aws.amazon.com/amazondynamodb/latest/gettingstartedguide/)\.
 
 ------
 
-## Amazon ES Action<a name="elasticsearch-rule"></a>
+## Elasticsearch Action<a name="elasticsearch-rule"></a>
 
 ------
-#### [ Amazon ES Action ]
+#### [ Elasticsearch Action ]
 
-The `elasticsearch` action allows you to write data from MQTT messages to an Amazon Elasticsearch Service domain\. Data in Amazon ES can then be queried and visualized by using tools like Kibana\. 
+The `elasticsearch` action allows you to write data from MQTT messages to an Amazon Elasticsearch Service domain\. Data in Elasticsearch can then be queried and visualized by using tools like Kibana\. 
 
 ------
 #### [ more info \(5\) ]
@@ -284,10 +272,10 @@ The `elasticsearch` action allows you to write data from MQTT messages to an Ama
 When you create an AWS IoT rule with an `elasticsearch` action, you must specify the following information:
 
 endpoint  
-The endpoint of your Amazon ES domain\.
+The endpoint of your Amazon Elasticsearch Service domain\.
 
 index  
-The Amazon ES index where you want to store your data\.
+The Elasticsearch index where you want to store your data\.
 
 type  
 The type of document you are storing\.
@@ -296,31 +284,30 @@ id
 The unique identifier for each document\.
 
 **Note**  
-Ensure the role associated with the rule has a policy granting the `es:ESHttpPut` permission\.
+Make sure that the role associated with the rule has a policy granting the `es:ESHttpPut` permission\.
 
 The following JSON example shows how to define an `elasticsearch` action in an AWS IoT rule:
 
 ```
 {
-  "rule":{
-   "sql":"SELECT *, timestamp() as timestamp FROM 'iot/test'",
-   "ruleDisabled":false,
-    "actions":[
-      {
+  "topicRulePayload":{
+    "sql":"SELECT *, timestamp() as timestamp FROM 'iot/test'",
+    "ruleDisabled":false,
+    "awsIotSqlVersion": "2016-03-23",
+    "actions":[{
         "elasticsearch":{
           "roleArn":"arn:aws:iam::123456789012:role/aws_iot_es",
           "endpoint":"https://my-endpoint",
-         "index":"my-index",
+          "index":"my-index",
           "type":"my-type",
           "id":"${newuuid()}"
         }
-      }
-    ]
+    }]
   }
 }
 ```
 
-For more information, see the [Amazon ES Developer Guide](http://alpha-docs-aws.amazon.com/elasticsearch-service/latest/developerguide/)\.
+For more information, see the [Amazon Elasticsearch Service Developer Guide](https://docs.aws.amazon.com/elasticsearch-service/latest/developerguide/)\.
 
 ------
 
@@ -329,7 +316,7 @@ For more information, see the [Amazon ES Developer Guide](http://alpha-docs-aws.
 ------
 #### [ Firehose Action ]
 
-A `firehose` action sends data from an MQTT message that triggered the rule to a Kinesis Firehose stream\. 
+A `firehose` action sends data from an MQTT message that triggered the rule to a Kinesis Data Firehose stream\. 
 
 ------
 #### [ more info \(6\) ]
@@ -337,24 +324,25 @@ A `firehose` action sends data from an MQTT message that triggered the rule to a
 When creating a rule with a `firehose` action, you must specify the following information:
 
 deliveryStreamName  
-The Kinesis Firehose stream to which to write the message data\.
+The Kinesis Data Firehose stream to which to write the message data\.
 
 roleArn  
-The IAM role that allows access to Kinesis Firehose\.
+The IAM role that allows access to Kinesis Data Firehose\.
 
 separator  
-A character separator that is used to separate records written to the Firehose stream\. Valid values are: '\\n' \(newline\), '\\t' \(tab\), '\\r\\n' \(Windows newline\), ',' \(comma\)\.
+A character separator that is used to separate records written to the Kinesis Data Firehose stream\. Valid values are: '\\n' \(newline\), '\\t' \(tab\), '\\r\\n' \(Windows newline\), ',' \(comma\)\.
 
 **Note**  
-Make sure the role associated with the rule has a policy that grants the `firehose:PutRecord` permission\.
+Make sure that the role associated with the rule has a policy that grants the `firehose:PutRecord` permission\.
 
 The following JSON example shows how to create an AWS IoT rule with a `firehose` action:
 
 ```
 {
-    "rule": {
+    "topicRulePayload": {
         "sql": "SELECT * FROM 'some/topic'", 
         "ruleDisabled": false, 
+        "awsIotSqlVersion": "2016-03-23",
         "actions": [{
             "firehose": {
                 "roleArn": "arn:aws:iam::123456789012:role/aws_iot_firehose", 
@@ -365,7 +353,7 @@ The following JSON example shows how to create an AWS IoT rule with a `firehose`
 }
 ```
 
-For more information, see the [Kinesis Firehose Developer Guide](http://alpha-docs-aws.amazon.com/firehose/latest/dev/)\.
+For more information, see the [Kinesis Data Firehose Developer Guide](https://docs.aws.amazon.com/firehose/latest/dev/)\.
 
 ------
 
@@ -374,7 +362,7 @@ For more information, see the [Kinesis Firehose Developer Guide](http://alpha-do
 ------
 #### [ IoT Analytics Action ]
 
-An `iotAnalytics` action sends data from the MQTT message that triggered the rule to an channel\. 
+An `iotAnalytics` action sends data from the MQTT message that triggered the rule to an AWS IoT Analytics channel\. 
 
 ------
 #### [ more info \(7\) ]
@@ -382,10 +370,10 @@ An `iotAnalytics` action sends data from the MQTT message that triggered the rul
 When creating a rule with an `iotAnalytics` action, you must specify the following information:
 
 channelName  
-The name of the channel to which to write the data\.
+The name of the AWS IoT Analytics channel to which to write the data\.
 
 roleArn  
-The IAM role that allows access to the channel\.
+The IAM role that allows access to the AWS IoT Analytics channel\.
 
 The policy attached to the role you specify should look like this:
 
@@ -425,7 +413,7 @@ The following JSON example shows how to create an AWS IoT rule with an `iotAnaly
 
 ```
 {
-    "rule": {
+    "topicRulePayload": {
         "sql": "SELECT * FROM 'some/topic'", 
         "ruleDisabled": false, 
         "awsIotSqlVersion": "2016-03-23",
@@ -439,7 +427,68 @@ The following JSON example shows how to create an AWS IoT rule with an `iotAnaly
 }
 ```
 
-For more information, see the [ User Guide](http://alpha-docs-aws.amazon.com/iotanalytics/latest/userguide/index.html)\.
+For more information, see the [AWS IoT Analytics User Guide](https://docs.aws.amazon.com/iotanalytics/latest/userguide/index.html)\.
+
+The AWS IoT Analytics console also has a **Quick start** feature that allows you to create a channel, data store, pipeline, and data store with one click\. Look for this page when you enter the AWS IoT Analytics console:
+
+![\[Image NOT FOUND\]](http://docs.aws.amazon.com/iot/latest/developerguide/images/iota-console-quickstart.png)
+
+------
+
+## IoT Events Action<a name="iotevents-rule"></a>
+
+------
+#### [ IoT Events Action ]
+
+An `iotEvents` action sends data from the MQTT message that triggered the rule to an AWS IoT Events input\. 
+
+------
+#### [ more info \(8\) ]
+
+When creating a rule with a `iotEvents` action, you must specify the following information:
+
+inputName  
+The name of the AWS IoT Events input\.
+
+messageId  
+Optional\. Use this to ensure that only one input \(message\) with a given messageId is processed by an AWS IoT Events detector\.
+
+roleArn  
+The ARN of the role that grants AWS IoT permission to send an input to an AWS IoT Events detector\. \(`"Action":"iotevents:BatchPutMessage"`\)\.  
+Here is an example trust policy that should be attached to the role:  
+
+```
+{
+    "Version": "2012-10-17",
+    "Statement": {
+        "Effect": "Allow",
+        "Action": "iotevents:BatchPutMessage",
+        "Resource": [ * ]
+    }
+}
+```
+
+The following JSON example shows how to create an AWS IoT rule with an `iotEvents` action:
+
+```
+{
+    "topicRulePayload": {
+      "sql": "expression",
+      "ruleDisabled": false,
+      "description": "An AWS IoT Events test rule",
+      "awsIotSqlVersion": "2016-03-23",
+      "actions": [{
+          "iotEvents": {
+            "inputName": "MyIoTEventsInput",
+            "messageId": "1234567890",
+            "roleArn": "arn:aws:iam::123456789012:role/aws_iot_events"
+          },
+      }]
+    }
+}
+```
+
+For more information, see the [ AWS IoT Events Developer Guide](https://docs.aws.amazon.com/iotevents/latest/developerguide/index.html)\.
 
 ------
 
@@ -451,7 +500,7 @@ For more information, see the [ User Guide](http://alpha-docs-aws.amazon.com/iot
 The `kinesis` action allows you to write data from MQTT messages into a Kinesis stream\. 
 
 ------
-#### [ more info \(8\) ]
+#### [ more info \(9\) ]
 
 When creating an AWS IoT rule with a `kinesis` action, you must specify the following information:
 
@@ -468,9 +517,10 @@ The following JSON example shows how to define a `kinesis` action in an AWS IoT 
 
 ```
 {
-    "rule": {
+    "topicRulePayload": {
         "sql": "SELECT * FROM 'some/topic'", 
         "ruleDisabled": false, 
+        "awsIotSqlVersion": "2016-03-23",
         "actions": [{
             "kinesis": {
                 "roleArn": "arn:aws:iam::123456789012:role/aws_iot_kinesis", 
@@ -482,7 +532,7 @@ The following JSON example shows how to define a `kinesis` action in an AWS IoT 
 }
 ```
 
-For more information, see the [Kinesis Developer Guide](http://alpha-docs-aws.amazon.com/streams/latest/dev/introduction.html)\.
+For more information, see the [Kinesis Developer Guide](https://docs.aws.amazon.com/streams/latest/dev/introduction.html)\.
 
 ------
 
@@ -494,7 +544,7 @@ For more information, see the [Kinesis Developer Guide](http://alpha-docs-aws.am
  A `lambda` action calls a Lambda function, passing in the MQTT message that triggered the rule\. 
 
 ------
-#### [ more info \(9\) ]
+#### [ more info \(10\) ]
 
 In order for AWS IoT to call a Lambda function, you must configure a policy granting the `lambda:InvokeFunction` permission to AWS IoT\. Lambda functions use resource\-based policies, so you must attach the policy to the Lambda function itself\. Use the following CLI command to attach a policy granting `lambda:InvokeFunction` permission: 
 
@@ -508,7 +558,7 @@ The following are the arguments for the `add-permission` command:
 Name of the Lambda function whose resource policy you are updating by adding a new permission\.
 
 \-\-region  
-The AWS region of your account\.
+The AWS Region of your account\.
 
 \-\-principal  
 The principal who is getting the permission\. This should be `iot.amazonaws.com` to allow AWS IoT permission to call a Lambda function\.
@@ -523,12 +573,12 @@ The AWS account where the rule is defined\.
 A unique statement identifier\.
 
 \-\-action  
-The Lambda action you want to allow in this statement\. In this case, we want to allow AWS IoT to invoke a Lambda function, so we specify `lambda:InvokeFunction`\.
+The Lambda action you want to allow in this statement\. To allow AWS IoT to invoke a Lambda function, specify `lambda:InvokeFunction`\.
 
 **Note**  
-If you add a permission for an AWS IoT principal without providing the source ARN, any AWS account that creates a rule with your Lambda action can trigger rules to invoke your Lambda function from AWS IoT
+If you add a permission for an AWS IoT principal without providing the source ARN, any AWS account that creates a rule with your Lambda action can trigger rules to invoke your Lambda function from AWS IoT\.
 
-For more information, see [Lambda Permission Model](http://alpha-docs-aws.amazon.com/lambda/latest/dg/intro-permission-model.html)\.
+For more information, see [Lambda Permission Model](https://docs.aws.amazon.com/lambda/latest/dg/intro-permission-model.html)\.
 
 When creating a rule with a `lambda` action, you must specify the Lambda function to invoke when the rule is triggered\. 
 
@@ -536,9 +586,10 @@ The following JSON example shows a rule that calls a Lambda function:
 
 ```
 {
-    "rule": {
+    "topicRulePayload": {
         "sql": "SELECT * FROM 'some/topic'", 
         "ruleDisabled": false, 
+        "awsIotSqlVersion": "2016-03-23",
         "actions": [{
             "lambda": {
                 "functionArn": "arn:aws:lambda:us-east-2:123456789012:function:myLambdaFunction"
@@ -548,7 +599,13 @@ The following JSON example shows a rule that calls a Lambda function:
 }
 ```
 
-For more information, see the [AWS Lambda Developer Guide](http://alpha-docs-aws.amazon.com/lambda/latest/dg/)\.
+If you do not specify a version or alias for your Lambda function, the most recent version of the function is executed\. You can specify a version or alias if you want to execute a specific version of your Lambda function\. To specify a version or alias, append the version or alias to the ARN of the Lambda function\. For example:
+
+```
+"arn:aws:lambda:us-east-2:123456789012:function:myLambdaFunction:someAlias"
+```
+
+For more information about versioning and aliases see [AWS Lambda Function Versioning and Aliases](https://docs.aws.amazon.com/lambda/latest/dg/versioning-aliases.html)\. For more information about AWS Lambda, see the [AWS Lambda Developer Guide](https://docs.aws.amazon.com/lambda/latest/dg/)\.
 
 ------
 
@@ -560,24 +617,25 @@ For more information, see the [AWS Lambda Developer Guide](http://alpha-docs-aws
 The `republish` action allows you to republish the message that triggered the role to another MQTT topic\. 
 
 ------
-#### [ more info \(10\) ]
+#### [ more info \(11\) ]
 
 When creating a rule with a `republish` action, you must specify the following information:
 
 topic  
-The MQTT topic to which to republish the message\. If you are republishing to a reserved topic, one that begins with `$` use `$$` instead\. For example if you are republishing to a device shadow topic like `$aws/things/MyThing/shadow/update`, specify the topic as `$$aws/things/MyThing/shadow/update`\.
+The MQTT topic to which to republish the message\. If you are republishing to a reserved topic, one that begins with `$` use `$$` instead\. For example, if you are republishing to a device shadow topic like `$aws/things/MyThing/shadow/update`, specify the topic as `$$aws/things/MyThing/shadow/update`\.
 
 roleArn  
 The IAM role that allows publishing to the MQTT topic\.
 
 **Note**  
-Make sure the role associated with the rule has a policy granting the `iot:Publish` permission\.
+Make sure that the role associated with the rule has a policy granting the `iot:Publish` permission\.
 
 ```
 {
-    "rule": {
+    "topicRulePayload": {
         "sql": "SELECT * FROM 'some/topic'", 
         "ruleDisabled": false, 
+        "awsIotSqlVersion": "2016-03-23",
         "actions": [{
             "republish": {
                 "topic": "another/topic", 
@@ -598,33 +656,34 @@ Make sure the role associated with the rule has a policy granting the `iot:Publi
 An `s3` action writes the data from the MQTT message that triggered the rule to an Amazon S3 bucket\. 
 
 ------
-#### [ more info \(11\) ]
+#### [ more info \(12\) ]
 
-When creating an AWS IoT rule with an `s3` action, you must specify the following information \(except for `cannedacl`, which is optional\):
+When creating an AWS IoT rule with an `s3` action, you must specify the following information, except `cannedacl`, which is optional:
 
 bucket  
 The Amazon S3 bucket to which to write data\.
 
 cannedacl  
-The Amazon S3 canned ACL that controls access to the object identified by the object key\. For more information, see [S3 Canned ACLs](http://alpha-docs-aws.amazon.com/AmazonS3/latest/dev/acl-overview.html#canned-acl) \(which lists the allowed values\)\. Note that `cannedacl` is optional\.
+Optional\. The Amazon S3 canned ACL that controls access to the object identified by the object key\. For more information, including allowed values, see [S3 Canned ACLs](https://docs.aws.amazon.com/AmazonS3/latest/dev/acl-overview.html#canned-acl)\. 
 
 key  
-The path to the file where the data is written\. For example, if the value of this argument is "$\{topic\(\)\}/$\{timestamp\(\)\}", the topic the message was sent to is "this/is/my/topic,", and the current timestamp is 1460685389, the data is written to a file called "1460685389" in the "this/is/my/topic" folder on Amazon S3\.  
-Using a static key results in a single file in Amazon S3 being overwritten for each invocation of the rule\. More common use cases are to use the message timestamp or another unique message identifier, so that a new file is saved in Amazon S3 for each message received\.
+The path to the file where the data is written\. For example, if the value of this argument is "$\{topic\(\)\}/$\{timestamp\(\)\}", the topic the message was sent to is "this/is/my/topic,"\. If the current timestamp is 1460685389, the data is written to a file called "1460685389" in the "this/is/my/topic" folder on Amazon S3\.  
+Using a static key results in a single file in Amazon S3 being overwritten for each invocation of the rule\. More common use cases are to use the message timestamp or another unique message identifier so that a new file is saved in Amazon S3 for each message received\.
 
 roleArn  
 The IAM role that allows access to the Amazon S3 bucket\.
 
 **Note**  
-Make sure the role associated with the rule has a policy granting the `s3:PutObject` permission\.
+Make sure that the role associated with the rule has a policy granting the `s3:PutObject` permission\.
 
 The following JSON example shows how to define an `s3` action in an AWS IoT rule:
 
 ```
 {
-    "rule": {
+    "topicRulePayload": {
         "sql": "SELECT * FROM 'some/topic'", 
         "ruleDisabled": false, 
+        "awsIotSqlVersion": "2016-03-23",
         "actions": [{
             "s3": {
                 "roleArn": "arn:aws:iam::123456789012:role/aws_iot_s3", 
@@ -637,7 +696,7 @@ The following JSON example shows how to define an `s3` action in an AWS IoT rule
 }
 ```
 
-For more information, see the [Amazon S3 Developer Guide](http://alpha-docs-aws.amazon.com/AmazonS3/latest/dev/)\. 
+For more information, see the [Amazon S3 Developer Guide](https://docs.aws.amazon.com/AmazonS3/latest/dev/)\. 
 
 ------
 
@@ -646,18 +705,18 @@ For more information, see the [Amazon S3 Developer Guide](http://alpha-docs-aws.
 ------
 #### [ Salesforce Action ]
 
-A `salesforce` action sends data from the MQTT message that triggered the rule to a Salesforce IoT Input Stream\. 
+A `salesforce` action sends data from the MQTT message that triggered the rule to a Salesforce IoT input stream\. 
 
 ------
-#### [ more info \(12\) ]
+#### [ more info \(13\) ]
 
 When creating a rule with a `salesforce` action, you must specify the following information:
 
 url  
-The URL exposed by the Salesforce IoT Input Stream\. The URL is available from the Salesforce IoT Platform when you create an Input Stream\. Refer to the Salesforce IoT documentation to learn more\.
+The URL exposed by the Salesforce IoT input stream\. The URL is available from the Salesforce IoT platform when you create an input stream\. For more information, see the Salesforce IoT documentation\.
 
 token  
-The token used to authenticate access to the specified Salesforce IoT Input Stream\. The token is available from the Salesforce IoT Platform when you create an Input Stream\. Refer to the Salesforce IoT documentation to learn more\.
+The token used to authenticate access to the specified Salesforce IoT input stream\. The token is available from the Salesforce IoT platform when you create an input stream\. For more information, see the Salesforce IoT documentation\.
 
 **Note**  
 These parameters do not support substitution\.
@@ -666,15 +725,17 @@ The following JSON example shows how to create an AWS IoT rule with a `salesforc
 
 ```
 {
-    "sql": "expression",
-    "ruleDisabled": false,
-    "awsIotSqlVersion": "2016-03-23",
-    "actions": [{
-        "salesforce": {
-            "token": "ABCDEFGHI123456789abcdefghi123456789",
-            "url": "https://ingestion-cluster-id.my-env.sfdcnow.com/streams/stream-id/connection-id/my-event"
-        }
-    }]
+    "topicRulePayload": {
+      "sql": "expression",
+      "ruleDisabled": false,
+      "awsIotSqlVersion": "2016-03-23",
+      "actions": [{
+          "salesforce": {
+              "token": "ABCDEFGHI123456789abcdefghi123456789",
+              "url": "https://ingestion-cluster-id.my-env.sfdcnow.com/streams/stream-id/connection-id/my-event"
+          }
+      }]
+    }
 }
 ```
 
@@ -690,7 +751,7 @@ For more information, refer to the Salesforce IoT documentation\.
 A `sns` action sends the data from the MQTT message that triggered the rule as an SNS push notification\. 
 
 ------
-#### [ more info \(13\) ]
+#### [ more info \(14\) ]
 
 When creating a rule with an `sns` action, you must specify the following information:
 
@@ -704,15 +765,16 @@ targetArn
 The SNS topic or individual device to which the push notification is sent\.
 
 **Note**  
-Make sure the policy associated with the rule has the `sns:Publish` permission\.
+Make sure that the policy associated with the rule has the `sns:Publish` permission\.
 
 The following JSON example shows how to define an `sns` action in an AWS IoT rule:
 
 ```
 {
-    "rule": {
+    "topicRulePayload": {
         "sql": "SELECT * FROM 'some/topic'", 
         "ruleDisabled": false, 
+        "awsIotSqlVersion": "2016-03-23",
         "actions": [{
             "sns": {
                 "targetArn": "arn:aws:sns:us-east-2:123456789012:my_sns_topic", 
@@ -723,7 +785,7 @@ The following JSON example shows how to define an `sns` action in an AWS IoT rul
 }
 ```
 
-For more information, see the [Amazon SNS Developer Guide](http://alpha-docs-aws.amazon.com/sns/latest/dg/)\. 
+For more information, see the [Amazon SNS Developer Guide](https://docs.aws.amazon.com/sns/latest/dg/)\. 
 
 ------
 
@@ -732,10 +794,10 @@ For more information, see the [Amazon SNS Developer Guide](http://alpha-docs-aws
 ------
 #### [ SQS Action ]
 
-A `sqs` action sends data from the MQTT message that triggered the rule to an SQS queue\. 
+An `sqs` action sends data from the MQTT message that triggered the rule to an SQS queue\. 
 
 ------
-#### [ more info \(14\) ]
+#### [ more info \(15\) ]
 
 When creating a rule with an `sqs` action, you must specify the following information:
 
@@ -749,15 +811,16 @@ roleArn
 The IAM role that allows access to the SQS queue\.
 
 **Note**  
-Make sure the role associated with the rule has a policy granting the `sqs:SendMessage` permission\.
+Make sure that the role associated with the rule has a policy granting the `sqs:SendMessage` permission\.
 
 The following JSON example shows how to create an AWS IoT rule with an `sqs` action:
 
 ```
 {
-    "rule": {
+    "topicRulePayload": {
         "sql": "SELECT * FROM 'some/topic'", 
         "ruleDisabled": false, 
+        "awsIotSqlVersion": "2016-03-23",
         "actions": [{
             "sqs": {
                 "queueUrl": "https://sqs.us-east-2.amazonaws.com/123456789012/my_sqs_queue", 
@@ -769,7 +832,9 @@ The following JSON example shows how to create an AWS IoT rule with an `sqs` act
 }
 ```
 
-For more information, see the [Amazon SQS Developer Guide](http://alpha-docs-aws.amazon.com/AWSSimpleQueueService/latest/SQSDeveloperGuide/)\.
+SQS action does not support [SQS FIFO Queues](https://docs.aws.amazon.com/AWSSimpleQueueService/latest/SQSDeveloperGuide/FIFI-queues.html)\. Because the Rules Engine is a fully distributed service, there is no guarantee of message order when the SQS action is triggered\.
+
+For more information, see the [Amazon SQS Developer Guide](https://docs.aws.amazon.com/AWSSimpleQueueService/latest/SQSDeveloperGuide/)\.
 
 ------
 
@@ -781,18 +846,18 @@ For more information, see the [Amazon SQS Developer Guide](http://alpha-docs-aws
 A `stepFunctions` action starts execution of a Step Functions state machine\. 
 
 ------
-#### [ more info \(15\) ]
+#### [ more info \(16\) ]
 
 When creating a rule with a `stepFunctions` action, you must specify the following information:
 
 executionNamePrefix  
-\(Optional\) A name will be given to the state machine execution consisting of this prefix followed by a UUID\. Step Functions automatically creates a unique name for each state machine execution if one is not provided\.
+Optional\. The name given to the state machine execution consists of this prefix followed by a UUID\. Step Functions creates a unique name for each state machine execution if one is not provided\.
 
 stateMachineName  
 The name of the Step Functions state machine whose execution will be started\.
 
 roleArn  
-The ARN of the role that grants IoT permission to start execution of a state machine \("Action":"states:StartExecution"\)\.  
+The ARN of the role that grants AWS IoT permission to start execution of a state machine \("Action":"states:StartExecution"\)\.  
 Here is an example trust policy that should be attached to the role:  
 
 ```
@@ -801,9 +866,7 @@ Here is an example trust policy that should be attached to the role:
     "Statement": {
         "Effect": "Allow",
         "Action": "states:StartExecution",
-        "Resource": [
-            *
-        ]
+        "Resource": [ * ]
     }
 }
 ```
@@ -812,75 +875,22 @@ The following JSON example shows how to create an AWS IoT rule with a `stepFunct
 
 ```
 {
-    "sql": "expression",
-    "ruleDisabled": false,
-    "description": "A step functions test rule",
-    "awsIotSqlVersion": "2016-03-23",
-    "actions": [{
-        "stepFunctions": {
-            "executionNamePrefix": "myExecution",
-            "stateMachineName": "myStateMachine",
-            "roleArn": "arn:aws:iam::123456789012:role/aws_iot_step_functions"
-        }
-    }]
-}
-```
-
-For more information, see the [ Step Functions Developer Guide](http://alpha-docs-aws.amazon.com/step-functions/latest/dg/)\.
-
-------
-
-## AWS IoT Events Action<a name="iotevents-rule"></a>
-
-------
-#### [ AWS IoT Events Action ]
-
-An `iotEvents` action sends data from the MQTT message that triggered the rule to an AWS IoT Events input\. 
-
-------
-#### [ more info \(16\) ]
-
-When creating a rule with a `iotEvents` action, you must specify the following information:
-
-inputName  
-The name of the AWS IoT Events input\.
-
-messageId  
-\(Optional\) Use this to ensure that only one input \(message\) with a given messageId will be processed by an AWS IoT Events detector\.
-
-roleArn  
-The ARN of the role that grants AWS IoT permission to send an input to an AWS IoT Events detector\. \("Action":"iotevents:BatchPutMessage"\)\.  
-Here is an example trust policy that should be attached to the role:  
-
-```
-{
-    "Version": "2012-10-17",
-    "Statement": {
-        "Effect": "Allow",
-        "Action": "iotevents:BatchPutMessage",
-        "Resource": [
-            *
-        ]
+    "topicRulePayload": {
+      "sql": "expression",
+      "ruleDisabled": false,
+      "description": "A step functions test rule",
+      "awsIotSqlVersion": "2016-03-23",
+      "actions": [{
+          "stepFunctions": {
+              "executionNamePrefix": "myExecution",
+              "stateMachineName": "myStateMachine",
+              "roleArn": "arn:aws:iam::123456789012:role/aws_iot_step_functions"
+          }
+      }]
     }
 }
 ```
 
-The following JSON example shows how to create an AWS IoT rule with a `iotEvents` action:
-
-```
-{
-    "sql": "expression",
-    "ruleDisabled": false,
-    "description": "An AWS IoT Events test rule",
-    "awsIotSqlVersion": "2016-03-23",
-    "actions": [{
-        "iotEvents": {
-          "inputName": "MyIoTEventsInput",
-          "messageId": "1234567890",
-          "roleArn": "arn:aws:iam::123456789012:role/aws_iot_events"
-        },
-    }]
-}
-```
+For more information, see the [ Step Functions Developer Guide](https://docs.aws.amazon.com/step-functions/latest/dg/)\.
 
 ------

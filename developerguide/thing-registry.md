@@ -20,6 +20,9 @@ The CreateThing command displays the name and ARN of your new thing:
 }
 ```
 
+**Note**  
+We do not recommend using personally identifiable information in your thing names\.
+
 ## List Things<a name="list-things"></a>
 
 You can use the ListThings command to list all things in your account:

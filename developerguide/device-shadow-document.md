@@ -2,7 +2,7 @@
 
 The Device Shadow service respects all rules of the JSON specification\. Values, objects, and arrays are stored in the device's shadow document\.
 
-
+**Topics**
 + [Document Properties](#document-structure)
 + [Versioning of a Device Shadow](#versioning)
 + [Client Token](#client-token)
@@ -14,23 +14,23 @@ The Device Shadow service respects all rules of the JSON specification\. Values,
 
 A device's shadow document has the following properties:
 
-`state`    
-`desired`  
+`state`  <a name="state"></a>  
+`desired`  <a name="desired"></a>
 The desired state of the thing\. Applications can write to this portion of the document to update the state of a thing without having to directly connect to a thing\.  
-`reported`  
+`reported`  <a name="reported"></a>
 The reported state of the thing\. Things write to this portion of the document to report their new state\. Applications read this portion of the document to determine the state of a thing\.
 
-`metadata`  
+`metadata`  <a name="metadata"></a>
 Information about the data stored in the `state` section of the document\. This includes timestamps, in Epoch time, for each attribute in the `state` section, which enables you to determine when they were updated\.  
-Metadata do not contribute to the document size for service limits or pricing\. For more information, see [AWS IoT Service Limits](http://alpha-docs-aws.amazon.com/general/latest/gr/aws_service_limits.html#limits_iot)\.
+Metadata do not contribute to the document size for service limits or pricing\. For more information, see [AWS IoT Service Limits](https://docs.aws.amazon.com/general/latest/gr/aws_service_limits.html#limits_iot)\.
 
-`timestamp`  
+`timestamp`  <a name="timestamp"></a>
 Indicates when the message was transmitted by AWS IoT\. By using the timestamp in the message and the timestamps for individual attributes in the `desired` or `reported` section, a thing can determine how old an updated item is, even if it doesn't feature an internal clock\.
 
-`clientToken`  
+`clientToken`  <a name="clientToken"></a>
 A string unique to the device that enables you to associate responses with requests in an MQTT environment\.
 
-`version`  
+`version`  <a name="version"></a>
 The document version\. Every time the document is updated, this version number is incremented\. Used to ensure the version of the document being updated is the most recent\.
 
 For more information, see [Shadow Document Syntax](device-shadow-document-syntax.md)\.
@@ -38,9 +38,7 @@ For more information, see [Shadow Document Syntax](device-shadow-document-syntax
 ## Versioning of a Device Shadow<a name="versioning"></a>
 
 The Device Shadow service supports versioning on every update message \(both request and response\), which means that with every update of a device's shadow, the version of the JSON document is incremented\. This ensures two things:
-
 + A client can receive an error if it attempts to overwrite a shadow using an older version number\. The client is informed it must resync before it can update a device's shadow\.
-
 + A client can decide not to act on a received message if the message has a lower version than the version stored by the client\. 
 
 In some cases, a client might bypass version matching by not submitting a version\.

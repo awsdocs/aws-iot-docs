@@ -3,7 +3,7 @@
 ## Execution Trace<a name="diagnosing-salsforce-setup"></a>
 
 How do I see the execution trace of a Salesforce action?  
-If CloudWatch Logs are not set up, see the [Setting Up CloudWatch Logs with AWS IoT](cloud-watch-logs.md) section\. After you have activated the logs, you are able to see the execution trace of the Salesforce action\.
+If CloudWatch Logs are not set up, see the [Monitoring with CloudWatch Logs](cloud-watch-logs.md) section\. After you have activated the logs, you are able to see the execution trace of the Salesforce action\.
 
 ## Action Success and Failure<a name="diagnosing-salsforce-success"></a>
 

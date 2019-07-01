@@ -3,15 +3,13 @@
 In this step, you start the Raspberry Pi\. You connect to it directly or from your desktop or laptop computer\. If you connect directly to the Raspberry Pi, you then set up Raspbian on it\.
 
 1. Insert the microSDHC card into the Raspberry Pi\. The card slot is on the underside of the motherboard\. The card goes in the slot only one way, typically with the writing on the card facing down\.  
-![\[Insert the microSDHC card, with the writing on the card facing down, into the
-                card slot.\]](http://alpha-docs-aws.amazon.com/iot/latest/developerguide/images/rpi-insert-microsdhc.png)
+![\[Insert the microSDHC card, with the writing on the card facing down, into the card slot.\]](http://docs.aws.amazon.com/iot/latest/developerguide/images/rpi-insert-microsdhc.png)
 
 1. If you want to access the Raspberry Pi directly, instead of from your development computer, connect a separate keyboard, mouse, and monitor directly to the Raspberry Pi, for example, by using the USB and HDMI ports\. Although the Raspberry Pi 3 provides Bluetooth connectivity, you won’t be able to connect via Bluetooth until you boot the Raspberry Pi for the first time\.  
-![\[Mouse, keyboard, and monitor connected to the corresponding ports on the
-                Raspberry Pi.\]](http://alpha-docs-aws.amazon.com/iot/latest/developerguide/images/rpi-usb-monitor.png)
+![\[Mouse, keyboard, and monitor connected to the corresponding ports on the Raspberry Pi.\]](http://docs.aws.amazon.com/iot/latest/developerguide/images/rpi-usb-monitor.png)
 
 1. Insert the prongs of the micro USB adapter power supply into your power source, and then plug the micro USB end into its slot in the Raspberry Pi\.  
-![\[Power supply for Raspberry Pi connected to the micro USB port.\]](http://alpha-docs-aws.amazon.com/iot/latest/developerguide/images/rpi-insert-power.png)
+![\[Power supply for Raspberry Pi connected to the micro USB port.\]](http://docs.aws.amazon.com/iot/latest/developerguide/images/rpi-insert-power.png)
 
    The Raspberry Pi red power LED light turns on, the green activity LED light begins flickering, and the Raspbian operating system automatically boots\. If you plan to access the Raspberry Pi from your development computer, the Raspberry Pi attempts to connect to the wireless network using the password that you specified earlier in the `wpa_supplicant.conf` file\.
 
