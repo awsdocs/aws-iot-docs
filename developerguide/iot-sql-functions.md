@@ -529,6 +529,51 @@ Examples:
 | Object | String \(no conversion is applied\) | The value stored in the first argument object corresponding to the string key provided as the second argument\. | 
 | Other Value | Any Value | Undefined\. | 
 
+## get\_dynamodb\(tableName, partitionKeyName, partitionKeyValue, sortKeyName, sortKeyValue, roleArn\)<a name="iot-sql-function-get-dynamodb"></a>
+
+Retrieves data from a DynamoDB table\. `get_dynamodb()` allows you to query a DynamoDB table while a rule is evaluated\. You can filter or augment message payloads using data retrieved from DynamoDB\. Supported by SQL version 2016\-03\-23 and later\.
+
+`get_dynamodb()` takes the following parameters:
+
+tableName  
+The name of the DynamoDB table to query\.
+
+partitionKeyName  
+The name of the partition key\. For more information, see [ DynamoDB Keys](https://docs.aws.amazon.com/amazondynamodb/latest/developerguide/HowItWorks.CoreComponents.html#HowItWorks.CoreComponents.PrimaryKey)\.
+
+partitionKeyValue  
+The value of the partition key used to identify a record\. For more information, see [ DynamoDB Keys](https://docs.aws.amazon.com/amazondynamodb/latest/developerguide/HowItWorks.CoreComponents.html#HowItWorks.CoreComponents.PrimaryKey)\.
+
+sortKeyName  
+Optional\. The name of the sort key\. This parameter is required only if the DynamoDB table queried uses a composite key\. For more information, see [ DynamoDB Keys](https://docs.aws.amazon.com/amazondynamodb/latest/developerguide/HowItWorks.CoreComponents.html#HowItWorks.CoreComponents.PrimaryKey)\.
+
+sortKeyValue  
+Optional\. The value of the sort key\. This parameter is required only if the DynamoDB table queried uses a composite key\. For more information, see [ DynamoDB Keys](https://docs.aws.amazon.com/amazondynamodb/latest/developerguide/HowItWorks.CoreComponents.html#HowItWorks.CoreComponents.PrimaryKey)\.
+
+roleArn  
+The ARN of an IAM role that grants access to the DynamoDB table\. The rules engine assumes this role to access the DynamoDB table on your behalf\. Avoid using an overly permissive role\. Grant the role only those permissions required by the rule\. The following is an example policy that grants access to one DynamoDB table\.  
+
+```
+{
+    "Version": "2012-10-17",
+    "Statement": [
+        {
+            “Effect”: “Allow”,
+            “Action”: “dynamodb:GetItem”,
+            “Resource”: “arn:aws:dynamodb:<aws-region>:<account-id>:table/<table-name>”
+        }
+    ]
+}}
+```
+
+As an example of how you can use `get_dynamodb()`, say you have a DynamoDB table that contains device ID and location information for all of your devices connected to AWS IoT\. The following SELECT statement uses the `get_dynamodb()` function to retrieve the location for the specified device ID:
+
+`SELECT *, get_dynamodb("InServiceDevices", "deviceId", id, "arn:aws:iam::12345678910:role/getdynamo").location AS location FROM 'some/topic' `
+
+**Note**  
+You can call `get_dynamodb()` a maximum of one time per SQL statement\. Calling `get_dynamodb()` multiple times in a single SQL statement causes the rule to terminate without invoking any actions\.
+If `get_dynamodb()` returns more than 8 KB of data, the rule's action may not be invoked\.
+
 ## get\_thing\_shadow\(thingName, roleARN\)<a name="iot-sql-function-get-thing-shadow"></a>
 
 Returns the shadow of the specified thing\. Supported by SQL version 2016\-03\-23 and later\.
@@ -814,11 +859,23 @@ Examples:
 
 ## principal\(\)<a name="iot-sql-function-principal"></a>
 
-Returns the X\.509 certificate fingerprint or thing name, depending on which endpoint, MQTT or HTTP, received the request\. Supported by SQL version 2015\-10\-8 and later\.
+Returns the principal the device uses for authentication\. Which principal is return depends on how the triggering message was published\. The following table describes the principal returned for each publishing method and protocol\.
 
-Example:
 
-`principal() ` = "ba67293af50bf2506f5f93469686da660c7c844e7b3950bfb16813e0d31e9373"
+****  
+
+| How message is published | Protocol | Credential Type | Principal | 
+| --- | --- | --- | --- | 
+| MQTT client | MQTT | X\.509 device certificate | X\.509 certificate thumbprint | 
+| AWS IoT console MQTT client | MQTT | IAM user or role | <iam\-role\-id>:<session\-name> | 
+| AWS CLI | HTTP | IAM user or role | <userid> | 
+| AWS IoT Device SDK | MQTT | X\.509 device certificate | X\.509 certificate thumbprint | 
+| AWS IoT Device SDK | MQTT over WebSocket | IAM user or role | <userid> | 
+
+The following examples show the different types of values returned by `principal`:
++ X\.509 certificate thumbprint: `ba67293af50bf2506f5f93469686da660c7c844e7b3950bfb16813e0d31e9373`
++ IAM role ID and session name: `ABCD1EFG3HIJK2LMNOP5:my-session-name`
++ returns a user ID: `ABCD1EFG3HIJK2LMNOP5`
 
 ## parse\_time\(String, Long, \[String\]\)<a name="iot-sql-function-parse-time"></a>
 
@@ -831,7 +888,7 @@ timestamp
 \(Long\) The time to be formatted in milliseconds since Unix epoch\. See function [timestamp\(\)](#iot-function-timestamp)\.
 
 timezone  
-\(String\) \[Optional\] The time zone of the formatted date/time\. The default is "UTC"\. The function supports [Joda\-Time time zones](http://joda-time.sourceforge.net/timezones.html)\.
+\(String\) Optional\. The time zone of the formatted date/time\. The default is "UTC"\. The function supports [Joda\-Time time zones](http://joda-time.sourceforge.net/timezones.html)\.
 
 Examples:
 
@@ -986,15 +1043,15 @@ Example:
 
 *Second argument:*
 
-Must be a valid regex expression\. Non\-string types are converted to `String`s using the standard conversion rules\. Depending on the type, the resultant string might not be a valid regular expression\. If the \(converted\) argument is not a valid regex expression, the result is `Undefined`\. 
+Must be a valid regex expression\. Non\-string types are converted to `String` using the standard conversion rules\. Depending on the type, the resultant string might not be a valid regular expression\. If the \(converted\) argument is not a valid regex expression, the result is `Undefined`\. 
 
 *Third argument:*
 
-Must be a valid regex replacement string\. \(Can reference capture groups\.\) Non\-string types will be converted to `String`s using the standard conversion rules\. If the \(converted\) argument is not a valid regex replacement string, the result is `Undefined`\. 
+Must be a valid regex replacement string\. \(Can reference capture groups\.\) Non\-string types are converted to `String` using the standard conversion rules\. If the \(converted\) argument is not a valid regex replacement string, the result is `Undefined`\. 
 
 ## regexp\_substr\(String, String\)<a name="iot-func-regex-substr"></a>
 
-Finds the first match of the 2nd parameter \(regex\) in the first parameter\. Reference capture groups with "$"\. Supported by SQL version 2015\-10\-8 and later\.
+Finds the first match of the second parameter \(regex\) in the first parameter\. Reference capture groups with "$"\. Supported by SQL version 2015\-10\-8 and later\.
 
 Example:
 
@@ -1018,7 +1075,7 @@ Example:
 
 *Second argument:*
 
-Must be a valid regex expression\. Non\-string types are converted to `String`s using the standard conversion rules\. Depending on the type, the resultant string might not be a valid regular expression\. If the \(converted\) argument is not a valid regex expression, the result is `Undefined`\. 
+Must be a valid regex expression\. Non\-string types are converted to `String` using the standard conversion rules\. Depending on the type, the resultant string might not be a valid regular expression\. If the \(converted\) argument is not a valid regex expression, the result is `Undefined`\. 
 
 *Third argument:*
 

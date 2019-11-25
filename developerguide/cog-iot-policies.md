@@ -1,0 +1,5 @@
+# Authorization with Amazon Cognito Identities<a name="cog-iot-policies"></a>
+
+There are two types of Amazon Cognito identities: unauthenticated and authenticated\. When your app supports unauthenticated Amazon Cognito identities, no authentication is performed so you do not know who the user is\. For unauthenticated users, you grant permission by attaching an IAM role to an unauthenticated identity pool\. You should grant access to only those resources you want available to unknown users\.
+
+When your app supports authenticated Amazon Cognito identities, you specify a policy in two places\. You attach an IAM policy to the authenticated Amazon Cognito Identity pool and you attach an AWS IoT policy to the Amazon Cognito Identity\. You attach an IAM policy to a Amazon Cognito Identity pool using the Amazon Cognito Identity console when you create a Amazon Cognito Identity pool\. To attach an AWS IoT policy to a Amazon Cognito Identity, you must define a Lambda function that calls `AttachPolicy`\.

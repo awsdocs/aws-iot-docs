@@ -8,7 +8,7 @@ To help you manage your costs related to things, you can create [billing groups]
 
 Tags enable you to categorize your AWS IoT resources in different ways, for example, by purpose, owner, or environment\. This is useful when you have many resources of the same type — you can quickly identify a specific resource based on the tags you've assigned to it\. Each tag consists of a key and optional value, both of which you define\. For example, you could define a set of tags for your thing types that helps you track devices by type\. We recommend that you create a set of tag keys that meets your needs for each kind of resource\. Using a consistent set of tag keys makes it easier for you to manage your resources\.
 
-You can search for and filter resources based on the tags you add or apply\. You can also use billing group tags to categorize and track your costs\. You can also use tags to control access to your resources as described in [Using Tags with IAM Policies](tagging-iot-iam.md#tagging-iot-iam.title)\.
+You can search for and filter resources based on the tags you add or apply\. You can also use billing group tags to categorize and track your costs\. You can also use tags to control access to your resources as described in [Using Tags with IAM Policies](tagging-iot-iam.md)\.
 
 For ease of use, the Tag Editor in the AWS Management Console provides a central, unified way to create and manage your tags\. For more information, see [Working with Tag Editor](https://docs.aws.amazon.com/awsconsolehelpdocs/latest/gsg/tag-editor.html) in [ Working with the AWS Management Console](http://docs.aws.amazon.com/awsconsolehelpdocs/latest/gsg/getting-started.html)\.
 

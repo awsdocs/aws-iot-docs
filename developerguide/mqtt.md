@@ -11,3 +11,7 @@ Although the AWS IoT message broker implementation is based on MQTT version 3\.1
 + The message broker uses the client ID to identify each client\. The client ID is passed in from the client to the message broker as part of the MQTT payload\. Two clients with the same client ID are not allowed to be connected concurrently to the message broker\. When a client connects to the message broker using a client ID that another client is using, the new client connection is accepted and the previously connected client is disconnected\."
 + On rare occasions, the message broker might resend the same logical PUBLISH message with a different packet ID\.
 + The message broker does not guarantee the order in which messages and ACK are received\.
+
+You connect to AWS IoT over MQTT by using one of the [AWS IoT SDKs ](iot-sdks.md)\. See the `basicPubSub` sample in each SDK for an example of how to connect to AWS IoT with MQTT\.
+
+For more information about authentication and port mappings for MQTT messages, see [Protocols, Port Mappings, and Authentication](protocols.md#protocol-port-mapping)\.

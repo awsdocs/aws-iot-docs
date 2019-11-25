@@ -1,0 +1,3 @@
+# AWS IoT Policy Variables<a name="iot-policy-variables"></a>
+
+AWS IoT defines policy variables that can be used in AWS IoT policies in the `Resource` or `Condition` block\. When a policy is evaluated, the policy variables are replaced by actual values\. For example, if a device is connected to the AWS IoT message broker with a client ID of "100\-234\-3456," the `iot:ClientId` policy variable is replaced in the policy document by "100\-234\-3456\." For more information about policy variables, see [IAM Policy Variables](https://docs.aws.amazon.com/IAM/latest/UserGuide/reference_policies_variables.html) and [Multi\-Value Conditions](https://docs.aws.amazon.com/IAM/latest/UserGuide/reference_policies_multi-value-conditions.html)\.

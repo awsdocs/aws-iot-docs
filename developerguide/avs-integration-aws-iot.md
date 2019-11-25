@@ -1,0 +1,23 @@
+# Alexa Voice Service \(AVS\) Integration for AWS IoT<a name="avs-integration-aws-iot"></a>
+
+Alexa Voice Service \(AVS\) Integration for AWS IoT is a new feature of AWS IoT that cost\-effectively brings Alexa Voice to any connected device\. AVS for AWS IoT reduces the cost and complexity of integrating Alexa\. This feature leverages AWS IoT to offload intensive computational and memory audio tasks from the device to the cloud\. Because of the resulting reduction in the engineering bill of materials \(eBoM\) cost, device makers can now cost\-effectively bring Alexa to resource\-constrained IoT devices and enable consumers to talk directly to Alexa in parts of their home, office, or hotel rooms for an ambient experience\. 
+
+Currently, smart home IoT devices are built with low\-cost microcontrollers \(MCU\) that have limited memory to run real\-time operating systems\. Previously, AVS solutions for Alexa built\-in products required expensive application processor\-based devices with more than 50 MB memory running on Linux or Android\. These expensive hardware requirements made it cost\-prohibitive to integrate Alexa Voice on resource constrained IoT devices\. AVS for AWS IoT enables Alexa built\-in functionality on MCUs, such as the ARM Cortex M class with less than 1 MB embedded RAM\. To do so, AVS offloads memory and compute tasks to a virtual Alexa Built\-in device in the cloud\. This reduces eBoM cost by up to 50 percent\.
+
+**Note**  
+AVS for AWS IoT is available in all AWS Regions where AWS IoT is available except from the China \(Beijing and Ningxia\), Asia Pacific \(Hong Kong\) and Middle East \(Bahrain\) Regions\. For the current list of regions for AWS, see the [AWS Region Table](https://aws.amazon.com/about-aws/global-infrastructure/regional-product-services/)\.
+
+AVS for AWS IoT has three components:
++ A set of reserved MQTT topics to transfer audio messages between Alexa enabled devices and AVS\.
++ A virtual Alexa enabled device in the cloud that shifts tasks related to media retrieval, audio decoding, audio mixing, and state management from the physical device to the virtual device\.
++ A set of APIs that support receiving and sending messages over the reserved topics, interfacing with the device microphone and speaker, and managing device state\.
+
+The following diagram illustrates how these components work together\. It also demonstrates how device makers use the Login with Amazon to service to authenticate AVS\.\.
+
+![\[The companion mobile app uses the Login with Amazon service to authenticate to the Alexa Voice service through the Alexa Voice service registration endpoint. The Alexa Voice service sends MQTT messages to an Alexa enabled device through AWS IoT. AWS IoT sends these messages through MQTT topics that are reserved for Alexa.\]](http://docs.aws.amazon.com/iot/latest/developerguide/images/iot-alexavoice-overview.png)
+
+Device manufacturers have two options to get started with Alexa Voice Service \(AVS\) Integration for AWS IoT\. 
++ **Development kits** – Development kits launched by our partners make it easy to get started\. The [NXP i\.MX RT 106 A](https://www.nxp.com/design/designs/mcu-based-solution-for-br-alexa-voice-service:MCU-VOICE-CONTROL-AVS) and [Qualcomm Home Hub 100 Development Kit for Amazon AVS](https://www.qualcomm.com/products/qualcomm-home-hub-100-dev-kit-amazon-avs) are the first two kits available on the market\. You can find them on [Development Kits for AVS](https://developer.amazon.com/en-US/alexa/alexa-voice-service/dev-kits)\. The kits include out\-of\-the box connectivity to AWS IoT, AVS qualified Audio Algorithms for Far\-Field voice pickup, Echo Cancellation, Alexa Wake Word, and AVS for AWS IoT application code\. You can use the feature application code to quickly prototype a device and port the implementation to your chosen MCU design for testing and device production when you're ready\.
++ **Custom device\-side application code** – Developers can also write a custom AVS for AWS IoT application by using the publicly available API\. Documentation for this API is available on the [AVS developer page](https://developer.amazon.com/docs/alexa-voice-service/avs-for-aws-iot-overview.html)\. You can download the Amazon FreeRTOS and AWS IoT Device SDK from the Amazon FreeRTOS console \([https://console\.aws\.amazon\.com/freertos/](https://console.aws.amazon.com/freertos/)\) or [GitHub](https://github.com/aws/amazon-freertos)\.
+
+To get started with an NXP i\.MX 1060RT development kit, see [Getting Started with Alexa Voice Service \(AVS\) Integration for AWS IoT on an NXP Device\.](avs-integration-aws-iot-gs-nxp.html)

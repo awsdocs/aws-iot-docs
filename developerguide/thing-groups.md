@@ -346,7 +346,7 @@ You can attach a maximum number of two policies to a group\.
 **Note**  
 We do not recommend using personally identifiable information in your policy names\.
 
-The `--target` parameter can be a thing group ARN \(as above\), a certificate ARN, or an Amazon Cognito Identity\. For more information about policies, certificates and authentication, see [Security and Identity for AWS IoT ](iot-security-identity.md)\.
+The `--target` parameter can be a thing group ARN \(as above\), a certificate ARN, or an Amazon Cognito Identity\. For more information about policies, certificates and authentication, see [Authentication](authentication.md)\.
 
 ## Detach a Policy from a Thing Group<a name="group-detach-policy"></a>
 

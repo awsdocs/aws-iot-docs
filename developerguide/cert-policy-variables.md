@@ -1,4 +1,4 @@
-# X\.509 Certificate Policy Variables<a name="cert-policy-variables"></a>
+# X\.509 Certificate AWS IoT Policy Variables<a name="cert-policy-variables"></a>
 
 X\.509 certificate policy variables allow you to write AWS IoT policies that grant permissions based on X\.509 certificate attributes\. The following sections describe how you can use these certificate policy variables\.
 
@@ -39,7 +39,7 @@ The following AWS IoT policy variables allow you to grant or deny permissions ba
 X\.509 certificates allow these attributes to contain one or more values\. By default, the policy variables for each multi\-value attribute return the first value\. For example, the `Certificate.Subject.Country` attribute might contain a list of country names, but when evaluated in a policy, `iot:Certificate.Subject.Country` is replaced by the first country name\. You can request a specific attribute value other than the first by using a zero\-based index\. For example, `iot:Certificate.Subject.Country.1` is replaced by the second country name in the `Certificate.Subject.Country` attribute\. If you specify an index value that does not exist \(for example, if you ask for a third value when there are only two values assigned to the attribute\), no substitution is made and authorization fails\. You can use the `.List` suffix on the policy variable name to specify all values of the attribute\.
 
 ------
-#### [ registered devices \(2\) ]
+#### [ Registered Devices \(2\) ]
 
 For devices registered as things in the AWS IoT registry, the following policy allows clients with a thing name registered in the AWS IoT registry to connect, but restricts the right to publish to a thing name specific topic to those clients with certificates whose `Certificate.Subject.Organization` attribute is set to `"Example Corp"` or `"AnyCompany"`\. This restriction is accomplished by using a `"Condition"` field that specifies a condition which must be met in order to allow the preceding action\. In this case the condition is that the `Certificate.Subject.Organization` attribute associated with the certificate must include one of the values listed:
 
@@ -78,9 +78,9 @@ For devices registered as things in the AWS IoT registry, the following policy a
 ```
 
 ------
-#### [ unregistered devices \(2\) ]
+#### [ Unregistered Devices \(2\) ]
 
-For devices not registered as things in the AWS IoT registry, the following policy grants permission to connect to AWS IoT with client ids `client1`, `client2`, and `client3`, but restricts the right to publish to a client\-id specific topic to those clients with certificates whose `Certificate.Subject.Organization` attribute is set to `"Example Corp"` or `"AnyCompany"`\. This restriction is accomplished by using a `"Condition"` field that specifies a condition which must be met in order to allow the preceding action\. In this case the condition is that the `Certificate.Subject.Organization` attribute associated with the certificate must include one of the values listed:
+For devices not registered as things in the AWS IoT registry, the following policy grants permission to connect to AWS IoT with client IDs `client1`, `client2`, and `client3`, but restricts the right to publish to a client\-id specific topic to those clients with certificates whose `Certificate.Subject.Organization` attribute is set to `"Example Corp"` or `"AnyCompany"`\. This restriction is accomplished by using a `"Condition"` field that specifies a condition which must be met in order to allow the preceding action\. In this case the condition is that the `Certificate.Subject.Organization` attribute associated with the certificate must include one of the values listed:
 
 ```
 {

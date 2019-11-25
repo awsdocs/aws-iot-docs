@@ -14,7 +14,7 @@ In this tutorial, you create a rule that sends the name of the AWS IoT thing tha
 
 1. Enter a name and brief description for your rule\.
 **Note**  
-We do not recommend using personally identifiable information in your rule names or descriptions\.  
+We do not recommend the use of personally identifiable information in rule names or descriptions\.  
 ![\[Image NOT FOUND\]](http://docs.aws.amazon.com/iot/latest/developerguide/images/sns-create-rule.png)
 
 1. In the **Rule query statement** editor, enter the following:
@@ -35,7 +35,7 @@ We do not recommend using personally identifiable information in your rule names
 1. On the **Configure action** page, for **SNS target**, choose **Create**\.  
 ![\[Image NOT FOUND\]](http://docs.aws.amazon.com/iot/latest/developerguide/images/sns-add-topic.png)
 
-1. Enter a topic name in the dialog box that opens, and then choose **Create**\.  
+1. Enter a topic name in the dialog box, and then choose **Create**\.  
 ![\[Image NOT FOUND\]](http://docs.aws.amazon.com/iot/latest/developerguide/images/sns-name-topic.png)
 
 1. On the **Configure action** page, for **SNS target**, choose the SNS topic you just created\. For **Message format**, choose **RAW**\. Under **Choose or create a role to grant AWS IoT access to perform this action**, choose **Create Role**\.  
@@ -44,7 +44,7 @@ We do not recommend using personally identifiable information in your rule names
 1. Enter a name for the role, and then choose **Create role**\.  
 ![\[Image NOT FOUND\]](http://docs.aws.amazon.com/iot/latest/developerguide/images/sns-configure-action-3.png)
 
-1. In **Configure action** choose **Add action**\.  
+1. In **Configure action**, choose **Add action**\.  
 ![\[Image NOT FOUND\]](http://docs.aws.amazon.com/iot/latest/developerguide/images/sns-configure-action-4.png)
 
 1. Choose **Create rule**\.  
@@ -52,4 +52,4 @@ We do not recommend using personally identifiable information in your rule names
 
 To test the rule, add a subscription to the SNS topic you created, and update the shadow of any AWS IoT thing\. 
 
-You can use the AWS IoT console to find a thing, open its detail page, and change the device's shadow\. When the Device Shadow service is notified of the change, it publishes a message on `$aws/things/MySNSThing/shadow/update/accepted`\. Your rule is triggered and all subscribers to your SNS topic receive a message that contains your thing's name\. 
+You can use the AWS IoT console to find a thing, open its details page, and change the device's shadow\. When the Device Shadow service is notified of the change, it publishes a message on `$aws/things/MySNSThing/shadow/update/accepted`\. Your rule is triggered and all subscribers to your SNS topic receive a message that contains your thing's name\. 

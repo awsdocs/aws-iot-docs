@@ -6,7 +6,7 @@ AWS IoT Device Defender Detect is capable of detecting security issues frequentl
 + Traffic from a device to a known malicious IP address or to an unauthorized endpoint that indicates a potential malicious command and control channel\.
 + Anomalous traffic, such as a spike in outbound traffic, that indicates a device is participating in a DDoS\.
 + Devices with remote management interfaces and ports that are remotely accessible\.
-+ A spike in the rate of messages sent to your account— so that a rogue device does not end up costing you in per\-message charges\.Use cases:
++ A spike in the rate of messages sent to your account\. \(for example, from a rogue device that can result in excessive per\-message charges\)\.Use cases:
 
 Measure attack surface  
 You can use AWS IoT Device Defender Detect to measure the attack surface of your devices\. For example, you can identify devices with service ports that are often the target of attack campaigns \(telnet service running on ports 23/2323, SSH service running on port 22, HTTP/S services running on ports 80/443/8080/8081\)\. While these service ports might have legitimate reasons to be used on the devices, they are also usually part of the attack surface for adversaries and carry associated risks\. After Detect alerts you to the attack surface, you can either decide to minimize it \(by eliminating unused network services\) or run additional assessments to identify security weaknesses \(for example, telnet configured with common, default, or weak passwords\)\. 
@@ -60,9 +60,9 @@ A [percentile](https://en.wikipedia.org/wiki/Percentile) indicates the percentag
 `durationSeconds`  
 Use this to specify the period of time over which the behavior is evaluated, for those criteria that have a time dimension \(for example, `NUM_MESSAGES_SENT`\)\. For a `statisticalThreshhold` metric comparison, this is the time period during which measurements are collected for all devices to determine the `statisticalThreshold` values, and then for each device to determine how its behavior ranks in comparison\.  
 `consecutiveDatapointsToAlarm`  
-If a device is in violation of the behavior for the specified number of consecutive datapoints, an alarm occurs\. If not specified, the default is 1\. \(This differs from the AWS IoT console where a value of 3 is presented by default, but can be overridden\.\)  
+If a device is in violation of the behavior for the specified number of consecutive data points, an alarm occurs\. If not specified, the default is 1\. \(This differs from the AWS IoT console where a value of 3 is presented by default, but can be overridden\.\)  
 `consecutiveDatapointsToClear`  
-If an alert has occurred and the offending device is no longer in violation of the behavior for the specified number of consecutive datapoints, the alarm is cleared\. If not specified, the default is 1\. \(This differs from the AWS IoT console where a value of 3 is presented by default, but can be overridden\.\)
+If an alert has occurred and the offending device is no longer in violation of the behavior for the specified number of consecutive data points, the alarm is cleared\. If not specified, the default is 1\. \(This differs from the AWS IoT console where a value of 3 is presented by default, but can be overridden\.\)
 
 ## Metrics<a name="detect-metrics"></a>
 
@@ -72,7 +72,7 @@ If an alert has occurred and the offending device is no longer in violation of t
 The number of bytes in a message\.
 
 ------
-#### [ more info \(1\) ]
+#### [ More info \(1\) ]
 
 Use this metric to specify the maximum or minimum size \(in bytes\) of each message transmitted from a device to AWS IoT\.
 
@@ -126,12 +126,12 @@ An alarm occurs for a device if, during three consecutive five\-minute periods, 
  
 
 ------
-#### [ aws:num\-messages\-received / aws:num\-messages\-sent ]
+#### [ aws:num\-messages\-received/aws:num\-messages\-sent ]
 
 The number of messages received or sent by a device during a given time period\.
 
 ------
-#### [ more info \(2\) ]
+#### [ More info \(2\) ]
 
 Use this metric to specify the maximum or minimum number of messages that can be sent or received between AWS IoT and each device in a given period of time\.
 
@@ -191,7 +191,7 @@ Example using a `statisticalThreshold`:
 The number of outbound bytes from a device during a given time period\.
 
 ------
-#### [ more info \(3\) ]
+#### [ More info \(3\) ]
 
 Use this metric to specify the maximum or minimum amount of outbound traffic that a device should send, measured in bytes in a given period of time\.
 
@@ -251,7 +251,7 @@ Example using a `statisticalThreshold`:
 The number of inbound bytes to a device during a given time period\.
 
 ------
-#### [ more info \(4\) ]
+#### [ More info \(4\) ]
 
 Use this metric to specify the maximum or minimum amount of inbound traffic that a device should receive, measured in bytes in a given period of time\.
 
@@ -311,7 +311,7 @@ Example using a `statisticalThreshold`:
 The number of outbound packets from a device during a given time period\.
 
 ------
-#### [ more info \(5\) ]
+#### [ More info \(5\) ]
 
 Use this metric to specify the maximum or minimum amount of total outbound traffic that a device should send in a given period of time\.
 
@@ -371,7 +371,7 @@ Example using a `statisticalThreshold`:
 The number of inbound packets to a device during a given time period\.
 
 ------
-#### [ more info \(6\) ]
+#### [ More info \(6\) ]
 
 Use this metric to specify the maximum or minimum amount of total inbound traffic that a device should receive in a given period of time\.
 
@@ -431,7 +431,7 @@ Example using a `statisticalThreshold`:
 The number of authorization failures during a given time period\.
 
 ------
-#### [ more info \(7\) ]
+#### [ More info \(7\) ]
 
 Use this metric to specify the maximum number of authorization failures allowed for each device in a given period of time\. An authorization failure occurs when a request from a device to AWS IoT is denied \(for example, if a device attempts to publish to a topic for which it does not have sufficient permissions\)\. 
 
@@ -493,9 +493,9 @@ Example using a `statisticalThreshold`:
 The IP address from which a device has connected to AWS IoT\.
 
 ------
-#### [ more info \(8\) ]
+#### [ More info \(8\) ]
 
-Use this metric to specify a set of whitelisted or blacklisted CIDRs from which each device must or must not connect to AWS IoT\.
+Use this metric to specify a set of allowed \(formerly referred to as whitelisted\) or denied \(formerly referred to as blacklisted\) CIDRs from which each device must or must not connect to AWS IoT\.
 
 Source: cloud\-side
 
@@ -530,9 +530,9 @@ Example:
 A set of IP destinations\.
 
 ------
-#### [ more info \(9\) ]
+#### [ More info \(9\) ]
 
-Use this metric to specify a set of whitelisted or blacklisted CIDRs that each device must or must not communicate with\.
+Use this metric to specify a set of allowed \(formerly referred to as whitelisted\) or denied \(formerly referred to as blacklisted\) CIDRs with which each device must or must not communicate\.
 
 Source: device\-side
 
@@ -567,9 +567,9 @@ Example:
 The TCP or UDP ports that the device is listening on\.
 
 ------
-#### [ more info \(10\) ]
+#### [ More info \(10\) ]
 
-Use this metric to specify a set of whitelisted or blacklisted TCP/UDP ports that each device must or must not listen on\.
+Use this metric to specify a set of allowed \(formerly referred to as whitelisted\) or denied \(formerly referred to as blacklisted\) TCP/UDP ports that each device must or must not listen on\.
 
 Source: device\-side
 
@@ -604,7 +604,7 @@ Example:
 The number of TCP or UDP ports the device is listening on\.
 
 ------
-#### [ more info \(11\) ]
+#### [ More info \(11\) ]
 
 Use this metric to specify the maximum or minimum number of TCP or UDP ports that each device should listen on\.
 
@@ -661,7 +661,7 @@ Example using a `statisticalThreshold`:
 The number of TCP connections for a device\.
 
 ------
-#### [ more info \(12\) ]
+#### [ More info \(12\) ]
 
 Use this metric to specify the maximum or minimum number of active TCP connections that each device should have\. \(All TCP states\) 
 
@@ -718,7 +718,7 @@ Example using a `statisticalThreshold`:
 The number of times a device has attempted to make a connection in a given time period\.
 
 ------
-#### [ more info \(13\) ]
+#### [ More info \(13\) ]
 
 Use this metric to specify the maximum or minimum number of connection attempts for each device\. Both successful and unsuccessful attempts are counted\.
 
@@ -778,7 +778,7 @@ Example using a `statisticalThreshold`:
 The number of times a device has disconnected from AWS IoT during a given time period\.
 
 ------
-#### [ more info \(14\) ]
+#### [ More info \(14\) ]
 
 Use this metric to specify the maximum or minimum number of times a device has disconnected from AWS IoT during a given time period\.
 
@@ -980,31 +980,31 @@ Note the following:
 + All agents must create a connection to AWS IoT and publish metrics to one of these reserved Device Defender MQTT topics: 
 
   ```
-  $aws/things/THING_NAME/Defender/metrics/json
+  $aws/things/THING_NAME/defender/metrics/json
   ```
 
   or
 
   ```
-  $aws/things/THING_NAME/Defender/metrics/cbor
+  $aws/things/THING_NAME/defender/metrics/cbor
   ```
 
   Device Defender uses one of these topics to reply with the receipt status of your metrics reports:
 
   ```
-  $aws/things/THING_NAME/Defender/metrics/json/accepted
+  $aws/things/THING_NAME/defender/metrics/json/accepted
   ```
 
   ```
-  $aws/things/THING_NAME/Defender/metrics/cbor/accepted
+  $aws/things/THING_NAME/defender/metrics/cbor/accepted
   ```
 
   ```
-  $aws/things/THING_NAME/Defender/metrics/json/rejected
+  $aws/things/THING_NAME/defender/metrics/json/rejected
   ```
 
   ```
-  $aws/things/THING_NAME/Defender/metrics/cbor/rejected
+  $aws/things/THING_NAME/defender/metrics/cbor/rejected
   ```
 + To report metrics, a device must be registered as a thing in AWS IoT\.
 + A device should, generally, send a metric report once every 5 minutes\. Devices are throttled to one metric report every 5 minutes\. \(A device cannot make more than one metric report every 5 minutes\.\)

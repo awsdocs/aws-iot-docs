@@ -168,8 +168,8 @@ aws iot  create-security-profile \
 |  cidrs |  list  member: Cidr  |  If the `comparisonOperator` calls for a set of CIDRs, use this to specify that set to be compared with the `metric`\.  | 
 |  ports |  list  member: Port  |  If the `comparisonOperator` calls for a set of ports, use this to specify that set to be compared with the `metric`\.  | 
 |  durationSeconds |  integer |  Use this to specify the time duration over which the behavior is evaluated, for those criteria that have a time dimension \(for example, `NUM_MESSAGES_SENT`\)\. For a `statisticalThreshhold` metric comparison, measurements from all devices are accumulated over this time duration before being used to calculate percentiles, and later, measurements from an individual device are also accumulated over this time duration before being given a percentile rank\.  | 
-|  consecutiveDatapointsToAlarm |  integer  range\- max:10 min:1  |  If a device is in violation of the behavior for the specified number of consecutive datapoints, an alarm occurs\. If not specified, the default is 1\.  | 
-|  consecutiveDatapointsToClear |  integer  range\- max:10 min:1  |  If an alarm has occurred and the offending device is no longer in violation of the behavior for the specified number of consecutive datapoints, the alarm is cleared\. If not specified, the default is 1\.  | 
+|  consecutiveDatapointsToAlarm |  integer  range\- max:10 min:1  |  If a device is in violation of the behavior for the specified number of consecutive data points, an alarm occurs\. If not specified, the default is 1\.  | 
+|  consecutiveDatapointsToClear |  integer  range\- max:10 min:1  |  If an alarm has occurred and the offending device is no longer in violation of the behavior for the specified number of consecutive data points, the alarm is cleared\. If not specified, the default is 1\.  | 
 |  statisticalThreshold |  StatisticalThreshold |  A statistical ranking \(percentile\) that indicates a threshold value by which a behavior is determined to be in compliance or in violation of the behavior\.  | 
 |  statistic |  string  pattern: \(p0\|p0\.1\|p0\.01\|p1\|p10\|p50\|p90\|p99\|p99\.9\|p99\.99\|p100\)  |  The percentile that resolves to a threshold value by which compliance with a behavior is determined\. Metrics are collected over the specified period \(`durationSeconds`\) from all reporting devices in your account and statistical ranks are calculated\. Then, the measurements from a device are collected over the same period\. If the accumulated measurements from the device fall above or below \(`comparisonOperator`\) the value associated with the percentile specified, then the device is considered to be in compliance with the behavior, otherwise a violation occurs\.  | 
 |  alertTargets |  map |  Specifies the destinations to which alerts are sent\. \(Alerts are always sent to the console\.\) Alerts are generated when a device \(thing\) violates a behavior\.  | 
@@ -190,7 +190,7 @@ Output:
 ```
 
 
-**cli output fields:**  
+**CLI output fields:**  
 
 |  Name |  Type |  Description | 
 | --- | --- | --- | 
@@ -335,7 +335,7 @@ Output:
 ```
 
 
-**cli output fields:**  
+**CLI output fields:**  
 
 |  Name |  Type |  Description | 
 | --- | --- | --- | 
@@ -352,8 +352,8 @@ Output:
 |  cidrs |  list  member: Cidr  |  If the `comparisonOperator` calls for a set of CIDRs, use this to specify that set to be compared with the `metric`\.  | 
 |  ports |  list  member: Port  |  If the `comparisonOperator` calls for a set of ports, use this to specify that set to be compared with the `metric`\.  | 
 |  durationSeconds |  integer |  Use this to specify the time duration over which the behavior is evaluated, for those criteria that have a time dimension \(for example, `NUM_MESSAGES_SENT`\)\. For a `statisticalThreshhold` metric comparison, measurements from all devices are accumulated over this time duration before being used to calculate percentiles, and later, measurements from an individual device are also accumulated over this time duration before being given a percentile rank\.  | 
-|  consecutiveDatapointsToAlarm |  integer  range\- max:10 min:1  |  If a device is in violation of the behavior for the specified number of consecutive datapoints, an alarm occurs\. If not specified, the default is 1\.  | 
-|  consecutiveDatapointsToClear |  integer  range\- max:10 min:1  |  If an alarm has occurred and the offending device is no longer in violation of the behavior for the specified number of consecutive datapoints, the alarm is cleared\. If not specified, the default is 1\.  | 
+|  consecutiveDatapointsToAlarm |  integer  range\- max:10 min:1  |  If a device is in violation of the behavior for the specified number of consecutive data points, an alarm occurs\. If not specified, the default is 1\.  | 
+|  consecutiveDatapointsToClear |  integer  range\- max:10 min:1  |  If an alarm has occurred and the offending device is no longer in violation of the behavior for the specified number of consecutive data points, the alarm is cleared\. If not specified, the default is 1\.  | 
 |  statisticalThreshold |  StatisticalThreshold |  A statistical ranking \(percentile\) that indicates a threshold value by which a behavior is determined to be in compliance or in violation of the behavior\.  | 
 |  statistic |  string  pattern: \(p0\|p0\.1\|p0\.01\|p1\|p10\|p50\|p90\|p99\|p99\.9\|p99\.99\|p100\)  |  The percentile that resolves to a threshold value by which compliance with a behavior is determined\. Metrics are collected over the specified period \(`durationSeconds`\) from all reporting devices in your account and statistical ranks are calculated\. Then, the measurements from a device are collected over the same period\. If the accumulated measurements from the device fall above or below \(`comparisonOperator`\) the value associated with the percentile specified, then the device is considered to be in compliance with the behavior\. Otherwise, a violation occurs\.  | 
 |  alertTargets |  map |  Where the alerts are sent\. \(Alerts are always sent to the console\.\) | 
@@ -513,7 +513,7 @@ Output:
 ```
 
 
-**cli output fields:**  
+**CLI output fields:**  
 
 |  Name |  Type |  Description | 
 | --- | --- | --- | 
@@ -531,8 +531,8 @@ Output:
 |  cidrs |  list  member: Cidr  |  If the `comparisonOperator` calls for a set of CIDRs, use this to specify that set to be compared with the `metric`\.  | 
 |  ports |  list  member: Port  |  If the `comparisonOperator` calls for a set of ports, use this to specify that set to be compared with the `metric`\.  | 
 |  durationSeconds |  integer |  Use this to specify the time duration over which the behavior is evaluated, for those criteria that have a time dimension \(for example, `NUM_MESSAGES_SENT`\)\. For a `statisticalThreshhold` metric comparison, measurements from all devices are accumulated over this time duration before being used to calculate percentiles, and later, measurements from an individual device are also accumulated over this time duration before being given a percentile rank\.  | 
-|  consecutiveDatapointsToAlarm |  integer  range\- max:10 min:1  |  If a device is in violation of the behavior for the specified number of consecutive datapoints, an alarm occurs\. If not specified, the default is 1\.  | 
-|  consecutiveDatapointsToClear |  integer  range\- max:10 min:1  |  If an alarm has occurred and the offending device is no longer in violation of the behavior for the specified number of consecutive datapoints, the alarm is cleared\. If not specified, the default is 1\.  | 
+|  consecutiveDatapointsToAlarm |  integer  range\- max:10 min:1  |  If a device is in violation of the behavior for the specified number of consecutive data points, an alarm occurs\. If not specified, the default is 1\.  | 
+|  consecutiveDatapointsToClear |  integer  range\- max:10 min:1  |  If an alarm has occurred and the offending device is no longer in violation of the behavior for the specified number of consecutive data points, the alarm is cleared\. If not specified, the default is 1\.  | 
 |  statisticalThreshold |  StatisticalThreshold |  A statistical ranking \(percentile\) which indicates a threshold value by which a behavior is determined to be in compliance or in violation of the behavior\.  | 
 |  statistic |  string  pattern: \(p0\|p0\.1\|p0\.01\|p1\|p10\|p50\|p90\|p99\|p99\.9\|p99\.99\|p100\)  |  The percentile which resolves to a threshold value by which compliance with a behavior is determined\. Metrics are collected over the specified period \(`durationSeconds`\) from all reporting devices in your account and statistical ranks are calculated\. Then, the measurements from a device are collected over the same period\. If the accumulated measurements from the device fall above or below \(`comparisonOperator`\) the value associated with the percentile specified, then the device is considered to be in compliance with the behavior, otherwise a violation occurs\.  | 
 |  lastViolationValue |  MetricValue |  The value of the metric \(the measurement\) which caused the most recent violation\. | 
@@ -603,7 +603,7 @@ Output:
 ```
 
 
-**cli output fields:**  
+**CLI output fields:**  
 
 |  Name |  Type |  Description | 
 | --- | --- | --- | 
@@ -680,7 +680,7 @@ Output:
 ```
 
 
-**cli output fields:**  
+**CLI output fields:**  
 
 |  Name |  Type |  Description | 
 | --- | --- | --- | 
@@ -754,13 +754,13 @@ Output:
 ```
 
 
-**cli output fields:**  
+**CLI output fields:**  
 
 |  Name |  Type |  Description | 
 | --- | --- | --- | 
-|  securityProfileTargets |  list  member: SecurityProfileTarget  java class: java\.util\.List  |  The thing groups to which the security profile is attached\. | 
-|  arn |  string |  The ARN of the security profile\. | 
-|  nextToken |  string |  A token that can be used to retrieve the next set of results, or `null` if there are no additional results\.  | 
+|  `securityProfileTargets` |  list  member: SecurityProfileTarget  java class: java\.util\.List  |  The thing groups to which the security profile is attached\. | 
+|  `arn` |  string |  The ARN of the security profile\. | 
+|  `nextToken` |  string |  A token that can be used to retrieve the next set of results, or `null` if there are no additional results\.  | 
 
  **Errors:**
 
@@ -868,7 +868,7 @@ Output:
 ```
 
 
-**cli output fields:**  
+**CLI output fields:**  
 
 |  Name |  Type |  Description | 
 | --- | --- | --- | 
@@ -886,8 +886,8 @@ Output:
 |  cidrs |  list  member: Cidr  |  If the `comparisonOperator` calls for a set of CIDRs, use this to specify that set to be compared with the `metric`\.  | 
 |  ports |  list  member: Port  |  If the `comparisonOperator` calls for a set of ports, use this to specify that set to be compared with the `metric`\.  | 
 |  durationSeconds |  integer |  Use this to specify the time duration over which the behavior is evaluated, for those criteria that have a time dimension \(for example, `NUM_MESSAGES_SENT`\)\. For a `statisticalThreshhold` metric comparison, measurements from all devices are accumulated over this time duration before being used to calculate percentiles, and later, measurements from an individual device are also accumulated over this time duration before being given a percentile rank\.  | 
-|  consecutiveDatapointsToAlarm |  integer  range\- max:10 min:1  |  If a device is in violation of the behavior for the specified number of consecutive datapoints, an alarm occurs\. If not specified, the default is 1\.  | 
-|  consecutiveDatapointsToClear |  integer  range\- max:10 min:1  |  If an alarm has occurred and the offending device is no longer in violation of the behavior for the specified number of consecutive datapoints, the alarm is cleared\. If not specified, the default is 1\.  | 
+|  consecutiveDatapointsToAlarm |  integer  range\- max:10 min:1  |  If a device is in violation of the behavior for the specified number of consecutive data points, an alarm occurs\. If not specified, the default is 1\.  | 
+|  consecutiveDatapointsToClear |  integer  range\- max:10 min:1  |  If an alarm has occurred and the offending device is no longer in violation of the behavior for the specified number of consecutive data points, the alarm is cleared\. If not specified, the default is 1\.  | 
 |  statisticalThreshold |  StatisticalThreshold |  A statistical ranking \(percentile\) that indicates a threshold value by which a behavior is determined to be in compliance or in violation of the behavior\.  | 
 |  statistic |  string  pattern: \(p0\|p0\.1\|p0\.01\|p1\|p10\|p50\|p90\|p99\|p99\.9\|p99\.99\|p100\)  |  The percentile that resolves to a threshold value by which compliance with a behavior is determined\. Metrics are collected over the specified period \(`durationSeconds`\) from all reporting devices in your account and statistical ranks are calculated\. Then, the measurements from a device are collected over the same period\. If the accumulated measurements from the device fall above or below \(`comparisonOperator`\) the value associated with the percentile specified, then the device is considered to be in compliance with the behavior, otherwise a violation occurs\.  | 
 |  metricValue |  MetricValue |  The value of the metric \(the measurement\)\. | 
@@ -993,8 +993,8 @@ aws iot  update-security-profile \
 |  cidrs |  list  member: Cidr  |  If the `comparisonOperator` calls for a set of CIDRs, use this to specify that set to be compared with the `metric`\.  | 
 |  ports |  list  member: Port  |  If the `comparisonOperator` calls for a set of ports, use this to specify that set to be compared with the `metric`\.  | 
 |  durationSeconds |  integer |  Use this to specify the time duration over which the behavior is evaluated, for those criteria that have a time dimension \(for example, `NUM_MESSAGES_SENT`\)\. For a `statisticalThreshhold` metric comparison, measurements from all devices are accumulated over this time duration before being used to calculate percentiles, and later, measurements from an individual device are also accumulated over this time duration before being given a percentile rank\.  | 
-|  consecutiveDatapointsToAlarm |  integer  range\- max:10 min:1  |  If a device is in violation of the behavior for the specified number of consecutive datapoints, an alarm occurs\. If not specified, the default is 1\.  | 
-|  consecutiveDatapointsToClear |  integer  range\- max:10 min:1  |  If an alarm has occurred and the offending device is no longer in violation of the behavior for the specified number of consecutive datapoints, the alarm is cleared\. If not specified, the default is 1\.  | 
+|  consecutiveDatapointsToAlarm |  integer  range\- max:10 min:1  |  If a device is in violation of the behavior for the specified number of consecutive data points, an alarm occurs\. If not specified, the default is 1\.  | 
+|  consecutiveDatapointsToClear |  integer  range\- max:10 min:1  |  If an alarm has occurred and the offending device is no longer in violation of the behavior for the specified number of consecutive data points, the alarm is cleared\. If not specified, the default is 1\.  | 
 |  statisticalThreshold |  StatisticalThreshold |  A statistical ranking \(percentile\) that indicates a threshold value by which a behavior is determined to be in compliance or in violation of the behavior\.  | 
 |  statistic |  string  pattern: \(p0\|p0\.1\|p0\.01\|p1\|p10\|p50\|p90\|p99\|p99\.9\|p99\.99\|p100\)  |  The percentile that resolves to a threshold value by which compliance with a behavior is determined\. Metrics are collected over the specified period \(`durationSeconds`\) from all reporting devices in your account and statistical ranks are calculated\. Then, the measurements from a device are collected over the same period\. If the accumulated measurements from the device fall above or below \(`comparisonOperator`\) the value associated with the percentile specified, then the device is considered to be in compliance with the behavior, otherwise a violation occurs\.  | 
 |  alertTargets |  map |  Where the alerts are sent\. \(Alerts are always sent to the console\.\) | 
@@ -1053,7 +1053,7 @@ Output:
 ```
 
 
-**cli output fields:**  
+**CLI output fields:**  
 
 |  Name |  Type |  Description | 
 | --- | --- | --- | 
@@ -1070,8 +1070,8 @@ Output:
 |  cidrs |  list  member: Cidr  |  If the `comparisonOperator` calls for a set of CIDRs, use this to specify that set to be compared with the `metric`\.  | 
 |  ports |  list  member: Port  |  If the `comparisonOperator` calls for a set of ports, use this to specify that set to be compared with the `metric`\.  | 
 |  durationSeconds |  integer |  Use this to specify the time duration over which the behavior is evaluated, for those criteria that have a time dimension \(for example, `NUM_MESSAGES_SENT`\)\. For a `statisticalThreshhold` metric comparison, measurements from all devices are accumulated over this time duration before being used to calculate percentiles, and later, measurements from an individual device are also accumulated over this time duration before being given a percentile rank\.  | 
-|  consecutiveDatapointsToAlarm |  integer  range\- max:10 min:1  |  If a device is in violation of the behavior for the specified number of consecutive datapoints, an alarm occurs\. If not specified, the default is 1\.  | 
-|  consecutiveDatapointsToClear |  integer  range\- max:10 min:1  |  If an alarm has occurred and the offending device is no longer in violation of the behavior for the specified number of consecutive datapoints, the alarm is cleared\. If not specified, the default is 1\.  | 
+|  consecutiveDatapointsToAlarm |  integer  range\- max:10 min:1  |  If a device is in violation of the behavior for the specified number of consecutive data points, an alarm occurs\. If not specified, the default is 1\.  | 
+|  consecutiveDatapointsToClear |  integer  range\- max:10 min:1  |  If an alarm has occurred and the offending device is no longer in violation of the behavior for the specified number of consecutive data points, the alarm is cleared\. If not specified, the default is 1\.  | 
 |  statisticalThreshold |  StatisticalThreshold |  A statistical ranking \(percentile\) that indicates a threshold value by which a behavior is determined to be in compliance or in violation of the behavior\.  | 
 |  statistic |  string  pattern: \(p0\|p0\.1\|p0\.01\|p1\|p10\|p50\|p90\|p99\|p99\.9\|p99\.99\|p100\)  |  The percentile that resolves to a threshold value by which compliance with a behavior is determined\. Metrics are collected over the specified period \(`durationSeconds`\) from all reporting devices in your account and statistical ranks are calculated\. Then, the measurements from a device are collected over the same period\. If the accumulated measurements from the device fall above or below \(`comparisonOperator`\) the value associated with the percentile specified, then the device is considered to be in compliance with the behavior\. Otherwise, a violation occurs\.  | 
 |  alertTargets |  map |  Where the alerts are sent\. \(Alerts are always sent to the console\.\) | 
@@ -1158,8 +1158,8 @@ aws iot  validate-security-profile-behaviors \
 |  cidrs |  list  member: Cidr  |  If the `comparisonOperator` calls for a set of CIDRs, use this to specify that set to be compared with the `metric`\.  | 
 |  ports |  list  member: Port  |  If the `comparisonOperator` calls for a set of ports, use this to specify that set to be compared with the `metric`\.  | 
 |  durationSeconds |  integer |  Use this to specify the time duration over which the behavior is evaluated, for those criteria that have a time dimension \(for example, `NUM_MESSAGES_SENT`\)\. For a `statisticalThreshhold` metric comparison, measurements from all devices are accumulated over this time duration before being used to calculate percentiles, and later, measurements from an individual device are also accumulated over this time duration before being given a percentile rank\.  | 
-|  consecutiveDatapointsToAlarm |  integer  range\- max:10 min:1  |  If a device is in violation of the behavior for the specified number of consecutive datapoints, an alarm occurs\. If not specified, the default is 1\.  | 
-|  consecutiveDatapointsToClear |  integer  range\- max:10 min:1  |  If an alarm has occurred and the offending device is no longer in violation of the behavior for the specified number of consecutive datapoints, the alarm is cleared\. If not specified, the default is 1\.  | 
+|  consecutiveDatapointsToAlarm |  integer  range\- max:10 min:1  |  If a device is in violation of the behavior for the specified number of consecutive data points, an alarm occurs\. If not specified, the default is 1\.  | 
+|  consecutiveDatapointsToClear |  integer  range\- max:10 min:1  |  If an alarm has occurred and the offending device is no longer in violation of the behavior for the specified number of consecutive data points, the alarm is cleared\. If not specified, the default is 1\.  | 
 |  statisticalThreshold |  StatisticalThreshold |  A statistical ranking \(percentile\) that indicates a threshold value by which a behavior is determined to be in compliance or in violation of the behavior\.  | 
 |  statistic |  string  pattern: \(p0\|p0\.1\|p0\.01\|p1\|p10\|p50\|p90\|p99\|p99\.9\|p99\.99\|p100\)  |  The percentile that resolves to a threshold value by which compliance with a behavior is determined\. Metrics are collected over the specified period \(`durationSeconds`\) from all reporting devices in your account and statistical ranks are calculated\. Then, the measurements from a device are collected over the same period\. If the accumulated measurements from the device fall above or below \(`comparisonOperator`\) the value associated with the percentile specified, then the device is considered to be in compliance with the behavior\. Otherwise, a violation occurs\.  | 
 
@@ -1177,13 +1177,13 @@ Output:
 ```
 
 
-**cli output fields:**  
+**CLI output fields:**  
 
 |  Name |  Type |  Description | 
 | --- | --- | --- | 
-|  valid |  boolean |  True if the behaviors were valid\. | 
-|  validationErrors |  list  member: ValidationError  |  The list of any errors found in the behaviors\. | 
-|  errorMessage |  string  length\- max:2048  |  The description of an error found in the behaviors\. | 
+|  `valid` |  boolean |  True if the behaviors were valid\. | 
+|  `validationErrors` |  list  member: ValidationError  |  The list of any errors found in the behaviors\. | 
+|  `errorMessage` |  string  length\- max:2048  |  The description of an error found in the behaviors\. | 
 
  **Errors:**
 

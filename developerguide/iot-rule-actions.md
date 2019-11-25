@@ -7,6 +7,7 @@ AWS IoT rule actions are used to specify what to do when a rule is triggered\. Y
 + `dynamoDBv2` to write data to a DynamoDB database\. 
 + `elasticsearch` to write data to an Amazon Elasticsearch Service domain\. 
 + `firehose` to write data to an Amazon Kinesis Data Firehose stream\.
++ `http` to post data to an HTTPS endpoint\.
 + `iotAnalytics` to send data to an AWS IoT Analytics channel\.
 + `iotEvents` to send data to an AWS IoT Events input\.
 + `kinesis` to write data to a Kinesis stream\.
@@ -31,7 +32,7 @@ Each action is described in detail\.
 The CloudWatch alarm action allows you to change CloudWatch alarm state\. You can specify the state change reason and value in this call\. 
 
 ------
-#### [ more info \(1\) ]
+#### [ More information \(1\) ]
 
 When creating an AWS IoT rule with a CloudWatch alarm action, you must specify the following information:
 
@@ -82,7 +83,7 @@ For more information, see [CloudWatch Alarms](https://docs.aws.amazon.com/Amazon
 The CloudWatch metric action allows you to capture a CloudWatch metric\. You can specify the metric namespace, name, value, unit, and timestamp\. 
 
 ------
-#### [ more info \(2\) ]
+#### [ More information \(2\) ]
 
 When creating an AWS IoT rule with a CloudWatch metric action, you must specify the following information:
 
@@ -141,7 +142,7 @@ For more information, see [CloudWatch Metrics\.](https://docs.aws.amazon.com/Ama
 The `dynamoDB` action allows you to write all or part of an MQTT message to a DynamoDB table\. 
 
 ------
-#### [ more info \(3\) ]
+#### [ More information \(3\) ]
 
 When creating a DynamoDB rule, you must specify the following information: 
 
@@ -216,7 +217,7 @@ For more information, see the [Amazon DynamoDB Getting Started Guide](https://do
 The `dynamoDBv2` action allows you to write all or part of an MQTT message to a DynamoDB table\. Each attribute in the payload is written to a separate column in the DynamoDB database\.
 
 ------
-#### [ more info \(4\) ]
+#### [ More information \(4\) ]
 
  When creating a DynamoDB rule, you must specify the following information: 
 
@@ -267,7 +268,7 @@ For more information, see the [Amazon DynamoDB Getting Started Guide](https://do
 The `elasticsearch` action allows you to write data from MQTT messages to an Amazon Elasticsearch Service domain\. Data in Elasticsearch can then be queried and visualized by using tools like Kibana\. 
 
 ------
-#### [ more info \(5\) ]
+#### [ More information \(5\) ]
 
 When you create an AWS IoT rule with an `elasticsearch` action, you must specify the following information:
 
@@ -319,9 +320,9 @@ For more information, see the [Amazon Elasticsearch Service Developer Guide](htt
 A `firehose` action sends data from an MQTT message that triggered the rule to a Kinesis Data Firehose stream\. 
 
 ------
-#### [ more info \(6\) ]
+#### [ More information \(7\) ]
 
-When creating a rule with a `firehose` action, you must specify the following information:
+When you create a rule with a `firehose` action, you must specify the following information:
 
 deliveryStreamName  
 The Kinesis Data Firehose stream to which to write the message data\.
@@ -357,6 +358,84 @@ For more information, see the [Kinesis Data Firehose Developer Guide](https://do
 
 ------
 
+## HTTP Action<a name="http-action"></a>
+
+------
+#### [ HTTP Action ]
+
+The `http` action sends data from an MQTT message that triggered the rule to your web applications or services for further processing, without writing any code\. The endpoint you send data to must be verified before the rules engine can use it\.
+
+------
+#### [ More information \(8\) ]
+
+When you create a rule with an `http` action, you must specify the following information:
+
+url  
+The HTTPS URL where the message is sent by HTTP POST\. You can use substitution templates in the URL\. 
+
+confirmationUrl  
+Optional\. If specified, AWS IoT uses the confirmation URL to create a matching topic rule destination\. You must enable the topic rule destination before using it in an `http` action\. For more information, see [ Working with Topic Rule Destinations](rule-destination.md)\. If you use substitution templates, you must manually create topic rule destinations before the `http` action can be used\. `confirmationUrl` must be a prefix of `url`\.  
+The relationship between `url` and `confirmationUrl` is described by the following:  
++ If `url` is hardcoded and `confirmationUrl` is not provided, we implicitly treat the `url` field as the `confirmationUrl`\. AWS IoT creates a topic rule destination for `url`\.
++ If `url` and `confirmationUrl` are hardcoded, `url` must begin with `confirmationUrl`\. AWS IoT creates a topic rule destination for `confirmationUrl`\.
++ If `url` contains a substitution template, you must specify `confirmationUrl` and `url` must begin with `confirmationUrl`\. If `confirmationUrl` contains substitution templates, you must manually create topic rule destinations before the `http` action can be used\. If `confirmationUrl` does not contain substitution templates, AWS IoT creates a topic rule destination for `confirmationUrl`\.
+
+headers  
+Optional\. Any headers you want to include in HTTP requests\.    
+key  
+The key of the header\. Substitution templates are not supported\.  
+value  
+The value of the header\. Substitution templates are supported\.
+
+auth  
+Optional\. The authentication used by the rules engine to connect to the endpoint URL specified in the `url` argument\. Currently, Signature Version 4 is the only supported authentication type\. For more information, see [HTTP Authorization](https://docs.aws.amazon.com/iot/latest/apireference/API_HttpAuthorization.html)\.
+
+The following JSON example shows how to create an AWS IoT rule with an `http` action:
+
+```
+{
+    "topicRulePayload": {
+        "sql": "select * from 'a/b'", 
+        "awsIotSqlVersion": "2016-03-23", 
+        "ruleDisabled": false,
+        "actions": [{ 
+            "http": { 
+                "url": "https://www.example.com/subpath",
+                "confirmationUrl": "https://www.example.com", 
+                "headers": [{ 
+                    "key": "static_header_key", 
+                    "value": "static_header_value" 
+                },
+                { 
+                    "key": "substitutable_header_key", 
+                    "value": "${value_from_payload}" 
+                }] 
+            } 
+        }]
+       
+    }
+}
+```
+
+The default content type is application/json when the payload is in JSON format\. Otherwise, it is application/octet\-stream\. You can overwrite it by specifying the exact content type in the header with the key content\-type \(case insensitive\)\. 
+
+------
+#### [ HTTP action retry logic ]
+
+The AWS IoT rules engine retries `http` actions according to these rules:
++ The rules engine tries to send a message at least once\.
++ The rules engine retries at most twice\. The maximum number of tries is three\.
++ The rules engine does not attempt a retry if:
+  + The previous try provided a response larger than 16384 bytes\.
+  + The downstream web service or application closes the TCP connection after the try\.
+  + The total time to complete a request with retires exceeded the request timeout limit\.
+  + The request returns an HTTP status code other than 429, 500\-599\.
+
+**Note**  
+[Standard data transfer costs](https://aws.amazon.com/ec2/pricing/on-demand/) apply to retries\.
+
+------
+
 ## IoT Analytics Action<a name="iotanalytics-rule"></a>
 
 ------
@@ -365,9 +444,9 @@ For more information, see the [Kinesis Data Firehose Developer Guide](https://do
 An `iotAnalytics` action sends data from the MQTT message that triggered the rule to an AWS IoT Analytics channel\. 
 
 ------
-#### [ more info \(7\) ]
+#### [ More information \(9\) ]
 
-When creating a rule with an `iotAnalytics` action, you must specify the following information:
+When you create a rule with an `iotAnalytics` action, you must specify the following information:
 
 channelName  
 The name of the AWS IoT Analytics channel to which to write the data\.
@@ -429,7 +508,7 @@ The following JSON example shows how to create an AWS IoT rule with an `iotAnaly
 
 For more information, see the [AWS IoT Analytics User Guide](https://docs.aws.amazon.com/iotanalytics/latest/userguide/index.html)\.
 
-The AWS IoT Analytics console also has a **Quick start** feature that allows you to create a channel, data store, pipeline, and data store with one click\. Look for this page when you enter the AWS IoT Analytics console:
+The AWS IoT Analytics console also has a **Quick start** feature that allows you to create a channel, data store, pipeline, and data store with one click\. Look for this page when you open the AWS IoT Analytics console:
 
 ![\[Image NOT FOUND\]](http://docs.aws.amazon.com/iot/latest/developerguide/images/iota-console-quickstart.png)
 
@@ -443,9 +522,9 @@ The AWS IoT Analytics console also has a **Quick start** feature that allows you
 An `iotEvents` action sends data from the MQTT message that triggered the rule to an AWS IoT Events input\. 
 
 ------
-#### [ more info \(8\) ]
+#### [ More information \(10\) ]
 
-When creating a rule with a `iotEvents` action, you must specify the following information:
+When you create a rule with a `iotEvents` action, you must specify the following information:
 
 inputName  
 The name of the AWS IoT Events input\.
@@ -500,7 +579,7 @@ For more information, see the [ AWS IoT Events Developer Guide](https://docs.aws
 The `kinesis` action allows you to write data from MQTT messages into a Kinesis stream\. 
 
 ------
-#### [ more info \(9\) ]
+#### [ More information \(11\) ]
 
 When creating an AWS IoT rule with a `kinesis` action, you must specify the following information:
 
@@ -541,12 +620,14 @@ For more information, see the [Kinesis Developer Guide](https://docs.aws.amazon.
 ------
 #### [ Lambda Action ]
 
- A `lambda` action calls a Lambda function, passing in the MQTT message that triggered the rule\. 
+ A `lambda` action calls a Lambda function, passing in the MQTT message that triggered the rule\. Lambda functions are run asynchronously\.
 
 ------
-#### [ more info \(10\) ]
+#### [ More information \(12\) ]
 
-In order for AWS IoT to call a Lambda function, you must configure a policy granting the `lambda:InvokeFunction` permission to AWS IoT\. Lambda functions use resource\-based policies, so you must attach the policy to the Lambda function itself\. Use the following CLI command to attach a policy granting `lambda:InvokeFunction` permission: 
+Lambda functions are executed asynchronously\.
+
+In order for AWS IoT to call a Lambda function, you must configure a policy granting the `lambda:InvokeFunction` permission to AWS IoT\. You can only invoke a Lambda function defined in the same region where your Lambda policy exists\. Lambda functions use resource\-based policies, so you must attach the policy to the Lambda function itself\. Use the following CLI command to attach a policy granting `lambda:InvokeFunction` permission: 
 
 ```
 aws lambda add-permission --function-name "function_name" --region "region" --principal iot.amazonaws.com --source-arn arn:aws:iot:us-east-2:account_id:rule/rule_name --source-account "account_id" --statement-id "unique_id" --action "lambda:InvokeFunction"
@@ -580,7 +661,7 @@ If you add a permission for an AWS IoT principal without providing the source AR
 
 For more information, see [Lambda Permission Model](https://docs.aws.amazon.com/lambda/latest/dg/intro-permission-model.html)\.
 
-When creating a rule with a `lambda` action, you must specify the Lambda function to invoke when the rule is triggered\. 
+When you create a rule with a `lambda` action, you must specify the Lambda function to invoke when the rule is triggered\. 
 
 The following JSON example shows a rule that calls a Lambda function:
 
@@ -617,15 +698,18 @@ For more information about versioning and aliases see [AWS Lambda Function Versi
 The `republish` action allows you to republish the message that triggered the role to another MQTT topic\. 
 
 ------
-#### [ more info \(11\) ]
+#### [ More information \(13\) ]
 
-When creating a rule with a `republish` action, you must specify the following information:
+When you create a rule with a `republish` action, you must specify the following information:
 
 topic  
-The MQTT topic to which to republish the message\. If you are republishing to a reserved topic, one that begins with `$` use `$$` instead\. For example, if you are republishing to a device shadow topic like `$aws/things/MyThing/shadow/update`, specify the topic as `$$aws/things/MyThing/shadow/update`\.
+The MQTT topic to which to republish the message\. If you are republishing to a reserved topic, one that begins with `$` use `$$` instead\. For example, if you are republishing to a device shadow topic like `$aws/things/MyThing/shadow/update`, specify the topic as `$aws/things/MyThing/shadow/update`\.
 
 roleArn  
 The IAM role that allows publishing to the MQTT topic\.
+
+qos  
+Optional\. The Quality of Service \(QoS\) level to use when republishing messages\. Valid values are `0` or `1`\. The default value is `0`\.
 
 **Note**  
 Make sure that the role associated with the rule has a policy granting the `iot:Publish` permission\.
@@ -639,7 +723,8 @@ Make sure that the role associated with the rule has a policy granting the `iot:
         "actions": [{
             "republish": {
                 "topic": "another/topic", 
-                "roleArn": "arn:aws:iam::123456789012:role/aws_iot_republish"
+                "roleArn": "arn:aws:iam::123456789012:role/aws_iot_republish",
+                "qos": 1
             }
         }]
     }
@@ -656,7 +741,7 @@ Make sure that the role associated with the rule has a policy granting the `iot:
 An `s3` action writes the data from the MQTT message that triggered the rule to an Amazon S3 bucket\. 
 
 ------
-#### [ more info \(12\) ]
+#### [ More information \(14\) ]
 
 When creating an AWS IoT rule with an `s3` action, you must specify the following information, except `cannedacl`, which is optional:
 
@@ -708,9 +793,9 @@ For more information, see the [Amazon S3 Developer Guide](https://docs.aws.amazo
 A `salesforce` action sends data from the MQTT message that triggered the rule to a Salesforce IoT input stream\. 
 
 ------
-#### [ more info \(13\) ]
+#### [ More information \(15\) ]
 
-When creating a rule with a `salesforce` action, you must specify the following information:
+When you create a rule with a `salesforce` action, you must specify the following information:
 
 url  
 The URL exposed by the Salesforce IoT input stream\. The URL is available from the Salesforce IoT platform when you create an input stream\. For more information, see the Salesforce IoT documentation\.
@@ -751,9 +836,9 @@ For more information, refer to the Salesforce IoT documentation\.
 A `sns` action sends the data from the MQTT message that triggered the rule as an SNS push notification\. 
 
 ------
-#### [ more info \(14\) ]
+#### [ More information \(16\) ]
 
-When creating a rule with an `sns` action, you must specify the following information:
+When you create a rule with an `sns` action, you must specify the following information:
 
 messageFormat  
 The message format\. Accepted values are "JSON" and "RAW\." The default value of the attribute is "RAW\." SNS uses this setting to determine if the payload should be parsed and relevant platform\-specific parts of the payload should be extracted\.
@@ -797,9 +882,9 @@ For more information, see the [Amazon SNS Developer Guide](https://docs.aws.amaz
 An `sqs` action sends data from the MQTT message that triggered the rule to an SQS queue\. 
 
 ------
-#### [ more info \(15\) ]
+#### [ More information \(17\) ]
 
-When creating a rule with an `sqs` action, you must specify the following information:
+When you create a rule with an `sqs` action, you must specify the following information:
 
 queueUrl  
 The URL of the SQS queue to which to write the data\.
@@ -846,9 +931,9 @@ For more information, see the [Amazon SQS Developer Guide](https://docs.aws.amaz
 A `stepFunctions` action starts execution of a Step Functions state machine\. 
 
 ------
-#### [ more info \(16\) ]
+#### [ More information \(18\) ]
 
-When creating a rule with a `stepFunctions` action, you must specify the following information:
+When you create a rule with a `stepFunctions` action, you must specify the following information:
 
 executionNamePrefix  
 Optional\. The name given to the state machine execution consists of this prefix followed by a UUID\. Step Functions creates a unique name for each state machine execution if one is not provided\.

@@ -7,7 +7,6 @@ The following information might help you troubleshoot common issues in AWS IoT\.
 + [Diagnosing Rules Issues](diagnosing-rules.md)
 + [Diagnosing Problems with Shadows](diagnosing-shadows.md)
 + [Diagnosing Salesforce IoT Input Stream Action Issues](diagnosing-salesforce.md)
-+ [AWS IoT Limits](limits-iot.md)
 + [AWS IoT Errors](#iot-errors)
 
 ## AWS IoT Errors<a name="iot-errors"></a>

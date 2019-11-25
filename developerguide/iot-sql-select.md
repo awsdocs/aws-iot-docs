@@ -110,7 +110,7 @@ The following `SELECT` can be used with binary payloads because it doesn't viola
 SELECT * FROM 'a/b' WHERE timestamp() % 12 = 0
 ```
 
-The following AWS IoT rule cannot be used with payloads because it violates rule \#1\.
+The following AWS IoT rule cannot be used with binary payloads because it violates rule \#1\.
 
 ```
 {

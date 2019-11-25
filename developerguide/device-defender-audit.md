@@ -4,6 +4,22 @@ An AWS IoT Device Defender audit looks at account\- and device\-related settings
 
 An AWS IoT Device Defender audit runs a set of predefined checks for common IoT security best practices and device vulnerabilities\. Examples of predefined checks include policies that grant permission to read or update data on multiple devices, devices that share an identity \(X\.509 certificate\), or certificates that are expiring or have been revoked but are still active\.
 
+## Issue Severity<a name="device-defender-audit-severity"></a>
+
+Issue severity indicates the level of concern associated with each identified instance of noncompliance and the recommended time to remediation\.
+
+Critical  
+Noncompliant audit checks with this severity identify issues that require urgent attention\. Critical issues often allow bad actors with little sophistication and no insider knowledge or special credentials to easily gain access to or control of your assets\.
+
+High  
+Noncompliant audit checks with this severity require urgent investigation and remediation planning after critical issues are addressed\. Like critical issues, high severity issues often provide bad actors with access to or control of your assets\. However, high severity issues are often more difficult to exploit\. They might require special tools, insider knowledge, or specific setups\.
+
+Medium  
+Noncompliant audit checks with this severity present issues that need attention as part of your continuous security posture maintenance\. Medium severity issues might cause negative operational impact, such as unplanned outages due to malfunction of security controls\. These issues might also provide bad actors with limited access to or control of your assets, or might facilitate parts of their malicious actions\.
+
+Low  
+Noncompliant audit checks with this severity often indicate security best practices were overlooked or bypassed\. Although they might not cause an immediate security impact on their own, these lapses can be exploited by bad actors\. Like medium severity issues, low severity issues require attention as part of your continuous security posture maintenance\.
+
 ## Audit Checks<a name="device-defender-audit-checks"></a>
 
 **Note**  
@@ -19,7 +35,7 @@ A CA certificate was revoked, but is still active in AWS IoT\.
 Severity: **Critical**
 
 ------
-#### [ Details \(1\) ]
+#### [ Details ]
 
 A CA certificate is marked as revoked in the certificate revocation list maintained by the issuing authority, but is still marked as ACTIVE or PENDING\_TRANSFER in AWS IoT\.
 
@@ -27,14 +43,18 @@ The following reason codes are returned when this check finds a noncompliant CA 
 + CERTIFICATE\_REVOKED\_BY\_ISSUER
 
 ------
-#### [ Why it matters \(1\) ]
+#### [ Why it matters ]
 
 A revoked CA certificate should no longer be used to sign device certificates\. It might have been revoked because it was compromised\. Newly added devices with certificates signed using this CA certificate might pose a security threat\. 
 
 ------
-#### [ How to fix it \(1\) ]
+#### [ How to fix it ]
 
-1. Use [UpdateCACertificate](https://docs.aws.amazon.com/iot/latest/developerguide/api-iot-UpdateCACertificate.html) to mark the CA certificate as INACTIVE in AWS IoT \.
+1. Use [UpdateCACertificate](https://docs.aws.amazon.com/iot/latest/developerguide/api-iot-UpdateCACertificate.html) to mark the CA certificate as INACTIVE in AWS IoT\. You can also use mitigation actions to:
+   + Apply the `UPDATE_CA_CERTIFICATE` mitigation action on your audit findings to make this change\. 
+   + Apply the `PUBLISH_FINDINGS_TO_SNS` mitigation action if you want to implement a custom response in response to the Amazon SNS message\. 
+
+   For more information, see [Mitigation Actions](device-defender-mitigation-actions.md)\.
 
 1. Review the device certificate registration activity for the time after the CA certificate was revoked and consider revoking any device certificates that might have been issued with it during this time\. \(Use [ListCertificatesByCA](https://docs.aws.amazon.com/iot/latest/developerguide/api-iot-ListCertificatesByCA.html) to list the device certificates signed by the CA certificate and [UpdateCertificate](https://docs.aws.amazon.com/iot/latest/developerguide/api-iot-UpdateCertificate.html) to revoke a device certificate\.\)
 
@@ -50,7 +70,7 @@ Multiple, concurrent connections use the same X\.509 certificate to authenticate
 Severity: **Critical**
 
 ------
-#### [ Details \(2\) ]
+#### [ Details ]
 
 When this check is enabled, data collection starts immediately, but results of the check are not available for at least two hours\.
 
@@ -62,12 +82,12 @@ The following reason codes are returned when this check finds a noncompliant cer
 In addition, the findings returned by this check include the ID of the shared certificate, the IDs of the clients using the certificate to connect, and the connect/disconnect times\. Most recent results are listed first\.
 
 ------
-#### [ Why it matters \(2\) ]
+#### [ Why it matters ]
 
 Each device should have a unique certificate to authenticate with AWS IoT\. When multiple devices use the same certificate, this might indicate that a device has been compromised\. Its identity might have been cloned to further compromise the system\. 
 
 ------
-#### [ How to fix it \(2\) ]
+#### [ How to fix it ]
 
 Verify that the device certificate has not been compromised\. If it has, follow your security best practices to mitigate the situation\. 
 
@@ -77,9 +97,116 @@ If you are using the same certificate on multiple devices, you might want to:
 
 1. Verify that the new certificates are valid and the devices can use them to connect\.
 
-1. Use [UpdateCertificate](https://docs.aws.amazon.com/iot/latest/developerguide/api-iot-UpdateCertificate.html) to mark the old certificate as REVOKED in AWS IoT\. 
+1. Use [UpdateCertificate](https://docs.aws.amazon.com/iot/latest/developerguide/api-iot-UpdateCertificate.html) to mark the old certificate as REVOKED in AWS IoT\. You can also use mitigation actions to:
+   + Apply the `UPDATE_DEVICE_CERTIFICATE` mitigation action on your audit findings to make this change\. 
+   + Apply the `ADD_THINGS_TO_THING_GROUP` mitigation action to add the device to a group where you can take action on it\.
+   + Apply the `PUBLISH_FINDINGS_TO_SNS` mitigation action if you want to implement a custom response in response to the Amazon SNS message\. 
+
+   For more information, see [Mitigation Actions](device-defender-mitigation-actions.md)\. 
 
 1. Detach the old certificate from each of the devices\.
+
+------
+
+ 
+
+------
+#### [ DEVICE\_CERTIFICATE\_KEY\_QUALITY\_CHECK ]
+
+AWS IoT customers often rely on TLS mutual authentication using X\.509 certificates for authenticating to AWS IoT message broker\. These certificates and their certificate authority certificates must be registereed in their AWS IoT account before they are used\. AWS IoT performs basic sanity checks on these certificates when they are registered\. These checks include:
++ They must be in a valid format
++ They must be signed by a registered certificate authority
++ They must still be within their validity period \(in other words, they have not expired\)
++ Their cryptographic key sizes must meet a minimum required size \(for RSA keys, they must be 2048 bits or larger\)\.
+
+This audit check provides the following additional tests of the quality of your cryptographic key:
++ CVE\-2017\-15361 \- Check whether the key was generated using OpenSSL 0\.9\.8c\-1 up to versions before 0\.9\.8g\-9 on a Debian\-based operating system\. Those versions of OpenSSL use a random number generator that generates predictable numbers, making it easier for remote attackers to conduct brute force guessing attacks against cryptographic keys\.
++ CVE\-2008\-0166 \- Check whether the key was generated by the Infineon RSA library 1\.02\.013 in Infineon Trusted Platform Module \(TPM\) firmware, such as versions before 0000000000000422 \- 4\.34, before 000000000000062b \- 6\.43, and before 0000000000008521 \- 133\.33\. That library mishandles RSA key generation, making it easier for attackers to defeat some cryptographic protection mechamisms through targeted attacks\. Examples of affected technologies include BitLocker with TPM 1\.2, YubiKey 4 \(before 4\.3\.5\) PGP key generation, and the Cached User Data encryption feature in Chrome OS\.
+
+AWS IoT Device Defender reports certificates as noncompliant if they fail these tests\.
+
+Severity: **Critical**
+
+------
+#### [ Details ]
+
+This check applies to device certificates that are ACTIVE or PENDING\_TRANSFER\.
+
+The following reason codes are returned when this check finds a noncompliant certificate:
++ CERTIFICATE\_KEY\_VULNERABILITY\_CVE\-2017\-15361
+
+  CERTIFICATE\_KEY\_VULNERABILITY\_CVE\-2008\-0166
+
+------
+#### [ Why it matters ]
+
+When a device uses a vulnerable certificate, attackers can more easily compromise that device\.
+
+------
+#### [ How to fix it ]
+
+Update your device certificates to replace those with known vulnerabilities\.
+
+If you are using the same certificate on multiple devices, you might want to:
+
+1. Provision new, unique certificates and attach them to each device\. 
+
+1. Verify that the new certificates are valid and the devices can use them to connect\.
+
+1. Use [UpdateCertificate](https://docs.aws.amazon.com/iot/latest/developerguide/api-iot-UpdateCertificate.html) to mark the old certificate as REVOKED in AWS IoT\. You can also use mitigation actions to:
+   + Apply the `UPDATE_DEVICE_CERTIFICATE` mitigation action on your audit findings to make this change\. 
+   + Apply the `ADD_THINGS_TO_THING_GROUP` mitigation action to add the device to a group where you can take action on it\.
+   + Apply the `PUBLISH_FINDINGS_TO_SNS` mitigation action if you want to implement a custom response in response to the Amazon SNS message\. 
+
+   For more information, see [Mitigation Actions](device-defender-mitigation-actions.md)\. 
+
+1. Detach the old certificate from each of the devices\.
+
+------
+
+ 
+
+------
+#### [ CA\_CERTIFICATE\_KEY\_QUALITY\_CHECK ]
+
+AWS IoT customers often rely on TLS mutual authentication using X\.509 certificates for authenticating to AWS IoT message broker\. These certificates and their certificate authority certificates must be registereed in their AWS IoT account before they are used\. AWS IoT performs basic sanity checks on these certificates when they are registered, including:
++ The certificates are in a valid format\.
++ The certificates are within their validity period \(in other words, not expired\)\.
++ Their cryptographic key sizes meet a minimum required size \(for RSA keys, they must be 2048 bits or larger\)\.
+
+This audit check provides the following additional tests of the quality of your cryptographic key:
++ CVE\-2017\-15361 \- Check whether the key was generated using OpenSSL 0\.9\.8c\-1 up to versions before 0\.9\.8g\-9 on a Debian\-based operating system\. Those versions of OpenSSL use a random number generator that generates predictable numbers, making it easier for remote attackers to conduct brute force guessing attacks against cryptographic keys\.
++ CVE\-2008\-0166 \- Check whether the key was generated by the Infineon RSA library 1\.02\.013 in Infineon Trusted Platform Module \(TPM\) firmware, such as versions before 0000000000000422 \- 4\.34, before 000000000000062b \- 6\.43, and before 0000000000008521 \- 133\.33\. That library mishandles RSA key generation, making it easier for attackers to defeat some cryptographic protection mechamisms through targeted attacks\. Examples of affected technologies include BitLocker with TPM 1\.2, YubiKey 4 \(before 4\.3\.5\) PGP key generation, and the Cached User Data encryption feature in Chrome OS\.
+
+AWS IoT Device Defender reports certificates as noncompliant if they fail these tests\.
+
+Severity: **Critical**
+
+------
+#### [ Details ]
+
+This check applies to CA certificates that are ACTIVE or PENDING\_TRANSFER\.
+
+The following reason codes are returned when this check finds a noncompliant certificate:
++ CERTIFICATE\_KEY\_VULNERABILITY\_CVE\-2017\-15361
+
+  CERTIFICATE\_KEY\_VULNERABILITY\_CVE\-2008\-0166
+
+------
+#### [ Why it matters ]
+
+Newly added devices signed using this CA certificate might pose a security threat\.
+
+------
+#### [ How to fix it ]
+
+1. Use [UpdateCACertificate](https://docs.aws.amazon.com/iot/latest/developerguide/api-iot-UpdateCACertificate.html) to mark the CA certificate as INACTIVE in AWS IoT\. You can also use mitigation actions to:
+   + Apply the `UPDATE_CA_CERTIFICATE` mitigation action on your audit findings to make this change\. 
+   + Apply the `PUBLISH_FINDINGS_TO_SNS` mitigation action if you want to implement a custom response in response to the Amazon SNS message\. 
+
+   For more information, see [Mitigation Actions](device-defender-mitigation-actions.md)\.
+
+1. Review the device certificate registration activity for the time after the CA certificate was revoked and consider revoking any device certificates that might have been issued with it during this time\. \(Use [ListCertificatesByCA](https://docs.aws.amazon.com/iot/latest/developerguide/api-iot-ListCertificatesByCA.html) to list the device certificates signed by the CA certificate and [UpdateCertificate](https://docs.aws.amazon.com/iot/latest/developerguide/api-iot-UpdateCertificate.html) to revoke a device certificate\.\)
 
 ------
 
@@ -94,7 +221,7 @@ A policy attached to an unauthenticated Amazon Cognito identity pool role is con
 + Manage non\-thing related data or resources\.
 
 Or, because it grants permission to perform the following AWS IoT actions on a broad set of devices:
-+ Use MQTT to connect/publish/subscribe to reserved topics \(including shadow or job execution data\)\.
++ Use MQTT to connect, publish, or subscribe to reserved topics \(including shadow or job execution data\)\.
 + Use API commands to read or modify shadow or job execution data\.
 
 In general, devices that connect using an unauthenticated Amazon Cognito identity pool role should have only limited permission to publish and subscribe to thing\-specific MQTT topics or use the API commands to read and modify thing\-specific data related to shadow or job execution data\.
@@ -102,9 +229,9 @@ In general, devices that connect using an unauthenticated Amazon Cognito identit
 Severity: **Critical**
 
 ------
-#### [ manage or modify things \(3\) ]
+#### [ Manage or modify things ]
 
-The following AWS IoT API actions are used to manage or modify things so permission to perform these should not be granted to devices that connect through an unauthenticated Amazon Cognito identity pool:
+The following AWS IoT API actions are used to manage or modify things\. Permission to perform these actions should not be granted to devices that connect through an unauthenticated Amazon Cognito identity pool\.
 + `AddThingToThingGroup` 
 + `AttachThingPrincipal` 
 + `CreateThing` 
@@ -120,9 +247,9 @@ The following AWS IoT API actions are used to manage or modify things so permiss
 Any role that grants permission to perform these actions on even a single resource is considered noncompliant\.
 
 ------
-#### [ read thing administrative data \(3\) ]
+#### [ Read thing administrative data ]
 
-The following AWS IoT API actions are used to read or modify thing data so devices that connect through an unauthenticated Amazon Cognito identity pool should not be given permission to perform these actions:
+The following AWS IoT API actions are used to read or modify thing data\. Devices that connect through an unauthenticated Amazon Cognito identity pool should not be given permission to perform these actions\.
 + `DescribeThing`
 + `ListJobExecutionsForThing`
 + `ListThingGroupsForThing`
@@ -151,17 +278,17 @@ The following AWS IoT API actions are used to read or modify thing data so devic
   }
   ```
 
-  This allows the device to perform the specified actions even though it is granted for one specific thing only\.
+  This allows the device to perform the specified actions even though it is granted for one thing only\.
 
 ------
-#### [ manage non\-things \(3\) ]
+#### [ Manage non\-things ]
 
 Devices that connect through an unauthenticated Amazon Cognito identity pool should not be given permission to perform AWS IoT API actions other than those discussed in these sections\. To manage your account with an application that connects through an unauthenticated Amazon Cognito identity pool, create a separate identity pool not used by devices\.
 
 ------
-#### [ subscribe/publish to MQTT topics \(3\) ]
+#### [ Subscribe/publish to MQTT topics ]
 
-MQTT messages are sent through the AWS IoT message broker and are used by devices to perform many different actions, including accessing and modifying shadow state and job execution state\. A policy that grants permission to a device to connect, publish, or subscribe to MQTT messages should restrict these actions to specific resources as follows:
+MQTT messages are sent through the AWS IoT message broker and are used by devices to perform many actions, including accessing and modifying shadow state and job execution state\. A policy that grants permission to a device to connect, publish, or subscribe to MQTT messages should restrict these actions to specific resources as follows:
 
 Connect  
 + noncompliant:
@@ -212,7 +339,7 @@ Publish
   arn:aws:iot:<region>:<account-id>:topic/$aws/things/*
   ```
 
-  This allows the device to read/update/delete the shadow of any device\.
+  This allows the device to read, update, or delete the shadow of any device\.
 + compliant:
 
   ```
@@ -279,10 +406,10 @@ Receive
   arn:aws:iot:<region>:<account-id>:topicfilter/$aws/things/*
   ```
 
-  This is okay because the device can receive messages only from topics on which it has permission to subscribe\.
+  This is allowed because the device can receive messages only from topics on which it has permission to subscribe\.
 
 ------
-#### [ read/modify shadow or job data \(3\) ]
+#### [ Read/modify shadow or job data ]
 
 A policy that grants permission to a device to perform an API action to access or modify device shadows or job execution data should restrict these actions to specific resources\. The API actions are:
 + `DeleteThingShadow`
@@ -330,21 +457,21 @@ A policy that grants permission to a device to perform an API action to access o
   This allows the device to perform the specified actions on two things only\.
 
 ------
-#### [ Details \(3\) ]
+#### [ Details ]
 
-For this check, AWS IoT Device Defender audits all Amazon Cognito identity pools that have been used to connect to the AWS IoT message broker during the 31 days prior to the audit execution\. All Amazon Cognito identity pools from which either an authenticated or unauthenticated Amazon Cognito identity connected are included in the audit\.
+For this check, AWS IoT Device Defender audits all Amazon Cognito identity pools that have been used to connect to the AWS IoT message broker during the 31 days before the audit execution\. All Amazon Cognito identity pools from which either an authenticated or unauthenticated Amazon Cognito identity connected are included in the audit\.
 
 The following reason codes are returned when this check finds a noncompliant unauthenticated Amazon Cognito identity pool role:
 + ALLOWS\_ACCESS\_TO\_IOT\_ADMIN\_ACTIONS
 + ALLOWS\_BROAD\_ACCESS\_TO\_IOT\_DATA\_PLANE\_ACTIONS
 
 ------
-#### [ Why it matters \(3\) ]
+#### [ Why it matters ]
 
 Because unauthenticated identities are never authenticated by the user, they pose a much greater risk than authenticated Amazon Cognito identities\. If an unauthenticated identity is compromised, it can use administrative actions to modify account settings, delete resources, or gain access to sensitive data\. Or, with broad access to device settings, it can access or modify shadows and jobs for all devices in your account\. A guest user might use the permissions to compromise your entire fleet or launch a DDOS attack with messages\.
 
 ------
-#### [ How to fix it \(3\) ]
+#### [ How to fix it ]
 
 A policy attached to an unauthenticated Amazon Cognito identity pool role should grant only those permissions required for a device to do its job\. We recommend the following steps:
 
@@ -355,6 +482,11 @@ A policy attached to an unauthenticated Amazon Cognito identity pool role should
 1. Verify that your identities can access AWS IoT using the new pool\.
 
 1. After verification is complete, attach the compliant role to the Amazon Cognito identity pool that was flagged as noncompliant\.
+
+You can also use mitigation actions to:
++ Apply the `PUBLISH_FINDINGS_TO_SNS` mitigation action if you want to implement a custom response in response to the Amazon SNS message\. 
+
+For more information, see [Mitigation Actions](device-defender-mitigation-actions.md)\. 
 
 ------
 
@@ -377,7 +509,7 @@ In general, devices that connect using an authenticated Amazon Cognito identity 
 Severity: **Critical**
 
 ------
-#### [ Manage or modify things \(4\) ]
+#### [ Manage or modify things ]
 
 The following AWS IoT API actions are used to manage or modify things so permission to perform these should not be granted to devices connecting through an authenticated Amazon Cognito identity pool:
 + `AddThingToThingGroup` 
@@ -395,12 +527,12 @@ The following AWS IoT API actions are used to manage or modify things so permiss
 Any role that grants permission to perform these actions on even a single resource is considered noncompliant\.
 
 ------
-#### [ manage non\-things \(4\) ]
+#### [ Manage non\-things ]
 
 Devices that connect through an authenticated Amazon Cognito identity pool should not be given permission to perform AWS IoT API actions other than those discussed in these sections\. To manage your account with an application that connects through an authenticated Amazon Cognito identity pool, create a separate identity pool not used by devices\.
 
 ------
-#### [ read thing administrative data \(4\) ]
+#### [ Read thing administrative data ]
 
 The following AWS IoT API actions are used to read thing data, so devices that connect through an authenticated Amazon Cognito identity pool should be given permission to perform these on a limited set of things only:
 + `DescribeThing`
@@ -464,7 +596,7 @@ The following AWS IoT API actions are used to read thing data, so devices that c
   This is compliant because, although the resource is specified with a wildcard \(\*\), it is preceded by a specific string, and that limits the set of things accessed to those with names that have the given prefix\.
 
 ------
-#### [ subscribe/publish to MQTT topics \(4\) ]
+#### [ Subscribe/publish to MQTT topics ]
 
 MQTT messages are sent through the AWS IoT message broker and are used by devices to perform many different actions, including accessing and modifying shadow state and job execution state\. A policy that grants permission to a device to connect, publish, or subscribe to MQTT messages should restrict these actions to specific resources as follows:
 
@@ -584,10 +716,10 @@ Receive
   arn:aws:iot:<region>:<account-id>:topicfilter/$aws/things/*
   ```
 
-  This is okay because the device can receive messages only from topics on which it has permission to subscribe\.
+  This is compliant because the device can receive messages only from topics on which it has permission to subscribe\.
 
 ------
-#### [ read/modify shadow or job data \(4\) ]
+#### [ Read or modify shadow or job data ]
 
 A policy that grants permission to a device to perform an API action to access or modify device shadows or job execution data should restrict these actions to specific resources\. The API actions are:
 + `DeleteThingShadow`
@@ -635,9 +767,9 @@ A policy that grants permission to a device to perform an API action to access o
   This allows the device to perform the specified actions on only two things\.
 
 ------
-#### [ Details \(4\) ]
+#### [ Details ]
 
-For this check, AWS IoT Device Defender audits all Amazon Cognito identity pools that have been used to connect to the AWS IoT message broker during the 31 days prior to the audit execution\. All Amazon Cognito identity pools from which either an authenticated or unauthenticated Amazon Cognito identity connected are included in the audit\.
+For this check, AWS IoT Device Defender audits all Amazon Cognito identity pools that have been used to connect to the AWS IoT message broker during the 31 days before the audit execution\. All Amazon Cognito identity pools from which either an authenticated or unauthenticated Amazon Cognito identity connected are included in the audit\.
 
 The following reason codes are returned when this check finds a noncompliant authenticated Amazon Cognito identity pool role:
 + ALLOWS\_BROAD\_ACCESS\_TO\_IOT\_THING\_ADMIN\_READ\_ACTIONS
@@ -645,12 +777,12 @@ The following reason codes are returned when this check finds a noncompliant aut
 + ALLOWS\_ACCESS\_TO\_IOT\_THING\_ADMIN\_WRITE\_ACTIONS
 
 ------
-#### [ Why it matters \(4\) ]
+#### [ Why it matters ]
 
-If an authenticated identity is compromised, it could use administrative actions to modify account settings, delete resources, or gain access to sensitive data\.
+If an authenticated identity is compromised, it can use administrative actions to modify account settings, delete resources, or gain access to sensitive data\.
 
 ------
-#### [ How to fix it \(4\) ]
+#### [ How to fix it ]
 
 A policy attached to an authenticated Amazon Cognito identity pool role should grant only those permissions required for a device to do its job\. We recommend the following steps:
 
@@ -661,6 +793,11 @@ A policy attached to an authenticated Amazon Cognito identity pool role should g
 1. Verify that your identities can access AWS IoT using the new pool\.
 
 1. After verification is complete, attach the role to the Amazon Cognito identity pool that was flagged as noncompliant\.
+
+You can also use mitigation actions to:
++ Apply the `PUBLISH_FINDINGS_TO_SNS` mitigation action if you want to implement a custom response in response to the Amazon SNS message\. 
+
+For more information, see [Mitigation Actions](device-defender-mitigation-actions.md)\. 
 
 ------
 
@@ -676,9 +813,9 @@ In general, a policy for a device should grant access to resources associated wi
 Severity: **Critical**
 
 ------
-#### [ MQTT permissions \(5\) ]
+#### [ MQTT permissions ]
 
-MQTT messages are sent through the AWS IoT message broker and are used by devices to perform many different actions, including accessing and modifying shadow state and job execution state\. A policy that grants permission to a device to connect, publish, or subscribe to MQTT messages should restrict these actions to specific resources as follows:
+MQTT messages are sent through the AWS IoT message broker and are used by devices to perform many actions, including accessing and modifying shadow state and job execution state\. A policy that grants permission to a device to connect, publish, or subscribe to MQTT messages should restrict these actions to specific resources as follows:
 
 Connect  
 + noncompliant:
@@ -729,7 +866,7 @@ Publish
   arn:aws:iot:<region>:<account-id>:topic/$aws/things/*
   ```
 
-  This allows the device to read/update/delete the shadow of any device\.
+  This allows the device to read, update, or delete the shadow of any device\.
 + compliant:
 
   ```
@@ -796,10 +933,10 @@ Receive
   arn:aws:iot:<region>:<account-id>:topicfilter/$aws/things/*
   ```
 
-  This is okay because the device can only receive messages from topics on which it has permission to subscribe\.
+  This is compliant because the device can only receive messages from topics on which it has permission to subscribe\.
 
 ------
-#### [ shadow and job permissions \(5\) ]
+#### [ Shadow and job permissions ]
 
 A policy that grants permission to a device to perform an API action to access or modify device shadows or job execution data should restrict these actions to specific resources\. The API actions are:
 + `DeleteThingShadow`
@@ -847,18 +984,18 @@ A policy that grants permission to a device to perform an API action to access o
   This allows the device to perform the specified actions on only two things\.
 
 ------
-#### [ Details \(5\) ]
+#### [ Details ]
 
 The following reason code is returned when this check finds a noncompliant IoT policy:
 + ALLOWS\_BROAD\_ACCESS\_TO\_IOT\_DATA\_PLANE\_ACTIONS
 
 ------
-#### [ Why it matters \(5\) ]
+#### [ Why it matters ]
 
-A certificate, Amazon Cognito identity or thing group with an overly permissive policy can, if compromised, impact the security of your entire account\. An attacker could use such broad access to read or modify shadows, jobs, or job executions for all your devices\. Or an attacker could use a compromised certificate to connect malicious devices or launch a DDOS attack on your network\.
+A certificate, Amazon Cognito identity, or thing group with an overly permissive policy can, if compromised, impact the security of your entire account\. An attacker could use such broad access to read or modify shadows, jobs, or job executions for all your devices\. Or an attacker could use a compromised certificate to connect malicious devices or launch a DDOS attack on your network\.
 
 ------
-#### [ How to fix it \(5\) ]
+#### [ How to fix it ]
 
 Follow these steps to fix any noncompliant policies attached to things, thing groups, or other entities:
 
@@ -868,7 +1005,93 @@ Follow these steps to fix any noncompliant policies attached to things, thing gr
 
 1. Verify that all associated devices are able to connect to AWS IoT\. If a device is unable to connect, use [ SetPolicyVersion](https://docs.aws.amazon.com/iot/latest/apireference/API_SetPolicyVersion.html) to roll back the default policy to the previous version, revise the policy, and try again\. 
 
+You can use mitigation actions to:
++ Apply the `REPLACE_DEFAULT_POLICY_VERSION` mitigation action on your audit findings to make this change\. 
++ Apply the `PUBLISH_FINDINGS_TO_SNS` mitigation action if you want to implement a custom response in response to the Amazon SNS message\. 
+
+For more information, see [Mitigation Actions](device-defender-mitigation-actions.md)\. 
+
 Use [AWS IoT policy variables](https://docs.aws.amazon.com/iot/latest/developerguide/policy-variables.html) to dynamically reference AWS IoT resources in your policies\.
+
+------
+
+ 
+
+------
+#### [ IOT\_ROLE\_ALIAS\_OVERLY\_PERMISSIVE\_CHECK ]
+
+AWS IoT role alias provides a mechanism for connected devices to authenticate to AWS IoT using X\.509 certificates and then obtain short\-lived AWS credentials from an IAM role that is associated with an AWS IoT role alias\. The permissions for these credentials must be scoped down using access policies with authentication context variables\. If you misconfigure your policies, you could leave yourself exposed to an escalation of privilege attack\. This audit check ensures that the temporary credentials provided by AWS IoT role aliases are not overly permissive\. 
+
+This check is triggered if one of the following conditions are found:
++ The policy provides administrative permissions to any services used in the past year by this role alias \(for example, "iot:\*", "dynamodb:\*", "iam:\*", and so on\)\.
++ The policy provides broad access to thing metadata actions, access to restricted AWS IoT actions, or broad access to AWS IoT data plane actions\.
++ The policy provides access to security auditing services such as "iam", "cloudtrail", "guardduty", "inspector", or "trustedadvisor"\.
+
+Severity: **Critical**
+
+------
+#### [ Details ]
+
+The following reason codes are returned when this check finds a noncompliant IoT policy:
++ ALLOWS\_BROAD\_ACCESS\_TO\_USED\_SERVICES
++ ALLOWS\_ACCESS\_TO\_SECURITY\_AUDITING\_SERVICES
++ ALLOWS\_BROAD\_ACCESS\_TO\_IOT\_THING\_ADMIN\_READ\_ACTIONS
++ ALLOWS\_ACCESS\_TO\_IOT\_NON\_THING\_ADMIN\_ACTIONS
++ ALLOWS\_ACCESS\_TO\_IOT\_THING\_ADMIN\_WRITE\_ACTIONS
++ ALLOWS\_BROAD\_ACCESS\_TO\_IOT\_DATA\_PLANE\_ACTIONS
+
+------
+#### [ Why it matters ]
+
+By limiting permissions to those that are required for a device to perform its normal operations, you reduce the risks to your account if a device is compromised\.
+
+------
+#### [ How to fix it ]
+
+Follow these steps to fix any noncompliant policies attached to things, thing groups, or other entities:
+
+1. Follow the steps in [Authorizing Direct Calls to AWS Services](authorizing-direct-aws.md) to apply a more restrictive policy to your role alias\.
+
+You can use mitigation actions to:
++ Apply the `PUBLISH_FINDINGS_TO_SNS` mitigation action if you want to implement a custom action in response to the Amazon SNS message\. 
+
+For more information, see [Mitigation Actions](device-defender-mitigation-actions.md)\. 
+
+------
+
+ 
+
+------
+#### [ IOT\_ROLE\_ALIAS\_ALLOWS\_ACCESS\_TO\_UNUSED\_SERVICES\_CHECK ]
+
+AWS IoT role alias provides a mechanism for connected devices to authenticate to AWS IoT using X\.509 certificates and then obtain short\-lived AWS credentials from an IAM role that is associated with an AWS IoT role alias\. The permissions for these credentials must be scoped down using access policies with authentication context variables\. If you misconfigure your policies, you could leave yourself exposed to an escalation of privilege attack\. This audit check ensures that the temporary credentials provided by AWS IoT role aliases are not overly permissive\. 
+
+This check is triggered if the role alias has access to services that haven't been used for the AWS IoT device in the last year\. For example, the audit reports if you have an IAM role linked to the role alias that has only used AWS IoT in the past year but the policy attached to the role also grants permission to `"iam:getRole"` and `"dynamodb:PutItem"`\.
+
+Severity: **Medium**
+
+------
+#### [ Details ]
+
+The following reason codes are returned when this check finds a noncompliant AWS IoT policy:
++ ALLOWS\_ACCESS\_TO\_UNUSED\_SERVICES
+
+------
+#### [ Why it matters ]
+
+By limiting permissions to those services that are required for a device to perform its normal operations, you reduce the risks to your account if a device is compromised\.
+
+------
+#### [ How to fix it ]
+
+Follow these steps to fix any noncompliant policies attached to things, thing groups, or other entities:
+
+1. Follow the steps in [Authorizing Direct Calls to AWS Services](authorizing-direct-aws.md) to apply a more restrictive policy to your role alias\.
+
+You can use mitigation actions to:
++ Apply the `PUBLISH_FINDINGS_TO_SNS` mitigation action if you want to implement a custom action in response to the Amazon SNS message\. 
+
+For more information, see [Mitigation Actions](device-defender-mitigation-actions.md)\. 
 
 ------
 
@@ -882,7 +1105,7 @@ A CA certificate is expiring within 30 days or has expired\.
 Severity: **Medium**
 
 ------
-#### [ Details \(6\) ]
+#### [ Details ]
 
 This check applies to CA certificates that are ACTIVE or PENDING\_TRANSFER\.
 
@@ -891,12 +1114,12 @@ The following reason codes are returned when this check finds a noncompliant CA 
 + CERTIFICATE\_PAST\_EXPIRATION
 
 ------
-#### [ Why it matters \(6\) ]
+#### [ Why it matters ]
 
 An expired CA certificate should not be used to sign new device certificates\.
 
 ------
-#### [ How to fix it \(6\) ]
+#### [ How to fix it ]
 
 Consult your security best practices for how to proceed\. You might want to:
 
@@ -904,7 +1127,11 @@ Consult your security best practices for how to proceed\. You might want to:
 
 1. Verify that you are able to sign device certificates using the new CA certificate\.
 
-1. Use [UpdateCACertificate](https://docs.aws.amazon.com/iot/latest/developerguide/api-iot-UpdateCACertificate.html) to mark the old CA certificate as INACTIVE in AWS IoT\.\.
+1. Use [UpdateCACertificate](https://docs.aws.amazon.com/iot/latest/developerguide/api-iot-UpdateCACertificate.html) to mark the old CA certificate as INACTIVE in AWS IoT\. You can also use mitigation actions to:
+   + Apply the `UPDATE_CA_CERTIFICATE` mitigation action on your audit findings to make this change\. 
+   + Apply the `PUBLISH_FINDINGS_TO_SNS` mitigation action if you want to implement a custom response in response to the Amazon SNS message\. 
+
+   For more information, see [Mitigation Actions](device-defender-mitigation-actions.md)\. 
 
 ------
 
@@ -918,7 +1145,7 @@ Multiple devices connect using the same client ID\.
 Severity: **High**
 
 ------
-#### [ Details \(7\) ]
+#### [ Details ]
 
 Multiple connections were made using the same client ID, causing an already connected device to be disconnected\. The MQTT specification allows only one active connection per client ID, so when another device connects using the same client ID, it knocks the previous one off the connection\.
 
@@ -930,16 +1157,19 @@ The following reason codes are returned when this check finds noncompliance:
 The findings returned by this check also include the client ID used to connect, principal IDs, and disconnect times\. The most recent results are listed first\.
 
 ------
-#### [ Why it matters \(7\) ]
+#### [ Why it matters ]
 
 Devices with conflicting IDs are forced to constantly reconnect, which might result in lost messages or leave a device unable to connect\.
 
-This might indicate that a device or a device's credentials have been compromised, and might be part of a DDoS attack\. It is also possible that devices are misconfigured in the account or a device has a bad connection and is forced to reconnect several times per minute\.
+This might indicate that a device or a device's credentials have been compromised, and might be part of a DDoS attack\. It is also possible that devices are not configured correctly in the account or a device has a bad connection and is forced to reconnect several times per minute\.
 
 ------
-#### [ How to fix it \(7\) ]
+#### [ How to fix it ]
 
-Register each device as a unique thing in AWS IoT, and use the thing name as the client ID to connect\. Or use a UUID as the client ID when connecting the device over MQTT\.
+Register each device as a unique thing in AWS IoT, and use the thing name as the client ID to connect\. Or use a UUID as the client ID when connecting the device over MQTT\. You can also use mitigation actions to:
++ Apply the `PUBLISH_FINDINGS_TO_SNS` mitigation action if you want to implement a custom response in response to the Amazon SNS message\. 
+
+For more information, see [Mitigation Actions](device-defender-mitigation-actions.md)\.
 
 ------
 
@@ -953,7 +1183,7 @@ A device certificate is expiring within 30 days or has expired\.
 Severity: **Medium**
 
 ------
-#### [ Details \(8\) ]
+#### [ Details ]
 
 This check applies to device certificates that are ACTIVE or PENDING\_TRANSFER\.
 
@@ -962,12 +1192,12 @@ The following reason codes are returned when this check finds a noncompliant dev
 + CERTIFICATE\_PAST\_EXPIRATION
 
 ------
-#### [ Why it matters \(8\) ]
+#### [ Why it matters ]
 
 A device certificate should not be used after it expires\.
 
 ------
-#### [ How to fix it \(8\) ]
+#### [ How to fix it ]
 
 Consult your security best practices for how to proceed\. You might want to:
 
@@ -975,7 +1205,12 @@ Consult your security best practices for how to proceed\. You might want to:
 
 1. Verify that the new certificate is valid and the device is able to use it to connect\.
 
-1. Use [UpdateCertificate](https://docs.aws.amazon.com/iot/latest/developerguide/api-iot-UpdateCertificate.html) to mark the old certificate as INACTIVE in AWS IoT\.
+1. Use [UpdateCertificate](https://docs.aws.amazon.com/iot/latest/developerguide/api-iot-UpdateCertificate.html) to mark the old certificate as INACTIVE in AWS IoT\. You can also use mitigation actions to:
+   + Apply the `UPDATE_DEVICE_CERTIFICATE` mitigation action on your audit findings to make this change\. 
+   + Apply the `ADD_THINGS_TO_THING_GROUP` mitigation action to add the device to a group where you can take action on it\.
+   + Apply the `PUBLISH_FINDINGS_TO_SNS` mitigation action if you want to implement a custom response in response to the Amazon SNS message\. 
+
+   For more information, see [Mitigation Actions](device-defender-mitigation-actions.md)\. 
 
 1. Detach the old certificate from the device\. \(See [DetachThingPrincipal](https://docs.aws.amazon.com/iot/latest/developerguide/api-iot-DetachThingPrincipal.html)\.\)
 
@@ -991,7 +1226,7 @@ A revoked device certificate is still active\.
 Severity: **Medium**
 
 ------
-#### [ Details \(9\) ]
+#### [ Details ]
 
 A device certificate is in its CA's [certificate revocation list](https://en.wikipedia.org/wiki/Certificate_revocation_list), but it is still active in AWS IoT\.
 
@@ -1001,12 +1236,12 @@ The following reason codes are returned when this check finds noncompliance:
 + CERTIFICATE\_REVOKED\_BY\_ISSUER
 
 ------
-#### [ Why it matters \(9\) ]
+#### [ Why it matters ]
 
 A device certificate is usually revoked because it has been compromised\. It is possible that it has not yet been revoked in AWS IoT due to an error or oversight\.
 
 ------
-#### [ How to fix it \(9\) ]
+#### [ How to fix it ]
 
 Verify that the device certificate has not been compromised\. If it has, follow your security best practices to mitigate the situation\. You might want to:
 
@@ -1014,7 +1249,12 @@ Verify that the device certificate has not been compromised\. If it has, follow 
 
 1. Verify that the new certificate is valid and the device is able to use it to connect\.
 
-1. Use [UpdateCertificate](https://docs.aws.amazon.com/iot/latest/developerguide/api-iot-UpdateCertificate.html) to mark the old certificate as "REVOKED" in AWS IoT\.
+1. Use [UpdateCertificate](https://docs.aws.amazon.com/iot/latest/developerguide/api-iot-UpdateCertificate.html) to mark the old certificate as REVOKED in AWS IoT\. You can also use mitigation actions to:
+   + Apply the `UPDATE_DEVICE_CERTIFICATE` mitigation action on your audit findings to make this change\. 
+   + Apply the `ADD_THINGS_TO_THING_GROUP` mitigation action to add the device to a group where you can take action on it\.
+   + Apply the `PUBLISH_FINDINGS_TO_SNS` mitigation action if you want to implement a custom response in response to the Amazon SNS message\. 
+
+   For more information, see [Mitigation Actions](device-defender-mitigation-actions.md)\. 
 
 1. Detach the old certificate from the device\. \(See [DetachThingPrincipal](https://docs.aws.amazon.com/iot/latest/developerguide/api-iot-DetachThingPrincipal.html)\.\)
 
@@ -1030,20 +1270,24 @@ AWS IoT logs are not enabled in CloudWatch\.
 Severity: **Low**
 
 ------
-#### [ Details \(10\) ]
+#### [ Details ]
 
 The following reason codes are returned when this check finds noncompliance:
 + LOGGING\_DISABLED
 
 ------
-#### [ Why it matters \(10\) ]
+#### [ Why it matters ]
 
 AWS IoT logs in CloudWatch provide visibility into behaviors in AWS IoT, including authentication failures and unexpected connects and disconnects that might indicate that a device has been compromised\.
 
 ------
-#### [ How to fix it \(10\) ]
+#### [ How to fix it ]
 
-Enable AWS IoT logs in CloudWatch\. See [Monitoring Tools](https://docs.aws.amazon.com/iot/latest/developerguide/monitoring_automated_manual.html)\.
+Enable AWS IoT logs in CloudWatch\. See [Monitoring Tools](https://docs.aws.amazon.com/iot/latest/developerguide/monitoring_automated_manual.html)\. You can also use mitigation actions to:
++ Apply the `ENABLE_IOT_LOGGING` mitigation action on your audit findings to make this change\. 
++ Apply the `PUBLISH_FINDINGS_TO_SNS` mitigation action if you want to implement a custom response in response to the Amazon SNS message\. 
+
+For more information, see [Mitigation Actions](device-defender-mitigation-actions.md)\. 
 
 ------
 
@@ -1060,6 +1304,8 @@ Enable AWS IoT logs in CloudWatch\. See [Monitoring Tools](https://docs.aws.amaz
 1. You can use the [ AWS IoT console](https://console.aws.amazon.com/iot/home) to view the results of your audits\.
 
    Or, you can see the results of your audits with [ ListAuditFindings](AuditCommands.md#dd-api-iot-ListAuditFindings)\. With this command, you can filter the results by the type of check, a specific resource, or the time of the audit\. You can use this information to mitigate any problems found\.
+
+1. You can apply mitigation actions that you defined in your AWS account to any noncompliant findings\. For more information, see [Apply Mitigation Actions](device-defender-mitigation-actions.md#defender-audit-apply-mitigation-actions)\.
 
 ## Notifications<a name="device-defender-audit-notifications"></a>
 
@@ -1232,7 +1478,7 @@ You can also view notifications in the AWS IoT console, along with information a
 
 This section contains information about how to set up the IAM roles and policies required to create, run, and manage AWS IoT Device Defender audits\. For more information, see the [AWS Identity and Access Management User Guide](https://docs.aws.amazon.com/IAM/latest/UserGuide/introduction.html)\.
 
-### Give AWS IoT Device Defender permission to collect your data in order to run an audit<a name="device-defender-audit-permissions-collect"></a>
+### Give AWS IoT Device Defender permission to collect your data to run an audit<a name="device-defender-audit-permissions-collect"></a>
 
 When you call [ UpdateAccountAuditConfiguration](AuditCommands.md#dd-api-iot-UpdateAccountAuditConfiguration), you must specify an IAM role with two policies: a permissions policy and a trust policy\. The permissions policy grants AWS IoT Device Defender permission to access your account data, using AWS IoT APIs, when it runs an audit\. The trust policy grants AWS IoT Device Defender permission to assume the required role\. 
 
@@ -1240,32 +1486,37 @@ When you call [ UpdateAccountAuditConfiguration](AuditCommands.md#dd-api-iot-Upd
 
 ```
 {
-  "Version":"2012-10-17",
-  "Statement":[
-    {
-      "Effect":"Allow",
-      "Action":[
-          "iot:GetLoggingOptions",
-          "iot:GetV2LoggingOptions",
-          "iot:ListCACertificates",
-          "iot:ListCertificates",
-          "iot:DescribeCACertificate",
-          "iot:DescribeCertificate",
-          "iot:ListPolicies",
-          "iot:GetPolicy",
-          "iot:GetEffectivePolicies",
-          "cognito-identity:GetIdentityPoolRoles",
-          "iam:ListRolePolicies",
-          "iam:ListAttachedRolePolicies",
-          "iam:GetPolicy",
-          "iam:GetPolicyVersion",
-          "iam:GetRolePolicy"
-      ],
-      "Resource":[
-          "*"
-      ]
-    }
-  ]
+    "Version":"2012-10-17",
+    "Statement":[
+        {
+            "Effect":"Allow",
+            "Action":[
+                "iot:GetLoggingOptions",
+                "iot:GetV2LoggingOptions",
+                "iot:ListCACertificates",
+                "iot:ListCertificates",
+                "iot:DescribeCACertificate",
+                "iot:DescribeCertificate",
+                "iot:ListPolicies",
+                "iot:GetPolicy",
+                "iot:GetEffectivePolicies",
+                "iot:ListRoleAliases",
+                "iot:DescribeRoleAlias",
+                "cognito-identity:GetIdentityPoolRoles",
+                "iam:ListRolePolicies",
+                "iam:ListAttachedRolePolicies",
+                "iam:GetRole",
+                "iam:GetPolicy",
+                "iam:GetPolicyVersion",
+                "iam:GetRolePolicy",
+                "iam:GenerateServiceLastAccessedDetails",
+                "iam:GetServiceLastAccessedDetails"
+            ],
+            "Resource":[
+                "*"
+            ]
+        }
+    ]
 }
 ```
 

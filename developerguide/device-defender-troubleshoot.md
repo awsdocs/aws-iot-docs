@@ -53,7 +53,6 @@ Verify that you are sending a well\-formed metrics report using one of the suppo
 
 Q: What happens if an unregistered device is added to the registry or a registered device becomes unregistered?  
 A: If a device is added to or removed from the registry:  
-+ The `ListMetricValues` API returns the metrics published for the specified `thingName` \(no change in behavior\)\.
 + You see two separate violations for the device \(one under its registered thing name, one under its unregistered identity\) if it continues to publish metrics for violations\. Active violations for the old identity stop appearing after two days, but are available in violations history for up to 14 days\.
 
 Q: Which value should I supply in the report ID field of my device metrics report?   
@@ -78,7 +77,7 @@ $aws/things/Thing-2/defender/metrics/json
 ```
 
 Q: How many security profiles and behaviors can I have in my account?   
-A: See the Detect [Service Limits](device-defender-detect.md#detect-limits) section of the AWS IoT Device Defender Developer Guide\. 
+A: See the [Service Limits](device-defender-detect.md#detect-limits)\. 
 
 Q: What does a prototypical target role for an alert target look like?   
 A: A role that allows AWS IoT Device Defender to publish alerts on an alert target \(SNS topic\) requires two things:   

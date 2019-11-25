@@ -73,7 +73,7 @@ In general, the process described here follows the [Create and Package a Lambda 
    + Replace `GREENGRASS_CORENAME` with the name of your AWS IoT Greengrass core\.
    + Set the `SAMPLE_RATE_SECONDS` to your desired metrics reporting interval\. The shortest reporting interval supported by AWS IoT Device Defender is 5 minutes \(300 seconds\)\.
 
-1. Copy the dependencies from your virtual environment \(or your system\) into the the root level of your Lambda directory\. 
+1. Copy the dependencies from your virtual environment \(or your system\) into the root level of your Lambda directory\. 
 
    ```
    cp -R ../metrics_lambda_environment/lib/python2.7/site-packages/psutil .

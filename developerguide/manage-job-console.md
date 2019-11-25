@@ -27,11 +27,11 @@ We do not recommend using personally identifiable information in your job IDs or
 
 1. Under **Add a job file**, choose **Select**, and then select your job document\.
 
-1. Choose **Sign image for me**\. If you are not code\-signing your update, you can skip this step\.
+1. Choose **Sign image for me**\. If you are not code signing your update, you can skip this step\.
 
-1. Create or choose a code\-signing profile\. If you are not code\-signing your update, you can skip this step\.
+1. Create or choose a code\-signing profile\. If you are not code signing your update, you can skip this step\.
 
-1. Under **Pre\-sign resource URLs**, choose **I want to pre\-sign my URLs and have configured my job file**\. If you are not code\-signing your update, you can skip this step\.
+1. Under **Pre\-sign resource URLs**, choose **I want to pre\-sign my URLs and have configured my job file**\. If you are not code signing your update, you can skip this step\.
 
 1. Choose a role and an expiry time for the presigned URL\.
 

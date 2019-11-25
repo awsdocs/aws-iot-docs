@@ -1,7 +1,7 @@
 # Devices and Jobs<a name="jobs-devices"></a>
 
 ------
-#### [ device communication with Jobs ]
+#### [ Device Communication with Jobs ]
 
 Devices can communicate with the AWS IoT Jobs service through these methods: 
 + MQTT
@@ -9,7 +9,7 @@ Devices can communicate with the AWS IoT Jobs service through these methods:
 + HTTP TLS
 
 ------
-#### [ using the MQTT protocol ]
+#### [ Using the MQTT Protocol ]
 
 Communication between the AWS IoT Jobs service and your devices can occur over the MQTT protocol\. Devices subscribe to MQTT topics to be notified of new jobs and to receive responses from the AWS IoT Jobs service\. Devices publish on MQTT topics to query or update the state of a job execution\. Each device has its own general MQTT topic\. For more information about publishing and subscribing to MQTT topics, see [Message Broker for AWS IoT](iot-message-broker.md)\.
 
@@ -40,7 +40,7 @@ Devices can:
 The AWS IoT Jobs service publishes success and failure messages on an MQTT topic\. The topic is formed by appending `accepted` or `rejected` to the topic used to make the request\. For example, if a request message is published on the `$aws/things/myThing/jobs/get` topic, the AWS IoT Jobs service publishes success messages on the `$aws/things/myThing/jobs/get/accepted` topic and publishes rejected messages on the `$aws/things/myThing/jobs/get/rejected` topic\.
 
 ------
-#### [ using HTTP Signature Version 4 ]
+#### [ Using HTTP Signature Version 4 ]
 
 Communication between the AWS IoT Jobs service and your devices can occur over HTTP Signature Version 4 on port 443\. This is the method used by the AWS SDKs and CLI\. For more information about those tools, see [AWS CLI Command Reference: iot\-jobs\-data](https://docs.aws.amazon.com/cli/latest/reference/iot-jobs-data/index.html) or [AWS SDKs and Tools](http://aws.amazon.com/tools/#sdk) and refer to the IotJobsDataPlane section for your preferred language\.
 
@@ -74,7 +74,7 @@ The following commands are available using this method:
   `aws iot-jobs-data update-job-execution ...` 
 
 ------
-#### [ using HTTP TLS ]
+#### [ Using HTTP TLS ]
 
 Communication between the AWS IoT Jobs service and your devices can occur over HTTP TLS on port 8443 using a third\-party software client that supports this protocol\.
 
@@ -110,7 +110,7 @@ The examples in this section use MQTT to illustrate how a device works with the 
 + `$aws/things/MyThing/jobs/jobId/get/accepted`
 + `$aws/things/MyThing/jobs/jobId/get/rejected`
 
- If you are using Code\-signing for AWS IoT your device code must verify the signature of your code file\. The signature will be in the job document within the `codesign` property\. For more information about verifying a code file signature, see [Device Agent Sample](https://github.com/aws/aws-iot-device-sdk-js#jobsAgent)\.
+ If you are using Code\-signing for AWS IoT your device code must verify the signature of your code file\. The signature is in the job document in the `codesign` property\. For more information about verifying a code file signature, see [Device Agent Sample](https://github.com/aws/aws-iot-device-sdk-js#jobsAgent)\.
 
 ### Device Workflow<a name="jobs-workflow-device-online"></a>
 
@@ -125,7 +125,7 @@ There are two ways a device can handle the jobs it is given to execute\.
 
 1. Call the [UpdateJobExecution](jobs-api.md#mqtt-updatejobexecution) MQTT API to update the job status\. Or, to combine this and the previous step in one call, the device can call [StartNextPendingJobExecution](jobs-api.md#mqtt-startnextpendingjobexecution)\.
 
-1. Optionally, you can add a step timer by setting a value for `stepTimeoutInMinutes` when you call either [UpdateJobExecution](jobs-api.md#mqtt-updatejobexecution) or [StartNextPendingJobExecution](jobs-api.md#mqtt-startnextpendingjobexecution)\.
+1. \(Optional\) You can add a step timer by setting a value for `stepTimeoutInMinutes` when you call either [UpdateJobExecution](jobs-api.md#mqtt-updatejobexecution) or [StartNextPendingJobExecution](jobs-api.md#mqtt-startnextpendingjobexecution)\.
 
 1. Perform the actions specified by the job document using the [UpdateJobExecution](jobs-api.md#mqtt-updatejobexecution) MQTT API to report on the progress of the job\.
 
@@ -172,7 +172,7 @@ If the device is unable to execute the job, it should call the [UpdateJobExecuti
 When a new job is created, the AWS IoT Jobs service publishes a message on the `$aws/things/thing-name/jobs/notify` topic for each target device\.
 
 ------
-#### [ more info \(1\) ]
+#### [ More Information\(1\) ]
 
 The message contains the following information:
 
@@ -200,7 +200,7 @@ The device receives this message on the `'$aws/things/thingName/jobs/notify'` to
 To get more information about a job execution, the device calls the [DescribeJobExecution](jobs-api.md#mqtt-describejobexecution) MQTT API with the `includeJobDocument` field set to `true` \(the default\)\.
 
 ------
-#### [ more info \(2\) ]
+#### [ More Information\(2\) ]
 
 If the request is successful, the AWS IoT Jobs service publishes a message on the `$aws/things/MyThing/jobs/0023/get/accepted` topic:
 
@@ -232,12 +232,12 @@ The device now has the job document that it can use to perform the remote operat
 ### Report Job Execution Status<a name="jobs-job-processing"></a>
 
 ------
-#### [ update execution status ]
+#### [ Update Execution Status ]
 
 As the device is executing the job, it can call the [UpdateJobExecution](jobs-api.md#mqtt-updatejobexecution) MQTT API to update the status of the job execution\.
 
 ------
-#### [ more info \(3\) ]
+#### [ More Information \(3\) ]
 
 For example, a device can update the job execution status to `IN_PROGRESS` by publishing the following message on the `$aws/things/MyThing/jobs/0023/update` topic:
 
@@ -266,19 +266,19 @@ The device can combine the two previous requests by calling [StartNextPendingJob
 If the job contains a [TimeoutConfig](https://docs.aws.amazon.com/iot/latest/apireference/API_TimeoutConfig.html), the in\-progress timer starts running\. You can also set a step timer for a job execution by setting a value for `stepTimeoutInMinutes` when you call [UpdateJobExecution](https://docs.aws.amazon.com/iot/latest/apireference/API_iot-jobs-data_UpdateJobExecution.html)\. The step timer applies only to the job execution that you update\. You can set a new value for this timer each time you update a job execution\. You can also create a step timer when you call [StartNextPendingJobExecution](https://docs.aws.amazon.com/iot/latest/apireference/API_iot-jobs-data_StartNextPendingJobExecution.html)\. If the job execution remains in the `IN_PROGRESS` status for longer than the step timer interval, it fails and switches to the terminal `TIMED_OUT` status\. The step timer has no effect on the in\-progress timer that you set when you create a job\.
 
 **Note**  
-The job timeout feature isn't currently available in the PDT \(us\-gov\-west\-1\) Region\.
+The job timeout feature isn't currently available in the AWS GovCloud \(US\) Region\.
 
 The `status` field can be set to `IN_PROGRESS`, `SUCCEEDED`, or `FAILED`\. You cannot update the status of a job execution that is already in a terminal state\.
 
 ------
 
 ------
-#### [ report execution completed ]
+#### [ Report Execution Completed ]
 
 When the device is finished executing the job, it calls the [UpdateJobExecution](jobs-api.md#mqtt-updatejobexecution) MQTT API\. If the job was successful, set `status` to `SUCCEEDED` and, in the message payload, in `statusDetails`, add other information about the job as name\-value pairs\. The in\-progress and step timers end when the job execution is complete\.
 
 ------
-#### [ more info \(4\) ]
+#### [ More Information\(4\) ]
 
 For example:
 
@@ -329,7 +329,7 @@ When the AWS IoT Jobs service receives this update, it publishes a message on th
 If there are other job executions pending for the device, they are included in the message published to `$aws/things/MyThing/jobs/notify`\.
 
 ------
-#### [ more info \(5\) ]
+#### [ More Information\(5\) ]
 
 For example:
 
@@ -383,7 +383,7 @@ The AWS IoT Jobs service publishes a message on an MQTT topic when a job is adde
 + `$aws/things/thingName/jobs/notify-next`
 
 ------
-#### [ more info \(6\) ]
+#### [ More Information\(6\) ]
 
 The messages contain the following example payloads:
 

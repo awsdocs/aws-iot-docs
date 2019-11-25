@@ -4,13 +4,13 @@ This section describes how to create and manage jobs\.
 
 ## Create Jobs<a name="create-job"></a>
 
-You use the CreateJob command to create an AWS IoT job\. The job is queued for execution on the targets \(things or thing groups\) that you specify\. To create an AWS IoT job, you need a job document that can be included in the body of the request or as a link to an Amazon S3 document\. If the job includes downloading files using presigned Amazon S3 URLs, you need an IAM role ARN that has permission to download the file and grants permission to AWS IoT Jobs to assume the role\.
+You use the CreateJob command to create an AWS IoT job\. The job is queued for execution on the targets \(things or thing groups\) that you specify\. To create an AWS IoT job, you need a job document that can be included in the body of the request or as a link to an Amazon S3 document\. If the job includes downloading files using presigned Amazon S3 URLs, you need an IAM role ARN that has permission to download the file and grants permission to the AWS IoT Jobs service to assume the role\.
 
 ### Code\-signing with Jobs<a name="code-signing-with-jobs"></a>
 
-If you are using Code\-signing for AWS IoT, you must start a code\-signing job and include the output in your job document\. Use the [start\-signing\-job](https://docs.aws.amazon.com/signer/latest/developerguide/api-startsigningjob.html) command to create a code\-signing job\. `start-signing-job` returns a job ID\. Use the describe\-signing\-job command to get the Amazon S3 location where the signature is stored\. You can then download the signature from Amazon S3\. For more information about code\-signing jobs, see [Code\-signing for AWS IoT](https://docs.aws.amazon.com/signer/latest/developerguide/Welcome.html)\.
+If you are using Code\-signing for AWS IoT, you must start a code\-signing job and include the output in your job document\. Use the [start\-signing\-job](https://docs.aws.amazon.com/signer/latest/developerguide/api-startsigningjob.html) command to create a code\-signing job\. `start-signing-job` returns a job ID\. Use the describe\-signing\-job command to get the Amazon S3 location where the signature is stored\. You can then download the signature from Amazon S3\. For more information about code signing jobs, see [Code\-signing for AWS IoT](https://docs.aws.amazon.com/signer/latest/developerguide/Welcome.html)\.
 
-Your job document must contain a pre\-signed URL placeholder for your code file and the JSON signature output placed in an Amazon S3 bucket using the start\-signing\-job command, enclosed in a `codesign`element:
+Your job document must contain a presigned URL placeholder for your code file and the JSON signature output placed in an Amazon S3 bucket using the start\-signing\-job command, enclosed in a `codesign` element:
 
 ```
 {
@@ -50,9 +50,9 @@ The job is executed on *thingOne*\.
 The optional `timeout-config` parameter specifies the amount of time each device has to finish its execution of the job\. The timer starts when the job execution status is set to `IN_PROGRESS`\. If the job execution status is not set to another terminal state  before the time expires, it is set to `TIMED_OUT`\.
 
 **Note**  
-The job timeout feature isn't currently available in the PDT \(us\-gov\-west\-1\) Region\.
+The job timeout feature isn't currently available in the AWS GovCloud \(US\) Region\.
 
-The in\-progress timer can't be updated and applies to all job executions for the job\. Whenever a job execution remains in the `IN_PROGRESS` status for longer than this interval, the job execution fails and switches to the terminal `TIMED_OUT` status\. AWS IoT also publishes an MQTT notification\.
+The in\-progress timer can't be updated and applies to all job executions for the job\. Whenever a job execution remains in the `IN_PROGRESS` state for longer than this interval, the job execution fails and switches to the terminal `TIMED_OUT` status\. AWS IoT also publishes an MQTT notification\.
 
 For more information about creating configurations about job rollouts and aborts, see [Job Rollout and Abort Configuration](job-rollout-abort.html)\.
 
@@ -73,7 +73,7 @@ aws iot update-job  \
   --presigned-url-config "{\"roleArn\":\"arn:aws:iam::123456789012:role/S3DownloadRole\", \"expiresInSec\":3600}"
 ```
 
-For more information about configuring job rollouts and aborts, see [Job Rollout and Abort Configuration](job-rollout-abort.html)\.
+For more information, see [Job Rollout and Abort Configuration](job-rollout-abort.html)\.
 
 ## Cancel a Job<a name="cancel-job"></a>
 
@@ -98,11 +98,11 @@ The command displays the following output:
 When you cancel a job, job executions that are in a `QUEUED` state are canceled\. Job executions that are in an `IN_PROGRESS` state are canceled if you specify the optional `--force` parameter\. Job executions in a terminal state are not canceled\.
 
 **Warning**  
-Canceling a job that is in the `IN_PROGRESS` state \(by setting the `--force` parameter\) cancels any job executions that are in progress and causes the device that is executing the job to be unable to update the job execution status\. Use caution and make sure that each device executing a canceled job is able to recover to a valid state\.
+Canceling a job that is in the `IN_PROGRESS` state \(by setting the `--force` parameter\) cancels any job executions that are in progress and causes the device that is executing the job to be unable to update the job execution status\. Use caution and make sure that each device executing a canceled job can recover to a valid state\.
 
 The status of a canceled job or of one of its job executions is eventually consistent\. AWS IoT stops scheduling new job executions and `QUEUED` job executions for that job to devices as soon as possible\. Changing the status of a job execution to `CANCELED` might take some time, depending on the number of devices and other factors\.
 
-If a job is cancelled because it has met the criteria defined by an `AbortConfig` object, the service will add auto\-populated values for the `comment` and `reasonCode` fields\. Customers can create their own values for `reasonCode` when the job cancellation is user\-driven\.
+If a job is canceled because it has met the criteria defined by an `AbortConfig` object, the service adds auto\-populated values for the `comment` and `reasonCode` fields\. You can create your own values for `reasonCode` when the job cancellation is user\-driven\.
 
 ## Cancel a Job Execution<a name="cancel-job-execution"></a>
 
@@ -119,7 +119,7 @@ The command displays no output\.
 A job execution that is in a `QUEUED` state is canceled\. A job execution that is in an `IN_PROGRESS` state is canceled if you specify the optional `--force` parameter\. Job executions in a terminal state cannot be canceled\. 
 
 **Warning**  
-When you cancel a job execution that is in the `IN_PROGRESS` state, the device is unable to update the job execution status\. Use caution and ensure that the device is able to recover to a valid state\.
+When you cancel a job execution that is in the `IN_PROGRESS` state, the device cannot update the job execution status\. Use caution and ensure that the device can recover to a valid state\.
 
 If the job execution is in a terminal state or if the job execution is in an `IN_PROGRESS` state and the `--force` parameter is not set to `true`, this command causes an `InvalidStateTransitionException`\.
 
@@ -138,15 +138,15 @@ aws iot delete-job --job-id 010 --force|--no-force
 The command displays no output\.
 
 **Warning**  
-When you delete a job that is in the `IN_PROGRESS` state, the device that is executing the job cannot access job information or update the job execution status\. Use caution and make sure that each device executing a job that has been deleted is able to recover to a valid state\.
+When you delete a job that is in the `IN_PROGRESS` state, the device that is executing the job cannot access job information or update the job execution status\. Use caution and make sure that each device executing a job that has been deleted can recover to a valid state\.
 
-It can take some time to delete a job, depending on the number of job executions created for the job and various other factors\. While the job is being deleted, `DELETION_IN_PROGRESS` appears as the status of the job\. An error results if you attempt to delete or cancel a job whose status is already `DELETION_IN_PROGRESS`\.
+It can take some time to delete a job, depending on the number of job executions created for the job and other factors\. While the job is being deleted, `DELETION_IN_PROGRESS` appears as the status of the job\. An error results if you attempt to delete or cancel a job whose status is already `DELETION_IN_PROGRESS`\.
 
 Only 10 jobs can have a status of `DELETION_IN_PROGRESS` at the same time\. Otherwise, a `LimitExceededException` occurs\.
 
 ## Get a Job Document<a name="get-job-document"></a>
 
-You use the GetJobDocumentcommand to retrieve a job document for a job\. A job document is a description of the remote operations to be performed by the devices\.
+You use the GetJobDocument command to retrieve a job document for a job\. A job document is a description of the remote operations to be performed by the devices\.
 
 Run the following command to get a job document:
 
@@ -209,7 +209,7 @@ The command returns all jobs in your account, sorted by the job status:
 
 ## Describe a Job<a name="describe-job"></a>
 
-Run the DescribeJob command to get the status of a specific job\. The following command shows how to describe a job:
+Run the DescribeJob command to get the status of a job\. The following command shows how to describe a job:
 
 ```
 $ aws iot describe-job --job-id 010
@@ -415,4 +415,4 @@ The command displays no output\.
 By default, the status of the job execution must be `QUEUED` or in a terminal state \(`SUCCEEDED`, `FAILED`, `REJECTED`, `TIMED_OUT`, `REMOVED` or `CANCELED`\)\. Otherwise, an error occurs\. To delete a job execution with a status of `IN_PROGRESS`, you can set the `force` parameter to `true`\.
 
 **Warning**  
-When you delete a job execution with a status of `IN_PROGRESS`, the device that is executing the job cannot access job information or update the job execution status\. Use caution and make sure that the device is able to recover to a valid state\.
+When you delete a job execution with a status of `IN_PROGRESS`, the device that is executing the job cannot access job information or update the job execution status\. Use caution and make sure that the device can recover to a valid state\.

@@ -7,9 +7,9 @@ The policy you use depends on how you are connecting to AWS IoT\. You can connec
 When you specify topic filters in AWS IoT policies for MQTT clients, MQTT wildcard characters "\+" and "\#" are treated as literal characters\. Their use might result in unexpected behavior\.
 
 ------
-#### [ Registered devices \(4\) ]
+#### [ Registered Devices \(4\) ]
 
-For devices registered as things in the AWS IoT registry, the following policy grants permission to connect to AWS IoT with the client id that matches the thing name, and to subscribe to the topic filter `some/+/topic` only:
+For devices registered as things in the AWS IoT registry, the following policy grants permission to connect to AWS IoT with the client ID that matches the thing name, and to subscribe to the topic filter `some/+/topic` only:
 
 ```
 {
@@ -38,7 +38,7 @@ For devices registered as things in the AWS IoT registry, the following policy g
 ```
 
 ------
-#### [ Unregistered devices \(4\) ]
+#### [ Unregistered Devices \(4\) ]
 
 For devices not registered as things in the AWS IoT registry, the following policy grants permission to connect to AWS IoT with client ID `client1` and subscribe to the topic filter `some/+/topic` only:
 
@@ -71,12 +71,12 @@ For devices not registered as things in the AWS IoT registry, the following poli
 ------
 
 **Note**  
-Within a policy, the MQTT wildcard character '\+' is treated as a literal, not a wildcard\. Attempts to subscribe to topic filters that match the pattern `some/+/topic` fail and cause the client to disconnect\.
+In a policy, the MQTT wildcard character \+ is treated as a literal, not a wildcard\. Attempts to subscribe to topic filters that match the pattern `some/+/topic` fail and cause the client to disconnect\.
 
-You can use "\*" as a wildcard in the resource attribute of the policy\. For example, if each device in your account must publish on a unique topic reserved for it alone, use the following policy:
+You can use \* as a wildcard in the resource attribute of the policy\. For example, if each device in your account must publish on a unique topic reserved for it alone, use the following policy:
 
 ------
-#### [ Registered devices \(5\) ]
+#### [ Registered Devices \(5\) ]
 
 For devices registered as things in the AWS IoT registry, the following policy grants permission to connect to AWS IoT using a client ID that matches the thing name and to publish to any topic prefixed by the thing name:
 
@@ -107,9 +107,9 @@ For devices registered as things in the AWS IoT registry, the following policy g
 ```
 
 ------
-#### [ Unregistered devices \(5\) ]
+#### [ Unregistered Devices \(5\) ]
 
-For devices not registered as things in the AWS IoT registry, the following policy grants permission to connect to AWS IoT using client id `client1`, `client2`, or `client3` and to publish to any topic prefixed by the client id:
+For devices not registered as things in the AWS IoT registry, the following policy grants permission to connect to AWS IoT using client ID `client1`, `client2`, or `client3` and to publish to any topic prefixed by the client ID:
 
 ```
 {
@@ -141,12 +141,12 @@ For devices not registered as things in the AWS IoT registry, the following poli
 
 ------
 
-You can also use the "\*" wildcard at the end of a topic filter\. Using wildcard characters could lead to granting unintended privileges, so they should only be used after careful consideration\. One situation in which they might be useful is when devices must subscribe to messages with many different topics, for example if a device must subscribe to reports from temperature sensors in multiple locations\. 
+You can also use the \* wildcard at the end of a topic filter\. Using wildcard characters might lead to granting unintended privileges, so they should only be used after careful consideration\. One situation in which they might be useful is when devices must subscribe to messages with many different topics \(for example, if a device must subscribe to reports from temperature sensors in multiple locations\)\. 
 
 ------
-#### [ registered devices \(6\) ]
+#### [ Registered Devices \(6\) ]
 
-For devices registered as things in the AWS IoT registry, the following policy grants permission to connect to AWS IoT using the device's thing name as the client id, and to subscribe to a topic prefixed by the thing name, followed by `room`, followed by any string\. \(It is expected that these topics will be, for example, `thing1/room1`, `thing1/room2`\.\.\.\):
+For devices registered as things in the AWS IoT registry, the following policy grants permission to connect to AWS IoT using the device's thing name as the client ID, and to subscribe to a topic prefixed by the thing name, followed by `room`, followed by any string\. \(It is expected that these topics are, for example, `thing1/room1`, `thing1/room2`, and so on\):
 
 ```
 {
@@ -175,9 +175,9 @@ For devices registered as things in the AWS IoT registry, the following policy g
 ```
 
 ------
-#### [ unregistered devices \(6\) ]
+#### [ Unregistered Devices \(6\) ]
 
-For devices not registered as things in the AWS IoT registry, the following policy grants permission to connect to AWS IoT using client ids `client1`, `client2`, `client3`, and to subscribe to a topic prefixed by the client id, followed by `room`, followed by any string\. \(It is expected that these topics will be, for example, `client1/room1`, `client1/room2`\.\.\.\):
+For devices not registered as things in the AWS IoT registry, the following policy grants permission to connect to AWS IoT using client IDs `client1`, `client2`, `client3`, and to subscribe to a topic prefixed by the client ID, followed by `room`, followed by any string\. \(It is expected that these topics are, for example, `client1/room1`, `client1/room2`, and so on\):
 
 ```
 {
@@ -210,9 +210,9 @@ For devices not registered as things in the AWS IoT registry, the following poli
 ------
 
 ------
-#### [ registered devices \(7\) ]
+#### [ Registered Devices \(7\) ]
 
-For devices registered as things in the AWS IoT registry, the following policy grants permission to connect to AWS IoT using the device's thing name as the client id, and to subscribe to the topics `my/topic` and `my/othertopic`:
+For devices registered as things in the AWS IoT registry, the following policy grants permission to connect to AWS IoT using the device's thing name as the client ID, and to subscribe to the topics `my/topic` and `my/othertopic`:
 
 ```
 {
@@ -242,9 +242,9 @@ For devices registered as things in the AWS IoT registry, the following policy g
 ```
 
 ------
-#### [ unregistered devices \(7\) ]
+#### [ Unregistered Devices \(7\) ]
 
-For devices not registered as things in the AWS IoT registry, the following policy grants permission to connect to AWS IoT using client id `client1`, and to subscribe to the topics `my/topic` and `my/othertopic`:
+For devices not registered as things in the AWS IoT registry, the following policy grants permission to connect to AWS IoT using client ID `client1`, and to subscribe to the topics `my/topic` and `my/othertopic`:
 
 ```
 {
@@ -276,9 +276,9 @@ For devices not registered as things in the AWS IoT registry, the following poli
 ------
 
 ------
-#### [ registered devices \(8\) ]
+#### [ Registered Devices \(8\) ]
 
-For devices registered as things in the AWS IoT registry, the following policy grants permission to connect to AWS IoT using the device's thing name as the client id and to subscribe to a topic unique to that thing name/client id:
+For devices registered as things in the AWS IoT registry, the following policy grants permission to connect to AWS IoT using the device's thing name as the client ID and to subscribe to a topic unique to that thing name/client ID:
 
 ```
 {
@@ -307,9 +307,9 @@ For devices registered as things in the AWS IoT registry, the following policy g
 ```
 
 ------
-#### [ unregistered devices \(8\) ]
+#### [ Unregistered Devices \(8\) ]
 
-For devices not registered as things in the AWS IoT registry, the following policy grants permission to connect to AWS IoT using client id `client1`, and to publish to a topic unique to that client ID:
+For devices not registered as things in the AWS IoT registry, the following policy grants permission to connect to AWS IoT using client ID `client1`, and to publish to a topic unique to that client ID:
 
 ```
 {
@@ -340,9 +340,9 @@ For devices not registered as things in the AWS IoT registry, the following poli
 ------
 
 ------
-#### [ registered devices \(9\) ]
+#### [ Registered Devices \(9\) ]
 
-For devices registered as things in the AWS IoT registry, the following policy grants permission to connect to AWS IoT using the device's thing name as the client id and to publish to any topic prefixed by that thing name/client except for one topic ending with `bar`:
+For devices registered as things in the AWS IoT registry, the following policy grants permission to connect to AWS IoT using the device's thing name as the client ID and to publish to any topic prefixed by that thing name or client except for one topic ending with `bar`:
 
 ```
 {
@@ -380,9 +380,9 @@ For devices registered as things in the AWS IoT registry, the following policy g
 ```
 
 ------
-#### [ unregistered devices \(9\) ]
+#### [ Unregistered Devices \(9\) ]
 
-For devices not registered as things in the AWS IoT registry, the following policy grants permission to connect to AWS IoT using client ids `client1` and `client1` and to publish to any topic prefixed by the client id used to connect, except for one topic ending with `bar`:
+For devices not registered as things in the AWS IoT registry, the following policy grants permission to connect to AWS IoT using client IDs `client1` and `client1` and to publish to any topic prefixed by the client ID used to connect, except for one topic ending with `bar`:
 
 ```
 {
@@ -423,9 +423,9 @@ For devices not registered as things in the AWS IoT registry, the following poli
 ------
 
 ------
-#### [ registered devices \(10\) ]
+#### [ Registered Devices \(10\) ]
 
-For devices registered as things in the AWS IoT registry, the following policy grants permission to connect to AWS IoT using the device's thing name as the client id\. The device can subscribe to the topic `my/topic`, but cannot publish to the `<thing-name> /bar` where *<thing\-name>* is the name of the IoT thing connecting to AWS IoT:
+For devices registered as things in the AWS IoT registry, the following policy grants permission to connect to AWS IoT using the device's thing name as the client ID\. The device can subscribe to the topic `my/topic`, but cannot publish to the `<thing-name> /bar` where *<thing\-name>* is the name of the IoT thing connecting to AWS IoT:
 
 ```
 {
@@ -463,9 +463,9 @@ For devices registered as things in the AWS IoT registry, the following policy g
 ```
 
 ------
-#### [ unregistered devices \(10\) ]
+#### [ Unregistered Devices \(10\) ]
 
-For devices not registered as things in the AWS IoT registry, the following policy grants permission to connect to AWS IoT using client id `client1` and to subscribe to the topic `my/topic`:
+For devices not registered as things in the AWS IoT registry, the following policy grants permission to connect to AWS IoT using client ID `client1` and to subscribe to the topic `my/topic`:
 
 ```
 {
@@ -495,7 +495,7 @@ For devices not registered as things in the AWS IoT registry, the following poli
 
 ------
 
-Thing policy variables are also replaced when a certificate or authenticated Amazon Cognito identity is attached to a thing\. The following policy grants permission to connect to AWS IoT with client id `client1` and to publish and receive to topic `iotmonitor/provisioning/987654321098`\. It also allows the certificate holder to subscribe to this same topic\. 
+Thing policy variables are also replaced when a certificate or authenticated Amazon Cognito Identity is attached to a thing\. The following policy grants permission to connect to AWS IoT with client ID `client1` and to publish and receive topic `iotmonitor/provisioning/987654321098`\. It also allows the certificate holder to subscribe to this topic\. 
 
 ```
 {
@@ -535,7 +535,7 @@ Thing policy variables are also replaced when a certificate or authenticated Ama
 
 ## Policies for HTTP and WebSocket Clients<a name="pub-sub-policy-cognito"></a>
 
-For the following operations, AWS IoT uses AWS IoT policies attached to Amazon Cognito identities \(through the `AttachPolicy` API\) to scope down the permissions attached to the Amazon Cognito identity pool with authenticated identities\. That means an Amazon Cognito identity needs permission from the IAM role policy attached to the pool and the AWS IoT policy attached to the Amazon Cognito identity through the AWS IoT `AttachPolicy` API\.
+For the following operations, AWS IoT uses AWS IoT policies attached to Amazon Cognito identities \(through the `AttachPolicy` API\) to scope down the permissions attached to the Amazon Cognito Identity pool with authenticated identities\. That means an Amazon Cognito Identity needs permission from the IAM role policy attached to the pool and the AWS IoT policy attached to the Amazon Cognito Identity through the AWS IoT `AttachPolicy` API\.
 + `iot:Connect`
 + `iot:Publish`
 + `iot:Subscribe`
@@ -545,11 +545,11 @@ For the following operations, AWS IoT uses AWS IoT policies attached to Amazon C
 + `iot:DeleteThingShadow`​
 
 **Note**  
-For other AWS IoT operations or for unauthenticated identities, AWS IoT does not scope down the permissions attached to the Amazon Cognito identity pool role\. For both authenticated and unauthenticated identities, this is the most permissive policy that we recommend attaching to the Amazon Cognito pool role\.
+For other AWS IoT operations or for unauthenticated identities, AWS IoT does not scope down the permissions attached to the Amazon Cognito identity pool role\. For both authenticated and unauthenticated identities, this is the most permissive policy that we recommend you attach to the Amazon Cognito pool role\.
 
 **HTTP**
 
-To allow unauthenticated Amazon Cognito identities to publish messages over HTTP on a topic specific to the Cognito identity, attach the following policy to the Amazon Cognito identity pool role:
+To allow unauthenticated Amazon Cognito identities to publish messages over HTTP on a topic specific to the Amazon Cognito Identity, attach the following policy to the Amazon Cognito Identity pool role:
 
 ```
 {
@@ -566,14 +566,14 @@ To allow unauthenticated Amazon Cognito identities to publish messages over HTTP
 }
 ```
 
-To allow authenticated users, attach the preceding policy to the Amazon Cognito identity pool role and to the Cognito identity using the AWS IoT [AttachPrincipalPolicy](https://docs.aws.amazon.com//iot/latest/apireference/API_AttachPrincipalPolicy.html) API\.
+To allow authenticated users, attach the preceding policy to the Amazon Cognito Identity pool role and to the Amazon Cognito Identity using the AWS IoT [AttachPrincipalPolicy](https://docs.aws.amazon.com//iot/latest/apireference/API_AttachPrincipalPolicy.html) API\.
 
 **Note**  
-When authorizing Cognito identities, AWS IoT will consider both these policies and grant the least privileges specified\. An action is only allowed if both the policies allow the requested action, and if either one of these policies disallow an action, that action will be unauthorized\.
+When authorizing Amazon Cognito identities, AWS IoT considers both policies and grants the least privileges specified\. An action is allowed only if both policies allow the requested action\. If either policy disallows an action, that action is unauthorized\.
 
 **MQTT**
 
-To allow unauthenticated Amazon Cognito identities to publish MQTT messages over WebSockets on a topic specific to the Cognito identity in your account, attach the following policy to the Amazon Cognito identity pool role:
+To allow unauthenticated Amazon Cognito identities to publish MQTT messages over WebSocket on a topic specific to the Amazon Cognito Identity in your account, attach the following policy to the Amazon Cognito Identity pool role:
 
 ```
 {
@@ -597,17 +597,17 @@ To allow unauthenticated Amazon Cognito identities to publish MQTT messages over
 }
 ```
 
-To allow authenticated users, attach the preceding policy to the Amazon Cognito identity pool role and to the Cognito identity using the AWS IoT [AttachPrincipalPolicy](https://docs.aws.amazon.com//iot/latest/apireference/API_AttachPrincipalPolicy.html) API\.
+To allow authenticated users, attach the preceding policy to the Amazon Cognito Identity pool role and to the Amazon Cognito Identity using the AWS IoT [AttachPrincipalPolicy](https://docs.aws.amazon.com//iot/latest/apireference/API_AttachPrincipalPolicy.html) API\.
 
 **Note**  
-When authorizing Cognito identities, AWS IoT will consider both these policies and grant the least privileges specified\. An action is only allowed if both the policies allow the requested action, and if either one of these policies disallow an action, that action will be unauthorized\.
+When authorizing Amazon Cognito identities, AWS IoT considers both these and grants the least privileges specified\. An action is allowed only if both policies allow the requested action\. If either policy disallows an action, that action is unauthorized\.
 
 ## Receive Policy Examples<a name="receive-policy"></a>
 
 ------
-#### [ registered devices \(11\) ]
+#### [ Registered Devices \(11\) ]
 
-For devices registered in AWS IoT registry, the following policy grants permission to connect to AWS IoT with a client id that matches the thing name and to subscribe to and receive messages on the `my/topic` topic:
+For devices registered in AWS IoT registry, the following policy grants permission to connect to AWS IoT with a client ID that matches the thing name and to subscribe to and receive messages on the `my/topic` topic:
 
 ```
 {
@@ -643,9 +643,9 @@ For devices registered in AWS IoT registry, the following policy grants permissi
 ```
 
 ------
-#### [ unregistered devices \(11\) ]
+#### [ Unregistered Devices \(11\) ]
 
-For devices not registered in AWS IoT registry, the following policy grants permission to connect to AWS IoT with client id `client1` and to subscribe to and receive messages on one topic:
+For devices not registered in AWS IoT registry, the following policy grants permission to connect to AWS IoT with client ID `client1` and to subscribe to and receive messages on one topic:
 
 ```
 {

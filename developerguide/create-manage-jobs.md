@@ -4,7 +4,7 @@ You can use the [AWS IoT console](https://console.aws.amazon.com/iot/), the Jobs
 
 The primary purpose of jobs is to notify devices of a software or firmware update\. When sending code to devices, the best practice is to sign the code file\. This allows devices to detect if the code has been modified in transit\. The instructions in the following section are written with the assumption that you want to code\-sign the software update you are sending to your devices\.
 
-For more information about code\-signing, see [What Is Code Signing for AWS IoT?](https://docs.aws.amazon.com/signer/latest/developerguide/Welcome.html)
+For more information, see [What Is Code Signing for AWS IoT?](https://docs.aws.amazon.com/signer/latest/developerguide/Welcome.html)
 
 Before you create a job, you must create a job document\. If you are using Code\-signing for AWS IoT, you must upload your job document to a versioned Amazon S3 bucket\. For more information about creating an Amazon S3 bucket and uploading files to it, see [Getting Started with Amazon Simple Storage Service](https://docs.aws.amazon.com/AmazonS3/latest/gsg/GetStartedWithS3.html) in the *Amazon S3 Getting Started Guide*\.
 
@@ -16,7 +16,7 @@ When you create a job that uses presigned Amazon S3 URLs, you must provide an IA
 
 You can specify an optional timeout for the presigned URL\. For more information, see [CreateJob](jobs-api.md#jobs-CreateJob)\.
 
-**To grant Jobs permission to assume your role**
+**To grant the Jobs service permission to assume your role**
 
 1. Sign in to the AWS Management Console and open the IAM console at [https://console\.aws\.amazon\.com/iam/](https://console.aws.amazon.com/iam/)\.
 
@@ -24,7 +24,7 @@ You can specify an optional timeout for the presigned URL\. For more information
 
 1. Search for your role and choose it\.
 
-1. Choose the **Trust Relationships** tab, and then choose **Edit Trust Relationship**\.
+1. On the **Trust Relationships** tab, choose **Edit Trust Relationship**\.
 
 1. On the **Edit Trust Relationship** page, replace the policy document with the following JSON:
 

@@ -1,0 +1,3 @@
+# Key Management in AWS IoT<a name="key-management"></a>
+
+All connections to AWS IoT are done using TLS, so no client\-side encryption keys are necessary for the initial TLS connection\. Devices must authenticate using an X\.509 certificate or an Amazon Cognito Identity\. You can have AWS IoT generate a certificate for you, in which case it will generate a public/private key pair\. If you are using the AWS IoT console you will be prompted to download the certificate and keys\.  If you are using the `create-keys-and-certificate` CLI command, the certificate and keys are returned by the CLI command\.  You are responsible for copying the certificate and private key onto your device and keeping it safe\.

@@ -1,4 +1,4 @@
-# Creating an AWS Lambda Rule<a name="iot-lambda-rule"></a>
+# Creating a Rule with a AWS Lambda Action<a name="iot-lambda-rule"></a>
 
 You can define a rule that calls a Lambda function, passing in data from the MQTT message that triggered the rule\. This allows you to extract data from the incoming message and then call another AWS or third\-party service\. In this tutorial, we assume you have completed the [AWS IoT Getting Started Tutorial](iot-gs.md) in which you create and subscribe to an Amazon SNS topic\. Now you create a Lambda function that publishes a message to the Amazon SNS topic you created in the [AWS IoT Getting Started Tutorial](iot-gs.md)\. You also create a Lambda rule that calls the Lambda function, passing in some data from the MQTT message that triggered the rule\.
 
@@ -14,16 +14,16 @@ In this tutorial, you use the AWS IoT MQTT client to send a message that trigger
 
 1. In **Basic information**, enter a name for your function\.
 **Note**  
-We do not recommend the use of personally identifiable information in your rule names or descriptions\.  
+We do not recommend the use of personally identifiable information in rule names or descriptions\.  
 ![\[Image NOT FOUND\]](http://docs.aws.amazon.com/iot/latest/developerguide/images/lambda-basic-info.png)
 
-1. From **Execution Role**, choose **Create a new role from AWS policy templates**\. Under **Role name**, enter a name for the role\. From **Policy templates**, choose **Amazon SNS publish policy**\. Click outside of the drop\-down menu to dismiss it\.  
+1. From **Execution Role**, choose **Create a new role from AWS policy templates**\. Enter a name for the role\. From **Policy templates**, choose **Amazon SNS publish policy**\. Click outside of the drop\-down menu to dismiss it\.  
 ![\[Image NOT FOUND\]](http://docs.aws.amazon.com/iot/latest/developerguide/images/enter-role-name.png)
 
 1. Choose **Create function**\.  
 ![\[Image NOT FOUND\]](http://docs.aws.amazon.com/iot/latest/developerguide/images/click-create-function.png)
 
-1. In the Lambda console, choose the name of your Lambda function\. Information about your Lambda function is displayed\. Scroll down to the **Function code** section and replace the existing code with the following:
+1. In the AWS Lambda console, choose the name of your Lambda function\. Information about your Lambda function is displayed\. Scroll down to the **Function code** section and replace the existing code with the following:
 
    ```
    from __future__ import print_function
@@ -60,7 +60,7 @@ Replace the value of `TopicArn` with the ARN of the Amazon SNS topic you created
 
 ## Test Your Lambda Function<a name="test-lambda-function"></a>
 
-1. In the upper right of the Lambda function detail page, from **Select a test event**, choose **Configure test events**\.  
+1. In the upper right of the Lambda function details page, from **Select a test event**, choose **Configure test events**\.  
 ![\[Image NOT FOUND\]](http://docs.aws.amazon.com/iot/latest/developerguide/images/click-config-test-events.png)
 
 1. On **Configure test event**, enter a name for your test event and replace the message JSON with the following:
@@ -74,13 +74,13 @@ Replace the value of `TopicArn` with the ARN of the Amazon SNS topic you created
    Choose **Create**\.  
 ![\[Image NOT FOUND\]](http://docs.aws.amazon.com/iot/latest/developerguide/images/create-test-event.png)
 
-1. In the upper right of the Lambda function detail page, choose **Test** to test your Lambda function with the message you specified in the test event\.  
+1. In the upper right of the Lambda function details page, choose **Test** to test your Lambda function with the message you specified in the test event\.  
 ![\[Image NOT FOUND\]](http://docs.aws.amazon.com/iot/latest/developerguide/images/click-test-button.png)
 
 1. Under your Lambda function code, on the **Execution result** tab, you see the output from the Lambda function\.  
 ![\[Image NOT FOUND\]](http://docs.aws.amazon.com/iot/latest/developerguide/images/lambda-results.png)
 
-## Create a Lambda Rule<a name="create-lambda-rule"></a>
+## Create a Rule with a Lambda Action<a name="create-lambda-rule"></a>
 
 This section provides steps for creating a rule with a Lambda action and an error action\. The Lambda action calls your Lambda function\. If an error occurs when calling the Lambda function, the error action publishes a message to the `lambda/error` MQTT topic\. This is useful when you are testing the rule\.
 
@@ -118,10 +118,10 @@ This section provides steps for creating a rule with a Lambda action and an erro
 1. On the **Create a rule** page, in **Error action**, choose **Add action**\.  
 ![\[Image NOT FOUND\]](http://docs.aws.amazon.com/iot/latest/developerguide/images/lambda-configure-error.png)
 
-1. On the **Set an action as error action** page, choose **Republish a message to an AWS IoT topic**, and then choose **Configure action**\.  
+1. On **Set an action as error action**, choose **Republish a message to an AWS IoT topic**, and then choose **Configure action**\.  
 ![\[Image NOT FOUND\]](http://docs.aws.amazon.com/iot/latest/developerguide/images/lambda-configure-error-2.png)
 
-1. On the **Configure action** page, under **Topic**, enter `lambda/error`\.  
+1. On **Configure action**, under **Topic**, enter `lambda/error`\.  
 ![\[Image NOT FOUND\]](http://docs.aws.amazon.com/iot/latest/developerguide/images/lambda-configure-error-3.png)
 
 1. Under **Choose or create a role to grant AWS IoT access to perform this action**, choose **Create Role**\.  
@@ -136,9 +136,9 @@ This section provides steps for creating a rule with a Lambda action and an erro
 1. In **Create a rule**, choose **Create rule**\.  
 ![\[Image NOT FOUND\]](http://docs.aws.amazon.com/iot/latest/developerguide/images/lambda-configure-error-7.png)
 
-## Test Your Lambda Rule<a name="iot-test-lambda-rule"></a>
+## Test Your Rule with a Lambda Action<a name="iot-test-lambda-rule"></a>
 
-1. To test your Lambda rule, open the AWS IoT console, and from the navigation pane, choose **Test**\.  
+1. To test your Lambda action, open the AWS IoT console, and from the navigation pane, choose **Test**\.  
 ![\[Image NOT FOUND\]](http://docs.aws.amazon.com/iot/latest/developerguide/images/lambda-mqtt-client.png)
 
 1. In the MQTT client, under **Subscription topic**, enter `lambda/error`, and then choose **Subscribe to topic**\.  
@@ -149,11 +149,11 @@ This section provides steps for creating a rule with a Lambda action and an erro
 
 Publishing this message should trigger the rule and call your Lambda function\. Your Lambda function pushes an Amazon SNS message to a phone number subscribed to your Amazon SNS topic\. If you do not get a text message, in the MQTT client, check to see if any messages were published to `lambda/error`\.
 
-## Troubleshooting Lambda Rules<a name="troubleshooting-lambda-rules"></a>
+## Troubleshooting a Rule with a Lambda Action<a name="troubleshooting-lambda-rules"></a>
 
 If your Lambda function is called, but you do not receive a text message, make sure your phone number is subscribed to your Amazon SNS topic\. If your phone number is subscribed, check the CloudWatch logs for your Lambda function\. AWS Lambda writes logs to CloudWatch, which makes it possible for you to see output from your Lambda function\.
 
-**To view CloudWatch Logs**
+**To view CloudWatch logs**
 
 1. In the Lambda console, from the navigation pane, choose **Functions**\.  
 ![\[Image NOT FOUND\]](http://docs.aws.amazon.com/iot/latest/developerguide/images/choose-functions-for-cwl.png)
@@ -161,7 +161,7 @@ If your Lambda function is called, but you do not receive a text message, make s
 1. Choose your Lambda function\.  
 ![\[Image NOT FOUND\]](http://docs.aws.amazon.com/iot/latest/developerguide/images/select-lambda-function.png)
 
-1. On the Lambda function detail page, choose the **Monitoring** tab\.  
+1. On the Lambda function details page, choose the **Monitoring** tab\.  
 ![\[Image NOT FOUND\]](http://docs.aws.amazon.com/iot/latest/developerguide/images/choose-monitor-tab.png)
 
 1. Choose **View logs in CloudWatch**\.  

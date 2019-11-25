@@ -10,8 +10,8 @@ Queries are specified in a query string using a query syntax and passed to the [
 |  abc  |  Queries for "abc" in any registry or shadow field\.  | 
 |  thingName:myThingName  |  Queries for a thing with name "myThingName"\.  | 
 |  thingName:my\*  |  Queries for things with names that begin with "my"\.  | 
-|  thingName:ab?  |  Queries for things with names that have "ab" plus one additional character, for example: "aba", "abb", "abc", etc\.  | 
-|  thingTypeNames:aa  |  Queries for things that are associated with type aa\.  | 
+|  thingName:ab?  |  Queries for things with names that have "ab" plus one additional character \(for example: "aba", "abb", "abc", and so on\.\)  | 
+|  thingTypeName:aa  |  Queries for things that are associated with type aa\.  | 
 |  attributes\.myAttribute:75  |  Queries for things with an attribute named "myAttribute" that has the value 75\.  | 
 |  attributes\.myAttribute:\[75 TO 80\]  |  Queries for things with an attribute named "myAttribute" whose value falls within a numeric range \(75–80, inclusive\)\.  | 
 |  attributes\.myAttribute:\{75 TO 80\]  |  Queries for things with an attribute named "myAttribute" whose value falls within the numeric range \(>75 and <=80\)\.  | 

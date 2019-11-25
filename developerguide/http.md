@@ -1,6 +1,6 @@
 # HTTP<a name="http"></a>
 
-The message broker supports clients connecting with the HTTP protocol using a REST API\. Clients can publish by sending a POST message to `<AWS IoT Endpoint>/topics/<url_encoded_topic_name>?qos=1"`\. 
+The message broker supports clients connecting with the HTTP 1\.0 and 1\.1 protocols using a REST API\. For more information about authentication and port mappings for HTTP requests, see [Protocols, Port Mappings, and Authentication](protocols.md#protocol-port-mapping)\. Clients can publish by sending a POST message to `<AWS IoT Endpoint>/topics/<url_encoded_topic_name>?qos=1"`\. 
 
 For example, you can use [curl](https://curl.haxx.se) to emulate sending a message\. For example: 
 

@@ -2,8 +2,6 @@
 
 Dynamic thing groups update group membership through search queries\. Using dynamic thing groups, you can change the way you interact with things depending on their connectivity, registry, or shadow data\.
 
-You can apply a policy to a dynamic thing group\. A thing can belong to at most 10 dynamic groups\. If a search query string defines a dynamic thing group that contains a thing that already belongs to 10 dynamic thing groups, the policy is not applied to that thing\.
-
 Because dynamic thing groups are tied to your fleet index, you must enable the fleet indexing service to use them\. You can preview the things in a dynamic thing group before you create the group with a fleet indexing search query\. For more information, see [Fleet Indexing Service](https://docs.aws.amazon.com/iot/latest/developerguide/iot-indexing.html) and [Fleet Indexing Service: Query Syntax](https://docs.aws.amazon.com/iot/latest/developerguide/query-syntax.html)\.
 
 You can specify a dynamic thing group as a target for a job\. Only things that meet the criteria that define the dynamic thing group perform the job\.
@@ -93,7 +91,7 @@ After you create a dynamic thing group, you can use the group, regardless of its
 
 ## Update a Dynamic Thing Group<a name="update-dynamic-thing-group"></a>
 
-Use the UpdateDynamicThingGroup command to update the attributes of a dynamic thing group, including the group's search query\. The following command updates the thing group description and the query string changing the membership critera to temperature > 65:
+Use the UpdateDynamicThingGroup command to update the attributes of a dynamic thing group, including the group's search query\. The following command updates the thing group description and the query string changing the membership criteria to temperature > 65:
 
 ```
 $ aws iot update-dynamic-thing-group --thing-group-name "RoomTooWarm" --thing-group-properties "thingGroupDescription=\"This thing group contains rooms warmer than 65F.\"" --query-string "attributes.temperature>65"
@@ -119,7 +117,7 @@ $ aws iot delete-dynamic-thing-group --thing-group-name "RoomTooWarm"
 
 The DeleteDynamicThingGroup command does not produce any output\.
 
-Before you delete a group that has a policy attached, be sure that removing those permissions does not stop the things in the group from functioning properly\. Commands that show which groups a thing belongs to \(for example, ListGroupsForThing\) might continue to show the group while records in the cloud are being updated\.
+  Commands that show which groups a thing belongs to \(for example, ListGroupsForThing\) might continue to show the group while records in the cloud are being updated\.
 
 ## Limitations and Conflicts<a name="dynamic-thing-group-limitations"></a>
 
@@ -143,11 +141,11 @@ For example, suppose that you create a dynamic thing group named DynamicGroup1, 
 
 ### Applying Policies to Members of a Dynamic Thing Group<a name="apply-policy"></a>
 
-A policy can be applied to a dynamic thing group\. A thing can belong to at most 10 dynamic groups\. If a search query string defines a dynamic thing group that contains a thing that already belongs to 10 dynamic thing groups, the policy is not applied to that thing\.
+ A thing can belong to at most 10 dynamic groups\. If a search query string defines a dynamic thing group that contains a thing that already belongs to 10 dynamic thing groups, the policy is not applied to that thing\.
 
 ### Dynamic thing group membership is eventually consistent<a name="update-conflict"></a>
 
-Only the final state of a thing is evaluated for the registry\. Intermediary states can be skipped if states are updated rapidly\. Avoid associating a rule, job, or policy with a dynamic thing group whose membership depends on an intermediary state\.
+Only the final state of a thing is evaluated for the registry\. Intermediary states can be skipped if states are updated rapidly\. Avoid associating a rule or job, with a dynamic thing group whose membership depends on an intermediary state\.
 
 ### The fleet indexing service must be enabled<a name="indexing-backfill-conflict"></a>
 

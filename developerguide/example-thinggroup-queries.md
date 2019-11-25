@@ -10,7 +10,7 @@ Queries are specified in a query string using a query syntax and passed to the [
 |  abc  |  Queries for "abc" in any field\.  | 
 |  thingGroupName:myGroupThingName  |  Queries for a thing group with name "myGroupThingName"\.  | 
 |  thingGroupName:my\*  |  Queries for thing groups with names that begin with "my"\.  | 
-|  thingGroupName:ab?  |  Queries for thing groups with names that have "ab" plus one additional character, for example: "aba", "abb", "abc", etc\.  | 
+|  thingGroupName:ab?  |  Queries for thing groups with names that have "ab" plus one additional character \(for example: "aba", "abb", "abc", and so on\.\)  | 
 |  attributes\.myAttribute:75  |  Queries for thing groups with an attribute named "myAttribute" that has the value 75\.  | 
 |  attributes\.myAttribute:\[75 TO 80\]  |  Queries for thing groups with an attribute named "myAttribute" whose value falls within a numeric range \(75–80, inclusive\)\.  | 
 |  attributes\.myAttribute:\[75 TO 80\]  |  Queries for thing groups with an attribute named "myAttribute" whose value falls within the numeric range \(>75 and <=80\)\.  | 

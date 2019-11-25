@@ -1,8 +1,8 @@
 # Protocols<a name="protocols"></a>
 
-The message broker supports the use of the MQTT protocol to publish and subscribe and the HTTPS protocol to publish\. Both protocols are supported through IP version 4 and IP version 6\. The message broker also supports MQTT over the WebSocket protocol\.
+The message broker supports the use of the MQTT protocol to publish and subscribe and the HTTPS protocol to publish\. Both protocols are supported through IP version 4 and IP version 6\. The message broker also supports MQTT over the WebSocket protocol\. How you connect to the message broker depends on the protocol you are using\. Different protocols require different authentication mechanisms\.
 
-## Protocol/Port Mappings<a name="protocol-port-mapping"></a>
+## Protocols, Port Mappings, and Authentication<a name="protocol-port-mapping"></a>
 
 The following table shows each protocol supported by AWS IoT, the authentication method, and port used for each protocol\.
 

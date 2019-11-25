@@ -4,7 +4,7 @@ You use IAM roles to control the AWS resources to which each rule has access\. B
 
 **To create an IAM role \(AWS CLI\)**
 
-1. Save the following trust policy document, which grants AWS IoT permission to assume the role, to a file called iot\-role\-trust\.json:
+1. Save the following trust policy document, which grants AWS IoT permission to assume the role, to a file named `iot-role-trust.json`:
 
    ```
    {
@@ -19,7 +19,7 @@ You use IAM roles to control the AWS resources to which each rule has access\. B
    }
    ```
 
-   Use the [create\-role](https://docs.aws.amazon.com/cli/latest/reference/iam/create-role.html) command to create an IAM role specifying the iot\-role\-trust\.json file:
+   Use the [create\-role](https://docs.aws.amazon.com/cli/latest/reference/iam/create-role.html) command to create an IAM role specifying the `iot-role-trust.json` file:
 
    ```
    aws iam create-role --role-name my-iot-role --assume-role-policy-document file://iot-role-trust.json
@@ -40,7 +40,7 @@ You use IAM roles to control the AWS resources to which each rule has access\. B
    }
    ```
 
-1. Save the following JSON into a file named iot\-policy\.json\.
+1. Save the following JSON into a file named `iot-policy.json`\.
 
    ```
    {
@@ -55,7 +55,7 @@ You use IAM roles to control the AWS resources to which each rule has access\. B
 
    This JSON is an example policy document that grants AWS IoT administrator access to DynamoDB\.
 
-   Use the [create\-policy](https://docs.aws.amazon.com/cli/latest/reference/iam/create-policy.html) command to grant AWS IoT access to your AWS resources upon assuming the role, passing in the iot\-policy\.json file:
+   Use the [create\-policy](https://docs.aws.amazon.com/cli/latest/reference/iam/create-policy.html) command to grant AWS IoT access to your AWS resources upon assuming the role, passing in the `iot-policy.json` file:
 
    ```
    aws iam create-policy --policy-name my-iot-policy --policy-document file://my-iot-policy.json

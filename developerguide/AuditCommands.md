@@ -229,7 +229,7 @@ aws iot  create-scheduled-audit \
 |  Name |  Type |  Description | 
 | --- | --- | --- | 
 |  frequency |  string |  How often the scheduled audit takes place\. Can be one of DAILY, WEEKLY, BIWEEKLY, or MONTHLY\. The actual start time of each audit is determined by the system\.  enum: DAILY \| WEEKLY \| BIWEEKLY \| MONTHLY  | 
-|  dayOfMonth |  string  pattern: ^\(\[1\-9\]\|\[12\]\[0\-9\]\|3\[01\]\)$\|^LAST$  |  The day of the month on which the scheduled audit takes place\. Can be 1 through 31 or "LAST"\. This field is required if the `frequency` parameter is set to MONTHLY\. If days 29\-31 are specified, and the month does not have that many days, the audit takes place on the "LAST" day of the month\.  | 
+|  dayOfMonth |  string  pattern: ^\(\[1\-9\]\|\[12\]\[0\-9\]\|3\[01\]\)$\|^LAST$  |  The day of the month on which the scheduled audit takes place\. Can be 1 through 31 or LAST\. This field is required if the `frequency` parameter is set to MONTHLY\. If days 29\-31 are specified, and the month does not have that many days, the audit takes place on the LAST day of the month\.  | 
 |  dayOfWeek |  string |  The day of the week on which the scheduled audit takes place\. Can be one of SUN, MON, TUE,WED, THU, FRI, or SAT\. This field is required if the `frequency` parameter is set to WEEKLY or BIWEEKLY\.  enum: SUN \| MON \| TUE \| WED \| THU \| FRI \| SAT  | 
 |  targetCheckNames |  list  member: AuditCheckName  |  Which checks are performed during the scheduled audit\. Checks must be enabled for your account\. \(Use `DescribeAccountAuditConfiguration` to see the list of all checks, including those that are enabled or `UpdateAccountAuditConfiguration` to select which checks are enabled\.\)  | 
 |  tags |  list  member: Tag  java class: java\.util\.List  |  Metadata that can be used to manage the scheduled audit\. | 
@@ -323,9 +323,9 @@ Output
 |  scheduledAuditName |  string  length\- max:128 min:1  pattern: \[a\-zA\-Z0\-9\_\-\]\+  |  The name of the scheduled audit\. | 
 |  scheduledAuditArn |  string |  The ARN of the scheduled audit\. | 
 |  frequency |  string |  How often the scheduled audit takes place\.  enum: DAILY \| WEEKLY \| BIWEEKLY \| MONTHLY  | 
-|  dayOfMonth |  string  pattern: ^\(\[1\-9\]\|\[12\]\[0\-9\]\|3\[01\]\)$\|^LAST$  |  The day of the month on which the scheduled audit is run \(if the `frequency` is MONTHLY\)\. If days 29\-31 are specified, and the month does not have that many days, the audit takes place on the "LAST" day of the month\.  | 
+|  dayOfMonth |  string  pattern: ^\(\[1\-9\]\|\[12\]\[0\-9\]\|3\[01\]\)$\|^LAST$  |  The day of the month on which the scheduled audit is run \(if the `frequency` is MONTHLY\)\. If days 29\-31 are specified, and the month does not have that many days, the audit takes place on the LAST day of the month\.  | 
 |  dayOfWeek |  string |  The day of the week on which the scheduled audit is run \(if the `frequency` is WEEKLY or BIWEEKLY\)\.  enum: SUN \| MON \| TUE \| WED \| THU \| FRI \| SAT  | 
-|  nextToken |  string |  A token that can be used to retrieve the next set of results, or `null` if there are no additional results\.  | 
+|  nextToken |  string |  A token that can be used to retrieve the next set of results, or `null` if there are no more results\.  | 
 
  **Errors**
 
@@ -387,9 +387,9 @@ Output
 |  Name |  Type |  Description | 
 | --- | --- | --- | 
 |  frequency |  string |  How often the scheduled audit takes place\. One of DAILY, WEEKLY, BIWEEKLY, or MONTHLY\. The actual start time of each audit is determined by the system\.  enum: DAILY \| WEEKLY \| BIWEEKLY \| MONTHLY  | 
-|  dayOfMonth |  string  pattern: ^\(\[1\-9\]\|\[12\]\[0\-9\]\|3\[01\]\)$\|^LAST$  |  The day of the month on which the scheduled audit takes place\. Will be 1 through 31 or LAST\. If days 29\-31 are specified, and the month does not have that many days, the audit takes place on the LAST day of the month\.  | 
+|  dayOfMonth |  string  pattern: ^\(\[1\-9\]\|\[12\]\[0\-9\]\|3\[01\]\)$\|^LAST$  |  The day of the month on which the scheduled audit takes place\. Can be 1 through 31 or LAST\. If days 29\-31 are specified, and the month does not have that many days, the audit takes place on the LAST day of the month\.  | 
 |  dayOfWeek |  string |  The day of the week on which the scheduled audit takes place\. One of SUN, MON, TUE, WED, THU, FRI, or SAT\.  enum: SUN \| MON \| TUE \| WED \| THU \| FRI \| SAT  | 
-|  targetCheckNames |  list  member: AuditCheckName  |  Which checks are performed during the scheduled audit\. Checks must be enabled for your account\. \(Use `DescribeAccountAuditConfiguration` to see the list of all checks, including those that are enabled or use`UpdateAccountAuditConfiguration` to select which checks are enabled\.\)  | 
+|  targetCheckNames |  list  member: AuditCheckName  |  Which checks are performed during the scheduled audit\. Checks must be enabled for your account\. \(Use `DescribeAccountAuditConfiguration` to see the list of all checks, including those that are enabled or use `UpdateAccountAuditConfiguration` to select which checks are enabled\.\)  | 
 |  scheduledAuditName |  string  length\- max:128 min:1  pattern: \[a\-zA\-Z0\-9\_\-\]\+  |  The name of the scheduled audit\. | 
 |  scheduledAuditArn |  string |  The ARN of the scheduled audit\. | 
 
@@ -822,6 +822,8 @@ An unexpected error has occurred\.
 
 Use `ListAuditFindings` to see the results of an audit\. You can filter the results by the type of check, a specific resource, or the time of the audit\. You can use this information to mitigate any problems that were found\.
 
+You can define mitigation actions and apply them to the findings from your audit\. For more information, see [Mitigation Actions](device-defender-mitigation-actions.md)\.
+
 ### ListAuditFindings<a name="dd-api-iot-ListAuditFindings"></a>
 
 Lists the findings \(results\) of a Device Defender audit or of the audits performed during a specified time period\. \(Findings are retained for 180 days\.\)
@@ -856,6 +858,8 @@ aws iot  list-audit-findings \
       "policyName": "string",
       "policyVersionId": "string"
     },
+   
+    "roleAliasArn": "string",
     "account": "string"
   },
   "maxResults": "integer",
@@ -870,21 +874,22 @@ aws iot  list-audit-findings \
 
 |  Name |  Type |  Description | 
 | --- | --- | --- | 
-|  taskId |  string  length\- max:40 min:1  pattern: \[a\-zA\-Z0\-9\-\]\+  |  A filter to limit results to the audit with the specified ID\. You must specify either the taskId or the startTime and endTime, but not both\.  | 
-|  checkName |  string |  A filter to limit results to the findings for the specified audit check\. | 
-|  resourceIdentifier |  ResourceIdentifier |  Information that identifies the noncompliant resource\. | 
-|  deviceCertificateId |  string  length\- max:64 min:64  pattern: \(0x\)?\[a\-fA\-F0\-9\]\+  |  The ID of the certificate attached to the resource\. | 
-|  caCertificateId |  string  length\- max:64 min:64  pattern: \(0x\)?\[a\-fA\-F0\-9\]\+  |  The ID of the CA certificate used to authorize the certificate\. | 
-|  cognitoIdentityPoolId |  string |  The ID of the Amazon Cognito identity pool\. | 
-|  clientId |  string |  The client ID\. | 
-|  policyVersionIdentifier |  PolicyVersionIdentifier |  The version of the policy associated with the resource\. | 
-|  policyName |  string  length\- max:128 min:1  pattern: \[w\+=,\.@\-\]\+  |  The name of the policy\. | 
-|  policyVersionId |  string  pattern: \[0\-9\]\+  |  The ID of the version of the policy associated with the resource\. | 
-|  account |  string  length\- max:12 min:12  pattern: \[0\-9\]\+  |  The account with which the resource is associated\. | 
-|  maxResults |  integer  range\- max:250 min:1  |  The maximum number of results to return at one time\. The default is 25\. | 
-|  nextToken |  string |  The token for the next set of results\. | 
-|  startTime |  timestamp |  A filter to limit results to those found after the specified time\. You must specify either the startTime and endTime or the taskId, but not both\.  | 
-|  endTime |  timestamp |  A filter to limit results to those found before the specified time\. You must specify either the startTime and endTime or the taskId, but not both\.  | 
+|  taskId  |  string  length\- max:40 min:1  pattern: \[a\-zA\-Z0\-9\-\]\+  |  A filter to limit results to the audit with the specified ID\. You must specify either the taskId or the startTime and endTime, but not both\.  | 
+|  checkName  |  string  |  A filter to limit results to the findings for the specified audit check\.  | 
+|  resourceIdentifier  |  ResourceIdentifier  |  Information that identifies the noncompliant resource\.  | 
+|  deviceCertificateId  |  string  length\- max:64 min:64  pattern: \(0x\)?\[a\-fA\-F0\-9\]\+  |  The ID of the certificate attached to the resource\.  | 
+|  caCertificateId  |  string  length\- max:64 min:64  pattern: \(0x\)?\[a\-fA\-F0\-9\]\+  |  The ID of the CA certificate used to authorize the certificate\.  | 
+|  cognitoIdentityPoolId  |  string  |  The ID of the Amazon Cognito identity pool\.  | 
+|  clientId  |  string  |  The client ID\.  | 
+|  policyVersionIdentifier  |  PolicyVersionIdentifier  |  The version of the policy associated with the resource\.  | 
+|  policyName  |  string  length\- max:128 min:1  pattern: \[w\+=,\.@\-\]\+  |  The name of the policy\.  | 
+|  policyVersionId  |  string  pattern: \[0\-9\]\+  |  The ID of the version of the policy associated with the resource\.  | 
+|  roleAliasArn  |  string  |  The ARN of the role alias that has overly permissive actions\.  length\- max:2048 min:1  | 
+|  account  |  string  length\- max:12 min:12  pattern: \[0\-9\]\+  |  The account with which the resource is associated\.  | 
+|  maxResults  |  integer  range\- max:250 min:1  |  The maximum number of results to return at one time\. The default is 25\.  | 
+|  nextToken  |  string  |  The token for the next set of results\.  | 
+|  startTime  |  timestamp  |  A filter to limit results to those found after the specified time\. You must specify either the startTime and endTime or the taskId, but not both\.  | 
+|  endTime  |  timestamp  |  A filter to limit results to those found before the specified time\. You must specify either the startTime and endTime or the taskId, but not both\.  | 
 
 Output
 
@@ -922,12 +927,18 @@ Output
             "caCertificateId": "string",
             "cognitoIdentityPoolId": "string",
             "clientId": "string",
+    
+            "iamRoleArn": "string",
+    
             "policyVersionIdentifier": {
               "policyName": "string",
               "policyVersionId": "string"
             },
             "account": "string"
           },
+    
+          "roleAliasArn": "string",
+    
           "additionalInfo": {
             "string": "string"
           }
@@ -946,39 +957,41 @@ Output
 
 |  Name |  Type |  Description | 
 | --- | --- | --- | 
-|  findings |  list  member: AuditFinding  |  The findings \(results\) of the audit\. | 
-|  taskId |  string  length\- max:40 min:1  pattern: \[a\-zA\-Z0\-9\-\]\+  |  The ID of the audit that generated this result \(finding\)\. | 
-|  checkName |  string |  The audit check that generated this result\. | 
-|  taskStartTime |  timestamp |  The time the audit started\. | 
-|  findingTime |  timestamp |  The time the result \(finding\) was discovered\. | 
-|  severity |  string |  The severity of the result \(finding\)\.  enum: CRITICAL \| HIGH \| MEDIUM \| LOW  | 
-|  nonCompliantResource |  NonCompliantResource |  The resource that was found to be noncompliant with the audit check\.  | 
-|  resourceType |  string |  The type of the noncompliant resource\.  enum: DEVICE\_CERTIFICATE \| CA\_CERTIFICATE \| IOT\_POLICY \| COGNITO\_IDENTITY\_POOL \| CLIENT\_ID \| ACCOUNT\_SETTINGS  | 
-|  resourceIdentifier |  ResourceIdentifier |  Information that identifies the noncompliant resource\. | 
-|  deviceCertificateId |  string  length\- max:64 min:64  pattern: \(0x\)?\[a\-fA\-F0\-9\]\+  |  The ID of the certificate attached to the resource\. | 
-|  caCertificateId |  string  length\- max:64 min:64  pattern: \(0x\)?\[a\-fA\-F0\-9\]\+  |  The ID of the CA certificate used to authorize the certificate\. | 
-|  cognitoIdentityPoolId |  string |  The ID of the Amazon Cognito identity pool\. | 
-|  clientId |  string |  The client ID\. | 
-|  policyVersionIdentifier |  PolicyVersionIdentifier |  The version of the policy associated with the resource\. | 
-|  policyName |  string  length\- max:128 min:1  pattern: \[w\+=,\.@\-\]\+  |  The name of the policy\. | 
-|  policyVersionId |  string  pattern: \[0\-9\]\+  |  The ID of the version of the policy associated with the resource\. | 
-|  account |  string  length\- max:12 min:12  pattern: \[0\-9\]\+  |  The account with which the resource is associated\. | 
-|  additionalInfo |  map |  Other information about the noncompliant resource\. | 
-|  relatedResources |  list  member: RelatedResource  |  The list of related resources\. | 
-|  resourceType |  string |  The type of resource\.  enum: DEVICE\_CERTIFICATE \| CA\_CERTIFICATE \| IOT\_POLICY \| COGNITO\_IDENTITY\_POOL \| CLIENT\_ID \| ACCOUNT\_SETTINGS  | 
-|  resourceIdentifier |  ResourceIdentifier |  Information that identifies the resource\. | 
-|  deviceCertificateId |  string  length\- max:64 min:64  pattern: \(0x\)?\[a\-fA\-F0\-9\]\+  |  The ID of the certificate attached to the resource\. | 
-|  caCertificateId |  string  length\- max:64 min:64  pattern: \(0x\)?\[a\-fA\-F0\-9\]\+  |  The ID of the CA certificate used to authorize the certificate\. | 
-|  cognitoIdentityPoolId |  string |  The ID of the Amazon Cognito identity pool\. | 
-|  clientId |  string |  The client ID\. | 
-|  policyVersionIdentifier |  PolicyVersionIdentifier |  The version of the policy associated with the resource\. | 
-|  policyName |  string  length\- max:128 min:1  pattern: \[w\+=,\.@\-\]\+  |  The name of the policy\. | 
-|  policyVersionId |  string  pattern: \[0\-9\]\+  |  The ID of the version of the policy associated with the resource\. | 
-|  account |  string  length\- max:12 min:12  pattern: \[0\-9\]\+  |  The account with which the resource is associated\. | 
-|  additionalInfo |  map |  Other information about the resource\. | 
-|  reasonForNonCompliance |  string |  The reason the resource was noncompliant\. | 
-|  reasonForNonComplianceCode |  string |  A code that indicates the reason that the resource was noncompliant\. | 
-|  nextToken |  string |  A token that can be used to retrieve the next set of results, or `null` if there are no additional results\.  | 
+|  findings  |  list  member: AuditFinding  |  The findings \(results\) of the audit\.  | 
+|  taskId  |  string  length\- max:40 min:1  pattern: \[a\-zA\-Z0\-9\-\]\+  |  The ID of the audit that generated this result \(finding\)\.  | 
+|  checkName  |  string  |  The audit check that generated this result\.  | 
+|  taskStartTime  |  timestamp  |  The time the audit started\.  | 
+|  findingTime  |  timestamp  |  The time the result \(finding\) was discovered\.  | 
+|  severity  |  string  |  The severity of the result \(finding\)\.  enum: CRITICAL \| HIGH \| MEDIUM \| LOW  | 
+|  nonCompliantResource  |  NonCompliantResource  |  The resource that was found to be noncompliant with the audit check\.  | 
+|  resourceType  |  string  |  The type of the noncompliant resource\.  enum: DEVICE\_CERTIFICATE \| CA\_CERTIFICATE \| IOT\_POLICY \| COGNITO\_IDENTITY\_POOL \| CLIENT\_ID \| ACCOUNT\_SETTINGS  | 
+|  resourceIdentifier  |  ResourceIdentifier  |  Information that identifies the noncompliant resource\.  | 
+|  deviceCertificateId  |  string  length\- max:64 min:64  pattern: \(0x\)?\[a\-fA\-F0\-9\]\+  |  The ID of the certificate attached to the resource\.  | 
+|  caCertificateId  |  string  length\- max:64 min:64  pattern: \(0x\)?\[a\-fA\-F0\-9\]\+  |  The ID of the CA certificate used to authorize the certificate\.  | 
+|  cognitoIdentityPoolId  |  string  |  The ID of the Amazon Cognito identity pool\.  | 
+|  clientId  |  string  |  The client ID\.  | 
+|  policyVersionIdentifier  |  PolicyVersionIdentifier  |  The version of the policy associated with the resource\.  | 
+|  policyName  |  string  length\- max:128 min:1  pattern: \[w\+=,\.@\-\]\+  |  The name of the policy\.  | 
+|  policyVersionId  |  string  pattern: \[0\-9\]\+  |  The ID of the version of the policy associated with the resource\.  | 
+|  account  |  string  length\- max:12 min:12  pattern: \[0\-9\]\+  |  The account with which the resource is associated\.  | 
+|  additionalInfo  |  map  |  Other information about the noncompliant resource\.  | 
+|  relatedResources  |  list  member: RelatedResource  |  The list of related resources\.  | 
+|  resourceType  |  string  |  The type of resource\.  enum: DEVICE\_CERTIFICATE \| CA\_CERTIFICATE \| IOT\_POLICY \| COGNITO\_IDENTITY\_POOL \| CLIENT\_ID \| ACCOUNT\_SETTINGS  | 
+|  resourceIdentifier  |  ResourceIdentifier  |  Information that identifies the resource\.  | 
+|  deviceCertificateId  |  string  length\- max:64 min:64  pattern: \(0x\)?\[a\-fA\-F0\-9\]\+  |  The ID of the certificate attached to the resource\.  | 
+|  caCertificateId  |  string  length\- max:64 min:64  pattern: \(0x\)?\[a\-fA\-F0\-9\]\+  |  The ID of the CA certificate used to authorize the certificate\.  | 
+|  cognitoIdentityPoolId  |  string  |  The ID of the Amazon Cognito identity pool\.  | 
+|  clientId  |  string  |  The client ID\.  | 
+|  policyVersionIdentifier  |  PolicyVersionIdentifier  |  The version of the policy associated with the resource\.  | 
+|  iamRoleArn  |  string  length\- max:2048 min:20  |  The ARN of the IAM role that has overly permissive actions\.  | 
+|  policyName  |  string  length\- max:128 min:1  pattern: \[w\+=,\.@\-\]\+  |  The name of the policy\.  | 
+|  policyVersionId  |  string  pattern: \[0\-9\]\+  |  The ID of the version of the policy associated with the resource\.  | 
+|  roleAliasArn  |  string  length\- max:2048 min:1  |  The ARN of the role alias that has overly permissive actions\.  | 
+|  account  |  string  length\- max:12 min:12  pattern: \[0\-9\]\+  |  The account with which the resource is associated\.  | 
+|  additionalInfo  |  map  |  Other information about the resource\.  | 
+|  reasonForNonCompliance  |  string  |  The reason the resource was noncompliant\.  | 
+|  reasonForNonComplianceCode  |  string  |  A code that indicates the reason that the resource was noncompliant\.  | 
+|  nextToken  |  string  |  A token that can be used to retrieve the next set of results, or `null` if there are no additional results\.  | 
 
  **Errors**
 

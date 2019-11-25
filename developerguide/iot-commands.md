@@ -9,6 +9,7 @@
 + [AttachPrincipalPolicy](#api-iot-AttachPrincipalPolicy)
 + [AttachSecurityProfile](#api-iot-AttachSecurityProfile)
 + [AttachThingPrincipal](#api-iot-AttachThingPrincipal)
++ [CancelAuditMitigationActionsTask](#api-iot-CancelAuditMitigationActionsTask)
 + [CancelAuditTask](#api-iot-CancelAuditTask)
 + [CancelCertificateTransfer](#api-iot-CancelCertificateTransfer)
 + [CancelJob](#api-iot-CancelJob)
@@ -20,6 +21,7 @@
 + [CreateDynamicThingGroup](#api-iot-CreateDynamicThingGroup)
 + [CreateJob](#api-iot-CreateJob)
 + [CreateKeysAndCertificate](#api-iot-CreateKeysAndCertificate)
++ [CreateMitigationAction](#api-iot-CreateMitigationAction)
 + [CreateOTAUpdate](#api-iot-CreateOTAUpdate)
 + [CreatePolicy](#api-iot-CreatePolicy)
 + [CreatePolicyVersion](#api-iot-CreatePolicyVersion)
@@ -39,6 +41,7 @@
 + [DeleteDynamicThingGroup](#api-iot-DeleteDynamicThingGroup)
 + [DeleteJob](#api-iot-DeleteJob)
 + [DeleteJobExecution](#api-iot-DeleteJobExecution)
++ [DeleteMitigationAction](#api-iot-DeleteMitigationAction)
 + [DeleteOTAUpdate](#api-iot-DeleteOTAUpdate)
 + [DeletePolicy](#api-iot-DeletePolicy)
 + [DeletePolicyVersion](#api-iot-DeletePolicyVersion)
@@ -55,6 +58,8 @@
 + [DeleteV2LoggingLevel](#api-iot-DeleteV2LoggingLevel)
 + [DeprecateThingType](#api-iot-DeprecateThingType)
 + [DescribeAccountAuditConfiguration](#api-iot-DescribeAccountAuditConfiguration)
++ [DescribeAuditFinding](#api-iot-DescribeAuditFinding)
++ [DescribeAuditMitigationActionsTask](#api-iot-DescribeAuditMitigationActionsTask)
 + [DescribeAuditTask](#api-iot-DescribeAuditTask)
 + [DescribeAuthorizer](#api-iot-DescribeAuthorizer)
 + [DescribeBillingGroup](#api-iot-DescribeBillingGroup)
@@ -67,6 +72,7 @@
 + [DescribeJob](#api-iot-DescribeJob)
 + [DescribeJobExecution](#api-iot-jobs-data-DescribeJobExecution)
 + [DescribeJobExecution](#api-iot-DescribeJobExecution)
++ [DescribeMitigationAction](#api-iot-DescribeMitigationAction)
 + [DescribeRoleAlias](#api-iot-DescribeRoleAlias)
 + [DescribeScheduledAudit](#api-iot-DescribeScheduledAudit)
 + [DescribeSecurityProfile](#api-iot-DescribeSecurityProfile)
@@ -97,6 +103,8 @@
 + [ListActiveViolations](#api-iot-ListActiveViolations)
 + [ListAttachedPolicies](#api-iot-ListAttachedPolicies)
 + [ListAuditFindings](#api-iot-ListAuditFindings)
++ [ListAuditMitigationActionsExecutions](#api-iot-ListAuditMitigationActionsExecutions)
++ [ListAuditMitigationActionsTasks](#api-iot-ListAuditMitigationActionsTasks)
 + [ListAuditTasks](#api-iot-ListAuditTasks)
 + [ListAuthorizers](#api-iot-ListAuthorizers)
 + [ListBillingGroups](#api-iot-ListBillingGroups)
@@ -107,6 +115,7 @@
 + [ListJobExecutionsForJob](#api-iot-ListJobExecutionsForJob)
 + [ListJobExecutionsForThing](#api-iot-ListJobExecutionsForThing)
 + [ListJobs](#api-iot-ListJobs)
++ [ListMitigationActions](#api-iot-ListMitigationActions)
 + [ListOTAUpdates](#api-iot-ListOTAUpdates)
 + [ListOutgoingCertificates](#api-iot-ListOutgoingCertificates)
 + [ListPolicies](#api-iot-ListPolicies)
@@ -148,6 +157,7 @@
 + [SetLoggingOptions](#api-iot-SetLoggingOptions)
 + [SetV2LoggingLevel](#api-iot-SetV2LoggingLevel)
 + [SetV2LoggingOptions](#api-iot-SetV2LoggingOptions)
++ [StartAuditMitigationActionsTask](#api-iot-StartAuditMitigationActionsTask)
 + [StartNextPendingJobExecution](#api-iot-jobs-data-StartNextPendingJobExecution)
 + [StartOnDemandAuditTask](#api-iot-StartOnDemandAuditTask)
 + [StartThingRegistrationTask](#api-iot-StartThingRegistrationTask)
@@ -167,6 +177,7 @@
 + [UpdateIndexingConfiguration](#api-iot-UpdateIndexingConfiguration)
 + [UpdateJob](#api-iot-UpdateJob)
 + [UpdateJobExecution](#api-iot-jobs-data-UpdateJobExecution)
++ [UpdateMitigationAction](#api-iot-UpdateMitigationAction)
 + [UpdateRoleAlias](#api-iot-UpdateRoleAlias)
 + [UpdateScheduledAudit](#api-iot-UpdateScheduledAudit)
 + [UpdateSecurityProfile](#api-iot-UpdateSecurityProfile)
@@ -207,8 +218,8 @@ aws iot  accept-certificate-transfer \
 
 |  Name |  Type |  Description | 
 | --- | --- | --- | 
-|  certificateId |  string  length\- max:64 min:64  pattern: \(0x\)?\[a\-fA\-F0\-9\]\+  |  The ID of the certificate\. \(The last part of the certificate ARN contains the certificate ID\.\) | 
-|  setAsActive |  boolean |  Specifies whether the certificate is active\. | 
+|   `certificateId`  |  string  length\- max:64 min:64  pattern: \(0x\)?\[a\-fA\-F0\-9\]\+  |  The ID of the certificate\. \(The last part of the certificate ARN contains the certificate ID\.\) | 
+|   `setAsActive`  |  boolean |  Specifies whether the certificate is active\. | 
 
 Output
 
@@ -269,10 +280,10 @@ aws iot  add-thing-to-billing-group \
 
 |  Name |  Type |  Description | 
 | --- | --- | --- | 
-|  billingGroupName |  string  length\- max:128 min:1  pattern: \[a\-zA\-Z0\-9:\_\-\]\+  |  The name of the billing group\. | 
-|  billingGroupArn |  string |  The ARN of the billing group\. | 
-|  thingName |  string  length\- max:128 min:1  pattern: \[a\-zA\-Z0\-9:\_\-\]\+  |  The name of the thing to be added to the billing group\. | 
-|  thingArn |  string |  The ARN of the thing to be added to the billing group\. | 
+|   `billingGroupName`  |  string  length\- max:128 min:1  pattern: \[a\-zA\-Z0\-9:\_\-\]\+  |  The name of the billing group\. | 
+|   `billingGroupArn`  |  string |  The ARN of the billing group\. | 
+|   `thingName`  |  string  length\- max:128 min:1  pattern: \[a\-zA\-Z0\-9:\_\-\]\+  |  The name of the thing to be added to the billing group\. | 
+|   `thingArn`  |  string |  The ARN of the thing to be added to the billing group\. | 
 
 Output
 
@@ -326,11 +337,11 @@ aws iot  add-thing-to-thing-group \
 
 |  Name |  Type |  Description | 
 | --- | --- | --- | 
-|  thingGroupName |  string  length\- max:128 min:1  pattern: \[a\-zA\-Z0\-9:\_\-\]\+  |  The name of the group to which you are adding a thing\. | 
-|  thingGroupArn |  string |  The ARN of the group to which you are adding a thing\. | 
-|  thingName |  string  length\- max:128 min:1  pattern: \[a\-zA\-Z0\-9:\_\-\]\+  |  The name of the thing to add to a group\. | 
-|  thingArn |  string |  The ARN of the thing to add to a group\. | 
-|  overrideDynamicGroups |  boolean |  Override dynamic thing groups with static thing groups when 10\-group limit is reached\. If a thing belongs to 10 thing groups, and one or more of those groups are dynamic thing groups, adding a thing to a static group removes the thing from the last dynamic group\.  | 
+|   `thingGroupName`  |  string  length\- max:128 min:1  pattern: \[a\-zA\-Z0\-9:\_\-\]\+  |  The name of the group to which you are adding a thing\. | 
+|   `thingGroupArn`  |  string |  The ARN of the group to which you are adding a thing\. | 
+|   `thingName`  |  string  length\- max:128 min:1  pattern: \[a\-zA\-Z0\-9:\_\-\]\+  |  The name of the thing to add to a group\. | 
+|   `thingArn`  |  string |  The ARN of the thing to add to a group\. | 
+|   `overrideDynamicGroups`  |  boolean |  Override dynamic thing groups with static thing groups when 10\-group limit is reached\. If a thing belongs to 10 thing groups, and one or more of those groups are dynamic thing groups, adding a thing to a static group removes the thing from the last dynamic group\.  | 
 
 Output
 
@@ -385,9 +396,9 @@ aws iot  associate-targets-with-job \
 
 |  Name |  Type |  Description | 
 | --- | --- | --- | 
-|  targets |  list  member: TargetArn  |  A list of thing group ARNs that define the targets of the job\. | 
-|  jobId |  string  length\- max:64 min:1  pattern: \[a\-zA\-Z0\-9\_\-\]\+  |  The unique identifier you assigned to this job when it was created\. | 
-|  comment |  string  length\- max:2028  pattern: \[^\\\\p\{C\}\]\+  |  An optional comment string describing why the job was associated with the targets\. | 
+|   `targets`  |  list  member: TargetArn  |  A list of thing group ARNs that define the targets of the job\. | 
+|   `jobId`  |  string  length\- max:64 min:1  pattern: \[a\-zA\-Z0\-9\_\-\]\+  |  The unique identifier you assigned to this job when it was created\. | 
+|   `comment`  |  string  length\- max:2028  pattern: \[^\\\\p\{C\}\]\+  |  An optional comment string describing why the job was associated with the targets\. | 
 
 Output
 
@@ -404,9 +415,9 @@ Output
 
 |  Name |  Type |  Description | 
 | --- | --- | --- | 
-|  jobArn |  string |  An ARN identifying the job\. | 
-|  jobId |  string  length\- max:64 min:1  pattern: \[a\-zA\-Z0\-9\_\-\]\+  |  The unique identifier you assigned to this job when it was created\. | 
-|  description |  string  length\- max:2028  pattern: \[^\\\\p\{C\}\]\+  |  A short text description of the job\. | 
+|   `jobArn`  |  string |  An ARN identifying the job\. | 
+|   `jobId`  |  string  length\- max:64 min:1  pattern: \[a\-zA\-Z0\-9\_\-\]\+  |  The unique identifier you assigned to this job when it was created\. | 
+|   `description`  |  string  length\- max:2028  pattern: \[^\\\\p\{C\}\]\+  |  A short text description of the job\. | 
 
  **Errors**
 
@@ -453,8 +464,8 @@ aws iot  attach-policy \
 
 |  Name |  Type |  Description | 
 | --- | --- | --- | 
-|  policyName |  string  length\- max:128 min:1  pattern: \[w\+=,\.@\-\]\+  |  The name of the policy to attach\. | 
-|  target |  string |  The [identity](https://docs.aws.amazon.com/iot/latest/developerguide/iot-security-identity.html) to which the policy is attached\. | 
+|   `policyName`  |  string  length\- max:128 min:1  pattern: \[w\+=,\.@\-\]\+  |  The name of the policy to attach\. | 
+|   `target`  |  string |  The [identity](https://docs.aws.amazon.com/iot/latest/developerguide/authentication.html) to which the policy is attached\. | 
 
 Output
 
@@ -513,8 +524,8 @@ aws iot  attach-principal-policy \
 
 |  Name |  Type |  Description | 
 | --- | --- | --- | 
-|  policyName |  string  length\- max:128 min:1  pattern: \[w\+=,\.@\-\]\+  |  The policy name\. | 
-|  principal |  string |  The principal, which can be a certificate ARN \(as returned from the CreateCertificate operation\) or an Amazon Cognito ID\.  | 
+|   `policyName`  |  string  length\- max:128 min:1  pattern: \[w\+=,\.@\-\]\+  |  The policy name\. | 
+|   `principal`  |  string |  The principal, which can be a certificate ARN \(as returned from the CreateCertificate operation\) or an Amazon Cognito ID\.  | 
 
 Output
 
@@ -545,7 +556,7 @@ A limit has been exceeded\.
 
 ## AttachSecurityProfile<a name="api-iot-AttachSecurityProfile"></a>
 
-Associates a Device Defender security profile with a thing group or with this account\. Each thing group or account can have up to five security profiles associated with it\.
+Associates a Device Defender security profile with a thing group or this account\. Each thing group or account can have up to five security profiles associated with it\.
 
  **Synopsis**
 
@@ -571,8 +582,8 @@ aws iot  attach-security-profile \
 
 |  Name |  Type |  Description | 
 | --- | --- | --- | 
-|  securityProfileName |  string  length\- max:128 min:1  pattern: \[a\-zA\-Z0\-9:\_\-\]\+  |  The security profile that is attached\. | 
-|  securityProfileTargetArn |  string |  The ARN of the target \(thing group\) to which the security profile is attached\. | 
+|   `securityProfileName`  |  string  length\- max:128 min:1  pattern: \[a\-zA\-Z0\-9:\_\-\]\+  |  The security profile that is attached\. | 
+|   `securityProfileTargetArn`  |  string |  The ARN of the target \(thing group\) to which the security profile is attached\. | 
 
 Output
 
@@ -626,8 +637,8 @@ aws iot  attach-thing-principal \
 
 |  Name |  Type |  Description | 
 | --- | --- | --- | 
-|  thingName |  string  length\- max:128 min:1  pattern: \[a\-zA\-Z0\-9:\_\-\]\+  |  The name of the thing\. | 
-|  principal |  string |  The principal, such as a certificate or other credential\. | 
+|   `thingName`  |  string  length\- max:128 min:1  pattern: \[a\-zA\-Z0\-9:\_\-\]\+  |  The name of the thing\. | 
+|   `principal`  |  string |  The principal, such as a certificate or other credential\. | 
 
 Output
 
@@ -649,6 +660,52 @@ You are not authorized to perform this operation\.
 
 `ServiceUnavailableException`  
 The service is temporarily unavailable\.
+
+`InternalFailureException`  
+An unexpected error has occurred\.
+
+## CancelAuditMitigationActionsTask<a name="api-iot-CancelAuditMitigationActionsTask"></a>
+
+Cancels a mitigation action task that is in progress\. If the task is not in progress, an InvalidRequestException occurs\.
+
+ **Synopsis**
+
+```
+aws iot  cancel-audit-mitigation-actions-task \
+    --task-id <value>  \
+    [--cli-input-json <value>] \
+    [--generate-cli-skeleton]
+```
+
+ `cli-input-json` format
+
+```
+{
+  "taskId": "string"
+}
+```
+
+
+**`cli-input-json` fields**  
+
+|  Name |  Type |  Description | 
+| --- | --- | --- | 
+|   `taskId`  |  string  length\- max:128 min:1  pattern: \[a\-zA\-Z0\-9\_\-\]\+  |  The unique identifier for the task that you want to cancel\.  | 
+
+Output
+
+None
+
+ **Errors**
+
+`ResourceNotFoundException`  
+The specified resource does not exist\.
+
+`InvalidRequestException`  
+The contents of the request were invalid\.
+
+`ThrottlingException`  
+The rate exceeds the limit\.
 
 `InternalFailureException`  
 An unexpected error has occurred\.
@@ -679,7 +736,7 @@ aws iot  cancel-audit-task \
 
 |  Name |  Type |  Description | 
 | --- | --- | --- | 
-|  taskId |  string  length\- max:40 min:1  pattern: \[a\-zA\-Z0\-9\-\]\+  |  The ID of the audit you want to cancel\. You can only cancel an audit that is "IN\_PROGRESS"\.  | 
+|   `taskId`  |  string  length\- max:40 min:1  pattern: \[a\-zA\-Z0\-9\-\]\+  |  The ID of the audit you want to cancel\. You can only cancel an audit that is "IN\_PROGRESS"\.  | 
 
 Output
 
@@ -729,7 +786,7 @@ aws iot  cancel-certificate-transfer \
 
 |  Name |  Type |  Description | 
 | --- | --- | --- | 
-|  certificateId |  string  length\- max:64 min:64  pattern: \(0x\)?\[a\-fA\-F0\-9\]\+  |  The ID of the certificate\. \(The last part of the certificate ARN contains the certificate ID\.\) | 
+|   `certificateId`  |  string  length\- max:64 min:64  pattern: \(0x\)?\[a\-fA\-F0\-9\]\+  |  The ID of the certificate\. \(The last part of the certificate ARN contains the certificate ID\.\) | 
 
 Output
 
@@ -790,10 +847,10 @@ aws iot  cancel-job \
 
 |  Name |  Type |  Description | 
 | --- | --- | --- | 
-|  jobId |  string  length\- max:64 min:1  pattern: \[a\-zA\-Z0\-9\_\-\]\+  |  The unique identifier you assigned to this job when it was created\. | 
-|  reasonCode |  string  length\- max:128  pattern: \[\\\\p\{Upper\}p *Digit*\_\]\+  |  \(Optional\)A reason code string that explains why the job was canceled\. | 
-|  comment |  string  length\- max:2028  pattern: \[^\\\\p\{C\}\]\+  |  An optional comment string describing why the job was canceled\. | 
-|  force |  boolean |  \(Optional\) If `true` job executions with status "IN\_PROGRESS" and "QUEUED" are canceled, otherwise only job executions with status "QUEUED" are canceled\. The default is `false`\. Canceling a job which is "IN\_PROGRESS", will cause a device which is executing the job to be unable to update the job execution status\. Use caution and ensure that each device executing a job which is canceled is able to recover to a valid state\.  | 
+|   `jobId`  |  string  length\- max:64 min:1  pattern: \[a\-zA\-Z0\-9\_\-\]\+  |  The unique identifier you assigned to this job when it was created\. | 
+|   `reasonCode`  |  string  length\- max:128  pattern: \[\\\\p\{Upper\}p *Digit*\_\]\+  |  \(Optional\)A reason code string that explains why the job was canceled\. | 
+|   `comment`  |  string  length\- max:2028  pattern: \[^\\\\p\{C\}\]\+  |  An optional comment string describing why the job was canceled\. | 
+|   `force`  |  boolean |  \(Optional\) If `true` job executions with status "IN\_PROGRESS" and "QUEUED" are canceled, otherwise only job executions with status "QUEUED" are canceled\. The default is `false`\. Canceling a job which is "IN\_PROGRESS", will cause a device which is executing the job to be unable to update the job execution status\. Use caution and ensure that each device executing a job which is canceled is able to recover to a valid state\.  | 
 
 Output
 
@@ -810,9 +867,9 @@ Output
 
 |  Name |  Type |  Description | 
 | --- | --- | --- | 
-|  jobArn |  string |  The job ARN\. | 
-|  jobId |  string  length\- max:64 min:1  pattern: \[a\-zA\-Z0\-9\_\-\]\+  |  The unique identifier you assigned to this job when it was created\. | 
-|  description |  string  length\- max:2028  pattern: \[^\\\\p\{C\}\]\+  |  A short text description of the job\. | 
+|   `jobArn`  |  string |  The job ARN\. | 
+|   `jobId`  |  string  length\- max:64 min:1  pattern: \[a\-zA\-Z0\-9\_\-\]\+  |  The unique identifier you assigned to this job when it was created\. | 
+|   `description`  |  string  length\- max:2028  pattern: \[^\\\\p\{C\}\]\+  |  A short text description of the job\. | 
 
  **Errors**
 
@@ -864,11 +921,11 @@ aws iot  cancel-job-execution \
 
 |  Name |  Type |  Description | 
 | --- | --- | --- | 
-|  jobId |  string  length\- max:64 min:1  pattern: \[a\-zA\-Z0\-9\_\-\]\+  |  The ID of the job to be canceled\. | 
-|  thingName |  string  length\- max:128 min:1  pattern: \[a\-zA\-Z0\-9:\_\-\]\+  |  The name of the thing whose execution of the job will be canceled\. | 
-|  force |  boolean |  \(Optional\) If `true` the job execution will be canceled if it has status IN\_PROGRESS or QUEUED, otherwise the job execution will be canceled only if it has status QUEUED\. If you attempt to cancel a job execution that is IN\_PROGRESS, and you do not set `force` to `true`, then an `InvalidStateTransitionException` will be thrown\. The default is `false`\. Canceling a job execution which is "IN\_PROGRESS", will cause the device to be unable to update the job execution status\. Use caution and ensure that the device is able to recover to a valid state\.  | 
-|  expectedVersion |  long |  \(Optional\) The expected current version of the job execution\. Each time you update the job execution, its version is incremented\. If the version of the job execution stored in Jobs does not match, the update is rejected with a VersionMismatch error, and an ErrorResponse that contains the current job execution status data is returned\. \(This makes it unnecessary to perform a separate DescribeJobExecution request in order to obtain the job execution status data\.\)  | 
-|  statusDetails |  map |  A collection of name/value pairs that describe the status of the job execution\. If not specified, the statusDetails are unchanged\. You can specify at most 10 name/value pairs\.  | 
+|   `jobId`  |  string  length\- max:64 min:1  pattern: \[a\-zA\-Z0\-9\_\-\]\+  |  The ID of the job to be canceled\. | 
+|   `thingName`  |  string  length\- max:128 min:1  pattern: \[a\-zA\-Z0\-9:\_\-\]\+  |  The name of the thing whose execution of the job will be canceled\. | 
+|   `force`  |  boolean |  \(Optional\) If `true` the job execution will be canceled if it has status IN\_PROGRESS or QUEUED, otherwise the job execution will be canceled only if it has status QUEUED\. If you attempt to cancel a job execution that is IN\_PROGRESS, and you do not set `force` to `true`, then an `InvalidStateTransitionException` will be thrown\. The default is `false`\. Canceling a job execution which is "IN\_PROGRESS", will cause the device to be unable to update the job execution status\. Use caution and ensure that the device is able to recover to a valid state\.  | 
+|   `expectedVersion`  |  long |  \(Optional\) The expected current version of the job execution\. Each time you update the job execution, its version is incremented\. If the version of the job execution stored in Jobs does not match, the update is rejected with a VersionMismatch error, and an ErrorResponse that contains the current job execution status data is returned\. \(This makes it unnecessary to perform a separate DescribeJobExecution request in order to obtain the job execution status data\.\)  | 
+|   `statusDetails`  |  map |  A collection of name/value pairs that describe the status of the job execution\. If not specified, the statusDetails are unchanged\. You can specify at most 10 name/value pairs\.  | 
 
 Output
 
@@ -973,11 +1030,11 @@ aws iot  create-authorizer \
 
 |  Name |  Type |  Description | 
 | --- | --- | --- | 
-|  authorizerName |  string  length\- max:128 min:1  pattern: \[w=,@\-\]\+  |  The authorizer name\. | 
-|  authorizerFunctionArn |  string |  The ARN of the authorizer's Lambda function\. | 
-|  tokenKeyName |  string  length\- max:128 min:1  pattern: \[a\-zA\-Z0\-9\_\-\]\+  |  The name of the token key used to extract the token from the HTTP headers\. | 
-|  tokenSigningPublicKeys |  map |  The public keys used to verify the digital signature returned by your custom authentication service\.  | 
-|  status |  string |  The status of the create authorizer request\.  enum: ACTIVE \| INACTIVE  | 
+|   `authorizerName`  |  string  length\- max:128 min:1  pattern: \[w=,@\-\]\+  |  The authorizer name\. | 
+|   `authorizerFunctionArn`  |  string |  The ARN of the authorizer's Lambda function\. | 
+|   `tokenKeyName`  |  string  length\- max:128 min:1  pattern: \[a\-zA\-Z0\-9\_\-\]\+  |  The name of the token key used to extract the token from the HTTP headers\. | 
+|   `tokenSigningPublicKeys`  |  map |  The public keys used to verify the digital signature returned by your custom authentication service\.  | 
+|   `status`  |  string |  The status of the create authorizer request\.  enum: ACTIVE \| INACTIVE  | 
 
 Output
 
@@ -993,8 +1050,8 @@ Output
 
 |  Name |  Type |  Description | 
 | --- | --- | --- | 
-|  authorizerName |  string  length\- max:128 min:1  pattern: \[w=,@\-\]\+  |  The authorizer's name\. | 
-|  authorizerArn |  string |  The authorizer ARN\. | 
+|   `authorizerName`  |  string  length\- max:128 min:1  pattern: \[w=,@\-\]\+  |  The authorizer's name\. | 
+|   `authorizerArn`  |  string |  The authorizer ARN\. | 
 
  **Errors**
 
@@ -1056,12 +1113,12 @@ aws iot  create-billing-group \
 
 |  Name |  Type |  Description | 
 | --- | --- | --- | 
-|  billingGroupName |  string  length\- max:128 min:1  pattern: \[a\-zA\-Z0\-9:\_\-\]\+  |  The name you wish to give to the billing group\. | 
-|  billingGroupProperties |  BillingGroupProperties |  The properties of the billing group\. | 
-|  billingGroupDescription |  string  length\- max:2028  pattern: \[\\\\p\{Graph\} \]\*  |  The description of the billing group\. | 
-|  tags |  list  member: Tag  java class: java\.util\.List  |  Metadata which can be used to manage the billing group\. | 
-|  Key |  string |  The tag's key\. | 
-|  Value |  string |  The tag's value\. | 
+|   `billingGroupName`  |  string  length\- max:128 min:1  pattern: \[a\-zA\-Z0\-9:\_\-\]\+  |  The name you wish to give to the billing group\. | 
+|   `billingGroupProperties`  |  BillingGroupProperties |  The properties of the billing group\. | 
+|   `billingGroupDescription`  |  string  length\- max:2028  pattern: \[\\\\p\{Graph\} \]\*  |  The description of the billing group\. | 
+|   `tags`  |  list  member: Tag  java class: java\.util\.List  |  Metadata which can be used to manage the billing group\. | 
+|   `Key`  |  string |  The tag's key\. | 
+|   `Value`  |  string |  The tag's value\. | 
 
 Output
 
@@ -1078,9 +1135,9 @@ Output
 
 |  Name |  Type |  Description | 
 | --- | --- | --- | 
-|  billingGroupName |  string  length\- max:128 min:1  pattern: \[a\-zA\-Z0\-9:\_\-\]\+  |  The name you gave to the billing group\. | 
-|  billingGroupArn |  string |  The ARN of the billing group\. | 
-|  billingGroupId |  string  length\- max:128 min:1  pattern: \[a\-zA\-Z0\-9\-\]\+  |  The ID of the billing group\. | 
+|   `billingGroupName`  |  string  length\- max:128 min:1  pattern: \[a\-zA\-Z0\-9:\_\-\]\+  |  The name you gave to the billing group\. | 
+|   `billingGroupArn`  |  string |  The ARN of the billing group\. | 
+|   `billingGroupId`  |  string  length\- max:128 min:1  pattern: \[a\-zA\-Z0\-9\-\]\+  |  The ID of the billing group\. | 
 
  **Errors**
 
@@ -1150,8 +1207,8 @@ aws iot  create-certificate-from-csr \
 
 |  Name |  Type |  Description | 
 | --- | --- | --- | 
-|  certificateSigningRequest |  string  length\- min:1  |  The certificate signing request \(CSR\)\. | 
-|  setAsActive |  boolean |  Specifies whether the certificate is active\. | 
+|   `certificateSigningRequest`  |  string  length\- min:1  |  The certificate signing request \(CSR\)\. | 
+|   `setAsActive`  |  boolean |  Specifies whether the certificate is active\. | 
 
 Output
 
@@ -1168,9 +1225,9 @@ Output
 
 |  Name |  Type |  Description | 
 | --- | --- | --- | 
-|  certificateArn |  string |  The Amazon Resource Name \(ARN\) of the certificate\. You can use the ARN as a principal for policy operations\.  | 
-|  certificateId |  string  length\- max:64 min:64  pattern: \(0x\)?\[a\-fA\-F0\-9\]\+  |  The ID of the certificate\. Certificate management operations only take a certificateId\. | 
-|  certificatePem |  string  length\- max:65536 min:1  |  The certificate data, in PEM format\. | 
+|   `certificateArn`  |  string |  The Amazon Resource Name \(ARN\) of the certificate\. You can use the ARN as a principal for policy operations\.  | 
+|   `certificateId`  |  string  length\- max:64 min:64  pattern: \(0x\)?\[a\-fA\-F0\-9\]\+  |  The ID of the certificate\. Certificate management operations only take a certificateId\. | 
+|   `certificatePem`  |  string  length\- max:65536 min:1  |  The certificate data, in PEM format\. | 
 
  **Errors**
 
@@ -1238,18 +1295,18 @@ aws iot  create-dynamic-thing-group \
 
 |  Name |  Type |  Description | 
 | --- | --- | --- | 
-|  thingGroupName |  string  length\- max:128 min:1  pattern: \[a\-zA\-Z0\-9:\_\-\]\+  |  The dynamic thing group name to create\. | 
-|  thingGroupProperties |  ThingGroupProperties |  The dynamic thing group properties\. | 
-|  thingGroupDescription |  string  length\- max:2028  pattern: \[\\\\p\{Graph\} \]\*  |  The thing group description\. | 
-|  attributePayload |  AttributePayload |  The thing group attributes in JSON format\. | 
-|  attributes |  map |  A JSON string containing up to three key\-value pair in JSON format\. For example:  ` \"attributes\":{\"string1\":\"string2\"}`   | 
-|  merge |  boolean |  Specifies whether the list of attributes provided in the `AttributePayload` is merged with the attributes stored in the registry, instead of overwriting them\. To remove an attribute, call `UpdateThing` with an empty attribute value\.  The `merge` attribute is only valid when calling `UpdateThing`\.   | 
-|  indexName |  string  length\- max:128 min:1  pattern: \[a\-zA\-Z0\-9:\_\-\]\+  |  The dynamic thing group index name\. Currently one index is supported: "AWS\_Things"\.  | 
-|  queryString |  string  length\- min:1  |  The dynamic thing group search query string\. See [Query Syntax](https://docs.aws.amazon.com/iot/latest/developerguide/query-syntax.html) for information about query string syntax\.  | 
-|  queryVersion |  string |  The dynamic thing group query version\. Currently one query version is supported: "2017\-09\-30"\. If not specified, the query version defaults to this value\.  | 
-|  tags |  list  member: Tag  java class: java\.util\.List  |  Metadata which can be used to manage the dynamic thing group\. | 
-|  Key |  string |  The tag's key\. | 
-|  Value |  string |  The tag's value\. | 
+|   `thingGroupName`  |  string  length\- max:128 min:1  pattern: \[a\-zA\-Z0\-9:\_\-\]\+  |  The dynamic thing group name to create\. | 
+|   `thingGroupProperties`  |  ThingGroupProperties |  The dynamic thing group properties\. | 
+|   `thingGroupDescription`  |  string  length\- max:2028  pattern: \[\\\\p\{Graph\} \]\*  |  The thing group description\. | 
+|   `attributePayload`  |  AttributePayload |  The thing group attributes in JSON format\. | 
+|   `attributes`  |  map |  A JSON string containing up to three key\-value pair in JSON format\. For example:  ` \"attributes\":{\"string1\":\"string2\"}`   | 
+|   `merge`  |  boolean |  Specifies whether the list of attributes provided in the `AttributePayload` is merged with the attributes stored in the registry, instead of overwriting them\. To remove an attribute, call `UpdateThing` with an empty attribute value\.  The `merge` attribute is only valid when calling `UpdateThing` or `UpdateThingGroup`\.   | 
+|   `indexName`  |  string  length\- max:128 min:1  pattern: \[a\-zA\-Z0\-9:\_\-\]\+  |  The dynamic thing group index name\. Currently one index is supported: "AWS\_Things"\.  | 
+|   `queryString`  |  string  length\- min:1  |  The dynamic thing group search query string\. See [Query Syntax](https://docs.aws.amazon.com/iot/latest/developerguide/query-syntax.html) for information about query string syntax\.  | 
+|   `queryVersion`  |  string |  The dynamic thing group query version\. Currently one query version is supported: "2017\-09\-30"\. If not specified, the query version defaults to this value\.  | 
+|   `tags`  |  list  member: Tag  java class: java\.util\.List  |  Metadata which can be used to manage the dynamic thing group\. | 
+|   `Key`  |  string |  The tag's key\. | 
+|   `Value`  |  string |  The tag's value\. | 
 
 Output
 
@@ -1269,12 +1326,12 @@ Output
 
 |  Name |  Type |  Description | 
 | --- | --- | --- | 
-|  thingGroupName |  string  length\- max:128 min:1  pattern: \[a\-zA\-Z0\-9:\_\-\]\+  |  The dynamic thing group name\. | 
-|  thingGroupArn |  string |  The dynamic thing group ARN\. | 
-|  thingGroupId |  string  length\- max:128 min:1  pattern: \[a\-zA\-Z0\-9\-\]\+  |  The dynamic thing group ID\. | 
-|  indexName |  string  length\- max:128 min:1  pattern: \[a\-zA\-Z0\-9:\_\-\]\+  |  The dynamic thing group index name\. | 
-|  queryString |  string  length\- min:1  |  The dynamic thing group search query string\. | 
-|  queryVersion |  string |  The dynamic thing group query version\. | 
+|   `thingGroupName`  |  string  length\- max:128 min:1  pattern: \[a\-zA\-Z0\-9:\_\-\]\+  |  The dynamic thing group name\. | 
+|   `thingGroupArn`  |  string |  The dynamic thing group ARN\. | 
+|   `thingGroupId`  |  string  length\- max:128 min:1  pattern: \[a\-zA\-Z0\-9\-\]\+  |  The dynamic thing group ID\. | 
+|   `indexName`  |  string  length\- max:128 min:1  pattern: \[a\-zA\-Z0\-9:\_\-\]\+  |  The dynamic thing group index name\. | 
+|   `queryString`  |  string  length\- min:1  |  The dynamic thing group search query string\. | 
+|   `queryVersion`  |  string |  The dynamic thing group query version\. | 
 
  **Errors**
 
@@ -1376,32 +1433,32 @@ aws iot  create-job \
 
 |  Name |  Type |  Description | 
 | --- | --- | --- | 
-|  jobId |  string  length\- max:64 min:1  pattern: \[a\-zA\-Z0\-9\_\-\]\+  |  A job identifier which must be unique for your AWS account\. We recommend using a UUID\. Alpha\-numeric characters, "\-" and "\_" are valid for use here\.  | 
-|  targets |  list  member: TargetArn  |  A list of things and thing groups to which the job should be sent\. | 
-|  documentSource |  string  length\- max:1350 min:1  |  An S3 link to the job document\. | 
-|  document |  string  length\- max:32768  |  The job document\.  If the job document resides in an S3 bucket, you must use a placeholder link when specifying the document\. The placeholder link is of the following form: `$ aws:iot:s3-presigned-url:https://s3.amazonaws.com/bucket/key` where *bucket* is your bucket name and *key* is the object in the bucket to which you are linking\.   | 
-|  description |  string  length\- max:2028  pattern: \[^\\\\p\{C\}\]\+  |  A short text description of the job\. | 
-|  presignedUrlConfig |  PresignedUrlConfig |  Configuration information for pre\-signed S3 URLs\. | 
-|  roleArn |  string  length\- max:2048 min:20  |  The ARN of an IAM role that grants grants permission to download files from the S3 bucket where the job data/updates are stored\. The role must also grant permission for IoT to download the files\.  | 
-|  expiresInSec |  long  range\- max:3600 min:60  |  How long \(in seconds\) pre\-signed URLs are valid\. Valid values are 60 \- 3600, the default value is 3600 seconds\. Pre\-signed URLs are generated when Jobs receives an MQTT request for the job document\.  | 
-|  targetSelection |  string |  Specifies whether the job will continue to run \(CONTINUOUS\), or will be complete after all those things specified as targets have completed the job \(SNAPSHOT\)\. If continuous, the job may also be run on a thing when a change is detected in a target\. For example, a job will run on a thing when the thing is added to a target group, even after the job was completed by all things originally in the group\.  enum: CONTINUOUS \| SNAPSHOT  | 
-|  jobExecutionsRolloutConfig |  JobExecutionsRolloutConfig |  Allows you to create a staged rollout of the job\. | 
-|  maximumPerMinute |  integer  range\- min:1  |  The maximum number of things that will be notified of a pending job, per minute\. This parameter allows you to create a staged rollout\.  | 
-|  exponentialRate |  ExponentialRolloutRate |  The rate of increase for a job rollout\. This parameter allows you to define an exponential rate for a job rollout\.  | 
-|  baseRatePerMinute |  integer  range\- max:1000 min:1  |  The minimum number of things that will be notified of a pending job, per minute at the start of job rollout\. This parameter allows you to define the initial rate of rollout\.  | 
-|  rateIncreaseCriteria |  RateIncreaseCriteria |  The criteria to initiate the increase in rate of rollout for a job\. AWS IoT supports up to one digit after the decimal \(for example, 1\.5, but not 1\.55\)\.  | 
-|  numberOfNotifiedThings |  integer  range\- min:1  |  The threshold for number of notified things that will initiate the increase in rate of rollout\. | 
-|  numberOfSucceededThings |  integer  range\- min:1  |  The threshold for number of succeeded things that will initiate the increase in rate of rollout\. | 
-|  abortConfig |  AbortConfig |  Allows you to create criteria to abort a job\. | 
-|  criteriaList |  list  member: AbortCriteria  java class: java\.util\.List  |  The list of abort criteria to define rules to abort the job\. | 
-|  failureType |  string |  The type of job execution failure to define a rule to initiate a job abort\.  enum: FAILED \| REJECTED \| TIMED\_OUT \| ALL  | 
-|  action |  string |  The type of abort action to initiate a job abort\.  enum: CANCEL  | 
-|  minNumberOfExecutedThings |  integer  range\- min:1  |  Minimum number of executed things before evaluating an abort rule\. | 
-|  timeoutConfig |  TimeoutConfig |  Specifies the amount of time each device has to finish its execution of the job\. The timer is started when the job execution status is set to `IN_PROGRESS`\. If the job execution status is not set to another terminal state before the time expires, it will be automatically set to `TIMED_OUT`\.  | 
-|  inProgressTimeoutInMinutes |  long |  Specifies the amount of time, in minutes, this device has to finish execution of this job\. The timeout interval can be anywhere between 1 minute and 7 days \(1 to 10080 minutes\)\. The in progress timer can't be updated and will apply to all job executions for the job\. Whenever a job execution remains in the IN\_PROGRESS status for longer than this interval, the job execution will fail and switch to the terminal `TIMED_OUT` status\.  | 
-|  tags |  list  member: Tag  java class: java\.util\.List  |  Metadata which can be used to manage the job\. | 
-|  Key |  string |  The tag's key\. | 
-|  Value |  string |  The tag's value\. | 
+|   `jobId`  |  string  length\- max:64 min:1  pattern: \[a\-zA\-Z0\-9\_\-\]\+  |  A job identifier which must be unique for your AWS account\. We recommend using a UUID\. Alpha\-numeric characters, "\-" and "\_" are valid for use here\.  | 
+|   `targets`  |  list  member: TargetArn  |  A list of things and thing groups to which the job should be sent\. | 
+|   `documentSource`  |  string  length\- max:1350 min:1  |  An S3 link to the job document\. | 
+|   `document`  |  string  length\- max:32768  |  The job document\.  If the job document resides in an S3 bucket, you must use a placeholder link when specifying the document\. The placeholder link is of the following form: `$ aws:iot:s3-presigned-url:https://s3.amazonaws.com/bucket/key` where *bucket* is your bucket name and *key* is the object in the bucket to which you are linking\.   | 
+|   `description`  |  string  length\- max:2028  pattern: \[^\\\\p\{C\}\]\+  |  A short text description of the job\. | 
+|   `presignedUrlConfig`  |  PresignedUrlConfig |  Configuration information for pre\-signed S3 URLs\. | 
+|   `roleArn`  |  string  length\- max:2048 min:20  |  The ARN of an IAM role that grants grants permission to download files from the S3 bucket where the job data/updates are stored\. The role must also grant permission for IoT to download the files\.  | 
+|   `expiresInSec`  |  long  range\- max:3600 min:60  |  How long \(in seconds\) pre\-signed URLs are valid\. Valid values are 60 \- 3600, the default value is 3600 seconds\. Pre\-signed URLs are generated when Jobs receives an MQTT request for the job document\.  | 
+|   `targetSelection`  |  string |  Specifies whether the job will continue to run \(CONTINUOUS\), or will be complete after all those things specified as targets have completed the job \(SNAPSHOT\)\. If continuous, the job may also be run on a thing when a change is detected in a target\. For example, a job will run on a thing when the thing is added to a target group, even after the job was completed by all things originally in the group\.  enum: CONTINUOUS \| SNAPSHOT  | 
+|   `jobExecutionsRolloutConfig`  |  JobExecutionsRolloutConfig |  Allows you to create a staged rollout of the job\. | 
+|   `maximumPerMinute`  |  integer  range\- min:1  |  The maximum number of things that will be notified of a pending job, per minute\. This parameter allows you to create a staged rollout\.  | 
+|   `exponentialRate`  |  ExponentialRolloutRate |  The rate of increase for a job rollout\. This parameter allows you to define an exponential rate for a job rollout\.  | 
+|   `baseRatePerMinute`  |  integer  range\- max:1000 min:1  |  The minimum number of things that will be notified of a pending job, per minute at the start of job rollout\. This parameter allows you to define the initial rate of rollout\.  | 
+|   `rateIncreaseCriteria`  |  RateIncreaseCriteria |  The criteria to initiate the increase in rate of rollout for a job\. AWS IoT supports up to one digit after the decimal \(for example, 1\.5, but not 1\.55\)\.  | 
+|   `numberOfNotifiedThings`  |  integer  range\- min:1  |  The threshold for number of notified things that will initiate the increase in rate of rollout\. | 
+|   `numberOfSucceededThings`  |  integer  range\- min:1  |  The threshold for number of succeeded things that will initiate the increase in rate of rollout\. | 
+|   `abortConfig`  |  AbortConfig |  Allows you to create criteria to abort a job\. | 
+|   `criteriaList`  |  list  member: AbortCriteria  java class: java\.util\.List  |  The list of abort criteria to define rules to abort the job\. | 
+|   `failureType`  |  string |  The type of job execution failure to define a rule to initiate a job abort\.  enum: FAILED \| REJECTED \| TIMED\_OUT \| ALL  | 
+|   `action`  |  string |  The type of abort action to initiate a job abort\.  enum: CANCEL  | 
+|   `minNumberOfExecutedThings`  |  integer  range\- min:1  |  Minimum number of executed things before evaluating an abort rule\. | 
+|   `timeoutConfig`  |  TimeoutConfig |  Specifies the amount of time each device has to finish its execution of the job\. The timer is started when the job execution status is set to `IN_PROGRESS`\. If the job execution status is not set to another terminal state before the time expires, it will be automatically set to `TIMED_OUT`\.  | 
+|   `inProgressTimeoutInMinutes`  |  long |  Specifies the amount of time, in minutes, this device has to finish execution of this job\. The timeout interval can be anywhere between 1 minute and 7 days \(1 to 10080 minutes\)\. The in progress timer can't be updated and will apply to all job executions for the job\. Whenever a job execution remains in the IN\_PROGRESS status for longer than this interval, the job execution will fail and switch to the terminal `TIMED_OUT` status\.  | 
+|   `tags`  |  list  member: Tag  java class: java\.util\.List  |  Metadata which can be used to manage the job\. | 
+|   `Key`  |  string |  The tag's key\. | 
+|   `Value`  |  string |  The tag's value\. | 
 
 Output
 
@@ -1418,9 +1475,9 @@ Output
 
 |  Name |  Type |  Description | 
 | --- | --- | --- | 
-|  jobArn |  string |  The job ARN\. | 
-|  jobId |  string  length\- max:64 min:1  pattern: \[a\-zA\-Z0\-9\_\-\]\+  |  The unique identifier you assigned to this job\. | 
-|  description |  string  length\- max:2028  pattern: \[^\\\\p\{C\}\]\+  |  The job description\. | 
+|   `jobArn`  |  string |  The job ARN\. | 
+|   `jobId`  |  string  length\- max:64 min:1  pattern: \[a\-zA\-Z0\-9\_\-\]\+  |  The unique identifier you assigned to this job\. | 
+|   `description`  |  string  length\- max:2028  pattern: \[^\\\\p\{C\}\]\+  |  The job description\. | 
 
  **Errors**
 
@@ -1470,7 +1527,7 @@ aws iot  create-keys-and-certificate \
 
 |  Name |  Type |  Description | 
 | --- | --- | --- | 
-|  setAsActive |  boolean |  Specifies whether the certificate is active\. | 
+|   `setAsActive`  |  boolean |  Specifies whether the certificate is active\. | 
 
 Output
 
@@ -1491,12 +1548,12 @@ Output
 
 |  Name |  Type |  Description | 
 | --- | --- | --- | 
-|  certificateArn |  string |  The ARN of the certificate\. | 
-|  certificateId |  string  length\- max:64 min:64  pattern: \(0x\)?\[a\-fA\-F0\-9\]\+  |  The ID of the certificate\. AWS IoT issues a default subject name for the certificate \(for example, AWS IoT Certificate\)\.  | 
-|  certificatePem |  string  length\- max:65536 min:1  |  The certificate data, in PEM format\. | 
-|  keyPair |  KeyPair |  The generated key pair\. | 
-|  PublicKey |  string  length\- min:1  |  The public key\. | 
-|  PrivateKey |  string  length\- min:1  |  The private key\. | 
+|   `certificateArn`  |  string |  The ARN of the certificate\. | 
+|   `certificateId`  |  string  length\- max:64 min:64  pattern: \(0x\)?\[a\-fA\-F0\-9\]\+  |  The ID of the certificate\. AWS IoT issues a default subject name for the certificate \(for example, AWS IoT Certificate\)\.  | 
+|   `certificatePem`  |  string  length\- max:65536 min:1  |  The certificate data, in PEM format\. | 
+|   `keyPair`  |  KeyPair |  The generated key pair\. | 
+|   `PublicKey`  |  string  length\- min:1  |  The public key\. | 
+|   `PrivateKey`  |  string  length\- min:1  |  The private key\. | 
 
  **Errors**
 
@@ -1511,6 +1568,121 @@ You are not authorized to perform this operation\.
 
 `ServiceUnavailableException`  
 The service is temporarily unavailable\.
+
+`InternalFailureException`  
+An unexpected error has occurred\.
+
+## CreateMitigationAction<a name="api-iot-CreateMitigationAction"></a>
+
+Defines an action that can be applied to audit findings by using StartAuditMitigationActionsTask\. Each mitigation action can apply only one type of change\.
+
+ **Synopsis**
+
+```
+aws iot  create-mitigation-action \
+    --action-name <value> \
+    --role-arn <value> \
+    --action-params <value> \
+    [--tags <value>]  \
+    [--cli-input-json <value>] \
+    [--generate-cli-skeleton]
+```
+
+ `cli-input-json` format
+
+```
+{
+  "actionName": "string",
+  "roleArn": "string",
+  "actionParams": {
+    "updateDeviceCertificateParams": {
+      "action": "string"
+    },
+    "updateCACertificateParams": {
+      "action": "string"
+    },
+    "addThingsToThingGroupParams": {
+      "thingGroupNames": [
+        "string"
+      ],
+      "overrideDynamicGroups": "boolean"
+    },
+    "replaceDefaultPolicyVersionParams": {
+      "templateName": "string"
+    },
+    "enableIoTLoggingParams": {
+      "roleArnForLogging": "string",
+      "logLevel": "string"
+    },
+    "publishFindingToSnsParams": {
+      "topicArn": "string"
+    }
+  },
+  "tags": [
+    {
+      "Key": "string",
+      "Value": "string"
+    }
+  ]
+}
+```
+
+
+**`cli-input-json` fields**  
+
+|  Name |  Type |  Description | 
+| --- | --- | --- | 
+|   `actionName`  |  string  length\- max:128  pattern: \[a\-zA\-Z0\-9\_\-\]\+  |  A friendly name for the action\. Choose a friendly name that accurately describes the action \(for example, `EnableLoggingAction`\)\. | 
+|   `roleArn`  |  string  length\- max:2048 min:20  |  The ARN of the IAM role that is used to apply the mitigation action\. | 
+|   `actionParams`  |  MitigationActionParams |  Defines the type of action and the parameters for that action\. | 
+|   `updateDeviceCertificateParams`  |  UpdateDeviceCertificateParams |  Parameters to define a mitigation action that changes the state of the device certificate to inactive\. | 
+|   `action`  |  string |  The action that you want to apply to the device cerrtificate\. The only supported value is `DEACTIVATE`\.  enum: DEACTIVATE  | 
+|   `updateCACertificateParams`  |  UpdateCACertificateParams |  Parameters to define a mitigation action that changes the state of the CA certificate to inactive\. | 
+|   `action`  |  string |  The action that you want to apply to the CA cerrtificate\. The only supported value is `DEACTIVATE`\.  enum: DEACTIVATE  | 
+|   `addThingsToThingGroupParams`  |  AddThingsToThingGroupParams |  Parameters to define a mitigation action that moves devices associated with a certificate to one or more specified thing groups, typically for quarantine\. | 
+|   `thingGroupNames`  |  list  member: ThingGroupName  |  The list of groups to which you want to add the things that triggered the mitigation action\. You can add a thing to a maximum of 10 groups, but you cannot add a thing to more than one group in the same hierarchy\. | 
+|   `overrideDynamicGroups`  |  boolean |  Specifies if this mitigation action can move the things that triggered the mitigation action even if they are part of one or more dynamic things groups\. | 
+|   `replaceDefaultPolicyVersionParams`  |  ReplaceDefaultPolicyVersionParams |  Parameters to define a mitigation action that adds a blank policy to restrict permissions\. | 
+|   `templateName`  |  string |  The name of the template to be applied\. The only supported value is `BLANK_POLICY`\.  enum: BLANK\_POLICY  | 
+|   `enableIoTLoggingParams`  |  EnableIoTLoggingParams |  Parameters to define a mitigation action that enables AWS IoT logging at a specified level of detail\. | 
+|   `roleArnForLogging`  |  string  length\- max:2048 min:20  |  The ARN of the IAM role used for logging\. | 
+|   `logLevel`  |  string |  Specifies the types of information to be logged\.  enum: DEBUG \| INFO \| ERROR \| WARN \| DISABLED  | 
+|   `publishFindingToSnsParams`  |  PublishFindingToSnsParams |  Parameters to define a mitigation action that publishes findings to Amazon SNS\. You can implement your own custom actions in response to the Amazon SNS messages\. | 
+|   `topicArn`  |  string  length\- max:350  |  The ARN of the topic to which you want to publish the findings\. | 
+|   `tags`  |  list  member: Tag  java class: java\.util\.List  |  Metadata that can be used to manage the mitigation action\. | 
+|   `Key`  |  string |  The tag's key\. | 
+|   `Value`  |  string |  The tag's value\. | 
+
+Output
+
+```
+{
+  "actionArn": "string",
+  "actionId": "string"
+}
+```
+
+
+**CLI output fields**  
+
+|  Name |  Type |  Description | 
+| --- | --- | --- | 
+|   `actionArn`  |  string |  The ARN for the new mitigation action\. | 
+|   `actionId`  |  string |  A unique identifier for the new mitigation action\. | 
+
+ **Errors**
+
+`InvalidRequestException`  
+The contents of the request were invalid\.
+
+`ResourceAlreadyExistsException`  
+The resource already exists\.
+
+`LimitExceededException`  
+A limit has been exceeded\.
+
+`ThrottlingException`  
+The rate exceeds the limit\.
 
 `InternalFailureException`  
 An unexpected error has occurred\.
@@ -1615,49 +1787,49 @@ aws iot  create-ota-update \
 
 |  Name |  Type |  Description | 
 | --- | --- | --- | 
-|  otaUpdateId |  string  length\- max:128 min:1  pattern: \[a\-zA\-Z0\-9\_\-\]\+  |  The ID of the OTA update to be created\. | 
-|  description |  string  length\- max:2028  pattern: \[^\\\\p\{C\}\]\+  |  The description of the OTA update\. | 
-|  targets |  list  member: Target  |  The targeted devices to receive OTA updates\. | 
-|  targetSelection |  string |  Specifies whether the update will continue to run \(CONTINUOUS\), or will be complete after all the things specified as targets have completed the update \(SNAPSHOT\)\. If continuous, the update may also be run on a thing when a change is detected in a target\. For example, an update will run on a thing when the thing is added to a target group, even after the update was completed by all things originally in the group\. Valid values: CONTINUOUS \| SNAPSHOT\.  enum: CONTINUOUS \| SNAPSHOT  | 
-|  awsJobExecutionsRolloutConfig |  AwsJobExecutionsRolloutConfig |  Configuration for the rollout of OTA updates\. | 
-|  maximumPerMinute |  integer  range\- max:1000 min:1  |  The maximum number of OTA update job executions started per minute\. | 
-|  files |  list  member: OTAUpdateFile  |  The files to be streamed by the OTA update\. | 
-|  fileName |  string |  The name of the file\. | 
-|  fileVersion |  string |  The file version\. | 
-|  fileLocation |  FileLocation |  The location of the updated firmware\. | 
-|  stream |  Stream |  The stream that contains the OTA update\. | 
-|  streamId |  string  length\- max:128 min:1  pattern: \[a\-zA\-Z0\-9\_\-\]\+  |  The stream ID\. | 
-|  fileId |  integer  range\- max:255 min:0  |  The ID of a file associated with a stream\. | 
-|  s3Location |  S3Location |  The location of the updated firmware in S3\. | 
-|  bucket |  string  length\- min:1  |  The S3 bucket\. | 
-|  key |  string  length\- min:1  |  The S3 key\. | 
-|  version |  string |  The S3 bucket version\. | 
-|  codeSigning |  CodeSigning |  The code signing method of the file\. | 
-|  awsSignerJobId |  string |  The ID of the AWSSignerJob which was created to sign the file\. | 
-|  startSigningJobParameter |  StartSigningJobParameter |  Describes the code\-signing job\. | 
-|  signingProfileParameter |  SigningProfileParameter |  Describes the code\-signing profile\. | 
-|  certificateArn |  string |  Certificate ARN\. | 
-|  platform |  string |  The hardware platform of your device\. | 
-|  certificatePathOnDevice |  string |  The location of the code\-signing certificate on your device\. | 
-|  signingProfileName |  string |  The code\-signing profile name\. | 
-|  destination |  Destination |  The location to write the code\-signed file\. | 
-|  s3Destination |  S3Destination |  Describes the location in S3 of the updated firmware\. | 
-|  bucket |  string  length\- min:1  |  The S3 bucket that contains the updated firmware\. | 
-|  prefix |  string |  The S3 prefix\. | 
-|  customCodeSigning |  CustomCodeSigning |  A custom method for code signing a file\. | 
-|  signature |  CodeSigningSignature |  The signature for the file\. | 
-|  inlineDocument |  blob |  A base64 encoded binary representation of the code signing signature\. | 
-|  certificateChain |  CodeSigningCertificateChain |  The certificate chain\. | 
-|  certificateName |  string |  The name of the certificate\. | 
-|  inlineDocument |  string |  A base64 encoded binary representation of the code signing certificate chain\. | 
-|  hashAlgorithm |  string |  The hash algorithm used to code sign the file\. | 
-|  signatureAlgorithm |  string |  The signature algorithm used to code sign the file\. | 
-|  attributes |  map |  A list of name/attribute pairs\. | 
-|  roleArn |  string  length\- max:2048 min:20  |  The IAM role that allows access to the AWS IoT Jobs service\. | 
-|  additionalParameters |  map |  A list of additional OTA update parameters which are name\-value pairs\. | 
-|  tags |  list  member: Tag  java class: java\.util\.List  |  Metadata which can be used to manage updates\. | 
-|  Key |  string |  The tag's key\. | 
-|  Value |  string |  The tag's value\. | 
+|   `otaUpdateId`  |  string  length\- max:128 min:1  pattern: \[a\-zA\-Z0\-9\_\-\]\+  |  The ID of the OTA update to be created\. | 
+|   `description`  |  string  length\- max:2028  pattern: \[^\\\\p\{C\}\]\+  |  The description of the OTA update\. | 
+|   `targets`  |  list  member: Target  |  The targeted devices to receive OTA updates\. | 
+|   `targetSelection`  |  string |  Specifies whether the update will continue to run \(CONTINUOUS\), or will be complete after all the things specified as targets have completed the update \(SNAPSHOT\)\. If continuous, the update may also be run on a thing when a change is detected in a target\. For example, an update will run on a thing when the thing is added to a target group, even after the update was completed by all things originally in the group\. Valid values: CONTINUOUS \| SNAPSHOT\.  enum: CONTINUOUS \| SNAPSHOT  | 
+|   `awsJobExecutionsRolloutConfig`  |  AwsJobExecutionsRolloutConfig |  Configuration for the rollout of OTA updates\. | 
+|   `maximumPerMinute`  |  integer  range\- max:1000 min:1  |  The maximum number of OTA update job executions started per minute\. | 
+|   `files`  |  list  member: OTAUpdateFile  |  The files to be streamed by the OTA update\. | 
+|   `fileName`  |  string |  The name of the file\. | 
+|   `fileVersion`  |  string |  The file version\. | 
+|   `fileLocation`  |  FileLocation |  The location of the updated firmware\. | 
+|   `stream`  |  Stream |  The stream that contains the OTA update\. | 
+|   `streamId`  |  string  length\- max:128 min:1  pattern: \[a\-zA\-Z0\-9\_\-\]\+  |  The stream ID\. | 
+|   `fileId`  |  integer  range\- max:255 min:0  |  The ID of a file associated with a stream\. | 
+|   `s3Location`  |  S3Location |  The location of the updated firmware in S3\. | 
+|   `bucket`  |  string  length\- min:1  |  The S3 bucket\. | 
+|   `key`  |  string  length\- min:1  |  The S3 key\. | 
+|   `version`  |  string |  The S3 bucket version\. | 
+|   `codeSigning`  |  CodeSigning |  The code signing method of the file\. | 
+|   `awsSignerJobId`  |  string |  The ID of the AWSSignerJob which was created to sign the file\. | 
+|   `startSigningJobParameter`  |  StartSigningJobParameter |  Describes the code\-signing job\. | 
+|   `signingProfileParameter`  |  SigningProfileParameter |  Describes the code\-signing profile\. | 
+|   `certificateArn`  |  string |  Certificate ARN\. | 
+|   `platform`  |  string |  The hardware platform of your device\. | 
+|   `certificatePathOnDevice`  |  string |  The location of the code\-signing certificate on your device\. | 
+|   `signingProfileName`  |  string |  The code\-signing profile name\. | 
+|   `destination`  |  Destination |  The location to write the code\-signed file\. | 
+|   `s3Destination`  |  S3Destination |  Describes the location in S3 of the updated firmware\. | 
+|   `bucket`  |  string  length\- min:1  |  The S3 bucket that contains the updated firmware\. | 
+|   `prefix`  |  string |  The S3 prefix\. | 
+|   `customCodeSigning`  |  CustomCodeSigning |  A custom method for code signing a file\. | 
+|   `signature`  |  CodeSigningSignature |  The signature for the file\. | 
+|   `inlineDocument`  |  blob |  A base64 encoded binary representation of the code signing signature\. | 
+|   `certificateChain`  |  CodeSigningCertificateChain |  The certificate chain\. | 
+|   `certificateName`  |  string |  The name of the certificate\. | 
+|   `inlineDocument`  |  string |  A base64 encoded binary representation of the code signing certificate chain\. | 
+|   `hashAlgorithm`  |  string |  The hash algorithm used to code sign the file\. | 
+|   `signatureAlgorithm`  |  string |  The signature algorithm used to code sign the file\. | 
+|   `attributes`  |  map |  A list of name/attribute pairs\. | 
+|   `roleArn`  |  string  length\- max:2048 min:20  |  The IAM role that allows access to the AWS IoT Jobs service\. | 
+|   `additionalParameters`  |  map |  A list of additional OTA update parameters which are name\-value pairs\. | 
+|   `tags`  |  list  member: Tag  java class: java\.util\.List  |  Metadata which can be used to manage updates\. | 
+|   `Key`  |  string |  The tag's key\. | 
+|   `Value`  |  string |  The tag's value\. | 
 
 Output
 
@@ -1676,11 +1848,11 @@ Output
 
 |  Name |  Type |  Description | 
 | --- | --- | --- | 
-|  otaUpdateId |  string  length\- max:128 min:1  pattern: \[a\-zA\-Z0\-9\_\-\]\+  |  The OTA update ID\. | 
-|  awsIotJobId |  string |  The AWS IoT job ID associated with the OTA update\. | 
-|  otaUpdateArn |  string |  The OTA update ARN\. | 
-|  awsIotJobArn |  string |  The AWS IoT job ARN associated with the OTA update\. | 
-|  otaUpdateStatus |  string |  The OTA update status\.  enum: CREATE\_PENDING \| CREATE\_IN\_PROGRESS \| CREATE\_COMPLETE \| CREATE\_FAILED  | 
+|   `otaUpdateId`  |  string  length\- max:128 min:1  pattern: \[a\-zA\-Z0\-9\_\-\]\+  |  The OTA update ID\. | 
+|   `awsIotJobId`  |  string |  The AWS IoT job ID associated with the OTA update\. | 
+|   `otaUpdateArn`  |  string |  The OTA update ARN\. | 
+|   `awsIotJobArn`  |  string |  The AWS IoT job ARN associated with the OTA update\. | 
+|   `otaUpdateStatus`  |  string |  The OTA update status\.  enum: CREATE\_PENDING \| CREATE\_IN\_PROGRESS \| CREATE\_COMPLETE \| CREATE\_FAILED  | 
 
  **Errors**
 
@@ -1738,8 +1910,8 @@ aws iot  create-policy \
 
 |  Name |  Type |  Description | 
 | --- | --- | --- | 
-|  policyName |  string  length\- max:128 min:1  pattern: \[w\+=,\.@\-\]\+  |  The policy name\. | 
-|  policyDocument |  string |  The JSON document that describes the policy\. **policyDocument** must have a minimum length of 1, with a maximum length of 2048, excluding whitespace\.  | 
+|   `policyName`  |  string  length\- max:128 min:1  pattern: \[w\+=,\.@\-\]\+  |  The policy name\. | 
+|   `policyDocument`  |  string |  The JSON document that describes the policy\. **policyDocument** must have a minimum length of 1, with a maximum length of 2048, excluding whitespace\.  | 
 
 Output
 
@@ -1757,10 +1929,10 @@ Output
 
 |  Name |  Type |  Description | 
 | --- | --- | --- | 
-|  policyName |  string  length\- max:128 min:1  pattern: \[w\+=,\.@\-\]\+  |  The policy name\. | 
-|  policyArn |  string |  The policy ARN\. | 
-|  policyDocument |  string |  The JSON document that describes the policy\. | 
-|  policyVersionId |  string  pattern: \[0\-9\]\+  |  The policy version ID\. | 
+|   `policyName`  |  string  length\- max:128 min:1  pattern: \[w\+=,\.@\-\]\+  |  The policy name\. | 
+|   `policyArn`  |  string |  The policy ARN\. | 
+|   `policyDocument`  |  string |  The JSON document that describes the policy\. | 
+|   `policyVersionId`  |  string  pattern: \[0\-9\]\+  |  The policy version ID\. | 
 
  **Errors**
 
@@ -1817,9 +1989,9 @@ aws iot  create-policy-version \
 
 |  Name |  Type |  Description | 
 | --- | --- | --- | 
-|  policyName |  string  length\- max:128 min:1  pattern: \[w\+=,\.@\-\]\+  |  The policy name\. | 
-|  policyDocument |  string |  The JSON document that describes the policy\. Minimum length of 1\. Maximum length of 2048, excluding whitespace\.  | 
-|  setAsDefault |  boolean |  Specifies whether the policy version is set as the default\. When this parameter is true, the new policy version becomes the operative version \(that is, the version that is in effect for the certificates to which the policy is attached\)\.  | 
+|   `policyName`  |  string  length\- max:128 min:1  pattern: \[w\+=,\.@\-\]\+  |  The policy name\. | 
+|   `policyDocument`  |  string |  The JSON document that describes the policy\. Minimum length of 1\. Maximum length of 2048, excluding whitespace\.  | 
+|   `setAsDefault`  |  boolean |  Specifies whether the policy version is set as the default\. When this parameter is true, the new policy version becomes the operative version \(that is, the version that is in effect for the certificates to which the policy is attached\)\.  | 
 
 Output
 
@@ -1837,10 +2009,10 @@ Output
 
 |  Name |  Type |  Description | 
 | --- | --- | --- | 
-|  policyArn |  string |  The policy ARN\. | 
-|  policyDocument |  string |  The JSON document that describes the policy\. | 
-|  policyVersionId |  string  pattern: \[0\-9\]\+  |  The policy version ID\. | 
-|  isDefaultVersion |  boolean |  Specifies whether the policy version is the default\. | 
+|   `policyArn`  |  string |  The policy ARN\. | 
+|   `policyDocument`  |  string |  The JSON document that describes the policy\. | 
+|   `policyVersionId`  |  string  pattern: \[0\-9\]\+  |  The policy version ID\. | 
+|   `isDefaultVersion`  |  boolean |  Specifies whether the policy version is the default\. | 
 
  **Errors**
 
@@ -1898,9 +2070,9 @@ aws iot  create-role-alias \
 
 |  Name |  Type |  Description | 
 | --- | --- | --- | 
-|  roleAlias |  string  length\- max:128 min:1  pattern: \[w=,@\-\]\+  |  The role alias that points to a role ARN\. This allows you to change the role without having to update the device\.  | 
-|  roleArn |  string  length\- max:2048 min:20  |  The role ARN\. | 
-|  credentialDurationSeconds |  integer  range\- max:3600 min:900  |  How long \(in seconds\) the credentials will be valid\. | 
+|   `roleAlias`  |  string  length\- max:128 min:1  pattern: \[w=,@\-\]\+  |  The role alias that points to a role ARN\. This allows you to change the role without having to update the device\.  | 
+|   `roleArn`  |  string  length\- max:2048 min:20  |  The role ARN\. | 
+|   `credentialDurationSeconds`  |  integer  range\- max:3600 min:900  |  How long \(in seconds\) the credentials will be valid\. | 
 
 Output
 
@@ -1916,8 +2088,8 @@ Output
 
 |  Name |  Type |  Description | 
 | --- | --- | --- | 
-|  roleAlias |  string  length\- max:128 min:1  pattern: \[w=,@\-\]\+  |  The role alias\. | 
-|  roleAliasArn |  string |  The role alias ARN\. | 
+|   `roleAlias`  |  string  length\- max:128 min:1  pattern: \[w=,@\-\]\+  |  The role alias\. | 
+|   `roleAliasArn`  |  string |  The role alias ARN\. | 
 
  **Errors**
 
@@ -1985,14 +2157,14 @@ aws iot  create-scheduled-audit \
 
 |  Name |  Type |  Description | 
 | --- | --- | --- | 
-|  frequency |  string |  How often the scheduled audit takes place\. Can be one of "DAILY", "WEEKLY", "BIWEEKLY" or "MONTHLY"\. The actual start time of each audit is determined by the system\.  enum: DAILY \| WEEKLY \| BIWEEKLY \| MONTHLY  | 
-|  dayOfMonth |  string  pattern: ^\(\[1\-9\]\|\[12\]\[0\-9\]\|3\[01\]\)$\|^LAST$  |  The day of the month on which the scheduled audit takes place\. Can be "1" through "31" or "LAST"\. This field is required if the "frequency" parameter is set to "MONTHLY"\. If days 29\-31 are specified, and the month does not have that many days, the audit takes place on the "LAST" day of the month\.  | 
-|  dayOfWeek |  string |  The day of the week on which the scheduled audit takes place\. Can be one of "SUN", "MON", "TUE", "WED", "THU", "FRI" or "SAT"\. This field is required if the "frequency" parameter is set to "WEEKLY" or "BIWEEKLY"\.  enum: SUN \| MON \| TUE \| WED \| THU \| FRI \| SAT  | 
-|  targetCheckNames |  list  member: AuditCheckName  |  Which checks are performed during the scheduled audit\. Checks must be enabled for your account\. \(Use `DescribeAccountAuditConfiguration` to see the list of all checks including those that are enabled or `UpdateAccountAuditConfiguration` to select which checks are enabled\.\)  | 
-|  tags |  list  member: Tag  java class: java\.util\.List  |  Metadata which can be used to manage the scheduled audit\. | 
-|  Key |  string |  The tag's key\. | 
-|  Value |  string |  The tag's value\. | 
-|  scheduledAuditName |  string  length\- max:128 min:1  pattern: \[a\-zA\-Z0\-9\_\-\]\+  |  The name you want to give to the scheduled audit\. \(Max\. 128 chars\) | 
+|   `frequency`  |  string |  How often the scheduled audit takes place\. Can be one of "DAILY", "WEEKLY", "BIWEEKLY" or "MONTHLY"\. The start time of each audit is determined by the system\.  enum: DAILY \| WEEKLY \| BIWEEKLY \| MONTHLY  | 
+|   `dayOfMonth`  |  string  pattern: ^\(\[1\-9\]\|\[12\]\[0\-9\]\|3\[01\]\)$\|^LAST$  |  The day of the month on which the scheduled audit takes place\. Can be "1" through "31" or "LAST"\. This field is required if the "frequency" parameter is set to "MONTHLY"\. If days 29\-31 are specified, and the month does not have that many days, the audit takes place on the "LAST" day of the month\.  | 
+|   `dayOfWeek`  |  string |  The day of the week on which the scheduled audit takes place\. Can be one of "SUN", "MON", "TUE", "WED", "THU", "FRI", or "SAT"\. This field is required if the "frequency" parameter is set to "WEEKLY" or "BIWEEKLY"\.  enum: SUN \| MON \| TUE \| WED \| THU \| FRI \| SAT  | 
+|   `targetCheckNames`  |  list  member: AuditCheckName  |  Which checks are performed during the scheduled audit\. Checks must be enabled for your account\. \(Use `DescribeAccountAuditConfiguration` to see the list of all checks, including those that are enabled or use `UpdateAccountAuditConfiguration` to select which checks are enabled\.\)  | 
+|   `tags`  |  list  member: Tag  java class: java\.util\.List  |  Metadata that can be used to manage the scheduled audit\. | 
+|   `Key`  |  string |  The tag's key\. | 
+|   `Value`  |  string |  The tag's value\. | 
+|   `scheduledAuditName`  |  string  length\- max:128 min:1  pattern: \[a\-zA\-Z0\-9\_\-\]\+  |  The name you want to give to the scheduled audit\. \(Max\. 128 chars\) | 
 
 Output
 
@@ -2007,12 +2179,15 @@ Output
 
 |  Name |  Type |  Description | 
 | --- | --- | --- | 
-|  scheduledAuditArn |  string |  The ARN of the scheduled audit\. | 
+|   `scheduledAuditArn`  |  string |  The ARN of the scheduled audit\. | 
 
  **Errors**
 
 `InvalidRequestException`  
 The contents of the request were invalid\.
+
+`ResourceAlreadyExistsException`  
+The resource already exists\.
 
 `ThrottlingException`  
 The rate exceeds the limit\.
@@ -2094,29 +2269,29 @@ aws iot  create-security-profile \
 
 |  Name |  Type |  Description | 
 | --- | --- | --- | 
-|  securityProfileName |  string  length\- max:128 min:1  pattern: \[a\-zA\-Z0\-9:\_\-\]\+  |  The name you are giving to the security profile\. | 
-|  securityProfileDescription |  string  length\- max:1000  pattern: \[\\\\p\{Graph\} \]\*  |  A description of the security profile\. | 
-|  behaviors |  list  member: Behavior  |  Specifies the behaviors that, when violated by a device \(thing\), cause an alert\. | 
-|  name |  string  length\- max:128 min:1  pattern: \[a\-zA\-Z0\-9:\_\-\]\+  |  The name you have given to the behavior\. | 
-|  metric |  string |  What is measured by the behavior\. | 
-|  criteria |  BehaviorCriteria |  The criteria that determine if a device is behaving normally in regard to the `metric`\.  | 
-|  comparisonOperator |  string |  The operator that relates the thing measured \(`metric`\) to the criteria \(containing a `value` or `statisticalThreshold`\)\.  enum: less\-than \| less\-than\-equals \| greater\-than \| greater\-than\-equals \| in\-cidr\-set \| not\-in\-cidr\-set \| in\-port\-set \| not\-in\-port\-set  | 
-|  value |  MetricValue |  The value to be compared with the `metric`\. | 
-|  count |  long  range\- min:0  |  If the `comparisonOperator` calls for a numeric value, use this to specify that numeric value to be compared with the `metric`\.  | 
-|  cidrs |  list  member: Cidr  |  If the `comparisonOperator` calls for a set of CIDRs, use this to specify that set to be compared with the `metric`\.  | 
-|  ports |  list  member: Port  |  If the `comparisonOperator` calls for a set of ports, use this to specify that set to be compared with the `metric`\.  | 
-|  durationSeconds |  integer |  Use this to specify the time duration over which the behavior is evaluated, for those criteria which have a time dimension \(for example, `NUM_MESSAGES_SENT`\)\. For a `statisticalThreshhold` metric comparison, measurements from all devices are accumulated over this time duration before being used to calculate percentiles, and later, measurements from an individual device are also accumulated over this time duration before being given a percentile rank\.  | 
-|  consecutiveDatapointsToAlarm |  integer  range\- max:10 min:1  |  If a device is in violation of the behavior for the specified number of consecutive datapoints, an alarm occurs\. If not specified, the default is 1\.  | 
-|  consecutiveDatapointsToClear |  integer  range\- max:10 min:1  |  If an alarm has occurred and the offending device is no longer in violation of the behavior for the specified number of consecutive datapoints, the alarm is cleared\. If not specified, the default is 1\.  | 
-|  statisticalThreshold |  StatisticalThreshold |  A statistical ranking \(percentile\) which indicates a threshold value by which a behavior is determined to be in compliance or in violation of the behavior\.  | 
-|  statistic |  string  pattern: \(p0\|p0\.1\|p0\.01\|p1\|p10\|p50\|p90\|p99\|p99\.9\|p99\.99\|p100\)  |  The percentile which resolves to a threshold value by which compliance with a behavior is determined\. Metrics are collected over the specified period \(`durationSeconds`\) from all reporting devices in your account and statistical ranks are calculated\. Then, the measurements from a device are collected over the same period\. If the accumulated measurements from the device fall above or below \(`comparisonOperator`\) the value associated with the percentile specified, then the device is considered to be in compliance with the behavior, otherwise a violation occurs\.  | 
-|  alertTargets |  map |  Specifies the destinations to which alerts are sent\. \(Alerts are always sent to the console\.\) Alerts are generated when a device \(thing\) violates a behavior\.  | 
-|  alertTargetArn |  string |  The ARN of the notification target to which alerts are sent\. | 
-|  roleArn |  string  length\- max:2048 min:20  |  The ARN of the role that grants permission to send alerts to the notification target\.  | 
-|  additionalMetricsToRetain |  list  member: BehaviorMetric  |  A list of metrics whose data is retained \(stored\)\. By default, data is retained for any metric used in the profile's `behaviors` but it is also retained for any metric specified here\.  | 
-|  tags |  list  member: Tag  java class: java\.util\.List  |  Metadata which can be used to manage the security profile\. | 
-|  Key |  string |  The tag's key\. | 
-|  Value |  string |  The tag's value\. | 
+|   `securityProfileName`  |  string  length\- max:128 min:1  pattern: \[a\-zA\-Z0\-9:\_\-\]\+  |  The name you are giving to the security profile\. | 
+|   `securityProfileDescription`  |  string  length\- max:1000  pattern: \[\\\\p\{Graph\} \]\*  |  A description of the security profile\. | 
+|   `behaviors`  |  list  member: Behavior  |  Specifies the behaviors that, when violated by a device \(thing\), cause an alert\. | 
+|   `name`  |  string  length\- max:128 min:1  pattern: \[a\-zA\-Z0\-9:\_\-\]\+  |  The name you have given to the behavior\. | 
+|   `metric`  |  string |  What is measured by the behavior\. | 
+|   `criteria`  |  BehaviorCriteria |  The criteria that determine if a device is behaving normally in regard to the `metric`\.  | 
+|   `comparisonOperator`  |  string |  The operator that relates the thing measured \(`metric`\) to the criteria \(containing a `value` or `statisticalThreshold`\)\.  enum: less\-than \| less\-than\-equals \| greater\-than \| greater\-than\-equals \| in\-cidr\-set \| not\-in\-cidr\-set \| in\-port\-set \| not\-in\-port\-set  | 
+|   `value`  |  MetricValue |  The value to be compared with the `metric`\. | 
+|   `count`  |  long  range\- min:0  |  If the `comparisonOperator` calls for a numeric value, use this to specify that numeric value to be compared with the `metric`\.  | 
+|   `cidrs`  |  list  member: Cidr  |  If the `comparisonOperator` calls for a set of CIDRs, use this to specify that set to be compared with the `metric`\.  | 
+|   `ports`  |  list  member: Port  |  If the `comparisonOperator` calls for a set of ports, use this to specify that set to be compared with the `metric`\.  | 
+|   `durationSeconds`  |  integer |  Use this to specify the time duration over which the behavior is evaluated, for those criteria which have a time dimension \(for example, `NUM_MESSAGES_SENT`\)\. For a `statisticalThreshhold` metric comparison, measurements from all devices are accumulated over this time duration before being used to calculate percentiles, and later, measurements from an individual device are also accumulated over this time duration before being given a percentile rank\.  | 
+|   `consecutiveDatapointsToAlarm`  |  integer  range\- max:10 min:1  |  If a device is in violation of the behavior for the specified number of consecutive datapoints, an alarm occurs\. If not specified, the default is 1\.  | 
+|   `consecutiveDatapointsToClear`  |  integer  range\- max:10 min:1  |  If an alarm has occurred and the offending device is no longer in violation of the behavior for the specified number of consecutive datapoints, the alarm is cleared\. If not specified, the default is 1\.  | 
+|   `statisticalThreshold`  |  StatisticalThreshold |  A statistical ranking \(percentile\) which indicates a threshold value by which a behavior is determined to be in compliance or in violation of the behavior\.  | 
+|   `statistic`  |  string  pattern: \(p0\|p0\.1\|p0\.01\|p1\|p10\|p50\|p90\|p99\|p99\.9\|p99\.99\|p100\)  |  The percentile which resolves to a threshold value by which compliance with a behavior is determined\. Metrics are collected over the specified period \(`durationSeconds`\) from all reporting devices in your account and statistical ranks are calculated\. Then, the measurements from a device are collected over the same period\. If the accumulated measurements from the device fall above or below \(`comparisonOperator`\) the value associated with the percentile specified, then the device is considered to be in compliance with the behavior, otherwise a violation occurs\.  | 
+|   `alertTargets`  |  map |  Specifies the destinations to which alerts are sent\. \(Alerts are always sent to the console\.\) Alerts are generated when a device \(thing\) violates a behavior\.  | 
+|   `alertTargetArn`  |  string |  The ARN of the notification target to which alerts are sent\. | 
+|   `roleArn`  |  string  length\- max:2048 min:20  |  The ARN of the role that grants permission to send alerts to the notification target\.  | 
+|   `additionalMetricsToRetain`  |  list  member: BehaviorMetric  |  A list of metrics whose data is retained \(stored\)\. By default, data is retained for any metric used in the profile's `behaviors`, but it is also retained for any metric specified here\.  | 
+|   `tags`  |  list  member: Tag  java class: java\.util\.List  |  Metadata that can be used to manage the security profile\. | 
+|   `Key`  |  string |  The tag's key\. | 
+|   `Value`  |  string |  The tag's value\. | 
 
 Output
 
@@ -2132,8 +2307,8 @@ Output
 
 |  Name |  Type |  Description | 
 | --- | --- | --- | 
-|  securityProfileName |  string  length\- max:128 min:1  pattern: \[a\-zA\-Z0\-9:\_\-\]\+  |  The name you gave to the security profile\. | 
-|  securityProfileArn |  string |  The ARN of the security profile\. | 
+|   `securityProfileName`  |  string  length\- max:128 min:1  pattern: \[a\-zA\-Z0\-9:\_\-\]\+  |  The name you gave to the security profile\. | 
+|   `securityProfileArn`  |  string |  The ARN of the security profile\. | 
 
  **Errors**
 
@@ -2151,7 +2326,7 @@ An unexpected error has occurred\.
 
 ## CreateStream<a name="api-iot-CreateStream"></a>
 
-Creates a stream for delivering one or more large files in chunks over MQTT\. A stream transports data bytes in chunks or blocks packaged as MQTT messages from a source like S3\. You can have one or more files associated with a stream\. The total size of a file associated with the stream cannot exceed more than 2 MB\. The stream will be created with version 0\. If a stream is created with the same streamID as a stream that existed and was deleted within last 90 days, we will resurrect that old stream by incrementing the version by 1\.
+Creates a stream for delivering one or more large files in chunks over MQTT\. A stream transports data bytes in chunks or blocks packaged as MQTT messages from a source like S3\. You can have one or more files associated with a stream\.
 
  **Synopsis**
 
@@ -2197,18 +2372,18 @@ aws iot  create-stream \
 
 |  Name |  Type |  Description | 
 | --- | --- | --- | 
-|  streamId |  string  length\- max:128 min:1  pattern: \[a\-zA\-Z0\-9\_\-\]\+  |  The stream ID\. | 
-|  description |  string  length\- max:2028  pattern: \[^\\\\p\{C\}\]\+  |  A description of the stream\. | 
-|  files |  list  member: StreamFile  |  The files to stream\. | 
-|  fileId |  integer  range\- max:255 min:0  |  The file ID\. | 
-|  s3Location |  S3Location |  The location of the file in S3\. | 
-|  bucket |  string  length\- min:1  |  The S3 bucket\. | 
-|  key |  string  length\- min:1  |  The S3 key\. | 
-|  version |  string |  The S3 bucket version\. | 
-|  roleArn |  string  length\- max:2048 min:20  |  An IAM role that allows the IoT service principal assumes to access your S3 files\. | 
-|  tags |  list  member: Tag  java class: java\.util\.List  |  Metadata which can be used to manage streams\. | 
-|  Key |  string |  The tag's key\. | 
-|  Value |  string |  The tag's value\. | 
+|   `streamId`  |  string  length\- max:128 min:1  pattern: \[a\-zA\-Z0\-9\_\-\]\+  |  The stream ID\. | 
+|   `description`  |  string  length\- max:2028  pattern: \[^\\\\p\{C\}\]\+  |  A description of the stream\. | 
+|   `files`  |  list  member: StreamFile  |  The files to stream\. | 
+|   `fileId`  |  integer  range\- max:255 min:0  |  The file ID\. | 
+|   `s3Location`  |  S3Location |  The location of the file in S3\. | 
+|   `bucket`  |  string  length\- min:1  |  The S3 bucket\. | 
+|   `key`  |  string  length\- min:1  |  The S3 key\. | 
+|   `version`  |  string |  The S3 bucket version\. | 
+|   `roleArn`  |  string  length\- max:2048 min:20  |  An IAM role that allows the IoT service principal assumes to access your S3 files\. | 
+|   `tags`  |  list  member: Tag  java class: java\.util\.List  |  Metadata which can be used to manage streams\. | 
+|   `Key`  |  string |  The tag's key\. | 
+|   `Value`  |  string |  The tag's value\. | 
 
 Output
 
@@ -2226,10 +2401,10 @@ Output
 
 |  Name |  Type |  Description | 
 | --- | --- | --- | 
-|  streamId |  string  length\- max:128 min:1  pattern: \[a\-zA\-Z0\-9\_\-\]\+  |  The stream ID\. | 
-|  streamArn |  string |  The stream ARN\. | 
-|  description |  string  length\- max:2028  pattern: \[^\\\\p\{C\}\]\+  |  A description of the stream\. | 
-|  streamVersion |  integer  range\- max:65535 min:0  |  The version of the stream\. | 
+|   `streamId`  |  string  length\- max:128 min:1  pattern: \[a\-zA\-Z0\-9\_\-\]\+  |  The stream ID\. | 
+|   `streamArn`  |  string |  The stream ARN\. | 
+|   `description`  |  string  length\- max:2028  pattern: \[^\\\\p\{C\}\]\+  |  A description of the stream\. | 
+|   `streamVersion`  |  integer  range\- max:65535 min:0  |  The version of the stream\. | 
 
  **Errors**
 
@@ -2297,12 +2472,12 @@ aws iot  create-thing \
 
 |  Name |  Type |  Description | 
 | --- | --- | --- | 
-|  thingName |  string  length\- max:128 min:1  pattern: \[a\-zA\-Z0\-9:\_\-\]\+  |  The name of the thing to create\. | 
-|  thingTypeName |  string  length\- max:128 min:1  pattern: \[a\-zA\-Z0\-9:\_\-\]\+  |  The name of the thing type associated with the new thing\. | 
-|  attributePayload |  AttributePayload |  The attribute payload, which consists of up to three name/value pairs in a JSON document\. For example:  ` \"attributes\":{\"string1\":\"string2\"}`   | 
-|  attributes |  map |  A JSON string containing up to three key\-value pair in JSON format\. For example:  ` \"attributes\":{\"string1\":\"string2\"}`   | 
-|  merge |  boolean |  Specifies whether the list of attributes provided in the `AttributePayload` is merged with the attributes stored in the registry, instead of overwriting them\. To remove an attribute, call `UpdateThing` with an empty attribute value\.  The `merge` attribute is only valid when calling `UpdateThing`\.   | 
-|  billingGroupName |  string  length\- max:128 min:1  pattern: \[a\-zA\-Z0\-9:\_\-\]\+  |  The name of the billing group the thing will be added to\. | 
+|   `thingName`  |  string  length\- max:128 min:1  pattern: \[a\-zA\-Z0\-9:\_\-\]\+  |  The name of the thing to create\. | 
+|   `thingTypeName`  |  string  length\- max:128 min:1  pattern: \[a\-zA\-Z0\-9:\_\-\]\+  |  The name of the thing type associated with the new thing\. | 
+|   `attributePayload`  |  AttributePayload |  The attribute payload, which consists of up to three name/value pairs in a JSON document\. For example:  ` \"attributes\":{\"string1\":\"string2\"}`   | 
+|   `attributes`  |  map |  A JSON string containing up to three key\-value pair in JSON format\. For example:  ` \"attributes\":{\"string1\":\"string2\"}`   | 
+|   `merge`  |  boolean |  Specifies whether the list of attributes provided in the `AttributePayload` is merged with the attributes stored in the registry, instead of overwriting them\. To remove an attribute, call `UpdateThing` with an empty attribute value\.  The `merge` attribute is only valid when calling `UpdateThing` or `UpdateThingGroup`\.   | 
+|   `billingGroupName`  |  string  length\- max:128 min:1  pattern: \[a\-zA\-Z0\-9:\_\-\]\+  |  The name of the billing group the thing will be added to\. | 
 
 Output
 
@@ -2319,9 +2494,9 @@ Output
 
 |  Name |  Type |  Description | 
 | --- | --- | --- | 
-|  thingName |  string  length\- max:128 min:1  pattern: \[a\-zA\-Z0\-9:\_\-\]\+  |  The name of the new thing\. | 
-|  thingArn |  string |  The ARN of the new thing\. | 
-|  thingId |  string |  The thing ID\. | 
+|   `thingName`  |  string  length\- max:128 min:1  pattern: \[a\-zA\-Z0\-9:\_\-\]\+  |  The name of the new thing\. | 
+|   `thingArn`  |  string |  The ARN of the new thing\. | 
+|   `thingId`  |  string |  The thing ID\. | 
 
  **Errors**
 
@@ -2394,16 +2569,16 @@ aws iot  create-thing-group \
 
 |  Name |  Type |  Description | 
 | --- | --- | --- | 
-|  thingGroupName |  string  length\- max:128 min:1  pattern: \[a\-zA\-Z0\-9:\_\-\]\+  |  The thing group name to create\. | 
-|  parentGroupName |  string  length\- max:128 min:1  pattern: \[a\-zA\-Z0\-9:\_\-\]\+  |  The name of the parent thing group\. | 
-|  thingGroupProperties |  ThingGroupProperties |  The thing group properties\. | 
-|  thingGroupDescription |  string  length\- max:2028  pattern: \[\\\\p\{Graph\} \]\*  |  The thing group description\. | 
-|  attributePayload |  AttributePayload |  The thing group attributes in JSON format\. | 
-|  attributes |  map |  A JSON string containing up to three key\-value pair in JSON format\. For example:  ` \"attributes\":{\"string1\":\"string2\"}`   | 
-|  merge |  boolean |  Specifies whether the list of attributes provided in the `AttributePayload` is merged with the attributes stored in the registry, instead of overwriting them\. To remove an attribute, call `UpdateThing` with an empty attribute value\.  The `merge` attribute is only valid when calling `UpdateThing`\.   | 
-|  tags |  list  member: Tag  java class: java\.util\.List  |  Metadata which can be used to manage the thing group\. | 
-|  Key |  string |  The tag's key\. | 
-|  Value |  string |  The tag's value\. | 
+|   `thingGroupName`  |  string  length\- max:128 min:1  pattern: \[a\-zA\-Z0\-9:\_\-\]\+  |  The thing group name to create\. | 
+|   `parentGroupName`  |  string  length\- max:128 min:1  pattern: \[a\-zA\-Z0\-9:\_\-\]\+  |  The name of the parent thing group\. | 
+|   `thingGroupProperties`  |  ThingGroupProperties |  The thing group properties\. | 
+|   `thingGroupDescription`  |  string  length\- max:2028  pattern: \[\\\\p\{Graph\} \]\*  |  The thing group description\. | 
+|   `attributePayload`  |  AttributePayload |  The thing group attributes in JSON format\. | 
+|   `attributes`  |  map |  A JSON string containing up to three key\-value pair in JSON format\. For example:  ` \"attributes\":{\"string1\":\"string2\"}`   | 
+|   `merge`  |  boolean |  Specifies whether the list of attributes provided in the `AttributePayload` is merged with the attributes stored in the registry, instead of overwriting them\. To remove an attribute, call `UpdateThing` with an empty attribute value\.  The `merge` attribute is only valid when calling `UpdateThing` or `UpdateThingGroup`\.   | 
+|   `tags`  |  list  member: Tag  java class: java\.util\.List  |  Metadata which can be used to manage the thing group\. | 
+|   `Key`  |  string |  The tag's key\. | 
+|   `Value`  |  string |  The tag's value\. | 
 
 Output
 
@@ -2420,9 +2595,9 @@ Output
 
 |  Name |  Type |  Description | 
 | --- | --- | --- | 
-|  thingGroupName |  string  length\- max:128 min:1  pattern: \[a\-zA\-Z0\-9:\_\-\]\+  |  The thing group name\. | 
-|  thingGroupArn |  string |  The thing group ARN\. | 
-|  thingGroupId |  string  length\- max:128 min:1  pattern: \[a\-zA\-Z0\-9\-\]\+  |  The thing group ID\. | 
+|   `thingGroupName`  |  string  length\- max:128 min:1  pattern: \[a\-zA\-Z0\-9:\_\-\]\+  |  The thing group name\. | 
+|   `thingGroupArn`  |  string |  The thing group ARN\. | 
+|   `thingGroupId`  |  string  length\- max:128 min:1  pattern: \[a\-zA\-Z0\-9\-\]\+  |  The thing group ID\. | 
 
  **Errors**
 
@@ -2478,13 +2653,13 @@ aws iot  create-thing-type \
 
 |  Name |  Type |  Description | 
 | --- | --- | --- | 
-|  thingTypeName |  string  length\- max:128 min:1  pattern: \[a\-zA\-Z0\-9:\_\-\]\+  |  The name of the thing type\. | 
-|  thingTypeProperties |  ThingTypeProperties |  The ThingTypeProperties for the thing type to create\. It contains information about the new thing type including a description, and a list of searchable thing attribute names\.  | 
-|  thingTypeDescription |  string  length\- max:2028  pattern: \[\\\\p\{Graph\} \]\*  |  The description of the thing type\. | 
-|  searchableAttributes |  list  member: AttributeName  java class: java\.util\.List  |  A list of searchable thing attribute names\. | 
-|  tags |  list  member: Tag  java class: java\.util\.List  |  Metadata which can be used to manage the thing type\. | 
-|  Key |  string |  The tag's key\. | 
-|  Value |  string |  The tag's value\. | 
+|   `thingTypeName`  |  string  length\- max:128 min:1  pattern: \[a\-zA\-Z0\-9:\_\-\]\+  |  The name of the thing type\. | 
+|   `thingTypeProperties`  |  ThingTypeProperties |  The ThingTypeProperties for the thing type to create\. It contains information about the new thing type including a description, and a list of searchable thing attribute names\.  | 
+|   `thingTypeDescription`  |  string  length\- max:2028  pattern: \[\\\\p\{Graph\} \]\*  |  The description of the thing type\. | 
+|   `searchableAttributes`  |  list  member: AttributeName  java class: java\.util\.List  |  A list of searchable thing attribute names\. | 
+|   `tags`  |  list  member: Tag  java class: java\.util\.List  |  Metadata which can be used to manage the thing type\. | 
+|   `Key`  |  string |  The tag's key\. | 
+|   `Value`  |  string |  The tag's value\. | 
 
 Output
 
@@ -2501,9 +2676,9 @@ Output
 
 |  Name |  Type |  Description | 
 | --- | --- | --- | 
-|  thingTypeName |  string  length\- max:128 min:1  pattern: \[a\-zA\-Z0\-9:\_\-\]\+  |  The name of the thing type\. | 
-|  thingTypeArn |  string |  The Amazon Resource Name \(ARN\) of the thing type\. | 
-|  thingTypeId |  string |  The thing type ID\. | 
+|   `thingTypeName`  |  string  length\- max:128 min:1  pattern: \[a\-zA\-Z0\-9:\_\-\]\+  |  The name of the thing type\. | 
+|   `thingTypeArn`  |  string |  The Amazon Resource Name \(ARN\) of the thing type\. | 
+|   `thingTypeId`  |  string |  The thing type ID\. | 
 
  **Errors**
 
@@ -2588,7 +2763,8 @@ aws iot  create-topic-rule \
         },
         "republish": {
           "roleArn": "string",
-          "topic": "string"
+          "topic": "string",
+          "qos": "integer"
         },
         "s3": {
           "roleArn": "string",
@@ -2684,7 +2860,8 @@ aws iot  create-topic-rule \
       },
       "republish": {
         "roleArn": "string",
-        "topic": "string"
+        "topic": "string",
+        "qos": "integer"
       },
       "s3": {
         "roleArn": "string",
@@ -2748,163 +2925,165 @@ aws iot  create-topic-rule \
 
 |  Name |  Type |  Description | 
 | --- | --- | --- | 
-|  ruleName |  string  length\- max:128 min:1  pattern: ^\[a\-zA\-Z0\-9\_\]\+$  |  The name of the rule\. | 
-|  topicRulePayload |  TopicRulePayload |  The rule payload\. | 
-|  sql |  string |  The SQL statement used to query the topic\. For more information, see [AWS IoT SQL Reference](https://docs.aws.amazon.com/iot/latest/developerguide/iot-rules.html#aws-iot-sql-reference) in the *AWS IoT Developer Guide*\.  | 
-|  description |  string |  The description of the rule\. | 
-|  actions |  list  member: Action  |  The actions associated with the rule\. | 
-|  dynamoDB |  DynamoDBAction |  Write to a DynamoDB table\. | 
-|  tableName |  string |  The name of the DynamoDB table\. | 
-|  roleArn |  string |  The ARN of the IAM role that grants access to the DynamoDB table\. | 
-|  operation |  string |  The type of operation to be performed\. This follows the substitution template, so it can be `$ operation`, but the substitution must result in one of the following: `INSERT`, `UPDATE`, or `DELETE`\.  | 
-|  hashKeyField |  string |  The hash key name\. | 
-|  hashKeyValue |  string |  The hash key value\. | 
-|  hashKeyType |  string |  The hash key type\. Valid values are "STRING" or "NUMBER"  enum: STRING \| NUMBER  | 
-|  rangeKeyField |  string |  The range key name\. | 
-|  rangeKeyValue |  string |  The range key value\. | 
-|  rangeKeyType |  string |  The range key type\. Valid values are "STRING" or "NUMBER"  enum: STRING \| NUMBER  | 
-|  payloadField |  string |  The action payload\. This name can be customized\. | 
-|  dynamoDBv2 |  DynamoDBv2Action |  Write to a DynamoDB table\. This is a new version of the DynamoDB action\. It allows you to write each attribute in an MQTT message payload into a separate DynamoDB column\.  | 
-|  roleArn |  string |  The ARN of the IAM role that grants access to the DynamoDB table\. | 
-|  putItem |  PutItemInput |  Specifies the DynamoDB table to which the message data will be written\. For example:  `{ "dynamoDBv2": { "roleArn": "aws:iam:12341251:my-role" "putItem": { "tableName": "my-table" } } }`  Each attribute in the message payload will be written to a separate column in the DynamoDB database\.  | 
-|  tableName |  string |  The table where the message data will be written\. | 
-|  lambda |  LambdaAction |  Invoke a Lambda function\. | 
-|  functionArn |  string |  The ARN of the Lambda function\. | 
-|  sns |  SnsAction |  Publish to an Amazon SNS topic\. | 
-|  targetArn |  string |  The ARN of the SNS topic\. | 
-|  roleArn |  string |  The ARN of the IAM role that grants access\. | 
-|  messageFormat |  string |  \(Optional\) The message format of the message to publish\. Accepted values are "JSON" and "RAW"\. The default value of the attribute is "RAW"\. SNS uses this setting to determine if the payload should be parsed and relevant platform\-specific bits of the payload should be extracted\. To read more about SNS message formats, see [https://docs.aws.amazon.com/sns/latest/dg/json-formats.html](https://docs.aws.amazon.com/sns/latest/dg/json-formats.html) refer to their official documentation\.  enum: RAW \| JSON  | 
-|  sqs |  SqsAction |  Publish to an Amazon SQS queue\. | 
-|  roleArn |  string |  The ARN of the IAM role that grants access\. | 
-|  queueUrl |  string |  The URL of the Amazon SQS queue\. | 
-|  useBase64 |  boolean |  Specifies whether to use Base64 encoding\. | 
-|  kinesis |  KinesisAction |  Write data to an Amazon Kinesis stream\. | 
-|  roleArn |  string |  The ARN of the IAM role that grants access to the Amazon Kinesis stream\. | 
-|  streamName |  string |  The name of the Amazon Kinesis stream\. | 
-|  partitionKey |  string |  The partition key\. | 
-|  republish |  RepublishAction |  Publish to another MQTT topic\. | 
-|  roleArn |  string |  The ARN of the IAM role that grants access\. | 
-|  topic |  string |  The name of the MQTT topic\. | 
-|  s3 |  S3Action |  Write to an Amazon S3 bucket\. | 
-|  roleArn |  string |  The ARN of the IAM role that grants access\. | 
-|  bucketName |  string |  The Amazon S3 bucket\. | 
-|  key |  string |  The object key\. | 
-|  cannedAcl |  string |  The Amazon S3 canned ACL that controls access to the object identified by the object key\. For more information, see [S3 canned ACLs](https://docs.aws.amazon.com/AmazonS3/latest/dev/acl-overview.html#canned-acl)\.  enum: private \| public\-read \| public\-read\-write \| aws\-exec\-read \| authenticated\-read \| bucket\-owner\-read \| bucket\-owner\-full\-control \| log\-delivery\-write  | 
-|  firehose |  FirehoseAction |  Write to an Amazon Kinesis Firehose stream\. | 
-|  roleArn |  string |  The IAM role that grants access to the Amazon Kinesis Firehose stream\. | 
-|  deliveryStreamName |  string |  The delivery stream name\. | 
-|  separator |  string  pattern: \(\[ \]\)\|\( \)\|\(,\)   |  A character separator that will be used to separate records written to the Firehose stream\. Valid values are: '\\n' \(newline\), '\\t' \(tab\), '\\r\\n' \(Windows newline\), ',' \(comma\)\.  | 
-|  cloudwatchMetric |  CloudwatchMetricAction |  Capture a CloudWatch metric\. | 
-|  roleArn |  string |  The IAM role that allows access to the CloudWatch metric\. | 
-|  metricNamespace |  string |  The CloudWatch metric namespace name\. | 
-|  metricName |  string |  The CloudWatch metric name\. | 
-|  metricValue |  string |  The CloudWatch metric value\. | 
-|  metricUnit |  string |  The [metric unit](https://docs.aws.amazon.com/AmazonCloudWatch/latest/DeveloperGuide/cloudwatch_concepts.html#Unit) supported by CloudWatch\.  | 
-|  metricTimestamp |  string |  An optional [Unix timestamp](https://docs.aws.amazon.com/AmazonCloudWatch/latest/DeveloperGuide/cloudwatch_concepts.html#about_timestamp)\.  | 
-|  cloudwatchAlarm |  CloudwatchAlarmAction |  Change the state of a CloudWatch alarm\. | 
-|  roleArn |  string |  The IAM role that allows access to the CloudWatch alarm\. | 
-|  alarmName |  string |  The CloudWatch alarm name\. | 
-|  stateReason |  string |  The reason for the alarm change\. | 
-|  stateValue |  string |  The value of the alarm state\. Acceptable values are: OK, ALARM, INSUFFICIENT\_DATA\. | 
-|  elasticsearch |  ElasticsearchAction |  Write data to an Amazon Elasticsearch Service domain\. | 
-|  roleArn |  string |  The IAM role ARN that has access to Elasticsearch\. | 
-|  endpoint |  string  pattern: https?://\.\*  |  The endpoint of your Elasticsearch domain\. | 
-|  index |  string |  The Elasticsearch index where you want to store your data\. | 
-|  type |  string |  The type of document you are storing\. | 
-|  id |  string |  The unique identifier for the document you are storing\. | 
-|  salesforce |  SalesforceAction |  Send a message to a Salesforce IoT Cloud Input Stream\. | 
-|  token |  string  length\- min:40  |  The token used to authenticate access to the Salesforce IoT Cloud Input Stream\. The token is available from the Salesforce IoT Cloud platform after creation of the Input Stream\.  | 
-|  url |  string  length\- max:2000  pattern: https://ingestion\-\[a\-zA\-Z0\-9\]\{1,12\}\.\[a\-zA\-Z0\-9\]\+\.\(\(sfdc\-matrix\.net\)\|\(sfdcnow\.com\)\)/streams/w *1,20*/w *1,20*/event   |  The URL exposed by the Salesforce IoT Cloud Input Stream\. The URL is available from the Salesforce IoT Cloud platform after creation of the Input Stream\.  | 
-|  iotAnalytics |  IotAnalyticsAction |  Sends message data to an AWS IoT Analytics channel\. | 
-|  channelArn |  string |  \(deprecated\) The ARN of the IoT Analytics channel to which message data will be sent\. | 
-|  channelName |  string |  The name of the IoT Analytics channel to which message data will be sent\. | 
-|  roleArn |  string |  The ARN of the role which has a policy that grants IoT Analytics permission to send message data via IoT Analytics \(iotanalytics:BatchPutMessage\)\.  | 
-|  iotEvents |  IotEventsAction |  Sends an input to an AWS IoT Events detector\. | 
-|  inputName |  string  length\- max:128 min:1  |  The name of the AWS IoT Events input\. | 
-|  messageId |  string  length\- max:128  |  \[Optional\] Use this to ensure that only one input \(message\) with a given messageId will be processed by an AWS IoT Events detector\.  | 
-|  roleArn |  string |  The ARN of the role that grants AWS IoT permission to send an input to an AWS IoT Events detector\. \("Action":"iotevents:BatchPutMessage"\)\.  | 
-|  stepFunctions |  StepFunctionsAction |  Starts execution of a Step Functions state machine\. | 
-|  executionNamePrefix |  string |  \(Optional\) A name will be given to the state machine execution consisting of this prefix followed by a UUID\. Step Functions automatically creates a unique name for each state machine execution if one is not provided\.  | 
-|  stateMachineName |  string |  The name of the Step Functions state machine whose execution will be started\. | 
-|  roleArn |  string |  The ARN of the role that grants IoT permission to start execution of a state machine \("Action":"states:StartExecution"\)\.  | 
-|  ruleDisabled |  boolean |  Specifies whether the rule is disabled\. | 
-|  awsIotSqlVersion |  string |  The version of the SQL rules engine to use when evaluating the rule\. | 
-|  errorAction |  Action |  The action to take when an error occurs\. | 
-|  dynamoDB |  DynamoDBAction |  Write to a DynamoDB table\. | 
-|  tableName |  string |  The name of the DynamoDB table\. | 
-|  roleArn |  string |  The ARN of the IAM role that grants access to the DynamoDB table\. | 
-|  operation |  string |  The type of operation to be performed\. This follows the substitution template, so it can be `$ operation`, but the substitution must result in one of the following: `INSERT`, `UPDATE`, or `DELETE`\.  | 
-|  hashKeyField |  string |  The hash key name\. | 
-|  hashKeyValue |  string |  The hash key value\. | 
-|  hashKeyType |  string |  The hash key type\. Valid values are "STRING" or "NUMBER"  enum: STRING \| NUMBER  | 
-|  rangeKeyField |  string |  The range key name\. | 
-|  rangeKeyValue |  string |  The range key value\. | 
-|  rangeKeyType |  string |  The range key type\. Valid values are "STRING" or "NUMBER"  enum: STRING \| NUMBER  | 
-|  payloadField |  string |  The action payload\. This name can be customized\. | 
-|  dynamoDBv2 |  DynamoDBv2Action |  Write to a DynamoDB table\. This is a new version of the DynamoDB action\. It allows you to write each attribute in an MQTT message payload into a separate DynamoDB column\.  | 
-|  roleArn |  string |  The ARN of the IAM role that grants access to the DynamoDB table\. | 
-|  putItem |  PutItemInput |  Specifies the DynamoDB table to which the message data will be written\. For example:  `{ "dynamoDBv2": { "roleArn": "aws:iam:12341251:my-role" "putItem": { "tableName": "my-table" } } }`  Each attribute in the message payload will be written to a separate column in the DynamoDB database\.  | 
-|  tableName |  string |  The table where the message data will be written\. | 
-|  lambda |  LambdaAction |  Invoke a Lambda function\. | 
-|  functionArn |  string |  The ARN of the Lambda function\. | 
-|  sns |  SnsAction |  Publish to an Amazon SNS topic\. | 
-|  targetArn |  string |  The ARN of the SNS topic\. | 
-|  roleArn |  string |  The ARN of the IAM role that grants access\. | 
-|  messageFormat |  string |  \(Optional\) The message format of the message to publish\. Accepted values are "JSON" and "RAW"\. The default value of the attribute is "RAW"\. SNS uses this setting to determine if the payload should be parsed and relevant platform\-specific bits of the payload should be extracted\. To read more about SNS message formats, see [https://docs.aws.amazon.com/sns/latest/dg/json-formats.html](https://docs.aws.amazon.com/sns/latest/dg/json-formats.html) refer to their official documentation\.  enum: RAW \| JSON  | 
-|  sqs |  SqsAction |  Publish to an Amazon SQS queue\. | 
-|  roleArn |  string |  The ARN of the IAM role that grants access\. | 
-|  queueUrl |  string |  The URL of the Amazon SQS queue\. | 
-|  useBase64 |  boolean |  Specifies whether to use Base64 encoding\. | 
-|  kinesis |  KinesisAction |  Write data to an Amazon Kinesis stream\. | 
-|  roleArn |  string |  The ARN of the IAM role that grants access to the Amazon Kinesis stream\. | 
-|  streamName |  string |  The name of the Amazon Kinesis stream\. | 
-|  partitionKey |  string |  The partition key\. | 
-|  republish |  RepublishAction |  Publish to another MQTT topic\. | 
-|  roleArn |  string |  The ARN of the IAM role that grants access\. | 
-|  topic |  string |  The name of the MQTT topic\. | 
-|  s3 |  S3Action |  Write to an Amazon S3 bucket\. | 
-|  roleArn |  string |  The ARN of the IAM role that grants access\. | 
-|  bucketName |  string |  The Amazon S3 bucket\. | 
-|  key |  string |  The object key\. | 
-|  cannedAcl |  string |  The Amazon S3 canned ACL that controls access to the object identified by the object key\. For more information, see [S3 canned ACLs](https://docs.aws.amazon.com/AmazonS3/latest/dev/acl-overview.html#canned-acl)\.  enum: private \| public\-read \| public\-read\-write \| aws\-exec\-read \| authenticated\-read \| bucket\-owner\-read \| bucket\-owner\-full\-control \| log\-delivery\-write  | 
-|  firehose |  FirehoseAction |  Write to an Amazon Kinesis Firehose stream\. | 
-|  roleArn |  string |  The IAM role that grants access to the Amazon Kinesis Firehose stream\. | 
-|  deliveryStreamName |  string |  The delivery stream name\. | 
-|  separator |  string  pattern: \(\[ \]\)\|\( \)\|\(,\)   |  A character separator that will be used to separate records written to the Firehose stream\. Valid values are: '\\n' \(newline\), '\\t' \(tab\), '\\r\\n' \(Windows newline\), ',' \(comma\)\.  | 
-|  cloudwatchMetric |  CloudwatchMetricAction |  Capture a CloudWatch metric\. | 
-|  roleArn |  string |  The IAM role that allows access to the CloudWatch metric\. | 
-|  metricNamespace |  string |  The CloudWatch metric namespace name\. | 
-|  metricName |  string |  The CloudWatch metric name\. | 
-|  metricValue |  string |  The CloudWatch metric value\. | 
-|  metricUnit |  string |  The [metric unit](https://docs.aws.amazon.com/AmazonCloudWatch/latest/DeveloperGuide/cloudwatch_concepts.html#Unit) supported by CloudWatch\.  | 
-|  metricTimestamp |  string |  An optional [Unix timestamp](https://docs.aws.amazon.com/AmazonCloudWatch/latest/DeveloperGuide/cloudwatch_concepts.html#about_timestamp)\.  | 
-|  cloudwatchAlarm |  CloudwatchAlarmAction |  Change the state of a CloudWatch alarm\. | 
-|  roleArn |  string |  The IAM role that allows access to the CloudWatch alarm\. | 
-|  alarmName |  string |  The CloudWatch alarm name\. | 
-|  stateReason |  string |  The reason for the alarm change\. | 
-|  stateValue |  string |  The value of the alarm state\. Acceptable values are: OK, ALARM, INSUFFICIENT\_DATA\. | 
-|  elasticsearch |  ElasticsearchAction |  Write data to an Amazon Elasticsearch Service domain\. | 
-|  roleArn |  string |  The IAM role ARN that has access to Elasticsearch\. | 
-|  endpoint |  string  pattern: https?://\.\*  |  The endpoint of your Elasticsearch domain\. | 
-|  index |  string |  The Elasticsearch index where you want to store your data\. | 
-|  type |  string |  The type of document you are storing\. | 
-|  id |  string |  The unique identifier for the document you are storing\. | 
-|  salesforce |  SalesforceAction |  Send a message to a Salesforce IoT Cloud Input Stream\. | 
-|  token |  string  length\- min:40  |  The token used to authenticate access to the Salesforce IoT Cloud Input Stream\. The token is available from the Salesforce IoT Cloud platform after creation of the Input Stream\.  | 
-|  url |  string  length\- max:2000  pattern: https://ingestion\-\[a\-zA\-Z0\-9\]\{1,12\}\.\[a\-zA\-Z0\-9\]\+\.\(\(sfdc\-matrix\.net\)\|\(sfdcnow\.com\)\)/streams/w *1,20*/w *1,20*/event   |  The URL exposed by the Salesforce IoT Cloud Input Stream\. The URL is available from the Salesforce IoT Cloud platform after creation of the Input Stream\.  | 
-|  iotAnalytics |  IotAnalyticsAction |  Sends message data to an AWS IoT Analytics channel\. | 
-|  channelArn |  string |  \(deprecated\) The ARN of the IoT Analytics channel to which message data will be sent\. | 
-|  channelName |  string |  The name of the IoT Analytics channel to which message data will be sent\. | 
-|  roleArn |  string |  The ARN of the role which has a policy that grants IoT Analytics permission to send message data via IoT Analytics \(iotanalytics:BatchPutMessage\)\.  | 
-|  iotEvents |  IotEventsAction |  Sends an input to an AWS IoT Events detector\. | 
-|  inputName |  string  length\- max:128 min:1  |  The name of the AWS IoT Events input\. | 
-|  messageId |  string  length\- max:128  |  \[Optional\] Use this to ensure that only one input \(message\) with a given messageId will be processed by an AWS IoT Events detector\.  | 
-|  roleArn |  string |  The ARN of the role that grants AWS IoT permission to send an input to an AWS IoT Events detector\. \("Action":"iotevents:BatchPutMessage"\)\.  | 
-|  stepFunctions |  StepFunctionsAction |  Starts execution of a Step Functions state machine\. | 
-|  executionNamePrefix |  string |  \(Optional\) A name will be given to the state machine execution consisting of this prefix followed by a UUID\. Step Functions automatically creates a unique name for each state machine execution if one is not provided\.  | 
-|  stateMachineName |  string |  The name of the Step Functions state machine whose execution will be started\. | 
-|  roleArn |  string |  The ARN of the role that grants IoT permission to start execution of a state machine \("Action":"states:StartExecution"\)\.  | 
-|  tags |  string |  Metadata which can be used to manage the topic rule\.  For URI Request parameters use format: \.\.\.key1=value1&key2=value2\.\.\. For the CLI command\-line parameter use format: \-\-tags "key1=value1&key2=value2\.\.\." For the cli\-input\-json file use format: "tags": "key1=value1&key2=value2\.\.\."   | 
+|   `ruleName`  |  string  length\- max:128 min:1  pattern: ^\[a\-zA\-Z0\-9\_\]\+$  |  The name of the rule\. | 
+|   `topicRulePayload`  |  TopicRulePayload |  The rule payload\. | 
+|   `sql`  |  string |  The SQL statement used to query the topic\. For more information, see [AWS IoT SQL Reference](https://docs.aws.amazon.com/iot/latest/developerguide/iot-rules.html#aws-iot-sql-reference) in the *AWS IoT Developer Guide*\.  | 
+|   `description`  |  string |  The description of the rule\. | 
+|   `actions`  |  list  member: Action  |  The actions associated with the rule\. | 
+|   `dynamoDB`  |  DynamoDBAction |  Write to a DynamoDB table\. | 
+|   `tableName`  |  string |  The name of the DynamoDB table\. | 
+|   `roleArn`  |  string |  The ARN of the IAM role that grants access to the DynamoDB table\. | 
+|   `operation`  |  string |  The type of operation to be performed\. This follows the substitution template, so it can be `$ operation`, but the substitution must result in one of the following: `INSERT`, `UPDATE`, or `DELETE`\.  | 
+|   `hashKeyField`  |  string |  The hash key name\. | 
+|   `hashKeyValue`  |  string |  The hash key value\. | 
+|   `hashKeyType`  |  string |  The hash key type\. Valid values are "STRING" or "NUMBER"  enum: STRING \| NUMBER  | 
+|   `rangeKeyField`  |  string |  The range key name\. | 
+|   `rangeKeyValue`  |  string |  The range key value\. | 
+|   `rangeKeyType`  |  string |  The range key type\. Valid values are "STRING" or "NUMBER"  enum: STRING \| NUMBER  | 
+|   `payloadField`  |  string |  The action payload\. This name can be customized\. | 
+|   `dynamoDBv2`  |  DynamoDBv2Action |  Write to a DynamoDB table\. This is a new version of the DynamoDB action\. It allows you to write each attribute in an MQTT message payload into a separate DynamoDB column\.  | 
+|   `roleArn`  |  string |  The ARN of the IAM role that grants access to the DynamoDB table\. | 
+|   `putItem`  |  PutItemInput |  Specifies the DynamoDB table to which the message data will be written\. For example:  `{ "dynamoDBv2": { "roleArn": "aws:iam:12341251:my-role" "putItem": { "tableName": "my-table" } } }`  Each attribute in the message payload will be written to a separate column in the DynamoDB database\.  | 
+|   `tableName`  |  string |  The table where the message data will be written\. | 
+|   `lambda`  |  LambdaAction |  Invoke a Lambda function\. | 
+|   `functionArn`  |  string |  The ARN of the Lambda function\. | 
+|   `sns`  |  SnsAction |  Publish to an Amazon SNS topic\. | 
+|   `targetArn`  |  string |  The ARN of the SNS topic\. | 
+|   `roleArn`  |  string |  The ARN of the IAM role that grants access\. | 
+|   `messageFormat`  |  string |  \(Optional\) The message format of the message to publish\. Accepted values are "JSON" and "RAW"\. The default value of the attribute is "RAW"\. SNS uses this setting to determine if the payload should be parsed and relevant platform\-specific bits of the payload should be extracted\. To read more about SNS message formats, see [https://docs.aws.amazon.com/sns/latest/dg/json-formats.html](https://docs.aws.amazon.com/sns/latest/dg/json-formats.html) refer to their official documentation\.  enum: RAW \| JSON  | 
+|   `sqs`  |  SqsAction |  Publish to an Amazon SQS queue\. | 
+|   `roleArn`  |  string |  The ARN of the IAM role that grants access\. | 
+|   `queueUrl`  |  string |  The URL of the Amazon SQS queue\. | 
+|   `useBase64`  |  boolean |  Specifies whether to use Base64 encoding\. | 
+|   `kinesis`  |  KinesisAction |  Write data to an Amazon Kinesis stream\. | 
+|   `roleArn`  |  string |  The ARN of the IAM role that grants access to the Amazon Kinesis stream\. | 
+|   `streamName`  |  string |  The name of the Amazon Kinesis stream\. | 
+|   `partitionKey`  |  string |  The partition key\. | 
+|   `republish`  |  RepublishAction |  Publish to another MQTT topic\. | 
+|   `roleArn`  |  string |  The ARN of the IAM role that grants access\. | 
+|   `topic`  |  string |  The name of the MQTT topic\. | 
+|   `qos`  |  integer  range\- max:1 min:0  |  The Quality of Service \(QoS\) level to use when republishing messages\. The default value is 0\. | 
+|   `s3`  |  S3Action |  Write to an Amazon S3 bucket\. | 
+|   `roleArn`  |  string |  The ARN of the IAM role that grants access\. | 
+|   `bucketName`  |  string |  The Amazon S3 bucket\. | 
+|   `key`  |  string |  The object key\. | 
+|   `cannedAcl`  |  string |  The Amazon S3 canned ACL that controls access to the object identified by the object key\. For more information, see [S3 canned ACLs](https://docs.aws.amazon.com/AmazonS3/latest/dev/acl-overview.html#canned-acl)\.  enum: private \| public\-read \| public\-read\-write \| aws\-exec\-read \| authenticated\-read \| bucket\-owner\-read \| bucket\-owner\-full\-control \| log\-delivery\-write  | 
+|   `firehose`  |  FirehoseAction |  Write to an Amazon Kinesis Firehose stream\. | 
+|   `roleArn`  |  string |  The IAM role that grants access to the Amazon Kinesis Firehose stream\. | 
+|   `deliveryStreamName`  |  string |  The delivery stream name\. | 
+|   `separator`  |  string  pattern: \(\[ \]\)\|\( \)\|\(,\)   |  A character separator that will be used to separate records written to the Firehose stream\. Valid values are: '\\n' \(newline\), '\\t' \(tab\), '\\r\\n' \(Windows newline\), ',' \(comma\)\.  | 
+|   `cloudwatchMetric`  |  CloudwatchMetricAction |  Capture a CloudWatch metric\. | 
+|   `roleArn`  |  string |  The IAM role that allows access to the CloudWatch metric\. | 
+|   `metricNamespace`  |  string |  The CloudWatch metric namespace name\. | 
+|   `metricName`  |  string |  The CloudWatch metric name\. | 
+|   `metricValue`  |  string |  The CloudWatch metric value\. | 
+|   `metricUnit`  |  string |  The [metric unit](https://docs.aws.amazon.com/AmazonCloudWatch/latest/DeveloperGuide/cloudwatch_concepts.html#Unit) supported by CloudWatch\.  | 
+|   `metricTimestamp`  |  string |  An optional [Unix timestamp](https://docs.aws.amazon.com/AmazonCloudWatch/latest/DeveloperGuide/cloudwatch_concepts.html#about_timestamp)\. | 
+|   `cloudwatchAlarm`  |  CloudwatchAlarmAction |  Change the state of a CloudWatch alarm\. | 
+|   `roleArn`  |  string |  The IAM role that allows access to the CloudWatch alarm\. | 
+|   `alarmName`  |  string |  The CloudWatch alarm name\. | 
+|   `stateReason`  |  string |  The reason for the alarm change\. | 
+|   `stateValue`  |  string |  The value of the alarm state\. Acceptable values are: OK, ALARM, INSUFFICIENT\_DATA\.  | 
+|   `elasticsearch`  |  ElasticsearchAction |  Write data to an Amazon Elasticsearch Service domain\. | 
+|   `roleArn`  |  string |  The IAM role ARN that has access to Elasticsearch\. | 
+|   `endpoint`  |  string  pattern: https?://\.\*  |  The endpoint of your Elasticsearch domain\. | 
+|   `index`  |  string |  The Elasticsearch index where you want to store your data\. | 
+|   `type`  |  string |  The type of document you are storing\. | 
+|   `id`  |  string |  The unique identifier for the document you are storing\. | 
+|   `salesforce`  |  SalesforceAction |  Send a message to a Salesforce IoT Cloud Input Stream\. | 
+|   `token`  |  string  length\- min:40  |  The token used to authenticate access to the Salesforce IoT Cloud Input Stream\. The token is available from the Salesforce IoT Cloud platform after creation of the Input Stream\.  | 
+|   `url`  |  string  length\- max:2000  pattern: https://ingestion\-\[a\-zA\-Z0\-9\]\{1,12\}\.\[a\-zA\-Z0\-9\]\+\.\(\(sfdc\-matrix\.net\)\|\(sfdcnow\.com\)\)/streams/w *1,20*/w *1,20*/event   |  The URL exposed by the Salesforce IoT Cloud Input Stream\. The URL is available from the Salesforce IoT Cloud platform after creation of the Input Stream\.  | 
+|   `iotAnalytics`  |  IotAnalyticsAction |  Sends message data to an AWS IoT Analytics channel\. | 
+|   `channelArn`  |  string |  \(deprecated\) The ARN of the IoT Analytics channel to which message data will be sent\.  | 
+|   `channelName`  |  string |  The name of the IoT Analytics channel to which message data will be sent\. | 
+|   `roleArn`  |  string |  The ARN of the role which has a policy that grants IoT Analytics permission to send message data via IoT Analytics \(iotanalytics:BatchPutMessage\)\.  | 
+|   `iotEvents`  |  IotEventsAction |  Sends an input to an AWS IoT Events detector\. | 
+|   `inputName`  |  string  length\- max:128 min:1  |  The name of the AWS IoT Events input\. | 
+|   `messageId`  |  string  length\- max:128  |  \[Optional\] Use this to ensure that only one input \(message\) with a given messageId will be processed by an AWS IoT Events detector\.  | 
+|   `roleArn`  |  string |  The ARN of the role that grants AWS IoT permission to send an input to an AWS IoT Events detector\. \("Action":"iotevents:BatchPutMessage"\)\.  | 
+|   `stepFunctions`  |  StepFunctionsAction |  Starts execution of a Step Functions state machine\. | 
+|   `executionNamePrefix`  |  string |  \(Optional\) A name will be given to the state machine execution consisting of this prefix followed by a UUID\. Step Functions automatically creates a unique name for each state machine execution if one is not provided\.  | 
+|   `stateMachineName`  |  string |  The name of the Step Functions state machine whose execution will be started\.  | 
+|   `roleArn`  |  string |  The ARN of the role that grants IoT permission to start execution of a state machine \("Action":"states:StartExecution"\)\.  | 
+|   `ruleDisabled`  |  boolean |  Specifies whether the rule is disabled\. | 
+|   `awsIotSqlVersion`  |  string |  The version of the SQL rules engine to use when evaluating the rule\. | 
+|   `errorAction`  |  Action |  The action to take when an error occurs\. | 
+|   `dynamoDB`  |  DynamoDBAction |  Write to a DynamoDB table\. | 
+|   `tableName`  |  string |  The name of the DynamoDB table\. | 
+|   `roleArn`  |  string |  The ARN of the IAM role that grants access to the DynamoDB table\. | 
+|   `operation`  |  string |  The type of operation to be performed\. This follows the substitution template, so it can be `$ operation`, but the substitution must result in one of the following: `INSERT`, `UPDATE`, or `DELETE`\.  | 
+|   `hashKeyField`  |  string |  The hash key name\. | 
+|   `hashKeyValue`  |  string |  The hash key value\. | 
+|   `hashKeyType`  |  string |  The hash key type\. Valid values are "STRING" or "NUMBER"  enum: STRING \| NUMBER  | 
+|   `rangeKeyField`  |  string |  The range key name\. | 
+|   `rangeKeyValue`  |  string |  The range key value\. | 
+|   `rangeKeyType`  |  string |  The range key type\. Valid values are "STRING" or "NUMBER"  enum: STRING \| NUMBER  | 
+|   `payloadField`  |  string |  The action payload\. This name can be customized\. | 
+|   `dynamoDBv2`  |  DynamoDBv2Action |  Write to a DynamoDB table\. This is a new version of the DynamoDB action\. It allows you to write each attribute in an MQTT message payload into a separate DynamoDB column\.  | 
+|   `roleArn`  |  string |  The ARN of the IAM role that grants access to the DynamoDB table\. | 
+|   `putItem`  |  PutItemInput |  Specifies the DynamoDB table to which the message data will be written\. For example:  `{ "dynamoDBv2": { "roleArn": "aws:iam:12341251:my-role" "putItem": { "tableName": "my-table" } } }`  Each attribute in the message payload will be written to a separate column in the DynamoDB database\.  | 
+|   `tableName`  |  string |  The table where the message data will be written\. | 
+|   `lambda`  |  LambdaAction |  Invoke a Lambda function\. | 
+|   `functionArn`  |  string |  The ARN of the Lambda function\. | 
+|   `sns`  |  SnsAction |  Publish to an Amazon SNS topic\. | 
+|   `targetArn`  |  string |  The ARN of the SNS topic\. | 
+|   `roleArn`  |  string |  The ARN of the IAM role that grants access\. | 
+|   `messageFormat`  |  string |  \(Optional\) The message format of the message to publish\. Accepted values are "JSON" and "RAW"\. The default value of the attribute is "RAW"\. SNS uses this setting to determine if the payload should be parsed and relevant platform\-specific bits of the payload should be extracted\. To read more about SNS message formats, see [https://docs.aws.amazon.com/sns/latest/dg/json-formats.html](https://docs.aws.amazon.com/sns/latest/dg/json-formats.html) refer to their official documentation\.  enum: RAW \| JSON  | 
+|   `sqs`  |  SqsAction |  Publish to an Amazon SQS queue\. | 
+|   `roleArn`  |  string |  The ARN of the IAM role that grants access\. | 
+|   `queueUrl`  |  string |  The URL of the Amazon SQS queue\. | 
+|   `useBase64`  |  boolean |  Specifies whether to use Base64 encoding\. | 
+|   `kinesis`  |  KinesisAction |  Write data to an Amazon Kinesis stream\. | 
+|   `roleArn`  |  string |  The ARN of the IAM role that grants access to the Amazon Kinesis stream\. | 
+|   `streamName`  |  string |  The name of the Amazon Kinesis stream\. | 
+|   `partitionKey`  |  string |  The partition key\. | 
+|   `republish`  |  RepublishAction |  Publish to another MQTT topic\. | 
+|   `roleArn`  |  string |  The ARN of the IAM role that grants access\. | 
+|   `topic`  |  string |  The name of the MQTT topic\. | 
+|   `qos`  |  integer  range\- max:1 min:0  |  The Quality of Service \(QoS\) level to use when republishing messages\. The default value is 0\. | 
+|   `s3`  |  S3Action |  Write to an Amazon S3 bucket\. | 
+|   `roleArn`  |  string |  The ARN of the IAM role that grants access\. | 
+|   `bucketName`  |  string |  The Amazon S3 bucket\. | 
+|   `key`  |  string |  The object key\. | 
+|   `cannedAcl`  |  string |  The Amazon S3 canned ACL that controls access to the object identified by the object key\. For more information, see [S3 canned ACLs](https://docs.aws.amazon.com/AmazonS3/latest/dev/acl-overview.html#canned-acl)\.  enum: private \| public\-read \| public\-read\-write \| aws\-exec\-read \| authenticated\-read \| bucket\-owner\-read \| bucket\-owner\-full\-control \| log\-delivery\-write  | 
+|   `firehose`  |  FirehoseAction |  Write to an Amazon Kinesis Firehose stream\. | 
+|   `roleArn`  |  string |  The IAM role that grants access to the Amazon Kinesis Firehose stream\. | 
+|   `deliveryStreamName`  |  string |  The delivery stream name\. | 
+|   `separator`  |  string  pattern: \(\[ \]\)\|\( \)\|\(,\)   |  A character separator that will be used to separate records written to the Firehose stream\. Valid values are: '\\n' \(newline\), '\\t' \(tab\), '\\r\\n' \(Windows newline\), ',' \(comma\)\.  | 
+|   `cloudwatchMetric`  |  CloudwatchMetricAction |  Capture a CloudWatch metric\. | 
+|   `roleArn`  |  string |  The IAM role that allows access to the CloudWatch metric\. | 
+|   `metricNamespace`  |  string |  The CloudWatch metric namespace name\. | 
+|   `metricName`  |  string |  The CloudWatch metric name\. | 
+|   `metricValue`  |  string |  The CloudWatch metric value\. | 
+|   `metricUnit`  |  string |  The [metric unit](https://docs.aws.amazon.com/AmazonCloudWatch/latest/DeveloperGuide/cloudwatch_concepts.html#Unit) supported by CloudWatch\.  | 
+|   `metricTimestamp`  |  string |  An optional [Unix timestamp](https://docs.aws.amazon.com/AmazonCloudWatch/latest/DeveloperGuide/cloudwatch_concepts.html#about_timestamp)\. | 
+|   `cloudwatchAlarm`  |  CloudwatchAlarmAction |  Change the state of a CloudWatch alarm\. | 
+|   `roleArn`  |  string |  The IAM role that allows access to the CloudWatch alarm\. | 
+|   `alarmName`  |  string |  The CloudWatch alarm name\. | 
+|   `stateReason`  |  string |  The reason for the alarm change\. | 
+|   `stateValue`  |  string |  The value of the alarm state\. Acceptable values are: OK, ALARM, INSUFFICIENT\_DATA\.  | 
+|   `elasticsearch`  |  ElasticsearchAction |  Write data to an Amazon Elasticsearch Service domain\. | 
+|   `roleArn`  |  string |  The IAM role ARN that has access to Elasticsearch\. | 
+|   `endpoint`  |  string  pattern: https?://\.\*  |  The endpoint of your Elasticsearch domain\. | 
+|   `index`  |  string |  The Elasticsearch index where you want to store your data\. | 
+|   `type`  |  string |  The type of document you are storing\. | 
+|   `id`  |  string |  The unique identifier for the document you are storing\. | 
+|   `salesforce`  |  SalesforceAction |  Send a message to a Salesforce IoT Cloud Input Stream\. | 
+|   `token`  |  string  length\- min:40  |  The token used to authenticate access to the Salesforce IoT Cloud Input Stream\. The token is available from the Salesforce IoT Cloud platform after creation of the Input Stream\.  | 
+|   `url`  |  string  length\- max:2000  pattern: https://ingestion\-\[a\-zA\-Z0\-9\]\{1,12\}\.\[a\-zA\-Z0\-9\]\+\.\(\(sfdc\-matrix\.net\)\|\(sfdcnow\.com\)\)/streams/w *1,20*/w *1,20*/event   |  The URL exposed by the Salesforce IoT Cloud Input Stream\. The URL is available from the Salesforce IoT Cloud platform after creation of the Input Stream\.  | 
+|   `iotAnalytics`  |  IotAnalyticsAction |  Sends message data to an AWS IoT Analytics channel\. | 
+|   `channelArn`  |  string |  \(deprecated\) The ARN of the IoT Analytics channel to which message data will be sent\.  | 
+|   `channelName`  |  string |  The name of the IoT Analytics channel to which message data will be sent\. | 
+|   `roleArn`  |  string |  The ARN of the role which has a policy that grants IoT Analytics permission to send message data via IoT Analytics \(iotanalytics:BatchPutMessage\)\.  | 
+|   `iotEvents`  |  IotEventsAction |  Sends an input to an AWS IoT Events detector\. | 
+|   `inputName`  |  string  length\- max:128 min:1  |  The name of the AWS IoT Events input\. | 
+|   `messageId`  |  string  length\- max:128  |  \[Optional\] Use this to ensure that only one input \(message\) with a given messageId will be processed by an AWS IoT Events detector\.  | 
+|   `roleArn`  |  string |  The ARN of the role that grants AWS IoT permission to send an input to an AWS IoT Events detector\. \("Action":"iotevents:BatchPutMessage"\)\.  | 
+|   `stepFunctions`  |  StepFunctionsAction |  Starts execution of a Step Functions state machine\. | 
+|   `executionNamePrefix`  |  string |  \(Optional\) A name will be given to the state machine execution consisting of this prefix followed by a UUID\. Step Functions automatically creates a unique name for each state machine execution if one is not provided\.  | 
+|   `stateMachineName`  |  string |  The name of the Step Functions state machine whose execution will be started\.  | 
+|   `roleArn`  |  string |  The ARN of the role that grants IoT permission to start execution of a state machine \("Action":"states:StartExecution"\)\.  | 
+|   `tags`  |  string |  Metadata which can be used to manage the topic rule\.  For URI Request parameters use format: \.\.\.key1=value1&key2=value2\.\.\. For the CLI command\-line parameter use format: \-\-tags "key1=value1&key2=value2\.\.\." For the cli\-input\-json file use format: "tags": "key1=value1&key2=value2\.\.\."   | 
 
 Output
 
@@ -2956,7 +3135,7 @@ aws iot  delete-account-audit-configuration \
 
 |  Name |  Type |  Description | 
 | --- | --- | --- | 
-|  deleteScheduledAudits |  boolean |  If true, all scheduled audits are deleted\. | 
+|   `deleteScheduledAudits`  |  boolean |  If true, all scheduled audits are deleted\. | 
 
 Output
 
@@ -3002,7 +3181,7 @@ aws iot  delete-authorizer \
 
 |  Name |  Type |  Description | 
 | --- | --- | --- | 
-|  authorizerName |  string  length\- max:128 min:1  pattern: \[w=,@\-\]\+  |  The name of the authorizer to delete\. | 
+|   `authorizerName`  |  string  length\- max:128 min:1  pattern: \[w=,@\-\]\+  |  The name of the authorizer to delete\. | 
 
 Output
 
@@ -3059,8 +3238,8 @@ aws iot  delete-billing-group \
 
 |  Name |  Type |  Description | 
 | --- | --- | --- | 
-|  billingGroupName |  string  length\- max:128 min:1  pattern: \[a\-zA\-Z0\-9:\_\-\]\+  |  The name of the billing group\. | 
-|  expectedVersion |  long |  The expected version of the billing group\. If the version of the billing group does not match the expected version specified in the request, the `DeleteBillingGroup` request is rejected with a `VersionConflictException`\.  | 
+|   `billingGroupName`  |  string  length\- max:128 min:1  pattern: \[a\-zA\-Z0\-9:\_\-\]\+  |  The name of the billing group\. | 
+|   `expectedVersion`  |  long |  The expected version of the billing group\. If the version of the billing group does not match the expected version specified in the request, the `DeleteBillingGroup` request is rejected with a `VersionConflictException`\.  | 
 
 Output
 
@@ -3106,7 +3285,7 @@ aws iot  delete-ca-certificate \
 
 |  Name |  Type |  Description | 
 | --- | --- | --- | 
-|  certificateId |  string  length\- max:64 min:64  pattern: \(0x\)?\[a\-fA\-F0\-9\]\+  |  The ID of the certificate to delete\. \(The last part of the certificate ARN contains the certificate ID\.\) | 
+|   `certificateId`  |  string  length\- max:64 min:64  pattern: \(0x\)?\[a\-fA\-F0\-9\]\+  |  The ID of the certificate to delete\. \(The last part of the certificate ARN contains the certificate ID\.\) | 
 
 Output
 
@@ -3165,8 +3344,8 @@ aws iot  delete-certificate \
 
 |  Name |  Type |  Description | 
 | --- | --- | --- | 
-|  certificateId |  string  length\- max:64 min:64  pattern: \(0x\)?\[a\-fA\-F0\-9\]\+  |  The ID of the certificate\. \(The last part of the certificate ARN contains the certificate ID\.\) | 
-|  forceDelete |  boolean |  Forces the deletion of a certificate if it is inactive and is not attached to an IoT thing\. | 
+|   `certificateId`  |  string  length\- max:64 min:64  pattern: \(0x\)?\[a\-fA\-F0\-9\]\+  |  The ID of the certificate\. \(The last part of the certificate ARN contains the certificate ID\.\) | 
+|   `forceDelete`  |  boolean |  Forces the deletion of a certificate if it is inactive and is not attached to an IoT thing\. | 
 
 Output
 
@@ -3226,8 +3405,8 @@ aws iot  delete-dynamic-thing-group \
 
 |  Name |  Type |  Description | 
 | --- | --- | --- | 
-|  thingGroupName |  string  length\- max:128 min:1  pattern: \[a\-zA\-Z0\-9:\_\-\]\+  |  The name of the dynamic thing group to delete\. | 
-|  expectedVersion |  long |  The expected version of the dynamic thing group to delete\. | 
+|   `thingGroupName`  |  string  length\- max:128 min:1  pattern: \[a\-zA\-Z0\-9:\_\-\]\+  |  The name of the dynamic thing group to delete\. | 
+|   `expectedVersion`  |  long |  The expected version of the dynamic thing group to delete\. | 
 
 Output
 
@@ -3279,8 +3458,8 @@ aws iot  delete-job \
 
 |  Name |  Type |  Description | 
 | --- | --- | --- | 
-|  jobId |  string  length\- max:64 min:1  pattern: \[a\-zA\-Z0\-9\_\-\]\+  |  The ID of the job to be deleted\. After a job deletion is completed, you may reuse this jobId when you create a new job\. However, this is not recommended, and you must ensure that your devices are not using the jobId to refer to the deleted job\.  | 
-|  force |  boolean |  \(Optional\) When true, you can delete a job which is "IN\_PROGRESS"\. Otherwise, you can only delete a job which is in a terminal state \("COMPLETED" or "CANCELED"\) or an exception will occur\. The default is false\. Deleting a job which is "IN\_PROGRESS", will cause a device which is executing the job to be unable to access job information or update the job execution status\. Use caution and ensure that each device executing a job which is deleted is able to recover to a valid state\.  | 
+|   `jobId`  |  string  length\- max:64 min:1  pattern: \[a\-zA\-Z0\-9\_\-\]\+  |  The ID of the job to be deleted\. After a job deletion is completed, you may reuse this jobId when you create a new job\. However, this is not recommended, and you must ensure that your devices are not using the jobId to refer to the deleted job\.  | 
+|   `force`  |  boolean |  \(Optional\) When true, you can delete a job which is "IN\_PROGRESS"\. Otherwise, you can only delete a job which is in a terminal state \("COMPLETED" or "CANCELED"\) or an exception will occur\. The default is false\. Deleting a job which is "IN\_PROGRESS", will cause a device which is executing the job to be unable to access job information or update the job execution status\. Use caution and ensure that each device executing a job which is deleted is able to recover to a valid state\.  | 
 
 Output
 
@@ -3338,10 +3517,10 @@ aws iot  delete-job-execution \
 
 |  Name |  Type |  Description | 
 | --- | --- | --- | 
-|  jobId |  string  length\- max:64 min:1  pattern: \[a\-zA\-Z0\-9\_\-\]\+  |  The ID of the job whose execution on a particular device will be deleted\. | 
-|  thingName |  string  length\- max:128 min:1  pattern: \[a\-zA\-Z0\-9:\_\-\]\+  |  The name of the thing whose job execution will be deleted\. | 
-|  executionNumber |  long |  The ID of the job execution to be deleted\. The `executionNumber` refers to the execution of a particular job on a particular device\. Note that once a job execution is deleted, the `executionNumber` may be reused by IoT, so be sure you get and use the correct value here\.  | 
-|  force |  boolean |  \(Optional\) When true, you can delete a job execution which is "IN\_PROGRESS"\. Otherwise, you can only delete a job execution which is in a terminal state \("SUCCEEDED", "FAILED", "REJECTED", "REMOVED" or "CANCELED"\) or an exception will occur\. The default is false\. Deleting a job execution which is "IN\_PROGRESS", will cause the device to be unable to access job information or update the job execution status\. Use caution and ensure that the device is able to recover to a valid state\.  | 
+|   `jobId`  |  string  length\- max:64 min:1  pattern: \[a\-zA\-Z0\-9\_\-\]\+  |  The ID of the job whose execution on a particular device will be deleted\. | 
+|   `thingName`  |  string  length\- max:128 min:1  pattern: \[a\-zA\-Z0\-9:\_\-\]\+  |  The name of the thing whose job execution will be deleted\. | 
+|   `executionNumber`  |  long |  The ID of the job execution to be deleted\. The `executionNumber` refers to the execution of a particular job on a particular device\. Note that once a job execution is deleted, the `executionNumber` may be reused by IoT, so be sure you get and use the correct value here\.  | 
+|   `force`  |  boolean |  \(Optional\) When true, you can delete a job execution which is "IN\_PROGRESS"\. Otherwise, you can only delete a job execution which is in a terminal state \("SUCCEEDED", "FAILED", "REJECTED", "REMOVED" or "CANCELED"\) or an exception will occur\. The default is false\. Deleting a job execution which is "IN\_PROGRESS", will cause the device to be unable to access job information or update the job execution status\. Use caution and ensure that the device is able to recover to a valid state\.  | 
 
 Output
 
@@ -3363,6 +3542,49 @@ The rate exceeds the limit\.
 
 `ServiceUnavailableException`  
 The service is temporarily unavailable\.
+
+## DeleteMitigationAction<a name="api-iot-DeleteMitigationAction"></a>
+
+Deletes a defined mitigation action from your AWS account\.
+
+ **Synopsis**
+
+```
+aws iot  delete-mitigation-action \
+    --action-name <value>  \
+    [--cli-input-json <value>] \
+    [--generate-cli-skeleton]
+```
+
+ `cli-input-json` format
+
+```
+{
+  "actionName": "string"
+}
+```
+
+
+**`cli-input-json` fields**  
+
+|  Name |  Type |  Description | 
+| --- | --- | --- | 
+|   `actionName`  |  string  length\- max:128  pattern: \[a\-zA\-Z0\-9\_\-\]\+  |  The name of the mitigation action that you want to delete\. | 
+
+Output
+
+None
+
+ **Errors**
+
+`InvalidRequestException`  
+The contents of the request were invalid\.
+
+`ThrottlingException`  
+The rate exceeds the limit\.
+
+`InternalFailureException`  
+An unexpected error has occurred\.
 
 ## DeleteOTAUpdate<a name="api-iot-DeleteOTAUpdate"></a>
 
@@ -3394,9 +3616,9 @@ aws iot  delete-ota-update \
 
 |  Name |  Type |  Description | 
 | --- | --- | --- | 
-|  otaUpdateId |  string  length\- max:128 min:1  pattern: \[a\-zA\-Z0\-9\_\-\]\+  |  The OTA update ID to delete\. | 
-|  deleteStream |  boolean |  Specifies if the stream associated with an OTA update should be deleted when the OTA update is deleted\. | 
-|  forceDeleteAWSJob |  boolean |  Specifies if the AWS Job associated with the OTA update should be deleted with the OTA update is deleted\. | 
+|   `otaUpdateId`  |  string  length\- max:128 min:1  pattern: \[a\-zA\-Z0\-9\_\-\]\+  |  The OTA update ID to delete\. | 
+|   `deleteStream`  |  boolean |  Specifies if the stream associated with an OTA update should be deleted when the OTA update is deleted\. | 
+|   `forceDeleteAWSJob`  |  boolean |  Specifies if the AWS Job associated with the OTA update should be deleted with the OTA update is deleted\. | 
 
 Output
 
@@ -3457,7 +3679,7 @@ aws iot  delete-policy \
 
 |  Name |  Type |  Description | 
 | --- | --- | --- | 
-|  policyName |  string  length\- max:128 min:1  pattern: \[w\+=,\.@\-\]\+  |  The name of the policy to delete\. | 
+|   `policyName`  |  string  length\- max:128 min:1  pattern: \[w\+=,\.@\-\]\+  |  The name of the policy to delete\. | 
 
 Output
 
@@ -3514,8 +3736,8 @@ aws iot  delete-policy-version \
 
 |  Name |  Type |  Description | 
 | --- | --- | --- | 
-|  policyName |  string  length\- max:128 min:1  pattern: \[w\+=,\.@\-\]\+  |  The name of the policy\. | 
-|  policyVersionId |  string  pattern: \[0\-9\]\+  |  The policy version ID\. | 
+|   `policyName`  |  string  length\- max:128 min:1  pattern: \[w\+=,\.@\-\]\+  |  The name of the policy\. | 
+|   `policyVersionId`  |  string  pattern: \[0\-9\]\+  |  The policy version ID\. | 
 
 Output
 
@@ -3610,7 +3832,7 @@ aws iot  delete-role-alias \
 
 |  Name |  Type |  Description | 
 | --- | --- | --- | 
-|  roleAlias |  string  length\- max:128 min:1  pattern: \[w=,@\-\]\+  |  The role alias to delete\. | 
+|   `roleAlias`  |  string  length\- max:128 min:1  pattern: \[w=,@\-\]\+  |  The role alias to delete\. | 
 
 Output
 
@@ -3665,7 +3887,7 @@ aws iot  delete-scheduled-audit \
 
 |  Name |  Type |  Description | 
 | --- | --- | --- | 
-|  scheduledAuditName |  string  length\- max:128 min:1  pattern: \[a\-zA\-Z0\-9\_\-\]\+  |  The name of the scheduled audit you want to delete\. | 
+|   `scheduledAuditName`  |  string  length\- max:128 min:1  pattern: \[a\-zA\-Z0\-9\_\-\]\+  |  The name of the scheduled audit you want to delete\. | 
 
 Output
 
@@ -3713,8 +3935,8 @@ aws iot  delete-security-profile \
 
 |  Name |  Type |  Description | 
 | --- | --- | --- | 
-|  securityProfileName |  string  length\- max:128 min:1  pattern: \[a\-zA\-Z0\-9:\_\-\]\+  |  The name of the security profile to be deleted\. | 
-|  expectedVersion |  long |  The expected version of the security profile\. A new version is generated whenever the security profile is updated\. If you specify a value that is different than the actual version, a `VersionConflictException` is thrown\.  | 
+|   `securityProfileName`  |  string  length\- max:128 min:1  pattern: \[a\-zA\-Z0\-9:\_\-\]\+  |  The name of the security profile to be deleted\. | 
+|   `expectedVersion`  |  long |  The expected version of the security profile\. A new version is generated whenever the security profile is updated\. If you specify a value that is different from the actual version, a `VersionConflictException` is thrown\.  | 
 
 Output
 
@@ -3760,7 +3982,7 @@ aws iot  delete-stream \
 
 |  Name |  Type |  Description | 
 | --- | --- | --- | 
-|  streamId |  string  length\- max:128 min:1  pattern: \[a\-zA\-Z0\-9\_\-\]\+  |  The stream ID\. | 
+|   `streamId`  |  string  length\- max:128 min:1  pattern: \[a\-zA\-Z0\-9\_\-\]\+  |  The stream ID\. | 
 
 Output
 
@@ -3817,8 +4039,8 @@ aws iot  delete-thing \
 
 |  Name |  Type |  Description | 
 | --- | --- | --- | 
-|  thingName |  string  length\- max:128 min:1  pattern: \[a\-zA\-Z0\-9:\_\-\]\+  |  The name of the thing to delete\. | 
-|  expectedVersion |  long |  The expected version of the thing record in the registry\. If the version of the record in the registry does not match the expected version specified in the request, the `DeleteThing` request is rejected with a `VersionConflictException`\.  | 
+|   `thingName`  |  string  length\- max:128 min:1  pattern: \[a\-zA\-Z0\-9:\_\-\]\+  |  The name of the thing to delete\. | 
+|   `expectedVersion`  |  long |  The expected version of the thing record in the registry\. If the version of the record in the registry does not match the expected version specified in the request, the `DeleteThing` request is rejected with a `VersionConflictException`\.  | 
 
 Output
 
@@ -3875,8 +4097,8 @@ aws iot  delete-thing-group \
 
 |  Name |  Type |  Description | 
 | --- | --- | --- | 
-|  thingGroupName |  string  length\- max:128 min:1  pattern: \[a\-zA\-Z0\-9:\_\-\]\+  |  The name of the thing group to delete\. | 
-|  expectedVersion |  long |  The expected version of the thing group to delete\. | 
+|   `thingGroupName`  |  string  length\- max:128 min:1  pattern: \[a\-zA\-Z0\-9:\_\-\]\+  |  The name of the thing group to delete\. | 
+|   `expectedVersion`  |  long |  The expected version of the thing group to delete\. | 
 
 Output
 
@@ -3900,13 +4122,14 @@ An unexpected error has occurred\.
 
 Deletes the shadow for the specified thing\.
 
-For more information, see [DeleteThingShadow](https://docs.aws.amazon.com/iot/latest/developerguide/API_DeleteThingShadow.html) in the AWS IoT Developer Guide\.
+For more information, see [DeleteThingShadow](http://docs.aws.amazon.com/iot/latest/developerguide/API_DeleteThingShadow.html) in the AWS IoT Developer Guide\.
 
  **Synopsis**
 
 ```
 aws iot-data  delete-thing-shadow \
-    --thing-name <value>  \
+    --thing-name <value> \
+    [--shadow-name <value>]  \
     [--cli-input-json <value>] \
     [--generate-cli-skeleton]
 ```
@@ -3915,7 +4138,8 @@ aws iot-data  delete-thing-shadow \
 
 ```
 {
-  "thingName": "string"
+  "thingName": "string",
+  "shadowName": "string"
 }
 ```
 
@@ -3924,7 +4148,8 @@ aws iot-data  delete-thing-shadow \
 
 |  Name |  Type |  Description | 
 | --- | --- | --- | 
-|  thingName |  string  length\- max:128 min:1  pattern: \[a\-zA\-Z0\-9:\_\-\]\+  |  The name of the thing\. | 
+|   `thingName`  |  string  length\- max:128 min:1  pattern: \[a\-zA\-Z0\-9:\_\-\]\+  |  The name of the thing\. | 
+|   `shadowName`  |  string  length\- max:64 min:1  pattern: \[a\-zA\-Z0\-9:\_\-\]\+  |  The name of the shadow\. | 
 
 Output
 
@@ -3939,7 +4164,7 @@ Output
 
 |  Name |  Type |  Description | 
 | --- | --- | --- | 
-|  payload |  blob |  The state information, in JSON format\. | 
+|   `payload`  |  blob |  The state information, in JSON format\. | 
 
  **Errors**
 
@@ -3993,7 +4218,7 @@ aws iot  delete-thing-type \
 
 |  Name |  Type |  Description | 
 | --- | --- | --- | 
-|  thingTypeName |  string  length\- max:128 min:1  pattern: \[a\-zA\-Z0\-9:\_\-\]\+  |  The name of the thing type\. | 
+|   `thingTypeName`  |  string  length\- max:128 min:1  pattern: \[a\-zA\-Z0\-9:\_\-\]\+  |  The name of the thing type\. | 
 
 Output
 
@@ -4045,7 +4270,7 @@ aws iot  delete-topic-rule \
 
 |  Name |  Type |  Description | 
 | --- | --- | --- | 
-|  ruleName |  string  length\- max:128 min:1  pattern: ^\[a\-zA\-Z0\-9\_\]\+$  |  The name of the rule\. | 
+|   `ruleName`  |  string  length\- max:128 min:1  pattern: ^\[a\-zA\-Z0\-9\_\]\+$  |  The name of the rule\. | 
 
 Output
 
@@ -4096,8 +4321,8 @@ aws iot  delete-v2-logging-level \
 
 |  Name |  Type |  Description | 
 | --- | --- | --- | 
-|  targetType |  string |  The type of resource for which you are configuring logging\. Must be `THING_Group`\.  enum: DEFAULT \| THING\_GROUP  | 
-|  targetName |  string |  The name of the resource for which you are configuring logging\. | 
+|   `targetType`  |  string |  The type of resource for which you are configuring logging\. Must be `THING_Group`\.  enum: DEFAULT \| THING\_GROUP  | 
+|   `targetName`  |  string |  The name of the resource for which you are configuring logging\. | 
 
 Output
 
@@ -4142,8 +4367,8 @@ aws iot  deprecate-thing-type \
 
 |  Name |  Type |  Description | 
 | --- | --- | --- | 
-|  thingTypeName |  string  length\- max:128 min:1  pattern: \[a\-zA\-Z0\-9:\_\-\]\+  |  The name of the thing type to deprecate\. | 
-|  undoDeprecate |  boolean |  Whether to undeprecate a deprecated thing type\. If **true**, the thing type will not be deprecated anymore and you can associate it with things\.  | 
+|   `thingTypeName`  |  string  length\- max:128 min:1  pattern: \[a\-zA\-Z0\-9:\_\-\]\+  |  The name of the thing type to deprecate\. | 
+|   `undoDeprecate`  |  boolean |  Whether to undeprecate a deprecated thing type\. If **true**, the thing type will not be deprecated anymore and you can associate it with things\.  | 
 
 Output
 
@@ -4213,15 +4438,296 @@ Output
 
 |  Name |  Type |  Description | 
 | --- | --- | --- | 
-|  roleArn |  string  length\- max:2048 min:20  |  The ARN of the role that grants permission to AWS IoT to access information about your devices, policies, certificates and other items as necessary when performing an audit\. On the first call to `UpdateAccountAuditConfiguration` this parameter is required\.  | 
-|  auditNotificationTargetConfigurations |  map |  Information about the targets to which audit notifications are sent for this account\.  | 
-|  targetArn |  string |  The ARN of the target \(SNS topic\) to which audit notifications are sent\. | 
-|  roleArn |  string  length\- max:2048 min:20  |  The ARN of the role that grants permission to send notifications to the target\. | 
-|  enabled |  boolean |  True if notifications to the target are enabled\. | 
-|  auditCheckConfigurations |  map |  Which audit checks are enabled and disabled for this account\. | 
-|  enabled |  boolean |  True if this audit check is enabled for this account\. | 
+|   `roleArn`  |  string  length\- max:2048 min:20  |  The ARN of the role that grants permission to AWS IoT to access information about your devices, policies, certificates, and other items as required when performing an audit\. On the first call to `UpdateAccountAuditConfiguration`, this parameter is required\.  | 
+|   `auditNotificationTargetConfigurations`  |  map |  Information about the targets to which audit notifications are sent for this account\.  | 
+|   `targetArn`  |  string |  The ARN of the target \(SNS topic\) to which audit notifications are sent\. | 
+|   `roleArn`  |  string  length\- max:2048 min:20  |  The ARN of the role that grants permission to send notifications to the target\. | 
+|   `enabled`  |  boolean |  True if notifications to the target are enabled\. | 
+|   `auditCheckConfigurations`  |  map |  Which audit checks are enabled and disabled for this account\. | 
+|   `enabled`  |  boolean |  True if this audit check is enabled for this account\. | 
 
  **Errors**
+
+`ThrottlingException`  
+The rate exceeds the limit\.
+
+`InternalFailureException`  
+An unexpected error has occurred\.
+
+## DescribeAuditFinding<a name="api-iot-DescribeAuditFinding"></a>
+
+Gets information about a single audit finding\. Properties include the reason for noncompliance, the severity of the issue, and when the audit that returned the finding was started\.
+
+ **Synopsis**
+
+```
+aws iot  describe-audit-finding \
+    --finding-id <value>  \
+    [--cli-input-json <value>] \
+    [--generate-cli-skeleton]
+```
+
+ `cli-input-json` format
+
+```
+{
+  "findingId": "string"
+}
+```
+
+
+**`cli-input-json` fields**  
+
+|  Name |  Type |  Description | 
+| --- | --- | --- | 
+|   `findingId`  |  string  length\- max:128 min:1  pattern: \[a\-zA\-Z0\-9\_\-\]\+  |  A unique identifier for a single audit finding\. You can use this identifier to apply mitigation actions to the finding\. | 
+
+Output
+
+```
+{
+  "finding": {
+    "findingId": "string",
+    "taskId": "string",
+    "checkName": "string",
+    "taskStartTime": "timestamp",
+    "findingTime": "timestamp",
+    "severity": "string",
+    "nonCompliantResource": {
+      "resourceType": "string",
+      "resourceIdentifier": {
+        "deviceCertificateId": "string",
+        "caCertificateId": "string",
+        "cognitoIdentityPoolId": "string",
+        "clientId": "string",
+        "policyVersionIdentifier": {
+          "policyName": "string",
+          "policyVersionId": "string"
+        },
+        "account": "string"
+      },
+      "additionalInfo": {
+        "string": "string"
+      }
+    },
+    "relatedResources": [
+      {
+        "resourceType": "string",
+        "resourceIdentifier": {
+          "deviceCertificateId": "string",
+          "caCertificateId": "string",
+          "cognitoIdentityPoolId": "string",
+          "clientId": "string",
+          "policyVersionIdentifier": {
+            "policyName": "string",
+            "policyVersionId": "string"
+          },
+          "account": "string"
+        },
+        "additionalInfo": {
+          "string": "string"
+        }
+      }
+    ],
+    "reasonForNonCompliance": "string",
+    "reasonForNonComplianceCode": "string"
+  }
+}
+```
+
+
+**CLI output fields**  
+
+|  Name |  Type |  Description | 
+| --- | --- | --- | 
+|   `finding`  |  AuditFinding |   | 
+|   `findingId`  |  string  length\- max:128 min:1  pattern: \[a\-zA\-Z0\-9\_\-\]\+  |  A unique identifier for this set of audit findings\. This identifier is used to apply mitigation tasks to one or more sets of findings\.  | 
+|   `taskId`  |  string  length\- max:40 min:1  pattern: \[a\-zA\-Z0\-9\-\]\+  |  The ID of the audit that generated this result \(finding\)\. | 
+|   `checkName`  |  string |  The audit check that generated this result\. | 
+|   `taskStartTime`  |  timestamp |  The time the audit started\. | 
+|   `findingTime`  |  timestamp |  The time the result \(finding\) was discovered\. | 
+|   `severity`  |  string |  The severity of the result \(finding\)\.  enum: CRITICAL \| HIGH \| MEDIUM \| LOW  | 
+|   `nonCompliantResource`  |  NonCompliantResource |  The resource that was found to be noncompliant with the audit check\.  | 
+|   `resourceType`  |  string |  The type of the noncompliant resource\.  enum: DEVICE\_CERTIFICATE \| CA\_CERTIFICATE \| IOT\_POLICY \| COGNITO\_IDENTITY\_POOL \| CLIENT\_ID \| ACCOUNT\_SETTINGS  | 
+|   `resourceIdentifier`  |  ResourceIdentifier |  Information that identifies the noncompliant resource\. | 
+|   `deviceCertificateId`  |  string  length\- max:64 min:64  pattern: \(0x\)?\[a\-fA\-F0\-9\]\+  |  The ID of the certificate attached to the resource\. | 
+|   `caCertificateId`  |  string  length\- max:64 min:64  pattern: \(0x\)?\[a\-fA\-F0\-9\]\+  |  The ID of the CA certificate used to authorize the certificate\. | 
+|   `cognitoIdentityPoolId`  |  string |  The ID of the Amazon Cognito identity pool\. | 
+|   `clientId`  |  string |  The client ID\. | 
+|   `policyVersionIdentifier`  |  PolicyVersionIdentifier |  The version of the policy associated with the resource\. | 
+|   `policyName`  |  string  length\- max:128 min:1  pattern: \[w\+=,\.@\-\]\+  |  The name of the policy\. | 
+|   `policyVersionId`  |  string  pattern: \[0\-9\]\+  |  The ID of the version of the policy associated with the resource\. | 
+|   `account`  |  string  length\- max:12 min:12  pattern: \[0\-9\]\+  |  The account with which the resource is associated\. | 
+|   `additionalInfo`  |  map |  Other information about the noncompliant resource\. | 
+|   `relatedResources`  |  list  member: RelatedResource  |  The list of related resources\. | 
+|   `resourceType`  |  string |  The type of resource\.  enum: DEVICE\_CERTIFICATE \| CA\_CERTIFICATE \| IOT\_POLICY \| COGNITO\_IDENTITY\_POOL \| CLIENT\_ID \| ACCOUNT\_SETTINGS  | 
+|   `resourceIdentifier`  |  ResourceIdentifier |  Information that identifies the resource\. | 
+|   `deviceCertificateId`  |  string  length\- max:64 min:64  pattern: \(0x\)?\[a\-fA\-F0\-9\]\+  |  The ID of the certificate attached to the resource\. | 
+|   `caCertificateId`  |  string  length\- max:64 min:64  pattern: \(0x\)?\[a\-fA\-F0\-9\]\+  |  The ID of the CA certificate used to authorize the certificate\. | 
+|   `cognitoIdentityPoolId`  |  string |  The ID of the Amazon Cognito identity pool\. | 
+|   `clientId`  |  string |  The client ID\. | 
+|   `policyVersionIdentifier`  |  PolicyVersionIdentifier |  The version of the policy associated with the resource\. | 
+|   `policyName`  |  string  length\- max:128 min:1  pattern: \[w\+=,\.@\-\]\+  |  The name of the policy\. | 
+|   `policyVersionId`  |  string  pattern: \[0\-9\]\+  |  The ID of the version of the policy associated with the resource\. | 
+|   `account`  |  string  length\- max:12 min:12  pattern: \[0\-9\]\+  |  The account with which the resource is associated\. | 
+|   `additionalInfo`  |  map |  Other information about the resource\. | 
+|   `reasonForNonCompliance`  |  string |  The reason the resource was noncompliant\. | 
+|   `reasonForNonComplianceCode`  |  string |  A code that indicates the reason that the resource was noncompliant\. | 
+
+ **Errors**
+
+`ResourceNotFoundException`  
+The specified resource does not exist\.
+
+`InvalidRequestException`  
+The contents of the request were invalid\.
+
+`ThrottlingException`  
+The rate exceeds the limit\.
+
+`InternalFailureException`  
+An unexpected error has occurred\.
+
+## DescribeAuditMitigationActionsTask<a name="api-iot-DescribeAuditMitigationActionsTask"></a>
+
+Gets information about an audit mitigation task that is used to apply mitigation actions to a set of audit findings\. Properties include the actions being applied, the audit checks to which they're being applied, the task status, and aggregated task statistics\.
+
+ **Synopsis**
+
+```
+aws iot  describe-audit-mitigation-actions-task \
+    --task-id <value>  \
+    [--cli-input-json <value>] \
+    [--generate-cli-skeleton]
+```
+
+ `cli-input-json` format
+
+```
+{
+  "taskId": "string"
+}
+```
+
+
+**`cli-input-json` fields**  
+
+|  Name |  Type |  Description | 
+| --- | --- | --- | 
+|   `taskId`  |  string  length\- max:128 min:1  pattern: \[a\-zA\-Z0\-9\_\-\]\+  |  The unique identifier for the audit mitigation task\. | 
+
+Output
+
+```
+{
+  "taskStatus": "string",
+  "startTime": "timestamp",
+  "endTime": "timestamp",
+  "taskStatistics": {
+    "string": {
+      "totalFindingsCount": "long",
+      "failedFindingsCount": "long",
+      "succeededFindingsCount": "long",
+      "skippedFindingsCount": "long",
+      "canceledFindingsCount": "long"
+    }
+  },
+  "target": {
+    "auditTaskId": "string",
+    "findingIds": [
+      "string"
+    ],
+    "auditCheckToReasonCodeFilter": {
+      "string": [
+        "string"
+      ]
+    }
+  },
+  "auditCheckToActionsMapping": {
+    "string": [
+      "string"
+    ]
+  },
+  "actionsDefinition": [
+    {
+      "name": "string",
+      "id": "string",
+      "roleArn": "string",
+      "actionParams": {
+        "updateDeviceCertificateParams": {
+          "action": "string"
+        },
+        "updateCACertificateParams": {
+          "action": "string"
+        },
+        "addThingsToThingGroupParams": {
+          "thingGroupNames": [
+            "string"
+          ],
+          "overrideDynamicGroups": "boolean"
+        },
+        "replaceDefaultPolicyVersionParams": {
+          "templateName": "string"
+        },
+        "enableIoTLoggingParams": {
+          "roleArnForLogging": "string",
+          "logLevel": "string"
+        },
+        "publishFindingToSnsParams": {
+          "topicArn": "string"
+        }
+      }
+    }
+  ]
+}
+```
+
+
+**CLI output fields**  
+
+|  Name |  Type |  Description | 
+| --- | --- | --- | 
+|   `taskStatus`  |  string |  The current status of the task\.  enum: IN\_PROGRESS \| COMPLETED \| FAILED \| CANCELED  | 
+|   `startTime`  |  timestamp |  The date and time when the task was started\. | 
+|   `endTime`  |  timestamp |  The date and time when the task was completed or canceled\. | 
+|   `taskStatistics`  |  map |  Aggregate counts of the results when the mitigation tasks were applied to the findings for this audit mitigation actions task\. | 
+|   `totalFindingsCount`  |  long |  The total number of findings to which a task is being applied\. | 
+|   `failedFindingsCount`  |  long |  The number of findings for which at least one of the actions failed when applied\. | 
+|   `succeededFindingsCount`  |  long |  The number of findings for which all mitigation actions succeeded when applied\. | 
+|   `skippedFindingsCount`  |  long |  The number of findings skipped because of filter conditions provided in the parameters to the command\. | 
+|   `canceledFindingsCount`  |  long |  The number of findings to which the mitigation action task was canceled when applied\. | 
+|   `target`  |  AuditMitigationActionsTaskTarget |  Identifies the findings to which the mitigation actions are applied\. This can be by audit checks, by audit task, or a set of findings\. | 
+|   `auditTaskId`  |  string  length\- max:40 min:1  pattern: \[a\-zA\-Z0\-9\-\]\+  |  If the task will apply a mitigation action to findings from a specific audit, this value uniquely identifies the audit\. | 
+|   `findingIds`  |  list  member: FindingId  |  If the task will apply a mitigation action to one or more listed findings, this value uniquely identifies those findings\. | 
+|   `auditCheckToReasonCodeFilter`  |  map |  Specifies a filter in the form of an audit check and set of reason codes that identify the findings from the audit to which the audit mitigation actions task apply\. | 
+|   `auditCheckToActionsMapping`  |  map |  Specifies the mitigation actions that should be applied to specific audit checks\. | 
+|   `actionsDefinition`  |  list  member: MitigationAction  |  Specifies the mitigation actions and their parameters that are applied as part of this task\. | 
+|   `name`  |  string  length\- max:128  pattern: \[a\-zA\-Z0\-9\_\-\]\+  |  A user\-friendly name for the mitigation action\. | 
+|   `id`  |  string |  A unique identifier for the mitigation action\. | 
+|   `roleArn`  |  string  length\- max:2048 min:20  |  The IAM role ARN used to apply this mitigation action\. | 
+|   `actionParams`  |  MitigationActionParams |  The set of parameters for this mitigation action\. The parameters vary, depending on the kind of action you apply\. | 
+|   `updateDeviceCertificateParams`  |  UpdateDeviceCertificateParams |  Parameters to define a mitigation action that changes the state of the device certificate to inactive\. | 
+|   `action`  |  string |  The action that you want to apply to the device cerrtificate\. The only supported value is `DEACTIVATE`\.  enum: DEACTIVATE  | 
+|   `updateCACertificateParams`  |  UpdateCACertificateParams |  Parameters to define a mitigation action that changes the state of the CA certificate to inactive\. | 
+|   `action`  |  string |  The action that you want to apply to the CA cerrtificate\. The only supported value is `DEACTIVATE`\.  enum: DEACTIVATE  | 
+|   `addThingsToThingGroupParams`  |  AddThingsToThingGroupParams |  Parameters to define a mitigation action that moves devices associated with a certificate to one or more specified thing groups, typically for quarantine\. | 
+|   `thingGroupNames`  |  list  member: ThingGroupName  |  The list of groups to which you want to add the things that triggered the mitigation action\. You can add a thing to a maximum of 10 groups, but you cannot add a thing to more than one group in the same hierarchy\. | 
+|   `overrideDynamicGroups`  |  boolean |  Specifies if this mitigation action can move the things that triggered the mitigation action even if they are part of one or more dynamic things groups\. | 
+|   `replaceDefaultPolicyVersionParams`  |  ReplaceDefaultPolicyVersionParams |  Parameters to define a mitigation action that adds a blank policy to restrict permissions\. | 
+|   `templateName`  |  string |  The name of the template to be applied\. The only supported value is `BLANK_POLICY`\.  enum: BLANK\_POLICY  | 
+|   `enableIoTLoggingParams`  |  EnableIoTLoggingParams |  Parameters to define a mitigation action that enables AWS IoT logging at a specified level of detail\. | 
+|   `roleArnForLogging`  |  string  length\- max:2048 min:20  |  The ARN of the IAM role used for logging\. | 
+|   `logLevel`  |  string |  Specifies the types of information to be logged\.  enum: DEBUG \| INFO \| ERROR \| WARN \| DISABLED  | 
+|   `publishFindingToSnsParams`  |  PublishFindingToSnsParams |  Parameters to define a mitigation action that publishes findings to Amazon SNS\. You can implement your own custom actions in response to the Amazon SNS messages\. | 
+|   `topicArn`  |  string  length\- max:350  |  The ARN of the topic to which you want to publish the findings\. | 
+
+ **Errors**
+
+`InvalidRequestException`  
+The contents of the request were invalid\.
+
+`ResourceNotFoundException`  
+The specified resource does not exist\.
 
 `ThrottlingException`  
 The rate exceeds the limit\.
@@ -4255,7 +4761,7 @@ aws iot  describe-audit-task \
 
 |  Name |  Type |  Description | 
 | --- | --- | --- | 
-|  taskId |  string  length\- max:40 min:1  pattern: \[a\-zA\-Z0\-9\-\]\+  |  The ID of the audit whose information you want to get\. | 
+|   `taskId`  |  string  length\- max:40 min:1  pattern: \[a\-zA\-Z0\-9\-\]\+  |  The ID of the audit whose information you want to get\. | 
 
 Output
 
@@ -4292,25 +4798,25 @@ Output
 
 |  Name |  Type |  Description | 
 | --- | --- | --- | 
-|  taskStatus |  string |  The status of the audit: one of "IN\_PROGRESS", "COMPLETED", "FAILED", or "CANCELED"\.  enum: IN\_PROGRESS \| COMPLETED \| FAILED \| CANCELED  | 
-|  taskType |  string |  The type of audit: "ON\_DEMAND\_AUDIT\_TASK" or "SCHEDULED\_AUDIT\_TASK"\.  enum: ON\_DEMAND\_AUDIT\_TASK \| SCHEDULED\_AUDIT\_TASK  | 
-|  taskStartTime |  timestamp |  The time the audit started\. | 
-|  taskStatistics |  TaskStatistics |  Statistical information about the audit\. | 
-|  totalChecks |  integer |  The number of checks in this audit\. | 
-|  inProgressChecks |  integer |  The number of checks in progress\. | 
-|  waitingForDataCollectionChecks |  integer |  The number of checks waiting for data collection\. | 
-|  compliantChecks |  integer |  The number of checks that found compliant resources\. | 
-|  nonCompliantChecks |  integer |  The number of checks that found non\-compliant resources\. | 
-|  failedChecks |  integer |  The number of checks  | 
-|  canceledChecks |  integer |  The number of checks that did not run because the audit was canceled\. | 
-|  scheduledAuditName |  string  length\- max:128 min:1  pattern: \[a\-zA\-Z0\-9\_\-\]\+  |  The name of the scheduled audit \(only if the audit was a scheduled audit\)\. | 
-|  auditDetails |  map |  Detailed information about each check performed during this audit\. | 
-|  checkRunStatus |  string |  The completion status of this check, one of "IN\_PROGRESS", "WAITING\_FOR\_DATA\_COLLECTION", "CANCELED", "COMPLETED\_COMPLIANT", "COMPLETED\_NON\_COMPLIANT", or "FAILED"\.  enum: IN\_PROGRESS \| WAITING\_FOR\_DATA\_COLLECTION \| CANCELED \| COMPLETED\_COMPLIANT \| COMPLETED\_NON\_COMPLIANT \| FAILED  | 
-|  checkCompliant |  boolean |  True if the check completed and found all resources compliant\. | 
-|  totalResourcesCount |  long |  The number of resources on which the check was performed\. | 
-|  nonCompliantResourcesCount |  long |  The number of resources that the check found non\-compliant\. | 
-|  errorCode |  string |  The code of any error encountered when performing this check during this audit\. One of "INSUFFICIENT\_PERMISSIONS", or "AUDIT\_CHECK\_DISABLED"\.  | 
-|  message |  string  length\- max:2048  |  The message associated with any error encountered when performing this check during this audit\. | 
+|   `taskStatus`  |  string |  The status of the audit: one of "IN\_PROGRESS", "COMPLETED", "FAILED", or "CANCELED"\.  enum: IN\_PROGRESS \| COMPLETED \| FAILED \| CANCELED  | 
+|   `taskType`  |  string |  The type of audit: "ON\_DEMAND\_AUDIT\_TASK" or "SCHEDULED\_AUDIT\_TASK"\.  enum: ON\_DEMAND\_AUDIT\_TASK \| SCHEDULED\_AUDIT\_TASK  | 
+|   `taskStartTime`  |  timestamp |  The time the audit started\. | 
+|   `taskStatistics`  |  TaskStatistics |  Statistical information about the audit\. | 
+|   `totalChecks`  |  integer |  The number of checks in this audit\. | 
+|   `inProgressChecks`  |  integer |  The number of checks in progress\. | 
+|   `waitingForDataCollectionChecks`  |  integer |  The number of checks waiting for data collection\. | 
+|   `compliantChecks`  |  integer |  The number of checks that found compliant resources\. | 
+|   `nonCompliantChecks`  |  integer |  The number of checks that found noncompliant resources\. | 
+|   `failedChecks`  |  integer |  The number of checks\. | 
+|   `canceledChecks`  |  integer |  The number of checks that did not run because the audit was canceled\. | 
+|   `scheduledAuditName`  |  string  length\- max:128 min:1  pattern: \[a\-zA\-Z0\-9\_\-\]\+  |  The name of the scheduled audit \(only if the audit was a scheduled audit\)\. | 
+|   `auditDetails`  |  map |  Detailed information about each check performed during this audit\. | 
+|   `checkRunStatus`  |  string |  The completion status of this check\. One of "IN\_PROGRESS", "WAITING\_FOR\_DATA\_COLLECTION", "CANCELED", "COMPLETED\_COMPLIANT", "COMPLETED\_NON\_COMPLIANT", or "FAILED"\.  enum: IN\_PROGRESS \| WAITING\_FOR\_DATA\_COLLECTION \| CANCELED \| COMPLETED\_COMPLIANT \| COMPLETED\_NON\_COMPLIANT \| FAILED  | 
+|   `checkCompliant`  |  boolean |  True if the check is complete and found all resources compliant\. | 
+|   `totalResourcesCount`  |  long |  The number of resources on which the check was performed\. | 
+|   `nonCompliantResourcesCount`  |  long |  The number of resources that were found noncompliant during the check\. | 
+|   `errorCode`  |  string |  The code of any error encountered when this check is performed during this audit\. One of "INSUFFICIENT\_PERMISSIONS" or "AUDIT\_CHECK\_DISABLED"\.  | 
+|   `message`  |  string  length\- max:2048  |  The message associated with any error encountered when this check is performed during this audit\. | 
 
  **Errors**
 
@@ -4352,7 +4858,7 @@ aws iot  describe-authorizer \
 
 |  Name |  Type |  Description | 
 | --- | --- | --- | 
-|  authorizerName |  string  length\- max:128 min:1  pattern: \[w=,@\-\]\+  |  The name of the authorizer to describe\. | 
+|   `authorizerName`  |  string  length\- max:128 min:1  pattern: \[w=,@\-\]\+  |  The name of the authorizer to describe\. | 
 
 Output
 
@@ -4378,15 +4884,15 @@ Output
 
 |  Name |  Type |  Description | 
 | --- | --- | --- | 
-|  authorizerDescription |  AuthorizerDescription |  The authorizer description\. | 
-|  authorizerName |  string  length\- max:128 min:1  pattern: \[w=,@\-\]\+  |  The authorizer name\. | 
-|  authorizerArn |  string |  The authorizer ARN\. | 
-|  authorizerFunctionArn |  string |  The authorizer's Lambda function ARN\. | 
-|  tokenKeyName |  string  length\- max:128 min:1  pattern: \[a\-zA\-Z0\-9\_\-\]\+  |  The key used to extract the token from the HTTP headers\. | 
-|  tokenSigningPublicKeys |  map |  The public keys used to validate the token signature returned by your custom authentication service\.  | 
-|  status |  string |  The status of the authorizer\.  enum: ACTIVE \| INACTIVE  | 
-|  creationDate |  timestamp |  The UNIX timestamp of when the authorizer was created\. | 
-|  lastModifiedDate |  timestamp |  The UNIX timestamp of when the authorizer was last updated\. | 
+|   `authorizerDescription`  |  AuthorizerDescription |  The authorizer description\. | 
+|   `authorizerName`  |  string  length\- max:128 min:1  pattern: \[w=,@\-\]\+  |  The authorizer name\. | 
+|   `authorizerArn`  |  string |  The authorizer ARN\. | 
+|   `authorizerFunctionArn`  |  string |  The authorizer's Lambda function ARN\. | 
+|   `tokenKeyName`  |  string  length\- max:128 min:1  pattern: \[a\-zA\-Z0\-9\_\-\]\+  |  The key used to extract the token from the HTTP headers\. | 
+|   `tokenSigningPublicKeys`  |  map |  The public keys used to validate the token signature returned by your custom authentication service\.  | 
+|   `status`  |  string |  The status of the authorizer\.  enum: ACTIVE \| INACTIVE  | 
+|   `creationDate`  |  timestamp |  The UNIX timestamp of when the authorizer was created\. | 
+|   `lastModifiedDate`  |  timestamp |  The UNIX timestamp of when the authorizer was last updated\. | 
 
  **Errors**
 
@@ -4434,7 +4940,7 @@ aws iot  describe-billing-group \
 
 |  Name |  Type |  Description | 
 | --- | --- | --- | 
-|  billingGroupName |  string  length\- max:128 min:1  pattern: \[a\-zA\-Z0\-9:\_\-\]\+  |  The name of the billing group\. | 
+|   `billingGroupName`  |  string  length\- max:128 min:1  pattern: \[a\-zA\-Z0\-9:\_\-\]\+  |  The name of the billing group\. | 
 
 Output
 
@@ -4458,14 +4964,14 @@ Output
 
 |  Name |  Type |  Description | 
 | --- | --- | --- | 
-|  billingGroupName |  string  length\- max:128 min:1  pattern: \[a\-zA\-Z0\-9:\_\-\]\+  |  The name of the billing group\. | 
-|  billingGroupId |  string  length\- max:128 min:1  pattern: \[a\-zA\-Z0\-9\-\]\+  |  The ID of the billing group\. | 
-|  billingGroupArn |  string |  The ARN of the billing group\. | 
-|  version |  long |  The version of the billing group\. | 
-|  billingGroupProperties |  BillingGroupProperties |  The properties of the billing group\. | 
-|  billingGroupDescription |  string  length\- max:2028  pattern: \[\\\\p\{Graph\} \]\*  |  The description of the billing group\. | 
-|  billingGroupMetadata |  BillingGroupMetadata |  Additional information about the billing group\. | 
-|  creationDate |  timestamp |  The date the billing group was created\. | 
+|   `billingGroupName`  |  string  length\- max:128 min:1  pattern: \[a\-zA\-Z0\-9:\_\-\]\+  |  The name of the billing group\. | 
+|   `billingGroupId`  |  string  length\- max:128 min:1  pattern: \[a\-zA\-Z0\-9\-\]\+  |  The ID of the billing group\. | 
+|   `billingGroupArn`  |  string |  The ARN of the billing group\. | 
+|   `version`  |  long |  The version of the billing group\. | 
+|   `billingGroupProperties`  |  BillingGroupProperties |  The properties of the billing group\. | 
+|   `billingGroupDescription`  |  string  length\- max:2028  pattern: \[\\\\p\{Graph\} \]\*  |  The description of the billing group\. | 
+|   `billingGroupMetadata`  |  BillingGroupMetadata |  Additional information about the billing group\. | 
+|   `creationDate`  |  timestamp |  The date the billing group was created\. | 
 
  **Errors**
 
@@ -4507,7 +5013,7 @@ aws iot  describe-ca-certificate \
 
 |  Name |  Type |  Description | 
 | --- | --- | --- | 
-|  certificateId |  string  length\- max:64 min:64  pattern: \(0x\)?\[a\-fA\-F0\-9\]\+  |  The CA certificate identifier\. | 
+|   `certificateId`  |  string  length\- max:64 min:64  pattern: \(0x\)?\[a\-fA\-F0\-9\]\+  |  The CA certificate identifier\. | 
 
 Output
 
@@ -4541,23 +5047,23 @@ Output
 
 |  Name |  Type |  Description | 
 | --- | --- | --- | 
-|  certificateDescription |  CACertificateDescription |  The CA certificate description\. | 
-|  certificateArn |  string |  The CA certificate ARN\. | 
-|  certificateId |  string  length\- max:64 min:64  pattern: \(0x\)?\[a\-fA\-F0\-9\]\+  |  The CA certificate ID\. | 
-|  status |  string |  The status of a CA certificate\.  enum: ACTIVE \| INACTIVE  | 
-|  certificatePem |  string  length\- max:65536 min:1  |  The CA certificate data, in PEM format\. | 
-|  ownedBy |  string  length\- max:12 min:12  pattern: \[0\-9\]\+  |  The owner of the CA certificate\. | 
-|  creationDate |  timestamp |  The date the CA certificate was created\. | 
-|  autoRegistrationStatus |  string |  Whether the CA certificate configured for auto registration of device certificates\. Valid values are "ENABLE" and "DISABLE"  enum: ENABLE \| DISABLE  | 
-|  lastModifiedDate |  timestamp |  The date the CA certificate was last modified\. | 
-|  customerVersion |  integer  range\- min:1  |  The customer version of the CA certificate\. | 
-|  generationId |  string |  The generation ID of the CA certificate\. | 
-|  validity |  CertificateValidity |  When the CA certificate is valid\. | 
-|  notBefore |  timestamp |  The certificate is not valid before this date\. | 
-|  notAfter |  timestamp |  The certificate is not valid after this date\. | 
-|  registrationConfig |  RegistrationConfig |  Information about the registration configuration\. | 
-|  templateBody |  string |  The template body\. | 
-|  roleArn |  string  length\- max:2048 min:20  |  The ARN of the role\. | 
+|   `certificateDescription`  |  CACertificateDescription |  The CA certificate description\. | 
+|   `certificateArn`  |  string |  The CA certificate ARN\. | 
+|   `certificateId`  |  string  length\- max:64 min:64  pattern: \(0x\)?\[a\-fA\-F0\-9\]\+  |  The CA certificate ID\. | 
+|   `status`  |  string |  The status of a CA certificate\.  enum: ACTIVE \| INACTIVE  | 
+|   `certificatePem`  |  string  length\- max:65536 min:1  |  The CA certificate data, in PEM format\. | 
+|   `ownedBy`  |  string  length\- max:12 min:12  pattern: \[0\-9\]\+  |  The owner of the CA certificate\. | 
+|   `creationDate`  |  timestamp |  The date the CA certificate was created\. | 
+|   `autoRegistrationStatus`  |  string |  Whether the CA certificate configured for auto registration of device certificates\. Valid values are "ENABLE" and "DISABLE"  enum: ENABLE \| DISABLE  | 
+|   `lastModifiedDate`  |  timestamp |  The date the CA certificate was last modified\. | 
+|   `customerVersion`  |  integer  range\- min:1  |  The customer version of the CA certificate\. | 
+|   `generationId`  |  string |  The generation ID of the CA certificate\. | 
+|   `validity`  |  CertificateValidity |  When the CA certificate is valid\. | 
+|   `notBefore`  |  timestamp |  The certificate is not valid before this date\. | 
+|   `notAfter`  |  timestamp |  The certificate is not valid after this date\. | 
+|   `registrationConfig`  |  RegistrationConfig |  Information about the registration configuration\. | 
+|   `templateBody`  |  string |  The template body\. | 
+|   `roleArn`  |  string  length\- max:2048 min:20  |  The ARN of the role\. | 
 
  **Errors**
 
@@ -4605,7 +5111,7 @@ aws iot  describe-certificate \
 
 |  Name |  Type |  Description | 
 | --- | --- | --- | 
-|  certificateId |  string  length\- max:64 min:64  pattern: \(0x\)?\[a\-fA\-F0\-9\]\+  |  The ID of the certificate\. \(The last part of the certificate ARN contains the certificate ID\.\) | 
+|   `certificateId`  |  string  length\- max:64 min:64  pattern: \(0x\)?\[a\-fA\-F0\-9\]\+  |  The ID of the certificate\. \(The last part of the certificate ARN contains the certificate ID\.\) | 
 
 Output
 
@@ -4643,27 +5149,27 @@ Output
 
 |  Name |  Type |  Description | 
 | --- | --- | --- | 
-|  certificateDescription |  CertificateDescription |  The description of the certificate\. | 
-|  certificateArn |  string |  The ARN of the certificate\. | 
-|  certificateId |  string  length\- max:64 min:64  pattern: \(0x\)?\[a\-fA\-F0\-9\]\+  |  The ID of the certificate\. | 
-|  caCertificateId |  string  length\- max:64 min:64  pattern: \(0x\)?\[a\-fA\-F0\-9\]\+  |  The certificate ID of the CA certificate used to sign this certificate\. | 
-|  status |  string |  The status of the certificate\.  enum: ACTIVE \| INACTIVE \| REVOKED \| PENDING\_TRANSFER \| REGISTER\_INACTIVE \| PENDING\_ACTIVATION  | 
-|  certificatePem |  string  length\- max:65536 min:1  |  The certificate data, in PEM format\. | 
-|  ownedBy |  string  length\- max:12 min:12  pattern: \[0\-9\]\+  |  The ID of the AWS account that owns the certificate\. | 
-|  previousOwnedBy |  string  length\- max:12 min:12  pattern: \[0\-9\]\+  |  The ID of the AWS account of the previous owner of the certificate\. | 
-|  creationDate |  timestamp |  The date and time the certificate was created\. | 
-|  lastModifiedDate |  timestamp |  The date and time the certificate was last modified\. | 
-|  customerVersion |  integer  range\- min:1  |  The customer version of the certificate\. | 
-|  transferData |  TransferData |  The transfer data\. | 
-|  transferMessage |  string  length\- max:128  |  The transfer message\. | 
-|  rejectReason |  string  length\- max:128  |  The reason why the transfer was rejected\. | 
-|  transferDate |  timestamp |  The date the transfer took place\. | 
-|  acceptDate |  timestamp |  The date the transfer was accepted\. | 
-|  rejectDate |  timestamp |  The date the transfer was rejected\. | 
-|  generationId |  string |  The generation ID of the certificate\. | 
-|  validity |  CertificateValidity |  When the certificate is valid\. | 
-|  notBefore |  timestamp |  The certificate is not valid before this date\. | 
-|  notAfter |  timestamp |  The certificate is not valid after this date\. | 
+|   `certificateDescription`  |  CertificateDescription |  The description of the certificate\. | 
+|   `certificateArn`  |  string |  The ARN of the certificate\. | 
+|   `certificateId`  |  string  length\- max:64 min:64  pattern: \(0x\)?\[a\-fA\-F0\-9\]\+  |  The ID of the certificate\. | 
+|   `caCertificateId`  |  string  length\- max:64 min:64  pattern: \(0x\)?\[a\-fA\-F0\-9\]\+  |  The certificate ID of the CA certificate used to sign this certificate\. | 
+|   `status`  |  string |  The status of the certificate\.  enum: ACTIVE \| INACTIVE \| REVOKED \| PENDING\_TRANSFER \| REGISTER\_INACTIVE \| PENDING\_ACTIVATION  | 
+|   `certificatePem`  |  string  length\- max:65536 min:1  |  The certificate data, in PEM format\. | 
+|   `ownedBy`  |  string  length\- max:12 min:12  pattern: \[0\-9\]\+  |  The ID of the AWS account that owns the certificate\. | 
+|   `previousOwnedBy`  |  string  length\- max:12 min:12  pattern: \[0\-9\]\+  |  The ID of the AWS account of the previous owner of the certificate\. | 
+|   `creationDate`  |  timestamp |  The date and time the certificate was created\. | 
+|   `lastModifiedDate`  |  timestamp |  The date and time the certificate was last modified\. | 
+|   `customerVersion`  |  integer  range\- min:1  |  The customer version of the certificate\. | 
+|   `transferData`  |  TransferData |  The transfer data\. | 
+|   `transferMessage`  |  string  length\- max:128  |  The transfer message\. | 
+|   `rejectReason`  |  string  length\- max:128  |  The reason why the transfer was rejected\. | 
+|   `transferDate`  |  timestamp |  The date the transfer took place\. | 
+|   `acceptDate`  |  timestamp |  The date the transfer was accepted\. | 
+|   `rejectDate`  |  timestamp |  The date the transfer was rejected\. | 
+|   `generationId`  |  string |  The generation ID of the certificate\. | 
+|   `validity`  |  CertificateValidity |  When the certificate is valid\. | 
+|   `notBefore`  |  timestamp |  The certificate is not valid before this date\. | 
+|   `notAfter`  |  timestamp |  The certificate is not valid after this date\. | 
 
  **Errors**
 
@@ -4728,15 +5234,15 @@ Output
 
 |  Name |  Type |  Description | 
 | --- | --- | --- | 
-|  authorizerDescription |  AuthorizerDescription |  The default authorizer's description\. | 
-|  authorizerName |  string  length\- max:128 min:1  pattern: \[w=,@\-\]\+  |  The authorizer name\. | 
-|  authorizerArn |  string |  The authorizer ARN\. | 
-|  authorizerFunctionArn |  string |  The authorizer's Lambda function ARN\. | 
-|  tokenKeyName |  string  length\- max:128 min:1  pattern: \[a\-zA\-Z0\-9\_\-\]\+  |  The key used to extract the token from the HTTP headers\. | 
-|  tokenSigningPublicKeys |  map |  The public keys used to validate the token signature returned by your custom authentication service\.  | 
-|  status |  string |  The status of the authorizer\.  enum: ACTIVE \| INACTIVE  | 
-|  creationDate |  timestamp |  The UNIX timestamp of when the authorizer was created\. | 
-|  lastModifiedDate |  timestamp |  The UNIX timestamp of when the authorizer was last updated\. | 
+|   `authorizerDescription`  |  AuthorizerDescription |  The default authorizer's description\. | 
+|   `authorizerName`  |  string  length\- max:128 min:1  pattern: \[w=,@\-\]\+  |  The authorizer name\. | 
+|   `authorizerArn`  |  string |  The authorizer ARN\. | 
+|   `authorizerFunctionArn`  |  string |  The authorizer's Lambda function ARN\. | 
+|   `tokenKeyName`  |  string  length\- max:128 min:1  pattern: \[a\-zA\-Z0\-9\_\-\]\+  |  The key used to extract the token from the HTTP headers\. | 
+|   `tokenSigningPublicKeys`  |  map |  The public keys used to validate the token signature returned by your custom authentication service\.  | 
+|   `status`  |  string |  The status of the authorizer\.  enum: ACTIVE \| INACTIVE  | 
+|   `creationDate`  |  timestamp |  The UNIX timestamp of when the authorizer was created\. | 
+|   `lastModifiedDate`  |  timestamp |  The UNIX timestamp of when the authorizer was last updated\. | 
 
  **Errors**
 
@@ -4784,7 +5290,7 @@ aws iot  describe-endpoint \
 
 |  Name |  Type |  Description | 
 | --- | --- | --- | 
-|  endpointType |  string |  The endpoint type\. Valid endpoint types include: [\[See the AWS documentation website for more details\]](http://docs.aws.amazon.com/iot/latest/developerguide/iot-commands.html) [\[See the AWS documentation website for more details\]](http://docs.aws.amazon.com/iot/latest/developerguide/iot-commands.html) [\[See the AWS documentation website for more details\]](http://docs.aws.amazon.com/iot/latest/developerguide/iot-commands.html) [\[See the AWS documentation website for more details\]](http://docs.aws.amazon.com/iot/latest/developerguide/iot-commands.html)  | 
+|   `endpointType`  |  string |  The endpoint type\. Valid endpoint types include: [\[See the AWS documentation website for more details\]](http://docs.aws.amazon.com/iot/latest/developerguide/iot-commands.html) [\[See the AWS documentation website for more details\]](http://docs.aws.amazon.com/iot/latest/developerguide/iot-commands.html) [\[See the AWS documentation website for more details\]](http://docs.aws.amazon.com/iot/latest/developerguide/iot-commands.html) [\[See the AWS documentation website for more details\]](http://docs.aws.amazon.com/iot/latest/developerguide/iot-commands.html)  | 
 
 Output
 
@@ -4799,7 +5305,7 @@ Output
 
 |  Name |  Type |  Description | 
 | --- | --- | --- | 
-|  endpointAddress |  string |  The endpoint\. The format of the endpoint is as follows: *identifier*\.iot\.*region*\.amazonaws\.com\.  | 
+|   `endpointAddress`  |  string |  The endpoint\. The format of the endpoint is as follows: *identifier*\.iot\.*region*\.amazonaws\.com\.  | 
 
  **Errors**
 
@@ -4853,10 +5359,10 @@ Output
 
 |  Name |  Type |  Description | 
 | --- | --- | --- | 
-|  eventConfigurations |  map |  The event configurations\. | 
-|  Enabled |  boolean |  True to enable the configuration\. | 
-|  creationDate |  timestamp |  The creation date of the event configuration\. | 
-|  lastModifiedDate |  timestamp |  The date the event configurations were last modified\. | 
+|   `eventConfigurations`  |  map |  The event configurations\. | 
+|   `Enabled`  |  boolean |  True to enable the configuration\. | 
+|   `creationDate`  |  timestamp |  The creation date of the event configuration\. | 
+|   `lastModifiedDate`  |  timestamp |  The date the event configurations were last modified\. | 
 
  **Errors**
 
@@ -4892,7 +5398,7 @@ aws iot  describe-index \
 
 |  Name |  Type |  Description | 
 | --- | --- | --- | 
-|  indexName |  string  length\- max:128 min:1  pattern: \[a\-zA\-Z0\-9:\_\-\]\+  |  The index name\. | 
+|   `indexName`  |  string  length\- max:128 min:1  pattern: \[a\-zA\-Z0\-9:\_\-\]\+  |  The index name\. | 
 
 Output
 
@@ -4909,9 +5415,9 @@ Output
 
 |  Name |  Type |  Description | 
 | --- | --- | --- | 
-|  indexName |  string  length\- max:128 min:1  pattern: \[a\-zA\-Z0\-9:\_\-\]\+  |  The index name\. | 
-|  indexStatus |  string |  The index status\.  enum: ACTIVE \| BUILDING \| REBUILDING  | 
-|  schema |  string |  Contains a value that specifies the type of indexing performed\. Valid values are: [\[See the AWS documentation website for more details\]](http://docs.aws.amazon.com/iot/latest/developerguide/iot-commands.html)  | 
+|   `indexName`  |  string  length\- max:128 min:1  pattern: \[a\-zA\-Z0\-9:\_\-\]\+  |  The index name\. | 
+|   `indexStatus`  |  string |  The index status\.  enum: ACTIVE \| BUILDING \| REBUILDING  | 
+|   `schema`  |  string |  Contains a value that specifies the type of indexing performed\. Valid values are: [\[See the AWS documentation website for more details\]](http://docs.aws.amazon.com/iot/latest/developerguide/iot-commands.html)  | 
 
  **Errors**
 
@@ -4959,7 +5465,7 @@ aws iot  describe-job \
 
 |  Name |  Type |  Description | 
 | --- | --- | --- | 
-|  jobId |  string  length\- max:64 min:1  pattern: \[a\-zA\-Z0\-9\_\-\]\+  |  The unique identifier you assigned to this job when it was created\. | 
+|   `jobId`  |  string  length\- max:64 min:1  pattern: \[a\-zA\-Z0\-9\_\-\]\+  |  The unique identifier you assigned to this job when it was created\. | 
 
 Output
 
@@ -5031,47 +5537,47 @@ Output
 
 |  Name |  Type |  Description | 
 | --- | --- | --- | 
-|  documentSource |  string  length\- max:1350 min:1  |  An S3 link to the job document\. | 
-|  job |  Job |  Information about the job\. | 
-|  jobArn |  string |  An ARN identifying the job with format "arn:aws:iot:region:account:job/jobId"\. | 
-|  jobId |  string  length\- max:64 min:1  pattern: \[a\-zA\-Z0\-9\_\-\]\+  |  The unique identifier you assigned to this job when it was created\. | 
-|  targetSelection |  string |  Specifies whether the job will continue to run \(CONTINUOUS\), or will be complete after all those things specified as targets have completed the job \(SNAPSHOT\)\. If continuous, the job may also be run on a thing when a change is detected in a target\. For example, a job will run on a device when the thing representing the device is added to a target group, even after the job was completed by all things originally in the group\.   enum: CONTINUOUS \| SNAPSHOT  | 
-|  status |  string |  The status of the job, one of `IN_PROGRESS`, `CANCELED`, `DELETION_IN_PROGRESS` or `COMPLETED`\.   enum: IN\_PROGRESS \| CANCELED \| COMPLETED \| DELETION\_IN\_PROGRESS  | 
-|  forceCanceled |  boolean |  Will be `true` if the job was canceled with the optional `force` parameter set to `true`\.  | 
-|  reasonCode |  string  length\- max:128  pattern: \[\\\\p\{Upper\}p *Digit*\_\]\+  |  If the job was updated, provides the reason code for the update\. | 
-|  comment |  string  length\- max:2028  pattern: \[^\\\\p\{C\}\]\+  |  If the job was updated, describes the reason for the update\. | 
-|  targets |  list  member: TargetArn  |  A list of IoT things and thing groups to which the job should be sent\. | 
-|  description |  string  length\- max:2028  pattern: \[^\\\\p\{C\}\]\+  |  A short text description of the job\. | 
-|  presignedUrlConfig |  PresignedUrlConfig |  Configuration for pre\-signed S3 URLs\. | 
-|  roleArn |  string  length\- max:2048 min:20  |  The ARN of an IAM role that grants grants permission to download files from the S3 bucket where the job data/updates are stored\. The role must also grant permission for IoT to download the files\.  | 
-|  expiresInSec |  long  range\- max:3600 min:60  |  How long \(in seconds\) pre\-signed URLs are valid\. Valid values are 60 \- 3600, the default value is 3600 seconds\. Pre\-signed URLs are generated when Jobs receives an MQTT request for the job document\.  | 
-|  jobExecutionsRolloutConfig |  JobExecutionsRolloutConfig |  Allows you to create a staged rollout of a job\. | 
-|  maximumPerMinute |  integer  range\- min:1  |  The maximum number of things that will be notified of a pending job, per minute\. This parameter allows you to create a staged rollout\.  | 
-|  exponentialRate |  ExponentialRolloutRate |  The rate of increase for a job rollout\. This parameter allows you to define an exponential rate for a job rollout\.  | 
-|  baseRatePerMinute |  integer  range\- max:1000 min:1  |  The minimum number of things that will be notified of a pending job, per minute at the start of job rollout\. This parameter allows you to define the initial rate of rollout\.  | 
-|  rateIncreaseCriteria |  RateIncreaseCriteria |  The criteria to initiate the increase in rate of rollout for a job\. AWS IoT supports up to one digit after the decimal \(for example, 1\.5, but not 1\.55\)\.  | 
-|  numberOfNotifiedThings |  integer  range\- min:1  |  The threshold for number of notified things that will initiate the increase in rate of rollout\. | 
-|  numberOfSucceededThings |  integer  range\- min:1  |  The threshold for number of succeeded things that will initiate the increase in rate of rollout\. | 
-|  abortConfig |  AbortConfig |  Configuration for criteria to abort the job\. | 
-|  criteriaList |  list  member: AbortCriteria  java class: java\.util\.List  |  The list of abort criteria to define rules to abort the job\. | 
-|  failureType |  string |  The type of job execution failure to define a rule to initiate a job abort\.  enum: FAILED \| REJECTED \| TIMED\_OUT \| ALL  | 
-|  action |  string |  The type of abort action to initiate a job abort\.  enum: CANCEL  | 
-|  minNumberOfExecutedThings |  integer  range\- min:1  |  Minimum number of executed things before evaluating an abort rule\. | 
-|  createdAt |  timestamp |  The time, in seconds since the epoch, when the job was created\. | 
-|  lastUpdatedAt |  timestamp |  The time, in seconds since the epoch, when the job was last updated\. | 
-|  completedAt |  timestamp |  The time, in seconds since the epoch, when the job was completed\. | 
-|  jobProcessDetails |  JobProcessDetails |  Details about the job process\. | 
-|  processingTargets |  list  member: ProcessingTargetName  java class: java\.util\.List  |  The target devices to which the job execution is being rolled out\. This value will be null after the job execution has finished rolling out to all the target devices\. | 
-|  numberOfCanceledThings |  integer |  The number of things that cancelled the job\. | 
-|  numberOfSucceededThings |  integer |  The number of things which successfully completed the job\. | 
-|  numberOfFailedThings |  integer |  The number of things that failed executing the job\. | 
-|  numberOfRejectedThings |  integer |  The number of things that rejected the job\. | 
-|  numberOfQueuedThings |  integer |  The number of things that are awaiting execution of the job\. | 
-|  numberOfInProgressThings |  integer |  The number of things currently executing the job\. | 
-|  numberOfRemovedThings |  integer |  The number of things that are no longer scheduled to execute the job because they have been deleted or have been removed from the group that was a target of the job\.  | 
-|  numberOfTimedOutThings |  integer |  The number of things whose job execution status is `TIMED_OUT`\. | 
-|  timeoutConfig |  TimeoutConfig |  Specifies the amount of time each device has to finish its execution of the job\. A timer is started when the job execution status is set to `IN_PROGRESS`\. If the job execution status is not set to another terminal state before the timer expires, it will be automatically set to `TIMED_OUT`\.  | 
-|  inProgressTimeoutInMinutes |  long |  Specifies the amount of time, in minutes, this device has to finish execution of this job\. The timeout interval can be anywhere between 1 minute and 7 days \(1 to 10080 minutes\)\. The in progress timer can't be updated and will apply to all job executions for the job\. Whenever a job execution remains in the IN\_PROGRESS status for longer than this interval, the job execution will fail and switch to the terminal `TIMED_OUT` status\.  | 
+|   `documentSource`  |  string  length\- max:1350 min:1  |  An S3 link to the job document\. | 
+|   `job`  |  Job |  Information about the job\. | 
+|   `jobArn`  |  string |  An ARN identifying the job with format "arn:aws:iot:region:account:job/jobId"\. | 
+|   `jobId`  |  string  length\- max:64 min:1  pattern: \[a\-zA\-Z0\-9\_\-\]\+  |  The unique identifier you assigned to this job when it was created\. | 
+|   `targetSelection`  |  string |  Specifies whether the job will continue to run \(CONTINUOUS\), or will be complete after all those things specified as targets have completed the job \(SNAPSHOT\)\. If continuous, the job may also be run on a thing when a change is detected in a target\. For example, a job will run on a device when the thing representing the device is added to a target group, even after the job was completed by all things originally in the group\.   enum: CONTINUOUS \| SNAPSHOT  | 
+|   `status`  |  string |  The status of the job, one of `IN_PROGRESS`, `CANCELED`, `DELETION_IN_PROGRESS` or `COMPLETED`\.   enum: IN\_PROGRESS \| CANCELED \| COMPLETED \| DELETION\_IN\_PROGRESS  | 
+|   `forceCanceled`  |  boolean |  Will be `true` if the job was canceled with the optional `force` parameter set to `true`\.  | 
+|   `reasonCode`  |  string  length\- max:128  pattern: \[\\\\p\{Upper\}p *Digit*\_\]\+  |  If the job was updated, provides the reason code for the update\. | 
+|   `comment`  |  string  length\- max:2028  pattern: \[^\\\\p\{C\}\]\+  |  If the job was updated, describes the reason for the update\. | 
+|   `targets`  |  list  member: TargetArn  |  A list of IoT things and thing groups to which the job should be sent\. | 
+|   `description`  |  string  length\- max:2028  pattern: \[^\\\\p\{C\}\]\+  |  A short text description of the job\. | 
+|   `presignedUrlConfig`  |  PresignedUrlConfig |  Configuration for pre\-signed S3 URLs\. | 
+|   `roleArn`  |  string  length\- max:2048 min:20  |  The ARN of an IAM role that grants grants permission to download files from the S3 bucket where the job data/updates are stored\. The role must also grant permission for IoT to download the files\.  | 
+|   `expiresInSec`  |  long  range\- max:3600 min:60  |  How long \(in seconds\) pre\-signed URLs are valid\. Valid values are 60 \- 3600, the default value is 3600 seconds\. Pre\-signed URLs are generated when Jobs receives an MQTT request for the job document\.  | 
+|   `jobExecutionsRolloutConfig`  |  JobExecutionsRolloutConfig |  Allows you to create a staged rollout of a job\. | 
+|   `maximumPerMinute`  |  integer  range\- min:1  |  The maximum number of things that will be notified of a pending job, per minute\. This parameter allows you to create a staged rollout\.  | 
+|   `exponentialRate`  |  ExponentialRolloutRate |  The rate of increase for a job rollout\. This parameter allows you to define an exponential rate for a job rollout\.  | 
+|   `baseRatePerMinute`  |  integer  range\- max:1000 min:1  |  The minimum number of things that will be notified of a pending job, per minute at the start of job rollout\. This parameter allows you to define the initial rate of rollout\.  | 
+|   `rateIncreaseCriteria`  |  RateIncreaseCriteria |  The criteria to initiate the increase in rate of rollout for a job\. AWS IoT supports up to one digit after the decimal \(for example, 1\.5, but not 1\.55\)\.  | 
+|   `numberOfNotifiedThings`  |  integer  range\- min:1  |  The threshold for number of notified things that will initiate the increase in rate of rollout\. | 
+|   `numberOfSucceededThings`  |  integer  range\- min:1  |  The threshold for number of succeeded things that will initiate the increase in rate of rollout\. | 
+|   `abortConfig`  |  AbortConfig |  Configuration for criteria to abort the job\. | 
+|   `criteriaList`  |  list  member: AbortCriteria  java class: java\.util\.List  |  The list of abort criteria to define rules to abort the job\. | 
+|   `failureType`  |  string |  The type of job execution failure to define a rule to initiate a job abort\.  enum: FAILED \| REJECTED \| TIMED\_OUT \| ALL  | 
+|   `action`  |  string |  The type of abort action to initiate a job abort\.  enum: CANCEL  | 
+|   `minNumberOfExecutedThings`  |  integer  range\- min:1  |  Minimum number of executed things before evaluating an abort rule\. | 
+|   `createdAt`  |  timestamp |  The time, in seconds since the epoch, when the job was created\. | 
+|   `lastUpdatedAt`  |  timestamp |  The time, in seconds since the epoch, when the job was last updated\. | 
+|   `completedAt`  |  timestamp |  The time, in seconds since the epoch, when the job was completed\. | 
+|   `jobProcessDetails`  |  JobProcessDetails |  Details about the job process\. | 
+|   `processingTargets`  |  list  member: ProcessingTargetName  java class: java\.util\.List  |  The target devices to which the job execution is being rolled out\. This value will be null after the job execution has finished rolling out to all the target devices\. | 
+|   `numberOfCanceledThings`  |  integer |  The number of things that cancelled the job\. | 
+|   `numberOfSucceededThings`  |  integer |  The number of things which successfully completed the job\. | 
+|   `numberOfFailedThings`  |  integer |  The number of things that failed executing the job\. | 
+|   `numberOfRejectedThings`  |  integer |  The number of things that rejected the job\. | 
+|   `numberOfQueuedThings`  |  integer |  The number of things that are awaiting execution of the job\. | 
+|   `numberOfInProgressThings`  |  integer |  The number of things currently executing the job\. | 
+|   `numberOfRemovedThings`  |  integer |  The number of things that are no longer scheduled to execute the job because they have been deleted or have been removed from the group that was a target of the job\.  | 
+|   `numberOfTimedOutThings`  |  integer |  The number of things whose job execution status is `TIMED_OUT`\. | 
+|   `timeoutConfig`  |  TimeoutConfig |  Specifies the amount of time each device has to finish its execution of the job\. A timer is started when the job execution status is set to `IN_PROGRESS`\. If the job execution status is not set to another terminal state before the timer expires, it will be automatically set to `TIMED_OUT`\.  | 
+|   `inProgressTimeoutInMinutes`  |  long |  Specifies the amount of time, in minutes, this device has to finish execution of this job\. The timeout interval can be anywhere between 1 minute and 7 days \(1 to 10080 minutes\)\. The in progress timer can't be updated and will apply to all job executions for the job\. Whenever a job execution remains in the IN\_PROGRESS status for longer than this interval, the job execution will fail and switch to the terminal `TIMED_OUT` status\.  | 
 
  **Errors**
 
@@ -5119,10 +5625,10 @@ aws iot-jobs-data  describe-job-execution \
 
 |  Name |  Type |  Description | 
 | --- | --- | --- | 
-|  jobId |  string  pattern: \[a\-zA\-Z0\-9\_\-\]\+\|^$next  |  The unique identifier assigned to this job when it was created\. | 
-|  thingName |  string  length\- max:128 min:1  pattern: \[a\-zA\-Z0\-9:\_\-\]\+  |  The thing name associated with the device the job execution is running on\. | 
-|  includeJobDocument |  boolean |  Optional\. Unless set to false, the response contains the job document\. The default is true\. | 
-|  executionNumber |  long |  Optional\. A number that identifies a particular job execution on a particular device\. If not specified, the latest job execution is returned\.  | 
+|   `jobId`  |  string  pattern: \[a\-zA\-Z0\-9\_\-\]\+\|^$next  |  The unique identifier assigned to this job when it was created\. | 
+|   `thingName`  |  string  length\- max:128 min:1  pattern: \[a\-zA\-Z0\-9:\_\-\]\+  |  The thing name associated with the device the job execution is running on\. | 
+|   `includeJobDocument`  |  boolean |  Optional\. Unless set to false, the response contains the job document\. The default is true\. | 
+|   `executionNumber`  |  long |  Optional\. A number that identifies a particular job execution on a particular device\. If not specified, the latest job execution is returned\.  | 
 
 Output
 
@@ -5151,18 +5657,18 @@ Output
 
 |  Name |  Type |  Description | 
 | --- | --- | --- | 
-|  execution |  JobExecution |  Contains data about a job execution\. | 
-|  jobId |  string  length\- max:64 min:1  pattern: \[a\-zA\-Z0\-9\_\-\]\+  |  The unique identifier you assigned to this job when it was created\. | 
-|  thingName |  string  length\- max:128 min:1  pattern: \[a\-zA\-Z0\-9:\_\-\]\+  |  The name of the thing that is executing the job\. | 
-|  status |  string |  The status of the job execution\. Can be one of: "QUEUED", "IN\_PROGRESS", "FAILED", "SUCCESS", "CANCELED", "TIMED\_OUT", "REJECTED", or "REMOVED"\.  enum: QUEUED \| IN\_PROGRESS \| SUCCEEDED \| FAILED \| TIMED\_OUT \| REJECTED \| REMOVED \| CANCELED  | 
-|  statusDetails |  map |  A collection of name/value pairs that describe the status of the job execution\. | 
-|  queuedAt |  long |  The time, in seconds since the epoch, when the job execution was enqueued\. | 
-|  startedAt |  long |  The time, in seconds since the epoch, when the job execution was started\. | 
-|  lastUpdatedAt |  long |  The time, in seconds since the epoch, when the job execution was last updated\.  | 
-|  approximateSecondsBeforeTimedOut |  long |  The estimated number of seconds that remain before the job execution status will be changed to `TIMED_OUT`\. The actual job execution timeout can occur up to 60 seconds later than the estimated duration\.  | 
-|  versionNumber |  long |  The version of the job execution\. Job execution versions are incremented each time they are updated by a device\.  | 
-|  executionNumber |  long |  A number that identifies a particular job execution on a particular device\. It can be used later in commands that return or update job execution information\.  | 
-|  jobDocument |  string  length\- max:32768  |  The content of the job document\. | 
+|   `execution`  |  JobExecution |  Contains data about a job execution\. | 
+|   `jobId`  |  string  length\- max:64 min:1  pattern: \[a\-zA\-Z0\-9\_\-\]\+  |  The unique identifier you assigned to this job when it was created\. | 
+|   `thingName`  |  string  length\- max:128 min:1  pattern: \[a\-zA\-Z0\-9:\_\-\]\+  |  The name of the thing that is executing the job\. | 
+|   `status`  |  string |  The status of the job execution\. Can be one of: "QUEUED", "IN\_PROGRESS", "FAILED", "SUCCESS", "CANCELED", "TIMED\_OUT", "REJECTED", or "REMOVED"\.  enum: QUEUED \| IN\_PROGRESS \| SUCCEEDED \| FAILED \| TIMED\_OUT \| REJECTED \| REMOVED \| CANCELED  | 
+|   `statusDetails`  |  map |  A collection of name/value pairs that describe the status of the job execution\. | 
+|   `queuedAt`  |  long |  The time, in seconds since the epoch, when the job execution was enqueued\. | 
+|   `startedAt`  |  long |  The time, in seconds since the epoch, when the job execution was started\. | 
+|   `lastUpdatedAt`  |  long |  The time, in seconds since the epoch, when the job execution was last updated\.  | 
+|   `approximateSecondsBeforeTimedOut`  |  long |  The estimated number of seconds that remain before the job execution status will be changed to `TIMED_OUT`\. The actual job execution timeout can occur up to 60 seconds later than the estimated duration\.  | 
+|   `versionNumber`  |  long |  The version of the job execution\. Job execution versions are incremented each time they are updated by a device\.  | 
+|   `executionNumber`  |  long |  A number that identifies a particular job execution on a particular device\. It can be used later in commands that return or update job execution information\.  | 
+|   `jobDocument`  |  string  length\- max:32768  |  The content of the job document\. | 
 
  **Errors**
 
@@ -5214,9 +5720,9 @@ aws iot  describe-job-execution \
 
 |  Name |  Type |  Description | 
 | --- | --- | --- | 
-|  jobId |  string  length\- max:64 min:1  pattern: \[a\-zA\-Z0\-9\_\-\]\+  |  The unique identifier you assigned to this job when it was created\. | 
-|  thingName |  string  length\- max:128 min:1  pattern: \[a\-zA\-Z0\-9:\_\-\]\+  |  The name of the thing on which the job execution is running\. | 
-|  executionNumber |  long |  A string \(consisting of the digits "0" through "9" which is used to specify a particular job execution on a particular device\.  | 
+|   `jobId`  |  string  length\- max:64 min:1  pattern: \[a\-zA\-Z0\-9\_\-\]\+  |  The unique identifier you assigned to this job when it was created\. | 
+|   `thingName`  |  string  length\- max:128 min:1  pattern: \[a\-zA\-Z0\-9:\_\-\]\+  |  The name of the thing on which the job execution is running\. | 
+|   `executionNumber`  |  long |  A string \(consisting of the digits "0" through "9" which is used to specify a particular job execution on a particular device\.  | 
 
 Output
 
@@ -5247,19 +5753,19 @@ Output
 
 |  Name |  Type |  Description | 
 | --- | --- | --- | 
-|  execution |  JobExecution |  Information about the job execution\. | 
-|  jobId |  string  length\- max:64 min:1  pattern: \[a\-zA\-Z0\-9\_\-\]\+  |  The unique identifier you assigned to the job when it was created\. | 
-|  status |  string |  The status of the job execution \(IN\_PROGRESS, QUEUED, FAILED, SUCCEEDED, TIMED\_OUT, CANCELED, or REJECTED\)\.  enum: QUEUED \| IN\_PROGRESS \| SUCCEEDED \| FAILED \| TIMED\_OUT \| REJECTED \| REMOVED \| CANCELED  | 
-|  forceCanceled |  boolean |  Will be `true` if the job execution was canceled with the optional `force` parameter set to `true`\.  | 
-|  statusDetails |  JobExecutionStatusDetails |  A collection of name/value pairs that describe the status of the job execution\. | 
-|  detailsMap |  map |  The job execution status\. | 
-|  thingArn |  string |  The ARN of the thing on which the job execution is running\. | 
-|  queuedAt |  timestamp |  The time, in seconds since the epoch, when the job execution was queued\. | 
-|  startedAt |  timestamp |  The time, in seconds since the epoch, when the job execution started\. | 
-|  lastUpdatedAt |  timestamp |  The time, in seconds since the epoch, when the job execution was last updated\. | 
-|  executionNumber |  long |  A string \(consisting of the digits "0" through "9"\) which identifies this particular job execution on this particular device\. It can be used in commands which return or update job execution information\.   | 
-|  versionNumber |  long |  The version of the job execution\. Job execution versions are incremented each time they are updated by a device\.  | 
-|  approximateSecondsBeforeTimedOut |  long |  The estimated number of seconds that remain before the job execution status will be changed to `TIMED_OUT`\. The timeout interval can be anywhere between 1 minute and 7 days \(1 to 10080 minutes\)\. The actual job execution timeout can occur up to 60 seconds later than the estimated duration\. This value will not be included if the job execution has reached a terminal status\.  | 
+|   `execution`  |  JobExecution |  Information about the job execution\. | 
+|   `jobId`  |  string  length\- max:64 min:1  pattern: \[a\-zA\-Z0\-9\_\-\]\+  |  The unique identifier you assigned to the job when it was created\. | 
+|   `status`  |  string |  The status of the job execution \(IN\_PROGRESS, QUEUED, FAILED, SUCCEEDED, TIMED\_OUT, CANCELED, or REJECTED\)\.  enum: QUEUED \| IN\_PROGRESS \| SUCCEEDED \| FAILED \| TIMED\_OUT \| REJECTED \| REMOVED \| CANCELED  | 
+|   `forceCanceled`  |  boolean |  Will be `true` if the job execution was canceled with the optional `force` parameter set to `true`\.  | 
+|   `statusDetails`  |  JobExecutionStatusDetails |  A collection of name/value pairs that describe the status of the job execution\. | 
+|   `detailsMap`  |  map |  The job execution status\. | 
+|   `thingArn`  |  string |  The ARN of the thing on which the job execution is running\. | 
+|   `queuedAt`  |  timestamp |  The time, in seconds since the epoch, when the job execution was queued\. | 
+|   `startedAt`  |  timestamp |  The time, in seconds since the epoch, when the job execution started\. | 
+|   `lastUpdatedAt`  |  timestamp |  The time, in seconds since the epoch, when the job execution was last updated\. | 
+|   `executionNumber`  |  long |  A string \(consisting of the digits "0" through "9"\) which identifies this particular job execution on this particular device\. It can be used in commands which return or update job execution information\.   | 
+|   `versionNumber`  |  long |  The version of the job execution\. Job execution versions are incremented each time they are updated by a device\.  | 
+|   `approximateSecondsBeforeTimedOut`  |  long |  The estimated number of seconds that remain before the job execution status will be changed to `TIMED_OUT`\. The timeout interval can be anywhere between 1 minute and 7 days \(1 to 10080 minutes\)\. The actual job execution timeout can occur up to 60 seconds later than the estimated duration\. This value will not be included if the job execution has reached a terminal status\.  | 
 
  **Errors**
 
@@ -5274,6 +5780,114 @@ The rate exceeds the limit\.
 
 `ServiceUnavailableException`  
 The service is temporarily unavailable\.
+
+## DescribeMitigationAction<a name="api-iot-DescribeMitigationAction"></a>
+
+Gets information about a mitigation action\.
+
+ **Synopsis**
+
+```
+aws iot  describe-mitigation-action \
+    --action-name <value>  \
+    [--cli-input-json <value>] \
+    [--generate-cli-skeleton]
+```
+
+ `cli-input-json` format
+
+```
+{
+  "actionName": "string"
+}
+```
+
+
+**`cli-input-json` fields**  
+
+|  Name |  Type |  Description | 
+| --- | --- | --- | 
+|   `actionName`  |  string  length\- max:128  pattern: \[a\-zA\-Z0\-9\_\-\]\+  |  The friendly name that uniquely identifies the mitigation action\. | 
+
+Output
+
+```
+{
+  "actionName": "string",
+  "actionType": "string",
+  "actionArn": "string",
+  "actionId": "string",
+  "roleArn": "string",
+  "actionParams": {
+    "updateDeviceCertificateParams": {
+      "action": "string"
+    },
+    "updateCACertificateParams": {
+      "action": "string"
+    },
+    "addThingsToThingGroupParams": {
+      "thingGroupNames": [
+        "string"
+      ],
+      "overrideDynamicGroups": "boolean"
+    },
+    "replaceDefaultPolicyVersionParams": {
+      "templateName": "string"
+    },
+    "enableIoTLoggingParams": {
+      "roleArnForLogging": "string",
+      "logLevel": "string"
+    },
+    "publishFindingToSnsParams": {
+      "topicArn": "string"
+    }
+  },
+  "creationDate": "timestamp",
+  "lastModifiedDate": "timestamp"
+}
+```
+
+
+**CLI output fields**  
+
+|  Name |  Type |  Description | 
+| --- | --- | --- | 
+|   `actionName`  |  string  length\- max:128  pattern: \[a\-zA\-Z0\-9\_\-\]\+  |  The friendly name that uniquely identifies the mitigation action\. | 
+|   `actionType`  |  string |  The type of mitigation action\.  enum: UPDATE\_DEVICE\_CERTIFICATE \| UPDATE\_CA\_CERTIFICATE \| ADD\_THINGS\_TO\_THING\_GROUP \| REPLACE\_DEFAULT\_POLICY\_VERSION \| ENABLE\_IOT\_LOGGING \| PUBLISH\_FINDING\_TO\_SNS  | 
+|   `actionArn`  |  string |  The ARN that identifies this migration action\. | 
+|   `actionId`  |  string |  A unique identifier for this action\. | 
+|   `roleArn`  |  string  length\- max:2048 min:20  |  The ARN of the IAM role used to apply this action\. | 
+|   `actionParams`  |  MitigationActionParams |  Parameters that control how the mitigation action is applied, specific to the type of mitigation action\. | 
+|   `updateDeviceCertificateParams`  |  UpdateDeviceCertificateParams |  Parameters to define a mitigation action that changes the state of the device certificate to inactive\. | 
+|   `action`  |  string |  The action that you want to apply to the device cerrtificate\. The only supported value is `DEACTIVATE`\.  enum: DEACTIVATE  | 
+|   `updateCACertificateParams`  |  UpdateCACertificateParams |  Parameters to define a mitigation action that changes the state of the CA certificate to inactive\. | 
+|   `action`  |  string |  The action that you want to apply to the CA cerrtificate\. The only supported value is `DEACTIVATE`\.  enum: DEACTIVATE  | 
+|   `addThingsToThingGroupParams`  |  AddThingsToThingGroupParams |  Parameters to define a mitigation action that moves devices associated with a certificate to one or more specified thing groups, typically for quarantine\. | 
+|   `thingGroupNames`  |  list  member: ThingGroupName  |  The list of groups to which you want to add the things that triggered the mitigation action\. You can add a thing to a maximum of 10 groups, but you cannot add a thing to more than one group in the same hierarchy\. | 
+|   `overrideDynamicGroups`  |  boolean |  Specifies if this mitigation action can move the things that triggered the mitigation action even if they are part of one or more dynamic things groups\. | 
+|   `replaceDefaultPolicyVersionParams`  |  ReplaceDefaultPolicyVersionParams |  Parameters to define a mitigation action that adds a blank policy to restrict permissions\. | 
+|   `templateName`  |  string |  The name of the template to be applied\. The only supported value is `BLANK_POLICY`\.  enum: BLANK\_POLICY  | 
+|   `enableIoTLoggingParams`  |  EnableIoTLoggingParams |  Parameters to define a mitigation action that enables AWS IoT logging at a specified level of detail\. | 
+|   `roleArnForLogging`  |  string  length\- max:2048 min:20  |  The ARN of the IAM role used for logging\. | 
+|   `logLevel`  |  string |  Specifies the types of information to be logged\.  enum: DEBUG \| INFO \| ERROR \| WARN \| DISABLED  | 
+|   `publishFindingToSnsParams`  |  PublishFindingToSnsParams |  Parameters to define a mitigation action that publishes findings to Amazon SNS\. You can implement your own custom actions in response to the Amazon SNS messages\. | 
+|   `topicArn`  |  string  length\- max:350  |  The ARN of the topic to which you want to publish the findings\. | 
+|   `creationDate`  |  timestamp |  The date and time when the mitigation action was added to your AWS account\. | 
+|   `lastModifiedDate`  |  timestamp |  The date and time when the mitigation action was last changed\. | 
+
+ **Errors**
+
+`InvalidRequestException`  
+The contents of the request were invalid\.
+
+`ResourceNotFoundException`  
+The specified resource does not exist\.
+
+`ThrottlingException`  
+The rate exceeds the limit\.
+
+`InternalFailureException`  
+An unexpected error has occurred\.
 
 ## DescribeRoleAlias<a name="api-iot-DescribeRoleAlias"></a>
 
@@ -5301,7 +5915,7 @@ aws iot  describe-role-alias \
 
 |  Name |  Type |  Description | 
 | --- | --- | --- | 
-|  roleAlias |  string  length\- max:128 min:1  pattern: \[w=,@\-\]\+  |  The role alias to describe\. | 
+|   `roleAlias`  |  string  length\- max:128 min:1  pattern: \[w=,@\-\]\+  |  The role alias to describe\. | 
 
 Output
 
@@ -5324,14 +5938,14 @@ Output
 
 |  Name |  Type |  Description | 
 | --- | --- | --- | 
-|  roleAliasDescription |  RoleAliasDescription |  The role alias description\. | 
-|  roleAlias |  string  length\- max:128 min:1  pattern: \[w=,@\-\]\+  |  The role alias\. | 
-|  roleAliasArn |  string |  The ARN of the role alias\. | 
-|  roleArn |  string  length\- max:2048 min:20  |  The role ARN\. | 
-|  owner |  string  length\- max:12 min:12  pattern: \[0\-9\]\+  |  The role alias owner\. | 
-|  credentialDurationSeconds |  integer  range\- max:3600 min:900  |  The number of seconds for which the credential is valid\. | 
-|  creationDate |  timestamp |  The UNIX timestamp of when the role alias was created\. | 
-|  lastModifiedDate |  timestamp |  The UNIX timestamp of when the role alias was last modified\. | 
+|   `roleAliasDescription`  |  RoleAliasDescription |  The role alias description\. | 
+|   `roleAlias`  |  string  length\- max:128 min:1  pattern: \[w=,@\-\]\+  |  The role alias\. | 
+|   `roleAliasArn`  |  string |  The ARN of the role alias\. | 
+|   `roleArn`  |  string  length\- max:2048 min:20  |  The role ARN\. | 
+|   `owner`  |  string  length\- max:12 min:12  pattern: \[0\-9\]\+  |  The role alias owner\. | 
+|   `credentialDurationSeconds`  |  integer  range\- max:3600 min:900  |  The number of seconds for which the credential is valid\. | 
+|   `creationDate`  |  timestamp |  The UNIX timestamp of when the role alias was created\. | 
+|   `lastModifiedDate`  |  timestamp |  The UNIX timestamp of when the role alias was last modified\. | 
 
  **Errors**
 
@@ -5379,7 +5993,7 @@ aws iot  describe-scheduled-audit \
 
 |  Name |  Type |  Description | 
 | --- | --- | --- | 
-|  scheduledAuditName |  string  length\- max:128 min:1  pattern: \[a\-zA\-Z0\-9\_\-\]\+  |  The name of the scheduled audit whose information you want to get\. | 
+|   `scheduledAuditName`  |  string  length\- max:128 min:1  pattern: \[a\-zA\-Z0\-9\_\-\]\+  |  The name of the scheduled audit whose information you want to get\. | 
 
 Output
 
@@ -5401,12 +6015,12 @@ Output
 
 |  Name |  Type |  Description | 
 | --- | --- | --- | 
-|  frequency |  string |  How often the scheduled audit takes place\. One of "DAILY", "WEEKLY", "BIWEEKLY" or "MONTHLY"\. The actual start time of each audit is determined by the system\.  enum: DAILY \| WEEKLY \| BIWEEKLY \| MONTHLY  | 
-|  dayOfMonth |  string  pattern: ^\(\[1\-9\]\|\[12\]\[0\-9\]\|3\[01\]\)$\|^LAST$  |  The day of the month on which the scheduled audit takes place\. Will be "1" through "31" or "LAST"\. If days 29\-31 are specified, and the month does not have that many days, the audit takes place on the "LAST" day of the month\.  | 
-|  dayOfWeek |  string |  The day of the week on which the scheduled audit takes place\. One of "SUN", "MON", "TUE", "WED", "THU", "FRI" or "SAT"\.  enum: SUN \| MON \| TUE \| WED \| THU \| FRI \| SAT  | 
-|  targetCheckNames |  list  member: AuditCheckName  |  Which checks are performed during the scheduled audit\. \(Note that checks must be enabled for your account\. \(Use `DescribeAccountAuditConfiguration` to see the list of all checks including those that are enabled or `UpdateAccountAuditConfiguration` to select which checks are enabled\.\)  | 
-|  scheduledAuditName |  string  length\- max:128 min:1  pattern: \[a\-zA\-Z0\-9\_\-\]\+  |  The name of the scheduled audit\. | 
-|  scheduledAuditArn |  string |  The ARN of the scheduled audit\. | 
+|   `frequency`  |  string |  How often the scheduled audit takes place\. One of "DAILY", "WEEKLY", "BIWEEKLY", or "MONTHLY"\. The start time of each audit is determined by the system\.  enum: DAILY \| WEEKLY \| BIWEEKLY \| MONTHLY  | 
+|   `dayOfMonth`  |  string  pattern: ^\(\[1\-9\]\|\[12\]\[0\-9\]\|3\[01\]\)$\|^LAST$  |  The day of the month on which the scheduled audit takes place\. Will be "1" through "31" or "LAST"\. If days 29\-31 are specified, and the month does not have that many days, the audit takes place on the "LAST" day of the month\.  | 
+|   `dayOfWeek`  |  string |  The day of the week on which the scheduled audit takes place\. One of "SUN", "MON", "TUE", "WED", "THU", "FRI", or "SAT"\.  enum: SUN \| MON \| TUE \| WED \| THU \| FRI \| SAT  | 
+|   `targetCheckNames`  |  list  member: AuditCheckName  |  Which checks are performed during the scheduled audit\. Checks must be enabled for your account\. \(Use `DescribeAccountAuditConfiguration` to see the list of all checks, including those that are enabled or use `UpdateAccountAuditConfiguration` to select which checks are enabled\.\)  | 
+|   `scheduledAuditName`  |  string  length\- max:128 min:1  pattern: \[a\-zA\-Z0\-9\_\-\]\+  |  The name of the scheduled audit\. | 
+|   `scheduledAuditArn`  |  string |  The ARN of the scheduled audit\. | 
 
  **Errors**
 
@@ -5448,7 +6062,7 @@ aws iot  describe-security-profile \
 
 |  Name |  Type |  Description | 
 | --- | --- | --- | 
-|  securityProfileName |  string  length\- max:128 min:1  pattern: \[a\-zA\-Z0\-9:\_\-\]\+  |  The name of the security profile whose information you want to get\. | 
+|   `securityProfileName`  |  string  length\- max:128 min:1  pattern: \[a\-zA\-Z0\-9:\_\-\]\+  |  The name of the security profile whose information you want to get\. | 
 
 Output
 
@@ -5501,30 +6115,30 @@ Output
 
 |  Name |  Type |  Description | 
 | --- | --- | --- | 
-|  securityProfileName |  string  length\- max:128 min:1  pattern: \[a\-zA\-Z0\-9:\_\-\]\+  |  The name of the security profile\. | 
-|  securityProfileArn |  string |  The ARN of the security profile\. | 
-|  securityProfileDescription |  string  length\- max:1000  pattern: \[\\\\p\{Graph\} \]\*  |  A description of the security profile \(associated with the security profile when it was created or updated\)\.  | 
-|  behaviors |  list  member: Behavior  |  Specifies the behaviors that, when violated by a device \(thing\), cause an alert\. | 
-|  name |  string  length\- max:128 min:1  pattern: \[a\-zA\-Z0\-9:\_\-\]\+  |  The name you have given to the behavior\. | 
-|  metric |  string |  What is measured by the behavior\. | 
-|  criteria |  BehaviorCriteria |  The criteria that determine if a device is behaving normally in regard to the `metric`\.  | 
-|  comparisonOperator |  string |  The operator that relates the thing measured \(`metric`\) to the criteria \(containing a `value` or `statisticalThreshold`\)\.  enum: less\-than \| less\-than\-equals \| greater\-than \| greater\-than\-equals \| in\-cidr\-set \| not\-in\-cidr\-set \| in\-port\-set \| not\-in\-port\-set  | 
-|  value |  MetricValue |  The value to be compared with the `metric`\. | 
-|  count |  long  range\- min:0  |  If the `comparisonOperator` calls for a numeric value, use this to specify that numeric value to be compared with the `metric`\.  | 
-|  cidrs |  list  member: Cidr  |  If the `comparisonOperator` calls for a set of CIDRs, use this to specify that set to be compared with the `metric`\.  | 
-|  ports |  list  member: Port  |  If the `comparisonOperator` calls for a set of ports, use this to specify that set to be compared with the `metric`\.  | 
-|  durationSeconds |  integer |  Use this to specify the time duration over which the behavior is evaluated, for those criteria which have a time dimension \(for example, `NUM_MESSAGES_SENT`\)\. For a `statisticalThreshhold` metric comparison, measurements from all devices are accumulated over this time duration before being used to calculate percentiles, and later, measurements from an individual device are also accumulated over this time duration before being given a percentile rank\.  | 
-|  consecutiveDatapointsToAlarm |  integer  range\- max:10 min:1  |  If a device is in violation of the behavior for the specified number of consecutive datapoints, an alarm occurs\. If not specified, the default is 1\.  | 
-|  consecutiveDatapointsToClear |  integer  range\- max:10 min:1  |  If an alarm has occurred and the offending device is no longer in violation of the behavior for the specified number of consecutive datapoints, the alarm is cleared\. If not specified, the default is 1\.  | 
-|  statisticalThreshold |  StatisticalThreshold |  A statistical ranking \(percentile\) which indicates a threshold value by which a behavior is determined to be in compliance or in violation of the behavior\.  | 
-|  statistic |  string  pattern: \(p0\|p0\.1\|p0\.01\|p1\|p10\|p50\|p90\|p99\|p99\.9\|p99\.99\|p100\)  |  The percentile which resolves to a threshold value by which compliance with a behavior is determined\. Metrics are collected over the specified period \(`durationSeconds`\) from all reporting devices in your account and statistical ranks are calculated\. Then, the measurements from a device are collected over the same period\. If the accumulated measurements from the device fall above or below \(`comparisonOperator`\) the value associated with the percentile specified, then the device is considered to be in compliance with the behavior, otherwise a violation occurs\.  | 
-|  alertTargets |  map |  Where the alerts are sent\. \(Alerts are always sent to the console\.\) | 
-|  alertTargetArn |  string |  The ARN of the notification target to which alerts are sent\. | 
-|  roleArn |  string  length\- max:2048 min:20  |  The ARN of the role that grants permission to send alerts to the notification target\.  | 
-|  additionalMetricsToRetain |  list  member: BehaviorMetric  |  A list of metrics whose data is retained \(stored\)\. By default, data is retained for any metric used in the profile's `behaviors` but it is also retained for any metric specified here\.  | 
-|  version |  long |  The version of the security profile\. A new version is generated whenever the security profile is updated\.  | 
-|  creationDate |  timestamp |  The time the security profile was created\. | 
-|  lastModifiedDate |  timestamp |  The time the security profile was last modified\. | 
+|   `securityProfileName`  |  string  length\- max:128 min:1  pattern: \[a\-zA\-Z0\-9:\_\-\]\+  |  The name of the security profile\. | 
+|   `securityProfileArn`  |  string |  The ARN of the security profile\. | 
+|   `securityProfileDescription`  |  string  length\- max:1000  pattern: \[\\\\p\{Graph\} \]\*  |  A description of the security profile \(associated with the security profile when it was created or updated\)\.  | 
+|   `behaviors`  |  list  member: Behavior  |  Specifies the behaviors that, when violated by a device \(thing\), cause an alert\. | 
+|   `name`  |  string  length\- max:128 min:1  pattern: \[a\-zA\-Z0\-9:\_\-\]\+  |  The name you have given to the behavior\. | 
+|   `metric`  |  string |  What is measured by the behavior\. | 
+|   `criteria`  |  BehaviorCriteria |  The criteria that determine if a device is behaving normally in regard to the `metric`\.  | 
+|   `comparisonOperator`  |  string |  The operator that relates the thing measured \(`metric`\) to the criteria \(containing a `value` or `statisticalThreshold`\)\.  enum: less\-than \| less\-than\-equals \| greater\-than \| greater\-than\-equals \| in\-cidr\-set \| not\-in\-cidr\-set \| in\-port\-set \| not\-in\-port\-set  | 
+|   `value`  |  MetricValue |  The value to be compared with the `metric`\. | 
+|   `count`  |  long  range\- min:0  |  If the `comparisonOperator` calls for a numeric value, use this to specify that numeric value to be compared with the `metric`\.  | 
+|   `cidrs`  |  list  member: Cidr  |  If the `comparisonOperator` calls for a set of CIDRs, use this to specify that set to be compared with the `metric`\.  | 
+|   `ports`  |  list  member: Port  |  If the `comparisonOperator` calls for a set of ports, use this to specify that set to be compared with the `metric`\.  | 
+|   `durationSeconds`  |  integer |  Use this to specify the time duration over which the behavior is evaluated, for those criteria which have a time dimension \(for example, `NUM_MESSAGES_SENT`\)\. For a `statisticalThreshhold` metric comparison, measurements from all devices are accumulated over this time duration before being used to calculate percentiles, and later, measurements from an individual device are also accumulated over this time duration before being given a percentile rank\.  | 
+|   `consecutiveDatapointsToAlarm`  |  integer  range\- max:10 min:1  |  If a device is in violation of the behavior for the specified number of consecutive datapoints, an alarm occurs\. If not specified, the default is 1\.  | 
+|   `consecutiveDatapointsToClear`  |  integer  range\- max:10 min:1  |  If an alarm has occurred and the offending device is no longer in violation of the behavior for the specified number of consecutive datapoints, the alarm is cleared\. If not specified, the default is 1\.  | 
+|   `statisticalThreshold`  |  StatisticalThreshold |  A statistical ranking \(percentile\) which indicates a threshold value by which a behavior is determined to be in compliance or in violation of the behavior\.  | 
+|   `statistic`  |  string  pattern: \(p0\|p0\.1\|p0\.01\|p1\|p10\|p50\|p90\|p99\|p99\.9\|p99\.99\|p100\)  |  The percentile which resolves to a threshold value by which compliance with a behavior is determined\. Metrics are collected over the specified period \(`durationSeconds`\) from all reporting devices in your account and statistical ranks are calculated\. Then, the measurements from a device are collected over the same period\. If the accumulated measurements from the device fall above or below \(`comparisonOperator`\) the value associated with the percentile specified, then the device is considered to be in compliance with the behavior, otherwise a violation occurs\.  | 
+|   `alertTargets`  |  map |  Where the alerts are sent\. \(Alerts are always sent to the console\.\) | 
+|   `alertTargetArn`  |  string |  The ARN of the notification target to which alerts are sent\. | 
+|   `roleArn`  |  string  length\- max:2048 min:20  |  The ARN of the role that grants permission to send alerts to the notification target\.  | 
+|   `additionalMetricsToRetain`  |  list  member: BehaviorMetric  |  A list of metrics whose data is retained \(stored\)\. By default, data is retained for any metric used in the profile's `behaviors`, but it is also retained for any metric specified here\.  | 
+|   `version`  |  long |  The version of the security profile\. A new version is generated whenever the security profile is updated\.  | 
+|   `creationDate`  |  timestamp |  The time the security profile was created\. | 
+|   `lastModifiedDate`  |  timestamp |  The time the security profile was last modified\. | 
 
  **Errors**
 
@@ -5566,7 +6180,7 @@ aws iot  describe-stream \
 
 |  Name |  Type |  Description | 
 | --- | --- | --- | 
-|  streamId |  string  length\- max:128 min:1  pattern: \[a\-zA\-Z0\-9\_\-\]\+  |  The stream ID\. | 
+|   `streamId`  |  string  length\- max:128 min:1  pattern: \[a\-zA\-Z0\-9\_\-\]\+  |  The stream ID\. | 
 
 Output
 
@@ -5599,20 +6213,20 @@ Output
 
 |  Name |  Type |  Description | 
 | --- | --- | --- | 
-|  streamInfo |  StreamInfo |  Information about the stream\. | 
-|  streamId |  string  length\- max:128 min:1  pattern: \[a\-zA\-Z0\-9\_\-\]\+  |  The stream ID\. | 
-|  streamArn |  string |  The stream ARN\. | 
-|  streamVersion |  integer  range\- max:65535 min:0  |  The stream version\. | 
-|  description |  string  length\- max:2028  pattern: \[^\\\\p\{C\}\]\+  |  The description of the stream\. | 
-|  files |  list  member: StreamFile  |  The files to stream\. | 
-|  fileId |  integer  range\- max:255 min:0  |  The file ID\. | 
-|  s3Location |  S3Location |  The location of the file in S3\. | 
-|  bucket |  string  length\- min:1  |  The S3 bucket\. | 
-|  key |  string  length\- min:1  |  The S3 key\. | 
-|  version |  string |  The S3 bucket version\. | 
-|  createdAt |  timestamp |  The date when the stream was created\. | 
-|  lastUpdatedAt |  timestamp |  The date when the stream was last updated\. | 
-|  roleArn |  string  length\- max:2048 min:20  |  An IAM role AWS IoT assumes to access your S3 files\. | 
+|   `streamInfo`  |  StreamInfo |  Information about the stream\. | 
+|   `streamId`  |  string  length\- max:128 min:1  pattern: \[a\-zA\-Z0\-9\_\-\]\+  |  The stream ID\. | 
+|   `streamArn`  |  string |  The stream ARN\. | 
+|   `streamVersion`  |  integer  range\- max:65535 min:0  |  The stream version\. | 
+|   `description`  |  string  length\- max:2028  pattern: \[^\\\\p\{C\}\]\+  |  The description of the stream\. | 
+|   `files`  |  list  member: StreamFile  |  The files to stream\. | 
+|   `fileId`  |  integer  range\- max:255 min:0  |  The file ID\. | 
+|   `s3Location`  |  S3Location |  The location of the file in S3\. | 
+|   `bucket`  |  string  length\- min:1  |  The S3 bucket\. | 
+|   `key`  |  string  length\- min:1  |  The S3 key\. | 
+|   `version`  |  string |  The S3 bucket version\. | 
+|   `createdAt`  |  timestamp |  The date when the stream was created\. | 
+|   `lastUpdatedAt`  |  timestamp |  The date when the stream was last updated\. | 
+|   `roleArn`  |  string  length\- max:2048 min:20  |  An IAM role AWS IoT assumes to access your S3 files\. | 
 
  **Errors**
 
@@ -5660,7 +6274,7 @@ aws iot  describe-thing \
 
 |  Name |  Type |  Description | 
 | --- | --- | --- | 
-|  thingName |  string  length\- max:128 min:1  pattern: \[a\-zA\-Z0\-9:\_\-\]\+  |  The name of the thing\. | 
+|   `thingName`  |  string  length\- max:128 min:1  pattern: \[a\-zA\-Z0\-9:\_\-\]\+  |  The name of the thing\. | 
 
 Output
 
@@ -5684,14 +6298,14 @@ Output
 
 |  Name |  Type |  Description | 
 | --- | --- | --- | 
-|  defaultClientId |  string |  The default client ID\. | 
-|  thingName |  string  length\- max:128 min:1  pattern: \[a\-zA\-Z0\-9:\_\-\]\+  |  The name of the thing\. | 
-|  thingId |  string |  The ID of the thing to describe\. | 
-|  thingArn |  string |  The ARN of the thing to describe\. | 
-|  thingTypeName |  string  length\- max:128 min:1  pattern: \[a\-zA\-Z0\-9:\_\-\]\+  |  The thing type name\. | 
-|  attributes |  map |  The thing attributes\. | 
-|  version |  long |  The current version of the thing record in the registry\.  To avoid unintentional changes to the information in the registry, you can pass the version information in the `expectedVersion` parameter of the `UpdateThing` and `DeleteThing` calls\.   | 
-|  billingGroupName |  string  length\- max:128 min:1  pattern: \[a\-zA\-Z0\-9:\_\-\]\+  |  The name of the billing group the thing belongs to\. | 
+|   `defaultClientId`  |  string |  The default client ID\. | 
+|   `thingName`  |  string  length\- max:128 min:1  pattern: \[a\-zA\-Z0\-9:\_\-\]\+  |  The name of the thing\. | 
+|   `thingId`  |  string |  The ID of the thing to describe\. | 
+|   `thingArn`  |  string |  The ARN of the thing to describe\. | 
+|   `thingTypeName`  |  string  length\- max:128 min:1  pattern: \[a\-zA\-Z0\-9:\_\-\]\+  |  The thing type name\. | 
+|   `attributes`  |  map |  The thing attributes\. | 
+|   `version`  |  long |  The current version of the thing record in the registry\.  To avoid unintentional changes to the information in the registry, you can pass the version information in the `expectedVersion` parameter of the `UpdateThing` and `DeleteThing` calls\.   | 
+|   `billingGroupName`  |  string  length\- max:128 min:1  pattern: \[a\-zA\-Z0\-9:\_\-\]\+  |  The name of the billing group the thing belongs to\. | 
 
  **Errors**
 
@@ -5739,7 +6353,7 @@ aws iot  describe-thing-group \
 
 |  Name |  Type |  Description | 
 | --- | --- | --- | 
-|  thingGroupName |  string  length\- max:128 min:1  pattern: \[a\-zA\-Z0\-9:\_\-\]\+  |  The name of the thing group\. | 
+|   `thingGroupName`  |  string  length\- max:128 min:1  pattern: \[a\-zA\-Z0\-9:\_\-\]\+  |  The name of the thing group\. | 
 
 Output
 
@@ -5780,25 +6394,25 @@ Output
 
 |  Name |  Type |  Description | 
 | --- | --- | --- | 
-|  thingGroupName |  string  length\- max:128 min:1  pattern: \[a\-zA\-Z0\-9:\_\-\]\+  |  The name of the thing group\. | 
-|  thingGroupId |  string  length\- max:128 min:1  pattern: \[a\-zA\-Z0\-9\-\]\+  |  The thing group ID\. | 
-|  thingGroupArn |  string |  The thing group ARN\. | 
-|  version |  long |  The version of the thing group\. | 
-|  thingGroupProperties |  ThingGroupProperties |  The thing group properties\. | 
-|  thingGroupDescription |  string  length\- max:2028  pattern: \[\\\\p\{Graph\} \]\*  |  The thing group description\. | 
-|  attributePayload |  AttributePayload |  The thing group attributes in JSON format\. | 
-|  attributes |  map |  A JSON string containing up to three key\-value pair in JSON format\. For example:  ` \"attributes\":{\"string1\":\"string2\"}`   | 
-|  merge |  boolean |  Specifies whether the list of attributes provided in the `AttributePayload` is merged with the attributes stored in the registry, instead of overwriting them\. To remove an attribute, call `UpdateThing` with an empty attribute value\.  The `merge` attribute is only valid when calling `UpdateThing`\.   | 
-|  thingGroupMetadata |  ThingGroupMetadata |  Thing group metadata\. | 
-|  parentGroupName |  string  length\- max:128 min:1  pattern: \[a\-zA\-Z0\-9:\_\-\]\+  |  The parent thing group name\. | 
-|  rootToParentThingGroups |  list  member: GroupNameAndArn  java class: java\.util\.List  |  The root parent thing group\. | 
-|  groupName |  string  length\- max:128 min:1  pattern: \[a\-zA\-Z0\-9:\_\-\]\+  |  The group name\. | 
-|  groupArn |  string |  The group ARN\. | 
-|  creationDate |  timestamp |  The UNIX timestamp of when the thing group was created\. | 
-|  indexName |  string  length\- max:128 min:1  pattern: \[a\-zA\-Z0\-9:\_\-\]\+  |  The dynamic thing group index name\. | 
-|  queryString |  string  length\- min:1  |  The dynamic thing group search query string\. | 
-|  queryVersion |  string |  The dynamic thing group query version\. | 
-|  status |  string |  The dynamic thing group status\.  enum: ACTIVE \| BUILDING \| REBUILDING  | 
+|   `thingGroupName`  |  string  length\- max:128 min:1  pattern: \[a\-zA\-Z0\-9:\_\-\]\+  |  The name of the thing group\. | 
+|   `thingGroupId`  |  string  length\- max:128 min:1  pattern: \[a\-zA\-Z0\-9\-\]\+  |  The thing group ID\. | 
+|   `thingGroupArn`  |  string |  The thing group ARN\. | 
+|   `version`  |  long |  The version of the thing group\. | 
+|   `thingGroupProperties`  |  ThingGroupProperties |  The thing group properties\. | 
+|   `thingGroupDescription`  |  string  length\- max:2028  pattern: \[\\\\p\{Graph\} \]\*  |  The thing group description\. | 
+|   `attributePayload`  |  AttributePayload |  The thing group attributes in JSON format\. | 
+|   `attributes`  |  map |  A JSON string containing up to three key\-value pair in JSON format\. For example:  ` \"attributes\":{\"string1\":\"string2\"}`   | 
+|   `merge`  |  boolean |  Specifies whether the list of attributes provided in the `AttributePayload` is merged with the attributes stored in the registry, instead of overwriting them\. To remove an attribute, call `UpdateThing` with an empty attribute value\.  The `merge` attribute is only valid when calling `UpdateThing` or `UpdateThingGroup`\.   | 
+|   `thingGroupMetadata`  |  ThingGroupMetadata |  Thing group metadata\. | 
+|   `parentGroupName`  |  string  length\- max:128 min:1  pattern: \[a\-zA\-Z0\-9:\_\-\]\+  |  The parent thing group name\. | 
+|   `rootToParentThingGroups`  |  list  member: GroupNameAndArn  java class: java\.util\.List  |  The root parent thing group\. | 
+|   `groupName`  |  string  length\- max:128 min:1  pattern: \[a\-zA\-Z0\-9:\_\-\]\+  |  The group name\. | 
+|   `groupArn`  |  string |  The group ARN\. | 
+|   `creationDate`  |  timestamp |  The UNIX timestamp of when the thing group was created\. | 
+|   `indexName`  |  string  length\- max:128 min:1  pattern: \[a\-zA\-Z0\-9:\_\-\]\+  |  The dynamic thing group index name\. | 
+|   `queryString`  |  string  length\- min:1  |  The dynamic thing group search query string\. | 
+|   `queryVersion`  |  string |  The dynamic thing group query version\. | 
+|   `status`  |  string |  The dynamic thing group status\.  enum: ACTIVE \| BUILDING \| REBUILDING  | 
 
  **Errors**
 
@@ -5840,7 +6454,7 @@ aws iot  describe-thing-registration-task \
 
 |  Name |  Type |  Description | 
 | --- | --- | --- | 
-|  taskId |  string  length\- max:40  |  The task ID\. | 
+|   `taskId`  |  string  length\- max:40  |  The task ID\. | 
 
 Output
 
@@ -5866,18 +6480,18 @@ Output
 
 |  Name |  Type |  Description | 
 | --- | --- | --- | 
-|  taskId |  string  length\- max:40  |  The task ID\. | 
-|  creationDate |  timestamp |  The task creation date\. | 
-|  lastModifiedDate |  timestamp |  The date when the task was last modified\. | 
-|  templateBody |  string |  The task's template\. | 
-|  inputFileBucket |  string  length\- max:256 min:3  pattern: \[a\-zA\-Z0\-9\.\_\-\]\+  |  The S3 bucket that contains the input file\. | 
-|  inputFileKey |  string  length\- max:1024 min:1  pattern: \[a\-zA\-Z0\-9\!\_\.\*'\(\)\-/\]\+  |  The input file key\. | 
-|  roleArn |  string  length\- max:2048 min:20  |  The role ARN that grants access to the input file bucket\. | 
-|  status |  string |  The status of the bulk thing provisioning task\.  enum: InProgress \| Completed \| Failed \| Cancelled \| Cancelling  | 
-|  message |  string  length\- max:2048  |  The message\. | 
-|  successCount |  integer |  The number of things successfully provisioned\. | 
-|  failureCount |  integer |  The number of things that failed to be provisioned\. | 
-|  percentageProgress |  integer  range\- max:100 min:0  |  The progress of the bulk provisioning task expressed as a percentage\. | 
+|   `taskId`  |  string  length\- max:40  |  The task ID\. | 
+|   `creationDate`  |  timestamp |  The task creation date\. | 
+|   `lastModifiedDate`  |  timestamp |  The date when the task was last modified\. | 
+|   `templateBody`  |  string |  The task's template\. | 
+|   `inputFileBucket`  |  string  length\- max:256 min:3  pattern: \[a\-zA\-Z0\-9\.\_\-\]\+  |  The S3 bucket that contains the input file\. | 
+|   `inputFileKey`  |  string  length\- max:1024 min:1  pattern: \[a\-zA\-Z0\-9\!\_\.\*'\(\)\-/\]\+  |  The input file key\. | 
+|   `roleArn`  |  string  length\- max:2048 min:20  |  The role ARN that grants access to the input file bucket\. | 
+|   `status`  |  string |  The status of the bulk thing provisioning task\.  enum: InProgress \| Completed \| Failed \| Cancelled \| Cancelling  | 
+|   `message`  |  string  length\- max:2048  |  The message\. | 
+|   `successCount`  |  integer |  The number of things successfully provisioned\. | 
+|   `failureCount`  |  integer |  The number of things that failed to be provisioned\. | 
+|   `percentageProgress`  |  integer  range\- max:100 min:0  |  The progress of the bulk provisioning task expressed as a percentage\. | 
 
  **Errors**
 
@@ -5922,7 +6536,7 @@ aws iot  describe-thing-type \
 
 |  Name |  Type |  Description | 
 | --- | --- | --- | 
-|  thingTypeName |  string  length\- max:128 min:1  pattern: \[a\-zA\-Z0\-9:\_\-\]\+  |  The name of the thing type\. | 
+|   `thingTypeName`  |  string  length\- max:128 min:1  pattern: \[a\-zA\-Z0\-9:\_\-\]\+  |  The name of the thing type\. | 
 
 Output
 
@@ -5950,16 +6564,16 @@ Output
 
 |  Name |  Type |  Description | 
 | --- | --- | --- | 
-|  thingTypeName |  string  length\- max:128 min:1  pattern: \[a\-zA\-Z0\-9:\_\-\]\+  |  The name of the thing type\. | 
-|  thingTypeId |  string |  The thing type ID\. | 
-|  thingTypeArn |  string |  The thing type ARN\. | 
-|  thingTypeProperties |  ThingTypeProperties |  The ThingTypeProperties contains information about the thing type including description, and a list of searchable thing attribute names\.  | 
-|  thingTypeDescription |  string  length\- max:2028  pattern: \[\\\\p\{Graph\} \]\*  |  The description of the thing type\. | 
-|  searchableAttributes |  list  member: AttributeName  java class: java\.util\.List  |  A list of searchable thing attribute names\. | 
-|  thingTypeMetadata |  ThingTypeMetadata |  The ThingTypeMetadata contains additional information about the thing type including: creation date and time, a value indicating whether the thing type is deprecated, and a date and time when it was deprecated\.  | 
-|  deprecated |  boolean |  Whether the thing type is deprecated\. If **true**, no new things could be associated with this type\.  | 
-|  deprecationDate |  timestamp |  The date and time when the thing type was deprecated\. | 
-|  creationDate |  timestamp |  The date and time when the thing type was created\. | 
+|   `thingTypeName`  |  string  length\- max:128 min:1  pattern: \[a\-zA\-Z0\-9:\_\-\]\+  |  The name of the thing type\. | 
+|   `thingTypeId`  |  string |  The thing type ID\. | 
+|   `thingTypeArn`  |  string |  The thing type ARN\. | 
+|   `thingTypeProperties`  |  ThingTypeProperties |  The ThingTypeProperties contains information about the thing type including description, and a list of searchable thing attribute names\.  | 
+|   `thingTypeDescription`  |  string  length\- max:2028  pattern: \[\\\\p\{Graph\} \]\*  |  The description of the thing type\. | 
+|   `searchableAttributes`  |  list  member: AttributeName  java class: java\.util\.List  |  A list of searchable thing attribute names\. | 
+|   `thingTypeMetadata`  |  ThingTypeMetadata |  The ThingTypeMetadata contains additional information about the thing type including: creation date and time, a value indicating whether the thing type is deprecated, and a date and time when it was deprecated\.  | 
+|   `deprecated`  |  boolean |  Whether the thing type is deprecated\. If **true**, no new things could be associated with this type\.  | 
+|   `deprecationDate`  |  timestamp |  The date and time when the thing type was deprecated\. | 
+|   `creationDate`  |  timestamp |  The date and time when the thing type was created\. | 
 
  **Errors**
 
@@ -6009,8 +6623,8 @@ aws iot  detach-policy \
 
 |  Name |  Type |  Description | 
 | --- | --- | --- | 
-|  policyName |  string  length\- max:128 min:1  pattern: \[w\+=,\.@\-\]\+  |  The policy to detach\. | 
-|  target |  string |  The target from which the policy will be detached\. | 
+|   `policyName`  |  string  length\- max:128 min:1  pattern: \[w\+=,\.@\-\]\+  |  The policy to detach\. | 
+|   `target`  |  string |  The target from which the policy will be detached\. | 
 
 Output
 
@@ -6066,8 +6680,8 @@ aws iot  detach-principal-policy \
 
 |  Name |  Type |  Description | 
 | --- | --- | --- | 
-|  policyName |  string  length\- max:128 min:1  pattern: \[w\+=,\.@\-\]\+  |  The name of the policy to detach\. | 
-|  principal |  string |  The principal\. If the principal is a certificate, specify the certificate ARN\. If the principal is an Amazon Cognito identity, specify the identity ID\.  | 
+|   `policyName`  |  string  length\- max:128 min:1  pattern: \[w\+=,\.@\-\]\+  |  The name of the policy to detach\. | 
+|   `principal`  |  string |  The principal\. If the principal is a certificate, specify the certificate ARN\. If the principal is an Amazon Cognito identity, specify the identity ID\.  | 
 
 Output
 
@@ -6121,8 +6735,8 @@ aws iot  detach-security-profile \
 
 |  Name |  Type |  Description | 
 | --- | --- | --- | 
-|  securityProfileName |  string  length\- max:128 min:1  pattern: \[a\-zA\-Z0\-9:\_\-\]\+  |  The security profile that is detached\. | 
-|  securityProfileTargetArn |  string |  The ARN of the thing group from which the security profile is detached\. | 
+|   `securityProfileName`  |  string  length\- max:128 min:1  pattern: \[a\-zA\-Z0\-9:\_\-\]\+  |  The security profile that is detached\. | 
+|   `securityProfileTargetArn`  |  string |  The ARN of the thing group from which the security profile is detached\. | 
 
 Output
 
@@ -6173,8 +6787,8 @@ aws iot  detach-thing-principal \
 
 |  Name |  Type |  Description | 
 | --- | --- | --- | 
-|  thingName |  string  length\- max:128 min:1  pattern: \[a\-zA\-Z0\-9:\_\-\]\+  |  The name of the thing\. | 
-|  principal |  string |  If the principal is a certificate, this value must be ARN of the certificate\. If the principal is an Amazon Cognito identity, this value must be the ID of the Amazon Cognito identity\.  | 
+|   `thingName`  |  string  length\- max:128 min:1  pattern: \[a\-zA\-Z0\-9:\_\-\]\+  |  The name of the thing\. | 
+|   `principal`  |  string |  If the principal is a certificate, this value must be ARN of the certificate\. If the principal is an Amazon Cognito identity, this value must be the ID of the Amazon Cognito identity\.  | 
 
 Output
 
@@ -6226,7 +6840,7 @@ aws iot  disable-topic-rule \
 
 |  Name |  Type |  Description | 
 | --- | --- | --- | 
-|  ruleName |  string  length\- max:128 min:1  pattern: ^\[a\-zA\-Z0\-9\_\]\+$  |  The name of the rule to disable\. | 
+|   `ruleName`  |  string  length\- max:128 min:1  pattern: ^\[a\-zA\-Z0\-9\_\]\+$  |  The name of the rule to disable\. | 
 
 Output
 
@@ -6275,7 +6889,7 @@ aws iot  enable-topic-rule \
 
 |  Name |  Type |  Description | 
 | --- | --- | --- | 
-|  ruleName |  string  length\- max:128 min:1  pattern: ^\[a\-zA\-Z0\-9\_\]\+$  |  The name of the topic rule to enable\. | 
+|   `ruleName`  |  string  length\- max:128 min:1  pattern: ^\[a\-zA\-Z0\-9\_\]\+$  |  The name of the topic rule to enable\. | 
 
 Output
 
@@ -6328,9 +6942,9 @@ aws iot  get-effective-policies \
 
 |  Name |  Type |  Description | 
 | --- | --- | --- | 
-|  principal |  string |  The principal\. | 
-|  cognitoIdentityPoolId |  string |  The Cognito identity pool ID\. | 
-|  thingName |  string  length\- max:128 min:1  pattern: \[a\-zA\-Z0\-9:\_\-\]\+  |  The thing name\. | 
+|   `principal`  |  string |  The principal\. | 
+|   `cognitoIdentityPoolId`  |  string |  The Cognito identity pool ID\. | 
+|   `thingName`  |  string  length\- max:128 min:1  pattern: \[a\-zA\-Z0\-9:\_\-\]\+  |  The thing name\. | 
 
 Output
 
@@ -6351,10 +6965,10 @@ Output
 
 |  Name |  Type |  Description | 
 | --- | --- | --- | 
-|  effectivePolicies |  list  member: EffectivePolicy  java class: java\.util\.List  |  The effective policies\. | 
-|  policyName |  string  length\- max:128 min:1  pattern: \[w\+=,\.@\-\]\+  |  The policy name\. | 
-|  policyArn |  string |  The policy ARN\. | 
-|  policyDocument |  string |  The IAM policy document\. | 
+|   `effectivePolicies`  |  list  member: EffectivePolicy  java class: java\.util\.List  |  The effective policies\. | 
+|   `policyName`  |  string  length\- max:128 min:1  pattern: \[w\+=,\.@\-\]\+  |  The policy name\. | 
+|   `policyArn`  |  string |  The policy ARN\. | 
+|   `policyDocument`  |  string |  The IAM policy document\. | 
 
  **Errors**
 
@@ -6417,11 +7031,11 @@ Output
 
 |  Name |  Type |  Description | 
 | --- | --- | --- | 
-|  thingIndexingConfiguration |  ThingIndexingConfiguration |  Thing indexing configuration\. | 
-|  thingIndexingMode |  string |  Thing indexing mode\. Valid values are: [\[See the AWS documentation website for more details\]](http://docs.aws.amazon.com/iot/latest/developerguide/iot-commands.html)  enum: OFF \| REGISTRY \| REGISTRY\_AND\_SHADOW  | 
-|  thingConnectivityIndexingMode |  string |  Thing connectivity indexing mode\. Valid values are:  [\[See the AWS documentation website for more details\]](http://docs.aws.amazon.com/iot/latest/developerguide/iot-commands.html)  enum: OFF \| STATUS  | 
-|  thingGroupIndexingConfiguration |  ThingGroupIndexingConfiguration |  The index configuration\. | 
-|  thingGroupIndexingMode |  string |  Thing group indexing mode\.  enum: OFF \| ON  | 
+|   `thingIndexingConfiguration`  |  ThingIndexingConfiguration |  Thing indexing configuration\. | 
+|   `thingIndexingMode`  |  string |  Thing indexing mode\. Valid values are: [\[See the AWS documentation website for more details\]](http://docs.aws.amazon.com/iot/latest/developerguide/iot-commands.html)  enum: OFF \| REGISTRY \| REGISTRY\_AND\_SHADOW  | 
+|   `thingConnectivityIndexingMode`  |  string |  Thing connectivity indexing mode\. Valid values are:  [\[See the AWS documentation website for more details\]](http://docs.aws.amazon.com/iot/latest/developerguide/iot-commands.html)  enum: OFF \| STATUS  | 
+|   `thingGroupIndexingConfiguration`  |  ThingGroupIndexingConfiguration |  The index configuration\. | 
+|   `thingGroupIndexingMode`  |  string |  Thing group indexing mode\.  enum: OFF \| ON  | 
 
  **Errors**
 
@@ -6466,7 +7080,7 @@ aws iot  get-job-document \
 
 |  Name |  Type |  Description | 
 | --- | --- | --- | 
-|  jobId |  string  length\- max:64 min:1  pattern: \[a\-zA\-Z0\-9\_\-\]\+  |  The unique identifier you assigned to this job when it was created\. | 
+|   `jobId`  |  string  length\- max:64 min:1  pattern: \[a\-zA\-Z0\-9\_\-\]\+  |  The unique identifier you assigned to this job when it was created\. | 
 
 Output
 
@@ -6481,7 +7095,7 @@ Output
 
 |  Name |  Type |  Description | 
 | --- | --- | --- | 
-|  document |  string  length\- max:32768  |  The job document content\. | 
+|   `document`  |  string  length\- max:32768  |  The job document content\. | 
 
  **Errors**
 
@@ -6532,8 +7146,8 @@ Output
 
 |  Name |  Type |  Description | 
 | --- | --- | --- | 
-|  roleArn |  string |  The ARN of the IAM role that grants access\. | 
-|  logLevel |  string |  The logging level\.  enum: DEBUG \| INFO \| ERROR \| WARN \| DISABLED  | 
+|   `roleArn`  |  string |  The ARN of the IAM role that grants access\. | 
+|   `logLevel`  |  string |  The logging level\.  enum: DEBUG \| INFO \| ERROR \| WARN \| DISABLED  | 
 
  **Errors**
 
@@ -6572,7 +7186,7 @@ aws iot  get-ota-update \
 
 |  Name |  Type |  Description | 
 | --- | --- | --- | 
-|  otaUpdateId |  string  length\- max:128 min:1  pattern: \[a\-zA\-Z0\-9\_\-\]\+  |  The OTA update ID\. | 
+|   `otaUpdateId`  |  string  length\- max:128 min:1  pattern: \[a\-zA\-Z0\-9\_\-\]\+  |  The OTA update ID\. | 
 
 Output
 
@@ -6658,55 +7272,55 @@ Output
 
 |  Name |  Type |  Description | 
 | --- | --- | --- | 
-|  otaUpdateInfo |  OTAUpdateInfo |  The OTA update info\. | 
-|  otaUpdateId |  string  length\- max:128 min:1  pattern: \[a\-zA\-Z0\-9\_\-\]\+  |  The OTA update ID\. | 
-|  otaUpdateArn |  string |  The OTA update ARN\. | 
-|  creationDate |  timestamp |  The date when the OTA update was created\. | 
-|  lastModifiedDate |  timestamp |  The date when the OTA update was last updated\. | 
-|  description |  string  length\- max:2028  pattern: \[^\\\\p\{C\}\]\+  |  A description of the OTA update\. | 
-|  targets |  list  member: Target  |  The targets of the OTA update\. | 
-|  awsJobExecutionsRolloutConfig |  AwsJobExecutionsRolloutConfig |  Configuration for the rollout of OTA updates\. | 
-|  maximumPerMinute |  integer  range\- max:1000 min:1  |  The maximum number of OTA update job executions started per minute\. | 
-|  targetSelection |  string |  Specifies whether the OTA update will continue to run \(CONTINUOUS\), or will be complete after all those things specified as targets have completed the OTA update \(SNAPSHOT\)\. If continuous, the OTA update may also be run on a thing when a change is detected in a target\. For example, an OTA update will run on a thing when the thing is added to a target group, even after the OTA update was completed by all things originally in the group\.   enum: CONTINUOUS \| SNAPSHOT  | 
-|  otaUpdateFiles |  list  member: OTAUpdateFile  |  A list of files associated with the OTA update\. | 
-|  fileName |  string |  The name of the file\. | 
-|  fileVersion |  string |  The file version\. | 
-|  fileLocation |  FileLocation |  The location of the updated firmware\. | 
-|  stream |  Stream |  The stream that contains the OTA update\. | 
-|  streamId |  string  length\- max:128 min:1  pattern: \[a\-zA\-Z0\-9\_\-\]\+  |  The stream ID\. | 
-|  fileId |  integer  range\- max:255 min:0  |  The ID of a file associated with a stream\. | 
-|  s3Location |  S3Location |  The location of the updated firmware in S3\. | 
-|  bucket |  string  length\- min:1  |  The S3 bucket\. | 
-|  key |  string  length\- min:1  |  The S3 key\. | 
-|  version |  string |  The S3 bucket version\. | 
-|  codeSigning |  CodeSigning |  The code signing method of the file\. | 
-|  awsSignerJobId |  string |  The ID of the AWSSignerJob which was created to sign the file\. | 
-|  startSigningJobParameter |  StartSigningJobParameter |  Describes the code\-signing job\. | 
-|  signingProfileParameter |  SigningProfileParameter |  Describes the code\-signing profile\. | 
-|  certificateArn |  string |  Certificate ARN\. | 
-|  platform |  string |  The hardware platform of your device\. | 
-|  certificatePathOnDevice |  string |  The location of the code\-signing certificate on your device\. | 
-|  signingProfileName |  string |  The code\-signing profile name\. | 
-|  destination |  Destination |  The location to write the code\-signed file\. | 
-|  s3Destination |  S3Destination |  Describes the location in S3 of the updated firmware\. | 
-|  bucket |  string  length\- min:1  |  The S3 bucket that contains the updated firmware\. | 
-|  prefix |  string |  The S3 prefix\. | 
-|  customCodeSigning |  CustomCodeSigning |  A custom method for code signing a file\. | 
-|  signature |  CodeSigningSignature |  The signature for the file\. | 
-|  inlineDocument |  blob |  A base64 encoded binary representation of the code signing signature\. | 
-|  certificateChain |  CodeSigningCertificateChain |  The certificate chain\. | 
-|  certificateName |  string |  The name of the certificate\. | 
-|  inlineDocument |  string |  A base64 encoded binary representation of the code signing certificate chain\. | 
-|  hashAlgorithm |  string |  The hash algorithm used to code sign the file\. | 
-|  signatureAlgorithm |  string |  The signature algorithm used to code sign the file\. | 
-|  attributes |  map |  A list of name/attribute pairs\. | 
-|  otaUpdateStatus |  string |  The status of the OTA update\.  enum: CREATE\_PENDING \| CREATE\_IN\_PROGRESS \| CREATE\_COMPLETE \| CREATE\_FAILED  | 
-|  awsIotJobId |  string |  The AWS IoT job ID associated with the OTA update\. | 
-|  awsIotJobArn |  string |  The AWS IoT job ARN associated with the OTA update\. | 
-|  errorInfo |  ErrorInfo |  Error information associated with the OTA update\. | 
-|  code |  string |  The error code\. | 
-|  message |  string |  The error message\. | 
-|  additionalParameters |  map |  A collection of name/value pairs | 
+|   `otaUpdateInfo`  |  OTAUpdateInfo |  The OTA update info\. | 
+|   `otaUpdateId`  |  string  length\- max:128 min:1  pattern: \[a\-zA\-Z0\-9\_\-\]\+  |  The OTA update ID\. | 
+|   `otaUpdateArn`  |  string |  The OTA update ARN\. | 
+|   `creationDate`  |  timestamp |  The date when the OTA update was created\. | 
+|   `lastModifiedDate`  |  timestamp |  The date when the OTA update was last updated\. | 
+|   `description`  |  string  length\- max:2028  pattern: \[^\\\\p\{C\}\]\+  |  A description of the OTA update\. | 
+|   `targets`  |  list  member: Target  |  The targets of the OTA update\. | 
+|   `awsJobExecutionsRolloutConfig`  |  AwsJobExecutionsRolloutConfig |  Configuration for the rollout of OTA updates\. | 
+|   `maximumPerMinute`  |  integer  range\- max:1000 min:1  |  The maximum number of OTA update job executions started per minute\. | 
+|   `targetSelection`  |  string |  Specifies whether the OTA update will continue to run \(CONTINUOUS\), or will be complete after all those things specified as targets have completed the OTA update \(SNAPSHOT\)\. If continuous, the OTA update may also be run on a thing when a change is detected in a target\. For example, an OTA update will run on a thing when the thing is added to a target group, even after the OTA update was completed by all things originally in the group\.   enum: CONTINUOUS \| SNAPSHOT  | 
+|   `otaUpdateFiles`  |  list  member: OTAUpdateFile  |  A list of files associated with the OTA update\. | 
+|   `fileName`  |  string |  The name of the file\. | 
+|   `fileVersion`  |  string |  The file version\. | 
+|   `fileLocation`  |  FileLocation |  The location of the updated firmware\. | 
+|   `stream`  |  Stream |  The stream that contains the OTA update\. | 
+|   `streamId`  |  string  length\- max:128 min:1  pattern: \[a\-zA\-Z0\-9\_\-\]\+  |  The stream ID\. | 
+|   `fileId`  |  integer  range\- max:255 min:0  |  The ID of a file associated with a stream\. | 
+|   `s3Location`  |  S3Location |  The location of the updated firmware in S3\. | 
+|   `bucket`  |  string  length\- min:1  |  The S3 bucket\. | 
+|   `key`  |  string  length\- min:1  |  The S3 key\. | 
+|   `version`  |  string |  The S3 bucket version\. | 
+|   `codeSigning`  |  CodeSigning |  The code signing method of the file\. | 
+|   `awsSignerJobId`  |  string |  The ID of the AWSSignerJob which was created to sign the file\. | 
+|   `startSigningJobParameter`  |  StartSigningJobParameter |  Describes the code\-signing job\. | 
+|   `signingProfileParameter`  |  SigningProfileParameter |  Describes the code\-signing profile\. | 
+|   `certificateArn`  |  string |  Certificate ARN\. | 
+|   `platform`  |  string |  The hardware platform of your device\. | 
+|   `certificatePathOnDevice`  |  string |  The location of the code\-signing certificate on your device\. | 
+|   `signingProfileName`  |  string |  The code\-signing profile name\. | 
+|   `destination`  |  Destination |  The location to write the code\-signed file\. | 
+|   `s3Destination`  |  S3Destination |  Describes the location in S3 of the updated firmware\. | 
+|   `bucket`  |  string  length\- min:1  |  The S3 bucket that contains the updated firmware\. | 
+|   `prefix`  |  string |  The S3 prefix\. | 
+|   `customCodeSigning`  |  CustomCodeSigning |  A custom method for code signing a file\. | 
+|   `signature`  |  CodeSigningSignature |  The signature for the file\. | 
+|   `inlineDocument`  |  blob |  A base64 encoded binary representation of the code signing signature\. | 
+|   `certificateChain`  |  CodeSigningCertificateChain |  The certificate chain\. | 
+|   `certificateName`  |  string |  The name of the certificate\. | 
+|   `inlineDocument`  |  string |  A base64 encoded binary representation of the code signing certificate chain\. | 
+|   `hashAlgorithm`  |  string |  The hash algorithm used to code sign the file\. | 
+|   `signatureAlgorithm`  |  string |  The signature algorithm used to code sign the file\. | 
+|   `attributes`  |  map |  A list of name/attribute pairs\. | 
+|   `otaUpdateStatus`  |  string |  The status of the OTA update\.  enum: CREATE\_PENDING \| CREATE\_IN\_PROGRESS \| CREATE\_COMPLETE \| CREATE\_FAILED  | 
+|   `awsIotJobId`  |  string |  The AWS IoT job ID associated with the OTA update\. | 
+|   `awsIotJobArn`  |  string |  The AWS IoT job ARN associated with the OTA update\. | 
+|   `errorInfo`  |  ErrorInfo |  Error information associated with the OTA update\. | 
+|   `code`  |  string |  The error code\. | 
+|   `message`  |  string |  The error message\. | 
+|   `additionalParameters`  |  map |  A collection of name/value pairs | 
 
  **Errors**
 
@@ -6754,7 +7368,7 @@ aws iot-jobs-data  get-pending-job-executions \
 
 |  Name |  Type |  Description | 
 | --- | --- | --- | 
-|  thingName |  string  length\- max:128 min:1  pattern: \[a\-zA\-Z0\-9:\_\-\]\+  |  The name of the thing that is executing the job\. | 
+|   `thingName`  |  string  length\- max:128 min:1  pattern: \[a\-zA\-Z0\-9:\_\-\]\+  |  The name of the thing that is executing the job\. | 
 
 Output
 
@@ -6788,20 +7402,20 @@ Output
 
 |  Name |  Type |  Description | 
 | --- | --- | --- | 
-|  inProgressJobs |  list  member: JobExecutionSummary  java class: java\.util\.List  |  A list of JobExecutionSummary objects with status IN\_PROGRESS\. | 
-|  jobId |  string  length\- max:64 min:1  pattern: \[a\-zA\-Z0\-9\_\-\]\+  |  The unique identifier you assigned to this job when it was created\. | 
-|  queuedAt |  long |  The time, in seconds since the epoch, when the job execution was enqueued\. | 
-|  startedAt |  long |  The time, in seconds since the epoch, when the job execution started\. | 
-|  lastUpdatedAt |  long |  The time, in seconds since the epoch, when the job execution was last updated\. | 
-|  versionNumber |  long |  The version of the job execution\. Job execution versions are incremented each time AWS IoT Jobs receives an update from a device\.  | 
-|  executionNumber |  long |  A number that identifies a particular job execution on a particular device\. | 
-|  queuedJobs |  list  member: JobExecutionSummary  java class: java\.util\.List  |  A list of JobExecutionSummary objects with status QUEUED\. | 
-|  jobId |  string  length\- max:64 min:1  pattern: \[a\-zA\-Z0\-9\_\-\]\+  |  The unique identifier you assigned to this job when it was created\. | 
-|  queuedAt |  long |  The time, in seconds since the epoch, when the job execution was enqueued\. | 
-|  startedAt |  long |  The time, in seconds since the epoch, when the job execution started\. | 
-|  lastUpdatedAt |  long |  The time, in seconds since the epoch, when the job execution was last updated\. | 
-|  versionNumber |  long |  The version of the job execution\. Job execution versions are incremented each time AWS IoT Jobs receives an update from a device\.  | 
-|  executionNumber |  long |  A number that identifies a particular job execution on a particular device\. | 
+|   `inProgressJobs`  |  list  member: JobExecutionSummary  java class: java\.util\.List  |  A list of JobExecutionSummary objects with status IN\_PROGRESS\. | 
+|   `jobId`  |  string  length\- max:64 min:1  pattern: \[a\-zA\-Z0\-9\_\-\]\+  |  The unique identifier you assigned to this job when it was created\. | 
+|   `queuedAt`  |  long |  The time, in seconds since the epoch, when the job execution was enqueued\. | 
+|   `startedAt`  |  long |  The time, in seconds since the epoch, when the job execution started\. | 
+|   `lastUpdatedAt`  |  long |  The time, in seconds since the epoch, when the job execution was last updated\. | 
+|   `versionNumber`  |  long |  The version of the job execution\. Job execution versions are incremented each time AWS IoT Jobs receives an update from a device\.  | 
+|   `executionNumber`  |  long |  A number that identifies a particular job execution on a particular device\. | 
+|   `queuedJobs`  |  list  member: JobExecutionSummary  java class: java\.util\.List  |  A list of JobExecutionSummary objects with status QUEUED\. | 
+|   `jobId`  |  string  length\- max:64 min:1  pattern: \[a\-zA\-Z0\-9\_\-\]\+  |  The unique identifier you assigned to this job when it was created\. | 
+|   `queuedAt`  |  long |  The time, in seconds since the epoch, when the job execution was enqueued\. | 
+|   `startedAt`  |  long |  The time, in seconds since the epoch, when the job execution started\. | 
+|   `lastUpdatedAt`  |  long |  The time, in seconds since the epoch, when the job execution was last updated\. | 
+|   `versionNumber`  |  long |  The version of the job execution\. Job execution versions are incremented each time AWS IoT Jobs receives an update from a device\.  | 
+|   `executionNumber`  |  long |  A number that identifies a particular job execution on a particular device\. | 
 
  **Errors**
 
@@ -6846,7 +7460,7 @@ aws iot  get-policy \
 
 |  Name |  Type |  Description | 
 | --- | --- | --- | 
-|  policyName |  string  length\- max:128 min:1  pattern: \[w\+=,\.@\-\]\+  |  The name of the policy\. | 
+|   `policyName`  |  string  length\- max:128 min:1  pattern: \[w\+=,\.@\-\]\+  |  The name of the policy\. | 
 
 Output
 
@@ -6867,13 +7481,13 @@ Output
 
 |  Name |  Type |  Description | 
 | --- | --- | --- | 
-|  policyName |  string  length\- max:128 min:1  pattern: \[w\+=,\.@\-\]\+  |  The policy name\. | 
-|  policyArn |  string |  The policy ARN\. | 
-|  policyDocument |  string |  The JSON document that describes the policy\. | 
-|  defaultVersionId |  string  pattern: \[0\-9\]\+  |  The default policy version ID\. | 
-|  creationDate |  timestamp |  The date the policy was created\. | 
-|  lastModifiedDate |  timestamp |  The date the policy was last modified\. | 
-|  generationId |  string |  The generation ID of the policy\. | 
+|   `policyName`  |  string  length\- max:128 min:1  pattern: \[w\+=,\.@\-\]\+  |  The policy name\. | 
+|   `policyArn`  |  string |  The policy ARN\. | 
+|   `policyDocument`  |  string |  The JSON document that describes the policy\. | 
+|   `defaultVersionId`  |  string  pattern: \[0\-9\]\+  |  The default policy version ID\. | 
+|   `creationDate`  |  timestamp |  The date the policy was created\. | 
+|   `lastModifiedDate`  |  timestamp |  The date the policy was last modified\. | 
+|   `generationId`  |  string |  The generation ID of the policy\. | 
 
  **Errors**
 
@@ -6923,8 +7537,8 @@ aws iot  get-policy-version \
 
 |  Name |  Type |  Description | 
 | --- | --- | --- | 
-|  policyName |  string  length\- max:128 min:1  pattern: \[w\+=,\.@\-\]\+  |  The name of the policy\. | 
-|  policyVersionId |  string  pattern: \[0\-9\]\+  |  The policy version ID\. | 
+|   `policyName`  |  string  length\- max:128 min:1  pattern: \[w\+=,\.@\-\]\+  |  The name of the policy\. | 
+|   `policyVersionId`  |  string  pattern: \[0\-9\]\+  |  The policy version ID\. | 
 
 Output
 
@@ -6946,14 +7560,14 @@ Output
 
 |  Name |  Type |  Description | 
 | --- | --- | --- | 
-|  policyArn |  string |  The policy ARN\. | 
-|  policyName |  string  length\- max:128 min:1  pattern: \[w\+=,\.@\-\]\+  |  The policy name\. | 
-|  policyDocument |  string |  The JSON document that describes the policy\. | 
-|  policyVersionId |  string  pattern: \[0\-9\]\+  |  The policy version ID\. | 
-|  isDefaultVersion |  boolean |  Specifies whether the policy version is the default\. | 
-|  creationDate |  timestamp |  The date the policy version was created\. | 
-|  lastModifiedDate |  timestamp |  The date the policy version was last modified\. | 
-|  generationId |  string |  The generation ID of the policy version\. | 
+|   `policyArn`  |  string |  The policy ARN\. | 
+|   `policyName`  |  string  length\- max:128 min:1  pattern: \[w\+=,\.@\-\]\+  |  The policy name\. | 
+|   `policyDocument`  |  string |  The JSON document that describes the policy\. | 
+|   `policyVersionId`  |  string  pattern: \[0\-9\]\+  |  The policy version ID\. | 
+|   `isDefaultVersion`  |  boolean |  Specifies whether the policy version is the default\. | 
+|   `creationDate`  |  timestamp |  The date the policy version was created\. | 
+|   `lastModifiedDate`  |  timestamp |  The date the policy version was last modified\. | 
+|   `generationId`  |  string |  The generation ID of the policy version\. | 
 
  **Errors**
 
@@ -7007,7 +7621,7 @@ Output
 
 |  Name |  Type |  Description | 
 | --- | --- | --- | 
-|  registrationCode |  string  length\- max:64 min:64  pattern: \(0x\)?\[a\-fA\-F0\-9\]\+  |  The CA certificate registration code\. | 
+|   `registrationCode`  |  string  length\- max:64 min:64  pattern: \(0x\)?\[a\-fA\-F0\-9\]\+  |  The CA certificate registration code\. | 
 
  **Errors**
 
@@ -7058,10 +7672,10 @@ aws iot  get-statistics \
 
 |  Name |  Type |  Description | 
 | --- | --- | --- | 
-|  indexName |  string  length\- max:128 min:1  pattern: \[a\-zA\-Z0\-9:\_\-\]\+  |  The name of the index to search\. The default value is `AWS_Things`\. | 
-|  queryString |  string  length\- min:1  |  The query used to search\. You can specify "\*" for the query string to get the count of all indexed things in your AWS account\.  | 
-|  aggregationField |  string  length\- min:1  |  The aggregation field name\. Currently not supported\. | 
-|  queryVersion |  string |  The version of the query used to search\. | 
+|   `indexName`  |  string  length\- max:128 min:1  pattern: \[a\-zA\-Z0\-9:\_\-\]\+  |  The name of the index to search\. The default value is `AWS_Things`\. | 
+|   `queryString`  |  string  length\- min:1  |  The query used to search\. You can specify "\*" for the query string to get the count of all indexed things in your AWS account\.  | 
+|   `aggregationField`  |  string  length\- min:1  |  The aggregation field name\. Currently not supported\. | 
+|   `queryVersion`  |  string |  The version of the query used to search\. | 
 
 Output
 
@@ -7078,8 +7692,8 @@ Output
 
 |  Name |  Type |  Description | 
 | --- | --- | --- | 
-|  statistics |  Statistics |  The statistics returned by the Fleet Indexing service based on the query and aggregation field\.  | 
-|  count |  integer |  The count of things that match the query\. | 
+|   `statistics`  |  Statistics |  The statistics returned by the Fleet Indexing service based on the query and aggregation field\.  | 
+|   `count`  |  integer |  The count of things that match the query\. | 
 
  **Errors**
 
@@ -7114,13 +7728,14 @@ The index is not ready\.
 
 Gets the shadow for the specified thing\.
 
-For more information, see [GetThingShadow](https://docs.aws.amazon.com/iot/latest/developerguide/API_GetThingShadow.html) in the AWS IoT Developer Guide\.
+For more information, see [GetThingShadow](http://docs.aws.amazon.com/iot/latest/developerguide/API_GetThingShadow.html) in the AWS IoT Developer Guide\.
 
  **Synopsis**
 
 ```
 aws iot-data  get-thing-shadow \
-    --thing-name <value>  \
+    --thing-name <value> \
+    [--shadow-name <value>]  \
     [--cli-input-json <value>] \
     [--generate-cli-skeleton]
 ```
@@ -7129,7 +7744,8 @@ aws iot-data  get-thing-shadow \
 
 ```
 {
-  "thingName": "string"
+  "thingName": "string",
+  "shadowName": "string"
 }
 ```
 
@@ -7138,7 +7754,8 @@ aws iot-data  get-thing-shadow \
 
 |  Name |  Type |  Description | 
 | --- | --- | --- | 
-|  thingName |  string  length\- max:128 min:1  pattern: \[a\-zA\-Z0\-9:\_\-\]\+  |  The name of the thing\. | 
+|   `thingName`  |  string  length\- max:128 min:1  pattern: \[a\-zA\-Z0\-9:\_\-\]\+  |  The name of the thing\. | 
+|   `shadowName`  |  string  length\- max:64 min:1  pattern: \[a\-zA\-Z0\-9:\_\-\]\+  |  The name of the shadow\. | 
 
 Output
 
@@ -7153,7 +7770,7 @@ Output
 
 |  Name |  Type |  Description | 
 | --- | --- | --- | 
-|  payload |  blob |  The state information, in JSON format\. | 
+|   `payload`  |  blob |  The state information, in JSON format\. | 
 
  **Errors**
 
@@ -7207,7 +7824,7 @@ aws iot  get-topic-rule \
 
 |  Name |  Type |  Description | 
 | --- | --- | --- | 
-|  ruleName |  string  length\- max:128 min:1  pattern: ^\[a\-zA\-Z0\-9\_\]\+$  |  The name of the rule\. | 
+|   `ruleName`  |  string  length\- max:128 min:1  pattern: ^\[a\-zA\-Z0\-9\_\]\+$  |  The name of the rule\. | 
 
 Output
 
@@ -7259,7 +7876,8 @@ Output
         },
         "republish": {
           "roleArn": "string",
-          "topic": "string"
+          "topic": "string",
+          "qos": "integer"
         },
         "s3": {
           "roleArn": "string",
@@ -7355,7 +7973,8 @@ Output
       },
       "republish": {
         "roleArn": "string",
-        "topic": "string"
+        "topic": "string",
+        "qos": "integer"
       },
       "s3": {
         "roleArn": "string",
@@ -7418,164 +8037,166 @@ Output
 
 |  Name |  Type |  Description | 
 | --- | --- | --- | 
-|  ruleArn |  string |  The rule ARN\. | 
-|  rule |  TopicRule |  The rule\. | 
-|  ruleName |  string  length\- max:128 min:1  pattern: ^\[a\-zA\-Z0\-9\_\]\+$  |  The name of the rule\. | 
-|  sql |  string |  The SQL statement used to query the topic\. When using a SQL query with multiple lines, be sure to escape the newline characters\.  | 
-|  description |  string |  The description of the rule\. | 
-|  createdAt |  timestamp |  The date and time the rule was created\. | 
-|  actions |  list  member: Action  |  The actions associated with the rule\. | 
-|  dynamoDB |  DynamoDBAction |  Write to a DynamoDB table\. | 
-|  tableName |  string |  The name of the DynamoDB table\. | 
-|  roleArn |  string |  The ARN of the IAM role that grants access to the DynamoDB table\. | 
-|  operation |  string |  The type of operation to be performed\. This follows the substitution template, so it can be `$ operation`, but the substitution must result in one of the following: `INSERT`, `UPDATE`, or `DELETE`\.  | 
-|  hashKeyField |  string |  The hash key name\. | 
-|  hashKeyValue |  string |  The hash key value\. | 
-|  hashKeyType |  string |  The hash key type\. Valid values are "STRING" or "NUMBER"  enum: STRING \| NUMBER  | 
-|  rangeKeyField |  string |  The range key name\. | 
-|  rangeKeyValue |  string |  The range key value\. | 
-|  rangeKeyType |  string |  The range key type\. Valid values are "STRING" or "NUMBER"  enum: STRING \| NUMBER  | 
-|  payloadField |  string |  The action payload\. This name can be customized\. | 
-|  dynamoDBv2 |  DynamoDBv2Action |  Write to a DynamoDB table\. This is a new version of the DynamoDB action\. It allows you to write each attribute in an MQTT message payload into a separate DynamoDB column\.  | 
-|  roleArn |  string |  The ARN of the IAM role that grants access to the DynamoDB table\. | 
-|  putItem |  PutItemInput |  Specifies the DynamoDB table to which the message data will be written\. For example:  `{ "dynamoDBv2": { "roleArn": "aws:iam:12341251:my-role" "putItem": { "tableName": "my-table" } } }`  Each attribute in the message payload will be written to a separate column in the DynamoDB database\.  | 
-|  tableName |  string |  The table where the message data will be written\. | 
-|  lambda |  LambdaAction |  Invoke a Lambda function\. | 
-|  functionArn |  string |  The ARN of the Lambda function\. | 
-|  sns |  SnsAction |  Publish to an Amazon SNS topic\. | 
-|  targetArn |  string |  The ARN of the SNS topic\. | 
-|  roleArn |  string |  The ARN of the IAM role that grants access\. | 
-|  messageFormat |  string |  \(Optional\) The message format of the message to publish\. Accepted values are "JSON" and "RAW"\. The default value of the attribute is "RAW"\. SNS uses this setting to determine if the payload should be parsed and relevant platform\-specific bits of the payload should be extracted\. To read more about SNS message formats, see [https://docs.aws.amazon.com/sns/latest/dg/json-formats.html](https://docs.aws.amazon.com/sns/latest/dg/json-formats.html) refer to their official documentation\.  enum: RAW \| JSON  | 
-|  sqs |  SqsAction |  Publish to an Amazon SQS queue\. | 
-|  roleArn |  string |  The ARN of the IAM role that grants access\. | 
-|  queueUrl |  string |  The URL of the Amazon SQS queue\. | 
-|  useBase64 |  boolean |  Specifies whether to use Base64 encoding\. | 
-|  kinesis |  KinesisAction |  Write data to an Amazon Kinesis stream\. | 
-|  roleArn |  string |  The ARN of the IAM role that grants access to the Amazon Kinesis stream\. | 
-|  streamName |  string |  The name of the Amazon Kinesis stream\. | 
-|  partitionKey |  string |  The partition key\. | 
-|  republish |  RepublishAction |  Publish to another MQTT topic\. | 
-|  roleArn |  string |  The ARN of the IAM role that grants access\. | 
-|  topic |  string |  The name of the MQTT topic\. | 
-|  s3 |  S3Action |  Write to an Amazon S3 bucket\. | 
-|  roleArn |  string |  The ARN of the IAM role that grants access\. | 
-|  bucketName |  string |  The Amazon S3 bucket\. | 
-|  key |  string |  The object key\. | 
-|  cannedAcl |  string |  The Amazon S3 canned ACL that controls access to the object identified by the object key\. For more information, see [S3 canned ACLs](https://docs.aws.amazon.com/AmazonS3/latest/dev/acl-overview.html#canned-acl)\.  enum: private \| public\-read \| public\-read\-write \| aws\-exec\-read \| authenticated\-read \| bucket\-owner\-read \| bucket\-owner\-full\-control \| log\-delivery\-write  | 
-|  firehose |  FirehoseAction |  Write to an Amazon Kinesis Firehose stream\. | 
-|  roleArn |  string |  The IAM role that grants access to the Amazon Kinesis Firehose stream\. | 
-|  deliveryStreamName |  string |  The delivery stream name\. | 
-|  separator |  string  pattern: \(\[ \]\)\|\( \)\|\(,\)   |  A character separator that will be used to separate records written to the Firehose stream\. Valid values are: '\\n' \(newline\), '\\t' \(tab\), '\\r\\n' \(Windows newline\), ',' \(comma\)\.  | 
-|  cloudwatchMetric |  CloudwatchMetricAction |  Capture a CloudWatch metric\. | 
-|  roleArn |  string |  The IAM role that allows access to the CloudWatch metric\. | 
-|  metricNamespace |  string |  The CloudWatch metric namespace name\. | 
-|  metricName |  string |  The CloudWatch metric name\. | 
-|  metricValue |  string |  The CloudWatch metric value\. | 
-|  metricUnit |  string |  The [metric unit](https://docs.aws.amazon.com/AmazonCloudWatch/latest/DeveloperGuide/cloudwatch_concepts.html#Unit) supported by CloudWatch\.  | 
-|  metricTimestamp |  string |  An optional [Unix timestamp](https://docs.aws.amazon.com/AmazonCloudWatch/latest/DeveloperGuide/cloudwatch_concepts.html#about_timestamp)\.  | 
-|  cloudwatchAlarm |  CloudwatchAlarmAction |  Change the state of a CloudWatch alarm\. | 
-|  roleArn |  string |  The IAM role that allows access to the CloudWatch alarm\. | 
-|  alarmName |  string |  The CloudWatch alarm name\. | 
-|  stateReason |  string |  The reason for the alarm change\. | 
-|  stateValue |  string |  The value of the alarm state\. Acceptable values are: OK, ALARM, INSUFFICIENT\_DATA\. | 
-|  elasticsearch |  ElasticsearchAction |  Write data to an Amazon Elasticsearch Service domain\. | 
-|  roleArn |  string |  The IAM role ARN that has access to Elasticsearch\. | 
-|  endpoint |  string  pattern: https?://\.\*  |  The endpoint of your Elasticsearch domain\. | 
-|  index |  string |  The Elasticsearch index where you want to store your data\. | 
-|  type |  string |  The type of document you are storing\. | 
-|  id |  string |  The unique identifier for the document you are storing\. | 
-|  salesforce |  SalesforceAction |  Send a message to a Salesforce IoT Cloud Input Stream\. | 
-|  token |  string  length\- min:40  |  The token used to authenticate access to the Salesforce IoT Cloud Input Stream\. The token is available from the Salesforce IoT Cloud platform after creation of the Input Stream\.  | 
-|  url |  string  length\- max:2000  pattern: https://ingestion\-\[a\-zA\-Z0\-9\]\{1,12\}\.\[a\-zA\-Z0\-9\]\+\.\(\(sfdc\-matrix\.net\)\|\(sfdcnow\.com\)\)/streams/w *1,20*/w *1,20*/event   |  The URL exposed by the Salesforce IoT Cloud Input Stream\. The URL is available from the Salesforce IoT Cloud platform after creation of the Input Stream\.  | 
-|  iotAnalytics |  IotAnalyticsAction |  Sends message data to an AWS IoT Analytics channel\. | 
-|  channelArn |  string |  \(deprecated\) The ARN of the IoT Analytics channel to which message data will be sent\. | 
-|  channelName |  string |  The name of the IoT Analytics channel to which message data will be sent\. | 
-|  roleArn |  string |  The ARN of the role which has a policy that grants IoT Analytics permission to send message data via IoT Analytics \(iotanalytics:BatchPutMessage\)\.  | 
-|  iotEvents |  IotEventsAction |  Sends an input to an AWS IoT Events detector\. | 
-|  inputName |  string  length\- max:128 min:1  |  The name of the AWS IoT Events input\. | 
-|  messageId |  string  length\- max:128  |  \[Optional\] Use this to ensure that only one input \(message\) with a given messageId will be processed by an AWS IoT Events detector\.  | 
-|  roleArn |  string |  The ARN of the role that grants AWS IoT permission to send an input to an AWS IoT Events detector\. \("Action":"iotevents:BatchPutMessage"\)\.  | 
-|  stepFunctions |  StepFunctionsAction |  Starts execution of a Step Functions state machine\. | 
-|  executionNamePrefix |  string |  \(Optional\) A name will be given to the state machine execution consisting of this prefix followed by a UUID\. Step Functions automatically creates a unique name for each state machine execution if one is not provided\.  | 
-|  stateMachineName |  string |  The name of the Step Functions state machine whose execution will be started\. | 
-|  roleArn |  string |  The ARN of the role that grants IoT permission to start execution of a state machine \("Action":"states:StartExecution"\)\.  | 
-|  ruleDisabled |  boolean |  Specifies whether the rule is disabled\. | 
-|  awsIotSqlVersion |  string |  The version of the SQL rules engine to use when evaluating the rule\. | 
-|  errorAction |  Action |  The action to perform when an error occurs\. | 
-|  dynamoDB |  DynamoDBAction |  Write to a DynamoDB table\. | 
-|  tableName |  string |  The name of the DynamoDB table\. | 
-|  roleArn |  string |  The ARN of the IAM role that grants access to the DynamoDB table\. | 
-|  operation |  string |  The type of operation to be performed\. This follows the substitution template, so it can be `$ operation`, but the substitution must result in one of the following: `INSERT`, `UPDATE`, or `DELETE`\.  | 
-|  hashKeyField |  string |  The hash key name\. | 
-|  hashKeyValue |  string |  The hash key value\. | 
-|  hashKeyType |  string |  The hash key type\. Valid values are "STRING" or "NUMBER"  enum: STRING \| NUMBER  | 
-|  rangeKeyField |  string |  The range key name\. | 
-|  rangeKeyValue |  string |  The range key value\. | 
-|  rangeKeyType |  string |  The range key type\. Valid values are "STRING" or "NUMBER"  enum: STRING \| NUMBER  | 
-|  payloadField |  string |  The action payload\. This name can be customized\. | 
-|  dynamoDBv2 |  DynamoDBv2Action |  Write to a DynamoDB table\. This is a new version of the DynamoDB action\. It allows you to write each attribute in an MQTT message payload into a separate DynamoDB column\.  | 
-|  roleArn |  string |  The ARN of the IAM role that grants access to the DynamoDB table\. | 
-|  putItem |  PutItemInput |  Specifies the DynamoDB table to which the message data will be written\. For example:  `{ "dynamoDBv2": { "roleArn": "aws:iam:12341251:my-role" "putItem": { "tableName": "my-table" } } }`  Each attribute in the message payload will be written to a separate column in the DynamoDB database\.  | 
-|  tableName |  string |  The table where the message data will be written\. | 
-|  lambda |  LambdaAction |  Invoke a Lambda function\. | 
-|  functionArn |  string |  The ARN of the Lambda function\. | 
-|  sns |  SnsAction |  Publish to an Amazon SNS topic\. | 
-|  targetArn |  string |  The ARN of the SNS topic\. | 
-|  roleArn |  string |  The ARN of the IAM role that grants access\. | 
-|  messageFormat |  string |  \(Optional\) The message format of the message to publish\. Accepted values are "JSON" and "RAW"\. The default value of the attribute is "RAW"\. SNS uses this setting to determine if the payload should be parsed and relevant platform\-specific bits of the payload should be extracted\. To read more about SNS message formats, see [https://docs.aws.amazon.com/sns/latest/dg/json-formats.html](https://docs.aws.amazon.com/sns/latest/dg/json-formats.html) refer to their official documentation\.  enum: RAW \| JSON  | 
-|  sqs |  SqsAction |  Publish to an Amazon SQS queue\. | 
-|  roleArn |  string |  The ARN of the IAM role that grants access\. | 
-|  queueUrl |  string |  The URL of the Amazon SQS queue\. | 
-|  useBase64 |  boolean |  Specifies whether to use Base64 encoding\. | 
-|  kinesis |  KinesisAction |  Write data to an Amazon Kinesis stream\. | 
-|  roleArn |  string |  The ARN of the IAM role that grants access to the Amazon Kinesis stream\. | 
-|  streamName |  string |  The name of the Amazon Kinesis stream\. | 
-|  partitionKey |  string |  The partition key\. | 
-|  republish |  RepublishAction |  Publish to another MQTT topic\. | 
-|  roleArn |  string |  The ARN of the IAM role that grants access\. | 
-|  topic |  string |  The name of the MQTT topic\. | 
-|  s3 |  S3Action |  Write to an Amazon S3 bucket\. | 
-|  roleArn |  string |  The ARN of the IAM role that grants access\. | 
-|  bucketName |  string |  The Amazon S3 bucket\. | 
-|  key |  string |  The object key\. | 
-|  cannedAcl |  string |  The Amazon S3 canned ACL that controls access to the object identified by the object key\. For more information, see [S3 canned ACLs](https://docs.aws.amazon.com/AmazonS3/latest/dev/acl-overview.html#canned-acl)\.  enum: private \| public\-read \| public\-read\-write \| aws\-exec\-read \| authenticated\-read \| bucket\-owner\-read \| bucket\-owner\-full\-control \| log\-delivery\-write  | 
-|  firehose |  FirehoseAction |  Write to an Amazon Kinesis Firehose stream\. | 
-|  roleArn |  string |  The IAM role that grants access to the Amazon Kinesis Firehose stream\. | 
-|  deliveryStreamName |  string |  The delivery stream name\. | 
-|  separator |  string  pattern: \(\[ \]\)\|\( \)\|\(,\)   |  A character separator that will be used to separate records written to the Firehose stream\. Valid values are: '\\n' \(newline\), '\\t' \(tab\), '\\r\\n' \(Windows newline\), ',' \(comma\)\.  | 
-|  cloudwatchMetric |  CloudwatchMetricAction |  Capture a CloudWatch metric\. | 
-|  roleArn |  string |  The IAM role that allows access to the CloudWatch metric\. | 
-|  metricNamespace |  string |  The CloudWatch metric namespace name\. | 
-|  metricName |  string |  The CloudWatch metric name\. | 
-|  metricValue |  string |  The CloudWatch metric value\. | 
-|  metricUnit |  string |  The [metric unit](https://docs.aws.amazon.com/AmazonCloudWatch/latest/DeveloperGuide/cloudwatch_concepts.html#Unit) supported by CloudWatch\.  | 
-|  metricTimestamp |  string |  An optional [Unix timestamp](https://docs.aws.amazon.com/AmazonCloudWatch/latest/DeveloperGuide/cloudwatch_concepts.html#about_timestamp)\.  | 
-|  cloudwatchAlarm |  CloudwatchAlarmAction |  Change the state of a CloudWatch alarm\. | 
-|  roleArn |  string |  The IAM role that allows access to the CloudWatch alarm\. | 
-|  alarmName |  string |  The CloudWatch alarm name\. | 
-|  stateReason |  string |  The reason for the alarm change\. | 
-|  stateValue |  string |  The value of the alarm state\. Acceptable values are: OK, ALARM, INSUFFICIENT\_DATA\. | 
-|  elasticsearch |  ElasticsearchAction |  Write data to an Amazon Elasticsearch Service domain\. | 
-|  roleArn |  string |  The IAM role ARN that has access to Elasticsearch\. | 
-|  endpoint |  string  pattern: https?://\.\*  |  The endpoint of your Elasticsearch domain\. | 
-|  index |  string |  The Elasticsearch index where you want to store your data\. | 
-|  type |  string |  The type of document you are storing\. | 
-|  id |  string |  The unique identifier for the document you are storing\. | 
-|  salesforce |  SalesforceAction |  Send a message to a Salesforce IoT Cloud Input Stream\. | 
-|  token |  string  length\- min:40  |  The token used to authenticate access to the Salesforce IoT Cloud Input Stream\. The token is available from the Salesforce IoT Cloud platform after creation of the Input Stream\.  | 
-|  url |  string  length\- max:2000  pattern: https://ingestion\-\[a\-zA\-Z0\-9\]\{1,12\}\.\[a\-zA\-Z0\-9\]\+\.\(\(sfdc\-matrix\.net\)\|\(sfdcnow\.com\)\)/streams/w *1,20*/w *1,20*/event   |  The URL exposed by the Salesforce IoT Cloud Input Stream\. The URL is available from the Salesforce IoT Cloud platform after creation of the Input Stream\.  | 
-|  iotAnalytics |  IotAnalyticsAction |  Sends message data to an AWS IoT Analytics channel\. | 
-|  channelArn |  string |  \(deprecated\) The ARN of the IoT Analytics channel to which message data will be sent\. | 
-|  channelName |  string |  The name of the IoT Analytics channel to which message data will be sent\. | 
-|  roleArn |  string |  The ARN of the role which has a policy that grants IoT Analytics permission to send message data via IoT Analytics \(iotanalytics:BatchPutMessage\)\.  | 
-|  iotEvents |  IotEventsAction |  Sends an input to an AWS IoT Events detector\. | 
-|  inputName |  string  length\- max:128 min:1  |  The name of the AWS IoT Events input\. | 
-|  messageId |  string  length\- max:128  |  \[Optional\] Use this to ensure that only one input \(message\) with a given messageId will be processed by an AWS IoT Events detector\.  | 
-|  roleArn |  string |  The ARN of the role that grants AWS IoT permission to send an input to an AWS IoT Events detector\. \("Action":"iotevents:BatchPutMessage"\)\.  | 
-|  stepFunctions |  StepFunctionsAction |  Starts execution of a Step Functions state machine\. | 
-|  executionNamePrefix |  string |  \(Optional\) A name will be given to the state machine execution consisting of this prefix followed by a UUID\. Step Functions automatically creates a unique name for each state machine execution if one is not provided\.  | 
-|  stateMachineName |  string |  The name of the Step Functions state machine whose execution will be started\. | 
-|  roleArn |  string |  The ARN of the role that grants IoT permission to start execution of a state machine \("Action":"states:StartExecution"\)\.  | 
+|   `ruleArn`  |  string |  The rule ARN\. | 
+|   `rule`  |  TopicRule |  The rule\. | 
+|   `ruleName`  |  string  length\- max:128 min:1  pattern: ^\[a\-zA\-Z0\-9\_\]\+$  |  The name of the rule\. | 
+|   `sql`  |  string |  The SQL statement used to query the topic\. When using a SQL query with multiple lines, be sure to escape the newline characters\.  | 
+|   `description`  |  string |  The description of the rule\. | 
+|   `createdAt`  |  timestamp |  The date and time the rule was created\. | 
+|   `actions`  |  list  member: Action  |  The actions associated with the rule\. | 
+|   `dynamoDB`  |  DynamoDBAction |  Write to a DynamoDB table\. | 
+|   `tableName`  |  string |  The name of the DynamoDB table\. | 
+|   `roleArn`  |  string |  The ARN of the IAM role that grants access to the DynamoDB table\. | 
+|   `operation`  |  string |  The type of operation to be performed\. This follows the substitution template, so it can be `$ operation`, but the substitution must result in one of the following: `INSERT`, `UPDATE`, or `DELETE`\.  | 
+|   `hashKeyField`  |  string |  The hash key name\. | 
+|   `hashKeyValue`  |  string |  The hash key value\. | 
+|   `hashKeyType`  |  string |  The hash key type\. Valid values are "STRING" or "NUMBER"  enum: STRING \| NUMBER  | 
+|   `rangeKeyField`  |  string |  The range key name\. | 
+|   `rangeKeyValue`  |  string |  The range key value\. | 
+|   `rangeKeyType`  |  string |  The range key type\. Valid values are "STRING" or "NUMBER"  enum: STRING \| NUMBER  | 
+|   `payloadField`  |  string |  The action payload\. This name can be customized\. | 
+|   `dynamoDBv2`  |  DynamoDBv2Action |  Write to a DynamoDB table\. This is a new version of the DynamoDB action\. It allows you to write each attribute in an MQTT message payload into a separate DynamoDB column\.  | 
+|   `roleArn`  |  string |  The ARN of the IAM role that grants access to the DynamoDB table\. | 
+|   `putItem`  |  PutItemInput |  Specifies the DynamoDB table to which the message data will be written\. For example:  `{ "dynamoDBv2": { "roleArn": "aws:iam:12341251:my-role" "putItem": { "tableName": "my-table" } } }`  Each attribute in the message payload will be written to a separate column in the DynamoDB database\.  | 
+|   `tableName`  |  string |  The table where the message data will be written\. | 
+|   `lambda`  |  LambdaAction |  Invoke a Lambda function\. | 
+|   `functionArn`  |  string |  The ARN of the Lambda function\. | 
+|   `sns`  |  SnsAction |  Publish to an Amazon SNS topic\. | 
+|   `targetArn`  |  string |  The ARN of the SNS topic\. | 
+|   `roleArn`  |  string |  The ARN of the IAM role that grants access\. | 
+|   `messageFormat`  |  string |  \(Optional\) The message format of the message to publish\. Accepted values are "JSON" and "RAW"\. The default value of the attribute is "RAW"\. SNS uses this setting to determine if the payload should be parsed and relevant platform\-specific bits of the payload should be extracted\. To read more about SNS message formats, see [https://docs.aws.amazon.com/sns/latest/dg/json-formats.html](https://docs.aws.amazon.com/sns/latest/dg/json-formats.html) refer to their official documentation\.  enum: RAW \| JSON  | 
+|   `sqs`  |  SqsAction |  Publish to an Amazon SQS queue\. | 
+|   `roleArn`  |  string |  The ARN of the IAM role that grants access\. | 
+|   `queueUrl`  |  string |  The URL of the Amazon SQS queue\. | 
+|   `useBase64`  |  boolean |  Specifies whether to use Base64 encoding\. | 
+|   `kinesis`  |  KinesisAction |  Write data to an Amazon Kinesis stream\. | 
+|   `roleArn`  |  string |  The ARN of the IAM role that grants access to the Amazon Kinesis stream\. | 
+|   `streamName`  |  string |  The name of the Amazon Kinesis stream\. | 
+|   `partitionKey`  |  string |  The partition key\. | 
+|   `republish`  |  RepublishAction |  Publish to another MQTT topic\. | 
+|   `roleArn`  |  string |  The ARN of the IAM role that grants access\. | 
+|   `topic`  |  string |  The name of the MQTT topic\. | 
+|   `qos`  |  integer  range\- max:1 min:0  |  The Quality of Service \(QoS\) level to use when republishing messages\. The default value is 0\. | 
+|   `s3`  |  S3Action |  Write to an Amazon S3 bucket\. | 
+|   `roleArn`  |  string |  The ARN of the IAM role that grants access\. | 
+|   `bucketName`  |  string |  The Amazon S3 bucket\. | 
+|   `key`  |  string |  The object key\. | 
+|   `cannedAcl`  |  string |  The Amazon S3 canned ACL that controls access to the object identified by the object key\. For more information, see [S3 canned ACLs](https://docs.aws.amazon.com/AmazonS3/latest/dev/acl-overview.html#canned-acl)\.  enum: private \| public\-read \| public\-read\-write \| aws\-exec\-read \| authenticated\-read \| bucket\-owner\-read \| bucket\-owner\-full\-control \| log\-delivery\-write  | 
+|   `firehose`  |  FirehoseAction |  Write to an Amazon Kinesis Firehose stream\. | 
+|   `roleArn`  |  string |  The IAM role that grants access to the Amazon Kinesis Firehose stream\. | 
+|   `deliveryStreamName`  |  string |  The delivery stream name\. | 
+|   `separator`  |  string  pattern: \(\[ \]\)\|\( \)\|\(,\)   |  A character separator that will be used to separate records written to the Firehose stream\. Valid values are: '\\n' \(newline\), '\\t' \(tab\), '\\r\\n' \(Windows newline\), ',' \(comma\)\.  | 
+|   `cloudwatchMetric`  |  CloudwatchMetricAction |  Capture a CloudWatch metric\. | 
+|   `roleArn`  |  string |  The IAM role that allows access to the CloudWatch metric\. | 
+|   `metricNamespace`  |  string |  The CloudWatch metric namespace name\. | 
+|   `metricName`  |  string |  The CloudWatch metric name\. | 
+|   `metricValue`  |  string |  The CloudWatch metric value\. | 
+|   `metricUnit`  |  string |  The [metric unit](https://docs.aws.amazon.com/AmazonCloudWatch/latest/DeveloperGuide/cloudwatch_concepts.html#Unit) supported by CloudWatch\.  | 
+|   `metricTimestamp`  |  string |  An optional [Unix timestamp](https://docs.aws.amazon.com/AmazonCloudWatch/latest/DeveloperGuide/cloudwatch_concepts.html#about_timestamp)\. | 
+|   `cloudwatchAlarm`  |  CloudwatchAlarmAction |  Change the state of a CloudWatch alarm\. | 
+|   `roleArn`  |  string |  The IAM role that allows access to the CloudWatch alarm\. | 
+|   `alarmName`  |  string |  The CloudWatch alarm name\. | 
+|   `stateReason`  |  string |  The reason for the alarm change\. | 
+|   `stateValue`  |  string |  The value of the alarm state\. Acceptable values are: OK, ALARM, INSUFFICIENT\_DATA\.  | 
+|   `elasticsearch`  |  ElasticsearchAction |  Write data to an Amazon Elasticsearch Service domain\. | 
+|   `roleArn`  |  string |  The IAM role ARN that has access to Elasticsearch\. | 
+|   `endpoint`  |  string  pattern: https?://\.\*  |  The endpoint of your Elasticsearch domain\. | 
+|   `index`  |  string |  The Elasticsearch index where you want to store your data\. | 
+|   `type`  |  string |  The type of document you are storing\. | 
+|   `id`  |  string |  The unique identifier for the document you are storing\. | 
+|   `salesforce`  |  SalesforceAction |  Send a message to a Salesforce IoT Cloud Input Stream\. | 
+|   `token`  |  string  length\- min:40  |  The token used to authenticate access to the Salesforce IoT Cloud Input Stream\. The token is available from the Salesforce IoT Cloud platform after creation of the Input Stream\.  | 
+|   `url`  |  string  length\- max:2000  pattern: https://ingestion\-\[a\-zA\-Z0\-9\]\{1,12\}\.\[a\-zA\-Z0\-9\]\+\.\(\(sfdc\-matrix\.net\)\|\(sfdcnow\.com\)\)/streams/w *1,20*/w *1,20*/event   |  The URL exposed by the Salesforce IoT Cloud Input Stream\. The URL is available from the Salesforce IoT Cloud platform after creation of the Input Stream\.  | 
+|   `iotAnalytics`  |  IotAnalyticsAction |  Sends message data to an AWS IoT Analytics channel\. | 
+|   `channelArn`  |  string |  \(deprecated\) The ARN of the IoT Analytics channel to which message data will be sent\.  | 
+|   `channelName`  |  string |  The name of the IoT Analytics channel to which message data will be sent\. | 
+|   `roleArn`  |  string |  The ARN of the role which has a policy that grants IoT Analytics permission to send message data via IoT Analytics \(iotanalytics:BatchPutMessage\)\.  | 
+|   `iotEvents`  |  IotEventsAction |  Sends an input to an AWS IoT Events detector\. | 
+|   `inputName`  |  string  length\- max:128 min:1  |  The name of the AWS IoT Events input\. | 
+|   `messageId`  |  string  length\- max:128  |  \[Optional\] Use this to ensure that only one input \(message\) with a given messageId will be processed by an AWS IoT Events detector\.  | 
+|   `roleArn`  |  string |  The ARN of the role that grants AWS IoT permission to send an input to an AWS IoT Events detector\. \("Action":"iotevents:BatchPutMessage"\)\.  | 
+|   `stepFunctions`  |  StepFunctionsAction |  Starts execution of a Step Functions state machine\. | 
+|   `executionNamePrefix`  |  string |  \(Optional\) A name will be given to the state machine execution consisting of this prefix followed by a UUID\. Step Functions automatically creates a unique name for each state machine execution if one is not provided\.  | 
+|   `stateMachineName`  |  string |  The name of the Step Functions state machine whose execution will be started\.  | 
+|   `roleArn`  |  string |  The ARN of the role that grants IoT permission to start execution of a state machine \("Action":"states:StartExecution"\)\.  | 
+|   `ruleDisabled`  |  boolean |  Specifies whether the rule is disabled\. | 
+|   `awsIotSqlVersion`  |  string |  The version of the SQL rules engine to use when evaluating the rule\. | 
+|   `errorAction`  |  Action |  The action to perform when an error occurs\. | 
+|   `dynamoDB`  |  DynamoDBAction |  Write to a DynamoDB table\. | 
+|   `tableName`  |  string |  The name of the DynamoDB table\. | 
+|   `roleArn`  |  string |  The ARN of the IAM role that grants access to the DynamoDB table\. | 
+|   `operation`  |  string |  The type of operation to be performed\. This follows the substitution template, so it can be `$ operation`, but the substitution must result in one of the following: `INSERT`, `UPDATE`, or `DELETE`\.  | 
+|   `hashKeyField`  |  string |  The hash key name\. | 
+|   `hashKeyValue`  |  string |  The hash key value\. | 
+|   `hashKeyType`  |  string |  The hash key type\. Valid values are "STRING" or "NUMBER"  enum: STRING \| NUMBER  | 
+|   `rangeKeyField`  |  string |  The range key name\. | 
+|   `rangeKeyValue`  |  string |  The range key value\. | 
+|   `rangeKeyType`  |  string |  The range key type\. Valid values are "STRING" or "NUMBER"  enum: STRING \| NUMBER  | 
+|   `payloadField`  |  string |  The action payload\. This name can be customized\. | 
+|   `dynamoDBv2`  |  DynamoDBv2Action |  Write to a DynamoDB table\. This is a new version of the DynamoDB action\. It allows you to write each attribute in an MQTT message payload into a separate DynamoDB column\.  | 
+|   `roleArn`  |  string |  The ARN of the IAM role that grants access to the DynamoDB table\. | 
+|   `putItem`  |  PutItemInput |  Specifies the DynamoDB table to which the message data will be written\. For example:  `{ "dynamoDBv2": { "roleArn": "aws:iam:12341251:my-role" "putItem": { "tableName": "my-table" } } }`  Each attribute in the message payload will be written to a separate column in the DynamoDB database\.  | 
+|   `tableName`  |  string |  The table where the message data will be written\. | 
+|   `lambda`  |  LambdaAction |  Invoke a Lambda function\. | 
+|   `functionArn`  |  string |  The ARN of the Lambda function\. | 
+|   `sns`  |  SnsAction |  Publish to an Amazon SNS topic\. | 
+|   `targetArn`  |  string |  The ARN of the SNS topic\. | 
+|   `roleArn`  |  string |  The ARN of the IAM role that grants access\. | 
+|   `messageFormat`  |  string |  \(Optional\) The message format of the message to publish\. Accepted values are "JSON" and "RAW"\. The default value of the attribute is "RAW"\. SNS uses this setting to determine if the payload should be parsed and relevant platform\-specific bits of the payload should be extracted\. To read more about SNS message formats, see [https://docs.aws.amazon.com/sns/latest/dg/json-formats.html](https://docs.aws.amazon.com/sns/latest/dg/json-formats.html) refer to their official documentation\.  enum: RAW \| JSON  | 
+|   `sqs`  |  SqsAction |  Publish to an Amazon SQS queue\. | 
+|   `roleArn`  |  string |  The ARN of the IAM role that grants access\. | 
+|   `queueUrl`  |  string |  The URL of the Amazon SQS queue\. | 
+|   `useBase64`  |  boolean |  Specifies whether to use Base64 encoding\. | 
+|   `kinesis`  |  KinesisAction |  Write data to an Amazon Kinesis stream\. | 
+|   `roleArn`  |  string |  The ARN of the IAM role that grants access to the Amazon Kinesis stream\. | 
+|   `streamName`  |  string |  The name of the Amazon Kinesis stream\. | 
+|   `partitionKey`  |  string |  The partition key\. | 
+|   `republish`  |  RepublishAction |  Publish to another MQTT topic\. | 
+|   `roleArn`  |  string |  The ARN of the IAM role that grants access\. | 
+|   `topic`  |  string |  The name of the MQTT topic\. | 
+|   `qos`  |  integer  range\- max:1 min:0  |  The Quality of Service \(QoS\) level to use when republishing messages\. The default value is 0\. | 
+|   `s3`  |  S3Action |  Write to an Amazon S3 bucket\. | 
+|   `roleArn`  |  string |  The ARN of the IAM role that grants access\. | 
+|   `bucketName`  |  string |  The Amazon S3 bucket\. | 
+|   `key`  |  string |  The object key\. | 
+|   `cannedAcl`  |  string |  The Amazon S3 canned ACL that controls access to the object identified by the object key\. For more information, see [S3 canned ACLs](https://docs.aws.amazon.com/AmazonS3/latest/dev/acl-overview.html#canned-acl)\.  enum: private \| public\-read \| public\-read\-write \| aws\-exec\-read \| authenticated\-read \| bucket\-owner\-read \| bucket\-owner\-full\-control \| log\-delivery\-write  | 
+|   `firehose`  |  FirehoseAction |  Write to an Amazon Kinesis Firehose stream\. | 
+|   `roleArn`  |  string |  The IAM role that grants access to the Amazon Kinesis Firehose stream\. | 
+|   `deliveryStreamName`  |  string |  The delivery stream name\. | 
+|   `separator`  |  string  pattern: \(\[ \]\)\|\( \)\|\(,\)   |  A character separator that will be used to separate records written to the Firehose stream\. Valid values are: '\\n' \(newline\), '\\t' \(tab\), '\\r\\n' \(Windows newline\), ',' \(comma\)\.  | 
+|   `cloudwatchMetric`  |  CloudwatchMetricAction |  Capture a CloudWatch metric\. | 
+|   `roleArn`  |  string |  The IAM role that allows access to the CloudWatch metric\. | 
+|   `metricNamespace`  |  string |  The CloudWatch metric namespace name\. | 
+|   `metricName`  |  string |  The CloudWatch metric name\. | 
+|   `metricValue`  |  string |  The CloudWatch metric value\. | 
+|   `metricUnit`  |  string |  The [metric unit](https://docs.aws.amazon.com/AmazonCloudWatch/latest/DeveloperGuide/cloudwatch_concepts.html#Unit) supported by CloudWatch\.  | 
+|   `metricTimestamp`  |  string |  An optional [Unix timestamp](https://docs.aws.amazon.com/AmazonCloudWatch/latest/DeveloperGuide/cloudwatch_concepts.html#about_timestamp)\. | 
+|   `cloudwatchAlarm`  |  CloudwatchAlarmAction |  Change the state of a CloudWatch alarm\. | 
+|   `roleArn`  |  string |  The IAM role that allows access to the CloudWatch alarm\. | 
+|   `alarmName`  |  string |  The CloudWatch alarm name\. | 
+|   `stateReason`  |  string |  The reason for the alarm change\. | 
+|   `stateValue`  |  string |  The value of the alarm state\. Acceptable values are: OK, ALARM, INSUFFICIENT\_DATA\.  | 
+|   `elasticsearch`  |  ElasticsearchAction |  Write data to an Amazon Elasticsearch Service domain\. | 
+|   `roleArn`  |  string |  The IAM role ARN that has access to Elasticsearch\. | 
+|   `endpoint`  |  string  pattern: https?://\.\*  |  The endpoint of your Elasticsearch domain\. | 
+|   `index`  |  string |  The Elasticsearch index where you want to store your data\. | 
+|   `type`  |  string |  The type of document you are storing\. | 
+|   `id`  |  string |  The unique identifier for the document you are storing\. | 
+|   `salesforce`  |  SalesforceAction |  Send a message to a Salesforce IoT Cloud Input Stream\. | 
+|   `token`  |  string  length\- min:40  |  The token used to authenticate access to the Salesforce IoT Cloud Input Stream\. The token is available from the Salesforce IoT Cloud platform after creation of the Input Stream\.  | 
+|   `url`  |  string  length\- max:2000  pattern: https://ingestion\-\[a\-zA\-Z0\-9\]\{1,12\}\.\[a\-zA\-Z0\-9\]\+\.\(\(sfdc\-matrix\.net\)\|\(sfdcnow\.com\)\)/streams/w *1,20*/w *1,20*/event   |  The URL exposed by the Salesforce IoT Cloud Input Stream\. The URL is available from the Salesforce IoT Cloud platform after creation of the Input Stream\.  | 
+|   `iotAnalytics`  |  IotAnalyticsAction |  Sends message data to an AWS IoT Analytics channel\. | 
+|   `channelArn`  |  string |  \(deprecated\) The ARN of the IoT Analytics channel to which message data will be sent\.  | 
+|   `channelName`  |  string |  The name of the IoT Analytics channel to which message data will be sent\. | 
+|   `roleArn`  |  string |  The ARN of the role which has a policy that grants IoT Analytics permission to send message data via IoT Analytics \(iotanalytics:BatchPutMessage\)\.  | 
+|   `iotEvents`  |  IotEventsAction |  Sends an input to an AWS IoT Events detector\. | 
+|   `inputName`  |  string  length\- max:128 min:1  |  The name of the AWS IoT Events input\. | 
+|   `messageId`  |  string  length\- max:128  |  \[Optional\] Use this to ensure that only one input \(message\) with a given messageId will be processed by an AWS IoT Events detector\.  | 
+|   `roleArn`  |  string |  The ARN of the role that grants AWS IoT permission to send an input to an AWS IoT Events detector\. \("Action":"iotevents:BatchPutMessage"\)\.  | 
+|   `stepFunctions`  |  StepFunctionsAction |  Starts execution of a Step Functions state machine\. | 
+|   `executionNamePrefix`  |  string |  \(Optional\) A name will be given to the state machine execution consisting of this prefix followed by a UUID\. Step Functions automatically creates a unique name for each state machine execution if one is not provided\.  | 
+|   `stateMachineName`  |  string |  The name of the Step Functions state machine whose execution will be started\.  | 
+|   `roleArn`  |  string |  The ARN of the role that grants IoT permission to start execution of a state machine \("Action":"states:StartExecution"\)\.  | 
 
  **Errors**
 
@@ -7625,9 +8246,9 @@ Output
 
 |  Name |  Type |  Description | 
 | --- | --- | --- | 
-|  roleArn |  string |  The IAM role ARN AWS IoT uses to write to your CloudWatch logs\. | 
-|  defaultLogLevel |  string |  The default log level\.  enum: DEBUG \| INFO \| ERROR \| WARN \| DISABLED  | 
-|  disableAllLogs |  boolean |  Disables all logs\. | 
+|   `roleArn`  |  string |  The IAM role ARN AWS IoT uses to write to your CloudWatch logs\. | 
+|   `defaultLogLevel`  |  string |  The default log level\.  enum: DEBUG \| INFO \| ERROR \| WARN \| DISABLED  | 
+|   `disableAllLogs`  |  boolean |  Disables all logs\. | 
 
  **Errors**
 
@@ -7672,10 +8293,10 @@ aws iot  list-active-violations \
 
 |  Name |  Type |  Description | 
 | --- | --- | --- | 
-|  thingName |  string  length\- max:128 min:1  pattern: \[a\-zA\-Z0\-9:\_\-\]\+  |  The name of the thing whose active violations are listed\. | 
-|  securityProfileName |  string  length\- max:128 min:1  pattern: \[a\-zA\-Z0\-9:\_\-\]\+  |  The name of the Device Defender security profile for which violations are listed\. | 
-|  nextToken |  string |  The token for the next set of results\. | 
-|  maxResults |  integer  range\- max:250 min:1  |  The maximum number of results to return at one time\. | 
+|   `thingName`  |  string  length\- max:128 min:1  |  The name of the thing whose active violations are listed\. | 
+|   `securityProfileName`  |  string  length\- max:128 min:1  pattern: \[a\-zA\-Z0\-9:\_\-\]\+  |  The name of the Device Defender security profile for which violations are listed\. | 
+|   `nextToken`  |  string |  The token for the next set of results\. | 
+|   `maxResults`  |  integer  range\- max:250 min:1  |  The maximum number of results to return at one time\. | 
 
 Output
 
@@ -7730,31 +8351,31 @@ Output
 
 |  Name |  Type |  Description | 
 | --- | --- | --- | 
-|  activeViolations |  list  member: ActiveViolation  |  The list of active violations\. | 
-|  violationId |  string  length\- max:128 min:1  pattern: \[a\-zA\-Z0\-9\-\]\+  |  The ID of the active violation\. | 
-|  thingName |  string  length\- max:128 min:1  pattern: \[a\-zA\-Z0\-9:\_\-\]\+  |  The name of the thing responsible for the active violation\. | 
-|  securityProfileName |  string  length\- max:128 min:1  pattern: \[a\-zA\-Z0\-9:\_\-\]\+  |  The security profile whose behavior is in violation\. | 
-|  behavior |  Behavior |  The behavior which is being violated\. | 
-|  name |  string  length\- max:128 min:1  pattern: \[a\-zA\-Z0\-9:\_\-\]\+  |  The name you have given to the behavior\. | 
-|  metric |  string |  What is measured by the behavior\. | 
-|  criteria |  BehaviorCriteria |  The criteria that determine if a device is behaving normally in regard to the `metric`\.  | 
-|  comparisonOperator |  string |  The operator that relates the thing measured \(`metric`\) to the criteria \(containing a `value` or `statisticalThreshold`\)\.  enum: less\-than \| less\-than\-equals \| greater\-than \| greater\-than\-equals \| in\-cidr\-set \| not\-in\-cidr\-set \| in\-port\-set \| not\-in\-port\-set  | 
-|  value |  MetricValue |  The value to be compared with the `metric`\. | 
-|  count |  long  range\- min:0  |  If the `comparisonOperator` calls for a numeric value, use this to specify that numeric value to be compared with the `metric`\.  | 
-|  cidrs |  list  member: Cidr  |  If the `comparisonOperator` calls for a set of CIDRs, use this to specify that set to be compared with the `metric`\.  | 
-|  ports |  list  member: Port  |  If the `comparisonOperator` calls for a set of ports, use this to specify that set to be compared with the `metric`\.  | 
-|  durationSeconds |  integer |  Use this to specify the time duration over which the behavior is evaluated, for those criteria which have a time dimension \(for example, `NUM_MESSAGES_SENT`\)\. For a `statisticalThreshhold` metric comparison, measurements from all devices are accumulated over this time duration before being used to calculate percentiles, and later, measurements from an individual device are also accumulated over this time duration before being given a percentile rank\.  | 
-|  consecutiveDatapointsToAlarm |  integer  range\- max:10 min:1  |  If a device is in violation of the behavior for the specified number of consecutive datapoints, an alarm occurs\. If not specified, the default is 1\.  | 
-|  consecutiveDatapointsToClear |  integer  range\- max:10 min:1  |  If an alarm has occurred and the offending device is no longer in violation of the behavior for the specified number of consecutive datapoints, the alarm is cleared\. If not specified, the default is 1\.  | 
-|  statisticalThreshold |  StatisticalThreshold |  A statistical ranking \(percentile\) which indicates a threshold value by which a behavior is determined to be in compliance or in violation of the behavior\.  | 
-|  statistic |  string  pattern: \(p0\|p0\.1\|p0\.01\|p1\|p10\|p50\|p90\|p99\|p99\.9\|p99\.99\|p100\)  |  The percentile which resolves to a threshold value by which compliance with a behavior is determined\. Metrics are collected over the specified period \(`durationSeconds`\) from all reporting devices in your account and statistical ranks are calculated\. Then, the measurements from a device are collected over the same period\. If the accumulated measurements from the device fall above or below \(`comparisonOperator`\) the value associated with the percentile specified, then the device is considered to be in compliance with the behavior, otherwise a violation occurs\.  | 
-|  lastViolationValue |  MetricValue |  The value of the metric \(the measurement\) which caused the most recent violation\. | 
-|  count |  long  range\- min:0  |  If the `comparisonOperator` calls for a numeric value, use this to specify that numeric value to be compared with the `metric`\.  | 
-|  cidrs |  list  member: Cidr  |  If the `comparisonOperator` calls for a set of CIDRs, use this to specify that set to be compared with the `metric`\.  | 
-|  ports |  list  member: Port  |  If the `comparisonOperator` calls for a set of ports, use this to specify that set to be compared with the `metric`\.  | 
-|  lastViolationTime |  timestamp |  The time the most recent violation occurred\. | 
-|  violationStartTime |  timestamp |  The time the violation started\. | 
-|  nextToken |  string |  A token that can be used to retrieve the next set of results, or `null` if there are no additional results\.  | 
+|   `activeViolations`  |  list  member: ActiveViolation  |  The list of active violations\. | 
+|   `violationId`  |  string  length\- max:128 min:1  pattern: \[a\-zA\-Z0\-9\-\]\+  |  The ID of the active violation\. | 
+|   `thingName`  |  string  length\- max:128 min:1  |  The name of the thing responsible for the active violation\. | 
+|   `securityProfileName`  |  string  length\- max:128 min:1  pattern: \[a\-zA\-Z0\-9:\_\-\]\+  |  The security profile whose behavior is in violation\. | 
+|   `behavior`  |  Behavior |  The behavior which is being violated\. | 
+|   `name`  |  string  length\- max:128 min:1  pattern: \[a\-zA\-Z0\-9:\_\-\]\+  |  The name you have given to the behavior\. | 
+|   `metric`  |  string |  What is measured by the behavior\. | 
+|   `criteria`  |  BehaviorCriteria |  The criteria that determine if a device is behaving normally in regard to the `metric`\.  | 
+|   `comparisonOperator`  |  string |  The operator that relates the thing measured \(`metric`\) to the criteria \(containing a `value` or `statisticalThreshold`\)\.  enum: less\-than \| less\-than\-equals \| greater\-than \| greater\-than\-equals \| in\-cidr\-set \| not\-in\-cidr\-set \| in\-port\-set \| not\-in\-port\-set  | 
+|   `value`  |  MetricValue |  The value to be compared with the `metric`\. | 
+|   `count`  |  long  range\- min:0  |  If the `comparisonOperator` calls for a numeric value, use this to specify that numeric value to be compared with the `metric`\.  | 
+|   `cidrs`  |  list  member: Cidr  |  If the `comparisonOperator` calls for a set of CIDRs, use this to specify that set to be compared with the `metric`\.  | 
+|   `ports`  |  list  member: Port  |  If the `comparisonOperator` calls for a set of ports, use this to specify that set to be compared with the `metric`\.  | 
+|   `durationSeconds`  |  integer |  Use this to specify the time duration over which the behavior is evaluated, for those criteria which have a time dimension \(for example, `NUM_MESSAGES_SENT`\)\. For a `statisticalThreshhold` metric comparison, measurements from all devices are accumulated over this time duration before being used to calculate percentiles, and later, measurements from an individual device are also accumulated over this time duration before being given a percentile rank\.  | 
+|   `consecutiveDatapointsToAlarm`  |  integer  range\- max:10 min:1  |  If a device is in violation of the behavior for the specified number of consecutive datapoints, an alarm occurs\. If not specified, the default is 1\.  | 
+|   `consecutiveDatapointsToClear`  |  integer  range\- max:10 min:1  |  If an alarm has occurred and the offending device is no longer in violation of the behavior for the specified number of consecutive datapoints, the alarm is cleared\. If not specified, the default is 1\.  | 
+|   `statisticalThreshold`  |  StatisticalThreshold |  A statistical ranking \(percentile\) which indicates a threshold value by which a behavior is determined to be in compliance or in violation of the behavior\.  | 
+|   `statistic`  |  string  pattern: \(p0\|p0\.1\|p0\.01\|p1\|p10\|p50\|p90\|p99\|p99\.9\|p99\.99\|p100\)  |  The percentile which resolves to a threshold value by which compliance with a behavior is determined\. Metrics are collected over the specified period \(`durationSeconds`\) from all reporting devices in your account and statistical ranks are calculated\. Then, the measurements from a device are collected over the same period\. If the accumulated measurements from the device fall above or below \(`comparisonOperator`\) the value associated with the percentile specified, then the device is considered to be in compliance with the behavior, otherwise a violation occurs\.  | 
+|   `lastViolationValue`  |  MetricValue |  The value of the metric \(the measurement\) which caused the most recent violation\. | 
+|   `count`  |  long  range\- min:0  |  If the `comparisonOperator` calls for a numeric value, use this to specify that numeric value to be compared with the `metric`\.  | 
+|   `cidrs`  |  list  member: Cidr  |  If the `comparisonOperator` calls for a set of CIDRs, use this to specify that set to be compared with the `metric`\.  | 
+|   `ports`  |  list  member: Port  |  If the `comparisonOperator` calls for a set of ports, use this to specify that set to be compared with the `metric`\.  | 
+|   `lastViolationTime`  |  timestamp |  The time the most recent violation occurred\. | 
+|   `violationStartTime`  |  timestamp |  The time the violation started\. | 
+|   `nextToken`  |  string |  A token that can be used to retrieve the next set of results, or `null` if there are no additional results\.  | 
 
  **Errors**
 
@@ -7802,10 +8423,10 @@ aws iot  list-attached-policies \
 
 |  Name |  Type |  Description | 
 | --- | --- | --- | 
-|  target |  string |  The group for which the policies will be listed\. | 
-|  recursive |  boolean |  When true, recursively list attached policies\. | 
-|  marker |  string  pattern: \[A\-Za\-z0\-9\+/\]\+=\{0,2\}  |  The token to retrieve the next set of results\. | 
-|  pageSize |  integer  range\- max:250 min:1  |  The maximum number of results to be returned per request\. | 
+|   `target`  |  string |  The group or principal for which the policies will be listed\. | 
+|   `recursive`  |  boolean |  When true, recursively list attached policies\. | 
+|   `marker`  |  string  pattern: \[A\-Za\-z0\-9\+/\]\+=\{0,2\}  |  The token to retrieve the next set of results\. | 
+|   `pageSize`  |  integer  range\- max:250 min:1  |  The maximum number of results to be returned per request\. | 
 
 Output
 
@@ -7826,10 +8447,10 @@ Output
 
 |  Name |  Type |  Description | 
 | --- | --- | --- | 
-|  policies |  list  member: Policy  java class: java\.util\.List  |  The policies\. | 
-|  policyName |  string  length\- max:128 min:1  pattern: \[w\+=,\.@\-\]\+  |  The policy name\. | 
-|  policyArn |  string |  The policy ARN\. | 
-|  nextMarker |  string  pattern: \[A\-Za\-z0\-9\+/\]\+=\{0,2\}  |  The token to retrieve the next set of results, or `null` if there are no more results\.  | 
+|   `policies`  |  list  member: Policy  java class: java\.util\.List  |  The policies\. | 
+|   `policyName`  |  string  length\- max:128 min:1  pattern: \[w\+=,\.@\-\]\+  |  The policy name\. | 
+|   `policyArn`  |  string |  The policy ARN\. | 
+|   `nextMarker`  |  string  pattern: \[A\-Za\-z0\-9\+/\]\+=\{0,2\}  |  The token to retrieve the next set of results, or `null` if there are no more results\.  | 
 
  **Errors**
 
@@ -7902,21 +8523,21 @@ aws iot  list-audit-findings \
 
 |  Name |  Type |  Description | 
 | --- | --- | --- | 
-|  taskId |  string  length\- max:40 min:1  pattern: \[a\-zA\-Z0\-9\-\]\+  |  A filter to limit results to the audit with the specified ID\. You must specify either the taskId or the startTime and endTime, but not both\.  | 
-|  checkName |  string |  A filter to limit results to the findings for the specified audit check\. | 
-|  resourceIdentifier |  ResourceIdentifier |  Information identifying the non\-compliant resource\. | 
-|  deviceCertificateId |  string  length\- max:64 min:64  pattern: \(0x\)?\[a\-fA\-F0\-9\]\+  |  The ID of the certificate attached to the resource\. | 
-|  caCertificateId |  string  length\- max:64 min:64  pattern: \(0x\)?\[a\-fA\-F0\-9\]\+  |  The ID of the CA certificate used to authorize the certificate\. | 
-|  cognitoIdentityPoolId |  string |  The ID of the Cognito Identity Pool\. | 
-|  clientId |  string |  The client ID\. | 
-|  policyVersionIdentifier |  PolicyVersionIdentifier |  The version of the policy associated with the resource\. | 
-|  policyName |  string  length\- max:128 min:1  pattern: \[w\+=,\.@\-\]\+  |  The name of the policy\. | 
-|  policyVersionId |  string  pattern: \[0\-9\]\+  |  The ID of the version of the policy associated with the resource\. | 
-|  account |  string  length\- max:12 min:12  pattern: \[0\-9\]\+  |  The account with which the resource is associated\. | 
-|  maxResults |  integer  range\- max:250 min:1  |  The maximum number of results to return at one time\. The default is 25\. | 
-|  nextToken |  string |  The token for the next set of results\. | 
-|  startTime |  timestamp |  A filter to limit results to those found after the specified time\. You must specify either the startTime and endTime or the taskId, but not both\.  | 
-|  endTime |  timestamp |  A filter to limit results to those found before the specified time\. You must specify either the startTime and endTime or the taskId, but not both\.  | 
+|   `taskId`  |  string  length\- max:40 min:1  pattern: \[a\-zA\-Z0\-9\-\]\+  |  A filter to limit results to the audit with the specified ID\. You must specify either the taskId or the startTime and endTime, but not both\.  | 
+|   `checkName`  |  string |  A filter to limit results to the findings for the specified audit check\. | 
+|   `resourceIdentifier`  |  ResourceIdentifier |  Information identifying the noncompliant resource\. | 
+|   `deviceCertificateId`  |  string  length\- max:64 min:64  pattern: \(0x\)?\[a\-fA\-F0\-9\]\+  |  The ID of the certificate attached to the resource\. | 
+|   `caCertificateId`  |  string  length\- max:64 min:64  pattern: \(0x\)?\[a\-fA\-F0\-9\]\+  |  The ID of the CA certificate used to authorize the certificate\. | 
+|   `cognitoIdentityPoolId`  |  string |  The ID of the Amazon Cognito identity pool\. | 
+|   `clientId`  |  string |  The client ID\. | 
+|   `policyVersionIdentifier`  |  PolicyVersionIdentifier |  The version of the policy associated with the resource\. | 
+|   `policyName`  |  string  length\- max:128 min:1  pattern: \[w\+=,\.@\-\]\+  |  The name of the policy\. | 
+|   `policyVersionId`  |  string  pattern: \[0\-9\]\+  |  The ID of the version of the policy associated with the resource\. | 
+|   `account`  |  string  length\- max:12 min:12  pattern: \[0\-9\]\+  |  The account with which the resource is associated\. | 
+|   `maxResults`  |  integer  range\- max:250 min:1  |  The maximum number of results to return at one time\. The default is 25\. | 
+|   `nextToken`  |  string |  The token for the next set of results\. | 
+|   `startTime`  |  timestamp |  A filter to limit results to those found after the specified time\. You must specify either the startTime and endTime or the taskId, but not both\.  | 
+|   `endTime`  |  timestamp |  A filter to limit results to those found before the specified time\. You must specify either the startTime and endTime or the taskId, but not both\.  | 
 
 Output
 
@@ -7924,6 +8545,7 @@ Output
 {
   "findings": [
     {
+      "findingId": "string",
       "taskId": "string",
       "checkName": "string",
       "taskStartTime": "timestamp",
@@ -7978,39 +8600,212 @@ Output
 
 |  Name |  Type |  Description | 
 | --- | --- | --- | 
-|  findings |  list  member: AuditFinding  |  The findings \(results\) of the audit\. | 
-|  taskId |  string  length\- max:40 min:1  pattern: \[a\-zA\-Z0\-9\-\]\+  |  The ID of the audit that generated this result \(finding\) | 
-|  checkName |  string |  The audit check that generated this result\. | 
-|  taskStartTime |  timestamp |  The time the audit started\. | 
-|  findingTime |  timestamp |  The time the result \(finding\) was discovered\. | 
-|  severity |  string |  The severity of the result \(finding\)\.  enum: CRITICAL \| HIGH \| MEDIUM \| LOW  | 
-|  nonCompliantResource |  NonCompliantResource |  The resource that was found to be non\-compliant with the audit check\.  | 
-|  resourceType |  string |  The type of the non\-compliant resource\.  enum: DEVICE\_CERTIFICATE \| CA\_CERTIFICATE \| IOT\_POLICY \| COGNITO\_IDENTITY\_POOL \| CLIENT\_ID \| ACCOUNT\_SETTINGS  | 
-|  resourceIdentifier |  ResourceIdentifier |  Information identifying the non\-compliant resource\. | 
-|  deviceCertificateId |  string  length\- max:64 min:64  pattern: \(0x\)?\[a\-fA\-F0\-9\]\+  |  The ID of the certificate attached to the resource\. | 
-|  caCertificateId |  string  length\- max:64 min:64  pattern: \(0x\)?\[a\-fA\-F0\-9\]\+  |  The ID of the CA certificate used to authorize the certificate\. | 
-|  cognitoIdentityPoolId |  string |  The ID of the Cognito Identity Pool\. | 
-|  clientId |  string |  The client ID\. | 
-|  policyVersionIdentifier |  PolicyVersionIdentifier |  The version of the policy associated with the resource\. | 
-|  policyName |  string  length\- max:128 min:1  pattern: \[w\+=,\.@\-\]\+  |  The name of the policy\. | 
-|  policyVersionId |  string  pattern: \[0\-9\]\+  |  The ID of the version of the policy associated with the resource\. | 
-|  account |  string  length\- max:12 min:12  pattern: \[0\-9\]\+  |  The account with which the resource is associated\. | 
-|  additionalInfo |  map |  Additional information about the non\-compliant resource\. | 
-|  relatedResources |  list  member: RelatedResource  |  The list of related resources\. | 
-|  resourceType |  string |  The type of resource\.  enum: DEVICE\_CERTIFICATE \| CA\_CERTIFICATE \| IOT\_POLICY \| COGNITO\_IDENTITY\_POOL \| CLIENT\_ID \| ACCOUNT\_SETTINGS  | 
-|  resourceIdentifier |  ResourceIdentifier |  Information identifying the resource\. | 
-|  deviceCertificateId |  string  length\- max:64 min:64  pattern: \(0x\)?\[a\-fA\-F0\-9\]\+  |  The ID of the certificate attached to the resource\. | 
-|  caCertificateId |  string  length\- max:64 min:64  pattern: \(0x\)?\[a\-fA\-F0\-9\]\+  |  The ID of the CA certificate used to authorize the certificate\. | 
-|  cognitoIdentityPoolId |  string |  The ID of the Cognito Identity Pool\. | 
-|  clientId |  string |  The client ID\. | 
-|  policyVersionIdentifier |  PolicyVersionIdentifier |  The version of the policy associated with the resource\. | 
-|  policyName |  string  length\- max:128 min:1  pattern: \[w\+=,\.@\-\]\+  |  The name of the policy\. | 
-|  policyVersionId |  string  pattern: \[0\-9\]\+  |  The ID of the version of the policy associated with the resource\. | 
-|  account |  string  length\- max:12 min:12  pattern: \[0\-9\]\+  |  The account with which the resource is associated\. | 
-|  additionalInfo |  map |  Additional information about the resource\. | 
-|  reasonForNonCompliance |  string |  The reason the resource was non\-compliant\. | 
-|  reasonForNonComplianceCode |  string |  A code which indicates the reason that the resource was non\-compliant\. | 
-|  nextToken |  string |  A token that can be used to retrieve the next set of results, or `null` if there are no additional results\.  | 
+|   `findings`  |  list  member: AuditFinding  |  The findings \(results\) of the audit\. | 
+|   `findingId`  |  string  length\- max:128 min:1  pattern: \[a\-zA\-Z0\-9\_\-\]\+  |  A unique identifier for this set of audit findings\. This identifier is used to apply mitigation tasks to one or more sets of findings\.  | 
+|   `taskId`  |  string  length\- max:40 min:1  pattern: \[a\-zA\-Z0\-9\-\]\+  |  The ID of the audit that generated this result \(finding\)\. | 
+|   `checkName`  |  string |  The audit check that generated this result\. | 
+|   `taskStartTime`  |  timestamp |  The time the audit started\. | 
+|   `findingTime`  |  timestamp |  The time the result \(finding\) was discovered\. | 
+|   `severity`  |  string |  The severity of the result \(finding\)\.  enum: CRITICAL \| HIGH \| MEDIUM \| LOW  | 
+|   `nonCompliantResource`  |  NonCompliantResource |  The resource that was found to be noncompliant with the audit check\.  | 
+|   `resourceType`  |  string |  The type of the noncompliant resource\.  enum: DEVICE\_CERTIFICATE \| CA\_CERTIFICATE \| IOT\_POLICY \| COGNITO\_IDENTITY\_POOL \| CLIENT\_ID \| ACCOUNT\_SETTINGS  | 
+|   `resourceIdentifier`  |  ResourceIdentifier |  Information that identifies the noncompliant resource\. | 
+|   `deviceCertificateId`  |  string  length\- max:64 min:64  pattern: \(0x\)?\[a\-fA\-F0\-9\]\+  |  The ID of the certificate attached to the resource\. | 
+|   `caCertificateId`  |  string  length\- max:64 min:64  pattern: \(0x\)?\[a\-fA\-F0\-9\]\+  |  The ID of the CA certificate used to authorize the certificate\. | 
+|   `cognitoIdentityPoolId`  |  string |  The ID of the Amazon Cognito identity pool\. | 
+|   `clientId`  |  string |  The client ID\. | 
+|   `policyVersionIdentifier`  |  PolicyVersionIdentifier |  The version of the policy associated with the resource\. | 
+|   `policyName`  |  string  length\- max:128 min:1  pattern: \[w\+=,\.@\-\]\+  |  The name of the policy\. | 
+|   `policyVersionId`  |  string  pattern: \[0\-9\]\+  |  The ID of the version of the policy associated with the resource\. | 
+|   `account`  |  string  length\- max:12 min:12  pattern: \[0\-9\]\+  |  The account with which the resource is associated\. | 
+|   `additionalInfo`  |  map |  Other information about the noncompliant resource\. | 
+|   `relatedResources`  |  list  member: RelatedResource  |  The list of related resources\. | 
+|   `resourceType`  |  string |  The type of resource\.  enum: DEVICE\_CERTIFICATE \| CA\_CERTIFICATE \| IOT\_POLICY \| COGNITO\_IDENTITY\_POOL \| CLIENT\_ID \| ACCOUNT\_SETTINGS  | 
+|   `resourceIdentifier`  |  ResourceIdentifier |  Information that identifies the resource\. | 
+|   `deviceCertificateId`  |  string  length\- max:64 min:64  pattern: \(0x\)?\[a\-fA\-F0\-9\]\+  |  The ID of the certificate attached to the resource\. | 
+|   `caCertificateId`  |  string  length\- max:64 min:64  pattern: \(0x\)?\[a\-fA\-F0\-9\]\+  |  The ID of the CA certificate used to authorize the certificate\. | 
+|   `cognitoIdentityPoolId`  |  string |  The ID of the Amazon Cognito identity pool\. | 
+|   `clientId`  |  string |  The client ID\. | 
+|   `policyVersionIdentifier`  |  PolicyVersionIdentifier |  The version of the policy associated with the resource\. | 
+|   `policyName`  |  string  length\- max:128 min:1  pattern: \[w\+=,\.@\-\]\+  |  The name of the policy\. | 
+|   `policyVersionId`  |  string  pattern: \[0\-9\]\+  |  The ID of the version of the policy associated with the resource\. | 
+|   `account`  |  string  length\- max:12 min:12  pattern: \[0\-9\]\+  |  The account with which the resource is associated\. | 
+|   `additionalInfo`  |  map |  Other information about the resource\. | 
+|   `reasonForNonCompliance`  |  string |  The reason the resource was noncompliant\. | 
+|   `reasonForNonComplianceCode`  |  string |  A code that indicates the reason that the resource was noncompliant\. | 
+|   `nextToken`  |  string |  A token that can be used to retrieve the next set of results, or `null` if there are no additional results\.  | 
+
+ **Errors**
+
+`InvalidRequestException`  
+The contents of the request were invalid\.
+
+`ThrottlingException`  
+The rate exceeds the limit\.
+
+`InternalFailureException`  
+An unexpected error has occurred\.
+
+## ListAuditMitigationActionsExecutions<a name="api-iot-ListAuditMitigationActionsExecutions"></a>
+
+Gets the status of audit mitigation action tasks that were executed\.
+
+ **Synopsis**
+
+```
+aws iot  list-audit-mitigation-actions-executions \
+    --task-id <value> \
+    [--action-status <value>] \
+    --finding-id <value> \
+    [--max-results <value>] \
+    [--next-token <value>]  \
+    [--cli-input-json <value>] \
+    [--generate-cli-skeleton]
+```
+
+ `cli-input-json` format
+
+```
+{
+  "taskId": "string",
+  "actionStatus": "string",
+  "findingId": "string",
+  "maxResults": "integer",
+  "nextToken": "string"
+}
+```
+
+
+**`cli-input-json` fields**  
+
+|  Name |  Type |  Description | 
+| --- | --- | --- | 
+|   `taskId`  |  string  length\- max:128 min:1  pattern: \[a\-zA\-Z0\-9\_\-\]\+  |  Specify this filter to limit results to actions for a specific audit mitigation actions task\. | 
+|   `actionStatus`  |  string |  Specify this filter to limit results to those with a specific status\.  enum: IN\_PROGRESS \| COMPLETED \| FAILED \| CANCELED \| SKIPPED \| PENDING  | 
+|   `findingId`  |  string  length\- max:128 min:1  pattern: \[a\-zA\-Z0\-9\_\-\]\+  |  Specify this filter to limit results to those that were applied to a specific audit finding\. | 
+|   `maxResults`  |  integer  range\- max:250 min:1  |  The maximum number of results to return at one time\. The default is 25\. | 
+|   `nextToken`  |  string |  The token for the next set of results\. | 
+
+Output
+
+```
+{
+  "actionsExecutions": [
+    {
+      "taskId": "string",
+      "findingId": "string",
+      "actionName": "string",
+      "actionId": "string",
+      "status": "string",
+      "startTime": "timestamp",
+      "endTime": "timestamp",
+      "errorCode": "string",
+      "message": "string"
+    }
+  ],
+  "nextToken": "string"
+}
+```
+
+
+**CLI output fields**  
+
+|  Name |  Type |  Description | 
+| --- | --- | --- | 
+|   `actionsExecutions`  |  list  member: AuditMitigationActionExecutionMetadata  |  A set of task execution results based on the input parameters\. Details include the mitigation action applied, start time, and task status\. | 
+|   `taskId`  |  string  length\- max:128 min:1  pattern: \[a\-zA\-Z0\-9\_\-\]\+  |  The unique identifier for the task that applies the mitigation action\. | 
+|   `findingId`  |  string  length\- max:128 min:1  pattern: \[a\-zA\-Z0\-9\_\-\]\+  |  The unique identifier for the findings to which the task and associated mitigation action are applied\. | 
+|   `actionName`  |  string  length\- max:128  pattern: \[a\-zA\-Z0\-9\_\-\]\+  |  The friendly name of the mitigation action being applied by the task\. | 
+|   `actionId`  |  string |  The unique identifier for the mitigation action being applied by the task\. | 
+|   `status`  |  string |  The current status of the task being executed\.  enum: IN\_PROGRESS \| COMPLETED \| FAILED \| CANCELED \| SKIPPED \| PENDING  | 
+|   `startTime`  |  timestamp |  The date and time when the task was started\. | 
+|   `endTime`  |  timestamp |  The date and time when the task was completed or canceled\. Blank if the task is still running\. | 
+|   `errorCode`  |  string |  If an error occurred, the code that indicates which type of error occurred\. | 
+|   `message`  |  string  length\- max:2048  |  If an error occurred, a message that describes the error\. | 
+|   `nextToken`  |  string |  The token for the next set of results\. | 
+
+ **Errors**
+
+`InvalidRequestException`  
+The contents of the request were invalid\.
+
+`ThrottlingException`  
+The rate exceeds the limit\.
+
+`InternalFailureException`  
+An unexpected error has occurred\.
+
+## ListAuditMitigationActionsTasks<a name="api-iot-ListAuditMitigationActionsTasks"></a>
+
+Gets a list of audit mitigation action tasks that match the specified filters\.
+
+ **Synopsis**
+
+```
+aws iot  list-audit-mitigation-actions-tasks \
+    [--audit-task-id <value>] \
+    [--finding-id <value>] \
+    [--task-status <value>] \
+    [--max-results <value>] \
+    [--next-token <value>] \
+    --start-time <value> \
+    --end-time <value>  \
+    [--cli-input-json <value>] \
+    [--generate-cli-skeleton]
+```
+
+ `cli-input-json` format
+
+```
+{
+  "auditTaskId": "string",
+  "findingId": "string",
+  "taskStatus": "string",
+  "maxResults": "integer",
+  "nextToken": "string",
+  "startTime": "timestamp",
+  "endTime": "timestamp"
+}
+```
+
+
+**`cli-input-json` fields**  
+
+|  Name |  Type |  Description | 
+| --- | --- | --- | 
+|   `auditTaskId`  |  string  length\- max:40 min:1  pattern: \[a\-zA\-Z0\-9\-\]\+  |  Specify this filter to limit results to tasks that were applied to results for a specific audit\. | 
+|   `findingId`  |  string  length\- max:128 min:1  pattern: \[a\-zA\-Z0\-9\_\-\]\+  |  Specify this filter to limit results to tasks that were applied to a specific audit finding\. | 
+|   `taskStatus`  |  string |  Specify this filter to limit results to tasks that are in a specific state\.  enum: IN\_PROGRESS \| COMPLETED \| FAILED \| CANCELED  | 
+|   `maxResults`  |  integer  range\- max:250 min:1  |  The maximum number of results to return at one time\. The default is 25\. | 
+|   `nextToken`  |  string |  The token for the next set of results\. | 
+|   `startTime`  |  timestamp |  Specify this filter to limit results to tasks that began on or after a specific date and time\. | 
+|   `endTime`  |  timestamp |  Specify this filter to limit results to tasks that were completed or canceled on or before a specific date and time\. | 
+
+Output
+
+```
+{
+  "tasks": [
+    {
+      "taskId": "string",
+      "startTime": "timestamp",
+      "taskStatus": "string"
+    }
+  ],
+  "nextToken": "string"
+}
+```
+
+
+**CLI output fields**  
+
+|  Name |  Type |  Description | 
+| --- | --- | --- | 
+|   `tasks`  |  list  member: AuditMitigationActionsTaskMetadata  java class: java\.util\.List  |  The collection of audit mitigation tasks that matched the filter criteria\. | 
+|   `taskId`  |  string  length\- max:128 min:1  pattern: \[a\-zA\-Z0\-9\_\-\]\+  |  The unique identifier for the task\. | 
+|   `startTime`  |  timestamp |  The time at which the audit mitigation actions task was started\. | 
+|   `taskStatus`  |  string |  The current state of the audit mitigation actions task\.  enum: IN\_PROGRESS \| COMPLETED \| FAILED \| CANCELED  | 
+|   `nextToken`  |  string |  The token for the next set of results\. | 
 
  **Errors**
 
@@ -8059,12 +8854,12 @@ aws iot  list-audit-tasks \
 
 |  Name |  Type |  Description | 
 | --- | --- | --- | 
-|  startTime |  timestamp |  The beginning of the time period\. Note that audit information is retained for a limited time \(180 days\)\. Requesting a start time prior to what is retained results in an "InvalidRequestException"\.  | 
-|  endTime |  timestamp |  The end of the time period\. | 
-|  taskType |  string |  A filter to limit the output to the specified type of audit: can be one of "ON\_DEMAND\_AUDIT\_TASK" or "SCHEDULED\_\_AUDIT\_TASK"\.  enum: ON\_DEMAND\_AUDIT\_TASK \| SCHEDULED\_AUDIT\_TASK  | 
-|  taskStatus |  string |  A filter to limit the output to audits with the specified completion status: can be one of "IN\_PROGRESS", "COMPLETED", "FAILED" or "CANCELED"\.  enum: IN\_PROGRESS \| COMPLETED \| FAILED \| CANCELED  | 
-|  nextToken |  string |  The token for the next set of results\. | 
-|  maxResults |  integer  range\- max:250 min:1  |  The maximum number of results to return at one time\. The default is 25\. | 
+|   `startTime`  |  timestamp |  The beginning of the time period\. Audit information is retained for a limited time \(180 days\)\. Requesting a start time prior to what is retained results in an "InvalidRequestException"\.  | 
+|   `endTime`  |  timestamp |  The end of the time period\. | 
+|   `taskType`  |  string |  A filter to limit the output to the specified type of audit: can be one of "ON\_DEMAND\_AUDIT\_TASK" or "SCHEDULED\_\_AUDIT\_TASK"\.  enum: ON\_DEMAND\_AUDIT\_TASK \| SCHEDULED\_AUDIT\_TASK  | 
+|   `taskStatus`  |  string |  A filter to limit the output to audits with the specified completion status: can be one of "IN\_PROGRESS", "COMPLETED", "FAILED", or "CANCELED"\.  enum: IN\_PROGRESS \| COMPLETED \| FAILED \| CANCELED  | 
+|   `nextToken`  |  string |  The token for the next set of results\. | 
+|   `maxResults`  |  integer  range\- max:250 min:1  |  The maximum number of results to return at one time\. The default is 25\. | 
 
 Output
 
@@ -8086,11 +8881,11 @@ Output
 
 |  Name |  Type |  Description | 
 | --- | --- | --- | 
-|  tasks |  list  member: AuditTaskMetadata  java class: java\.util\.List  |  The audits that were performed during the specified time period\. | 
-|  taskId |  string  length\- max:40 min:1  pattern: \[a\-zA\-Z0\-9\-\]\+  |  The ID of this audit\. | 
-|  taskStatus |  string |  The status of this audit: one of "IN\_PROGRESS", "COMPLETED", "FAILED" or "CANCELED"\.  enum: IN\_PROGRESS \| COMPLETED \| FAILED \| CANCELED  | 
-|  taskType |  string |  The type of this audit: one of "ON\_DEMAND\_AUDIT\_TASK" or "SCHEDULED\_AUDIT\_TASK"\.  enum: ON\_DEMAND\_AUDIT\_TASK \| SCHEDULED\_AUDIT\_TASK  | 
-|  nextToken |  string |  A token that can be used to retrieve the next set of results, or `null` if there are no additional results\.  | 
+|   `tasks`  |  list  member: AuditTaskMetadata  java class: java\.util\.List  |  The audits that were performed during the specified time period\. | 
+|   `taskId`  |  string  length\- max:40 min:1  pattern: \[a\-zA\-Z0\-9\-\]\+  |  The ID of this audit\. | 
+|   `taskStatus`  |  string |  The status of this audit\. One of "IN\_PROGRESS", "COMPLETED", "FAILED", or "CANCELED"\.  enum: IN\_PROGRESS \| COMPLETED \| FAILED \| CANCELED  | 
+|   `taskType`  |  string |  The type of this audit\. One of "ON\_DEMAND\_AUDIT\_TASK" or "SCHEDULED\_AUDIT\_TASK"\.  enum: ON\_DEMAND\_AUDIT\_TASK \| SCHEDULED\_AUDIT\_TASK  | 
+|   `nextToken`  |  string |  A token that can be used to retrieve the next set of results, or `null` if there are no additional results\.  | 
 
  **Errors**
 
@@ -8135,10 +8930,10 @@ aws iot  list-authorizers \
 
 |  Name |  Type |  Description | 
 | --- | --- | --- | 
-|  pageSize |  integer  range\- max:250 min:1  |  The maximum number of results to return at one time\. | 
-|  marker |  string  pattern: \[A\-Za\-z0\-9\+/\]\+=\{0,2\}  |  A marker used to get the next set of results\. | 
-|  ascendingOrder |  boolean |  Return the list of authorizers in ascending alphabetical order\. | 
-|  status |  string |  The status of the list authorizers request\.  enum: ACTIVE \| INACTIVE  | 
+|   `pageSize`  |  integer  range\- max:250 min:1  |  The maximum number of results to return at one time\. | 
+|   `marker`  |  string  pattern: \[A\-Za\-z0\-9\+/\]\+=\{0,2\}  |  A marker used to get the next set of results\. | 
+|   `ascendingOrder`  |  boolean |  Return the list of authorizers in ascending alphabetical order\. | 
+|   `status`  |  string |  The status of the list authorizers request\.  enum: ACTIVE \| INACTIVE  | 
 
 Output
 
@@ -8159,10 +8954,10 @@ Output
 
 |  Name |  Type |  Description | 
 | --- | --- | --- | 
-|  authorizers |  list  member: AuthorizerSummary  java class: java\.util\.List  |  The authorizers\. | 
-|  authorizerName |  string  length\- max:128 min:1  pattern: \[w=,@\-\]\+  |  The authorizer name\. | 
-|  authorizerArn |  string |  The authorizer ARN\. | 
-|  nextMarker |  string  pattern: \[A\-Za\-z0\-9\+/\]\+=\{0,2\}  |  A marker used to get the next set of results\. | 
+|   `authorizers`  |  list  member: AuthorizerSummary  java class: java\.util\.List  |  The authorizers\. | 
+|   `authorizerName`  |  string  length\- max:128 min:1  pattern: \[w=,@\-\]\+  |  The authorizer name\. | 
+|   `authorizerArn`  |  string |  The authorizer ARN\. | 
+|   `nextMarker`  |  string  pattern: \[A\-Za\-z0\-9\+/\]\+=\{0,2\}  |  A marker used to get the next set of results\. | 
 
  **Errors**
 
@@ -8211,9 +9006,9 @@ aws iot  list-billing-groups \
 
 |  Name |  Type |  Description | 
 | --- | --- | --- | 
-|  nextToken |  string |  The token to retrieve the next set of results\. | 
-|  maxResults |  integer  range\- max:250 min:1  |  The maximum number of results to return per request\. | 
-|  namePrefixFilter |  string  length\- max:128 min:1  pattern: \[a\-zA\-Z0\-9:\_\-\]\+  |  Limit the results to billing groups whose names have the given prefix\. | 
+|   `nextToken`  |  string |  The token to retrieve the next set of results\. | 
+|   `maxResults`  |  integer  range\- max:250 min:1  |  The maximum number of results to return per request\. | 
+|   `namePrefixFilter`  |  string  length\- max:128 min:1  pattern: \[a\-zA\-Z0\-9:\_\-\]\+  |  Limit the results to billing groups whose names have the given prefix\. | 
 
 Output
 
@@ -8234,10 +9029,10 @@ Output
 
 |  Name |  Type |  Description | 
 | --- | --- | --- | 
-|  billingGroups |  list  member: GroupNameAndArn  java class: java\.util\.List  |  The list of billing groups\. | 
-|  groupName |  string  length\- max:128 min:1  pattern: \[a\-zA\-Z0\-9:\_\-\]\+  |  The group name\. | 
-|  groupArn |  string |  The group ARN\. | 
-|  nextToken |  string |  The token used to get the next set of results, or **null** if there are no additional results\.  | 
+|   `billingGroups`  |  list  member: GroupNameAndArn  java class: java\.util\.List  |  The list of billing groups\. | 
+|   `groupName`  |  string  length\- max:128 min:1  pattern: \[a\-zA\-Z0\-9:\_\-\]\+  |  The group name\. | 
+|   `groupArn`  |  string |  The group ARN\. | 
+|   `nextToken`  |  string |  The token used to get the next set of results, or **null** if there are no additional results\.  | 
 
  **Errors**
 
@@ -8285,9 +9080,9 @@ aws iot  list-ca-certificates \
 
 |  Name |  Type |  Description | 
 | --- | --- | --- | 
-|  pageSize |  integer  range\- max:250 min:1  |  The result page size\. | 
-|  marker |  string  pattern: \[A\-Za\-z0\-9\+/\]\+=\{0,2\}  |  The marker for the next set of results\. | 
-|  ascendingOrder |  boolean |  Determines the order of the results\. | 
+|   `pageSize`  |  integer  range\- max:250 min:1  |  The result page size\. | 
+|   `marker`  |  string  pattern: \[A\-Za\-z0\-9\+/\]\+=\{0,2\}  |  The marker for the next set of results\. | 
+|   `ascendingOrder`  |  boolean |  Determines the order of the results\. | 
 
 Output
 
@@ -8310,12 +9105,12 @@ Output
 
 |  Name |  Type |  Description | 
 | --- | --- | --- | 
-|  certificates |  list  member: CACertificate  java class: java\.util\.List  |  The CA certificates registered in your AWS account\. | 
-|  certificateArn |  string |  The ARN of the CA certificate\. | 
-|  certificateId |  string  length\- max:64 min:64  pattern: \(0x\)?\[a\-fA\-F0\-9\]\+  |  The ID of the CA certificate\. | 
-|  status |  string |  The status of the CA certificate\. The status value REGISTER\_INACTIVE is deprecated and should not be used\.  enum: ACTIVE \| INACTIVE  | 
-|  creationDate |  timestamp |  The date the CA certificate was created\. | 
-|  nextMarker |  string  pattern: \[A\-Za\-z0\-9\+/\]\+=\{0,2\}  |  The current position within the list of CA certificates\. | 
+|   `certificates`  |  list  member: CACertificate  java class: java\.util\.List  |  The CA certificates registered in your AWS account\. | 
+|   `certificateArn`  |  string |  The ARN of the CA certificate\. | 
+|   `certificateId`  |  string  length\- max:64 min:64  pattern: \(0x\)?\[a\-fA\-F0\-9\]\+  |  The ID of the CA certificate\. | 
+|   `status`  |  string |  The status of the CA certificate\. The status value REGISTER\_INACTIVE is deprecated and should not be used\.  enum: ACTIVE \| INACTIVE  | 
+|   `creationDate`  |  timestamp |  The date the CA certificate was created\. | 
+|   `nextMarker`  |  string  pattern: \[A\-Za\-z0\-9\+/\]\+=\{0,2\}  |  The current position within the list of CA certificates\. | 
 
  **Errors**
 
@@ -8366,9 +9161,9 @@ aws iot  list-certificates \
 
 |  Name |  Type |  Description | 
 | --- | --- | --- | 
-|  pageSize |  integer  range\- max:250 min:1  |  The result page size\. | 
-|  marker |  string  pattern: \[A\-Za\-z0\-9\+/\]\+=\{0,2\}  |  The marker for the next set of results\. | 
-|  ascendingOrder |  boolean |  Specifies the order for results\. If True, the results are returned in ascending order, based on the creation date\.  | 
+|   `pageSize`  |  integer  range\- max:250 min:1  |  The result page size\. | 
+|   `marker`  |  string  pattern: \[A\-Za\-z0\-9\+/\]\+=\{0,2\}  |  The marker for the next set of results\. | 
+|   `ascendingOrder`  |  boolean |  Specifies the order for results\. If True, the results are returned in ascending order, based on the creation date\.  | 
 
 Output
 
@@ -8391,12 +9186,12 @@ Output
 
 |  Name |  Type |  Description | 
 | --- | --- | --- | 
-|  certificates |  list  member: Certificate  java class: java\.util\.List  |  The descriptions of the certificates\. | 
-|  certificateArn |  string |  The ARN of the certificate\. | 
-|  certificateId |  string  length\- max:64 min:64  pattern: \(0x\)?\[a\-fA\-F0\-9\]\+  |  The ID of the certificate\. \(The last part of the certificate ARN contains the certificate ID\.\) | 
-|  status |  string |  The status of the certificate\. The status value REGISTER\_INACTIVE is deprecated and should not be used\.  enum: ACTIVE \| INACTIVE \| REVOKED \| PENDING\_TRANSFER \| REGISTER\_INACTIVE \| PENDING\_ACTIVATION  | 
-|  creationDate |  timestamp |  The date and time the certificate was created\. | 
-|  nextMarker |  string  pattern: \[A\-Za\-z0\-9\+/\]\+=\{0,2\}  |  The marker for the next set of results, or null if there are no additional results\. | 
+|   `certificates`  |  list  member: Certificate  java class: java\.util\.List  |  The descriptions of the certificates\. | 
+|   `certificateArn`  |  string |  The ARN of the certificate\. | 
+|   `certificateId`  |  string  length\- max:64 min:64  pattern: \(0x\)?\[a\-fA\-F0\-9\]\+  |  The ID of the certificate\. \(The last part of the certificate ARN contains the certificate ID\.\) | 
+|   `status`  |  string |  The status of the certificate\. The status value REGISTER\_INACTIVE is deprecated and should not be used\.  enum: ACTIVE \| INACTIVE \| REVOKED \| PENDING\_TRANSFER \| REGISTER\_INACTIVE \| PENDING\_ACTIVATION  | 
+|   `creationDate`  |  timestamp |  The date and time the certificate was created\. | 
+|   `nextMarker`  |  string  pattern: \[A\-Za\-z0\-9\+/\]\+=\{0,2\}  |  The marker for the next set of results, or null if there are no additional results\. | 
 
  **Errors**
 
@@ -8447,10 +9242,10 @@ aws iot  list-certificates-by-ca \
 
 |  Name |  Type |  Description | 
 | --- | --- | --- | 
-|  caCertificateId |  string  length\- max:64 min:64  pattern: \(0x\)?\[a\-fA\-F0\-9\]\+  |  The ID of the CA certificate\. This operation will list all registered device certificate that were signed by this CA certificate\.  | 
-|  pageSize |  integer  range\- max:250 min:1  |  The result page size\. | 
-|  marker |  string  pattern: \[A\-Za\-z0\-9\+/\]\+=\{0,2\}  |  The marker for the next set of results\. | 
-|  ascendingOrder |  boolean |  Specifies the order for results\. If True, the results are returned in ascending order, based on the creation date\.  | 
+|   `caCertificateId`  |  string  length\- max:64 min:64  pattern: \(0x\)?\[a\-fA\-F0\-9\]\+  |  The ID of the CA certificate\. This operation will list all registered device certificate that were signed by this CA certificate\.  | 
+|   `pageSize`  |  integer  range\- max:250 min:1  |  The result page size\. | 
+|   `marker`  |  string  pattern: \[A\-Za\-z0\-9\+/\]\+=\{0,2\}  |  The marker for the next set of results\. | 
+|   `ascendingOrder`  |  boolean |  Specifies the order for results\. If True, the results are returned in ascending order, based on the creation date\.  | 
 
 Output
 
@@ -8473,12 +9268,12 @@ Output
 
 |  Name |  Type |  Description | 
 | --- | --- | --- | 
-|  certificates |  list  member: Certificate  java class: java\.util\.List  |  The device certificates signed by the specified CA certificate\. | 
-|  certificateArn |  string |  The ARN of the certificate\. | 
-|  certificateId |  string  length\- max:64 min:64  pattern: \(0x\)?\[a\-fA\-F0\-9\]\+  |  The ID of the certificate\. \(The last part of the certificate ARN contains the certificate ID\.\) | 
-|  status |  string |  The status of the certificate\. The status value REGISTER\_INACTIVE is deprecated and should not be used\.  enum: ACTIVE \| INACTIVE \| REVOKED \| PENDING\_TRANSFER \| REGISTER\_INACTIVE \| PENDING\_ACTIVATION  | 
-|  creationDate |  timestamp |  The date and time the certificate was created\. | 
-|  nextMarker |  string  pattern: \[A\-Za\-z0\-9\+/\]\+=\{0,2\}  |  The marker for the next set of results, or null if there are no additional results\. | 
+|   `certificates`  |  list  member: Certificate  java class: java\.util\.List  |  The device certificates signed by the specified CA certificate\. | 
+|   `certificateArn`  |  string |  The ARN of the certificate\. | 
+|   `certificateId`  |  string  length\- max:64 min:64  pattern: \(0x\)?\[a\-fA\-F0\-9\]\+  |  The ID of the certificate\. \(The last part of the certificate ARN contains the certificate ID\.\) | 
+|   `status`  |  string |  The status of the certificate\. The status value REGISTER\_INACTIVE is deprecated and should not be used\.  enum: ACTIVE \| INACTIVE \| REVOKED \| PENDING\_TRANSFER \| REGISTER\_INACTIVE \| PENDING\_ACTIVATION  | 
+|   `creationDate`  |  timestamp |  The date and time the certificate was created\. | 
+|   `nextMarker`  |  string  pattern: \[A\-Za\-z0\-9\+/\]\+=\{0,2\}  |  The marker for the next set of results, or null if there are no additional results\. | 
 
  **Errors**
 
@@ -8525,8 +9320,8 @@ aws iot  list-indices \
 
 |  Name |  Type |  Description | 
 | --- | --- | --- | 
-|  nextToken |  string |  The token used to get the next set of results, or null if there are no additional results\.  | 
-|  maxResults |  integer  range\- max:500 min:1  |  The maximum number of results to return at one time\. | 
+|   `nextToken`  |  string |  The token used to get the next set of results, or null if there are no additional results\.  | 
+|   `maxResults`  |  integer  range\- max:500 min:1  |  The maximum number of results to return at one time\. | 
 
 Output
 
@@ -8544,8 +9339,8 @@ Output
 
 |  Name |  Type |  Description | 
 | --- | --- | --- | 
-|  indexNames |  list  member: IndexName  java class: java\.util\.List  |  The index names\. | 
-|  nextToken |  string |  The token used to get the next set of results, or null if there are no additional results\.  | 
+|   `indexNames`  |  list  member: IndexName  java class: java\.util\.List  |  The index names\. | 
+|   `nextToken`  |  string |  The token used to get the next set of results, or null if there are no additional results\.  | 
 
  **Errors**
 
@@ -8596,10 +9391,10 @@ aws iot  list-job-executions-for-job \
 
 |  Name |  Type |  Description | 
 | --- | --- | --- | 
-|  jobId |  string  length\- max:64 min:1  pattern: \[a\-zA\-Z0\-9\_\-\]\+  |  The unique identifier you assigned to this job when it was created\. | 
-|  status |  string |  The status of the job\.  enum: QUEUED \| IN\_PROGRESS \| SUCCEEDED \| FAILED \| TIMED\_OUT \| REJECTED \| REMOVED \| CANCELED  | 
-|  maxResults |  integer  range\- max:250 min:1  |  The maximum number of results to be returned per request\. | 
-|  nextToken |  string |  The token to retrieve the next set of results\. | 
+|   `jobId`  |  string  length\- max:64 min:1  pattern: \[a\-zA\-Z0\-9\_\-\]\+  |  The unique identifier you assigned to this job when it was created\. | 
+|   `status`  |  string |  The status of the job\.  enum: QUEUED \| IN\_PROGRESS \| SUCCEEDED \| FAILED \| TIMED\_OUT \| REJECTED \| REMOVED \| CANCELED  | 
+|   `maxResults`  |  integer  range\- max:250 min:1  |  The maximum number of results to be returned per request\. | 
+|   `nextToken`  |  string |  The token to retrieve the next set of results\. | 
 
 Output
 
@@ -8626,15 +9421,15 @@ Output
 
 |  Name |  Type |  Description | 
 | --- | --- | --- | 
-|  executionSummaries |  list  member: JobExecutionSummaryForJob  java class: java\.util\.List  |  A list of job execution summaries\. | 
-|  thingArn |  string |  The ARN of the thing on which the job execution is running\. | 
-|  jobExecutionSummary |  JobExecutionSummary |  Contains a subset of information about a job execution\. | 
-|  status |  string |  The status of the job execution\.  enum: QUEUED \| IN\_PROGRESS \| SUCCEEDED \| FAILED \| TIMED\_OUT \| REJECTED \| REMOVED \| CANCELED  | 
-|  queuedAt |  timestamp |  The time, in seconds since the epoch, when the job execution was queued\. | 
-|  startedAt |  timestamp |  The time, in seconds since the epoch, when the job execution started\. | 
-|  lastUpdatedAt |  timestamp |  The time, in seconds since the epoch, when the job execution was last updated\. | 
-|  executionNumber |  long |  A string \(consisting of the digits "0" through "9"\) which identifies this particular job execution on this particular device\. It can be used later in commands which return or update job execution information\.  | 
-|  nextToken |  string |  The token for the next set of results, or **null** if there are no additional results\.  | 
+|   `executionSummaries`  |  list  member: JobExecutionSummaryForJob  java class: java\.util\.List  |  A list of job execution summaries\. | 
+|   `thingArn`  |  string |  The ARN of the thing on which the job execution is running\. | 
+|   `jobExecutionSummary`  |  JobExecutionSummary |  Contains a subset of information about a job execution\. | 
+|   `status`  |  string |  The status of the job execution\.  enum: QUEUED \| IN\_PROGRESS \| SUCCEEDED \| FAILED \| TIMED\_OUT \| REJECTED \| REMOVED \| CANCELED  | 
+|   `queuedAt`  |  timestamp |  The time, in seconds since the epoch, when the job execution was queued\. | 
+|   `startedAt`  |  timestamp |  The time, in seconds since the epoch, when the job execution started\. | 
+|   `lastUpdatedAt`  |  timestamp |  The time, in seconds since the epoch, when the job execution was last updated\. | 
+|   `executionNumber`  |  long |  A string \(consisting of the digits "0" through "9"\) which identifies this particular job execution on this particular device\. It can be used later in commands which return or update job execution information\.  | 
+|   `nextToken`  |  string |  The token for the next set of results, or **null** if there are no additional results\.  | 
 
  **Errors**
 
@@ -8682,10 +9477,10 @@ aws iot  list-job-executions-for-thing \
 
 |  Name |  Type |  Description | 
 | --- | --- | --- | 
-|  thingName |  string  length\- max:128 min:1  pattern: \[a\-zA\-Z0\-9:\_\-\]\+  |  The thing name\. | 
-|  status |  string |  An optional filter that lets you search for jobs that have the specified status\.  enum: QUEUED \| IN\_PROGRESS \| SUCCEEDED \| FAILED \| TIMED\_OUT \| REJECTED \| REMOVED \| CANCELED  | 
-|  maxResults |  integer  range\- max:250 min:1  |  The maximum number of results to be returned per request\. | 
-|  nextToken |  string |  The token to retrieve the next set of results\. | 
+|   `thingName`  |  string  length\- max:128 min:1  pattern: \[a\-zA\-Z0\-9:\_\-\]\+  |  The thing name\. | 
+|   `status`  |  string |  An optional filter that lets you search for jobs that have the specified status\.  enum: QUEUED \| IN\_PROGRESS \| SUCCEEDED \| FAILED \| TIMED\_OUT \| REJECTED \| REMOVED \| CANCELED  | 
+|   `maxResults`  |  integer  range\- max:250 min:1  |  The maximum number of results to be returned per request\. | 
+|   `nextToken`  |  string |  The token to retrieve the next set of results\. | 
 
 Output
 
@@ -8712,15 +9507,15 @@ Output
 
 |  Name |  Type |  Description | 
 | --- | --- | --- | 
-|  executionSummaries |  list  member: JobExecutionSummaryForThing  java class: java\.util\.List  |  A list of job execution summaries\. | 
-|  jobId |  string  length\- max:64 min:1  pattern: \[a\-zA\-Z0\-9\_\-\]\+  |  The unique identifier you assigned to this job when it was created\. | 
-|  jobExecutionSummary |  JobExecutionSummary |  Contains a subset of information about a job execution\. | 
-|  status |  string |  The status of the job execution\.  enum: QUEUED \| IN\_PROGRESS \| SUCCEEDED \| FAILED \| TIMED\_OUT \| REJECTED \| REMOVED \| CANCELED  | 
-|  queuedAt |  timestamp |  The time, in seconds since the epoch, when the job execution was queued\. | 
-|  startedAt |  timestamp |  The time, in seconds since the epoch, when the job execution started\. | 
-|  lastUpdatedAt |  timestamp |  The time, in seconds since the epoch, when the job execution was last updated\. | 
-|  executionNumber |  long |  A string \(consisting of the digits "0" through "9"\) which identifies this particular job execution on this particular device\. It can be used later in commands which return or update job execution information\.  | 
-|  nextToken |  string |  The token for the next set of results, or **null** if there are no additional results\.  | 
+|   `executionSummaries`  |  list  member: JobExecutionSummaryForThing  java class: java\.util\.List  |  A list of job execution summaries\. | 
+|   `jobId`  |  string  length\- max:64 min:1  pattern: \[a\-zA\-Z0\-9\_\-\]\+  |  The unique identifier you assigned to this job when it was created\. | 
+|   `jobExecutionSummary`  |  JobExecutionSummary |  Contains a subset of information about a job execution\. | 
+|   `status`  |  string |  The status of the job execution\.  enum: QUEUED \| IN\_PROGRESS \| SUCCEEDED \| FAILED \| TIMED\_OUT \| REJECTED \| REMOVED \| CANCELED  | 
+|   `queuedAt`  |  timestamp |  The time, in seconds since the epoch, when the job execution was queued\. | 
+|   `startedAt`  |  timestamp |  The time, in seconds since the epoch, when the job execution started\. | 
+|   `lastUpdatedAt`  |  timestamp |  The time, in seconds since the epoch, when the job execution was last updated\. | 
+|   `executionNumber`  |  long |  A string \(consisting of the digits "0" through "9"\) which identifies this particular job execution on this particular device\. It can be used later in commands which return or update job execution information\.  | 
+|   `nextToken`  |  string |  The token for the next set of results, or **null** if there are no additional results\.  | 
 
  **Errors**
 
@@ -8772,12 +9567,12 @@ aws iot  list-jobs \
 
 |  Name |  Type |  Description | 
 | --- | --- | --- | 
-|  status |  string |  An optional filter that lets you search for jobs that have the specified status\.  enum: IN\_PROGRESS \| CANCELED \| COMPLETED \| DELETION\_IN\_PROGRESS  | 
-|  targetSelection |  string |  Specifies whether the job will continue to run \(CONTINUOUS\), or will be complete after all those things specified as targets have completed the job \(SNAPSHOT\)\. If continuous, the job may also be run on a thing when a change is detected in a target\. For example, a job will run on a thing when the thing is added to a target group, even after the job was completed by all things originally in the group\.   enum: CONTINUOUS \| SNAPSHOT  | 
-|  maxResults |  integer  range\- max:250 min:1  |  The maximum number of results to return per request\. | 
-|  nextToken |  string |  The token to retrieve the next set of results\. | 
-|  thingGroupName |  string  length\- max:128 min:1  pattern: \[a\-zA\-Z0\-9:\_\-\]\+  |  A filter that limits the returned jobs to those for the specified group\. | 
-|  thingGroupId |  string  length\- max:128 min:1  pattern: \[a\-zA\-Z0\-9\-\]\+  |  A filter that limits the returned jobs to those for the specified group\. | 
+|   `status`  |  string |  An optional filter that lets you search for jobs that have the specified status\.  enum: IN\_PROGRESS \| CANCELED \| COMPLETED \| DELETION\_IN\_PROGRESS  | 
+|   `targetSelection`  |  string |  Specifies whether the job will continue to run \(CONTINUOUS\), or will be complete after all those things specified as targets have completed the job \(SNAPSHOT\)\. If continuous, the job may also be run on a thing when a change is detected in a target\. For example, a job will run on a thing when the thing is added to a target group, even after the job was completed by all things originally in the group\.   enum: CONTINUOUS \| SNAPSHOT  | 
+|   `maxResults`  |  integer  range\- max:250 min:1  |  The maximum number of results to return per request\. | 
+|   `nextToken`  |  string |  The token to retrieve the next set of results\. | 
+|   `thingGroupName`  |  string  length\- max:128 min:1  pattern: \[a\-zA\-Z0\-9:\_\-\]\+  |  A filter that limits the returned jobs to those for the specified group\. | 
+|   `thingGroupId`  |  string  length\- max:128 min:1  pattern: \[a\-zA\-Z0\-9\-\]\+  |  A filter that limits the returned jobs to those for the specified group\. | 
 
 Output
 
@@ -8804,16 +9599,16 @@ Output
 
 |  Name |  Type |  Description | 
 | --- | --- | --- | 
-|  jobs |  list  member: JobSummary  java class: java\.util\.List  |  A list of jobs\. | 
-|  jobArn |  string |  The job ARN\. | 
-|  jobId |  string  length\- max:64 min:1  pattern: \[a\-zA\-Z0\-9\_\-\]\+  |  The unique identifier you assigned to this job when it was created\. | 
-|  thingGroupId |  string  length\- max:128 min:1  pattern: \[a\-zA\-Z0\-9\-\]\+  |  The ID of the thing group\. | 
-|  targetSelection |  string |  Specifies whether the job will continue to run \(CONTINUOUS\), or will be complete after all those things specified as targets have completed the job \(SNAPSHOT\)\. If continuous, the job may also be run on a thing when a change is detected in a target\. For example, a job will run on a thing when the thing is added to a target group, even after the job was completed by all things originally in the group\.  enum: CONTINUOUS \| SNAPSHOT  | 
-|  status |  string |  The job summary status\.  enum: IN\_PROGRESS \| CANCELED \| COMPLETED \| DELETION\_IN\_PROGRESS  | 
-|  createdAt |  timestamp |  The time, in seconds since the epoch, when the job was created\. | 
-|  lastUpdatedAt |  timestamp |  The time, in seconds since the epoch, when the job was last updated\. | 
-|  completedAt |  timestamp |  The time, in seconds since the epoch, when the job completed\. | 
-|  nextToken |  string |  The token for the next set of results, or **null** if there are no additional results\.  | 
+|   `jobs`  |  list  member: JobSummary  java class: java\.util\.List  |  A list of jobs\. | 
+|   `jobArn`  |  string |  The job ARN\. | 
+|   `jobId`  |  string  length\- max:64 min:1  pattern: \[a\-zA\-Z0\-9\_\-\]\+  |  The unique identifier you assigned to this job when it was created\. | 
+|   `thingGroupId`  |  string  length\- max:128 min:1  pattern: \[a\-zA\-Z0\-9\-\]\+  |  The ID of the thing group\. | 
+|   `targetSelection`  |  string |  Specifies whether the job will continue to run \(CONTINUOUS\), or will be complete after all those things specified as targets have completed the job \(SNAPSHOT\)\. If continuous, the job may also be run on a thing when a change is detected in a target\. For example, a job will run on a thing when the thing is added to a target group, even after the job was completed by all things originally in the group\.  enum: CONTINUOUS \| SNAPSHOT  | 
+|   `status`  |  string |  The job summary status\.  enum: IN\_PROGRESS \| CANCELED \| COMPLETED \| DELETION\_IN\_PROGRESS  | 
+|   `createdAt`  |  timestamp |  The time, in seconds since the epoch, when the job was created\. | 
+|   `lastUpdatedAt`  |  timestamp |  The time, in seconds since the epoch, when the job was last updated\. | 
+|   `completedAt`  |  timestamp |  The time, in seconds since the epoch, when the job completed\. | 
+|   `nextToken`  |  string |  The token for the next set of results, or **null** if there are no additional results\.  | 
 
  **Errors**
 
@@ -8828,6 +9623,77 @@ The rate exceeds the limit\.
 
 `ServiceUnavailableException`  
 The service is temporarily unavailable\.
+
+## ListMitigationActions<a name="api-iot-ListMitigationActions"></a>
+
+Gets a list of all mitigation actions that match the specified filter criteria\.
+
+ **Synopsis**
+
+```
+aws iot  list-mitigation-actions \
+    [--action-type <value>] \
+    [--max-results <value>] \
+    [--next-token <value>]  \
+    [--cli-input-json <value>] \
+    [--generate-cli-skeleton]
+```
+
+ `cli-input-json` format
+
+```
+{
+  "actionType": "string",
+  "maxResults": "integer",
+  "nextToken": "string"
+}
+```
+
+
+**`cli-input-json` fields**  
+
+|  Name |  Type |  Description | 
+| --- | --- | --- | 
+|   `actionType`  |  string |  Specify a value to limit the result to mitigation actions with a specific action type\.  enum: UPDATE\_DEVICE\_CERTIFICATE \| UPDATE\_CA\_CERTIFICATE \| ADD\_THINGS\_TO\_THING\_GROUP \| REPLACE\_DEFAULT\_POLICY\_VERSION \| ENABLE\_IOT\_LOGGING \| PUBLISH\_FINDING\_TO\_SNS  | 
+|   `maxResults`  |  integer  range\- max:250 min:1  |  The maximum number of results to return at one time\. The default is 25\. | 
+|   `nextToken`  |  string |  The token for the next set of results\. | 
+
+Output
+
+```
+{
+  "actionIdentifiers": [
+    {
+      "actionName": "string",
+      "actionArn": "string",
+      "creationDate": "timestamp"
+    }
+  ],
+  "nextToken": "string"
+}
+```
+
+
+**CLI output fields**  
+
+|  Name |  Type |  Description | 
+| --- | --- | --- | 
+|   `actionIdentifiers`  |  list  member: MitigationActionIdentifier  |  A set of actions that matched the specified filter criteria\. | 
+|   `actionName`  |  string  length\- max:128  pattern: \[a\-zA\-Z0\-9\_\-\]\+  |  The friendly name of the mitigation action\. | 
+|   `actionArn`  |  string |  The IAM role ARN used to apply this mitigation action\. | 
+|   `creationDate`  |  timestamp |  The date when this mitigation action was created\. | 
+|   `nextToken`  |  string |  The token for the next set of results\. | 
+
+ **Errors**
+
+`InvalidRequestException`  
+The contents of the request were invalid\.
+
+`ThrottlingException`  
+The rate exceeds the limit\.
+
+`InternalFailureException`  
+An unexpected error has occurred\.
 
 ## ListOTAUpdates<a name="api-iot-ListOTAUpdates"></a>
 
@@ -8859,9 +9725,9 @@ aws iot  list-ota-updates \
 
 |  Name |  Type |  Description | 
 | --- | --- | --- | 
-|  maxResults |  integer  range\- max:250 min:1  |  The maximum number of results to return at one time\. | 
-|  nextToken |  string |  A token used to retrieve the next set of results\. | 
-|  otaUpdateStatus |  string |  The OTA update job status\.  enum: CREATE\_PENDING \| CREATE\_IN\_PROGRESS \| CREATE\_COMPLETE \| CREATE\_FAILED  | 
+|   `maxResults`  |  integer  range\- max:250 min:1  |  The maximum number of results to return at one time\. | 
+|   `nextToken`  |  string |  A token used to retrieve the next set of results\. | 
+|   `otaUpdateStatus`  |  string |  The OTA update job status\.  enum: CREATE\_PENDING \| CREATE\_IN\_PROGRESS \| CREATE\_COMPLETE \| CREATE\_FAILED  | 
 
 Output
 
@@ -8883,11 +9749,11 @@ Output
 
 |  Name |  Type |  Description | 
 | --- | --- | --- | 
-|  otaUpdates |  list  member: OTAUpdateSummary  |  A list of OTA update jobs\. | 
-|  otaUpdateId |  string  length\- max:128 min:1  pattern: \[a\-zA\-Z0\-9\_\-\]\+  |  The OTA update ID\. | 
-|  otaUpdateArn |  string |  The OTA update ARN\. | 
-|  creationDate |  timestamp |  The date when the OTA update was created\. | 
-|  nextToken |  string |  A token to use to get the next set of results\. | 
+|   `otaUpdates`  |  list  member: OTAUpdateSummary  |  A list of OTA update jobs\. | 
+|   `otaUpdateId`  |  string  length\- max:128 min:1  pattern: \[a\-zA\-Z0\-9\_\-\]\+  |  The OTA update ID\. | 
+|   `otaUpdateArn`  |  string |  The OTA update ARN\. | 
+|   `creationDate`  |  timestamp |  The date when the OTA update was created\. | 
+|   `nextToken`  |  string |  A token to use to get the next set of results\. | 
 
  **Errors**
 
@@ -8936,9 +9802,9 @@ aws iot  list-outgoing-certificates \
 
 |  Name |  Type |  Description | 
 | --- | --- | --- | 
-|  pageSize |  integer  range\- max:250 min:1  |  The result page size\. | 
-|  marker |  string  pattern: \[A\-Za\-z0\-9\+/\]\+=\{0,2\}  |  The marker for the next set of results\. | 
-|  ascendingOrder |  boolean |  Specifies the order for results\. If True, the results are returned in ascending order, based on the creation date\.  | 
+|   `pageSize`  |  integer  range\- max:250 min:1  |  The result page size\. | 
+|   `marker`  |  string  pattern: \[A\-Za\-z0\-9\+/\]\+=\{0,2\}  |  The marker for the next set of results\. | 
+|   `ascendingOrder`  |  boolean |  Specifies the order for results\. If True, the results are returned in ascending order, based on the creation date\.  | 
 
 Output
 
@@ -8963,14 +9829,14 @@ Output
 
 |  Name |  Type |  Description | 
 | --- | --- | --- | 
-|  outgoingCertificates |  list  member: OutgoingCertificate  java class: java\.util\.List  |  The certificates that are being transferred but not yet accepted\. | 
-|  certificateArn |  string |  The certificate ARN\. | 
-|  certificateId |  string  length\- max:64 min:64  pattern: \(0x\)?\[a\-fA\-F0\-9\]\+  |  The certificate ID\. | 
-|  transferredTo |  string  length\- max:12 min:12  pattern: \[0\-9\]\+  |  The AWS account to which the transfer was made\. | 
-|  transferDate |  timestamp |  The date the transfer was initiated\. | 
-|  transferMessage |  string  length\- max:128  |  The transfer message\. | 
-|  creationDate |  timestamp |  The certificate creation date\. | 
-|  nextMarker |  string  pattern: \[A\-Za\-z0\-9\+/\]\+=\{0,2\}  |  The marker for the next set of results\. | 
+|   `outgoingCertificates`  |  list  member: OutgoingCertificate  java class: java\.util\.List  |  The certificates that are being transferred but not yet accepted\. | 
+|   `certificateArn`  |  string |  The certificate ARN\. | 
+|   `certificateId`  |  string  length\- max:64 min:64  pattern: \(0x\)?\[a\-fA\-F0\-9\]\+  |  The certificate ID\. | 
+|   `transferredTo`  |  string  length\- max:12 min:12  pattern: \[0\-9\]\+  |  The AWS account to which the transfer was made\. | 
+|   `transferDate`  |  timestamp |  The date the transfer was initiated\. | 
+|   `transferMessage`  |  string  length\- max:128  |  The transfer message\. | 
+|   `creationDate`  |  timestamp |  The certificate creation date\. | 
+|   `nextMarker`  |  string  pattern: \[A\-Za\-z0\-9\+/\]\+=\{0,2\}  |  The marker for the next set of results\. | 
 
  **Errors**
 
@@ -9019,9 +9885,9 @@ aws iot  list-policies \
 
 |  Name |  Type |  Description | 
 | --- | --- | --- | 
-|  marker |  string  pattern: \[A\-Za\-z0\-9\+/\]\+=\{0,2\}  |  The marker for the next set of results\. | 
-|  pageSize |  integer  range\- max:250 min:1  |  The result page size\. | 
-|  ascendingOrder |  boolean |  Specifies the order for results\. If true, the results are returned in ascending creation order\. | 
+|   `marker`  |  string  pattern: \[A\-Za\-z0\-9\+/\]\+=\{0,2\}  |  The marker for the next set of results\. | 
+|   `pageSize`  |  integer  range\- max:250 min:1  |  The result page size\. | 
+|   `ascendingOrder`  |  boolean |  Specifies the order for results\. If true, the results are returned in ascending creation order\. | 
 
 Output
 
@@ -9042,10 +9908,10 @@ Output
 
 |  Name |  Type |  Description | 
 | --- | --- | --- | 
-|  policies |  list  member: Policy  java class: java\.util\.List  |  The descriptions of the policies\. | 
-|  policyName |  string  length\- max:128 min:1  pattern: \[w\+=,\.@\-\]\+  |  The policy name\. | 
-|  policyArn |  string |  The policy ARN\. | 
-|  nextMarker |  string  pattern: \[A\-Za\-z0\-9\+/\]\+=\{0,2\}  |  The marker for the next set of results, or null if there are no additional results\. | 
+|   `policies`  |  list  member: Policy  java class: java\.util\.List  |  The descriptions of the policies\. | 
+|   `policyName`  |  string  length\- max:128 min:1  pattern: \[w\+=,\.@\-\]\+  |  The policy name\. | 
+|   `policyArn`  |  string |  The policy ARN\. | 
+|   `nextMarker`  |  string  pattern: \[A\-Za\-z0\-9\+/\]\+=\{0,2\}  |  The marker for the next set of results, or null if there are no additional results\. | 
 
  **Errors**
 
@@ -9098,10 +9964,10 @@ aws iot  list-policy-principals \
 
 |  Name |  Type |  Description | 
 | --- | --- | --- | 
-|  policyName |  string  length\- max:128 min:1  pattern: \[w\+=,\.@\-\]\+  |  The policy name\. | 
-|  marker |  string  pattern: \[A\-Za\-z0\-9\+/\]\+=\{0,2\}  |  The marker for the next set of results\. | 
-|  pageSize |  integer  range\- max:250 min:1  |  The result page size\. | 
-|  ascendingOrder |  boolean |  Specifies the order for results\. If true, the results are returned in ascending creation order\. | 
+|   `policyName`  |  string  length\- max:128 min:1  pattern: \[w\+=,\.@\-\]\+  |  The policy name\. | 
+|   `marker`  |  string  pattern: \[A\-Za\-z0\-9\+/\]\+=\{0,2\}  |  The marker for the next set of results\. | 
+|   `pageSize`  |  integer  range\- max:250 min:1  |  The result page size\. | 
+|   `ascendingOrder`  |  boolean |  Specifies the order for results\. If true, the results are returned in ascending creation order\. | 
 
 Output
 
@@ -9119,8 +9985,8 @@ Output
 
 |  Name |  Type |  Description | 
 | --- | --- | --- | 
-|  principals |  list  member: PrincipalArn  java class: java\.util\.List  |  The descriptions of the principals\. | 
-|  nextMarker |  string  pattern: \[A\-Za\-z0\-9\+/\]\+=\{0,2\}  |  The marker for the next set of results, or null if there are no additional results\. | 
+|   `principals`  |  list  member: PrincipalArn  java class: java\.util\.List  |  The descriptions of the principals\. | 
+|   `nextMarker`  |  string  pattern: \[A\-Za\-z0\-9\+/\]\+=\{0,2\}  |  The marker for the next set of results, or null if there are no additional results\. | 
 
  **Errors**
 
@@ -9168,7 +10034,7 @@ aws iot  list-policy-versions \
 
 |  Name |  Type |  Description | 
 | --- | --- | --- | 
-|  policyName |  string  length\- max:128 min:1  pattern: \[w\+=,\.@\-\]\+  |  The policy name\. | 
+|   `policyName`  |  string  length\- max:128 min:1  pattern: \[w\+=,\.@\-\]\+  |  The policy name\. | 
 
 Output
 
@@ -9189,10 +10055,10 @@ Output
 
 |  Name |  Type |  Description | 
 | --- | --- | --- | 
-|  policyVersions |  list  member: PolicyVersion  java class: java\.util\.List  |  The policy versions\. | 
-|  versionId |  string  pattern: \[0\-9\]\+  |  The policy version ID\. | 
-|  isDefaultVersion |  boolean |  Specifies whether the policy version is the default\. | 
-|  createDate |  timestamp |  The date and time the policy was created\. | 
+|   `policyVersions`  |  list  member: PolicyVersion  java class: java\.util\.List  |  The policy versions\. | 
+|   `versionId`  |  string  pattern: \[0\-9\]\+  |  The policy version ID\. | 
+|   `isDefaultVersion`  |  boolean |  Specifies whether the policy version is the default\. | 
+|   `createDate`  |  timestamp |  The date and time the policy was created\. | 
 
  **Errors**
 
@@ -9248,10 +10114,10 @@ aws iot  list-principal-policies \
 
 |  Name |  Type |  Description | 
 | --- | --- | --- | 
-|  principal |  string |  The principal\. | 
-|  marker |  string  pattern: \[A\-Za\-z0\-9\+/\]\+=\{0,2\}  |  The marker for the next set of results\. | 
-|  pageSize |  integer  range\- max:250 min:1  |  The result page size\. | 
-|  ascendingOrder |  boolean |  Specifies the order for results\. If true, results are returned in ascending creation order\. | 
+|   `principal`  |  string |  The principal\. | 
+|   `marker`  |  string  pattern: \[A\-Za\-z0\-9\+/\]\+=\{0,2\}  |  The marker for the next set of results\. | 
+|   `pageSize`  |  integer  range\- max:250 min:1  |  The result page size\. | 
+|   `ascendingOrder`  |  boolean |  Specifies the order for results\. If true, results are returned in ascending creation order\. | 
 
 Output
 
@@ -9272,10 +10138,10 @@ Output
 
 |  Name |  Type |  Description | 
 | --- | --- | --- | 
-|  policies |  list  member: Policy  java class: java\.util\.List  |  The policies\. | 
-|  policyName |  string  length\- max:128 min:1  pattern: \[w\+=,\.@\-\]\+  |  The policy name\. | 
-|  policyArn |  string |  The policy ARN\. | 
-|  nextMarker |  string  pattern: \[A\-Za\-z0\-9\+/\]\+=\{0,2\}  |  The marker for the next set of results, or null if there are no additional results\. | 
+|   `policies`  |  list  member: Policy  java class: java\.util\.List  |  The policies\. | 
+|   `policyName`  |  string  length\- max:128 min:1  pattern: \[w\+=,\.@\-\]\+  |  The policy name\. | 
+|   `policyArn`  |  string |  The policy ARN\. | 
+|   `nextMarker`  |  string  pattern: \[A\-Za\-z0\-9\+/\]\+=\{0,2\}  |  The marker for the next set of results, or null if there are no additional results\. | 
 
  **Errors**
 
@@ -9327,9 +10193,9 @@ aws iot  list-principal-things \
 
 |  Name |  Type |  Description | 
 | --- | --- | --- | 
-|  nextToken |  string |  The token to retrieve the next set of results\. | 
-|  maxResults |  integer  range\- max:250 min:1  |  The maximum number of results to return in this operation\. | 
-|  principal |  string |  The principal\. | 
+|   `nextToken`  |  string |  The token to retrieve the next set of results\. | 
+|   `maxResults`  |  integer  range\- max:250 min:1  |  The maximum number of results to return in this operation\. | 
+|   `principal`  |  string |  The principal\. | 
 
 Output
 
@@ -9347,8 +10213,8 @@ Output
 
 |  Name |  Type |  Description | 
 | --- | --- | --- | 
-|  things |  list  member: ThingName  |  The things\. | 
-|  nextToken |  string |  The token used to get the next set of results, or **null** if there are no additional results\.  | 
+|   `things`  |  list  member: ThingName  |  The things\. | 
+|   `nextToken`  |  string |  The token used to get the next set of results, or **null** if there are no additional results\.  | 
 
  **Errors**
 
@@ -9400,9 +10266,9 @@ aws iot  list-role-aliases \
 
 |  Name |  Type |  Description | 
 | --- | --- | --- | 
-|  pageSize |  integer  range\- max:250 min:1  |  The maximum number of results to return at one time\. | 
-|  marker |  string  pattern: \[A\-Za\-z0\-9\+/\]\+=\{0,2\}  |  A marker used to get the next set of results\. | 
-|  ascendingOrder |  boolean |  Return the list of role aliases in ascending alphabetical order\. | 
+|   `pageSize`  |  integer  range\- max:250 min:1  |  The maximum number of results to return at one time\. | 
+|   `marker`  |  string  pattern: \[A\-Za\-z0\-9\+/\]\+=\{0,2\}  |  A marker used to get the next set of results\. | 
+|   `ascendingOrder`  |  boolean |  Return the list of role aliases in ascending alphabetical order\. | 
 
 Output
 
@@ -9420,8 +10286,8 @@ Output
 
 |  Name |  Type |  Description | 
 | --- | --- | --- | 
-|  roleAliases |  list  member: RoleAlias  java class: java\.util\.List  |  The role aliases\. | 
-|  nextMarker |  string  pattern: \[A\-Za\-z0\-9\+/\]\+=\{0,2\}  |  A marker used to get the next set of results\. | 
+|   `roleAliases`  |  list  member: RoleAlias  java class: java\.util\.List  |  The role aliases\. | 
+|   `nextMarker`  |  string  pattern: \[A\-Za\-z0\-9\+/\]\+=\{0,2\}  |  A marker used to get the next set of results\. | 
 
  **Errors**
 
@@ -9468,8 +10334,8 @@ aws iot  list-scheduled-audits \
 
 |  Name |  Type |  Description | 
 | --- | --- | --- | 
-|  nextToken |  string |  The token for the next set of results\. | 
-|  maxResults |  integer  range\- max:250 min:1  |  The maximum number of results to return at one time\. The default is 25\. | 
+|   `nextToken`  |  string |  The token for the next set of results\. | 
+|   `maxResults`  |  integer  range\- max:250 min:1  |  The maximum number of results to return at one time\. The default is 25\. | 
 
 Output
 
@@ -9493,13 +10359,13 @@ Output
 
 |  Name |  Type |  Description | 
 | --- | --- | --- | 
-|  scheduledAudits |  list  member: ScheduledAuditMetadata  java class: java\.util\.List  |  The list of scheduled audits\. | 
-|  scheduledAuditName |  string  length\- max:128 min:1  pattern: \[a\-zA\-Z0\-9\_\-\]\+  |  The name of the scheduled audit\. | 
-|  scheduledAuditArn |  string |  The ARN of the scheduled audit\. | 
-|  frequency |  string |  How often the scheduled audit takes place\.  enum: DAILY \| WEEKLY \| BIWEEKLY \| MONTHLY  | 
-|  dayOfMonth |  string  pattern: ^\(\[1\-9\]\|\[12\]\[0\-9\]\|3\[01\]\)$\|^LAST$  |  The day of the month on which the scheduled audit is run \(if the `frequency` is "MONTHLY"\)\. If days 29\-31 are specified, and the month does not have that many days, the audit takes place on the "LAST" day of the month\.  | 
-|  dayOfWeek |  string |  The day of the week on which the scheduled audit is run \(if the `frequency` is "WEEKLY" or "BIWEEKLY"\)\.  enum: SUN \| MON \| TUE \| WED \| THU \| FRI \| SAT  | 
-|  nextToken |  string |  A token that can be used to retrieve the next set of results, or `null` if there are no additional results\.  | 
+|   `scheduledAudits`  |  list  member: ScheduledAuditMetadata  java class: java\.util\.List  |  The list of scheduled audits\. | 
+|   `scheduledAuditName`  |  string  length\- max:128 min:1  pattern: \[a\-zA\-Z0\-9\_\-\]\+  |  The name of the scheduled audit\. | 
+|   `scheduledAuditArn`  |  string |  The ARN of the scheduled audit\. | 
+|   `frequency`  |  string |  How often the scheduled audit occurs\.  enum: DAILY \| WEEKLY \| BIWEEKLY \| MONTHLY  | 
+|   `dayOfMonth`  |  string  pattern: ^\(\[1\-9\]\|\[12\]\[0\-9\]\|3\[01\]\)$\|^LAST$  |  The day of the month on which the scheduled audit is run \(if the `frequency` is "MONTHLY"\)\. If days 29\-31 are specified, and the month does not have that many days, the audit takes place on the "LAST" day of the month\.  | 
+|   `dayOfWeek`  |  string |  The day of the week on which the scheduled audit is run \(if the `frequency` is "WEEKLY" or "BIWEEKLY"\)\.  enum: SUN \| MON \| TUE \| WED \| THU \| FRI \| SAT  | 
+|   `nextToken`  |  string |  A token that can be used to retrieve the next set of results, or `null` if there are no additional results\.  | 
 
  **Errors**
 
@@ -9540,8 +10406,8 @@ aws iot  list-security-profiles \
 
 |  Name |  Type |  Description | 
 | --- | --- | --- | 
-|  nextToken |  string |  The token for the next set of results\. | 
-|  maxResults |  integer  range\- max:250 min:1  |  The maximum number of results to return at one time\. | 
+|   `nextToken`  |  string |  The token for the next set of results\. | 
+|   `maxResults`  |  integer  range\- max:250 min:1  |  The maximum number of results to return at one time\. | 
 
 Output
 
@@ -9562,10 +10428,10 @@ Output
 
 |  Name |  Type |  Description | 
 | --- | --- | --- | 
-|  securityProfileIdentifiers |  list  member: SecurityProfileIdentifier  java class: java\.util\.List  |  A list of security profile identifiers \(names and ARNs\)\. | 
-|  name |  string  length\- max:128 min:1  pattern: \[a\-zA\-Z0\-9:\_\-\]\+  |  The name you have given to the security profile\. | 
-|  arn |  string |  The ARN of the security profile\. | 
-|  nextToken |  string |  A token that can be used to retrieve the next set of results, or `null` if there are no additional results\.  | 
+|   `securityProfileIdentifiers`  |  list  member: SecurityProfileIdentifier  java class: java\.util\.List  |  A list of security profile identifiers \(names and ARNs\)\. | 
+|   `name`  |  string  length\- max:128 min:1  pattern: \[a\-zA\-Z0\-9:\_\-\]\+  |  The name you have given to the security profile\. | 
+|   `arn`  |  string |  The ARN of the security profile\. | 
+|   `nextToken`  |  string |  A token that can be used to retrieve the next set of results, or `null` if there are no additional results\.  | 
 
  **Errors**
 
@@ -9610,10 +10476,10 @@ aws iot  list-security-profiles-for-target \
 
 |  Name |  Type |  Description | 
 | --- | --- | --- | 
-|  nextToken |  string |  The token for the next set of results\. | 
-|  maxResults |  integer  range\- max:250 min:1  |  The maximum number of results to return at one time\. | 
-|  recursive |  boolean |  If true, return child groups as well\. | 
-|  securityProfileTargetArn |  string |  The ARN of the target \(thing group\) whose attached security profiles you want to get\. | 
+|   `nextToken`  |  string |  The token for the next set of results\. | 
+|   `maxResults`  |  integer  range\- max:250 min:1  |  The maximum number of results to return at one time\. | 
+|   `recursive`  |  boolean |  If true, return child groups too\. | 
+|   `securityProfileTargetArn`  |  string |  The ARN of the target \(thing group\) whose attached security profiles you want to get\. | 
 
 Output
 
@@ -9639,13 +10505,13 @@ Output
 
 |  Name |  Type |  Description | 
 | --- | --- | --- | 
-|  securityProfileTargetMappings |  list  member: SecurityProfileTargetMapping  java class: java\.util\.List  |  A list of security profiles and their associated targets\. | 
-|  securityProfileIdentifier |  SecurityProfileIdentifier |  Information that identifies the security profile\. | 
-|  name |  string  length\- max:128 min:1  pattern: \[a\-zA\-Z0\-9:\_\-\]\+  |  The name you have given to the security profile\. | 
-|  arn |  string |  The ARN of the security profile\. | 
-|  target |  SecurityProfileTarget |  Information about the target \(thing group\) associated with the security profile\. | 
-|  arn |  string |  The ARN of the security profile\. | 
-|  nextToken |  string |  A token that can be used to retrieve the next set of results, or `null` if there are no additional results\.  | 
+|   `securityProfileTargetMappings`  |  list  member: SecurityProfileTargetMapping  java class: java\.util\.List  |  A list of security profiles and their associated targets\. | 
+|   `securityProfileIdentifier`  |  SecurityProfileIdentifier |  Information that identifies the security profile\. | 
+|   `name`  |  string  length\- max:128 min:1  pattern: \[a\-zA\-Z0\-9:\_\-\]\+  |  The name you have given to the security profile\. | 
+|   `arn`  |  string |  The ARN of the security profile\. | 
+|   `target`  |  SecurityProfileTarget |  Information about the target \(thing group\) associated with the security profile\. | 
+|   `arn`  |  string |  The ARN of the security profile\. | 
+|   `nextToken`  |  string |  A token that can be used to retrieve the next set of results, or `null` if there are no additional results\.  | 
 
  **Errors**
 
@@ -9691,9 +10557,9 @@ aws iot  list-streams \
 
 |  Name |  Type |  Description | 
 | --- | --- | --- | 
-|  maxResults |  integer  range\- max:250 min:1  |  The maximum number of results to return at a time\. | 
-|  nextToken |  string |  A token used to get the next set of results\. | 
-|  ascendingOrder |  boolean |  Set to true to return the list of streams in ascending order\. | 
+|   `maxResults`  |  integer  range\- max:250 min:1  |  The maximum number of results to return at a time\. | 
+|   `nextToken`  |  string |  A token used to get the next set of results\. | 
+|   `ascendingOrder`  |  boolean |  Set to true to return the list of streams in ascending order\. | 
 
 Output
 
@@ -9716,12 +10582,12 @@ Output
 
 |  Name |  Type |  Description | 
 | --- | --- | --- | 
-|  streams |  list  member: StreamSummary  |  A list of streams\. | 
-|  streamId |  string  length\- max:128 min:1  pattern: \[a\-zA\-Z0\-9\_\-\]\+  |  The stream ID\. | 
-|  streamArn |  string |  The stream ARN\. | 
-|  streamVersion |  integer  range\- max:65535 min:0  |  The stream version\. | 
-|  description |  string  length\- max:2028  pattern: \[^\\\\p\{C\}\]\+  |  A description of the stream\. | 
-|  nextToken |  string |  A token used to get the next set of results\. | 
+|   `streams`  |  list  member: StreamSummary  |  A list of streams\. | 
+|   `streamId`  |  string  length\- max:128 min:1  pattern: \[a\-zA\-Z0\-9\_\-\]\+  |  The stream ID\. | 
+|   `streamArn`  |  string |  The stream ARN\. | 
+|   `streamVersion`  |  integer  range\- max:65535 min:0  |  The stream version\. | 
+|   `description`  |  string  length\- max:2028  pattern: \[^\\\\p\{C\}\]\+  |  A description of the stream\. | 
+|   `nextToken`  |  string |  A token used to get the next set of results\. | 
 
  **Errors**
 
@@ -9768,8 +10634,8 @@ aws iot  list-tags-for-resource \
 
 |  Name |  Type |  Description | 
 | --- | --- | --- | 
-|  resourceArn |  string |  The ARN of the resource\. | 
-|  nextToken |  string |  The token to retrieve the next set of results\. | 
+|   `resourceArn`  |  string |  The ARN of the resource\. | 
+|   `nextToken`  |  string |  The token to retrieve the next set of results\. | 
 
 Output
 
@@ -9790,10 +10656,10 @@ Output
 
 |  Name |  Type |  Description | 
 | --- | --- | --- | 
-|  tags |  list  member: Tag  java class: java\.util\.List  |  The list of tags assigned to the resource\. | 
-|  Key |  string |  The tag's key\. | 
-|  Value |  string |  The tag's value\. | 
-|  nextToken |  string |  The token used to get the next set of results, or **null** if there are no additional results\.  | 
+|   `tags`  |  list  member: Tag  java class: java\.util\.List  |  The list of tags assigned to the resource\. | 
+|   `Key`  |  string |  The tag's key\. | 
+|   `Value`  |  string |  The tag's value\. | 
+|   `nextToken`  |  string |  The token used to get the next set of results, or **null** if there are no additional results\.  | 
 
  **Errors**
 
@@ -9839,9 +10705,9 @@ aws iot  list-targets-for-policy \
 
 |  Name |  Type |  Description | 
 | --- | --- | --- | 
-|  policyName |  string  length\- max:128 min:1  pattern: \[w\+=,\.@\-\]\+  |  The policy name\. | 
-|  marker |  string  pattern: \[A\-Za\-z0\-9\+/\]\+=\{0,2\}  |  A marker used to get the next set of results\. | 
-|  pageSize |  integer  range\- max:250 min:1  |  The maximum number of results to return at one time\. | 
+|   `policyName`  |  string  length\- max:128 min:1  pattern: \[w\+=,\.@\-\]\+  |  The policy name\. | 
+|   `marker`  |  string  pattern: \[A\-Za\-z0\-9\+/\]\+=\{0,2\}  |  A marker used to get the next set of results\. | 
+|   `pageSize`  |  integer  range\- max:250 min:1  |  The maximum number of results to return at one time\. | 
 
 Output
 
@@ -9859,8 +10725,8 @@ Output
 
 |  Name |  Type |  Description | 
 | --- | --- | --- | 
-|  targets |  list  member: PolicyTarget  java class: java\.util\.List  |  The policy targets\. | 
-|  nextMarker |  string  pattern: \[A\-Za\-z0\-9\+/\]\+=\{0,2\}  |  A marker used to get the next set of results\. | 
+|   `targets`  |  list  member: PolicyTarget  java class: java\.util\.List  |  The policy targets\. | 
+|   `nextMarker`  |  string  pattern: \[A\-Za\-z0\-9\+/\]\+=\{0,2\}  |  A marker used to get the next set of results\. | 
 
  **Errors**
 
@@ -9915,9 +10781,9 @@ aws iot  list-targets-for-security-profile \
 
 |  Name |  Type |  Description | 
 | --- | --- | --- | 
-|  securityProfileName |  string  length\- max:128 min:1  pattern: \[a\-zA\-Z0\-9:\_\-\]\+  |  The security profile\. | 
-|  nextToken |  string |  The token for the next set of results\. | 
-|  maxResults |  integer  range\- max:250 min:1  |  The maximum number of results to return at one time\. | 
+|   `securityProfileName`  |  string  length\- max:128 min:1  pattern: \[a\-zA\-Z0\-9:\_\-\]\+  |  The security profile\. | 
+|   `nextToken`  |  string |  The token for the next set of results\. | 
+|   `maxResults`  |  integer  range\- max:250 min:1  |  The maximum number of results to return at one time\. | 
 
 Output
 
@@ -9937,9 +10803,9 @@ Output
 
 |  Name |  Type |  Description | 
 | --- | --- | --- | 
-|  securityProfileTargets |  list  member: SecurityProfileTarget  java class: java\.util\.List  |  The thing groups to which the security profile is attached\. | 
-|  arn |  string |  The ARN of the security profile\. | 
-|  nextToken |  string |  A token that can be used to retrieve the next set of results, or `null` if there are no additional results\.  | 
+|   `securityProfileTargets`  |  list  member: SecurityProfileTarget  java class: java\.util\.List  |  The thing groups to which the security profile is attached\. | 
+|   `arn`  |  string |  The ARN of the security profile\. | 
+|   `nextToken`  |  string |  A token that can be used to retrieve the next set of results, or `null` if there are no additional results\.  | 
 
  **Errors**
 
@@ -9989,11 +10855,11 @@ aws iot  list-thing-groups \
 
 |  Name |  Type |  Description | 
 | --- | --- | --- | 
-|  nextToken |  string |  The token to retrieve the next set of results\. | 
-|  maxResults |  integer  range\- max:250 min:1  |  The maximum number of results to return at one time\. | 
-|  parentGroup |  string  length\- max:128 min:1  pattern: \[a\-zA\-Z0\-9:\_\-\]\+  |  A filter that limits the results to those with the specified parent group\. | 
-|  namePrefixFilter |  string  length\- max:128 min:1  pattern: \[a\-zA\-Z0\-9:\_\-\]\+  |  A filter that limits the results to those with the specified name prefix\. | 
-|  recursive |  boolean |  If true, return child groups as well\. | 
+|   `nextToken`  |  string |  The token to retrieve the next set of results\. | 
+|   `maxResults`  |  integer  range\- max:250 min:1  |  The maximum number of results to return at one time\. | 
+|   `parentGroup`  |  string  length\- max:128 min:1  pattern: \[a\-zA\-Z0\-9:\_\-\]\+  |  A filter that limits the results to those with the specified parent group\. | 
+|   `namePrefixFilter`  |  string  length\- max:128 min:1  pattern: \[a\-zA\-Z0\-9:\_\-\]\+  |  A filter that limits the results to those with the specified name prefix\. | 
+|   `recursive`  |  boolean |  If true, return child groups as well\. | 
 
 Output
 
@@ -10014,10 +10880,10 @@ Output
 
 |  Name |  Type |  Description | 
 | --- | --- | --- | 
-|  thingGroups |  list  member: GroupNameAndArn  java class: java\.util\.List  |  The thing groups\. | 
-|  groupName |  string  length\- max:128 min:1  pattern: \[a\-zA\-Z0\-9:\_\-\]\+  |  The group name\. | 
-|  groupArn |  string |  The group ARN\. | 
-|  nextToken |  string |  The token used to get the next set of results, or **null** if there are no additional results\.  | 
+|   `thingGroups`  |  list  member: GroupNameAndArn  java class: java\.util\.List  |  The thing groups\. | 
+|   `groupName`  |  string  length\- max:128 min:1  pattern: \[a\-zA\-Z0\-9:\_\-\]\+  |  The group name\. | 
+|   `groupArn`  |  string |  The group ARN\. | 
+|   `nextToken`  |  string |  The token used to get the next set of results, or **null** if there are no additional results\.  | 
 
  **Errors**
 
@@ -10060,9 +10926,9 @@ aws iot  list-thing-groups-for-thing \
 
 |  Name |  Type |  Description | 
 | --- | --- | --- | 
-|  thingName |  string  length\- max:128 min:1  pattern: \[a\-zA\-Z0\-9:\_\-\]\+  |  The thing name\. | 
-|  nextToken |  string |  The token to retrieve the next set of results\. | 
-|  maxResults |  integer  range\- max:250 min:1  |  The maximum number of results to return at one time\. | 
+|   `thingName`  |  string  length\- max:128 min:1  pattern: \[a\-zA\-Z0\-9:\_\-\]\+  |  The thing name\. | 
+|   `nextToken`  |  string |  The token to retrieve the next set of results\. | 
+|   `maxResults`  |  integer  range\- max:250 min:1  |  The maximum number of results to return at one time\. | 
 
 Output
 
@@ -10083,10 +10949,10 @@ Output
 
 |  Name |  Type |  Description | 
 | --- | --- | --- | 
-|  thingGroups |  list  member: GroupNameAndArn  java class: java\.util\.List  |  The thing groups\. | 
-|  groupName |  string  length\- max:128 min:1  pattern: \[a\-zA\-Z0\-9:\_\-\]\+  |  The group name\. | 
-|  groupArn |  string |  The group ARN\. | 
-|  nextToken |  string |  The token used to get the next set of results, or **null** if there are no additional results\.  | 
+|   `thingGroups`  |  list  member: GroupNameAndArn  java class: java\.util\.List  |  The thing groups\. | 
+|   `groupName`  |  string  length\- max:128 min:1  pattern: \[a\-zA\-Z0\-9:\_\-\]\+  |  The group name\. | 
+|   `groupArn`  |  string |  The group ARN\. | 
+|   `nextToken`  |  string |  The token used to get the next set of results, or **null** if there are no additional results\.  | 
 
  **Errors**
 
@@ -10125,7 +10991,7 @@ aws iot  list-thing-principals \
 
 |  Name |  Type |  Description | 
 | --- | --- | --- | 
-|  thingName |  string  length\- max:128 min:1  pattern: \[a\-zA\-Z0\-9:\_\-\]\+  |  The name of the thing\. | 
+|   `thingName`  |  string  length\- max:128 min:1  pattern: \[a\-zA\-Z0\-9:\_\-\]\+  |  The name of the thing\. | 
 
 Output
 
@@ -10142,7 +11008,7 @@ Output
 
 |  Name |  Type |  Description | 
 | --- | --- | --- | 
-|  principals |  list  member: PrincipalArn  java class: java\.util\.List  |  The principals associated with the thing\. | 
+|   `principals`  |  list  member: PrincipalArn  java class: java\.util\.List  |  The principals associated with the thing\. | 
 
  **Errors**
 
@@ -10196,10 +11062,10 @@ aws iot  list-thing-registration-task-reports \
 
 |  Name |  Type |  Description | 
 | --- | --- | --- | 
-|  taskId |  string  length\- max:40  |  The id of the task\. | 
-|  reportType |  string |  The type of task report\.  enum: ERRORS \| RESULTS  | 
-|  nextToken |  string |  The token to retrieve the next set of results\. | 
-|  maxResults |  integer  range\- max:250 min:1  |  The maximum number of results to return per request\. | 
+|   `taskId`  |  string  length\- max:40  |  The id of the task\. | 
+|   `reportType`  |  string |  The type of task report\.  enum: ERRORS \| RESULTS  | 
+|   `nextToken`  |  string |  The token to retrieve the next set of results\. | 
+|   `maxResults`  |  integer  range\- max:250 min:1  |  The maximum number of results to return per request\. | 
 
 Output
 
@@ -10218,9 +11084,9 @@ Output
 
 |  Name |  Type |  Description | 
 | --- | --- | --- | 
-|  resourceLinks |  list  member: S3FileUrl  |  Links to the task resources\. | 
-|  reportType |  string |  The type of task report\.  enum: ERRORS \| RESULTS  | 
-|  nextToken |  string |  The token used to get the next set of results, or **null** if there are no additional results\.  | 
+|   `resourceLinks`  |  list  member: S3FileUrl  |  Links to the task resources\. | 
+|   `reportType`  |  string |  The type of task report\.  enum: ERRORS \| RESULTS  | 
+|   `nextToken`  |  string |  The token used to get the next set of results, or **null** if there are no additional results\.  | 
 
  **Errors**
 
@@ -10266,9 +11132,9 @@ aws iot  list-thing-registration-tasks \
 
 |  Name |  Type |  Description | 
 | --- | --- | --- | 
-|  nextToken |  string |  The token to retrieve the next set of results\. | 
-|  maxResults |  integer  range\- max:250 min:1  |  The maximum number of results to return at one time\. | 
-|  status |  string |  The status of the bulk thing provisioning task\.  enum: InProgress \| Completed \| Failed \| Cancelled \| Cancelling  | 
+|   `nextToken`  |  string |  The token to retrieve the next set of results\. | 
+|   `maxResults`  |  integer  range\- max:250 min:1  |  The maximum number of results to return at one time\. | 
+|   `status`  |  string |  The status of the bulk thing provisioning task\.  enum: InProgress \| Completed \| Failed \| Cancelled \| Cancelling  | 
 
 Output
 
@@ -10286,8 +11152,8 @@ Output
 
 |  Name |  Type |  Description | 
 | --- | --- | --- | 
-|  taskIds |  list  member: TaskId  |  A list of bulk thing provisioning task IDs\. | 
-|  nextToken |  string |  The token used to get the next set of results, or **null** if there are no additional results\.  | 
+|   `taskIds`  |  list  member: TaskId  |  A list of bulk thing provisioning task IDs\. | 
+|   `nextToken`  |  string |  The token used to get the next set of results, or **null** if there are no additional results\.  | 
 
  **Errors**
 
@@ -10333,9 +11199,9 @@ aws iot  list-thing-types \
 
 |  Name |  Type |  Description | 
 | --- | --- | --- | 
-|  nextToken |  string |  The token to retrieve the next set of results\. | 
-|  maxResults |  integer  range\- max:250 min:1  |  The maximum number of results to return in this operation\. | 
-|  thingTypeName |  string  length\- max:128 min:1  pattern: \[a\-zA\-Z0\-9:\_\-\]\+  |  The name of the thing type\. | 
+|   `nextToken`  |  string |  The token to retrieve the next set of results\. | 
+|   `maxResults`  |  integer  range\- max:250 min:1  |  The maximum number of results to return in this operation\. | 
+|   `thingTypeName`  |  string  length\- max:128 min:1  pattern: \[a\-zA\-Z0\-9:\_\-\]\+  |  The name of the thing type\. | 
 
 Output
 
@@ -10367,17 +11233,17 @@ Output
 
 |  Name |  Type |  Description | 
 | --- | --- | --- | 
-|  thingTypes |  list  member: ThingTypeDefinition  java class: java\.util\.List  |  The thing types\. | 
-|  thingTypeName |  string  length\- max:128 min:1  pattern: \[a\-zA\-Z0\-9:\_\-\]\+  |  The name of the thing type\. | 
-|  thingTypeArn |  string |  The thing type ARN\. | 
-|  thingTypeProperties |  ThingTypeProperties |  The ThingTypeProperties for the thing type\. | 
-|  thingTypeDescription |  string  length\- max:2028  pattern: \[\\\\p\{Graph\} \]\*  |  The description of the thing type\. | 
-|  searchableAttributes |  list  member: AttributeName  java class: java\.util\.List  |  A list of searchable thing attribute names\. | 
-|  thingTypeMetadata |  ThingTypeMetadata |  The ThingTypeMetadata contains additional information about the thing type including: creation date and time, a value indicating whether the thing type is deprecated, and a date and time when it was deprecated\.  | 
-|  deprecated |  boolean |  Whether the thing type is deprecated\. If **true**, no new things could be associated with this type\.  | 
-|  deprecationDate |  timestamp |  The date and time when the thing type was deprecated\. | 
-|  creationDate |  timestamp |  The date and time when the thing type was created\. | 
-|  nextToken |  string |  The token for the next set of results, or **null** if there are no additional results\.  | 
+|   `thingTypes`  |  list  member: ThingTypeDefinition  java class: java\.util\.List  |  The thing types\. | 
+|   `thingTypeName`  |  string  length\- max:128 min:1  pattern: \[a\-zA\-Z0\-9:\_\-\]\+  |  The name of the thing type\. | 
+|   `thingTypeArn`  |  string |  The thing type ARN\. | 
+|   `thingTypeProperties`  |  ThingTypeProperties |  The ThingTypeProperties for the thing type\. | 
+|   `thingTypeDescription`  |  string  length\- max:2028  pattern: \[\\\\p\{Graph\} \]\*  |  The description of the thing type\. | 
+|   `searchableAttributes`  |  list  member: AttributeName  java class: java\.util\.List  |  A list of searchable thing attribute names\. | 
+|   `thingTypeMetadata`  |  ThingTypeMetadata |  The ThingTypeMetadata contains additional information about the thing type including: creation date and time, a value indicating whether the thing type is deprecated, and a date and time when it was deprecated\.  | 
+|   `deprecated`  |  boolean |  Whether the thing type is deprecated\. If **true**, no new things could be associated with this type\.  | 
+|   `deprecationDate`  |  timestamp |  The date and time when the thing type was deprecated\. | 
+|   `creationDate`  |  timestamp |  The date and time when the thing type was created\. | 
+|   `nextToken`  |  string |  The token for the next set of results, or **null** if there are no additional results\.  | 
 
  **Errors**
 
@@ -10430,11 +11296,11 @@ aws iot  list-things \
 
 |  Name |  Type |  Description | 
 | --- | --- | --- | 
-|  nextToken |  string |  The token to retrieve the next set of results\. | 
-|  maxResults |  integer  range\- max:250 min:1  |  The maximum number of results to return in this operation\. | 
-|  attributeName |  string  length\- max:128  pattern: \[a\-zA\-Z0\-9\_\.,@/:\#\-\]\+  |  The attribute name used to search for things\. | 
-|  attributeValue |  string  length\- max:800  pattern: \[a\-zA\-Z0\-9\_\.,@/:\#\-\]\*  |  The attribute value used to search for things\. | 
-|  thingTypeName |  string  length\- max:128 min:1  pattern: \[a\-zA\-Z0\-9:\_\-\]\+  |  The name of the thing type used to search for things\. | 
+|   `nextToken`  |  string |  The token to retrieve the next set of results\. | 
+|   `maxResults`  |  integer  range\- max:250 min:1  |  The maximum number of results to return in this operation\. | 
+|   `attributeName`  |  string  length\- max:128  pattern: \[a\-zA\-Z0\-9\_\.,@/:\#\-\]\+  |  The attribute name used to search for things\. | 
+|   `attributeValue`  |  string  length\- max:800  pattern: \[a\-zA\-Z0\-9\_\.,@/:\#\-\]\*  |  The attribute value used to search for things\. | 
+|   `thingTypeName`  |  string  length\- max:128 min:1  pattern: \[a\-zA\-Z0\-9:\_\-\]\+  |  The name of the thing type used to search for things\. | 
 
 Output
 
@@ -10460,13 +11326,13 @@ Output
 
 |  Name |  Type |  Description | 
 | --- | --- | --- | 
-|  things |  list  member: ThingAttribute  java class: java\.util\.List  |  The things\. | 
-|  thingName |  string  length\- max:128 min:1  pattern: \[a\-zA\-Z0\-9:\_\-\]\+  |  The name of the thing\. | 
-|  thingTypeName |  string  length\- max:128 min:1  pattern: \[a\-zA\-Z0\-9:\_\-\]\+  |  The name of the thing type, if the thing has been associated with a type\. | 
-|  thingArn |  string |  The thing ARN\. | 
-|  attributes |  map |  A list of thing attributes which are name\-value pairs\. | 
-|  version |  long |  The version of the thing record in the registry\. | 
-|  nextToken |  string |  The token used to get the next set of results, or **null** if there are no additional results\.  | 
+|   `things`  |  list  member: ThingAttribute  java class: java\.util\.List  |  The things\. | 
+|   `thingName`  |  string  length\- max:128 min:1  pattern: \[a\-zA\-Z0\-9:\_\-\]\+  |  The name of the thing\. | 
+|   `thingTypeName`  |  string  length\- max:128 min:1  pattern: \[a\-zA\-Z0\-9:\_\-\]\+  |  The name of the thing type, if the thing has been associated with a type\. | 
+|   `thingArn`  |  string |  The thing ARN\. | 
+|   `attributes`  |  map |  A list of thing attributes which are name\-value pairs\. | 
+|   `version`  |  long |  The version of the thing record in the registry\. | 
+|   `nextToken`  |  string |  The token used to get the next set of results, or **null** if there are no additional results\.  | 
 
  **Errors**
 
@@ -10515,9 +11381,9 @@ aws iot  list-things-in-billing-group \
 
 |  Name |  Type |  Description | 
 | --- | --- | --- | 
-|  billingGroupName |  string  length\- max:128 min:1  pattern: \[a\-zA\-Z0\-9:\_\-\]\+  |  The name of the billing group\. | 
-|  nextToken |  string |  The token to retrieve the next set of results\. | 
-|  maxResults |  integer  range\- max:250 min:1  |  The maximum number of results to return per request\. | 
+|   `billingGroupName`  |  string  length\- max:128 min:1  pattern: \[a\-zA\-Z0\-9:\_\-\]\+  |  The name of the billing group\. | 
+|   `nextToken`  |  string |  The token to retrieve the next set of results\. | 
+|   `maxResults`  |  integer  range\- max:250 min:1  |  The maximum number of results to return per request\. | 
 
 Output
 
@@ -10535,8 +11401,8 @@ Output
 
 |  Name |  Type |  Description | 
 | --- | --- | --- | 
-|  things |  list  member: ThingName  |  A list of things in the billing group\. | 
-|  nextToken |  string |  The token used to get the next set of results, or **null** if there are no additional results\.  | 
+|   `things`  |  list  member: ThingName  |  A list of things in the billing group\. | 
+|   `nextToken`  |  string |  The token used to get the next set of results, or **null** if there are no additional results\.  | 
 
  **Errors**
 
@@ -10584,10 +11450,10 @@ aws iot  list-things-in-thing-group \
 
 |  Name |  Type |  Description | 
 | --- | --- | --- | 
-|  thingGroupName |  string  length\- max:128 min:1  pattern: \[a\-zA\-Z0\-9:\_\-\]\+  |  The thing group name\. | 
-|  recursive |  boolean |  When true, list things in this thing group and in all child groups as well\. | 
-|  nextToken |  string |  The token to retrieve the next set of results\. | 
-|  maxResults |  integer  range\- max:250 min:1  |  The maximum number of results to return at one time\. | 
+|   `thingGroupName`  |  string  length\- max:128 min:1  pattern: \[a\-zA\-Z0\-9:\_\-\]\+  |  The thing group name\. | 
+|   `recursive`  |  boolean |  When true, list things in this thing group and in all child groups as well\. | 
+|   `nextToken`  |  string |  The token to retrieve the next set of results\. | 
+|   `maxResults`  |  integer  range\- max:250 min:1  |  The maximum number of results to return at one time\. | 
 
 Output
 
@@ -10605,8 +11471,8 @@ Output
 
 |  Name |  Type |  Description | 
 | --- | --- | --- | 
-|  things |  list  member: ThingName  |  The things in the specified thing group\. | 
-|  nextToken |  string |  The token used to get the next set of results, or **null** if there are no additional results\.  | 
+|   `things`  |  list  member: ThingName  |  The things in the specified thing group\. | 
+|   `nextToken`  |  string |  The token used to get the next set of results, or **null** if there are no additional results\.  | 
 
  **Errors**
 
@@ -10651,10 +11517,10 @@ aws iot  list-topic-rules \
 
 |  Name |  Type |  Description | 
 | --- | --- | --- | 
-|  topic |  string |  The topic\. | 
-|  maxResults |  integer  range\- max:10000 min:1  |  The maximum number of results to return\. | 
-|  nextToken |  string |  A token used to retrieve the next value\. | 
-|  ruleDisabled |  boolean |  Specifies whether the rule is disabled\. | 
+|   `topic`  |  string |  The topic\. | 
+|   `maxResults`  |  integer  range\- max:10000 min:1  |  The maximum number of results to return\. | 
+|   `nextToken`  |  string |  A token used to retrieve the next value\. | 
+|   `ruleDisabled`  |  boolean |  Specifies whether the rule is disabled\. | 
 
 Output
 
@@ -10678,13 +11544,13 @@ Output
 
 |  Name |  Type |  Description | 
 | --- | --- | --- | 
-|  rules |  list  member: TopicRuleListItem  |  The rules\. | 
-|  ruleArn |  string |  The rule ARN\. | 
-|  ruleName |  string  length\- max:128 min:1  pattern: ^\[a\-zA\-Z0\-9\_\]\+$  |  The name of the rule\. | 
-|  topicPattern |  string |  The pattern for the topic names that apply\. | 
-|  createdAt |  timestamp |  The date and time the rule was created\. | 
-|  ruleDisabled |  boolean |  Specifies whether the rule is disabled\. | 
-|  nextToken |  string |  A token used to retrieve the next value\. | 
+|   `rules`  |  list  member: TopicRuleListItem  |  The rules\. | 
+|   `ruleArn`  |  string |  The rule ARN\. | 
+|   `ruleName`  |  string  length\- max:128 min:1  pattern: ^\[a\-zA\-Z0\-9\_\]\+$  |  The name of the rule\. | 
+|   `topicPattern`  |  string |  The pattern for the topic names that apply\. | 
+|   `createdAt`  |  timestamp |  The date and time the rule was created\. | 
+|   `ruleDisabled`  |  boolean |  Specifies whether the rule is disabled\. | 
+|   `nextToken`  |  string |  A token used to retrieve the next value\. | 
 
  **Errors**
 
@@ -10727,9 +11593,9 @@ aws iot  list-v2-logging-levels \
 
 |  Name |  Type |  Description | 
 | --- | --- | --- | 
-|  targetType |  string |  The type of resource for which you are configuring logging\. Must be `THING_Group`\.  enum: DEFAULT \| THING\_GROUP  | 
-|  nextToken |  string |  The token used to get the next set of results, or **null** if there are no additional results\.  | 
-|  maxResults |  integer  range\- max:250 min:1  |  The maximum number of results to return at one time\. | 
+|   `targetType`  |  string |  The type of resource for which you are configuring logging\. Must be `THING_Group`\.  enum: DEFAULT \| THING\_GROUP  | 
+|   `nextToken`  |  string |  The token used to get the next set of results, or **null** if there are no additional results\. | 
+|   `maxResults`  |  integer  range\- max:250 min:1  |  The maximum number of results to return at one time\. | 
 
 Output
 
@@ -10753,12 +11619,12 @@ Output
 
 |  Name |  Type |  Description | 
 | --- | --- | --- | 
-|  logTargetConfigurations |  list  member: LogTargetConfiguration  |  The logging configuration for a target\. | 
-|  logTarget |  LogTarget |  A log target | 
-|  targetType |  string |  The target type\.  enum: DEFAULT \| THING\_GROUP  | 
-|  targetName |  string |  The target name\. | 
-|  logLevel |  string |  The logging level\.  enum: DEBUG \| INFO \| ERROR \| WARN \| DISABLED  | 
-|  nextToken |  string |  The token used to get the next set of results, or **null** if there are no additional results\.  | 
+|   `logTargetConfigurations`  |  list  member: LogTargetConfiguration  |  The logging configuration for a target\. | 
+|   `logTarget`  |  LogTarget |  A log target | 
+|   `targetType`  |  string |  The target type\.  enum: DEFAULT \| THING\_GROUP  | 
+|   `targetName`  |  string |  The target name\. | 
+|   `logLevel`  |  string |  The logging level\.  enum: DEBUG \| INFO \| ERROR \| WARN \| DISABLED  | 
+|   `nextToken`  |  string |  The token used to get the next set of results, or **null** if there are no additional results\. | 
 
  **Errors**
 
@@ -10776,7 +11642,7 @@ The service is temporarily unavailable\.
 
 ## ListViolationEvents<a name="api-iot-ListViolationEvents"></a>
 
-Lists the Device Defender security profile violations discovered during the given time period\. You can use filters to limit the results to those alerts issued for a particular security profile, behavior or thing \(device\)\.
+Lists the Device Defender security profile violations discovered during the given time period\. You can use filters to limit the results to those alerts issued for a particular security profile, behavior, or thing \(device\)\.
 
  **Synopsis**
 
@@ -10810,12 +11676,12 @@ aws iot  list-violation-events \
 
 |  Name |  Type |  Description | 
 | --- | --- | --- | 
-|  startTime |  timestamp |  The start time for the alerts to be listed\. | 
-|  endTime |  timestamp |  The end time for the alerts to be listed\. | 
-|  thingName |  string  length\- max:128 min:1  pattern: \[a\-zA\-Z0\-9:\_\-\]\+  |  A filter to limit results to those alerts caused by the specified thing\. | 
-|  securityProfileName |  string  length\- max:128 min:1  pattern: \[a\-zA\-Z0\-9:\_\-\]\+  |  A filter to limit results to those alerts generated by the specified security profile\. | 
-|  nextToken |  string |  The token for the next set of results\. | 
-|  maxResults |  integer  range\- max:250 min:1  |  The maximum number of results to return at one time\. | 
+|   `startTime`  |  timestamp |  The start time for the alerts to be listed\. | 
+|   `endTime`  |  timestamp |  The end time for the alerts to be listed\. | 
+|   `thingName`  |  string  length\- max:128 min:1  |  A filter to limit results to those alerts caused by the specified thing\. | 
+|   `securityProfileName`  |  string  length\- max:128 min:1  pattern: \[a\-zA\-Z0\-9:\_\-\]\+  |  A filter to limit results to those alerts generated by the specified security profile\. | 
+|   `nextToken`  |  string |  The token for the next set of results\. | 
+|   `maxResults`  |  integer  range\- max:250 min:1  |  The maximum number of results to return at one time\. | 
 
 Output
 
@@ -10870,31 +11736,31 @@ Output
 
 |  Name |  Type |  Description | 
 | --- | --- | --- | 
-|  violationEvents |  list  member: ViolationEvent  |  The security profile violation alerts issued for this account during the given time frame, potentially filtered by security profile, behavior violated, or thing \(device\) violating\.  | 
-|  violationId |  string  length\- max:128 min:1  pattern: \[a\-zA\-Z0\-9\-\]\+  |  The ID of the violation event\. | 
-|  thingName |  string  length\- max:128 min:1  pattern: \[a\-zA\-Z0\-9:\_\-\]\+  |  The name of the thing responsible for the violation event\. | 
-|  securityProfileName |  string  length\- max:128 min:1  pattern: \[a\-zA\-Z0\-9:\_\-\]\+  |  The name of the security profile whose behavior was violated\. | 
-|  behavior |  Behavior |  The behavior which was violated\. | 
-|  name |  string  length\- max:128 min:1  pattern: \[a\-zA\-Z0\-9:\_\-\]\+  |  The name you have given to the behavior\. | 
-|  metric |  string |  What is measured by the behavior\. | 
-|  criteria |  BehaviorCriteria |  The criteria that determine if a device is behaving normally in regard to the `metric`\.  | 
-|  comparisonOperator |  string |  The operator that relates the thing measured \(`metric`\) to the criteria \(containing a `value` or `statisticalThreshold`\)\.  enum: less\-than \| less\-than\-equals \| greater\-than \| greater\-than\-equals \| in\-cidr\-set \| not\-in\-cidr\-set \| in\-port\-set \| not\-in\-port\-set  | 
-|  value |  MetricValue |  The value to be compared with the `metric`\. | 
-|  count |  long  range\- min:0  |  If the `comparisonOperator` calls for a numeric value, use this to specify that numeric value to be compared with the `metric`\.  | 
-|  cidrs |  list  member: Cidr  |  If the `comparisonOperator` calls for a set of CIDRs, use this to specify that set to be compared with the `metric`\.  | 
-|  ports |  list  member: Port  |  If the `comparisonOperator` calls for a set of ports, use this to specify that set to be compared with the `metric`\.  | 
-|  durationSeconds |  integer |  Use this to specify the time duration over which the behavior is evaluated, for those criteria which have a time dimension \(for example, `NUM_MESSAGES_SENT`\)\. For a `statisticalThreshhold` metric comparison, measurements from all devices are accumulated over this time duration before being used to calculate percentiles, and later, measurements from an individual device are also accumulated over this time duration before being given a percentile rank\.  | 
-|  consecutiveDatapointsToAlarm |  integer  range\- max:10 min:1  |  If a device is in violation of the behavior for the specified number of consecutive datapoints, an alarm occurs\. If not specified, the default is 1\.  | 
-|  consecutiveDatapointsToClear |  integer  range\- max:10 min:1  |  If an alarm has occurred and the offending device is no longer in violation of the behavior for the specified number of consecutive datapoints, the alarm is cleared\. If not specified, the default is 1\.  | 
-|  statisticalThreshold |  StatisticalThreshold |  A statistical ranking \(percentile\) which indicates a threshold value by which a behavior is determined to be in compliance or in violation of the behavior\.  | 
-|  statistic |  string  pattern: \(p0\|p0\.1\|p0\.01\|p1\|p10\|p50\|p90\|p99\|p99\.9\|p99\.99\|p100\)  |  The percentile which resolves to a threshold value by which compliance with a behavior is determined\. Metrics are collected over the specified period \(`durationSeconds`\) from all reporting devices in your account and statistical ranks are calculated\. Then, the measurements from a device are collected over the same period\. If the accumulated measurements from the device fall above or below \(`comparisonOperator`\) the value associated with the percentile specified, then the device is considered to be in compliance with the behavior, otherwise a violation occurs\.  | 
-|  metricValue |  MetricValue |  The value of the metric \(the measurement\)\. | 
-|  count |  long  range\- min:0  |  If the `comparisonOperator` calls for a numeric value, use this to specify that numeric value to be compared with the `metric`\.  | 
-|  cidrs |  list  member: Cidr  |  If the `comparisonOperator` calls for a set of CIDRs, use this to specify that set to be compared with the `metric`\.  | 
-|  ports |  list  member: Port  |  If the `comparisonOperator` calls for a set of ports, use this to specify that set to be compared with the `metric`\.  | 
-|  violationEventType |  string |  The type of violation event\.  enum: in\-alarm \| alarm\-cleared \| alarm\-invalidated  | 
-|  violationEventTime |  timestamp |  The time the violation event occurred\. | 
-|  nextToken |  string |  A token that can be used to retrieve the next set of results, or `null` if there are no additional results\.  | 
+|   `violationEvents`  |  list  member: ViolationEvent  |  The security profile violation alerts issued for this account during the given time period, potentially filtered by security profile, behavior violated, or thing \(device\) violating\.  | 
+|   `violationId`  |  string  length\- max:128 min:1  pattern: \[a\-zA\-Z0\-9\-\]\+  |  The ID of the violation event\. | 
+|   `thingName`  |  string  length\- max:128 min:1  |  The name of the thing responsible for the violation event\. | 
+|   `securityProfileName`  |  string  length\- max:128 min:1  pattern: \[a\-zA\-Z0\-9:\_\-\]\+  |  The name of the security profile whose behavior was violated\. | 
+|   `behavior`  |  Behavior |  The behavior which was violated\. | 
+|   `name`  |  string  length\- max:128 min:1  pattern: \[a\-zA\-Z0\-9:\_\-\]\+  |  The name you have given to the behavior\. | 
+|   `metric`  |  string |  What is measured by the behavior\. | 
+|   `criteria`  |  BehaviorCriteria |  The criteria that determine if a device is behaving normally in regard to the `metric`\.  | 
+|   `comparisonOperator`  |  string |  The operator that relates the thing measured \(`metric`\) to the criteria \(containing a `value` or `statisticalThreshold`\)\.  enum: less\-than \| less\-than\-equals \| greater\-than \| greater\-than\-equals \| in\-cidr\-set \| not\-in\-cidr\-set \| in\-port\-set \| not\-in\-port\-set  | 
+|   `value`  |  MetricValue |  The value to be compared with the `metric`\. | 
+|   `count`  |  long  range\- min:0  |  If the `comparisonOperator` calls for a numeric value, use this to specify that numeric value to be compared with the `metric`\.  | 
+|   `cidrs`  |  list  member: Cidr  |  If the `comparisonOperator` calls for a set of CIDRs, use this to specify that set to be compared with the `metric`\.  | 
+|   `ports`  |  list  member: Port  |  If the `comparisonOperator` calls for a set of ports, use this to specify that set to be compared with the `metric`\.  | 
+|   `durationSeconds`  |  integer |  Use this to specify the time duration over which the behavior is evaluated, for those criteria which have a time dimension \(for example, `NUM_MESSAGES_SENT`\)\. For a `statisticalThreshhold` metric comparison, measurements from all devices are accumulated over this time duration before being used to calculate percentiles, and later, measurements from an individual device are also accumulated over this time duration before being given a percentile rank\.  | 
+|   `consecutiveDatapointsToAlarm`  |  integer  range\- max:10 min:1  |  If a device is in violation of the behavior for the specified number of consecutive datapoints, an alarm occurs\. If not specified, the default is 1\.  | 
+|   `consecutiveDatapointsToClear`  |  integer  range\- max:10 min:1  |  If an alarm has occurred and the offending device is no longer in violation of the behavior for the specified number of consecutive datapoints, the alarm is cleared\. If not specified, the default is 1\.  | 
+|   `statisticalThreshold`  |  StatisticalThreshold |  A statistical ranking \(percentile\) which indicates a threshold value by which a behavior is determined to be in compliance or in violation of the behavior\.  | 
+|   `statistic`  |  string  pattern: \(p0\|p0\.1\|p0\.01\|p1\|p10\|p50\|p90\|p99\|p99\.9\|p99\.99\|p100\)  |  The percentile which resolves to a threshold value by which compliance with a behavior is determined\. Metrics are collected over the specified period \(`durationSeconds`\) from all reporting devices in your account and statistical ranks are calculated\. Then, the measurements from a device are collected over the same period\. If the accumulated measurements from the device fall above or below \(`comparisonOperator`\) the value associated with the percentile specified, then the device is considered to be in compliance with the behavior, otherwise a violation occurs\.  | 
+|   `metricValue`  |  MetricValue |  The value of the metric \(the measurement\)\. | 
+|   `count`  |  long  range\- min:0  |  If the `comparisonOperator` calls for a numeric value, use this to specify that numeric value to be compared with the `metric`\.  | 
+|   `cidrs`  |  list  member: Cidr  |  If the `comparisonOperator` calls for a set of CIDRs, use this to specify that set to be compared with the `metric`\.  | 
+|   `ports`  |  list  member: Port  |  If the `comparisonOperator` calls for a set of ports, use this to specify that set to be compared with the `metric`\.  | 
+|   `violationEventType`  |  string |  The type of violation event\.  enum: in\-alarm \| alarm\-cleared \| alarm\-invalidated  | 
+|   `violationEventTime`  |  timestamp |  The time the violation event occurred\. | 
+|   `nextToken`  |  string |  A token that can be used to retrieve the next set of results, or `null` if there are no additional results\.  | 
 
  **Errors**
 
@@ -10911,7 +11777,7 @@ An unexpected error has occurred\.
 
 Publishes state information\.
 
-For more information, see [HTTP Protocol](https://docs.aws.amazon.com/iot/latest/developerguide/protocols.html#http) in the AWS IoT Developer Guide\.
+For more information, see [HTTP Protocol](http://docs.aws.amazon.com/iot/latest/developerguide/protocols.html#http) in the AWS IoT Developer Guide\.
 
  **Synopsis**
 
@@ -10939,9 +11805,9 @@ aws iot-data  publish \
 
 |  Name |  Type |  Description | 
 | --- | --- | --- | 
-|  topic |  string |  The name of the MQTT topic\. | 
-|  qos |  integer  range\- max:1 min:0  |  The Quality of Service \(QoS\) level\. | 
-|  payload |  blob |  The state information, in JSON format\. | 
+|   `topic`  |  string |  The name of the MQTT topic\. | 
+|   `qos`  |  integer  range\- max:1 min:0  |  The Quality of Service \(QoS\) level\. | 
+|   `payload`  |  blob |  The state information, in JSON format\. | 
 
 Output
 
@@ -10998,13 +11864,13 @@ aws iot  register-ca-certificate \
 
 |  Name |  Type |  Description | 
 | --- | --- | --- | 
-|  caCertificate |  string  length\- max:65536 min:1  |  The CA certificate\. | 
-|  verificationCertificate |  string  length\- max:65536 min:1  |  The private key verification certificate\. | 
-|  setAsActive |  boolean |  A boolean value that specifies if the CA certificate is set to active\. | 
-|  allowAutoRegistration |  boolean |  Allows this CA certificate to be used for auto registration of device certificates\. | 
-|  registrationConfig |  RegistrationConfig |  Information about the registration configuration\. | 
-|  templateBody |  string |  The template body\. | 
-|  roleArn |  string  length\- max:2048 min:20  |  The ARN of the role\. | 
+|   `caCertificate`  |  string  length\- max:65536 min:1  |  The CA certificate\. | 
+|   `verificationCertificate`  |  string  length\- max:65536 min:1  |  The private key verification certificate\. | 
+|   `setAsActive`  |  boolean |  A boolean value that specifies if the CA certificate is set to active\. | 
+|   `allowAutoRegistration`  |  boolean |  Allows this CA certificate to be used for auto registration of device certificates\. | 
+|   `registrationConfig`  |  RegistrationConfig |  Information about the registration configuration\. | 
+|   `templateBody`  |  string |  The template body\. | 
+|   `roleArn`  |  string  length\- max:2048 min:20  |  The ARN of the role\. | 
 
 Output
 
@@ -11020,8 +11886,8 @@ Output
 
 |  Name |  Type |  Description | 
 | --- | --- | --- | 
-|  certificateArn |  string |  The CA certificate ARN\. | 
-|  certificateId |  string  length\- max:64 min:64  pattern: \(0x\)?\[a\-fA\-F0\-9\]\+  |  The CA certificate identifier\. | 
+|   `certificateArn`  |  string |  The CA certificate ARN\. | 
+|   `certificateId`  |  string  length\- max:64 min:64  pattern: \(0x\)?\[a\-fA\-F0\-9\]\+  |  The CA certificate identifier\. | 
 
  **Errors**
 
@@ -11083,9 +11949,9 @@ aws iot  register-certificate \
 
 |  Name |  Type |  Description | 
 | --- | --- | --- | 
-|  certificatePem |  string  length\- max:65536 min:1  |  The certificate data, in PEM format\. | 
-|  caCertificatePem |  string  length\- max:65536 min:1  |  The CA certificate used to sign the device certificate being registered\. | 
-|  status |  string |  The status of the register certificate request\.  enum: ACTIVE \| INACTIVE \| REVOKED \| PENDING\_TRANSFER \| REGISTER\_INACTIVE \| PENDING\_ACTIVATION  | 
+|   `certificatePem`  |  string  length\- max:65536 min:1  |  The certificate data, in PEM format\. | 
+|   `caCertificatePem`  |  string  length\- max:65536 min:1  |  The CA certificate used to sign the device certificate being registered\. | 
+|   `status`  |  string |  The status of the register certificate request\.  enum: ACTIVE \| INACTIVE \| REVOKED \| PENDING\_TRANSFER \| REGISTER\_INACTIVE \| PENDING\_ACTIVATION  | 
 
 Output
 
@@ -11101,8 +11967,8 @@ Output
 
 |  Name |  Type |  Description | 
 | --- | --- | --- | 
-|  certificateArn |  string |  The certificate ARN\. | 
-|  certificateId |  string  length\- max:64 min:64  pattern: \(0x\)?\[a\-fA\-F0\-9\]\+  |  The certificate identifier\. | 
+|   `certificateArn`  |  string |  The certificate ARN\. | 
+|   `certificateId`  |  string  length\- max:64 min:64  pattern: \(0x\)?\[a\-fA\-F0\-9\]\+  |  The certificate identifier\. | 
 
  **Errors**
 
@@ -11163,8 +12029,8 @@ aws iot  register-thing \
 
 |  Name |  Type |  Description | 
 | --- | --- | --- | 
-|  templateBody |  string |  The provisioning template\. See [Programmatic Provisioning](https://docs.aws.amazon.com/iot/latest/developerguide/programmatic-provisioning.html) for more information\.  | 
-|  parameters |  map |  The parameters for provisioning a thing\. See [Programmatic Provisioning](https://docs.aws.amazon.com/iot/latest/developerguide/programmatic-provisioning.html) for more information\.  | 
+|   `templateBody`  |  string |  The provisioning template\. See [Programmatic Provisioning](https://docs.aws.amazon.com/iot/latest/developerguide/programmatic-provisioning.html) for more information\.  | 
+|   `parameters`  |  map |  The parameters for provisioning a thing\. See [Programmatic Provisioning](https://docs.aws.amazon.com/iot/latest/developerguide/programmatic-provisioning.html) for more information\.  | 
 
 Output
 
@@ -11182,8 +12048,8 @@ Output
 
 |  Name |  Type |  Description | 
 | --- | --- | --- | 
-|  certificatePem |  string  length\- max:65536 min:1  |  \. | 
-|  resourceArns |  map |  ARNs for the generated resources\. | 
+|   `certificatePem`  |  string  length\- max:65536 min:1  |  \. | 
+|   `resourceArns`  |  map |  ARNs for the generated resources\. | 
 
  **Errors**
 
@@ -11240,8 +12106,8 @@ aws iot  reject-certificate-transfer \
 
 |  Name |  Type |  Description | 
 | --- | --- | --- | 
-|  certificateId |  string  length\- max:64 min:64  pattern: \(0x\)?\[a\-fA\-F0\-9\]\+  |  The ID of the certificate\. \(The last part of the certificate ARN contains the certificate ID\.\) | 
-|  rejectReason |  string  length\- max:128  |  The reason the certificate transfer was rejected\. | 
+|   `certificateId`  |  string  length\- max:64 min:64  pattern: \(0x\)?\[a\-fA\-F0\-9\]\+  |  The ID of the certificate\. \(The last part of the certificate ARN contains the certificate ID\.\) | 
+|   `rejectReason`  |  string  length\- max:128  |  The reason the certificate transfer was rejected\. | 
 
 Output
 
@@ -11302,10 +12168,10 @@ aws iot  remove-thing-from-billing-group \
 
 |  Name |  Type |  Description | 
 | --- | --- | --- | 
-|  billingGroupName |  string  length\- max:128 min:1  pattern: \[a\-zA\-Z0\-9:\_\-\]\+  |  The name of the billing group\. | 
-|  billingGroupArn |  string |  The ARN of the billing group\. | 
-|  thingName |  string  length\- max:128 min:1  pattern: \[a\-zA\-Z0\-9:\_\-\]\+  |  The name of the thing to be removed from the billing group\. | 
-|  thingArn |  string |  The ARN of the thing to be removed from the billing group\. | 
+|   `billingGroupName`  |  string  length\- max:128 min:1  pattern: \[a\-zA\-Z0\-9:\_\-\]\+  |  The name of the billing group\. | 
+|   `billingGroupArn`  |  string |  The ARN of the billing group\. | 
+|   `thingName`  |  string  length\- max:128 min:1  pattern: \[a\-zA\-Z0\-9:\_\-\]\+  |  The name of the thing to be removed from the billing group\. | 
+|   `thingArn`  |  string |  The ARN of the thing to be removed from the billing group\. | 
 
 Output
 
@@ -11357,10 +12223,10 @@ aws iot  remove-thing-from-thing-group \
 
 |  Name |  Type |  Description | 
 | --- | --- | --- | 
-|  thingGroupName |  string  length\- max:128 min:1  pattern: \[a\-zA\-Z0\-9:\_\-\]\+  |  The group name\. | 
-|  thingGroupArn |  string |  The group ARN\. | 
-|  thingName |  string  length\- max:128 min:1  pattern: \[a\-zA\-Z0\-9:\_\-\]\+  |  The name of the thing to remove from the group\. | 
-|  thingArn |  string |  The ARN of the thing to remove from the group\. | 
+|   `thingGroupName`  |  string  length\- max:128 min:1  pattern: \[a\-zA\-Z0\-9:\_\-\]\+  |  The group name\. | 
+|   `thingGroupArn`  |  string |  The group ARN\. | 
+|   `thingName`  |  string  length\- max:128 min:1  pattern: \[a\-zA\-Z0\-9:\_\-\]\+  |  The name of the thing to remove from the group\. | 
+|   `thingArn`  |  string |  The ARN of the thing to remove from the group\. | 
 
 Output
 
@@ -11442,7 +12308,8 @@ aws iot  replace-topic-rule \
         },
         "republish": {
           "roleArn": "string",
-          "topic": "string"
+          "topic": "string",
+          "qos": "integer"
         },
         "s3": {
           "roleArn": "string",
@@ -11538,7 +12405,8 @@ aws iot  replace-topic-rule \
       },
       "republish": {
         "roleArn": "string",
-        "topic": "string"
+        "topic": "string",
+        "qos": "integer"
       },
       "s3": {
         "roleArn": "string",
@@ -11601,162 +12469,164 @@ aws iot  replace-topic-rule \
 
 |  Name |  Type |  Description | 
 | --- | --- | --- | 
-|  ruleName |  string  length\- max:128 min:1  pattern: ^\[a\-zA\-Z0\-9\_\]\+$  |  The name of the rule\. | 
-|  topicRulePayload |  TopicRulePayload |  The rule payload\. | 
-|  sql |  string |  The SQL statement used to query the topic\. For more information, see [AWS IoT SQL Reference](https://docs.aws.amazon.com/iot/latest/developerguide/iot-rules.html#aws-iot-sql-reference) in the *AWS IoT Developer Guide*\.  | 
-|  description |  string |  The description of the rule\. | 
-|  actions |  list  member: Action  |  The actions associated with the rule\. | 
-|  dynamoDB |  DynamoDBAction |  Write to a DynamoDB table\. | 
-|  tableName |  string |  The name of the DynamoDB table\. | 
-|  roleArn |  string |  The ARN of the IAM role that grants access to the DynamoDB table\. | 
-|  operation |  string |  The type of operation to be performed\. This follows the substitution template, so it can be `$ operation`, but the substitution must result in one of the following: `INSERT`, `UPDATE`, or `DELETE`\.  | 
-|  hashKeyField |  string |  The hash key name\. | 
-|  hashKeyValue |  string |  The hash key value\. | 
-|  hashKeyType |  string |  The hash key type\. Valid values are "STRING" or "NUMBER"  enum: STRING \| NUMBER  | 
-|  rangeKeyField |  string |  The range key name\. | 
-|  rangeKeyValue |  string |  The range key value\. | 
-|  rangeKeyType |  string |  The range key type\. Valid values are "STRING" or "NUMBER"  enum: STRING \| NUMBER  | 
-|  payloadField |  string |  The action payload\. This name can be customized\. | 
-|  dynamoDBv2 |  DynamoDBv2Action |  Write to a DynamoDB table\. This is a new version of the DynamoDB action\. It allows you to write each attribute in an MQTT message payload into a separate DynamoDB column\.  | 
-|  roleArn |  string |  The ARN of the IAM role that grants access to the DynamoDB table\. | 
-|  putItem |  PutItemInput |  Specifies the DynamoDB table to which the message data will be written\. For example:  `{ "dynamoDBv2": { "roleArn": "aws:iam:12341251:my-role" "putItem": { "tableName": "my-table" } } }`  Each attribute in the message payload will be written to a separate column in the DynamoDB database\.  | 
-|  tableName |  string |  The table where the message data will be written\. | 
-|  lambda |  LambdaAction |  Invoke a Lambda function\. | 
-|  functionArn |  string |  The ARN of the Lambda function\. | 
-|  sns |  SnsAction |  Publish to an Amazon SNS topic\. | 
-|  targetArn |  string |  The ARN of the SNS topic\. | 
-|  roleArn |  string |  The ARN of the IAM role that grants access\. | 
-|  messageFormat |  string |  \(Optional\) The message format of the message to publish\. Accepted values are "JSON" and "RAW"\. The default value of the attribute is "RAW"\. SNS uses this setting to determine if the payload should be parsed and relevant platform\-specific bits of the payload should be extracted\. To read more about SNS message formats, see [https://docs.aws.amazon.com/sns/latest/dg/json-formats.html](https://docs.aws.amazon.com/sns/latest/dg/json-formats.html) refer to their official documentation\.  enum: RAW \| JSON  | 
-|  sqs |  SqsAction |  Publish to an Amazon SQS queue\. | 
-|  roleArn |  string |  The ARN of the IAM role that grants access\. | 
-|  queueUrl |  string |  The URL of the Amazon SQS queue\. | 
-|  useBase64 |  boolean |  Specifies whether to use Base64 encoding\. | 
-|  kinesis |  KinesisAction |  Write data to an Amazon Kinesis stream\. | 
-|  roleArn |  string |  The ARN of the IAM role that grants access to the Amazon Kinesis stream\. | 
-|  streamName |  string |  The name of the Amazon Kinesis stream\. | 
-|  partitionKey |  string |  The partition key\. | 
-|  republish |  RepublishAction |  Publish to another MQTT topic\. | 
-|  roleArn |  string |  The ARN of the IAM role that grants access\. | 
-|  topic |  string |  The name of the MQTT topic\. | 
-|  s3 |  S3Action |  Write to an Amazon S3 bucket\. | 
-|  roleArn |  string |  The ARN of the IAM role that grants access\. | 
-|  bucketName |  string |  The Amazon S3 bucket\. | 
-|  key |  string |  The object key\. | 
-|  cannedAcl |  string |  The Amazon S3 canned ACL that controls access to the object identified by the object key\. For more information, see [S3 canned ACLs](https://docs.aws.amazon.com/AmazonS3/latest/dev/acl-overview.html#canned-acl)\.  enum: private \| public\-read \| public\-read\-write \| aws\-exec\-read \| authenticated\-read \| bucket\-owner\-read \| bucket\-owner\-full\-control \| log\-delivery\-write  | 
-|  firehose |  FirehoseAction |  Write to an Amazon Kinesis Firehose stream\. | 
-|  roleArn |  string |  The IAM role that grants access to the Amazon Kinesis Firehose stream\. | 
-|  deliveryStreamName |  string |  The delivery stream name\. | 
-|  separator |  string  pattern: \(\[ \]\)\|\( \)\|\(,\)   |  A character separator that will be used to separate records written to the Firehose stream\. Valid values are: '\\n' \(newline\), '\\t' \(tab\), '\\r\\n' \(Windows newline\), ',' \(comma\)\.  | 
-|  cloudwatchMetric |  CloudwatchMetricAction |  Capture a CloudWatch metric\. | 
-|  roleArn |  string |  The IAM role that allows access to the CloudWatch metric\. | 
-|  metricNamespace |  string |  The CloudWatch metric namespace name\. | 
-|  metricName |  string |  The CloudWatch metric name\. | 
-|  metricValue |  string |  The CloudWatch metric value\. | 
-|  metricUnit |  string |  The [metric unit](https://docs.aws.amazon.com/AmazonCloudWatch/latest/DeveloperGuide/cloudwatch_concepts.html#Unit) supported by CloudWatch\.  | 
-|  metricTimestamp |  string |  An optional [Unix timestamp](https://docs.aws.amazon.com/AmazonCloudWatch/latest/DeveloperGuide/cloudwatch_concepts.html#about_timestamp)\.  | 
-|  cloudwatchAlarm |  CloudwatchAlarmAction |  Change the state of a CloudWatch alarm\. | 
-|  roleArn |  string |  The IAM role that allows access to the CloudWatch alarm\. | 
-|  alarmName |  string |  The CloudWatch alarm name\. | 
-|  stateReason |  string |  The reason for the alarm change\. | 
-|  stateValue |  string |  The value of the alarm state\. Acceptable values are: OK, ALARM, INSUFFICIENT\_DATA\. | 
-|  elasticsearch |  ElasticsearchAction |  Write data to an Amazon Elasticsearch Service domain\. | 
-|  roleArn |  string |  The IAM role ARN that has access to Elasticsearch\. | 
-|  endpoint |  string  pattern: https?://\.\*  |  The endpoint of your Elasticsearch domain\. | 
-|  index |  string |  The Elasticsearch index where you want to store your data\. | 
-|  type |  string |  The type of document you are storing\. | 
-|  id |  string |  The unique identifier for the document you are storing\. | 
-|  salesforce |  SalesforceAction |  Send a message to a Salesforce IoT Cloud Input Stream\. | 
-|  token |  string  length\- min:40  |  The token used to authenticate access to the Salesforce IoT Cloud Input Stream\. The token is available from the Salesforce IoT Cloud platform after creation of the Input Stream\.  | 
-|  url |  string  length\- max:2000  pattern: https://ingestion\-\[a\-zA\-Z0\-9\]\{1,12\}\.\[a\-zA\-Z0\-9\]\+\.\(\(sfdc\-matrix\.net\)\|\(sfdcnow\.com\)\)/streams/w *1,20*/w *1,20*/event   |  The URL exposed by the Salesforce IoT Cloud Input Stream\. The URL is available from the Salesforce IoT Cloud platform after creation of the Input Stream\.  | 
-|  iotAnalytics |  IotAnalyticsAction |  Sends message data to an AWS IoT Analytics channel\. | 
-|  channelArn |  string |  \(deprecated\) The ARN of the IoT Analytics channel to which message data will be sent\. | 
-|  channelName |  string |  The name of the IoT Analytics channel to which message data will be sent\. | 
-|  roleArn |  string |  The ARN of the role which has a policy that grants IoT Analytics permission to send message data via IoT Analytics \(iotanalytics:BatchPutMessage\)\.  | 
-|  iotEvents |  IotEventsAction |  Sends an input to an AWS IoT Events detector\. | 
-|  inputName |  string  length\- max:128 min:1  |  The name of the AWS IoT Events input\. | 
-|  messageId |  string  length\- max:128  |  \[Optional\] Use this to ensure that only one input \(message\) with a given messageId will be processed by an AWS IoT Events detector\.  | 
-|  roleArn |  string |  The ARN of the role that grants AWS IoT permission to send an input to an AWS IoT Events detector\. \("Action":"iotevents:BatchPutMessage"\)\.  | 
-|  stepFunctions |  StepFunctionsAction |  Starts execution of a Step Functions state machine\. | 
-|  executionNamePrefix |  string |  \(Optional\) A name will be given to the state machine execution consisting of this prefix followed by a UUID\. Step Functions automatically creates a unique name for each state machine execution if one is not provided\.  | 
-|  stateMachineName |  string |  The name of the Step Functions state machine whose execution will be started\. | 
-|  roleArn |  string |  The ARN of the role that grants IoT permission to start execution of a state machine \("Action":"states:StartExecution"\)\.  | 
-|  ruleDisabled |  boolean |  Specifies whether the rule is disabled\. | 
-|  awsIotSqlVersion |  string |  The version of the SQL rules engine to use when evaluating the rule\. | 
-|  errorAction |  Action |  The action to take when an error occurs\. | 
-|  dynamoDB |  DynamoDBAction |  Write to a DynamoDB table\. | 
-|  tableName |  string |  The name of the DynamoDB table\. | 
-|  roleArn |  string |  The ARN of the IAM role that grants access to the DynamoDB table\. | 
-|  operation |  string |  The type of operation to be performed\. This follows the substitution template, so it can be `$ operation`, but the substitution must result in one of the following: `INSERT`, `UPDATE`, or `DELETE`\.  | 
-|  hashKeyField |  string |  The hash key name\. | 
-|  hashKeyValue |  string |  The hash key value\. | 
-|  hashKeyType |  string |  The hash key type\. Valid values are "STRING" or "NUMBER"  enum: STRING \| NUMBER  | 
-|  rangeKeyField |  string |  The range key name\. | 
-|  rangeKeyValue |  string |  The range key value\. | 
-|  rangeKeyType |  string |  The range key type\. Valid values are "STRING" or "NUMBER"  enum: STRING \| NUMBER  | 
-|  payloadField |  string |  The action payload\. This name can be customized\. | 
-|  dynamoDBv2 |  DynamoDBv2Action |  Write to a DynamoDB table\. This is a new version of the DynamoDB action\. It allows you to write each attribute in an MQTT message payload into a separate DynamoDB column\.  | 
-|  roleArn |  string |  The ARN of the IAM role that grants access to the DynamoDB table\. | 
-|  putItem |  PutItemInput |  Specifies the DynamoDB table to which the message data will be written\. For example:  `{ "dynamoDBv2": { "roleArn": "aws:iam:12341251:my-role" "putItem": { "tableName": "my-table" } } }`  Each attribute in the message payload will be written to a separate column in the DynamoDB database\.  | 
-|  tableName |  string |  The table where the message data will be written\. | 
-|  lambda |  LambdaAction |  Invoke a Lambda function\. | 
-|  functionArn |  string |  The ARN of the Lambda function\. | 
-|  sns |  SnsAction |  Publish to an Amazon SNS topic\. | 
-|  targetArn |  string |  The ARN of the SNS topic\. | 
-|  roleArn |  string |  The ARN of the IAM role that grants access\. | 
-|  messageFormat |  string |  \(Optional\) The message format of the message to publish\. Accepted values are "JSON" and "RAW"\. The default value of the attribute is "RAW"\. SNS uses this setting to determine if the payload should be parsed and relevant platform\-specific bits of the payload should be extracted\. To read more about SNS message formats, see [https://docs.aws.amazon.com/sns/latest/dg/json-formats.html](https://docs.aws.amazon.com/sns/latest/dg/json-formats.html) refer to their official documentation\.  enum: RAW \| JSON  | 
-|  sqs |  SqsAction |  Publish to an Amazon SQS queue\. | 
-|  roleArn |  string |  The ARN of the IAM role that grants access\. | 
-|  queueUrl |  string |  The URL of the Amazon SQS queue\. | 
-|  useBase64 |  boolean |  Specifies whether to use Base64 encoding\. | 
-|  kinesis |  KinesisAction |  Write data to an Amazon Kinesis stream\. | 
-|  roleArn |  string |  The ARN of the IAM role that grants access to the Amazon Kinesis stream\. | 
-|  streamName |  string |  The name of the Amazon Kinesis stream\. | 
-|  partitionKey |  string |  The partition key\. | 
-|  republish |  RepublishAction |  Publish to another MQTT topic\. | 
-|  roleArn |  string |  The ARN of the IAM role that grants access\. | 
-|  topic |  string |  The name of the MQTT topic\. | 
-|  s3 |  S3Action |  Write to an Amazon S3 bucket\. | 
-|  roleArn |  string |  The ARN of the IAM role that grants access\. | 
-|  bucketName |  string |  The Amazon S3 bucket\. | 
-|  key |  string |  The object key\. | 
-|  cannedAcl |  string |  The Amazon S3 canned ACL that controls access to the object identified by the object key\. For more information, see [S3 canned ACLs](https://docs.aws.amazon.com/AmazonS3/latest/dev/acl-overview.html#canned-acl)\.  enum: private \| public\-read \| public\-read\-write \| aws\-exec\-read \| authenticated\-read \| bucket\-owner\-read \| bucket\-owner\-full\-control \| log\-delivery\-write  | 
-|  firehose |  FirehoseAction |  Write to an Amazon Kinesis Firehose stream\. | 
-|  roleArn |  string |  The IAM role that grants access to the Amazon Kinesis Firehose stream\. | 
-|  deliveryStreamName |  string |  The delivery stream name\. | 
-|  separator |  string  pattern: \(\[ \]\)\|\( \)\|\(,\)   |  A character separator that will be used to separate records written to the Firehose stream\. Valid values are: '\\n' \(newline\), '\\t' \(tab\), '\\r\\n' \(Windows newline\), ',' \(comma\)\.  | 
-|  cloudwatchMetric |  CloudwatchMetricAction |  Capture a CloudWatch metric\. | 
-|  roleArn |  string |  The IAM role that allows access to the CloudWatch metric\. | 
-|  metricNamespace |  string |  The CloudWatch metric namespace name\. | 
-|  metricName |  string |  The CloudWatch metric name\. | 
-|  metricValue |  string |  The CloudWatch metric value\. | 
-|  metricUnit |  string |  The [metric unit](https://docs.aws.amazon.com/AmazonCloudWatch/latest/DeveloperGuide/cloudwatch_concepts.html#Unit) supported by CloudWatch\.  | 
-|  metricTimestamp |  string |  An optional [Unix timestamp](https://docs.aws.amazon.com/AmazonCloudWatch/latest/DeveloperGuide/cloudwatch_concepts.html#about_timestamp)\.  | 
-|  cloudwatchAlarm |  CloudwatchAlarmAction |  Change the state of a CloudWatch alarm\. | 
-|  roleArn |  string |  The IAM role that allows access to the CloudWatch alarm\. | 
-|  alarmName |  string |  The CloudWatch alarm name\. | 
-|  stateReason |  string |  The reason for the alarm change\. | 
-|  stateValue |  string |  The value of the alarm state\. Acceptable values are: OK, ALARM, INSUFFICIENT\_DATA\. | 
-|  elasticsearch |  ElasticsearchAction |  Write data to an Amazon Elasticsearch Service domain\. | 
-|  roleArn |  string |  The IAM role ARN that has access to Elasticsearch\. | 
-|  endpoint |  string  pattern: https?://\.\*  |  The endpoint of your Elasticsearch domain\. | 
-|  index |  string |  The Elasticsearch index where you want to store your data\. | 
-|  type |  string |  The type of document you are storing\. | 
-|  id |  string |  The unique identifier for the document you are storing\. | 
-|  salesforce |  SalesforceAction |  Send a message to a Salesforce IoT Cloud Input Stream\. | 
-|  token |  string  length\- min:40  |  The token used to authenticate access to the Salesforce IoT Cloud Input Stream\. The token is available from the Salesforce IoT Cloud platform after creation of the Input Stream\.  | 
-|  url |  string  length\- max:2000  pattern: https://ingestion\-\[a\-zA\-Z0\-9\]\{1,12\}\.\[a\-zA\-Z0\-9\]\+\.\(\(sfdc\-matrix\.net\)\|\(sfdcnow\.com\)\)/streams/w *1,20*/w *1,20*/event   |  The URL exposed by the Salesforce IoT Cloud Input Stream\. The URL is available from the Salesforce IoT Cloud platform after creation of the Input Stream\.  | 
-|  iotAnalytics |  IotAnalyticsAction |  Sends message data to an AWS IoT Analytics channel\. | 
-|  channelArn |  string |  \(deprecated\) The ARN of the IoT Analytics channel to which message data will be sent\. | 
-|  channelName |  string |  The name of the IoT Analytics channel to which message data will be sent\. | 
-|  roleArn |  string |  The ARN of the role which has a policy that grants IoT Analytics permission to send message data via IoT Analytics \(iotanalytics:BatchPutMessage\)\.  | 
-|  iotEvents |  IotEventsAction |  Sends an input to an AWS IoT Events detector\. | 
-|  inputName |  string  length\- max:128 min:1  |  The name of the AWS IoT Events input\. | 
-|  messageId |  string  length\- max:128  |  \[Optional\] Use this to ensure that only one input \(message\) with a given messageId will be processed by an AWS IoT Events detector\.  | 
-|  roleArn |  string |  The ARN of the role that grants AWS IoT permission to send an input to an AWS IoT Events detector\. \("Action":"iotevents:BatchPutMessage"\)\.  | 
-|  stepFunctions |  StepFunctionsAction |  Starts execution of a Step Functions state machine\. | 
-|  executionNamePrefix |  string |  \(Optional\) A name will be given to the state machine execution consisting of this prefix followed by a UUID\. Step Functions automatically creates a unique name for each state machine execution if one is not provided\.  | 
-|  stateMachineName |  string |  The name of the Step Functions state machine whose execution will be started\. | 
-|  roleArn |  string |  The ARN of the role that grants IoT permission to start execution of a state machine \("Action":"states:StartExecution"\)\.  | 
+|   `ruleName`  |  string  length\- max:128 min:1  pattern: ^\[a\-zA\-Z0\-9\_\]\+$  |  The name of the rule\. | 
+|   `topicRulePayload`  |  TopicRulePayload |  The rule payload\. | 
+|   `sql`  |  string |  The SQL statement used to query the topic\. For more information, see [AWS IoT SQL Reference](https://docs.aws.amazon.com/iot/latest/developerguide/iot-rules.html#aws-iot-sql-reference) in the *AWS IoT Developer Guide*\.  | 
+|   `description`  |  string |  The description of the rule\. | 
+|   `actions`  |  list  member: Action  |  The actions associated with the rule\. | 
+|   `dynamoDB`  |  DynamoDBAction |  Write to a DynamoDB table\. | 
+|   `tableName`  |  string |  The name of the DynamoDB table\. | 
+|   `roleArn`  |  string |  The ARN of the IAM role that grants access to the DynamoDB table\. | 
+|   `operation`  |  string |  The type of operation to be performed\. This follows the substitution template, so it can be `$ operation`, but the substitution must result in one of the following: `INSERT`, `UPDATE`, or `DELETE`\.  | 
+|   `hashKeyField`  |  string |  The hash key name\. | 
+|   `hashKeyValue`  |  string |  The hash key value\. | 
+|   `hashKeyType`  |  string |  The hash key type\. Valid values are "STRING" or "NUMBER"  enum: STRING \| NUMBER  | 
+|   `rangeKeyField`  |  string |  The range key name\. | 
+|   `rangeKeyValue`  |  string |  The range key value\. | 
+|   `rangeKeyType`  |  string |  The range key type\. Valid values are "STRING" or "NUMBER"  enum: STRING \| NUMBER  | 
+|   `payloadField`  |  string |  The action payload\. This name can be customized\. | 
+|   `dynamoDBv2`  |  DynamoDBv2Action |  Write to a DynamoDB table\. This is a new version of the DynamoDB action\. It allows you to write each attribute in an MQTT message payload into a separate DynamoDB column\.  | 
+|   `roleArn`  |  string |  The ARN of the IAM role that grants access to the DynamoDB table\. | 
+|   `putItem`  |  PutItemInput |  Specifies the DynamoDB table to which the message data will be written\. For example:  `{ "dynamoDBv2": { "roleArn": "aws:iam:12341251:my-role" "putItem": { "tableName": "my-table" } } }`  Each attribute in the message payload will be written to a separate column in the DynamoDB database\.  | 
+|   `tableName`  |  string |  The table where the message data will be written\. | 
+|   `lambda`  |  LambdaAction |  Invoke a Lambda function\. | 
+|   `functionArn`  |  string |  The ARN of the Lambda function\. | 
+|   `sns`  |  SnsAction |  Publish to an Amazon SNS topic\. | 
+|   `targetArn`  |  string |  The ARN of the SNS topic\. | 
+|   `roleArn`  |  string |  The ARN of the IAM role that grants access\. | 
+|   `messageFormat`  |  string |  \(Optional\) The message format of the message to publish\. Accepted values are "JSON" and "RAW"\. The default value of the attribute is "RAW"\. SNS uses this setting to determine if the payload should be parsed and relevant platform\-specific bits of the payload should be extracted\. To read more about SNS message formats, see [https://docs.aws.amazon.com/sns/latest/dg/json-formats.html](https://docs.aws.amazon.com/sns/latest/dg/json-formats.html) refer to their official documentation\.  enum: RAW \| JSON  | 
+|   `sqs`  |  SqsAction |  Publish to an Amazon SQS queue\. | 
+|   `roleArn`  |  string |  The ARN of the IAM role that grants access\. | 
+|   `queueUrl`  |  string |  The URL of the Amazon SQS queue\. | 
+|   `useBase64`  |  boolean |  Specifies whether to use Base64 encoding\. | 
+|   `kinesis`  |  KinesisAction |  Write data to an Amazon Kinesis stream\. | 
+|   `roleArn`  |  string |  The ARN of the IAM role that grants access to the Amazon Kinesis stream\. | 
+|   `streamName`  |  string |  The name of the Amazon Kinesis stream\. | 
+|   `partitionKey`  |  string |  The partition key\. | 
+|   `republish`  |  RepublishAction |  Publish to another MQTT topic\. | 
+|   `roleArn`  |  string |  The ARN of the IAM role that grants access\. | 
+|   `topic`  |  string |  The name of the MQTT topic\. | 
+|   `qos`  |  integer  range\- max:1 min:0  |  The Quality of Service \(QoS\) level to use when republishing messages\. The default value is 0\. | 
+|   `s3`  |  S3Action |  Write to an Amazon S3 bucket\. | 
+|   `roleArn`  |  string |  The ARN of the IAM role that grants access\. | 
+|   `bucketName`  |  string |  The Amazon S3 bucket\. | 
+|   `key`  |  string |  The object key\. | 
+|   `cannedAcl`  |  string |  The Amazon S3 canned ACL that controls access to the object identified by the object key\. For more information, see [S3 canned ACLs](https://docs.aws.amazon.com/AmazonS3/latest/dev/acl-overview.html#canned-acl)\.  enum: private \| public\-read \| public\-read\-write \| aws\-exec\-read \| authenticated\-read \| bucket\-owner\-read \| bucket\-owner\-full\-control \| log\-delivery\-write  | 
+|   `firehose`  |  FirehoseAction |  Write to an Amazon Kinesis Firehose stream\. | 
+|   `roleArn`  |  string |  The IAM role that grants access to the Amazon Kinesis Firehose stream\. | 
+|   `deliveryStreamName`  |  string |  The delivery stream name\. | 
+|   `separator`  |  string  pattern: \(\[ \]\)\|\( \)\|\(,\)   |  A character separator that will be used to separate records written to the Firehose stream\. Valid values are: '\\n' \(newline\), '\\t' \(tab\), '\\r\\n' \(Windows newline\), ',' \(comma\)\.  | 
+|   `cloudwatchMetric`  |  CloudwatchMetricAction |  Capture a CloudWatch metric\. | 
+|   `roleArn`  |  string |  The IAM role that allows access to the CloudWatch metric\. | 
+|   `metricNamespace`  |  string |  The CloudWatch metric namespace name\. | 
+|   `metricName`  |  string |  The CloudWatch metric name\. | 
+|   `metricValue`  |  string |  The CloudWatch metric value\. | 
+|   `metricUnit`  |  string |  The [metric unit](https://docs.aws.amazon.com/AmazonCloudWatch/latest/DeveloperGuide/cloudwatch_concepts.html#Unit) supported by CloudWatch\.  | 
+|   `metricTimestamp`  |  string |  An optional [Unix timestamp](https://docs.aws.amazon.com/AmazonCloudWatch/latest/DeveloperGuide/cloudwatch_concepts.html#about_timestamp)\. | 
+|   `cloudwatchAlarm`  |  CloudwatchAlarmAction |  Change the state of a CloudWatch alarm\. | 
+|   `roleArn`  |  string |  The IAM role that allows access to the CloudWatch alarm\. | 
+|   `alarmName`  |  string |  The CloudWatch alarm name\. | 
+|   `stateReason`  |  string |  The reason for the alarm change\. | 
+|   `stateValue`  |  string |  The value of the alarm state\. Acceptable values are: OK, ALARM, INSUFFICIENT\_DATA\.  | 
+|   `elasticsearch`  |  ElasticsearchAction |  Write data to an Amazon Elasticsearch Service domain\. | 
+|   `roleArn`  |  string |  The IAM role ARN that has access to Elasticsearch\. | 
+|   `endpoint`  |  string  pattern: https?://\.\*  |  The endpoint of your Elasticsearch domain\. | 
+|   `index`  |  string |  The Elasticsearch index where you want to store your data\. | 
+|   `type`  |  string |  The type of document you are storing\. | 
+|   `id`  |  string |  The unique identifier for the document you are storing\. | 
+|   `salesforce`  |  SalesforceAction |  Send a message to a Salesforce IoT Cloud Input Stream\. | 
+|   `token`  |  string  length\- min:40  |  The token used to authenticate access to the Salesforce IoT Cloud Input Stream\. The token is available from the Salesforce IoT Cloud platform after creation of the Input Stream\.  | 
+|   `url`  |  string  length\- max:2000  pattern: https://ingestion\-\[a\-zA\-Z0\-9\]\{1,12\}\.\[a\-zA\-Z0\-9\]\+\.\(\(sfdc\-matrix\.net\)\|\(sfdcnow\.com\)\)/streams/w *1,20*/w *1,20*/event   |  The URL exposed by the Salesforce IoT Cloud Input Stream\. The URL is available from the Salesforce IoT Cloud platform after creation of the Input Stream\.  | 
+|   `iotAnalytics`  |  IotAnalyticsAction |  Sends message data to an AWS IoT Analytics channel\. | 
+|   `channelArn`  |  string |  \(deprecated\) The ARN of the IoT Analytics channel to which message data will be sent\.  | 
+|   `channelName`  |  string |  The name of the IoT Analytics channel to which message data will be sent\. | 
+|   `roleArn`  |  string |  The ARN of the role which has a policy that grants IoT Analytics permission to send message data via IoT Analytics \(iotanalytics:BatchPutMessage\)\.  | 
+|   `iotEvents`  |  IotEventsAction |  Sends an input to an AWS IoT Events detector\. | 
+|   `inputName`  |  string  length\- max:128 min:1  |  The name of the AWS IoT Events input\. | 
+|   `messageId`  |  string  length\- max:128  |  \[Optional\] Use this to ensure that only one input \(message\) with a given messageId will be processed by an AWS IoT Events detector\.  | 
+|   `roleArn`  |  string |  The ARN of the role that grants AWS IoT permission to send an input to an AWS IoT Events detector\. \("Action":"iotevents:BatchPutMessage"\)\.  | 
+|   `stepFunctions`  |  StepFunctionsAction |  Starts execution of a Step Functions state machine\. | 
+|   `executionNamePrefix`  |  string |  \(Optional\) A name will be given to the state machine execution consisting of this prefix followed by a UUID\. Step Functions automatically creates a unique name for each state machine execution if one is not provided\.  | 
+|   `stateMachineName`  |  string |  The name of the Step Functions state machine whose execution will be started\.  | 
+|   `roleArn`  |  string |  The ARN of the role that grants IoT permission to start execution of a state machine \("Action":"states:StartExecution"\)\.  | 
+|   `ruleDisabled`  |  boolean |  Specifies whether the rule is disabled\. | 
+|   `awsIotSqlVersion`  |  string |  The version of the SQL rules engine to use when evaluating the rule\. | 
+|   `errorAction`  |  Action |  The action to take when an error occurs\. | 
+|   `dynamoDB`  |  DynamoDBAction |  Write to a DynamoDB table\. | 
+|   `tableName`  |  string |  The name of the DynamoDB table\. | 
+|   `roleArn`  |  string |  The ARN of the IAM role that grants access to the DynamoDB table\. | 
+|   `operation`  |  string |  The type of operation to be performed\. This follows the substitution template, so it can be `$ operation`, but the substitution must result in one of the following: `INSERT`, `UPDATE`, or `DELETE`\.  | 
+|   `hashKeyField`  |  string |  The hash key name\. | 
+|   `hashKeyValue`  |  string |  The hash key value\. | 
+|   `hashKeyType`  |  string |  The hash key type\. Valid values are "STRING" or "NUMBER"  enum: STRING \| NUMBER  | 
+|   `rangeKeyField`  |  string |  The range key name\. | 
+|   `rangeKeyValue`  |  string |  The range key value\. | 
+|   `rangeKeyType`  |  string |  The range key type\. Valid values are "STRING" or "NUMBER"  enum: STRING \| NUMBER  | 
+|   `payloadField`  |  string |  The action payload\. This name can be customized\. | 
+|   `dynamoDBv2`  |  DynamoDBv2Action |  Write to a DynamoDB table\. This is a new version of the DynamoDB action\. It allows you to write each attribute in an MQTT message payload into a separate DynamoDB column\.  | 
+|   `roleArn`  |  string |  The ARN of the IAM role that grants access to the DynamoDB table\. | 
+|   `putItem`  |  PutItemInput |  Specifies the DynamoDB table to which the message data will be written\. For example:  `{ "dynamoDBv2": { "roleArn": "aws:iam:12341251:my-role" "putItem": { "tableName": "my-table" } } }`  Each attribute in the message payload will be written to a separate column in the DynamoDB database\.  | 
+|   `tableName`  |  string |  The table where the message data will be written\. | 
+|   `lambda`  |  LambdaAction |  Invoke a Lambda function\. | 
+|   `functionArn`  |  string |  The ARN of the Lambda function\. | 
+|   `sns`  |  SnsAction |  Publish to an Amazon SNS topic\. | 
+|   `targetArn`  |  string |  The ARN of the SNS topic\. | 
+|   `roleArn`  |  string |  The ARN of the IAM role that grants access\. | 
+|   `messageFormat`  |  string |  \(Optional\) The message format of the message to publish\. Accepted values are "JSON" and "RAW"\. The default value of the attribute is "RAW"\. SNS uses this setting to determine if the payload should be parsed and relevant platform\-specific bits of the payload should be extracted\. To read more about SNS message formats, see [https://docs.aws.amazon.com/sns/latest/dg/json-formats.html](https://docs.aws.amazon.com/sns/latest/dg/json-formats.html) refer to their official documentation\.  enum: RAW \| JSON  | 
+|   `sqs`  |  SqsAction |  Publish to an Amazon SQS queue\. | 
+|   `roleArn`  |  string |  The ARN of the IAM role that grants access\. | 
+|   `queueUrl`  |  string |  The URL of the Amazon SQS queue\. | 
+|   `useBase64`  |  boolean |  Specifies whether to use Base64 encoding\. | 
+|   `kinesis`  |  KinesisAction |  Write data to an Amazon Kinesis stream\. | 
+|   `roleArn`  |  string |  The ARN of the IAM role that grants access to the Amazon Kinesis stream\. | 
+|   `streamName`  |  string |  The name of the Amazon Kinesis stream\. | 
+|   `partitionKey`  |  string |  The partition key\. | 
+|   `republish`  |  RepublishAction |  Publish to another MQTT topic\. | 
+|   `roleArn`  |  string |  The ARN of the IAM role that grants access\. | 
+|   `topic`  |  string |  The name of the MQTT topic\. | 
+|   `qos`  |  integer  range\- max:1 min:0  |  The Quality of Service \(QoS\) level to use when republishing messages\. The default value is 0\. | 
+|   `s3`  |  S3Action |  Write to an Amazon S3 bucket\. | 
+|   `roleArn`  |  string |  The ARN of the IAM role that grants access\. | 
+|   `bucketName`  |  string |  The Amazon S3 bucket\. | 
+|   `key`  |  string |  The object key\. | 
+|   `cannedAcl`  |  string |  The Amazon S3 canned ACL that controls access to the object identified by the object key\. For more information, see [S3 canned ACLs](https://docs.aws.amazon.com/AmazonS3/latest/dev/acl-overview.html#canned-acl)\.  enum: private \| public\-read \| public\-read\-write \| aws\-exec\-read \| authenticated\-read \| bucket\-owner\-read \| bucket\-owner\-full\-control \| log\-delivery\-write  | 
+|   `firehose`  |  FirehoseAction |  Write to an Amazon Kinesis Firehose stream\. | 
+|   `roleArn`  |  string |  The IAM role that grants access to the Amazon Kinesis Firehose stream\. | 
+|   `deliveryStreamName`  |  string |  The delivery stream name\. | 
+|   `separator`  |  string  pattern: \(\[ \]\)\|\( \)\|\(,\)   |  A character separator that will be used to separate records written to the Firehose stream\. Valid values are: '\\n' \(newline\), '\\t' \(tab\), '\\r\\n' \(Windows newline\), ',' \(comma\)\.  | 
+|   `cloudwatchMetric`  |  CloudwatchMetricAction |  Capture a CloudWatch metric\. | 
+|   `roleArn`  |  string |  The IAM role that allows access to the CloudWatch metric\. | 
+|   `metricNamespace`  |  string |  The CloudWatch metric namespace name\. | 
+|   `metricName`  |  string |  The CloudWatch metric name\. | 
+|   `metricValue`  |  string |  The CloudWatch metric value\. | 
+|   `metricUnit`  |  string |  The [metric unit](https://docs.aws.amazon.com/AmazonCloudWatch/latest/DeveloperGuide/cloudwatch_concepts.html#Unit) supported by CloudWatch\.  | 
+|   `metricTimestamp`  |  string |  An optional [Unix timestamp](https://docs.aws.amazon.com/AmazonCloudWatch/latest/DeveloperGuide/cloudwatch_concepts.html#about_timestamp)\. | 
+|   `cloudwatchAlarm`  |  CloudwatchAlarmAction |  Change the state of a CloudWatch alarm\. | 
+|   `roleArn`  |  string |  The IAM role that allows access to the CloudWatch alarm\. | 
+|   `alarmName`  |  string |  The CloudWatch alarm name\. | 
+|   `stateReason`  |  string |  The reason for the alarm change\. | 
+|   `stateValue`  |  string |  The value of the alarm state\. Acceptable values are: OK, ALARM, INSUFFICIENT\_DATA\.  | 
+|   `elasticsearch`  |  ElasticsearchAction |  Write data to an Amazon Elasticsearch Service domain\. | 
+|   `roleArn`  |  string |  The IAM role ARN that has access to Elasticsearch\. | 
+|   `endpoint`  |  string  pattern: https?://\.\*  |  The endpoint of your Elasticsearch domain\. | 
+|   `index`  |  string |  The Elasticsearch index where you want to store your data\. | 
+|   `type`  |  string |  The type of document you are storing\. | 
+|   `id`  |  string |  The unique identifier for the document you are storing\. | 
+|   `salesforce`  |  SalesforceAction |  Send a message to a Salesforce IoT Cloud Input Stream\. | 
+|   `token`  |  string  length\- min:40  |  The token used to authenticate access to the Salesforce IoT Cloud Input Stream\. The token is available from the Salesforce IoT Cloud platform after creation of the Input Stream\.  | 
+|   `url`  |  string  length\- max:2000  pattern: https://ingestion\-\[a\-zA\-Z0\-9\]\{1,12\}\.\[a\-zA\-Z0\-9\]\+\.\(\(sfdc\-matrix\.net\)\|\(sfdcnow\.com\)\)/streams/w *1,20*/w *1,20*/event   |  The URL exposed by the Salesforce IoT Cloud Input Stream\. The URL is available from the Salesforce IoT Cloud platform after creation of the Input Stream\.  | 
+|   `iotAnalytics`  |  IotAnalyticsAction |  Sends message data to an AWS IoT Analytics channel\. | 
+|   `channelArn`  |  string |  \(deprecated\) The ARN of the IoT Analytics channel to which message data will be sent\.  | 
+|   `channelName`  |  string |  The name of the IoT Analytics channel to which message data will be sent\. | 
+|   `roleArn`  |  string |  The ARN of the role which has a policy that grants IoT Analytics permission to send message data via IoT Analytics \(iotanalytics:BatchPutMessage\)\.  | 
+|   `iotEvents`  |  IotEventsAction |  Sends an input to an AWS IoT Events detector\. | 
+|   `inputName`  |  string  length\- max:128 min:1  |  The name of the AWS IoT Events input\. | 
+|   `messageId`  |  string  length\- max:128  |  \[Optional\] Use this to ensure that only one input \(message\) with a given messageId will be processed by an AWS IoT Events detector\.  | 
+|   `roleArn`  |  string |  The ARN of the role that grants AWS IoT permission to send an input to an AWS IoT Events detector\. \("Action":"iotevents:BatchPutMessage"\)\.  | 
+|   `stepFunctions`  |  StepFunctionsAction |  Starts execution of a Step Functions state machine\. | 
+|   `executionNamePrefix`  |  string |  \(Optional\) A name will be given to the state machine execution consisting of this prefix followed by a UUID\. Step Functions automatically creates a unique name for each state machine execution if one is not provided\.  | 
+|   `stateMachineName`  |  string |  The name of the Step Functions state machine whose execution will be started\.  | 
+|   `roleArn`  |  string |  The ARN of the role that grants IoT permission to start execution of a state machine \("Action":"states:StartExecution"\)\.  | 
 
 Output
 
@@ -11816,11 +12686,11 @@ aws iot  search-index \
 
 |  Name |  Type |  Description | 
 | --- | --- | --- | 
-|  indexName |  string  length\- max:128 min:1  pattern: \[a\-zA\-Z0\-9:\_\-\]\+  |  The search index name\. | 
-|  queryString |  string  length\- min:1  |  The search query string\. | 
-|  nextToken |  string |  The token used to get the next set of results, or null if there are no additional results\.  | 
-|  maxResults |  integer  range\- max:500 min:1  |  The maximum number of results to return at one time\. | 
-|  queryVersion |  string |  The query version\. | 
+|   `indexName`  |  string  length\- max:128 min:1  pattern: \[a\-zA\-Z0\-9:\_\-\]\+  |  The search index name\. | 
+|   `queryString`  |  string  length\- min:1  |  The search query string\. | 
+|   `nextToken`  |  string |  The token used to get the next set of results, or null if there are no additional results\.  | 
+|   `maxResults`  |  integer  range\- max:500 min:1  |  The maximum number of results to return at one time\. | 
+|   `queryVersion`  |  string |  The query version\. | 
 
 Output
 
@@ -11866,23 +12736,23 @@ Output
 
 |  Name |  Type |  Description | 
 | --- | --- | --- | 
-|  nextToken |  string |  The token used to get the next set of results, or null if there are no additional results\.  | 
-|  things |  list  member: ThingDocument  java class: java\.util\.List  |  The things that match the search query\. | 
-|  thingName |  string  length\- max:128 min:1  pattern: \[a\-zA\-Z0\-9:\_\-\]\+  |  The thing name\. | 
-|  thingId |  string |  The thing ID\. | 
-|  thingTypeName |  string  length\- max:128 min:1  pattern: \[a\-zA\-Z0\-9:\_\-\]\+  |  The thing type name\. | 
-|  thingGroupNames |  list  member: ThingGroupName  java class: java\.util\.List  |  Thing group names\. | 
-|  attributes |  map |  The attributes\. | 
-|  shadow |  string |  The shadow\. | 
-|  connectivity |  ThingConnectivity |  Indicates whether the thing is connected to the AWS IoT service\. | 
-|  connected |  boolean |  True if the thing is connected to the AWS IoT service; false if it is not connected\.  | 
-|  timestamp |  long |  The epoch time \(in milliseconds\) when the thing last connected or disconnected\. If the thing has been disconnected for more than a few weeks, the time value might be missing\.  | 
-|  thingGroups |  list  member: ThingGroupDocument  java class: java\.util\.List  |  The thing groups that match the search query\. | 
-|  thingGroupName |  string  length\- max:128 min:1  pattern: \[a\-zA\-Z0\-9:\_\-\]\+  |  The thing group name\. | 
-|  thingGroupId |  string  length\- max:128 min:1  pattern: \[a\-zA\-Z0\-9\-\]\+  |  The thing group ID\. | 
-|  thingGroupDescription |  string  length\- max:2028  pattern: \[\\\\p\{Graph\} \]\*  |  The thing group description\. | 
-|  attributes |  map |  The thing group attributes\. | 
-|  parentGroupNames |  list  member: ThingGroupName  java class: java\.util\.List  |  Parent group names\. | 
+|   `nextToken`  |  string |  The token used to get the next set of results, or null if there are no additional results\.  | 
+|   `things`  |  list  member: ThingDocument  java class: java\.util\.List  |  The things that match the search query\. | 
+|   `thingName`  |  string  length\- max:128 min:1  pattern: \[a\-zA\-Z0\-9:\_\-\]\+  |  The thing name\. | 
+|   `thingId`  |  string |  The thing ID\. | 
+|   `thingTypeName`  |  string  length\- max:128 min:1  pattern: \[a\-zA\-Z0\-9:\_\-\]\+  |  The thing type name\. | 
+|   `thingGroupNames`  |  list  member: ThingGroupName  java class: java\.util\.List  |  Thing group names\. | 
+|   `attributes`  |  map |  The attributes\. | 
+|   `shadow`  |  string |  The shadow\. | 
+|   `connectivity`  |  ThingConnectivity |  Indicates whether the thing is connected to the AWS IoT service\. | 
+|   `connected`  |  boolean |  True if the thing is connected to the AWS IoT service; false if it is not connected\.  | 
+|   `timestamp`  |  long |  The epoch time \(in milliseconds\) when the thing last connected or disconnected\. If the thing has been disconnected for more than a few weeks, the time value might be missing\.  | 
+|   `thingGroups`  |  list  member: ThingGroupDocument  java class: java\.util\.List  |  The thing groups that match the search query\. | 
+|   `thingGroupName`  |  string  length\- max:128 min:1  pattern: \[a\-zA\-Z0\-9:\_\-\]\+  |  The thing group name\. | 
+|   `thingGroupId`  |  string  length\- max:128 min:1  pattern: \[a\-zA\-Z0\-9\-\]\+  |  The thing group ID\. | 
+|   `thingGroupDescription`  |  string  length\- max:2028  pattern: \[\\\\p\{Graph\} \]\*  |  The thing group description\. | 
+|   `attributes`  |  map |  The thing group attributes\. | 
+|   `parentGroupNames`  |  list  member: ThingGroupName  java class: java\.util\.List  |  Parent group names\. | 
 
  **Errors**
 
@@ -11936,7 +12806,7 @@ aws iot  set-default-authorizer \
 
 |  Name |  Type |  Description | 
 | --- | --- | --- | 
-|  authorizerName |  string  length\- max:128 min:1  pattern: \[w=,@\-\]\+  |  The authorizer name\. | 
+|   `authorizerName`  |  string  length\- max:128 min:1  pattern: \[w=,@\-\]\+  |  The authorizer name\. | 
 
 Output
 
@@ -11952,8 +12822,8 @@ Output
 
 |  Name |  Type |  Description | 
 | --- | --- | --- | 
-|  authorizerName |  string  length\- max:128 min:1  pattern: \[w=,@\-\]\+  |  The authorizer name\. | 
-|  authorizerArn |  string |  The authorizer ARN\. | 
+|   `authorizerName`  |  string  length\- max:128 min:1  pattern: \[w=,@\-\]\+  |  The authorizer name\. | 
+|   `authorizerArn`  |  string |  The authorizer ARN\. | 
 
  **Errors**
 
@@ -12006,8 +12876,8 @@ aws iot  set-default-policy-version \
 
 |  Name |  Type |  Description | 
 | --- | --- | --- | 
-|  policyName |  string  length\- max:128 min:1  pattern: \[w\+=,\.@\-\]\+  |  The policy name\. | 
-|  policyVersionId |  string  pattern: \[0\-9\]\+  |  The policy version ID\. | 
+|   `policyName`  |  string  length\- max:128 min:1  pattern: \[w\+=,\.@\-\]\+  |  The policy name\. | 
+|   `policyVersionId`  |  string  pattern: \[0\-9\]\+  |  The policy version ID\. | 
 
 Output
 
@@ -12064,9 +12934,9 @@ aws iot  set-logging-options \
 
 |  Name |  Type |  Description | 
 | --- | --- | --- | 
-|  loggingOptionsPayload |  LoggingOptionsPayload |  The logging options payload\. | 
-|  roleArn |  string |  The ARN of the IAM role that grants access\. | 
-|  logLevel |  string |  The log level\.  enum: DEBUG \| INFO \| ERROR \| WARN \| DISABLED  | 
+|   `loggingOptionsPayload`  |  LoggingOptionsPayload |  The logging options payload\. | 
+|   `roleArn`  |  string |  The ARN of the IAM role that grants access\. | 
+|   `logLevel`  |  string |  The log level\.  enum: DEBUG \| INFO \| ERROR \| WARN \| DISABLED  | 
 
 Output
 
@@ -12114,10 +12984,10 @@ aws iot  set-v2-logging-level \
 
 |  Name |  Type |  Description | 
 | --- | --- | --- | 
-|  logTarget |  LogTarget |  The log target\. | 
-|  targetType |  string |  The target type\.  enum: DEFAULT \| THING\_GROUP  | 
-|  targetName |  string |  The target name\. | 
-|  logLevel |  string |  The log level\.  enum: DEBUG \| INFO \| ERROR \| WARN \| DISABLED  | 
+|   `logTarget`  |  LogTarget |  The log target\. | 
+|   `targetType`  |  string |  The target type\.  enum: DEFAULT \| THING\_GROUP  | 
+|   `targetName`  |  string |  The target name\. | 
+|   `logLevel`  |  string |  The log level\.  enum: DEBUG \| INFO \| ERROR \| WARN \| DISABLED  | 
 
 Output
 
@@ -12167,9 +13037,9 @@ aws iot  set-v2-logging-options \
 
 |  Name |  Type |  Description | 
 | --- | --- | --- | 
-|  roleArn |  string |  The ARN of the role that allows IoT to write to Cloudwatch logs\. | 
-|  defaultLogLevel |  string |  The default logging level\.  enum: DEBUG \| INFO \| ERROR \| WARN \| DISABLED  | 
-|  disableAllLogs |  boolean |  If true all logs are disabled\. The default is false\. | 
+|   `roleArn`  |  string |  The ARN of the role that allows IoT to write to Cloudwatch logs\. | 
+|   `defaultLogLevel`  |  string |  The default logging level\.  enum: DEBUG \| INFO \| ERROR \| WARN \| DISABLED  | 
+|   `disableAllLogs`  |  boolean |  If true all logs are disabled\. The default is false\. | 
 
 Output
 
@@ -12185,6 +13055,92 @@ The contents of the request were invalid\.
 
 `ServiceUnavailableException`  
 The service is temporarily unavailable\.
+
+## StartAuditMitigationActionsTask<a name="api-iot-StartAuditMitigationActionsTask"></a>
+
+Starts a task that applies a set of mitigation actions to the specified target\.
+
+ **Synopsis**
+
+```
+aws iot  start-audit-mitigation-actions-task \
+    --task-id <value> \
+    --target <value> \
+    --audit-check-to-actions-mapping <value> \
+    --client-request-token <value>  \
+    [--cli-input-json <value>] \
+    [--generate-cli-skeleton]
+```
+
+ `cli-input-json` format
+
+```
+{
+  "taskId": "string",
+  "target": {
+    "auditTaskId": "string",
+    "findingIds": [
+      "string"
+    ],
+    "auditCheckToReasonCodeFilter": {
+      "string": [
+        "string"
+      ]
+    }
+  },
+  "auditCheckToActionsMapping": {
+    "string": [
+      "string"
+    ]
+  },
+  "clientRequestToken": "string"
+}
+```
+
+
+**`cli-input-json` fields**  
+
+|  Name |  Type |  Description | 
+| --- | --- | --- | 
+|   `taskId`  |  string  length\- max:128 min:1  pattern: \[a\-zA\-Z0\-9\_\-\]\+  |  A unique identifier for the task\. You can use this identifier to check the status of the task or to cancel it\. | 
+|   `target`  |  AuditMitigationActionsTaskTarget |  Specifies the audit findings to which the mitigation actions are applied\. You can apply them to a type of audit check, to all findings from an audit, or to a speecific set of findings\. | 
+|   `auditTaskId`  |  string  length\- max:40 min:1  pattern: \[a\-zA\-Z0\-9\-\]\+  |  If the task will apply a mitigation action to findings from a specific audit, this value uniquely identifies the audit\. | 
+|   `findingIds`  |  list  member: FindingId  |  If the task will apply a mitigation action to one or more listed findings, this value uniquely identifies those findings\. | 
+|   `auditCheckToReasonCodeFilter`  |  map |  Specifies a filter in the form of an audit check and set of reason codes that identify the findings from the audit to which the audit mitigation actions task apply\. | 
+|   `auditCheckToActionsMapping`  |  map |  For an audit check, specifies which mitigation actions to apply\. Those actions must be defined in your AWS account\. | 
+|   `clientRequestToken`  |  string  length\- max:64 min:1  pattern: ^\[a\-zA\-Z0\-9\-\_\]\+$  |  Each audit mitigation task must have a unique client request token\. If you try to start a new task with the same token as a task that already exists, an exception occurs\. If you omit this value, a unique client request token is generated automatically\. | 
+
+Output
+
+```
+{
+  "taskId": "string"
+}
+```
+
+
+**CLI output fields**  
+
+|  Name |  Type |  Description | 
+| --- | --- | --- | 
+|   `taskId`  |  string  length\- max:128 min:1  pattern: \[a\-zA\-Z0\-9\_\-\]\+  |  The unique identifier for the audit mitigation task\. This matches the `taskId` that you specified in the request\. | 
+
+ **Errors**
+
+`InvalidRequestException`  
+The contents of the request were invalid\.
+
+`TaskAlreadyExistsException`  
+This exception occurs if you attempt to start a task with the same task\-id as an existing task but with a different clientRequestToken\.
+
+`LimitExceededException`  
+A limit has been exceeded\.
+
+`ThrottlingException`  
+The rate exceeds the limit\.
+
+`InternalFailureException`  
+An unexpected error has occurred\.
 
 ## StartNextPendingJobExecution<a name="api-iot-jobs-data-StartNextPendingJobExecution"></a>
 
@@ -12218,9 +13174,9 @@ aws iot-jobs-data  start-next-pending-job-execution \
 
 |  Name |  Type |  Description | 
 | --- | --- | --- | 
-|  thingName |  string  length\- max:128 min:1  pattern: \[a\-zA\-Z0\-9:\_\-\]\+  |  The name of the thing associated with the device\. | 
-|  statusDetails |  map |  A collection of name/value pairs that describe the status of the job execution\. If not specified, the statusDetails are unchanged\.  | 
-|  stepTimeoutInMinutes |  long |  Specifies the amount of time this device has to finish execution of this job\. If the job execution status is not set to a terminal state before this timer expires, or before the timer is reset \(by calling `UpdateJobExecution`, setting the status to `IN_PROGRESS`, and specifying a new timeout value in field `stepTimeoutInMinutes`\) the job execution status will be automatically set to `TIMED_OUT`\. Note that setting the step timeout has no effect on the in progress timeout that may have been specified when the job was created \(`CreateJob` using field `timeoutConfig`\)\. Valid values for this parameter range from 1 to 10080 \(1 minute to 7 days\)\.  | 
+|   `thingName`  |  string  length\- max:128 min:1  pattern: \[a\-zA\-Z0\-9:\_\-\]\+  |  The name of the thing associated with the device\. | 
+|   `statusDetails`  |  map |  A collection of name/value pairs that describe the status of the job execution\. If not specified, the statusDetails are unchanged\.  | 
+|   `stepTimeoutInMinutes`  |  long |  Specifies the amount of time this device has to finish execution of this job\. If the job execution status is not set to a terminal state before this timer expires, or before the timer is reset \(by calling `UpdateJobExecution`, setting the status to `IN_PROGRESS`, and specifying a new timeout value in field `stepTimeoutInMinutes`\) the job execution status will be automatically set to `TIMED_OUT`\. Note that setting the step timeout has no effect on the in progress timeout that may have been specified when the job was created \(`CreateJob` using field `timeoutConfig`\)\. Valid values for this parameter range from 1 to 10080 \(1 minute to 7 days\)\.  | 
 
 Output
 
@@ -12249,18 +13205,18 @@ Output
 
 |  Name |  Type |  Description | 
 | --- | --- | --- | 
-|  execution |  JobExecution |  A JobExecution object\. | 
-|  jobId |  string  length\- max:64 min:1  pattern: \[a\-zA\-Z0\-9\_\-\]\+  |  The unique identifier you assigned to this job when it was created\. | 
-|  thingName |  string  length\- max:128 min:1  pattern: \[a\-zA\-Z0\-9:\_\-\]\+  |  The name of the thing that is executing the job\. | 
-|  status |  string |  The status of the job execution\. Can be one of: "QUEUED", "IN\_PROGRESS", "FAILED", "SUCCESS", "CANCELED", "TIMED\_OUT", "REJECTED", or "REMOVED"\.  enum: QUEUED \| IN\_PROGRESS \| SUCCEEDED \| FAILED \| TIMED\_OUT \| REJECTED \| REMOVED \| CANCELED  | 
-|  statusDetails |  map |  A collection of name/value pairs that describe the status of the job execution\. | 
-|  queuedAt |  long |  The time, in seconds since the epoch, when the job execution was enqueued\. | 
-|  startedAt |  long |  The time, in seconds since the epoch, when the job execution was started\. | 
-|  lastUpdatedAt |  long |  The time, in seconds since the epoch, when the job execution was last updated\.  | 
-|  approximateSecondsBeforeTimedOut |  long |  The estimated number of seconds that remain before the job execution status will be changed to `TIMED_OUT`\. The actual job execution timeout can occur up to 60 seconds later than the estimated duration\.  | 
-|  versionNumber |  long |  The version of the job execution\. Job execution versions are incremented each time they are updated by a device\.  | 
-|  executionNumber |  long |  A number that identifies a particular job execution on a particular device\. It can be used later in commands that return or update job execution information\.  | 
-|  jobDocument |  string  length\- max:32768  |  The content of the job document\. | 
+|   `execution`  |  JobExecution |  A JobExecution object\. | 
+|   `jobId`  |  string  length\- max:64 min:1  pattern: \[a\-zA\-Z0\-9\_\-\]\+  |  The unique identifier you assigned to this job when it was created\. | 
+|   `thingName`  |  string  length\- max:128 min:1  pattern: \[a\-zA\-Z0\-9:\_\-\]\+  |  The name of the thing that is executing the job\. | 
+|   `status`  |  string |  The status of the job execution\. Can be one of: "QUEUED", "IN\_PROGRESS", "FAILED", "SUCCESS", "CANCELED", "TIMED\_OUT", "REJECTED", or "REMOVED"\.  enum: QUEUED \| IN\_PROGRESS \| SUCCEEDED \| FAILED \| TIMED\_OUT \| REJECTED \| REMOVED \| CANCELED  | 
+|   `statusDetails`  |  map |  A collection of name/value pairs that describe the status of the job execution\. | 
+|   `queuedAt`  |  long |  The time, in seconds since the epoch, when the job execution was enqueued\. | 
+|   `startedAt`  |  long |  The time, in seconds since the epoch, when the job execution was started\. | 
+|   `lastUpdatedAt`  |  long |  The time, in seconds since the epoch, when the job execution was last updated\.  | 
+|   `approximateSecondsBeforeTimedOut`  |  long |  The estimated number of seconds that remain before the job execution status will be changed to `TIMED_OUT`\. The actual job execution timeout can occur up to 60 seconds later than the estimated duration\.  | 
+|   `versionNumber`  |  long |  The version of the job execution\. Job execution versions are incremented each time they are updated by a device\.  | 
+|   `executionNumber`  |  long |  A number that identifies a particular job execution on a particular device\. It can be used later in commands that return or update job execution information\.  | 
+|   `jobDocument`  |  string  length\- max:32768  |  The content of the job document\. | 
 
  **Errors**
 
@@ -12307,7 +13263,7 @@ aws iot  start-on-demand-audit-task \
 
 |  Name |  Type |  Description | 
 | --- | --- | --- | 
-|  targetCheckNames |  list  member: AuditCheckName  |  Which checks are performed during the audit\. The checks you specify must be enabled for your account or an exception occurs\. Use `DescribeAccountAuditConfiguration` to see the list of all checks including those that are enabled or `UpdateAccountAuditConfiguration` to select which checks are enabled\.  | 
+|   `targetCheckNames`  |  list  member: AuditCheckName  |  Which checks are performed during the audit\. The checks you specify must be enabled for your account or an exception occurs\. Use `DescribeAccountAuditConfiguration` to see the list of all checks, including those that are enabled or `UpdateAccountAuditConfiguration` to select which checks are enabled\.  | 
 
 Output
 
@@ -12322,7 +13278,7 @@ Output
 
 |  Name |  Type |  Description | 
 | --- | --- | --- | 
-|  taskId |  string  length\- max:40 min:1  pattern: \[a\-zA\-Z0\-9\-\]\+  |  The ID of the on\-demand audit you started\. | 
+|   `taskId`  |  string  length\- max:40 min:1  pattern: \[a\-zA\-Z0\-9\-\]\+  |  The ID of the on\-demand audit you started\. | 
 
  **Errors**
 
@@ -12370,10 +13326,10 @@ aws iot  start-thing-registration-task \
 
 |  Name |  Type |  Description | 
 | --- | --- | --- | 
-|  templateBody |  string |  The provisioning template\. | 
-|  inputFileBucket |  string  length\- max:256 min:3  pattern: \[a\-zA\-Z0\-9\.\_\-\]\+  |  The S3 bucket that contains the input file\. | 
-|  inputFileKey |  string  length\- max:1024 min:1  pattern: \[a\-zA\-Z0\-9\!\_\.\*'\(\)\-/\]\+  |  The name of input file within the S3 bucket\. This file contains a newline delimited JSON file\. Each line contains the parameter values to provision one device \(thing\)\.  | 
-|  roleArn |  string  length\- max:2048 min:20  |  The IAM role ARN that grants permission the input file\. | 
+|   `templateBody`  |  string |  The provisioning template\. | 
+|   `inputFileBucket`  |  string  length\- max:256 min:3  pattern: \[a\-zA\-Z0\-9\.\_\-\]\+  |  The S3 bucket that contains the input file\. | 
+|   `inputFileKey`  |  string  length\- max:1024 min:1  pattern: \[a\-zA\-Z0\-9\!\_\.\*'\(\)\-/\]\+  |  The name of input file within the S3 bucket\. This file contains a newline delimited JSON file\. Each line contains the parameter values to provision one device \(thing\)\.  | 
+|   `roleArn`  |  string  length\- max:2048 min:20  |  The IAM role ARN that grants permission the input file\. | 
 
 Output
 
@@ -12388,7 +13344,7 @@ Output
 
 |  Name |  Type |  Description | 
 | --- | --- | --- | 
-|  taskId |  string  length\- max:40  |  The bulk thing provisioning task ID\. | 
+|   `taskId`  |  string  length\- max:40  |  The bulk thing provisioning task ID\. | 
 
  **Errors**
 
@@ -12430,7 +13386,7 @@ aws iot  stop-thing-registration-task \
 
 |  Name |  Type |  Description | 
 | --- | --- | --- | 
-|  taskId |  string  length\- max:40  |  The bulk thing provisioning task ID\. | 
+|   `taskId`  |  string  length\- max:40  |  The bulk thing provisioning task ID\. | 
 
 Output
 
@@ -12486,10 +13442,10 @@ aws iot  tag-resource \
 
 |  Name |  Type |  Description | 
 | --- | --- | --- | 
-|  resourceArn |  string |  The ARN of the resource\. | 
-|  tags |  list  member: Tag  java class: java\.util\.List  |  The new or modified tags for the resource\. | 
-|  Key |  string |  The tag's key\. | 
-|  Value |  string |  The tag's value\. | 
+|   `resourceArn`  |  string |  The ARN of the resource\. | 
+|   `tags`  |  list  member: Tag  java class: java\.util\.List  |  The new or modified tags for the resource\. | 
+|   `Key`  |  string |  The tag's key\. | 
+|   `Value`  |  string |  The tag's value\. | 
 
 Output
 
@@ -12559,14 +13515,14 @@ aws iot  test-authorization \
 
 |  Name |  Type |  Description | 
 | --- | --- | --- | 
-|  principal |  string |  The principal\. | 
-|  cognitoIdentityPoolId |  string |  The Cognito identity pool ID\. | 
-|  authInfos |  list  member: AuthInfo  |  A list of authorization info objects\. Simulating authorization will create a response for each `authInfo` object in the list\.  | 
-|  actionType |  string |  The type of action for which the principal is being authorized\.  enum: PUBLISH \| SUBSCRIBE \| RECEIVE \| CONNECT  | 
-|  resources |  list  member: Resource  |  The resources for which the principal is being authorized to perform the specified action\. | 
-|  clientId |  string |  The MQTT client ID\. | 
-|  policyNamesToAdd |  list  member: PolicyName  java class: java\.util\.List  |  When testing custom authorization, the policies specified here are treated as if they are attached to the principal being authorized\.  | 
-|  policyNamesToSkip |  list  member: PolicyName  java class: java\.util\.List  |  When testing custom authorization, the policies specified here are treated as if they are not attached to the principal being authorized\.  | 
+|   `principal`  |  string |  The principal\. | 
+|   `cognitoIdentityPoolId`  |  string |  The Cognito identity pool ID\. | 
+|   `authInfos`  |  list  member: AuthInfo  |  A list of authorization info objects\. Simulating authorization will create a response for each `authInfo` object in the list\.  | 
+|   `actionType`  |  string |  The type of action for which the principal is being authorized\.  enum: PUBLISH \| SUBSCRIBE \| RECEIVE \| CONNECT  | 
+|   `resources`  |  list  member: Resource  |  The resources for which the principal is being authorized to perform the specified action\. | 
+|   `clientId`  |  string |  The MQTT client ID\. | 
+|   `policyNamesToAdd`  |  list  member: PolicyName  java class: java\.util\.List  |  When testing custom authorization, the policies specified here are treated as if they are attached to the principal being authorized\.  | 
+|   `policyNamesToSkip`  |  list  member: PolicyName  java class: java\.util\.List  |  When testing custom authorization, the policies specified here are treated as if they are not attached to the principal being authorized\.  | 
 
 Output
 
@@ -12620,25 +13576,25 @@ Output
 
 |  Name |  Type |  Description | 
 | --- | --- | --- | 
-|  authResults |  list  member: AuthResult  |  The authentication results\. | 
-|  authInfo |  AuthInfo |  Authorization information\. | 
-|  actionType |  string |  The type of action for which the principal is being authorized\.  enum: PUBLISH \| SUBSCRIBE \| RECEIVE \| CONNECT  | 
-|  resources |  list  member: Resource  |  The resources for which the principal is being authorized to perform the specified action\. | 
-|  allowed |  Allowed |  The policies and statements that allowed the specified action\. | 
-|  policies |  list  member: Policy  java class: java\.util\.List  |  A list of policies that allowed the authentication\. | 
-|  policyName |  string  length\- max:128 min:1  pattern: \[w\+=,\.@\-\]\+  |  The policy name\. | 
-|  policyArn |  string |  The policy ARN\. | 
-|  denied |  Denied |  The policies and statements that denied the specified action\. | 
-|  implicitDeny |  ImplicitDeny |  Information that implicitly denies the authorization\. When a policy doesn't explicitly deny or allow an action on a resource it is considered an implicit deny\.  | 
-|  policies |  list  member: Policy  java class: java\.util\.List  |  Policies that don't contain a matching allow or deny statement for the specified action on the specified resource\.   | 
-|  policyName |  string  length\- max:128 min:1  pattern: \[w\+=,\.@\-\]\+  |  The policy name\. | 
-|  policyArn |  string |  The policy ARN\. | 
-|  explicitDeny |  ExplicitDeny |  Information that explicitly denies the authorization\.  | 
-|  policies |  list  member: Policy  java class: java\.util\.List  |  The policies that denied the authorization\. | 
-|  policyName |  string  length\- max:128 min:1  pattern: \[w\+=,\.@\-\]\+  |  The policy name\. | 
-|  policyArn |  string |  The policy ARN\. | 
-|  authDecision |  string |  The final authorization decision of this scenario\. Multiple statements are taken into account when determining the authorization decision\. An explicit deny statement can override multiple allow statements\.  enum: ALLOWED \| EXPLICIT\_DENY \| IMPLICIT\_DENY  | 
-|  missingContextValues |  list  member: MissingContextValue  java class: java\.util\.List  |  Contains any missing context values found while evaluating policy\. | 
+|   `authResults`  |  list  member: AuthResult  |  The authentication results\. | 
+|   `authInfo`  |  AuthInfo |  Authorization information\. | 
+|   `actionType`  |  string |  The type of action for which the principal is being authorized\.  enum: PUBLISH \| SUBSCRIBE \| RECEIVE \| CONNECT  | 
+|   `resources`  |  list  member: Resource  |  The resources for which the principal is being authorized to perform the specified action\. | 
+|   `allowed`  |  Allowed |  The policies and statements that allowed the specified action\. | 
+|   `policies`  |  list  member: Policy  java class: java\.util\.List  |  A list of policies that allowed the authentication\. | 
+|   `policyName`  |  string  length\- max:128 min:1  pattern: \[w\+=,\.@\-\]\+  |  The policy name\. | 
+|   `policyArn`  |  string |  The policy ARN\. | 
+|   `denied`  |  Denied |  The policies and statements that denied the specified action\. | 
+|   `implicitDeny`  |  ImplicitDeny |  Information that implicitly denies the authorization\. When a policy doesn't explicitly deny or allow an action on a resource it is considered an implicit deny\.  | 
+|   `policies`  |  list  member: Policy  java class: java\.util\.List  |  Policies that don't contain a matching allow or deny statement for the specified action on the specified resource\.   | 
+|   `policyName`  |  string  length\- max:128 min:1  pattern: \[w\+=,\.@\-\]\+  |  The policy name\. | 
+|   `policyArn`  |  string |  The policy ARN\. | 
+|   `explicitDeny`  |  ExplicitDeny |  Information that explicitly denies the authorization\.  | 
+|   `policies`  |  list  member: Policy  java class: java\.util\.List  |  The policies that denied the authorization\. | 
+|   `policyName`  |  string  length\- max:128 min:1  pattern: \[w\+=,\.@\-\]\+  |  The policy name\. | 
+|   `policyArn`  |  string |  The policy ARN\. | 
+|   `authDecision`  |  string |  The final authorization decision of this scenario\. Multiple statements are taken into account when determining the authorization decision\. An explicit deny statement can override multiple allow statements\.  enum: ALLOWED \| EXPLICIT\_DENY \| IMPLICIT\_DENY  | 
+|   `missingContextValues`  |  list  member: MissingContextValue  java class: java\.util\.List  |  Contains any missing context values found while evaluating policy\. | 
 
  **Errors**
 
@@ -12693,9 +13649,9 @@ aws iot  test-invoke-authorizer \
 
 |  Name |  Type |  Description | 
 | --- | --- | --- | 
-|  authorizerName |  string  length\- max:128 min:1  pattern: \[w=,@\-\]\+  |  The custom authorizer name\. | 
-|  token |  string  length\- max:6144 min:1  |  The token returned by your custom authentication service\. | 
-|  tokenSignature |  string  length\- max:2560 min:1  pattern: \[A\-Za\-z0\-9\+/\]\+=\{0,2\}  |  The signature made with the token and your custom authentication service's private key\. | 
+|   `authorizerName`  |  string  length\- max:128 min:1  pattern: \[w=,@\-\]\+  |  The custom authorizer name\. | 
+|   `token`  |  string  length\- max:6144 min:1  |  The token returned by your custom authentication service\. | 
+|   `tokenSignature`  |  string  length\- max:2560 min:1  pattern: \[A\-Za\-z0\-9\+/\]\+=\{0,2\}  |  The signature made with the token and your custom authentication service's private key\. | 
 
 Output
 
@@ -12716,11 +13672,11 @@ Output
 
 |  Name |  Type |  Description | 
 | --- | --- | --- | 
-|  isAuthenticated |  boolean |  True if the token is authenticated, otherwise false\. | 
-|  principalId |  string  length\- max:128 min:1  pattern: \[a\-zA\-Z0\-9\]\+  |  The principal ID\. | 
-|  policyDocuments |  list  member: PolicyDocument  |  IAM policy documents\. | 
-|  refreshAfterInSeconds |  integer |  The number of seconds after which the temporary credentials are refreshed\. | 
-|  disconnectAfterInSeconds |  integer |  The number of seconds after which the connection is terminated\. | 
+|   `isAuthenticated`  |  boolean |  True if the token is authenticated, otherwise false\. | 
+|   `principalId`  |  string  length\- max:128 min:1  pattern: \[a\-zA\-Z0\-9\]\+  |  The principal ID\. | 
+|   `policyDocuments`  |  list  member: PolicyDocument  |  IAM policy documents\. | 
+|   `refreshAfterInSeconds`  |  integer |  The number of seconds after which the temporary credentials are refreshed\. | 
+|   `disconnectAfterInSeconds`  |  integer |  The number of seconds after which the connection is terminated\. | 
 
  **Errors**
 
@@ -12783,9 +13739,9 @@ aws iot  transfer-certificate \
 
 |  Name |  Type |  Description | 
 | --- | --- | --- | 
-|  certificateId |  string  length\- max:64 min:64  pattern: \(0x\)?\[a\-fA\-F0\-9\]\+  |  The ID of the certificate\. \(The last part of the certificate ARN contains the certificate ID\.\) | 
-|  targetAwsAccount |  string  length\- max:12 min:12  pattern: \[0\-9\]\+  |  The AWS account\. | 
-|  transferMessage |  string  length\- max:128  |  The transfer message\. | 
+|   `certificateId`  |  string  length\- max:64 min:64  pattern: \(0x\)?\[a\-fA\-F0\-9\]\+  |  The ID of the certificate\. \(The last part of the certificate ARN contains the certificate ID\.\) | 
+|   `targetAwsAccount`  |  string  length\- max:12 min:12  pattern: \[0\-9\]\+  |  The AWS account\. | 
+|   `transferMessage`  |  string  length\- max:128  |  The transfer message\. | 
 
 Output
 
@@ -12800,7 +13756,7 @@ Output
 
 |  Name |  Type |  Description | 
 | --- | --- | --- | 
-|  transferredCertificateArn |  string |  The ARN of the certificate\. | 
+|   `transferredCertificateArn`  |  string |  The ARN of the certificate\. | 
 
  **Errors**
 
@@ -12858,8 +13814,8 @@ aws iot  untag-resource \
 
 |  Name |  Type |  Description | 
 | --- | --- | --- | 
-|  resourceArn |  string |  The ARN of the resource\. | 
-|  tagKeys |  list  member: TagKey  java class: java\.util\.List  |  A list of the keys of the tags to be removed from the resource\. | 
+|   `resourceArn`  |  string |  The ARN of the resource\. | 
+|   `tagKeys`  |  list  member: TagKey  java class: java\.util\.List  |  A list of the keys of the tags to be removed from the resource\. | 
 
 Output
 
@@ -12919,13 +13875,13 @@ aws iot  update-account-audit-configuration \
 
 |  Name |  Type |  Description | 
 | --- | --- | --- | 
-|  roleArn |  string  length\- max:2048 min:20  |  The ARN of the role that grants permission to AWS IoT to access information about your devices, policies, certificates and other items as necessary when performing an audit\.  | 
-|  auditNotificationTargetConfigurations |  map |  Information about the targets to which audit notifications are sent\. | 
-|  targetArn |  string |  The ARN of the target \(SNS topic\) to which audit notifications are sent\. | 
-|  roleArn |  string  length\- max:2048 min:20  |  The ARN of the role that grants permission to send notifications to the target\. | 
-|  enabled |  boolean |  True if notifications to the target are enabled\. | 
-|  auditCheckConfigurations |  map |  Specifies which audit checks are enabled and disabled for this account\. Use `DescribeAccountAuditConfiguration` to see the list of all checks including those that are currently enabled\. Note that some data collection may begin immediately when certain checks are enabled\. When a check is disabled, any data collected so far in relation to the check is deleted\. You cannot disable a check if it is used by any scheduled audit\. You must first delete the check from the scheduled audit or delete the scheduled audit itself\. On the first call to `UpdateAccountAuditConfiguration` this parameter is required and must specify at least one enabled check\.  | 
-|  enabled |  boolean |  True if this audit check is enabled for this account\. | 
+|   `roleArn`  |  string  length\- max:2048 min:20  |  The ARN of the role that grants permission to AWS IoT to access information about your devices, policies, certificates and other items as required when performing an audit\.  | 
+|   `auditNotificationTargetConfigurations`  |  map |  Information about the targets to which audit notifications are sent\. | 
+|   `targetArn`  |  string |  The ARN of the target \(SNS topic\) to which audit notifications are sent\. | 
+|   `roleArn`  |  string  length\- max:2048 min:20  |  The ARN of the role that grants permission to send notifications to the target\. | 
+|   `enabled`  |  boolean |  True if notifications to the target are enabled\. | 
+|   `auditCheckConfigurations`  |  map |  Specifies which audit checks are enabled and disabled for this account\. Use `DescribeAccountAuditConfiguration` to see the list of all checks, including those that are currently enabled\. Some data collection might start immediately when certain checks are enabled\. When a check is disabled, any data collected so far in relation to the check is deleted\. You cannot disable a check if it is used by any scheduled audit\. You must first delete the check from the scheduled audit or delete the scheduled audit itself\. On the first call to `UpdateAccountAuditConfiguration`, this parameter is required and must specify at least one enabled check\.  | 
+|   `enabled`  |  boolean |  True if this audit check is enabled for this account\. | 
 
 Output
 
@@ -12978,11 +13934,11 @@ aws iot  update-authorizer \
 
 |  Name |  Type |  Description | 
 | --- | --- | --- | 
-|  authorizerName |  string  length\- max:128 min:1  pattern: \[w=,@\-\]\+  |  The authorizer name\. | 
-|  authorizerFunctionArn |  string |  The ARN of the authorizer's Lambda function\. | 
-|  tokenKeyName |  string  length\- max:128 min:1  pattern: \[a\-zA\-Z0\-9\_\-\]\+  |  The key used to extract the token from the HTTP headers\.  | 
-|  tokenSigningPublicKeys |  map |  The public keys used to verify the token signature\. | 
-|  status |  string |  The status of the update authorizer request\.  enum: ACTIVE \| INACTIVE  | 
+|   `authorizerName`  |  string  length\- max:128 min:1  pattern: \[w=,@\-\]\+  |  The authorizer name\. | 
+|   `authorizerFunctionArn`  |  string |  The ARN of the authorizer's Lambda function\. | 
+|   `tokenKeyName`  |  string  length\- max:128 min:1  pattern: \[a\-zA\-Z0\-9\_\-\]\+  |  The key used to extract the token from the HTTP headers\.  | 
+|   `tokenSigningPublicKeys`  |  map |  The public keys used to verify the token signature\. | 
+|   `status`  |  string |  The status of the update authorizer request\.  enum: ACTIVE \| INACTIVE  | 
 
 Output
 
@@ -12998,8 +13954,8 @@ Output
 
 |  Name |  Type |  Description | 
 | --- | --- | --- | 
-|  authorizerName |  string  length\- max:128 min:1  pattern: \[w=,@\-\]\+  |  The authorizer name\. | 
-|  authorizerArn |  string |  The authorizer ARN\. | 
+|   `authorizerName`  |  string  length\- max:128 min:1  pattern: \[w=,@\-\]\+  |  The authorizer name\. | 
+|   `authorizerArn`  |  string |  The authorizer ARN\. | 
 
  **Errors**
 
@@ -13056,10 +14012,10 @@ aws iot  update-billing-group \
 
 |  Name |  Type |  Description | 
 | --- | --- | --- | 
-|  billingGroupName |  string  length\- max:128 min:1  pattern: \[a\-zA\-Z0\-9:\_\-\]\+  |  The name of the billing group\. | 
-|  billingGroupProperties |  BillingGroupProperties |  The properties of the billing group\. | 
-|  billingGroupDescription |  string  length\- max:2028  pattern: \[\\\\p\{Graph\} \]\*  |  The description of the billing group\. | 
-|  expectedVersion |  long |  The expected version of the billing group\. If the version of the billing group does not match the expected version specified in the request, the `UpdateBillingGroup` request is rejected with a `VersionConflictException`\.  | 
+|   `billingGroupName`  |  string  length\- max:128 min:1  pattern: \[a\-zA\-Z0\-9:\_\-\]\+  |  The name of the billing group\. | 
+|   `billingGroupProperties`  |  BillingGroupProperties |  The properties of the billing group\. | 
+|   `billingGroupDescription`  |  string  length\- max:2028  pattern: \[\\\\p\{Graph\} \]\*  |  The description of the billing group\. | 
+|   `expectedVersion`  |  long |  The expected version of the billing group\. If the version of the billing group does not match the expected version specified in the request, the `UpdateBillingGroup` request is rejected with a `VersionConflictException`\.  | 
 
 Output
 
@@ -13074,7 +14030,7 @@ Output
 
 |  Name |  Type |  Description | 
 | --- | --- | --- | 
-|  version |  long |  The latest version of the billing group\. | 
+|   `version`  |  long |  The latest version of the billing group\. | 
 
  **Errors**
 
@@ -13130,13 +14086,13 @@ aws iot  update-ca-certificate \
 
 |  Name |  Type |  Description | 
 | --- | --- | --- | 
-|  certificateId |  string  length\- max:64 min:64  pattern: \(0x\)?\[a\-fA\-F0\-9\]\+  |  The CA certificate identifier\. | 
-|  newStatus |  string |  The updated status of the CA certificate\.  **Note:** The status value REGISTER\_INACTIVE is deprecated and should not be used\.  enum: ACTIVE \| INACTIVE  | 
-|  newAutoRegistrationStatus |  string |  The new value for the auto registration status\. Valid values are: "ENABLE" or "DISABLE"\.  enum: ENABLE \| DISABLE  | 
-|  registrationConfig |  RegistrationConfig |  Information about the registration configuration\. | 
-|  templateBody |  string |  The template body\. | 
-|  roleArn |  string  length\- max:2048 min:20  |  The ARN of the role\. | 
-|  removeAutoRegistration |  boolean |  If true, removes auto registration\. | 
+|   `certificateId`  |  string  length\- max:64 min:64  pattern: \(0x\)?\[a\-fA\-F0\-9\]\+  |  The CA certificate identifier\. | 
+|   `newStatus`  |  string |  The updated status of the CA certificate\.  **Note:** The status value REGISTER\_INACTIVE is deprecated and should not be used\.  enum: ACTIVE \| INACTIVE  | 
+|   `newAutoRegistrationStatus`  |  string |  The new value for the auto registration status\. Valid values are: "ENABLE" or "DISABLE"\.  enum: ENABLE \| DISABLE  | 
+|   `registrationConfig`  |  RegistrationConfig |  Information about the registration configuration\. | 
+|   `templateBody`  |  string |  The template body\. | 
+|   `roleArn`  |  string  length\- max:2048 min:20  |  The ARN of the role\. | 
+|   `removeAutoRegistration`  |  boolean |  If true, removes auto registration\. | 
 
 Output
 
@@ -13194,8 +14150,8 @@ aws iot  update-certificate \
 
 |  Name |  Type |  Description | 
 | --- | --- | --- | 
-|  certificateId |  string  length\- max:64 min:64  pattern: \(0x\)?\[a\-fA\-F0\-9\]\+  |  The ID of the certificate\. \(The last part of the certificate ARN contains the certificate ID\.\) | 
-|  newStatus |  string |  The new status\.  **Note:** Setting the status to PENDING\_TRANSFER will result in an exception being thrown\. PENDING\_TRANSFER is a status used internally by AWS IoT\. It is not intended for developer use\.  **Note:** The status value REGISTER\_INACTIVE is deprecated and should not be used\.  enum: ACTIVE \| INACTIVE \| REVOKED \| PENDING\_TRANSFER \| REGISTER\_INACTIVE \| PENDING\_ACTIVATION  | 
+|   `certificateId`  |  string  length\- max:64 min:64  pattern: \(0x\)?\[a\-fA\-F0\-9\]\+  |  The ID of the certificate\. \(The last part of the certificate ARN contains the certificate ID\.\) | 
+|   `newStatus`  |  string |  The new status\.  **Note:** Setting the status to PENDING\_TRANSFER will result in an exception being thrown\. PENDING\_TRANSFER is a status used internally by AWS IoT\. It is not intended for developer use\.  **Note:** The status value REGISTER\_INACTIVE is deprecated and should not be used\.  enum: ACTIVE \| INACTIVE \| REVOKED \| PENDING\_TRANSFER \| REGISTER\_INACTIVE \| PENDING\_ACTIVATION  | 
 
 Output
 
@@ -13268,16 +14224,16 @@ aws iot  update-dynamic-thing-group \
 
 |  Name |  Type |  Description | 
 | --- | --- | --- | 
-|  thingGroupName |  string  length\- max:128 min:1  pattern: \[a\-zA\-Z0\-9:\_\-\]\+  |  The name of the dynamic thing group to update\. | 
-|  thingGroupProperties |  ThingGroupProperties |  The dynamic thing group properties to update\. | 
-|  thingGroupDescription |  string  length\- max:2028  pattern: \[\\\\p\{Graph\} \]\*  |  The thing group description\. | 
-|  attributePayload |  AttributePayload |  The thing group attributes in JSON format\. | 
-|  attributes |  map |  A JSON string containing up to three key\-value pair in JSON format\. For example:  ` \"attributes\":{\"string1\":\"string2\"}`   | 
-|  merge |  boolean |  Specifies whether the list of attributes provided in the `AttributePayload` is merged with the attributes stored in the registry, instead of overwriting them\. To remove an attribute, call `UpdateThing` with an empty attribute value\.  The `merge` attribute is only valid when calling `UpdateThing`\.   | 
-|  expectedVersion |  long |  The expected version of the dynamic thing group to update\. | 
-|  indexName |  string  length\- max:128 min:1  pattern: \[a\-zA\-Z0\-9:\_\-\]\+  |  The dynamic thing group index to update\. Currently one index is supported: 'AWS\_Things'\.  | 
-|  queryString |  string  length\- min:1  |  The dynamic thing group search query string to update\. | 
-|  queryVersion |  string |  The dynamic thing group query version to update\. Currently one query version is supported: "2017\-09\-30"\. If not specified, the query version defaults to this value\.  | 
+|   `thingGroupName`  |  string  length\- max:128 min:1  pattern: \[a\-zA\-Z0\-9:\_\-\]\+  |  The name of the dynamic thing group to update\. | 
+|   `thingGroupProperties`  |  ThingGroupProperties |  The dynamic thing group properties to update\. | 
+|   `thingGroupDescription`  |  string  length\- max:2028  pattern: \[\\\\p\{Graph\} \]\*  |  The thing group description\. | 
+|   `attributePayload`  |  AttributePayload |  The thing group attributes in JSON format\. | 
+|   `attributes`  |  map |  A JSON string containing up to three key\-value pair in JSON format\. For example:  ` \"attributes\":{\"string1\":\"string2\"}`   | 
+|   `merge`  |  boolean |  Specifies whether the list of attributes provided in the `AttributePayload` is merged with the attributes stored in the registry, instead of overwriting them\. To remove an attribute, call `UpdateThing` with an empty attribute value\.  The `merge` attribute is only valid when calling `UpdateThing` or `UpdateThingGroup`\.   | 
+|   `expectedVersion`  |  long |  The expected version of the dynamic thing group to update\. | 
+|   `indexName`  |  string  length\- max:128 min:1  pattern: \[a\-zA\-Z0\-9:\_\-\]\+  |  The dynamic thing group index to update\. Currently one index is supported: 'AWS\_Things'\.  | 
+|   `queryString`  |  string  length\- min:1  |  The dynamic thing group search query string to update\. | 
+|   `queryVersion`  |  string |  The dynamic thing group query version to update\. Currently one query version is supported: "2017\-09\-30"\. If not specified, the query version defaults to this value\.  | 
 
 Output
 
@@ -13292,7 +14248,7 @@ Output
 
 |  Name |  Type |  Description | 
 | --- | --- | --- | 
-|  version |  long |  The dynamic thing group version\. | 
+|   `version`  |  long |  The dynamic thing group version\. | 
 
  **Errors**
 
@@ -13344,8 +14300,8 @@ aws iot  update-event-configurations \
 
 |  Name |  Type |  Description | 
 | --- | --- | --- | 
-|  eventConfigurations |  map |  The new event configuration values\. | 
-|  Enabled |  boolean |  True to enable the configuration\. | 
+|   `eventConfigurations`  |  map |  The new event configuration values\. | 
+|   `Enabled`  |  boolean |  True to enable the configuration\. | 
 
 Output
 
@@ -13395,11 +14351,11 @@ aws iot  update-indexing-configuration \
 
 |  Name |  Type |  Description | 
 | --- | --- | --- | 
-|  thingIndexingConfiguration |  ThingIndexingConfiguration |  Thing indexing configuration\. | 
-|  thingIndexingMode |  string |  Thing indexing mode\. Valid values are: [\[See the AWS documentation website for more details\]](http://docs.aws.amazon.com/iot/latest/developerguide/iot-commands.html)  enum: OFF \| REGISTRY \| REGISTRY\_AND\_SHADOW  | 
-|  thingConnectivityIndexingMode |  string |  Thing connectivity indexing mode\. Valid values are:  [\[See the AWS documentation website for more details\]](http://docs.aws.amazon.com/iot/latest/developerguide/iot-commands.html)  enum: OFF \| STATUS  | 
-|  thingGroupIndexingConfiguration |  ThingGroupIndexingConfiguration |  Thing group indexing configuration\. | 
-|  thingGroupIndexingMode |  string |  Thing group indexing mode\.  enum: OFF \| ON  | 
+|   `thingIndexingConfiguration`  |  ThingIndexingConfiguration |  Thing indexing configuration\. | 
+|   `thingIndexingMode`  |  string |  Thing indexing mode\. Valid values are: [\[See the AWS documentation website for more details\]](http://docs.aws.amazon.com/iot/latest/developerguide/iot-commands.html)  enum: OFF \| REGISTRY \| REGISTRY\_AND\_SHADOW  | 
+|   `thingConnectivityIndexingMode`  |  string |  Thing connectivity indexing mode\. Valid values are:  [\[See the AWS documentation website for more details\]](http://docs.aws.amazon.com/iot/latest/developerguide/iot-commands.html)  enum: OFF \| STATUS  | 
+|   `thingGroupIndexingConfiguration`  |  ThingGroupIndexingConfiguration |  Thing group indexing configuration\. | 
+|   `thingGroupIndexingMode`  |  string |  Thing group indexing mode\.  enum: OFF \| ON  | 
 
 Output
 
@@ -13482,25 +14438,25 @@ aws iot  update-job \
 
 |  Name |  Type |  Description | 
 | --- | --- | --- | 
-|  jobId |  string  length\- max:64 min:1  pattern: \[a\-zA\-Z0\-9\_\-\]\+  |  The ID of the job to be updated\. | 
-|  description |  string  length\- max:2028  pattern: \[^\\\\p\{C\}\]\+  |  A short text description of the job\. | 
-|  presignedUrlConfig |  PresignedUrlConfig |  Configuration information for pre\-signed S3 URLs\. | 
-|  roleArn |  string  length\- max:2048 min:20  |  The ARN of an IAM role that grants grants permission to download files from the S3 bucket where the job data/updates are stored\. The role must also grant permission for IoT to download the files\.  | 
-|  expiresInSec |  long  range\- max:3600 min:60  |  How long \(in seconds\) pre\-signed URLs are valid\. Valid values are 60 \- 3600, the default value is 3600 seconds\. Pre\-signed URLs are generated when Jobs receives an MQTT request for the job document\.  | 
-|  jobExecutionsRolloutConfig |  JobExecutionsRolloutConfig |  Allows you to create a staged rollout of the job\. | 
-|  maximumPerMinute |  integer  range\- min:1  |  The maximum number of things that will be notified of a pending job, per minute\. This parameter allows you to create a staged rollout\.  | 
-|  exponentialRate |  ExponentialRolloutRate |  The rate of increase for a job rollout\. This parameter allows you to define an exponential rate for a job rollout\.  | 
-|  baseRatePerMinute |  integer  range\- max:1000 min:1  |  The minimum number of things that will be notified of a pending job, per minute at the start of job rollout\. This parameter allows you to define the initial rate of rollout\.  | 
-|  rateIncreaseCriteria |  RateIncreaseCriteria |  The criteria to initiate the increase in rate of rollout for a job\. AWS IoT supports up to one digit after the decimal \(for example, 1\.5, but not 1\.55\)\.  | 
-|  numberOfNotifiedThings |  integer  range\- min:1  |  The threshold for number of notified things that will initiate the increase in rate of rollout\. | 
-|  numberOfSucceededThings |  integer  range\- min:1  |  The threshold for number of succeeded things that will initiate the increase in rate of rollout\. | 
-|  abortConfig |  AbortConfig |  Allows you to create criteria to abort a job\. | 
-|  criteriaList |  list  member: AbortCriteria  java class: java\.util\.List  |  The list of abort criteria to define rules to abort the job\. | 
-|  failureType |  string |  The type of job execution failure to define a rule to initiate a job abort\.  enum: FAILED \| REJECTED \| TIMED\_OUT \| ALL  | 
-|  action |  string |  The type of abort action to initiate a job abort\.  enum: CANCEL  | 
-|  minNumberOfExecutedThings |  integer  range\- min:1  |  Minimum number of executed things before evaluating an abort rule\. | 
-|  timeoutConfig |  TimeoutConfig |  Specifies the amount of time each device has to finish its execution of the job\. The timer is started when the job execution status is set to `IN_PROGRESS`\. If the job execution status is not set to another terminal state before the time expires, it will be automatically set to `TIMED_OUT`\.   | 
-|  inProgressTimeoutInMinutes |  long |  Specifies the amount of time, in minutes, this device has to finish execution of this job\. The timeout interval can be anywhere between 1 minute and 7 days \(1 to 10080 minutes\)\. The in progress timer can't be updated and will apply to all job executions for the job\. Whenever a job execution remains in the IN\_PROGRESS status for longer than this interval, the job execution will fail and switch to the terminal `TIMED_OUT` status\.  | 
+|   `jobId`  |  string  length\- max:64 min:1  pattern: \[a\-zA\-Z0\-9\_\-\]\+  |  The ID of the job to be updated\. | 
+|   `description`  |  string  length\- max:2028  pattern: \[^\\\\p\{C\}\]\+  |  A short text description of the job\. | 
+|   `presignedUrlConfig`  |  PresignedUrlConfig |  Configuration information for pre\-signed S3 URLs\. | 
+|   `roleArn`  |  string  length\- max:2048 min:20  |  The ARN of an IAM role that grants grants permission to download files from the S3 bucket where the job data/updates are stored\. The role must also grant permission for IoT to download the files\.  | 
+|   `expiresInSec`  |  long  range\- max:3600 min:60  |  How long \(in seconds\) pre\-signed URLs are valid\. Valid values are 60 \- 3600, the default value is 3600 seconds\. Pre\-signed URLs are generated when Jobs receives an MQTT request for the job document\.  | 
+|   `jobExecutionsRolloutConfig`  |  JobExecutionsRolloutConfig |  Allows you to create a staged rollout of the job\. | 
+|   `maximumPerMinute`  |  integer  range\- min:1  |  The maximum number of things that will be notified of a pending job, per minute\. This parameter allows you to create a staged rollout\.  | 
+|   `exponentialRate`  |  ExponentialRolloutRate |  The rate of increase for a job rollout\. This parameter allows you to define an exponential rate for a job rollout\.  | 
+|   `baseRatePerMinute`  |  integer  range\- max:1000 min:1  |  The minimum number of things that will be notified of a pending job, per minute at the start of job rollout\. This parameter allows you to define the initial rate of rollout\.  | 
+|   `rateIncreaseCriteria`  |  RateIncreaseCriteria |  The criteria to initiate the increase in rate of rollout for a job\. AWS IoT supports up to one digit after the decimal \(for example, 1\.5, but not 1\.55\)\.  | 
+|   `numberOfNotifiedThings`  |  integer  range\- min:1  |  The threshold for number of notified things that will initiate the increase in rate of rollout\. | 
+|   `numberOfSucceededThings`  |  integer  range\- min:1  |  The threshold for number of succeeded things that will initiate the increase in rate of rollout\. | 
+|   `abortConfig`  |  AbortConfig |  Allows you to create criteria to abort a job\. | 
+|   `criteriaList`  |  list  member: AbortCriteria  java class: java\.util\.List  |  The list of abort criteria to define rules to abort the job\. | 
+|   `failureType`  |  string |  The type of job execution failure to define a rule to initiate a job abort\.  enum: FAILED \| REJECTED \| TIMED\_OUT \| ALL  | 
+|   `action`  |  string |  The type of abort action to initiate a job abort\.  enum: CANCEL  | 
+|   `minNumberOfExecutedThings`  |  integer  range\- min:1  |  Minimum number of executed things before evaluating an abort rule\. | 
+|   `timeoutConfig`  |  TimeoutConfig |  Specifies the amount of time each device has to finish its execution of the job\. The timer is started when the job execution status is set to `IN_PROGRESS`\. If the job execution status is not set to another terminal state before the time expires, it will be automatically set to `TIMED_OUT`\.   | 
+|   `inProgressTimeoutInMinutes`  |  long |  Specifies the amount of time, in minutes, this device has to finish execution of this job\. The timeout interval can be anywhere between 1 minute and 7 days \(1 to 10080 minutes\)\. The in progress timer can't be updated and will apply to all job executions for the job\. Whenever a job execution remains in the IN\_PROGRESS status for longer than this interval, the job execution will fail and switch to the terminal `TIMED_OUT` status\.  | 
 
 Output
 
@@ -13564,15 +14520,15 @@ aws iot-jobs-data  update-job-execution \
 
 |  Name |  Type |  Description | 
 | --- | --- | --- | 
-|  jobId |  string  length\- max:64 min:1  pattern: \[a\-zA\-Z0\-9\_\-\]\+  |  The unique identifier assigned to this job when it was created\. | 
-|  thingName |  string  length\- max:128 min:1  pattern: \[a\-zA\-Z0\-9:\_\-\]\+  |  The name of the thing associated with the device\. | 
-|  status |  string |  The new status for the job execution \(IN\_PROGRESS, FAILED, SUCCESS, or REJECTED\)\. This must be specified on every update\.  enum: QUEUED \| IN\_PROGRESS \| SUCCEEDED \| FAILED \| TIMED\_OUT \| REJECTED \| REMOVED \| CANCELED  | 
-|  statusDetails |  map |   Optional\. A collection of name/value pairs that describe the status of the job execution\. If not specified, the statusDetails are unchanged\.  | 
-|  stepTimeoutInMinutes |  long |  Specifies the amount of time this device has to finish execution of this job\. If the job execution status is not set to a terminal state before this timer expires, or before the timer is reset \(by again calling `UpdateJobExecution`, setting the status to `IN_PROGRESS`, and specifying a new timeout value in this field\) the job execution status will be automatically set to `TIMED_OUT`\. Note that setting or resetting the step timeout has no effect on the in progress timeout that may have been specified when the job was created \(`CreateJob` using field `timeoutConfig`\)\. Valid values for this parameter range from 1 to 10080 \(1 minute to 7 days\)\. A value of \-1 is also valid and will cancel the current step timer \(created by an earlier use of `UpdateJobExecutionRequest`\)\.  | 
-|  expectedVersion |  long |  Optional\. The expected current version of the job execution\. Each time you update the job execution, its version is incremented\. If the version of the job execution stored in Jobs does not match, the update is rejected with a VersionMismatch error, and an ErrorResponse that contains the current job execution status data is returned\. \(This makes it unnecessary to perform a separate DescribeJobExecution request in order to obtain the job execution status data\.\)  | 
-|  includeJobExecutionState |  boolean |  Optional\. When included and set to true, the response contains the JobExecutionState data\. The default is false\.  | 
-|  includeJobDocument |  boolean |  Optional\. When set to true, the response contains the job document\. The default is false\. | 
-|  executionNumber |  long |  Optional\. A number that identifies a particular job execution on a particular device\. | 
+|   `jobId`  |  string  length\- max:64 min:1  pattern: \[a\-zA\-Z0\-9\_\-\]\+  |  The unique identifier assigned to this job when it was created\. | 
+|   `thingName`  |  string  length\- max:128 min:1  pattern: \[a\-zA\-Z0\-9:\_\-\]\+  |  The name of the thing associated with the device\. | 
+|   `status`  |  string |  The new status for the job execution \(IN\_PROGRESS, FAILED, SUCCESS, or REJECTED\)\. This must be specified on every update\.  enum: QUEUED \| IN\_PROGRESS \| SUCCEEDED \| FAILED \| TIMED\_OUT \| REJECTED \| REMOVED \| CANCELED  | 
+|   `statusDetails`  |  map |   Optional\. A collection of name/value pairs that describe the status of the job execution\. If not specified, the statusDetails are unchanged\.  | 
+|   `stepTimeoutInMinutes`  |  long |  Specifies the amount of time this device has to finish execution of this job\. If the job execution status is not set to a terminal state before this timer expires, or before the timer is reset \(by again calling `UpdateJobExecution`, setting the status to `IN_PROGRESS`, and specifying a new timeout value in this field\) the job execution status will be automatically set to `TIMED_OUT`\. Note that setting or resetting the step timeout has no effect on the in progress timeout that may have been specified when the job was created \(`CreateJob` using field `timeoutConfig`\)\. Valid values for this parameter range from 1 to 10080 \(1 minute to 7 days\)\. A value of \-1 is also valid and will cancel the current step timer \(created by an earlier use of `UpdateJobExecutionRequest`\)\.  | 
+|   `expectedVersion`  |  long |  Optional\. The expected current version of the job execution\. Each time you update the job execution, its version is incremented\. If the version of the job execution stored in Jobs does not match, the update is rejected with a VersionMismatch error, and an ErrorResponse that contains the current job execution status data is returned\. \(This makes it unnecessary to perform a separate DescribeJobExecution request in order to obtain the job execution status data\.\)  | 
+|   `includeJobExecutionState`  |  boolean |  Optional\. When included and set to true, the response contains the JobExecutionState data\. The default is false\.  | 
+|   `includeJobDocument`  |  boolean |  Optional\. When set to true, the response contains the job document\. The default is false\. | 
+|   `executionNumber`  |  long |  Optional\. A number that identifies a particular job execution on a particular device\. | 
 
 Output
 
@@ -13594,11 +14550,11 @@ Output
 
 |  Name |  Type |  Description | 
 | --- | --- | --- | 
-|  executionState |  JobExecutionState |  A JobExecutionState object\. | 
-|  status |  string |  The status of the job execution\. Can be one of: "QUEUED", "IN\_PROGRESS", "FAILED", "SUCCESS", "CANCELED", "TIMED\_OUT", "REJECTED", or "REMOVED"\.  enum: QUEUED \| IN\_PROGRESS \| SUCCEEDED \| FAILED \| TIMED\_OUT \| REJECTED \| REMOVED \| CANCELED  | 
-|  statusDetails |  map |  A collection of name/value pairs that describe the status of the job execution\. | 
-|  versionNumber |  long |  The version of the job execution\. Job execution versions are incremented each time they are updated by a device\.  | 
-|  jobDocument |  string  length\- max:32768  |  The contents of the Job Documents\. | 
+|   `executionState`  |  JobExecutionState |  A JobExecutionState object\. | 
+|   `status`  |  string |  The status of the job execution\. Can be one of: "QUEUED", "IN\_PROGRESS", "FAILED", "SUCCESS", "CANCELED", "TIMED\_OUT", "REJECTED", or "REMOVED"\.  enum: QUEUED \| IN\_PROGRESS \| SUCCEEDED \| FAILED \| TIMED\_OUT \| REJECTED \| REMOVED \| CANCELED  | 
+|   `statusDetails`  |  map |  A collection of name/value pairs that describe the status of the job execution\. | 
+|   `versionNumber`  |  long |  The version of the job execution\. Job execution versions are incremented each time they are updated by a device\.  | 
+|   `jobDocument`  |  string  length\- max:32768  |  The contents of the Job Documents\. | 
 
  **Errors**
 
@@ -13619,6 +14575,108 @@ The certificate is invalid\.
 
 `InvalidStateTransitionException`  
 An update attempted to change the job execution to a state that is invalid because of the job execution's current state \(for example, an attempt to change a request in state SUCCESS to state IN\_PROGRESS\)\. In this case, the body of the error message also contains the executionState field\.
+
+## UpdateMitigationAction<a name="api-iot-UpdateMitigationAction"></a>
+
+Updates the definition for the specified mitigation action\.
+
+ **Synopsis**
+
+```
+aws iot  update-mitigation-action \
+    --action-name <value> \
+    [--role-arn <value>] \
+    [--action-params <value>]  \
+    [--cli-input-json <value>] \
+    [--generate-cli-skeleton]
+```
+
+ `cli-input-json` format
+
+```
+{
+  "actionName": "string",
+  "roleArn": "string",
+  "actionParams": {
+    "updateDeviceCertificateParams": {
+      "action": "string"
+    },
+    "updateCACertificateParams": {
+      "action": "string"
+    },
+    "addThingsToThingGroupParams": {
+      "thingGroupNames": [
+        "string"
+      ],
+      "overrideDynamicGroups": "boolean"
+    },
+    "replaceDefaultPolicyVersionParams": {
+      "templateName": "string"
+    },
+    "enableIoTLoggingParams": {
+      "roleArnForLogging": "string",
+      "logLevel": "string"
+    },
+    "publishFindingToSnsParams": {
+      "topicArn": "string"
+    }
+  }
+}
+```
+
+
+**`cli-input-json` fields**  
+
+|  Name |  Type |  Description | 
+| --- | --- | --- | 
+|   `actionName`  |  string  length\- max:128  pattern: \[a\-zA\-Z0\-9\_\-\]\+  |  The friendly name for the mitigation action\. You can't change the name by using `UpdateMitigationAction`\. Instead, you must delete and re\-create the mitigation action with the new name\. | 
+|   `roleArn`  |  string  length\- max:2048 min:20  |  The ARN of the IAM role that is used to apply the mitigation action\. | 
+|   `actionParams`  |  MitigationActionParams |  Defines the type of action and the parameters for that action\. | 
+|   `updateDeviceCertificateParams`  |  UpdateDeviceCertificateParams |  Parameters to define a mitigation action that changes the state of the device certificate to inactive\. | 
+|   `action`  |  string |  The action that you want to apply to the device cerrtificate\. The only supported value is `DEACTIVATE`\.  enum: DEACTIVATE  | 
+|   `updateCACertificateParams`  |  UpdateCACertificateParams |  Parameters to define a mitigation action that changes the state of the CA certificate to inactive\. | 
+|   `action`  |  string |  The action that you want to apply to the CA cerrtificate\. The only supported value is `DEACTIVATE`\.  enum: DEACTIVATE  | 
+|   `addThingsToThingGroupParams`  |  AddThingsToThingGroupParams |  Parameters to define a mitigation action that moves devices associated with a certificate to one or more specified thing groups, typically for quarantine\. | 
+|   `thingGroupNames`  |  list  member: ThingGroupName  |  The list of groups to which you want to add the things that triggered the mitigation action\. You can add a thing to a maximum of 10 groups, but you cannot add a thing to more than one group in the same hierarchy\. | 
+|   `overrideDynamicGroups`  |  boolean |  Specifies if this mitigation action can move the things that triggered the mitigation action even if they are part of one or more dynamic things groups\. | 
+|   `replaceDefaultPolicyVersionParams`  |  ReplaceDefaultPolicyVersionParams |  Parameters to define a mitigation action that adds a blank policy to restrict permissions\. | 
+|   `templateName`  |  string |  The name of the template to be applied\. The only supported value is `BLANK_POLICY`\.  enum: BLANK\_POLICY  | 
+|   `enableIoTLoggingParams`  |  EnableIoTLoggingParams |  Parameters to define a mitigation action that enables AWS IoT logging at a specified level of detail\. | 
+|   `roleArnForLogging`  |  string  length\- max:2048 min:20  |  The ARN of the IAM role used for logging\. | 
+|   `logLevel`  |  string |  Specifies the types of information to be logged\.  enum: DEBUG \| INFO \| ERROR \| WARN \| DISABLED  | 
+|   `publishFindingToSnsParams`  |  PublishFindingToSnsParams |  Parameters to define a mitigation action that publishes findings to Amazon SNS\. You can implement your own custom actions in response to the Amazon SNS messages\. | 
+|   `topicArn`  |  string  length\- max:350  |  The ARN of the topic to which you want to publish the findings\. | 
+
+Output
+
+```
+{
+  "actionArn": "string",
+  "actionId": "string"
+}
+```
+
+
+**CLI output fields**  
+
+|  Name |  Type |  Description | 
+| --- | --- | --- | 
+|   `actionArn`  |  string |  The ARN for the new mitigation action\. | 
+|   `actionId`  |  string |  A unique identifier for the mitigation action\. | 
+
+ **Errors**
+
+`InvalidRequestException`  
+The contents of the request were invalid\.
+
+`ResourceNotFoundException`  
+The specified resource does not exist\.
+
+`ThrottlingException`  
+The rate exceeds the limit\.
+
+`InternalFailureException`  
+An unexpected error has occurred\.
 
 ## UpdateRoleAlias<a name="api-iot-UpdateRoleAlias"></a>
 
@@ -13650,9 +14708,9 @@ aws iot  update-role-alias \
 
 |  Name |  Type |  Description | 
 | --- | --- | --- | 
-|  roleAlias |  string  length\- max:128 min:1  pattern: \[w=,@\-\]\+  |  The role alias to update\. | 
-|  roleArn |  string  length\- max:2048 min:20  |  The role ARN\. | 
-|  credentialDurationSeconds |  integer  range\- max:3600 min:900  |  The number of seconds the credential will be valid\. | 
+|   `roleAlias`  |  string  length\- max:128 min:1  pattern: \[w=,@\-\]\+  |  The role alias to update\. | 
+|   `roleArn`  |  string  length\- max:2048 min:20  |  The role ARN\. | 
+|   `credentialDurationSeconds`  |  integer  range\- max:3600 min:900  |  The number of seconds the credential will be valid\. | 
 
 Output
 
@@ -13668,8 +14726,8 @@ Output
 
 |  Name |  Type |  Description | 
 | --- | --- | --- | 
-|  roleAlias |  string  length\- max:128 min:1  pattern: \[w=,@\-\]\+  |  The role alias\. | 
-|  roleAliasArn |  string |  The role alias ARN\. | 
+|   `roleAlias`  |  string  length\- max:128 min:1  pattern: \[w=,@\-\]\+  |  The role alias\. | 
+|   `roleAliasArn`  |  string |  The role alias ARN\. | 
 
  **Errors**
 
@@ -13693,7 +14751,7 @@ An unexpected error has occurred\.
 
 ## UpdateScheduledAudit<a name="api-iot-UpdateScheduledAudit"></a>
 
-Updates a scheduled audit, including what checks are performed and how often the audit takes place\.
+Updates a scheduled audit, including which checks are performed and how often the audit takes place\.
 
  **Synopsis**
 
@@ -13727,11 +14785,11 @@ aws iot  update-scheduled-audit \
 
 |  Name |  Type |  Description | 
 | --- | --- | --- | 
-|  frequency |  string |  How often the scheduled audit takes place\. Can be one of "DAILY", "WEEKLY", "BIWEEKLY" or "MONTHLY"\. The actual start time of each audit is determined by the system\.  enum: DAILY \| WEEKLY \| BIWEEKLY \| MONTHLY  | 
-|  dayOfMonth |  string  pattern: ^\(\[1\-9\]\|\[12\]\[0\-9\]\|3\[01\]\)$\|^LAST$  |  The day of the month on which the scheduled audit takes place\. Can be "1" through "31" or "LAST"\. This field is required if the "frequency" parameter is set to "MONTHLY"\. If days 29\-31 are specified, and the month does not have that many days, the audit takes place on the "LAST" day of the month\.  | 
-|  dayOfWeek |  string |  The day of the week on which the scheduled audit takes place\. Can be one of "SUN", "MON", "TUE", "WED", "THU", "FRI" or "SAT"\. This field is required if the "frequency" parameter is set to "WEEKLY" or "BIWEEKLY"\.  enum: SUN \| MON \| TUE \| WED \| THU \| FRI \| SAT  | 
-|  targetCheckNames |  list  member: AuditCheckName  |  Which checks are performed during the scheduled audit\. Checks must be enabled for your account\. \(Use `DescribeAccountAuditConfiguration` to see the list of all checks including those that are enabled or `UpdateAccountAuditConfiguration` to select which checks are enabled\.\)  | 
-|  scheduledAuditName |  string  length\- max:128 min:1  pattern: \[a\-zA\-Z0\-9\_\-\]\+  |  The name of the scheduled audit\. \(Max\. 128 chars\) | 
+|   `frequency`  |  string |  How often the scheduled audit takes place\. Can be one of "DAILY", "WEEKLY", "BIWEEKLY", or "MONTHLY"\. The start time of each audit is determined by the system\.  enum: DAILY \| WEEKLY \| BIWEEKLY \| MONTHLY  | 
+|   `dayOfMonth`  |  string  pattern: ^\(\[1\-9\]\|\[12\]\[0\-9\]\|3\[01\]\)$\|^LAST$  |  The day of the month on which the scheduled audit takes place\. Can be "1" through "31" or "LAST"\. This field is required if the "frequency" parameter is set to "MONTHLY"\. If days 29\-31 are specified, and the month does not have that many days, the audit takes place on the "LAST" day of the month\.  | 
+|   `dayOfWeek`  |  string |  The day of the week on which the scheduled audit takes place\. Can be one of "SUN", "MON", "TUE", "WED", "THU", "FRI", or "SAT"\. This field is required if the "frequency" parameter is set to "WEEKLY" or "BIWEEKLY"\.  enum: SUN \| MON \| TUE \| WED \| THU \| FRI \| SAT  | 
+|   `targetCheckNames`  |  list  member: AuditCheckName  |  Which checks are performed during the scheduled audit\. Checks must be enabled for your account\. \(Use `DescribeAccountAuditConfiguration` to see the list of all checks, including those that are enabled or use `UpdateAccountAuditConfiguration` to select which checks are enabled\.\)  | 
+|   `scheduledAuditName`  |  string  length\- max:128 min:1  pattern: \[a\-zA\-Z0\-9\_\-\]\+  |  The name of the scheduled audit\. \(Max\. 128 chars\) | 
 
 Output
 
@@ -13746,7 +14804,7 @@ Output
 
 |  Name |  Type |  Description | 
 | --- | --- | --- | 
-|  scheduledAuditArn |  string |  The ARN of the scheduled audit\. | 
+|   `scheduledAuditArn`  |  string |  The ARN of the scheduled audit\. | 
 
  **Errors**
 
@@ -13834,30 +14892,30 @@ aws iot  update-security-profile \
 
 |  Name |  Type |  Description | 
 | --- | --- | --- | 
-|  securityProfileName |  string  length\- max:128 min:1  pattern: \[a\-zA\-Z0\-9:\_\-\]\+  |  The name of the security profile you want to update\. | 
-|  securityProfileDescription |  string  length\- max:1000  pattern: \[\\\\p\{Graph\} \]\*  |  A description of the security profile\. | 
-|  behaviors |  list  member: Behavior  |  Specifies the behaviors that, when violated by a device \(thing\), cause an alert\. | 
-|  name |  string  length\- max:128 min:1  pattern: \[a\-zA\-Z0\-9:\_\-\]\+  |  The name you have given to the behavior\. | 
-|  metric |  string |  What is measured by the behavior\. | 
-|  criteria |  BehaviorCriteria |  The criteria that determine if a device is behaving normally in regard to the `metric`\.  | 
-|  comparisonOperator |  string |  The operator that relates the thing measured \(`metric`\) to the criteria \(containing a `value` or `statisticalThreshold`\)\.  enum: less\-than \| less\-than\-equals \| greater\-than \| greater\-than\-equals \| in\-cidr\-set \| not\-in\-cidr\-set \| in\-port\-set \| not\-in\-port\-set  | 
-|  value |  MetricValue |  The value to be compared with the `metric`\. | 
-|  count |  long  range\- min:0  |  If the `comparisonOperator` calls for a numeric value, use this to specify that numeric value to be compared with the `metric`\.  | 
-|  cidrs |  list  member: Cidr  |  If the `comparisonOperator` calls for a set of CIDRs, use this to specify that set to be compared with the `metric`\.  | 
-|  ports |  list  member: Port  |  If the `comparisonOperator` calls for a set of ports, use this to specify that set to be compared with the `metric`\.  | 
-|  durationSeconds |  integer |  Use this to specify the time duration over which the behavior is evaluated, for those criteria which have a time dimension \(for example, `NUM_MESSAGES_SENT`\)\. For a `statisticalThreshhold` metric comparison, measurements from all devices are accumulated over this time duration before being used to calculate percentiles, and later, measurements from an individual device are also accumulated over this time duration before being given a percentile rank\.  | 
-|  consecutiveDatapointsToAlarm |  integer  range\- max:10 min:1  |  If a device is in violation of the behavior for the specified number of consecutive datapoints, an alarm occurs\. If not specified, the default is 1\.  | 
-|  consecutiveDatapointsToClear |  integer  range\- max:10 min:1  |  If an alarm has occurred and the offending device is no longer in violation of the behavior for the specified number of consecutive datapoints, the alarm is cleared\. If not specified, the default is 1\.  | 
-|  statisticalThreshold |  StatisticalThreshold |  A statistical ranking \(percentile\) which indicates a threshold value by which a behavior is determined to be in compliance or in violation of the behavior\.  | 
-|  statistic |  string  pattern: \(p0\|p0\.1\|p0\.01\|p1\|p10\|p50\|p90\|p99\|p99\.9\|p99\.99\|p100\)  |  The percentile which resolves to a threshold value by which compliance with a behavior is determined\. Metrics are collected over the specified period \(`durationSeconds`\) from all reporting devices in your account and statistical ranks are calculated\. Then, the measurements from a device are collected over the same period\. If the accumulated measurements from the device fall above or below \(`comparisonOperator`\) the value associated with the percentile specified, then the device is considered to be in compliance with the behavior, otherwise a violation occurs\.  | 
-|  alertTargets |  map |  Where the alerts are sent\. \(Alerts are always sent to the console\.\) | 
-|  alertTargetArn |  string |  The ARN of the notification target to which alerts are sent\. | 
-|  roleArn |  string  length\- max:2048 min:20  |  The ARN of the role that grants permission to send alerts to the notification target\.  | 
-|  additionalMetricsToRetain |  list  member: BehaviorMetric  |  A list of metrics whose data is retained \(stored\)\. By default, data is retained for any metric used in the profile's `behaviors` but it is also retained for any metric specified here\.  | 
-|  deleteBehaviors |  boolean |  If true, delete all `behaviors` defined for this security profile\. If any `behaviors` are defined in the current invocation an exception occurs\.  | 
-|  deleteAlertTargets |  boolean |  If true, delete all `alertTargets` defined for this security profile\. If any `alertTargets` are defined in the current invocation an exception occurs\.  | 
-|  deleteAdditionalMetricsToRetain |  boolean |  If true, delete all `additionalMetricsToRetain` defined for this security profile\. If any `additionalMetricsToRetain` are defined in the current invocation an exception occurs\.  | 
-|  expectedVersion |  long |  The expected version of the security profile\. A new version is generated whenever the security profile is updated\. If you specify a value that is different than the actual version, a `VersionConflictException` is thrown\.  | 
+|   `securityProfileName`  |  string  length\- max:128 min:1  pattern: \[a\-zA\-Z0\-9:\_\-\]\+  |  The name of the security profile you want to update\. | 
+|   `securityProfileDescription`  |  string  length\- max:1000  pattern: \[\\\\p\{Graph\} \]\*  |  A description of the security profile\. | 
+|   `behaviors`  |  list  member: Behavior  |  Specifies the behaviors that, when violated by a device \(thing\), cause an alert\. | 
+|   `name`  |  string  length\- max:128 min:1  pattern: \[a\-zA\-Z0\-9:\_\-\]\+  |  The name you have given to the behavior\. | 
+|   `metric`  |  string |  What is measured by the behavior\. | 
+|   `criteria`  |  BehaviorCriteria |  The criteria that determine if a device is behaving normally in regard to the `metric`\.  | 
+|   `comparisonOperator`  |  string |  The operator that relates the thing measured \(`metric`\) to the criteria \(containing a `value` or `statisticalThreshold`\)\.  enum: less\-than \| less\-than\-equals \| greater\-than \| greater\-than\-equals \| in\-cidr\-set \| not\-in\-cidr\-set \| in\-port\-set \| not\-in\-port\-set  | 
+|   `value`  |  MetricValue |  The value to be compared with the `metric`\. | 
+|   `count`  |  long  range\- min:0  |  If the `comparisonOperator` calls for a numeric value, use this to specify that numeric value to be compared with the `metric`\.  | 
+|   `cidrs`  |  list  member: Cidr  |  If the `comparisonOperator` calls for a set of CIDRs, use this to specify that set to be compared with the `metric`\.  | 
+|   `ports`  |  list  member: Port  |  If the `comparisonOperator` calls for a set of ports, use this to specify that set to be compared with the `metric`\.  | 
+|   `durationSeconds`  |  integer |  Use this to specify the time duration over which the behavior is evaluated, for those criteria which have a time dimension \(for example, `NUM_MESSAGES_SENT`\)\. For a `statisticalThreshhold` metric comparison, measurements from all devices are accumulated over this time duration before being used to calculate percentiles, and later, measurements from an individual device are also accumulated over this time duration before being given a percentile rank\.  | 
+|   `consecutiveDatapointsToAlarm`  |  integer  range\- max:10 min:1  |  If a device is in violation of the behavior for the specified number of consecutive datapoints, an alarm occurs\. If not specified, the default is 1\.  | 
+|   `consecutiveDatapointsToClear`  |  integer  range\- max:10 min:1  |  If an alarm has occurred and the offending device is no longer in violation of the behavior for the specified number of consecutive datapoints, the alarm is cleared\. If not specified, the default is 1\.  | 
+|   `statisticalThreshold`  |  StatisticalThreshold |  A statistical ranking \(percentile\) which indicates a threshold value by which a behavior is determined to be in compliance or in violation of the behavior\.  | 
+|   `statistic`  |  string  pattern: \(p0\|p0\.1\|p0\.01\|p1\|p10\|p50\|p90\|p99\|p99\.9\|p99\.99\|p100\)  |  The percentile which resolves to a threshold value by which compliance with a behavior is determined\. Metrics are collected over the specified period \(`durationSeconds`\) from all reporting devices in your account and statistical ranks are calculated\. Then, the measurements from a device are collected over the same period\. If the accumulated measurements from the device fall above or below \(`comparisonOperator`\) the value associated with the percentile specified, then the device is considered to be in compliance with the behavior, otherwise a violation occurs\.  | 
+|   `alertTargets`  |  map |  Where the alerts are sent\. \(Alerts are always sent to the console\.\) | 
+|   `alertTargetArn`  |  string |  The ARN of the notification target to which alerts are sent\. | 
+|   `roleArn`  |  string  length\- max:2048 min:20  |  The ARN of the role that grants permission to send alerts to the notification target\.  | 
+|   `additionalMetricsToRetain`  |  list  member: BehaviorMetric  |  A list of metrics whose data is retained \(stored\)\. By default, data is retained for any metric used in the profile's `behaviors`, but it is also retained for any metric specified here\.  | 
+|   `deleteBehaviors`  |  boolean |  If true, delete all `behaviors` defined for this security profile\. If any `behaviors` are defined in the current invocation, an exception occurs\.  | 
+|   `deleteAlertTargets`  |  boolean |  If true, delete all `alertTargets` defined for this security profile\. If any `alertTargets` are defined in the current invocation, an exception occurs\.  | 
+|   `deleteAdditionalMetricsToRetain`  |  boolean |  If true, delete all `additionalMetricsToRetain` defined for this security profile\. If any `additionalMetricsToRetain` are defined in the current invocation, an exception occurs\.  | 
+|   `expectedVersion`  |  long |  The expected version of the security profile\. A new version is generated whenever the security profile is updated\. If you specify a value that is different from the actual version, a `VersionConflictException` is thrown\.  | 
 
 Output
 
@@ -13910,30 +14968,30 @@ Output
 
 |  Name |  Type |  Description | 
 | --- | --- | --- | 
-|  securityProfileName |  string  length\- max:128 min:1  pattern: \[a\-zA\-Z0\-9:\_\-\]\+  |  The name of the security profile that was updated\. | 
-|  securityProfileArn |  string |  The ARN of the security profile that was updated\. | 
-|  securityProfileDescription |  string  length\- max:1000  pattern: \[\\\\p\{Graph\} \]\*  |  The description of the security profile\. | 
-|  behaviors |  list  member: Behavior  |  Specifies the behaviors that, when violated by a device \(thing\), cause an alert\. | 
-|  name |  string  length\- max:128 min:1  pattern: \[a\-zA\-Z0\-9:\_\-\]\+  |  The name you have given to the behavior\. | 
-|  metric |  string |  What is measured by the behavior\. | 
-|  criteria |  BehaviorCriteria |  The criteria that determine if a device is behaving normally in regard to the `metric`\.  | 
-|  comparisonOperator |  string |  The operator that relates the thing measured \(`metric`\) to the criteria \(containing a `value` or `statisticalThreshold`\)\.  enum: less\-than \| less\-than\-equals \| greater\-than \| greater\-than\-equals \| in\-cidr\-set \| not\-in\-cidr\-set \| in\-port\-set \| not\-in\-port\-set  | 
-|  value |  MetricValue |  The value to be compared with the `metric`\. | 
-|  count |  long  range\- min:0  |  If the `comparisonOperator` calls for a numeric value, use this to specify that numeric value to be compared with the `metric`\.  | 
-|  cidrs |  list  member: Cidr  |  If the `comparisonOperator` calls for a set of CIDRs, use this to specify that set to be compared with the `metric`\.  | 
-|  ports |  list  member: Port  |  If the `comparisonOperator` calls for a set of ports, use this to specify that set to be compared with the `metric`\.  | 
-|  durationSeconds |  integer |  Use this to specify the time duration over which the behavior is evaluated, for those criteria which have a time dimension \(for example, `NUM_MESSAGES_SENT`\)\. For a `statisticalThreshhold` metric comparison, measurements from all devices are accumulated over this time duration before being used to calculate percentiles, and later, measurements from an individual device are also accumulated over this time duration before being given a percentile rank\.  | 
-|  consecutiveDatapointsToAlarm |  integer  range\- max:10 min:1  |  If a device is in violation of the behavior for the specified number of consecutive datapoints, an alarm occurs\. If not specified, the default is 1\.  | 
-|  consecutiveDatapointsToClear |  integer  range\- max:10 min:1  |  If an alarm has occurred and the offending device is no longer in violation of the behavior for the specified number of consecutive datapoints, the alarm is cleared\. If not specified, the default is 1\.  | 
-|  statisticalThreshold |  StatisticalThreshold |  A statistical ranking \(percentile\) which indicates a threshold value by which a behavior is determined to be in compliance or in violation of the behavior\.  | 
-|  statistic |  string  pattern: \(p0\|p0\.1\|p0\.01\|p1\|p10\|p50\|p90\|p99\|p99\.9\|p99\.99\|p100\)  |  The percentile which resolves to a threshold value by which compliance with a behavior is determined\. Metrics are collected over the specified period \(`durationSeconds`\) from all reporting devices in your account and statistical ranks are calculated\. Then, the measurements from a device are collected over the same period\. If the accumulated measurements from the device fall above or below \(`comparisonOperator`\) the value associated with the percentile specified, then the device is considered to be in compliance with the behavior, otherwise a violation occurs\.  | 
-|  alertTargets |  map |  Where the alerts are sent\. \(Alerts are always sent to the console\.\) | 
-|  alertTargetArn |  string |  The ARN of the notification target to which alerts are sent\. | 
-|  roleArn |  string  length\- max:2048 min:20  |  The ARN of the role that grants permission to send alerts to the notification target\.  | 
-|  additionalMetricsToRetain |  list  member: BehaviorMetric  |  A list of metrics whose data is retained \(stored\)\. By default, data is retained for any metric used in the security profile's `behaviors` but it is also retained for any metric specified here\.  | 
-|  version |  long |  The updated version of the security profile\. | 
-|  creationDate |  timestamp |  The time the security profile was created\. | 
-|  lastModifiedDate |  timestamp |  The time the security profile was last modified\. | 
+|   `securityProfileName`  |  string  length\- max:128 min:1  pattern: \[a\-zA\-Z0\-9:\_\-\]\+  |  The name of the security profile that was updated\. | 
+|   `securityProfileArn`  |  string |  The ARN of the security profile that was updated\. | 
+|   `securityProfileDescription`  |  string  length\- max:1000  pattern: \[\\\\p\{Graph\} \]\*  |  The description of the security profile\. | 
+|   `behaviors`  |  list  member: Behavior  |  Specifies the behaviors that, when violated by a device \(thing\), cause an alert\. | 
+|   `name`  |  string  length\- max:128 min:1  pattern: \[a\-zA\-Z0\-9:\_\-\]\+  |  The name you have given to the behavior\. | 
+|   `metric`  |  string |  What is measured by the behavior\. | 
+|   `criteria`  |  BehaviorCriteria |  The criteria that determine if a device is behaving normally in regard to the `metric`\.  | 
+|   `comparisonOperator`  |  string |  The operator that relates the thing measured \(`metric`\) to the criteria \(containing a `value` or `statisticalThreshold`\)\.  enum: less\-than \| less\-than\-equals \| greater\-than \| greater\-than\-equals \| in\-cidr\-set \| not\-in\-cidr\-set \| in\-port\-set \| not\-in\-port\-set  | 
+|   `value`  |  MetricValue |  The value to be compared with the `metric`\. | 
+|   `count`  |  long  range\- min:0  |  If the `comparisonOperator` calls for a numeric value, use this to specify that numeric value to be compared with the `metric`\.  | 
+|   `cidrs`  |  list  member: Cidr  |  If the `comparisonOperator` calls for a set of CIDRs, use this to specify that set to be compared with the `metric`\.  | 
+|   `ports`  |  list  member: Port  |  If the `comparisonOperator` calls for a set of ports, use this to specify that set to be compared with the `metric`\.  | 
+|   `durationSeconds`  |  integer |  Use this to specify the time duration over which the behavior is evaluated, for those criteria which have a time dimension \(for example, `NUM_MESSAGES_SENT`\)\. For a `statisticalThreshhold` metric comparison, measurements from all devices are accumulated over this time duration before being used to calculate percentiles, and later, measurements from an individual device are also accumulated over this time duration before being given a percentile rank\.  | 
+|   `consecutiveDatapointsToAlarm`  |  integer  range\- max:10 min:1  |  If a device is in violation of the behavior for the specified number of consecutive datapoints, an alarm occurs\. If not specified, the default is 1\.  | 
+|   `consecutiveDatapointsToClear`  |  integer  range\- max:10 min:1  |  If an alarm has occurred and the offending device is no longer in violation of the behavior for the specified number of consecutive datapoints, the alarm is cleared\. If not specified, the default is 1\.  | 
+|   `statisticalThreshold`  |  StatisticalThreshold |  A statistical ranking \(percentile\) which indicates a threshold value by which a behavior is determined to be in compliance or in violation of the behavior\.  | 
+|   `statistic`  |  string  pattern: \(p0\|p0\.1\|p0\.01\|p1\|p10\|p50\|p90\|p99\|p99\.9\|p99\.99\|p100\)  |  The percentile which resolves to a threshold value by which compliance with a behavior is determined\. Metrics are collected over the specified period \(`durationSeconds`\) from all reporting devices in your account and statistical ranks are calculated\. Then, the measurements from a device are collected over the same period\. If the accumulated measurements from the device fall above or below \(`comparisonOperator`\) the value associated with the percentile specified, then the device is considered to be in compliance with the behavior, otherwise a violation occurs\.  | 
+|   `alertTargets`  |  map |  Where the alerts are sent\. \(Alerts are always sent to the console\.\) | 
+|   `alertTargetArn`  |  string |  The ARN of the notification target to which alerts are sent\. | 
+|   `roleArn`  |  string  length\- max:2048 min:20  |  The ARN of the role that grants permission to send alerts to the notification target\.  | 
+|   `additionalMetricsToRetain`  |  list  member: BehaviorMetric  |  A list of metrics whose data is retained \(stored\)\. By default, data is retained for any metric used in the security profile's `behaviors`, but it is also retained for any metric specified here\.  | 
+|   `version`  |  long |  The updated version of the security profile\. | 
+|   `creationDate`  |  timestamp |  The time the security profile was created\. | 
+|   `lastModifiedDate`  |  timestamp |  The time the security profile was last modified\. | 
 
  **Errors**
 
@@ -13993,15 +15051,15 @@ aws iot  update-stream \
 
 |  Name |  Type |  Description | 
 | --- | --- | --- | 
-|  streamId |  string  length\- max:128 min:1  pattern: \[a\-zA\-Z0\-9\_\-\]\+  |  The stream ID\. | 
-|  description |  string  length\- max:2028  pattern: \[^\\\\p\{C\}\]\+  |  The description of the stream\. | 
-|  files |  list  member: StreamFile  |  The files associated with the stream\. | 
-|  fileId |  integer  range\- max:255 min:0  |  The file ID\. | 
-|  s3Location |  S3Location |  The location of the file in S3\. | 
-|  bucket |  string  length\- min:1  |  The S3 bucket\. | 
-|  key |  string  length\- min:1  |  The S3 key\. | 
-|  version |  string |  The S3 bucket version\. | 
-|  roleArn |  string  length\- max:2048 min:20  |  An IAM role that allows the IoT service principal assumes to access your S3 files\. | 
+|   `streamId`  |  string  length\- max:128 min:1  pattern: \[a\-zA\-Z0\-9\_\-\]\+  |  The stream ID\. | 
+|   `description`  |  string  length\- max:2028  pattern: \[^\\\\p\{C\}\]\+  |  The description of the stream\. | 
+|   `files`  |  list  member: StreamFile  |  The files associated with the stream\. | 
+|   `fileId`  |  integer  range\- max:255 min:0  |  The file ID\. | 
+|   `s3Location`  |  S3Location |  The location of the file in S3\. | 
+|   `bucket`  |  string  length\- min:1  |  The S3 bucket\. | 
+|   `key`  |  string  length\- min:1  |  The S3 key\. | 
+|   `version`  |  string |  The S3 bucket version\. | 
+|   `roleArn`  |  string  length\- max:2048 min:20  |  An IAM role that allows the IoT service principal assumes to access your S3 files\. | 
 
 Output
 
@@ -14019,10 +15077,10 @@ Output
 
 |  Name |  Type |  Description | 
 | --- | --- | --- | 
-|  streamId |  string  length\- max:128 min:1  pattern: \[a\-zA\-Z0\-9\_\-\]\+  |  The stream ID\. | 
-|  streamArn |  string |  The stream ARN\. | 
-|  description |  string  length\- max:2028  pattern: \[^\\\\p\{C\}\]\+  |  A description of the stream\. | 
-|  streamVersion |  integer  range\- max:65535 min:0  |  The stream version\. | 
+|   `streamId`  |  string  length\- max:128 min:1  pattern: \[a\-zA\-Z0\-9\_\-\]\+  |  The stream ID\. | 
+|   `streamArn`  |  string |  The stream ARN\. | 
+|   `description`  |  string  length\- max:2028  pattern: \[^\\\\p\{C\}\]\+  |  A description of the stream\. | 
+|   `streamVersion`  |  integer  range\- max:65535 min:0  |  The stream version\. | 
 
  **Errors**
 
@@ -14083,13 +15141,13 @@ aws iot  update-thing \
 
 |  Name |  Type |  Description | 
 | --- | --- | --- | 
-|  thingName |  string  length\- max:128 min:1  pattern: \[a\-zA\-Z0\-9:\_\-\]\+  |  The name of the thing to update\. | 
-|  thingTypeName |  string  length\- max:128 min:1  pattern: \[a\-zA\-Z0\-9:\_\-\]\+  |  The name of the thing type\. | 
-|  attributePayload |  AttributePayload |  A list of thing attributes, a JSON string containing name\-value pairs\. For example:  ` \"attributes\":{\"name1\":\"value2\"}`  This data is used to add new attributes or update existing attributes\.  | 
-|  attributes |  map |  A JSON string containing up to three key\-value pair in JSON format\. For example:  ` \"attributes\":{\"string1\":\"string2\"}`   | 
-|  merge |  boolean |  Specifies whether the list of attributes provided in the `AttributePayload` is merged with the attributes stored in the registry, instead of overwriting them\. To remove an attribute, call `UpdateThing` with an empty attribute value\.  The `merge` attribute is only valid when calling `UpdateThing`\.   | 
-|  expectedVersion |  long |  The expected version of the thing record in the registry\. If the version of the record in the registry does not match the expected version specified in the request, the `UpdateThing` request is rejected with a `VersionConflictException`\.  | 
-|  removeThingType |  boolean |  Remove a thing type association\. If **true**, the association is removed\.  | 
+|   `thingName`  |  string  length\- max:128 min:1  pattern: \[a\-zA\-Z0\-9:\_\-\]\+  |  The name of the thing to update\. | 
+|   `thingTypeName`  |  string  length\- max:128 min:1  pattern: \[a\-zA\-Z0\-9:\_\-\]\+  |  The name of the thing type\. | 
+|   `attributePayload`  |  AttributePayload |  A list of thing attributes, a JSON string containing name\-value pairs\. For example:  ` \"attributes\":{\"name1\":\"value2\"}`  This data is used to add new attributes or update existing attributes\.  | 
+|   `attributes`  |  map |  A JSON string containing up to three key\-value pair in JSON format\. For example:  ` \"attributes\":{\"string1\":\"string2\"}`   | 
+|   `merge`  |  boolean |  Specifies whether the list of attributes provided in the `AttributePayload` is merged with the attributes stored in the registry, instead of overwriting them\. To remove an attribute, call `UpdateThing` with an empty attribute value\.  The `merge` attribute is only valid when calling `UpdateThing` or `UpdateThingGroup`\.   | 
+|   `expectedVersion`  |  long |  The expected version of the thing record in the registry\. If the version of the record in the registry does not match the expected version specified in the request, the `UpdateThing` request is rejected with a `VersionConflictException`\.  | 
+|   `removeThingType`  |  boolean |  Remove a thing type association\. If **true**, the association is removed\.  | 
 
 Output
 
@@ -14156,13 +15214,13 @@ aws iot  update-thing-group \
 
 |  Name |  Type |  Description | 
 | --- | --- | --- | 
-|  thingGroupName |  string  length\- max:128 min:1  pattern: \[a\-zA\-Z0\-9:\_\-\]\+  |  The thing group to update\. | 
-|  thingGroupProperties |  ThingGroupProperties |  The thing group properties\. | 
-|  thingGroupDescription |  string  length\- max:2028  pattern: \[\\\\p\{Graph\} \]\*  |  The thing group description\. | 
-|  attributePayload |  AttributePayload |  The thing group attributes in JSON format\. | 
-|  attributes |  map |  A JSON string containing up to three key\-value pair in JSON format\. For example:  ` \"attributes\":{\"string1\":\"string2\"}`   | 
-|  merge |  boolean |  Specifies whether the list of attributes provided in the `AttributePayload` is merged with the attributes stored in the registry, instead of overwriting them\. To remove an attribute, call `UpdateThing` with an empty attribute value\.  The `merge` attribute is only valid when calling `UpdateThing`\.   | 
-|  expectedVersion |  long |  The expected version of the thing group\. If this does not match the version of the thing group being updated, the update will fail\.  | 
+|   `thingGroupName`  |  string  length\- max:128 min:1  pattern: \[a\-zA\-Z0\-9:\_\-\]\+  |  The thing group to update\. | 
+|   `thingGroupProperties`  |  ThingGroupProperties |  The thing group properties\. | 
+|   `thingGroupDescription`  |  string  length\- max:2028  pattern: \[\\\\p\{Graph\} \]\*  |  The thing group description\. | 
+|   `attributePayload`  |  AttributePayload |  The thing group attributes in JSON format\. | 
+|   `attributes`  |  map |  A JSON string containing up to three key\-value pair in JSON format\. For example:  ` \"attributes\":{\"string1\":\"string2\"}`   | 
+|   `merge`  |  boolean |  Specifies whether the list of attributes provided in the `AttributePayload` is merged with the attributes stored in the registry, instead of overwriting them\. To remove an attribute, call `UpdateThing` with an empty attribute value\.  The `merge` attribute is only valid when calling `UpdateThing` or `UpdateThingGroup`\.   | 
+|   `expectedVersion`  |  long |  The expected version of the thing group\. If this does not match the version of the thing group being updated, the update will fail\.  | 
 
 Output
 
@@ -14177,7 +15235,7 @@ Output
 
 |  Name |  Type |  Description | 
 | --- | --- | --- | 
-|  version |  long |  The version of the updated thing group\. | 
+|   `version`  |  long |  The version of the updated thing group\. | 
 
  **Errors**
 
@@ -14232,10 +15290,10 @@ aws iot  update-thing-groups-for-thing \
 
 |  Name |  Type |  Description | 
 | --- | --- | --- | 
-|  thingName |  string  length\- max:128 min:1  pattern: \[a\-zA\-Z0\-9:\_\-\]\+  |  The thing whose group memberships will be updated\. | 
-|  thingGroupsToAdd |  list  member: ThingGroupName  |  The groups to which the thing will be added\. | 
-|  thingGroupsToRemove |  list  member: ThingGroupName  |  The groups from which the thing will be removed\. | 
-|  overrideDynamicGroups |  boolean |  Override dynamic thing groups with static thing groups when 10\-group limit is reached\. If a thing belongs to 10 thing groups, and one or more of those groups are dynamic thing groups, adding a thing to a static group removes the thing from the last dynamic group\.  | 
+|   `thingName`  |  string  length\- max:128 min:1  pattern: \[a\-zA\-Z0\-9:\_\-\]\+  |  The thing whose group memberships will be updated\. | 
+|   `thingGroupsToAdd`  |  list  member: ThingGroupName  |  The groups to which the thing will be added\. | 
+|   `thingGroupsToRemove`  |  list  member: ThingGroupName  |  The groups from which the thing will be removed\. | 
+|   `overrideDynamicGroups`  |  boolean |  Override dynamic thing groups with static thing groups when 10\-group limit is reached\. If a thing belongs to 10 thing groups, and one or more of those groups are dynamic thing groups, adding a thing to a static group removes the thing from the last dynamic group\.  | 
 
 Output
 
@@ -14259,13 +15317,14 @@ The specified resource does not exist\.
 
 Updates the shadow for the specified thing\.
 
-For more information, see [UpdateThingShadow](https://docs.aws.amazon.com/iot/latest/developerguide/API_UpdateThingShadow.html) in the AWS IoT Developer Guide\.
+For more information, see [UpdateThingShadow](http://docs.aws.amazon.com/iot/latest/developerguide/API_UpdateThingShadow.html) in the AWS IoT Developer Guide\.
 
  **Synopsis**
 
 ```
 aws iot-data  update-thing-shadow \
     --thing-name <value> \
+    [--shadow-name <value>] \
     --payload <value>  \
     [--cli-input-json <value>] \
     [--generate-cli-skeleton]
@@ -14276,6 +15335,7 @@ aws iot-data  update-thing-shadow \
 ```
 {
   "thingName": "string",
+  "shadowName": "string",
   "payload": "blob"
 }
 ```
@@ -14285,8 +15345,9 @@ aws iot-data  update-thing-shadow \
 
 |  Name |  Type |  Description | 
 | --- | --- | --- | 
-|  thingName |  string  length\- max:128 min:1  pattern: \[a\-zA\-Z0\-9:\_\-\]\+  |  The name of the thing\. | 
-|  payload |  blob |  The state information, in JSON format\. | 
+|   `thingName`  |  string  length\- max:128 min:1  pattern: \[a\-zA\-Z0\-9:\_\-\]\+  |  The name of the thing\. | 
+|   `shadowName`  |  string  length\- max:64 min:1  pattern: \[a\-zA\-Z0\-9:\_\-\]\+  |  The name of the shadow\. | 
+|   `payload`  |  blob |  The state information, in JSON format\. | 
 
 Output
 
@@ -14301,7 +15362,7 @@ Output
 
 |  Name |  Type |  Description | 
 | --- | --- | --- | 
-|  payload |  blob |  The state information, in JSON format\. | 
+|   `payload`  |  blob |  The state information, in JSON format\. | 
 
  **Errors**
 
@@ -14381,20 +15442,20 @@ aws iot  validate-security-profile-behaviors \
 
 |  Name |  Type |  Description | 
 | --- | --- | --- | 
-|  behaviors |  list  member: Behavior  |  Specifies the behaviors that, when violated by a device \(thing\), cause an alert\. | 
-|  name |  string  length\- max:128 min:1  pattern: \[a\-zA\-Z0\-9:\_\-\]\+  |  The name you have given to the behavior\. | 
-|  metric |  string |  What is measured by the behavior\. | 
-|  criteria |  BehaviorCriteria |  The criteria that determine if a device is behaving normally in regard to the `metric`\.  | 
-|  comparisonOperator |  string |  The operator that relates the thing measured \(`metric`\) to the criteria \(containing a `value` or `statisticalThreshold`\)\.  enum: less\-than \| less\-than\-equals \| greater\-than \| greater\-than\-equals \| in\-cidr\-set \| not\-in\-cidr\-set \| in\-port\-set \| not\-in\-port\-set  | 
-|  value |  MetricValue |  The value to be compared with the `metric`\. | 
-|  count |  long  range\- min:0  |  If the `comparisonOperator` calls for a numeric value, use this to specify that numeric value to be compared with the `metric`\.  | 
-|  cidrs |  list  member: Cidr  |  If the `comparisonOperator` calls for a set of CIDRs, use this to specify that set to be compared with the `metric`\.  | 
-|  ports |  list  member: Port  |  If the `comparisonOperator` calls for a set of ports, use this to specify that set to be compared with the `metric`\.  | 
-|  durationSeconds |  integer |  Use this to specify the time duration over which the behavior is evaluated, for those criteria which have a time dimension \(for example, `NUM_MESSAGES_SENT`\)\. For a `statisticalThreshhold` metric comparison, measurements from all devices are accumulated over this time duration before being used to calculate percentiles, and later, measurements from an individual device are also accumulated over this time duration before being given a percentile rank\.  | 
-|  consecutiveDatapointsToAlarm |  integer  range\- max:10 min:1  |  If a device is in violation of the behavior for the specified number of consecutive datapoints, an alarm occurs\. If not specified, the default is 1\.  | 
-|  consecutiveDatapointsToClear |  integer  range\- max:10 min:1  |  If an alarm has occurred and the offending device is no longer in violation of the behavior for the specified number of consecutive datapoints, the alarm is cleared\. If not specified, the default is 1\.  | 
-|  statisticalThreshold |  StatisticalThreshold |  A statistical ranking \(percentile\) which indicates a threshold value by which a behavior is determined to be in compliance or in violation of the behavior\.  | 
-|  statistic |  string  pattern: \(p0\|p0\.1\|p0\.01\|p1\|p10\|p50\|p90\|p99\|p99\.9\|p99\.99\|p100\)  |  The percentile which resolves to a threshold value by which compliance with a behavior is determined\. Metrics are collected over the specified period \(`durationSeconds`\) from all reporting devices in your account and statistical ranks are calculated\. Then, the measurements from a device are collected over the same period\. If the accumulated measurements from the device fall above or below \(`comparisonOperator`\) the value associated with the percentile specified, then the device is considered to be in compliance with the behavior, otherwise a violation occurs\.  | 
+|   `behaviors`  |  list  member: Behavior  |  Specifies the behaviors that, when violated by a device \(thing\), cause an alert\. | 
+|   `name`  |  string  length\- max:128 min:1  pattern: \[a\-zA\-Z0\-9:\_\-\]\+  |  The name you have given to the behavior\. | 
+|   `metric`  |  string |  What is measured by the behavior\. | 
+|   `criteria`  |  BehaviorCriteria |  The criteria that determine if a device is behaving normally in regard to the `metric`\.  | 
+|   `comparisonOperator`  |  string |  The operator that relates the thing measured \(`metric`\) to the criteria \(containing a `value` or `statisticalThreshold`\)\.  enum: less\-than \| less\-than\-equals \| greater\-than \| greater\-than\-equals \| in\-cidr\-set \| not\-in\-cidr\-set \| in\-port\-set \| not\-in\-port\-set  | 
+|   `value`  |  MetricValue |  The value to be compared with the `metric`\. | 
+|   `count`  |  long  range\- min:0  |  If the `comparisonOperator` calls for a numeric value, use this to specify that numeric value to be compared with the `metric`\.  | 
+|   `cidrs`  |  list  member: Cidr  |  If the `comparisonOperator` calls for a set of CIDRs, use this to specify that set to be compared with the `metric`\.  | 
+|   `ports`  |  list  member: Port  |  If the `comparisonOperator` calls for a set of ports, use this to specify that set to be compared with the `metric`\.  | 
+|   `durationSeconds`  |  integer |  Use this to specify the time duration over which the behavior is evaluated, for those criteria which have a time dimension \(for example, `NUM_MESSAGES_SENT`\)\. For a `statisticalThreshhold` metric comparison, measurements from all devices are accumulated over this time duration before being used to calculate percentiles, and later, measurements from an individual device are also accumulated over this time duration before being given a percentile rank\.  | 
+|   `consecutiveDatapointsToAlarm`  |  integer  range\- max:10 min:1  |  If a device is in violation of the behavior for the specified number of consecutive datapoints, an alarm occurs\. If not specified, the default is 1\.  | 
+|   `consecutiveDatapointsToClear`  |  integer  range\- max:10 min:1  |  If an alarm has occurred and the offending device is no longer in violation of the behavior for the specified number of consecutive datapoints, the alarm is cleared\. If not specified, the default is 1\.  | 
+|   `statisticalThreshold`  |  StatisticalThreshold |  A statistical ranking \(percentile\) which indicates a threshold value by which a behavior is determined to be in compliance or in violation of the behavior\.  | 
+|   `statistic`  |  string  pattern: \(p0\|p0\.1\|p0\.01\|p1\|p10\|p50\|p90\|p99\|p99\.9\|p99\.99\|p100\)  |  The percentile which resolves to a threshold value by which compliance with a behavior is determined\. Metrics are collected over the specified period \(`durationSeconds`\) from all reporting devices in your account and statistical ranks are calculated\. Then, the measurements from a device are collected over the same period\. If the accumulated measurements from the device fall above or below \(`comparisonOperator`\) the value associated with the percentile specified, then the device is considered to be in compliance with the behavior, otherwise a violation occurs\.  | 
 
 Output
 
@@ -14414,9 +15475,9 @@ Output
 
 |  Name |  Type |  Description | 
 | --- | --- | --- | 
-|  valid |  boolean |  True if the behaviors were valid\. | 
-|  validationErrors |  list  member: ValidationError  |  The list of any errors found in the behaviors\. | 
-|  errorMessage |  string  length\- max:2048  |  The description of an error found in the behaviors\. | 
+|   `valid`  |  boolean |  True if the behaviors were valid\. | 
+|   `validationErrors`  |  list  member: ValidationError  |  The list of any errors found in the behaviors\. | 
+|   `errorMessage`  |  string  length\- max:2048  |  The description of an error found in the behaviors\. | 
 
  **Errors**
 

@@ -2,7 +2,7 @@
 
 Thing types allow you to store description and configuration information that is common to all things associated with the same thing type\. This simplifies the management of things in the registry\. For example, you can define a LightBulb thing type\. All things associated with the LightBulb thing type share a set of attributes: serial number, manufacturer, and wattage\. When you create a thing of type LightBulb \(or change the type of an existing thing to LightBulb\) you can specify values for each of the attributes defined in the LightBulb thing type\. 
 
-Although thing types are optional, their use provides better discovery of things\.
+Although thing types are optional, their use makes it easier to discover things\.
 + Things with a thing type can have up to 50 attributes\.
 + Things without a thing type can have up to three attributes\.
 + A thing can be associated with only one thing type\.

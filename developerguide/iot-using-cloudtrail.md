@@ -15,9 +15,9 @@ For an ongoing record of events in your AWS account, including events for AWS Io
 +  [Receiving CloudTrail Log Files from Multiple Regions](https://docs.aws.amazon.com/awscloudtrail/latest/userguide/receive-cloudtrail-log-files-from-multiple-regions.html) and [Receiving CloudTrail Log Files from Multiple Accounts](https://docs.aws.amazon.com/awscloudtrail/latest/userguide/cloudtrail-receive-logs-from-multiple-accounts.html) 
 
 **Note**  
-AWS IoT data plane actions \(device side\) are not logged by CloudTrail\. Use CloudWatch to monitor these\.
+AWS IoT data plane actions \(device side\) are not logged by CloudTrail\. Use CloudWatch to monitor these actions\.
 
-AWS IoT control plane actions *are* logged by CloudTrail\. For example, calls to the **CreateThing**, **ListThings**, and **ListTopicRules** sections generate entries in the CloudTrail log files\.
+AWS IoT control plane actions are logged by CloudTrail\. For example, calls to the **CreateThing**, **ListThings**, and **ListTopicRules** sections generate entries in the CloudTrail log files\.
 
 Every event or log entry contains information about who generated the request\. The identity information helps you determine the following: 
 + Whether the request was made with root or IAM user credentials\.

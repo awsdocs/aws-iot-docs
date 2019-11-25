@@ -1,6 +1,6 @@
 # Connect Policy Examples<a name="connect-policy"></a>
 
-The following policy grants permission to connect to AWS IoT with client id `client1`:
+The following policy grants permission to connect to AWS IoT with client ID `client1`:
 
 ```
 {
@@ -19,7 +19,7 @@ The following policy grants permission to connect to AWS IoT with client id `cli
 }
 ```
 
-The following policy denies permission to connect to AWS IoT with client ids `client1` and `client2`, while allowing devices to connect using a client id that matches the name of a thing registered in the AWS IoT registry:
+The following policy denies permission to client IDs `client1` and `client2` to connect to AWS IoT, while allowing devices to connect using a client ID that matches the name of a thing registered in the AWS IoT registry:
 
 ```
 {
@@ -49,9 +49,9 @@ The following policy denies permission to connect to AWS IoT with client ids `cl
 ```
 
 ------
-#### [ Registered devices \(3\) ]
+#### [ Registered Devices \(3\) ]
 
-The following policy grants permission for a device to connect using its thing name as the client ID and to subscribe to the topic filter `my/topic/filter`\. The device must be registered with AWS IoT\. When connecting to AWS IoT, the device must provide the certificate associated with the IoT thing in the AWS IoT registry:
+The following policy grants permission for a device to connect using its thing name as the client ID and to subscribe to the topic filter `my/topic/filter`\. The device must be registered with AWS IoT\. When the device connects to AWS IoT, it must provide the certificate associated with the IoT thing in the AWS IoT registry:
 
 ```
 {
@@ -80,7 +80,7 @@ The following policy grants permission for a device to connect using its thing n
 ```
 
 ------
-#### [ Unregistered devices \(3\) ]
+#### [ Unregistered Devices \(3\) ]
 
 For devices not registered as things in the AWS IoT registry, the following policy grants permission to connect using client ID `client1` and to subscribe to topic filter `my/topic`:
 

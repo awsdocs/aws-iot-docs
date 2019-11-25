@@ -1,10 +1,10 @@
-# Basic Policy Variables<a name="basic-policy-variables"></a>
+# Basic AWS IoT Policy Variables<a name="basic-policy-variables"></a>
 
 AWS IoT defines the following basic policy variables:
 + `iot:ClientId`: The client ID used to connect to the AWS IoT message broker\.
 + `aws:SourceIp`: The IP address of the client connected to the AWS IoT message broker\.
 
-The following AWS IoT policy shows the use of policy variables:
+The following AWS IoT policy shows a policy that uses policy variables:
 
 ```
 {
@@ -40,7 +40,7 @@ In these examples, `${iot:ClientId}` is replaced by the ID of the client connect
 }
 ```
 
-A client can connect using `+` as the client ID\. This would allow the user to subscribe to any topic matching the topic filter `my/+/topic`\. To protect against such security gaps, use the `iot:Connect` policy action to control which client IDs are able to connect\. For example, this policy allows only clients whose client ID is `clientid1` to connect:
+A client can connect using `+` as the client ID\. This would allow the user to subscribe to any topic that matches the topic filter `my/+/topic`\. To protect against such security gaps, use the `iot:Connect` policy action to control which client IDs can connect\. For example, this policy allows only clients whose client ID is `clientid1` to connect:
 
 ```
 {

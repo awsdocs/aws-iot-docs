@@ -11,13 +11,19 @@ Before you enable AWS IoT logging, make sure you understand the CloudWatch Logs 
 
 ## Create a Logging Role<a name="create-logging-role"></a>
 
-Use the [IAM console ](https://console.aws.amazon.com/iam/) to create a logging role\.
+Use the [IAM console](https://console.aws.amazon.com/iam/) to create a logging role\.
 
 1. From the navigation pane, choose **Roles**, and then choose **Create new role**\.
 
 1. Choose **AWS Service Role**, and then for service role type, choose **AWS IoT**\.
 
 1. Choose the **AWSIoTLogging** role, and then choose **Next Step**\.
+
+   Under **Select your use case**, choose **IoT**, and then choose **Next: Permissions**\.
+
+1. On the page that displays the policies attached to the service role, choose **Next: Tags**\.
+
+1. Choose **Next: Review**\.
 
 1. Enter a name and description for the role, and then choose **Create role**\.
 
@@ -124,7 +130,7 @@ You can use the `get-v2-logging-options` CLI command to get the current logging 
 **Note**  
 AWS IoT continues to support older commands \(`set-logging-options` and `get-logging-options`\) to set and get global logging on your account\. Be aware that when these commands are used, the resulting logs contain plain\-text, rather than JSON payloads and logging latency is generally higher\. No further improvements will be made to the implementation of these older commands\. We recommend that you use the "v2" versions to configure your logging options and, when possible, change legacy applications that use the older versions\.
 
-**To configure global logging by using the AWS IoT console**
+**To use the AWS IoT console to configure global logging**
 
 1. Sign in to the the AWS IoT console\. For more information, see [Sign in to the AWS IoT Console](iot-console-signin.md)\.
 
@@ -144,7 +150,7 @@ AWS IoT continues to support older commands \(`set-logging-options` and `get-log
 
 ### Fine\-Grained Logging<a name="fine-grained-logging"></a>
 
-Fine\-grained logging allows you to specify a logging level for a target\. A target is defined by a resource type and a resource name\. Currently, AWS IoT supports thing groups as targets\. Fine\-grained logging allows you to set a logging level for a specific thing group\. Say we have a thing group called "Phones" that contains things that represent different kinds of phones\. We then create another thing group called "MobilePhones" and make it a child of the "Phones" thing group\. Fine\-grained logging allows you to configure one logging level for all things in the "Phones" group \(and any child groups\) and another logging level for things in the "MobilePhones" group\. In this example, we have assigned two different logging levels to things in the "MobilePhones" group — one from the logging level for the "Phones" thing group and another from the "MobilePhones" thing group — but the logging level specified for the child thing group will override the logging level specified for the parent thing group\.
+Fine\-grained logging allows you to specify a logging level for a target\. A target is defined by a resource type and a resource name\. Currently, AWS IoT supports thing groups as targets\. Fine\-grained logging allows you to set a logging level for a thing group\. For example, you might have a thing group named "Phones" that contains things that represent different kinds of phones\. You might then create another thing group named "MobilePhones" and make it a child of the "Phones" thing group\. Fine\-grained logging allows you to configure one logging level for all things in the "Phones" group \(and any child groups\) and another logging level for things in the "MobilePhones" group\. In this example, there are two different logging levels assigned to things in the "MobilePhones" group — one from the logging level for the "Phones" thing group and another from the "MobilePhones" thing group — but the logging level specified for the child thing group overrides the logging level specified for the parent thing group\.
 
 Use the `set-v2-logging-options` CLI command to enable fine\-grained logging and set the default logging level\. It takes the following optional arguments: 
 
@@ -176,6 +182,7 @@ Each component of AWS IoT generates its own logs\. Each log entry has an `eventT
 + [Device Shadow service](#device-shadow-logs)
 + [Rules engine](#rule-engine-logs)
 + [Jobs](#job-logs)
++ [Device provisioning logs](#provision-logs)
 
 All CloudWatch Logs have the following common attributes:
 
@@ -207,7 +214,7 @@ The AWS IoT message broker generates logs for the following events:
 The AWS IoT message broker generates a `Connect` log when an MQTT client connects\.
 
 ------
-#### [ more info \(1\) ]
+#### [ More Information \(1\) ]
 
 For example:
 
@@ -255,7 +262,7 @@ The port where the request originated\.
 The AWS IoT message broker generates a `Subscribe` log when an MQTT client subscribes to a topic\.
 
 ------
-#### [ more info \(2\) ]
+#### [ More Information \(2\) ]
 
 For example:
 
@@ -307,7 +314,7 @@ The port where the request originated\.
 When the AWS IoT message broker receives an MQTT message, it generates a `Publish-In` log\.
 
 ------
-#### [ more info \(3\) ]
+#### [ More Information \(3\) ]
 
 For example:
 
@@ -362,7 +369,7 @@ The port where the request originated\.
 When the message broker publishes an MQTT message, it generates a `Publish-Out` log\.
 
 ------
-#### [ more info \(4\) ]
+#### [ More Information \(4\) ]
 
 For example:
 
@@ -417,7 +424,7 @@ The port where the request originated\.
 The AWS IoT message broker generates a `Disconnect` log when an MQTT client disconnects\.
 
 ------
-#### [ more info \(5\) ]
+#### [ More Information \(5\) ]
 
 For example:
 
@@ -469,7 +476,7 @@ The AWS IoT Device Shadow service generates logs for the following events:
 The Device Shadow service generates a `GetThingShadow` log when a get request for a shadow is received\.
 
 ------
-#### [ more info \(6\) ]
+#### [ More Information \(6\) ]
 
 For example:
 
@@ -509,7 +516,7 @@ The name of the topic on which the request was published\.
 The Device Shadow service generates a `UpdateThingShadow` log when a request to update a device's shadow is received\.
 
 ------
-#### [ more info \(7\) ]
+#### [ More Information \(7\) ]
 
 For example:
 
@@ -549,7 +556,7 @@ The name of the topic on which the request was published\.
 The Device Shadow service generates a `DeleteThingShadow` log when a request to delete a device's shadow is received\.
 
 ------
-#### [ more info \(8\) ]
+#### [ More Information \(8\) ]
 
 For example:
 
@@ -585,7 +592,7 @@ The name of the topic on which the request was published\.
 
 ### Rules Engine Logs<a name="rule-engine-logs"></a>
 
-The AWS IoT Rules Engine service generates logs for the following events:
+The AWS IoT rules engine generates logs for the following events:
 
 ------
 #### [ Rule Match Logs ]
@@ -593,7 +600,7 @@ The AWS IoT Rules Engine service generates logs for the following events:
 The AWS IoT rules engine generates a `RuleMatch` log when the message broker receives a message that matches a rule\.
 
 ------
-#### [ more info \(9\) ]
+#### [ More Information \(9\) ]
 
 For example:
 
@@ -637,7 +644,7 @@ The ID of the principal making the request\.
 The rules engine generates a `FunctionExecution` log when a rule's SQL query calls an external function\. An external function is called when a rule's action makes an HTTP request to AWS IoT or another web service \(for example, calling `get_thing_shadow` or `machinelearning_predict`\)\. 
 
 ------
-#### [ more info \(10\) ]
+#### [ More Information \(10\) ]
 
 A `FunctionExecution` log looks like the following:
 
@@ -687,7 +694,7 @@ The ID of the principal making the request\.
 When the AWS IoT rules engine starts to trigger a rule's action, it generates a `StartingExecution` log\.
 
 ------
-#### [ more info \(11\) ]
+#### [ More Information \(11\) ]
 
 For example:
 
@@ -735,7 +742,7 @@ The ID of the principal making the request\.
 When the AWS IoT rules engine triggers a rule's action, it generates a `RuleExecution` log\.
 
 ------
-#### [ more info \(12\) ]
+#### [ More Information \(12\) ]
 
 For example:
 
@@ -789,7 +796,7 @@ The ID of the principal making the request\.
 When the AWS IoT rules engine cannot find a rule with a given name, it generates a `RuleNotFound` error log\.
 
 ------
-#### [ more info \(13\) ]
+#### [ More Information \(13\) ]
 
 For example:
 
@@ -841,7 +848,7 @@ A brief explanation of the error\.
 When a message is throttled, the AWS IoT rules engine generates a `RuleMessageThrottled` error log\.
 
 ------
-#### [ more info \(14\) ]
+#### [ More Information \(14\) ]
 
 For example:
 
@@ -897,7 +904,7 @@ The AWS IoT Job service generates logs for the following events\. Logs are gener
 The AWS IoT Jobs service generates a `GetJobExecution` log when the service receives a job execution request\.
 
 ------
-#### [ more info \(16\) ]
+#### [ More Information \(16\) ]
 
 For example:
 
@@ -944,7 +951,7 @@ Other information from the Jobs service\.
 The AWS IoT Jobs service generates a `DescribeJobExecution` log when the service receives a request to describe a job execution\.
 
 ------
-#### [ more info \(17\) ]
+#### [ More Information \(17\) ]
 
 For example:
 
@@ -995,7 +1002,7 @@ Other information from the Jobs service\.
 The AWS IoT Jobs service generates an `UpdateJobExecution` log when the service receives a request to update a job execution\.
 
 ------
-#### [ more info \(18\) ]
+#### [ More Information \(18\) ]
 
 For example:
 
@@ -1050,7 +1057,7 @@ Other information from the Jobs service\.
 When it receives a request to start the next pending job execution, the AWS IoT Jobs service generates a `StartNextPendingJobExecution` log\.
 
 ------
-#### [ more info \(19\) ]
+#### [ More Information \(19\) ]
 
 For example:
 
@@ -1097,7 +1104,7 @@ Other information from the Jobs service\.
 The AWS IoT Jobs service generates a `ReportFinalJobExecutionCount` log when a job is completed\.
 
 ------
-#### [ more info \(20\) ]
+#### [ More Information \(20\) ]
 
 For example:
 
@@ -1123,5 +1130,60 @@ The job ID for the job execution\.
 
 details  
 Other information from the Jobs service\.
+
+------
+
+### Device Provisioning Logs<a name="provision-logs"></a>
+
+The AWS IoT Device Provisioning service generates logs for the following events\. 
+
+------
+#### [ GetDeviceCredentials Logs ]
+
+The AWS IoT Device Provisioning service generates a log when a client calls `GetDeviceCredential`\.
+
+------
+#### [ more info \(16\) ]
+
+For example:
+
+```
+{
+  "timestamp" : "2019-02-20 20:31:22.932",
+  "logLevel" : "INFO",
+  "traceId" : "8d9c016f-6cc7-441e-8909-7ee3d5563405",
+  "accountId" : "123456789101",
+  "status" : "Success",
+  "eventType" : "GetDeviceCredentials",
+  "deviceCertificateId" : "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+  "details" : "Additional details about this log."
+}
+```
+
+------
+
+------
+#### [ ProvisionDevice Logs ]
+
+The AWS IoT Device Provisioning service generates a log when a client calls `ProvisionDevice`\.
+
+------
+#### [ more info \(16\) ]
+
+For example:
+
+```
+{
+  "timestamp" : "2019-02-20 20:31:22.932",
+  "logLevel" : "INFO",
+  "traceId" : "8d9c016f-6cc7-441e-8909-7ee3d5563405",
+  "accountId" : "123456789101",
+  "status" : "Success",
+  "eventType" : "ProvisionDevice",
+  "provisioningTemplateName" : "myTemplate",
+  "deviceCertificateId" : "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+  "details" : "Additional details about this log."
+ }
+```
 
 ------

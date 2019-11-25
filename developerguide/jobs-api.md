@@ -22,12 +22,12 @@ The following data types are used by management and control applications to comm
 #### Job<a name="jobs-job"></a>
 
 ------
-#### [ Job data type ]
+#### [ Job Data Type ]
 
 The `Job` object contains details about a job\.
 
 ------
-#### [ syntax \(1\) ]
+#### [ Syntax \(1\) ]
 
 ```
 {
@@ -85,7 +85,7 @@ The `Job` object contains details about a job\.
 ```
 
 ------
-#### [ description \(1\) ]
+#### [ Description \(1\) ]
 
 `jobArn`  
 An ARN identifying the job with the format "arn:aws:iot:*region*:*account*:job/*jobId*"\.
@@ -177,7 +177,7 @@ The threshold as a percentage of the total number of executed things that initia
 
 `timeoutConfig`  
 Optional\. Specifies the amount of time each device has to finish its execution of the job\. The timer is started when the job execution status is set to `IN_PROGRESS`\. If the job execution status is not set to another terminal state before the time expires, it is set to `TIMED_OUT`\.   
-The job timeout feature isn't currently available in the PDT \(us\-gov\-west\-1\) Region\.  
+The job timeout feature isn't currently available in the AWS GovCloud \(US\) Region\.  
 `inProgressTimeoutInMinutes`  
 Specifies the amount of time, in minutes, this device has to finish execution of this job\. A timer is started, or restarted, whenever this job's execution status is specified as `IN_PROGRESS` with this field populated\. If the job execution status is not set to a terminal state before the timer expires, or before another job execution status update is sent with this field populated, the status is set to `TIMED_OUT`\.
 
@@ -186,12 +186,12 @@ Specifies the amount of time, in minutes, this device has to finish execution of
 #### JobSummary<a name="jobs-job-summary"></a>
 
 ------
-#### [ JobSummary data type ]
+#### [ JobSummary Data Type ]
 
 The `JobSummary` object contains a job summary\.
 
 ------
-#### [ syntax \(2\) ]
+#### [ Syntax \(2\) ]
 
 ```
 {
@@ -207,7 +207,7 @@ The `JobSummary` object contains a job summary\.
 ```
 
 ------
-#### [ description \(2\) ]
+#### [ Description \(2\) ]
 
 `jobArn`  
 An ARN that identifies the job\.
@@ -238,12 +238,12 @@ The UNIX timestamp for when the job was completed\.
 #### JobExecution<a name="jobs-job-execution"></a>
 
 ------
-#### [ JobExection data type ]
+#### [ JobExection Data Type ]
 
 The `JobExecution` object represents the execution of a job on a device\.
 
 ------
-#### [ syntax \(3\) ]
+#### [ Syntax \(3\) ]
 
 ```
 {
@@ -268,7 +268,7 @@ The `JobExecution` object represents the execution of a job on a device\.
 ```
 
 ------
-#### [ description \(3\) ]
+#### [ Description \(3\) ]
 
 approximateSecondsBeforeTimedOut  
 The estimated number of seconds that remain before the job execution status is changed to `TIMED_OUT`\. The timeout interval can be anywhere between 1 minute and 7 days \(1 to 10080 minutes\)\. The actual job execution timeout can occur up to 60 seconds later than the estimated duration\.
@@ -302,12 +302,12 @@ A collection of name\-value pairs that describe the status of the job execution\
 #### JobExecutionSummary<a name="jobs-job-execution-summary"></a>
 
 ------
-#### [ JobExecutionSummary data type ]
+#### [ JobExecutionSummary Data Type ]
 
 The `JobExecutionSummary` object contains job execution summary information:
 
 ------
-#### [ syntax \(4\) ]
+#### [ Syntax \(4\) ]
 
 ```
 {
@@ -320,7 +320,7 @@ The `JobExecutionSummary` object contains job execution summary information:
 ```
 
 ------
-#### [ description \(4\) ]
+#### [ Description \(4\) ]
 
 `executionNumber`  
 A number that identifies a job execution on a device\. It can be used later in commands that return or update job execution information\.
@@ -342,12 +342,12 @@ The status of the job execution: `QUEUED`, `IN_PROGRESS`, `FAILED`, `SUCCEEDED`,
 #### JobExecutionSummaryForJob<a name="jobs-job-execution-summary-for-job"></a>
 
 ------
-#### [ JobExecutionSummaryForJob data type ]
+#### [ JobExecutionSummaryForJob Data Type ]
 
 The `JobExecutionSummaryForJob` object contains a summary of information about job executions for a specific job\.
 
 ------
-#### [ syntax \(5\) ]
+#### [ Syntax \(5\) ]
 
 ```
 {
@@ -367,7 +367,7 @@ The `JobExecutionSummaryForJob` object contains a summary of information about j
 ```
 
 ------
-#### [ description \(5\) ]
+#### [ Description \(5\) ]
 
 `thingArn`  
 The AWS IoT thing ARN\.
@@ -380,12 +380,12 @@ An [JobExecutionSummary](#jobs-job-execution-summary) object\.
 #### JobExecutionSummaryForThing<a name="jobs-job-execution-summary-for-thing"></a>
 
 ------
-#### [ JobExecutionSummaryForThing data type ]
+#### [ JobExecutionSummaryForThing Data Type ]
 
 The `JobExecutionSummaryForThing` object contains a summary of information about a job execution on a specific thing\.
 
 ------
-#### [ syntax \(6\) ]
+#### [ Syntax \(6\) ]
 
 ```
 {
@@ -405,7 +405,7 @@ The `JobExecutionSummaryForThing` object contains a summary of information about
 ```
 
 ------
-#### [ description \(6\) ]
+#### [ Description \(6\) ]
 
 `jobId`  
 The unique identifier you assigned to this job when it was created\.
@@ -422,7 +422,7 @@ The following commands are available for management and control applications ove
 #### AssociateTargetsWithJob<a name="jobs-AssociateTargetsWithJob"></a>
 
 ------
-#### [ AssociateTargetsWithJob command ]
+#### [ AssociateTargetsWithJob Command ]
 
 Associates a group with a continuous job\. For more information, see [CreateJob](#jobs-CreateJob)\. The following criteria must be met: 
 + The job must have been created with the `targetSelection` field set to `CONTINUOUS`\.
@@ -518,7 +518,7 @@ Output:
 ```
 
 
-**cli output fields:**  
+**CLI output fields:**  
 
 |  Name  |  Type  |  Description  | 
 | --- | --- | --- | 
@@ -536,7 +536,7 @@ Not available\.
 #### CancelJob<a name="jobs-CancelJob"></a>
 
 ------
-#### [ CancelJob command ]
+#### [ CancelJob Command ]
 
 Cancels a job\.
 
@@ -633,7 +633,7 @@ Output:
 ```
 
 
-**cli output fields:**  
+**CLI output fields:**  
 
 |  Name  |  Type  |  Description  | 
 | --- | --- | --- | 
@@ -651,7 +651,7 @@ Not available\.
 #### CancelJobExecution<a name="jobs-CancelJobExecution"></a>
 
 ------
-#### [ CancelJobExecution command ]
+#### [ CancelJobExecution Command ]
 
 Cancels a job execution on a device\.
 
@@ -753,7 +753,7 @@ Not available\.
 #### CreateJob<a name="jobs-CreateJob"></a>
 
 ------
-#### [ CreateJob command ]
+#### [ CreateJob Command ]
 
 Creates a job\. You can provide the job document as a link to a file in an Amazon S3 bucket \(`documentSource` parameter\) or in the body of the request \(`document` parameter\)\.
 
@@ -762,7 +762,7 @@ A job can be made *continuous* by setting the optional `targetSelection` paramet
 A job can have an optional [TimeoutConfig](https://docs.aws.amazon.com/iot/latest/apireference/API_TimeoutConfig.html), which sets the value of the in\-progress timer\. The in\-progress timer can't be updated and applies to all executions of the job\.
 
 **Note**  
-The job timeout feature isn't currently available in the PDT \(us\-gov\-west\-1\) Region\.
+The job timeout feature isn't currently available in the AWS GovCloud \(US\) Region\.
 
 The following validations are performed on arguments to the `CreateJob` API:
 + The `targets` argument must be a list of valid thing or thing group ARNs\. All things and thing groups must be in your AWS account\.
@@ -873,7 +873,7 @@ The threshold as a percentage of the total number of executed things that initia
 
 `timeoutConfig`  
 Optional\. Specifies the amount of time each device has to finish its execution of the job\. The timer is started when the job execution status is set to `IN_PROGRESS`\. If the job execution status is not set to another terminal state before the time expires, it is set to `TIMED_OUT`\.   
-The job timeout feature isn't currently available in the PDT \(us\-gov\-west\-1\) Region\.  
+The job timeout feature isn't currently available in the AWS GovCloud \(US\) Region\.  
 `inProgressTimeoutInMinutes`  
 Specifies the amount of time, in minutes, this device has to finish execution of this job\. A timer is started, or restarted, whenever this job's execution status is specified as `IN_PROGRESS` with this field populated\. If the job execution status is not set to a terminal state before the timer expires, or before another job execution status update is sent with this field populated, the status is set to `TIMED_OUT`\.
 
@@ -981,19 +981,19 @@ aws iot  create-job \
 |  targetSelection  |  string  enum: CONTINUOUS \| SNAPSHOT  |  Specifies whether the job continues to run \(CONTINUOUS\), or is complete after all those things specified as targets have completed the job \(SNAPSHOT\)\. If continuous, the job can also be run on a thing when a change is detected in a target\. For example, a job runs on a thing when the thing is added to a target group, even after the job was completed by all things originally in the group\.  | 
 |  jobExecutionsRolloutConfig  |  JobExecutionsRolloutConfig  |  Allows you to create a staged rollout of the job\.  | 
 |  maximumPerMinute  |  integer  java class: java\.lang\.Integer  range\- max:1000 min:1  |  The maximum number of things that are notified of a pending job, per minute\. This parameter allows you to create a staged rollout\.  | 
-| exponentialRate | ExponentialRolloutRate | The rate of increase for a job rollout\. This parameter allows you to define an exponential rate for a job rollout\.  | 
-| baseRatePerMinute | java class: java\.lang\.Integer | The minimum number of things that will be notified of a pending job, per minute at the start of job rollout\. This parameter allows you to define the initial rate of rollout\.  | 
-| incrementFactor | java class: java\.lang\.Double | The exponential factor to increase the rate of rollout for a job\. | 
-| rateIncreaseCriteria | RateIncreaseCriteria | Allows you to define a criteria to initiate the increase in rate of rollout for a job\. Set a value for either `numberOfNotifiedThings` or `numberOfSucceededThings`, but not both\. | 
-| numberOfNotifiedThings | java class: java\.lang\.Double | The threshold for number of notified things that will initiate the increase in rate of rollout\.  | 
-| numberOfSucceededThings | java class: java\.lang\.Double | The threshold for number of succeeded things that will initiate the increase in rate of rollout\.  | 
-| abortConfig | AbortConfig | Allows you to create criteria to abort a job\. | 
-| criteriaList | AbortCriteria | The list of abort criteria to define rules to abort the job\. | 
-| action | java class: java\.lang\.String \(CANCEL\) | The type of abort action to initiate a job abort\. | 
-| failureType | java class: java\.lang\.String \(FAILED \| REJECTED \| TIMED\_OUT \| ALL\) | The type of job execution failure to define a rule to initiate a job abort\. | 
-| minNumberOfExecutedThings | java class: java\.lang\.Integer\) | Minimum number of executed things before evaluating an abort rule\. | 
-| thresholdPercentage | java class: java\.lang\.Double\) | The threshold as a percentage of the total number of executed things that will initiate a job abort\. AWS IoT supports up to two digits after the decimal \(for example, 10\.9 and 10\.99, but not 10\.999\)\.   | 
-|  timeoutConfig  |  TimeoutConfig  |  Specifies the amount of time each device has to finish its execution of the job\. The timer is started when the job execution status is set to `IN_PROGRESS`\. If the job execution status is not set to another terminal state before the time expires, it is set to `TIMED_OUT`\. The job timeout feature isn't currently available in the PDT \(us\-gov\-west\-1\) Region\.  | 
+|  exponentialRate  |  ExponentialRolloutRate  |  The rate of increase for a job rollout\. This parameter allows you to define an exponential rate for a job rollout\.   | 
+|  baseRatePerMinute  |  java class: java\.lang\.Integer  |  The minimum number of things that will be notified of a pending job, per minute at the start of job rollout\. This parameter allows you to define the initial rate of rollout\.   | 
+|  incrementFactor  |  java class: java\.lang\.Double  |  The exponential factor to increase the rate of rollout for a job\.  | 
+|  rateIncreaseCriteria  |  RateIncreaseCriteria  |  Allows you to define a criteria to initiate the increase in rate of rollout for a job\. Set a value for either `numberOfNotifiedThings` or `numberOfSucceededThings`, but not both\.  | 
+|  numberOfNotifiedThings  |  java class: java\.lang\.Double  |  The threshold for number of notified things that will initiate the increase in rate of rollout\.   | 
+|  numberOfSucceededThings  |  java class: java\.lang\.Double  |  The threshold for number of succeeded things that will initiate the increase in rate of rollout\.   | 
+|  abortConfig  |  AbortConfig  |  Allows you to create criteria to abort a job\.  | 
+|  criteriaList  |  AbortCriteria  |  The list of abort criteria to define rules to abort the job\.  | 
+|  action  |  java class: java\.lang\.String \(CANCEL\)  |  The type of abort action to initiate a job abort\.  | 
+|  failureType  |  java class: java\.lang\.String \(FAILED \| REJECTED \| TIMED\_OUT \| ALL\)  |  The type of job execution failure to define a rule to initiate a job abort\.  | 
+|  minNumberOfExecutedThings  |  java class: java\.lang\.Integer\)  |  Minimum number of executed things before evaluating an abort rule\.  | 
+|  thresholdPercentage  |  java class: java\.lang\.Double\)  |  The threshold as a percentage of the total number of executed things that will initiate a job abort\. AWS IoT supports up to two digits after the decimal \(for example, 10\.9 and 10\.99, but not 10\.999\)\.   | 
+|  timeoutConfig  |  TimeoutConfig  |  Specifies the amount of time each device has to finish its execution of the job\. The timer is started when the job execution status is set to `IN_PROGRESS`\. If the job execution status is not set to another terminal state before the time expires, it is set to `TIMED_OUT`\.  The job timeout feature isn't currently available in the AWS GovCloud \(US\) Region\.   | 
 |  inProgressTimeoutInMinutes  |  long  |  Specifies the amount of time, in minutes, this device has to finish execution of this job\. A timer is started, or restarted, whenever this job's execution status is specified as `IN_PROGRESS` with this field populated\. If the job execution status is not set to a terminal state before the timer expires, or before another job execution status update is sent with this field populated, the status is set to `TIMED_OUT`\.  | 
 |  documentParameters  |  map  key: ParameterKey  value: ParameterValue  |  Parameters for the job document\.  | 
 |  ParameterKey  |  string  length max:128 min:1  pattern: \[a\-zA\-Z0\-9:\_\-\]\+  |   | 
@@ -1010,7 +1010,7 @@ Output:
 ```
 
 
-**cli output fields:**  
+**CLI output fields:**  
 
 |  Name  |  Type  |  Description  | 
 | --- | --- | --- | 
@@ -1028,7 +1028,7 @@ Not available\.
 #### DeleteJob<a name="jobs-DeleteJob"></a>
 
 ------
-#### [ DeleteJob command ]
+#### [ DeleteJob Command ]
 
 Deletes a job and its related job executions\.
 
@@ -1117,7 +1117,7 @@ Not available\.
 #### DeleteJobExecution<a name="jobs-DeleteJobExecution"></a>
 
 ------
-#### [ DeleteJobExecution command ]
+#### [ DeleteJobExecution Command ]
 
 Deletes a job execution\.
 
@@ -1212,7 +1212,7 @@ Not available\.
 #### DescribeJob<a name="jobs-DescribeJob"></a>
 
 ------
-#### [ DescribeJob command ]
+#### [ DescribeJob Command ]
 
 Gets the details of the specified job\.
 
@@ -1338,13 +1338,13 @@ Output:
 ```
 
 
-**cli output fields:**  
+**CLI output fields:**  
 
 |  Name  |  Type  |  Description  | 
 | --- | --- | --- | 
 |  documentSource  |  string  length max:1350 min:1  |  An Amazon S3 link to the job document\.  | 
 |  job  |  Job  |  Information about the job\.  | 
-|  jobArn  |  string  |  An ARN identifying the job with format "arn:aws:iot:region:account:job/jobId"\.  | 
+|  jobArn  |  string  |  An ARN that identifies the job with format "arn:aws:iot:region:account:job/jobId"\.  | 
 |  jobId  |  string  length max:64 min:1  pattern: \[a\-zA\-Z0\-9\_\-\]\+  |  The unique identifier you assigned to this job when it was created\.  | 
 |  targetSelection  |  string  enum: CONTINUOUS \| SNAPSHOT  |  Specifies whether the job continues to run \(CONTINUOUS\), or is complete after all those things specified as targets have completed the job \(SNAPSHOT\)\. If continuous, the job can also be run on a thing when a change is detected in a target\. For example, a job runs on a device when the thing representing the device is added to a target group, even after the job was completed by all things originally in the group\.   | 
 |  status  |  string  enum: IN\_PROGRESS \| CANCELED \| SUCCEEDED  |  The status of the job, one of `IN_PROGRESS`, `CANCELED`, or `SUCCEEDED`\.   | 
@@ -1387,7 +1387,7 @@ Output:
 |  documentParameters  |  map  key: ParameterKey  value: ParameterValue  |  The parameters specified for the job document\.  | 
 |  ParameterKey  |  string  length max:128 min:1  pattern: \[a\-zA\-Z0\-9:\_\-\]\+  |   | 
 |  ParameterValue  |  string  length max:1024 min:1  pattern: \[^\\\\p\{C\}\]\+  |   | 
-|  timeoutConfig  |  TimeoutConfig  |  Specifies the amount of time each device has to finish its execution of the job\. A timer is started when the job execution status is set to `IN_PROGRESS`\. If the job execution status is not set to another terminal state before the timer expires, it is set to `TIMED_OUT`\.  The job timeout feature isn't currently available in the PDT \(us\-gov\-west\-1\) Region\.  | 
+|  timeoutConfig  |  TimeoutConfig  |  Specifies the amount of time each device has to finish its execution of the job\. A timer is started when the job execution status is set to `IN_PROGRESS`\. If the job execution status is not set to another terminal state before the timer expires, it is set to `TIMED_OUT`\.   The job timeout feature isn't currently available in the AWS GovCloud \(US\) Region\.   | 
 |  inProgressTimeoutInMinutes  |  long  |  Specifies the amount of time, in minutes, this device has to finish execution of this job\. The timeout interval can be anywhere between 1 minute and 7 days \(1 to 10080 minutes\)\. The in\-progress timer can't be updated and applies to all job executions for the job\. Whenever a job execution remains in the `IN_PROGRESS` status for longer than this interval, the job execution fails and switches to the terminal `TIMED_OUT` status\.   | 
 
 ------
@@ -1400,7 +1400,7 @@ Not available\.
 #### DescribeJobExecution<a name="jobs-DescribeJobExecution"></a>
 
 ------
-#### [ DescribeJobExecution command ]
+#### [ DescribeJobExecution Command ]
 
 Gets details of a job execution\. The job's execution status must be `SUCCEEDED` or `FAILED`\.
 
@@ -1491,7 +1491,7 @@ Output:
 ```
 
 
-**cli output fields:**  
+**CLI output fields:**  
 
 |  Name  |  Type  |  Description  | 
 | --- | --- | --- | 
@@ -1521,7 +1521,7 @@ Not available\.
 #### GetJobDocument<a name="jobs-GetJobDocument"></a>
 
 ------
-#### [ GetJobDocument command ]
+#### [ GetJobDocument Command ]
 
 Gets the job document for a job\.
 
@@ -1587,7 +1587,7 @@ Output:
 ```
 
 
-**cli output fields:**  
+**CLI output fields:**  
 
 |  Name  |  Type  |  Description  | 
 | --- | --- | --- | 
@@ -1603,7 +1603,7 @@ Not available\.
 #### ListJobExecutionsForJob<a name="jobs-listJobExecutionsForJob"></a>
 
 ------
-#### [ ListExecutionsForJob command ]
+#### [ ListExecutionsForJob Command ]
 
 Gets a list of job executions for a job\.
 
@@ -1696,7 +1696,7 @@ Output:
 ```
 
 
-**cli output fields:**  
+**CLI output fields:**  
 
 |  Name  |  Type  |  Description  | 
 | --- | --- | --- | 
@@ -1721,7 +1721,7 @@ Not available\.
 #### ListJobExecutionsForThing<a name="jobs-ListJobExecutionsForThing"></a>
 
 ------
-#### [ ListJobExecutionsForThing command ]
+#### [ ListJobExecutionsForThing Command ]
 
 Gets a list of job executions for a thing\.
 
@@ -1839,7 +1839,7 @@ Not available\.
 #### ListJobs<a name="jobs-listJobs"></a>
 
 ------
-#### [ ListJobs command ]
+#### [ ListJobs Command ]
 
 Gets a list of the jobs in your AWS account\.
 
@@ -1944,7 +1944,7 @@ Output:
 ```
 
 
-**cli output fields:**  
+**CLI output fields:**  
 
 |  Name  |  Type  |  Description  | 
 | --- | --- | --- | 
@@ -1970,7 +1970,7 @@ Not available\.
 #### UpdateJob<a name="jobs-UpdateJob"></a>
 
 ------
-#### [ UpdateJob command ]
+#### [ UpdateJob Command ]
 
 Updates supported fields of the specified job\. Updated values for `timeoutConfig` take effect for only newly in\-progress executions\. Currently in\-progress executions continue to execute with the old timeout configuration\.
 
@@ -2146,7 +2146,7 @@ aws iot  update-job \
 |  failureType  |  java class: java\.lang\.String \(FAILED \| REJECTED \| TIMED\_OUT \| ALL\)  |  The type of job execution failure to define a rule to initiate a job abort\.  | 
 |  minNumberOfExecutedThings  |  java class: java\.lang\.Integer\)  |  Minimum number of executed things before evaluating an abort rule\.  | 
 |  thresholdPercentage  |  java class: java\.lang\.Double\)  |  The threshold as a percentage of the total number of executed things that initiate a job abort\. AWS IoT supports up to two digits after the decimal \(for example, 10\.9 and 10\.99, but not 10\.999\)\.   | 
-|  timeoutConfig  |  TimeoutConfig  |  Specifies the amount of time each device has to finish its execution of the job\. The timer is started when the job execution status is set to `IN_PROGRESS`\. If the job execution status is not set to another terminal state before the time expires, it is set to `TIMED_OUT`\. The job timeout feature isn't currently available in the PDT \(us\-gov\-west\-1\) Region\.  | 
+|  timeoutConfig  |  TimeoutConfig  |  Specifies the amount of time each device has to finish its execution of the job\. The timer is started when the job execution status is set to `IN_PROGRESS`\. If the job execution status is not set to another terminal state before the time expires, it is set to `TIMED_OUT`\.  The job timeout feature isn't currently available in the AWS GovCloud \(US\) Region\.   | 
 |  inProgressTimeoutInMinutes  |  long  |  Specifies the amount of time, in minutes, this device has to finish execution of this job\. A timer is started, or restarted, whenever this job's execution status is specified as `IN_PROGRESS` with this field populated\. If the job execution status is not set to a terminal state before the timer expires, or before another job execution status update is sent with this field populated, the status is set to `TIMED_OUT`\.  | 
 |  documentParameters  |  map  key: ParameterKey  value: ParameterValue  |  Parameters for the job document\.  | 
 |  ParameterKey  |  string  length max:128 min:1  pattern: \[a\-zA\-Z0\-9:\_\-\]\+  |   | 
@@ -2176,12 +2176,12 @@ The following data types are used to communicate with the AWS IoT Jobs service o
 #### JobExecution<a name="jobs-mqtt-job-execution-data"></a>
 
 ------
-#### [ JobExecution data type ]
+#### [ JobExecution Data Type ]
 
 Contains data about a job execution\.
 
 ------
-#### [ syntax \(7\) ]
+#### [ Syntax \(7\) ]
 
 ```
 {
@@ -2201,7 +2201,7 @@ Contains data about a job execution\.
 ```
 
 ------
-#### [ description \(7\) ]
+#### [ Description \(7\) ]
 
 `jobId`  
 The unique identifier you assigned to this job when it was created\.
@@ -2238,12 +2238,12 @@ A number that identifies a job execution on a device\. It can be used later in c
 #### JobExecutionState<a name="jobs-mqtt-job-execution-state"></a>
 
 ------
-#### [ JobExecutionState data type ]
+#### [ JobExecutionState Data Type ]
 
 Contains data about the state of a job execution\.
 
 ------
-#### [ syntax \(8\) ]
+#### [ Syntax \(8\) ]
 
 ```
 {
@@ -2257,7 +2257,7 @@ Contains data about the state of a job execution\.
 ```
 
 ------
-#### [ description \(8\) ]
+#### [ Description \(8\) ]
 
 `status`  
 The status of the job execution\. Can be one of: QUEUED, IN\_PROGRESS, FAILED, SUCCEEDED, CANCELED, TIMED\_OUT, REJECTED, or REMOVED\.
@@ -2273,12 +2273,12 @@ The version of the job execution\. Job execution versions are incremented each t
 #### JobExecutionSummary<a name="jobs-mqtt-job-execution-summary"></a>
 
 ------
-#### [ JobExecutionSummary data type ]
+#### [ JobExecutionSummary Data Type ]
 
 Contains a subset of information about a job execution\.
 
 ------
-#### [ syntax \(9\) ]
+#### [ Syntax \(9\) ]
 
 ```
 {
@@ -2292,7 +2292,7 @@ Contains a subset of information about a job execution\.
 ```
 
 ------
-#### [ description \(9\) ]
+#### [ Description \(9\) ]
 
 `jobId`  
 The unique identifier you assigned to this job when it was created\.
@@ -2317,12 +2317,12 @@ A number that identifies a job execution on a device\.
 #### ErrorResponse<a name="jobs-mqtt-error-response"></a>
 
 ------
-#### [ ErrorResponse data type ]
+#### [ ErrorResponse Data Type ]
 
 Contains information about an error that occurred during an AWS IoT Jobs service operation\.
 
 ------
-#### [ syntax \(10\) ]
+#### [ Syntax \(10\) ]
 
 ```
 {
@@ -2335,7 +2335,7 @@ Contains information about an error that occurred during an AWS IoT Jobs service
 ```
 
 ------
-#### [ description \(10\) ]
+#### [ Description \(10\) ]
 
 `code`  
 ErrorCode can be set to:    
@@ -2379,7 +2379,7 @@ The following commands are available over the MQTT and HTTPS protocols\.
 #### GetPendingJobExecutions<a name="mqtt-getpendingjobexecutions"></a>
 
 ------
-#### [ GetPendingJobExecutions command ]
+#### [ GetPendingJobExecutions Command ]
 
 Gets the list of all jobs for a thing that are not in a terminal state\.
 
@@ -2507,7 +2507,7 @@ Output:
 ```
 
 
-**cli output fields:**  
+**CLI output fields:**  
 
 |  Name  |  Type  |  Description  | 
 | --- | --- | --- | 
@@ -2533,7 +2533,7 @@ Output:
 #### StartNextPendingJobExecution<a name="mqtt-startnextpendingjobexecution"></a>
 
 ------
-#### [ StartNextPendingJobExecution command ]
+#### [ StartNextPendingJobExecution Command ]
 
 Gets and starts the next pending job execution for a thing \(status IN\_PROGRESS or QUEUED\)\. 
 + Any job executions with status IN\_PROGRESS are returned first\.
@@ -2723,7 +2723,7 @@ Output:
 ```
 
 
-**cli output fields:**  
+**CLI output fields:**  
 
 |  Name  |  Type  |  Description  | 
 | --- | --- | --- | 
@@ -2746,7 +2746,7 @@ Output:
 #### DescribeJobExecution<a name="mqtt-describejobexecution"></a>
 
 ------
-#### [ DescribeJobExecution command ]
+#### [ DescribeJobExecution Command ]
 
 Gets detailed information about a job execution\.
 
@@ -2902,7 +2902,7 @@ Output:
 ```
 
 
-**cli output fields:**  
+**CLI output fields:**  
 
 |  Name  |  Type  |  Description  | 
 | --- | --- | --- | 
@@ -2925,7 +2925,7 @@ Output:
 #### UpdateJobExecution<a name="mqtt-updatejobexecution"></a>
 
 ------
-#### [ UpdateJobExecution command ]
+#### [ UpdateJobExecution Command ]
 
 Updates the status of a job execution\. You can optionally create a step timer by setting a value for the `stepTimeoutInMinutes` property\. If you don't update the value of this property by running `UpdateJobExecution` again, the job execution times out when the step timer expires\.
 
@@ -3138,7 +3138,7 @@ Output:
 ```
 
 
-**cli output fields:**  
+**CLI output fields:**  
 
 |  Name  |  Type  |  Description  | 
 | --- | --- | --- | 
@@ -3155,7 +3155,7 @@ Output:
 #### JobExecutionsChanged<a name="mqtt-jobexecutionschanged"></a>
 
 ------
-#### [ JobExecutionsChanged message ]
+#### [ JobExecutionsChanged Message ]
 
 Sent whenever a job execution is added to or removed from the list of pending job executions for a thing\.
 
@@ -3190,7 +3190,7 @@ Not available\.
 #### NextJobExecutionChanged<a name="mqtt-nextjobexecutionchanged"></a>
 
 ------
-#### [ NextJobExecutionChanged message ]
+#### [ NextJobExecutionChanged Message ]
 
 Sent whenever there is a change to which job execution is next on the list of pending job executions for a thing, as defined for [DescribeJobExecution](#mqtt-describejobexecution) with jobId `$next`\. This message is not sent when the next job's execution details change, only when the next job that would be returned by `DescribeJobExecution` with jobId `$next` has changed\. Consider job executions J1 and J2 with state QUEUED\. J1 is next on the list of pending job executions\. If the state of J2 is changed to IN\_PROGRESS while the state of J1 remains unchanged, then this notification is sent and contains details of J2\.
 

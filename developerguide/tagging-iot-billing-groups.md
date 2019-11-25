@@ -49,5 +49,5 @@ Cost and usage data based on tags \(and reported for a billing group\) doesn't r
   + Authenticate with AWS IoT using only its thing name as the clientID\.
   + Use only an X\.509 certificate or Amazon Cognito Identity to authenticate\.
 
-  Additional information can be found in [Managing Devices with AWS IoT ](iot-thing-management.md), [Security and Identity for AWS IoT ](iot-security-identity.md), and [Device Provisioning](iot-provision.md)\. The API command [ AttachThingPrincipal](iot-commands.md#api-iot-AttachThingPrincipal), can be used to attach a certificate or other credential to a thing\. 
+  Additional information can be found in [Managing Devices with AWS IoT ](iot-thing-management.md), [Authentication](authentication.md), and [Device Provisioning](iot-provision.md)\. The API command [ AttachThingPrincipal](iot-commands.md#api-iot-AttachThingPrincipal), can be used to attach a certificate or other credential to a thing\. 
 + The maximum number of billing groups per account is 20,000\.

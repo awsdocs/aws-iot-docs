@@ -4,12 +4,13 @@
 
 ## Enabling Thing Group Indexing<a name="enable-group-index"></a>
 
-You can create the `AWS_ThingGroups` index and control its configuration by using the `thing-group-indexing-configuration` setting in the [UpdateIndexingConfiguration](https://docs.aws.amazon.com/iot/latest/apireference/API_UpdateIndexingConfiguration.html) API\. You can retrieve the current indexing configuration by using the [GetIndexingConfiguration](https://docs.aws.amazon.com/iot/latest/apireference/API_GetIndexingConfiguration.html) API\. 
+You can use the `thing-group-indexing-configuration` setting in the [UpdateIndexingConfiguration](https://docs.aws.amazon.com/iot/latest/apireference/API_UpdateIndexingConfiguration.html) API to create the `AWS_ThingGroups` index and control its configuration\. You can use the [GetIndexingConfiguration](https://docs.aws.amazon.com/iot/latest/apireference/API_GetIndexingConfiguration.html) API to retrieve the current indexing configuration\. 
 
 Use the get\-indexing\-configuration CLI command to retrieve the current thing and thing group indexing configurations\.
 
+aws iot get\-indexing\-configuration
+
 ```
-aws iot get-indexing-configuration
 {
    "thingGroupIndexingConfiguration": {
         "thingGroupIndexingMode": "ON"
@@ -51,7 +52,7 @@ aws iot describe-index --index-name "AWS_ThingGroups"
 }
 ```
 
- The first time you enable indexing, AWS IoT builds your index\. You can't query the index if the `indexStatus` is `BUILDING`\.
+ AWS IoT builds your index the first time you enable indexing\. You can't query the index if the `indexStatus` is `BUILDING`\.
 
 ## Querying a Thing Group Index<a name="search-group-index"></a>
 
@@ -70,5 +71,5 @@ You can specify the thing groups index as a resource ARN in an AWS IoT policy ac
 
 | Action | Resource | 
 | --- | --- | 
-|  `iot:SearchIndex`  |  An index ARN \(for example, arn:aws:iot:*<your\-aws\-region>*:index/AWS\_ThingGroups\)\.  | 
-|  `iot:DescribeIndex`  |  An index ARN \(for example, arn:aws:iot:*<your\-aws\-region>*:index/AWS\_ThingGroups\)\.  | 
+|  `iot:SearchIndex`  |  An index ARN \(for example, `arn:aws:iot:<your-aws-region>:index/AWS_ThingGroups`\)\.  | 
+|  `iot:DescribeIndex`  |  An index ARN \(for example, `arn:aws:iot:<your-aws-region>:index/AWS_ThingGroups`\)\.  | 

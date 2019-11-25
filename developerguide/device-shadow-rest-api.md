@@ -20,4 +20,4 @@ The shadow RESTful API follows the same HTTPS protocols/port mappings as describ
 + [DeleteThingShadow](API_DeleteThingShadow.md)
 
 **Note**  
-When using these API, make sure you use the 8443 port as described in [Protocol/Port Mappings](protocols.md#protocol-port-mapping)
+When using these API, make sure you use the 8443 port as described in [Protocols, Port Mappings, and Authentication](protocols.md#protocol-port-mapping)

@@ -18,7 +18,7 @@ The client ID of the connecting or disconnecting client\.
 Client IDs that contain \# or \+ do not receive lifecycle events\.
 
 clientInitiatedDisconnect  
-Only found in disconnection messages\. True if the client initiated the disconnect\. Otherwise, False\.
+Found in disconnection messages only\. True if the client initiated the disconnect\. Otherwise, False\.
 
 eventType  
 The type of event\. Valid values are `connected` or `disconnected`\. 
@@ -40,7 +40,7 @@ If a client is not connected for approximately one hour, the version number is r
 
 ### Handling Client Disconnections<a name="reconnect"></a>
 
-Best practice is to always have a wait state implemented for lifecycle events, including Last Will and Testament \(LWT\) messages\. When a disconnect message is received, your code should wait a period of time and verify a device is still offline before taking action\. One way to do this is by using [SQS Delay Queues](https://docs.aws.amazon.com/AWSSimpleQueueService/latest/SQSDeveloperGuide/sqs-delay-queues.html)\. When a client receives a LWT or a lifecycle event, you can enqueue a message \(for example, for 5 seconds\)\. When that message becomes available and is processed \(by Lambda or another service\), you can first check if the device is still offline before taking further action\.
+The best practice is to always have a wait state implemented for lifecycle events, including Last Will and Testament \(LWT\) messages\. When a disconnect message is received, your code should wait a period of time and verify a device is still offline before taking action\. One way to do this is by using [SQS Delay Queues](https://docs.aws.amazon.com/AWSSimpleQueueService/latest/SQSDeveloperGuide/sqs-delay-queues.html)\. When a client receives a LWT or a lifecycle event, you can enqueue a message \(for example, for 5 seconds\)\. When that message becomes available and is processed \(by Lambda or another service\), you can first check if the device is still offline before taking further action\.
 
 ## Subscribe/Unsubscribe Events<a name="subscribe-unsubscribe-events"></a>
 
