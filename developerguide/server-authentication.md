@@ -40,7 +40,7 @@ Depending on which type of data endpoint you are using and which cipher suite yo
 + ECC 256 bit key: [Amazon Root CA 3](https://www.amazontrust.com/repository/AmazonRootCA3.pem)\.
 + ECC 384 bit key: Amazon Root CA 4\. Reserved for future use\.
 
-These certificates are all cross\-signed by the [ Starfield Root CA Certificate](https://www.amazontrust.com/repository/SFSRootCAG2.pem)\. All new AWS IoT Core regions, beginning with the May 9, 2018 launch of AWS IoT Core in the Asia Pacific \(Mumbai\) Region, serve only ATS certificates\.
+These certificates are all cross\-signed by the [ Starfield Root CA Certificate](https://ssl-ccp.godaddy.com/repository/sf-class2-root.crt)\. All new AWS IoT Core regions, beginning with the May 9, 2018 launch of AWS IoT Core in the Asia Pacific \(Mumbai\) Region, serve only ATS certificates\.
 
 ## Server Authentication Guidelines<a name="server-authentication-guidelines"></a>
 
@@ -52,7 +52,7 @@ There are many variables that can affect a device's ability to validate the AWS 
   + [Cross\-signed Amazon Root CA 2](https://www.amazontrust.com/repository/G2-RootCA2.pem) \- Reserved for future use\.
   + [Cross\-signed Amazon Root CA 3](https://www.amazontrust.com/repository/G2-RootCA3.pem)
   + [Cross\-signed Amazon Root CA 4 \- Reserved for future use\.](https://www.amazontrust.com/repository/G2-RootCA4.pem)
-+ If you are experiencing server certificate validation issues, your device may need to explicitly trust the root CA\. Try adding the [Starfield Root CA Certificate](https://www.amazontrust.com/repository/SFSRootCAG2.pem) to your trust store\.
++ If you are experiencing server certificate validation issues, your device may need to explicitly trust the root CA\. Try adding the [Starfield Root CA Certificate](https://ssl-ccp.godaddy.com/repository/sf-class2-root.crt) to your trust store\.
 + If you still experience issues after executing the steps above, please contact [AWS Developer Support](https://aws.amazon.com/premiumsupport/plans/developers/)\. 
 
 **Note**  
