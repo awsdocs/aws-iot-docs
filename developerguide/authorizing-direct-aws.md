@@ -1,18 +1,18 @@
 # Authorizing Direct Calls to AWS Services<a name="authorizing-direct-aws"></a>
 
-Devices can use X\.509 certificates to connect to AWS IoT using TLS mutual authentication protocols\. Other AWS services do not support certificate\-based authentication, but they can be called using AWS credentials in [AWS Signature Version 4 format](https://docs.aws.amazon.com/general/latest/gr/signature-version-4.html)\. The [Signature Version 4 algorithm](https://docs.aws.amazon.com/AmazonS3/latest/API/sig-v4-authenticating-requests.html) normally requires the caller to have an access key ID and a secret access key\. AWS IoT has a credentials provider that allows you to use the built\-in [X\.509 certificate](x509-client-certs.html) as the unique device identity to authenticate AWS requests\. This eliminates the need to store an access key ID and a secret access key on your device\.
+Devices can use X\.509 certificates to connect to using TLS mutual authentication protocols\. Other AWS services do not support certificate\-based authentication, but they can be called using AWS credentials in [AWS Signature Version 4 format](https://docs.aws.amazon.com/general/latest/gr/signature-version-4.html)\. The [Signature Version 4 algorithm](https://docs.aws.amazon.com/AmazonS3/latest/API/sig-v4-authenticating-requests.html) normally requires the caller to have an access key ID and a secret access key\. has a credentials provider that allows you to use the built\-in [X\.509 certificate](x509-client-certs.html) as the unique device identity to authenticate AWS requests\. This eliminates the need to store an access key ID and a secret access key on your device\.
 
-The credentials provider authenticates a caller using an X\.509 certificate and issues a temporary, limited\-privilege security token\. The token can be used to sign and authenticate any AWS request\. This way of authenticating your AWS requests requires you to create and configure an [AWS Identity and Access Management \(IAM\) role](https://docs.aws.amazon.com/IAM/latest/UserGuide/id_roles.html) and attach appropriate IAM policies to the role so that the credentials provider can assume the role on your behalf\. For more information about AWS IoT and IAM, see [Identity and Access Management for AWS IoT](security-iam.md)\.
+The credentials provider authenticates a caller using an X\.509 certificate and issues a temporary, limited\-privilege security token\. The token can be used to sign and authenticate any AWS request\. This way of authenticating your AWS requests requires you to create and configure an [AWS Identity and Access Management \(IAM\) role](https://docs.aws.amazon.com/IAM/latest/UserGuide/id_roles.html) and attach appropriate IAM policies to the role so that the credentials provider can assume the role on your behalf\. For more information about and IAM, see [Identity and Access Management for AWS IoT](security-iam.md)\.
 
 The following diagram illustrates the credentials provider workflow\.
 
-![\[AWS IoT credentials provider workflow.\]](http://docs.aws.amazon.com/iot/latest/developerguide/images/credentials-provider-diagram.png)
+![\[credentials provider workflow.\]](http://docs.aws.amazon.com/iot/latest/developerguide/images/credentials-provider-diagram.png)
 
-1. The AWS IoT device makes an HTTPS request to the credentials provider for a security token\. The request includes the device X\.509 certificate for authentication\.
+1. The device makes an HTTPS request to the credentials provider for a security token\. The request includes the device X\.509 certificate for authentication\.
 
-1. The credentials provider forwards the request to the AWS IoT authentication and authorization module to validate the certificate and verify that the device has permission to request the security token\.
+1. The credentials provider forwards the request to the authentication and authorization module to validate the certificate and verify that the device has permission to request the security token\.
 
-1. If the certificate is valid and has permission to request a security token, the AWS IoT authentication and authorization module returns success\. Otherwise, it sends an exception to the device\.
+1. If the certificate is valid and has permission to request a security token, the authentication and authorization module returns success\. Otherwise, it sends an exception to the device\.
 
 1. After successfully validating the certificate, the credentials provider invokes the [AWS Security Token Service \(AWS STS\)](https://docs.aws.amazon.com/STS/latest/APIReference/Welcome.html) to assume the IAM role that you created for it\.
 
@@ -50,9 +50,9 @@ The following section describes how to use a certificate to get a security token
 
    When the device provides the thing name in its request to an AWS service, the credentials provider adds `credentials-iot:ThingName` and `credentials-iot:ThingTypeName` as context variables to the security token\. The credentials provider provides `credentials-iot:AwsCertificateId` as a context variable even if the device doesn't provide the thing name in the request\. You pass the thing name as the value of the `x-amzn-iot-thingname` HTTP request header\.
 
-   These three variables work for IAM policies only, not AWS IoT policies\.
+   These three variables work for IAM policies only, not policies\.
 
-1. Make sure that the user who performs the next step \(creating a role alias\) has permission to pass the newly created role to AWS IoT\. The following policy gives both `iam:GetRole` and `iam:PassRole` permissions to an AWS user\. The `iam:GetRole` permission allows the user to get information about the role that you've just created\. The `iam:PassRole` permission allows the user to pass the role to another AWS service\.
+1. Make sure that the user who performs the next step \(creating a role alias\) has permission to pass the newly created role to \. The following policy gives both `iam:GetRole` and `iam:PassRole` permissions to an AWS user\. The `iam:GetRole` permission allows the user to get information about the role that you've just created\. The `iam:PassRole` permission allows the user to pass the role to another AWS service\.
 
    ```
    {
@@ -68,7 +68,7 @@ The following section describes how to use a certificate to get a security token
    }
    ```
 
-1. Create an AWS IoT role alias\. The device that is going to make direct calls to AWS services must know which role ARN to use when connecting to AWS IoT\. Hard\-coding the role ARN is not a good solution because it requires you to update the device whenever the role ARN changes\. A better solution is to use the `CreateRoleAlias` API to create a role alias that points to the role ARN\. If the role ARN changes, you simply update the role alias\. No change is required on the device\. This API takes the following parameters:  
+1. Create an role alias\. The device that is going to make direct calls to AWS services must know which role ARN to use when connecting to \. Hard\-coding the role ARN is not a good solution because it requires you to update the device whenever the role ARN changes\. A better solution is to use the `CreateRoleAlias` API to create a role alias that points to the role ARN\. If the role ARN changes, you simply update the role alias\. No change is required on the device\. This API takes the following parameters:  
 `roleAlias`  
 Mandatory\. An arbitrary string that identifies the role alias\. It serves as the primary key in the role alias data model\. It contains 1\-128 characters and must include only alphanumeric characters and the =, @, and \- symbols\. Uppercase and lowercase alphabetic characters are allowed\.  
 `roleArn`  
@@ -76,7 +76,7 @@ Mandatory\. The ARN of the role to which the role alias refers\.
 `credentialDurationInSeconds`  
 Optional\. How long \(in seconds\) the credential is valid\. The minimum value is 900 seconds \(15 minutes\)\. The maximum value is 3,600 seconds \(60 minutes\)\. The default value is 3,600 seconds\.
 
-   For more information about this API, see [CreateRoleAlias](https://docs.aws.amazon.com/iot/latest/apireference//API_CreateRoleAlias.html)\. 
+   For more information about this API, see [CreateRoleAlias](https://docs.aws.amazon.com/iot/latest/apireference/API_CreateRoleAlias.html)\. 
 
 1. Attach a policy to the device certificate\. The policy attached to the device certificate must grant the device permission to assume the role\. You do this by granting permission for the `iot:AssumeRoleWithCertificate` action to the role alias, as in the following example\.
 
@@ -92,15 +92,15 @@ Optional\. How long \(in seconds\) the credential is valid\. The minimum value i
    ```
 
 1. Make an HTTPS request to the credentials provider to get a security token\. Supply the following information:
-   + *Certificate*: Because this is an HTTP request over TLS mutual authentication, you must provide the certificate and the private key to your client while making the request\. Use the same certificate and private key you used when you registered your certificate with AWS IoT\.
+   + *Certificate*: Because this is an HTTP request over TLS mutual authentication, you must provide the certificate and the private key to your client while making the request\. Use the same certificate and private key you used when you registered your certificate with \.
 
-     To make sure your device is communicating with AWS IoT \(and not a service impersonating it\), see [Server Authentication](x509-client-certs.html#server-authentication), follow the links to download the appropriate CA certificates, and then copy them to your device\.
+     To make sure your device is communicating with \(and not a service impersonating it\), see [Server Authentication](x509-client-certs.html#server-authentication), follow the links to download the appropriate CA certificates, and then copy them to your device\.
    + *RoleAlias*: The name of the role alias that you created for the credentials provider\.
-   + *ThingName*: The thing name that you created when you registered your AWS IoT thing\. This is passed as the value of the `x-amzn-iot-thingname` HTTP header\. This value is required only if you are using thing attributes as policy variables in AWS IoT or IAM policies\.
+   + *ThingName*: The thing name that you created when you registered your thing\. This is passed as the value of the `x-amzn-iot-thingname` HTTP header\. This value is required only if you are using thing attributes as policy variables in or IAM policies\.
 
    Run the following command in the AWS CLI to obtain the credentials provider endpoint for your AWS account\. For more information about this API, see [DescribeEndpoint](https://docs.aws.amazon.com/iot/latest/apireference/API_DescribeEndpoint.html)\.
 
-   aws iot describe\-endpoint ‐‐endpoint\-type iot:CredentialProvider
+   aws iot describe\-endpoint \-\-endpoint\-type iot:CredentialProvider
 
    The following JSON object is sample output of the describe\-endpoint command\. It contains the `endpointAddress` that you use to request a security token\.
 
@@ -112,7 +112,7 @@ Optional\. How long \(in seconds\) the credential is valid\. The minimum value i
 
    Use the endpoint to make an HTTPS request to the credentials provider to return a security token\. The following example command uses `curl`, but you can use any HTTP client\.
 
-   curl ‐‐cert *your certficate* \-\-key *your device certificate key pair* \-H "x\-amzn\-iot\-thingname: *your thing name*" \-\-cacert AmazonRootCA1\.pem https://*your endpoint* /role\-aliases/*your role alias*/credentials
+   curl ‐‐cert *your certificate* \-\-key *your device certificate key pair* \-H "x\-amzn\-iot\-thingname: *your thing name*" \-\-cacert AmazonRootCA1\.pem https://*your endpoint* /role\-aliases/*your role alias*/credentials
 
    This command returns a security token object that contains an `accessKeyId`, a `secretAccessKey`, a `sessionToken`, and an expiration\. The following JSON object is sample output of the `curl`command\.
 

@@ -4,7 +4,7 @@ Create a thing in the AWS IoT registry to represent your Raspberry Pi\.
 
 1. In the [AWS IoT console](https://console.aws.amazon.com/iot/home), in the navigation pane, choose **Manage**, and then choose **Things**\.
 
-1. If a **You don’t have any things yet** dialog box is displayed, choose **Register a thing**\. Otherwise, choose **Create**\.
+1. If a **You don't have any things yet** dialog box is displayed, choose **Register a thing**\. Otherwise, choose **Create**\.
 
 1. On the **Creating AWS IoT things** page, choose **Create a single thing**\.
 

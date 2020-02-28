@@ -62,7 +62,7 @@ username?x-amz-customauthorizer-name=${name}&x-amz-customauthorizer-signature=${
 
 The data that AWS IoT sends to your custom authorizer Lambda function depends on which protocols and parameters are present in the connection\. For HTTP requests \(Publishes and WSS Upgrades\), AWS IoT sends all headers and query parameters \(up to 8 KB of data\)\. For WSS upgrades on MQTT Connect, AWS IoT also sends all MQTT data\.
 
-If signing is enabled and the request contains a token and signature, AWS IoT won't trigger your custom authorizer’s Lambda function unless the token signature can be decrypted to match the token provided in the request\. You can use this method so that others connecting to your domain don't excessively trigger your Lambda function\.
+If signing is enabled and the request contains a token and signature, AWS IoT won't trigger your custom authorizer's Lambda function unless the token signature can be decrypted to match the token provided in the request\. You can use this method so that others connecting to your domain don't excessively trigger your Lambda function\.
 
 **Important**  
 We strongly recommend that you use the signature verification feature that AWS IoT offers\.

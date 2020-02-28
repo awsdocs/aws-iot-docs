@@ -21,13 +21,13 @@ In this tutorial, you open a tunnel and use it to start an SSH session to a remo
 
 1. Under **Choose a thing to open a tunnel for**, choose **RemoteDeviceA**\. 
 
-1. Under **Service**, enter **SSH**, and then choose **Open New**\. For more information, see [IoT Agent Snippet](agent-snippet.md)
+1. Under **Service**, enter **SSH**, and then choose **Open New**\. For more information, see [IoT Agent Snippet](agent-snippet.md)\.
 
-1. In the **New tunnel opened** page, download your source and destination access tokens and save them to your laptop\. This is the only time you can retrieve the tokens\.
+1. In the **New tunnel opened** page, download your source and destination access tokens and save them to your computer\. This is the only time you can retrieve the tokens\.
 
 1. Choose **Done**\.
 
-If you configure the destination when calling `OpenTunnel`, the Secure Tunneling service delivers the destination client access token to the remote device over MQTT and the reserved MQTT topic \(`$aws/things/RemoteDeviceA/tunnels/notify`\)\. For more information, [MQTT Reserved topics](https://docs.aws.amazon.com/iot/latest/developerguide/topics.html), Upon receipt of the MQTT message, the IoT agent on the remote device starts the local proxy in destination mode\. You can omit the destination configuration if you want to deliver the destination client access token to the remote device through another method\. For more information, see [Configuring a Remote Device](configure-remote-device.md)\.
+If you configure the destination when calling `OpenTunnel`, the Secure Tunneling service delivers the destination client access token to the remote device over MQTT and the reserved MQTT topic \(`$aws/things/RemoteDeviceA/tunnels/notify`\)\. For more information, [MQTT Reserved topics](https://docs.aws.amazon.com/iot/latest/developerguide/topics.html)\. Upon receipt of the MQTT message, the IoT agent on the remote device starts the local proxy in destination mode\. You can omit the destination configuration if you want to deliver the destination client access token to the remote device through another method\. For more information, see [Configuring a Remote Device](configure-remote-device.md)\.
 
 ## Start the Local Proxy<a name="start-local-proxy"></a>
 
@@ -48,7 +48,7 @@ Specifies the port to which the proxy should connect\.
 Specifies the client token text\.
 
 **Note**  
-If you see the following error, see [GitHub](https://github.com/aws-samples/aws-iot-securetunneling-localproxy) for more information to set up the CA path\.  
+If you receive the following error, set up the CA path\. For information, see [GitHub](https://github.com/aws-samples/aws-iot-securetunneling-localproxy)\.  
 `Could not perform SSL handshake with proxy server: certificate verify failed`
 
 ## Start an SSH Session<a name="start-ssh-session"></a>
@@ -57,7 +57,7 @@ Open another terminal and use the following command to start a new SSH session b
 
 ssh *<username>*@localhost \-p 5555
 
-You may be prompted for a password for the SSH session\. When you are done with the SSH session, type **exit** to close the session\.
+You might be prompted for a password for the SSH session\. When you are done with the SSH session, type **exit** to close the session\.
 
 ## Close the Tunnel<a name="close-tunnel"></a>
 

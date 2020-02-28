@@ -1,12 +1,12 @@
 # Server Authentication<a name="server-authentication"></a>
 
-When your device or other client attempts to connect to AWS IoT, the AWS IoT server will send an X\.509 certificate that your device uses to authenticate the server\. Authentication takes place at the TLS layer through validation of the [ X\.509 certificate chain](https://docs.aws.amazon.com/iot/latest/developerguide/x509-client-certs.html) This is the same method used by your browser when you visit an HTTTPS URL\.
+When your device or other client attempts to connect to AWS IoT, the AWS IoT server will send an X\.509 certificate that your device uses to authenticate the server\. Authentication takes place at the TLS layer through validation of the [ X\.509 certificate chain](https://docs.aws.amazon.com/iot/latest/developerguide/x509-client-certs.html) This is the same method used by your browser when you visit an HTTPS URL\.
 
-When your devices or other clients establish a TLS connection to an AWS IoT Core endpoint, AWS IoT Core presents a certificate chain that the devices use to verify that they're communicating with AWS IoT Core and not another server impersonating AWS IoT Core\. The chain that is presented depends on a combination of the type of endpoint the device is connecting to and the [cipher suite](https://docs.aws.amazon.com/iot/latest/developerguide/transport-security.html) that the client and AWS IoT negotiated during the TLS handshake\.
+When your devices or other clients establish a TLS connection to an endpoint, presents a certificate chain that the devices use to verify that they're communicating with and not another server impersonating \. The chain that is presented depends on a combination of the type of endpoint the device is connecting to and the [cipher suite](https://docs.aws.amazon.com/iot/latest/developerguide/transport-security.html) that the client and AWS IoT negotiated during the TLS handshake\.
 
 ## Endpoint Types<a name="endpoint-types"></a>
 
-AWS IoT Core supports two different data endpoint types, `iot:Data` and `iot:Data-ATS`\. `iot:Data-ATS` endpoints present a certificate signed by the [VeriSign Class 3 Public Primary G5 root CA certificate](https://www.symantec.com/content/en/us/enterprise/verisign/roots/VeriSign-Class%203-Public-Primary-Certification-Authority-G5.pem)\. `iot:Data-ATS` endpoints present a server certificate signed by an [Amazon Trust Services](https://www.amazontrust.com/repository/) CA\.
+ supports two different data endpoint types, `iot:Data` and `iot:Data-ATS`\. `iot:Data` endpoints present a certificate signed by the [VeriSign Class 3 Public Primary G5 root CA certificate](https://www.symantec.com/content/en/us/enterprise/verisign/roots/VeriSign-Class%203-Public-Primary-Certification-Authority-G5.pem)\. `iot:Data-ATS` endpoints present a server certificate signed by an [Amazon Trust Services](https://www.amazontrust.com/repository/) CA\.
 
 Certificates presented by ATS endpoints are cross signed by Starfield\. Some TLS client implementations require validation of the root of trust and require that the Starfield CA certificates are installed in the client's trust stores\.
 
@@ -15,17 +15,41 @@ Using a method of certificate pinning that hashes the whole certificate \(includ
 
 Use `iot:Data-ATS` endpoints unless your device requires Symantec or Verisign CA certificates\. Symantec and Verisign certificates have been deprecated and are no longer supported by most web browsers\.
 
-Use the describe\-endpoint to create your ATS endpoint:
+You can use the `describe-endpoint` command to create your ATS endpoint\.
 
-aws iot describe\-endpoint \-\-endpoint\-type iot:Data\-ATS
+```
+aws iot describe-endpoint --endpoint-type iot:Data-ATS
+```
 
-describe\-endpoint returns an endpoint in the form:
+The `describe-endpoint` command returns an endpoint in the following format\.
 
-`<account-specific-prefix>.iot.<your-region>.amazonaws.com`
+```
+account-specific-prefix.iot.your-region.amazonaws.com
+```
 
-The first time `describe-endpoint` is called, an endpoint is created\. All subsequent calls to `describe-endpoint` returns the same endpoint\.
+The first time `describe-endpoint` is called, an endpoint is created\. All subsequent calls to `describe-endpoint` return the same endpoint\.
 
-For backward\-compatibility, AWS IoT still supports Symantec endpoints\. For more information, see [How AWS IoT Core is Helping Customers Navigate the Upcoming Distrust of Symantec Certificate Authorities](https://aws.amazon.com/blogs/iot/aws-iot-core-ats-endpoints)\. Devices operating on ATS endpoints are fully interoperable with devices operating on Symantec endpoints in the same account and do not require any re\-registration\.
+For backward\-compatibility, AWS IoT still supports Symantec endpoints\. For more information, see [How is Helping Customers Navigate the Upcoming Distrust of Symantec Certificate Authorities](https://aws.amazon.com/blogs/iot/aws-iot-core-ats-endpoints)\. Devices operating on ATS endpoints are fully interoperable with devices operating on Symantec endpoints in the same account and do not require any re\-registration\.
+
+### Creating an `IotDataPlaneClient` with the AWS SDK for Java<a name="java-client"></a>
+
+By default, the [AWS SDK for Java \- Version 2](https://github.com/aws/aws-sdk-java-v2) creates an `IotDataPlaneClient` by using an `iot:Data` endpoint\. To create a client that uses an `iot:Data-ATS` endpoint, you must do the following\. 
++ Create an `iot:Data-ATS` endpoint by using the [DescribeEndpoint](https://docs.aws.amazon.com/iot/latest/apireference/API_DescribeEndpoint.html) API\.
++ Specify that endpoint when you create the `IotDataPlaneClient`\.
+
+The following example performs both of these operations\.
+
+```
+public void setup() throws Exception {
+        IotClient client = IotClient.builder().credentialsProvider(CREDENTIALS_PROVIDER_CHAIN).region(Region.US_EAST_1).build();
+        String endpoint = client.describeEndpoint(r -> r.endpointType("iot:Data-ATS")).endpointAddress();
+        iot = IotDataPlaneClient.builder()
+                                .credentialsProvider(CREDENTIALS_PROVIDER_CHAIN)
+                                .endpointOverride(URI.create("https://" + endpoint))
+                                .region(Region.US_EAST_1)
+                                .build();
+}
+```
 
 ## CA Certificates for Server Authentication<a name="server-authentication-certs"></a>
 
@@ -40,11 +64,11 @@ Depending on which type of data endpoint you are using and which cipher suite yo
 + ECC 256 bit key: [Amazon Root CA 3](https://www.amazontrust.com/repository/AmazonRootCA3.pem)\.
 + ECC 384 bit key: Amazon Root CA 4\. Reserved for future use\.
 
-These certificates are all cross\-signed by the [ Starfield Root CA Certificate](https://www.amazontrust.com/repository/SFSRootCAG2.pem)\. All new AWS IoT Core regions, beginning with the May 9, 2018 launch of AWS IoT Core in the Asia Pacific \(Mumbai\) Region, serve only ATS certificates\.
+These certificates are all cross\-signed by the [ Starfield Root CA Certificate](https://www.amazontrust.com/repository/SFSRootCAG2.pem)\. All new regions, beginning with the May 9, 2018 launch of in the Asia Pacific \(Mumbai\) Region, serve only ATS certificates\.
 
 ## Server Authentication Guidelines<a name="server-authentication-guidelines"></a>
 
-There are many variables that can affect a device's ability to validate the AWS IoT Core server authentication certificate\. For example, devices may be too memory constrained to hold all possible root CA certificates, or devices may implement a non\-standard method of certificate validation\. For these reasons we suggest following these guidelines:
+There are many variables that can affect a device's ability to validate the server authentication certificate\. For example, devices may be too memory constrained to hold all possible root CA certificates, or devices may implement a non\-standard method of certificate validation\. For these reasons we suggest following these guidelines:
 + We recommend that you use your ATS endpoint and install all supported Amazon Root CA certificates\.
 + If you cannot store all of these certificates on your device and if your devices do not use ECC\-based validation, you can omit the [Amazon Root CA 3](https://www.amazontrust.com/repository/AmazonRootCA3.pem) and [Amazon Root CA 4](https://www.amazontrust.com/repository/AmazonRootCA4.pem) ECC certificates\. If your devices do not implement RSA\-based certificate validation, you can omit the [Amazon Root CA 1](https://www.amazontrust.com/repository/AmazonRootCA1.pem) and [Amazon Root CA 2](https://www.amazontrust.com/repository/AmazonRootCA2.pem) RSA certificates\.
 + If you are experiencing server certificate validation issues when connecting to your ATS endpoint, try adding the relevant cross\-signed Amazon Root CA certificate to your trust store\.

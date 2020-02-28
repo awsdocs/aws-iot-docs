@@ -1,111 +1,42 @@
 # Topics<a name="topics"></a>
 
-The message broker uses topics to route messages from publishing clients to subscribing clients\. Topics are UTF\-8 encoded heirarchical strings\. The forward slash \(/\) is used to separate levels in the topic hierarchy\. For example:
+Topics identify AWS IoT messages\. AWS IoT clients identify the messages they publish by giving the messages topic names\. Clients identify the messages to which they want to subscribe \(receive\) by registering a topic filter with \. The AWS IoT message broker uses topic names and topic filters to route messages from publishing clients to subscribing clients\. 
 
-`Sensor/temperature/room1`
+## Topic Names<a name="topicnames"></a>
 
-This topic refers to a temperature sensor in room 1\.
+Topic names and topic filters are UTF\-8 encoded strings\. They can represent a hierarchy of information by using the forward slash \(/\) character to separate the levels of the hierarchy\. For example, this topic name could refer to a temperature sensor in room 1:
++ `sensor/temperature/room1`
+
+In this example, there might also be other types of sensors in other rooms with topic names such as:
++ `sensor/temperature/room2`
++ `sensor/humidity/room1`
++ `sensor/humidity/room2`
 
 **Note**  
-Do not use personally identifiable information in your topics\.
+As you consider topic names for the messages in your system, keep in mind:  
+Topic names and topic filters are case sensitive\.
+Topic names must not contain personally identifiable information\.
+Topic names that begin with a $ are [reserved topics](https://docs.aws.amazon.com/iot/latest/developerguide/reserved-topics.html) to be used only by \.
+ cannot send or receive messages between AWS accounts or Regions\.
 
-The following table lists the wildcards that can be used in the topic filter when you subscribe\. 
+The topic namespace is limited to an AWS account and Region\. For example, the `sensor/temp/room1` topic used by an AWS account in one Region is distinct from the `sensor/temp/room1` topic used by the same AWS account in another Region or used by any other AWS account in any Region\.
+
+## Topic Filters<a name="topicfilters"></a>
+
+Subscribing clients register topic filters with the AWS IoT message broker to specify the message topics that the message broker should send to them\. A topic filter can be a single topic name to subscribe to a single topic name or it can include wildcard characters to subscribe to multiple topic names at once\.
+
+Publishing clients cannot use wildcard characters in the topic names they publish\. 
+
+The following table lists the wildcard characters that can be used in a topic filter\. 
 
 
 **Topic Wildcards**  
 
-| Wildcard | Description | 
-| --- | --- | 
-| \# |  Must be the last character in the topic to which you are subscribing\. Works as a wildcard by matching the current tree and all subtrees\. For example, a subscription to `Sensor/#` receives messages published to `Sensor/`, `Sensor/temp`, `Sensor/temp/room1`, but not the messages published to `Sensor`\.  | 
-| \+ |  Matches exactly one item in the topic hierarchy\. For example, a subscription to `Sensor/+/room1` receives messages published to `Sensor/temp/room1`, `Sensor/moisture/room1`, and so on\.   | 
-
-The topic namespace is isolated for each AWS account and region pair\. For example, the `Sensor/temp/room1` topic for an AWS account is independent from the `Sensor/temp/room1` topic for another AWS account\. This is true of regions, too\. The `Sensor/temp/room1` topic in the same AWS account in us\-east\-1 is independent from the same topic in us\-east\-2\. AWS IoT does not support sending and receiving messages across AWS accounts and regions\.
-
-## Reserved Topics<a name="reserved-topics"></a>
-
-Except for those topics listed here, any topics beginning with $ are considered reserved and are not supported for publishing and subscribing\. Any attempts to publish or subscribe to topics beginning with $ result in a terminated connection\.
-
-
-**Event Topics**  
-
-| Topic | Allowed Operations | Description | 
+| Wildcard Character | Matches | Notes | 
 | --- | --- | --- | 
-|  $aws/events/presence/connected/*clientId*  |  Subscribe  |  AWS IoT publishes to this topic when an MQTT client with the specified client ID connects to AWS IoT\. For more information, see [Connect/Disconnect Events](life-cycle-events.md#connect-disconnect)\.  | 
-|  $aws/events/presence/disconnected/*clientId*  |  Subscribe  |  AWS IoT publishes to this topic when an MQTT client with the specified client ID disconnects to AWS IoT\. For more information, see [Connect/Disconnect Events](life-cycle-events.md#connect-disconnect)\.   | 
-|  $aws/events/subscriptions/subscribed/*clientId*  |  Subscribe  |  AWS IoT publishes to this topic when an MQTT client with the specified client ID subscribes to an MQTT topic\. For more information, see [Subscribe/Unsubscribe Events](life-cycle-events.md#subscribe-unsubscribe-events)\.  | 
-|  $aws/events/subscriptions/unsubscribed/*clientId*  |  Subscribe  |  AWS IoT publishes to this topic when an MQTT client with the specified client ID unsubscribes to an MQTT topic\. For more information, see [Subscribe/Unsubscribe Events](life-cycle-events.md#subscribe-unsubscribe-events)\.  | 
+| \# | All strings at and below its level in the topic hierarchy\. |  Must be the last character in the topic filter\.  Must be the only character in its level of the topic hierarchy\. Can be used in a topic filter that also contains the \+ wildcard character\.  | 
+| \+ | Any string in the level that contains the character\. |  Must be the only character in its level of the topic hierarchy\. Can be used in multiple levels of a topic filter\.  | 
 
-
-**Rule Topics**  
-
-| Topic | Allowed Operations | Description | 
-| --- | --- | --- | 
-|  $aws/rules/*ruleName*  |  Publish  |  A device or an application publishes to this topic to trigger rules directly\. For more information, see [Basic Ingest](iot-basic-ingest.md)\.   | 
-
-
-**Thing Shadow Topics**  
-
-| Topic | Allowed Operations | Description | 
-| --- | --- | --- | 
-|  $aws/things/*<thingName>*/shadow/delete  |  Publish/Subscribe  |  A device or an application publishes to this topic to delete a shadow\. For more information, see [/delete](https://docs.aws.amazon.com/iot/latest/developerguide/device-shadow-mqtt.html#delete-pub-sub-topic)\.  | 
-|  $aws/things/*<thingName>*/shadow/delete/accepted  |  Subscribe  |  The Device Shadow service sends messages to this topic when a shadow is deleted\. For more information, see [/delete/accepted](https://docs.aws.amazon.com/iot/latest/developerguide/device-shadow-mqtt.html#delete-accepted-pub-sub-topic)\.  | 
-|  $aws/things/*<thingName>*/shadow/delete/rejected  |  Subscribe  |  The Device Shadow service sends messages to this topic when a request to delete a shadow is rejected\. For more information, see [/delete/rejected](https://docs.aws.amazon.com/iot/latest/developerguide/device-shadow-mqtt.html#delete-rejected-pub-sub-topic)\.  | 
-|  $aws/things/*<thingName>*/shadow/get  |  Publish/Subscribe  |  An application or a thing publishes an empty message to this topic to get a shadow\. For more information, see [Shadow MQTT Topics](https://docs.aws.amazon.com/iot/latest/developerguide/device-shadow-mqtt.html)\.  | 
-|  $aws/things/*<thingName>*/shadow/get/accepted  |  Subscribe  |  The Device Shadow service sends messages to this topic when a request for a shadow is made successfully\. For more information, see [/get/accepted](https://docs.aws.amazon.com/iot/latest/developerguide/device-shadow-mqtt.html#get-accepted-pub-sub-topic)\.  | 
-|  $aws/things/*<thingName>*/shadow/get/rejected  |  Subscribe  |  The Device Shadow service sends messages to this topic when a request for a shadow is rejected\. For more information, see [/get/rejected](https://docs.aws.amazon.com/iot/latest/developerguide/device-shadow-mqtt.html#get-rejected-pub-sub-topic)\.  | 
-|  $aws/things/*<thingName>*/shadow/update  |  Publish/Subscribe  |  A thing or application publishes to this topic to update a shadow\. For more information, see [/update](https://docs.aws.amazon.com/iot/latest/developerguide/device-shadow-mqtt.html#update-pub-sub-topic)\.  | 
-|  $aws/things/*<thingName>*/shadow/update/accepted  |  Subscribe  |  The Device Shadow service sends messages to this topic when an update is successfully made to a shadow\. For more information, see [/update/accepted](https://docs.aws.amazon.com/iot/latest/developerguide/device-shadow-mqtt.html#update-accepted-pub-sub-topic)\.  | 
-|  $aws/things/*<thingName>*/shadow/update/rejected  |  Subscribe  |  The Device Shadow service sends messages to this topic when an update to a shadow is rejected\. For more information, see [/update/rejected](https://docs.aws.amazon.com/iot/latest/developerguide/device-shadow-mqtt.html#update-rejected-pub-sub-topic)\.  | 
-|  $aws/things/*<thingName>*/shadow/update/delta  |  Subscribe  |  The Device Shadow service sends messages to this topic when a difference is detected between the reported and desired sections of a shadow\. For more information, see [/update/delta](https://docs.aws.amazon.com/iot/latest/developerguide/device-shadow-mqtt.html#update-delta-pub-sub-topic)\.   | 
-|  $aws/things/*<thingName>*/shadow/update/documents  |  Subscribe  |  AWS IoT publishes a state document to this topic whenever an update to the shadow is successfully performed\. For more information, see [/update/documents](https://docs.aws.amazon.com/iot/latest/developerguide/device-shadow-mqtt.html#update-documents-pub-sub-topic)\.   | 
-
-
-**Job Topics**  
-
-| Topic | Allowed Operations | Description | 
-| --- | --- | --- | 
-|  $aws/things/*<thingName>*/jobs/get  |  Publish  |  Devices publish a message to this topic to make a `GetPendingJobExecutions` request\. For more information, see [Using the AWS IoT Jobs APIs](https://docs.aws.amazon.com/iot/latest/developerguide/jobs-api.html)\.  | 
-|  $aws/things/*<thingName>*/jobs/get/accepted  |  Subscribe  |  Devices subscribe to this topic to receive successful responses from a `GetPendingJobExecutions` request\. For more information, see [Using the AWS IoT Jobs APIs](https://docs.aws.amazon.com/iot/latest/developerguide/jobs-api.html)\.  | 
-|  $aws/things/*<thingName>*/jobs/get/accepted  |  Subscribe  |  Devices subscribe to this topic to receive successful responses to a `GetPendingJobExecutions` request\. For more information, see [Using the AWS IoT Jobs APIs](https://docs.aws.amazon.com/iot/latest/developerguide/jobs-api.html)\.  | 
-|  $aws/things/*<thingName>*/jobs/start\-next  |  Publish  |  Devices publish a message to this topic to make a `StartNextPendingJobExecution` request\. For more information, see [Using the AWS IoT Jobs APIs](https://docs.aws.amazon.com/iot/latest/developerguide/jobs-api.html)\.  | 
-|  $aws/things/*<thingName>*/jobs/start\-next/accepted  |  Subscribe  |  Devices subscribe to this topic to receive successful responses to a `StartNextPendingJobExecution` request\. For more information, see [Using the AWS IoT Jobs APIs](https://docs.aws.amazon.com/iot/latest/developerguide/jobs-api.html)\.  | 
-|  $aws/things/*<thingName>*/jobs/start\-next/rejected  |  Subscribe  |  Devices subscribe to this topic to receive successful responses to a `StartNextPendingJobExecution`\. request\. For more information, see [Using the AWS IoT Jobs APIs](https://docs.aws.amazon.com/iot/latest/developerguide/jobs-api.html)\.  | 
-|  $aws/things/*<thingName>*/jobs/jobId/get  |  Publish  |  Devices publish a message to this topic to make a `DescribeJobExecution` request\. For more information, see [Using the AWS IoT Jobs APIs](https://docs.aws.amazon.com/iot/latest/developerguide/jobs-api.html)\.  | 
-|  $aws/things/*<thingName>*/jobs/*<jobId>*/get/accepted  |  Subscribe  |  Devices subscribe to this topic to receive successful responses to a `DescribeJobExecution` request\. For more information, see [Using the AWS IoT Jobs APIs](https://docs.aws.amazon.com/iot/latest/developerguide/jobs-api.html)\.  | 
-|  $aws/things/*<thingName>*/jobs/*<jobId>*/get/rejected  |  Subscribe  |  Devices subscribe to this topic to receive successful responses to a `DescribeJobExecution` request\. For more information, see [Using the AWS IoT Jobs APIs](https://docs.aws.amazon.com/iot/latest/developerguide/jobs-api.html)\.  | 
-|  $aws/things/*<thingName>*/jobs/*<jobId>*/update  |  Publish  |  Devices publish a message to this topic to make a `UpdateJobExecution` request\. For more information, see [Using the AWS IoT Jobs APIs](https://docs.aws.amazon.com/iot/latest/developerguide/jobs-api.html)\.  | 
-|  $aws/things/*<thingName>*/jobs/*<jobId>*/update/accepted  |  Subscribe  |  Devices subscribe to this topic to receive successful responses to a `UpdateJobExecution` request\. For more information, see [Using the AWS IoT Jobs APIs](https://docs.aws.amazon.com/iot/latest/developerguide/jobs-api.html)\.  | 
-|  $aws/things/*<thingName>*/jobs/*<jobId>*/update/rejected  |  Subscribe  |  Devices subscribe to this topic to receive successful responses to a `UpdateJobExecution` request\. For more information, see [Using the AWS IoT Jobs APIs](https://docs.aws.amazon.com/iot/latest/developerguide/jobs-api.html)\.  | 
-|  $aws/things/*<thingName>*/jobs/notify  |  Subscribe  |  Devices subscribe to this topic to receive notifications when a job execution is added or removed to the list of pending executions for a thing\. For more information, see [Using the AWS IoT Jobs APIs](https://docs.aws.amazon.com/iot/latest/developerguide/jobs-api.html)\.  | 
-|  $aws/things/*<thingName>*/jobs/notify\-next  |  Subscribe  |  Devices subscribe to this topic to receive notifications when the next pending job execution for the thing is changed\. For more information, see [Using the AWS IoT Jobs APIs](https://docs.aws.amazon.com/iot/latest/developerguide/jobs-api.html)\.  | 
-|  $aws/events/job/*<jobId>*/completed  |  Subscribe  |  The Jobs service publishes an event on this topic when a job completes\. For more information, see [Job Events](https://docs.aws.amazon.com/iot/latest/developerguide/events-jobs.html)\.  | 
-|  $aws/events/job/*<jobId>*/canceled  |  Subscribe  |  The Jobs service publishes an event on this topic when a job is canceled\. For more information, see [Job Events](https://docs.aws.amazon.com/iot/latest/developerguide/events-jobs.html)\.  | 
-|  $aws/events/job/*<jobId>*/deleted   |  Subscribe  |  The Jobs service publishes an event on this topic when a job is deleted\. For more information, see [Job Events](https://docs.aws.amazon.com/iot/latest/developerguide/events-jobs.html)\.  | 
-|  $aws/events/job/*<jobId>*/cancellation\_in\_progress   |  Subscribe  |  The Jobs service publishes an event on this topic when a job cancellation begins\. For more information, see [Job Events](https://docs.aws.amazon.com/iot/latest/developerguide/events-jobs.html)\.  | 
-|  $aws/events/job/*<jobId>*/deletion\_in\_progress   |  Subscribe  |  The Jobs service publishes an event on this topic when a job deletion begins\. For more information, see [Job Events](https://docs.aws.amazon.com/iot/latest/developerguide/events-jobs.html)\.   | 
-|  $aws/events/jobExecution/*<jobId>*/succeeded   |  Subscribe  |  The Jobs service publishes an event on this topic when job execution succeeds\. For more information, see [Job Events](https://docs.aws.amazon.com/iot/latest/developerguide/events-jobs.html)\.   | 
-|  $aws/events/jobExecution/*<jobId>*/failed   |  Subscribe  |  The Jobs service publishes an event on this topic when a job execution fails\. For more information, see [Job Events](https://docs.aws.amazon.com/iot/latest/developerguide/events-jobs.html)\.   | 
-|  $aws/events/jobExecution/*<jobId>*/rejected   |  Subscribe  |  The Jobs service publishes an event on this topic when a job execution is rejected\. For more information, see [Job Events](https://docs.aws.amazon.com/iot/latest/developerguide/events-jobs.html)\.   | 
-|  $aws/events/jobExecution/*<jobId>*/canceled   |  Subscribe  |  The Jobs service publishes an event on this topic when a job execution is canceled\. For more information, see [Job Events](https://docs.aws.amazon.com/iot/latest/developerguide/events-jobs.html)\.   | 
-|  $aws/events/jobExecution/*<jobId>*/timed\_out   |  Subscribe  |  The Jobs service publishes an event on this topic when a job execution times out\. For more information, see [Job Events](https://docs.aws.amazon.com/iot/latest/developerguide/events-jobs.html)\.   | 
-|  $aws/events/jobExecution/*<jobId>*/removed   |  Subscribe  |  The Jobs service publishes an event on this topic when a job execution is removed\. For more information, see [Job Events](https://docs.aws.amazon.com/iot/latest/developerguide/events-jobs.html)\.   | 
-|  $aws/events/jobExecution/*<jobId>*/deleted   |  Subscribe  |  The Jobs service publishes an event on this topic when a job execution is deleted\. For more information, see [Job Events](https://docs.aws.amazon.com/iot/latest/developerguide/events-jobs.html)\.   | 
-
-
-**Fleet Provisioning Topics**  
-
-| Topic | Allowed Operations | Description | 
-| --- | --- | --- | 
-|  $aws/events/presence/connected/*<clientId>*  |  Subscribe  |  AWS IoT publishes to this topic when an MQTT client with the specified client ID connects to AWS IoT\. For more information, see [](life-cycle-events.md#connect-disconnect)  | 
-| $aws/certificates/create/cbor | Publish | You publish to this topic to call the CreateKeysAndCertificate MQTT API\. | 
-| $aws/certificates/create/json | Publish | You publish to this topic to call the CreateKeysAndCertificate MQTT API\. | 
-| $aws/provisioning\- templates/\{\{templateName\}\}/provision/cbor | Publish | You publish to this topic to call the RegisterThing MQTT API\. | 
-| $aws/provisioning\- templates/\{\{templateName\}\}/provision/json | Publish | You publish to this topic to call the RegisterThing MQTT API\. | 
-| $aws/certificates/create/cbor/accepted | Subscribe | AWS IoT publishes to this topic when a call is successfully made to the CreateKeysAndCertificate MQTT API\. | 
-| $aws/certificates/create/cbor/rejected | Subscribe | AWS IoT publishes to this topic when a call to the CreateKeysAndCertificate MQTT API fails\. | 
-| $aws/certificates/create/json/accepted | Subscribe | AWS IoT publishes to this topic when a call is made successfully to the CreateKeysAndCertificate MQTT API\. | 
-| $aws/certificates/create/json/rejected | Subscribe | AWS IoT publishes to this topic when a call to the CreateKeysAndCertificate MQTT API fails\. | 
-| $aws/provisioning\- templates/\{\{templateName\}\}/provision/cbor/accepted | Subscribe | AWS IoT publishes to this topic when a call is made successfully to the RegisterThing MQTT API\. | 
-| $aws/provisioning\- templates/\{\{templateName\}\}/provision/cbor/rejected | Subscribe | AWS IoT publishes to this topic when a call to the RegisterThing MQTT API fails\. | 
-| $aws/provisioning\- templates/\{\{templateName\}\}/provision/json/accepted | Subscribe | AWS IoT publishes to this topic when a call is made successfully to the RegisterThing MQTT API\. | 
-| $aws/provisioning\- templates/\{\{templateName\}\}/provision/json/rejected | Subscribe | AWS IoT publishes to this topic when a call to the RegisterThing MQTT API fails\. | 
+Using wildcards with the previous sensor topic name examples:
++ A subscription to `sensor/#` receives messages published to `sensor/`, `sensor/temperature`, `sensor/temperature/room1`, but not messages published to `Sensor`\. 
++ A subscription to `sensor/+/room1` receives messages published to `sensor/temperature/room1` and `sensor/humidity/room1`, but not messages sent to `sensor/temperature/room2` or `sensor/humidity/room2`\.

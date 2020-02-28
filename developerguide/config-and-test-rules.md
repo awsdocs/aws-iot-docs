@@ -21,10 +21,8 @@ Amazon SNS is not available in all AWS Regions\.
 1. Choose **Create topic**\.   
 ![\[Image NOT FOUND\]](http://docs.aws.amazon.com/iot/latest/developerguide/images/sns-topics.png)
 
-1. Enter a topic name and a display name, and then choose **Create topic**\.   
+1. Enter a topic name and display name, and then choose **Create topic**\. Do not use personally identifiable information in Amazon SNS topic names\.  
 ![\[Image NOT FOUND\]](http://docs.aws.amazon.com/iot/latest/developerguide/images/create-sns-topic.png)
-**Note**  
-We do not recommend using personally identifiable information in Amazon SNS topic names\.
 
 1. Make a note of the ARN for the topic you just created\.  
 ![\[Image NOT FOUND\]](http://docs.aws.amazon.com/iot/latest/developerguide/images/sns-topic-arn.png)
@@ -43,13 +41,13 @@ To receive SMS messages on your cell phone, subscribe to the Amazon SNS topic\.
 Enter the phone number using numbers and dashes only\.  
 ![\[Image NOT FOUND\]](http://docs.aws.amazon.com/iot/latest/developerguide/images/create-sns-subscription.png)
 
-The Amazon SNS console displays the following message, but you might not receive a confirmation message\.
+The Amazon SNS console displays the following message, but you might not receive a confirmation SMS message\.
 
 ![\[Image NOT FOUND\]](http://docs.aws.amazon.com/iot/latest/developerguide/images/sns-subscription-confirm.png)
 
 ## Create a Rule<a name="create-rule"></a>
 
-AWS IoT rules consist of a topic filter, a rule action, and, in most cases, an IAM role\. Messages published on topics that match the topic filter trigger the rule\. The rule action defines which action to take when the rule is triggered\. The IAM role contains one or more IAM policies that determine which AWS services the rule can access\. You can create multiple rules that listen on a single topic\. Likewise, you can create a single rule that is triggered by multiple topics\. The AWS IoT rules engine continuously processes messages published on topics that match the topic filters defined in the rules\. 
+ rules consist of a topic filter, rule action, and, in most cases, IAM role\. Messages published on topics that match the topic filter trigger the rule\. The rule action defines which action to take when the rule is triggered\. The IAM role contains one or more IAM policies that determine which AWS services the rule can access\. You can create multiple rules that listen on a single topic\. Likewise, you can create a single rule that is triggered by multiple topics\. The rules engine continuously processes messages published on topics that match the topic filters defined in the rules\. 
 
 In this example, you create a rule that uses Amazon SNS to send an SMS notification to a cell phone number\.
 
@@ -80,7 +78,7 @@ We do not recommend using personally identifiable information in your rule name\
 1. On the **Configure action** page, under **SNS target**, choose **Select** to expand the SNS topic\. Then choose **Select** next to the Amazon SNS topic you created earlier\. Under **Message format**, choose **JSON**\.  
 ![\[Image NOT FOUND\]](http://docs.aws.amazon.com/iot/latest/developerguide/images/configure-action.png)
 
-1. Now give AWS IoT permission to publish to the Amazon SNS topic on your behalf when the rule is triggered\. Choose **Create a new role**\. In **IAM role name**, enter a name for your new role, and then choose **Create a new role**\.  
+1. Now give permission to publish to the Amazon SNS topic on your behalf when the rule is triggered\. Choose **Create a new role**\. In **IAM role name**, enter a name for your new role, and then choose **Create a new role**\.  
 ![\[Image NOT FOUND\]](http://docs.aws.amazon.com/iot/latest/developerguide/images/create-sns-role-2.png)
 
 1. Under **IAM role name**, choose **Update role** to apply the permissions to the newly created role\. Choose the role, and then choose **Add action**\.  
@@ -89,7 +87,7 @@ We do not recommend using personally identifiable information in your rule name\
 1. On the **Create a Rule** page, choose **Create rule**\.  
 ![\[Image NOT FOUND\]](http://docs.aws.amazon.com/iot/latest/developerguide/images/create-sns-role-4.png)
 
-For more information about creating rules, see [AWS IoT Rules](https://docs.aws.amazon.com/iot/latest/developerguide/iot-rules.html)\.
+For more information about creating rules, see [ Rules](https://docs.aws.amazon.com/iot/latest/developerguide/iot-rules.html)\.
 
 ## Test the Amazon SNS Rule<a name="test-rule"></a>
 
@@ -112,4 +110,4 @@ Congratulations\! You have successfully created and configured a rule that sends
 
 ## Next Steps<a name="more-rules-info"></a>
 
-For more information about AWS IoT rules, see [AWS IoT Rule Tutorials ](iot-rules-tutorial.md) and [AWS IoT Rules](iot-rules.md)\.
+For more information about rules, see [ Rule Tutorials ](iot-rules-tutorial.md) and [ Rules](iot-rules.md)\.

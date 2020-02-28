@@ -8,35 +8,71 @@ Lifecycle messages might be sent out of order\. You might receive duplicate mess
 ## Connect/Disconnect Events<a name="connect-disconnect"></a>
 
 AWS IoT publishes a message to the following MQTT topics when a client connects or disconnects:
-+ `$aws/events/presence/connected/clientId`: A client connected to the message broker\.
-+ `$aws/events/presence/disconnected/clientId`: A client disconnected from the message broker\.
++ `$aws/events/presence/connected/clientId` – A client connected to the message broker\.
++ `$aws/events/presence/disconnected/clientId` – A client disconnected from the message broker\.
 
 The following is a list of JSON elements that are contained in the connection/disconnection messages published to the `$aws/events/presence/connected/clientId` topic\.
 
-clientId  
+**clientId**  
 The client ID of the connecting or disconnecting client\.  
 Client IDs that contain \# or \+ do not receive lifecycle events\.
 
-clientInitiatedDisconnect  
-Found in disconnection messages only\. True if the client initiated the disconnect\. Otherwise, False\.
+**clientInitiatedDisconnect**  
+True if the client initiated the disconnect\. Otherwise, false\. Found in disconnection messages only\.
 
-eventType  
+**disconnectReason**  
+The reason why the client is disconnecting\. Found in disconnect messages only\. The following table contains valid values\.      
+[\[See the AWS documentation website for more details\]](http://docs.aws.amazon.com/iot/latest/developerguide/life-cycle-events.html)
+
+**eventType**  
 The type of event\. Valid values are `connected` or `disconnected`\. 
 
-principalIdentifier  
+**ipAddress**  
+The IP address of the connecting client\. This can be in IPv4 or IPv6 format\. Found in connection messages only\. 
+
+**principalIdentifier**  
 The credential used to authenticate\. For TLS mutual authentication certificates, this is the certificate ID\. For other connections, this is IAM credentials\.
 
-sessionIdentifier  
+**sessionIdentifier**  
 A globally unique identifier in AWS IoT that exists for the life of the session\.
 
-timestamp  
+**timestamp**  
 An approximation of when the event occurred, expressed in milliseconds since the Unix epoch\. The accuracy of the timestamp is \+/\- 2 minutes\.
 
-versionNumber  
+**versionNumber**  
 The version number for the lifecycle event\. This is a monotonically increasing long integer value for each client ID connection\. The version number can be used by a subscriber to infer the order of lifecycle events\.  
-The Connect and Disconnect messages for a client connection have the same version number\.  
+The connect and disconnect messages for a client connection have the same version number\.  
 The version number might skip values and is not guaranteed to be consistently increasing by 1 for each event\.  
 If a client is not connected for approximately one hour, the version number is reset to 0\. For persistent sessions, the version number is reset to 0 after a client has been disconnected longer than the configured time\-to\-live \(TTL\) for the persistent session\.
+
+A connect message has the following structure\.
+
+```
+ {
+    "clientId": "186b5",
+    "timestamp": 1573002230757,
+    "eventType": "connected",
+    "sessionIdentifier": "a4666d2a7d844ae4ac5d7b38c9cb7967",
+    "principalIdentifier": "12345678901234567890123456789012",
+    "ipAddress": "192.0.2.0",
+    "versionNumber": 0
+}
+```
+
+A disconnect message has the following structure\.
+
+```
+{
+    "clientId": "186b5",
+    "timestamp": 1573002340451,
+    "eventType": "disconnected",
+    "sessionIdentifier": "a4666d2a7d844ae4ac5d7b38c9cb7967",
+    "principalIdentifier": "12345678901234567890123456789012",
+    "clientInitiatedDisconnect": true,
+    "disconnectReason": "CLIENT_INITIATED_DISCONNECT",
+    "versionNumber": 0
+}
+```
 
 ### Handling Client Disconnections<a name="reconnect"></a>
 

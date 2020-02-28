@@ -1,15 +1,15 @@
 # Device Agent Integration with AWS IoT Greengrass<a name="device-defender-DetectMetricsGreengrassIntegration"></a>
 
-AWS IoT Device Defender can be used in conjunction with AWS IoT Greengrass\. Device agent integration follows the standard AWS IoT Greengrass Lambda function deployment model, allowing you to add AWS IoT Device Defender security to your AWS IoT Greengrass core devices\. To integrate a device agent, follow the steps outlined in this section\.
+AWS IoT Device Defender can be used with AWS IoT Greengrass\. Device agent integration follows the standard AWS IoT Greengrass Lambda function deployment model, allowing you to add AWS IoT Device Defender security to your AWS IoT Greengrass core devices\. Follow these steps to integrate a device agent\.
 
 Prerequisites:
 + Set up your AWS IoT Greengrass environment\.
 + Configure and run your AWS IoT Greengrass core\.
 + Ensure you can successfully deploy and run a Lambda function on your AWS IoT Greengrass core\.
 
-In general, the process described here follows the [Create and Package a Lambda Function](https://docs.aws.amazon.com/greengrass/latest/developerguide/create-lambda.html) section in the AWS IoT Greengrass Developer Guide\.
+In general, the process described here follows the [Create and Package a Lambda Function](https://docs.aws.amazon.com/greengrass/latest/developerguide/create-lambda.html) section in the *AWS IoT Greengrass Developer Guide*\.
 
-**Create a Lambda package**
+**To create a Lambda package**
 
 1. Clone the AWS IoT Device Defender Python samples repository\.
 
@@ -57,7 +57,7 @@ In general, the process described here follows the [Create and Package a Lambda 
    cp -R ../aws_greengrass_core_sdk/examples/HelloWorld/greengrass_ipc_python_sdk .
    ```
 
-1. Copy the AWSIoTDeviceDefenderAgentSDK module to the root level of your Lambda directory\.
+1. Copy the `AWSIoTDeviceDefenderAgentSDK` module to the root level of your Lambda directory\.
 
    ```
    cp -R ../aws-iot-device-defender-agent-sdk-python/AWSIoTDeviceDefenderAgentSDK . 
@@ -87,7 +87,7 @@ In general, the process described here follows the [Create and Package a Lambda 
    zip -r greengrass_defender_metrics_lambda.zip *
    ```
 
-**Configure and deploy your AWS IoT Greengrass Lambda function**
+**To configure and deploy your AWS IoT Greengrass Lambda function**
 
 1. [Upload your lambda zip file](https://docs.aws.amazon.com/greengrass/latest/developerguide/package.html)\. 
 
@@ -95,7 +95,7 @@ In general, the process described here follows the [Create and Package a Lambda 
 
 1. [Configure your Lambda function as a long\-lived Lambda function](https://docs.aws.amazon.com/greengrass/latest/developerguide/long-lived.html)\.
 
-1. [Configure a subscription from your Lambda function to the AWS IoT cloud](https://docs.aws.amazon.com/greengrass/latest/developerguide/config-subs.html)\. For AWS IoT Device Defender, a subscription from the AWS IoT cloud to your Lambda function is not required\.
+1. [Configure a subscription from your Lambda function to the AWS IoT cloud](https://docs.aws.amazon.com/greengrass/latest/developerguide/config-subs.html)\. For AWS IoT Device Defender, a subscription from the AWS Cloud to your Lambda function is not required\.
 
 1. Create a local resource to allow your Lambda function to collect metrics from your AWS IoT Greengrass core host: 
    + Follow the instructions in [Access Local Resources with Lambda Functions](https://docs.aws.amazon.com/greengrass/latest/developerguide/access-local-resources.html)\. Use the following parameters:
@@ -108,7 +108,7 @@ In general, the process described here follows the [Create and Package a Lambda 
 
 1. Deploy your Lambda function to your AWS IoT Greengrass group\. 
 
-**Review your AWS IoT Device Defender device metrics using the AWS IoT console**
+**To review your AWS IoT Device Defender device metrics using the AWS IoT console**
 
 1. Temporarily modify the publish topic in your AWS IoT Greengrass Lambda function to "metrics/test"\. 
 

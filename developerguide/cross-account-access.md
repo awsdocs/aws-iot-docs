@@ -1,10 +1,10 @@
 # Cross Account Access<a name="cross-account-access"></a>
 
-AWS IoT allows you to enable a principal to publish or subscribe to a topic that is defined in an AWS account not owned by the principal\. You configure cross account access by creating an IAM policy and IAM role and then attaching the policy to the role\.
+ allows you to enable a principal to publish or subscribe to a topic that is defined in an AWS account not owned by the principal\. You configure cross account access by creating an IAM policy and IAM role and then attaching the policy to the role\.
 
 First, create a customer managed IAM policy as described in [Creating IAM Policies](https://docs.aws.amazon.com/IAM/latest/UserGuide/access_policies_create.html), just like you would for other users and certificates in your AWS account\. 
 
-For devices registered in AWS IoT registry, the following policy grants permission to devices connect to AWS IoT using a client ID that matches the device's thing name and to publish to the `my/topic/<thing-name> ` where *<thing\-name>* is the device's thing name:
+For devices registered in registry, the following policy grants permission to devices connect to using a client ID that matches the device's thing name and to publish to the `my/topic/<thing-name> ` where *<thing\-name>* is the device's thing name:
 
 ```
 {
@@ -28,7 +28,7 @@ For devices registered in AWS IoT registry, the following policy grants permissi
 }
 ```
 
-For devices not registered in AWS IoT registry, the following policy grants permission to a device to use the thing name `client1` registered in your account's \(123456789012\) AWS IoT registry to connect to AWS IoT and to publish to a client ID\-specific topic whose name is prefixed with `my/topic/`:
+For devices not registered in registry, the following policy grants permission to a device to use the thing name `client1` registered in your account's \(123456789012\) registry to connect to and to publish to a client ID\-specific topic whose name is prefixed with `my/topic/`:
 
 ```
 {
@@ -48,33 +48,9 @@ For devices not registered in AWS IoT registry, the following policy grants perm
             "Action": [
                 "iot:Publish"
             ],
-            "Resource": ["arn:aws:iot:us-east-1:123456789012:topic/my/topic/${iot:ClientId}"]
-        }
-    ]
-}
-```
-
-For devices not registered in AWS IoT registry, the following policy grants permission to a device to use the thing name `client1` registered in your account's \(123456789012\) AWS IoT registry to connect to AWS IoT and to publish to a client ID\-specific topic whose name is prefixed with `my/topic/`:
-
-```
-{
-    "Version": "2012-10-17",
-    "Statement": [
-        {
-            "Effect": "Allow",
-            "Action": [
-                "iot:Connect"
-            ],
             "Resource": [
-                "arn:aws:iot:us-east-1:123456789012:client/client1"
+                "arn:aws:iot:us-east-1:123456789012:topic/my/topic/${iot:ClientId}"
             ]
-        },
-        {
-            "Effect": "Allow",
-            "Action": [
-                "iot:Publish"
-            ],
-            "Resource": ["arn:aws:iot:us-east-1:123456789012:topic/my/topic/${iot:ClientId}"]
         }
     ]
 }
@@ -88,7 +64,9 @@ Next, follow the steps in [Creating a Role to Delegate Permissions to an IAM Use
     "Statement": [
         {
             "Effect": "Allow",
-            "Principal": { "AWS": "arn:aws:iam:us-east-1us-east-1:567890123456:user:MyUser" },
+            "Principal": { 
+                "AWS": "arn:aws:iam:us-east-1:567890123456:user:MyUser" 
+            },
             "Action": "sts:AssumeRole",
         }
     ]

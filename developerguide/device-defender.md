@@ -8,3 +8,7 @@ AWS IoT Device Defender addresses these challenges by providing tools to identif
 
 **Note**  
 AWS IoT Device Defender is not available in the China \(Beijing\) Region\.
+
+## AWS Training and Certification<a name="device-defender-training"></a>
+
+Take the following course to get started with AWS IoT Device Defender: [AWS IoT Device Defender Primer](https://www.aws.training/Details/Curriculum?id=42108)\.

@@ -16,6 +16,8 @@ Rules give your devices the ability to interact with AWS services\. Rules are an
 + Send message data to an AWS IoT Analytics channel\.
 + Start execution of a Step Functions state machine\.
 + Send message data to an AWS IoT Events input\.
++ Send message data an asset property in AWS IoT SiteWise\.
++ Send message data to a web application or service\.
 
 Your rules can use MQTT messages that pass through the publish/subscribe [Message Broker for AWS IoT](iot-message-broker.md) or, using the [Basic Ingest](iot-basic-ingest.md) feature, you can securely send device data to the AWS services listed above without incurring [messaging costs](https://aws.amazon.com/iot-core/pricing/)\. \(The [Basic Ingest](iot-basic-ingest.md) feature optimizes data flow by removing the publish/subscribe message broker from the ingestion path, so it is more cost effective while keeping the security and data processing features of AWS IoT\.\)
 

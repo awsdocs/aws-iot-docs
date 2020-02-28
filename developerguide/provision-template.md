@@ -1,6 +1,6 @@
 # Provisioning Templates<a name="provision-template"></a>
 
-A provisioning template is a JSON document that uses parameters to describe the resources your device must use to interact with AWS IoT\. A template contains two sections: `Parameters` and `Resources`\. There are two types of provisioning templates in AWS IoT\. One is used for JITP and bulk registration and the second is used for fleet provisioning\.
+A provisioning template is a JSON document that uses parameters to describe the resources your device must use to interact with AWS IoT\. A template contains two sections: `Parameters` and `Resources`\. There are two types of provisioning templates in AWS IoT\. One is used for just\-in\-time provisioning \(JITP\) and bulk registration and the second is used for fleet provisioning\.
 
 ## Parameters Section<a name="parameters-section"></a>
 
@@ -9,6 +9,9 @@ The `Parameters` section declares the parameters used in the `Resources` section
 ```
 {
     "Parameters" : {
+        "ThingName" : {
+            "Type" : "String"
+        },
         "SerialNumber" : {
             "Type" : "String"
         },
@@ -50,7 +53,7 @@ Thing resources are declared using the following properties:
 
 You can specify certificates in one of the following ways:
 + A certificate signing request \(CSR\)\.
-+ A certificate ID of an existing device certificate\. \(Only certificate IDs can be used with a fleet provisioning template\)
++ A certificate ID of an existing device certificate\. \(Only certificate IDs can be used with a fleet provisioning template\.\)
 + A device certificate created with a CA certificate registered with AWS IoT\. If you have more than one CA certificate registered with the same subject field, you must also pass in the CA certificate used to sign the device certificate\.
 
 **Note**  
@@ -286,7 +289,7 @@ The following JSON file is an example of a complete provisioning template that s
 
 ## Fleet Provisioning<a name="fleet-provision-template"></a>
 
-Fleet provisioning templates are used by AWS IoT to set up cloud and device configuration\. These templates use the same parameters and resources as the JITP and bulk registration templates\. For more information, see [Provisioning Templates](#provision-template)\. Fleet provisioning templates can contain a `Mapping` section and a `DeviceConfiguration` section\. You can use intrinsic functions inside a fleet provisioning template to generate device specific configuration\. Fleet provisioning templates are named resources and are identified by ARNs \(for example, `arn:aws:iot:us-west-2:1234568788:provisioningtemplate/<template-name>`\)\.
+Fleet provisioning templates are used by AWS IoT to set up cloud and device configuration\. These templates use the same parameters and resources as the JITP and bulk registration templates\. For more information, see [Provisioning Templates](#provision-template)\. Fleet provisioning templates can contain a `Mapping` section and a `DeviceConfiguration` section\. You can use intrinsic functions inside a fleet provisioning template to generate device specific configuration\. Fleet provisioning templates are named resources and are identified by ARNs \(for example, `arn:aws:iot:us-west-2:1234568788:provisioningtemplate/templateName`\)\.
 
 ### Mappings<a name="mappings"></a>
 
@@ -301,9 +304,7 @@ The device configuration section contains arbitrary data you want to send to you
 ```
 {
     "DeviceConfiguration": {
-        "DeviceConfiguration": {
-            "Foo":"Bar"
-        }
+        "Foo":"Bar"
     }
 }
 ```
@@ -334,6 +335,9 @@ Substitutes variables in an input string with values that you specify\. You can 
 ```
 {
     "Parameters" : {
+        "SerialNumber": {
+            "Type": "String"
+        },
         "DeviceLocation": {
             "Type": "String"
         }
@@ -355,7 +359,7 @@ Substitutes variables in an input string with values that you specify\. You can 
                 },
                 "ThingTypeName" : {"Fn::Join":["",["ThingPrefix_",{"Ref":"SerialNumber"}]]},
                 "ThingGroups" : ["v1-lightbulbs", "WA"],
-                "BillingGroup": "BillingGroup"
+                "BillingGroup": "LightBulbBillingGroup"
             },
             "OverrideSettings" : {
                 "AttributePayload" : "MERGE",

@@ -10,6 +10,7 @@ AWS IoT rule actions are used to specify what to do when a rule is triggered\. Y
 + `http` to post data to an HTTPS endpoint\.
 + `iotAnalytics` to send data to an AWS IoT Analytics channel\.
 + `iotEvents` to send data to an AWS IoT Events input\.
++ `iotSiteWise` to send data to asset properties in AWS IoT SiteWise\.
 + `kinesis` to write data to a Kinesis stream\.
 + `lambda` to invoke a Lambda function\.
 + `republish` to republish the message on another MQTT topic\.
@@ -320,7 +321,7 @@ For more information, see the [Amazon Elasticsearch Service Developer Guide](htt
 A `firehose` action sends data from an MQTT message that triggered the rule to a Kinesis Data Firehose stream\. 
 
 ------
-#### [ More information \(7\) ]
+#### [ More information \(6\) ]
 
 When you create a rule with a `firehose` action, you must specify the following information:
 
@@ -366,7 +367,7 @@ For more information, see the [Kinesis Data Firehose Developer Guide](https://do
 The `http` action sends data from an MQTT message that triggered the rule to your web applications or services for further processing, without writing any code\. The endpoint you send data to must be verified before the rules engine can use it\.
 
 ------
-#### [ More information \(8\) ]
+#### [ More information \(7\) ]
 
 When you create a rule with an `http` action, you must specify the following information:
 
@@ -444,7 +445,7 @@ The AWS IoT rules engine retries `http` actions according to these rules:
 An `iotAnalytics` action sends data from the MQTT message that triggered the rule to an AWS IoT Analytics channel\. 
 
 ------
-#### [ More information \(9\) ]
+#### [ More information \(8\) ]
 
 When you create a rule with an `iotAnalytics` action, you must specify the following information:
 
@@ -522,7 +523,7 @@ The AWS IoT Analytics console also has a **Quick start** feature that allows you
 An `iotEvents` action sends data from the MQTT message that triggered the rule to an AWS IoT Events input\. 
 
 ------
-#### [ More information \(10\) ]
+#### [ More information \(9\) ]
 
 When you create a rule with a `iotEvents` action, you must specify the following information:
 
@@ -568,6 +569,165 @@ The following JSON example shows how to create an AWS IoT rule with an `iotEvent
 ```
 
 For more information, see the [ AWS IoT Events Developer Guide](https://docs.aws.amazon.com/iotevents/latest/developerguide/index.html)\.
+
+------
+
+## IoT SiteWise Action<a name="iotsitewise-rule"></a>
+
+------
+#### [ IoT SiteWise Action ]
+
+An `iotSiteWise` action sends data from the MQTT message that triggered the rule to asset properties in AWS IoT SiteWise\.
+
+**Note**  
+When you send data to AWS IoT SiteWise with this action, your data must meet the requirements of the `BatchPutAssetPropertyValue` action\. For more information, see [BatchPutAssetPropertyValue](https://docs.aws.amazon.com/iot-sitewise/latest/APIReference/API_BatchPutAssetPropertyValue.html) in the *AWS IoT SiteWise API Reference*\.
+
+You can follow a tutorial that shows you how to ingest data from AWS IoT things\. For more information, see [Ingesting Data to AWS IoT SiteWise from AWS IoT Things](https://docs.aws.amazon.com/iot-sitewise/latest/userguide/ingest-data-from-iot-things.html) in the *AWS IoT SiteWise User Guide*\.
+
+For more information about troubleshooting this rule, see [Troubleshooting an AWS IoT SiteWise Rule Action](https://docs.aws.amazon.com/iot-sitewise/latest/userguide/troubleshooting.html#troubleshoot-rule) in the *AWS IoT SiteWise User Guide*\.
+
+------
+#### [ More information \(10\) ]
+
+When creating a rule with an `iotSiteWise` action, you must specify the following information:
+
+putAssetPropertyValueEntries  
+A list of asset property value entries that each contain the following information:    
+entryId  
+Optional\. A unique identifier for this entry\. You can define the `entryId` to better track which message caused an error in case of failure\. Accepts substitution templates\. Defaults to a new UUID\.  
+propertyAlias  
+The property alias associated with your asset property\. You must specify either a `propertyAlias` or both an `assetId` and a `propertyId`\. Accepts substitution templates\. For more information about property aliases, see [Mapping Industrial Data Streams to Asset Properties](https://docs.aws.amazon.com/iot-sitewise/latest/userguide/connect-data-streams.html) in the *AWS IoT SiteWise User Guide*\.  
+assetId  
+The ID of the AWS IoT SiteWise asset\. You must specify either a `propertyAlias` or both an `assetId` and a `propertyId`\. Accepts substitution templates\.  
+propertyId  
+The ID of the asset's property\. You must specify either a `propertyAlias` or both an `assetId` and a `propertyId`\. Accepts substitution templates\.  
+propertyValues  
+A list of property values to insert that each contain timestamp, quality, and value \(TQV\) in the following format:    
+timestamp  
+A timestamp structure that contains the following information:    
+timeInSeconds  
+A string that contains the time in seconds in Unix epoch time\. Accepts substitution templates\. If your message payload doesn't have a timestamp, you can use [timestamp\(\)](iot-sql-functions.md#iot-function-timestamp), which returns the current time in milliseconds\. To convert that time to seconds, you can use the following substitution template: **$\{floor\(timestamp\(\) / 1E3\)\}**\.  
+offsetInNanos  
+Optional\. A string that contains the nanosecond time offset from the time in seconds\. Accepts substitution templates\. If your message payload doesn't have a timestamp, you can use [timestamp\(\)](iot-sql-functions.md#iot-function-timestamp), which returns the current time in milliseconds\. To calculate the nanosecond offset from that time, you can use the following substitution template: **$\{\(timestamp\(\) % 1E3\) \* 1E6\}**\.
+With respect to Unix epoch time, AWS IoT SiteWise accepts only entries that have a timestamp of up to 15 minutes in the past and up to 5 minutes in the future\.  
+quality  
+Optional\. A string that describes the quality of the value\. Accepts substitution templates\. Must be `GOOD`, `BAD`, or `UNCERTAIN`\.  
+value  
+A value structure that contains one of the following value fields, depending on the asset property's data type:    
+booleanValue  
+Optional\. A string that contains the boolean value of the value entry\. Accepts substitution templates\.  
+doubleValue  
+Optional\. A string that contains the double value of the value entry\. Accepts substitution templates\.  
+integerValue  
+Optional\. A string that contains the integer value of the value entry\. Accepts substitution templates\.  
+stringValue  
+Optional\. The string value of the value entry\. Accepts substitution templates\.
+
+roleArn  
+The ARN of the role that grants AWS IoT permission to send an asset property value to AWS IoT SiteWise\. \(`"Action": "iotsitewise:BatchPutAssetPropertyValue"`\)\.  
+Here is an example trust policy that should be attached to the role:  
+
+```
+{
+    "Version": "2012-10-17",
+    "Statement": [
+        {
+            "Effect": "Allow",
+            "Action": "iotsitewise:BatchPutAssetPropertyValue",
+            "Resource": "*"
+        }
+    ]
+}
+```
+To improve security, you can specify an AWS IoT SiteWise asset hierarchy path in the `Condition` property\. The following example is a trust policy that specifies an asset hierarchy path\.  
+
+```
+{
+    "Version": "2012-10-17",
+    "Statement": [
+        {
+            "Effect": "Allow",
+            "Action": "iotsitewise:BatchPutAssetPropertyValue",
+            "Resource": "*",
+            "Condition": {
+                "StringLike": {
+                    "iotsitewise:assetHierarchyPath": [
+                        "root node asset ID",
+                        "root node asset ID/*"
+                    ]
+                }
+            }
+        }
+    ]
+}
+```
+
+The following JSON example shows how to create an AWS IoT rule with a basic `iotSiteWise` action\.
+
+```
+{
+    "topicRulePayload": {
+        "sql": "SELECT * FROM 'some/topic'",
+        "ruleDisabled": false,
+        "awsIotSqlVersion": "2016-03-23",
+        "actions": [{
+            "iotSiteWise": {
+                "putAssetPropertyValueEntries": [
+                    {
+                        "propertyAlias": "/some/property/alias",
+                        "propertyValues": [
+                            {
+                                "timestamp": {
+                                    "timeInSeconds": "${my.payload.timeInSeconds}"
+                                },
+                                "value": {
+                                    "integerValue": "${my.payload.value}"
+                                }
+                            }
+                        ]
+                    }
+                ],
+                "roleArn": "arn:aws:iam::123456789012:role/aws_iot_sitewise"
+            },
+        }]
+    }
+}
+```
+
+The following JSON example shows how to create an AWS IoT rule with an `iotSiteWise` action\. This example uses the topic as the property alias and the `timestamp()` function\. For example, if you publish data to `/company/windfarm/3/turbine/7/rpm`, this action sends the data to the asset property with a property alias that is the same as the topic that you specified\.
+
+```
+{
+    "topicRulePayload": {
+        "sql": "SELECT * FROM '/company/windfarm/+/turbine/+/+'",
+        "ruleDisabled": false,
+        "awsIotSqlVersion": "2016-03-23",
+        "actions": [{
+            "iotSiteWise": {
+                "putAssetPropertyValueEntries": [
+                    {
+                        "propertyAlias": "${topic()}",
+                        "propertyValues": [
+                            {
+                                "timestamp": {
+                                    "timeInSeconds": "${floor(timestamp() / 1E3)}",
+                                    "offsetInNanos": "${(timestamp() % 1E3) * 1E6}"
+                                },
+                                "value": {
+                                    "doubleValue": "${my.payload.value}"
+                                }
+                            }
+                        ]
+                    }
+                ],
+                "roleArn": "arn:aws:iam::123456789012:role/aws_iot_sitewise"
+            },
+        }]
+    }
+}
+```
+
+For more information, see the [ AWS IoT SiteWise User Guide](https://docs.aws.amazon.com/iot-sitewise/latest/userguide/index.html)\.
 
 ------
 
@@ -824,7 +984,7 @@ The following JSON example shows how to create an AWS IoT rule with a `salesforc
 }
 ```
 
-For more information, refer to the Salesforce IoT documentation\.
+For more information, see the Salesforce IoT documentation\.
 
 ------
 

@@ -3,14 +3,13 @@
 The AWS IoT Device SDKs help you to connect your devices to AWS IoT easily and quickly\. The AWS IoT Device SDKs include open\-source libraries, developer guides with samples, and porting guides so that you can build innovative IoT products or solutions on your choice of hardware platforms\.
 
 **Important**  
-Before you start this tutorial, complete the steps in [Getting Started with AWS IoT](iot-gs.md)\. 
+Before you start this tutorial, complete the steps in [Getting Started with ](iot-gs.md)\. 
 
 These tutorials provide step\-by\-step instructions for connecting your Raspberry Pi to the [Message Broker for AWS IoT](iot-message-broker.md) using the AWS IoT Device SDK for Embedded C and the AWS IoT Device SDK for JavaScript\. After you complete the steps in these tutorials, you can connect to the AWS IoT platform and run the sample applications included with the AWS IoT Device SDKs\.
 
 **Topics**
 + [Prerequisites](#iot-sdk-prereqs)
 + [Create an AWS IoT Thing for Your Raspberry Pi](#iot-sdk-create-thing)
-+ [SDK Sample Configuration](#iot-sdk-config)
 + [Using the AWS IoT Device SDK for Embedded C](iot-embedded-c-sdk.md)
 + [Using the AWS IoT Device SDK for JavaScript and Node](iot-device-sdk-node.md)
 
@@ -30,7 +29,7 @@ A *thing* represents a device whose state is stored in the AWS Cloud\. The devic
 
 1. On your Raspberry Pi, browse to the AWS IoT console\. 
 
-1. In the navigation pane, choose **Secure**, and the choose **Policies**\. 
+1. In the navigation pane, choose **Secure**, and then choose **Policies**\. 
 
 1. On the **Policies** page, choose **Create a policy**\.
 
@@ -63,5 +62,3 @@ These settings are overly permissive\. In a production environment narrow the sc
 1. Choose **Activate** to activate the X\.509 certificate, and then choose **Attach a policy**\.
 
 1. On the **Add a policy for your thing** page, choose **RaspberryPi\-policy** and then choose **Register Thing**\.
-
-## SDK Sample Configuration<a name="iot-sdk-config"></a>

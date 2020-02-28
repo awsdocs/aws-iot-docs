@@ -1,6 +1,6 @@
 # Connect and Publish Policy Examples<a name="connect-and-pub"></a>
 
-For devices registered as things in the AWS IoT registry, the following policy grants permission to connect to AWS IoT with a client ID that matches the thing name and restricts the device to publishing on a client\-ID or thing name\-specific MQTT topic\. For a connection to be successful, the thing name must be registered in the AWS IoT registry and be authenticated using an identity or principal attached to the thing:
+For devices registered as things in the registry, the following policy grants permission to connect to with a client ID that matches the thing name and restricts the device to publishing on a client\-ID or thing name\-specific MQTT topic\. For a connection to be successful, the thing name must be registered in the registry and be authenticated using an identity or principal attached to the thing:
 
 ```
 {
@@ -20,7 +20,7 @@ For devices registered as things in the AWS IoT registry, the following policy g
 }
 ```
 
-For devices not registered as things in the AWS IoT registry, the following policy grants permission to connect to AWS IoT with client ID `client1` and restricts the device to publishing on a clientID\-specific MQTT topic:
+For devices not registered as things in the registry, the following policy grants permission to connect to with client ID `client1` and restricts the device to publishing on a clientID\-specific MQTT topic:
 
 ```
 {

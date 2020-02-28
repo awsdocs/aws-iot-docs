@@ -10,7 +10,7 @@ Q: How do I know the thresholds to set in an AWS IoT Device Defender security pr
 A: Start by creating a security profile behavior with low thresholds and attach it to a thing group that contains a representative set of devices\. You can use AWS IoT Device Defender to view the current metrics, and then fine\-tune the device behavior thresholds to match your use case\. 
 
 Q: I created a behavior, but it is not triggering a violation when I expect it to\. How should I fix it?   
-A: When you define a behavior, you are specifying how you expect your device to behave normally\. For example, if you have a security camera that only connects to one central server on TCP port 8888, you don’t expect it to make any other connections\. To be alerted if the camera makes a connection on another port, you define a behavior like this:   
+A: When you define a behavior, you are specifying how you expect your device to behave normally\. For example, if you have a security camera that only connects to one central server on TCP port 8888, you don't expect it to make any other connections\. To be alerted if the camera makes a connection on another port, you define a behavior like this:   
 
 ```
 {
@@ -27,19 +27,19 @@ A: When you define a behavior, you are specifying how you expect your device to 
 If the camera makes a TCP connection on TCP port 443, the device behavior would be violated and an alert would be triggered\. 
 
 Q: One or more of my behaviors are in violation\. How do I clear the violation?   
-A: Alarms clear after the device returns to expected behavior, as defined in the behavior profiles\. Behavior profiles are evaluated upon receipt of metrics data for your device\. 
+A: Alarms clear after the device returns to expected behavior, as defined in the behavior profiles\. Behavior profiles are evaluated upon receipt of metrics data for your device\. If the device doesn't publish any metrics for more than two days, the violation event is set to `alarm-invalidated` automatically\.
 
 Q: I deleted a behavior that was in violation, but how do I stop the alerts?   
 A: Deleting a behavior stops all future violations and alerts for that behavior\. Earlier alerts must be drained from your notification mechanism\. When you delete a behavior, the record of violations of that behavior is retained for the same time period as all other violations in your account\. Device Metrics
 
-Q: I’m submitting metrics reports that I know violate my behaviors, but no violations are being triggered\. What's wrong?   
+Q: I'm submitting metrics reports that I know violate my behaviors, but no violations are being triggered\. What's wrong?   
 A: Check that your metrics reports are being accepted by subscribing to the following MQTT topics:  
 
 ```
 $aws/things/THING_NAME/defender/metrics/FORMAT/rejected
 $aws/things/THING_NAME/defender/metrics/FORMAT/accepted
 ```
-where `THING_NAME` is the name of the thing reporting the metric and `FORMAT` is either “json” or “cbor,” depending on the format of the metrics report submitted by the thing\.  
+where `THING_NAME` is the name of the thing reporting the metric and `FORMAT` is either "json" or "cbor", depending on the format of the metrics report submitted by the thing\.  
 After you have subscribed, you should receive messages on these topics for each metric report submitted\. A `rejected` message indicates that there was a problem parsing the metric report\. An error message is included in the message payload to help you correct any errors in your metric report\. An `accepted` message indicates the metric report was parsed properly\. 
 
 Q: What happens if I send an empty metric in my metric report?  

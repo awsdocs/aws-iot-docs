@@ -7,10 +7,10 @@ The query syntax supports the following features\.
 + Searching fields
 + Prefix search
 + Range search
-+ Boolean operators `AND`, `OR`, `NOT` and `–` \(The hyphen is used to exclude something from search results \(for example, `thingName:(tv* AND -plasma)`\)\)
++ Boolean operators `AND`, `OR`, `NOT` and `–`\. The hyphen is used to exclude something from search results \(for example, `thingName:(tv* AND -plasma)`\)\)\.
 + Grouping
 + Field grouping
-+ Escaping special characters
++ Escaping special characters \(as with *\\*\)
 
 The query syntax does not support the following features:
 + Leading wildcard search \(such as "\*xyz"\), but searching for "\*" matches all things
@@ -23,7 +23,7 @@ The query syntax does not support the following features:
 + Aggregation
 
 A few things to note about the query language:
-+ The default operator is AND\. A query for `“thingName:abc thingType:xyz”` is equivalent to `“thingName:abc AND thingType:xyz”`\.
++ The default operator is AND\. A query for `"thingName:abc thingType:xyz"` is equivalent to `"thingName:abc AND thingType:xyz"`\.
 + If a field isn't specified, AWS IoT searches for the term in all fields\.
 + All field names are case sensitive\.
 + Search is case insensitive\. Words are separated by white space characters as defined by Java's `Character.isWhitespace(int)`\.

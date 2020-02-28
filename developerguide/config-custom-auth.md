@@ -33,7 +33,6 @@
        -----END PUBLIC KEY-----" 
            --status ACTIVE                                                  // Authorizer status - must be ACTIVE
            --region us-west-2                                               // AWS region
-           --endpoint https://us-west-2.iot.amazonaws.com                   // IoT endpoint
    ```
 
    You can use the `test-invoke-authorizer` API to test if the custom authorizer Lambda function has been configured correctly, as shown:

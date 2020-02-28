@@ -32,7 +32,7 @@ behavior
 A behavior tells AWS IoT Device Defender Detect how to recognize when a device is doing something abnormal\. Each behavior consists of a name, a metric, an operator, and a value or a statistical threshold\. For some metrics, a time period \(`durationSeconds`\) is also required\. Any device action that does not match a defined behavior statement triggers an alert\. 
 
 alert  
-When an anomaly is detected, an alert notification can be sent through a CloudWatch metric \(see [AWS IoT Metrics](metrics_dimensions.md#aws-iot-metrics)\) or an SNS notification\. An alert notification is also displayed in the AWS IoT CDM console along with information about the alert, and a history of alerts for the device\. An alert is also sent when a monitored device stops exhibiting anomalous behavior or when it had been causing an alert but stops reporting for an extended period\.
+When an anomaly is detected, an alert notification can be sent through a CloudWatch metric \(see [AWS IoT Metrics](aws-iot-metrics.md)\) or an SNS notification\. An alert notification is also displayed in the AWS IoT CDM console along with information about the alert, and a history of alerts for the device\. An alert is also sent when a monitored device stops exhibiting anomalous behavior or when it had been causing an alert but stops reporting for an extended period\.
 
 ## Behaviors<a name="detect-behaviors"></a>
 
@@ -855,7 +855,7 @@ Messages reported by devices are rejected if the thing name contains control cha
 
 1. Create a set of behaviors for your security profile\. Behaviors contain metrics that specify normal behavior for a group of devices or for all devices in your account\. For information, including examples, see [Metrics](#detect-metrics)\. After you have created a set of behaviors, you can validate them with [ ValidateSecurityProfileBehaviors](DetectCommands.md#dd-api-iot-ValidateSecurityProfileBehaviors)\. 
 
-1. Use [ CreateSecurityProfile](DetectCommands.md#dd-api-iot-CreateSecurityProfile) to create a security profile that includes your behaviors\. You can use the `alertTargets` parameter to have alerts sent to a target \(an SNS topic\) when a device violates a behavior\. \(If you do send alerts using SNS, be aware that these count against your account's SNS limit\. It is possible for a large burst of violations to exhaust your capacity\.\) You can also use CloudWatch metrics to check for violations\. For more information, see [AWS IoT Metrics](metrics_dimensions.md#aws-iot-metrics)\. 
+1. Use [ CreateSecurityProfile](DetectCommands.md#dd-api-iot-CreateSecurityProfile) to create a security profile that includes your behaviors\. You can use the `alertTargets` parameter to have alerts sent to a target \(an SNS topic\) when a device violates a behavior\. \(If you do send alerts using SNS, be aware that these count against your account's SNS limit\. It is possible for a large burst of violations to exhaust your capacity\.\) You can also use CloudWatch metrics to check for violations\. For more information, see [AWS IoT Metrics](aws-iot-metrics.md)\. 
 
 1. Use [ AttachSecurityProfile](DetectCommands.md#dd-api-iot-AttachSecurityProfile) to attach the security profile to a group of devices \(a thing group\), all registered things in your account, all unregistered things, or all devices\. AWS IoT Device Defender Detect starts checking for abnormal behavior and, if any behavior violations are detected, sends alerts\. You might want to attach a security profile to all unregistered things if, for example, you expect to interact with mobile devices that are not in your account's thing registry\. You can define different sets of behaviors for different groups of devices to meet your needs\.
 
@@ -1016,66 +1016,66 @@ Note the following:
 
 **Overall Structure:**  
 
-| Long Name | Short Name | Required | Type | Constraints | Notes | 
+|  Long Name  |  Short Name  |  Required  |  Type  |  Constraints  |  Notes  | 
 | --- | --- | --- | --- | --- | --- | 
-| header | hed | Y | Object |  | Complete block required for well\-formed report\. | 
-| metrics | met | Y | Object |  | Complete block required for well\-formed report\. | 
+|  header  |  hed  |  Y  |  Object  |   |  Complete block required for well\-formed report\.  | 
+|  metrics  |  met  |  Y  |  Object  |   |  Complete block required for well\-formed report\.  | 
 
 
 **Header Block:**  
 
-| Long Name | Short Name | Required | Type | Constraints | Notes | 
+|  Long Name  |  Short Name  |  Required  |  Type  |  Constraints  |  Notes  | 
 | --- | --- | --- | --- | --- | --- | 
-| report\_id | rid | Y | Integer |  | Monotonically increasing value\. Epoch timestamp recommended\. | 
-| version | v | Y | String | Major\.Minor | Minor increments with addition of field\. Major increments if metrics removed\. | 
+|  report\_id  |  rid  |  Y  |  Integer  |   |  Monotonically increasing value\. Epoch timestamp recommended\.  | 
+|  version  |  v  |  Y  |  String  |  Major\.Minor  |  Minor increments with addition of field\. Major increments if metrics removed\.  | 
 
 **Metrics Block:**
 
 
 **TCP Connections:**  
 
-| Long Name | Short Name | Parent Element | Required | Type | Constraints | Notes | 
+|  Long Name  |  Short Name  |  Parent Element  |  Required  |  Type  |  Constraints  |  Notes  | 
 | --- | --- | --- | --- | --- | --- | --- | 
-| tcp\_connections | tc | metrics | N | Object |  |  | 
-| established\_connections | ec | tcp\_connections | N | List<Connection> |  | ESTABLISHED TCP State | 
-| connections | cs | established\_connections | N | List<Object> |  |  | 
-| remote\_addr | rad | connections | Y | Number | ip:port | ip can be IPv6 or IPv4 | 
-| local\_port | lp | connections | N | Number | >= 0 |  | 
-| local\_interface | li | connections | N | String |  | interface name | 
-| total | t | established\_connections | N | Number | >= 0 | Number of established connections | 
+|  tcp\_connections  |  tc  |  metrics  |  N  |  Object  |   |   | 
+|  established\_connections  |  ec  |  tcp\_connections  |  N  |  List<Connection>  |   |  ESTABLISHED TCP State  | 
+|  connections  |  cs  |  established\_connections  |  N  |  List<Object>  |   |   | 
+|  remote\_addr  |  rad  |  connections  |  Y  |  Number  |  ip:port  |  ip can be IPv6 or IPv4  | 
+|  local\_port  |  lp  |  connections  |  N  |  Number  |  >= 0  |   | 
+|  local\_interface  |  li  |  connections  |  N  |  String  |   |  interface name  | 
+|  total  |  t  |  established\_connections  |  N  |  Number  |  >= 0  |  Number of established connections  | 
 
 
 **Listening TCP Ports:**  
 
-| Long Name | Short Name | Parent Element | Required | Type | Constraints | Notes | 
+|  Long Name  |  Short Name  |  Parent Element  |  Required  |  Type  |  Constraints  |  Notes  | 
 | --- | --- | --- | --- | --- | --- | --- | 
-| listening\_tcp\_ports | tp | metrics | N | Object |  |  | 
-| ports | pts | listening\_tcp\_ports | N | List<Port> | > 0 |  | 
-| port | pt | ports | N | Number | > 0 | ports should be numbers > 0 | 
-| interface | if | ports | N | String |  | interface name | 
-| total | t | listening\_tcp\_ports | N | Number | >= 0 |  | 
+|  listening\_tcp\_ports  |  tp  |  metrics  |  N  |  Object  |   |   | 
+|  ports  |  pts  |  listening\_tcp\_ports  |  N  |  List<Port>  |  > 0  |   | 
+|  port  |  pt  |  ports  |  N  |  Number  |  > 0  |  ports should be numbers > 0  | 
+|  interface  |  if  |  ports  |  N  |  String  |   |  interface name  | 
+|  total  |  t  |  listening\_tcp\_ports  |  N  |  Number  |  >= 0  |   | 
 
 
 **Listening UDP Ports:**  
 
-| Long Name | Short Name | Parent Element | Required | Type | Constraints | Notes | 
+|  Long Name  |  Short Name  |  Parent Element  |  Required  |  Type  |  Constraints  |  Notes  | 
 | --- | --- | --- | --- | --- | --- | --- | 
-| listening\_udp\_ports | up | metrics | N | Object |  |  | 
-| ports | pts | listening\_udp\_ports | N | List<Port> | > 0 |  | 
-| port | pt | ports | N | Number | > 0 | ports should be numbers > 0 | 
-| interface | if | ports | N | String |  | interface name | 
-| total | t | listening\_udp\_ports | N | Number | >= 0 |  | 
+|  listening\_udp\_ports  |  up  |  metrics  |  N  |  Object  |   |   | 
+|  ports  |  pts  |  listening\_udp\_ports  |  N  |  List<Port>  |  > 0  |   | 
+|  port  |  pt  |  ports  |  N  |  Number  |  > 0  |  ports should be numbers > 0  | 
+|  interface  |  if  |  ports  |  N  |  String  |   |  interface name  | 
+|  total  |  t  |  listening\_udp\_ports  |  N  |  Number  |  >= 0  |   | 
 
 
 **Network Stats:**  
 
-| Long Name | Short Name | Parent Element | Required | Type | Constraints | Notes | 
+|  Long Name  |  Short Name  |  Parent Element  |  Required  |  Type  |  Constraints  |  Notes  | 
 | --- | --- | --- | --- | --- | --- | --- | 
-| network\_stats | ns | metrics | N | Object |  |  | 
-| bytes\_in | bi | network\_stats | N | Number | Delta Metric, >= 0 |  | 
-| bytes\_out | bo | network\_stats | N | Number | Delta Metric, >= 0 |  | 
-| packets\_in | pi | network\_stats | N | Number | Delta Metric, >= 0 |  | 
-| packets\_out | po | network\_stats | N | Number | Delta Metric, >= 0 |  | 
+|  network\_stats  |  ns  |  metrics  |  N  |  Object  |   |   | 
+|  bytes\_in  |  bi  |  network\_stats  |  N  |  Number  |  Delta Metric, >= 0  |   | 
+|  bytes\_out  |  bo  |  network\_stats  |  N  |  Number  |  Delta Metric, >= 0  |   | 
+|  packets\_in  |  pi  |  network\_stats  |  N  |  Number  |  Delta Metric, >= 0  |   | 
+|  packets\_out  |  po  |  network\_stats  |  N  |  Number  |  Delta Metric, >= 0  |   | 
 
 Example JSON structure using long names:
 

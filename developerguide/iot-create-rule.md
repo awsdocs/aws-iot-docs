@@ -4,11 +4,11 @@ You configure rules to route data from your connected things\. Rules consist of 
 
 Rule name  
 The name of the rule\.  
-We do not recommend using personally identifiable information in your rule names\.
+We do not recommend the use of personally identifiable information in your rule names\.
 
 Optional description  
 A textual description of the rule\.  
-We do not recommend using personally identifiable information in your rule descriptions\.
+We do not recommend the use of personally identifiable information in your rule descriptions\.
 
 SQL statement  
 A simplified SQL syntax to filter messages received on an MQTT topic and push the data elsewhere\. For more information, see [AWS IoT SQL Reference](iot-sql-reference.md)\.

@@ -2,6 +2,9 @@
 
 AWS IoT jobs can be used to define a set of remote operations that are sent to and executed on one or more devices connected to AWS IoT\.
 
+**Tip**  
+For job document examples, see the [jobs\-agent\.js](https://www.npmjs.com/package/aws-iot-device-sdk#jobs-agentjs) example in the AWS IoT SDK for JavaScript\.
+
 ## Jobs Key Concepts<a name="key-concepts-jobs"></a>
 
 job  
@@ -59,7 +62,8 @@ The placeholder link is of the following form:
 ```
 ${aws:iot:s3-presigned-url:https://s3.amazonaws.com/bucket/key}
 ```
-where *bucket* is your bucket name and *key* is the object in the bucket to which you are linking\.
+where *bucket* is your bucket name and *key* is the object in the bucket to which you are linking\.  
+In the Beijing and Ningxia Regions, presigned URLs work only if the resource owner has an ICP license\. For more information, see [Amazon Simple Storage Service](https://docs.amazonaws.cn/en_us/aws/latest/userguide/s3.html) in the *Getting Started with AWS Services in China* documentation\.
 
 timeouts  
 The job timeout feature isn't currently available in the AWS GovCloud \(US\) Region\.

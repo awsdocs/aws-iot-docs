@@ -5,19 +5,19 @@
 
 |  | 
 | --- |
-| The fleet provisioning feature is in beta and is subject to change\. We recommend that you use this feature with test devices only\. It is currently available in the us\-east\-1 region\. | 
+| The fleet provisioning feature is in beta and is subject to change\. We recommend that you use this feature with test devices only\. | 
 
 When you use AWS IoT fleet provisioning, AWS IoT can generate and securely deliver device certificates and private keys to your devices when they connect to AWS IoT for the first time\. Device certificates are registered for day\-to\-day use\. There are two ways to use fleet provisioning:
 + By claim\.
 + By trusted user\.
 
-## Provisioning By Claim<a name="claim-based"></a>
+## Provisioning by Claim<a name="claim-based"></a>
 
-Devices can be manufactured with a provisioning claim certificate and private key \(which are special purpose credentials\) embedded in them\. If these certificates are registered with AWS IoT, AWS IoT can exchange them for unique device certificates that the device can use for regular operations\. This involves the following steps:
+Devices can be manufactured with a provisioning claim certificate and private key \(which are special purpose credentials\) embedded in them\. If these certificates are registered with AWS IoT, the service can exchange them for unique device certificates that the device can use for regular operations\. This process includes the following steps:
 
-1. You use the `CreateProvisioningTemplate` API to create a provisioning template\. This API returns a template ARN\. For more information, see [Fleet Provisioning APIs](#fleet-provision-api)\. You can also create a fleet provisioning template from the IoT console\. To do this:
+1. You use the `CreateProvisioningTemplate` API to create a provisioning template\. This API returns a template ARN\. For more information, see [Fleet Provisioning APIs](#fleet-provision-api)\. You can also create a fleet provisioning template in the AWS IoT console\. 
 
-   1. From the navigation pane, choose **Onboard** and then **Fleet provisioning templates**\.
+   1. From the navigation pane, choose **Onboard**, and then choose **Fleet provisioning templates**\.
 
    1. Choose **Create** and follow the prompts\.
 
@@ -38,16 +38,16 @@ Devices can be manufactured with a provisioning claim certificate and private ke
                "Effect": "Allow",
                "Action": ["iot:Publish","iot:Receive"],
                "Resource": [
-                   "arn:aws:iot:us-east-1:225901001567:topic/$aws/certificates/create/*",
-                   "arn:aws:iot:us-east-1:225901001567:topic/$aws/provisioning-templates/{{name}}/provision/*"
+                   "arn:aws:iot:us-east-1:123456789012:topic/$aws/certificates/create/*",
+                   "arn:aws:iot:us-east-1:123456789012:topic/$aws/provisioning-templates/templateName/provision/*"
                ]
            },
            {
                "Effect": "Allow",
                "Action": "iot:Subscribe",
                "Resource": [
-                   "arn:aws:iot:us-east-1:225901001567:topicfilter/$aws/certificates/create/*",
-                   "arn:aws:iot:us-east-1:225901001567:topicfilter/$aws/provisioning-templates/{{name}}/provision/*"
+                   "arn:aws:iot:us-east-1:123456789012:topicfilter/$aws/certificates/create/*",
+                   "arn:aws:iot:us-east-1:123456789012:topicfilter/$aws/provisioning-templates/templateName/provision/*"
                ]
            }
        ]
@@ -65,7 +65,7 @@ Devices can be manufactured with a provisioning claim certificate and private ke
 **Important**  
 Provisioning claim private keys should be secured at all times, including on the device\. We recommend that you use AWS IoT CloudWatch metrics and logs to monitor for indications of misuse\. If you detect misuse, disable the provisioning claim certificate so it cannot be used for device provisioning\.
 
-## Provisioning By Trusted User<a name="trusted-user"></a>
+## Provisioning by Trusted User<a name="trusted-user"></a>
 
 In many cases, a device connects to AWS IoT for the first time when an end user or installation technician uses a mobile app to configure the device in its deployed location\. This process includes the following steps:
 
@@ -80,12 +80,12 @@ In many cases, a device connects to AWS IoT for the first time when an end user 
            "iot:CreateProvisioningClaim",
        ],
        "Resource": [
-           "arn:aws:iot:us-west-2:123456789012:provisioningtemplate/<templateName>"
+           "arn:aws:iot:us-west-2:123456789012:provisioningtemplate/templateName"
        ]
    }
    ```
 
-1. You give the AWS IoT service permission to create or update IoT resources such as things and certificates in your account when provisioning devices\. This is done by attaching the `AWSIoTThingsRegistration` managed policy to an IAM role \(called the provisioning role\) that trusts the AWS IoT service principal
+1. You give the AWS IoT service permission to create or update IoT resources, such as things and certificates in your account when provisioning devices\. You do this by attaching the `AWSIoTThingsRegistration` managed policy to an IAM role \(called the *provisioning role*\) that trusts the AWS IoT service principal\.
 
 1. The trusted user signs in to your provisioning mobile app or web service\.
 
@@ -109,8 +109,8 @@ There are three categories of API used in fleet provisioning:
   + [DescribeProvisioningTemplateVersion](https://docs.aws.amazon.com/iot/latest/apireference/API_DescribeProvisioningTemplateVersion.html)
   + [ListProvisioningTemplates](https://docs.aws.amazon.com/iot/latest/apireference/API_ListProvisioningTemplates.html)
   + [ListProvisioningTemplateVersions](https://docs.aws.amazon.com/iot/latest/apireference/API_ListProvisioningTemplateVersions.html)
-+ Control plane API are used by a trusted user to generate a temporary onboarding claim which is passed to the device during Wi\-Fi config or similar method\. There is one API in this category: [CreateProvisioningClaim](https://docs.aws.amazon.com/iot/latest/apireference/API_CreateProvisioningTemplate.html)\.
-+ API used by devices during the provisioning process \(using a provisioning claim embedded in a device or one passed to it by a trusted user\)\. For more information, see Device Provisioning MQTT API
++ Control plane API are used by a trusted user to generate a temporary onboarding claim which is passed to the device during Wi\-Fi config or similar method\. There is one API in this category: [CreateProvisioningClaim](https://docs.aws.amazon.com/iot/latest/apireference/API_CreateProvisioningClaim.html)\.
++ API used by devices during the provisioning process \(using a provisioning claim embedded in a device or one passed to it by a trusted user\)\. 
 
 ### Device Provisioning MQTT API<a name="provision-mqtt-api"></a>
 
@@ -118,8 +118,7 @@ The Fleet Provisioning service supports two MQTT APIs: `CreateKeysAndCertificate
 
 #### CreateKeysAndCertificate<a name="create-keys-cert"></a>
 
-**Note**  
-Examples in this document use JSON for readability but you can also use the CBOR format\.
+Examples in this document use JSON for readability, but you can also use the Concise Binary Object Representation \(CBOR\) format\. The new certificate will have the `PENDING_ACTIVATION` status\. When you use the `RegisterThing` API to provision a thing, the certificate status changes to `ACTIVE` or `INACTIVE` based on the template definition\.
 
 To create a certificate, publish a message on `$aws/certificates/create/cbor` or `$aws/certificates/create/json`\.
 
@@ -131,7 +130,7 @@ Request payload:
 
 Response payload:
 
-To receive the response, subscribe to `$aws/certificates/create/cbor/accepted` or `$aws/certificates/create/json/accepted`
+To receive the response, subscribe to `$aws/certificates/create/cbor/accepted` or `$aws/certificates/create/json/accepted`\. For more information about connecting to the message broker and using AWS IoT reserved topics, see [Lifecycle Events](life-cycle-events.md) and [Reserved Topics](reserved-topics.md)\.
 
 ```
 {
@@ -154,7 +153,7 @@ The private key\.
 certificateOwnershipToken  
 The token to prove ownership of the certificate during provisioning\.
 
-To receive error responses, subscribe to `$aws/certificates/create/cbor/rejected` or `$aws/certificates/create/json/rejected`
+To receive error responses, subscribe to `$aws/certificates/create/cbor/rejected` or `$aws/certificates/create/json/rejected`\.
 
 Error payload:
 
@@ -175,9 +174,11 @@ The error code\.
 `errorMessage`  
 The error message\.
 
+For more information, see [CreateKeysAndCertificate](https://docs.aws.amazon.com/iot/latest/apireference/API_CreateKeysAndCertificate) in the AWS IoT API Reference\.
+
 #### RegisterThing<a name="register-thing"></a>
 
-To provision a thing, publish a message on `$aws/provisioning-templates/{{templateName}}/provision/cbor` or `$aws/provisioning-templates/{{templateName}}/provision/json`\.
+To provision a thing, publish a message on `$aws/provisioning-templates/templateName/provision/cbor` or `$aws/provisioning-templates/templateName/provision/json`\.
 
 Request payload:
 
@@ -199,7 +200,7 @@ The token to prove ownership of the certificate\. The token is generated by AWS 
 parameters  
 Optional\. Name\-value pairs to send to devices during provisioning\.
 
-To receive the response, subscribe to `$aws/provisioning-templates/{{templateName}}/provision/cbor/accepted ` or `$aws/provisioning-templates/{{templateName}}/provision/json/accepted`
+To receive the response, subscribe to `$aws/provisioning-templates/templateName/provision/cbor/accepted ` or `$aws/provisioning-templates/templateName/provision/json/accepted`\.
 
 Response payload:
 
@@ -218,7 +219,7 @@ The name of the IoT thing created during provisioning\.
 `deviceConfiguration`  
 The device configuration defined in the template\.
 
-To receive error responses, subscribe to `$aws/provisioning-templates/{{templateName}}/provision/cbor/rejected` or `$aws/provisioning-templates/{{templateName}}/provision/json/rejected`
+To receive error responses, subscribe to `$aws/provisioning-templates/templateName/provision/cbor/rejected` or `$aws/provisioning-templates/templateName/provision/json/rejected`\.
 
 Error payload:
 
@@ -238,3 +239,5 @@ The error code\.
 
 `errorMessage`  
 The error message\.
+
+For more information, see [RegisterThing](https://docs.aws.amazon.com/iot/latest/apireference/API_RegisterThing) in the AWS IoT API Reference\.

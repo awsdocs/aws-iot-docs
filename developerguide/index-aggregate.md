@@ -4,7 +4,7 @@ AWS IoT provides three APIs \(`GetStatistics`, `GetCardinality`, and `GetPercent
 
 ## GetStatistics<a name="get-statistics"></a>
 
-The [GetStatistics](https://docs.aws.amazon.com/iot/latest/apireference/API_UpdateIndexingConfiguration.html) API and the get\-statistics CLI command return the count, average, sum, minimum, maximum, sum of squares, variance, and standard deviation for the specified aggregated field\.
+The [GetStatistics](https://docs.aws.amazon.com/iot/latest/apireference/API_GetStatistics.html) API and the get\-statistics CLI command return the count, average, sum, minimum, maximum, sum of squares, variance, and standard deviation for the specified aggregated field\.
 
 The get\-statistics CLI command takes the following parameters:
 
@@ -49,7 +49,7 @@ When you call `GetStatistics` with a boolean aggregation field:
 + MAXIMUM is 0 or 1 according to the following rules:
   + If all the values for the aggregation field are `false`, MAXIMUM is 0\.
   + If all the values for the aggregation field are `true`, MAXIMUM is 1\.
-  + If the values for the aggregation field are a mixture of `false` and `true`, MAXIMUM is 0\.
+  + If the values for the aggregation field are a mixture of `false` and `true`, MAXIMUM is 1\.
 + SUM is the sum of the integer equivalent of the boolean values\.
 + COUNT is the number of things that match the query\. 
 
@@ -104,7 +104,7 @@ For numerical aggregation fields, if the field values exceed the maximum double 
 
 ## GetCardinality<a name="get-cardinality"></a>
 
-The [GetCardinality](https://docs.aws.amazon.com/iot/latest/apireference/API_UpdateIndexingConfiguration.html) API and the get\-cardinality CLI command return the approximate count of unique values that match the query\. For example, you might want to find the number of devices with battery levels at less than 50 percent:
+The [GetCardinality](https://docs.aws.amazon.com/iot/latest/apireference/API_GetCardinality.html) API and the get\-cardinality CLI command return the approximate count of unique values that match the query\. For example, you might want to find the number of devices with battery levels at less than 50 percent:
 
 aws iot get\-cardinality \-\-index\-name AWS\_Things \-\-query\-string "batterylevel > 50" \-\-aggregation\-field "shadow\.reported\.batterylevel"\.
 
@@ -221,37 +221,3 @@ The version of the query to use\. The default value is `2017-09-30`\.
 
 `percents`  
 Optional\. You can use this parameter to specify custom percentile groupings\.
-
-## Troubleshooting Aggregation Queries<a name="aggregation-troubleshooting"></a>
-
-If you are having type mismatch errors, you can use CloudWatch Logs to troubleshoot the problem\. CloudWatch Logs must be enabled before logs are written by the Fleet Indexing service\. For more information, see [CloudWatch Logs](https://docs.aws.amazon.com/iot/latest/developerguide/cloud-watch-logs.html)\.
-
-When you make aggregation queries on non\-managed fields, you can only specify a field you defined in the `customFields` argument passed to `UpdateIndexingConfiguration` or update\-indexing\-configuration\. If the field value is inconsistent with the configured field data type, this value is ignored when you perform an aggregation query\.
-
-The Fleet Indexing service emits an error log to CloudWatch Logs when a field cannot be indexed because of a mismatched type\. The error log contains the field name, the value that could not be converted, and the thing name for the device\. The following is an example error log:
-
-```
-{
-  "timestamp": "2017-02-20 20:31:22.932",
-  "logLevel": "ERROR",
-  "traceId": "79738924-1025-3a00-a669-7bec69f7f07a",
-  "accountId": "000000000000",
-  "status": "SucceededWithIssues",
-  "eventType": "IndexingCustomFieldFailed",
-  "thingName": "thing0",
-  "failedCustomFields": [
-    {
-      "Name": "attributeName1",
-      "Value": "apple",
-      "ExpectedType": "String"
-    },
-    {
-      "Name": "attributeName2",
-      "Value": "2",
-      "ExpectedType": "Boolean"
-    }
-  ]
-}
-```
-
-If a device has been disconnected for approximately an hour, the connectivity status `timestamp` value might be missing\. For persistent sessions, the value might be missing after a client has been disconnected longer than the configured time\-to\-live \(TTL\) for the persistent session\. The connectivity status data is indexed only for connections where the client ID has a matching thing name\. \(The client ID is the value used to connect a device to AWS IoT Core\.\)

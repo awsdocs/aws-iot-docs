@@ -17,7 +17,7 @@ You create a query that extracts the moisture and temperature data from the inco
 
 **Create an Amazon SNS rule**
 
-1. In the [AWS IoT console](https://console.aws.amazon.com/iot/home), in the navigation pane, choose **Act**\. If a **You don’t have any rules yet** dialog box appears, choose **Create a rule**\. Otherwise, choose **Create**\.
+1. In the [AWS IoT console](https://console.aws.amazon.com/iot/home), in the navigation pane, choose **Act**\. If a **You don't have any rules yet** dialog box appears, choose **Create a rule**\. Otherwise, choose **Create**\.
 
 1. In the **Create a rule** page, enter a name for your rule \(for example, **MoistureSensorRule**\)\.
 

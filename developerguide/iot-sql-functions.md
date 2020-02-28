@@ -4,7 +4,7 @@ You can use the following built\-in functions in the SELECT or WHERE clauses of 
 
 ## abs\(Decimal\)<a name="iot-func-abs"></a>
 
-Returns the absolute value of a number\. Supported by SQL version 2015\-10\-8 and later\.
+Returns the absolute value of a number\. Supported by SQL version 2015\-10\-08 and later\.
 
 Example: `abs(-5)` returns 5\.
 
@@ -24,7 +24,7 @@ Example: `abs(-5)` returns 5\.
 
 ## accountid\(\)<a name="iot-sql-function-accountid"></a>
 
-Returns the ID of the account that owns this rule as a `String`\. Supported by SQL version 2015\-10\-8 and later\.
+Returns the ID of the account that owns this rule as a `String`\. Supported by SQL version 2015\-10\-08 and later\.
 
 Example:
 
@@ -32,7 +32,7 @@ Example:
 
 ## acos\(Decimal\)<a name="iot-func-acos"></a>
 
-Returns the inverse cosine of a number in radians\. `Decimal` arguments are rounded to double precision before function application\. Supported by SQL version 2015\-10\-8 and later\.
+Returns the inverse cosine of a number in radians\. `Decimal` arguments are rounded to double precision before function application\. Supported by SQL version 2015\-10\-08 and later\.
 
 Example: `acos(0)` = 1\.5707963267948966 
 
@@ -52,7 +52,7 @@ Example: `acos(0)` = 1\.5707963267948966
 
 ## asin\(Decimal\)<a name="iot-func-asin"></a>
 
-Returns the inverse sine of a number in radians\. `Decimal` arguments are rounded to double precision before function application\. Supported by SQL version 2015\-10\-8 and later\.
+Returns the inverse sine of a number in radians\. `Decimal` arguments are rounded to double precision before function application\. Supported by SQL version 2015\-10\-08 and later\.
 
 Example: `asin(0)` = 0\.0
 
@@ -72,7 +72,7 @@ Example: `asin(0)` = 0\.0
 
 ## atan\(Decimal\)<a name="iot-func-atan"></a>
 
-Returns the inverse tangent of a number in radians\. `Decimal` arguments are rounded to double precision before function application\. Supported by SQL version 2015\-10\-8 and later\.
+Returns the inverse tangent of a number in radians\. `Decimal` arguments are rounded to double precision before function application\. Supported by SQL version 2015\-10\-08 and later\.
 
 Example: `atan(0)` = 0\.0
 
@@ -92,7 +92,7 @@ Example: `atan(0)` = 0\.0
 
 ## atan2\(Decimal, Decimal\)<a name="iot-func-atan2"></a>
 
-Returns the angle, in radians, between the positive x\-axis and the \(x, y\) point defined in the two arguments\.  The angle is positive for counter\-clockwise angles \(upper half\-plane, y > 0\), and negative for clockwise angles \(lower half\-plane, y < 0\)\. `Decimal` arguments are rounded to double precision before function application\. Supported by SQL version 2015\-10\-8 and later\. 
+Returns the angle, in radians, between the positive x\-axis and the \(x, y\) point defined in the two arguments\.  The angle is positive for counter\-clockwise angles \(upper half\-plane, y > 0\), and negative for clockwise angles \(lower half\-plane, y < 0\)\. `Decimal` arguments are rounded to double precision before function application\. Supported by SQL version 2015\-10\-08 and later\. 
 
 Example: `atan2(1, 0)` = 1\.5707963267948966
 
@@ -168,7 +168,7 @@ The `aws_lambda` function can be used to call Lambda function as follows:
 
 ```
 SELECT
-aws_lambda("arn:aws:lambda:us-east-1:account_id:function:lambda_function", {"payload":attribute1) as output FROM 'a/b'
+aws_lambda("arn:aws:lambda:us-east-1:account_id:function:lambda_function", {"payload":attribute1}) as output FROM 'a/b'
 ```
 
 If you want to pass the full MQTT message payload, you can specify the JSON payload using '\*'\. For example:
@@ -187,7 +187,7 @@ aws_lambda("arn:aws:lambda:us-east-1:account_id:function:lambda_function", *) as
 
 ## bitand\(Int, Int\)<a name="iot-func-bitand"></a>
 
-Performs a bitwise AND on the bit representations of the two `Int`\(\-converted\) arguments\. Supported by SQL version 2015\-10\-8 and later\.
+Performs a bitwise AND on the bit representations of the two `Int`\(\-converted\) arguments\. Supported by SQL version 2015\-10\-08 and later\.
 
 Example: `bitand(13, 5)` = 5
 
@@ -203,7 +203,7 @@ Example: `bitand(13, 5)` = 5
 
 ## bitor\(Int, Int\)<a name="iot-func-bitor"></a>
 
-Performs a bitwise OR of the bit representations of the two arguments\. Supported by SQL version 2015\-10\-8 and later\.
+Performs a bitwise OR of the bit representations of the two arguments\. Supported by SQL version 2015\-10\-08 and later\.
 
 Example: `bitor(8, 5)` = 13
 
@@ -219,7 +219,7 @@ Example: `bitor(8, 5)` = 13
 
 ## bitxor\(Int, Int\)<a name="iot-func-xbitor"></a>
 
-Performs a bitwise XOR on the bit representations of the two `Int`\(\-converted\) arguments\. Supported by SQL version 2015\-10\-8 and later\.
+Performs a bitwise XOR on the bit representations of the two `Int`\(\-converted\) arguments\. Supported by SQL version 2015\-10\-08 and later\.
 
 Example:`bitor(13, 5)` = 8
 
@@ -235,7 +235,7 @@ Example:`bitor(13, 5)` = 8
 
 ## bitnot\(Int\)<a name="iot-func-bitnot"></a>
 
-Performs a bitwise NOT on the bit representations of the `Int`\(\-converted\) argument\. Supported by SQL version 2015\-10\-8 and later\. 
+Performs a bitwise NOT on the bit representations of the `Int`\(\-converted\) argument\. Supported by SQL version 2015\-10\-08 and later\. 
 
 Example: `bitnot(13)` = 2
 
@@ -251,7 +251,7 @@ Example: `bitnot(13)` = 2
 
 ## cast\(\)<a name="iot-sql-function-cast"></a>
 
-Converts a value from one data type to another\. Cast behaves mostly like the standard conversions, with the addition of the ability to cast numbers to or from Booleans\. If AWS IoT cannot determine how to cast one type to another, the result is `Undefined`\. Supported by SQL version 2015\-10\-8 and later\. Format: cast\(*value* as *type*\)\.
+Converts a value from one data type to another\. Cast behaves mostly like the standard conversions, with the addition of the ability to cast numbers to or from Booleans\. If AWS IoT cannot determine how to cast one type to another, the result is `Undefined`\. Supported by SQL version 2015\-10\-08 and later\. Format: cast\(*value* as *type*\)\.
 
 Example:
 
@@ -260,7 +260,7 @@ Example:
 The following keywords might appear after "as" when calling `cast`:
 
 
-**For SQL version 2015\-10\-8 and 2016\-03\-23**  
+**For SQL version 2015\-10\-08 and 2016\-03\-23**  
 
 | Keyword | Result | 
 | --- | --- | 
@@ -344,13 +344,13 @@ Casting rules:
 
 ## ceil\(Decimal\)<a name="iot-func-ceil"></a>
 
-Rounds the given `Decimal` up to the nearest `Int`\. Supported by SQL version 2015\-10\-8 and later\.
+Rounds the given `Decimal` up to the nearest `Int`\. Supported by SQL version 2015\-10\-08 and later\.
 
 Examples:
 
 `ceil(1.2)` = 2
 
-`ceil(11.2)` = \-1
+`ceil(-1.2)` = \-1
 
 
 ****  
@@ -364,7 +364,7 @@ Examples:
 
 ## chr\(String\)<a name="iot-func-chr"></a>
 
-Returns the ASCII character that corresponds to the given `Int` argument\. Supported by SQL version 2015\-10\-8 and later\.
+Returns the ASCII character that corresponds to the given `Int` argument\. Supported by SQL version 2015\-10\-08 and later\.
 
 Examples: 
 
@@ -388,7 +388,7 @@ Examples:
 
 ## clientid\(\)<a name="iot-sql-function-clientid"></a>
 
-Returns the ID of the MQTT client sending the message, or `n/a` if the message wasn't sent over MQTT\. Supported by SQL version 2015\-10\-8 and later\.
+Returns the ID of the MQTT client sending the message, or `n/a` if the message wasn't sent over MQTT\. Supported by SQL version 2015\-10\-08 and later\.
 
 Example:
 
@@ -396,7 +396,7 @@ Example:
 
 ## concat\(\)<a name="iot-func-concat"></a>
 
-Concatenates arrays or strings\. This function accepts any number of arguments and returns a `String` or an `Array`\. Supported by SQL version 2015\-10\-8 and later\.
+Concatenates arrays or strings\. This function accepts any number of arguments and returns a `String` or an `Array`\. Supported by SQL version 2015\-10\-08 and later\.
 
 Examples: 
 
@@ -427,7 +427,7 @@ Examples:
 
 ## cos\(Decimal\)<a name="iot-func-cos"></a>
 
-Returns the cosine of a number in radians\. `Decimal` arguments are rounded to double precision before function application\. Supported by SQL version 2015\-10\-8 and later\.
+Returns the cosine of a number in radians\. `Decimal` arguments are rounded to double precision before function application\. Supported by SQL version 2015\-10\-08 and later\.
 
 Example: 
 
@@ -449,7 +449,7 @@ Example:
 
 ## cosh\(Decimal\)<a name="iot-func-cosh"></a>
 
-Returns the hyperbolic cosine of a number in radians\. `Decimal` arguments are rounded to double precision before function application\. Supported by SQL version 2015\-10\-8 and later\.
+Returns the hyperbolic cosine of a number in radians\. `Decimal` arguments are rounded to double precision before function application\. Supported by SQL version 2015\-10\-08 and later\.
 
 Example: `cosh(2.3)` = 5\.037220649268761\. 
 
@@ -479,7 +479,7 @@ A literal string representing the encoding scheme you want to use\. Currently, o
 
 ## endswith\(String, String\)<a name="iot-func-endswith"></a>
 
-Returns a `Boolean` indicating whether the first `String` argument ends with the second `String` argument\. If either argument is `Null` or `Undefined`, the result is `Undefined`\. Supported by SQL version 2015\-10\-8 and later\.
+Returns a `Boolean` indicating whether the first `String` argument ends with the second `String` argument\. If either argument is `Null` or `Undefined`, the result is `Undefined`\. Supported by SQL version 2015\-10\-08 and later\.
 
 Example: `endswith("cat","at")` = true\.
 
@@ -493,7 +493,7 @@ Example: `endswith("cat","at")` = true\.
 
 ## exp\(Decimal\)<a name="iot-func-exp"></a>
 
-Returns e raised to the `Decimal` argument\. `Decimal` arguments are rounded to double precision before function application\. Supported by SQL version 2015\-10\-8 and later\.
+Returns e raised to the `Decimal` argument\. `Decimal` arguments are rounded to double precision before function application\. Supported by SQL version 2015\-10\-08 and later\.
 
 Example: `exp(1)` = e\. 
 
@@ -507,9 +507,29 @@ Example: `exp(1)` = e\.
 | String | Decimal \(with double precision\), e ^ argument\. If the String cannot be converted to a Decimal, the result is Undefined\.  | 
 | Other Value | Undefined\. | 
 
+## floor\(Decimal\)<a name="iot-func-floor"></a>
+
+Rounds the given `Decimal` down to the nearest `Int`\. Supported by SQL version 2015\-10\-08 and later\.
+
+Examples:
+
+`floor(1.2)` = 1
+
+`floor(-1.2)` = \-2
+
+
+****  
+
+| Argument Type | Result | 
+| --- | --- | 
+| Int | Int, the argument value\. | 
+| Decimal | Int, the Decimal value rounded down to the nearest Int\. | 
+| String | Int\. The string is converted to Decimal and rounded down to the nearest Int\. If the string cannot be converted to a Decimal, the result is Undefined\. | 
+| Other Value | Undefined\. | 
+
 ## get<a name="iot-sql-function-get"></a>
 
-Extracts a value from a collection\-like type \(Array, String, Object\)\. No conversion is applied to the first argument\. Conversion applies as documented in the table to the second argument\. Supported by SQL version 2015\-10\-8 and later\.
+Extracts a value from a collection\-like type \(Array, String, Object\)\. No conversion is applied to the first argument\. Conversion applies as documented in the table to the second argument\. Supported by SQL version 2015\-10\-08 and later\.
 
 Examples:
 
@@ -558,9 +578,9 @@ The ARN of an IAM role that grants access to the DynamoDB table\. The rules engi
     "Version": "2012-10-17",
     "Statement": [
         {
-            “Effect”: “Allow”,
-            “Action”: “dynamodb:GetItem”,
-            “Resource”: “arn:aws:dynamodb:<aws-region>:<account-id>:table/<table-name>”
+            "Effect": "Allow",
+            "Action": "dynamodb:GetItem",
+            "Resource": "arn:aws:dynamodb:<aws-region>:<account-id>:table/<table-name>"
         }
     ]
 }}
@@ -601,7 +621,7 @@ Example:
 + sha384
 + sha512
 
-All hash functions expect one string argument\. The result is the hashed value of that string\. Standard string conversions apply to non\-string arguments\. All hash functions are supported by SQL version 2015\-10\-8 and later\.
+All hash functions expect one string argument\. The result is the hashed value of that string\. Standard string conversions apply to non\-string arguments\. All hash functions are supported by SQL version 2015\-10\-08 and later\.
 
 Examples:
 
@@ -611,7 +631,7 @@ Examples:
 
 ## indexof\(String, String\)<a name="iot-sql-function-indexof"></a>
 
-Returns the first index \(0\-based\) of the second argument as a substring in the first argument\. Both arguments are expected as strings\. Arguments that are not strings are subjected to standard string conversion rules\. This function does not apply to arrays, only to strings\. Supported by SQL version 2015\-10\-8 and later\.
+Returns the first index \(0\-based\) of the second argument as a substring in the first argument\. Both arguments are expected as strings\. Arguments that are not strings are subjected to standard string conversion rules\. This function does not apply to arrays, only to strings\. Supported by SQL version 2015\-10\-08 and later\.
 
 Examples:
 
@@ -619,7 +639,7 @@ Examples:
 
 ## isNull\(\)<a name="iot-sql-function-isNull"></a>
 
-Returns true if the argument is the `Null` value\. Supported by SQL version 2015\-10\-8 and later\.
+Returns true if the argument is the `Null` value\. Supported by SQL version 2015\-10\-08 and later\.
 
 Examples:
 
@@ -667,7 +687,7 @@ Examples:
 
 ## length\(String\)<a name="iot-sql-function-length"></a>
 
-Returns the number of characters in the provided string\. Standard conversion rules apply to non\-`String` arguments\. Supported by SQL version 2015\-10\-8 and later\.
+Returns the number of characters in the provided string\. Standard conversion rules apply to non\-`String` arguments\. Supported by SQL version 2015\-10\-08 and later\.
 
 Examples:
 
@@ -677,7 +697,7 @@ Examples:
 
 ## ln\(Decimal\)<a name="iot-func-nln"></a>
 
-Returns the natural logarithm of the argument\. `Decimal` arguments are rounded to double precision before function application\. Supported by SQL version 2015\-10\-8 and later\.
+Returns the natural logarithm of the argument\. `Decimal` arguments are rounded to double precision before function application\. Supported by SQL version 2015\-10\-08 and later\.
 
 Example: `ln(e)` = 1\. 
 
@@ -697,7 +717,7 @@ Example: `ln(e)` = 1\.
 
 ## log\(Decimal\)<a name="iot-func-log"></a>
 
-Returns the base 10 logarithm of the argument\. `Decimal` arguments are rounded to double precision before function application\. Supported by SQL version 2015\-10\-8 and later\.
+Returns the base 10 logarithm of the argument\. `Decimal` arguments are rounded to double precision before function application\. Supported by SQL version 2015\-10\-08 and later\.
 
 Example: `log(100)` = 2\.0\. 
 
@@ -717,7 +737,7 @@ Example: `log(100)` = 2\.0\.
 
 ## lower\(String\)<a name="iot-func-lower"></a>
 
-Returns the lowercase version of the given `String`\. Non\-string arguments are converted to strings using the standard conversion rules\. Supported by SQL version 2015\-10\-8 and later\.
+Returns the lowercase version of the given `String`\. Non\-string arguments are converted to strings using the standard conversion rules\. Supported by SQL version 2015\-10\-08 and later\.
 
 Examples:
 
@@ -727,7 +747,7 @@ Examples:
 
 ## lpad\(String, Int\)<a name="iot-func-lpad"></a>
 
-Returns the `String` argument, padded on the left side with the number of spaces specified by the second argument\. The `Int` argument must be between 0 and 1000\. If the provided value is outside of this valid range, the argument is set to the nearest valid value \(0 or 1000\)\. Supported by SQL version 2015\-10\-8 and later\.
+Returns the `String` argument, padded on the left side with the number of spaces specified by the second argument\. The `Int` argument must be between 0 and 1000\. If the provided value is outside of this valid range, the argument is set to the nearest valid value \(0 or 1000\)\. Supported by SQL version 2015\-10\-08 and later\.
 
 Examples:
 
@@ -748,7 +768,7 @@ Examples:
 
 ## ltrim\(String\)<a name="iot-func-ltrim"></a>
 
-Removes all leading whitespace \(tabs and spaces\) from the provided `String`\. Supported by SQL version 2015\-10\-8 and later\.
+Removes all leading white space \(tabs and spaces\) from the provided `String`\. Supported by SQL version 2015\-10\-08 and later\.
 
 Example:
 
@@ -759,18 +779,18 @@ Example:
 
 | Argument Type | Result | 
 | --- | --- | 
-| Int | The String representation of the Int with all leading whitespace removed\. | 
-| Decimal | The String representation of the Decimal with all leading whitespace removed\. | 
-| Boolean | The String representation of the boolean \("true" or "false"\) with all leading whitespace removed\. | 
-| String | The argument with all leading whitespace removed\. | 
-| Array | The String representation of the Array \(using standard conversion rules\) with all leading whitespace removed\. | 
-| Object | The String representation of the Object \(using standard conversion rules\) with all leading whitespace removed\. | 
+| Int | The String representation of the Int with all leading white space removed\. | 
+| Decimal | The String representation of the Decimal with all leading white space removed\. | 
+| Boolean | The String representation of the boolean \("true" or "false"\) with all leading white space removed\. | 
+| String | The argument with all leading white space removed\. | 
+| Array | The String representation of the Array \(using standard conversion rules\) with all leading white space removed\. | 
+| Object | The String representation of the Object \(using standard conversion rules\) with all leading white space removed\. | 
 | Null | Undefined\. | 
 | Undefined | Undefined\. | 
 
 ## machinelearning\_predict\(modelId\)<a name="iot-sql-function-machine-learning"></a>
 
-Use the `machinelearning_predict` function to make predictions using the data from an MQTT message based on an Amazon Machine Learning \(Amazon ML\) model\. Supported by SQL version 2015\-10\-8 and later\. The arguments for the `machinelearning_predict` function are:
+Use the `machinelearning_predict` function to make predictions using the data from an MQTT message based on an Amazon Machine Learning \(Amazon ML\) model\. Supported by SQL version 2015\-10\-08 and later\. The arguments for the `machinelearning_predict` function are:
 
 modelId  
 The ID of the model against which to run the prediction\. The real\-time endpoint of the model must be enabled\.
@@ -810,7 +830,7 @@ The value predicted by Amazon ML\.
 
 ## mod\(Decimal, Decimal\)<a name="iot-func-mod"></a>
 
-Returns the remainder of the division of the first argument by the second argument\. Supported by SQL version 2015\-10\-8 and later\. You can also use "%" as an infix operator for the same modulo functionality\. Supported by SQL version 2015\-10\-8 and later\.
+Returns the remainder of the division of the first argument by the second argument\. Equivalent to [remainder\(Decimal, Decimal\)](#iot-func-remainder)\. You can also use "%" as an infix operator for the same modulo functionality\. Supported by SQL version 2015\-10\-08 and later\.
 
 Example: `mod(8, 3)` = 2\.
 
@@ -826,7 +846,7 @@ Example: `mod(8, 3)` = 2\.
 
 ## nanvl\(AnyValue, AnyValue\)<a name="iot-func-nanvl"></a>
 
-Returns the first argument if it is a valid `Decimal`\. Otherwise, the second argument is returned\. Supported by SQL version 2015\-10\-8 and later\. 
+Returns the first argument if it is a valid `Decimal`\. Otherwise, the second argument is returned\. Supported by SQL version 2015\-10\-08 and later\. 
 
 Example: `Nanvl(8, 3)` = 8\.
 
@@ -843,13 +863,13 @@ Example: `Nanvl(8, 3)` = 8\.
 
 ## newuuid\(\)<a name="iot-sql-function-newuuid"></a>
 
-Returns a random 16\-byte UUID\. Supported by SQL version 2015\-10\-8 and later\.
+Returns a random 16\-byte UUID\. Supported by SQL version 2015\-10\-08 and later\.
 
 Example: `newuuid()` = `123a4567-b89c-12d3-e456-789012345000`
 
 ## numbytes\(String\)<a name="iot-sql-function-numbytes"></a>
 
-Returns the number of bytes in the UTF\-8 encoding of the provided string\. Standard conversion rules apply to non\-`String` arguments\. Supported by SQL version 2015\-10\-8 and later\.
+Returns the number of bytes in the UTF\-8 encoding of the provided string\. Standard conversion rules apply to non\-`String` arguments\. Supported by SQL version 2015\-10\-08 and later\.
 
 Examples:
 
@@ -964,7 +984,7 @@ When this message is published to the topic 'A/B', a payload similar to `{"ts": 
 
 ## power\(Decimal, Decimal\)<a name="iot-func-power"></a>
 
-Returns the first argument raised to the second argument\. `Decimal` arguments are rounded to double precision before function application\. Supported by SQL version 2015\-10\-8 and later\. Supported by SQL version 2015\-10\-8 and later\.
+Returns the first argument raised to the second argument\. `Decimal` arguments are rounded to double precision before function application\. Supported by SQL version 2015\-10\-08 and later\. Supported by SQL version 2015\-10\-08 and later\.
 
 Example: `power(2, 5)` = 32\.0\.
 
@@ -979,11 +999,11 @@ Example: `power(2, 5)` = 32\.0\.
 
 ## rand\(\)<a name="iot-sql-function-rand"></a>
 
-Returns a pseudorandom, uniformly distributed double between 0\.0 and 1\.0\. Supported by SQL version 2015\-10\-8 and later\.
+Returns a pseudorandom, uniformly distributed double between 0\.0 and 1\.0\. Supported by SQL version 2015\-10\-08 and later\.
 
 Example:
 
-`rand() ` = 0\.8231909191640703
+`rand()` = 0\.8231909191640703
 
 ## regexp\_matches\(String, String\)<a name="iot-func-regex-matches"></a>
 
@@ -991,9 +1011,9 @@ Returns true if the string \(first argument\) contains a match for the regular e
 
 Example:
 
-`Regexp_matches("aaaa", "a{2,}") ` = true\.
+`regexp_matches("aaaa", "a{2,}") ` = true\.
 
-`Regexp_matches("aaaa", "b")` = false\.
+`regexp_matches("aaaa", "b")` = false\.
 
 
 **First argument:**  
@@ -1013,19 +1033,15 @@ Example:
 
 Must be a valid regex expression\. Non\-string types are converted to `String` using the standard conversion rules\. Depending on the type, the resultant string might not be a valid regular expression\. If the \(converted\) argument is not valid regex, the result is `Undefined`\. 
 
-*Third argument:*
-
-Must be a valid regex replacement string\. \(Can reference capture groups\.\) Non\-string types are converted to `String` using the standard conversion rules\. If the \(converted\) argument is not a valid regex replacement string, the result is `Undefined`\. 
-
 ## regexp\_replace\(String, String, String\)<a name="iot-func-regex-replace"></a>
 
-Replaces all occurrences of the second argument \(regular expression\) in the first argument with the third argument\. Reference capture groups with "$"\. Supported by SQL version 2015\-10\-8 and later\.
+Replaces all occurrences of the second argument \(regular expression\) in the first argument with the third argument\. Reference capture groups with "$"\. Supported by SQL version 2015\-10\-08 and later\.
 
 Example:
 
-`Regexp_replace("abcd", "bc", "x")` = "axd"\.
+`regexp_replace("abcd", "bc", "x")` = "axd"\.
 
-`Regexp_replace("abcd", "b(.*)d", "$1")` = "ac"\.
+`regexp_replace("abcd", "b(.*)d", "$1")` = "ac"\.
 
 
 **First argument:**  
@@ -1051,13 +1067,13 @@ Must be a valid regex replacement string\. \(Can reference capture groups\.\) No
 
 ## regexp\_substr\(String, String\)<a name="iot-func-regex-substr"></a>
 
-Finds the first match of the second parameter \(regex\) in the first parameter\. Reference capture groups with "$"\. Supported by SQL version 2015\-10\-8 and later\.
+Finds the first match of the second parameter \(regex\) in the first parameter\. Reference capture groups with "$"\. Supported by SQL version 2015\-10\-08 and later\.
 
 Example:
 
-`regexp_substr("hihihello", "hi")` => `"hi"`
+`regexp_substr("hihihello", "hi")` = "hi"
 
-`regexp_substr("hihihello", "(hi)*")` => `"hihi"`\.
+`regexp_substr("hihihello", "(hi)*")` = "hihi"
 
 
 **First argument:**  
@@ -1081,9 +1097,49 @@ Must be a valid regex expression\. Non\-string types are converted to `String` u
 
 Must be a valid regex replacement string\. \(Can reference capture groups\.\) Non\-string types are converted to `String` using the standard conversion rules\. If the argument is not a valid regex replacement string, the result is `Undefined`\. 
 
+## remainder\(Decimal, Decimal\)<a name="iot-func-remainder"></a>
+
+Returns the remainder of the division of the first argument by the second argument\. Equivalent to [mod\(Decimal, Decimal\)](#iot-func-mod)\. You can also use "%" as an infix operator for the same modulo functionality\. Supported by SQL version 2015\-10\-08 and later\.
+
+Example: `remainder(8, 3)` = 2\.
+
+
+****  
+
+| Left Operand | Right Operand | Output | 
+| --- | --- | --- | 
+| Int | Int | Int, the first argument modulo the second argument\. | 
+| Int/Decimal | Int/Decimal | Decimal, the first argument modulo the second operand\. | 
+| String/Int/Decimal | String/Int/Decimal | If all strings convert to decimals, the result is the first argument modulo the second argument\. Otherwise, Undefined\. | 
+| Other Value | Other Value | Undefined\. | 
+
+## replace\(String, String, String\)<a name="iot-func-replace"></a>
+
+Replaces all occurrences of the second argument in the first argument with the third argument\. Supported by SQL version 2015\-10\-08 and later\.
+
+Example:
+
+`replace("abcd", "bc", "x")` = `"axd"`\.
+
+`replace("abcdabcd", "b", "x")` = `"afcdafcd"`\.
+
+
+**All arguments**  
+
+| Argument Type | Result | 
+| --- | --- | 
+| Int | The String representation of the Int\. | 
+| Decimal | The String representation of the Decimal\. | 
+| Boolean | The String representation of the boolean \("true" or "false"\)\. | 
+| String | The source value\. | 
+| Array | The String representation of the Array \(using standard conversion rules\)\. | 
+| Object | The String representation of the Object \(using standard conversion rules\)\. | 
+| Null | Undefined\. | 
+| Undefined | Undefined\. | 
+
 ## rpad\(String, Int\)<a name="iot-func-rpad"></a>
 
-Returns the string argument, padded on the right side with the number of spaces specified in the second argument\. The `Int` argument must be between 0 and 1000\. If the provided value is outside of this valid range, the argument is set to the nearest valid value \(0 or 1000\)\. Supported by SQL version 2015\-10\-8 and later\.
+Returns the string argument, padded on the right side with the number of spaces specified in the second argument\. The `Int` argument must be between 0 and 1000\. If the provided value is outside of this valid range, the argument is set to the nearest valid value \(0 or 1000\)\. Supported by SQL version 2015\-10\-08 and later\.
 
 Examples:
 
@@ -1104,7 +1160,7 @@ Examples:
 
 ## round\(Decimal\)<a name="iot-func-round"></a>
 
-Rounds the given `Decimal` to the nearest `Int`\. If the `Decimal` is equidistant from two `Int` values \(for example, 0\.5\), the `Decimal` is rounded up\. Supported by SQL version 2015\-10\-8 and later\.
+Rounds the given `Decimal` to the nearest `Int`\. If the `Decimal` is equidistant from two `Int` values \(for example, 0\.5\), the `Decimal` is rounded up\. Supported by SQL version 2015\-10\-08 and later\.
 
 Example: `Round(1.2)` = 1\.
 
@@ -1128,7 +1184,7 @@ Example: `Round(1.2)` = 1\.
 
 ## rtrim\(String\)<a name="iot-func-rtrim"></a>
 
-Removes all trailing whitespace \(tabs and spaces\) from the provided `String`\. Supported by SQL version 2015\-10\-8 and later\.
+Removes all trailing white space \(tabs and spaces\) from the provided `String`\. Supported by SQL version 2015\-10\-08 and later\.
 
 Examples:
 
@@ -1149,7 +1205,7 @@ Examples:
 
 ## sign\(Decimal\)<a name="iot-func-sign"></a>
 
-Returns the sign of the given number\. When the sign of the argument is positive, 1 is returned\. When the sign of the argument is negative, \-1 is returned\. If the argument is 0, 0 is returned\. Supported by SQL version 2015\-10\-8 and later\.
+Returns the sign of the given number\. When the sign of the argument is positive, 1 is returned\. When the sign of the argument is negative, \-1 is returned\. If the argument is 0, 0 is returned\. Supported by SQL version 2015\-10\-08 and later\.
 
 Examples:
 
@@ -1166,12 +1222,12 @@ Examples:
 | --- | --- | 
 | Int | Int, the sign of the Int value\. | 
 | Decimal | Int, the sign of the Decimal value\. | 
-| String | Int, the sign of the Decimal value\. The string is converted to a Decimal value, and the sign of the Decimal value is returned\. If the String cannot be converted to a Decimal, the result is Undefined\. Supported by SQL version 2015\-10\-8 and later\. | 
+| String | Int, the sign of the Decimal value\. The string is converted to a Decimal value, and the sign of the Decimal value is returned\. If the String cannot be converted to a Decimal, the result is Undefined\. Supported by SQL version 2015\-10\-08 and later\. | 
 | Other Value | Undefined\. | 
 
 ## sin\(Decimal\)<a name="iot-func-sin"></a>
 
-Returns the sine of a number in radians\. `Decimal` arguments are rounded to double precision before function application\. Supported by SQL version 2015\-10\-8 and later\.
+Returns the sine of a number in radians\. `Decimal` arguments are rounded to double precision before function application\. Supported by SQL version 2015\-10\-08 and later\.
 
 Example: `sin(0)` = 0\.0
 
@@ -1191,7 +1247,7 @@ Example: `sin(0)` = 0\.0
 
 ## sinh\(Decimal\)<a name="iot-func-sinh"></a>
 
-Returns the hyperbolic sine of a number\. `Decimal` values are rounded to double precision before function application\. The result is a `Decimal` value of double precision\. Supported by SQL version 2015\-10\-8 and later\.
+Returns the hyperbolic sine of a number\. `Decimal` values are rounded to double precision before function application\. The result is a `Decimal` value of double precision\. Supported by SQL version 2015\-10\-08 and later\.
 
 Example: `sinh(2.3)` = 4\.936961805545957
 
@@ -1213,7 +1269,7 @@ Example: `sinh(2.3)` = 4\.936961805545957
 
 Expects a `String` followed by one or two `Int` values\. For a `String` and a single `Int` argument, this function returns the substring of the provided `String` from the provided `Int` index \(0\-based, inclusive\) to the end of the `String`\. For a `String` and two `Int` arguments, this function returns the substring of the provided `String` from the first `Int` index argument \(0\-based, inclusive\) to the second `Int` index argument \(0\-based, exclusive\)\. Indices that are less than zero are set to zero\. Indices that are greater than the `String` length are set to the `String` length\. For the three argument version, if the first index is greater than \(or equal to\) the second index, the result is the empty `String`\.
 
- If the arguments provided are not \(*String*, *Int*\), or \(*String*, *Int*, *Int*\), the standard conversions are applied to the arguments to attempt to convert them into the correct types\. If the types cannot be converted, the result of the function is `Undefined`\. Supported by SQL version 2015\-10\-8 and later\.
+ If the arguments provided are not \(*String*, *Int*\), or \(*String*, *Int*, *Int*\), the standard conversions are applied to the arguments to attempt to convert them into the correct types\. If the types cannot be converted, the result of the function is `Undefined`\. Supported by SQL version 2015\-10\-08 and later\.
 
 Examples:
 
@@ -1237,9 +1293,17 @@ Examples:
 
 `substring("012345", 3, 1)` = ""\.
 
+## sql\_version\(\)<a name="iot-sql-function-sql-version"></a>
+
+Returns the SQL version specified in this rule\. Supported by SQL version 2015\-10\-08 and later\.
+
+Example:
+
+`sql_version()` = "2016\-03\-23"
+
 ## sqrt\(Decimal\)<a name="iot-func-sqrt"></a>
 
-Returns the square root of a number\. `Decimal` arguments are rounded to double precision before function application\. Supported by SQL version 2015\-10\-8 and later\.
+Returns the square root of a number\. `Decimal` arguments are rounded to double precision before function application\. Supported by SQL version 2015\-10\-08 and later\.
 
 Example: `sqrt(9)` = 3\.0\.
 
@@ -1259,7 +1323,7 @@ Example: `sqrt(9)` = 3\.0\.
 
 ## startswith\(String, String\)<a name="iot-func-startswith"></a>
 
-Returns `Boolean`, whether the first string argument starts with the second string argument\. If either argument is `Null` or `Undefined`, the result is `Undefined`\. Supported by SQL version 2015\-10\-8 and later\.
+Returns `Boolean`, whether the first string argument starts with the second string argument\. If either argument is `Null` or `Undefined`, the result is `Undefined`\. Supported by SQL version 2015\-10\-08 and later\.
 
 Example:
 
@@ -1275,7 +1339,7 @@ Example:
 
 ## tan\(Decimal\)<a name="iot-func-tan"></a>
 
-Returns the tangent of a number in radians\. `Decimal` values are rounded to double precision before function application\. Supported by SQL version 2015\-10\-8 and later\.
+Returns the tangent of a number in radians\. `Decimal` values are rounded to double precision before function application\. Supported by SQL version 2015\-10\-08 and later\.
 
 Example: `tan(3)` = \-0\.1425465430742778
 
@@ -1295,7 +1359,7 @@ Example: `tan(3)` = \-0\.1425465430742778
 
 ## tanh\(Decimal\)<a name="iot-func-tanh"></a>
 
-Returns the hyperbolic tangent of a number in radians\. `Decimal` values are rounded to double precision before function application\. Supported by SQL version 2015\-10\-8 and later\.
+Returns the hyperbolic tangent of a number in radians\. `Decimal` values are rounded to double precision before function application\. Supported by SQL version 2015\-10\-08 and later\.
 
 Example: `tanh(2.3)` = 0\.9800963962661914
 
@@ -1315,13 +1379,13 @@ Example: `tanh(2.3)` = 0\.9800963962661914
 
 ## timestamp\(\)<a name="iot-function-timestamp"></a>
 
-Returns the current timestamp in milliseconds from 00:00:00 Coordinated Universal Time \(UTC\), Thursday, 1 January 1970, as observed by the AWS IoT rules engine\. Supported by SQL version 2015\-10\-8 and later\.
+Returns the current timestamp in milliseconds from 00:00:00 Coordinated Universal Time \(UTC\), Thursday, 1 January 1970, as observed by the AWS IoT rules engine\. Supported by SQL version 2015\-10\-08 and later\.
 
 Example: `timestamp()` = `1481825251155`
 
 ## topic\(Decimal\)<a name="iot-function-topic"></a>
 
-Returns the topic to which the message that triggered the rule was sent\. If no parameter is specified, the entire topic is returned\. The `Decimal` parameter is used to specify a specific topic segment, with 1 designating the first segment\. For the topic `foo/bar/baz`, topic\(1\) returns `foo`, topic\(2\) returns `bar`, and so on\. Supported by SQL version 2015\-10\-8 and later\.
+Returns the topic to which the message that triggered the rule was sent\. If no parameter is specified, the entire topic is returned\. The `Decimal` parameter is used to specify a specific topic segment, with 1 designating the first segment\. For the topic `foo/bar/baz`, topic\(1\) returns `foo`, topic\(2\) returns `bar`, and so on\. Supported by SQL version 2015\-10\-08 and later\.
 
 Examples:
 
@@ -1339,7 +1403,7 @@ When [Basic Ingest](iot-basic-ingest.md) is used, the initial prefix of the topi
 
 ## traceid\(\)<a name="iot-sql-function-traceid"></a>
 
-Returns the trace ID \(UUID\) of the MQTT message, or `Undefined` if the message wasn't sent over MQTT\. Supported by SQL version 2015\-10\-8 and later\.
+Returns the trace ID \(UUID\) of the MQTT message, or `Undefined` if the message wasn't sent over MQTT\. Supported by SQL version 2015\-10\-08 and later\.
 
 Example:
 
@@ -1347,7 +1411,7 @@ Example:
 
 ## trunc\(Decimal, Int\)<a name="iot-func-trunc"></a>
 
-Truncates the first argument to the number of `Decimal` places specified by the second argument\. If the second argument is less than zero, it is set to zero\. If the second argument is greater than 34, it is set to 34\. Trailing zeroes are stripped from the result\. Supported by SQL version 2015\-10\-8 and later\.
+Truncates the first argument to the number of `Decimal` places specified by the second argument\. If the second argument is less than zero, it is set to zero\. If the second argument is greater than 34, it is set to 34\. Trailing zeroes are stripped from the result\. Supported by SQL version 2015\-10\-08 and later\.
 
 Examples: 
 
@@ -1371,7 +1435,7 @@ Examples:
 
 ## trim\(String\)<a name="iot-func-trim"></a>
 
-Removes all leading and trailing whitespace from the provided `String`\. Supported by SQL version 2015\-10\-8 and later\.
+Removes all leading and trailing white space from the provided `String`\. Supported by SQL version 2015\-10\-08 and later\.
 
 Example:
 
@@ -1382,10 +1446,10 @@ Example:
 
 | Argument Type | Result | 
 | --- | --- | 
-| Int | The String representation of the Int with all leading and trailing whitespace removed\. | 
-| Decimal | The String representation of the Decimal with all leading and trailing whitespace removed\. | 
-| Boolean | The String representation of the Boolean \("true" or "false"\) with all leading and trailing whitespace removed\. | 
-| String | The String with all leading and trailing whitespace removed\. | 
+| Int | The String representation of the Int with all leading and trailing white space removed\. | 
+| Decimal | The String representation of the Decimal with all leading and trailing white space removed\. | 
+| Boolean | The String representation of the Boolean \("true" or "false"\) with all leading and trailing white space removed\. | 
+| String | The String with all leading and trailing white space removed\. | 
 | Array | The String representation of the Array using standard conversion rules\. | 
 | Object | The String representation of the Object using standard conversion rules\. | 
 | Null | Undefined\. | 
@@ -1393,7 +1457,7 @@ Example:
 
 ## upper\(String\)<a name="iot-sql-function-upper"></a>
 
-Returns the uppercase version of the given `String`\. Non\-`String` arguments are converted to `String` using the standard conversion rules\. Supported by SQL version 2015\-10\-8 and later\.
+Returns the uppercase version of the given `String`\. Non\-`String` arguments are converted to `String` using the standard conversion rules\. Supported by SQL version 2015\-10\-08 and later\.
 
 Examples:
 

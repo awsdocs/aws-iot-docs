@@ -99,4 +99,4 @@ This sample template declares values for the `AWS::IoT::Certificate::CommonName`
 You should be able to see the certificate registration as a logged event \(`RegisterCACertificate`\) in AWS CloudTrail\. You can also use CloudTrail to troubleshoot issues with your JITP template\. 
 
 **Note**  
-JITP calls other AWS IoT control plane APIs during the provisioning process\. These calls might exceed the [ AWS IoT Throttling Limits](https://docs.aws.amazon.com/general/latest/gr/aws_service_limits.html#limits_iot) set for your account and result in throttled calls\. Contact [AWS Customer Support](https://console.aws.amazon.com/support/home) to raise your throttling limits, if necessary\.
+JITP calls other AWS IoT control plane APIs during the provisioning process\. These calls might exceed the [ AWS IoT Throttling Quotas](https://docs.aws.amazon.com/general/latest/gr/aws_service_limits.html#limits_iot) set for your account and result in throttled calls\. Contact [AWS Customer Support](https://console.aws.amazon.com/support/home) to raise your throttling quotas, if necessary\.

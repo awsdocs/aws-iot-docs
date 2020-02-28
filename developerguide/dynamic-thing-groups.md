@@ -139,9 +139,7 @@ By default, if a thing belongs to 10 thing groups, you cannot add the thing to a
 
 For example, suppose that you create a dynamic thing group named DynamicGroup1, and then you create nine more dynamic thing groups, with DynamicGroup10 being the last group that you created\. If Thing1 belongs to all 10 dynamic thing groups, manually adding Thing1 to a static group with `OverrideDynamicGroups` enabled removes the thing from DynamicGroup10\.
 
-### Applying Policies to Members of a Dynamic Thing Group<a name="apply-policy"></a>
-
- A thing can belong to at most 10 dynamic groups\. If a search query string defines a dynamic thing group that contains a thing that already belongs to 10 dynamic thing groups, the policy is not applied to that thing\.
+### <a name="apply-policy"></a>
 
 ### Dynamic thing group membership is eventually consistent<a name="update-conflict"></a>
 

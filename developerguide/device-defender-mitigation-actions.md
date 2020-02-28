@@ -3,7 +3,7 @@
 You can use AWS IoT Device Defender to take actions to mitigate issues that were found during an audit\. AWS IoT Device Defender provides predefined actions for the different audit checks\. You configure those actions for your AWS account and then apply them to a set of findings\. Those findings can be:
 + All findings from an audit\. This option is available in both the AWS IoT console and by using the AWS CLI\.
 + A list of individual findings\. This option is only available by using the AWS CLI\.
-+ A filtered set of findings from an audit\.\.
++ A filtered set of findings from an audit\.
 
 The following table lists the types of audit checks and the supported mitigation actions for each:
 
@@ -22,7 +22,7 @@ The following table lists the types of audit checks and the supported mitigation
 | DEVICE\_CERT\_APPROACHING\_EXPIRATION\_CHECK | PUBLISH\_FINDING\_TO\_SNS, UPDATE\_DEVICE\_CERTIFICATE, ADD\_THINGS\_TO\_THING\_GROUP | 
 | REVOKED\_DEVICE\_CERT\_CHECK | PUBLISH\_FINDING\_TO\_SNS, UPDATE\_DEVICE\_CERTIFICATE, ADD\_THINGS\_TO\_THING\_GROUP | 
 | LOGGING\_DISABLED\_CHECK | PUBLISH\_FINDING\_TO\_SNS, ENABLE\_IOT\_LOGGING | 
-| DEVICE\_CERTFICATE\_KEY\_QUALITY\_CHECK | PUBLISH\_FINDING\_TO\_SNS, UPDATE\_DEVICE\_CERTIFICATE, ADD\_THINGS\_TO\_THING\_GROUP | 
+| DEVICE\_CERTIFICATE\_KEY\_QUALITY\_CHECK | PUBLISH\_FINDING\_TO\_SNS, UPDATE\_DEVICE\_CERTIFICATE, ADD\_THINGS\_TO\_THING\_GROUP | 
 | CA\_CERTIFICATE\_KEY\_QUALITY\_CHECK | PUBLISH\_FINDING\_TO\_SNS, UPDATE\_CA\_CERTIFICATE | 
 | IOT\_ROLE\_ALIAS\_OVERLY\_PERMISSIVE\_CHECK | PUBLISH\_FINDING\_TO\_SNS | 
 | IOT\_ROLE\_ALIAS\_ALLOWS\_ACCESS\_TO\_UNUSED\_SERVICES\_CHECK | PUBLISH\_FINDING\_TO\_SNS | 
@@ -284,16 +284,3 @@ For all mitigation action types, use the following trust policy template:
     ]
 }
 ```
-
-## Service Limits<a name="defender-audit-mitigation-actions-limits"></a>
-
-The following service limits apply to mitigation actions and audit mitigation action tasks:
-
-
-****  
-
-| Resource | Limit | 
-| --- | --- | 
-| Maximum number of mitigation actions in an AWS account | 100 actions | 
-| Maximum number of audit mitigation action tasks running at the same time | 10 tasks | 
-| Retention period for audit mitigation action tasks | 90 days | 

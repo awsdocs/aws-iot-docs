@@ -16,9 +16,7 @@ Devices publish MQTT messages on topics\. You can use the AWS IoT MQTT client to
 ![\[Image NOT FOUND\]](http://docs.aws.amazon.com/iot/latest/developerguide/images/subscribed-button-topic.png)
 
 **To emulate an IoT thing sending a message**
-+ On the MQTT client page, in the **Publish** section, in the **Specify a topic and a message to publish** field, enter **my/topic**\. 
-**Note**  
-We do not recommend using personally identifiable information in topic names\.
++ On the MQTT client page, in the **Publish** section, in the **Specify a topic and a message to publish** field, enter **my/topic**\. Do not use personally identifiable information in topic names\.
 
   In the message payload section, enter the following JSON:
 

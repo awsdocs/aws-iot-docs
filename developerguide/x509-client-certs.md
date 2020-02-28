@@ -2,7 +2,7 @@
 
 X\.509 certificates provide several benefits over other identification and authentication mechanisms\. X\.509 certificates enable asymmetric keys to be used with devices\. This means you can burn private keys into secure storage on a device\. This way, sensitive cryptographic material never leaves the device\. X\.509 certificates provide stronger client authentication over other schemes, such as user name and password or bearer tokens, because the private key never leaves the device\.
 
-AWS IoT authenticates client certificates using the TLS protocol’s client authentication mode\. TLS is available in many programming languages and operating systems and is commonly used for encrypting data\. In TLS client authentication, AWS IoT requests an X\.509 client certificate and validates the certificate’s status and AWS account against a registry of certificates\. It then challenges the client for proof of ownership of the private key that corresponds to the public key contained in the certificate\.
+AWS IoT authenticates client certificates using the TLS protocol's client authentication mode\. TLS is available in many programming languages and operating systems and is commonly used for encrypting data\. In TLS client authentication, AWS IoT requests an X\.509 client certificate and validates the certificate's status and AWS account against a registry of certificates\. It then challenges the client for proof of ownership of the private key that corresponds to the public key contained in the certificate\.
 
 AWS IoT supports the following client certificate\-signing algorithms:
 + SHA256WITHRSA

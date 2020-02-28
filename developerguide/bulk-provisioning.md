@@ -15,4 +15,4 @@ The following bulk registration\-related APIs might be useful:
 
 **Note**  
 Only one bulk registration operation task can run at a time \(per account\)\.
-Bulk registration operations call other AWS IoT control plane APIs\. These calls might exceed the [ AWS IoT Throttling Limits](https://docs.aws.amazon.com/general/latest/gr/aws_service_limits.html#limits_iot) in your account and cause throttle errors\. Contact [AWS Customer Support](https://console.aws.amazon.com/support/home) to raise your AWS IoT throttling limits, if necessary\.
+Bulk registration operations call other AWS IoT control plane APIs\. These calls might exceed the [ AWS IoT Throttling Quotas](https://docs.aws.amazon.com/general/latest/gr/aws_service_limits.html#limits_iot) in your account and cause throttle errors\. Contact [AWS Customer Support](https://console.aws.amazon.com/support/home) to raise your AWS IoT throttling quotas, if necessary\.

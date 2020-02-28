@@ -40,7 +40,7 @@ Thing connectivity data is indexed\.
 
 The `customFields` attribute is a list of field and data type pairs\. Aggregation queries can be performed over these fields based on the data type\. The indexing mode you choose \(REGISTRY or REGISTRY\_AND\_SHADOW\) effects what fields can be specified in `customFields`\. For example, if you specify the `REGISTRY` indexing mode, you cannot specify a field from a thing shadow\. Custom fields must be specified in `customFields` to be indexed\.
 
-If there is a type inconsistency between a custom field in your configuration and the value being indexed, the Fleet Indexing service ignores the inconsistent value for aggregation queries\. CloudWatch logs are helpful when troubleshooting aggregation query problems\. For more information, see [Troubleshooting Aggregation Queries](index-aggregate.md#aggregation-troubleshooting)\. 
+If there is a type inconsistency between a custom field in your configuration and the value being indexed, the Fleet Indexing service ignores the inconsistent value for aggregation queries\. CloudWatch logs are helpful when troubleshooting aggregation query problems\. For more information, see [Troubleshooting Aggregation Queries for the Fleet Indexing Service](aggregation-troubleshooting.md)\. 
 
 Managed fields contain data associated with IoT things, thing groups, and device shadows\. The data type of managed fields are defined by AWS IoT\. You specify the values of each managed field when you create an IoT thing\. For example thing names, thing groups, and thing descriptions are all managed fields\. The Fleet Indexing service indexes managed fields based on the indexing mode you specify:
 + Managed fields for the registry
@@ -380,7 +380,7 @@ aws iot search\-index \-\-index\-name "AWS\_Things" \-\-query\-string "thingName
 }
 ```
 
-In the JSON response, `"connectivity"` \(as enabled by the `thingConnectivityIndexingMode=STATUS` setting\) provides a Boolean value and a timestamp that indicates if the device is connected to AWS IoT Core\. The device `"mything1"` disconnected \(`false`\) at POSIX time `1556649874716`:
+In the JSON response, `"connectivity"` \(as enabled by the `thingConnectivityIndexingMode=STATUS` setting\) provides a Boolean value and a timestamp that indicates if the device is connected to \. The device `"mything1"` disconnected \(`false`\) at POSIX time `1556649874716`:
 
 ```
 "connectivity": { 
@@ -468,7 +468,7 @@ Shadow metadata
 A field in a shadow's metadata section is indexed, but only if the corresponding field in the shadow's `"state"` section is indexed\. \(In the previous example, the `"palette"` field in the shadow's metadata section is not indexed either\.\)
 
 Unregistered shadows  
-If you use [UpdateShadow](https://docs.aws.amazon.com/API_UpdateThingShadow.html) to create a shadow using a thing name that hasn't been registered in your AWS IoT account, fields in this shadow are not indexed\.
+If you use [UpdateThingShadow](https://docs.aws.amazon.com/iot/latest/apireference/API_iotdata_UpdateThingShadow.html) to create a shadow using a thing name that hasn't been registered in your AWS IoT account, fields in this shadow are not indexed\.
 
 Numeric values  
 If any registry or shadow data is recognized by the service as a numeric value, it's indexed as such\. You can form queries involving ranges and comparison operators on numeric values \(for example, `"attribute.foo<5"` or `"shadow.reported.foo:[75 TO 80]"`\)\. To be recognized as numeric, the value of the data must be a valid JSON number type literal \(an integer in the range \-2^53\.\.\.2^53\-1 or a double\-precision floating point with optional exponential notation\) or part of an array that contains only such values\.

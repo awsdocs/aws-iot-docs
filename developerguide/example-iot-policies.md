@@ -1,25 +1,18 @@
 # Example AWS IoT Policies<a name="example-iot-policies"></a>
 
-AWS IoT policies are specified in a JSON document\. An AWS IoT policy is composed of the following items:
+See the following topics to learn about common elements in an AWS IoT policy\. You can use the example policies to complete common tasks in AWS IoT\.
 
-*Version*  
-Must be set to `"2012-10-17"`\.
+**Topics**
++ [AWS IoT Policy Elements](example-iot-policies-elements.md)
++ [Connect Policy Examples](connect-policy.md)
++ [Publish/Subscribe Policy Examples](pub-sub-policy.md)
++ [Connect and Publish Policy Examples](connect-and-pub.md)
++ [Certificate Policy Examples](certificate-policy-examples.md)
++ [Thing Policy Examples](thing-policy-examples.md)
 
-*Effect*  
-Must be set to `"Allow"` or `"Deny"`\.
+**Example Policies**
 
-*Action*  
-Must be set to "iot:*operation\-name*" where *operation\-name* is one of the following:  
-`"iot:Connect"`: Connect to AWS IoT\.  
-`"iot:Receive"`: Receive messages from AWS IoT\.  
-`"iot:Publish"`: MQTT publish\.  
-`"iot:Subscribe"`: MQTT subscribe\.  
-`"iot:UpdateThingShadow"`: Update a device's shadow\.  
-`"iot:GetThingShadow"`: Retrieve a device's shadow\.  
-`"iot:DeleteThingShadow"`: Delete a device's shadow\.
-
-*Resource*  
-Must be set to one of the following:  
-Client: `arn:aws:iot:region:account-id:client/client-id`  
-Topic ARN: `arn:aws:iot:region:account-id:topic/topic-name`  
-Topic filter ARN: `arn:aws:iot:region:account-id:topicfilter/topic-filter`
+For additional policy examples, see the following topics in other sections of this guide:
++ [AWS IoT Identity\-Based Policy Examples](security_iam_id-based-policy-examples.md)
++ [Basic Policy Variables](basic-policy-variables.md)
++ [X\.509 Certificate Policy Variables](cert-policy-variables.md)

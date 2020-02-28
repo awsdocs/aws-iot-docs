@@ -23,7 +23,7 @@ We do not recommend the use of personally identifiable information in rule names
 1. Choose **Create function**\.  
 ![\[Image NOT FOUND\]](http://docs.aws.amazon.com/iot/latest/developerguide/images/click-create-function.png)
 
-1. In the AWS Lambda console, choose the name of your Lambda function\. Information about your Lambda function is displayed\. Scroll down to the **Function code** section and replace the existing code with the following:
+1. In the AWS Lambda console, choose the name of your Lambda function\. Information about your Lambda function is displayed\. Scroll down to the **Function code** section and replace the existing code with the following example\.
 
    ```
    from __future__ import print_function
@@ -38,7 +38,7 @@ We do not recommend the use of personally identifiable information in rule names
        # Parse the JSON message 
        eventText = json.dumps(event)
      
-       # Print the parsed JSON message to the console; you can view this text in the Monitoring tab in the Lambda console or in the CloudWatch Logs console
+       # Print the parsed JSON message to the console. You can view this text in the Monitoring tab in the AWS Lambda console or in the Amazon CloudWatch Logs console.
        print('Received event: ', eventText)
      
        # Create an SNS client
@@ -46,17 +46,17 @@ We do not recommend the use of personally identifiable information in rule names
      
        # Publish a message to the specified topic
        response = sns.publish (
-         TopicArn = 'arn:aws:iam::123456789012:role/service-role/myLambdaFunctionRole',
+         TopicArn = 'arn:aws:iam::123456789012:My_IoT_SNS_Topic',
          Message = eventText
        )
      
        print(response)
    ```
-**Note**  
-Replace the value of `TopicArn` with the ARN of the Amazon SNS topic you created earlier\.
 
-   Choose **Save**\.  
-![\[Image NOT FOUND\]](http://docs.aws.amazon.com/iot/latest/developerguide/images/save-lambda-button.png)
+1. Replace the value of `TopicArn` with the ARN of the Amazon SNS topic that you created in [Configure and Test Rules](config-and-test-rules.html)\.
+
+1. Choose **Save**\.  
+![\[Edit your Lambda function to specify the SNS topic.\]](http://docs.aws.amazon.com/iot/latest/developerguide/images/save-lambda-button.png)
 
 ## Test Your Lambda Function<a name="test-lambda-function"></a>
 

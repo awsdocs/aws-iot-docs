@@ -1,6 +1,6 @@
-# AWS IoT Action Resources<a name="iot-action-resources"></a>
+# Action Resources<a name="iot-action-resources"></a>
 
-To specify a resource for an AWS IoT policy action, you must use the ARN of the resource\. All resource ARNs are of the following form:
+To specify a resource for an policy action, you must use the ARN of the resource\. All resource ARNs are of the following form:
 
 ```
 arn:aws:iot:region:AWS account ID:resource type/resource name

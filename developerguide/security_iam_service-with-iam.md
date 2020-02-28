@@ -141,7 +141,7 @@ The following table lists the IAM IoT actions, the associated AWS IoT API, and t
 | iot:UpdateThingGroup | UpdateThingGroup |  arn:aws:iot:*region*:*account\-id*:thinggroup/*thing\-group\-name*  | 
 | iot:UpdateThingGroupsForThing | UpdateThingGroupsForThing |  arn:aws:iot:*region*:*account\-id*:thing/*thing\-name*  | 
 
-Policy actions in AWS IoT use the following prefix before the action: `iot:`\. For example, to grant someone permission to list all IoT things registered in thier AWS account with the `ListThings` API, you include the `iot:ListThings` action in their policy\. Policy statements must include either an `Action` or `NotAction` element\. AWS IoT defines its own set of actions that describe tasks that you can perform with this service\.
+Policy actions in AWS IoT use the following prefix before the action: `iot:`\. For example, to grant someone permission to list all IoT things registered in their AWS account with the `ListThings` API, you include the `iot:ListThings` action in their policy\. Policy statements must include either an `Action` or `NotAction` element\. AWS IoT defines its own set of actions that describe tasks that you can perform with this service\.
 
 To specify multiple actions in a single statement, separate them with commas as follows:
 

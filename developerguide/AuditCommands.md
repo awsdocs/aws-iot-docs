@@ -46,15 +46,15 @@ aws iot  update-account-audit-configuration \
 
 **`cli-input-json` fields**  
 
-|  Name |  Type |  Description | 
+|  Name  |  Type  |  Description  | 
 | --- | --- | --- | 
-|  roleArn |  string  length\- max:2048 min:20  |  The ARN of the role that grants permission to AWS IoT to access information about your devices, policies, certificates, and other items when performing an audit\.  | 
-|  auditNotificationTargetConfigurations |  map |  Information about the targets to which audit notifications are sent\. | 
-|  targetArn |  string |  The ARN of the target \(SNS topic\) to which audit notifications are sent\. | 
-|  roleArn |  string  length\- max:2048 min:20  |  The ARN of the role that grants permission to send notifications to the target\. | 
-|  enabled |  boolean |  True if notifications to the target are enabled\. | 
-|  auditCheckConfigurations |  map |  Specifies which audit checks are enabled and disabled for this account\. Use `DescribeAccountAuditConfiguration` to see the list of all checks, including those that are currently enabled\. Some data collection might start immediately when certain checks are enabled\. When a check is disabled, any data collected so far in relation to the check is deleted\. You cannot disable a check if it is used by any scheduled audit\. You must first delete the check from the scheduled audit or delete the scheduled audit itself\. On the first call to `UpdateAccountAuditConfiguration`, this parameter is required and must specify at least one enabled check\.  | 
-|  enabled |  boolean |  True if this audit check is enabled for this account\. | 
+|  roleArn  |  string  length\- max:2048 min:20  |  The ARN of the role that grants permission to AWS IoT to access information about your devices, policies, certificates, and other items when performing an audit\.  | 
+|  auditNotificationTargetConfigurations  |  map  |  Information about the targets to which audit notifications are sent\.  | 
+|  targetArn  |  string  |  The ARN of the target \(SNS topic\) to which audit notifications are sent\.  | 
+|  roleArn  |  string  length\- max:2048 min:20  |  The ARN of the role that grants permission to send notifications to the target\.  | 
+|  enabled  |  boolean  |  True if notifications to the target are enabled\.  | 
+|  auditCheckConfigurations  |  map  |  Specifies which audit checks are enabled and disabled for this account\. Use `DescribeAccountAuditConfiguration` to see the list of all checks, including those that are currently enabled\. Some data collection might start immediately when certain checks are enabled\. When a check is disabled, any data collected so far in relation to the check is deleted\. You cannot disable a check if it is used by any scheduled audit\. You must first delete the check from the scheduled audit or delete the scheduled audit itself\. On the first call to `UpdateAccountAuditConfiguration`, this parameter is required and must specify at least one enabled check\.  | 
+|  enabled  |  boolean  |  True if this audit check is enabled for this account\.  | 
 
 Output
 
@@ -113,15 +113,15 @@ Output
 
 **CLI output fields**  
 
-|  Name |  Type |  Description | 
+|  Name  |  Type  |  Description  | 
 | --- | --- | --- | 
-|  roleArn |  string  length\- max:2048 min:20  |  The ARN of the role that grants permission to AWS IoT to access information about your devices, policies, certificates, and other items when performing an audit\. On the first call to `UpdateAccountAuditConfiguration`, this parameter is required\.  | 
-|  auditNotificationTargetConfigurations |  map |  Information about the targets to which audit notifications are sent for this account\.  | 
-|  targetArn |  string |  The ARN of the target \(SNS topic\) to which audit notifications are sent\. | 
-|  roleArn |  string  length\- max:2048 min:20  |  The ARN of the role that grants permission to send notifications to the target\. | 
-|  enabled |  boolean |  True if notifications to the target are enabled\. | 
-|  auditCheckConfigurations |  map |  Which audit checks are enabled and disabled for this account\. | 
-|  enabled |  boolean |  True if this audit check is enabled for this account\. | 
+|  roleArn  |  string  length\- max:2048 min:20  |  The ARN of the role that grants permission to AWS IoT to access information about your devices, policies, certificates, and other items when performing an audit\. On the first call to `UpdateAccountAuditConfiguration`, this parameter is required\.  | 
+|  auditNotificationTargetConfigurations  |  map  |  Information about the targets to which audit notifications are sent for this account\.  | 
+|  targetArn  |  string  |  The ARN of the target \(SNS topic\) to which audit notifications are sent\.  | 
+|  roleArn  |  string  length\- max:2048 min:20  |  The ARN of the role that grants permission to send notifications to the target\.  | 
+|  enabled  |  boolean  |  True if notifications to the target are enabled\.  | 
+|  auditCheckConfigurations  |  map  |  Which audit checks are enabled and disabled for this account\.  | 
+|  enabled  |  boolean  |  True if this audit check is enabled for this account\.  | 
 
  **Errors**
 
@@ -155,9 +155,9 @@ aws iot  delete-account-audit-configuration \
 
 **`cli-input-json` fields**  
 
-|  Name |  Type |  Description | 
+|  Name  |  Type  |  Description  | 
 | --- | --- | --- | 
-|  deleteScheduledAudits |  boolean |  If true, all scheduled audits are deleted\. | 
+|  deleteScheduledAudits  |  boolean  |  If true, all scheduled audits are deleted\.  | 
 
 Output
 
@@ -226,16 +226,16 @@ aws iot  create-scheduled-audit \
 
 **`cli-input-json` fields**  
 
-|  Name |  Type |  Description | 
+|  Name  |  Type  |  Description  | 
 | --- | --- | --- | 
-|  frequency |  string |  How often the scheduled audit takes place\. Can be one of DAILY, WEEKLY, BIWEEKLY, or MONTHLY\. The actual start time of each audit is determined by the system\.  enum: DAILY \| WEEKLY \| BIWEEKLY \| MONTHLY  | 
-|  dayOfMonth |  string  pattern: ^\(\[1\-9\]\|\[12\]\[0\-9\]\|3\[01\]\)$\|^LAST$  |  The day of the month on which the scheduled audit takes place\. Can be 1 through 31 or LAST\. This field is required if the `frequency` parameter is set to MONTHLY\. If days 29\-31 are specified, and the month does not have that many days, the audit takes place on the LAST day of the month\.  | 
-|  dayOfWeek |  string |  The day of the week on which the scheduled audit takes place\. Can be one of SUN, MON, TUE,WED, THU, FRI, or SAT\. This field is required if the `frequency` parameter is set to WEEKLY or BIWEEKLY\.  enum: SUN \| MON \| TUE \| WED \| THU \| FRI \| SAT  | 
-|  targetCheckNames |  list  member: AuditCheckName  |  Which checks are performed during the scheduled audit\. Checks must be enabled for your account\. \(Use `DescribeAccountAuditConfiguration` to see the list of all checks, including those that are enabled or `UpdateAccountAuditConfiguration` to select which checks are enabled\.\)  | 
-|  tags |  list  member: Tag  java class: java\.util\.List  |  Metadata that can be used to manage the scheduled audit\. | 
-|  Key |  string |  The tag's key\. | 
-|  Value |  string |  The tag's value\. | 
-|  scheduledAuditName |  string  length\- max:128 min:1  pattern: \[a\-zA\-Z0\-9\_\-\]\+  |  The name you want to give to the scheduled audit\. \(Maximum of 128 characters\) | 
+|  frequency  |  string  |  How often the scheduled audit takes place\. Can be one of DAILY, WEEKLY, BIWEEKLY, or MONTHLY\. The actual start time of each audit is determined by the system\.  enum: DAILY \| WEEKLY \| BIWEEKLY \| MONTHLY  | 
+|  dayOfMonth  |  string  pattern: ^\(\[1\-9\]\|\[12\]\[0\-9\]\|3\[01\]\)$\|^LAST$  |  The day of the month on which the scheduled audit takes place\. Can be 1 through 31 or LAST\. This field is required if the `frequency` parameter is set to MONTHLY\. If days 29\-31 are specified, and the month does not have that many days, the audit takes place on the LAST day of the month\.  | 
+|  dayOfWeek  |  string  |  The day of the week on which the scheduled audit takes place\. Can be one of SUN, MON, TUE,WED, THU, FRI, or SAT\. This field is required if the `frequency` parameter is set to WEEKLY or BIWEEKLY\.  enum: SUN \| MON \| TUE \| WED \| THU \| FRI \| SAT  | 
+|  targetCheckNames  |  list  member: AuditCheckName  |  Which checks are performed during the scheduled audit\. Checks must be enabled for your account\. \(Use `DescribeAccountAuditConfiguration` to see the list of all checks, including those that are enabled or `UpdateAccountAuditConfiguration` to select which checks are enabled\.\)  | 
+|  tags  |  list  member: Tag  java class: java\.util\.List  |  Metadata that can be used to manage the scheduled audit\.  | 
+|  Key  |  string  |  The tag's key\.  | 
+|  Value  |  string  |  The tag's value\.  | 
+|  scheduledAuditName  |  string  length\- max:128 min:1  pattern: \[a\-zA\-Z0\-9\_\-\]\+  |  The name you want to give to the scheduled audit\. \(Maximum of 128 characters\)  | 
 
 Output
 
@@ -248,9 +248,9 @@ Output
 
 **CLI output fields**  
 
-|  Name |  Type |  Description | 
+|  Name  |  Type  |  Description  | 
 | --- | --- | --- | 
-|  scheduledAuditArn |  string |  The ARN of the scheduled audit\. | 
+|  scheduledAuditArn  |  string  |  The ARN of the scheduled audit\.  | 
 
  **Errors**
 
@@ -292,10 +292,10 @@ aws iot  list-scheduled-audits \
 
 **`cli-input-json` fields**  
 
-|  Name |  Type |  Description | 
+|  Name  |  Type  |  Description  | 
 | --- | --- | --- | 
-|  nextToken |  string |  The token for the next set of results\. | 
-|  maxResults |  integer  range\- max:250 min:1  |  The maximum number of results to return at one time\. The default is 25\. | 
+|  nextToken  |  string  |  The token for the next set of results\.  | 
+|  maxResults  |  integer  range\- max:250 min:1  |  The maximum number of results to return at one time\. The default is 25\.  | 
 
 Output
 
@@ -317,15 +317,15 @@ Output
 
 **CLI output fields**  
 
-|  Name |  Type |  Description | 
+|  Name  |  Type  |  Description  | 
 | --- | --- | --- | 
-|  scheduledAudits |  list  member: ScheduledAuditMetadata  java class: java\.util\.List  |  The list of scheduled audits\. | 
-|  scheduledAuditName |  string  length\- max:128 min:1  pattern: \[a\-zA\-Z0\-9\_\-\]\+  |  The name of the scheduled audit\. | 
-|  scheduledAuditArn |  string |  The ARN of the scheduled audit\. | 
-|  frequency |  string |  How often the scheduled audit takes place\.  enum: DAILY \| WEEKLY \| BIWEEKLY \| MONTHLY  | 
-|  dayOfMonth |  string  pattern: ^\(\[1\-9\]\|\[12\]\[0\-9\]\|3\[01\]\)$\|^LAST$  |  The day of the month on which the scheduled audit is run \(if the `frequency` is MONTHLY\)\. If days 29\-31 are specified, and the month does not have that many days, the audit takes place on the LAST day of the month\.  | 
-|  dayOfWeek |  string |  The day of the week on which the scheduled audit is run \(if the `frequency` is WEEKLY or BIWEEKLY\)\.  enum: SUN \| MON \| TUE \| WED \| THU \| FRI \| SAT  | 
-|  nextToken |  string |  A token that can be used to retrieve the next set of results, or `null` if there are no more results\.  | 
+|  scheduledAudits  |  list  member: ScheduledAuditMetadata  java class: java\.util\.List  |  The list of scheduled audits\.  | 
+|  scheduledAuditName  |  string  length\- max:128 min:1  pattern: \[a\-zA\-Z0\-9\_\-\]\+  |  The name of the scheduled audit\.  | 
+|  scheduledAuditArn  |  string  |  The ARN of the scheduled audit\.  | 
+|  frequency  |  string  |  How often the scheduled audit takes place\.  enum: DAILY \| WEEKLY \| BIWEEKLY \| MONTHLY  | 
+|  dayOfMonth  |  string  pattern: ^\(\[1\-9\]\|\[12\]\[0\-9\]\|3\[01\]\)$\|^LAST$  |  The day of the month on which the scheduled audit is run \(if the `frequency` is MONTHLY\)\. If days 29\-31 are specified, and the month does not have that many days, the audit takes place on the LAST day of the month\.  | 
+|  dayOfWeek  |  string  |  The day of the week on which the scheduled audit is run \(if the `frequency` is WEEKLY or BIWEEKLY\)\.  enum: SUN \| MON \| TUE \| WED \| THU \| FRI \| SAT  | 
+|  nextToken  |  string  |  A token that can be used to retrieve the next set of results, or `null` if there are no more results\.  | 
 
  **Errors**
 
@@ -362,9 +362,9 @@ aws iot  describe-scheduled-audit \
 
 **`cli-input-json` fields**  
 
-|  Name |  Type |  Description | 
+|  Name  |  Type  |  Description  | 
 | --- | --- | --- | 
-|  scheduledAuditName |  string  length\- max:128 min:1  pattern: \[a\-zA\-Z0\-9\_\-\]\+  |  The name of the scheduled audit whose information you want to get\. | 
+|  scheduledAuditName  |  string  length\- max:128 min:1  pattern: \[a\-zA\-Z0\-9\_\-\]\+  |  The name of the scheduled audit whose information you want to get\.  | 
 
 Output
 
@@ -384,14 +384,14 @@ Output
 
 **CLI output fields**  
 
-|  Name |  Type |  Description | 
+|  Name  |  Type  |  Description  | 
 | --- | --- | --- | 
-|  frequency |  string |  How often the scheduled audit takes place\. One of DAILY, WEEKLY, BIWEEKLY, or MONTHLY\. The actual start time of each audit is determined by the system\.  enum: DAILY \| WEEKLY \| BIWEEKLY \| MONTHLY  | 
-|  dayOfMonth |  string  pattern: ^\(\[1\-9\]\|\[12\]\[0\-9\]\|3\[01\]\)$\|^LAST$  |  The day of the month on which the scheduled audit takes place\. Can be 1 through 31 or LAST\. If days 29\-31 are specified, and the month does not have that many days, the audit takes place on the LAST day of the month\.  | 
-|  dayOfWeek |  string |  The day of the week on which the scheduled audit takes place\. One of SUN, MON, TUE, WED, THU, FRI, or SAT\.  enum: SUN \| MON \| TUE \| WED \| THU \| FRI \| SAT  | 
-|  targetCheckNames |  list  member: AuditCheckName  |  Which checks are performed during the scheduled audit\. Checks must be enabled for your account\. \(Use `DescribeAccountAuditConfiguration` to see the list of all checks, including those that are enabled or use `UpdateAccountAuditConfiguration` to select which checks are enabled\.\)  | 
-|  scheduledAuditName |  string  length\- max:128 min:1  pattern: \[a\-zA\-Z0\-9\_\-\]\+  |  The name of the scheduled audit\. | 
-|  scheduledAuditArn |  string |  The ARN of the scheduled audit\. | 
+|  frequency  |  string  |  How often the scheduled audit takes place\. One of DAILY, WEEKLY, BIWEEKLY, or MONTHLY\. The actual start time of each audit is determined by the system\.  enum: DAILY \| WEEKLY \| BIWEEKLY \| MONTHLY  | 
+|  dayOfMonth  |  string  pattern: ^\(\[1\-9\]\|\[12\]\[0\-9\]\|3\[01\]\)$\|^LAST$  |  The day of the month on which the scheduled audit takes place\. Can be 1 through 31 or LAST\. If days 29\-31 are specified, and the month does not have that many days, the audit takes place on the LAST day of the month\.  | 
+|  dayOfWeek  |  string  |  The day of the week on which the scheduled audit takes place\. One of SUN, MON, TUE, WED, THU, FRI, or SAT\.  enum: SUN \| MON \| TUE \| WED \| THU \| FRI \| SAT  | 
+|  targetCheckNames  |  list  member: AuditCheckName  |  Which checks are performed during the scheduled audit\. Checks must be enabled for your account\. \(Use `DescribeAccountAuditConfiguration` to see the list of all checks, including those that are enabled or use `UpdateAccountAuditConfiguration` to select which checks are enabled\.\)  | 
+|  scheduledAuditName  |  string  length\- max:128 min:1  pattern: \[a\-zA\-Z0\-9\_\-\]\+  |  The name of the scheduled audit\.  | 
+|  scheduledAuditArn  |  string  |  The ARN of the scheduled audit\.  | 
 
  **Errors**
 
@@ -441,13 +441,13 @@ aws iot  update-scheduled-audit \
 
 **`cli-input-json` fields**  
 
-|  Name |  Type |  Description | 
+|  Name  |  Type  |  Description  | 
 | --- | --- | --- | 
-|  frequency |  string |  How often the scheduled audit takes place\. Can be one of DAILY, WEEKLY, BIWEEKLY, or MONTHLY\. The actual start time of each audit is determined by the system\.  enum: DAILY \| WEEKLY \| BIWEEKLY \| MONTHLY  | 
-|  dayOfMonth |  string  pattern: ^\(\[1\-9\]\|\[12\]\[0\-9\]\|3\[01\]\)$\|^LAST$  |  The day of the month on which the scheduled audit takes place\. Can be 1 through 31 or LAST\. This field is required if the `frequency` parameter is set to MONTHLY\. If days 29\-31 are specified, and the month does not have that many days, the audit takes place on the LAST day of the month\.  | 
-|  dayOfWeek |  string |  The day of the week on which the scheduled audit takes place\. Can be one of SUN, MON, TUE, WED, THU, FRI, or SAT\. This field is required if the `frequency` parameter is set to WEEKLY or BIWEEKLY\.  enum: SUN \| MON \| TUE \| WED \| THU \| FRI \| SAT  | 
-|  targetCheckNames |  list  member: AuditCheckName  |  Which checks are performed during the scheduled audit\. Checks must be enabled for your account\. \(Use `DescribeAccountAuditConfiguration` to see the list of all checks, including those that are enabled or use `UpdateAccountAuditConfiguration` to select which checks are enabled\.\)  | 
-|  scheduledAuditName |  string  length\- max:128 min:1  pattern: \[a\-zA\-Z0\-9\_\-\]\+  |  The name of the scheduled audit\. \(Maximum of 128 characters\) | 
+|  frequency  |  string  |  How often the scheduled audit takes place\. Can be one of DAILY, WEEKLY, BIWEEKLY, or MONTHLY\. The actual start time of each audit is determined by the system\.  enum: DAILY \| WEEKLY \| BIWEEKLY \| MONTHLY  | 
+|  dayOfMonth  |  string  pattern: ^\(\[1\-9\]\|\[12\]\[0\-9\]\|3\[01\]\)$\|^LAST$  |  The day of the month on which the scheduled audit takes place\. Can be 1 through 31 or LAST\. This field is required if the `frequency` parameter is set to MONTHLY\. If days 29\-31 are specified, and the month does not have that many days, the audit takes place on the LAST day of the month\.  | 
+|  dayOfWeek  |  string  |  The day of the week on which the scheduled audit takes place\. Can be one of SUN, MON, TUE, WED, THU, FRI, or SAT\. This field is required if the `frequency` parameter is set to WEEKLY or BIWEEKLY\.  enum: SUN \| MON \| TUE \| WED \| THU \| FRI \| SAT  | 
+|  targetCheckNames  |  list  member: AuditCheckName  |  Which checks are performed during the scheduled audit\. Checks must be enabled for your account\. \(Use `DescribeAccountAuditConfiguration` to see the list of all checks, including those that are enabled or use `UpdateAccountAuditConfiguration` to select which checks are enabled\.\)  | 
+|  scheduledAuditName  |  string  length\- max:128 min:1  pattern: \[a\-zA\-Z0\-9\_\-\]\+  |  The name of the scheduled audit\. \(Maximum of 128 characters\)  | 
 
 Output
 
@@ -460,9 +460,9 @@ Output
 
 **CLI output fields**  
 
-|  Name |  Type |  Description | 
+|  Name  |  Type  |  Description  | 
 | --- | --- | --- | 
-|  scheduledAuditArn |  string |  The ARN of the scheduled audit\. | 
+|  scheduledAuditArn  |  string  |  The ARN of the scheduled audit\.  | 
 
  **Errors**
 
@@ -502,9 +502,9 @@ aws iot  delete-scheduled-audit \
 
 **`cli-input-json` fields**  
 
-|  Name |  Type |  Description | 
+|  Name  |  Type  |  Description  | 
 | --- | --- | --- | 
-|  scheduledAuditName |  string  length\- max:128 min:1  pattern: \[a\-zA\-Z0\-9\_\-\]\+  |  The name of the scheduled audit you want to delete\. | 
+|  scheduledAuditName  |  string  length\- max:128 min:1  pattern: \[a\-zA\-Z0\-9\_\-\]\+  |  The name of the scheduled audit you want to delete\.  | 
 
 Output
 
@@ -554,9 +554,9 @@ aws iot  start-on-demand-audit-task \
 
 **`cli-input-json` fields**  
 
-|  Name |  Type |  Description | 
+|  Name  |  Type  |  Description  | 
 | --- | --- | --- | 
-|  targetCheckNames |  list  member: AuditCheckName  |  Which checks are performed during the audit\. The checks you specify must be enabled for your account or an exception occurs\. Use `DescribeAccountAuditConfiguration` to see the list of all checks, including those that are enabled or use `UpdateAccountAuditConfiguration` to select which checks are enabled\.  | 
+|  targetCheckNames  |  list  member: AuditCheckName  |  Which checks are performed during the audit\. The checks you specify must be enabled for your account or an exception occurs\. Use `DescribeAccountAuditConfiguration` to see the list of all checks, including those that are enabled or use `UpdateAccountAuditConfiguration` to select which checks are enabled\.  | 
 
 Output
 
@@ -569,9 +569,9 @@ Output
 
 **CLI output fields**  
 
-|  Name |  Type |  Description | 
+|  Name  |  Type  |  Description  | 
 | --- | --- | --- | 
-|  taskId |  string  length\- max:40 min:1  pattern: \[a\-zA\-Z0\-9\-\]\+  |  The ID of the on\-demand audit you started\. | 
+|  taskId  |  string  length\- max:40 min:1  pattern: \[a\-zA\-Z0\-9\-\]\+  |  The ID of the on\-demand audit you started\.  | 
 
  **Errors**
 
@@ -619,9 +619,9 @@ aws iot  describe-audit-task \
 
 **`cli-input-json` fields**  
 
-|  Name |  Type |  Description | 
+|  Name  |  Type  |  Description  | 
 | --- | --- | --- | 
-|  taskId |  string  length\- max:40 min:1  pattern: \[a\-zA\-Z0\-9\-\]\+  |  The ID of the audit whose information you want to get\. | 
+|  taskId  |  string  length\- max:40 min:1  pattern: \[a\-zA\-Z0\-9\-\]\+  |  The ID of the audit whose information you want to get\.  | 
 
 Output
 
@@ -656,27 +656,27 @@ Output
 
 **CLI output fields**  
 
-|  Name |  Type |  Description | 
+|  Name  |  Type  |  Description  | 
 | --- | --- | --- | 
-|  taskStatus |  string |  The status of the audit: one of IN\_PROGRESS, COMPLETED, FAILED, or CANCELED\.  enum: IN\_PROGRESS \| COMPLETED \| FAILED \| CANCELED  | 
-|  taskType |  string |  The type of audit: ON\_DEMAND\_AUDIT\_TASK or SCHEDULED\_AUDIT\_TASK\.  enum: ON\_DEMAND\_AUDIT\_TASK \| SCHEDULED\_AUDIT\_TASK  | 
-|  taskStartTime |  timestamp |  The time the audit started\. | 
-|  taskStatistics |  TaskStatistics |  Statistical information about the audit\. | 
-|  totalChecks |  integer |  The number of checks in this audit\. | 
-|  inProgressChecks |  integer |  The number of checks in progress\. | 
-|  waitingForDataCollectionChecks |  integer |  The number of checks waiting for data collection\. | 
-|  compliantChecks |  integer |  The number of checks that found compliant resources\. | 
-|  nonCompliantChecks |  integer |  The number of checks that found noncompliant resources\. | 
-|  failedChecks |  integer |  The number of checks\.  | 
-|  canceledChecks |  integer |  The number of checks that did not run because the audit was canceled\. | 
-|  scheduledAuditName |  string  length\- max:128 min:1  pattern: \[a\-zA\-Z0\-9\_\-\]\+  |  The name of the scheduled audit \(only if the audit was a scheduled audit\)\. | 
-|  auditDetails |  map |  Detailed information about each check performed during this audit\. | 
-|  checkRunStatus |  string |  The completion status of this check, one of IN\_PROGRESS, WAITING\_FOR\_DATA\_COLLECTION, CANCELED, COMPLETED\_COMPLIANT, COMPLETED\_NON\_COMPLIANT, or FAILED\.  enum: IN\_PROGRESS \| WAITING\_FOR\_DATA\_COLLECTION \| CANCELED \| COMPLETED\_COMPLIANT \| COMPLETED\_NON\_COMPLIANT \| FAILED  | 
-|  checkCompliant |  boolean |  True if the check completed and found all resources compliant\. | 
-|  totalResourcesCount |  long |  The number of resources on which the check was performed\. | 
-|  nonCompliantResourcesCount |  long |  The number of resources that the check found noncompliant\. | 
-|  errorCode |  string |  The code of any error encountered when performing this check during this audit\. One of INSUFFICIENT\_PERMISSIONS or AUDIT\_CHECK\_DISABLED\.  | 
-|  message |  string  length\- max:2048  |  The message associated with any error encountered when performing this check during this audit\. | 
+|  taskStatus  |  string  |  The status of the audit: one of IN\_PROGRESS, COMPLETED, FAILED, or CANCELED\.  enum: IN\_PROGRESS \| COMPLETED \| FAILED \| CANCELED  | 
+|  taskType  |  string  |  The type of audit: ON\_DEMAND\_AUDIT\_TASK or SCHEDULED\_AUDIT\_TASK\.  enum: ON\_DEMAND\_AUDIT\_TASK \| SCHEDULED\_AUDIT\_TASK  | 
+|  taskStartTime  |  timestamp  |  The time the audit started\.  | 
+|  taskStatistics  |  TaskStatistics  |  Statistical information about the audit\.  | 
+|  totalChecks  |  integer  |  The number of checks in this audit\.  | 
+|  inProgressChecks  |  integer  |  The number of checks in progress\.  | 
+|  waitingForDataCollectionChecks  |  integer  |  The number of checks waiting for data collection\.  | 
+|  compliantChecks  |  integer  |  The number of checks that found compliant resources\.  | 
+|  nonCompliantChecks  |  integer  |  The number of checks that found noncompliant resources\.  | 
+|  failedChecks  |  integer  |  The number of checks\.   | 
+|  canceledChecks  |  integer  |  The number of checks that did not run because the audit was canceled\.  | 
+|  scheduledAuditName  |  string  length\- max:128 min:1  pattern: \[a\-zA\-Z0\-9\_\-\]\+  |  The name of the scheduled audit \(only if the audit was a scheduled audit\)\.  | 
+|  auditDetails  |  map  |  Detailed information about each check performed during this audit\.  | 
+|  checkRunStatus  |  string  |  The completion status of this check, one of IN\_PROGRESS, WAITING\_FOR\_DATA\_COLLECTION, CANCELED, COMPLETED\_COMPLIANT, COMPLETED\_NON\_COMPLIANT, or FAILED\.  enum: IN\_PROGRESS \| WAITING\_FOR\_DATA\_COLLECTION \| CANCELED \| COMPLETED\_COMPLIANT \| COMPLETED\_NON\_COMPLIANT \| FAILED  | 
+|  checkCompliant  |  boolean  |  True if the check completed and found all resources compliant\.  | 
+|  totalResourcesCount  |  long  |  The number of resources on which the check was performed\.  | 
+|  nonCompliantResourcesCount  |  long  |  The number of resources that the check found noncompliant\.  | 
+|  errorCode  |  string  |  The code of any error encountered when performing this check during this audit\. One of INSUFFICIENT\_PERMISSIONS or AUDIT\_CHECK\_DISABLED\.  | 
+|  message  |  string  length\- max:2048  |  The message associated with any error encountered when performing this check during this audit\.  | 
 
  **Errors**
 
@@ -726,14 +726,14 @@ aws iot  list-audit-tasks \
 
 **`cli-input-json` fields**  
 
-|  Name |  Type |  Description | 
+|  Name  |  Type  |  Description  | 
 | --- | --- | --- | 
-|  startTime |  timestamp |  The beginning of the time period\. Audit information is retained for a limited time \(180 days\)\. Requesting a start time prior to what is retained results in an `InvalidRequestException`\.  | 
-|  endTime |  timestamp |  The end of the time period\. | 
-|  taskType |  string |  A filter to limit the output to the specified type of audit: can be one of ON\_DEMAND\_AUDIT\_TASK or SCHEDULED\_\_AUDIT\_TASK\.  enum: ON\_DEMAND\_AUDIT\_TASK \| SCHEDULED\_AUDIT\_TASK  | 
-|  taskStatus |  string |  A filter to limit the output to audits with the specified completion status: can be one of IN\_PROGRESS, COMPLETED, FAILED, or CANCELED\.  enum: IN\_PROGRESS \| COMPLETED \| FAILED \| CANCELED  | 
-|  nextToken |  string |  The token for the next set of results\. | 
-|  maxResults |  integer  range\- max:250 min:1  |  The maximum number of results to return at one time\. The default is 25\. | 
+|  startTime  |  timestamp  |  The beginning of the time period\. Audit information is retained for a limited time \(180 days\)\. Requesting a start time prior to what is retained results in an `InvalidRequestException`\.  | 
+|  endTime  |  timestamp  |  The end of the time period\.  | 
+|  taskType  |  string  |  A filter to limit the output to the specified type of audit: can be one of ON\_DEMAND\_AUDIT\_TASK or SCHEDULED\_\_AUDIT\_TASK\.  enum: ON\_DEMAND\_AUDIT\_TASK \| SCHEDULED\_AUDIT\_TASK  | 
+|  taskStatus  |  string  |  A filter to limit the output to audits with the specified completion status: can be one of IN\_PROGRESS, COMPLETED, FAILED, or CANCELED\.  enum: IN\_PROGRESS \| COMPLETED \| FAILED \| CANCELED  | 
+|  nextToken  |  string  |  The token for the next set of results\.  | 
+|  maxResults  |  integer  range\- max:250 min:1  |  The maximum number of results to return at one time\. The default is 25\.  | 
 
 Output
 
@@ -753,13 +753,13 @@ Output
 
 **CLI output fields**  
 
-|  Name |  Type |  Description | 
+|  Name  |  Type  |  Description  | 
 | --- | --- | --- | 
-|  tasks |  list  member: AuditTaskMetadata  java class: java\.util\.List  |  The audits that were performed during the specified time period\. | 
-|  taskId |  string  length\- max:40 min:1  pattern: \[a\-zA\-Z0\-9\-\]\+  |  The ID of this audit\. | 
-|  taskStatus |  string |  The status of this audit: one of IN\_PROGRESS, COMPLETED, FAILED, or CANCELED\.  enum: IN\_PROGRESS \| COMPLETED \| FAILED \| CANCELED  | 
-|  taskType |  string |  The type of this audit: one of ON\_DEMAND\_AUDIT\_TASK or SCHEDULED\_AUDIT\_TASK\.  enum: ON\_DEMAND\_AUDIT\_TASK \| SCHEDULED\_AUDIT\_TASK  | 
-|  nextToken |  string |  A token that can be used to retrieve the next set of results, or `null` if there are no additional results\.  | 
+|  tasks  |  list  member: AuditTaskMetadata  java class: java\.util\.List  |  The audits that were performed during the specified time period\.  | 
+|  taskId  |  string  length\- max:40 min:1  pattern: \[a\-zA\-Z0\-9\-\]\+  |  The ID of this audit\.  | 
+|  taskStatus  |  string  |  The status of this audit: one of IN\_PROGRESS, COMPLETED, FAILED, or CANCELED\.  enum: IN\_PROGRESS \| COMPLETED \| FAILED \| CANCELED  | 
+|  taskType  |  string  |  The type of this audit: one of ON\_DEMAND\_AUDIT\_TASK or SCHEDULED\_AUDIT\_TASK\.  enum: ON\_DEMAND\_AUDIT\_TASK \| SCHEDULED\_AUDIT\_TASK  | 
+|  nextToken  |  string  |  A token that can be used to retrieve the next set of results, or `null` if there are no additional results\.  | 
 
  **Errors**
 
@@ -796,9 +796,9 @@ aws iot  cancel-audit-task \
 
 **`cli-input-json` fields**  
 
-|  Name |  Type |  Description | 
+|  Name  |  Type  |  Description  | 
 | --- | --- | --- | 
-|  taskId |  string  length\- max:40 min:1  pattern: \[a\-zA\-Z0\-9\-\]\+  |  The ID of the audit you want to cancel\. You can only cancel an audit that is IN\_PROGRESS\.  | 
+|  taskId  |  string  length\- max:40 min:1  pattern: \[a\-zA\-Z0\-9\-\]\+  |  The ID of the audit you want to cancel\. You can only cancel an audit that is IN\_PROGRESS\.  | 
 
 Output
 
@@ -872,7 +872,7 @@ aws iot  list-audit-findings \
 
 **`cli-input-json` fields**  
 
-|  Name |  Type |  Description | 
+|  Name  |  Type  |  Description  | 
 | --- | --- | --- | 
 |  taskId  |  string  length\- max:40 min:1  pattern: \[a\-zA\-Z0\-9\-\]\+  |  A filter to limit results to the audit with the specified ID\. You must specify either the taskId or the startTime and endTime, but not both\.  | 
 |  checkName  |  string  |  A filter to limit results to the findings for the specified audit check\.  | 
@@ -955,7 +955,7 @@ Output
 
 **CLI output fields**  
 
-|  Name |  Type |  Description | 
+|  Name  |  Type  |  Description  | 
 | --- | --- | --- | 
 |  findings  |  list  member: AuditFinding  |  The findings \(results\) of the audit\.  | 
 |  taskId  |  string  length\- max:40 min:1  pattern: \[a\-zA\-Z0\-9\-\]\+  |  The ID of the audit that generated this result \(finding\)\.  | 

@@ -22,6 +22,6 @@ Create an Amazon SNS topic and subscription\.
 
 1. Open your email client and look for a message with the subject **MoistureSensorTopic**\. Open the email and click the **Confirm subscription** link\.
 **Important**  
-You won’t receive any email alerts from this Amazon SNS topic until you confirm the subscription\.
+You won't receive any email alerts from this Amazon SNS topic until you confirm the subscription\.
 
 You should receive an email message with the text you typed\.

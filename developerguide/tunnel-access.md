@@ -127,7 +127,7 @@ The `iot:CloseTunnel` policy action supports the following condition keys:
 + `iot:Delete`
 + `aws:ResourceTag/<tag-key>`
 
-The following policy statement allows you to call `CloseTunnel` if the request’s `Delete` parameter is `false` and the requested tunnel is tagged with the key `Owner` with a value of `QATeam`\.
+The following policy statement allows you to call `CloseTunnel` if the request's `Delete` parameter is `false` and the requested tunnel is tagged with the key `Owner` with a value of `QATeam`\.
 
 ```
 {

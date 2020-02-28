@@ -1,10 +1,10 @@
-# Basic AWS IoT Policy Variables<a name="basic-policy-variables"></a>
+# Basic Policy Variables<a name="basic-policy-variables"></a>
 
-AWS IoT defines the following basic policy variables:
-+ `iot:ClientId`: The client ID used to connect to the AWS IoT message broker\.
-+ `aws:SourceIp`: The IP address of the client connected to the AWS IoT message broker\.
+ defines the following basic policy variables:
++ `iot:ClientId`: The client ID used to connect to the message broker\.
++ `aws:SourceIp`: The IP address of the client connected to the message broker\.
 
-The following AWS IoT policy shows a policy that uses policy variables:
+The following policy shows a policy that uses policy variables:
 
 ```
 {
@@ -28,7 +28,7 @@ The following AWS IoT policy shows a policy that uses policy variables:
 }
 ```
 
-In these examples, `${iot:ClientId}` is replaced by the ID of the client connected to the AWS IoT message broker when the policy is evaluated\. When you use policy variables like `${iot:ClientId}`, you can inadvertently open access to unintended topics\. For example, if you use a policy that uses `${iot:ClientId}` to specify a topic filter:
+In these examples, `${iot:ClientId}` is replaced by the ID of the client connected to the message broker when the policy is evaluated\. When you use policy variables like `${iot:ClientId}`, you can inadvertently open access to unintended topics\. For example, if you use a policy that uses `${iot:ClientId}` to specify a topic filter:
 
 ```
 {
@@ -40,7 +40,7 @@ In these examples, `${iot:ClientId}` is replaced by the ID of the client connect
 }
 ```
 
-A client can connect using `+` as the client ID\. This would allow the user to subscribe to any topic that matches the topic filter `my/+/topic`\. To protect against such security gaps, use the `iot:Connect` policy action to control which client IDs can connect\. For example, this policy allows only clients whose client ID is `clientid1` to connect:
+A client can connect using `+` as the client ID\. This would allow the user to subscribe to any topic that matches the topic filter `my/+/topic`\. To protect against such security gaps, use the `iot:Connect` policy action to control which client IDs can connect\. For example, this policy allows only those clients whose client ID is `clientid1` to connect:
 
 ```
 {

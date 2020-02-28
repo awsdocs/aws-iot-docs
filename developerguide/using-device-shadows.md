@@ -514,11 +514,11 @@ The rule is specified in JSON and should look like the following:
     "ruleDisabled": false,
     "actions": [{
         "republish": {
-            "topic": "${topic(2)}/delta",
+            "topic": "${topic(3)}/delta",
             "roleArn": "arn:aws:iam::123456789012:role/my-iot-role"
         }
     }]
 }
 ```
 
-The SELECT statement determines which fields from the message will be republished to the specified topic\. A "\+" wild card is used to match all shadow names\. The rule specifies that all matching messages should be republished to the specified topic\. In this case, the `"topic()"` function is used to specify the topic on which to republish\. `topic(2)` evaluates to the thing name in the original topic\. For more information about creating rules, see [Rules](https://docs.aws.amazon.com/iot/latest/developerguide//iot-rules.html)\.
+The SELECT statement determines which fields from the message will be republished to the specified topic\. A "\+" wild card is used to match all shadow names\. The rule specifies that all matching messages should be republished to the specified topic\. In this case, the `"topic()"` function is used to specify the topic on which to republish\. `topic(3)` evaluates to the thing name in the original topic\. For more information about creating rules, see [Rules](https://docs.aws.amazon.com/iot/latest/developerguide/iot-rules.html)\.

@@ -42,7 +42,9 @@ SQL: SELECT *, 15 as speed FROM 'a/b'
 Outgoing payload: {"color":"red", "temperature":50, "speed":15}
 ```
 
-You can use the `"VALUE"` keyword to produce outgoing payloads that are not JSON objects\. You may only select one item\. For example:
+You can use the `"VALUE"` keyword to produce outgoing payloads that are not JSON objects\. With SQL version `2015-10-08`, you can only select one item\. With SQL version `2016-03-23` or later, you can also select an array to output as a top\-level object\.
+
+**Example**  
 
 ```
 Incoming payload published on topic 'a/b': {"color":"red", "temperature":50}

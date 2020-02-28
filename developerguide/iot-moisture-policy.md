@@ -4,7 +4,7 @@ Create an AWS IoT policy that allows your Raspberry Pi to connect and send messa
 
 1. In the [AWS IoT console](https://console.aws.amazon.com/iot), if a **Get started** button appears, choose it\. Otherwise, in the navigation pane, expand ** Secure**, and then choose **Policies**\.
 
-1. If a **You don’t have any policies yet** dialog box appears, choose **Create a policy**\. Otherwise, choose **Create**\.
+1. If a **You don't have any policies yet** dialog box appears, choose **Create a policy**\. Otherwise, choose **Create**\.
 
 1. Enter a name for the AWS IoT policy \(for example, **MoistureSensorPolicy**\)\.
 
@@ -22,7 +22,7 @@ Create an AWS IoT policy that allows your Raspberry Pi to connect and send messa
             "Effect": "Allow",
             "Action": "iot:Publish",
             "Resource": [
-               "arn:aws:iot:us-west-2:504350838278:topic/$aws/things/RaspberryPi/shadow/update",
+               "arn:aws:iot:<region>:<account>:topic/$aws/things/RaspberryPi/shadow/update",
                "arn:aws:iot:<region>:<account>:topic/$aws/things/RaspberryPi/shadow/delete",
                "arn:aws:iot:<region>:<account>:topic/$aws/things/RaspberryPi/shadow/get"
             ]
@@ -42,11 +42,11 @@ Create an AWS IoT policy that allows your Raspberry Pi to connect and send messa
             "Effect": "Allow",
             "Action": "iot:Subscribe",
             "Resource": [
-               "arn:aws:iot:<region>:<account>:topic/$aws/things/RaspberryPi/shadow/update/accepted",
-               "arn:aws:iot:<region>:<account>:topic/$aws/things/RaspberryPi/shadow/delete/accepted",
-               "arn:aws:iot:<region>:<account>:topic/$aws/things/RaspberryPi/shadow/get/accepted",
-               "arn:aws:iot:<region>:<account>:topic/$aws/things/RaspberryPi/shadow/update/rejected",
-               "arn:aws:iot:<region>:<account>:topic/$aws/things/RaspberryPi/shadow/delete/rejected"
+               "arn:aws:iot:<region>:<account>:topicfilter/$aws/things/RaspberryPi/shadow/update/accepted",
+               "arn:aws:iot:<region>:<account>:topicfilter/$aws/things/RaspberryPi/shadow/delete/accepted",
+               "arn:aws:iot:<region>:<account>:topicfilter/$aws/things/RaspberryPi/shadow/get/accepted",
+               "arn:aws:iot:<region>:<account>:topicfilter/$aws/things/RaspberryPi/shadow/update/rejected",
+               "arn:aws:iot:<region>:<account>:topicfilter/$aws/things/RaspberryPi/shadow/delete/rejected"
             ]
          },
          {

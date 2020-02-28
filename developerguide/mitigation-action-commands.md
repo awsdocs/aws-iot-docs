@@ -967,7 +967,7 @@ Output JSON:
 
 |  Name  |  Type  |  Description  | 
 | --- | --- | --- | 
-|  `>actionsDefinition`  |  map  |  The set of actions \(and their metadata\) applied by this audit mitigation action task\.  | 
+|  `actionsDefinition`  |  map  |  The set of actions \(and their metadata\) applied by this audit mitigation action task\.  | 
 |  `actionParams`  |  map  |  The parameters used when applying the mitigation action\.  | 
 |  `addThingsToThingGroupParam`  |  map  |  Parameters to define a mitigation action that moves devices associated with a certificate to one or more specified thing groups, typically for quarantine\.  | 
 |  `overrideDynamicGroups`  |  boolean  |  Specifies if this mitigation action can move the things that triggered the mitigation action even if they are part of one or more dynamic thing groups\.  | 

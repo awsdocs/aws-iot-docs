@@ -1,6 +1,6 @@
 # How AWS IoT Works<a name="aws-iot-how-it-works"></a>
 
-AWS IoT enables Internet\-connected devices to connect to the AWS Cloud and lets applications in the cloud interact with Internet\-connected devices\. Common IoT applications either collect and process telemetry from devices or enable users to control a device remotely\.
+AWS IoT enables internet\-connected devices to connect to the AWS Cloud and lets applications in the cloud interact with internet\-connected devices\. Common IoT applications either collect and process telemetry from devices or enable users to control a device remotely\.
 
 The state of each device connected to AWS IoT is stored in a device shadow\. The Device Shadow service manages device shadows by responding to requests to retrieve or update device state data\. The Device Shadow service makes it possible for devices to communicate with applications and for applications to communicate with devices\.
 

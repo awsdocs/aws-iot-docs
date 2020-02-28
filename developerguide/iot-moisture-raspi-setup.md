@@ -143,7 +143,7 @@ def configureLogging():
     logger = logging.getLogger("AWSIoTPythonSDK.core")
     logger.setLevel(logging.DEBUG)
     streamHandler = logging.StreamHandler()
-    formatter = logging.Formatter('%(asctime)s - %(name)s - %(levelname)s - %(message)s’)
+    formatter = logging.Formatter('%(asctime)s - %(name)s - %(levelname)s - %(message)s')
     streamHandler.setFormatter(formatter)
     logger.addHandler(streamHandler)
 
@@ -183,7 +183,7 @@ myAWSIoTMQTTShadowClient.connect()
 # Create a device shadow handler, use this to update and delete shadow document
 deviceShadowHandler = myAWSIoTMQTTShadowClient.createShadowHandlerWithName(args.thingName, True)
 
-# Delete curent shadow JSON doc
+# Delete current shadow JSON doc
 deviceShadowHandler.shadowDelete(customShadowCallback_Delete, 5)
 
 # Read data from moisture sensor and update shadow
@@ -197,7 +197,7 @@ while True:
 
     # Display moisture and temp readings
     print("Moisture Level: {}".format(moistureLevel))
-    print("Temperature: {}".format(temp)
+    print("Temperature: {}".format(temp))
     
     # Create message payload
     payload = {"state":{"reported":{"moisture":str(moistureLevel),"temp":str(temp)}}}
@@ -210,7 +210,7 @@ while True:
 Save the file to a place you can find it\. Run `moistureSensor.py` from the command line with the following parameters:
 
 endpoint  
-Your custom AWS IoT endpoint\.
+Your custom AWS IoT endpoint\. For more information, see [Device Shadow RESTful API](device-shadow-rest-api.md)\.
 
 rootCA  
 The full path the your AWS IoT root CA certificate\.
@@ -229,7 +229,7 @@ The MQTT client ID\. Use `RaspberryPi`\.
 
 The command line should look like this:
 
-`python3 moistureSensor.py --endpoint --rootCA ~/certs/Amazon-Root-CA-1.pem --cert ~/certs/raspberrypi.crt --key ~/certs/raspberrypi-private.key --thing-name RaspberryPi --clientId RaspberryPi`
+`python3 moistureSensor.py --endpoint <your-endpoint> --rootCA ~/certs/AmazonRootCA1.pem --cert ~/certs/raspberrypi-certificate.pem.crt --key ~/certs/raspberrypi-private.pem.key --thingName RaspberryPi --clientId RaspberryPi`
 
 Try touching the sensor, putting it in a planter, or putting it in a glass of water to see how the sensor responds to various levels of moisture\. If needed, you can change the threshold value in the `MoistureSensorRule`\. When the moisture sensor reading goes below the value specified in your rule's SQL query statement, AWS IoT publishes a message to the Amazon SNS topic\. You should receive an email message that contains the moisture and temperature data\.
 

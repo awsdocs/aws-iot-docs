@@ -76,16 +76,16 @@ You can use conditions in your identity\-based policy to control access to AWS I
     "Version": "2012-10-17",
     "Statement": [
         {
-            "Sid": "ListThingsInConsole",
+            "Sid": "ListBillingGroupsInConsole",
             "Effect": "Allow",
-            "Action": "iot:ListThings",
+            "Action": "iot:ListBillingGroups",
             "Resource": "*"
         },
         {
-            "Sid": "ViewThingsIfOwner",
+            "Sid": "ViewBillingGroupsIfOwner",
             "Effect": "Allow",
-            "Action": "iot:DescribeThing",
-            "Resource": "arn:aws:iot:*:*:thing/*",
+           "Action": "iot:DescribeBillingGroup",
+            "Resource": "arn:aws:iot:*:*:billinggroup/*",
             "Condition": {
                 "StringEquals": {"iot:ResourceTag/Owner": "${aws:username}"}
             }
@@ -94,4 +94,4 @@ You can use conditions in your identity\-based policy to control access to AWS I
 }
 ```
 
-You can attach this policy to the IAM users in your account\. If a user named `richard-roe` attempts to view an AWS IoT thing, the thing must be tagged `Owner=richard-roe` or `owner=richard-roe`\. Otherwise he is denied access\. The condition tag key `Owner` matches both `Owner` and `owner` because condition key names are not case\-sensitive\. For more information, see [IAM JSON Policy Elements: Condition](https://docs.aws.amazon.com/IAM/latest/UserGuide/reference_policies_elements_condition.html) in the *IAM User Guide*\.
+You can attach this policy to the IAM users in your account\. If a user named `richard-roe` attempts to view an AWS IoT billing group, the billing group must be tagged `Owner=richard-roe` or `owner=richard-roe`\. Otherwise, he is denied access\. The condition tag key `Owner` matches both `Owner` and `owner` because condition key names are not case\-sensitive\. For more information, see [IAM JSON Policy Elements: Condition](https://docs.aws.amazon.com/IAM/latest/UserGuide/reference_policies_elements_condition.html) in the *IAM User Guide*\.

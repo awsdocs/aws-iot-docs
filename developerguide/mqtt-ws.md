@@ -1,6 +1,6 @@
 # MQTT over the WebSocket Protocol<a name="mqtt-ws"></a>
 
-AWS IoT supports MQTT over the [WebSocket](https://en.wikipedia.org/wiki/WebSocket) protocol to enable browser\-based and remote applications to send and receive data from AWS IoT\-connected devices using AWS credentials\. AWS credentials are specified using [AWS Signature Version 4](https://docs.aws.amazon.com/general/latest/gr//sigv4_signing.html)\. WebSocket support is available on TCP port 443, which allows messages to pass through most firewalls and web proxies\.
+ supports MQTT over the [WebSocket](https://en.wikipedia.org/wiki/WebSocket) protocol to enable browser\-based and remote applications to send and receive data from \-connected devices using AWS credentials\. AWS credentials are specified using [AWS Signature Version 4](https://docs.aws.amazon.com/general/latest/gr/sigv4_signing.html)\. WebSocket support is available on TCP port 443, which allows messages to pass through most firewalls and web proxies\.
 
 A WebSocket connection is initiated on a client by sending an HTTP GET request\. The URL you use is of the following form:
 
@@ -12,7 +12,7 @@ wss
 Specifies the WebSocket protocol\.
 
 endpoint  
-Your AWS account\-specific AWS IoT endpoint\. You can use the AWS IoT CLI [describe\-endpoint](https://docs.aws.amazon.com/cli/latest/reference/iot/describe-endpoint.html) command to find this endpoint\.
+Your AWS account\-specific endpoint\. You can use the CLI [describe\-endpoint](https://docs.aws.amazon.com/cli/latest/reference/iot/describe-endpoint.html) command to find this endpoint\.
 
 region  
 The AWS Region of your AWS account\.
@@ -20,13 +20,15 @@ The AWS Region of your AWS account\.
 mqtt  
 Specifies you are sending MQTT messages over the WebSocket protocol\.
 
-When the server responds, the client sends an upgrade request to indicate to the server it will communicate using the WebSocket protocol\. After the server acknowledges the upgrade request, all communication is performed using the WebSocket protocol\. The WebSocket implementation you use acts as a transport protocol\. The data you send over the WebSocket protocol are MQTT messages\.
+When the server responds, the client sends an upgrade request to indicate to the server it communicates using the WebSocket protocol\. After the server acknowledges the upgrade request, all communication is performed using the WebSocket protocol\. The WebSocket implementation you use acts as a transport protocol\. The data you send over the WebSocket protocol are MQTT messages\.
 
 ## Using the WebSocket Protocol in a Web Application<a name="mqtt-ws-web-app"></a>
 
 The WebSocket implementation provided by most web browsers does not allow the modification of HTTP headers, so you must add the Signature Version 4 information to the query string\. For more information, see [Adding Signing Information to the Query String](https://docs.aws.amazon.com/general/latest/gr/sigv4-add-signature-to-request.html#sigv4-add-signature-querystring)\. 
 
-The following JavaScript defines some utility functions used in generating a Signature Version 4 request\.
+The following JavaScript defines some utility functions used to generate a Signature Version 4 request\.
+
+For more information about using the WebSocket protocol in JavaScript, see [WebSocket](https://javascript.info/websocket) in *The Modern JavaScript Tutorial*\.
 
 ```
   /**
@@ -60,7 +62,7 @@ The following JavaScript defines some utility functions used in generating a Sig
         canonicalQuerystring += '&X-Amz-SignedHeaders=host';
     
         var canonicalHeaders = 'host:' + host + '\n';
-        var payloadHash = AWS.util.crypto.sha256('', 'hex')
+        var payloadHash = AWS.util.crypto.sha256('', 'hex');
         var canonicalRequest = method + '\n' + uri + '\n' + canonicalQuerystring + '\n' + canonicalHeaders + '\nhost\n' + payloadHash;
     
         var stringToSign = algorithm + '\n' + datetime + '\n' + credentialScope + '\n' + AWS.util.crypto.sha256(canonicalRequest, 'hex');
@@ -106,7 +108,9 @@ The following JavaScript defines some utility functions used in generating a Sig
 
 1. Create a string to sign, generate a signing key, and sign the string\.
 
-   Take the canonical URL you created in the previous step and assemble it into a string to sign\. You do this by creating a string composed of the hashing algorithm, the date, the credential scope, and the SHA of the canonical request\. Next, generate the signing key and sign the string, as shown in the following JavaScript code\.
+   Take the canonical URL you created in the previous step and assemble it into a string to sign\. You do this by creating a string composed of the hashing algorithm, the date, the credential scope, and the SHA of the canonical request\. 
+
+   Next, generate the signing key and sign the string, as shown in the following JavaScript code\.
 
    ```
        var stringToSign = algorithm + '\n' + datetime + '\n' + credentialScope + '\n' + AWS.util.crypto.sha256(canonicalRequest, 'hex');
@@ -156,11 +160,11 @@ The following JavaScript defines some utility functions used in generating a Sig
 
 ## Using the WebSocket Protocol in a Mobile Application<a name="mqtt-ws-mobile-app"></a>
 
-We recommend using one of the AWS IoT Device SDKs to connect your device to AWS IoT when making a WebSocket connection\. The following AWS IoT Device SDKs support WebSocket\-based MQTT connections to AWS IoT:
+We recommend that you use one of the Device SDKs to connect your device to when making a WebSocket connection\. The following Device SDKs support WebSocket\-based MQTT connections to :
 + [Node\.js](https://github.com/aws/aws-iot-device-sdk-js)
 + [iOS](https://docs.aws.amazon.com/mobile/sdkforios/developerguide/)
 + [Android](https://docs.aws.amazon.com/mobile/sdkforandroid/developerguide/)
 
-For a reference implementation for connecting a web application to AWS IoT using MQTT over the WebSocket protocol, see [AWS Labs WebSocket sample](https://github.com/awslabs/aws-iot-examples)\.
+For a reference implementation for connecting a web application to using MQTT over the WebSocket protocol, see [AWS Labs WebSocket sample](https://github.com/awslabs/aws-iot-examples) on the GitHub website\.
 
 If you are using a programming or scripting language that is not currently supported, any existing WebSocket library can be used as long as the initial WebSocket upgrade request \(HTTP POST\) is signed using Signature Version 4\. Some MQTT clients, such as [Eclipse Paho for JavaScript](http://www.eclipse.org/paho/), support the WebSocket protocol natively\.

@@ -16,7 +16,7 @@ cd into the `/home/pi/Downloads` directory\. Expand the `mbedtls-2.16.3-apache.t
 
 Copy the contents of `mbedtls-2.16.3` into the `aws-iot-device-sdk-embedded-C/external_libs/mbedTLS` directory using:
 
-mv \~/Downloads/mbedtls\-2\.16\.3 \~/aws\-iot\-device\-sdk\-embedded\-c/external\_libs/mbedTLS
+mv \~/Downloads/mbedtls\-2\.16\.3/\* \~/aws\-iot\-device\-sdk\-embedded\-c/external\_libs/mbedTLS
 
 ## Sample App Configuration<a name="iot-c-sdk-app-config"></a>
 
