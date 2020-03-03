@@ -41,10 +41,10 @@ The following is an example of the response from a custom authorizer\.
 
 ```
 {
-     "isAuthenticated":true,
+     "isAuthenticated": true,
      "principalId": "xxxxxxxx",
      "disconnectAfterInSeconds": 86400,
-     "refreshAfterInSeconds", 300,
+     "refreshAfterInSeconds": 300,
      "policyDocuments": [
       "{ \"Version\": \"2012-10-17\", \"Statement\": [ { \"Action\": \"...\", \"Effect\": \"Allow|Deny\", \"Resource\": \"...\" } ] }"
      ]
