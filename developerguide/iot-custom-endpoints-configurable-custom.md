@@ -64,7 +64,7 @@ AWS IoT leverages the server name indication \(SNI\) TLS extension to apply doma
 The following AWS CLI command creates a domain configuration for **iot\.example\.com**\.
 
 ```
-aws iot create-domain-configuration --domain-configuration-name "myDomainConfigurationName" ----service-type "DATA" 
+aws iot create-domain-configuration --domain-configuration-name "myDomainConfigurationName" --service-type "DATA" 
  --domain-name "iot.example.com" --server-certificate-arns serverCertARN --validation-certificate-arn validationCertArn
 ```
 
