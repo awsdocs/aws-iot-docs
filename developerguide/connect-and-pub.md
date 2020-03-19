@@ -29,7 +29,7 @@ For devices not registered as things in the registry, the following policy grant
       {
         "Effect": "Allow",
         "Action":["iot:Publish"],
-        "Resource": ["arn:aws:iot:us-east-1:123456789012:topic/${iot:clientId}"]
+        "Resource": ["arn:aws:iot:us-east-1:123456789012:topic/${iot:ClientId}"]
       },
       {
         "Effect": "Allow",
