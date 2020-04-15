@@ -100,6 +100,15 @@ For devices registered as things in the registry, the following policy grants pe
             "Resource": [
                 "arn:aws:iot:us-east-1:123456789012:topicfilter/${iot:Connection.Thing.ThingName}/room*"
             ]
+        },
+        {
+            "Effect": "Allow",
+            "Action": [
+                "iot:Receive"
+            ],
+            "Resource": [
+                "arn:aws:iot:us-east-1:123456789012:topic/${iot:Connection.Thing.ThingName}/room*"
+            ]
         }
     ]
 }
@@ -132,6 +141,15 @@ For devices not registered as things in the registry, the following policy grant
             ],
             "Resource": [
                 "arn:aws:iot:us-east-1:123456789012:topicfilter/${iot:ClientId}/room*"
+            ]
+        },
+        {
+            "Effect": "Allow",
+            "Action": [
+                "iot:Receive"
+            ],
+            "Resource": [
+                "arn:aws:iot:us-east-1:123456789012:topic/${iot:ClientId}/room*"
             ]
         }
     ]
