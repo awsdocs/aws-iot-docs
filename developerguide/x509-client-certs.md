@@ -17,6 +17,13 @@ AWS IoT can use AWS IoT\-generated X\.509 certificates or your own X\.509 certif
 
 To use an X\.509 certificate not created by AWS IoT, you must register a CA certificate\. All device certificates must be signed by the CA certificate you register\.
 
+
+****  
+
+|  | 
+| --- |
+| The AWS IoT Multi\-Account Registration feature, currently in beta, lets you register the same device certificate in multiple AWS accounts that you own\. It also lets you register device certificates that are not signed by a registered CA\. For more information and to request access to the beta, see [AWS IoT Core Multi\-Account Registration \(Beta\)](https://pages.awscloud.com/iot-core-early-registration.html)\. | 
+
 **Note**  
 We recommend that each device be given a unique certificate to enable fine\-grained management including certificate revocation\. Devices must support rotation and replacement of certificates in order to ensure smooth operation as certificates expire\.
 

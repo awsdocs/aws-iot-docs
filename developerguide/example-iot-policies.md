@@ -14,5 +14,5 @@ See the following topics to learn about common elements in an AWS IoT policy\. Y
 
 For additional policy examples, see the following topics in other sections of this guide:
 + [AWS IoT Identity\-Based Policy Examples](security_iam_id-based-policy-examples.md)
-+ [Basic Policy Variables](basic-policy-variables.md)
-+ [X\.509 Certificate Policy Variables](cert-policy-variables.md)
++ [Basic AWS IoT Core Policy Variables](basic-policy-variables.md)
++ [X\.509 Certificate AWS IoT Core Policy Variables](cert-policy-variables.md)

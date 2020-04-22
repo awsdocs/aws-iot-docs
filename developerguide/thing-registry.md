@@ -4,13 +4,13 @@ You use the AWS IoT console or the AWS CLI to interact with the registry\. The f
 
 ## Create a Thing<a name="create-thing"></a>
 
-The following command shows how to use the AWS IoT CreateThing command from the CLI to create a thing:
+The following command shows how to use the AWS IoT CreateThing command from the CLI to create a thing\. You can't change a thing's name after you create it\. To change a thing's name, you must create a new thing, give it the new name, and then delete the old thing\.
 
 ```
 $ aws iot create-thing --thing-name "MyLightBulb" --attribute-payload "{\"attributes\": {\"wattage\":\"75\", \"model\":\"123\"}}"
 ```
 
-The CreateThing command displays the name and ARN of your new thing:
+The CreateThing command displays the name and Amazon Resource Name \(ARN\) of your new thing:
 
 ```
 {
@@ -143,7 +143,7 @@ $  aws iot list-things --attribute-name "wattage" --attribute-value "75"
 
 ## Update a Thing<a name="update-thing"></a>
 
-You can use the UpdateThing command to update a thing:
+You can use the UpdateThing command to update a thing\. Note that this command updates only the thing's attributes\. You can't change a thing's name\. To change a thing's name, you must create a new thing, give it the new name, and then delete the old thing\.
 
 ```
 $ aws iot update-thing --thing-name "MyLightBulb" --attribute-payload "{\"attributes\": {\"wattage\":\"150\", \"model\":\"456\"}}"

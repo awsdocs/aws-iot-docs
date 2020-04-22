@@ -2,6 +2,7 @@
 
 AWS IoT rule actions are used to specify what to do when a rule is triggered\. You can define actions to write data to a DynamoDB database or a Kinesis stream or to invoke a Lambda function, and more\. The following actions are supported: 
 + `cloudwatchAlarm` to change a CloudWatch alarm\.
++ `cloudwatchLogs` to send data to CloudWatch Logs\.
 + `cloudwatchMetric` to capture a CloudWatch metric\.
 + `dynamoDB` to write data to a DynamoDB database\. 
 + `dynamoDBv2` to write data to a DynamoDB database\. 
@@ -22,6 +23,8 @@ AWS IoT rule actions are used to specify what to do when a rule is triggered\. Y
 
 **Note**  
 The AWS IoT rules engine might make multiple attempts to perform an action in case of intermittent errors\. If all attempts fail, the message is discarded and the error is available in your CloudWatch logs\. You can specify an error action for each rule that is invoked after a failure occurs\. For more information, see [Error Handling \(Error Action\)](rule-error-handling.md)\.
+
+Some rule actions trigger actions in services that integrate with AWS Key Management Service \(AWS KMS\) to support data encryption at rest\. If you use a customer managed AWS KMS customer master key \(CMK\) to encrypt data at rest, the service must have permission to use the CMK on the caller's behalf\. See the data encryption topics in the appropriate service guide to learn how to manage permissions for your customer managed CMK\. For more information about CMKs and customer managed CMKs, see [AWS Key Management Service concepts](https://docs.aws.amazon.com/kms/latest/developerguide/concepts.html) in the *AWS Key Management Service Developer Guide*\.
 
 Each action is described in detail\.
 
@@ -76,6 +79,46 @@ For more information, see [CloudWatch Alarms](https://docs.aws.amazon.com/Amazon
 
 ------
 
+## CloudWatch Logs Action<a name="cloudwatch-logs-action"></a>
+
+------
+#### [ CloudWatch Logs Action ]
+
+The CloudWatch logs action allows you to send data to CloudWatch Logs\. You can specify the CloudWatch log group to which the action sends data\.
+
+------
+#### [ More information \(2\) ]
+
+When you create an AWS IoT rule with a CloudWatch logs action, you must specify the following information:
+
+roleArn  
+The IAM role that allows access to the CloudWatch log\.
+
+logGroupName  
+The CloudWatch log group to which the action sends data\.
+
+The following JSON example shows how to define a CloudWatch logs action in an AWS IoT rule:
+
+```
+{
+    "topicRulePayload": {
+        "sql": "SELECT * FROM 'some/topic'", 
+        "ruleDisabled": false, 
+        "awsIotSqlVersion": "2016-03-23",
+        "actions": [{
+            "cloudwatchLogs": {
+                "roleArn": "arn:aws:iam::123456789012:role/aws_iot_cw", 
+                "logGroupName": "IotLogs"
+            }
+        }]
+    }
+}
+```
+
+For more information, see [Getting Started with CloudWatch Logs](https://docs.aws.amazon.com/AmazonCloudWatch/latest/DeveloperGuide/CWL_GettingStarted.html)\. If you use a customer managed AWS KMS CMK to encrypt log data in CloudWatch Logs, the service must have permission to use the CMK on the caller's behalf\. For more information, see [Encrypt Log Data in CloudWatch Logs Using AWS KMS](https://docs.aws.amazon.com/AmazonCloudWatch/latest/logs/encrypt-log-data-kms.html) in the *Amazon CloudWatch Logs User Guide*\.
+
+------
+
 ## CloudWatch Metric Action<a name="cloudwatch-metric-action"></a>
 
 ------
@@ -84,7 +127,7 @@ For more information, see [CloudWatch Alarms](https://docs.aws.amazon.com/Amazon
 The CloudWatch metric action allows you to capture a CloudWatch metric\. You can specify the metric namespace, name, value, unit, and timestamp\. 
 
 ------
-#### [ More information \(2\) ]
+#### [ More information \(3\) ]
 
 When creating an AWS IoT rule with a CloudWatch metric action, you must specify the following information:
 
@@ -143,7 +186,7 @@ For more information, see [CloudWatch Metrics\.](https://docs.aws.amazon.com/Ama
 The `dynamoDB` action allows you to write all or part of an MQTT message to a DynamoDB table\. 
 
 ------
-#### [ More information \(3\) ]
+#### [ More information \(4\) ]
 
 When creating a DynamoDB rule, you must specify the following information: 
 
@@ -206,7 +249,7 @@ The following JSON example shows how to define a `dynamoDB` action in an AWS IoT
 }
 ```
 
-For more information, see the [Amazon DynamoDB Getting Started Guide](https://docs.aws.amazon.com/amazondynamodb/latest/gettingstartedguide/)\.
+For more information, see the [Amazon DynamoDB Getting Started Guide](https://docs.aws.amazon.com/amazondynamodb/latest/gettingstartedguide/)\. If you use a customer managed AWS KMS CMK to encrypt data at rest in DynamoDB, the service must have permission to use the CMK on the caller's behalf\. For more information, see [Customer Managed CMK](https://docs.aws.amazon.com/amazondynamodb/latest/developerguide/encryption.howitworks.html#managed-cmk-customer-managed) in the *Amazon DynamoDB Getting Started Guide*\.
 
 ------
 
@@ -218,7 +261,7 @@ For more information, see the [Amazon DynamoDB Getting Started Guide](https://do
 The `dynamoDBv2` action allows you to write all or part of an MQTT message to a DynamoDB table\. Each attribute in the payload is written to a separate column in the DynamoDB database\.
 
 ------
-#### [ More information \(4\) ]
+#### [ More information \(5\) ]
 
  When creating a DynamoDB rule, you must specify the following information: 
 
@@ -257,7 +300,7 @@ The following JSON example shows how to define a `dynamoDB` action in an AWS IoT
 }
 ```
 
-For more information, see the [Amazon DynamoDB Getting Started Guide](https://docs.aws.amazon.com/amazondynamodb/latest/gettingstartedguide/)\.
+For more information, see the [Amazon DynamoDB Getting Started Guide](https://docs.aws.amazon.com/amazondynamodb/latest/gettingstartedguide/)\. If you use a customer managed AWS KMS CMK to encrypt data at rest in DynamoDB, the service must have permission to use the CMK on the caller's behalf\. For more information, see [Customer Managed CMK](https://docs.aws.amazon.com/amazondynamodb/latest/developerguide/encryption.howitworks.html#managed-cmk-customer-managed) in the *Amazon DynamoDB Getting Started Guide*\.
 
 ------
 
@@ -269,7 +312,7 @@ For more information, see the [Amazon DynamoDB Getting Started Guide](https://do
 The `elasticsearch` action allows you to write data from MQTT messages to an Amazon Elasticsearch Service domain\. Data in Elasticsearch can then be queried and visualized by using tools like Kibana\. 
 
 ------
-#### [ More information \(5\) ]
+#### [ More information \(6\) ]
 
 When you create an AWS IoT rule with an `elasticsearch` action, you must specify the following information:
 
@@ -309,7 +352,7 @@ The following JSON example shows how to define an `elasticsearch` action in an A
 }
 ```
 
-For more information, see the [Amazon Elasticsearch Service Developer Guide](https://docs.aws.amazon.com/elasticsearch-service/latest/developerguide/)\.
+For more information, see the [Amazon Elasticsearch Service Developer Guide](https://docs.aws.amazon.com/elasticsearch-service/latest/developerguide/)\. If you use a customer managed AWS KMS CMK to encrypt data at rest in Elasticsearch, the service must have permission to use the CMK on the caller's behalf\. For more information, see [Encryption of Data at Rest for Amazon Elasticsearch Service](https://docs.aws.amazon.com/elasticsearch-service/latest/developerguide/encryption-at-rest.html) in the *Amazon Elasticsearch Service Developer Guide*\.
 
 ------
 
@@ -321,7 +364,7 @@ For more information, see the [Amazon Elasticsearch Service Developer Guide](htt
 A `firehose` action sends data from an MQTT message that triggered the rule to a Kinesis Data Firehose stream\. 
 
 ------
-#### [ More information \(6\) ]
+#### [ More information \(7\) ]
 
 When you create a rule with a `firehose` action, you must specify the following information:
 
@@ -355,7 +398,7 @@ The following JSON example shows how to create an AWS IoT rule with a `firehose`
 }
 ```
 
-For more information, see the [Kinesis Data Firehose Developer Guide](https://docs.aws.amazon.com/firehose/latest/dev/)\.
+For more information, see the [Amazon Kinesis Data Firehose Developer Guide](https://docs.aws.amazon.com/firehose/latest/dev/)\. If you use Kinesis Data Firehose to send data to an Amazon S3 bucket and you use a customer managed AWS KMS CMK to encrypt data at rest in Amazon S3, Kinesis Data Firehose must have access to your bucket and permission to use the CMK on the caller's behalf\. For more information, see [Grant Kinesis Data Firehose Access to an Amazon S3 Destination](https://docs.aws.amazon.com/firehose/latest/dev/controlling-access.html#using-iam-s3) in the *Amazon Kinesis Data Firehose Developer Guide*\.
 
 ------
 
@@ -367,7 +410,7 @@ For more information, see the [Kinesis Data Firehose Developer Guide](https://do
 The `http` action sends data from an MQTT message that triggered the rule to your web applications or services for further processing, without writing any code\. The endpoint you send data to must be verified before the rules engine can use it\.
 
 ------
-#### [ More information \(7\) ]
+#### [ More information \(8\) ]
 
 When you create a rule with an `http` action, you must specify the following information:
 
@@ -445,7 +488,7 @@ The AWS IoT rules engine retries `http` actions according to these rules:
 An `iotAnalytics` action sends data from the MQTT message that triggered the rule to an AWS IoT Analytics channel\. 
 
 ------
-#### [ More information \(8\) ]
+#### [ More information \(9\) ]
 
 When you create a rule with an `iotAnalytics` action, you must specify the following information:
 
@@ -465,7 +508,7 @@ The policy attached to the role you specify should look like this:
             "Effect": "Allow",
             "Action": "iotanalytics:BatchPutMessage",
             "Resource": [
-                "arn:aws:iotanalytics:us-west-2:<your-account-number>:channel/mychannel"
+                "arn:aws:iotanalytics:us-west-2:account-id:channel/mychannel"
             ]
         }
     ]
@@ -523,7 +566,7 @@ The AWS IoT Analytics console also has a **Quick start** feature that allows you
 An `iotEvents` action sends data from the MQTT message that triggered the rule to an AWS IoT Events input\. 
 
 ------
-#### [ More information \(9\) ]
+#### [ More information \(10\) ]
 
 When you create a rule with a `iotEvents` action, you must specify the following information:
 
@@ -587,7 +630,7 @@ You can follow a tutorial that shows you how to ingest data from AWS IoT things\
 For more information about troubleshooting this rule, see [Troubleshooting an AWS IoT SiteWise Rule Action](https://docs.aws.amazon.com/iot-sitewise/latest/userguide/troubleshooting.html#troubleshoot-rule) in the *AWS IoT SiteWise User Guide*\.
 
 ------
-#### [ More information \(10\) ]
+#### [ More information \(11\) ]
 
 When creating a rule with an `iotSiteWise` action, you must specify the following information:
 
@@ -652,8 +695,8 @@ To improve security, you can specify an AWS IoT SiteWise asset hierarchy path in
             "Condition": {
                 "StringLike": {
                     "iotsitewise:assetHierarchyPath": [
-                        "root node asset ID",
-                        "root node asset ID/*"
+                        "/root node asset ID",
+                        "/root node asset ID/*"
                     ]
                 }
             }
@@ -739,7 +782,7 @@ For more information, see the [ AWS IoT SiteWise User Guide](https://docs.aws.am
 The `kinesis` action allows you to write data from MQTT messages into a Kinesis stream\. 
 
 ------
-#### [ More information \(11\) ]
+#### [ More information \(12\) ]
 
 When creating an AWS IoT rule with a `kinesis` action, you must specify the following information:
 
@@ -771,7 +814,7 @@ The following JSON example shows how to define a `kinesis` action in an AWS IoT 
 }
 ```
 
-For more information, see the [Kinesis Developer Guide](https://docs.aws.amazon.com/streams/latest/dev/introduction.html)\.
+For more information, see the [Amazon Kinesis Data Streams Developer Guide](https://docs.aws.amazon.com/streams/latest/dev/)\. If you use a customer managed AWS KMS CMK to encrypt data at rest in Kinesis Data Streams, the service must have permission to use the CMK on the caller's behalf\. For more information, see [Permissions to Use User\-Generated KMS Master Keys ](https://docs.aws.amazon.com/streams/latest/dev/permissions-user-key-KMS.html) in the *Amazon Kinesis Data Streams Developer Guide*\.
 
 ------
 
@@ -783,14 +826,14 @@ For more information, see the [Kinesis Developer Guide](https://docs.aws.amazon.
  A `lambda` action calls a Lambda function, passing in the MQTT message that triggered the rule\. Lambda functions are run asynchronously\.
 
 ------
-#### [ More information \(12\) ]
+#### [ More information \(13\) ]
 
 Lambda functions are executed asynchronously\.
 
 In order for AWS IoT to call a Lambda function, you must configure a policy granting the `lambda:InvokeFunction` permission to AWS IoT\. You can only invoke a Lambda function defined in the same region where your Lambda policy exists\. Lambda functions use resource\-based policies, so you must attach the policy to the Lambda function itself\. Use the following CLI command to attach a policy granting `lambda:InvokeFunction` permission: 
 
 ```
-aws lambda add-permission --function-name "function_name" --region "region" --principal iot.amazonaws.com --source-arn arn:aws:iot:us-east-2:account_id:rule/rule_name --source-account "account_id" --statement-id "unique_id" --action "lambda:InvokeFunction"
+aws lambda add-permission --function-name "function_name" --region "region" --principal iot.amazonaws.com --source-arn arn:aws:iot:us-east-2:account-id:rule/rule_name --source-account "account-id" --statement-id "unique_id" --action "lambda:InvokeFunction"
 ```
 
 The following are the arguments for the `add-permission` command:
@@ -848,6 +891,8 @@ If you do not specify a version or alias for your Lambda function, the most rece
 
 For more information about versioning and aliases see [AWS Lambda Function Versioning and Aliases](https://docs.aws.amazon.com/lambda/latest/dg/versioning-aliases.html)\. For more information about AWS Lambda, see the [AWS Lambda Developer Guide](https://docs.aws.amazon.com/lambda/latest/dg/)\.
 
+If you use a customer managed AWS KMS CMK to encrypt data at rest in AWS Lambda, the service must have permission to use the CMK on the caller's behalf\. For more information, see [Encryption at Rest](https://docs.aws.amazon.com/lambda/latest/dg/security-dataprotection.html#security-privacy-atrest) in the *AWS Lambda Developer Guide*\.
+
 ------
 
 ## Republish Action<a name="republish-rule"></a>
@@ -855,10 +900,10 @@ For more information about versioning and aliases see [AWS Lambda Function Versi
 ------
 #### [ Republish Action ]
 
-The `republish` action allows you to republish the message that triggered the role to another MQTT topic\. 
+The `republish` action allows you to republish the message that triggered the rule to another MQTT topic\. 
 
 ------
-#### [ More information \(13\) ]
+#### [ More information \(14\) ]
 
 When you create a rule with a `republish` action, you must specify the following information:
 
@@ -901,7 +946,7 @@ Make sure that the role associated with the rule has a policy granting the `iot:
 An `s3` action writes the data from the MQTT message that triggered the rule to an Amazon S3 bucket\. 
 
 ------
-#### [ More information \(14\) ]
+#### [ More information \(15\) ]
 
 When creating an AWS IoT rule with an `s3` action, you must specify the following information, except `cannedacl`, which is optional:
 
@@ -941,7 +986,7 @@ The following JSON example shows how to define an `s3` action in an AWS IoT rule
 }
 ```
 
-For more information, see the [Amazon S3 Developer Guide](https://docs.aws.amazon.com/AmazonS3/latest/dev/)\. 
+For more information, see the [Amazon Simple Storage Service Developer Guide](https://docs.aws.amazon.com/AmazonS3/latest/dev/)\. If you use a customer managed AWS KMS CMK to encrypt data at rest in Amazon S3, the service must have permission to use the CMK on the caller's behalf\. For more information, see [AWS Managed CMKs and Customer Managed CMKs](https://docs.aws.amazon.com/AmazonS3/latest/dev/UsingKMSEncryption.html#aws-managed-customer-managed-cmks) in the *Amazon Simple Storage Service Developer Guide*\.
 
 ------
 
@@ -953,7 +998,7 @@ For more information, see the [Amazon S3 Developer Guide](https://docs.aws.amazo
 A `salesforce` action sends data from the MQTT message that triggered the rule to a Salesforce IoT input stream\. 
 
 ------
-#### [ More information \(15\) ]
+#### [ More information \(16\) ]
 
 When you create a rule with a `salesforce` action, you must specify the following information:
 
@@ -996,7 +1041,7 @@ For more information, see the Salesforce IoT documentation\.
 A `sns` action sends the data from the MQTT message that triggered the rule as an SNS push notification\. 
 
 ------
-#### [ More information \(16\) ]
+#### [ More information \(17\) ]
 
 When you create a rule with an `sns` action, you must specify the following information:
 
@@ -1030,7 +1075,7 @@ The following JSON example shows how to define an `sns` action in an AWS IoT rul
 }
 ```
 
-For more information, see the [Amazon SNS Developer Guide](https://docs.aws.amazon.com/sns/latest/dg/)\. 
+For more information, see the [Amazon Simple Notification Service Developer Guide](https://docs.aws.amazon.com/sns/latest/dg/)\. If you use a customer managed AWS KMS CMK to encrypt data at rest in Amazon SNS, the service must have permission to use the CMK on the caller's behalf\. For more information, see [Key Management](https://docs.aws.amazon.com/sns/latest/dg/sns-key-management.html) in the *Amazon Simple Notification Service Developer Guide*\.
 
 ------
 
@@ -1042,7 +1087,7 @@ For more information, see the [Amazon SNS Developer Guide](https://docs.aws.amaz
 An `sqs` action sends data from the MQTT message that triggered the rule to an SQS queue\. 
 
 ------
-#### [ More information \(17\) ]
+#### [ More information \(18\) ]
 
 When you create a rule with an `sqs` action, you must specify the following information:
 
@@ -1079,7 +1124,7 @@ The following JSON example shows how to create an AWS IoT rule with an `sqs` act
 
 SQS action does not support [SQS FIFO Queues](https://docs.aws.amazon.com/AWSSimpleQueueService/latest/SQSDeveloperGuide/FIFI-queues.html)\. Because the Rules Engine is a fully distributed service, there is no guarantee of message order when the SQS action is triggered\.
 
-For more information, see the [Amazon SQS Developer Guide](https://docs.aws.amazon.com/AWSSimpleQueueService/latest/SQSDeveloperGuide/)\.
+For more information, see the [Amazon Simple Queue Service Developer Guide](https://docs.aws.amazon.com/AWSSimpleQueueService/latest/SQSDeveloperGuide/)\. If you use a customer managed AWS KMS CMK to encrypt data at rest in Amazon SQS, the service must have permission to use the CMK on the caller's behalf\. For more information, see [Key Management](https://docs.aws.amazon.com/AWSSimpleQueueService/latest/SQSDeveloperGuide/sqs-key-management.html) in the *Amazon Simple Queue Service Developer Guide*\.
 
 ------
 
@@ -1091,7 +1136,7 @@ For more information, see the [Amazon SQS Developer Guide](https://docs.aws.amaz
 A `stepFunctions` action starts execution of a Step Functions state machine\. 
 
 ------
-#### [ More information \(18\) ]
+#### [ More information \(19\) ]
 
 When you create a rule with a `stepFunctions` action, you must specify the following information:
 
@@ -1136,6 +1181,6 @@ The following JSON example shows how to create an AWS IoT rule with a `stepFunct
 }
 ```
 
-For more information, see the [ Step Functions Developer Guide](https://docs.aws.amazon.com/step-functions/latest/dg/)\.
+For more information, see the [AWS Step Functions Developer Guide](https://docs.aws.amazon.com/step-functions/latest/dg/)\.
 
 ------

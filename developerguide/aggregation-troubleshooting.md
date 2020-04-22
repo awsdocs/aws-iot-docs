@@ -30,4 +30,4 @@ The Fleet Indexing service emits an error log to CloudWatch Logs when a field ca
 }
 ```
 
-If a device has been disconnected for approximately an hour, the connectivity status `timestamp` value might be missing\. For persistent sessions, the value might be missing after a client has been disconnected longer than the configured time\-to\-live \(TTL\) for the persistent session\. The connectivity status data is indexed only for connections where the client ID has a matching thing name\. \(The client ID is the value used to connect a device to \.\)
+If a device has been disconnected for approximately an hour, the connectivity status `timestamp` value might be missing\. For persistent sessions, the value might be missing after a client has been disconnected longer than the configured time\-to\-live \(TTL\) for the persistent session\. The connectivity status data is indexed only for connections where the client ID has a matching thing name\. \(The client ID is the value used to connect a device to AWS IoT Core\.\)

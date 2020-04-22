@@ -1,10 +1,10 @@
-# X\.509 Certificate Policy Variables<a name="cert-policy-variables"></a>
+# X\.509 Certificate AWS IoT Core Policy Variables<a name="cert-policy-variables"></a>
 
-X\.509 certificate policy variables allow you to write policies that grant permissions based on X\.509 certificate attributes\. The following sections describe how you can use these certificate policy variables\.
+X\.509 certificate policy variables allow you to write AWS IoT Core policies that grant permissions based on X\.509 certificate attributes\. The following sections describe how you can use these certificate policy variables\.
 
 ## Issuer Attributes<a name="issuer-attributes"></a>
 
-The following policy variables allow you to allow or deny permissions based on certificate attributes set by the certificate issuer\.
+The following AWS IoT Core policy variables allow you to allow or deny permissions based on certificate attributes set by the certificate issuer\.
 + `iot:Certificate.Issuer.DistinguishedNameQualifier`
 + `iot:Certificate.Issuer.Country`
 + `iot:Certificate.Issuer.Organization`
@@ -21,7 +21,7 @@ The following policy variables allow you to allow or deny permissions based on c
 
 ## Subject Attributes<a name="subject-attributes"></a>
 
-The following policy variables allow you to grant or deny permissions based on certificate subject attributes set by the certificate issuer\.
+The following AWS IoT Core policy variables allow you to grant or deny permissions based on certificate subject attributes set by the certificate issuer\.
 + `iot:Certificate.Subject.DistinguishedNameQualifier`
 + `iot:Certificate.Subject.Country`
 + `iot:Certificate.Subject.Organization`
@@ -41,7 +41,7 @@ X\.509 certificates allow these attributes to contain one or more values\. By de
 ------
 #### [ Registered Devices \(2\) ]
 
-For devices registered as things in the registry, the following policy allows clients with a thing name registered in the registry to connect, but restricts the right to publish to a thing name specific topic to those clients with certificates whose `Certificate.Subject.Organization` attribute is set to `"Example Corp"` or `"AnyCompany"`\. This restriction is accomplished by using a `"Condition"` field that specifies a condition that must be met to allow the preceding action\. In this case the condition is that the `Certificate.Subject.Organization` attribute associated with the certificate must include one of the values listed:
+For devices registered as things in the AWS IoT Core registry, the following policy allows clients with a thing name registered in the AWS IoT Core registry to connect, but restricts the right to publish to a thing name specific topic to those clients with certificates whose `Certificate.Subject.Organization` attribute is set to `"Example Corp"` or `"AnyCompany"`\. This restriction is accomplished by using a `"Condition"` field that specifies a condition that must be met to allow the preceding action\. In this case the condition is that the `Certificate.Subject.Organization` attribute associated with the certificate must include one of the values listed:
 
 ```
 {
@@ -80,7 +80,7 @@ For devices registered as things in the registry, the following policy allows cl
 ------
 #### [ Unregistered Devices \(2\) ]
 
-For devices not registered as things in the registry, the following policy grants permission to connect to with client IDs `client1`, `client2`, and `client3`, but restricts the right to publish to a client\-id specific topic to those clients with certificates whose `Certificate.Subject.Organization` attribute is set to `"Example Corp"` or `"AnyCompany"`\. This restriction is accomplished by using a `"Condition"` field that specifies a condition that must be met to allow the preceding action\. In this case the condition is that the `Certificate.Subject.Organization` attribute associated with the certificate must include one of the values listed:
+For devices not registered as things in the AWS IoT Core registry, the following policy grants permission to connect to AWS IoT Core with client IDs `client1`, `client2`, and `client3`, but restricts the right to publish to a client\-id specific topic to those clients with certificates whose `Certificate.Subject.Organization` attribute is set to `"Example Corp"` or `"AnyCompany"`\. This restriction is accomplished by using a `"Condition"` field that specifies a condition that must be met to allow the preceding action\. In this case the condition is that the `Certificate.Subject.Organization` attribute associated with the certificate must include one of the values listed:
 
 ```
 {
@@ -122,7 +122,7 @@ For devices not registered as things in the registry, the following policy grant
 
 ## Issuer Alternate Name Attributes<a name="issuer-alternate-name-attributes"></a>
 
-The following policy variables allow you to grant or deny permissions based on issuer alternate name attributes set by the certificate issuer\.
+The following AWS IoT Core policy variables allow you to grant or deny permissions based on issuer alternate name attributes set by the certificate issuer\.
 + `iot:Certificate.Issuer.AlternativeName.RFC822Name`
 + `iot:Certificate.Issuer.AlternativeName.DNSName`
 + `iot:Certificate.Issuer.AlternativeName.DirectoryName`
@@ -131,7 +131,7 @@ The following policy variables allow you to grant or deny permissions based on i
 
 ## Subject Alternate Name Attributes<a name="subject-alternate-name-attributes"></a>
 
-The following policy variables allow you to grant or deny permissions based on subject alternate name attributes set by the certificate issuer\.
+The following AWS IoT Core policy variables allow you to grant or deny permissions based on subject alternate name attributes set by the certificate issuer\.
 + `iot:Certificate.Subject.AlternativeName.RFC822Name`
 + `iot:Certificate.Subject.AlternativeName.DNSName`
 + `iot:Certificate.Subject.AlternativeName.DirectoryName`
@@ -140,7 +140,7 @@ The following policy variables allow you to grant or deny permissions based on s
 
 ## Other Attributes<a name="other-attributes"></a>
 
-You can use `iot:Certificate.SerialNumber` to allow or deny access to resources based on the serial number of a certificate\. The `iot:Certificate.AvailableKeys` policy variable contains the name of all certificate policy variables that contain values\.
+You can use `iot:Certificate.SerialNumber` to allow or deny access to AWS IoT Core resources based on the serial number of a certificate\. The `iot:Certificate.AvailableKeys` policy variable contains the name of all certificate policy variables that contain values\.
 
 ## X\.509 Certificate Policy Variable Limitations<a name="policy-limits"></a>
 

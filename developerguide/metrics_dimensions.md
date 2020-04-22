@@ -38,4 +38,4 @@ Metrics use the namespace and provide metrics for the following dimensions:
 |  `ScheduledAuditName`  |  The name of the Device Defender scheduled audit whose check results are being monitored\. This has the value `OnDemand` if the results reported are for an audit that was performed on demand\.  | 
 |  `SecurityProfileName`  |  The name of the Device Defender Detect security profile whose behaviors are being monitored\.  | 
 |  `BehaviorName`  |  The name of the Device Defender Detect security profile behavior that is being monitored\.  | 
-|  TemplateName  |  The name of the provisioning template\.  | 
+|  `TemplateName`  |  The name of the provisioning template\.  | 

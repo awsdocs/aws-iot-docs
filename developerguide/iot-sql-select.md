@@ -2,7 +2,9 @@
 
 The AWS IoT SELECT clause is essentially the same as the ANSI SQL SELECT clause, with some minor differences\.
 
-You can use the SELECT clause to extract information from incoming MQTT messages\. `SELECT *` can be used to retrieve the entire incoming message payload\. For example:
+The SELECT clause supports [Data Types](iot-sql-data-types.md), [Operators](iot-sql-operators.md), [Functions](iot-sql-functions.md), [Literals](iot-sql-literals.md), [Case Statements](iot-sql-case.md), [JSON Extensions](iot-sql-json.md), [Substitution Templates](iot-substitution-templates.md), and [Nested Object Queries](iot-sql-nested-queries.md)\.
+
+You can use the SELECT clause to extract information from incoming MQTT messages\. You can also use `SELECT *` to retrieve the entire incoming message payload\. For example:
 
 ```
 Incoming payload published on topic 'a/b': {"color":"red", "temperature":50}
@@ -30,8 +32,8 @@ You can select multiple items by separating them with a comma\. For example:
 
 ```
 Incoming payload published on topic 'a/b': {"color":"red", "temperature":50}
-SQL: SELECT color as my_color, temperature as farenheit FROM 'a/b'
-Outgoing payload: {"my_color":"red","farenheit":50}
+SQL: SELECT color as my_color, temperature as fahrenheit FROM 'a/b'
+Outgoing payload: {"my_color":"red","fahrenheit":50}
 ```
 
 You can select multiple items including '\*' to add items to the incoming payload\. For example:
@@ -42,7 +44,7 @@ SQL: SELECT *, 15 as speed FROM 'a/b'
 Outgoing payload: {"color":"red", "temperature":50, "speed":15}
 ```
 
-You can use the `"VALUE"` keyword to produce outgoing payloads that are not JSON objects\. With SQL version `2015-10-08`, you can only select one item\. With SQL version `2016-03-23` or later, you can also select an array to output as a top\-level object\.
+You can use the `"VALUE"` keyword to produce outgoing payloads that are not JSON objects\. With SQL version `2015-10-08`, you can select only one item\. With SQL version `2016-03-23` or later, you can also select an array to output as a top\-level object\.
 
 **Example**  
 
@@ -60,7 +62,7 @@ SQL: SELECT color.red as red_value FROM 'a/b'
 Outgoing payload: {"red_value":255}
 ```
 
-You can use functions \(see [Functions](iot-sql-functions.md)\) to transform the incoming payload\. Parentheses can be used for grouping\. For example:
+You can use functions \(see [Functions](iot-sql-functions.md)\) to transform the incoming payload\. You can use parentheses for grouping\. For example:
 
 ```
 Incoming payload published on topic 'a/b': {"color":"red", "temperature":50}
@@ -70,9 +72,9 @@ Outgoing payload: {"celsius":10,"my_color":"RED"}
 
 ## Working with Binary Payloads<a name="binary-payloads"></a>
 
-When the message payload should be handled as raw binary data \(rather than a JSON object\), you can use the \* operator to refer to it in a `SELECT` clause\.
+When the message payload should be handled as raw binary data, rather than a JSON object, use the \* operator to refer to it in a `SELECT` clause\. This works for non\-JSON payloads with some rule actions, such as the [S3 action](https://docs.aws.amazon.com/iot/latest/developerguide/iot-rule-actions.html#s3-rule)\.
 
-These rules must be followed to use \* to refer to the message payload as raw binary data:
+To use \* to refer to the message payload as raw binary data, follow these rules:
 
 1. The SQL statement and templates must not refer to JSON names other than \*\. 
 
@@ -86,33 +88,39 @@ These rules must be followed to use \* to refer to the message payload as raw bi
    SELECT encode(*, 'base64') AS data, timestamp() AS ts FROM 'a/b'
    ```
 
+For rule actions that don't support binary payload input, such as [Lambda action](https://docs.aws.amazon.com/iot/latest/developerguide/iot-rule-actions.html#lambda-rule), you must decode binary payloads\. The Lambda rule action can receive binary data if it's base64 encoded and in a JSON payload\. You can do this by changing the rule to:
+
+```
+SELECT encode(*, 'base64') AS data FROM 'my_topic'
+```
+
 ### Binary Payload Examples<a name="binary-payloads-examples"></a>
 
-The following `SELECT` clause can be used with binary payloads because it doesn't refer to any JSON names\.
+You can use the following `SELECT` clause with binary payloads because it doesn't refer to any JSON names\. 
 
 ```
 SELECT * FROM 'a/b'
 ```
 
-The following `SELECT` cannot be used with binary payloads because it refers to `device_type` in the WHERE clause\.
+You cannot use the following `SELECT` with binary payloads because it refers to `device_type` in the WHERE clause\.
 
 ```
 SELECT * FROM 'a/b' WHERE device_type = 'thermostat'
 ```
 
-The following `SELECT` cannot be used with binary payloads because it violates rule \#2\.
+You cannot use the following `SELECT` with binary payloads because it violates rule \#2\.
 
 ```
 SELECT *, timestamp() AS timestamp FROM 'a/b'
 ```
 
-The following `SELECT` can be used with binary payloads because it doesn't violate rule \#1 or rule \#2\.
+You can use the following `SELECT` with binary payloads because it complies with rule \#1 or rule \#2\.
 
 ```
 SELECT * FROM 'a/b' WHERE timestamp() % 12 = 0
 ```
 
-The following AWS IoT rule cannot be used with binary payloads because it violates rule \#1\.
+You cannot use the following AWS IoT rule with binary payloads because it violates rule \#1\.
 
 ```
 {

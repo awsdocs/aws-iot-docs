@@ -85,7 +85,7 @@ Start another instance of `device-example.js` running in mode 2:
 node device\-example \-k "\.\./certs/private\.pem\.key" \-c "\.\./certs/device\.pem\.crt" \-i "*raspberry\-pi\-2*" \-a "\.\./certs/Amazon\-root\-CA\-1" \-H "*<your\-iot\-endpoint>*" \-p 8883 \-T "*your\-thing\-name*" \-\-test\-mode 2
 
 **Important**  
-Make sure that you use different client IDs when you run the two instances of `device-example.js`\. No two clients \(devices or applications\) can connect to AWS IoT using a the same client ID\. The first client's connection is termniated and the second client connection is established\.  
+Make sure that you use different client IDs when you run the two instances of `device-example.js`\. No two clients \(devices or applications\) can connect to AWS IoT using a the same client ID\. The first client's connection is terminated and the second client connection is established\.  
 The thing name is important only when you create a policy specific to an IoT thing\. In the AWS IoT Getting Started tutorial, you do not create such a policy, so you can use the same thing name for both instances\.
 
 Your Raspberry Pi is now connected to AWS IoT using the AWS IoT SDK for JavaScript\.

@@ -8,7 +8,7 @@ Create a thing in the AWS IoT registry to represent your Raspberry Pi\.
 
 1. On the **Creating AWS IoT things** page, choose **Create a single thing**\.
 
-1. On the **Add your device to the device registry** page, enter a name for your IoT thing \(for example, **RaspberryPi**\), and then choose **Next**\.
+1. On the **Add your device to the device registry** page, enter a name for your IoT thing \(for example, **RaspberryPi**\), and then choose **Next**\. You can't change the name of a thing after you create it\. To change a thing's name, you must create a new thing, give it the new name, and then delete the old thing\.
 
 1. On the **Add a certificate for your thing** page, choose **Create certificate**\.
 

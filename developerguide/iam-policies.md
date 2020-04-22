@@ -1,6 +1,6 @@
 # IAM Policies<a name="iam-policies"></a>
 
-AWS IoT works with AWS IoT and IAM policies\. This topic discusses IAM policies only\. For more information, see [ Policies](iot-policies.md)\. AWS Identity and Access Management defines a policy action for each operation defined by AWS IoT, including control plane and data plane APIs\.
+AWS IoT works with AWS IoT and IAM policies\. This topic discusses IAM policies only\. For more information, see [AWS IoT Core Policies](iot-policies.md)\. AWS Identity and Access Management defines a policy action for each operation defined by AWS IoT, including control plane and data plane APIs\.
 
 ## IAM Managed Policies<a name="iam-managed-policies"></a>
 

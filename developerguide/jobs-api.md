@@ -176,8 +176,7 @@ Minimum number of executed things before evaluating an abort rule\.
 The threshold as a percentage of the total number of executed things that initiate a job abort\.
 
 `timeoutConfig`  
-Optional\. Specifies the amount of time each device has to finish its execution of the job\. The timer is started when the job execution status is set to `IN_PROGRESS`\. If the job execution status is not set to another terminal state before the time expires, it is set to `TIMED_OUT`\.   
-The job timeout feature isn't currently available in the AWS GovCloud \(US\) Region\.  
+Optional\. Specifies the amount of time each device has to finish its execution of the job\. The timer is started when the job execution status is set to `IN_PROGRESS`\. If the job execution status is not set to another terminal state before the time expires, it is set to `TIMED_OUT`\.     
 `inProgressTimeoutInMinutes`  
 Specifies the amount of time, in minutes, this device has to finish execution of this job\. A timer is started, or restarted, whenever this job's execution status is specified as `IN_PROGRESS` with this field populated\. If the job execution status is not set to a terminal state before the timer expires, or before another job execution status update is sent with this field populated, the status is set to `TIMED_OUT`\.
 
@@ -761,9 +760,6 @@ A job can be made *continuous* by setting the optional `targetSelection` paramet
 
 A job can have an optional [TimeoutConfig](https://docs.aws.amazon.com/iot/latest/apireference/API_TimeoutConfig.html), which sets the value of the in\-progress timer\. The in\-progress timer can't be updated and applies to all executions of the job\.
 
-**Note**  
-The job timeout feature isn't currently available in the AWS GovCloud \(US\) Region\.
-
 The following validations are performed on arguments to the `CreateJob` API:
 + The `targets` argument must be a list of valid thing or thing group ARNs\. All things and thing groups must be in your AWS account\.
 + The `documentSource` argument must be a valid Amazon S3 URL to a job document\. Amazon S3 URLs are of the form: `https://s3.amazonaws.com/bucketName/objectName`\.
@@ -872,8 +868,7 @@ Minimum number of executed things before evaluating an abort rule\.
 The threshold as a percentage of the total number of executed things that initiate a job abort\.
 
 `timeoutConfig`  
-Optional\. Specifies the amount of time each device has to finish its execution of the job\. The timer is started when the job execution status is set to `IN_PROGRESS`\. If the job execution status is not set to another terminal state before the time expires, it is set to `TIMED_OUT`\.   
-The job timeout feature isn't currently available in the AWS GovCloud \(US\) Region\.  
+Optional\. Specifies the amount of time each device has to finish its execution of the job\. The timer is started when the job execution status is set to `IN_PROGRESS`\. If the job execution status is not set to another terminal state before the time expires, it is set to `TIMED_OUT`\.     
 `inProgressTimeoutInMinutes`  
 Specifies the amount of time, in minutes, this device has to finish execution of this job\. A timer is started, or restarted, whenever this job's execution status is specified as `IN_PROGRESS` with this field populated\. If the job execution status is not set to a terminal state before the timer expires, or before another job execution status update is sent with this field populated, the status is set to `TIMED_OUT`\.
 
@@ -993,7 +988,7 @@ aws iot  create-job \
 |  failureType  |  java class: java\.lang\.String \(FAILED \| REJECTED \| TIMED\_OUT \| ALL\)  |  The type of job execution failure to define a rule to initiate a job abort\.  | 
 |  minNumberOfExecutedThings  |  java class: java\.lang\.Integer\)  |  Minimum number of executed things before evaluating an abort rule\.  | 
 |  thresholdPercentage  |  java class: java\.lang\.Double\)  |  The threshold as a percentage of the total number of executed things that will initiate a job abort\. AWS IoT supports up to two digits after the decimal \(for example, 10\.9 and 10\.99, but not 10\.999\)\.   | 
-|  timeoutConfig  |  TimeoutConfig  |  Specifies the amount of time each device has to finish its execution of the job\. The timer is started when the job execution status is set to `IN_PROGRESS`\. If the job execution status is not set to another terminal state before the time expires, it is set to `TIMED_OUT`\.  The job timeout feature isn't currently available in the AWS GovCloud \(US\) Region\.   | 
+|  timeoutConfig  |  TimeoutConfig  |  Specifies the amount of time each device has to finish its execution of the job\. The timer is started when the job execution status is set to `IN_PROGRESS`\. If the job execution status is not set to another terminal state before the time expires, it is set to `TIMED_OUT`\.  | 
 |  inProgressTimeoutInMinutes  |  long  |  Specifies the amount of time, in minutes, this device has to finish execution of this job\. A timer is started, or restarted, whenever this job's execution status is specified as `IN_PROGRESS` with this field populated\. If the job execution status is not set to a terminal state before the timer expires, or before another job execution status update is sent with this field populated, the status is set to `TIMED_OUT`\.  | 
 |  documentParameters  |  map  key: ParameterKey  value: ParameterValue  |  Parameters for the job document\.  | 
 |  ParameterKey  |  string  length max:128 min:1  pattern: \[a\-zA\-Z0\-9:\_\-\]\+  |   | 
@@ -1387,7 +1382,7 @@ Output:
 |  documentParameters  |  map  key: ParameterKey  value: ParameterValue  |  The parameters specified for the job document\.  | 
 |  ParameterKey  |  string  length max:128 min:1  pattern: \[a\-zA\-Z0\-9:\_\-\]\+  |   | 
 |  ParameterValue  |  string  length max:1024 min:1  pattern: \[^\\\\p\{C\}\]\+  |   | 
-|  timeoutConfig  |  TimeoutConfig  |  Specifies the amount of time each device has to finish its execution of the job\. A timer is started when the job execution status is set to `IN_PROGRESS`\. If the job execution status is not set to another terminal state before the timer expires, it is set to `TIMED_OUT`\.   The job timeout feature isn't currently available in the AWS GovCloud \(US\) Region\.   | 
+|  timeoutConfig  |  TimeoutConfig  |  Specifies the amount of time each device has to finish its execution of the job\. A timer is started when the job execution status is set to `IN_PROGRESS`\. If the job execution status is not set to another terminal state before the timer expires, it is set to `TIMED_OUT`\.   | 
 |  inProgressTimeoutInMinutes  |  long  |  Specifies the amount of time, in minutes, this device has to finish execution of this job\. The timeout interval can be anywhere between 1 minute and 7 days \(1 to 10080 minutes\)\. The in\-progress timer can't be updated and applies to all job executions for the job\. Whenever a job execution remains in the `IN_PROGRESS` status for longer than this interval, the job execution fails and switches to the terminal `TIMED_OUT` status\.   | 
 
 ------
@@ -2146,7 +2141,7 @@ aws iot  update-job \
 |  failureType  |  java class: java\.lang\.String \(FAILED \| REJECTED \| TIMED\_OUT \| ALL\)  |  The type of job execution failure to define a rule to initiate a job abort\.  | 
 |  minNumberOfExecutedThings  |  java class: java\.lang\.Integer\)  |  Minimum number of executed things before evaluating an abort rule\.  | 
 |  thresholdPercentage  |  java class: java\.lang\.Double\)  |  The threshold as a percentage of the total number of executed things that initiate a job abort\. AWS IoT supports up to two digits after the decimal \(for example, 10\.9 and 10\.99, but not 10\.999\)\.   | 
-|  timeoutConfig  |  TimeoutConfig  |  Specifies the amount of time each device has to finish its execution of the job\. The timer is started when the job execution status is set to `IN_PROGRESS`\. If the job execution status is not set to another terminal state before the time expires, it is set to `TIMED_OUT`\.  The job timeout feature isn't currently available in the AWS GovCloud \(US\) Region\.   | 
+|  timeoutConfig  |  TimeoutConfig  |  Specifies the amount of time each device has to finish its execution of the job\. The timer is started when the job execution status is set to `IN_PROGRESS`\. If the job execution status is not set to another terminal state before the time expires, it is set to `TIMED_OUT`\.  | 
 |  inProgressTimeoutInMinutes  |  long  |  Specifies the amount of time, in minutes, this device has to finish execution of this job\. A timer is started, or restarted, whenever this job's execution status is specified as `IN_PROGRESS` with this field populated\. If the job execution status is not set to a terminal state before the timer expires, or before another job execution status update is sent with this field populated, the status is set to `TIMED_OUT`\.  | 
 |  documentParameters  |  map  key: ParameterKey  value: ParameterValue  |  Parameters for the job document\.  | 
 |  ParameterKey  |  string  length max:128 min:1  pattern: \[a\-zA\-Z0\-9:\_\-\]\+  |   | 

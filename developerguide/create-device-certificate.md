@@ -1,11 +1,11 @@
 # Create and Activate a Device Certificate<a name="create-device-certificate"></a>
 
-Communication between your device and is protected through the use of X\.509 certificates\. can generate a certificate for you or you can use your own X\.509 certificate\. In this tutorial, generates the X\.509 certificate for you\. Certificates must be activated prior to use\.
+Communication between your device and AWS IoT Core is protected through the use of X\.509 certificates\. AWS IoT Core can generate a certificate for you or you can use your own X\.509 certificate\. In this tutorial, AWS IoT Core generates the X\.509 certificate for you\. Certificates must be activated prior to use\.
 
 1. Choose **Create certificate**\.  
 ![\[Add a certificate for your thing\]](http://docs.aws.amazon.com/iot/latest/developerguide/images/create-certificate.png)
 
-1. On the **Certificate created** page, choose the **Download** links to download the certificate, private key, and root CA for \. \(You do not need to download the public key\)\. Save each of them to your computer, and then choose **Activate** to continue\.
+1. On the **Certificate created** page, choose the **Download** links to download the certificate, private key, and root CA for AWS IoT Core\. \(You do not need to download the public key\)\. Save each of them to your computer, and then choose **Activate** to continue\.
 **Note**  
 The root CA for AWS IoT **Download** link takes you to the [Server Authentication](server-authentication.html#server-authentication-certs) page where you choose a CA certificate\. Unlike the other **Download** links on the page, it doesn't directly download a file\.  
 ![\[Certificate created!\]](http://docs.aws.amazon.com/iot/latest/developerguide/images/sdk-attach-policy.png)

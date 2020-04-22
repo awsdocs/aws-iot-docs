@@ -40,7 +40,7 @@ aws iot create-job  \
       --targets arn:aws:iot:us-east-1:123456789012:thing/thingOne  \
       --document-source https://s3.amazonaws.com/my-s3-bucket/job-document.json  \
       --timeout-config inProgressTimeoutInMinutes=100 \
-      --job-executions-rollout-config "{ \"exponentialRate\": { \"baseRatePerMinute\": 50, \"incrementFactor\": 2, \"rateIncreaseCriteria\": { \"numberOfNotifiedThings\": 1000, \"numberOfSucceededThings\": 1000}, \"maximumPerMinute\": 1000}}" \
+      --job-executions-rollout-config "{ \"exponentialRate\": { \"baseRatePerMinute\": 50, \"incrementFactor\": 2, \"rateIncreaseCriteria\": { \"numberOfNotifiedThings\": 1000, \"numberOfSucceededThings\": 1000}}, \"maximumPerMinute\": 1000}" \
       --abort-config "{ \"criteriaList\": [ { \"action\": \"CANCEL\", \"failureType\": \"FAILED\", \"minNumberOfExecutedThings\": 100, \"thresholdPercentage\": 20}, { \"action\": \"CANCEL\", \"failureType\": \"TIMED_OUT\", \"minNumberOfExecutedThings\": 200, \"thresholdPercentage\": 50}]}" \          
       --presigned-url-config "{\"roleArn\":\"arn:aws:iam::123456789012:role/S3DownloadRole\", \"expiresInSec\":3600}"
 ```
@@ -48,9 +48,6 @@ aws iot create-job  \
 The job is executed on *thingOne*\.
 
 The optional `timeout-config` parameter specifies the amount of time each device has to finish its execution of the job\. The timer starts when the job execution status is set to `IN_PROGRESS`\. If the job execution status is not set to another terminal state  before the time expires, it is set to `TIMED_OUT`\.
-
-**Note**  
-The job timeout feature isn't currently available in the AWS GovCloud \(US\) Region\.
 
 The in\-progress timer can't be updated and applies to all job executions for the job\. Whenever a job execution remains in the `IN_PROGRESS` state for longer than this interval, the job execution fails and switches to the terminal `TIMED_OUT` status\. AWS IoT also publishes an MQTT notification\.
 
@@ -167,7 +164,7 @@ When you use this command to retrieve a job document, placeholder URLs are not r
 
 ## List Jobs<a name="list-jobs"></a>
 
-You use the ListJobs command to get a list of all jobs in your AWS account\. Job data and job execution data are purged after 90 days\. Run the following command to list all jobs in your AWS account:
+You use the ListJobs command to get a list of all jobs in your AWS account\. Job data and job execution data are retained for a [limited time](https://docs.aws.amazon.com/general/latest/gr/iot-core.html#job-limits)\. Run the following command to list all jobs in your AWS account:
 
 ```
 aws iot list-jobs

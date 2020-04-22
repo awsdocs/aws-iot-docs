@@ -1,4 +1,4 @@
-# AWS IoT SDKs<a name="iot-sdks"></a>
+# AWS IoT Device and Mobile SDKs<a name="iot-sdks"></a>
 
 **Topics**
 + [AWS Mobile SDK for Android](#iot-android-sdk)
@@ -10,7 +10,7 @@
 + [AWS IoT Device SDK for JavaScript](#iot-javascript-sdk)
 + [AWS IoT Device SDK for Python](#iot-python-sdk)
 
-The AWS IoT Device SDKs help you to easily and quickly connect your devices to AWS IoT\. The AWS IoT Device SDKs include open\-source libraries, developer guides with samples, and porting guides so that you can build innovative IoT products or solutions on your choice of hardware platforms\.
+The AWS IoT Device and Mobile SDKs help you to easily and quickly connect your devices to AWS IoT\. The AWS IoT Device and Mobile SDKs include open\-source libraries, developer guides with samples, and porting guides so that you can build innovative IoT products or solutions on your choice of hardware platforms\. For the AWS SDKs used to access AWS APIs, see [AWS SDKs and Tools](http://aws.amazon.com/tools/#sdk)\.
 
 **Note**  
 Fleet provisioning \(beta\) is currently supported only in the AWS IoT Device SDK for Embedded C\.

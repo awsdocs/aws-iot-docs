@@ -93,7 +93,7 @@ In many cases, a device connects to AWS IoT for the first time when an end user 
 
 1. The mobile app or web application supplies the provisioning claim to the device along with configuration information, such as Wi\-Fi credentials\.
 
-1. The device uses the temporary provisioning claim to connect to AWS IoT using the [AWS IoT SDKs ](iot-sdks.md)\.
+1. The device uses the temporary provisioning claim to connect to AWS IoT using the [AWS IoT Device and Mobile SDKs ](iot-sdks.md)\.
 
 1. The device receives a unique device certificate and private key that it securely stores and uses for future connections to AWS IoT\. At the same time, the Fleet Provisioning service creates cloud resources such as IoT things, thing groups, and attributes, as defined in the provisioning template\.
 

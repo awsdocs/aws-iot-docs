@@ -1,8 +1,8 @@
-# Create and Track an Job<a name="ios-sdk-create-job"></a>
+# Create and Track an AWS IoT Core Job<a name="ios-sdk-create-job"></a>
 
- You can use jobs to deploy and track management tasks in your device fleet\. You can use jobs to send remote actions to one or many devices at once, control the deployment of jobs to your devices, and track the current and past status of job executions for each device\.
+ You can use AWS IoT Core jobs to deploy and track management tasks in your device fleet\. You can use jobs to send remote actions to one or many devices at once, control the deployment of jobs to your devices, and track the current and past status of job executions for each device\.
 
-This topic shows you how to create and deploy a sample job to a device\. It walks you through the steps required to create a job and track its events on a device that is configured to communicate with \. These instructions are written with the assumption that you're using a Raspberry Pi, but they can be adapted for other Linux\-based devices\. 
+This topic shows you how to create and deploy a sample job to a device\. It walks you through the steps required to create a job and track its events on a device that is configured to communicate with AWS IoT Core\. These instructions are written with the assumption that you're using a Raspberry Pi, but they can be adapted for other Linux\-based devices\. 
 
 Here are some possible scenarios for using jobs:
 + Updating device firmware, software, or files, such as security certificates\.
@@ -11,17 +11,17 @@ Here are some possible scenarios for using jobs:
 
 ## Connect Your Device to AWS IoT<a name="ios-sdk-jobs-device-setup"></a>
 
-Perform the following steps to connect a Raspberry Pi to \.
+Perform the following steps to connect a Raspberry Pi to AWS IoT Core\.
 
-1. Follow the instructions in [Connecting Your Raspberry Pi](sdk-tutorials.html)\. When you're finished, you'll have an thing registered in your AWS account\. You'll also have fully configured security certificates on your device\.
+1. Follow the instructions in [Connecting Your Raspberry Pi](sdk-tutorials.html)\. When you're finished, you'll have an AWS IoT Core thing registered in your AWS account\. You'll also have fully configured security certificates on your device\.
 
-1. Complete the steps in the [Using the AWS IoT Device SDK for JavaScript](iot-device-sdk-node.html) tutorial\. When you're done, your device is connected to , and you can run the sample code that comes with the AWS IoT Device SDK for JavaScript\.
+1. Complete the steps in the [Using the AWS IoT Device SDK for JavaScript](iot-device-sdk-node.html) tutorial\. When you're done, your device is connected to AWS IoT Core, and you can run the sample code that comes with the AWS IoT Device SDK for JavaScript\.
 
-Now your device is ready to use jobs\.
+Now your device is ready to use AWS IoT Core jobs\.
 
 ## Run the Jobs Sample<a name="ios-sdk-jobs-run-sample"></a>
 
-The AWS IoT Device SDK for JavaScript includes a sample named [jobs\-example\.js](https://github.com/aws/aws-iot-device-sdk-js/blob/master/examples/jobs-example.js)\. This sample can receive messages from the [AWS IoT console](https://console.aws.amazon.com/iot) to verify connectivity\. It can also receive and process job executions that originate from the Jobs service\.
+The AWS IoT Device SDK for JavaScript includes a sample named [jobs\-example\.js](https://github.com/aws/aws-iot-device-sdk-js/blob/master/examples/jobs-example.js)\. This sample can receive messages from the [AWS IoT console](https://console.aws.amazon.com/iot) to verify connectivity\. It can also receive and process job executions that originate from the AWS IoT Core Jobs service\.
 
 You can run this sample by using the following command\. Use the REST endpoint of your Raspberry Pi as the value of the `-H` parameter\.
 
@@ -90,7 +90,7 @@ We do not recommend using personally identifiable information in your job ID\.
 1. Your new job appears on the **Jobs** page\.  
 ![\[Image NOT FOUND\]](http://docs.aws.amazon.com/iot/latest/developerguide/images/newly-created-job.png)
 
-For more information about creating and deploying jobs, see [ Jobs](https://docs.aws.amazon.com/iot/latest/developerguide/iot-jobs.html)\.
+For more information about creating and deploying jobs, see [AWS IoT Core Jobs](https://docs.aws.amazon.com/iot/latest/developerguide/iot-jobs.html)\.
 
 ## Execute the Job on a Device<a name="ios-sdk-jobs-execute-job"></a>
 
@@ -130,7 +130,7 @@ $aws/events/jobExecution/example-job-01/canceled
 $aws/events/jobExecution/example-job-01/removed
 ```
 
-When the job execution on your device succeeds, publishes a [JobExecution](https://docs.aws.amazon.com/iot/latest/apireference/API_iot-jobs-data_JobExecution.html) succeeded event\. You can see this event in the console by navigating to the **Test** page and subscribing to the `$aws/events/jobExecution/example-job-01/succeeded` topic in the MQTT client\.
+When the job execution on your device succeeds, AWS IoT Core publishes a [JobExecution](https://docs.aws.amazon.com/iot/latest/apireference/API_iot-jobs-data_JobExecution.html) succeeded event\. You can see this event in the console by navigating to the **Test** page and subscribing to the `$aws/events/jobExecution/example-job-01/succeeded` topic in the MQTT client\.
 
 ![\[Image NOT FOUND\]](http://docs.aws.amazon.com/iot/latest/developerguide/images/subscribe-job-topic.png)
 
@@ -138,6 +138,6 @@ The following message appears when the job execution for your device has complet
 
 ![\[Image NOT FOUND\]](http://docs.aws.amazon.com/iot/latest/developerguide/images/job-mqtt-message-succeeded.png)
 
- also publishes a completed `job` event\. You can see this event by subscribing to the `$aws/events/job/example-job-01/completed` topic in the MQTT client\.
+AWS IoT Core also publishes a completed `job` event\. You can see this event by subscribing to the `$aws/events/job/example-job-01/completed` topic in the MQTT client\.
 
 ![\[Image NOT FOUND\]](http://docs.aws.amazon.com/iot/latest/developerguide/images/job-mqtt-message-completed.png)

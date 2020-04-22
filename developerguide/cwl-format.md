@@ -6,6 +6,7 @@ Each component of AWS IoT generates its own logs\. Each log entry has an `eventT
 + [Rules engine](#rule-engine-logs)
 + [Jobs](#job-logs)
 + [Device provisioning logs](#provision-logs)
++ [Dynamic Thing Groups Logs](#dynamic-group-logs)
 
 All CloudWatch Logs have the following common attributes:
 
@@ -1008,5 +1009,55 @@ For example:
   "details" : "Additional details about this log."
  }
 ```
+
+------
+
+## Dynamic Thing Group Logs<a name="dynamic-group-logs"></a>
+
+AWS IoT Dynamic Thing Groups generate logs for the following event\.
+
+------
+#### [ AddThingToDynamicThingGroupsFailed event ]
+
+AWS IoT was not able to add a thing to the specified dynamic groups\.
+
+A thing met the criteria to be in the dynamic thing group; however, it could not be added to the dynamic group or it was removed from the dynamic group\. This can happen because:
++ The thing already belongs to the maximum number of groups\.
++ The \-\-override\-dynamic\-groups option was used to add the thing to a static thing group\. It was removed from a dynamic thing group to make that possible\.
+
+For more information, see [Dynamic Thing Group Limitations and Conflicts](https://docs.aws.amazon.com/iot/latest/developerguide/dynamic-thing-groups.html#dynamic-thing-group-limitations)\.
+
+------
+#### [ More info \(17\) ]
+
+This example shows the log entry of an `AddThingToDynamicThingGroupsFailed` error\. In this example, *TestThing* met the criteria to be in the dynamic thing groups listed in `dynamicThingGroupNames`, but could not be added to those dynamic groups, as described in `reason`\.
+
+```
+{
+ "timestamp": "2020-03-16 22:24:43.804",
+ "logLevel": "ERROR",
+ "traceId": "70b1f2f5-d95e-f897-9dcc-31e68c3e1a30",
+ "accountId": "571032923833",
+ "status": "Failure",
+ "eventType": "AddThingToDynamicThingGroupsFailed",
+ "thingName": "TestThing",
+ "dynamicThingGroupNames": [
+  "DynamicThingGroup11",
+  "DynamicThingGroup12",
+  "DynamicThingGroup13",
+  "DynamicThingGroup14"
+ ],
+ "reason": "The thing failed to be added to the given dynamic thing group(s) because the thing already belongs to the maximum allowed number of groups."
+}
+```
+
+thingName  
+The name of the thing that could not be added to a dynamic thing group\.
+
+dynamicThingGroupNames  
+An array of the dynamic thing groups to which the thing could not be added\.
+
+reason  
+The reason why the thing could not be added to the dynamic thing groups\.
 
 ------

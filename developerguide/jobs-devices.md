@@ -265,9 +265,6 @@ The device can combine the two previous requests by calling [StartNextPendingJob
 
 If the job contains a [TimeoutConfig](https://docs.aws.amazon.com/iot/latest/apireference/API_TimeoutConfig.html), the in\-progress timer starts running\. You can also set a step timer for a job execution by setting a value for `stepTimeoutInMinutes` when you call [UpdateJobExecution](https://docs.aws.amazon.com/iot/latest/apireference/API_iot-jobs-data_UpdateJobExecution.html)\. The step timer applies only to the job execution that you update\. You can set a new value for this timer each time you update a job execution\. You can also create a step timer when you call [StartNextPendingJobExecution](https://docs.aws.amazon.com/iot/latest/apireference/API_iot-jobs-data_StartNextPendingJobExecution.html)\. If the job execution remains in the `IN_PROGRESS` status for longer than the step timer interval, it fails and switches to the terminal `TIMED_OUT` status\. The step timer has no effect on the in\-progress timer that you set when you create a job\.
 
-**Note**  
-The job timeout feature isn't currently available in the AWS GovCloud \(US\) Region\.
-
 The `status` field can be set to `IN_PROGRESS`, `SUCCEEDED`, or `FAILED`\. You cannot update the status of a job execution that is already in a terminal state\.
 
 ------

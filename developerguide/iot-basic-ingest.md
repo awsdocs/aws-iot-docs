@@ -12,7 +12,7 @@ Be aware that:
 
 ## Using Basic Ingest<a name="iot-basic-ingest-use"></a>
 
-Make sure your device or application is using a [policy](iot-policies.md) that has publish permissions on `$aws/rules/*`\. Or you can specify permission for individual rules with `$aws/rules/rule-name/*` in the policy\. Otherwise, your devices and applications can continue to use their existing connections with \.
+Make sure your device or application is using a [policy](iot-policies.md) that has publish permissions on `$aws/rules/*`\. Or you can specify permission for individual rules with `$aws/rules/rule-name/*` in the policy\. Otherwise, your devices and applications can continue to use their existing connections with AWS IoT Core\.
 
 When the message reaches the rules engine, there is no difference in execution or error handling between rules triggered from Basic Ingest and those triggered through message broker subscriptions\.
 

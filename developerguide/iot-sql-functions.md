@@ -580,7 +580,7 @@ The ARN of an IAM role that grants access to the DynamoDB table\. The rules engi
         {
             "Effect": "Allow",
             "Action": "dynamodb:GetItem",
-            "Resource": "arn:aws:dynamodb:<aws-region>:<account-id>:table/<table-name>"
+            "Resource": "arn:aws:dynamodb:aws-region:account-id:table/table-name"
         }
     ]
 }}

@@ -1,6 +1,6 @@
 # MQTT over the WebSocket Protocol<a name="mqtt-ws"></a>
 
- supports MQTT over the [WebSocket](https://en.wikipedia.org/wiki/WebSocket) protocol to enable browser\-based and remote applications to send and receive data from \-connected devices using AWS credentials\. AWS credentials are specified using [AWS Signature Version 4](https://docs.aws.amazon.com/general/latest/gr/sigv4_signing.html)\. WebSocket support is available on TCP port 443, which allows messages to pass through most firewalls and web proxies\.
+AWS IoT Core supports MQTT over the [WebSocket](https://en.wikipedia.org/wiki/WebSocket) protocol to enable browser\-based and remote applications to send and receive data from AWS IoT Core\-connected devices using AWS credentials\. AWS credentials are specified using [AWS Signature Version 4](https://docs.aws.amazon.com/general/latest/gr/sigv4_signing.html)\. WebSocket support is available on TCP port 443, which allows messages to pass through most firewalls and web proxies\.
 
 A WebSocket connection is initiated on a client by sending an HTTP GET request\. The URL you use is of the following form:
 
@@ -12,7 +12,7 @@ wss
 Specifies the WebSocket protocol\.
 
 endpoint  
-Your AWS account\-specific endpoint\. You can use the CLI [describe\-endpoint](https://docs.aws.amazon.com/cli/latest/reference/iot/describe-endpoint.html) command to find this endpoint\.
+Your AWS account\-specific AWS IoT Core endpoint\. You can use the AWS IoT Core CLI [describe\-endpoint](https://docs.aws.amazon.com/cli/latest/reference/iot/describe-endpoint.html) command to find this endpoint\.
 
 region  
 The AWS Region of your AWS account\.
@@ -160,11 +160,11 @@ For more information about using the WebSocket protocol in JavaScript, see [WebS
 
 ## Using the WebSocket Protocol in a Mobile Application<a name="mqtt-ws-mobile-app"></a>
 
-We recommend that you use one of the Device SDKs to connect your device to when making a WebSocket connection\. The following Device SDKs support WebSocket\-based MQTT connections to :
+We recommend that you use one of the AWS IoT Core Device SDKs to connect your device to AWS IoT Core when making a WebSocket connection\. The following AWS IoT Core Device SDKs support WebSocket\-based MQTT connections to AWS IoT Core:
 + [Node\.js](https://github.com/aws/aws-iot-device-sdk-js)
 + [iOS](https://docs.aws.amazon.com/mobile/sdkforios/developerguide/)
 + [Android](https://docs.aws.amazon.com/mobile/sdkforandroid/developerguide/)
 
-For a reference implementation for connecting a web application to using MQTT over the WebSocket protocol, see [AWS Labs WebSocket sample](https://github.com/awslabs/aws-iot-examples) on the GitHub website\.
+For a reference implementation for connecting a web application to AWS IoT Core using MQTT over the WebSocket protocol, see [AWS Labs WebSocket sample](https://github.com/awslabs/aws-iot-examples) on the GitHub website\.
 
 If you are using a programming or scripting language that is not currently supported, any existing WebSocket library can be used as long as the initial WebSocket upgrade request \(HTTP POST\) is signed using Signature Version 4\. Some MQTT clients, such as [Eclipse Paho for JavaScript](http://www.eclipse.org/paho/), support the WebSocket protocol natively\.

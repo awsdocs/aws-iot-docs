@@ -221,3 +221,12 @@ The version of the query to use\. The default value is `2017-09-30`\.
 
 `percents`  
 Optional\. You can use this parameter to specify custom percentile groupings\.
+
+## Authorization<a name="index-aggregate-authorization"></a>
+
+You can specify the thing groups index as a resource ARN in an AWS IoT policy action, as follows\.
+
+
+| Action | Resource | 
+| --- | --- | 
+|  `iot:GetStatistics`  |  An index ARN \(for example, `arn:aws:iot:<your-aws-region>:index/AWS_Things` or `arn:aws:iot:<your-aws-region>:index/AWS_ThingGroups`\)\.  | 

@@ -47,7 +47,7 @@ The Amazon SNS console displays the following message, but you might not receive
 
 ## Create a Rule<a name="create-rule"></a>
 
- rules consist of a topic filter, rule action, and, in most cases, IAM role\. Messages published on topics that match the topic filter trigger the rule\. The rule action defines which action to take when the rule is triggered\. The IAM role contains one or more IAM policies that determine which AWS services the rule can access\. You can create multiple rules that listen on a single topic\. Likewise, you can create a single rule that is triggered by multiple topics\. The rules engine continuously processes messages published on topics that match the topic filters defined in the rules\. 
+AWS IoT Core rules consist of a topic filter, rule action, and, in most cases, IAM role\. Messages published on topics that match the topic filter trigger the rule\. The rule action defines which action to take when the rule is triggered\. The IAM role contains one or more IAM policies that determine which AWS services the rule can access\. You can create multiple rules that listen on a single topic\. Likewise, you can create a single rule that is triggered by multiple topics\. The AWS IoT Core rules engine continuously processes messages published on topics that match the topic filters defined in the rules\. 
 
 In this example, you create a rule that uses Amazon SNS to send an SMS notification to a cell phone number\.
 
@@ -78,7 +78,7 @@ We do not recommend using personally identifiable information in your rule name\
 1. On the **Configure action** page, under **SNS target**, choose **Select** to expand the SNS topic\. Then choose **Select** next to the Amazon SNS topic you created earlier\. Under **Message format**, choose **JSON**\.  
 ![\[Image NOT FOUND\]](http://docs.aws.amazon.com/iot/latest/developerguide/images/configure-action.png)
 
-1. Now give permission to publish to the Amazon SNS topic on your behalf when the rule is triggered\. Choose **Create a new role**\. In **IAM role name**, enter a name for your new role, and then choose **Create a new role**\.  
+1. Now give AWS IoT Core permission to publish to the Amazon SNS topic on your behalf when the rule is triggered\. Choose **Create a new role**\. In **IAM role name**, enter a name for your new role, and then choose **Create a new role**\.  
 ![\[Image NOT FOUND\]](http://docs.aws.amazon.com/iot/latest/developerguide/images/create-sns-role-2.png)
 
 1. Under **IAM role name**, choose **Update role** to apply the permissions to the newly created role\. Choose the role, and then choose **Add action**\.  
@@ -87,7 +87,7 @@ We do not recommend using personally identifiable information in your rule name\
 1. On the **Create a Rule** page, choose **Create rule**\.  
 ![\[Image NOT FOUND\]](http://docs.aws.amazon.com/iot/latest/developerguide/images/create-sns-role-4.png)
 
-For more information about creating rules, see [ Rules](https://docs.aws.amazon.com/iot/latest/developerguide/iot-rules.html)\.
+For more information about creating rules, see [AWS IoT Core Rules](https://docs.aws.amazon.com/iot/latest/developerguide/iot-rules.html)\.
 
 ## Test the Amazon SNS Rule<a name="test-rule"></a>
 
@@ -110,4 +110,4 @@ Congratulations\! You have successfully created and configured a rule that sends
 
 ## Next Steps<a name="more-rules-info"></a>
 
-For more information about rules, see [ Rule Tutorials ](iot-rules-tutorial.md) and [ Rules](iot-rules.md)\.
+For more information about AWS IoT Core rules, see [AWS IoT Core Rule Tutorials ](iot-rules-tutorial.md) and [AWS IoT Core Rules](iot-rules.md)\.

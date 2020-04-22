@@ -13,14 +13,14 @@ This documentation helps you understand how to apply the shared responsibility m
 + [Authentication](authentication.md)
 + [Managing Device Certs](managing-device-certs.md)
 + [Authorization](iot-authorization.md)
-+ [Data Protection in](data-protection.md)
++ [Data Protection in AWS IoT Core](data-protection.md)
 + [Identity and Access Management for AWS IoT](security-iam.md)
 + [Logging and Monitoring with AWS IoT Core](monitoring_overview.md)
 + [Compliance Validation for AWS IoT Core](SERVICENAME-compliance.md)
 + [Resilience in AWS IoT Core](disaster-recovery-resiliency.md)
 + [Infrastructure Security in AWS IoT](infrastructure-security.md)
 + [Vulnerability Analysis and Management in AWS IoT Core](vulnerability-analysis-and-management.md)
-+ [Security Best Practices in](security-best-practices.md)
++ [Security Best Practices in AWS IoT Core](security-best-practices.md)
 + [AWS Training and Certification](#iot-security-training)
 
 ## AWS Training and Certification<a name="iot-security-training"></a>

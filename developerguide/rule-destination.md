@@ -72,7 +72,7 @@ To disable a destination, call `UpdateTopicRuleDestination` and set the topic ru
 
 To enable a destination, call `UpdateTopicRuleDistination` and set the topic rule's status to `ENABLED`\. You do not need to re\-validate the URL\.
 
-## Sending a New Confirmation Message<a name="trigger-confim"></a>
+## Sending a New Confirmation Message<a name="trigger-confirm"></a>
 
 To trigger a new confirmation message for a destination, call `UpdateTopicRuleDistination` and set the topic rule destination's status to `IN_PROGRESS`\. 
 

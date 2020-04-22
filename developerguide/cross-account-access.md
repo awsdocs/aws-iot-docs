@@ -1,10 +1,10 @@
 # Cross Account Access<a name="cross-account-access"></a>
 
- allows you to enable a principal to publish or subscribe to a topic that is defined in an AWS account not owned by the principal\. You configure cross account access by creating an IAM policy and IAM role and then attaching the policy to the role\.
+AWS IoT Core allows you to enable a principal to publish or subscribe to a topic that is defined in an AWS account not owned by the principal\. You configure cross account access by creating an IAM policy and IAM role and then attaching the policy to the role\.
 
 First, create a customer managed IAM policy as described in [Creating IAM Policies](https://docs.aws.amazon.com/IAM/latest/UserGuide/access_policies_create.html), just like you would for other users and certificates in your AWS account\. 
 
-For devices registered in registry, the following policy grants permission to devices connect to using a client ID that matches the device's thing name and to publish to the `my/topic/<thing-name> ` where *<thing\-name>* is the device's thing name:
+For devices registered in AWS IoT Core registry, the following policy grants permission to devices connect to AWS IoT Core using a client ID that matches the device's thing name and to publish to the `my/topic/<thing-name> ` where *<thing\-name>* is the device's thing name:
 
 ```
 {
@@ -28,7 +28,7 @@ For devices registered in registry, the following policy grants permission to de
 }
 ```
 
-For devices not registered in registry, the following policy grants permission to a device to use the thing name `client1` registered in your account's \(123456789012\) registry to connect to and to publish to a client ID\-specific topic whose name is prefixed with `my/topic/`:
+For devices not registered in AWS IoT Core registry, the following policy grants permission to a device to use the thing name `client1` registered in your account's \(123456789012\) AWS IoT Core registry to connect to AWS IoT Core and to publish to a client ID\-specific topic whose name is prefixed with `my/topic/`:
 
 ```
 {

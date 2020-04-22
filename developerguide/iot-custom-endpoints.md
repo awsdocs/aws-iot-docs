@@ -1,11 +1,11 @@
 # Connecting Devices<a name="iot-custom-endpoints"></a>
 
-Devices connect to AWS IoT using a fully qualified domain name \(FQDN\) that is specific to your account\. All connections to AWS IoT must be secured with TLS version 1\.2\. For more information, see [Transport Security in AWS IoT](transport-security.html)\. 
+Devices connect to AWS IoT using a fully qualified domain name \(FQDN\) that is specific to your account\. All connections to AWS IoT must be secured with TLS version 1\.2 and AWS IoT requires devices to send the [Server Name Indication \(SNI\) extension](https://tools.ietf.org/html/rfc3546#section-3.1)\. For more information, see [Transport Security in AWS IoT](transport-security.html)\. 
 
 AWS IoT provides three types of endpoints, which are distinguished by the following three service types that they expose:
 + `Data` – Used to send and receive data to and from the [Message Broker](iot-message-broker.html), [Device Shadow](iot-device-shadows.html), and [Rules Engine](iot-rules.html) components of AWS IoT\.
 + `Credential_Provider` – Used to exchange a device's built\-in X\.509 certificate for temporary credentials to connect directly with other AWS services\. For more information about connecting to other AWS services, see [Authorizing Direct Calls to AWS Services](authorizing-direct-aws.html)\.
-+ `Jobs` – Used to enable devices to interact with the AWS IoT Jobs service using the [Jobs Device MQTT and HTTPS APIs](jobs-api.html#jobs-mqtt-api)\. 
++ `Jobs` – Used to enable devices to interact with the AWS IoT Jobs service using the [Jobs Device HTTPS APIs](jobs-api.html#jobs-mqtt-api)\. 
 
 Every AWS IoT customer has default endpoints for each service type\. You use the [DescribeEndpoint](https://docs.aws.amazon.com/iot/latest/apireference/API_DescribeEndpoint.html) API to get your default endpoints\. The following list contains the valid endpoint types:
 + `iot:Data-ATS` – Endpoint for the `Data` service type\.

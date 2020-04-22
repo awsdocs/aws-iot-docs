@@ -50,7 +50,7 @@ For information about AWS IoT limits, see [AWS IoT Limits](https://docs.aws.amaz
 
 ## How to Get Started with AWS IoT<a name="aws-iot-get-started"></a>
 + To learn more about AWS IoT, see [How AWS IoT Works](aws-iot-how-it-works.md)\.
-+ To learn how to connect a device to AWS IoT, see [Getting Started with ](iot-gs.md)\.
++ To learn how to connect a device to AWS IoT, see [Getting Started with AWS IoT Core](iot-gs.md)\.
 
 ## Accessing AWS IoT<a name="aws-iot-interfaces"></a>
 

@@ -2,47 +2,48 @@
 
 The `AWS/IoT` namespace includes the following metrics\. AWS IoT sends the following metrics to CloudWatch once per received request\. For more information about CloudWatch metrics, see [Amazon CloudWatch Metrics](https://docs.aws.amazon.com/AmazonCloudWatch/latest/monitoring/cloudwatch_concepts.html#Metric)\.
 
+## AWS IoT Metrics<a name="iot-metrics"></a>
 
-**AWS IoT Metrics**  
 
 | Metric | Description | 
 | --- | --- | 
-|  `RulesExecuted`  |  The number of AWS IoT rules executed\.  | 
-|  `NumLogEventsFailedToPublishThrottled`  |  The number of log events within the batch that have failed to publish due to throttling errors\.  | 
+|  `AddThingToDynamicThingGroupsFailed`  |  The number of failure events associated with adding a thing to a dynamic thing group\. The `DynamicThingGroupName` dimension contains the name of the dynamic groups that failed to add things\.  | 
 |  `NumLogBatchesFailedToPublishThrottled`  |  The singular batch of log events that has failed to publish due to throttling errors\.  | 
+|  `NumLogEventsFailedToPublishThrottled`  |  The number of log events within the batch that have failed to publish due to throttling errors\.  | 
+|  `RulesExecuted`  |  The number of AWS IoT rules executed\.  | 
 
+## Rule Metrics<a name="rulemetrics"></a>
 
-**Rule Metrics**  
 
 | Metric | Description | 
 | --- | --- | 
-|  `TopicMatch`  |  The number of incoming messages published on a topic on which a rule is listening\. The `RuleName` dimension contains the name of the rule\.  | 
 |  `ParseError`  |  The number of JSON parse errors that occurred in messages published on a topic on which a rule is listening\. The `RuleName` dimension contains the name of the rule\.  | 
-|  `RuleNotFound`  |  The rule to be triggered could not be found\. The `RuleName` dimension contains the name of the rule\.  | 
 |  `RuleMessageThrottled`  |  The number of messages throttled by the rules engine because of malicious behavior or because the number of messages exceeds the rules engine's throttle limit\. The `RuleName` dimension contains the name of the rule to be triggered\.  | 
+|  `RuleNotFound`  |  The rule to be triggered could not be found\. The `RuleName` dimension contains the name of the rule\.  | 
+|  `TopicMatch`  |  The number of incoming messages published on a topic on which a rule is listening\. The `RuleName` dimension contains the name of the rule\.  | 
 
+## Rule Action Metrics<a name="rule-action-metrics"></a>
 
-**Rule Action Metrics**  
 
 | Metric | Description | 
 | --- | --- | 
-|  `Success`  |  The number of successful rule action invocations\. The `RuleName` dimension contains the name of the rule that specifies the action\. The `ActionType` dimension contains the type of action that was invoked\.  | 
 |  `Failure`  |  The number of failed rule action invocations\. The `RuleName` dimension contains the name of the rule that specifies the action\. The `RuleName` dimension contains the name of the rule that specifies the action\. The `ActionType` dimension contains the type of action that was invoked\.  | 
+|  `Success`  |  The number of successful rule action invocations\. The `RuleName` dimension contains the name of the rule that specifies the action\. The `ActionType` dimension contains the type of action that was invoked\.  | 
 
+## HTTP Action Specific Metrics<a name="http-action-metrics"></a>
 
-**HTTP Action Specific Metrics**  
 
 | Metric | Description | 
 | --- | --- | 
-| `HttpInvalidUrl` | Generated if an endpoint URL, after substitution templates are replaced, does not start with `https://`\. | 
-| `HttpCode_5XX` | Generated if the status code of the response from the downstream web service/application is between 500 and 599\. | 
-| `HttpCode_4XX` | Generated if the status code of the response from the downstream web service/application is between 400 and 499\. | 
 | `HttpCode_Other` | Generated if the status code of the response from the downstream web service/application is not 2xx, 4xx or 5xx\. | 
+| `HttpCode_4XX` | Generated if the status code of the response from the downstream web service/application is between 400 and 499\. | 
+| `HttpCode_5XX` | Generated if the status code of the response from the downstream web service/application is between 500 and 599\. | 
+| `HttpInvalidUrl` | Generated if an endpoint URL, after substitution templates are replaced, does not start with `https://`\. | 
 | `HttpRequestTimeout` | Generated if the downstream web service/application does not return response within request timeout limit\. For more information, see [Service Quotas](https://docs.aws.amazon.com/general/latest/gr/iot-core.html#limits_iot)\. | 
 | `HttpUnknownHost` | Generated if the URL is valid, but the service does not exist or is unreachable\. | 
 
+## Message Broker Metrics<a name="message-broker-metrics"></a>
 
-**Message Broker Metrics**  
 
 | Metric | Description | 
 | --- | --- | 
@@ -74,8 +75,8 @@ The `AWS/IoT` namespace includes the following metrics\. AWS IoT sends the follo
 **Note**  
 The message broker metrics are displayed in the AWS IoT console under **Protocol Metrics**\.
 
+## Device Shadow Metrics<a name="shadow-metrics"></a>
 
-**Device Shadow Metrics**  
 
 | Metric | Description | 
 | --- | --- | 
@@ -86,38 +87,38 @@ The message broker metrics are displayed in the AWS IoT console under **Protocol
 **Note**  
 The device shadow metrics are displayed in the AWS IoT console under **Protocol Metrics**\.
 
+## Jobs Metrics<a name="jobs-metrics"></a>
 
-**Jobs Metrics**  
 
 | Metric | Description | 
 | --- | --- | 
-|  `ServerError`  |  The number of server errors generated while executing the job\. The `JobId` dimension contains the ID of the job\.  | 
-|  `ClientError`  |  The number of client errors generated while executing the job\. The `JobId` dimension contains the ID of the job\.  | 
-|  `QueuedJobExecutionTotalCount`  |  The total number of job executions whose status is `QUEUED` for the given job\. The `JobId` dimension contains the ID of the job\.  | 
-|  `InProgressJobExecutionTotalCount`  |  The total number of job executions whose status is `IN_PROGRESS` for the given job\. The `JobId` dimension contains the ID of the job\.  | 
-|  `FailedJobExecutionTotalCount`  |  The total number of job executions whose status is `FAILED` for the given job\. The `JobId` dimension contains the ID of the job\.  | 
-|  `SuccededJobExecutionTotalCount`  |  The total number of job executions whose status is `SUCCESS` for the given job\. The `JobId` dimension contains the ID of the job\.  | 
+|  `CanceledJobExecutionCount`  |  The number of job executions whose status has changed to `CANCELED` within a time period that is determined by CloudWatch\. \(For more information about CloudWatch metrics, see [Amazon CloudWatch Metrics](https://docs.aws.amazon.com/AmazonCloudWatch/latest/monitoring/cloudwatch_concepts.html#Metric)\.\) The `JobId` dimension contains the ID of the job\.  | 
 |  `CanceledJobExecutionTotalCount`  |  The total number of job executions whose status is `CANCELED` for the given job\. The `JobId` dimension contains the ID of the job\.  | 
+|  `ClientError`  |  The number of client errors generated while executing the job\. The `JobId` dimension contains the ID of the job\.  | 
+|  `FailedJobExecutionCount`  |  The number of job executions whose status has changed to `FAILED` within a time period that is determined by CloudWatch\. \(For more information about CloudWatch metrics, see [Amazon CloudWatch Metrics](https://docs.aws.amazon.com/AmazonCloudWatch/latest/monitoring/cloudwatch_concepts.html#Metric)\.\) The `JobId` dimension contains the ID of the job\.  | 
+|  `FailedJobExecutionTotalCount`  |  The total number of job executions whose status is `FAILED` for the given job\. The `JobId` dimension contains the ID of the job\.  | 
+|  `InProgressJobExecutionCount`  |  The number of job executions whose status has changed to `IN_PROGRESS` within a time period that is determined by CloudWatch\. \(For more information about CloudWatch metrics, see [Amazon CloudWatch Metrics](https://docs.aws.amazon.com/AmazonCloudWatch/latest/monitoring/cloudwatch_concepts.html#Metric)\.\) The `JobId` dimension contains the ID of the job\.  | 
+|  `InProgressJobExecutionTotalCount`  |  The total number of job executions whose status is `IN_PROGRESS` for the given job\. The `JobId` dimension contains the ID of the job\.  | 
 |  `RejectedJobExecutionTotalCount`  |  The total number of job executions whose status is `REJECTED` for the given job\. The `JobId` dimension contains the ID of the job\.  | 
 |  `RemovedJobExecutionTotalCount`  |  The total number of job executions whose status is `REMOVED` for the given job\. The `JobId` dimension contains the ID of the job\.  | 
 |  `QueuedJobExecutionCount`  |  The number of job executions whose status has changed to `QUEUED` within a time period that is determined by CloudWatch\. \(For more information about CloudWatch metrics, see [Amazon CloudWatch Metrics](https://docs.aws.amazon.com/AmazonCloudWatch/latest/monitoring/cloudwatch_concepts.html#Metric)\.\) The `JobId` dimension contains the ID of the job\.  | 
-|  `InProgressJobExecutionCount`  |  The number of job executions whose status has changed to `IN_PROGRESS` within a time period that is determined by CloudWatch\. \(For more information about CloudWatch metrics, see [Amazon CloudWatch Metrics](https://docs.aws.amazon.com/AmazonCloudWatch/latest/monitoring/cloudwatch_concepts.html#Metric)\.\) The `JobId` dimension contains the ID of the job\.  | 
-|  `FailedJobExecutionCount`  |  The number of job executions whose status has changed to `FAILED` within a time period that is determined by CloudWatch\. \(For more information about CloudWatch metrics, see [Amazon CloudWatch Metrics](https://docs.aws.amazon.com/AmazonCloudWatch/latest/monitoring/cloudwatch_concepts.html#Metric)\.\) The `JobId` dimension contains the ID of the job\.  | 
-|  `SuccededJobExecutionCount`  |  The number of job executions whose status has changed to `SUCCESS` within a time period that is determined by CloudWatch\. \(For more information about CloudWatch metrics, see [Amazon CloudWatch Metrics](https://docs.aws.amazon.com/AmazonCloudWatch/latest/monitoring/cloudwatch_concepts.html#Metric)\.\) The `JobId` dimension contains the ID of the job\.  | 
-|  `CanceledJobExecutionCount`  |  The number of job executions whose status has changed to `CANCELED` within a time period that is determined by CloudWatch\. \(For more information about CloudWatch metrics, see [Amazon CloudWatch Metrics](https://docs.aws.amazon.com/AmazonCloudWatch/latest/monitoring/cloudwatch_concepts.html#Metric)\.\) The `JobId` dimension contains the ID of the job\.  | 
+|  `QueuedJobExecutionTotalCount`  |  The total number of job executions whose status is `QUEUED` for the given job\. The `JobId` dimension contains the ID of the job\.  | 
 |  `RejectedJobExecutionCount`  |  The number of job executions whose status has changed to `REJECTED` within a time period that is determined by CloudWatch\. \(For more information about CloudWatch metrics, see [Amazon CloudWatch Metrics](https://docs.aws.amazon.com/AmazonCloudWatch/latest/monitoring/cloudwatch_concepts.html#Metric)\.\) The `JobId` dimension contains the ID of the job\.  | 
 |  `RemovedJobExecutionCount`  |  The number of job executions whose status has changed to `REMOVED` within a time period that is determined by CloudWatch\. \(For more information about CloudWatch metrics, see [Amazon CloudWatch Metrics](https://docs.aws.amazon.com/AmazonCloudWatch/latest/monitoring/cloudwatch_concepts.html#Metric)\.\) The `JobId` dimension contains the ID of the job\.  | 
+|  `ServerError`  |  The number of server errors generated while executing the job\. The `JobId` dimension contains the ID of the job\.  | 
+|  `SuccededJobExecutionCount`  |  The number of job executions whose status has changed to `SUCCESS` within a time period that is determined by CloudWatch\. \(For more information about CloudWatch metrics, see [Amazon CloudWatch Metrics](https://docs.aws.amazon.com/AmazonCloudWatch/latest/monitoring/cloudwatch_concepts.html#Metric)\.\) The `JobId` dimension contains the ID of the job\.  | 
+|  `SuccededJobExecutionTotalCount`  |  The total number of job executions whose status is `SUCCESS` for the given job\. The `JobId` dimension contains the ID of the job\.  | 
 
+## Device Defender Audit Metrics<a name="device-defender-audit-metrics"></a>
 
-**Device Defender Audit Metrics**  
 
 | Metric | Description | 
 | --- | --- | 
 |  `NonCompliantResources`  |  The number of resources that were found to be noncompliant with a check\. The system reports the number of resources that were out of compliance for each check of each audit performed\.   | 
 |  `ResourcesEvaluated`  |  The number of resources that were evaluated for compliance\. The system reports the number of resources that were evaluated for each check of each audit performed\.   | 
 
+## Device Defender Detect Metrics<a name="device-defender-detect-metrics"></a>
 
-**Device Defender Detect Metrics**  
 
 | Metric | Description | 
 | --- | --- | 
@@ -125,8 +126,8 @@ The device shadow metrics are displayed in the AWS IoT console under **Protocol 
 |  `ViolationsCleared`   |  The number of violations of security profile behaviors that have been resolved since the last time an evaluation was performed\. The system reports the number of resolved violations for the account, for a specific security profile, and for a specific behavior of a specific security profile\.   | 
 |  `ViolationsInvalidated`   |  The number of violations of security profile behaviors for which information is no longer available since the last time an evaluation was performed \(because the reporting device stopped reporting, or is no longer being monitored for some reason\)\. The system reports the number of invalidated violations for the entire account, for a specific security profile, and for a specific behavior of a specific security profile\.   | 
 
+## Device Provisioning Metrics<a name="provisioning-metrics"></a>
 
-**Device Provisioning Metrics**  
 
 | Metric | Description | 
 | --- | --- | 

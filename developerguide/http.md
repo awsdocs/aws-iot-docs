@@ -14,9 +14,9 @@ Publishing clients make POST requests to a client\-specific endpoint and a topic
 
 ## curl Example<a name="curlexample"></a>
 
-You can use [curl](https://curl.haxx.se) to emulate a client sending a message to \.
+You can use [curl](https://curl.haxx.se) to emulate a client sending a message to AWS IoT Core\.
 
-**To use curl to send a message from an client device**
+**To use curl to send a message from an AWS IoT Core client device**
 
 1. Check the curl version\.
 

@@ -10,6 +10,6 @@ Devices connected to AWS IoT are represented by *things* in the AWS IoT registry
 
 1. On the **Creating AWS IoT things** page, choose **Create a single thing**\.
 
-1. On the **Create a thing** page, in the **Name** field, enter a name for your thing, such as **MyIotThing**\. Choose **Next**\.
+1. On the **Create a thing** page, in the **Name** field, enter a name for your thing, such as **MyIotThing**\. Choose **Next**\. To change a thing's name, you must create a new thing, give it the new name, and then delete the old thing\.
 **Note**  
 We do not recommend the use of personally identifiable information in your thing name\.

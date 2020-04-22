@@ -27,8 +27,9 @@ The following table lists the IAM IoT actions, the associated AWS IoT API, and t
 | iot:AcceptCertificateTransfer | AcceptCertificateTransfer |  arn:aws:iot:*region*:*account\-id*:cert/*cert\-id*  The AWS account specified in the ARN must be the account to which the certificate is being transferred\.   | 
 | iot:AddThingToThingGroup | AddThingToThingGroup |  arn:aws:iot:*region*:*account\-id*:thinggroup/*thing\-group\-name* arn:aws:iot:*region*:*account\-id*:thing/*thing\-name*  | 
 | iot:AssociateTargetsWithJob | AssociateTargetsWithJob | none  | 
-| iot:AttachPolicy | AttachPolicy | arn:aws:iot:*region*:*account\-id*:thinggroup/*thing\-group\-name* or arn:aws:iot:*region*:*account\-id*:cert/*cert\-id*  | 
+| iot:AttachPolicy | AttachPolicy |  arn:aws:iot:*region*:*account\-id*:thinggroup/*thing\-group\-name* or arn:aws:iot:*region*:*account\-id*:cert/*cert\-id*  | 
 | iot:AttachPrincipalPolicy | AttachPrincipalPolicy |  arn:aws:iot:*region*:*account\-id*:cert/*cert\-id*  | 
+| iot:AttachSecurityProfile | AttachSecurityProfile |  arn:aws:iot:*region*:*account\-id*:securityprofile/*security\-profile\-name* arn:aws:iot:*region*:*account\-id*:dimension/*dimension\-name*  | 
 | iot:AttachThingPrincipal | AttachThingPrincipal |  arn:aws:iot:*region*:*account\-id*:cert/*cert\-id*  | 
 | iot:CancelCertificateTransfer | CancelCertificateTransfer |  arn:aws:iot:*region*:*account\-id*:cert/*cert\-id*  The AWS account specified in the ARN must be the account to which the certificate is being transferred\.   | 
 | iot:CancelJob | CancelJob |  arn:aws:iot:*region*:*account\-id*:job/*job\-id*  | 
@@ -36,11 +37,13 @@ The following table lists the IAM IoT actions, the associated AWS IoT API, and t
 | iot:ClearDefaultAuthorizer | ClearDefaultAuthorizer | None | 
 | iot:CreateAuthorizer | CreateAuthorizer |  arn:aws:iot:*region*:*account\-id*:authorizer/*authorizer\-function\-name*  | 
 | iot:CreateCertificateFromCsr | CreateCertificateFromCsr | \* | 
+| iot:CreateDimension | CreateDimension | arn:aws:iot:region:account\-id:dimension/dimension\-name | 
 | iot:CreateJob | CreateJob |  arn:aws:iot:*region*:*account\-id*:job/*job\-id*  | 
 | iot:CreateKeysAndCertificate | CreateKeysAndCertificate | \* | 
 | iot:CreatePolicy | CreatePolicy | \* | 
-| CreatePolicyVersion | iot:CreatePolicyVersion |  arn:aws:iot:*region*:*account\-id*:policy/*policy\-name*  This must be an AWS IoT policy, not an IAM policy\.   | 
+| iot:CreatePolicyVersion | CreatePolicyVersion |  arn:aws:iot:*region*:*account\-id*:policy/*policy\-name*  This must be an AWS IoT policy, not an IAM policy\.   | 
 | iot:CreateRoleAlias | CreateRoleAlias |  \(parameter: roleAlias\) arn:aws:iot:*region*:*account\-id*:rolealias/*role\-alias\-name*  | 
+| iot:CreateSecurityProfile | CreateSecurityProfile |  arn:aws:iot:*region*:*account\-id*:securityprofile/*security\-profile\-name* arn:aws:iot:*region*:*account\-id*:dimension/*dimension\-name*  | 
 | iot:CreateThing | CreateThing |  arn:aws:iot:*region*:*account\-id*:thing/*thing\-name*  | 
 | iot:CreateThingGroup | CreateThingGroup |  arn:aws:iot:*region*:*account\-id*:thinggroup/*thing\-group\-name* for group being created and for parent group, if used  | 
 | iot:CreateThingType | CreateThingType |  arn:aws:iot:*region*:*account\-id*:thingtype/*thing\-type\-name*  | 
@@ -48,12 +51,14 @@ The following table lists the IAM IoT actions, the associated AWS IoT API, and t
 | iot:DeleteAuthorizer | DeleteAuthorizer |  arn:aws:iot:*region*:*account\-id*:authorizer/*authorizer\-name*  | 
 | iot:DeleteCACertificate | DeleteCACertificate |  arn:aws:iot:*region*:*account\-id*:cacert/*cert\-id*  | 
 | iot:DeleteCertificate | DeleteCertificate |  arn:aws:iot:*region*:*account\-id*:cert/*cert\-id*  | 
+| iot:DeleteDimension | DeleteDimension |  arn:aws:iot:*region*:*account\-id*:dimension/*dimension\-name*  | 
 | iot:DeleteJob | DeleteJob |  arn:aws:iot:*region*:*account\-id*:job/*job\-id*  | 
 | iot:DeleteJobExecution | DeleteJobExecution |  arn:aws:iot:*region*:*account\-id*:job/*job\-id* arn:aws:iot:*region*:*account\-id*:thing/*thing\-name*  | 
 | iot:DeletePolicy | DeletePolicy |  arn:aws:iot:*region*:*account\-id*:policy/*policy\-name*  | 
 | iot:DeletePolicyVersion | DeletePolicyVersion |  arn:aws:iot:*region*:*account\-id*:policy/*policy\-name*  | 
 | iot:DeleteRegistrationCode | DeleteRegistrationCode | \* | 
 | iot:DeleteRoleAlias | DeleteRoleAlias |  arn:aws:iot:*region*:*account\-id*:rolealias/*role\-alias\-name*  | 
+| iot:DeleteSecurityProfile | DeleteSecurityProfile |  arn:aws:iot:*region*:*account\-id*:securityprofile/*security\-profile\-name* arn:aws:iot:*region*:*account\-id*:dimension/*dimension\-name*  | 
 | iot:DeleteThing | DeleteThing |  arn:aws:iot:*region*:*account\-id*:thing/*thing\-name*  | 
 | iot:DeleteThingGroup | DeleteThingGroup |  arn:aws:iot:*region*:*account\-id*:thinggroup/*thing\-group\-name*  | 
 | iot:DeleteThingType | DeleteThingType |  arn:aws:iot:*region*:*account\-id*:thingtype/*thing\-type\-name*  | 
@@ -76,6 +81,7 @@ The following table lists the IAM IoT actions, the associated AWS IoT API, and t
 | iot:DescribeThingType | DescribeThingType |  arn:aws:iot:*region*:*account\-id*:thingtype/*thing\-type\-name*  | 
 | iot:DetachPolicy | DetachPolicy |  arn:aws:iot:*region*:*account\-id*:cert/*cert\-id* or arn:aws:iot:*region*:*account\-id*:thinggroup/*thing\-group\-name*  | 
 | iot:DetachPrincipalPolicy | DetachPrincipalPolicy |  arn:aws:iot:*region*:*account\-id*:cert/*cert\-id*  | 
+| iot:DetachSecurityProfile | DetachSecurityProfile |  arn:aws:iot:*region*:*account\-id*:securityprofile/*security\-profile\-name* arn:aws:iot:*region*:*account\-id*:dimension/*dimension\-name*  | 
 | iot:DetachThingPrincipal | DetachThingPrincipal |  arn:aws:iot:*region*:*account\-id*:cert/*cert\-id*  | 
 | iot:DisableTopicRule | DisableTopicRule |  arn:aws:iot:*region*:*account\-id*:rule/*rule\-name*  | 
 | iot:EnableTopicRule | EnableTopicRule |  arn:aws:iot:*region*:*account\-id*:rule/*rule\-name*  | 
@@ -134,9 +140,11 @@ The following table lists the IAM IoT actions, the associated AWS IoT API, and t
 | iot:UpdateAuthorizer | UpdateAuthorizer |  arn:aws:iot:*region*:*account\-id*:authorizerfunction/*authorizer\-function\-name*  | 
 | iot:UpdateCACertificate | UpdateCACertificate |  arn:aws:iot:*region*:*account\-id*:cacert/*cert\-id*  | 
 | iot:UpdateCertificate | UpdateCertificate |  arn:aws:iot:*region*:*account\-id*:cert/*cert\-id*  | 
+| iot:UpdateDimension | UpdateDimension |  arn:aws:iot:*region*:*account\-id*:dimension/*dimension\-name*  | 
 | iot:UpdateEventConfigurations | UpdateEventConfigurations | None | 
 | iot:UpdateIndexingConfiguration | UpdateIndexingConfiguration | None | 
 | iot:UpdateRoleAlias | UpdateRoleAlias |  arn:aws:iot:*region*:*account\-id*:rolealias/*role\-alias\-name*  | 
+| iot:UpdateSecurityProfile | UpdateSecurityProfile |  arn:aws:iot:*region*:*account\-id*:securityprofile/*security\-profile\-name* arn:aws:iot:*region*:*account\-id*:dimension/*dimension\-name*  | 
 | iot:UpdateThing | UpdateThing |  arn:aws:iot:*region*:*account\-id*:thing/*thing\-name*  | 
 | iot:UpdateThingGroup | UpdateThingGroup |  arn:aws:iot:*region*:*account\-id*:thinggroup/*thing\-group\-name*  | 
 | iot:UpdateThingGroupsForThing | UpdateThingGroupsForThing |  arn:aws:iot:*region*:*account\-id*:thing/*thing\-name*  | 

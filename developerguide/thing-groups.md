@@ -1,8 +1,8 @@
-# Thing Groups<a name="thing-groups"></a>
+# Static Thing Groups<a name="thing-groups"></a>
 
-Thing groups allow you to manage several things at once by categorizing them into groups\. Groups can also contain groups — you can build a hierarchy of groups\. You can attach a policy to a parent group and it is inherited by its child groups, and by all of the things in the group and in its child groups\. This makes control of permissions easy for large numbers of things\.
+Static thing groups allow you to manage several things at once by categorizing them into groups\. Static thing groups contain a group of things that are managed by using the console, CLI, or the API\. [Dynamic thing groups](https://docs.aws.amazon.com/iot/latest/developerguide/dynamic-thing-groups.html), on the other hand, contain things that match a specified query\. Static thing groups can also contain other static thing groups — you can build a hierarchy of groups\. You can attach a policy to a parent group and it is inherited by its child groups, and by all of the things in the group and in its child groups\. This makes control of permissions easy for large numbers of things\.
 
-Here are the things you can do with thing groups:
+Here are the things you can do with static thing groups:
 + Create, describe or delete a group\.
 + Add a thing to a group, or to more than one group\.
 + Remove a thing from a group\.
@@ -17,26 +17,26 @@ Here are the things you can do with thing groups:
 + Configure logging options for things in a group\. See [Configure AWS IoT Logging](cloud-watch-logs.md#configure-logging)\. 
 + Create jobs that are sent to and executed on every thing in a group and its child groups\. See [Jobs](iot-jobs.md)\.
 
-Here are some limitations of thing groups:
+Here are some limitations of static thing groups:
 + A group can have at most one direct parent\.
 + If a group is a child of another group, you must specify this at the time it is created\.
 + You can't change a group's parent later, so be sure to plan your group hierarchy and create a parent group before you create any child groups it contains\.
-+ You cannot add a thing to more than 10 groups\.
++ The number of groups to which a thing can belong is [limited](https://docs.aws.amazon.com/general/latest/gr/iot-core.html#thing-limits)\.
 + You cannot add a thing to more than one group in the same hierarchy\. \(In other words, you cannot add a thing to two groups that share a common parent\.\)
 + You cannot rename a group\.
 + Thing group names can't contain international characters, such as û, é and ñ\.
 
 Attaching and detaching policies to groups can enhance the security of your AWS IoT operations in a number of significant ways\. The per\-device method of attaching a policy to a certificate, which is then attached to a thing, is time consuming and makes it difficult to quickly update or change policies across a fleet of devices\. Having a policy attached to the thing's group saves steps when it is time to rotate the certificates on a thing\. And policies are dynamically applied to things when they change group membership, so you aren't required to re\-create a complex set of permissions each time a device changes membership in a group\.
 
-## Create a Thing Group<a name="create-group"></a>
+## Create a Static Thing Group<a name="create-group"></a>
 
-You can use the CreateThingGroup command to create a thing group:
+Use the CreateThingGroup command to create a static thing group:
 
 ```
 $ aws iot create-thing-group --thing-group-name LightBulbs
 ```
 
-The CreateThingGroup command returns a response that contains the thing group, its ID, and ARN:
+The CreateThingGroup command returns a response that contains the static thing group's name, ID, and ARN:
 
 ```
 {
@@ -49,13 +49,13 @@ The CreateThingGroup command returns a response that contains the thing group, i
 **Note**  
 We do not recommend using personally identifiable information in your thing group names\.
 
-Here is an example that specifies a parent of the thing group when it is created:
+Here is an example that specifies a parent of the static thing group when it is created:
 
 ```
 $ aws iot create-thing-group --thing-group-name RedLights --parent-group-name LightBulbs
 ```
 
-As before, the CreateThingGroup command returns a response that contains the thing group, its ID, and ARN:
+As before, the CreateThingGroup command returns a response that contains the static thing group's name,, ID, and ARN:
 
 ```
 {
@@ -66,11 +66,11 @@ As before, the CreateThingGroup command returns a response that contains the thi
 ```
 
 **Important**  
-Keep in mind the following limits when creating group hierarchies:  
-A group can have at most one direct parent\.
-A group may have no more than 100 direct child groups\.
-The maximum depth of a group hierarchy is 7\.
-A group can have up to 50 attributes\. \(Attributes are name\-value pairs you can use to store information about a group\.\) Each attribute name can contain up to 128 characters and each value up to 800 characters\.
+Keep in mind the following limits when creating thing group hierarchies:  
+A thing group can have only one direct parent\.
+The number of direct child groups a thing group can have is [limited](https://docs.aws.amazon.com/general/latest/gr/iot-core.html#thing-group-limits)\.
+The maximum depth of a group hierarchy is [limited](https://docs.aws.amazon.com/general/latest/gr/iot-core.html#thing-group-limits)\.
+The number of attributes a thing group can have is [limited](https://docs.aws.amazon.com/general/latest/gr/iot-core.html#thing-group-limits)\. \(Attributes are name\-value pairs you can use to store information about a group\.\) The lengths of each attribute name and each value are also [limited](https://docs.aws.amazon.com/general/latest/gr/iot-core.html#thing-group-limits)\.
 
 ## Describe a Thing Group<a name="describe-thing-group"></a>
 
@@ -113,9 +113,9 @@ The DescribeThingGroup command returns information about the specified group:
 }
 ```
 
-## Add a Thing to a Thing Group<a name="add-thing-to-group"></a>
+## Add a Thing to a Static Thing Group<a name="add-thing-to-group"></a>
 
-You can use the AddThingToThingGroup command to add a thing to a group:
+You can use the AddThingToThingGroup command to add a thing to a static thing group:
 
 ```
 $ aws iot add-thing-to-thing-group --thing-name MyLightBulb --thing-group-name RedLights
@@ -125,9 +125,9 @@ The AddThingToThingGroup command does not produce any output\.
 
 **Important**  
 You can add a thing to a maximum of 10 groups\. But you cannot add a thing to more than one group in the same hierarchy\. \(In other words, you cannot add a thing to two groups which share a common parent\.\)  
-If a thing belongs to 10 thing groups, and one or more of those groups is a dynamic thing group, you can use the [overrideDynamicGroups](https://docs.aws.amazon.com/iot/latest/apireference/API_AddThingToThingGroup.html#iot-AddThingToThingGroup-request-overrideDynamicGroups) flag to make static groups take priority over dynamic groups\.
+If a thing belongs to as many thing groups as possible, and one or more of those groups is a dynamic thing group, you can use the [https://docs.aws.amazon.com/iot/latest/apireference/API_AddThingToThingGroup.html#iot-AddThingToThingGroup-request-overrideDynamicGroups](https://docs.aws.amazon.com/iot/latest/apireference/API_AddThingToThingGroup.html#iot-AddThingToThingGroup-request-overrideDynamicGroups) flag to make static groups take priority over dynamic groups\.
 
-## Remove a Thing from a Thing Group<a name="remove-thing-from-group"></a>
+## Remove a Thing from a Static Thing Group<a name="remove-thing-from-group"></a>
 
 You can use the RemoveThingFromThingGroup command to remove a thing from a group:
 
@@ -175,13 +175,13 @@ This operation is [eventually consistent](https://web.stanford.edu/class/cs345d-
 
 ## List Thing Groups<a name="list-thing-groups"></a>
 
-You can use the ListThingGroups command to list groups you have created:
+You can use the ListThingGroups command to list your account's thing groups:
 
 ```
 $ aws iot list-thing-groups
 ```
 
-The ListThingGroups command returns a list of the groups defined in your AWS account:
+The ListThingGroups command returns a list of the thing groups in your AWS account:
 
 ```
 {
@@ -288,9 +288,9 @@ The ListThingGroupsForThing command returns a list of the thing groups this thin
 }
 ```
 
-## Update a Thing Group<a name="update-group"></a>
+## Update a Static Thing Group<a name="update-group"></a>
 
-You can use the UpdateThingGroup command to update the attributes of a thing group:
+You can use the UpdateThingGroup command to update the attributes of a static thing group:
 
 ```
 $ aws iot update-thing-group --thing-group-name "LightBulbs" --thing-group-properties "thingGroupDescription=\"this is a test group\", attributePayload=\"{\"attributes\"={\"Owner\"=\"150\",\"modelNames\"=\"456\"}}"
@@ -305,7 +305,7 @@ The UpdateThingGroup command returns a response that contains the group's versio
 ```
 
 **Note**  
-A group can have up to 50 attributes\.
+The number of attributes that a thing can have is [limited](https://docs.aws.amazon.com/general/latest/gr/iot-core.html#thing-limits)\.
 
 ## Delete a Thing Group<a name="delete-thing-group"></a>
 
@@ -328,9 +328,9 @@ You must delete any child groups first before you delete the group\.
 
 You can delete a group that has child things, but any permissions granted to the things by membership in the group no longer apply\. Before deleting a group that has a policy attached, check carefully that removing those permissions would not stop the things in the group from being able to function properly\. Also, note that commands that show which groups a thing belongs to \(for example, ListGroupsForThing\) might continue to show the group while records in the cloud are being updated\.
 
-## Attach a Policy to a Thing Group<a name="group-attach-policy"></a>
+## Attach a Policy to a Static Thing Group<a name="group-attach-policy"></a>
 
-You can use the AttachPolicy command to attach a policy to a thing group and so, by extension, to all things in that group and things in any of its child groups:
+You can use the AttachPolicy command to attach a policy to a static thing group and so, by extension, to all things in that group and things in any of its child groups:
 
 ```
 $ aws iot attach-policy \
@@ -348,7 +348,7 @@ We do not recommend using personally identifiable information in your policy nam
 
 The `--target` parameter can be a thing group ARN \(as above\), a certificate ARN, or an Amazon Cognito Identity\. For more information about policies, certificates and authentication, see [Authentication](authentication.md)\.
 
-## Detach a Policy from a Thing Group<a name="group-detach-policy"></a>
+## Detach a Policy from a Static Thing Group<a name="group-detach-policy"></a>
 
 You can use the DetachPolicy command to detach a policy from a group and so, by extension, to all things in that group and things in any of its child groups:
 
@@ -358,9 +358,9 @@ $ aws iot detach-policy --target "arn:aws:iot:us-west-2:123456789012:thinggroup/
 
 The DetachPolicy command does not produce any output\.
 
-## List the Policies Attached to a Thing Group<a name="group-list-policies"></a>
+## List the Policies Attached to a Static Thing Group<a name="group-list-policies"></a>
 
-You can use the ListAttachedPolicies command to list the policies attached to a group:
+You can use the ListAttachedPolicies command to list the policies attached to a static thing group:
 
 ```
 $ aws iot list-attached-policies --target "arn:aws:iot:us-west-2:123456789012:thinggroup/RedLights"
@@ -441,7 +441,7 @@ aws iot test-authorization \
 
 Use the `--principal` parameter to specify the ARN of the certificate attached to the thing\. If using Amazon Cognito Identity authentication, specify a Cognito Identity as the `--principal` or use the `--cognito-identity-pool-id` parameter, or both\. \(If you specify only the `--cognito-identity-pool-id` then the policies associated with that identity pool's role for unauthenticated users are considered\. If you use both, the policies associated with that identity pool's role for authenticated users are considered\.
 
-Specify one or more MQTT actions you want to test by listing sets of resources and action types following the `--auth-infos` parameter\. The `actionType` field should contain "PUBLISH", "SUBSCRIBE", "RECEIVE", or "CONNECT"\. The `resources` field should contain a list of resource ARNs\. See [ Policies](iot-policies.md) for more information\.
+Specify one or more MQTT actions you want to test by listing sets of resources and action types following the `--auth-infos` parameter\. The `actionType` field should contain "PUBLISH", "SUBSCRIBE", "RECEIVE", or "CONNECT"\. The `resources` field should contain a list of resource ARNs\. See [AWS IoT Core Policies](iot-policies.md) for more information\.
 
 You can test the effects of adding policies by specifying them with the `--policy-names-to-add` parameter\. Or you can test the effects of removing policies by them with the `--policy-names-to-skip` parameter\.
 

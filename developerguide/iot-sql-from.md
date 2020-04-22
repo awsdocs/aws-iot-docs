@@ -1,6 +1,6 @@
 # FROM Clause<a name="iot-sql-from"></a>
 
-The FROM clause subscribes your rule to a topic or topic filter\. The topic or topic filter must be enclosed in single quotes \('\)\. The rule is triggered for each message sent to an MQTT topic that matches the topic filter specified here\. A topic filter allows you to subscribe to a group of similar topics\.
+The FROM clause subscribes your rule to a topic or topic filter\. You must enclose the topic or topic filter in single quotes \('\)\. The rule is triggered for each message sent to an MQTT topic that matches the topic filter specified here\. A topic filter allows you to subscribe to a group of similar topics\.
 
 **Example:**
 
@@ -10,7 +10,7 @@ Incoming payload published on topic `'a/c'`: `{temperature: 50}`
 
 SQL: `"SELECT temperature AS t FROM 'a/b'"`\.
 
-The rule is subscribed to `'a/b'`, so the incoming payload is passed to the rule, and the outgoing payload \(passed to the rule actions\) is: `{t: 50}`\. The rule is not subscribed to `'a/c'`, so the rule is not triggered for the message published on `'a/c'`\.
+The rule is subscribed to `'a/b'`, so the incoming payload is passed to the rule\. The outgoing payload, passed to the rule actions, is: `{t: 50}`\. The rule is not subscribed to `'a/c'`, so the rule is not triggered for the message published on `'a/c'`\.
 
 **\# Wildcard Example:**
 

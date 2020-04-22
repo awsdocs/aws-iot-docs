@@ -1,6 +1,8 @@
 # Topics<a name="topics"></a>
 
-Topics identify AWS IoT messages\. AWS IoT clients identify the messages they publish by giving the messages topic names\. Clients identify the messages to which they want to subscribe \(receive\) by registering a topic filter with \. The AWS IoT message broker uses topic names and topic filters to route messages from publishing clients to subscribing clients\. 
+Topics identify AWS IoT messages\. AWS IoT clients identify the messages they publish by giving the messages topic names\. Clients identify the messages to which they want to subscribe \(receive\) by registering a topic filter with AWS IoT Core\. The AWS IoT message broker uses topic names and topic filters to route messages from publishing clients to subscribing clients\. 
+
+While AWS IoT supports some [reserved system topics](https://docs.aws.amazon.com/iot/latest/developerguide/reserved-topics.html), most MQTT topics are created and managed by you, the system designer\. AWS IoT uses topics to identify messages received from publishing clients and select messages to send to subscribing clients, as described in the following sections\. Before you create a topic namespace for your system, review the characteristics of MQTT topics to create the hierarchy of topic names that works best for your IoT system\.
 
 ## Topic Names<a name="topicnames"></a>
 
@@ -16,8 +18,8 @@ In this example, there might also be other types of sensors in other rooms with 
 As you consider topic names for the messages in your system, keep in mind:  
 Topic names and topic filters are case sensitive\.
 Topic names must not contain personally identifiable information\.
-Topic names that begin with a $ are [reserved topics](https://docs.aws.amazon.com/iot/latest/developerguide/reserved-topics.html) to be used only by \.
- cannot send or receive messages between AWS accounts or Regions\.
+Topic names that begin with a $ are [reserved topics](https://docs.aws.amazon.com/iot/latest/developerguide/reserved-topics.html) to be used only by AWS IoT Core\.
+AWS IoT Core cannot send or receive messages between AWS accounts or Regions\.
 
 The topic namespace is limited to an AWS account and Region\. For example, the `sensor/temp/room1` topic used by an AWS account in one Region is distinct from the `sensor/temp/room1` topic used by the same AWS account in another Region or used by any other AWS account in any Region\.
 

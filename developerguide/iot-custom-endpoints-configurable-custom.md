@@ -7,7 +7,7 @@
 | --- |
 | This feature is currently in public beta and is available only in the US East \(N\. Virginia\) Region\. | 
 
-Domain configurations let you specify a custom fully qualified domain name \(FQDN\) to connect to AWS IoT\. Custom domains enables you to manage your own server certificates so that you can manage details, such as the root certificate authority \(CA\) used to sign the certificate, the signature algorithm, the certificate chain depth, and the lifecycle of the certificate\.
+Domain configurations let you specify a custom fully qualified domain name \(FQDN\) to connect to AWS IoT\. Custom domains enable you to manage your own server certificates so that you can manage details, such as the root certificate authority \(CA\) used to sign the certificate, the signature algorithm, the certificate chain depth, and the lifecycle of the certificate\.
 
 The workflow to set up a domain configuration with a custom domain consists of the following three stages\.
 
@@ -59,7 +59,9 @@ AWS IoT leverages the server name indication \(SNI\) TLS extension to apply doma
 + `validationCertificateArn` – The ARN of the public certificate that you generated in ACM to validate ownership of your custom domain\. This argument isn't required if you use a publicly signed or ACM\-generated server certificate\.
 + `defaultAuthorizerName` – The name of the custom authorizer to use on the endpoint\.
 + `allowAuthorizerOverride` – A Boolean value that specifies whether devices can override the default authorizer by specifying a different authorizer in the HTTP header of the request\. This value is required if a value for `defaultAuthorizerName` is specified\.
-+ `serviceType` – Possible values are `DATA`, `CREDENTIAL_PROVIDER`, and `JOB`\. If you specify `Data`, AWS IoT returns an endpoint with an endpoint type of `iot:Data-Beta`\. This is a special endpoint type for the configurable endpoints beta release\. You can't create a configurable `iot:Data` \(VeriSign\) endpoint\.
++ `serviceType` – Possible values are `DATA`, `CREDENTIAL_PROVIDER`, and `JOB`\. If you specify `DATA`, AWS IoT returns an endpoint with an endpoint type of `iot:Data-Beta`\. This is a special endpoint type for the configurable endpoints beta release\. You can't create a configurable `iot:Data` \(VeriSign\) endpoint\.
+**Note**  
+AWS IoT Core currently supports only the `DATA` service type\.
 
 The following AWS CLI command creates a domain configuration for **iot\.example\.com**\.
 

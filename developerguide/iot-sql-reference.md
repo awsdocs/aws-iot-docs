@@ -3,13 +3,15 @@
 In AWS IoT, rules are defined using an SQL\-like syntax\. SQL statements are composed of three types of clauses:
 
 **SELECT**  
-Required\. Extracts information from the incoming message payload and performs transformations\.
+Required\. Extracts information from the incoming message payload and performs transformations\.  
+The SELECT clause supports [Data Types](iot-sql-data-types.md), [Operators](iot-sql-operators.md), [Functions](iot-sql-functions.md), [Literals](iot-sql-literals.md), [Case Statements](iot-sql-case.md), [JSON Extensions](iot-sql-json.md), [Substitution Templates](iot-substitution-templates.md), and [Nested Object Queries](iot-sql-nested-queries.md)\.
 
 **FROM**  
 The MQTT message topic filter\. The rule is triggered for each message sent to an MQTT topic that matches the filter specified here\. Required for rules that are triggered by messages that pass through the message broker\. Optional for rules that are only triggered using the [Basic Ingest](iot-basic-ingest.md) feature\. 
 
 **WHERE**  
-Optional\. Adds conditional logic that determines if the actions specified by a rule are carried out\. 
+Optional\. Adds conditional logic that determines if the actions specified by a rule are carried out\.   
+The WHERE clause supports [Data Types](iot-sql-data-types.md), [Operators](iot-sql-operators.md), [Functions](iot-sql-functions.md), [Literals](iot-sql-literals.md), [Case Statements](iot-sql-case.md), [JSON Extensions](iot-sql-json.md), [Substitution Templates](iot-substitution-templates.md), and [Nested Object Queries](iot-sql-nested-queries.md)\.
 
 An example SQL statement looks like this:
 

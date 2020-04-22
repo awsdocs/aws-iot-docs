@@ -380,7 +380,7 @@ aws iot search\-index \-\-index\-name "AWS\_Things" \-\-query\-string "thingName
 }
 ```
 
-In the JSON response, `"connectivity"` \(as enabled by the `thingConnectivityIndexingMode=STATUS` setting\) provides a Boolean value and a timestamp that indicates if the device is connected to \. The device `"mything1"` disconnected \(`false`\) at POSIX time `1556649874716`:
+In the JSON response, `"connectivity"` \(as enabled by the `thingConnectivityIndexingMode=STATUS` setting\) provides a Boolean value and a timestamp that indicates if the device is connected to AWS IoT Core\. The device `"mything1"` disconnected \(`false`\) at POSIX time `1556649874716`:
 
 ```
 "connectivity": { 

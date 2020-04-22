@@ -13,10 +13,11 @@ For more information about specifying thing groups as job targets, see [Using th
 Dynamic thing groups differ from static thing groups in the following ways:
 + Thing membership is not explicitly defined\. To create a dynamic thing group, you must define a query string that defines group membership\.
 + Dynamic thing groups cannot be part of a hierarchy\.
++ Dynamic thing groups cannot have policies applied to them\.
 + You use a different set of commands to create, update, and delete dynamic thing groups\. For all other operations, the same commands that you use to interact with static thing groups can be used to interact with dynamic thing groups\.
-+ A single account can have no more than 100 dynamic thing groups defined\.
++ The number of dynamic groups that a single account can have is [limited](https://docs.aws.amazon.com/general/latest/gr/iot-core.html#thing-group-limits)\.
 
-For more information about static thing groups, see [Thing Groups](thing-groups.md)\.
+For more information about static thing groups, see [Static Thing Groups](thing-groups.md)\.
 
 As an example, suppose we create a dynamic group that contains all rooms in a warehouse whose temperature is greater than 60 degrees Fahrenheit\. When a room's temperature is 61 degrees or higher, it is added to the RoomTooWarm dynamic thing group\. All rooms in the RoomTooWarm dynamic thing group have cooling fans turned on\. When a room's temperature falls to 60 degrees or lower, it is removed from the dynamic thing group and its fan would be turned off\.
 
@@ -121,29 +122,13 @@ The DeleteDynamicThingGroup command does not produce any output\.
 
 ## Limitations and Conflicts<a name="dynamic-thing-group-limitations"></a>
 
-Dynamic thing groups share some of the same limitations as static thing groups:
-+ A thing group can have up to 50 attributes\.
-+ A thing can belong up to a maximum of 10 thing groups\.
+Dynamic thing groups share these limitations with static thing groups:
++ The number of attributes a thing group can have is [limited](https://docs.aws.amazon.com/general/latest/gr/iot-core.html#thing-group-limits)\.
++ The number of groups to which a thing can belong is [limited](https://docs.aws.amazon.com/general/latest/gr/iot-core.html#thing-limits)\.
 + Thing groups cannot be renamed\.
 + Thing group names cannot contain international characters, such as û, é, and ñ\.
 
 When using dynamic thing groups, keep the following in mind\.
-
-### Older dynamic thing groups take priority over newer ones<a name="group-priorities"></a>
-
-By default, if a thing belongs to 10 thing groups, you cannot add it to additional groups\. If a conflict in membership arises among dynamic thing groups when you create or update a dynamic thing group, older dynamic thing groups take priority over newer ones\.
-
-### With `overrideDynamicGroups` enabled, static groups take priority over dynamic groups<a name="membership-limit"></a>
-
-By default, if a thing belongs to 10 thing groups, you cannot add the thing to additional groups\. If you are updating thing membership with the [AddThingToThingGroup](https://docs.aws.amazon.com/iot/latest/apireference/API_AddThingToThingGroup.html) or [UpdateThingGroupsForThing](https://docs.aws.amazon.com/iot/latest/apireference/API_UpdateThingGroupsForThing.html) commands, you can use the `overrideDynamicGroups` flag to make static thing groups take priority over dynamic thing groups\. With `overrideDynamicGroups` enabled, if a thing belongs to 10 thing groups, and one or more of those groups is dynamic, adding the thing to a static thing group removes it from the newest dynamic thing group\.
-
-For example, suppose that you create a dynamic thing group named DynamicGroup1, and then you create nine more dynamic thing groups, with DynamicGroup10 being the last group that you created\. If Thing1 belongs to all 10 dynamic thing groups, manually adding Thing1 to a static group with `OverrideDynamicGroups` enabled removes the thing from DynamicGroup10\.
-
-### <a name="apply-policy"></a>
-
-### Dynamic thing group membership is eventually consistent<a name="update-conflict"></a>
-
-Only the final state of a thing is evaluated for the registry\. Intermediary states can be skipped if states are updated rapidly\. Avoid associating a rule or job, with a dynamic thing group whose membership depends on an intermediary state\.
 
 ### The fleet indexing service must be enabled<a name="indexing-backfill-conflict"></a>
 
@@ -151,3 +136,51 @@ The fleet indexing service must be enabled and the fleet indexing backfill must 
 
 **Note**  
 If you have permissions to query the fleet index, you can access the data of things across the entire fleet\.
+
+### The number of dynamic thing groups is limited<a name="dynamic-thing-groups-limited"></a>
+
+The number of dynamic groups is [limited](https://docs.aws.amazon.com/general/latest/gr/iot-core.html#thing-group-limits)\.
+
+### Successful commands can log errors<a name="log-errors"></a>
+
+When creating or updating a dynamic thing group, it's possible that some things might be eligible to be in a dynamic thing group yet not be added to it\. The command to create or update a dynamic thing group, however, still succeeds in those cases while logging an error and generating an [`AddThingToDynamicThingGroupsFailed` metric](https://docs.aws.amazon.com/iot/latest/developerguide/aws-iot-metrics.html#iot-metrics)\. 
+
+An [error log entry](https://docs.aws.amazon.com/iot/latest/apireference/cwl-format.html#dynamic-group-logs) in the CloudWatch log is created for each thing when an eligible thing cannot be added to a dynamic thing group or a thing is removed from a dynamic thing group to add it to another group\. When a thing cannot be added to a dynamic group, an [`AddThingToDynamicThingGroupsFailed` metric](https://docs.aws.amazon.com/iot/latest/developerguide/aws-iot-metrics.html#iot-metrics) is also created; however, a single metric can represent multiple log entries\.
+
+When a thing becomes eligible to be added to a dynamic thing group, the following is considered:
++ Is the thing already in as many groups as it can be? \(See [limits](https://docs.aws.amazon.com/general/latest/gr/iot-core.html#thing-limits)\)
+  + **NO: **The thing is added to the dynamic thing group\.
+  + **YES:** Is the thing a member of any dynamic thing groups?
+    + **NO:** The thing can't be added to the dynamic thing group, an error is logged, and an [`AddThingToDynamicThingGroupsFailed` metric](https://docs.aws.amazon.com/iot/latest/developerguide/aws-iot-metrics.html#iot-metrics) is generated\.
+    + **YES:** Is the dynamic thing group to join older than any dynamic thing group that the thing is already a member of?
+      + **NO:** The thing can't be added to the dynamic thing group, an error is logged, and an [`AddThingToDynamicThingGroupsFailed` metric](https://docs.aws.amazon.com/iot/latest/developerguide/aws-iot-metrics.html#iot-metrics) is generated\.
+      + **YES:** Remove the thing from the most recent dynamic thing group it is a member of, log an error, and add the thing to the dynamic thing group\. This generates an error and an [`AddThingToDynamicThingGroupsFailed` metric](https://docs.aws.amazon.com/iot/latest/developerguide/aws-iot-metrics.html#iot-metrics) for the dynamic thing group from which the thing was removed\.
+
+When a thing in a dynamic thing group no longer meets the search query, it is removed from the dynamic thing group\. Likewise, when a thing is updated to meet a dynamic thing group's search query, it is then added to the group as previously described\. These additions and removals are normal and do not produce error log entries\. 
+
+### With `overrideDynamicGroups` enabled, static groups take priority over dynamic groups<a name="membership-limit"></a>
+
+The number of groups to which a thing can belong is [limited](https://docs.aws.amazon.com/general/latest/gr/iot-core.html#thing-limits)\. When you update thing membership by using the [AddThingToThingGroup](https://docs.aws.amazon.com/iot/latest/apireference/API_AddThingToThingGroup.html) or [UpdateThingGroupsForThing](https://docs.aws.amazon.com/iot/latest/apireference/API_UpdateThingGroupsForThing.html) commands, adding the `--overrideDynamicGroups` parameter gives static thing groups priority over dynamic thing groups\.
+
+When adding a thing to a static thing group, the following is considered:
++ Does the thing already belong to the maximum number of groups?
+  + **NO:** The thing is added to the static thing group\.
+  + **YES:** Is the thing in any dynamic groups?
+    + **NO:** The thing cannot be added to the thing group\. The command raises an exception\.
+    + **YES:** Was \-\-overrideDynamicGroups enabled?
+      + **NO:** The thing cannot be added to the thing group\. The command raises an exception\.
+      + **YES:** The thing is removed from the most recently created dynamic thing group, an error is logged, and an [`AddThingToDynamicThingGroupsFailed` metric](https://docs.aws.amazon.com/iot/latest/developerguide/aws-iot-metrics.html#iot-metrics) is generated for the dynamic thing group from which the thing was removed\. Then, the thing is added to the static thing group\.
+
+### Older dynamic thing groups take priority over newer ones<a name="group-priorities"></a>
+
+The number of groups to which a thing can belong is [limited](https://docs.aws.amazon.com/general/latest/gr/iot-core.html#thing-limits)\. When a thing becomes eligible to be added to a dynamic thing group because of a create or update operation, and the thing is already in as many groups as it can be, it can be removed from another dynamic thing group to enable this addition\. For more information about how this occurs, see [Successful commands can log errors](#log-errors) and [With `overrideDynamicGroups` enabled, static groups take priority over dynamic groups](#membership-limit) for examples\.
+
+When a thing is removed from a dynamic thing group, an error is logged, and an event is raised\.
+
+### You cannot apply policies to dynamic thing groups<a name="apply-policy"></a>
+
+ Attempting to apply a policy to a dynamic thing group generates an exception\. 
+
+### Dynamic thing group membership is eventually consistent<a name="update-conflict"></a>
+
+Only the final state of a thing is evaluated for the registry\. Intermediary states can be skipped if states are updated rapidly\. Avoid associating a rule or job, with a dynamic thing group whose membership depends on an intermediary state\.

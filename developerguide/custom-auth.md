@@ -22,7 +22,7 @@ GET /mqtt HTTP/1.1
     sec-WebSocket-Version: <websocket version>
 ```
 
-In this example, the `x-amz-customauthorizer-name` header specifies the custom authorizer to use, the `x-amz-customauthorizer-signature` header contains the digital signature used to verify the token, and the `token-key-name` is the token key name specified by the `--token-key-name` passed to the `create-authorizer` API\.
+In this example, the `x-amz-customauthorizer-name` header specifies the custom authorizer to use, the `x-amz-customauthorizer-signature` header contains the digital signature used to verify the token, and the `token-key-name` is the token key name specified by the `--token-key-name` passed to the `create-authorizer` API\. The value of `x-amz-customauthorizer-signature` must be Base64\-encoded\.
 
 **Note**  
 Some web browsers might not support custom HTTP headers\.

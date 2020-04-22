@@ -5,8 +5,8 @@ You can have your devices provisioned when they first attempt to connect to AWS 
 You can make these settings when you register a CA certificate with the [RegisterCACertificate](https://docs.aws.amazon.com/iot/latest/apireference/API_RegisterCACertificate.html) API or the `register-ca-certificate` CLI command:
 
 ```
-aws iot register-ca-certificate --ca-certificate <your-ca-cert> --verification-cert 
-                <your-verification-cert> --set-as-active --allow-auto-registration --registration-config file://<your-template>
+aws iot register-ca-certificate --ca-certificate file://<your-ca-cert> --verification-cert 
+                file://<your-verification-cert> --set-as-active --allow-auto-registration --registration-config file://<your-template>
 ```
 
 For more information, see [Registering a CA Certificate](device-certs-your-own.html#register-CA-cert)\.

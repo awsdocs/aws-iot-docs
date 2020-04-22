@@ -77,7 +77,7 @@ $aws/things/Thing-2/defender/metrics/json
 ```
 
 Q: How many security profiles and behaviors can I have in my account?   
-A: See the [Service Limits](device-defender-detect.md#detect-limits)\. 
+A: See [AWS IoT Device Defender Endpoints and Quotas](https://docs.aws.amazon.com/general/latest/gr/iot_device_defender.html)\. 
 
 Q: What does a prototypical target role for an alert target look like?   
 A: A role that allows AWS IoT Device Defender to publish alerts on an alert target \(SNS topic\) requires two things:   

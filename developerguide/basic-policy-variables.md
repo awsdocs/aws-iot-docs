@@ -1,10 +1,10 @@
-# Basic Policy Variables<a name="basic-policy-variables"></a>
+# Basic AWS IoT Core Policy Variables<a name="basic-policy-variables"></a>
 
- defines the following basic policy variables:
-+ `iot:ClientId`: The client ID used to connect to the message broker\.
-+ `aws:SourceIp`: The IP address of the client connected to the message broker\.
+AWS IoT Core defines the following basic policy variables:
++ `iot:ClientId`: The client ID used to connect to the AWS IoT Core message broker\.
++ `aws:SourceIp`: The IP address of the client connected to the AWS IoT Core message broker\.
 
-The following policy shows a policy that uses policy variables:
+The following AWS IoT Core policy shows a policy that uses policy variables:
 
 ```
 {
@@ -28,7 +28,7 @@ The following policy shows a policy that uses policy variables:
 }
 ```
 
-In these examples, `${iot:ClientId}` is replaced by the ID of the client connected to the message broker when the policy is evaluated\. When you use policy variables like `${iot:ClientId}`, you can inadvertently open access to unintended topics\. For example, if you use a policy that uses `${iot:ClientId}` to specify a topic filter:
+In these examples, `${iot:ClientId}` is replaced by the ID of the client connected to the AWS IoT Core message broker when the policy is evaluated\. When you use policy variables like `${iot:ClientId}`, you can inadvertently open access to unintended topics\. For example, if you use a policy that uses `${iot:ClientId}` to specify a topic filter:
 
 ```
 {

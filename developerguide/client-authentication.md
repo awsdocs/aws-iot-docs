@@ -1,6 +1,6 @@
 # Client Authentication<a name="client-authentication"></a>
 
-AWS IoT supports five types of identity principals for device or client authentication:
+AWS IoT supports three types of identity principals for device or client authentication:
 + [X\.509 Client Certificates](x509-client-certs.md)
 + [IAM Users, Groups, and Roles](iam-users-groups-roles.md)
 + [Amazon Cognito Identities](cognito-identities.md)
