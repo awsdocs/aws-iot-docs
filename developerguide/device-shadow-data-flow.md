@@ -2,7 +2,7 @@
 
 The Device Shadow service acts as an intermediary, allowing devices and applications to retrieve and update a device's shadow\. 
 
-To illustrate how devices and applications communicate with the Device Shadow service, this section walks you through the use of the AWS IoT MQTT client and the AWS CLI to simulate communication between an internet\-connected light bulb, an application, and the Device Shadow service\. 
+To illustrate how devices and applications communicate with the Device Shadow service, this section walks you through the use of the AWS IoT MQTT client and the AWS CLI to simulate communication between an internet\-connected light bulb, an application, and the Device Shadow service\. The following example MQTT topics use a device in your registry named **myLightBulb**\. You can replace this value with your own device name\.
 
 The Device Shadow service uses MQTT topics to facilitate communication between applications and devices\. To see how this works, use the AWS IoT MQTT client to subscribe to the following MQTT topics with QoS 1:
 
@@ -258,9 +258,9 @@ The light bulb is subscribed to the `$aws/things/myLightBulb/shadow/update/delta
 {
     "state":{
         "reported":{
-            "color":"green"
+            "color": "green"
         },
-        "desired":null}
+        "desired": null
     }
 }
 ```

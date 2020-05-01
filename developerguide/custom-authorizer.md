@@ -21,9 +21,9 @@ The key name used to extract tokens from the WebSocket connection headers\.
 The logic that performs the authentication is implemented in a Lambda function\.
 
 **Note**  
-You are charged based on the number of requests for your Lambda functions and the duration, the time it takes for your code to execute\. For more information about AWS Lambda, see [AWS Lambda Pricing](https://aws.amazon.com/lambda/pricing/) and [AWS Lambda Developer Guide](https://docs.aws.amazon.com/lambda/latest/dg/)\.
+You are charged based on the number of requests for your Lambda functions and the duration, the time it takes for your code to execute\. For more information about AWS Lambda, see [AWS Lambda Pricing](docs.aws.amazon.comlambda/pricing/) and [AWS Lambda Developer Guide](https://docs.aws.amazon.com/lambda/latest/dg/)\.
 
-This function takes a token presented by a device, authenticates the device, and returns the following information:
+This function takes a token presented by a client or device, authenticates the device, and returns the following information:
 
 isAuthenticated  
 A Boolean value that indicates whether the token was authenticated\. If this is `false`, the rest of the response fields should be ignored\. 
@@ -43,11 +43,11 @@ The period between policy refreshes\. When it lapses, the AWS policy engine reev
 Context  
 Information derived after validating the token that is made available in [AWS IoT rules engine SQL statements](https://docs.aws.amazon.com/iot/latest/developerguide/iot-substitution-templates.html) and [IAM/AWS IoT policy variables](https://docs.aws.amazon.com/iot/latest/developerguide/policy-variables.html)\. 
 
-You must grant permission to the AWS IoT service principal to invoke the Lambda function that implements the custom authentication/authorization logic\. You can do this with the following CLI command:
+You must grant permission to the AWS IoT service principal to invoke the Lambda function that implements the custom authentication/authorization logic\. You can do this with the following AWS CLI command:
 
 aws lambda add\-permission \-\-function\-name *<lambda\_function\_name>* \-\-statement\-id *<unique\_identifier\_string>* \-\-action 'lambda:InvokeFunction' \-\-principal iot\.amazonaws\.com \-\-source\-arn arn:aws:iot:*<your\-aws\-region>*:*<account\_id>*: authorizer/*<authorizer\-name>*
 
-The add\-permission CLI command takes the following parameters:
+The add\-permission command takes the following parameters:
 
 `function-name`  
 The name of the Lambda function to which you are granting invocation permission\.

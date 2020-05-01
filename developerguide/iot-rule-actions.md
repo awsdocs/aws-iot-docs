@@ -1,6 +1,6 @@
 # AWS IoT Rule Actions<a name="iot-rule-actions"></a>
 
-AWS IoT rule actions are used to specify what to do when a rule is triggered\. You can define actions to write data to a DynamoDB database or a Kinesis stream or to invoke a Lambda function, and more\. The following actions are supported: 
+AWS IoT rule actions are used to specify what to do when a rule is triggered\. You can define actions to write data to a DynamoDB database or a Kinesis stream or to invoke a Lambda function, and more\. AWS supports actions in regions where the service is avilable\. The following actions are supported: 
 + `cloudwatchAlarm` to change a CloudWatch alarm\.
 + `cloudwatchLogs` to send data to CloudWatch Logs\.
 + `cloudwatchMetric` to capture a CloudWatch metric\.
@@ -191,7 +191,7 @@ The `dynamoDB` action allows you to write all or part of an MQTT message to a Dy
 When creating a DynamoDB rule, you must specify the following information: 
 
 hashKeyType  
-The data type of the hash key \(also called the partition key\)\. Valid values are: `"STRING"` or `"NUMBER"`\.
+Optional\. The data type of the hash key \(also called the partition key\)\. Valid values are: `"STRING"` or `"NUMBER"`\.
 
 hashKeyField  
 The name of the hash key \(also called the partition key\)\.

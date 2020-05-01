@@ -24,12 +24,12 @@ aws iot describe-endpoint --endpoint-type iot:Data-ATS
 The `describe-endpoint` command returns an endpoint in the following format\.
 
 ```
-account-specific-prefix.iot.your-region.amazonaws.com
+<account-specific-prefix>.iot.<your-region>.amazonaws.com
 ```
 
 The first time `describe-endpoint` is called, an endpoint is created\. All subsequent calls to `describe-endpoint` return the same endpoint\.
 
-For backward\-compatibility, AWS IoT Core still supports Symantec endpoints\. For more information, see [How AWS IoT Core is Helping Customers Navigate the Upcoming Distrust of Symantec Certificate Authorities](https://aws.amazon.com/blogs/iot/aws-iot-core-ats-endpoints)\. Devices operating on ATS endpoints are fully interoperable with devices operating on Symantec endpoints in the same account and do not require any re\-registration\.
+For backward\-compatibility, AWS IoT Core still supports Symantec endpoints\. For more information, see [How AWS IoT Core is Helping Customers Navigate the Upcoming Distrust of Symantec Certificate Authorities](docs.aws.amazon.comblogs/iot/aws-iot-core-ats-endpoints)\. Devices operating on ATS endpoints are fully interoperable with devices operating on Symantec endpoints in the same account and do not require any re\-registration\.
 
 **Note**  
 To see your `iot:Data-ATS` endpoint in the AWS IoT Core console, choose **Settings**\. The console displays only the `iot:Data-ATS` endpoint\. By default, the `describe-endpoint` command displays the `iot:Data` endpoint for backward compatibility\. To see the `iot:Data-ATS` endpoint, specify the `--endpointType` parameter, as in the previous example\.
@@ -80,10 +80,10 @@ There are many variables that can affect a device's ability to validate the AWS 
   + [Cross\-signed Amazon Root CA 3](https://www.amazontrust.com/repository/G2-RootCA3.pem)
   + [Cross\-signed Amazon Root CA 4 \- Reserved for future use\.](https://www.amazontrust.com/repository/G2-RootCA4.pem)
 + If you are experiencing server certificate validation issues, your device may need to explicitly trust the root CA\. Try adding the [Starfield Root CA Certificate](https://www.amazontrust.com/repository/SFSRootCAG2.pem) to your trust store\.
-+ If you still experience issues after executing the steps above, please contact [AWS Developer Support](https://aws.amazon.com/premiumsupport/plans/developers/)\. 
++ If you still experience issues after executing the steps above, please contact [AWS Developer Support](docs.aws.amazon.compremiumsupport/plans/developers/)\. 
 
 **Note**  
-CA certificates have an expiration date after which they cannot be used to validate a server's certificate\. CA certificates might have to be replaced before their expiration date\. Make sure that you can update the root CA certificates on all of your devices to ensure ongoing connectivity and to keep up\-to\-date with security best practices\.
+CA certificates have an expiration date after which they cannot be used to validate a server's certificate\. CA certificates might have to be replaced before their expiration date\. Make sure that you can update the root CA certificates on all of your devices or clients to help ensure ongoing connectivity and to keep up to date with security best practices\.
 
 **Note**  
 When connecting to AWS IoT Core in your device code, pass the certificate into the API you are using to connect\. The API you use will vary by SDK\. For more information, see the [AWS IoT Core Device SDKs](https://docs.aws.amazon.com/iot/latest/developerguide/iot-sdks.html)\.
