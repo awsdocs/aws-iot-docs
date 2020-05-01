@@ -102,7 +102,7 @@ The message published to this topic has the following structure:
     "timestamp": 1460065214626,
     "eventType": "subscribed" | "unsubscribed",
     "sessionIdentifier": "00000000-0000-0000-0000-000000000000",
-    "principalIdentifier": "000000000000/ABCDEFGHIJKLMNOPQRSTU:some-user/ABCDEFGHIJKLMNOPQRSTU:some-user"
+    "principalIdentifier": "000000000000/ABCDEFGHIJKLMNOPQRSTU:some-user/ABCDEFGHIJKLMNOPQRSTU:some-user",
     "topics" : ["foo/bar","device/data","dog/cat"]
 }
 ```
