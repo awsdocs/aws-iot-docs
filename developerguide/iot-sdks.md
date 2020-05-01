@@ -63,5 +63,7 @@ The aws\-iot\-device\-sdk\.js package makes it possible for developers to write 
 ## AWS IoT Device SDK for Python<a name="iot-python-sdk"></a>
 
 The AWS IoT Device SDK for Python makes it possible for developers to write Python scripts to use their devices to access the AWS IoT platform through MQTT or MQTT over the WebSocket protocol\. By connecting their devices to AWS IoT, users can securely work with the message broker, rules, and shadows provided by AWS IoT and with other AWS services like AWS Lambda, Kinesis, and Amazon S3, and more\.
-+ [AWS IoT Device SDK for Python on GitHub](https://github.com/aws/aws-iot-device-sdk-python)
-+ [AWS IoT Device SDK for Python Readme](https://github.com/aws/aws-iot-device-sdk-python/blob/master/README.rst)
++ [AWS IoT Device SDK for Python v2 on GitHub](https://https://github.com/aws/aws-iot-device-sdk-python-v2)
++ [AWS IoT Device SDK for Python v2 Readme](https://github.com/aws/aws-iot-device-sdk-python-v2/blob/master/README.md)
++ [AWS IoT Device SDK for Python v1 on GitHub](https://github.com/aws/aws-iot-device-sdk-python)
++ [AWS IoT Device SDK for Python v1 Readme](https://github.com/aws/aws-iot-device-sdk-python/blob/master/README.rst)

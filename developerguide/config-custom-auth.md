@@ -24,14 +24,14 @@
 1. Use the `create-authorizer` API to register a custom authorizer with AWS IoT\.
 
    ```
-   aws iot create-authorizer --authorizer-name MyAuthorizer    
+   aws iot create-authorizer --authorizer-name MyAuthorizer
            --authorizer-function-arn arn:aws:lambda:us-west-2:<account_id>:function:MyAuthorizerFunction   // Lambda ARN
-           --token-key-name MyAuthorizerToken                               // Key use to extract token from headers 
+           --token-key-name MyAuthorizerToken                               // Key use to extract token from headers
            --token-signing-public-keys FIRST_KEY=                           // Public key used to verify token signature
        "-----BEGIN PUBLIC KEY-----
        [...insert your public key here...]
-       -----END PUBLIC KEY-----" 
-           --status ACTIVE                                                  // Authorizer status - must be ACTIVE
+       -----END PUBLIC KEY-----"
+       --status ACTIVE                                                  // Authorizer status - must be ACTIVE
            --region us-west-2                                               // AWS region
    ```
 

@@ -526,11 +526,6 @@ Output:
 |  description  |  string  length max:2028  pattern: \[^\\\\p\{C\}\]\+  |  A short text description of the job\.  | 
 
 ------
-#### [ MQTT \(1\) ]
-
-Not available\.
-
-------
 
 #### CancelJob<a name="jobs-CancelJob"></a>
 
@@ -641,11 +636,6 @@ Output:
 |  description  |  string  length max:2028  pattern: \[^\\\\p\{C\}\]\+  |  A short text description of the job\.  | 
 
 ------
-#### [ MQTT \(2\) ]
-
-Not available\.
-
-------
 
 #### CancelJobExecution<a name="jobs-CancelJobExecution"></a>
 
@@ -741,11 +731,6 @@ aws iot  cancel-job-execution \
 Output:
 
 None
-
-------
-#### [ MQTT \(3\) ]
-
-Not available\.
 
 ------
 
@@ -1014,11 +999,6 @@ Output:
 |  description  |  string  length max:2028  pattern: \[^\\\\p\{C\}\]\+  |  The job description\.  | 
 
 ------
-#### [ MQTT \(4\) ]
-
-Not available\.
-
-------
 
 #### DeleteJob<a name="jobs-DeleteJob"></a>
 
@@ -1101,11 +1081,6 @@ aws iot  delete-job \
 Output:
 
 None
-
-------
-#### [ MQTT \(5\) ]
-
-Not available\.
 
 ------
 
@@ -1196,11 +1171,6 @@ aws iot  delete-job-execution \
 Output:
 
 None
-
-------
-#### [ MQTT \(6\) ]
-
-Not available\.
 
 ------
 
@@ -1386,11 +1356,6 @@ Output:
 |  inProgressTimeoutInMinutes  |  long  |  Specifies the amount of time, in minutes, this device has to finish execution of this job\. The timeout interval can be anywhere between 1 minute and 7 days \(1 to 10080 minutes\)\. The in\-progress timer can't be updated and applies to all job executions for the job\. Whenever a job execution remains in the `IN_PROGRESS` status for longer than this interval, the job execution fails and switches to the terminal `TIMED_OUT` status\.   | 
 
 ------
-#### [ MQTT \(7\) ]
-
-Not available\.
-
-------
 
 #### DescribeJobExecution<a name="jobs-DescribeJobExecution"></a>
 
@@ -1507,11 +1472,6 @@ Output:
 |  versionNumber  |  long  |  The version of the job execution\. Job execution versions are incremented each time they are updated by a device\.  | 
 
 ------
-#### [ MQTT \(8\) ]
-
-Not available\.
-
-------
 
 #### GetJobDocument<a name="jobs-GetJobDocument"></a>
 
@@ -1587,11 +1547,6 @@ Output:
 |  Name  |  Type  |  Description  | 
 | --- | --- | --- | 
 |  document  |  string  length max:32768  |  The job document content\.  | 
-
-------
-#### [ MQTT \(9\) ]
-
-Not available\.
 
 ------
 
@@ -1707,11 +1662,6 @@ Output:
 |  nextToken  |  string  |  The token for the next set of results, or **null** if there are no additional results\.  | 
 
 ------
-#### [ MQTT \(10\) ]
-
-Not available\.
-
-------
 
 #### ListJobExecutionsForThing<a name="jobs-ListJobExecutionsForThing"></a>
 
@@ -1823,11 +1773,6 @@ Output:
 |  lastUpdatedAt  |  timestamp  |  The time, in seconds since the epoch, when the job execution was last updated\.  | 
 |  executionNumber  |  long  java class: java\.lang\.Long  |  A string \(consisting of the digits "0" through "9"\) that identifies this job execution on this device\. It can be used later in commands that return or update job execution information\.  | 
 |  nextToken  |  string  |  The token for the next set of results, or **null** if there are no additional results\.  | 
-
-------
-#### [ MQTT \(11\) ]
-
-Not available\.
 
 ------
 
@@ -1954,11 +1899,6 @@ Output:
 |  lastUpdatedAt  |  timestamp  |  The time, in seconds since the epoch, when the job was last updated\.  | 
 |  completedAt  |  timestamp  |  The time, in seconds since the epoch, when the job completed\.  | 
 |  nextToken  |  string  |  The token for the next set of results, or **null** if there are no additional results\.  | 
-
-------
-#### [ MQTT \(12\) ]
-
-Not available\.
 
 ------
 
@@ -2154,11 +2094,6 @@ HTTP/1.1 200
 ```
 
 If the action is successful, the service sends back an HTTP 200 response with an empty HTTP body\. 
-
-------
-#### [ MQTT \(13\) ]
-
-Not available\.
 
 ------
 

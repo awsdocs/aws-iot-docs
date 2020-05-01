@@ -396,3 +396,6 @@ Substitutes variables in an input string with values that you specify\. You can 
     }
 }
 ```
+
+**Note**  
+An existing provisioning template can be updated to add a [pre\-provisioning hook](https://docs.aws.amazon.com/iot/latest/developerguide/provision-wo-cert.html#pre-provisioning-hook)\.
