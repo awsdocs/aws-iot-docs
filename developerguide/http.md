@@ -39,7 +39,7 @@ You can use [curl](https://curl.haxx.se) to emulate a client sending a message t
 
 1. Create the curl command line\.
 
-   curl \-\-tlsv1\.2 \-\-cacert *AmazonRootCA1\.pem* \-\-cert *certificate\.pem\.crt* \-\-key *private\.key* \-X POST \-d "\{ \\"message\\": \\"Hello, world\\" \}" "https://*<AWS IoT Endpoint>*:8443/topics/*topic*?qos=1">  
+   curl \-\-tlsv1\.2 \-\-cacert *AmazonRootCA1\.pem* \-\-cert *certificate\.pem\.crt* \-\-key *private\.key* \-X POST \-d "\{ \\"message\\": \\"Hello, world\\" \}" "https://*<AWS IoT Endpoint>*:8443/topics/*topic*?qos=1"  
 \-\-tlsv1\.2  
 Use TLS 1\.2 \(SSL\)\.  
 \-\-cacert <filename>  
