@@ -1,4 +1,4 @@
-# Viewing Logs<a name="viewing-logs"></a>
+# Viewing logs<a name="viewing-logs"></a>
 
 **To view your logs**
 

@@ -1,14 +1,14 @@
-# Data Types<a name="iot-sql-data-types"></a>
+# Data types<a name="iot-sql-data-types"></a>
 
 The AWS IoT rules engine supports all JSON data types\.
 
 
-**Supported Data Types**  
+**Supported data types**  
 
 | Type | Meaning | 
 | --- | --- | 
 | Int | A discrete Int\. 34 digits maximum\. | 
-| Decimal |  A `Decimal` with a precision of 34 digits, with a minimum non\-zero magnitude of 1E\-999 and a maximum magnitude 9\.999…E999\.  Some functions return `Decimal`s with double precision rather than 34\-digit precision\.    | 
+| Decimal |  A `Decimal` with a precision of 34 digits, with a minimum non\-zero magnitude of 1E\-999 and a maximum magnitude 9\.999\.\.\.E999\.  Some functions return `Decimal`s with double precision rather than 34\-digit precision\.    | 
 | Boolean | True or False\. | 
 | String | A UTF\-8 string\. | 
 | Array | A series of values that don't have to have the same type\. | 
@@ -24,9 +24,9 @@ The following table lists the results when a value of one type is converted to a
 There are no attempted conversions to `Array`, `Object`, `Null`, or `Undefined`\.
 
 
-**To Decimal**  
+**To decimal**  
 
-| Argument Type | Result | 
+| Argument type | Result | 
 | --- | --- | 
 | Int | A Decimal with no decimal point\. | 
 | Decimal | The source value\. | 
@@ -38,9 +38,9 @@ There are no attempted conversions to `Array`, `Object`, `Null`, or `Undefined`\
 | Undefined | Undefined\. | 
 
 
-**To Int**  
+**To int**  
 
-| Argument Type | Result | 
+| Argument type | Result | 
 | --- | --- | 
 | Int | The source value\. | 
 | Decimal | The source value rounded to the nearest Int\. | 
@@ -54,7 +54,7 @@ There are no attempted conversions to `Array`, `Object`, `Null`, or `Undefined`\
 
 **To Boolean**  
 
-| Argument Type | Result | 
+| Argument type | Result | 
 | --- | --- | 
 | Int | Undefined\. \(You can explicitly use the cast function to transform 0 = False, any\_nonzero\_value = True\.\) | 
 | Decimal | Undefined\. \(You can explicitly use the cast function to transform 0 = False, any\_nonzero\_value = True\.\) | 
@@ -66,9 +66,9 @@ There are no attempted conversions to `Array`, `Object`, `Null`, or `Undefined`\
 | Undefined | Undefined\. | 
 
 
-**To String**  
+**To string**  
 
-| Argument Type | Result | 
+| Argument type | Result | 
 | --- | --- | 
 | Int | A string representation of the Int in standard notation\. | 
 | Decimal | A string representing the Decimal value, possibly in scientific notation\.  | 

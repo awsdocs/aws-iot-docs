@@ -1,8 +1,8 @@
-# AWS IoT Metrics<a name="aws-iot-metrics"></a>
+# AWS IoT metrics<a name="aws-iot-metrics"></a>
 
 The `AWS/IoT` namespace includes the following metrics\. AWS IoT sends the following metrics to CloudWatch once per received request\. For more information about CloudWatch metrics, see [Amazon CloudWatch Metrics](https://docs.aws.amazon.com/AmazonCloudWatch/latest/monitoring/cloudwatch_concepts.html#Metric)\.
 
-## AWS IoT Metrics<a name="iot-metrics"></a>
+## AWS IoT metrics<a name="iot-metrics"></a>
 
 
 | Metric | Description | 
@@ -12,7 +12,7 @@ The `AWS/IoT` namespace includes the following metrics\. AWS IoT sends the follo
 |  `NumLogEventsFailedToPublishThrottled`  |  The number of log events within the batch that have failed to publish due to throttling errors\.  | 
 |  `RulesExecuted`  |  The number of AWS IoT rules executed\.  | 
 
-## Rule Metrics<a name="rulemetrics"></a>
+## Rule metrics<a name="rulemetrics"></a>
 
 
 | Metric | Description | 
@@ -22,7 +22,7 @@ The `AWS/IoT` namespace includes the following metrics\. AWS IoT sends the follo
 |  `RuleNotFound`  |  The rule to be triggered could not be found\. The `RuleName` dimension contains the name of the rule\.  | 
 |  `TopicMatch`  |  The number of incoming messages published on a topic on which a rule is listening\. The `RuleName` dimension contains the name of the rule\.  | 
 
-## Rule Action Metrics<a name="rule-action-metrics"></a>
+## Rule action metrics<a name="rule-action-metrics"></a>
 
 
 | Metric | Description | 
@@ -30,7 +30,7 @@ The `AWS/IoT` namespace includes the following metrics\. AWS IoT sends the follo
 |  `Failure`  |  The number of failed rule action invocations\. The `RuleName` dimension contains the name of the rule that specifies the action\. The `RuleName` dimension contains the name of the rule that specifies the action\. The `ActionType` dimension contains the type of action that was invoked\.  | 
 |  `Success`  |  The number of successful rule action invocations\. The `RuleName` dimension contains the name of the rule that specifies the action\. The `ActionType` dimension contains the type of action that was invoked\.  | 
 
-## HTTP Action Specific Metrics<a name="http-action-metrics"></a>
+## HTTP action specific metrics<a name="http-action-metrics"></a>
 
 
 | Metric | Description | 
@@ -42,7 +42,7 @@ The `AWS/IoT` namespace includes the following metrics\. AWS IoT sends the follo
 | `HttpRequestTimeout` | Generated if the downstream web service/application does not return response within request timeout limit\. For more information, see [Service Quotas](https://docs.aws.amazon.com/general/latest/gr/iot-core.html#limits_iot)\. | 
 | `HttpUnknownHost` | Generated if the URL is valid, but the service does not exist or is unreachable\. | 
 
-## Message Broker Metrics<a name="message-broker-metrics"></a>
+## Message broker metrics<a name="message-broker-metrics"></a>
 
 
 | Metric | Description | 
@@ -75,7 +75,7 @@ The `AWS/IoT` namespace includes the following metrics\. AWS IoT sends the follo
 **Note**  
 The message broker metrics are displayed in the AWS IoT console under **Protocol Metrics**\.
 
-## Device Shadow Metrics<a name="shadow-metrics"></a>
+## Device shadow metrics<a name="shadow-metrics"></a>
 
 
 | Metric | Description | 
@@ -87,7 +87,7 @@ The message broker metrics are displayed in the AWS IoT console under **Protocol
 **Note**  
 The device shadow metrics are displayed in the AWS IoT console under **Protocol Metrics**\.
 
-## Jobs Metrics<a name="jobs-metrics"></a>
+## Jobs metrics<a name="jobs-metrics"></a>
 
 
 | Metric | Description | 
@@ -109,7 +109,7 @@ The device shadow metrics are displayed in the AWS IoT console under **Protocol 
 |  `SuccededJobExecutionCount`  |  The number of job executions whose status has changed to `SUCCESS` within a time period that is determined by CloudWatch\. \(For more information about CloudWatch metrics, see [Amazon CloudWatch Metrics](https://docs.aws.amazon.com/AmazonCloudWatch/latest/monitoring/cloudwatch_concepts.html#Metric)\.\) The `JobId` dimension contains the ID of the job\.  | 
 |  `SuccededJobExecutionTotalCount`  |  The total number of job executions whose status is `SUCCESS` for the given job\. The `JobId` dimension contains the ID of the job\.  | 
 
-## Device Defender Audit Metrics<a name="device-defender-audit-metrics"></a>
+## Device defender audit metrics<a name="device-defender-audit-metrics"></a>
 
 
 | Metric | Description | 
@@ -117,7 +117,7 @@ The device shadow metrics are displayed in the AWS IoT console under **Protocol 
 |  `NonCompliantResources`  |  The number of resources that were found to be noncompliant with a check\. The system reports the number of resources that were out of compliance for each check of each audit performed\.   | 
 |  `ResourcesEvaluated`  |  The number of resources that were evaluated for compliance\. The system reports the number of resources that were evaluated for each check of each audit performed\.   | 
 
-## Device Defender Detect Metrics<a name="device-defender-detect-metrics"></a>
+## Device defender detect metrics<a name="device-defender-detect-metrics"></a>
 
 
 | Metric | Description | 
@@ -126,7 +126,7 @@ The device shadow metrics are displayed in the AWS IoT console under **Protocol 
 |  `ViolationsCleared`   |  The number of violations of security profile behaviors that have been resolved since the last time an evaluation was performed\. The system reports the number of resolved violations for the account, for a specific security profile, and for a specific behavior of a specific security profile\.   | 
 |  `ViolationsInvalidated`   |  The number of violations of security profile behaviors for which information is no longer available since the last time an evaluation was performed \(because the reporting device stopped reporting, or is no longer being monitored for some reason\)\. The system reports the number of invalidated violations for the entire account, for a specific security profile, and for a specific behavior of a specific security profile\.   | 
 
-## Device Provisioning Metrics<a name="provisioning-metrics"></a>
+## Device provisioning metrics<a name="provisioning-metrics"></a>
 
 
 | Metric | Description | 

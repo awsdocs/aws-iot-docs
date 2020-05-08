@@ -1,4 +1,4 @@
-# Configure and Test Rules<a name="config-and-test-rules"></a>
+# Configure and test rules<a name="config-and-test-rules"></a>
 
 The AWS IoT rules engine listens for incoming MQTT messages that match a rule\. When a matching message is received, the rule takes some action with the data in the MQTT message \(for example, writing data to an Amazon S3 bucket, invoking a Lambda function, or sending a message to an Amazon SNS topic\)\. In this step, you create and configure a rule to send the data received from a device to an Amazon SNS topic\. Specifically, you:
 + Create an Amazon SNS topic\.
@@ -6,7 +6,7 @@ The AWS IoT rules engine listens for incoming MQTT messages that match a rule\. 
 + Create a rule that sends a message to the Amazon SNS topic when a message is received from your device\.
 + Test the rule using the MQTT client\.
 
-## Create an SNS Topic<a name="create-sns-topic"></a>
+## Create an SNS topic<a name="create-sns-topic"></a>
 
 Use the Amazon SNS console to create an Amazon SNS topic\.
 
@@ -27,14 +27,15 @@ Amazon SNS is not available in all AWS Regions\.
 1. Make a note of the ARN for the topic you just created\.  
 ![\[Image NOT FOUND\]](http://docs.aws.amazon.com/iot/latest/developerguide/images/sns-topic-arn.png)
 
-## Subscribe to an Amazon SNS Topic<a name="subscribe-sns-topic"></a>
+## Subscribe to an Amazon SNS topic<a name="subscribe-sns-topic"></a>
 
 To receive SMS messages on your cell phone, subscribe to the Amazon SNS topic\.
 
-1. In the Amazon SNS console, select the check box next to the topic you just created\. From the **Actions** menu, choose **Subscribe to topic**\.  
-![\[Image NOT FOUND\]](http://docs.aws.amazon.com/iot/latest/developerguide/images/sns-subscribe-to-topic.png)
+1. In the Amazon SNS console, select **Subscriptions** from the left pane\. From the **Subscriptions** menu, choose **Create subscription**\.
 
-1. On **Create subscription**, from the **Protocol** drop\-down list, choose **SMS**\.
+1. On **Create subscription**, from the **Topic ARN** drop\-down list, select the ARN of the topic you want to subscribe to\.
+
+   In the **Protocol** drop\-down list, choose **SMS**\.
 
    In the **Endpoint** field, enter the phone number of an SMS\-enabled cell phone, and then choose **Create subscription**\.
 **Note**  
@@ -45,7 +46,7 @@ The Amazon SNS console displays the following message, but you might not receive
 
 ![\[Image NOT FOUND\]](http://docs.aws.amazon.com/iot/latest/developerguide/images/sns-subscription-confirm.png)
 
-## Create a Rule<a name="create-rule"></a>
+## Create a rule<a name="create-rule"></a>
 
 AWS IoT Core rules consist of a topic filter, rule action, and, in most cases, IAM role\. Messages published on topics that match the topic filter trigger the rule\. The rule action defines which action to take when the rule is triggered\. The IAM role contains one or more IAM policies that determine which AWS services the rule can access\. You can create multiple rules that listen on a single topic\. Likewise, you can create a single rule that is triggered by multiple topics\. The AWS IoT Core rules engine continuously processes messages published on topics that match the topic filters defined in the rules\. 
 
@@ -87,9 +88,9 @@ We do not recommend using personally identifiable information in your rule name\
 1. On the **Create a Rule** page, choose **Create rule**\.  
 ![\[Image NOT FOUND\]](http://docs.aws.amazon.com/iot/latest/developerguide/images/create-sns-role-4.png)
 
-For more information about creating rules, see [AWS IoT Core Rules](https://docs.aws.amazon.com/iot/latest/developerguide/iot-rules.html)\.
+For more information about creating rules, see [Rules for AWS IoT ](iot-rules.md)\.
 
-## Test the Amazon SNS Rule<a name="test-rule"></a>
+## Test the Amazon SNS rule<a name="test-rule"></a>
 
 You can use the AWS IoT MQTT client to test your rule\.
 
@@ -108,6 +109,6 @@ You can use the AWS IoT MQTT client to test your rule\.
 
 Congratulations\! You have successfully created and configured a rule that sends data received from a device to an Amazon SNS topic\.
 
-## Next Steps<a name="more-rules-info"></a>
+## Next steps<a name="more-rules-info"></a>
 
 For more information about AWS IoT Core rules, see [AWS IoT Core Rule Tutorials ](iot-rules-tutorial.md) and [AWS IoT Core Rules](iot-rules.md)\.

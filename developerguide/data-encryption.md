@@ -1,4 +1,4 @@
-# Data Encryption in AWS IoT<a name="data-encryption"></a>
+# Data encryption in AWS IoT<a name="data-encryption"></a>
 
 Data protection refers to protecting data while in\-transit \(as it travels to and from AWS IoT\) and at rest \(while it is stored on devices or by other AWS services\)\. All data sent to AWS IoT is sent over an TLS connection using MQTT or HTTPS protocols, so it is secure by default in transit\. AWS IoT devices collect data and then send it to other AWS services for further processing\. For more information about data encryption on other AWS services, see the security documentation for that service\.
 

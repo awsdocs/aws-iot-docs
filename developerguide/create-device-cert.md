@@ -1,6 +1,6 @@
-# Create a Client Certificate Using Your CA Certificate<a name="create-device-cert"></a>
+# Create a client certificate using your CA certificate<a name="create-device-cert"></a>
 
-You can use your own certificate authority \(CA\) to create client certificates\. The client certificate must be registered with AWS IoT before use\. For information about the registration options for your client certificates, see [Register a Client Certificate](register-device-cert.md)\.
+You can use your own certificate authority \(CA\) to create client certificates\. The client certificate must be registered with AWS IoT before use\. For information about the registration options for your client certificates, see [Register a client certificate](register-device-cert.md)\.
 
 ## Create a client certificate \(CLI\)<a name="create-device-cert-cli"></a>
 
@@ -59,4 +59,4 @@ You can't perform this procedure in the AWS IoT console\.
        -days 500 -sha256
    ```
 
- At this point, the client certificate has been created, but it has not yet been registered with AWS IoT\. For information about how and when to register the client certificate, see [Register a Client Certificate](register-device-cert.md)\. 
+ At this point, the client certificate has been created, but it has not yet been registered with AWS IoT\. For information about how and when to register the client certificate, see [Register a client certificate](register-device-cert.md)\. 

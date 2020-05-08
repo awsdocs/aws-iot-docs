@@ -1,4 +1,4 @@
-# How Do I Use AWS IoT Metrics?<a name="how_to_use_metrics"></a>
+# How do I use AWS IoT metrics?<a name="how_to_use_metrics"></a>
 
 The metrics reported by AWS IoT provide information that you can analyze in different ways\. The following use cases are based on a scenario where you have ten things that connect to the internet once a day\. Each day:
 + Ten things connect to AWS IoT at roughly the same time\.

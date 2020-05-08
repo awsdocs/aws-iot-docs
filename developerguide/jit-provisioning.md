@@ -1,4 +1,4 @@
-# Just\-in\-Time Provisioning<a name="jit-provisioning"></a>
+# Just\-in\-time provisioning<a name="jit-provisioning"></a>
 
 You can have your devices provisioned when they first attempt to connect to AWS IoT\. Just\-in\-time provisioning \(JITP\) settings are made on CA certificates\. To provision the device, you must enable automatic registration and associate a provisioning template with the CA certificate used to sign the device certificate\.
 

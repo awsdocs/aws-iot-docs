@@ -1,12 +1,12 @@
-# Getting Started with Alexa Voice Service Integration for AWS IoT on an NXP Device<a name="avs-integration-aws-iot-gs-nxp"></a>
+# Getting started with Alexa Voice Service \(AVS\) Integration for AWS IoT on an NXP device<a name="avs-integration-aws-iot-gs-nxp"></a>
 
  The NXP i\.MX 106A development kit enables you to preview Alexa Voice Service \(AVS\) Integration for AWS IoT using a preconfigured NXP account\. After you preview the functionality with the NXP account, you need to customize the firmware, application source code, and the NXP mobile application provided with the kit to use your own account\. This topic walks you through the steps to preview with the preconfigured account and to customize your device with your own account\. 
 
 **Topics**
-+ [Preview AVS Integration for AWS IoT with a Preconfigured NXP Account](#iot-mqtt-alexa-gs-nxp-preview)
-+ [Use Your AWS and Alexa Voice Service Developer Accounts to Set Up AVS for AWS IoT](#iot-mqtt-alexa-gs-nxp-configure)
++ [Preview Alexa Voice Service \(AVS\) Integration for AWS IoT with a preconfigured NXP account](#iot-mqtt-alexa-gs-nxp-preview)
++ [Use your AWS and Alexa Voice Service developer accounts to set up AVS for AWS IoT](#iot-mqtt-alexa-gs-nxp-configure)
 
-## Preview AVS Integration for AWS IoT with a Preconfigured NXP Account<a name="iot-mqtt-alexa-gs-nxp-preview"></a>
+## Preview Alexa Voice Service \(AVS\) Integration for AWS IoT with a preconfigured NXP account<a name="iot-mqtt-alexa-gs-nxp-preview"></a>
 
 ### Prerequisites<a name="iot-mqtt-alexa-gs-nxp-preview-prereqs"></a>
 
@@ -18,7 +18,7 @@ To follow these steps, you need the following resources\.
 + Android Debug Bridge \(ADB\)
 + An [Amazon Alexa account](https://alexa.amazon.com)
 
-### Install and Boot the Development Kit<a name="iot-mqtt-alexa-gs-nxp-preview-devkit"></a>
+### Install and boot the development kit<a name="iot-mqtt-alexa-gs-nxp-preview-devkit"></a>
 
 1. Activate the device kit\. The kit comes with a Get Started Onboarding card\. This card contains instructions to activate the kit and acquire the necessary software package and the reference design files\. The software package contains the SDK source code and the companion Android application \(`VoiceCompanionApp.apk`\)\. If you're using an iOS device, you must request access to the TestFlight iOS application from your local NXP representative\.
 
@@ -53,7 +53,7 @@ To follow these steps, you need the following resources\.
    + `enable_usb_log` – Enables logging on the device\. This helps you understand what the application is doing\.
    + `logs` – Displays the last few lines of the logs\. At this point, the logs should indicate that the device is waiting for Wi\-Fi credentials\.
 
-### Connect the Device to AWS IoT and Amazon Alexa<a name="iot-mqtt-alexa-gs-nxp-preview-connect"></a>
+### Connect the device to AWS IoT and Amazon Alexa<a name="iot-mqtt-alexa-gs-nxp-preview-connect"></a>
 
 1. Install the appropriate mobile application\. If you're using an Android device, you can use ADB in the terminal to install the `VoiceCompanionApp.apk` file\. If you're using an iOS device, use the TestFlight application\.
 
@@ -98,7 +98,7 @@ You can try a few Alexa Voice commands, such as the following examples:
 + "Alexa, play a news briefing\."
 + "Alexa, play music\."
 
-## Use Your AWS and Alexa Voice Service Developer Accounts to Set Up AVS for AWS IoT<a name="iot-mqtt-alexa-gs-nxp-configure"></a>
+## Use your AWS and Alexa Voice Service developer accounts to set up AVS for AWS IoT<a name="iot-mqtt-alexa-gs-nxp-configure"></a>
 
 ### Prerequisites<a name="iot-mqtt-alexa-gs-nxp-configure-prereqs"></a>
 
@@ -113,9 +113,9 @@ For this procedure, you need the following resources\.
 + An [Amazon Alexa account](https://alexa.amazon.com)
 + An [AWS account](http://aws.amazon.com)
 
-### Configure Your AWS IoT Account and Provision Your Device<a name="iot-mqtt-alexa-gs-nxp-configure-account"></a>
+### Configure your AWS IoT account and provision your device<a name="iot-mqtt-alexa-gs-nxp-configure-account"></a>
 
-1. Generate credentials to authenticate with AWS IoT\. All devices must have a device certificate, private key, and root CA certificate installed in their firmware to communicate with AWS IoT\. Follow the instructions in [Register a Device in the Registry](register-device.html) to register your device with AWS IoT\. For more information about X\.509 certificates, see [X\.509 Client Certificates](https://docs.aws.amazon.com/iot/latest/developerguide/x509-client-certs.html)\.
+1. Generate credentials to authenticate with AWS IoT\. All devices must have a device certificate, private key, and root CA certificate installed in their firmware to communicate with AWS IoT\. Follow the instructions in [Register a Device in the Registry](register-device.html) to register your device with AWS IoT\. For more information about X\.509 certificates, see [X\.509 client certificates](x509-client-certs.md)\.
 
 1. Navigate to the root folder and open the NXP Developer Guide\. Follow the instructions in "Section 9 \(Filesystem\)" to convert your client certificates and keys to a binary format that the NXP filesystem can read\. 
 
@@ -129,9 +129,9 @@ For this procedure, you need the following resources\.
    python3 bin_dump.py CertificateName-private.pem.key CertificateName-private.pem.key.bin
    ```
 
-For information about options for generating credentials for production devices at scale, see [Device Provisioning](https://docs.aws.amazon.com/iot/latest/developerguide/iot-provision.html)\.
+For information about options for generating credentials for production devices at scale, see [Device provisioning](iot-provision.md)\.
 
-**To set up your device in the Alexa Voice Service Developer console**
+**To set up your device in the Alexa Voice Service developer console**
 
 1. Navigate to the root folder and open the NXP Migration Guide\.
 

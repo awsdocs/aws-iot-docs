@@ -1,4 +1,4 @@
-# Create the AWS IoT Thing, Certificate, and Private Key<a name="iot-moisture-create-thing"></a>
+# Create the AWS IoT thing, certificate, and private key<a name="iot-moisture-create-thing"></a>
 
 Create a thing in the AWS IoT registry to represent your Raspberry Pi\.
 

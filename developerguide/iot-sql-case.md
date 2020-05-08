@@ -1,4 +1,4 @@
-# Case Statements<a name="iot-sql-case"></a>
+# Case statements<a name="iot-sql-case"></a>
 
 Case statements can be used for branching execution, like a switch statement, or if/else statements\.
 

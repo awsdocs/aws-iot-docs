@@ -1,4 +1,4 @@
-# Create an AWS IoT Core Policy<a name="create-iot-policy"></a>
+# Create an AWS IoT Core policy<a name="create-iot-policy"></a>
 
 X\.509 certificates are used to authenticate your device with AWS IoT Core\. AWS IoT Core policies are used to authorize your device to perform AWS IoT Core operations, such as subscribing or publishing to MQTT topics\. Your device presents its certificate when sending messages to AWS IoT Core\. To allow your device to perform AWS IoT Core operations, you must create an AWS IoT Core policy and attach it to your device certificate\.
 
@@ -25,4 +25,4 @@ For example:
 
 1. After you have entered the information for your policy, choose **Create**\.
 
-For more information, see [Managing AWS IoT Core Policies](https://docs.aws.amazon.com/iot/latest/developerguide/authorization.html)\. 
+For more information, see [IAM policies](iam-policies.md)\. 

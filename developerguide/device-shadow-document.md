@@ -1,16 +1,16 @@
-# Device Shadow Service Documents<a name="device-shadow-document"></a>
+# Device shadow service documents<a name="device-shadow-document"></a>
 
 The Device Shadow service respects all rules of the JSON specification\. Values, objects, and arrays are stored in the device's shadow document\.
 
 **Topics**
-+ [Document Properties](#document-structure)
-+ [Versioning of a Device Shadow](#versioning)
-+ [Client Token](#client-token)
-+ [Example Document](#device-shadow-example)
-+ [Empty Sections](#device-shadow-empty-fields)
++ [Document properties](#document-structure)
++ [Versioning of a device shadow](#versioning)
++ [Client token](#client-token)
++ [Example document](#device-shadow-example)
++ [Empty sections](#device-shadow-empty-fields)
 + [Arrays](#device-shadow-arrays)
 
-## Document Properties<a name="document-structure"></a>
+## Document properties<a name="document-structure"></a>
 
 A device's shadow document has the following properties:
 
@@ -33,9 +33,9 @@ A string unique to the device that enables you to associate responses with reque
 `version`  <a name="version"></a>
 The document version\. Every time the document is updated, this version number is incremented\. Used to ensure the version of the document being updated is the most recent\.
 
-For more information, see [Shadow Document Syntax](device-shadow-document-syntax.md)\.
+For more information, see [Shadow document syntax](device-shadow-document-syntax.md)\.
 
-## Versioning of a Device Shadow<a name="versioning"></a>
+## Versioning of a device shadow<a name="versioning"></a>
 
 The Device Shadow service supports versioning on every update message \(both request and response\), which means that with every update of a device's shadow, the version of the JSON document is incremented\. This ensures two things:
 + A client can receive an error if it attempts to overwrite a shadow using an older version number\. The client is informed it must resync before it can update a device's shadow\.
@@ -43,14 +43,14 @@ The Device Shadow service supports versioning on every update message \(both req
 
 In some cases, a client might bypass version matching by not submitting a version\.
 
-## Client Token<a name="client-token"></a>
+## Client token<a name="client-token"></a>
 
 You can use a client token with MQTT\-based messaging to verify the same client token is contained in a request and request response\. This ensures the response and request are associated\.
 
 **Note**  
 The client token can be no longer than 64 bytes\. A client token that is longer than 64 bytes will cause a 400 \(Bad Request\) response and an *Invalid clientToken* error message\.
 
-## Example Document<a name="device-shadow-example"></a>
+## Example document<a name="device-shadow-example"></a>
 
 Here is an example shadow document:
 
@@ -86,7 +86,7 @@ Here is an example shadow document:
 }
 ```
 
-## Empty Sections<a name="device-shadow-empty-fields"></a>
+## Empty sections<a name="device-shadow-empty-fields"></a>
 
 A shadow document contains a `desired` section only if it has a desired state\. For example, the following is a valid state document with no `desired` section:
 

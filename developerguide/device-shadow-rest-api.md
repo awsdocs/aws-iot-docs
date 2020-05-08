@@ -1,4 +1,4 @@
-# Device Shadow RESTful API<a name="device-shadow-rest-api"></a>
+# Device shadow RESTful API<a name="device-shadow-rest-api"></a>
 
 A shadow exposes the following URI for updating state information:
 
@@ -12,7 +12,7 @@ The endpoint is specific to your AWS account\. To retrieve your endpoint, use th
 identifier.iot.region.amazonaws.com
 ```
 
-The shadow RESTful API follows the same HTTPS protocols/port mappings as described in [AWS IoT Protocols](https://docs.aws.amazon.com/iot/latest/developerguide/protocols.html)\.
+The shadow RESTful API follows the same HTTPS protocols/port mappings as described in [Protocols](protocols.md)\.
 
 **Topics**
 + [GetThingShadow](API_GetThingShadow.md)
@@ -20,4 +20,4 @@ The shadow RESTful API follows the same HTTPS protocols/port mappings as describ
 + [DeleteThingShadow](API_DeleteThingShadow.md)
 
 **Note**  
-When using these API, make sure you use the 8443 port as described in [Protocols, Port Mappings, and Authentication](protocols.md#protocol-port-mapping)\.
+When using these API, make sure you use the 8443 port as described in [Protocols, port mappings, and authentication](protocols.md#protocol-port-mapping)\.

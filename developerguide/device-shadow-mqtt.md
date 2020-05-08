@@ -1,23 +1,23 @@
-# Shadow MQTT Topics<a name="device-shadow-mqtt"></a>
+# Shadow MQTT topics<a name="device-shadow-mqtt"></a>
 
-The Device Shadow service uses reserved MQTT topics to enable applications and devices to get, update, or delete the state information for a device \(shadow\)\. The names of these topics start with $aws/things/*thingName*/shadow\. Publishing and subscribing on shadow topics requires topic\-based authorization\. AWS IoT reserves the right to add new topics to the existing topic structure\. For this reason, we recommend that you avoid wild card subscriptions to shadow topics\. For example, avoid subscribing to topic filters like `$aws/things/thingName/shadow/#` because the number of topics that match this topic filter might increase as AWS IoT introduces new shadow topics\. For examples of the messages published on these topics see [Device Shadow Service Data Flow](device-shadow-data-flow.md)\.
+The Device Shadow service uses reserved MQTT topics to enable applications and devices to get, update, or delete the state information for a device \(shadow\)\. The names of these topics start with $aws/things/*thingName*/shadow\. Publishing and subscribing on shadow topics requires topic\-based authorization\. AWS IoT reserves the right to add new topics to the existing topic structure\. For this reason, we recommend that you avoid wild card subscriptions to shadow topics\. For example, avoid subscribing to topic filters like `$aws/things/thingName/shadow/#` because the number of topics that match this topic filter might increase as AWS IoT introduces new shadow topics\. For examples of the messages published on these topics see [Device shadow service data flow](device-shadow-data-flow.md)\.
 
 The following are the MQTT topics used for interacting with shadows\.
 
 **Topics**
-+ [/update](#update-pub-sub-topic)
++ [/Update](#update-pub-sub-topic)
 + [/update/accepted](#update-accepted-pub-sub-topic)
 + [/update/documents](#update-documents-pub-sub-topic)
 + [/update/rejected](#update-rejected-pub-sub-topic)
 + [/update/delta](#update-delta-pub-sub-topic)
-+ [/get](#get-pub-sub-topic)
++ [/Get](#get-pub-sub-topic)
 + [/get/accepted](#get-accepted-pub-sub-topic)
 + [/get/rejected](#get-rejected-pub-sub-topic)
-+ [/delete](#delete-pub-sub-topic)
++ [/Delete](#delete-pub-sub-topic)
 + [/delete/accepted](#delete-accepted-pub-sub-topic)
 + [/delete/rejected](#delete-rejected-pub-sub-topic)
 
-## /update<a name="update-pub-sub-topic"></a>
+## /Update<a name="update-pub-sub-topic"></a>
 
 Publish a request state document to this topic to update the device's shadow:
 
@@ -53,9 +53,9 @@ A device updating its shadow would send a JSON request state document like this:
 
 AWS IoT responds by publishing to either [/update/accepted](#update-accepted-pub-sub-topic) or [/update/rejected](#update-rejected-pub-sub-topic)\.
 
-For more information, see [Request State Documents](device-shadow-document-syntax.md#device-shadow-example-request-json)\.
+For more information, see [Request state documents](device-shadow-document-syntax.md#device-shadow-example-request-json)\.
 
-### Example Policy<a name="update-policy"></a>
+### Example policy<a name="update-policy"></a>
 
 The following is an example of the required policy:
 
@@ -78,9 +78,9 @@ AWS IoT publishes a response state document to this topic when it accepts a chan
 $aws/things/thingName/shadow/update/accepted
 ```
 
-For more information, see [Response State Documents](device-shadow-document-syntax.md#device-shadow-example-response-json)\.
+For more information, see [Response state documents](device-shadow-document-syntax.md#device-shadow-example-response-json)\.
 
-### Example Policy<a name="update-accepted-policy"></a>
+### Example policy<a name="update-accepted-policy"></a>
 
 The following is an example of the required policy:
 
@@ -112,7 +112,7 @@ $aws/things/thingName/shadow/update/documents
 
 The JSON document will contain two primary nodes: `previous` and `current`\. The `previous` node will contain the contents of the full shadow document before the update was performed while `current` will contain the full shadow document after the update is successfully applied\. When the shadow is updated \(created\) for the first time, the `previous` node will contain `null`\.
 
-### Example Policy<a name="update-documents-policy"></a>
+### Example policy<a name="update-documents-policy"></a>
 
 The following is an example of the required policy:
 
@@ -142,9 +142,9 @@ AWS IoT publishes an error response document to this topic when it rejects a cha
 $aws/things/thingName/shadow/update/rejected
 ```
 
-For more information, see [Error Response Documents](device-shadow-document-syntax.md#device-shadow-example-error-json)\.
+For more information, see [Error response documents](device-shadow-document-syntax.md#device-shadow-example-error-json)\.
 
-### Example Policy<a name="update-rejected-policy"></a>
+### Example policy<a name="update-rejected-policy"></a>
 
 The following is an example of the required policy:
 
@@ -174,15 +174,15 @@ AWS IoT publishes a response state document to this topic when it accepts a chan
 $aws/things/thingName/shadow/update/delta
 ```
 
-For more information, see [Response State Documents](device-shadow-document-syntax.md#device-shadow-example-response-json)\.
+For more information, see [Response state documents](device-shadow-document-syntax.md#device-shadow-example-response-json)\.
 
-### Publishing Details<a name="update-delta-rules"></a>
+### Publishing details<a name="update-delta-rules"></a>
 + A message published on `update/delta` includes only the desired attributes that differ between the `desired` and `reported` sections\. It contains all of these attributes, regardless of whether these attributes were contained in the current update message or were already stored in AWS IoT\. Attributes that do not differ between the `desired` and `reported` sections are not included\.
 + If an attribute is in the `reported` section but has no equivalent in the `desired` section, it is not included\.
 + If an attribute is in the `desired` section but has no equivalent in the `reported` section, it is included\.
 + If an attribute is deleted from the `reported` section but still exists in the `desired` section, it is included\.
 
-### Example Policy<a name="update-delta-policy"></a>
+### Example policy<a name="update-delta-policy"></a>
 
 The following is an example of the required policy:
 
@@ -204,7 +204,7 @@ The following is an example of the required policy:
 }
 ```
 
-## /get<a name="get-pub-sub-topic"></a>
+## /Get<a name="get-pub-sub-topic"></a>
 
 Publish an empty message to this topic to get the device's shadow:
 
@@ -214,7 +214,7 @@ $aws/things/thingName/shadow/get
 
 AWS IoT responds by publishing to either [/get/accepted](#get-accepted-pub-sub-topic) or [/get/rejected](#get-rejected-pub-sub-topic)\.
 
-### Example Policy<a name="get-policy"></a>
+### Example policy<a name="get-policy"></a>
 
 The following is an example of the required policy:
 
@@ -239,9 +239,9 @@ AWS IoT publishes a response state document to this topic when returning the dev
 $aws/things/thingName/shadow/get/accepted
 ```
 
-For more information, see [Response State Documents](device-shadow-document-syntax.md#device-shadow-example-response-json)\.
+For more information, see [Response state documents](device-shadow-document-syntax.md#device-shadow-example-response-json)\.
 
-### Example Policy<a name="get-accepted-policy"></a>
+### Example policy<a name="get-accepted-policy"></a>
 
 The following is an example of the required policy:
 
@@ -271,9 +271,9 @@ AWS IoT publishes an error response document to this topic when it can't return 
 $aws/things/thingName/shadow/get/rejected
 ```
 
-For more information, see [Error Response Documents](device-shadow-document-syntax.md#device-shadow-example-error-json)\.
+For more information, see [Error response documents](device-shadow-document-syntax.md#device-shadow-example-error-json)\.
 
-### Example Policy<a name="get-rejected-policy"></a>
+### Example policy<a name="get-rejected-policy"></a>
 
 The following is an example of the required policy:
 
@@ -294,7 +294,7 @@ The following is an example of the required policy:
 }
 ```
 
-## /delete<a name="delete-pub-sub-topic"></a>
+## /Delete<a name="delete-pub-sub-topic"></a>
 
 To delete a device's shadow, publish an empty message to the delete topic:
 
@@ -306,7 +306,7 @@ The content of the message is ignored\.
 
 AWS IoT responds by publishing to either [/delete/accepted](#delete-accepted-pub-sub-topic) or [/delete/rejected](#delete-rejected-pub-sub-topic)\.
 
-### Example Policy<a name="delete-policy"></a>
+### Example policy<a name="delete-policy"></a>
 
 The following is an example of the required policy:
 
@@ -336,7 +336,7 @@ AWS IoT publishes a message to this topic when a device's shadow is deleted:
 $aws/things/thingName/shadow/delete/accepted
 ```
 
-### Example Policy<a name="delete-accepted-policy"></a>
+### Example policy<a name="delete-accepted-policy"></a>
 
 The following is an example of the required policy:
 
@@ -366,9 +366,9 @@ AWS IoT publishes an error response document to this topic when it can't delete 
 $aws/things/thingName/shadow/delete/rejected
 ```
 
-For more information, see [Error Response Documents](device-shadow-document-syntax.md#device-shadow-example-error-json)\.
+For more information, see [Error response documents](device-shadow-document-syntax.md#device-shadow-example-error-json)\.
 
-### Example Policy<a name="delete-rejected-policy"></a>
+### Example policy<a name="delete-rejected-policy"></a>
 
 The following is an example of the required policy:
 

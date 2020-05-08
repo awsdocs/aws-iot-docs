@@ -1,6 +1,6 @@
 # HTTP<a name="http"></a>
 
-Clients can publish messages by making requests to the REST API using the HTTP 1\.0 or 1\.1 protocols\. For the authentication and port mappings used by HTTP requests, see [Protocols, Port Mappings, and Authentication](protocols.md#protocol-port-mapping)\.
+Clients can publish messages by making requests to the REST API using the HTTP 1\.0 or 1\.1 protocols\. For the authentication and port mappings used by HTTP requests, see [Protocols, port mappings, and authentication](protocols.md#protocol-port-mapping)\.
 
 ## HTTP URL<a name="httpurl"></a>
 
@@ -10,9 +10,9 @@ Publishing clients make POST requests to a client\-specific endpoint and a topic
   aws iot describe\-endpoint
 
    The endpoint should look something like this: `a3qj468xinsffp-ats.iot.us-west-2.amazonaws.com` 
-+ *<url\_encoded\_topic\_name>* is the full [topic name](https://docs.aws.amazon.com/iot/latest/developerguide/topics.html#topicnames) of the message being sent\.
++ *<url\_encoded\_topic\_name>* is the full [topic name](topics.md#topicnames) of the message being sent\.
 
-## curl Example<a name="curlexample"></a>
+## Curl example<a name="curlexample"></a>
 
 You can use [curl](https://curl.haxx.se) to emulate a client sending a message to AWS IoT Core\.
 
@@ -57,7 +57,7 @@ The URL of your client's REST API endpoint, followed by the HTTPS port, `:8443`,
 
 1. Open the MQTT test client in the console\.
 
-   Follow the instructions in [View Device MQTT Messages with the AWS IoT MQTT Client](https://docs.aws.amazon.com/iot/latest/developerguide/view-mqtt-messages.html) and configure the console to subscribe to messages with the topic name of `topic`, or use the wildcard topic filter of `#`\.
+   Follow the instructions in [View device MQTT messages with the AWS IoT MQTT client](view-mqtt-messages.md) and configure the console to subscribe to messages with the topic name of `topic`, or use the wildcard topic filter of `#`\.
 
 1. Test the command\.
 

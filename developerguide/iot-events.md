@@ -1,4 +1,4 @@
-# Event Messages<a name="iot-events"></a>
+# Event messages<a name="iot-events"></a>
 
 This section contains information about messages published by AWS IoT when things or jobs are updated or changed\. For information about the AWS IoT Events service that allows you to create detectors to monitor your devices for failures or changes in operation, and to trigger actions when they occur, see [AWS IoT Events](https://aws.amazon.com/iot-events)\.
 

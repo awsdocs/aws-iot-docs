@@ -1,10 +1,10 @@
-# Register a Client Certificate when the Client Connects to AWS IoT \(Just\-in\-Time Registration\)<a name="auto-register-device-cert"></a>
+# Register a client certificate when the client connects to AWS IoT \(just\-in\-time registration\)<a name="auto-register-device-cert"></a>
 
 You can configure a CA certificate to enable client certificates it has signed to register with AWS IoT automatically the first time the client connects to AWS IoT\.
 
 To register client certificates when a client connects to AWS IoT for the first time, you must enable the CA certificate for automatic registration and configure the first connection by the client to provide the required certificates\.
 
-## Configure a CA Certificate to Support Automatic Registration \(console\)<a name="enable-auto-registration-console"></a>
+## Configure a CA certificate to support automatic registration \(console\)<a name="enable-auto-registration-console"></a>
 
 **To configure a CA certificate to support automatic client certificate registration using the AWS IoT console**
 
@@ -19,9 +19,9 @@ To register client certificates when a client connects to AWS IoT for the first 
 **Note**  
 The auto\-registration status is not shown in the list of certificate authorities\. To see the auto\-registration status of a certificate authority, you must open the **Details** page of the certificate authority\.
 
-## Configure a CA Certificate to Support Automatic Registration \(CLI\)<a name="enable-auto-registration-cli"></a>
+## Configure a CA certificate to support automatic registration \(CLI\)<a name="enable-auto-registration-cli"></a>
 
-If you have already registered your CA certificate with AWS IoT, use the [docs.aws.amazon.comcli/latest/reference/iot/update-ca-certificate.html](docs.aws.amazon.comcli/latest/reference/iot/update-ca-certificate.html) command to set `autoRegistrationStatus` of the CA certificate to `ENABLE`\.
+If you have already registered your CA certificate with AWS IoT, use the [https://docs.aws.amazon.com/cli/latest/reference/iot/update-ca-certificate.html](https://docs.aws.amazon.com/cli/latest/reference/iot/update-ca-certificate.html) command to set `autoRegistrationStatus` of the CA certificate to `ENABLE`\.
 
 ```
 aws iot update-ca-certificate \
@@ -29,7 +29,7 @@ aws iot update-ca-certificate \
 --new-auto-registration-status ENABLE
 ```
 
-If you want to enable `autoRegistrationStatus` when you register the CA certificate, use the [docs.aws.amazon.comcli/latest/reference/iot/register-ca-certificate.html](docs.aws.amazon.comcli/latest/reference/iot/register-ca-certificate.html) command\.
+If you want to enable `autoRegistrationStatus` when you register the CA certificate, use the [https://docs.aws.amazon.com/cli/latest/reference/iot/register-ca-certificate.html](https://docs.aws.amazon.com/cli/latest/reference/iot/register-ca-certificate.html) command\.
 
 ```
 aws iot register-ca-certificate \
@@ -38,9 +38,9 @@ aws iot register-ca-certificate \
 --verification-cert file://<verification_cert_pem_filename>
 ```
 
-Use the [docs.aws.amazon.comcli/latest/reference/iot/describe-ca-certificate.html](docs.aws.amazon.comcli/latest/reference/iot/describe-ca-certificate.html) command to see the status of the CA certificate\.
+Use the [https://docs.aws.amazon.com/cli/latest/reference/iot/describe-ca-certificate.html](https://docs.aws.amazon.com/cli/latest/reference/iot/describe-ca-certificate.html) command to see the status of the CA certificate\.
 
-## Configure the First Connection by a Client for Automatic Registration<a name="configure-auto-reg-first-connect"></a>
+## Configure the first connection by a client for automatic registration<a name="configure-auto-reg-first-connect"></a>
 
 When a client attempts to connect to AWS IoT for the first time, it must present a file that contains both your registered CA certificate and the client certificate signed by your CA certificate as part of the TLS handshake\. You can combine the two files using a command, such as the following:
 
@@ -69,6 +69,6 @@ The message published to this topic has the following structure:
 }
 ```
 
-You can create a rule that listens on this topic and performs some actions\. We recommend that you create a Lambda rule that verifies the client certificate is not on a certificate revocation list \(CRL\), activates the certificate, and creates and attaches a policy to the certificate\. The policy determines which resources the client can access\. For more information about how to create a Lambda rule that listens on the `$aws/events/certificates/registered/<caCertificateID>` topic and performs these actions, see [Just\-in\-Time Registration of Client Certificates on AWS IoT](docs.aws.amazon.comblogs/iot/just-in-time-registration-of-device-certificates-on-aws-iot/)\.
+You can create a rule that listens on this topic and performs some actions\. We recommend that you create a Lambda rule that verifies the client certificate is not on a certificate revocation list \(CRL\), activates the certificate, and creates and attaches a policy to the certificate\. The policy determines which resources the client can access\. For more information about how to create a Lambda rule that listens on the `$aws/events/certificates/registered/<caCertificateID>` topic and performs these actions, see [Just\-in\-Time Registration of Client Certificates on AWS IoT](https://aws.amazon.com/blogs/iot/just-in-time-registration-of-device-certificates-on-aws-iot/)\.
 
 If any error or exception occurs during the auto\-registration of the client certificates, AWS IoT sends events or messages to your logs in CloudWatch Logs\. For more information about setting up the logs for your account, see the [Amazon CloudWatch documentation](https://docs.aws.amazon.com/AmazonCloudWatch/latest/DeveloperGuide/)\. 

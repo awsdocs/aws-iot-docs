@@ -1,4 +1,4 @@
-# Custom Authorizer Workflow<a name="custom-auth"></a>
+# Custom authorizer workflow<a name="custom-auth"></a>
 
 For a client or device to authenticate with the AWS IoT Device Gateway using a custom authorizer, it needs both a token and a signature used by AWS to validate the tokens before invoking the authorizer\.
 
@@ -55,4 +55,4 @@ The return value of the Lambda function should be similar to this response and c
 
 The AWS IoT device gateway then establishes the WebSocket connection\. AWS IoT caches the policies associated with the principal so subsequent calls can be authorized without having to reauthenticate the device\. Any failure that occurs during custom authentication results in authentication failure and connection termination\.
 
-For an end\-to\-end example of this workflow, see [How to Use Your Own Identity and Access Management Systems to Control Access to AWS IoT Resources](docs.aws.amazon.comblogs/security/how-to-use-your-own-identity-and-access-management-systems-to-control-access-to-aws-iot-resources/)\.
+For an end\-to\-end example of this workflow, see [How to Use Your Own Identity and Access Management Systems to Control Access to AWS IoT Resources](https://aws.amazon.com/blogs/security/how-to-use-your-own-identity-and-access-management-systems-to-control-access-to-aws-iot-resources/)\.

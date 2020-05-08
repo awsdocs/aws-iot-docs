@@ -1,10 +1,10 @@
-# Logging AWS IoT API Calls with AWS CloudTrail<a name="iot-using-cloudtrail"></a>
+# Logging AWS IoT API calls with AWS CloudTrail<a name="iot-using-cloudtrail"></a>
 
 AWS IoT is integrated with AWS CloudTrail, a service that provides a record of actions taken by a user, role, or an AWS service in AWS IoT\. CloudTrail captures all API calls for AWS IoT as events, including calls from the AWS IoT console and from code calls to the AWS IoT APIs\. If you create a trail, you can enable continuous delivery of CloudTrail events to an Amazon S3 bucket, including events for AWS IoT\. If you don't configure a trail, you can still view the most recent events in the CloudTrail console in **Event history**\. Using the information collected by CloudTrail, you can determine the request that was made to AWS IoT, the IP address from which the request was made, who made the request, when it was made, and other details\.
 
 To learn more about CloudTrail, see the [AWS CloudTrail User Guide](https://docs.aws.amazon.com/awscloudtrail/latest/userguide/)\.
 
-## AWS IoT Information in CloudTrail<a name="aws-iot-info-in-cloudtrail"></a>
+## AWS IoT information in CloudTrail<a name="aws-iot-info-in-cloudtrail"></a>
 
 CloudTrail is enabled on your AWS account when you create the account\. When activity occurs in AWS IoT, that activity is recorded in a CloudTrail event along with other AWS service events in **Event history**\. You can view, search, and download recent events in your AWS account\. For more information, see [Viewing Events with CloudTrail Event History](https://docs.aws.amazon.com/awscloudtrail/latest/userguide/view-cloudtrail-events.html)\. 
 
@@ -26,7 +26,7 @@ Every event or log entry contains information about who generated the request\. 
 
 For more information, see the [CloudTrail userIdentity Element](https://docs.aws.amazon.com/awscloudtrail/latest/userguide/cloudtrail-event-reference-user-identity.html)\. AWS IoT actions are documented in the [AWS IoT API Reference](https://docs.aws.amazon.com/iot/latest/apireference/)\. 
 
-## Understanding AWS IoT Log File Entries<a name="understanding-aws-iot-entries"></a>
+## Understanding AWS IoT log file entries<a name="understanding-aws-iot-entries"></a>
 
 A trail is a configuration that enables delivery of events as log files to an Amazon S3 bucket that you specify\. CloudTrail log files contain one or more log entries\. An event represents a single request from any source and includes information about the requested action, the date and time of the action, request parameters, and so on\. CloudTrail log files are not an ordered stack trace of the public API calls, so they do not appear in any specific order\. 
 

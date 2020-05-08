@@ -1,4 +1,4 @@
-# Enhanced Custom Authentication \(Beta\)<a name="enhanced-custom-authentication"></a>
+# Enhanced custom authentication \(beta\)<a name="enhanced-custom-authentication"></a>
 
 
 ****  
@@ -17,8 +17,8 @@ Enhanced custom authentication sends client credentials to your custom authorize
 + HTTP Upgrade to MQTT \(MQTT user name and password
 
 **Note**  
-To pass unsigned tokens or use MQTT user name/password authentication, clients must send the Server Name Indication \(SNI\) TLS extension with a fully qualified domain name that corresponds to the name specified in the domain configuration\. For more information on configuring the SNI extension, see [Transport Security in AWS IoT](transport-security.md)\. To test this service, use the v2 version of each [AWS IoT device SDK in GitHub](https://github.com/aws)\.
+To pass unsigned tokens or use MQTT user name/password authentication, clients must send the Server Name Indication \(SNI\) TLS extension with a fully qualified domain name that corresponds to the name specified in the domain configuration\. For more information on configuring the SNI extension, see [Transport security in AWS IoT](transport-security.md)\. To test this service, use the v2 version of each [AWS IoT device SDK in GitHub](https://github.com/aws)\.
 
 **Topics**
-+ [Creating a Custom Authorizer for Enhanced Custom Authentication](enhanced-custom-auth-create.md)
-+ [Invoking a Custom Authorizer with Enhanced Custom Authentication](enhanced-custom-auth-using.md)
++ [Creating a custom authorizer for enhanced custom authentication](enhanced-custom-auth-create.md)
++ [Invoking a custom authorizer with enhanced custom authentication](enhanced-custom-auth-using.md)

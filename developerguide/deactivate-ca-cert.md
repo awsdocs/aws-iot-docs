@@ -1,4 +1,4 @@
-# Deactivate a CA Certificate<a name="deactivate-ca-cert"></a>
+# Deactivate a CA certificate<a name="deactivate-ca-cert"></a>
 
 When a certificate authority \(CA\) certificate is enabled for automatic client certificate registration, AWS IoT checks the CA certificate used to sign the client certificate to make sure the CA is `ACTIVE`\. If the CA certificate is `INACTIVE`, AWS IoT doesn't allow the client certificate to be registered\.
 
@@ -7,7 +7,7 @@ By setting the CA certificate as `INACTIVE`, you prevent any new client certific
 **Note**  
 Any registered client certificates that were signed by the compromised CA certificate continue to work until you explicitly revoke each one of them\.
 
-## Deactivate a CA Certificate \(console\)<a name="deactivate-ca-cert-console"></a>
+## Deactivate a CA certificate \(console\)<a name="deactivate-ca-cert-console"></a>
 
 **To deactivate a CA certificate using the AWS IoT console**
 
@@ -22,11 +22,11 @@ Any registered client certificates that were signed by the compromised CA certif
 The certificate authority should show as **Inactive** in the list\.
 
 **Note**  
-The AWS IoT console does not provide a way to list the certificates that were signed by the CA you deactivated\. For an AWS CLI option to list those certificates, see [Deactivate a CA Certificate \(CLI\)](#deactivate-ca-cert-cli)\.
+The AWS IoT console does not provide a way to list the certificates that were signed by the CA you deactivated\. For an AWS CLI option to list those certificates, see [Deactivate a CA certificate \(CLI\)](#deactivate-ca-cert-cli)\.
 
-## Deactivate a CA Certificate \(CLI\)<a name="deactivate-ca-cert-cli"></a>
+## Deactivate a CA certificate \(CLI\)<a name="deactivate-ca-cert-cli"></a>
 
-The AWS CLI provides the [docs.aws.amazon.comcli/latest/reference/iot/update-ca-certificate.html](docs.aws.amazon.comcli/latest/reference/iot/update-ca-certificate.html) command to deactivate a CA certificate\.
+The AWS CLI provides the [https://docs.aws.amazon.com/cli/latest/reference/iot/update-ca-certificate.html](https://docs.aws.amazon.com/cli/latest/reference/iot/update-ca-certificate.html) command to deactivate a CA certificate\.
 
 ```
 aws iot update-ca-certificate \
@@ -34,6 +34,6 @@ aws iot update-ca-certificate \
     --new-status INACTIVE
 ```
 
-Use the [docs.aws.amazon.comcli/latest/reference/iot/list-certificates-by-ca.html](docs.aws.amazon.comcli/latest/reference/iot/list-certificates-by-ca.html) command to get a list of all registered client certificates that were signed by the specified CA\. For each client certificate signed by the specified CA certificate, use the [docs.aws.amazon.comcli/latest/reference/iot/update-certificate.html](docs.aws.amazon.comcli/latest/reference/iot/update-certificate.html) command to revoke the client certificate to prevent it from being used\.
+Use the [https://docs.aws.amazon.com/cli/latest/reference/iot/list-certificates-by-ca.html](https://docs.aws.amazon.com/cli/latest/reference/iot/list-certificates-by-ca.html) command to get a list of all registered client certificates that were signed by the specified CA\. For each client certificate signed by the specified CA certificate, use the [https://docs.aws.amazon.com/cli/latest/reference/iot/update-certificate.html](https://docs.aws.amazon.com/cli/latest/reference/iot/update-certificate.html) command to revoke the client certificate to prevent it from being used\.
 
-Use the [docs.aws.amazon.comcli/latest/reference/iot/describe-ca-certificate.html](docs.aws.amazon.comcli/latest/reference/iot/describe-ca-certificate.html) command to see the status of the CA certificate\.
+Use the [https://docs.aws.amazon.com/cli/latest/reference/iot/describe-ca-certificate.html](https://docs.aws.amazon.com/cli/latest/reference/iot/describe-ca-certificate.html) command to see the status of the CA certificate\.

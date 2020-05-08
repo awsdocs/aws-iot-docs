@@ -2,14 +2,14 @@
 
 AWS IoT sends progress events about each message as it passes from your devices through the message broker and rules engine\. To view these logs, you must configure AWS IoT to generate the logs used by CloudWatch\. 
 
-For more information about CloudWatch Logs, see [CloudWatch Logs](https://docs.aws.amazon.com/AmazonCloudWatch/latest/DeveloperGuide/WhatIsCloudWatchLogs.html)\. For information about supported AWS IoT CloudWatch Logs, see [CloudWatch Log Entry Format](cwl-format.md)\.
+For more information about CloudWatch Logs, see [CloudWatch Logs](https://docs.aws.amazon.com/AmazonCloudWatch/latest/DeveloperGuide/WhatIsCloudWatchLogs.html)\. For information about supported AWS IoT CloudWatch Logs, see [CloudWatch log entry format](cwl-format.md)\.
 
 To enable AWS IoT logging, you must create an IAM role, register the role with AWS IoT, and then configure AWS IoT logging\. In the CloudWatch console, CloudWatch logs appear in a log group named **AWSIotLogs**\.
 
 **Note**  
 Before you enable AWS IoT logging, make sure you understand the CloudWatch Logs access permissions\. Users with access to CloudWatch Logs can see debugging information from your devices\. For more information, see [Authentication and Access Control for Amazon CloudWatch Logs](https://docs.aws.amazon.com/AmazonCloudWatch/latest/monitoring/auth-and-access-control-cw.html)\.
 
-## Create a Logging Role<a name="create-logging-role"></a>
+## Create a logging role<a name="create-logging-role"></a>
 
 Use the [IAM console](https://console.aws.amazon.com/iam/) to create a logging role\.
 
@@ -25,7 +25,7 @@ Use the [IAM console](https://console.aws.amazon.com/iam/) to create a logging r
 
 1. Enter a name and description for the role, and then choose **Create role**\.
 
-### Logging Role Policy<a name="logging-role-policy"></a>
+### Logging role policy<a name="logging-role-policy"></a>
 
 The following policy documents provide the role policy and trust policy that allow AWS IoT to submit logs to CloudWatch on your behalf\. 
 
@@ -73,7 +73,7 @@ Trust policy:
     }
 ```
 
-## Log Level<a name="log-level"></a>
+## Log level<a name="log-level"></a>
 
 The log level specifies which types of logs are generated\.
 
@@ -96,13 +96,13 @@ Logs include DEBUG, INFO, ERROR, and WARN information\.
 DISABLED  
 All logging is disabled\.
 
-## Configure AWS IoT Logging<a name="configure-logging"></a>
+## Configure AWS IoT logging<a name="configure-logging"></a>
 
-You can use the AWS IoT console, the [set\-v2\-logging\-options](https://docs.aws.amazon.com/cli/latest/reference/iot/set-v2-logging-options.html) CLI command, or the [SetV2LoggingOptions](https://docs.aws.amazon.com/iot/latest/apireference/API_SetV2LoggingOptions.html) API to enable logging\. The principal used to make the API call must have [Pass Role Permissions](pass-role.md) for your logging role\. The logging role is passed to [set\-v2\-logging\-options](https://docs.aws.amazon.com/cli/latest/reference/iot/set-v2-logging-options.html) or [SetV2LoggingOptions](https://docs.aws.amazon.com/iot/latest/apireference/API_SetV2LoggingOptions.html) as the `roleARN` parameter\. 
+You can use the AWS IoT console, the [set\-v2\-logging\-options](https://docs.aws.amazon.com/cli/latest/reference/iot/set-v2-logging-options.html) CLI command, or the [SetV2LoggingOptions](https://docs.aws.amazon.com/iot/latest/apireference/API_SetV2LoggingOptions.html) API to enable logging\. The principal used to make the API call must have [Pass role permissions](pass-role.md) for your logging role\. The logging role is passed to [set\-v2\-logging\-options](https://docs.aws.amazon.com/cli/latest/reference/iot/set-v2-logging-options.html) or [SetV2LoggingOptions](https://docs.aws.amazon.com/iot/latest/apireference/API_SetV2LoggingOptions.html) as the `roleARN` parameter\. 
 
 You can configure logging to be global or fine\-grained\. Global logging sets one logging level for all logs no matter what resource triggered the logs\. Fine\-grained logging allows you to set a logging level for a specific resource or set of resources\. Currently, only thing groups are supported\. You can use the AWS IoT console, the CLI, or the API to enable global logging\. You must use the CLI or API to enable fine\-grained logging\.
 
-### Global Logging<a name="global-logging"></a>
+### Global logging<a name="global-logging"></a>
 
 Use the `set-v2-logging-options` CLI command to set the logging options for your account\. `set-v2-logging-options` takes three arguments:
 
@@ -130,7 +130,7 @@ AWS IoT continues to support older commands \(`set-logging-options` and `get-log
 
 **To use the AWS IoT console to configure global logging**
 
-1. Sign in to the AWS IoT console\. For more information, see [Sign in to the AWS IoT Console](iot-console-signin.md)\.
+1. Sign in to the AWS IoT console\. For more information, see [Sign in to the AWS IoT console](iot-console-signin.md)\.
 
 1. In the left navigation pane, choose **Settings**\.  
 ![\[Image NOT FOUND\]](http://docs.aws.amazon.com/iot/latest/developerguide/images/configure-cloudwatch-logging-1.png)
@@ -146,14 +146,14 @@ AWS IoT continues to support older commands \(`set-logging-options` and `get-log
 
    Review your CloudWatch logs to see if you are satisfied with the level of collected information\. If not, you can always change the logging level later\.
 
-### Fine\-Grained Logging<a name="fine-grained-logging"></a>
+### Fine\-grained logging<a name="fine-grained-logging"></a>
 
 Fine\-grained logging allows you to specify a logging level for a target\. A target is defined by a resource type and a resource name\. Currently, AWS IoT supports thing groups as targets\. Fine\-grained logging allows you to set a logging level for a thing group\. For example, you might have a thing group named "Phones" that contains things that represent different kinds of phones\. You might then create another thing group named "MobilePhones" and make it a child of the "Phones" thing group\. Fine\-grained logging allows you to configure one logging level for all things in the "Phones" group \(and any child groups\) and another logging level for things in the "MobilePhones" group\. In this example, there are two different logging levels assigned to things in the "MobilePhones" group — one from the logging level for the "Phones" thing group and another from the "MobilePhones" thing group — but the logging level specified for the child thing group overrides the logging level specified for the parent thing group\.
 
 Use the `set-v2-logging-options` CLI command to enable fine\-grained logging and set the default logging level\. It takes the following optional arguments: 
 
 \-\-role\-arn  
-An IAM role that allows AWS IoT to write to your CloudWatch Logs\. If not specified, AWS IoT uses the logging role associated with your account\. The logging role is associated with your account when it is created\. For more information, see [Create a Logging Role](#create-logging-role)\.
+An IAM role that allows AWS IoT to write to your CloudWatch Logs\. If not specified, AWS IoT uses the logging role associated with your account\. The logging role is associated with your account when it is created\. For more information, see [Create a logging role](#create-logging-role)\.
 
 \-\-default\-log\-level  
 The logging level used if not specified\. Valid values are: `DEBUG`, `INFO`, `ERROR`, `WARN`, and `DISABLED`\.

@@ -1,4 +1,4 @@
-# Creating CloudWatch Alarms to Monitor AWS IoT<a name="creating_alarms"></a>
+# Creating CloudWatch alarms to monitor AWS IoT<a name="creating_alarms"></a>
 
 You can create a CloudWatch alarm that sends an Amazon SNS message when the alarm changes state\. An alarm watches a single metric over a time period you specify and performs one or more actions based on the value of the metric relative to a given threshold over a number of time periods\. The action is a notification sent to an Amazon SNS topic or Auto Scaling policy\. Alarms trigger actions for sustained state changes only\. CloudWatch alarms do not trigger actions simply because they are in a particular state; the state must have changed and been maintained for a specified number of periods\.
 

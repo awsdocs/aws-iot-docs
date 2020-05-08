@@ -1,4 +1,4 @@
-# Creating an Amazon SNS Rule<a name="iot-sns-rule"></a>
+# Creating an Amazon SNS rule<a name="iot-sns-rule"></a>
 
 You can define a rule that sends message data to an Amazon SNS topic\. 
 

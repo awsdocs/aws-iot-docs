@@ -1,14 +1,14 @@
-# Provisioning Devices That Don't Have Device Certificates Using Fleet Provisioning<a name="provision-wo-cert"></a>
+# Provisioning devices that don't have device certificates using fleet provisioning<a name="provision-wo-cert"></a>
 
 When you use AWS IoT fleet provisioning, AWS IoT can generate and securely deliver device certificates and private keys to your devices when they connect to AWS IoT for the first time\. Device certificates are registered for day\-to\-day use\. There are two ways to use fleet provisioning:
 + By claim\.
 + By trusted user\.
 
-## Provisioning by Claim<a name="claim-based"></a>
+## Provisioning by claim<a name="claim-based"></a>
 
 Devices can be manufactured with a provisioning claim certificate and private key \(which are special purpose credentials\) embedded in them\. If these certificates are registered with AWS IoT, the service can exchange them for unique device certificates that the device can use for regular operations\. This process includes the following steps:
 
-1. Use the `CreateProvisioningTemplate` API to create a provisioning template\. This API returns a template ARN\. For more information, see [Fleet Provisioning APIs](#fleet-provision-api)\. You can also create a fleet provisioning template in the AWS IoT console\. 
+1. Use the `CreateProvisioningTemplate` API to create a provisioning template\. This API returns a template ARN\. For more information, see [Fleet provisioning APIs](#fleet-provision-api)\. You can also create a fleet provisioning template in the AWS IoT console\. 
 
    1. From the navigation pane, choose **Onboard**,then choose **Fleet provisioning templates**\.
 
@@ -58,7 +58,7 @@ Devices can be manufactured with a provisioning claim certificate and private ke
 **Important**  
 Provisioning claim private keys should be secured at all times, including on the device\. We recommend that you use AWS IoT CloudWatch metrics and logs to monitor for indications of misuse\. If you detect misuse, disable the provisioning claim certificate so it cannot be used for device provisioning\.
 
-## Provisioning by Trusted User<a name="trusted-user"></a>
+## Provisioning by trusted user<a name="trusted-user"></a>
 
 In many cases, a device connects to AWS IoT for the first time when an end user or installation technician uses a mobile app to configure the device in its deployed location\. This process includes the following steps:
 
@@ -86,11 +86,11 @@ In many cases, a device connects to AWS IoT for the first time when an end user 
 
 1. The mobile app or web application supplies the provisioning claim to the device along with configuration information, such as Wi\-Fi credentials\.
 
-1. The device uses the temporary provisioning claim to connect to AWS IoT using the [AWS IoT Device and Mobile SDKs ](iot-sdks.md)\.
+1. The device uses the temporary provisioning claim to connect to AWS IoT using the [AWS IoT device and mobile SDKs ](iot-sdks.md)\.
 
 1. You can choose to receive a unique certificate and private key or you can use a CSR to generate a certificate that keeps its private key secure\. The device will use them for future authentication with AWS IoT\. At the same time, the Fleet Provisioning service creates cloud resources such as IoT things, thing groups, and attributes, as defined in the provisioning template\.
 
-## Pre\-Provisioning Hooks<a name="pre-provisioning-hook"></a>
+## Pre\-provisioning hooks<a name="pre-provisioning-hook"></a>
 
 When using AWS IoT fleet provisioning, you can set up a Lambda function to validate device parameters before allowing the device to be provisioned\. This Lambda function must exist in your account before you provision a device because it's called every time a device sends a request through [RegisterThing](https://docs.aws.amazon.com/iot/latest/apireference/API_RegisterThing.html)\. Your Lambda function must be able to receive an input and return an output, otherwise your device won't be provisioned\. The provisioning proceeds only if the Lambda function returns the parameter `"allowProvisioning": "SUCCEED"`\.
 
@@ -112,24 +112,24 @@ The following is an example payload that AWS IoT sends to the Lambda function\.
 }
 ```
 
-`"incomingParameters"` have the content present in “parameters” from the [RegisterThing](https://docs.aws.amazon.com/iot/latest/apireference/API_RegisterThing.html) request payload\.
+`"incomingParameters"` have the content present in "parameters" from the [RegisterThing](https://docs.aws.amazon.com/iot/latest/apireference/API_RegisterThing.html) request payload\.
 
 The Lambda function must return a response that indicates whether or not it has authorized the provisioning request\. The following is an example of a successful response\.
 
 ```
 {
  "allowProvisioning": "SUCCEED",
- "templateParameters" : {
+ "parameterOverrides" : {
    "customKeysAndValues": "sentToDevice",
    // more parameters that will be returned to device ....
  }
 }
 ```
 
-`"templateParameters"` will be added to `"deviceConfiguration"` parameter in [RegisterThing](https://docs.aws.amazon.com/iot/latest/apireference/API_RegisterThing.html) response payload\.
+`"parameterOverrides"` will be added to `"deviceConfiguration"` parameter in [RegisterThing](https://docs.aws.amazon.com/iot/latest/apireference/API_RegisterThing.html) response payload\.
 
 **Note**  
-If the Lambda function fails or doesn’t return the `“allowProvisioning”` parameter in the response, the provisioning request will fail and the error will be returned in the response\.
+If the Lambda function fails or doesn't return the `"allowProvisioning"` parameter in the response, the provisioning request will fail and the error will be returned in the response\.
 The Lambda function must finish executing and return within 5 seconds, otherwise the provisioning request fails\.
 
 ### How to use pre\-provisioning hooks on the AWS CLI<a name="hooks-cli-instruc"></a>
@@ -138,14 +138,14 @@ The following procedure creates a provisioning template with pre\-provisioning h
 
 **To create and apply a pre\-provisioning hook to a provisioning template**
 
-1. Create a Lambda function that has an a defined input and output\. Lambda functions are highly customizable the `allowProvisioning` and `templateParameters` are required for creating pre\-provisioning hooks\. For more information about creating Lambda functions, see [Using AWS Lambda with the AWS Command Line Interface](https://docs.aws.amazon.com/lambda/latest/dg/gettingstarted-awscli.html)\.
+1. Create a Lambda function that has an a defined input and output\. Lambda functions are highly customizable the `allowProvisioning` and `parameterOverrides` are required for creating pre\-provisioning hooks\. For more information about creating Lambda functions, see [Using AWS Lambda with the AWS Command Line Interface](https://docs.aws.amazon.com/lambda/latest/dg/gettingstarted-awscli.html)\.
 
    The following is an example of a Lambda function output:
 
    ```
    {
      "allowProvisioning": "SUCCEED",
-     "templateParameters": {
+     "parameterOverrides": {
        "incomingKey0": "incomingValue0",
        "incomingKey1": "incomingValue1"
      }
@@ -259,7 +259,7 @@ The following procedure creates a provisioning template with pre\-provisioning h
    }
    ```
 
-## Fleet Provisioning APIs<a name="fleet-provision-api"></a>
+## Fleet provisioning APIs<a name="fleet-provision-api"></a>
 
 There are three categories of API used in fleet provisioning:
 + Control plane API used to create and manage fleet provisioning templates and to configure trusted user policies\.
@@ -275,7 +275,7 @@ There are three categories of API used in fleet provisioning:
 + Control plane API used by a trusted user to generate a temporary onboarding claim\. This claim is passed to the device during Wi\-Fi config or similar method\. There is one API in this category: [CreateProvisioningClaim](https://docs.aws.amazon.com/iot/latest/apireference/API_CreateProvisioningClaim.html)\.
 + API used by devices during the provisioning process\. This means using a provisioning claim embedded in a device, or one passed to it by a trusted user\. 
 
-### Device Provisioning MQTT API<a name="provision-mqtt-api"></a>
+### Device provisioning MQTT API<a name="provision-mqtt-api"></a>
 
 The Fleet Provisioning service supports two MQTT APIs: `CreateKeysAndCertificate`, `CreateCertificateFromCSR` and `RegisterThing`\.
 
@@ -331,7 +331,7 @@ Request payload:
 
 Response payload:
 
-To receive the response, subscribe to `$aws/certificates/create/cbor/accepted` or `$aws/certificates/create/json/accepted`\. For more information about connecting to the message broker and using AWS IoT reserved topics, see [Lifecycle Events](life-cycle-events.md) and [Reserved Topics](reserved-topics.md)\.
+To receive the response, subscribe to `$aws/certificates/create/cbor/accepted` or `$aws/certificates/create/json/accepted`\. For more information about connecting to the message broker and using AWS IoT reserved topics, see [Lifecycle events](life-cycle-events.md) and [Reserved topics](reserved-topics.md)\.
 
 ```
 {

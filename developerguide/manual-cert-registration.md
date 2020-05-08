@@ -1,4 +1,4 @@
-# Register a Client Certificate Manually<a name="manual-cert-registration"></a>
+# Register a client certificate manually<a name="manual-cert-registration"></a>
 
 You can register a client certificate manually by using the AWS IoT console and AWS CLI\.
 
@@ -25,7 +25,7 @@ Before you perform this procedure, make sure that you have the client certificat
 
 1.  After closing the file dialog box, select whether you want to activate or revoke the client certificates when you register them\.
 
-   If you don't activate a certificate when it is registered, [Activate a Client Certificate \(console\)](activate-or-deactivate-device-cert.md#activate-device-cert-console) describes how to activate it later\. 
+   If you don't activate a certificate when it is registered, [Activate a client certificate \(console\)](activate-or-deactivate-device-cert.md#activate-device-cert-console) describes how to activate it later\. 
 
    If a certificate is revoked when it is registered, it can't be activated later\.
 
@@ -52,7 +52,7 @@ Before you perform this procedure, make sure that you have the client certificat
 
 1.  After closing the file dialog box, select whether you want to activate or revoke the client certificates when you register them\.
 
-   If you don't activate a certificate when it is registered, [Activate a Client Certificate \(console\)](activate-or-deactivate-device-cert.md#activate-device-cert-console) describes how to activate it later\. 
+   If you don't activate a certificate when it is registered, [Activate a client certificate \(console\)](activate-or-deactivate-device-cert.md#activate-device-cert-console) describes how to activate it later\. 
 
    If a certificate is revoked when it is registered, it can't be activated later\.
 
@@ -65,7 +65,7 @@ The client certificates that are registered successfully appear in the list of c
 **Note**  
 Before you perform this procedure, make sure that you have the certificate authority \(CA\) \.pem and the client certificate's \.pem file\. The client certificate must be signed by a certificate authority \(CA\) that you have [registered with AWS IoT](register-CA-cert.md)\.
 
-Use the [docs.aws.amazon.comcli/latest/reference/iot/register-certificate.html](docs.aws.amazon.comcli/latest/reference/iot/register-certificate.html) command to register, but not activate, a client certificate\.
+Use the [https://docs.aws.amazon.com/cli/latest/reference/iot/register-certificate.html](https://docs.aws.amazon.com/cli/latest/reference/iot/register-certificate.html) command to register, but not activate, a client certificate\.
 
 ```
 aws iot register-certificate \
@@ -73,7 +73,7 @@ aws iot register-certificate \
     --ca-certificate-pem file://<ca_cert_pem_filename>
 ```
 
-The client certificate is registered with AWS IoT, but it is not active yet\. See [Activate a Client Certificate \(CLI\)](activate-or-deactivate-device-cert.md#activate-device-cert-cli) for information on how to activate it later\.
+The client certificate is registered with AWS IoT, but it is not active yet\. See [Activate a client certificate \(CLI\)](activate-or-deactivate-device-cert.md#activate-device-cert-cli) for information on how to activate it later\.
 
 You can also activate the client certificate when you register it by using this command\.
 
@@ -84,21 +84,21 @@ aws iot register-certificate \
     --ca-certificate-pem file://<ca_cert_pem_filename>
 ```
 
-For more information about activating the certificate so that it can be used to connect to AWS IoT, see [Activate or Deactivate a Client Certificate](activate-or-deactivate-device-cert.md)
+For more information about activating the certificate so that it can be used to connect to AWS IoT, see [Activate or deactivate a client certificate](activate-or-deactivate-device-cert.md)
 
 ## Register a client certificate without a registered CA \(CLI\)<a name="manual-cert-registration-noca-cli"></a>
 
 **Note**  
 Before you perform this procedure, make sure that you have the certificate's \.pem file\.
 
-Use the [docs.aws.amazon.comcli/latest/reference/iot/register-certificate-without-ca.html](docs.aws.amazon.comcli/latest/reference/iot/register-certificate-without-ca.html) command to register, but not activate, a client certificate\.
+Use the [https://docs.aws.amazon.com/cli/latest/reference/iot/register-certificate-without-ca.html](https://docs.aws.amazon.com/cli/latest/reference/iot/register-certificate-without-ca.html) command to register, but not activate, a client certificate\.
 
 ```
 aws iot register-certificate-without-ca \
     --certificate-pem file://<device_cert_pem_filename>
 ```
 
-The client certificate is registered with AWS IoT, but it is not active yet\. See [Activate a Client Certificate \(CLI\)](activate-or-deactivate-device-cert.md#activate-device-cert-cli) for information on how to activate it later\.
+The client certificate is registered with AWS IoT, but it is not active yet\. See [Activate a client certificate \(CLI\)](activate-or-deactivate-device-cert.md#activate-device-cert-cli) for information on how to activate it later\.
 
 You can also activate the client certificate when you register it by using this command\.
 
@@ -108,4 +108,4 @@ aws iot register-certificate-without-ca \
     --certificate-pem file://<device_cert_pem_filename>
 ```
 
-For more information about activating the certificate so that it can be used to connect to AWS IoT, see [Activate or Deactivate a Client Certificate](activate-or-deactivate-device-cert.md)
+For more information about activating the certificate so that it can be used to connect to AWS IoT, see [Activate or deactivate a client certificate](activate-or-deactivate-device-cert.md)

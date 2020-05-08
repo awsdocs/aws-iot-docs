@@ -1,10 +1,10 @@
-# Activate or Deactivate a Client Certificate<a name="activate-or-deactivate-device-cert"></a>
+# Activate or deactivate a client certificate<a name="activate-or-deactivate-device-cert"></a>
 
 AWS IoT verifies that a client certificate is active when it authenticates a connection\.
 
 You can create and register client certificates without activating them so they can't be used until you want to use them\. You can also deactivate active client certificates to disable them temporarily\. Finally, you can revoke client certificates to prevent them from any future use\. 
 
-## Activate a Client Certificate \(console\)<a name="activate-device-cert-console"></a>
+## Activate a client certificate \(console\)<a name="activate-device-cert-console"></a>
 
 **To activate a client certificate using the AWS IoT console**
 
@@ -18,7 +18,7 @@ You can create and register client certificates without activating them so they 
 
 The certificate should show as **Active** in the list of certificates\.
 
-## Deactivate a Client Certificate \(console\)<a name="deactivate-device-cert-console"></a>
+## Deactivate a client certificate \(console\)<a name="deactivate-device-cert-console"></a>
 
 **To deactivate a client certificate using the AWS IoT console**
 
@@ -32,9 +32,9 @@ The certificate should show as **Active** in the list of certificates\.
 
 The certificate should show as **Inactive** in the list of certificates\.
 
-## Activate a Client Certificate \(CLI\)<a name="activate-device-cert-cli"></a>
+## Activate a client certificate \(CLI\)<a name="activate-device-cert-cli"></a>
 
-The AWS CLI provides the [docs.aws.amazon.comcli/latest/reference/iot/update-certificate.html](docs.aws.amazon.comcli/latest/reference/iot/update-certificate.html) command to activate a certificate\.
+The AWS CLI provides the [https://docs.aws.amazon.com/cli/latest/reference/iot/update-certificate.html](https://docs.aws.amazon.com/cli/latest/reference/iot/update-certificate.html) command to activate a certificate\.
 
 ```
 aws iot update-certificate \
@@ -42,16 +42,16 @@ aws iot update-certificate \
     --new-status ACTIVE
 ```
 
-If the command was successful, the certificate's status will be `ACTIVE`\. Run [docs.aws.amazon.comcli/latest/reference/iot/describe-certificate.html](docs.aws.amazon.comcli/latest/reference/iot/describe-certificate.html) to see the certificate's status\.
+If the command was successful, the certificate's status will be `ACTIVE`\. Run [https://docs.aws.amazon.com/cli/latest/reference/iot/describe-certificate.html](https://docs.aws.amazon.com/cli/latest/reference/iot/describe-certificate.html) to see the certificate's status\.
 
 ```
 aws iot describe-certificate \
     --certificate-id <certificateId>
 ```
 
-## Deactivate a Client Certificate \(CLI\)<a name="deactivate-device-cert-cli"></a>
+## Deactivate a client certificate \(CLI\)<a name="deactivate-device-cert-cli"></a>
 
-The AWS CLI provides the [docs.aws.amazon.comcli/latest/reference/iot/update-certificate.html](docs.aws.amazon.comcli/latest/reference/iot/update-certificate.html) command to deactivate a certificate\.
+The AWS CLI provides the [https://docs.aws.amazon.com/cli/latest/reference/iot/update-certificate.html](https://docs.aws.amazon.com/cli/latest/reference/iot/update-certificate.html) command to deactivate a certificate\.
 
 ```
 aws iot update-certificate \
@@ -59,7 +59,7 @@ aws iot update-certificate \
     --new-status INACTIVE
 ```
 
-If the command was successful, the certificate's status will be `INACTIVE`\. Run [docs.aws.amazon.comcli/latest/reference/iot/describe-certificate.html](docs.aws.amazon.comcli/latest/reference/iot/describe-certificate.html) to see the certificate's status\.
+If the command was successful, the certificate's status will be `INACTIVE`\. Run [https://docs.aws.amazon.com/cli/latest/reference/iot/describe-certificate.html](https://docs.aws.amazon.com/cli/latest/reference/iot/describe-certificate.html) to see the certificate's status\.
 
 ```
 aws iot describe-certificate \

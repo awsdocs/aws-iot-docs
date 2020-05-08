@@ -1,10 +1,10 @@
-# Server Authentication<a name="server-authentication"></a>
+# Server authentication<a name="server-authentication"></a>
 
-When your device or other client attempts to connect to AWS IoT Core, the AWS IoT Core server will send an X\.509 certificate that your device uses to authenticate the server\. Authentication takes place at the TLS layer through validation of the [ X\.509 certificate chain](https://docs.aws.amazon.com/iot/latest/developerguide/x509-client-certs.html) This is the same method used by your browser when you visit an HTTPS URL\.
+When your device or other client attempts to connect to AWS IoT Core, the AWS IoT Core server will send an X\.509 certificate that your device uses to authenticate the server\. Authentication takes place at the TLS layer through validation of the [ X\.509 certificate chain](x509-client-certs.md) This is the same method used by your browser when you visit an HTTPS URL\.
 
-When your devices or other clients establish a TLS connection to an AWS IoT Core endpoint, AWS IoT Core presents a certificate chain that the devices use to verify that they're communicating with AWS IoT Core and not another server impersonating AWS IoT Core\. The chain that is presented depends on a combination of the type of endpoint the device is connecting to and the [cipher suite](https://docs.aws.amazon.com/iot/latest/developerguide/transport-security.html) that the client and AWS IoT Core negotiated during the TLS handshake\.
+When your devices or other clients establish a TLS connection to an AWS IoT Core endpoint, AWS IoT Core presents a certificate chain that the devices use to verify that they're communicating with AWS IoT Core and not another server impersonating AWS IoT Core\. The chain that is presented depends on a combination of the type of endpoint the device is connecting to and the [cipher suite](transport-security.md) that the client and AWS IoT Core negotiated during the TLS handshake\.
 
-## Endpoint Types<a name="endpoint-types"></a>
+## Endpoint types<a name="endpoint-types"></a>
 
 AWS IoT Core supports two different data endpoint types, `iot:Data` and `iot:Data-ATS`\. `iot:Data` endpoints present a certificate signed by the [VeriSign Class 3 Public Primary G5 root CA certificate](https://www.websecurity.digicert.com/content/dam/websitesecurity/digitalassets/desktop/pdfs/roots/VeriSign-Class%203-Public-Primary-Certification-Authority-G5.pem)\. `iot:Data-ATS` endpoints present a server certificate signed by an [Amazon Trust Services](https://www.amazontrust.com/repository/) CA\.
 
@@ -29,7 +29,7 @@ The `describe-endpoint` command returns an endpoint in the following format\.
 
 The first time `describe-endpoint` is called, an endpoint is created\. All subsequent calls to `describe-endpoint` return the same endpoint\.
 
-For backward\-compatibility, AWS IoT Core still supports Symantec endpoints\. For more information, see [How AWS IoT Core is Helping Customers Navigate the Upcoming Distrust of Symantec Certificate Authorities](docs.aws.amazon.comblogs/iot/aws-iot-core-ats-endpoints)\. Devices operating on ATS endpoints are fully interoperable with devices operating on Symantec endpoints in the same account and do not require any re\-registration\.
+For backward\-compatibility, AWS IoT Core still supports Symantec endpoints\. For more information, see [How AWS IoT Core is Helping Customers Navigate the Upcoming Distrust of Symantec Certificate Authorities](https://aws.amazon.com/blogs/iot/aws-iot-core-ats-endpoints)\. Devices operating on ATS endpoints are fully interoperable with devices operating on Symantec endpoints in the same account and do not require any re\-registration\.
 
 **Note**  
 To see your `iot:Data-ATS` endpoint in the AWS IoT Core console, choose **Settings**\. The console displays only the `iot:Data-ATS` endpoint\. By default, the `describe-endpoint` command displays the `iot:Data` endpoint for backward compatibility\. To see the `iot:Data-ATS` endpoint, specify the `--endpointType` parameter, as in the previous example\.
@@ -54,7 +54,7 @@ public void setup() throws Exception {
 }
 ```
 
-## CA Certificates for Server Authentication<a name="server-authentication-certs"></a>
+## CA certificates for server authentication<a name="server-authentication-certs"></a>
 
 Depending on which type of data endpoint you are using and which cipher suite you have negotiated, AWS IoT Core server authentication certificates are signed by one of the following root CA certificates:
 
@@ -69,7 +69,7 @@ Depending on which type of data endpoint you are using and which cipher suite yo
 
 These certificates are all cross\-signed by the [ Starfield Root CA Certificate](https://www.amazontrust.com/repository/SFSRootCAG2.pem)\. All new AWS IoT Core regions, beginning with the May 9, 2018 launch of AWS IoT Core in the Asia Pacific \(Mumbai\) Region, serve only ATS certificates\.
 
-## Server Authentication Guidelines<a name="server-authentication-guidelines"></a>
+## Server authentication guidelines<a name="server-authentication-guidelines"></a>
 
 There are many variables that can affect a device's ability to validate the AWS IoT Core server authentication certificate\. For example, devices may be too memory constrained to hold all possible root CA certificates, or devices may implement a non\-standard method of certificate validation\. For these reasons we suggest following these guidelines:
 + We recommend that you use your ATS endpoint and install all supported Amazon Root CA certificates\.
@@ -80,10 +80,10 @@ There are many variables that can affect a device's ability to validate the AWS 
   + [Cross\-signed Amazon Root CA 3](https://www.amazontrust.com/repository/G2-RootCA3.pem)
   + [Cross\-signed Amazon Root CA 4 \- Reserved for future use\.](https://www.amazontrust.com/repository/G2-RootCA4.pem)
 + If you are experiencing server certificate validation issues, your device may need to explicitly trust the root CA\. Try adding the [Starfield Root CA Certificate](https://www.amazontrust.com/repository/SFSRootCAG2.pem) to your trust store\.
-+ If you still experience issues after executing the steps above, please contact [AWS Developer Support](docs.aws.amazon.compremiumsupport/plans/developers/)\. 
++ If you still experience issues after executing the steps above, please contact [AWS Developer Support](https://aws.amazon.com/premiumsupport/plans/developers/)\. 
 
 **Note**  
 CA certificates have an expiration date after which they cannot be used to validate a server's certificate\. CA certificates might have to be replaced before their expiration date\. Make sure that you can update the root CA certificates on all of your devices or clients to help ensure ongoing connectivity and to keep up to date with security best practices\.
 
 **Note**  
-When connecting to AWS IoT Core in your device code, pass the certificate into the API you are using to connect\. The API you use will vary by SDK\. For more information, see the [AWS IoT Core Device SDKs](https://docs.aws.amazon.com/iot/latest/developerguide/iot-sdks.html)\.
+When connecting to AWS IoT Core in your device code, pass the certificate into the API you are using to connect\. The API you use will vary by SDK\. For more information, see the [AWS IoT Core Device SDKs](iot-sdks.md)\.

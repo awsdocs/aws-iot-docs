@@ -1,4 +1,4 @@
-# Configuring a Remote Device<a name="configure-remote-device"></a>
+# Configuring a remote device<a name="configure-remote-device"></a>
 
 If you want to deliver the destination client access token to the remote device through methods other than subscribing to the reserved IoT MQTT topic, you might need two components on the remote device:
 + A destination client access token listener\.

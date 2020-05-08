@@ -6,4 +6,4 @@ For more information about AWS Regions and Availability Zones, see [AWS Global I
 
 AWS IoT Core stores information about your devices in the device registry\. It also stores CA certificates, device certificates, and device shadow data\. This data is not automatically replicated in the event of hardware or network failures\. AWS IoT Core publishes MQTT events when the device registry is updated\. You can use these messages to back up your registry data and save it somewhere, like a DynamoDB table\. You are responsible for saving certificates that AWS IoT Core creates for you or those you create yourself\. Device shadow stores state data about your devices and can be resent when a device comes back online\.
 
-AWS IoT Core resources are Region\-specific and aren’t replicated across AWS Regions unless you specifically do so\.
+AWS IoT Core resources are Region\-specific and aren't replicated across AWS Regions unless you specifically do so\.

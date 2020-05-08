@@ -1,4 +1,4 @@
-# Custom Authentication<a name="custom-authentication"></a>
+# Custom authentication<a name="custom-authentication"></a>
 
 AWS IoT lets you define custom authorizers so that you can manage your own client authentication and authorization\. To do so, you use AWS Lambda functions to send client credentials to your authentication service\.
 
@@ -12,7 +12,7 @@ There are two ways to implement custom authentication:
 You can define up to 10 custom authorizers\.
 
 **Topics**
-+ [Custom Authorizers](custom-authorizer.md)
-+ [Configure a Custom Authorizer](config-custom-auth.md)
-+ [Custom Authorizer Workflow](custom-auth.md)
-+ [Enhanced Custom Authentication \(Beta\)](enhanced-custom-authentication.md)
++ [Custom authorizers](custom-authorizer.md)
++ [Configure a custom authorizer](config-custom-auth.md)
++ [Custom authorizer workflow](custom-auth.md)
++ [Enhanced custom authentication \(beta\)](enhanced-custom-authentication.md)

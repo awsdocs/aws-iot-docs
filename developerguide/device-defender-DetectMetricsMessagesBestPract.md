@@ -1,9 +1,9 @@
-# Security Best Practices for Device Agents<a name="device-defender-DetectMetricsMessagesBestPract"></a>
+# Security best practices for device agents<a name="device-defender-DetectMetricsMessagesBestPract"></a>
 
 Least Privilege  
 The agent process should be granted only the minimum permissions required to perform its duties\.  
 
-**Basic Mechanisms**
+**Basic mechanisms**
 + Agent should be run as non\-root user\.
 + Agent should run as a dedicated user, in its own group\.
 + User/groups should be granted read\-only permissions on the resources required to gather and transmit metrics\.
@@ -11,7 +11,7 @@ The agent process should be granted only the minimum permissions required to per
 + For an example of how to set up a process to run with reduced permissions, see the setup instructions that are included with the Python sample agent\.
 There are a number of well\-known Linux mechanisms that can help you further restrict or isolate your agent process:  
 
-**Advanced Mechanisms**
+**Advanced mechanisms**
 + [CGroups](https://en.wikipedia.org/wiki/Cgroups)
 + [SELinux](https://en.wikipedia.org/wiki/Security-Enhanced_Linux)
 + [Chroot](https://en.wikipedia.org/wiki/Chroot)
@@ -39,7 +39,7 @@ Secure Deployment
 Any agent deployment mechanism, such as code push or sync and repositories containing its binaries, source code and any configuration files \(including trusted root certificates\), must be access\-controlled to prevent unauthorized code injection or tampering\. If the deployment mechanism relies on network communication, then use cryptographic methods to protect the integrity of deployment artifacts in transit\.
 
 Further Reading  
-+ [ Security and Identity for AWS IoT](https://docs.aws.amazon.com/iot/latest/developerguide/iot-security-identity.html)
++ [Security in AWS IoT](security.md)
 + [ Understanding the AWS IoT Security Model](https://aws.amazon.com/blogs/iot/understanding-the-aws-iot-security-model/)
 + [ Redhat: A Bite of Python](https://access.redhat.com/blogs/766093/posts/2592591)
 + [ 10 common security gotchas in Python and how to avoid them](https://hackernoon.com/10-common-security-gotchas-in-python-and-how-to-avoid-them-e19fbe265e03)

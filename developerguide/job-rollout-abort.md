@@ -1,8 +1,8 @@
-# Job Rollout and Abort Configuration<a name="job-rollout-abort"></a>
+# Job rollout and abort configuration<a name="job-rollout-abort"></a>
 
 AWS IoT jobs can be deployed using variable rollout rates as various criteria and thresholds are met\. Job rollouts can also be aborted if the number of failed jobs matches a set of criteria\. These rollout configurations give you more granular control over a job's blast radius\. Job rollout rate criteria are set at job creation through the [https://docs.aws.amazon.com/iot/latest/apireference/API_JobExecutionsRolloutConfig.html](https://docs.aws.amazon.com/iot/latest/apireference/API_JobExecutionsRolloutConfig.html) object\. Job abort criteria are set at job creation through the [https://docs.aws.amazon.com/iot/latest/apireference/API_AbortConfig.html](https://docs.aws.amazon.com/iot/latest/apireference/API_AbortConfig.html) object\.
 
-## Using Job Rollout Rates<a name="job-rollout-using"></a>
+## Using job rollout rates<a name="job-rollout-using"></a>
 
 You set a job rollout rate by configuring the [https://docs.aws.amazon.com/iot/latest/apireference/API_ExponentialRolloutRate.html](https://docs.aws.amazon.com/iot/latest/apireference/API_ExponentialRolloutRate.html) property of the `JobExecutionsRolloutConfig` object when you run the [https://docs.aws.amazon.com/iot/latest/apireference/API_CreateJob.html](https://docs.aws.amazon.com/iot/latest/apireference/API_CreateJob.html) API\. The following example sets a variable rollout rate by using the `exponentialRate` parameter\.
 
@@ -53,7 +53,7 @@ The following configuration sets a static rollout rate\.
 
 The `maximumPerMinute` parameter specifies the upper limit of the rate at which job executions can occur\. Valid values range from 1 to 1000\. This parameter is optional\. If you don't specify a value, the default value of 1000 is used\.
 
-## Using Job Rollout Abort Configurations<a name="job-abort-using"></a>
+## Using job rollout abort configurations<a name="job-abort-using"></a>
 
 You set up a job abort condition by configuring the optional [https://docs.aws.amazon.com/iot/latest/apireference/API_AbortConfig.html](https://docs.aws.amazon.com/iot/latest/apireference/API_AbortConfig.html) object when you run the [https://docs.aws.amazon.com/iot/latest/apireference/API_CreateJob.html](https://docs.aws.amazon.com/iot/latest/apireference/API_CreateJob.html) API\. This section describes the effect that the following sample configuration would have on a job rollout that was experiencing multiple failed executions\.
 

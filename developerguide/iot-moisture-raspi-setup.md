@@ -1,4 +1,4 @@
-# Setting Up Your Raspberry Pi and Moisture Sensor<a name="iot-moisture-raspi-setup"></a>
+# Setting up your Raspberry Pi and moisture sensor<a name="iot-moisture-raspi-setup"></a>
 
 Insert your micro SD card into the Raspberry Pi, connect your monitor, keyboard, mouse, and, if you're not using Wi\-Fi, Ethernet cable\. Do not connect the power cable yet\.
 
@@ -210,7 +210,7 @@ while True:
 Save the file to a place you can find it\. Run `moistureSensor.py` from the command line with the following parameters:
 
 endpoint  
-Your custom AWS IoT endpoint\. For more information, see [Device Shadow RESTful API](device-shadow-rest-api.md)\.
+Your custom AWS IoT endpoint\. For more information, see [Device shadow RESTful API](device-shadow-rest-api.md)\.
 
 rootCA  
 The full path the your AWS IoT root CA certificate\.

@@ -1,4 +1,4 @@
-# Create a CA Certificate<a name="create-your-CA-cert"></a>
+# Create a CA certificate<a name="create-your-CA-cert"></a>
 
 If you do not have a CA certificate, you can use [OpenSSL](https://www.openssl.org/) tools to create one\.
 

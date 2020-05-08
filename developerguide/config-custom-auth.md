@@ -1,4 +1,4 @@
-# Configure a Custom Authorizer<a name="config-custom-auth"></a>
+# Configure a custom authorizer<a name="config-custom-auth"></a>
 
 1. Create a Lambda function that implements your authentication/authorization logic \(for example, the `MyAuthorizerFunction` in the following step\)\. The following is an example of what a custom authorizing Lambda function might return:
 

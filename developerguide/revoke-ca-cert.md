@@ -1,8 +1,8 @@
-# Revoke a Client Certificate<a name="revoke-ca-cert"></a>
+# Revoke a client certificate<a name="revoke-ca-cert"></a>
 
 If you detect suspicious activity on a registered client certificate, you can revoke it so that it can't be used again\.
 
-## Revoke a Client Certificate \(console\)<a name="revoke-device-cert-console"></a>
+## Revoke a client certificate \(console\)<a name="revoke-device-cert-console"></a>
 
 **To revoke a client certificate using the AWS IoT console**
 
@@ -16,9 +16,9 @@ If you detect suspicious activity on a registered client certificate, you can re
 
 If the certificate was successfully revoked, it will show as **Revoked** in the list of certificates\.
 
-## Revoke a Client Certificate \(console\)<a name="revoke-device-cert-cli"></a>
+## Revoke a client certificate \(console\)<a name="revoke-device-cert-cli"></a>
 
-The AWS CLI provides the [docs.aws.amazon.comcli/latest/reference/iot/update-certificate.html](docs.aws.amazon.comcli/latest/reference/iot/update-certificate.html) command to revoke a certificate\.
+The AWS CLI provides the [https://docs.aws.amazon.com/cli/latest/reference/iot/update-certificate.html](https://docs.aws.amazon.com/cli/latest/reference/iot/update-certificate.html) command to revoke a certificate\.
 
 ```
 aws iot update-certificate \
@@ -26,7 +26,7 @@ aws iot update-certificate \
     --new-status REVOKED
 ```
 
-If the command was successful, the certificate's status will be `REVOKED`\. Run [docs.aws.amazon.comcli/latest/reference/iot/describe-certificate.html](docs.aws.amazon.comcli/latest/reference/iot/describe-certificate.html) to see the certificate's status\.
+If the command was successful, the certificate's status will be `REVOKED`\. Run [https://docs.aws.amazon.com/cli/latest/reference/iot/describe-certificate.html](https://docs.aws.amazon.com/cli/latest/reference/iot/describe-certificate.html) to see the certificate's status\.
 
 ```
 aws iot describe-certificate \

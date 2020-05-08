@@ -1,4 +1,4 @@
-# Device Shadow Service Data Flow<a name="device-shadow-data-flow"></a>
+# Device shadow service data flow<a name="device-shadow-data-flow"></a>
 
 The Device Shadow service acts as an intermediary, allowing devices and applications to retrieve and update a device's shadow\. 
 
@@ -30,7 +30,7 @@ The Device Shadow service sends messages to this topic when a request to delete 
 $aws/things/myLightBulb/shadow/update/documents  
 The Device Shadow service publishes a state document to this topic whenever an update to the device's shadow is successfully performed\.
 
-To learn more about all of the MQTT topics used by the Device Shadow service, see [Shadow MQTT Topics](device-shadow-mqtt.md)\.
+To learn more about all of the MQTT topics used by the Device Shadow service, see [Shadow MQTT topics](device-shadow-mqtt.md)\.
 
 **Note**  
 We recommend that you subscribe to the `.../rejected` topics to see any errors sent by the Device Shadow service\.
@@ -107,7 +107,7 @@ In addition, the Device Shadow service publishes the following message to the `$
 }
 ```
 
-Messages are published to the `/update/documents` topic whenever an update to the device's shadow is successfully performed\. For more information of the contents of messages published to this topic, see [Shadow MQTT Topics](device-shadow-mqtt.md)\.
+Messages are published to the `/update/documents` topic whenever an update to the device's shadow is successfully performed\. For more information of the contents of messages published to this topic, see [Shadow MQTT topics](device-shadow-mqtt.md)\.
 
 An application that interacts with the light bulb comes online and requests the light bulb's current state\. The application sends an empty message to the `$aws/things/myLightBulb/shadow/get` topic\. To simulate this, use the AWS IoT MQTT client to publish an empty message \(""\) to the `$aws/things/myLightBulb/shadow/get` topic\.
 
@@ -372,7 +372,7 @@ To delete the device's shadow, publish an empty message to the `$aws/things/myLi
 }
 ```
 
-## Detecting a Thing Is Connected<a name="thing-connection"></a>
+## Detecting a thing is connected<a name="thing-connection"></a>
 
 To determine if a device is currently connected, include a connected setting in the shadow and use an MQTT Last Will and Testament \(LWT\) message that sets the connected setting to `false` if a device is disconnected due to error\.
 

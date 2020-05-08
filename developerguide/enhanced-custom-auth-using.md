@@ -1,4 +1,4 @@
-# Invoking a Custom Authorizer with Enhanced Custom Authentication<a name="enhanced-custom-auth-using"></a>
+# Invoking a custom authorizer with enhanced custom authentication<a name="enhanced-custom-auth-using"></a>
 
 
 ****  
@@ -9,14 +9,14 @@
 
 This section explains how to use enhanced custom authentication to pass client credentials to your custom authorizer by using HTTP headers and query strings or MQTT user names and passwords\.
 
-Devices and clients that use the Transport Layer Security \(TLS\) protocol to connect to AWS IoT must send the Server Name Indication \(SNI\) TLS extension with a value that matches the domain of the appropriate domain configuration\. You can specify a custom authorizer that isn't the default authorizer if the `allowAuthorizerOverride` value in your domain configuration is set to `true`\. For more information on configuring the SNI extension, see [Transport Security in AWS IoT](transport-security.md)\. 
+Devices and clients that use the Transport Layer Security \(TLS\) protocol to connect to AWS IoT must send the Server Name Indication \(SNI\) TLS extension with a value that matches the domain of the appropriate domain configuration\. You can specify a custom authorizer that isn't the default authorizer if the `allowAuthorizerOverride` value in your domain configuration is set to `true`\. For more information on configuring the SNI extension, see [Transport security in AWS IoT](transport-security.md)\. 
 
 To use enhanced custom authentication in MQTT connections, clients must also send the Application Layer Protocol Negotiation \(ALPN\) TLS extension with a value of `mqtt` and connect on port 443\.
 
 **Note**  
 You can find configuration for these TLS extensions in the V2 AWS IoT Device SDKs\. For more information, see the [AWS Labs GitHub repo](https://github.com/awslabs)\.
 
-## HTTPS Requests<a name="enhanced-custom-auth-using-https"></a>
+## HTTPS requests<a name="enhanced-custom-auth-using-https"></a>
 
 Requests to custom authorizers can pass tokens by using one of the following: HTTP headers or query strings in HTTP Publish requests or HTTP Upgrade requests for establishing MQTT over WSS sessions\. The following example uses HTTP headers to send an upgrade request to AWS IoT Device Gateway\.
 
@@ -46,7 +46,7 @@ sec-websocket-protocol: mqtt
 sec-WebSocket-Version: <websocket version>
 ```
 
-## MQTT Username and Password<a name="enhanced-custom-auth-using-mqtt"></a>
+## MQTT username and password<a name="enhanced-custom-auth-using-mqtt"></a>
 
 You can pass user names and passwords to your custom authorizers by using the `username` and `password` fields of MQTT messages\. Password data is base64\-encoded to support arbitrary binary values\. The `username` value can optionally contain a query string that passes additional values \(including a token, signature, and authorizer name\) to your authorizer\. 
 
@@ -56,7 +56,7 @@ The following example contains a `username` string with extra parameters that sp
 username?x-amz-customauthorizer-name=${<name>}&x-amz-customauthorizer-signature=${<sign>}&token-name=${<token-value>}                    
 ```
 
-## Data Sent to the Custom Authorizer<a name="enhanced-custom-auth-sending-data"></a>
+## Data sent to the custom authorizer<a name="enhanced-custom-auth-sending-data"></a>
 
 The data that AWS IoT sends to your custom authorizer Lambda function depends on which protocols and parameters are present in the connection\. For HTTP requests \(Publishes and WSS Upgrades\), AWS IoT sends all headers and query parameters \(up to 8 KB of data\)\. For WSS upgrades on MQTT Connect, AWS IoT also sends all MQTT data\.
 

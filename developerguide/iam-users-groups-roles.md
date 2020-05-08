@@ -1,4 +1,4 @@
-# IAM Users, Groups, and Roles<a name="iam-users-groups-roles"></a>
+# IAM users, groups, and roles<a name="iam-users-groups-roles"></a>
 
 IAM users, groups, and roles are the standard mechanisms for managing identity and authentication in AWS\. You can use them to connect to AWS IoT HTTP interfaces using the AWS SDK and AWS CLI\.
 
@@ -11,4 +11,4 @@ When using AWS Signature Version 4 with AWS IoT, clients must support the follow
 + SHA\-256 RSA certificate signature validation
 + One of the cipher suites from the TLS cipher suite support section
 
-For information, see [Identity and Access Management for AWS IoT](security-iam.md)\.
+For information, see [Identity and access management for AWS IoT](security-iam.md)\.

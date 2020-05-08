@@ -1,8 +1,8 @@
-# Managing Thing Group Indexing<a name="thinggroup-index"></a>
+# Managing thing group indexing<a name="thinggroup-index"></a>
 
 `AWS_ThingGroups` is the index that contains all of your thing groups\. You can use this index to search for groups based on group name, description, attributes, and all parent group names\.
 
-## Enabling Thing Group Indexing<a name="enable-group-index"></a>
+## Enabling thing group indexing<a name="enable-group-index"></a>
 
 You can use the `thing-group-indexing-configuration` setting in the [UpdateIndexingConfiguration](https://docs.aws.amazon.com/iot/latest/apireference/API_UpdateIndexingConfiguration.html) API to create the `AWS_ThingGroups` index and control its configuration\. You can use the [GetIndexingConfiguration](https://docs.aws.amazon.com/iot/latest/apireference/API_GetIndexingConfiguration.html) API to retrieve the current indexing configuration\. 
 
@@ -39,7 +39,7 @@ No indexing/delete index\.
 ON  
 Create or configure the `AWS_ThingGroups` index\.
 
-## Describing Group Indexes<a name="describe-group-index"></a>
+## Describing group indexes<a name="describe-group-index"></a>
 
 Use the describe\-index CLI command to retrieve the current status of the `AWS_ThingGroups` index\.
 
@@ -54,7 +54,7 @@ aws iot describe-index --index-name "AWS_ThingGroups"
 
  AWS IoT builds your index the first time you enable indexing\. You can't query the index if the `indexStatus` is `BUILDING`\.
 
-## Querying a Thing Group Index<a name="search-group-index"></a>
+## Querying a thing group index<a name="search-group-index"></a>
 
 Use the search\-index CLI command to query data in the index:
 
