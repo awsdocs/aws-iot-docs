@@ -1,4 +1,4 @@
-# JSON extensions<a name="iot-sql-json"></a>
+# JSON Extensions<a name="iot-sql-json"></a>
 
 You can use the following extensions to ANSI SQL syntax to make it easier to work with nested JSON objects\.
 

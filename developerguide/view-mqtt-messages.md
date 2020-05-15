@@ -1,4 +1,4 @@
-# View device MQTT messages with the AWS IoT MQTT client<a name="view-mqtt-messages"></a>
+# View Device MQTT Messages with the AWS IoT MQTT Client<a name="view-mqtt-messages"></a>
 
 You can use the AWS IoT MQTT client to better understand the MQTT messages sent by a device\.
 

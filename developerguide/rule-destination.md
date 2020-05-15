@@ -1,4 +1,4 @@
-# Working with topic rule destinations<a name="rule-destination"></a>
+# Working with Topic Rule Destinations<a name="rule-destination"></a>
 
 A destination is a resource that defines where rules engine can route data\. A destination can be reused across rules and might require confirmation or configuration before it can be used\. Destinations make it possible for the rules engine to send data to other services that are not natively integrated with AWS IoT\.
 
@@ -20,7 +20,7 @@ Destination confirmation timed out\.
 
 After they are confirmed and enabled, destinations can be used with any rule in your account\.
 
-## Creating a topic rule destination<a name="create-destination"></a>
+## Creating a Topic Rule Destination<a name="create-destination"></a>
 
 A destination is created when you use AWS IoT to create a rule with an `http` action\. You can also create a destination using the `CreateTopicRuleDestination` API or the AWS IoT console\.
 
@@ -55,7 +55,7 @@ The URL to which you browse to confirm a topic rule destination\.
 messageType  
 The type of message\.
 
-## Confirming a topic rule destination<a name="confirm-destination"></a>
+## Confirming a Topic Rule Destination<a name="confirm-destination"></a>
 
 You can confirm a destination by making an HTTP GET request to the `enableUrl` that is included in the confirmation message\. You can call `ConfirmTopicRuleDestination` with the token from the confirmation message or you can use the AWS IoT console\.
 
@@ -64,18 +64,18 @@ The token must be valid for the destination to be put in the `ENABLED` state\. I
 **Note**  
  if you confirm the topic rule destination by calling `ConfirmTopicRuleDestination`, the destination status will be `DISABLED` and you need to explicitly enable your destination by calling `UpdateTopicRuleDestination` before using it\.
 
-## Disabling a topic rule destination<a name="disable-destination"></a>
+## Disabling a Topic Rule Destination<a name="disable-destination"></a>
 
 To disable a destination, call `UpdateTopicRuleDestination` and set the topic rule destination's status to `DISABLED`\.
 
-## Enabling a topic rule destination<a name="enable-destination"></a>
+## Enabling a Topic Rule Destination<a name="enable-destination"></a>
 
 To enable a destination, call `UpdateTopicRuleDistination` and set the topic rule's status to `ENABLED`\. You do not need to re\-validate the URL\.
 
-## Sending a new confirmation message<a name="trigger-confirm"></a>
+## Sending a New Confirmation Message<a name="trigger-confirm"></a>
 
 To trigger a new confirmation message for a destination, call `UpdateTopicRuleDistination` and set the topic rule destination's status to `IN_PROGRESS`\. 
 
-## Deleting a topic rule destination<a name="delete-destination"></a>
+## Deleting a Topic Rule Destination<a name="delete-destination"></a>
 
 To delete a topic rule destination, call `DeleteTopicRuleDestination`\.

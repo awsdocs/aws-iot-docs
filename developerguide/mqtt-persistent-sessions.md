@@ -1,4 +1,4 @@
-# MQTT persistent sessions<a name="mqtt-persistent-sessions"></a>
+# MQTT Persistent Sessions<a name="mqtt-persistent-sessions"></a>
 
 A persistent session represents an ongoing connection to an MQTT message broker\. When a client connects to the AWS IoT message broker using a persistent session, the message broker saves all subscriptions the client makes during the connection\. When the client disconnects, the message broker stores unacknowledged QoS 1 messages and new QoS 1 messages published to topics to which the client is subscribed\. When the client reconnects to the persistent session, all subscriptions are reinstated and all stored messages are sent to the client at a maximum rate of 10 messages per second\.
 

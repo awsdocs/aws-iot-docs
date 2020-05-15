@@ -3,10 +3,10 @@
 The following information might help you troubleshoot common issues in AWS IoT\.
 
 **Topics**
-+ [Diagnosing connectivity issues](diagnosing-connectivity-issues.md)
-+ [Diagnosing rules issues](diagnosing-rules.md)
-+ [Diagnosing problems with shadows](diagnosing-shadows.md)
-+ [Diagnosing Salesforce IoT input stream action issues](diagnosing-salesforce.md)
-+ [Troubleshooting aggregation queries for the fleet indexing service](aggregation-troubleshooting.md)
-+ [AWS IoT Device Defender troubleshooting guide](device-defender-troubleshoot.md)
-+ [AWS IoT errors](iot-errors.md)
++ [Diagnosing Connectivity Issues](diagnosing-connectivity-issues.md)
++ [Diagnosing Rules Issues](diagnosing-rules.md)
++ [Diagnosing Problems with Shadows](diagnosing-shadows.md)
++ [Diagnosing Salesforce IoT Input Stream Action Issues](diagnosing-salesforce.md)
++ [Troubleshooting Aggregation Queries for the Fleet Indexing Service](aggregation-troubleshooting.md)
++ [AWS IoT Device Defender Troubleshooting Guide](device-defender-troubleshoot.md)
++ [AWS IoT Errors](iot-errors.md)

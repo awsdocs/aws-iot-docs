@@ -1,8 +1,8 @@
-# Managing thing indexing<a name="managing-index"></a>
+# Managing Thing Indexing<a name="managing-index"></a>
 
 `AWS_Things` is the index created for all of your things\. You can control what to index: registry data, shadow data, and device connectivity status data \(driven by device lifecycle events\)\.
 
-## Enabling thing indexing<a name="enable-index"></a>
+## Enabling Thing Indexing<a name="enable-index"></a>
 
 You use the update\-indexing\-configuration CLI command or the [UpdateIndexingConfiguration](https://docs.aws.amazon.com/iot/latest/apireference/API_UpdateIndexingConfiguration.html) API to create the `AWS_Things` index and control its configuration\. The `--thing-indexing-configuration` \(`thingIndexingConfiguration`\) parameter allows you to control what kind of data \(for example, registry, shadow, and device connectivity data\) is indexed\. 
 
@@ -40,7 +40,7 @@ Thing connectivity data is indexed\.
 
 The `customFields` attribute is a list of field and data type pairs\. Aggregation queries can be performed over these fields based on the data type\. The indexing mode you choose \(REGISTRY or REGISTRY\_AND\_SHADOW\) effects what fields can be specified in `customFields`\. For example, if you specify the `REGISTRY` indexing mode, you cannot specify a field from a thing shadow\. Custom fields must be specified in `customFields` to be indexed\.
 
-If there is a type inconsistency between a custom field in your configuration and the value being indexed, the Fleet Indexing service ignores the inconsistent value for aggregation queries\. CloudWatch logs are helpful when troubleshooting aggregation query problems\. For more information, see [Troubleshooting aggregation queries for the fleet indexing service](aggregation-troubleshooting.md)\. 
+If there is a type inconsistency between a custom field in your configuration and the value being indexed, the Fleet Indexing service ignores the inconsistent value for aggregation queries\. CloudWatch logs are helpful when troubleshooting aggregation query problems\. For more information, see [Troubleshooting Aggregation Queries for the Fleet Indexing Service](aggregation-troubleshooting.md)\. 
 
 Managed fields contain data associated with IoT things, thing groups, and device shadows\. The data type of managed fields are defined by AWS IoT\. You specify the values of each managed field when you create an IoT thing\. For example thing names, thing groups, and thing descriptions are all managed fields\. The Fleet Indexing service indexes managed fields based on the indexing mode you specify:
 + Managed fields for the registry
@@ -282,7 +282,7 @@ After the index is rebuilt you can, use aggregation query on the newly added fie
 
 When changing the indexing mode, make sure all of your custom fields are valid using the new indexing mode\. For example, if you start off with `REGISTRY_AND_SHADOW` mode with a custom field called `shadow.desired.temperature` you must delete the `shadow.desired.temperature` custom field before changing the indexing mode to `REGISTRY`\. If your indexing configuration contains custom fields that are not indexed by the indexing mode, the update fails\. 
 
-## Describing a thing index<a name="describe-index"></a>
+## Describing a Thing Index<a name="describe-index"></a>
 
 The following command shows you how to use the describe\-index CLI command to retrieve the current status of the thing index\.
 
@@ -299,7 +299,7 @@ The first time you enable indexing, AWS IoT builds your index\. You can't query 
 
 Changing the configuration of your index causes the index to be rebuilt\. During this process, the `indexStatus` is `REBUILDING`\. You can execute queries on data in the things index while it is being rebuilt\. For example, if you change the index configuration from `REGISTRY` to `REGISTRY_AND_SHADOW` while the index is being rebuilt, you can query registry data, including the latest updates\. However, you can't query the shadow data until the rebuild is complete\. The amount of time it takes to build or rebuild the index depends on the amount of data\.
 
-## Querying a thing index<a name="search-index"></a>
+## Querying a Thing Index<a name="search-index"></a>
 
 Use the search\-index CLI command to query data in the index\.
 
@@ -403,7 +403,7 @@ Timestamps are given in milliseconds since epoch, so `1556649855046` represents 
 **Important**  
 If a device has been disconnected for approximately an hour, the `"timestamp"` value of the connectivity status might be missing\.
 
-## Restrictions and limitations<a name="index-limitations"></a>
+## Restrictions and Limitations<a name="index-limitations"></a>
 
 These are the restrictions and limitations for `AWS_Things`\.
 

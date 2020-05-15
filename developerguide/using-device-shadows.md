@@ -1,4 +1,4 @@
-# Using shadows<a name="using-device-shadows"></a>
+# Using Shadows<a name="using-device-shadows"></a>
 
 AWS IoT provides three methods for working with a device's shadow:
 
@@ -11,13 +11,13 @@ Retrieves the latest state stored in the device's shadow \(for example, during s
 `DELETE`  <a name="delete"></a>
 Deletes a device's shadow, including all of its content\. This removes the JSON document from the data store\. You can't restore a device's shadow you deleted, but you can create a new shadow with the same name\.
 
-## Protocol support<a name="protocol-support"></a>
+## Protocol Support<a name="protocol-support"></a>
 
-These methods are supported through both [MQTT](http://docs.oasis-open.org/mqtt/mqtt/v3.1.1/mqtt-v3.1.1.html) and a RESTful API over HTTPS\. Because MQTT is a publish/subscribe communication model, AWS IoT implements a set of reserved topics\. Things or applications subscribe to these topics before publishing on a request topic in order to implement a request\-response behavior\. For more information, see [Shadow MQTT topics](device-shadow-mqtt.md) and [Device shadow RESTful API](device-shadow-rest-api.md)\.
+These methods are supported through both [MQTT](http://docs.oasis-open.org/mqtt/mqtt/v3.1.1/mqtt-v3.1.1.html) and a RESTful API over HTTPS\. Because MQTT is a publish/subscribe communication model, AWS IoT implements a set of reserved topics\. Things or applications subscribe to these topics before publishing on a request topic in order to implement a request–response behavior\. For more information, see [Shadow MQTT Topics](device-shadow-mqtt.md) and [Device Shadow RESTful API](device-shadow-rest-api.md)\.
 
-## Updating a shadow<a name="update-device-shadow"></a>
+## Updating a Shadow<a name="update-device-shadow"></a>
 
-You can update a device's shadow by using the [UpdateThingShadow](API_UpdateThingShadow.md) RESTful API or by publishing to the [/Update](device-shadow-mqtt.md#update-pub-sub-topic) topic\. Updates affect only the fields specified in the request\.
+You can update a device's shadow by using the [UpdateThingShadow](API_UpdateThingShadow.md) RESTful API or by publishing to the [/update](device-shadow-mqtt.md#update-pub-sub-topic) topic\. Updates affect only the fields specified in the request\.
 
 Initial state:
 
@@ -59,9 +59,9 @@ Final state:
 }
 ```
 
-## Retrieving a shadow document<a name="retrieving-device-shadow"></a>
+## Retrieving a Shadow Document<a name="retrieving-device-shadow"></a>
 
-You can retrieve a device's shadow by using the [GetThingShadow](API_GetThingShadow.md) RESTful API or by subscribing and publishing to the [/Get](device-shadow-mqtt.md#get-pub-sub-topic) topic\. This retrieves the entire document plus the delta between the `desired` or `reported` states\.
+You can retrieve a device's shadow by using the [GetThingShadow](API_GetThingShadow.md) RESTful API or by subscribing and publishing to the [/get](device-shadow-mqtt.md#get-pub-sub-topic) topic\. This retrieves the entire document plus the delta between the `desired` or `reported` states\.
 
 Example document:
 
@@ -165,7 +165,7 @@ Response:
 }
 ```
 
-### Optimistic locking<a name="optimistic-locking"></a>
+### Optimistic Locking<a name="optimistic-locking"></a>
 
 You can use the state document version to ensure you are updating the most recent version of a device's shadow document\. When you supply a version with an update request, the service rejects the request with an HTTP 409 conflict response code if the current version of the state document does not match the version supplied\.
 
@@ -233,9 +233,9 @@ Final state:
 }
 ```
 
-## Deleting data<a name="deleting-thing-data"></a>
+## Deleting Data<a name="deleting-thing-data"></a>
 
-You can delete data from a device's shadow by publishing to the [/Update](device-shadow-mqtt.md#update-pub-sub-topic) topic, setting the fields to be deleted to null\. Any field with a value of `null` is removed from the document\.
+You can delete data from a device's shadow by publishing to the [/update](device-shadow-mqtt.md#update-pub-sub-topic) topic, setting the fields to be deleted to null\. Any field with a value of `null` is removed from the document\.
 
 Initial state:
 
@@ -289,9 +289,9 @@ You can delete all data from a device's shadow by setting its state to `null`\. 
 
 The device's shadow still exists even if its state is `null`\. The version of the shadow is incremented when the next update occurs\.
 
-## Deleting a shadow<a name="deleting-device-shadow"></a>
+## Deleting a Shadow<a name="deleting-device-shadow"></a>
 
-You can delete a device's shadow document by using the [DeleteThingShadow](API_DeleteThingShadow.md) RESTful API or by publishing to the [/Delete](device-shadow-mqtt.md#delete-pub-sub-topic) topic\. 
+You can delete a device's shadow document by using the [DeleteThingShadow](API_DeleteThingShadow.md) RESTful API or by publishing to the [/delete](device-shadow-mqtt.md#delete-pub-sub-topic) topic\. 
 
 **Note**  
 Deleting a device's shadow does not delete the thing\. Deleting a thing does not delete the corresponding device's shadow\.
@@ -321,7 +321,7 @@ Final state:
  HTTP 404 - resource not found
 ```
 
-## Delta state<a name="delta-state"></a>
+## Delta State<a name="delta-state"></a>
 
 Delta state is a virtual type of state that contains the difference between the `desired` and `reported` states\. Fields in the `desired` section that are not in the `reported` section are included in the delta\. Fields that are in the `reported` section and not in the `desired` section are not included in the delta\. The delta contains metadata, and its values are equal to the metadata in the `desired` field\. For example:
 
@@ -412,7 +412,7 @@ The Device Shadow service calculates the delta by iterating through each field i
 
 Arrays are treated like values\. If an array in the `desired` section doesn't match the array in the `reported` section, then the entire desired array is copied into the delta\.
 
-## Observing state changes<a name="observing-state-changes"></a>
+## Observing State Changes<a name="observing-state-changes"></a>
 
  When a device's shadow is updated, messages are published on two MQTT topics: 
 + $aws/things/*thing\-name*/shadow/update/accepted
@@ -432,7 +432,7 @@ Here is an example of that flow:
 
 1. The device's shadow publishes an accepted message, which contains the entire received document, including metadata\. Applications should subscribe to this topic to receive updates\.
 
-## Message order<a name="message-ordering"></a>
+## Message Order<a name="message-ordering"></a>
 
 There is no guarantee that messages from the AWS IoT service will arrive at the device in any specific order\.
 
@@ -502,7 +502,7 @@ This results in two delta messages:
 
 The device might receive these messages out of order\. Because the state in these messages is cumulative, a device can safely discard any messages that contain a version number older than the one it is tracking\. If the device receives the delta for version 12 before version 11, it can safely discard the version 11 message\.
 
-## Trim shadow messages<a name="device-shadow-trim-messages"></a>
+## Trim Shadow Messages<a name="device-shadow-trim-messages"></a>
 
 To reduce the size of shadow messages sent to your device, define a rule that selects only the fields your device needs then republishes the message on an MQTT topic to which your device is listening\.
 
@@ -521,4 +521,4 @@ The rule is specified in JSON and should look like the following:
 }
 ```
 
-The SELECT statement determines which fields from the message will be republished to the specified topic\. A "\+" wild card is used to match all shadow names\. The rule specifies that all matching messages should be republished to the specified topic\. In this case, the `"topic()"` function is used to specify the topic on which to republish\. `topic(3)` evaluates to the thing name in the original topic\. For more information about creating rules, see [Rules for AWS IoT ](iot-rules.md)\.
+The SELECT statement determines which fields from the message will be republished to the specified topic\. A "\+" wild card is used to match all shadow names\. The rule specifies that all matching messages should be republished to the specified topic\. In this case, the `"topic()"` function is used to specify the topic on which to republish\. `topic(3)` evaluates to the thing name in the original topic\. For more information about creating rules, see [Rules](https://docs.aws.amazon.com/iot/latest/developerguide/iot-rules.html)\.

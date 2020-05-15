@@ -1,4 +1,4 @@
-# Diagnosing rules issues<a name="diagnosing-rules"></a>
+# Diagnosing Rules Issues<a name="diagnosing-rules"></a>
 
 The best way to debug issues you are having with rules is to useCloudWatch Logs\. When you enable CloudWatch Logs for AWS IoT, you can see which rules are triggered and their success or failure\. You also get information about whether WHERE clause conditions match\. For more information, see [Monitoring with CloudWatch Logs](cloud-watch-logs.md)\. 
 
@@ -40,6 +40,6 @@ Message arrived on: test-topic, Action: dynamo, Table: trashbin, HashKeyField: i
 No newer events found at the moment. Retry.
 ```
 
-For more information, see [Viewing logs](viewing-logs.md)\.
+For more information, see [Viewing Logs](viewing-logs.md)\.
 
 External services are controlled by the end user\. Before rule execution, make sure external services are set up with enough throughput and capacity units\.

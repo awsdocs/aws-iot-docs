@@ -1,13 +1,13 @@
-# Mitigation action commands<a name="mitigation-action-commands"></a>
+# Mitigation Action Commands<a name="mitigation-action-commands"></a>
 
 You use these mitigation action commands to define a set of actions for your AWS account that you can later apply to one or more sets of audit findings\. There are two command categories: 
 + Those used to define and manage actions\.
 + Those used to start and manage the application of those actions to audit findings\.
 
 
-**Mitigation action commands**  
+**Mitigation Action Commands**  
 
-|  Define and manage actions  |  Start and manage execution  | 
+|  Define and Manage Actions  |  Start and Manage Execution  | 
 | --- | --- | 
 |  [CreateMitigationAction](#dd-api-iot-CreateMitigationAction)  |  [CancelAuditMitigationActionsTask](#dd-api-iot-CancelAuditMitigationActionsTask)  | 
 |  [DeleteMitigationAction](#dd-api-iot-DeleteMitigationAction)  |  [DescribeAuditMitigationActionsTask](#dd-api-iot-DescribeAuditMitigationActionsTask)  | 
@@ -68,7 +68,7 @@ aws iot  create-mitigation-action \
 ```
 
 
-**`cli-input-json` Fields**  
+**`cli-input-json` fields**  
 
 |  Name  |  Type  |  Description  | 
 | --- | --- | --- | 
@@ -142,7 +142,7 @@ You must provide parameters for the type of action that you are defining\. You c
 The contents of the request were invalid\.
 
 `LimitExceededException`  
-A limit has been exceeded\. For information about mitigation action limits, see [Service Limits](aws.amazon.com/general/latest/gr/iot-core.html#limits_iot)\.
+A limit has been exceeded\. For information about mitigation action limits, see [Service Limits](https://docs.aws.amazon.com/iot/latest/developerguide/)\.
 
 `RequestAlreadyExistsException`  
 A mitigation action with this name already exists\. This error occurs only if another mitigation action exists with the same name but different parameters\.
@@ -217,7 +217,7 @@ aws iot update-mitigation-action \
 ```
 
 
-**`cli-input-json` Fields**  
+**`cli-input-json` fields**  
 
 |  Name  |  Type  |  Description  | 
 | --- | --- | --- | 
@@ -723,7 +723,7 @@ The status field can have the following values:
 
 ****  
 
-| Status | What it means | 
+| Status | What It Means | 
 | --- | --- | 
 | IN\_PROGRESS | AWS IoT Device Defender is applying the mitigation action to the finding\. | 
 | COMPLETED | The mitigation action was applied successfully to the finding\. | 

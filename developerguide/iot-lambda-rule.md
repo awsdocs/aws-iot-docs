@@ -1,10 +1,10 @@
-# Creating a rule with a AWS Lambda action<a name="iot-lambda-rule"></a>
+# Creating a Rule with a AWS Lambda Action<a name="iot-lambda-rule"></a>
 
 You can define a rule that calls a Lambda function, passing in data from the MQTT message that triggered the rule\. This allows you to extract data from the incoming message and then call another AWS or third\-party service\. In this tutorial, we assume you have completed the [AWS IoT Getting Started Tutorial](iot-gs.md) in which you create and subscribe to an Amazon SNS topic\. Now you create a Lambda function that publishes a message to the Amazon SNS topic you created in the [AWS IoT Getting Started Tutorial](iot-gs.md)\. You also create a Lambda rule that calls the Lambda function, passing in some data from the MQTT message that triggered the rule\.
 
 In this tutorial, you use the AWS IoT MQTT client to send a message that triggers the rule\.
 
-## Create a Lambda function<a name="create-lambda-function"></a>
+## Create a Lambda Function<a name="create-lambda-function"></a>
 
 1. In the [AWS Lambda console](https://console.aws.amazon.com/lambda/home), choose **Create function**\.  
 ![\[Image NOT FOUND\]](http://docs.aws.amazon.com/iot/latest/developerguide/images/lambda-get-started.png)
@@ -58,7 +58,7 @@ We do not recommend the use of personally identifiable information in rule names
 1. Choose **Save**\.  
 ![\[Edit your Lambda function to specify the SNS topic.\]](http://docs.aws.amazon.com/iot/latest/developerguide/images/save-lambda-button.png)
 
-## Test your Lambda function<a name="test-lambda-function"></a>
+## Test Your Lambda Function<a name="test-lambda-function"></a>
 
 1. In the upper right of the Lambda function details page, from **Select a test event**, choose **Configure test events**\.  
 ![\[Image NOT FOUND\]](http://docs.aws.amazon.com/iot/latest/developerguide/images/click-config-test-events.png)
@@ -80,7 +80,7 @@ We do not recommend the use of personally identifiable information in rule names
 1. Under your Lambda function code, on the **Execution result** tab, you see the output from the Lambda function\.  
 ![\[Image NOT FOUND\]](http://docs.aws.amazon.com/iot/latest/developerguide/images/lambda-results.png)
 
-## Create a rule with a Lambda action<a name="create-lambda-rule"></a>
+## Create a Rule with a Lambda Action<a name="create-lambda-rule"></a>
 
 This section provides steps for creating a rule with a Lambda action and an error action\. The Lambda action calls your Lambda function\. If an error occurs when calling the Lambda function, the error action publishes a message to the `lambda/error` MQTT topic\. This is useful when you are testing the rule\.
 
@@ -136,7 +136,7 @@ This section provides steps for creating a rule with a Lambda action and an erro
 1. In **Create a rule**, choose **Create rule**\.  
 ![\[Image NOT FOUND\]](http://docs.aws.amazon.com/iot/latest/developerguide/images/lambda-configure-error-7.png)
 
-## Test your rule with a Lambda action<a name="iot-test-lambda-rule"></a>
+## Test Your Rule with a Lambda Action<a name="iot-test-lambda-rule"></a>
 
 1. To test your Lambda action, open the AWS IoT console, and from the navigation pane, choose **Test**\.  
 ![\[Image NOT FOUND\]](http://docs.aws.amazon.com/iot/latest/developerguide/images/lambda-mqtt-client.png)
@@ -149,7 +149,7 @@ This section provides steps for creating a rule with a Lambda action and an erro
 
 Publishing this message should trigger the rule and call your Lambda function\. Your Lambda function pushes an Amazon SNS message to a phone number subscribed to your Amazon SNS topic\. If you do not get a text message, in the MQTT client, check to see if any messages were published to `lambda/error`\.
 
-## Troubleshooting a rule with a Lambda action<a name="troubleshooting-lambda-rules"></a>
+## Troubleshooting a Rule with a Lambda Action<a name="troubleshooting-lambda-rules"></a>
 
 If your Lambda function is called, but you do not receive a text message, make sure your phone number is subscribed to your Amazon SNS topic\. If your phone number is subscribed, check the CloudWatch logs for your Lambda function\. AWS Lambda writes logs to CloudWatch, which makes it possible for you to see output from your Lambda function\.
 

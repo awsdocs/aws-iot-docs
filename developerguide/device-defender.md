@@ -6,6 +6,6 @@ IoT fleets can consist of large numbers of devices that have diverse capabilitie
 
 AWS IoT Device Defender addresses these challenges by providing tools to identify security issues and deviations from best practices\.  AWS IoT Device Defender can audit device fleets to ensure they adhere to security best practices and detect abnormal behavior on devices\.  
 
-## AWS training and certification<a name="device-defender-training"></a>
+## AWS Training and Certification<a name="device-defender-training"></a>
 
 Take the following course to get started with AWS IoT Device Defender: [AWS IoT Device Defender Primer](https://www.aws.training/Details/Curriculum?id=42108)\.

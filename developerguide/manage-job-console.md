@@ -1,4 +1,4 @@
-# Creating and managing jobs \(console\)<a name="manage-job-console"></a>
+# Creating and Managing Jobs \(Console\)<a name="manage-job-console"></a>
 
 If you are using Code\-signing for AWS IoT, you must add two placeholder URLs in your job document:
 

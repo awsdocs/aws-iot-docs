@@ -1,4 +1,4 @@
-# Sign in to the AWS IoT console<a name="iot-console-signin"></a>
+# Sign in to the AWS IoT Console<a name="iot-console-signin"></a>
 
 If you do not have an AWS account, create one\. 
 

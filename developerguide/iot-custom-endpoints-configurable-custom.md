@@ -1,4 +1,4 @@
-# Creating and configuring custom domains<a name="iot-custom-endpoints-configurable-custom"></a>
+# Creating and Configuring Custom Domains<a name="iot-custom-endpoints-configurable-custom"></a>
 
 
 ****  
@@ -17,7 +17,7 @@ The workflow to set up a domain configuration with a custom domain consists of t
 
 1. [Creating DNS Records](#iot-custom-endpoints-configurable-custom-dns)
 
-## Registering server certificates in AWS certificate manager<a name="iot-custom-endpoints-configurable-custom-register-certificate"></a>
+## Registering Server Certificates in AWS Certificate Manager<a name="iot-custom-endpoints-configurable-custom-register-certificate"></a>
 
 Before you create a domain configuration with a custom domain, you must register your server certificate chain in [AWS Certificate Manager \(ACM\)](https://docs.aws.amazon.com/acm/latest/userguide/acm-overview.html)\. You can use three types of server certificates\.
 + [ACM Generated Public Certificates](#iot-custom-endpoints-configurable-custom-register-certificate-acm)
@@ -32,21 +32,21 @@ If you plan to use one certificate to cover multiple subdomains, use a wildcard 
 
 The following sections describe how to get each type of certificate\. Every certificate resource requires an ARN registered with ACM that you use when you create your domain configuration\.
 
-### ACM\-generated public certificates<a name="iot-custom-endpoints-configurable-custom-register-certificate-acm"></a>
+### ACM\-Generated Public Certificates<a name="iot-custom-endpoints-configurable-custom-register-certificate-acm"></a>
 
 You can generate a public certificate for your custom domain by using the [RequestCertificate](https://docs.aws.amazon.com/acm/latest/APIReference/API_RequestCertificate.html) API\. When you generate a certificate in this way, ACM validates your ownership of the custom domain\. For more information, see [Request a Public Certificate](https://docs.aws.amazon.com/acm/latest/userguide/gs-acm-request-public.html) in the *AWS Certificate Manager User Guide*\.
 
-### External certificates signed by a public CA<a name="iot-custom-endpoints-configurable-custom-register-certificate-pubext"></a>
+### External Certificates Signed by a Public CA<a name="iot-custom-endpoints-configurable-custom-register-certificate-pubext"></a>
 
 If you already have a server certificate that is signed by a public CA \(a CA that is included in Mozilla's trusted ca\-bundle\), you can import the certificate chain directly into ACM by using the [ImportCertificate](https://docs.aws.amazon.com/acm/latest/APIReference/API_ImportCertificate.html) API\. To learn more about this task and the prerequisites and certificate format requirements, see [Importing Certificates](https://docs.aws.amazon.com/acm/latest/userguide/import-certificate.html)\.
 
-### External certificates signed by a private CA<a name="iot-custom-endpoints-configurable-custom-register-certificate-privext"></a>
+### External Certificates Signed by a Private CA<a name="iot-custom-endpoints-configurable-custom-register-certificate-privext"></a>
 
 If you already have a server certificate that is signed by a private CA or self\-signed, you can use the certificate to create your domain configuration, but you also must create an extra public certificate in ACM to validate ownership of your domain\. To do this, register your server certificate chain in ACM using the [ImportCertificate](https://docs.aws.amazon.com/acm/latest/APIReference/API_ImportCertificate.html) API\. To learn more about this task and the prerequisites and certificate format requirements, see [Importing Certificates](https://docs.aws.amazon.com/acm/latest/userguide/import-certificate.html)\. 
 
 After you import your certificate to ACM, generate a public certificate for your custom domain by using the [RequestCertificate](https://docs.aws.amazon.com/acm/latest/APIReference/API_RequestCertificate.html) API\. When you generate a certificate in this way, ACM validates your ownership of the custom domain\. For more information, see [Request a Public Certificate](https://docs.aws.amazon.com/acm/latest/userguide/gs-acm-request-public.html)\. When you create your domain configuration, use this public certificate as your validation certificate\.
 
-## Creating a Domain configuration<a name="iot-custom-endpoints-configurable-custom-domain-config"></a>
+## Creating a Domain Configuration<a name="iot-custom-endpoints-configurable-custom-domain-config"></a>
 
 You create a configurable endpoint on an custom domain by using the [CreateDomainConfiguration](https://docs.aws.amazon.com/iot/latest/apireference/API_CreateDomainConfiguration.html) API\. A domain configuration for a custom domain consists of the following:
 + `domainConfigurationName` – A user\-defined name that identifies the domain configuration\.
@@ -73,7 +73,7 @@ aws iot create-domain-configuration --domain-configuration-name "myDomainConfigu
 **Note**  
 After you create your domain configuration, it might take up to 15 minutes until AWS IoT serves your custom server certificates\.
 
-## Creating DNS records<a name="iot-custom-endpoints-configurable-custom-dns"></a>
+## Creating DNS Records<a name="iot-custom-endpoints-configurable-custom-dns"></a>
 
 After you register your server certificate chain and create your domain configuration, create a DNS record so that your custom domain points to an AWS IoT domain\. This record must point to an AWS IoT endpoint of type `iot:Data-Beta`\. This is a special endpoint type for the configurable endpoints beta release\. You can get your beta endpoint by using the [DescribeEndpoint](https://docs.aws.amazon.com/iot/latest/apireference/API_DescribeEndpoint.html) API\. 
 

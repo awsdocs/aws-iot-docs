@@ -1,4 +1,4 @@
-# Cross account access<a name="cross-account-access"></a>
+# Cross Account Access<a name="cross-account-access"></a>
 
 AWS IoT Core allows you to enable a principal to publish or subscribe to a topic that is defined in an AWS account not owned by the principal\. You configure cross account access by creating an IAM policy and IAM role and then attaching the policy to the role\.
 

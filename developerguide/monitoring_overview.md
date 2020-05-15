@@ -1,4 +1,4 @@
-# Logging and monitoring with AWS IoT core<a name="monitoring_overview"></a>
+# Logging and Monitoring with AWS IoT Core<a name="monitoring_overview"></a>
 
 Monitoring is an important part of maintaining the reliability, availability, and performance of AWS IoT and your AWS solutions\. You should collect monitoring data from all parts of your AWS solution so that you can more easily debug a multi\-point failure, if one occurs\. Before you start monitoring AWS IoT, you should create a monitoring plan that includes answers to the following questions:
 + What are your monitoring goals?
@@ -24,7 +24,7 @@ To establish a baseline you should, at a minimum, monitor the following metrics:
 + `RulesExecuted`
 
 **Topics**
-+ [Monitoring tools](monitoring_automated_manual.md)
++ [Monitoring Tools](monitoring_automated_manual.md)
 + [Monitoring with Amazon CloudWatch](monitoring-cloudwatch.md)
 + [Monitoring with CloudWatch Logs](cloud-watch-logs.md)
-+ [Logging AWS IoT API calls with AWS CloudTrail](iot-using-cloudtrail.md)
++ [Logging AWS IoT API Calls with AWS CloudTrail](iot-using-cloudtrail.md)

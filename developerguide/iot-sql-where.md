@@ -1,8 +1,8 @@
-# WHERE clause<a name="iot-sql-where"></a>
+# WHERE Clause<a name="iot-sql-where"></a>
 
 The WHERE clause determines if the actions specified by a rule are carried out\. If the WHERE clause evaluates to true, the rule actions are performed\. Otherwise, the rule actions are not performed\. 
 
-The WHERE clause supports [Data types](iot-sql-data-types.md), [Operators](iot-sql-operators.md), [Functions](iot-sql-functions.md), [Literals](iot-sql-literals.md), [Case statements](iot-sql-case.md), [JSON extensions](iot-sql-json.md), [Substitution templates](iot-substitution-templates.md), and [Nested object queries](iot-sql-nested-queries.md)\.
+The WHERE clause supports [Data Types](iot-sql-data-types.md), [Operators](iot-sql-operators.md), [Functions](iot-sql-functions.md), [Literals](iot-sql-literals.md), [Case Statements](iot-sql-case.md), [JSON Extensions](iot-sql-json.md), [Substitution Templates](iot-substitution-templates.md), and [Nested Object Queries](iot-sql-nested-queries.md)\.
 
 Example:
 

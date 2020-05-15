@@ -1,4 +1,4 @@
-# Granting AWS IoT the required access<a name="iot-create-role"></a>
+# Granting AWS IoT the Required Access<a name="iot-create-role"></a>
 
 You use IAM roles to control the AWS resources to which each rule has access\. Before you create a rule, you must create an IAM role with a policy that allows access to the required AWS resources\. AWS IoT assumes this role when executing a rule\.
 
@@ -61,7 +61,7 @@ You use IAM roles to control the AWS resources to which each rule has access\. B
    aws iam create-policy --policy-name my-iot-policy --policy-document file://my-iot-policy.json
    ```
 
-   For more information about how to grant access to AWS services in policies for AWS IoT, see [Creating an AWS IoT rule](iot-create-rule.md)\.
+   For more information about how to grant access to AWS services in policies for AWS IoT, see [Creating an AWS IoT Rule](iot-create-rule.md)\.
 
    The output of the [create\-policy](https://docs.aws.amazon.com/cli/latest/reference/iam/create-policy.html) command contains the ARN of the policy\. You need to attach the policy to a role\.
 

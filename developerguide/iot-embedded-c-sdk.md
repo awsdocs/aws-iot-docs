@@ -30,11 +30,11 @@ The AWS IoT Device SDK for Embedded C is generally targeted at resource constrai
    mv ~/Downloads/mbedtls-versionNumber/* ~/aws-iot-device-sdk-embedded-c/external_libs/mbedTLS
    ```
 
-## Sample app configuration<a name="iot-c-sdk-app-config"></a>
+## Sample App Configuration<a name="iot-c-sdk-app-config"></a>
 
 The AWS IoT Device SDK for Embedded C includes sample applications for you to try\. For simplicity, this tutorial uses the `subscribe_publish_sample` application, which illustrates how to connect to the AWS IoT Core message broker and subscribe and publish to MQTT topics\.
 
-1. Copy the certificate, private key, and root CA certificate you created in [Create an AWS IoT thing for your raspberry pi](sdk-tutorials.md#iot-sdk-create-thing) into the `aws-iot-device-sdk-embedded-C/certs` directory\.
+1. Copy the certificate, private key, and root CA certificate you created in [Create an AWS IoT Thing for Your Raspberry Pi](sdk-tutorials.md#iot-sdk-create-thing) into the `aws-iot-device-sdk-embedded-C/certs` directory\.
 **Note**  
 Device and root CA certificates are subject to expiration or revocation\. If your certificates expire or are revoked, you must copy a new CA certificate or private key and device certificate onto your device\.
 
@@ -69,7 +69,7 @@ Your private key\.
    // =================================================
    ```
 
-## Run sample applications<a name="iot-c-sdk-app-run"></a>
+## Run Sample Applications<a name="iot-c-sdk-app-run"></a>
 
 **To run the AWS IoT Device SDK for Embedded C sample applications**
 

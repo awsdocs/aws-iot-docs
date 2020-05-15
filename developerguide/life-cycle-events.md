@@ -1,11 +1,11 @@
-# Lifecycle events<a name="life-cycle-events"></a>
+# Lifecycle Events<a name="life-cycle-events"></a>
 
 AWS IoT publishes lifecycle events on the MQTT topics discussed in the following sections\. These messages allow you to be notified of lifecycle events from the message broker\.
 
 **Note**  
 Lifecycle messages might be sent out of order\. You might receive duplicate messages\.
 
-## Connect/Disconnect events<a name="connect-disconnect"></a>
+## Connect/Disconnect Events<a name="connect-disconnect"></a>
 
 AWS IoT publishes a message to the following MQTT topics when a client connects or disconnects:
 + `$aws/events/presence/connected/clientId` – A client connected to the message broker\.
@@ -74,11 +74,11 @@ A disconnect message has the following structure\.
 }
 ```
 
-### Handling client disconnections<a name="reconnect"></a>
+### Handling Client Disconnections<a name="reconnect"></a>
 
 The best practice is to always have a wait state implemented for lifecycle events, including Last Will and Testament \(LWT\) messages\. When a disconnect message is received, your code should wait a period of time and verify a device is still offline before taking action\. One way to do this is by using [SQS Delay Queues](https://docs.aws.amazon.com/AWSSimpleQueueService/latest/SQSDeveloperGuide/sqs-delay-queues.html)\. When a client receives a LWT or a lifecycle event, you can enqueue a message \(for example, for 5 seconds\)\. When that message becomes available and is processed \(by Lambda or another service\), you can first check if the device is still offline before taking further action\.
 
-## Subscribe/Unsubscribe events<a name="subscribe-unsubscribe-events"></a>
+## Subscribe/Unsubscribe Events<a name="subscribe-unsubscribe-events"></a>
 
 AWS IoT publishes a message to the following MQTT topic when a client subscribes or unsubscribes to an MQTT topic:
 

@@ -1,8 +1,8 @@
-# Provisioning templates<a name="provision-template"></a>
+# Provisioning Templates<a name="provision-template"></a>
 
 A provisioning template is a JSON document that uses parameters to describe the resources your device must use to interact with AWS IoT\. A template contains two sections: `Parameters` and `Resources`\. There are two types of provisioning templates in AWS IoT\. One is used for just\-in\-time provisioning \(JITP\) and bulk registration and the second is used for fleet provisioning\.
 
-## Parameters section<a name="parameters-section"></a>
+## Parameters Section<a name="parameters-section"></a>
 
 The `Parameters` section declares the parameters used in the `Resources` section\. Each parameter declares a name, a type, and an optional default value\. The default value is used when the dictionary passed in with the template does not contain a value for the parameter\. The `Parameters` section of a template document looks like the following:
 
@@ -28,7 +28,7 @@ The `Parameters` section declares the parameters used in the `Resources` section
 
 This template snippet declares four parameters: `ThingName`, `SerialNumber`, `Location`, and `CSR`\. All of these parameters are of type `String`\. The `Location` parameter declares a default value of `"WA"`\.
 
-## Resources section<a name="resources-section"></a>
+## Resources Section<a name="resources-section"></a>
 
 The `Resources` section of the template declares the resources required for your device to communicate with AWS IoT: a thing, a certificate, and one or more IoT policies\. Each resource specifies a logical name, a type, and a set of properties\.
 
@@ -41,7 +41,7 @@ The type specifies the kind of resource you are declaring\. Valid types are:
 
 The properties you specify depend on the type of resource you are declaring\.
 
-### Thing resources<a name="thing-resources"></a>
+### Thing Resources<a name="thing-resources"></a>
 
 Thing resources are declared using the following properties:
 + `ThingName`: String\.
@@ -49,7 +49,7 @@ Thing resources are declared using the following properties:
 + `ThingTypeName`: Optional\. String for an associated thing type for the thing\.
 + `ThingGroups`: Optional\. A list of groups to which the thing belongs\.
 
-### Certificate resources<a name="certificate-resources"></a>
+### Certificate Resources<a name="certificate-resources"></a>
 
 You can specify certificates in one of the following ways:
 + A certificate signing request \(CSR\)\.
@@ -57,9 +57,9 @@ You can specify certificates in one of the following ways:
 + A device certificate created with a CA certificate registered with AWS IoT\. If you have more than one CA certificate registered with the same subject field, you must also pass in the CA certificate used to sign the device certificate\.
 
 **Note**  
-When you declare a certificate in a template, use only one of these methods\. For example, if you use a CSR, you cannot also specify a certificate ID or a device certificate\. For more information, see [X\.509 client certificates](x509-client-certs.md)\. 
+When you declare a certificate in a template, use only one of these methods\. For example, if you use a CSR, you cannot also specify a certificate ID or a device certificate\. For more information, see [AWS IoT and Certificates](https://docs.aws.amazon.com/iot/latest/developerguide/x509-certs.html)\. 
 
-For more information, see [X\.509 Certificate overview](authentication.md#x509-certificate-overview)\. 
+For more information, see [X\.509 Certificate Overview](authentication.md#x509-certificate-overview)\. 
 
 Certificate resources are declared using the following properties:
 + `CertificateSigningRequest`: String\.
@@ -108,7 +108,7 @@ Examples:
   }
   ```
 
-### Policy resources<a name="policy-resources"></a>
+### Policy Resources<a name="policy-resources"></a>
 
 Policy resources are declared using one of the following properties:
 + `PolicyName`: Optional\. String\. Defaults to a hash of the policy document\. If you are using an existing AWS IoT policy, for the `PolicyName` property, enter the name of the policy\. Do not include the `PolicyDocument` property\.
@@ -117,7 +117,7 @@ Policy resources are declared using one of the following properties:
 **Note**  
 If a `Policy` section is present, `PolicyName` or `PolicyDocument`, but not both, must be specified\.
 
-### Override settings<a name="override-settings"></a>
+### Override Settings<a name="override-settings"></a>
 
 If a template specifies a resource that already exists, the `OverrideSettings` section allows you to specify the action to take:
 
@@ -142,7 +142,7 @@ When you declare a certificate resource, you can specify `OverrideSettings` for 
 
 `OverrideSettings` are not available for policy resources\.
 
-### Resource example<a name="resource-example"></a>
+### Resource Example<a name="resource-example"></a>
 
 The following template snippet declares a thing, a certificate, and a policy:
 
@@ -200,7 +200,7 @@ The policy is declared with:
 + The type `AWS::IoT::Policy`\.
 + Either the name of an existing policy or a policy document\.
 
-## Template example for JITP and bulk registration<a name="bulk-template-example"></a>
+## Template Example for JITP and Bulk Registration<a name="bulk-template-example"></a>
 
 The following JSON file is an example of a complete provisioning template that specifies the certificate with a CSR:
 
@@ -287,9 +287,9 @@ The following JSON file is an example of a complete provisioning template that s
 }
 ```
 
-## Fleet provisioning<a name="fleet-provision-template"></a>
+## Fleet Provisioning<a name="fleet-provision-template"></a>
 
-Fleet provisioning templates are used by AWS IoT to set up cloud and device configuration\. These templates use the same parameters and resources as the JITP and bulk registration templates\. For more information, see [Provisioning templates](#provision-template)\. Fleet provisioning templates can contain a `Mapping` section and a `DeviceConfiguration` section\. You can use intrinsic functions inside a fleet provisioning template to generate device specific configuration\. Fleet provisioning templates are named resources and are identified by ARNs \(for example, `arn:aws:iot:us-west-2:1234568788:provisioningtemplate/templateName`\)\.
+Fleet provisioning templates are used by AWS IoT to set up cloud and device configuration\. These templates use the same parameters and resources as the JITP and bulk registration templates\. For more information, see [Provisioning Templates](#provision-template)\. Fleet provisioning templates can contain a `Mapping` section and a `DeviceConfiguration` section\. You can use intrinsic functions inside a fleet provisioning template to generate device specific configuration\. Fleet provisioning templates are named resources and are identified by ARNs \(for example, `arn:aws:iot:us-west-2:1234568788:provisioningtemplate/templateName`\)\.
 
 ### Mappings<a name="mappings"></a>
 
@@ -297,7 +297,7 @@ The optional `Mappings` section matches a key to a corresponding set of named va
 
 You cannot include parameters, pseudo parameters, or call intrinsic functions in the `Mappings` section\.
 
-### Device configuration<a name="device-config"></a>
+### Device Configuration<a name="device-config"></a>
 
 The device configuration section contains arbitrary data you want to send to your devices when provisioning\. For example: 
 
@@ -309,7 +309,7 @@ The device configuration section contains arbitrary data you want to send to you
 }
 ```
 
-### Intrinsic functions<a name="intrinsic-functions"></a>
+### Intrinsic Functions<a name="intrinsic-functions"></a>
 
 Intrinsic functions are used in any section of the provisioning template except the `Mappings` section\.
 
@@ -330,7 +330,7 @@ For example, if a comma\-delimited string of subnet IDs is imported to your stac
 `Fn:Sub`  
 Substitutes variables in an input string with values that you specify\. You can use this function to construct commands or outputs that include values that aren't available until you create or update a stack\.
 
-### Fleet provisioning template example<a name="fleet-provisioning-example"></a>
+### Fleet Provisioning Template Example<a name="fleet-provisioning-example"></a>
 
 ```
 {
@@ -396,6 +396,3 @@ Substitutes variables in an input string with values that you specify\. You can 
     }
 }
 ```
-
-**Note**  
-An existing provisioning template can be updated to add a [pre\-provisioning hook](provision-wo-cert.md#pre-provisioning-hook)\.

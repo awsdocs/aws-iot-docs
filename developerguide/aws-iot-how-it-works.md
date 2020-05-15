@@ -1,4 +1,4 @@
-# How AWS IoT works<a name="aws-iot-how-it-works"></a>
+# How AWS IoT Works<a name="aws-iot-how-it-works"></a>
 
 AWS IoT enables internet\-connected devices to connect to the AWS Cloud and lets applications in the cloud interact with internet\-connected devices\. Common IoT applications either collect and process telemetry from devices or enable users to control a device remotely\.
 

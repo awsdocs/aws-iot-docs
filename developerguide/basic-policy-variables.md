@@ -1,4 +1,4 @@
-# Basic AWS IoT Core policy variables<a name="basic-policy-variables"></a>
+# Basic AWS IoT Core Policy Variables<a name="basic-policy-variables"></a>
 
 AWS IoT Core defines the following basic policy variables:
 + `iot:ClientId`: The client ID used to connect to the AWS IoT Core message broker\.

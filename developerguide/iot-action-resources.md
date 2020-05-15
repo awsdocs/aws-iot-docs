@@ -1,4 +1,4 @@
-# AWS IoT Core action resources<a name="iot-action-resources"></a>
+# AWS IoT Core Action Resources<a name="iot-action-resources"></a>
 
 To specify a resource for an AWS IoT Core policy action, you must use the ARN of the resource\. All resource ARNs are of the following form:
 

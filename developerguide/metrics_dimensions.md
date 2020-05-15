@@ -1,4 +1,4 @@
-# AWS IoT metrics and dimensions<a name="metrics_dimensions"></a>
+# AWS IoT Metrics and Dimensions<a name="metrics_dimensions"></a>
 
 When you interact with AWS IoT, the service sends the following metrics and dimensions to CloudWatch every minute\. You can use the following procedures to view the metrics for AWS IoT\.
 
@@ -21,7 +21,7 @@ Metrics are grouped first by the service namespace, and then by the various dime
 
 CloudWatch displays the following metrics for AWS IoT:
 
-## Dimensions for metrics<a name="aws-iot-metricdimensions"></a>
+## Dimensions for Metrics<a name="aws-iot-metricdimensions"></a>
 
 Metrics use the namespace and provide metrics for the following dimensions:
 

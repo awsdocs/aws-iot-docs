@@ -1,6 +1,6 @@
-# AWS IoT rule actions<a name="iot-rule-actions"></a>
+# AWS IoT Rule Actions<a name="iot-rule-actions"></a>
 
-AWS IoT rule actions are used to specify what to do when a rule is triggered\. You can define actions to write data to a DynamoDB database or a Kinesis stream or to invoke a Lambda function, and more\. AWS supports actions in regions where the service is avilable\. The following actions are supported: 
+AWS IoT rule actions are used to specify what to do when a rule is triggered\. You can define actions to write data to a DynamoDB database or a Kinesis stream or to invoke a Lambda function, and more\. The following actions are supported: 
 + `cloudwatchAlarm` to change a CloudWatch alarm\.
 + `cloudwatchLogs` to send data to CloudWatch Logs\.
 + `cloudwatchMetric` to capture a CloudWatch metric\.
@@ -22,16 +22,16 @@ AWS IoT rule actions are used to specify what to do when a rule is triggered\. Y
 + `stepFunctions` to start execution of a Step Functions state machine\.
 
 **Note**  
-The AWS IoT rules engine might make multiple attempts to perform an action in case of intermittent errors\. If all attempts fail, the message is discarded and the error is available in your CloudWatch logs\. You can specify an error action for each rule that is invoked after a failure occurs\. For more information, see [Error handling \(error action\)](rule-error-handling.md)\.
+The AWS IoT rules engine might make multiple attempts to perform an action in case of intermittent errors\. If all attempts fail, the message is discarded and the error is available in your CloudWatch logs\. You can specify an error action for each rule that is invoked after a failure occurs\. For more information, see [Error Handling \(Error Action\)](rule-error-handling.md)\.
 
 Some rule actions trigger actions in services that integrate with AWS Key Management Service \(AWS KMS\) to support data encryption at rest\. If you use a customer managed AWS KMS customer master key \(CMK\) to encrypt data at rest, the service must have permission to use the CMK on the caller's behalf\. See the data encryption topics in the appropriate service guide to learn how to manage permissions for your customer managed CMK\. For more information about CMKs and customer managed CMKs, see [AWS Key Management Service concepts](https://docs.aws.amazon.com/kms/latest/developerguide/concepts.html) in the *AWS Key Management Service Developer Guide*\.
 
 Each action is described in detail\.
 
-## CloudWatch alarm action<a name="cloudwatch-alarm-action"></a>
+## CloudWatch Alarm Action<a name="cloudwatch-alarm-action"></a>
 
 ------
-#### [ CloudWatch alarm action ]
+#### [ CloudWatch Alarm Action ]
 
 The CloudWatch alarm action allows you to change CloudWatch alarm state\. You can specify the state change reason and value in this call\. 
 
@@ -79,10 +79,10 @@ For more information, see [CloudWatch Alarms](https://docs.aws.amazon.com/Amazon
 
 ------
 
-## CloudWatch Logs action<a name="cloudwatch-logs-action"></a>
+## CloudWatch Logs Action<a name="cloudwatch-logs-action"></a>
 
 ------
-#### [ CloudWatch Logs action ]
+#### [ CloudWatch Logs Action ]
 
 The CloudWatch logs action allows you to send data to CloudWatch Logs\. You can specify the CloudWatch log group to which the action sends data\.
 
@@ -119,10 +119,10 @@ For more information, see [Getting Started with CloudWatch Logs](https://docs.aw
 
 ------
 
-## CloudWatch metric action<a name="cloudwatch-metric-action"></a>
+## CloudWatch Metric Action<a name="cloudwatch-metric-action"></a>
 
 ------
-#### [ CloudWatch metric action ]
+#### [ CloudWatch Metric Action ]
 
 The CloudWatch metric action allows you to capture a CloudWatch metric\. You can specify the metric namespace, name, value, unit, and timestamp\. 
 
@@ -178,10 +178,10 @@ For more information, see [CloudWatch Metrics\.](https://docs.aws.amazon.com/Ama
 
 ------
 
-## DynamoDB action<a name="dynamodb-rule"></a>
+## DynamoDB Action<a name="dynamodb-rule"></a>
 
 ------
-#### [ DynamoDB action ]
+#### [ DynamoDB Action ]
 
 The `dynamoDB` action allows you to write all or part of an MQTT message to a DynamoDB table\. 
 
@@ -191,7 +191,7 @@ The `dynamoDB` action allows you to write all or part of an MQTT message to a Dy
 When creating a DynamoDB rule, you must specify the following information: 
 
 hashKeyType  
-Optional\. The data type of the hash key \(also called the partition key\)\. Valid values are: `"STRING"` or `"NUMBER"`\.
+The data type of the hash key \(also called the partition key\)\. Valid values are: `"STRING"` or `"NUMBER"`\.
 
 hashKeyField  
 The name of the hash key \(also called the partition key\)\.
@@ -253,10 +253,10 @@ For more information, see the [Amazon DynamoDB Getting Started Guide](https://do
 
 ------
 
-## DynamoDBv2 action<a name="dynamodb-v2-rule"></a>
+## DynamoDBv2 Action<a name="dynamodb-v2-rule"></a>
 
 ------
-#### [ DynamoDBv2 action ]
+#### [ DynamoDBv2 Action ]
 
 The `dynamoDBv2` action allows you to write all or part of an MQTT message to a DynamoDB table\. Each attribute in the payload is written to a separate column in the DynamoDB database\.
 
@@ -304,10 +304,10 @@ For more information, see the [Amazon DynamoDB Getting Started Guide](https://do
 
 ------
 
-## Elasticsearch action<a name="elasticsearch-rule"></a>
+## Elasticsearch Action<a name="elasticsearch-rule"></a>
 
 ------
-#### [ Elasticsearch action ]
+#### [ Elasticsearch Action ]
 
 The `elasticsearch` action allows you to write data from MQTT messages to an Amazon Elasticsearch Service domain\. Data in Elasticsearch can then be queried and visualized by using tools like Kibana\. 
 
@@ -356,10 +356,10 @@ For more information, see the [Amazon Elasticsearch Service Developer Guide](htt
 
 ------
 
-## Firehose action<a name="firehose-rule"></a>
+## Firehose Action<a name="firehose-rule"></a>
 
 ------
-#### [ Firehose action ]
+#### [ Firehose Action ]
 
 A `firehose` action sends data from an MQTT message that triggered the rule to a Kinesis Data Firehose stream\. 
 
@@ -402,10 +402,10 @@ For more information, see the [Amazon Kinesis Data Firehose Developer Guide](htt
 
 ------
 
-## HTTP action<a name="http-action"></a>
+## HTTP Action<a name="http-action"></a>
 
 ------
-#### [ HTTP action ]
+#### [ HTTP Action ]
 
 The `http` action sends data from an MQTT message that triggered the rule to your web applications or services for further processing, without writing any code\. The endpoint you send data to must be verified before the rules engine can use it\.
 
@@ -418,7 +418,7 @@ url
 The HTTPS URL where the message is sent by HTTP POST\. You can use substitution templates in the URL\. 
 
 confirmationUrl  
-Optional\. If specified, AWS IoT uses the confirmation URL to create a matching topic rule destination\. You must enable the topic rule destination before using it in an `http` action\. For more information, see [ Working with topic rule destinations](rule-destination.md)\. If you use substitution templates, you must manually create topic rule destinations before the `http` action can be used\. `confirmationUrl` must be a prefix of `url`\.  
+Optional\. If specified, AWS IoT uses the confirmation URL to create a matching topic rule destination\. You must enable the topic rule destination before using it in an `http` action\. For more information, see [ Working with Topic Rule Destinations](rule-destination.md)\. If you use substitution templates, you must manually create topic rule destinations before the `http` action can be used\. `confirmationUrl` must be a prefix of `url`\.  
 The relationship between `url` and `confirmationUrl` is described by the following:  
 + If `url` is hardcoded and `confirmationUrl` is not provided, we implicitly treat the `url` field as the `confirmationUrl`\. AWS IoT creates a topic rule destination for `url`\.
 + If `url` and `confirmationUrl` are hardcoded, `url` must begin with `confirmationUrl`\. AWS IoT creates a topic rule destination for `confirmationUrl`\.
@@ -480,10 +480,10 @@ The AWS IoT rules engine retries `http` actions according to these rules:
 
 ------
 
-## IoT analytics action<a name="iotanalytics-rule"></a>
+## IoT Analytics Action<a name="iotanalytics-rule"></a>
 
 ------
-#### [ IoT analytics action ]
+#### [ IoT Analytics Action ]
 
 An `iotAnalytics` action sends data from the MQTT message that triggered the rule to an AWS IoT Analytics channel\. 
 
@@ -558,10 +558,10 @@ The AWS IoT Analytics console also has a **Quick start** feature that allows you
 
 ------
 
-## IoT events action<a name="iotevents-rule"></a>
+## IoT Events Action<a name="iotevents-rule"></a>
 
 ------
-#### [ IoT events action ]
+#### [ IoT Events Action ]
 
 An `iotEvents` action sends data from the MQTT message that triggered the rule to an AWS IoT Events input\. 
 
@@ -615,10 +615,10 @@ For more information, see the [ AWS IoT Events Developer Guide](https://docs.aws
 
 ------
 
-## IoT SiteWise action<a name="iotsitewise-rule"></a>
+## IoT SiteWise Action<a name="iotsitewise-rule"></a>
 
 ------
-#### [ IoT SiteWise action ]
+#### [ IoT SiteWise Action ]
 
 An `iotSiteWise` action sends data from the MQTT message that triggered the rule to asset properties in AWS IoT SiteWise\.
 
@@ -649,9 +649,9 @@ A list of property values to insert that each contain timestamp, quality, and va
 timestamp  
 A timestamp structure that contains the following information:    
 timeInSeconds  
-A string that contains the time in seconds in Unix epoch time\. Accepts substitution templates\. If your message payload doesn't have a timestamp, you can use [Timestamp\(\)](iot-sql-functions.md#iot-function-timestamp), which returns the current time in milliseconds\. To convert that time to seconds, you can use the following substitution template: **$\{floor\(timestamp\(\) / 1E3\)\}**\.  
+A string that contains the time in seconds in Unix epoch time\. Accepts substitution templates\. If your message payload doesn't have a timestamp, you can use [timestamp\(\)](iot-sql-functions.md#iot-function-timestamp), which returns the current time in milliseconds\. To convert that time to seconds, you can use the following substitution template: **$\{floor\(timestamp\(\) / 1E3\)\}**\.  
 offsetInNanos  
-Optional\. A string that contains the nanosecond time offset from the time in seconds\. Accepts substitution templates\. If your message payload doesn't have a timestamp, you can use [Timestamp\(\)](iot-sql-functions.md#iot-function-timestamp), which returns the current time in milliseconds\. To calculate the nanosecond offset from that time, you can use the following substitution template: **$\{\(timestamp\(\) % 1E3\) \* 1E6\}**\.
+Optional\. A string that contains the nanosecond time offset from the time in seconds\. Accepts substitution templates\. If your message payload doesn't have a timestamp, you can use [timestamp\(\)](iot-sql-functions.md#iot-function-timestamp), which returns the current time in milliseconds\. To calculate the nanosecond offset from that time, you can use the following substitution template: **$\{\(timestamp\(\) % 1E3\) \* 1E6\}**\.
 With respect to Unix epoch time, AWS IoT SiteWise accepts only entries that have a timestamp of up to 15 minutes in the past and up to 5 minutes in the future\.  
 quality  
 Optional\. A string that describes the quality of the value\. Accepts substitution templates\. Must be `GOOD`, `BAD`, or `UNCERTAIN`\.  
@@ -774,10 +774,10 @@ For more information, see the [ AWS IoT SiteWise User Guide](https://docs.aws.am
 
 ------
 
-## Kinesis action<a name="kinesis-rule"></a>
+## Kinesis Action<a name="kinesis-rule"></a>
 
 ------
-#### [ Kinesis action ]
+#### [ Kinesis Action ]
 
 The `kinesis` action allows you to write data from MQTT messages into a Kinesis stream\. 
 
@@ -818,10 +818,10 @@ For more information, see the [Amazon Kinesis Data Streams Developer Guide](http
 
 ------
 
-## Lambda action<a name="lambda-rule"></a>
+## Lambda Action<a name="lambda-rule"></a>
 
 ------
-#### [ Lambda action ]
+#### [ Lambda Action ]
 
  A `lambda` action calls a Lambda function, passing in the MQTT message that triggered the rule\. Lambda functions are run asynchronously\.
 
@@ -895,10 +895,10 @@ If you use a customer managed AWS KMS CMK to encrypt data at rest in AWS Lambda,
 
 ------
 
-## Republish action<a name="republish-rule"></a>
+## Republish Action<a name="republish-rule"></a>
 
 ------
-#### [ Republish action ]
+#### [ Republish Action ]
 
 The `republish` action allows you to republish the message that triggered the rule to another MQTT topic\. 
 
@@ -908,7 +908,7 @@ The `republish` action allows you to republish the message that triggered the ru
 When you create a rule with a `republish` action, you must specify the following information:
 
 topic  
-The MQTT topic to which to republish the message\. If you are republishing to a reserved topic, one that begins with `$` use `$$` instead\. For example, if you are republishing to a device shadow topic like `$$aws/things/MyThing/shadow/update`, specify the topic as `$$aws/things/MyThing/shadow/update`\.
+The MQTT topic to which to republish the message\. If you are republishing to a reserved topic, one that begins with `$` use `$$` instead\. For example, if you are republishing to a device shadow topic like `$aws/things/MyThing/shadow/update`, specify the topic as `$aws/things/MyThing/shadow/update`\.
 
 roleArn  
 The IAM role that allows publishing to the MQTT topic\.
@@ -938,10 +938,10 @@ Make sure that the role associated with the rule has a policy granting the `iot:
 
 ------
 
-## S3 action<a name="s3-rule"></a>
+## S3 Action<a name="s3-rule"></a>
 
 ------
-#### [ S3 action ]
+#### [ S3 Action ]
 
 An `s3` action writes the data from the MQTT message that triggered the rule to an Amazon S3 bucket\. 
 
@@ -990,10 +990,10 @@ For more information, see the [Amazon Simple Storage Service Developer Guide](ht
 
 ------
 
-## Salesforce action<a name="salesforce-rule"></a>
+## Salesforce Action<a name="salesforce-rule"></a>
 
 ------
-#### [ Salesforce action ]
+#### [ Salesforce Action ]
 
 A `salesforce` action sends data from the MQTT message that triggered the rule to a Salesforce IoT input stream\. 
 
@@ -1033,10 +1033,10 @@ For more information, see the Salesforce IoT documentation\.
 
 ------
 
-## SNS action<a name="sns-rule"></a>
+## SNS Action<a name="sns-rule"></a>
 
 ------
-#### [ SNS action ]
+#### [ SNS Action ]
 
 A `sns` action sends the data from the MQTT message that triggered the rule as an SNS push notification\. 
 
@@ -1079,10 +1079,10 @@ For more information, see the [Amazon Simple Notification Service Developer Guid
 
 ------
 
-## SQS action<a name="sqs-rule"></a>
+## SQS Action<a name="sqs-rule"></a>
 
 ------
-#### [ SQS action ]
+#### [ SQS Action ]
 
 An `sqs` action sends data from the MQTT message that triggered the rule to an SQS queue\. 
 
@@ -1128,10 +1128,10 @@ For more information, see the [Amazon Simple Queue Service Developer Guide](http
 
 ------
 
-## Step Functions action<a name="stepfunctions-rule"></a>
+## Step Functions Action<a name="stepfunctions-rule"></a>
 
 ------
-#### [ Step Functions action ]
+#### [ Step Functions Action ]
 
 A `stepFunctions` action starts execution of a Step Functions state machine\. 
 

@@ -1,4 +1,4 @@
-# MQTT over the WebSocket protocol<a name="mqtt-ws"></a>
+# MQTT over the WebSocket Protocol<a name="mqtt-ws"></a>
 
 AWS IoT Core supports MQTT over the [WebSocket](https://en.wikipedia.org/wiki/WebSocket) protocol to enable browser\-based and remote applications to send and receive data from AWS IoT Core\-connected devices using AWS credentials\. AWS credentials are specified using [AWS Signature Version 4](https://docs.aws.amazon.com/general/latest/gr/sigv4_signing.html)\. WebSocket support is available on TCP port 443, which allows messages to pass through most firewalls and web proxies\.
 
@@ -22,7 +22,7 @@ Specifies you are sending MQTT messages over the WebSocket protocol\.
 
 When the server responds, the client sends an upgrade request to indicate to the server it communicates using the WebSocket protocol\. After the server acknowledges the upgrade request, all communication is performed using the WebSocket protocol\. The WebSocket implementation you use acts as a transport protocol\. The data you send over the WebSocket protocol are MQTT messages\.
 
-## Using the WebSocket protocol in a web application<a name="mqtt-ws-web-app"></a>
+## Using the WebSocket Protocol in a Web Application<a name="mqtt-ws-web-app"></a>
 
 The WebSocket implementation provided by most web browsers does not allow the modification of HTTP headers, so you must add the Signature Version 4 information to the query string\. For more information, see [Adding Signing Information to the Query String](https://docs.aws.amazon.com/general/latest/gr/sigv4-add-signature-to-request.html#sigv4-add-signature-querystring)\. 
 
@@ -158,7 +158,7 @@ For more information about using the WebSocket protocol in JavaScript, see [WebS
        client.connect(connectOptions);
    ```
 
-## Using the WebSocket protocol in a mobile application<a name="mqtt-ws-mobile-app"></a>
+## Using the WebSocket Protocol in a Mobile Application<a name="mqtt-ws-mobile-app"></a>
 
 We recommend that you use one of the AWS IoT Core Device SDKs to connect your device to AWS IoT Core when making a WebSocket connection\. The following AWS IoT Core Device SDKs support WebSocket\-based MQTT connections to AWS IoT Core:
 + [Node\.js](https://github.com/aws/aws-iot-device-sdk-js)

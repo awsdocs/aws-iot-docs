@@ -1,4 +1,4 @@
-# Registry events<a name="registry-events"></a>
+# Registry Events<a name="registry-events"></a>
 
 The registry publishes event messages when things, thing types, and thing groups are created, updated, or deleted\. The registry currently supports the following event types:
 

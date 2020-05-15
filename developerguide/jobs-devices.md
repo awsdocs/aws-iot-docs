@@ -1,7 +1,7 @@
-# Devices and jobs<a name="jobs-devices"></a>
+# Devices and Jobs<a name="jobs-devices"></a>
 
 ------
-#### [ Device communication with jobs ]
+#### [ Device Communication with Jobs ]
 
 Devices can communicate with the AWS IoT Jobs service through these methods: 
 + MQTT
@@ -9,9 +9,9 @@ Devices can communicate with the AWS IoT Jobs service through these methods:
 + HTTP TLS
 
 ------
-#### [ Using the MQTT protocol ]
+#### [ Using the MQTT Protocol ]
 
-Communication between the AWS IoT Jobs service and your devices can occur over the MQTT protocol\. Devices subscribe to MQTT topics to be notified of new jobs and to receive responses from the AWS IoT Jobs service\. Devices publish on MQTT topics to query or update the state of a job execution\. Each device has its own general MQTT topic\. For more information about publishing and subscribing to MQTT topics, see [Message broker for AWS IoT](iot-message-broker.md)\.
+Communication between the AWS IoT Jobs service and your devices can occur over the MQTT protocol\. Devices subscribe to MQTT topics to be notified of new jobs and to receive responses from the AWS IoT Jobs service\. Devices publish on MQTT topics to query or update the state of a job execution\. Each device has its own general MQTT topic\. For more information about publishing and subscribing to MQTT topics, see [Message Broker for AWS IoT](iot-message-broker.md)\.
 
 **Note**  
 You must use the correct endpoint when you communicate with the AWS IoT Jobs service through MQTT\. Use the DescribeEndpoint command to find it\. For example, if you run this command:   
@@ -101,7 +101,7 @@ The following commands are available using this method:
 
 ------
 
-## Programming devices to work with jobs<a name="programming-devices"></a>
+## Programming Devices to Work with Jobs<a name="programming-devices"></a>
 
 The examples in this section use MQTT to illustrate how a device works with the AWS IoT Jobs service\. Alternatively, you could use the corresponding API or CLI commands\. For these examples, we assume a device called `MyThing` subscribes to the following MQTT topics:
 + `$aws/things/MyThing/jobs/notify` \(or `$aws/things/MyThing/jobs/notify-next`\)
@@ -112,12 +112,12 @@ The examples in this section use MQTT to illustrate how a device works with the 
 
  If you are using Code\-signing for AWS IoT your device code must verify the signature of your code file\. The signature is in the job document in the `codesign` property\. For more information about verifying a code file signature, see [Device Agent Sample](https://github.com/aws/aws-iot-device-sdk-js#jobsAgent)\.
 
-### Device workflow<a name="jobs-workflow-device-online"></a>
+### Device Workflow<a name="jobs-workflow-device-online"></a>
 
 There are two ways a device can handle the jobs it is given to execute\. 
 
 ------
-#### [ Option a: Get the next job ]
+#### [ Option A: Get the next job ]
 
 1. When a device first comes online, it should subscribe to the device's `notify-next` topic\.
 
@@ -138,7 +138,7 @@ There are two ways a device can handle the jobs it is given to execute\.
 If the device remains online, it continues to receive a notifications of the next pending job execution, including its job execution data, when it completes a job or a new pending job execution is added\. When this occurs, the device continues as described in step 2\.
 
 ------
-#### [ Option b: Pick from available jobs ]
+#### [ Option B: Pick from available jobs ]
 
 1. When a device first comes online, it should subscribe to the thing's `notify` topic\.
 
@@ -164,10 +164,10 @@ If the device remains online, it is notified of all pending job executions when 
 
 If the device is unable to execute the job, it should call the [UpdateJobExecution](jobs-api.md#mqtt-updatejobexecution) MQTT API to update the job status to `REJECTED`\.
 
-### Starting a new job<a name="jobs-respond-new-job"></a>
+### Starting a New Job<a name="jobs-respond-new-job"></a>
 
 ------
-#### [ New job notification ]
+#### [ new job notification ]
 
 When a new job is created, the AWS IoT Jobs service publishes a message on the `$aws/things/thing-name/jobs/notify` topic for each target device\.
 
@@ -195,7 +195,7 @@ The device receives this message on the `'$aws/things/thingName/jobs/notify'` to
 ------
 
 ------
-#### [ Get job information ]
+#### [ get job information ]
 
 To get more information about a job execution, the device calls the [DescribeJobExecution](jobs-api.md#mqtt-describejobexecution) MQTT API with the `includeJobDocument` field set to `true` \(the default\)\.
 
@@ -229,15 +229,15 @@ If the request fails, the AWS IoT Jobs service publishes a message on the `$aws/
 
 The device now has the job document that it can use to perform the remote operations for the job\. If the job document contains an Amazon S3 presigned URL, the device can use that URL to download any required files for the job\.
 
-### Report job execution status<a name="jobs-job-processing"></a>
+### Report Job Execution Status<a name="jobs-job-processing"></a>
 
 ------
-#### [ Update execution status ]
+#### [ Update Execution Status ]
 
 As the device is executing the job, it can call the [UpdateJobExecution](jobs-api.md#mqtt-updatejobexecution) MQTT API to update the status of the job execution\.
 
 ------
-#### [ More information \(3\) ]
+#### [ More Information \(3\) ]
 
 For example, a device can update the job execution status to `IN_PROGRESS` by publishing the following message on the `$aws/things/MyThing/jobs/0023/update` topic:
 
@@ -270,7 +270,7 @@ The `status` field can be set to `IN_PROGRESS`, `SUCCEEDED`, or `FAILED`\. You c
 ------
 
 ------
-#### [ Report execution completed ]
+#### [ Report Execution Completed ]
 
 When the device is finished executing the job, it calls the [UpdateJobExecution](jobs-api.md#mqtt-updatejobexecution) MQTT API\. If the job was successful, set `status` to `SUCCEEDED` and, in the message payload, in `statusDetails`, add other information about the job as name\-value pairs\. The in\-progress and step timers end when the job execution is complete\.
 
@@ -318,10 +318,10 @@ When the AWS IoT Jobs service receives this update, it publishes a message on th
 
 ------
 
-### Additional jobs<a name="jobs-additional-job"></a>
+### Additional Jobs<a name="jobs-additional-job"></a>
 
 ------
-#### [ Additional jobs ]
+#### [ additional jobs ]
 
 If there are other job executions pending for the device, they are included in the message published to `$aws/things/MyThing/jobs/notify`\.
 
@@ -350,7 +350,7 @@ For example:
 
 ------
 
-### Jobs notifications<a name="jobs-comm-notifications"></a>
+### Jobs Notifications<a name="jobs-comm-notifications"></a>
 
 The AWS IoT Jobs service publishes MQTT messages to reserved topics when jobs are pending or when the first job execution in the list changes\. Devices can keep track of pending jobs by subscribing to these topics\.
 
@@ -367,13 +367,13 @@ Job notifications are published to MQTT topics as JSON payloads\. There are two 
   + The status of an existing job execution that was not the first one in the list changes from `QUEUED` to `IN_PROGRESS` and becomes the first one in the list\. \(This happens when there are no other `IN_PROGRESS` job executions in the list or when the job execution whose status changes from `QUEUED` to `IN_PROGRESS` was queued earlier than any other `IN_PROGRESS` job execution in the list\.\) 
   + The status of the job execution that is first in the list changes to a terminal status and is removed from the list\.
 
-For more information about publishing and subscribing to MQTT topics, see [Message broker for AWS IoT](iot-message-broker.md)\.
+For more information about publishing and subscribing to MQTT topics, see [Message Broker for AWS IoT](iot-message-broker.md)\.
 
 **Note**  
 Notifications are not available when you use HTTP Signature Version 4 or HTTP TLS to communicate with jobs\.
 
 ------
-#### [ Job pending ]
+#### [ job pending ]
 
 The AWS IoT Jobs service publishes a message on an MQTT topic when a job is added to or removed from the list of pending job executions for a thing or the first job execution in the list changes:
 + `$aws/things/thingName/jobs/notify`

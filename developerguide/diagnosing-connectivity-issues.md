@@ -1,4 +1,4 @@
-# Diagnosing connectivity issues<a name="diagnosing-connectivity-issues"></a>
+# Diagnosing Connectivity Issues<a name="diagnosing-connectivity-issues"></a>
 
 ## Authentication<a name="troubleshooting-authentication"></a>
 
