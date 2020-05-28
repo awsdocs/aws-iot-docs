@@ -86,3 +86,10 @@ Except for the topics listed here, any topic that begins with $ is considered re
 | $aws/provisioning\-templates/<templateName>/provision/cbor/rejected | Subscribe | AWS IoT publishes to this topic when a call to the RegisterThing MQTT API fails\. | 
 | $aws/provisioning\- templates/<templateName>/provision/json/accepted | Subscribe | AWS IoT publishes to this topic when a call is made successfully to the RegisterThing MQTT API\. | 
 | $aws/provisioning\- templates/<templateName>/provision/json/rejected | Subscribe | AWS IoT publishes to this topic when a call to the RegisterThing MQTT API fails\. | 
+  
+**Device Defender Topics**  
+
+| Topic | Allowed Operations | Description | 
+| --- | --- | --- | 
+|    $aws/things/*<thingName>*/defender/metrics/*<format>* |  Publish  |  Device Defender agents publish metrics to this topic \. For more information, see [Sending metrics from devices](device-defender-detect.md#DetectMetricsMessages)  | 
+ 
