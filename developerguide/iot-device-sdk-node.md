@@ -1,8 +1,8 @@
-# Using the AWS IoT Device SDK for JavaScript and Node<a name="iot-device-sdk-node"></a>
+# Using the AWS IoT device SDK for JavaScript and node<a name="iot-device-sdk-node"></a>
 
 This tutorial shows you how to install Node\.js, the npm package manager, and the AWS IoT Device SDK for JavaScript on a Raspberry Pi and run the sample applications\.
 
-## Install the Latest Version of Node\.js<a name="iot-sdk-node-runtime"></a>
+## Install the latest version of Node\.js<a name="iot-sdk-node-runtime"></a>
 
 To use the AWS IoT Device SDK for JavaScript, install Node\.js and the npm package manager on your Raspberry Pi\.
 
@@ -24,7 +24,7 @@ To use the AWS IoT Device SDK for JavaScript, install Node\.js and the npm packa
 
    If a version number is displayed, node and npm are installed correctly\.
 
-## Install the AWS IoT Device SDK for JavaScript<a name="iot-sdk-node-intall-sdk"></a>
+## Install the AWS IoT device SDK for JavaScript<a name="iot-sdk-node-intall-sdk"></a>
 
 Install the AWS IoT Device SDK for JavaScript on your Raspberry Pi\.
 
@@ -38,7 +38,7 @@ Install the AWS IoT Device SDK for JavaScript on your Raspberry Pi\.
 
    npm install
 
-## Prepare to Run the Sample Applications<a name="iot-sdk-node-config-app"></a>
+## Prepare to run the sample applications<a name="iot-sdk-node-config-app"></a>
 
 Under `aws-iot-device-sdk-js`, create a `certs` directory and copy your private key, device certificate, and root CA certificate into it\.
 
@@ -72,7 +72,7 @@ This is always `8883`\.
 Your IoT thing name  
 This is the name you used when you registered your Raspberry Pi with AWS IoT\.
 
-## Run the Sample Applications<a name="iot-sdk-node-app-run"></a>
+## Run the sample applications<a name="iot-sdk-node-app-run"></a>
 
 The AWS IoT Device SDK for JavaScript contains a number of samples in the `aws-iot-device-sdk-js/examples` directory\. We recommend that you start with `device-example.js`\. This example runs in two modes\. In mode 1, it subscribes to the MQTT topic, `topic_1`, and publishes a message every 4 seconds on `topic_2`\. In mode 2, it subscribes to `topic_2` and publishes a message every 4 seconds on `topic_1`\. You can run two instances of `device-example.js` \(one in mode 1 and one in mode 2\) and see the messages being sent and received\.
 
@@ -114,4 +114,4 @@ message topic_2 {"mode2Process":4}
 ...
 ```
 
-If the sample does not run correctly, try adding the `-d` option to display debug information\.
+If the sample does not run correctly, try adding the `-D` option to display debug information\. You can also use the [AWS IoT console](https://console.aws.amazon.com/iot/home) to view the MQTT messages\. See [View MQTT messages with the AWS IoT MQTT client](view-mqtt-messages.md) for information about how to use the **MQTT client in the AWS IoT console**\.

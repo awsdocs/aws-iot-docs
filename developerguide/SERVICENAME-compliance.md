@@ -1,4 +1,4 @@
-# Compliance Validation for AWS IoT Core<a name="SERVICENAME-compliance"></a>
+# Compliance validation for AWS IoT Core<a name="SERVICENAME-compliance"></a>
 
 Third\-party auditors assess the security and compliance of AWS IoT Core as part of multiple AWS compliance programs\. These include SOC, PCI, FedRAMP, HIPAA, and others\.
 

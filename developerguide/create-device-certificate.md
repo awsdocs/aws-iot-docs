@@ -1,4 +1,4 @@
-# Create and Activate a Device Certificate<a name="create-device-certificate"></a>
+# Create and activate a device certificate<a name="create-device-certificate"></a>
 
 Communication between your device and AWS IoT Core is protected through the use of X\.509 certificates\. AWS IoT Core can generate a certificate for you or you can use your own X\.509 certificate\. In this tutorial, AWS IoT Core generates the X\.509 certificate for you\. Certificates must be activated prior to use\.
 

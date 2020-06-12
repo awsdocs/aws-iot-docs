@@ -1,4 +1,4 @@
-# Using the AWS IoT Jobs APIs<a name="jobs-api"></a>
+# Using the AWS IoT jobs APIs<a name="jobs-api"></a>
 
 There are two categories of API used in the AWS IoT Jobs service: 
 + Those used for management and control of jobs\.
@@ -13,16 +13,16 @@ Each AWS IoT Jobs HTTPS API has a corresponding command that allows you to call 
 aws iot create-job ...
 ```
 
-## Job Management and Control API<a name="jobs-http-api"></a>
+## Job management and control API<a name="jobs-http-api"></a>
 
-### Job Management and Control Data Types<a name="jobs-control-plane-data-types"></a>
+### Job management and control data types<a name="jobs-control-plane-data-types"></a>
 
 The following data types are used by management and control applications to communicate with the AWS IoT Jobs service\.
 
 #### Job<a name="jobs-job"></a>
 
 ------
-#### [ Job Data Type ]
+#### [ Job data type ]
 
 The `Job` object contains details about a job\.
 
@@ -143,7 +143,7 @@ Configuration information for presigned Amazon S3 URLs\.
 `expiresInSec`  
 How long \(in seconds\) presigned URLs are valid\. Valid values are 60 \- 3600\. The default value is 3600 seconds\. Presigned URLs are generated when the AWS IoT Jobs service receives an MQTT request for the job document\.  
 `roleArn`  
-The ARN of an IAM role that grants permission to download files from an Amazon S3 bucket\. The role must also grant permission for AWS IoT to download the files\. For more information about how to create and configure the role, see [Create Jobs](manage-job-cli.md#create-job)\.
+The ARN of an IAM role that grants permission to download files from an Amazon S3 bucket\. The role must also grant permission for AWS IoT to download the files\. For more information about how to create and configure the role, see [Create jobs](manage-job-cli.md#create-job)\.
 
 `jobExecutionRolloutConfig`  
 Optional\. Allows you to create a staged rollout of a job\.    
@@ -185,7 +185,7 @@ Specifies the amount of time, in minutes, this device has to finish execution of
 #### JobSummary<a name="jobs-job-summary"></a>
 
 ------
-#### [ JobSummary Data Type ]
+#### [ JobSummary data type ]
 
 The `JobSummary` object contains a job summary\.
 
@@ -237,7 +237,7 @@ The UNIX timestamp for when the job was completed\.
 #### JobExecution<a name="jobs-job-execution"></a>
 
 ------
-#### [ JobExection Data Type ]
+#### [ JobExection data type ]
 
 The `JobExecution` object represents the execution of a job on a device\.
 
@@ -301,7 +301,7 @@ A collection of name\-value pairs that describe the status of the job execution\
 #### JobExecutionSummary<a name="jobs-job-execution-summary"></a>
 
 ------
-#### [ JobExecutionSummary Data Type ]
+#### [ JobExecutionSummary data type ]
 
 The `JobExecutionSummary` object contains job execution summary information:
 
@@ -341,7 +341,7 @@ The status of the job execution: `QUEUED`, `IN_PROGRESS`, `FAILED`, `SUCCEEDED`,
 #### JobExecutionSummaryForJob<a name="jobs-job-execution-summary-for-job"></a>
 
 ------
-#### [ JobExecutionSummaryForJob Data Type ]
+#### [ JobExecutionSummaryForJob data type ]
 
 The `JobExecutionSummaryForJob` object contains a summary of information about job executions for a specific job\.
 
@@ -379,7 +379,7 @@ An [JobExecutionSummary](#jobs-job-execution-summary) object\.
 #### JobExecutionSummaryForThing<a name="jobs-job-execution-summary-for-thing"></a>
 
 ------
-#### [ JobExecutionSummaryForThing Data Type ]
+#### [ JobExecutionSummaryForThing data type ]
 
 The `JobExecutionSummaryForThing` object contains a summary of information about a job execution on a specific thing\.
 
@@ -414,14 +414,24 @@ A [JobExecutionSummary](#jobs-job-execution-summary) object\.
 
 ------
 
-### Job Management and Control HTTPS Commands<a name="jobs-control-plane-commands"></a>
+### Job management and control HTTPS and CLI commands<a name="jobs-control-plane-commands"></a>
 
-The following commands are available for management and control applications over the HTTPS protocol\.
+The following commands are available for management and control applications in the CLI and over the HTTPS protocol\. To get the value for the `endpoint-url` parameter in the CLI commands, use the following command\.
+
+`aws iot describe-endpoint --endpoint-type=iot:Jobs`
+
+This command generates the following output\.
+
+```
+{
+    "endpointAddress": "unique-.jobs.iot.us-west-2.amazonaws.com"
+}
+```
 
 #### AssociateTargetsWithJob<a name="jobs-AssociateTargetsWithJob"></a>
 
 ------
-#### [ AssociateTargetsWithJob Command ]
+#### [ AssociateTargetsWithJob command ]
 
 Associates a group with a continuous job\. For more information, see [CreateJob](#jobs-CreateJob)\. The following criteria must be met: 
 + The job must have been created with the `targetSelection` field set to `CONTINUOUS`\.
@@ -497,7 +507,7 @@ aws iot  associate-targets-with-job \
 ```
 
 
-**`cli-input-json` fields:**  
+**`cli-input-json` Fields:**  
 
 |  Name  |  Type  |  Description  | 
 | --- | --- | --- | 
@@ -526,16 +536,11 @@ Output:
 |  description  |  string  length max:2028  pattern: \[^\\\\p\{C\}\]\+  |  A short text description of the job\.  | 
 
 ------
-#### [ MQTT \(1\) ]
-
-Not available\.
-
-------
 
 #### CancelJob<a name="jobs-CancelJob"></a>
 
 ------
-#### [ CancelJob Command ]
+#### [ CancelJob command ]
 
 Cancels a job\.
 
@@ -612,7 +617,7 @@ aws iot  cancel-job \
 ```
 
 
-**`cli-input-json` fields:**  
+**`cli-input-json` Fields:**  
 
 |  Name  |  Type  |  Description  | 
 | --- | --- | --- | 
@@ -641,16 +646,11 @@ Output:
 |  description  |  string  length max:2028  pattern: \[^\\\\p\{C\}\]\+  |  A short text description of the job\.  | 
 
 ------
-#### [ MQTT \(2\) ]
-
-Not available\.
-
-------
 
 #### CancelJobExecution<a name="jobs-CancelJobExecution"></a>
 
 ------
-#### [ CancelJobExecution Command ]
+#### [ CancelJobExecution command ]
 
 Cancels a job execution on a device\.
 
@@ -726,7 +726,7 @@ aws iot  cancel-job-execution \
 ```
 
 
-**`cli-input-json` fields:**  
+**`cli-input-json` Fields:**  
 
 |  Name  |  Type  |  Description  | 
 | --- | --- | --- | 
@@ -743,16 +743,11 @@ Output:
 None
 
 ------
-#### [ MQTT \(3\) ]
-
-Not available\.
-
-------
 
 #### CreateJob<a name="jobs-CreateJob"></a>
 
 ------
-#### [ CreateJob Command ]
+#### [ CreateJob command ]
 
 Creates a job\. You can provide the job document as a link to a file in an Amazon S3 bucket \(`documentSource` parameter\) or in the body of the request \(`document` parameter\)\.
 
@@ -830,7 +825,7 @@ Optional\. A short text description of the job\.
 `presignedUrlConfigData`  
 Optional\. Configuration information for presigned Amazon S3 URLs\.    
 `roleArn`  
-The ARN of the IAM role that contains permissions to access the Amazon S3 bucket\. This is the bucket that contains the data that devices download with the presigned Amazon S3 URLs\. This role must also grant AWS IoT permission to assume the role\. For more information, see [Create Jobs](manage-job-cli.md#create-job)\.  
+The ARN of the IAM role that contains permissions to access the Amazon S3 bucket\. This is the bucket that contains the data that devices download with the presigned Amazon S3 URLs\. This role must also grant AWS IoT permission to assume the role\. For more information, see [Create jobs](manage-job-cli.md#create-job)\.  
 `expiresInSec`  
 How long \(in seconds\) presigned URLs are valid\. Valid values are 60 \- 3600\. The default value is 3600 seconds\. Presigned URLs are generated when the AWS IoT Jobs service receives an MQTT request for the job document\. 
 
@@ -960,7 +955,7 @@ aws iot  create-job \
 ```
 
 
-**`cli-input-json` fields:**  
+**`cli-input-json` Fields:**  
 
 |  Name  |  Type  |  Description  | 
 | --- | --- | --- | 
@@ -1014,16 +1009,11 @@ Output:
 |  description  |  string  length max:2028  pattern: \[^\\\\p\{C\}\]\+  |  The job description\.  | 
 
 ------
-#### [ MQTT \(4\) ]
-
-Not available\.
-
-------
 
 #### DeleteJob<a name="jobs-DeleteJob"></a>
 
 ------
-#### [ DeleteJob Command ]
+#### [ DeleteJob command ]
 
 Deletes a job and its related job executions\.
 
@@ -1039,7 +1029,7 @@ DELETE /jobs/jobId?force=force
 ```
 
 
-**URI Request Parameters:**  
+**URI request parameters:**  
 
 |  Name  |  Type  |  Req?  |  Description  | 
 | --- | --- | --- | --- | 
@@ -1091,7 +1081,7 @@ aws iot  delete-job \
 ```
 
 
-**`cli-input-json` fields:**  
+**`cli-input-json` Fields:**  
 
 |  Name  |  Type  |  Description  | 
 | --- | --- | --- | 
@@ -1103,16 +1093,11 @@ Output:
 None
 
 ------
-#### [ MQTT \(5\) ]
-
-Not available\.
-
-------
 
 #### DeleteJobExecution<a name="jobs-DeleteJobExecution"></a>
 
 ------
-#### [ DeleteJobExecution Command ]
+#### [ DeleteJobExecution command ]
 
 Deletes a job execution\.
 
@@ -1126,7 +1111,7 @@ DELETE /things/thingName/jobs/jobId/executionNumber/executionNumber?force=force
 ```
 
 
-**URI Request Parameters:**  
+**URI request parameters:**  
 
 |  Name  |  Type  |  Req?  |  Description  | 
 | --- | --- | --- | --- | 
@@ -1184,7 +1169,7 @@ aws iot  delete-job-execution \
 ```
 
 
-**`cli-input-json` fields:**  
+**`cli-input-json` Fields:**  
 
 |  Name  |  Type  |  Description  | 
 | --- | --- | --- | 
@@ -1198,16 +1183,11 @@ Output:
 None
 
 ------
-#### [ MQTT \(6\) ]
-
-Not available\.
-
-------
 
 #### DescribeJob<a name="jobs-DescribeJob"></a>
 
 ------
-#### [ DescribeJob Command ]
+#### [ DescribeJob command ]
 
 Gets the details of the specified job\.
 
@@ -1259,7 +1239,7 @@ aws iot  describe-job \
 ```
 
 
-**`cli-input-json` fields:**  
+**`cli-input-json` Fields:**  
 
 |  Name  |  Type  |  Description  | 
 | --- | --- | --- | 
@@ -1386,16 +1366,11 @@ Output:
 |  inProgressTimeoutInMinutes  |  long  |  Specifies the amount of time, in minutes, this device has to finish execution of this job\. The timeout interval can be anywhere between 1 minute and 7 days \(1 to 10080 minutes\)\. The in\-progress timer can't be updated and applies to all job executions for the job\. Whenever a job execution remains in the `IN_PROGRESS` status for longer than this interval, the job execution fails and switches to the terminal `TIMED_OUT` status\.   | 
 
 ------
-#### [ MQTT \(7\) ]
-
-Not available\.
-
-------
 
 #### DescribeJobExecution<a name="jobs-DescribeJobExecution"></a>
 
 ------
-#### [ DescribeJobExecution Command ]
+#### [ DescribeJobExecution command ]
 
 Gets details of a job execution\. The job's execution status must be `SUCCEEDED` or `FAILED`\.
 
@@ -1453,7 +1428,7 @@ aws iot  describe-job-execution \
 ```
 
 
-**`cli-input-json` fields:**  
+**`cli-input-json` Fields:**  
 
 |  Name  |  Type  |  Description  | 
 | --- | --- | --- | 
@@ -1507,16 +1482,11 @@ Output:
 |  versionNumber  |  long  |  The version of the job execution\. Job execution versions are incremented each time they are updated by a device\.  | 
 
 ------
-#### [ MQTT \(8\) ]
-
-Not available\.
-
-------
 
 #### GetJobDocument<a name="jobs-GetJobDocument"></a>
 
 ------
-#### [ GetJobDocument Command ]
+#### [ GetJobDocument command ]
 
 Gets the job document for a job\.
 
@@ -1567,7 +1537,7 @@ aws iot  get-job-document \
 ```
 
 
-**`cli-input-json` fields:**  
+**`cli-input-json` Fields:**  
 
 |  Name  |  Type  |  Description  | 
 | --- | --- | --- | 
@@ -1589,16 +1559,11 @@ Output:
 |  document  |  string  length max:32768  |  The job document content\.  | 
 
 ------
-#### [ MQTT \(9\) ]
-
-Not available\.
-
-------
 
 #### ListJobExecutionsForJob<a name="jobs-listJobExecutionsForJob"></a>
 
 ------
-#### [ ListExecutionsForJob Command ]
+#### [ ListExecutionsForJob command ]
 
 Gets a list of job executions for a job\.
 
@@ -1661,7 +1626,7 @@ aws iot  list-job-executions-for-job \
 ```
 
 
-**`cli-input-json` fields:**  
+**`cli-input-json` Fields:**  
 
 |  Name  |  Type  |  Description  | 
 | --- | --- | --- | 
@@ -1707,16 +1672,11 @@ Output:
 |  nextToken  |  string  |  The token for the next set of results, or **null** if there are no additional results\.  | 
 
 ------
-#### [ MQTT \(10\) ]
-
-Not available\.
-
-------
 
 #### ListJobExecutionsForThing<a name="jobs-ListJobExecutionsForThing"></a>
 
 ------
-#### [ ListJobExecutionsForThing Command ]
+#### [ ListJobExecutionsForThing command ]
 
 Gets a list of job executions for a thing\.
 
@@ -1779,7 +1739,7 @@ aws iot  list-job-executions-for-thing \
 ```
 
 
-**`cli-input-json` fields:**  
+**`cli-input-json` Fields:**  
 
 |  Name  |  Type  |  Description  | 
 | --- | --- | --- | 
@@ -1825,16 +1785,11 @@ Output:
 |  nextToken  |  string  |  The token for the next set of results, or **null** if there are no additional results\.  | 
 
 ------
-#### [ MQTT \(11\) ]
-
-Not available\.
-
-------
 
 #### ListJobs<a name="jobs-listJobs"></a>
 
 ------
-#### [ ListJobs Command ]
+#### [ ListJobs command ]
 
 Gets a list of the jobs in your AWS account\.
 
@@ -1907,7 +1862,7 @@ aws iot  list-jobs \
 ```
 
 
-**`cli-input-json` fields:**  
+**`cli-input-json` Fields:**  
 
 |  Name  |  Type  |  Description  | 
 | --- | --- | --- | 
@@ -1956,16 +1911,11 @@ Output:
 |  nextToken  |  string  |  The token for the next set of results, or **null** if there are no additional results\.  | 
 
 ------
-#### [ MQTT \(12\) ]
-
-Not available\.
-
-------
 
 #### UpdateJob<a name="jobs-UpdateJob"></a>
 
 ------
-#### [ UpdateJob Command ]
+#### [ UpdateJob command ]
 
 Updates supported fields of the specified job\. Updated values for `timeoutConfig` take effect for only newly in\-progress executions\. Currently in\-progress executions continue to execute with the old timeout configuration\.
 
@@ -2017,7 +1967,7 @@ Optional\. A short text description of the job\.
 `presignedUrlConfigData`  
 Optional\. Configuration information for presigned Amazon S3 URLs\.    
 `roleArn`  
-The ARN of the IAM role that contains permissions to access the Amazon S3 bucket\. This is the bucket that contains the data that devices download with the presigned Amazon S3 URLs\. This role must also grant AWS IoT permission to assume the role\. For more information, see [Create Jobs](manage-job-cli.md#create-job)\.  
+The ARN of the IAM role that contains permissions to access the Amazon S3 bucket\. This is the bucket that contains the data that devices download with the presigned Amazon S3 URLs\. This role must also grant AWS IoT permission to assume the role\. For more information, see [Create jobs](manage-job-cli.md#create-job)\.  
 `expiresInSec`  
 How long \(in seconds\) presigned URLs are valid\. Valid values are 60 \- 3600\. The default value is 3600 seconds\. Presigned URLs are generated when the AWS IoT Jobs service receives an MQTT request for the job document\. 
 
@@ -2118,7 +2068,7 @@ aws iot  update-job \
 ```
 
 
-**`cli-input-json` fields:**  
+**`cli-input-json` Fields:**  
 
 |  Name  |  Type  |  Description  | 
 | --- | --- | --- | 
@@ -2156,22 +2106,17 @@ HTTP/1.1 200
 If the action is successful, the service sends back an HTTP 200 response with an empty HTTP body\. 
 
 ------
-#### [ MQTT \(13\) ]
 
-Not available\.
+## Jobs device MQTT and HTTPS APIs<a name="jobs-mqtt-api"></a>
 
-------
-
-## Jobs Device MQTT and HTTPS APIs<a name="jobs-mqtt-api"></a>
-
-### Device MQTT and HTTPS Data Types<a name="jobs-data-plane-data-types"></a>
+### Device MQTT and HTTPS data types<a name="jobs-data-plane-data-types"></a>
 
 The following data types are used to communicate with the AWS IoT Jobs service over the MQTT and HTTPS protocols\.
 
 #### JobExecution<a name="jobs-mqtt-job-execution-data"></a>
 
 ------
-#### [ JobExecution Data Type ]
+#### [ JobExecution data type ]
 
 Contains data about a job execution\.
 
@@ -2233,7 +2178,7 @@ A number that identifies a job execution on a device\. It can be used later in c
 #### JobExecutionState<a name="jobs-mqtt-job-execution-state"></a>
 
 ------
-#### [ JobExecutionState Data Type ]
+#### [ JobExecutionState data type ]
 
 Contains data about the state of a job execution\.
 
@@ -2268,7 +2213,7 @@ The version of the job execution\. Job execution versions are incremented each t
 #### JobExecutionSummary<a name="jobs-mqtt-job-execution-summary"></a>
 
 ------
-#### [ JobExecutionSummary Data Type ]
+#### [ JobExecutionSummary data type ]
 
 Contains a subset of information about a job execution\.
 
@@ -2312,7 +2257,7 @@ A number that identifies a job execution on a device\.
 #### ErrorResponse<a name="jobs-mqtt-error-response"></a>
 
 ------
-#### [ ErrorResponse Data Type ]
+#### [ ErrorResponse data type ]
 
 Contains information about an error that occurred during an AWS IoT Jobs service operation\.
 
@@ -2367,14 +2312,14 @@ A [JobExecutionState](#jobs-mqtt-job-execution-state) object\. This field is inc
 
 ------
 
-### Device Commands<a name="jobs-data-plane-commands"></a>
+### Device commands<a name="jobs-data-plane-commands"></a>
 
 The following commands are available over the MQTT and HTTPS protocols\.
 
 #### GetPendingJobExecutions<a name="mqtt-getpendingjobexecutions"></a>
 
 ------
-#### [ GetPendingJobExecutions Command ]
+#### [ GetPendingJobExecutions command ]
 
 Gets the list of all jobs for a thing that are not in a terminal state\.
 
@@ -2468,7 +2413,7 @@ aws iot-jobs-data  get-pending-job-executions \
 ```
 
 
-**`cli-input-json` fields:**  
+**`cli-input-json` Fields:**  
 
 |  Name  |  Type  |  Description  | 
 | --- | --- | --- | 
@@ -2528,7 +2473,7 @@ Output:
 #### StartNextPendingJobExecution<a name="mqtt-startnextpendingjobexecution"></a>
 
 ------
-#### [ StartNextPendingJobExecution Command ]
+#### [ StartNextPendingJobExecution command ]
 
 Gets and starts the next pending job execution for a thing \(status IN\_PROGRESS or QUEUED\)\. 
 + Any job executions with status IN\_PROGRESS are returned first\.
@@ -2686,7 +2631,7 @@ aws iot-jobs-data  start-next-pending-job-execution \
 ```
 
 
-**`cli-input-json` fields:**  
+**`cli-input-json` Fields:**  
 
 |  Name  |  Type  |  Description  | 
 | --- | --- | --- | 
@@ -2741,7 +2686,7 @@ Output:
 #### DescribeJobExecution<a name="mqtt-describejobexecution"></a>
 
 ------
-#### [ DescribeJobExecution Command ]
+#### [ DescribeJobExecution command ]
 
 Gets detailed information about a job execution\.
 
@@ -2866,7 +2811,7 @@ aws iot-jobs-data  describe-job-execution \
 ```
 
 
-**`cli-input-json` fields:**  
+**`cli-input-json` Fields:**  
 
 |  Name  |  Type  |  Description  | 
 | --- | --- | --- | 
@@ -2920,7 +2865,7 @@ Output:
 #### UpdateJobExecution<a name="mqtt-updatejobexecution"></a>
 
 ------
-#### [ UpdateJobExecution Command ]
+#### [ UpdateJobExecution command ]
 
 Updates the status of a job execution\. You can optionally create a step timer by setting a value for the `stepTimeoutInMinutes` property\. If you don't update the value of this property by running `UpdateJobExecution` again, the job execution times out when the step timer expires\.
 
@@ -3101,7 +3046,7 @@ aws iot-jobs-data  update-job-execution \
 ```
 
 
-**`cli-input-json` fields:**  
+**`cli-input-json` Fields:**  
 
 |  Name  |  Type  |  Description  | 
 | --- | --- | --- | 
@@ -3150,7 +3095,7 @@ Output:
 #### JobExecutionsChanged<a name="mqtt-jobexecutionschanged"></a>
 
 ------
-#### [ JobExecutionsChanged Message ]
+#### [ JobExecutionsChanged message ]
 
 Sent whenever a job execution is added to or removed from the list of pending job executions for a thing\.
 
@@ -3185,7 +3130,7 @@ Not available\.
 #### NextJobExecutionChanged<a name="mqtt-nextjobexecutionchanged"></a>
 
 ------
-#### [ NextJobExecutionChanged Message ]
+#### [ NextJobExecutionChanged message ]
 
 Sent whenever there is a change to which job execution is next on the list of pending job executions for a thing, as defined for [DescribeJobExecution](#mqtt-describejobexecution) with jobId `$next`\. This message is not sent when the next job's execution details change, only when the next job that would be returned by `DescribeJobExecution` with jobId `$next` has changed\. Consider job executions J1 and J2 with state QUEUED\. J1 is next on the list of pending job executions\. If the state of J2 is changed to IN\_PROGRESS while the state of J1 remains unchanged, then this notification is sent and contains details of J2\.
 

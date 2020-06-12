@@ -1,4 +1,4 @@
-# Local Proxy<a name="local-proxy"></a>
+# Local proxy<a name="local-proxy"></a>
 
 The local proxy is a process that acts as the recipient or sender of incoming TCP connections\. It transmits data sent by the device application through the Secure Tunneling service over a WebSocket secure connection\. You can download the local proxy source from [GitHub](https://github.com/aws-samples/aws-iot-securetunneling-localproxy)\. The local proxy can run in two modes: `source` or `destination`\. In source mode, the local proxy runs on the same device or network as the client application that initiates the TCP connection\. In destination mode, the local proxy runs on the remote device, along with the destination application\. Currently, a single tunnel can support only one TCP connection at a time\.
 
@@ -10,7 +10,7 @@ By default, the local proxy attempts to reconnect to the Secure Tunneling servic
 
 After you use the tunnel, it is safe to terminate the local proxy process\. We recommend that you explicitly close the tunnel by calling `CloseTunnel`\. Active tunnel clients might not be closed immediately after calling `CloseTunnel`\.
 
-## Local Proxy Security Best Practices<a name="local-proxy-security"></a>
+## Local proxy security best practices<a name="local-proxy-security"></a>
 
 When running the local proxy, follow these security best practices:
 + Avoid the use of the `-t` local proxy argument to pass in an access token\. We recommend that you use the `AWSIOT_TUNNEL_ACCESS_TOKEN` environment variable to set the access token for the local proxy\.

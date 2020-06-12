@@ -1,4 +1,4 @@
-# Error Handling \(Error Action\)<a name="rule-error-handling"></a>
+# Error handling \(error action\)<a name="rule-error-handling"></a>
 
 When AWS IoT receives a message from a device, the rules engine checks to see if the message matches a rule\. If so, the rule's SQL statement is evaluated and the rule's actions are triggered, passing the SQL statement's result\. 
 
@@ -6,7 +6,7 @@ If a problem occurs when triggering an action, the rules engine triggers an erro
 + A rule doesn't have permission to access an Amazon S3 bucket\.
 + A user error causes DynamoDB provisioned throughput to be exceeded\.
 
-## Error Action Message Format<a name="rule-error-message-format"></a>
+## Error action message format<a name="rule-error-message-format"></a>
 
 A single message is generated per rule and message\. For example, if two rule actions in the same rule fail, the error action receives one message that contains both errors\.
 
@@ -52,7 +52,7 @@ The name of the resource \(for example, the name of an S3 bucket\)\.
 errorMessage  
 The description and explanation of the error\.
 
-## Error Action Example<a name="rule-error-example"></a>
+## Error action example<a name="rule-error-example"></a>
 
 Here is an example of a rule with an added error action\. The following rule has an action that writes message data to a DynamoDB table and an error action that writes data to an Amazon S3 bucket:
 
@@ -77,6 +77,6 @@ Here is an example of a rule with an added error action\. The following rule has
 
 You can use any function or substitution in an error action's SQL statement, except for external functions \(for example, `get_thing_shadow`, `aws_lambda`, and `machinelearning_predict`\.\)
 
-For more information about rules and how to specify an error action, see [Creating an AWS IoT Rule](https://docs.aws.amazon.com/iot/latest/developerguide/iot-create-rule.html)\.
+For more information about rules and how to specify an error action, see [Creating an AWS IoT rule](iot-create-rule.md)\.
 
-For more information about using CloudWatch to monitor the success or failure of rules, see [AWS IoT Metrics and Dimensions](metrics_dimensions.md)\.
+For more information about using CloudWatch to monitor the success or failure of rules, see [AWS IoT metrics and dimensions](metrics_dimensions.md)\.

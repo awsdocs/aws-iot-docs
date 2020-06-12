@@ -1,4 +1,4 @@
-# Just\-in\-Time Provisioning<a name="jit-provisioning"></a>
+# Just\-in\-time provisioning<a name="jit-provisioning"></a>
 
 You can have your devices provisioned when they first attempt to connect to AWS IoT\. Just\-in\-time provisioning \(JITP\) settings are made on CA certificates\. To provision the device, you must enable automatic registration and associate a provisioning template with the CA certificate used to sign the device certificate\.
 
@@ -29,7 +29,7 @@ AWS IoT defines the following parameters that you can declare and reference in p
 + `AWS::IoT::Certificate::SerialNumber`
 + `AWS::IoT::Certificate::Id`
 
-The values for these provisioning template parameters are limited to what JITP can extract from the subject field of the certificate of the device being provisioned\. The `AWS::IoT::Certificate::Id` parameter refers to an internally generated ID, not an ID that is contained in the certificate\. You can get the value of this ID using the `principal()` function inside an AWS IoT rule\.
+The values for these provisioning template parameters are limited to what JITP can extract from the subject field of the certificate of the device being provisioned\. The certificate must contain values for all of the parameters in the template body\. The `AWS::IoT::Certificate::Id` parameter refers to an internally generated ID, not an ID that is contained in the certificate\. You can get the value of this ID using the `principal()` function inside an AWS IoT rule\.
 
 The following JSON file is an example of a complete JITP template\. The value of the `templateBody` field must be a JSON object specified as an escaped string and can use only the values in the preceding list\. You can use a variety of tools to create the required JSON output, such as `json.dumps` \(Python\) or `JSON.stringify` \(Node\)\. The value of the `roleARN` field must be the ARN of a role that has the `AWSIoTThingsRegistration` attached to it\. Also, your template can use an existing `PolicyName` instead of the inline `PolicyDocument` in the example\. \(The first example adds line breaks for readability, but you can copy and paste the template that appears directly below it\.\)
 

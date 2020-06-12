@@ -1,4 +1,4 @@
-# Attach an AWS IoT Core Policy to a Device Certificate<a name="attach-policy-to-certificate"></a>
+# Attach an AWS IoT Core policy to a device certificate<a name="attach-policy-to-certificate"></a>
 
 Now that you have created a policy, you must attach it to your device certificate\. Attaching an AWS IoT Core policy to a certificate gives the device the permissions specified in the policy\.
 

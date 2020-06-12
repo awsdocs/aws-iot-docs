@@ -1,8 +1,8 @@
-# SELECT Clause<a name="iot-sql-select"></a>
+# SELECT clause<a name="iot-sql-select"></a>
 
 The AWS IoT SELECT clause is essentially the same as the ANSI SQL SELECT clause, with some minor differences\.
 
-The SELECT clause supports [Data Types](iot-sql-data-types.md), [Operators](iot-sql-operators.md), [Functions](iot-sql-functions.md), [Literals](iot-sql-literals.md), [Case Statements](iot-sql-case.md), [JSON Extensions](iot-sql-json.md), [Substitution Templates](iot-substitution-templates.md), and [Nested Object Queries](iot-sql-nested-queries.md)\.
+The SELECT clause supports [Data types](iot-sql-data-types.md), [Operators](iot-sql-operators.md), [Functions](iot-sql-functions.md), [Literals](iot-sql-literals.md), [Case statements](iot-sql-case.md), [JSON extensions](iot-sql-json.md), [Substitution templates](iot-substitution-templates.md), and [Nested object queries](iot-sql-nested-queries.md)\.
 
 You can use the SELECT clause to extract information from incoming MQTT messages\. You can also use `SELECT *` to retrieve the entire incoming message payload\. For example:
 
@@ -70,7 +70,7 @@ SQL: SELECT (temperature – 32) * 5 / 9 AS celsius, upper(color) as my_color FR
 Outgoing payload: {"celsius":10,"my_color":"RED"}
 ```
 
-## Working with Binary Payloads<a name="binary-payloads"></a>
+## Working with binary payloads<a name="binary-payloads"></a>
 
 When the message payload should be handled as raw binary data, rather than a JSON object, use the \* operator to refer to it in a `SELECT` clause\. This works for non\-JSON payloads with some rule actions, such as the [S3 action](https://docs.aws.amazon.com/iot/latest/developerguide/iot-rule-actions.html#s3-rule)\.
 
@@ -94,7 +94,7 @@ For rule actions that don't support binary payload input, such as [Lambda action
 SELECT encode(*, 'base64') AS data FROM 'my_topic'
 ```
 
-### Binary Payload Examples<a name="binary-payloads-examples"></a>
+### Binary payload examples<a name="binary-payloads-examples"></a>
 
 You can use the following `SELECT` clause with binary payloads because it doesn't refer to any JSON names\. 
 

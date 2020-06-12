@@ -26,4 +26,4 @@ This might indicate that a device or a device's credentials have been compromise
 Register each device as a unique thing in AWS IoT, and use the thing name as the client ID to connect\. Or use a UUID as the client ID when connecting the device over MQTT\. You can also use mitigation actions to:
 + Apply the `PUBLISH_FINDINGS_TO_SNS` mitigation action if you want to implement a custom response in response to the Amazon SNS message\. 
 
-For more information, see [Mitigation Actions](device-defender-mitigation-actions.md)\.
+For more information, see [Mitigation actions](device-defender-mitigation-actions.md)\.

@@ -1,524 +1,533 @@
-# Using Shadows<a name="using-device-shadows"></a>
+# Simulating Device Shadow service communications<a name="using-device-shadows"></a>
 
-AWS IoT provides three methods for working with a device's shadow:
+This topic demonstrates how the Device Shadow service acts as an intermediary and allows devices and apps to use a shadow to update, store, and retrieve a device's state\.
 
-`UPDATE`  <a name="update"></a>
-Creates a device's shadow if it doesn't exist, or updates the contents of a device's shadow with the data provided in the request\. The data is stored with timestamp information to indicate when it was last updated\. Messages are sent to all subscribers with the difference between `desired` or `reported` state \(delta\)\. Things or apps that receive a message can perform an action based on the difference between `desired` or `reported` states\. For example, a device can update its state to the desired state, or an app can update its UI to show the change in the device's state\.
+To demonstrate the interaction described in this topic, and to explore it further, you'll need an AWS account and a system on which you can run the AWS CLI\. If you don't have these, you can still see the interaction in the code examples\.
 
-`GET`  <a name="get"></a>
-Retrieves the latest state stored in the device's shadow \(for example, during start\-up of a device to retrieve configuration and the last state of operation\)\. This method returns the full JSON document, including metadata\.
+In this example, the AWS IoT console represents the device\. The AWS CLI represents the app or service that accesses the device by way of the shadow\. The AWS CLI interface is very similar to the API that an app might use to communicate with AWS IoT\. The device in this example is a smart light bulb and the app displays the light bulb's state and can change the light bulb's state\.
 
-`DELETE`  <a name="delete"></a>
-Deletes a device's shadow, including all of its content\. This removes the JSON document from the data store\. You can't restore a device's shadow you deleted, but you can create a new shadow with the same name\.
+## Setting up the simulation<a name="using-device-shadows-setup"></a>
 
-## Protocol Support<a name="protocol-support"></a>
+These procedures initialize the simulation by opening the [AWS IoT console](https://console.aws.amazon.com/iot/home), which simulates your device, and the command line window that simulates your app\.
 
-These methods are supported through both [MQTT](http://docs.oasis-open.org/mqtt/mqtt/v3.1.1/mqtt-v3.1.1.html) and a RESTful API over HTTPS\. Because MQTT is a publish/subscribe communication model, AWS IoT implements a set of reserved topics\. Things or applications subscribe to these topics before publishing on a request topic in order to implement a request–response behavior\. For more information, see [Shadow MQTT Topics](device-shadow-mqtt.md) and [Device Shadow RESTful API](device-shadow-rest-api.md)\.
+**To set up your simulation environment**
 
-## Updating a Shadow<a name="update-device-shadow"></a>
+1. Create an AWS account or, if you already have one to use for this simulation, you can skip this step\.
 
-You can update a device's shadow by using the [UpdateThingShadow](API_UpdateThingShadow.md) RESTful API or by publishing to the [/update](device-shadow-mqtt.md#update-pub-sub-topic) topic\. Updates affect only the fields specified in the request\.
+   You'll need an AWS account to run the examples from this topic on your own\. If you don't have an AWS account, create one, as described in [Setting up](setting-up.md)\.
 
-Initial state:
+1. Open the [AWS IoT console](https://console.aws.amazon.com/iot/home), and in the left menu, choose **Test** to open the **MQTT client**\.
 
-```
-{
-    "state": {
-        "reported" : {
-            "color" : { "r" :255, "g": 255, "b": 0 }    
-        }
-    }
-}
-```
+1. In another window, open a terminal window on a system that has the AWS CLI installed on it\.
 
-An update message is sent:
+You should have two windows open: one with the AWS IoT console on the **Test** page, and one with a command line prompt\.
 
-```
-{
-    "state": {
-        "desired" : {
-            "color" : { "r" : 10 },
-            "engine" : "ON"
-        }
-    }
-}
-```
+## Initialize the device<a name="using-device-shadows-init-device"></a>
 
-The device receives the `desired` state on the `/update/delta` topic that is triggered by the previous `/update` message and then executes the desired changes\. When finished, the device should confirm its updated state through the `reported` section in the shadow JSON document\.
+In this simulation, we'll be working with a thing object named, *mySimulatedThing*, and its shadow named, *simShadow1*\.
 
-Final state:
+In the console, subscribe to these MQTT topics\. These topics are the responses to the `get`, `update`, and `delete` actions so that your device will be ready to receive the responses after it publishes an action\.
++ `$aws/things/mySimulatedThing/shadow/name/simShadow1/delete/accepted`
++ `$aws/things/mySimulatedThing/shadow/name/simShadow1/delete/rejected`
++ `$aws/things/mySimulatedThing/shadow/name/simShadow1/get/accepted`
++ `$aws/things/mySimulatedThing/shadow/name/simShadow1/get/rejected`
++ `$aws/things/mySimulatedThing/shadow/name/simShadow1/update/accepted`
++ `$aws/things/mySimulatedThing/shadow/name/simShadow1/update/rejected`
++ `$aws/things/mySimulatedThing/shadow/name/simShadow1/update/delta`
++ `$aws/things/mySimulatedThing/shadow/name/simShadow1/update/documents`
 
-```
-{
-    "state": {
-        "reported" : {
-            "color" : {  "r" : 10, "g" : 255, "b": 0 },
-            "engine" : "ON"
-        }
-    }
-}
-```
+Do this procedure for each of the MQTT topics in the preceding list\.
 
-## Retrieving a Shadow Document<a name="retrieving-device-shadow"></a>
+**To subscribe to an MQTT topic in the **MQTT client****
 
-You can retrieve a device's shadow by using the [GetThingShadow](API_GetThingShadow.md) RESTful API or by subscribing and publishing to the [/get](device-shadow-mqtt.md#get-pub-sub-topic) topic\. This retrieves the entire document plus the delta between the `desired` or `reported` states\.
+1. In the **MQTT client**, choose **Subscribe to topic** under **Subscriptions**
 
-Example document:
+1. In **Subscription topic**, enter the topic that you want to subscribe to\.
 
-```
-{
-    "state": {
-        "desired": {
-            "lights": {
-                "color": "RED"
-            },
-            "engine": "ON"
+   For this simulation, copy a topic from the preceding list and paste it into **Subscription topic**\. Enter only one topic at a time\.
+
+1. Choose **Subscribe to topic**\.
+
+1. Confirm the topics appear in the left column of the **MQTT client**\.
+
+   At this point, your simulated device is ready to receive the topics as they are published by AWS IoT\.
+
+1. After a device has initialized itself and subscribed to the response topics, it should query for the shadows it supports\. This simulation supports only one shadow, the shadow that supports a thing object named, *mySimulatedThing*, named, *simShadow1*\.
+
+**To get the current shadow state from the **MQTT client****
+
+   1. In the **MQTT client**, choose **Publish to a topic** under **Subscriptions**
+
+   1. Under **Publish**, enter this topic:
+
+      ```
+      $aws/things/mySimulatedThing/shadow/name/simShadow1/get
+      ```
+
+   1. Delete any content from the message body window below where you entered the topic to get\.
+
+   1. Choose **Publish to topic** to publish the request\.
+
+1. If you receive a message in the `$aws/things/mySimulatedThing/shadow/name/simShadow1/get/rejected`, topic and the `code` is `404`, such as in this example, the shadow has not been created, so we'll create it next\.
+
+   ```
+   {
+     "code": 404,
+     "message": "No shadow exists with name: 'simShadow1'"
+   }
+   ```
+
+**To create a shadow with the current status of the device**
+
+   1. In the **MQTT client**, choose **Publish to a topic** under **Subscriptions**
+
+   1. Under **Publish**, enter this topic:
+
+      ```
+      $aws/things/mySimulatedThing/shadow/name/simShadow1/update
+      ```
+
+   1. In the message body window below where you entered the topic, enter this shadow document to show the device is reporting its ID and its current color in RGB values\.
+
+      ```
+      {
+        "state": {
+          "reported": {
+            "ID": "SmartLamp21",
+            "ColorRGB": [
+              128,
+              128,
+              128
+            ]
+          }
         },
-        "reported": {
-            "lights": {
-                "color": "GREEN"
-            },
-            "engine": "ON"
-        }
+        "clientToken": "426bfd96-e720-46d3-95cd-014e3ef12bb6"
+      }
+      ```
+
+   1. Choose **Publish to topic** to publish the request\.
+
+   1. Observe which of the topics receives the response message\.
+
+   1. If you receive a message in the `$aws/things/mySimulatedThing/shadow/name/simShadow1/update/accepted` topic, the shadow was created and the message body contains the current shadow document, such as the example in Step 7\.
+
+   1. If you receive a message in the `$aws/things/mySimulatedThing/shadow/name/simShadow1/update/rejected` topic, review the error in the message body\.
+
+1. If you received a message in the `$aws/things/mySimulatedThing/shadow/name/simShadow1/get/accepted`, topic, the shadow already exists and the message body has the current shadow state, such as in this example\. With this, you could set your device or confirm that it matches the shadow state\.
+
+   ```
+   {
+     "state": {
+       "reported": {
+         "ID": "SmartLamp21",
+         "ColorRGB": [
+           128,
+           128,
+           128
+         ]
+       }
+     },
+     "metadata": {
+       "reported": {
+         "ID": {
+           "timestamp": 1591140517
+         },
+         "ColorRGB": [
+           {
+             "timestamp": 1591140517
+           },
+           {
+             "timestamp": 1591140517
+           },
+           {
+             "timestamp": 1591140517
+           }
+         ]
+       }
+     },
+     "version": 3,
+     "timestamp": 1591140517,
+     "clientToken": "426bfd96-e720-46d3-95cd-014e3ef12bb6"
+   }
+   ```
+
+## Send an update from the app<a name="using-device-shadows-app-update"></a>
+
+This section uses the AWS CLI to demonstrate how an app can interact with a shadow\.
+
+**To get the current state of the shadow using the AWS CLI**
+
+1. From the command line, enter this command\.
+
+   ```
+   aws iot-data get-thing-shadow --thing-name mySimulatedThing --shadow-name simShadow1  /dev/stdout
+   ```
+
+1. Because the shadow exists and had been initialized by the device to reflect its current state, it should return the following shadow document\.
+
+   ```
+   {
+     "state": {
+       "reported": {
+         "ID": "SmartLamp21",
+         "ColorRGB": [
+           128,
+           128,
+           128
+         ]
+       }
+     },
+     "metadata": {
+       "reported": {
+         "ID": {
+           "timestamp": 1591140517
+         },
+         "ColorRGB": [
+           {
+             "timestamp": 1591140517
+           },
+           {
+             "timestamp": 1591140517
+           },
+           {
+             "timestamp": 1591140517
+           }
+         ]
+       }
+     },
+     "version": 3,
+     "timestamp": 1591141111
+   }
+   ```
+
+The app can use this response to initialize its representation of the device state\.
+
+If the app updates the state, such as when an end user changes the color of our smart light bulb to yellow, the app would send an update\-thing\-shadow command\. This command corresponds to the `UpdateThingShadow` REST API\.
+
+**To update a shadow from an app**
+
+1. From the command line, enter this command\.
+
+   ```
+   aws iot-data update-thing-shadow --thing-name mySimulatedThing --shadow-name simShadow1 \
+       --payload '{"state":{"desired":{"ColorRGB":[255,255,0]}},"clientToken":"21b21b21-bfd2-4279-8c65-e2f697ff4fab"}' /dev/stdout
+   ```
+
+1. If successful, this command should return the following shadow document\.
+
+   ```
+   {
+     "state": {
+       "desired": {
+         "ColorRGB": [
+           255,
+           255,
+           0
+         ]
+       }
+     },
+     "metadata": {
+       "desired": {
+         "ColorRGB": [
+           {
+             "timestamp": 1591141596
+           },
+           {
+             "timestamp": 1591141596
+           },
+           {
+             "timestamp": 1591141596
+           }
+         ]
+       }
+     },
+     "version": 4,
+     "timestamp": 1591141596,
+     "clientToken": "21b21b21-bfd2-4279-8c65-e2f697ff4fab"
+   }
+   ```
+
+## Respond to update in device<a name="using-device-shadows-device-update"></a>
+
+Returning to the **MQTT client** in the AWS console, you should see the messages that AWS IoT published to reflect the update command issued in the previous section\.
+
+**To view the update messages in the **MQTT client****
+
+1. In the **MQTT client**, choose **$aws/things/mySimulatedThing/shadow/name/simShadow1/update/delta** in the **Subscriptions** column\. If the topic name is truncated, you can pause on it to see the full topic\.
+
+1. In the **$aws/things/mySimulatedThing/shadow/name/simShadow1/update/delta** topic log, you should see a `/delta` message similar as this one\.
+
+   ```
+   {
+     "version": 4,
+     "timestamp": 1591141596,
+     "state": {
+       "ColorRGB": [
+         255,
+         255,
+         0
+       ]
+     },
+     "metadata": {
+       "ColorRGB": [
+         {
+           "timestamp": 1591141596
+         },
+         {
+           "timestamp": 1591141596
+         },
+         {
+           "timestamp": 1591141596
+         }
+       ]
+     },
+     "clientToken": "21b21b21-bfd2-4279-8c65-e2f697ff4fab"
+   }
+   ```
+
+Your device would process the contents of this message to set the device state to match the `desired` state in the message\.
+
+After the device updates the state to match the `desired` state in the message, it must send the new reported state back to AWS IoT by publishing an update message\. This procedure simulates this in the **MQTT client**\.
+
+**To update the shadow from the device**
+
+1. In the **MQTT client**, choose **Publish to a topic**\.
+
+1. In the message body window of the **Publish** section, enter this updated shadow document, which describes the current state of the device\.
+
+   ```
+   {
+     "state": {
+       "reported": {
+         "ColorRGB": [255,255,0]
+         }
+     },
+     "clientToken": "a4dc2227-9213-4c6a-a6a5-053304f60258"
+   }
+   ```
+
+1. In the **Publish** section, in the topic field above the message body window, enter the shadow's topic followed by the `/update` action\.
+
+   ```
+   $aws/things/mySimulatedThing/shadow/name/simShadow1/update
+   ```
+
+1. Choose **Publish to topic** to publish the updated device state\.
+
+1. If the message was successfully received by AWS IoT, you should see a new response in the **$aws/things/mySimulatedThing/shadow/name/simShadow1/update/accepted** message log in the **MQTT client** with the current state of the shadow, such as this example\.
+
+   ```
+   {
+     "state": {
+       "reported": {
+         "ColorRGB": [
+           255,
+           255,
+           0
+         ]
+       }
+     },
+     "metadata": {
+       "reported": {
+         "ColorRGB": [
+           {
+             "timestamp": 1591142747
+           },
+           {
+             "timestamp": 1591142747
+           },
+           {
+             "timestamp": 1591142747
+           }
+         ]
+       }
+     },
+     "version": 5,
+     "timestamp": 1591142747,
+     "clientToken": "a4dc2227-9213-4c6a-a6a5-053304f60258"
+   }
+   ```
+
+A successful update to the reported state of the device also causes AWS IoT to send a comprehensive description of the shadow state in a message to the `` topic, such as this message body that resulted from the shadow update performed by the device in the preceding procedure\.
+
+```
+{
+  "previous": {
+    "state": {
+      "desired": {
+        "ColorRGB": [
+          255,
+          255,
+          0
+        ]
+      },
+      "reported": {
+        "ID": "SmartLamp21",
+        "ColorRGB": [
+          128,
+          128,
+          128
+        ]
+      }
     },
     "metadata": {
-        "desired": {
-            "lights": {
-                "color": {
-                    "timestamp": 123456
-                },
-                "engine": {
-                    "timestamp": 123456
-                }
-            }
+      "desired": {
+        "ColorRGB": [
+          {
+            "timestamp": 1591141596
+          },
+          {
+            "timestamp": 1591141596
+          },
+          {
+            "timestamp": 1591141596
+          }
+        ]
+      },
+      "reported": {
+        "ID": {
+          "timestamp": 1591140517
         },
-        "reported": {
-            "lights": {
-                "color": {
-                    "timestamp": 789012
-                }
-            },
-            "engine": {
-                "timestamp": 789012
-            }
-        },
-        "version": 10,
-        "timestamp": 123456789
-    }
-}
-```
-
-Response:
-
-```
-{
+        "ColorRGB": [
+          {
+            "timestamp": 1591140517
+          },
+          {
+            "timestamp": 1591140517
+          },
+          {
+            "timestamp": 1591140517
+          }
+        ]
+      }
+    },
+    "version": 4
+  },
+  "current": {
     "state": {
-        "desired": {
-            "lights": {
-                "color": "RED"
-            },
-            "engine": "ON"
-        },
-        "reported": {
-            "lights": {
-                "color": "GREEN"
-            },
-            "engine": "ON"
-        },
-        "delta": {
-            "lights": {
-                "color": "RED"
-            }
-        }
+      "desired": {
+        "ColorRGB": [
+          255,
+          255,
+          0
+        ]
+      },
+      "reported": {
+        "ID": "SmartLamp21",
+        "ColorRGB": [
+          255,
+          255,
+          0
+        ]
+      }
     },
     "metadata": {
-        "desired": {
-            "lights": {
-                "color": {
-                    "timestamp": 123456
-                },
-             },
-             "engine": {
-                "timestamp": 123456
-            }
+      "desired": {
+        "ColorRGB": [
+          {
+            "timestamp": 1591141596
+          },
+          {
+            "timestamp": 1591141596
+          },
+          {
+            "timestamp": 1591141596
+          }
+        ]
+      },
+      "reported": {
+        "ID": {
+          "timestamp": 1591140517
         },
-        "reported": {
-            "lights": {
-                "color": {
-                    "timestamp": 789012
-                }
-            },
-            "engine": {
-                "timestamp": 789012
-            }
-        },
-        "delta": {
-            "lights": {
-                "color": {
-                    "timestamp": 123456
-                }
-            }
-        }
+        "ColorRGB": [
+          {
+            "timestamp": 1591142747
+          },
+          {
+            "timestamp": 1591142747
+          },
+          {
+            "timestamp": 1591142747
+          }
+        ]
+      }
     },
-    "version": 10,
-    "timestamp": 123456789
+    "version": 5
+  },
+  "timestamp": 1591142747,
+  "clientToken": "a4dc2227-9213-4c6a-a6a5-053304f60258"
 }
 ```
 
-### Optimistic Locking<a name="optimistic-locking"></a>
-
-You can use the state document version to ensure you are updating the most recent version of a device's shadow document\. When you supply a version with an update request, the service rejects the request with an HTTP 409 conflict response code if the current version of the state document does not match the version supplied\.
-
-For example:
-
-Initial document:
-
-```
-{
-    "state" : {
-        "desired" : { "colors" : ["RED", "GREEN", "BLUE" ] }
-    },
-    "version" : 10
-}
-```
-
-Update: \(version doesn't match; request will be rejected\)
-
-```
-{
-    "state": {
-        "desired": {
-            "colors": [
-                "BLUE"
-            ]
-        }
-    },
-    "version": 9
-}
-```
-
-Result:
-
-```
-409 Conflict
-```
-
-Update: \(version matches; this request will be accepted\)
-
-```
-{
-    "state": {
-        "desired": {
-            "colors": [
-                "BLUE"
-            ]
-        }
-    },
-    "version": 10
-}
-```
-
-Final state:
-
-```
-{
-    "state": {
-        "desired": {
-            "colors": [
-                "BLUE"
-            ]
-        }
-    },
-    "version": 11
-}
-```
-
-## Deleting Data<a name="deleting-thing-data"></a>
-
-You can delete data from a device's shadow by publishing to the [/update](device-shadow-mqtt.md#update-pub-sub-topic) topic, setting the fields to be deleted to null\. Any field with a value of `null` is removed from the document\.
-
-Initial state:
-
-```
-{
-    "state": {
-        "desired" : {
-            "lights": { "color": "RED" },
-            "engine" : "ON"
-        },
-        "reported" : {
-            "lights" : { "color": "GREEN"  },
-            "engine" : "OFF"
-        }
-    }
-}
-```
-
-An update message is sent:
-
-```
-{
-    "state": {
-        "desired": null,
-        "reported": {
-            "engine": null
-        }
-    }
-}
-```
-
-Final state:
-
-```
-{
-    "state": {
-        "reported" : {
-            "lights" : { "color" : "GREEN" }
-        }
-    }
-}
-```
-
-You can delete all data from a device's shadow by setting its state to `null`\. For example, sending the following message deletes all of the state data, but the device's shadow remains\.
-
-```
-{
-    "state": null
-}
-```
-
-The device's shadow still exists even if its state is `null`\. The version of the shadow is incremented when the next update occurs\.
-
-## Deleting a Shadow<a name="deleting-device-shadow"></a>
-
-You can delete a device's shadow document by using the [DeleteThingShadow](API_DeleteThingShadow.md) RESTful API or by publishing to the [/delete](device-shadow-mqtt.md#delete-pub-sub-topic) topic\. 
-
-**Note**  
-Deleting a device's shadow does not delete the thing\. Deleting a thing does not delete the corresponding device's shadow\.
-
-Initial state:
-
-```
-{
-    "state": {
-        "desired" : {
-            "lights": { "color": "RED" },
-            "engine" : "ON"
-        },
-        "reported" : {
-            "lights" : { "color": "GREEN"  },
-            "engine" : "OFF"
-        }
-    }
-}
-```
-
-An empty message is published to the /delete topic\.
-
-Final state:
-
-```
- HTTP 404 - resource not found
-```
-
-## Delta State<a name="delta-state"></a>
-
-Delta state is a virtual type of state that contains the difference between the `desired` and `reported` states\. Fields in the `desired` section that are not in the `reported` section are included in the delta\. Fields that are in the `reported` section and not in the `desired` section are not included in the delta\. The delta contains metadata, and its values are equal to the metadata in the `desired` field\. For example:
-
-```
-{
-    "state": {
-        "desired": {
-            "color": "RED",
-            "state": "STOP"
-        },
-        "reported": {
-            "color": "GREEN",
-            "engine": "ON"
-        },
-        "delta": {
-            "color": "RED",
-            "state": "STOP"
-        }
-    },
-    "metadata": {
-        "desired": {
-            "color": {
-                "timestamp": 12345
-            },
-            "state": {
-                "timestamp": 12345
-            },
-            "reported": {
-                "color": {
-                    "timestamp": 12345
-                },
-                "engine": {
-                    "timestamp": 12345
-                }
-            },
-            "delta": {
-                "color": {
-                    "timestamp": 12345
-                },
-                "state": {
-                    "timestamp": 12345
-                }
-            }
-        },
-        "version": 17,
-        "timestamp": 123456789
-    }
-}
-```
-
-When nested objects differ, the delta contains the path all the way to the root\.
-
-```
-{
-    "state": {
-        "desired": {
-            "lights": {
-                "color": {
-                    "r": 255,
-                    "g": 255,
-                    "b": 255
-                }
-            }
-        },
-        "reported": {
-            "lights": {
-                "color": {
-                    "r": 255,
-                    "g": 0,
-                    "b": 255
-                }
-            }
-        },
-        "delta": {
-            "lights": {
-                "color": {
-                    "g": 255
-                }
-            }
-        }
-    },
-    "version": 18,
-    "timestamp": 123456789
-}
-```
-
-The Device Shadow service calculates the delta by iterating through each field in the `desired` state and comparing it to the `reported` state\.
-
-Arrays are treated like values\. If an array in the `desired` section doesn't match the array in the `reported` section, then the entire desired array is copied into the delta\.
-
-## Observing State Changes<a name="observing-state-changes"></a>
-
- When a device's shadow is updated, messages are published on two MQTT topics: 
-+ $aws/things/*thing\-name*/shadow/update/accepted
-+ $aws/things/*thing\-name*/shadow/update/delta
-
-The message sent to the `update/delta` topic is intended for the thing whose state is being updated\. This message contains only the difference between the `desired` and `reported` sections of the device's shadow document\. Upon receiving this message, the device should decide whether to make the requested change\. If the device's state is changed, it should publish its new current state to the `$aws/things/thing-name/shadow/update` topic\.
-
-Devices and applications can subscribe to either of these topics to be notified when the state of the document has changed\.
-
-Here is an example of that flow:
-
-1. A device reports its state\.
-
-1. The system updates the state document in its persistent data store\.
-
-1. The system publishes a delta message, which contains only the delta and is targeted at the subscribed devices\. Devices should subscribe to this topic to receive updates\.
-
-1. The device's shadow publishes an accepted message, which contains the entire received document, including metadata\. Applications should subscribe to this topic to receive updates\.
-
-## Message Order<a name="message-ordering"></a>
-
-There is no guarantee that messages from the AWS IoT service will arrive at the device in any specific order\.
-
-Initial state document:
-
-```
-{
-    "state" : {
-        "reported" : { "color" : "blue" }
-    },
-    "version" : 10,
-    "timestamp": 123456777
-}
-```
-
-Update 1:
-
-```
-{
-    "state": { "desired" : { "color" : "RED" } },
-    "version": 10,
-    "timestamp": 123456777
-}
-```
-
-Update 2:
-
-```
-{
-    "state": { "desired" : { "color" : "GREEN" } },
-    "version": 11,  
-    "timestamp": 123456778
-}
-```
-
-Final state document:
-
-```
-{
-    "state": {
-        "reported": { "color" : "GREEN" }
-    },
-    "version": 12,
-    "timestamp": 123456779
-}
-```
-
-This results in two delta messages:
-
-```
-{
-    "state": {
-        "color": "RED"
-    },
-    "version": 11,
-    "timestamp": 123456778
-}
-```
-
-```
-{
-    "state": { "color" : "GREEN" },
-    "version": 12,
-    "timestamp": 123456779
-}
-```
-
-The device might receive these messages out of order\. Because the state in these messages is cumulative, a device can safely discard any messages that contain a version number older than the one it is tracking\. If the device receives the delta for version 12 before version 11, it can safely discard the version 11 message\.
-
-## Trim Shadow Messages<a name="device-shadow-trim-messages"></a>
-
-To reduce the size of shadow messages sent to your device, define a rule that selects only the fields your device needs then republishes the message on an MQTT topic to which your device is listening\.
-
-The rule is specified in JSON and should look like the following: 
-
-```
-{
-    "sql": "SELECT state, version FROM '$aws/things/+/shadow/update/delta'",
-    "ruleDisabled": false,
-    "actions": [{
-        "republish": {
-            "topic": "${topic(3)}/delta",
-            "roleArn": "arn:aws:iam::123456789012:role/my-iot-role"
-        }
-    }]
-}
-```
-
-The SELECT statement determines which fields from the message will be republished to the specified topic\. A "\+" wild card is used to match all shadow names\. The rule specifies that all matching messages should be republished to the specified topic\. In this case, the `"topic()"` function is used to specify the topic on which to republish\. `topic(3)` evaluates to the thing name in the original topic\. For more information about creating rules, see [Rules](https://docs.aws.amazon.com/iot/latest/developerguide/iot-rules.html)\.
+## Observe the update in the app<a name="using-device-shadows-view-result"></a>
+
+The app can now query the shadow for the current state as reported by the device\.
+
+**To get the current state of the shadow using the AWS CLI**
+
+1. From the command line, enter this command\.
+
+   ```
+   aws iot-data get-thing-shadow --thing-name mySimulatedThing --shadow-name simShadow1  /dev/stdout
+   ```
+
+1. Because the shadow has just been updated by the device to reflect its current state, it should return the following shadow document\.
+
+   ```
+   {
+     "state": {
+       "desired": {
+         "ColorRGB": [
+           255,
+           255,
+           0
+         ]
+       },
+       "reported": {
+         "ID": "SmartLamp21",
+         "ColorRGB": [
+           255,
+           255,
+           0
+         ]
+       }
+     },
+     "metadata": {
+       "desired": {
+         "ColorRGB": [
+           {
+             "timestamp": 1591141596
+           },
+           {
+             "timestamp": 1591141596
+           },
+           {
+             "timestamp": 1591141596
+           }
+         ]
+       },
+       "reported": {
+         "ID": {
+           "timestamp": 1591140517
+         },
+         "ColorRGB": [
+           {
+             "timestamp": 1591142747
+           },
+           {
+             "timestamp": 1591142747
+           },
+           {
+             "timestamp": 1591142747
+           }
+         ]
+       }
+     },
+     "version": 5,
+     "timestamp": 1591143269
+   }
+   ```
+
+## Going beyond the simulation<a name="using-device-shadows-next-steps"></a>
+
+Experiment with the interaction between the AWS CLI \(representing the app\) and the Console \(representing the device\) to model your IoT solution\.

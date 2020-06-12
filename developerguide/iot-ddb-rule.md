@@ -1,4 +1,4 @@
-# Creating a Rule with a DynamoDB Action<a name="iot-ddb-rule"></a>
+# Creating a rule with a DynamoDB action<a name="iot-ddb-rule"></a>
 
 The DynamoDB action allows you to take information from an incoming MQTT message and write it to a DynamoDB table\. 
 
@@ -48,7 +48,7 @@ We do not recommend the use of personally identifiable information in rule names
 1. Choose **Create rule**\.  
 ![\[Image NOT FOUND\]](http://docs.aws.amazon.com/iot/latest/developerguide/images/create-rule-for-ddb-final-2.png)
 
-## Testing a Rule with a DynamoDB Action<a name="test-db-rule"></a>
+## Testing a rule with a DynamoDB action<a name="test-db-rule"></a>
 
 1. To test the rule, open the AWS IoT console and from the navigation pane, choose **Test**\.
 

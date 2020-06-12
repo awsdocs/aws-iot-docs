@@ -1,4 +1,4 @@
-# Transport Security in AWS IoT<a name="transport-security"></a>
+# Transport security in AWS IoT<a name="transport-security"></a>
 
 The AWS IoT message broker and Device Shadow service encrypt all communication with [TLS](https://en.wikipedia.org/wiki/Transport_Layer_Security) [version 1\.2](https://en.wikipedia.org/wiki/Transport_Layer_Security#TLS_1.2)\. TLS is used to ensure the confidentiality of the application protocols \(MQTT, HTTP\) supported by AWS IoT\. TLS is available in a number of programming languages and operating systems\.
 
@@ -12,7 +12,7 @@ AWS IoT requires devices to send the [Server Name Indication \(SNI\) extension](
 
 Connections attempted by devices without the correct `host_name` value will be refused and logged in CloudWatch\.
 
-## TLS Cipher Suite Support<a name="tls-cipher-suite-support"></a>
+## TLS cipher suite support<a name="tls-cipher-suite-support"></a>
 
 AWS IoT supports the following cipher suites:
 + ECDHE\-ECDSA\-AES128\-GCM\-SHA256 \(recommended\)
@@ -32,4 +32,4 @@ AWS IoT supports the following cipher suites:
 + AES128\-SHA
 + AES256\-GCM\-SHA384
 + AES256\-SHA256
-+ AES256\-SHA​
++ AES256\-SHA

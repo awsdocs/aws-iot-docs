@@ -19,9 +19,9 @@ By limiting permissions to those services that are required for a device to perf
 
 Follow these steps to fix any noncompliant policies attached to things, thing groups, or other entities:
 
-1. Follow the steps in [Authorizing Direct Calls to AWS Services](authorizing-direct-aws.md) to apply a more restrictive policy to your role alias\.
+1. Follow the steps in [Authorizing direct calls to AWS services](authorizing-direct-aws.md) to apply a more restrictive policy to your role alias\.
 
 You can use mitigation actions to:
 + Apply the `PUBLISH_FINDINGS_TO_SNS` mitigation action if you want to implement a custom action in response to the Amazon SNS message\. 
 
-For more information, see [Mitigation Actions](device-defender-mitigation-actions.md)\. 
+For more information, see [Mitigation actions](device-defender-mitigation-actions.md)\. 

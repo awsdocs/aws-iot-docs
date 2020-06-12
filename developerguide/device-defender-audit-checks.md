@@ -1,4 +1,4 @@
-# Audit Checks<a name="device-defender-audit-checks"></a>
+# Audit checks<a name="device-defender-audit-checks"></a>
 
 **Note**  
 When you enable a check, data collection starts immediately\. If there is a large amount of data in your account to collect, results of the check might not be available for some time after you enabled it\.

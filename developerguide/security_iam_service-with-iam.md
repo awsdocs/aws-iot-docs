@@ -1,15 +1,15 @@
-# How AWS IoT Works with IAM<a name="security_iam_service-with-iam"></a>
+# How AWS IoT works with IAM<a name="security_iam_service-with-iam"></a>
 
 Before you use IAM to manage access to AWS IoT, you should understand which IAM features are available to use with AWS IoT\. To get a high\-level view of how AWS IoT and other AWS services work with IAM, see [AWS Services That Work with IAM](https://docs.aws.amazon.com/IAM/latest/UserGuide/reference_aws-services-that-work-with-iam.html) in the *IAM User Guide*\.
 
 **Topics**
-+ [IAM Policies](iam-policies.md)
-+ [AWS IoT Identity\-Based Policies](#security_iam_service-with-iam-id-based-policies)
-+ [AWS IoT Resource\-Based Policies](#security_iam_service-with-iam-resource-based-policies)
-+ [Authorization Based on AWS IoT Tags](#security_iam_service-with-iam-tags)
-+ [AWS IoT IAM Roles](#security_iam_service-with-iam-roles)
++ [IAM policies](iam-policies.md)
++ [AWS IoT identity\-based policies](#security_iam_service-with-iam-id-based-policies)
++ [AWS IoT resource\-based policies](#security_iam_service-with-iam-resource-based-policies)
++ [Authorization based on AWS IoT tags](#security_iam_service-with-iam-tags)
++ [AWS IoT IAM roles](#security_iam_service-with-iam-roles)
 
-## AWS IoT Identity\-Based Policies<a name="security_iam_service-with-iam-id-based-policies"></a>
+## AWS IoT identity\-based policies<a name="security_iam_service-with-iam-id-based-policies"></a>
 
 With IAM identity\-based policies, you can specify allowed or denied actions and resources as well as the conditions under which actions are allowed or denied\. AWS IoT supports specific actions, resources, and condition keys\. To learn about all of the elements that you use in a JSON policy, see [IAM JSON Policy Elements Reference](https://docs.aws.amazon.com/IAM/latest/UserGuide/reference_policies_elements.html) in the *IAM User Guide*\.
 
@@ -22,7 +22,7 @@ The following table lists the IAM IoT actions, the associated AWS IoT API, and t
 
 ****  
 
-| Policy Actions | AWS IoT API | Resources | 
+| Policy actions | AWS IoT API | Resources | 
 | --- | --- | --- | 
 | iot:AcceptCertificateTransfer | AcceptCertificateTransfer |  arn:aws:iot:*region*:*account\-id*:cert/*cert\-id*  The AWS account specified in the ARN must be the account to which the certificate is being transferred\.   | 
 | iot:AddThingToThingGroup | AddThingToThingGroup |  arn:aws:iot:*region*:*account\-id*:thinggroup/*thing\-group\-name* arn:aws:iot:*region*:*account\-id*:thing/*thing\-name*  | 
@@ -172,9 +172,9 @@ To see a list of AWS IoT actions, see [Actions Defined by AWS IoT](https://docs.
 The `Resource` element specifies the object or objects to which the action applies\. Statements must include either a `Resource` or a `NotResource` element\. You specify a resource using an ARN or using the wildcard \(\*\) to indicate that the statement applies to all resources\.
 
 
-**AWS IoT Resources**  
+**AWS IoT resources**  
 
-| Policy Actions | AWS IoT API | Resources | 
+| Policy actions | AWS IoT API | Resources | 
 | --- | --- | --- | 
 | iot:AcceptCertificateTransfer | AcceptCertificateTransfer |  arn:aws:iot:*region*:*account\-id*:cert/*cert\-id*  The AWS account specified in the ARN must be the account to which the certificate is being transferred\.   | 
 | iot:AddThingToThingGroup | AddThingToThingGroup |  arn:aws:iot:*region*:*account\-id*:thinggroup/*thing\-group\-name* arn:aws:iot:*region*:*account\-id*:thing/*thing\-name*  | 
@@ -303,7 +303,7 @@ Some AWS IoT actions, such as those for creating resources, cannot be performed 
 
 To see a list of AWS IoT resource types and their ARNs, see [Resources Defined by AWS IoT](https://docs.aws.amazon.com/IAM/latest/UserGuide/list_awsiot.html#awsiot-resources-for-iam-policies) in the *IAM User Guide*\. To learn with which actions you can specify the ARN of each resource, see [Actions Defined by AWS IoT](https://docs.aws.amazon.com/IAM/latest/UserGuide/list_awsiot.html#awsiot-actions-as-permissions)\.
 
-### Condition Keys<a name="security_iam_service-with-iam-id-based-policies-conditionkeys"></a>
+### Condition keys<a name="security_iam_service-with-iam-id-based-policies-conditionkeys"></a>
 
 The `Condition` element \(or `Condition` *block*\) lets you specify conditions in which a statement is in effect\. The `Condition` element is optional\. You can build conditional expressions that use [condition operators](https://docs.aws.amazon.com/IAM/latest/UserGuide/reference_policies_elements_condition_operators.html), such as equals or less than, to match the condition in the policy with values in the request\. 
 
@@ -314,9 +314,9 @@ If you specify multiple `Condition` elements in a statement, or multiple keys in
 AWS IoT defines its own set of condition keys and also supports using some global condition keys\. To see all AWS global condition keys, see [AWS Global Condition Context Keys](https://docs.aws.amazon.com/IAM/latest/UserGuide/reference_policies_condition-keys.html) in the *IAM User Guide*\. 
 
 
-**AWS IoT Condition Keys**  
+**AWS IoT condition keys**  
 
-| AWS IoT Condition Keys | Description | Type | 
+| AWS IoT condition keys | Description | Type | 
 | --- | --- | --- | 
 | aws:RequestTag/$\{<tag\-key>\} | A tag key that is present in the request that the user makes to AWS IoT\. | String | 
 | aws:ResourceTag/$\{<tag\-key>\} | The tag key component of a tag attached to an AWS IoT resource\. | String | 
@@ -328,37 +328,37 @@ To see a list of AWS IoT condition keys, see [Condition Keys for AWS IoT](https:
 
 
 
-To view examples of AWS IoT identity\-based policies, see [AWS IoT Identity\-Based Policy Examples](security_iam_id-based-policy-examples.md)\.
+To view examples of AWS IoT identity\-based policies, see [AWS IoT identity\-based policy examples](security_iam_id-based-policy-examples.md)\.
 
-## AWS IoT Resource\-Based Policies<a name="security_iam_service-with-iam-resource-based-policies"></a>
+## AWS IoT resource\-based policies<a name="security_iam_service-with-iam-resource-based-policies"></a>
 
 Resource\-based policies are JSON policy documents that specify what actions a specified principal can perform on the AWS IoT resource and under what conditions\.
 
 AWS IoT does not support IAM resource\-based policies\. It does, however, support AWS IoT resource\-based policies\. 
 
-## Authorization Based on AWS IoT Tags<a name="security_iam_service-with-iam-tags"></a>
+## Authorization based on AWS IoT tags<a name="security_iam_service-with-iam-tags"></a>
 
-You can attach tags to AWS IoT resources or pass tags in a request to AWS IoT\. To control access based on tags, you provide tag information in the [condition element](https://docs.aws.amazon.com/IAM/latest/UserGuide/reference_policies_elements_condition.html) of a policy using the `iot:ResourceTag/key-name`, `aws:RequestTag/key-name`, or `aws:TagKeys` condition keys\. For more information, see [Using Tags with IAM Policies](tagging-iot-iam.md)\. For more information about tagging AWS IoT resources, see [Tagging Your AWS IoT Resources](tagging-iot.md)\.
+You can attach tags to AWS IoT resources or pass tags in a request to AWS IoT\. To control access based on tags, you provide tag information in the [condition element](https://docs.aws.amazon.com/IAM/latest/UserGuide/reference_policies_elements_condition.html) of a policy using the `iot:ResourceTag/key-name`, `aws:RequestTag/key-name`, or `aws:TagKeys` condition keys\. For more information, see [Using tags with IAM policies](tagging-iot-iam.md)\. For more information about tagging AWS IoT resources, see [Tagging your AWS IoT resources](tagging-iot.md)\.
 
-To view an example identity\-based policy for limiting access to a resource based on the tags on that resource, see [Viewing AWS IoT Resources Based on Tags](security_iam_id-based-policy-examples.md#security_iam_id-based-policy-examples-view-thing-tags)\.
+To view an example identity\-based policy for limiting access to a resource based on the tags on that resource, see [Viewing AWS IoT resources based on tags](security_iam_id-based-policy-examples.md#security_iam_id-based-policy-examples-view-thing-tags)\.
 
-## AWS IoT IAM Roles<a name="security_iam_service-with-iam-roles"></a>
+## AWS IoT IAM roles<a name="security_iam_service-with-iam-roles"></a>
 
 An [IAM role](https://docs.aws.amazon.com/IAM/latest/UserGuide/id_roles.html) is an entity within your AWS account that has specific permissions\.
 
-### Using Temporary Credentials with AWS IoT<a name="security_iam_service-with-iam-roles-tempcreds"></a>
+### Using temporary credentials with AWS IoT<a name="security_iam_service-with-iam-roles-tempcreds"></a>
 
 You can use temporary credentials to sign in with federation, assume an IAM role, or to assume a cross\-account role\. You obtain temporary security credentials by calling AWS STS API operations such as [AssumeRole](https://docs.aws.amazon.com/STS/latest/APIReference/API_AssumeRole.html) or [GetFederationToken](https://docs.aws.amazon.com/STS/latest/APIReference/API_GetFederationToken.html)\. 
 
 AWS IoT supports using temporary credentials\. 
 
-### Service\-Linked Roles<a name="security_iam_service-with-iam-roles-service-linked"></a>
+### Service\-linked roles<a name="security_iam_service-with-iam-roles-service-linked"></a>
 
 [Service\-linked roles](https://docs.aws.amazon.com/IAM/latest/UserGuide/id_roles_terms-and-concepts.html#iam-term-service-linked-role) allow AWS services to access resources in other services to complete an action on your behalf\. Service\-linked roles appear in your IAM account and are owned by the service\. An IAM administrator can view but not edit the permissions for service\-linked roles\.
 
 AWS IoT does not supports service\-linked roles\.
 
-### Service Roles<a name="security_iam_service-with-iam-roles-service"></a>
+### Service roles<a name="security_iam_service-with-iam-roles-service"></a>
 
 This feature allows a service to assume a [service role](https://docs.aws.amazon.com/IAM/latest/UserGuide/id_roles_terms-and-concepts.html#iam-term-service-role) on your behalf\. This role allows the service to access resources in other services to complete an action on your behalf\. Service roles appear in your IAM account and are owned by the account\. This means that an IAM administrator can change the permissions for this role\. However, doing so might break the functionality of the service\.
 
