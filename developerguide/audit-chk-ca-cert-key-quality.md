@@ -31,6 +31,6 @@ Newly added devices signed using this CA certificate might pose a security threa
    + Apply the `UPDATE_CA_CERTIFICATE` mitigation action on your audit findings to make this change\. 
    + Apply the `PUBLISH_FINDINGS_TO_SNS` mitigation action if you want to implement a custom response in response to the Amazon SNS message\. 
 
-   For more information, see [Mitigation actions](device-defender-mitigation-actions.md)\.
+   For more information, see [Mitigation Actions](device-defender-mitigation-actions.md)\.
 
 1. Review the device certificate registration activity for the time after the CA certificate was revoked and consider revoking any device certificates that might have been issued with it during this time\. \(Use [ListCertificatesByCA](https://docs.aws.amazon.com/iot/latest/apireference/API_ListCertificatesByCA.html) to list the device certificates signed by the CA certificate and [UpdateCertificate](https://docs.aws.amazon.com/iot/latest/apireference/API_UpdateCertificate.html) to revoke a device certificate\.\)

@@ -1,4 +1,4 @@
-# Create a thing<a name="create-aws-thing"></a>
+# Create a Thing<a name="create-aws-thing"></a>
 
 Devices connected to AWS IoT are represented by *things* in the AWS IoT registry\. A *thing* represents a specific device or logical entity\. It can be a physical device or sensor \(for example, a light bulb or a switch on the wall\)\. It can also be a logical entity, like an instance of an application or physical entity that does not connect to AWS IoT, but is related to other devices that do \(for example, a car that has engine sensors or a control panel\)\.
 

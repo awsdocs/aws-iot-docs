@@ -1,4 +1,4 @@
-# Viewing your rules<a name="iot-view-rules"></a>
+# Viewing Your Rules<a name="iot-view-rules"></a>
 
 Use the [list\-topic\-rules](https://docs.aws.amazon.com/cli/latest/reference/iot/list-topic-rules.html) command to list your rules:
 

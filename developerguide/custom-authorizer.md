@@ -1,4 +1,4 @@
-# Custom authorizers<a name="custom-authorizer"></a>
+# Custom Authorizers<a name="custom-authorizer"></a>
 
 Custom authorizers consist of:
 
@@ -23,7 +23,7 @@ The logic that performs the authentication is implemented in a Lambda function\.
 **Note**  
 You are charged based on the number of requests for your Lambda functions and the duration, the time it takes for your code to execute\. For more information about AWS Lambda, see [AWS Lambda Pricing](https://aws.amazon.com/lambda/pricing/) and [AWS Lambda Developer Guide](https://docs.aws.amazon.com/lambda/latest/dg/)\.
 
-This function takes a token presented by a client or device, authenticates the device, and returns the following information:
+This function takes a token presented by a device, authenticates the device, and returns the following information:
 
 isAuthenticated  
 A Boolean value that indicates whether the token was authenticated\. If this is `false`, the rest of the response fields should be ignored\. 
@@ -41,13 +41,13 @@ RefreshAfterInSecs
 The period between policy refreshes\. When it lapses, the AWS policy engine reevaluates the policy documents and the AWS IoT Device Gateway invokes the Lambda function again to allow for policy changes\. The minimum value is 300 seconds, and the maximum value is 86,400 seconds\.
 
 Context  
-Information derived after validating the token that is made available in [AWS IoT rules engine SQL statements](iot-substitution-templates.md) and [IAM/AWS IoT policy variables](iot-policy-variables.md)\. 
+Information derived after validating the token that is made available in [AWS IoT rules engine SQL statements](https://docs.aws.amazon.com/iot/latest/developerguide/iot-substitution-templates.html) and [IAM/AWS IoT policy variables](https://docs.aws.amazon.com/iot/latest/developerguide/policy-variables.html)\. 
 
-You must grant permission to the AWS IoT service principal to invoke the Lambda function that implements the custom authentication/authorization logic\. You can do this with the following AWS CLI command:
+You must grant permission to the AWS IoT service principal to invoke the Lambda function that implements the custom authentication/authorization logic\. You can do this with the following CLI command:
 
 aws lambda add\-permission \-\-function\-name *<lambda\_function\_name>* \-\-statement\-id *<unique\_identifier\_string>* \-\-action 'lambda:InvokeFunction' \-\-principal iot\.amazonaws\.com \-\-source\-arn arn:aws:iot:*<your\-aws\-region>*:*<account\_id>*: authorizer/*<authorizer\-name>*
 
-The add\-permission command takes the following parameters:
+The add\-permission CLI command takes the following parameters:
 
 `function-name`  
 The name of the Lambda function to which you are granting invocation permission\.

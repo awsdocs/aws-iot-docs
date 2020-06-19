@@ -1,4 +1,4 @@
-# Create an AWS IoT rule to send an email<a name="iot-moisture-create-rule"></a>
+# Create an AWS IoT Rule to Send an Email<a name="iot-moisture-create-rule"></a>
 
 An AWS IoT rule defines a query and one or more actions to take when a message is received from a device\. The AWS IoT rules engine listens for messages sent by devices and uses the data in the messages to determine if some action should be taken\. For more information, see [Rules for AWS IoT ](iot-rules.md)\. 
 

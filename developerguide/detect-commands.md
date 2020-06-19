@@ -1,9 +1,9 @@
-# Detect commands<a name="detect-commands"></a>
+# Detect Commands<a name="detect-commands"></a>
 
 You can use the AWS IoT Device Defender Detect commands in this section to identify unusual behavior that might indicate a compromised device\.
 
 
-**AWS IoT Device Defender detect commands**  
+**AWS IoT Device Defender Detect Commands**  
 
 |  Name  |  Description  | 
 | --- | --- | 

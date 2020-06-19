@@ -1,4 +1,4 @@
-# Creating and configuring AWS\-managed domains<a name="iot-custom-endpoints-configurable-aws"></a>
+# Creating and Configuring AWS\-Managed Domains<a name="iot-custom-endpoints-configurable-aws"></a>
 
 
 ****  

@@ -1,4 +1,4 @@
-# Create the AWS IoT policy<a name="iot-moisture-policy"></a>
+# Create the AWS IoT Policy<a name="iot-moisture-policy"></a>
 
 Create an AWS IoT policy that allows your Raspberry Pi to connect and send messages to AWS IoT\.
 

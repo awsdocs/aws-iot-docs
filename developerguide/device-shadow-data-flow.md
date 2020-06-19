@@ -1,300 +1,434 @@
-# Interacting with shadows<a name="device-shadow-data-flow"></a>
+# Device Shadow Service Data Flow<a name="device-shadow-data-flow"></a>
 
-This topic describes the messages associated with each of the three methods that AWS IoT provides for working with shadows\. These methods include the following:
+The Device Shadow service acts as an intermediary, allowing devices and applications to retrieve and update a device's shadow\. 
 
-`UPDATE`  <a name="update"></a>
-Creates a shadow if it doesn't exist, or updates the contents of an existing shadow with the state information provided in the message body\. AWS IoT records a timestamp with each update to indicate when the state was last updated\. When the shadow's state changes, AWS IoT sends `/delta` messages to all MQTT subscribers with the difference between the `desired` and the `reported` states\. Devices or apps that receive a `/delta` message can perform actions based on the difference\. For example, a device can update its state to the desired state, or an app can update its UI to reflect the device's state change\.
+To illustrate how devices and applications communicate with the Device Shadow service, this section walks you through the use of the AWS IoT MQTT client and the AWS CLI to simulate communication between an internet\-connected light bulb, an application, and the Device Shadow service\. 
 
-`GET`  <a name="get"></a>
-Retrieves a current shadow document that contains the complete state of the shadow, including metadata\.
+The Device Shadow service uses MQTT topics to facilitate communication between applications and devices\. To see how this works, use the AWS IoT MQTT client to subscribe to the following MQTT topics with QoS 1:
 
-`DELETE`  <a name="delete"></a>
-Deletes the shadow and all of its content\. You can't restore a deleted shadow, but you can create a new shadow with the same name\.
+$aws/things/myLightBulb/shadow/update/accepted  
+The Device Shadow service sends messages to this topic when an update is successfully made to the device's shadow\. 
 
-## Protocol support<a name="protocol-support"></a>
+$aws/things/myLightBulb/shadow/update/rejected  
+The Device Shadow service sends messages to this topic when an update to the device's shadow is rejected\. 
 
-AWS IoT supports [MQTT](http://docs.oasis-open.org/mqtt/mqtt/v3.1.1/mqtt-v3.1.1.html) and a REST API over HTTPS protocols to interact with shadows\. AWS IoT provides a set of reserved request and response topics for MQTT publish and subscribe actions\. Devices and apps should subscribe to the response topics before publishing a request topic for information about how AWS IoT handled the request\. For more information, see [Device Shadow MQTT topics](device-shadow-mqtt.md) and [Device Shadow REST API](device-shadow-rest-api.md)\.
+$aws/things/myLightBulb/shadow/update/delta  
+The Device Shadow service sends messages to this topic when a difference is detected between the reported and desired sections of the device's shadow\. For more information, see [/update/delta](device-shadow-mqtt.md#update-delta-pub-sub-topic)\. 
 
-## Requesting and reporting state<a name="shadow-reporting-state"></a>
+$aws/things/myLightBulb/shadow/get/accepted  
+The Device Shadow service sends messages to this topic when a request for the device's shadow is made successfully\. 
 
-When designing your IoT solution using AWS IoT and shadows, you should determine the apps or devices that will request changes and those that will implement them\. Typically, a device implements and reports changes back to the shadow and apps and services respond to and request changes in the shadow\. Your solution could be different, but the examples in this topic assume that the client app or service requests changes in the shadow and the device performs the changes and reports them back to the shadow\.
+$aws/things/myLightBulb/shadow/get/rejected  
+The Device Shadow service sends messages to this topic when a request for the device's shadow is rejected\. 
 
-## Updating a shadow<a name="update-device-shadow"></a>
+$aws/things/myLightBulb/shadow/delete/accepted  
+The Device Shadow service sends messages to this topic when the device's shadow is deleted\. 
 
-Your app or service can update a shadow's state by using the [UpdateThingShadow](device-shadow-rest-api.md#API_UpdateThingShadow) API or by publishing to the [/update](device-shadow-mqtt.md#update-pub-sub-topic) topic\. Updates affect only the fields specified in the request\.
+$aws/things/myLightBulb/shadow/delete/rejected  
+The Device Shadow service sends messages to this topic when a request to delete the device's shadow is rejected\. 
 
-### Updating a shadow when a client requests a state change<a name="update-pub-sub-topic-client"></a>
+$aws/things/myLightBulb/shadow/update/documents  
+The Device Shadow service publishes a state document to this topic whenever an update to the device's shadow is successfully performed\.
 
-**When a client requests a state change in a shadow by using the MQTT protocol**
-
-1. The client should have a current shadow document so that it can identify the properties to change\. See the /get action for how to obtain the current shadow document\.
-
-1. The client subscribes to these MQTT topics:
-   + `$aws/things/thingName/shadow/name/shadowName/update/accepted`
-   + `$aws/things/thingName/shadow/name/shadowName/update/rejected`
-   + `$aws/things/thingName/shadow/name/shadowName/update/delta`
-   + `$aws/things/thingName/shadow/name/shadowName/update/documents`
-
-1. The client publishes a `$aws/things/thingName/shadow/name/shadowName/update` request topic with a state document that contains the desired state of the shadow\. Only the properties to change need to be included in the document\. This is an example of a document with the desired state\.
-
-   ```
-   {
-     "state": {
-       "desired": {
-         "color": {
-           "r": 10
-         },
-         "engine": "ON"
-       }
-     }
-   }
-   ```
-
-1. If the update request is valid, AWS IoT updates the desired state in the shadow and publishes messages on these topics:
-   + `$aws/things/thingName/shadow/name/shadowName/update/accepted`
-   + `$aws/things/thingName/shadow/name/shadowName/update/delta`
-
-   The `/update/accepted` message contains an [/accepted response state document](device-shadow-document.md#device-shadow-example-response-json-accepted) shadow document, and the `/update/delta` message contains a [/delta response state document](device-shadow-document.md#device-shadow-example-response-json-delta) shadow document\. 
-
-1. If the update request is not valid, AWS IoT publishes a message with the `$aws/things/thingName/shadow/name/shadowName/update/rejected` topic with an [Error response document](device-shadow-document.md#device-shadow-example-error-json) shadow document that describes the error\.
-
-**When a client requests a state change in a shadow by using the API**
-
-1. The client calls the `[UpdateThingShadow](device-shadow-rest-api.md#API_UpdateThingShadow)` API with a [Request state document](device-shadow-document.md#device-shadow-example-request-json) state document as its message body\.
-
-1. If the request was valid, AWS IoT returns an HTTP success response code and an [/accepted response state document](device-shadow-document.md#device-shadow-example-response-json-accepted) shadow document as its response message body\.
-
-   AWS IoT will also publish an MQTT message to the `$aws/things/thingName/shadow/name/shadowName/update/delta` topic with a [/delta response state document](device-shadow-document.md#device-shadow-example-response-json-delta) shadow document for any devices or clients that subscribe to it\.
-
-1. If the request was not valid, AWS IoT returns an HTTP error response code an [Error response document](device-shadow-document.md#device-shadow-example-error-json) as its response message body\.
-
-When the device receives the `/desired` state on the `/update/delta` topic, it makes the desired changes in the device\. It then sends a message to the `/update` topic to report its current state to the shadow\. 
-
-### Updating a shadow when a device reports its current state<a name="update-pub-sub-topic-device"></a>
-
-**When a device reports its current state to the shadow by using the MQTT protocol**
-
-1. The device should subscribe to these MQTT topics before updating the shadow:
-   + `$aws/things/thingName/shadow/name/shadowName/update/accepted`
-   + `$aws/things/thingName/shadow/name/shadowName/update/rejected`
-   + `$aws/things/thingName/shadow/name/shadowName/update/delta`
-   + `$aws/things/thingName/shadow/name/shadowName/update/documents`
-
-1. The device reports its current state by publishing a message to the `$aws/things/thingName/shadow/name/shadowName/update` topic that reports the current state, such as in this example\.
-
-   ```
-   {
-       "state": {
-           "reported" : {
-               "color" : { "r" : 10 },
-               "engine" : "ON"
-           }
-       }
-   }
-   ```
-
-1. If AWS IoT accepts the update, it publishes a message to the `$aws/things/thingName/shadow/name/shadowName/update/accepted` topics with an [/accepted response state document](device-shadow-document.md#device-shadow-example-response-json-accepted) shadow document\.
-
-1. If the update request is not valid, AWS IoT publishes a message with the `$aws/things/thingName/shadow/name/shadowName/update/rejected` topic with an [Error response document](device-shadow-document.md#device-shadow-example-error-json) shadow document that describes the error\.
-
-**When a device reports its current state to the shadow by using the API**
-
-1. The device calls the `[UpdateThingShadow](device-shadow-rest-api.md#API_UpdateThingShadow)` API with a [Request state document](device-shadow-document.md#device-shadow-example-request-json) state document as its message body\.
-
-1. If the request was valid, AWS IoT updates the shadow and returns an HTTP success response code with an [/accepted response state document](device-shadow-document.md#device-shadow-example-response-json-accepted) shadow document as its response message body\.
-
-   AWS IoT will also publish an MQTT message to the `$aws/things/thingName/shadow/name/shadowName/update/delta` topic with a [/delta response state document](device-shadow-document.md#device-shadow-example-response-json-delta) shadow document for any devices or clients that subscribe to it\.
-
-1. If the request was not valid, AWS IoT returns an HTTP error response code an [Error response document](device-shadow-document.md#device-shadow-example-error-json) as its response message body\.
-
-### Optimistic locking<a name="optimistic-locking"></a>
-
-You can use the state document version to ensure you are updating the most recent version of a device's shadow document\. When you supply a version with an update request, the service rejects the request with an HTTP 409 conflict response code if the current version of the state document does not match the version supplied\.
-
-For example:
-
-Initial document:
-
-```
-{
-  "state": {
-    "desired": {
-      "colors": [
-        "RED",
-        "GREEN",
-        "BLUE"
-      ]
-    }
-  },
-  "version": 10
-}
-```
-
-Update: \(version doesn't match; this request will be rejected\)
-
-```
-{
-  "state": {
-    "desired": {
-      "colors": [
-        "BLUE"
-      ]
-    }
-  },
-  "version": 9
-}
-```
-
-Result:
-
-```
-{
-  "code": 409,
-  "message": "Version conflict",
-  "clientToken": "426bfd96-e720-46d3-95cd-014e3ef12bb6"
-}
-```
-
-Update: \(version matches; this request will be accepted\)
-
-```
-{
-  "state": {
-    "desired": {
-      "colors": [
-        "BLUE"
-      ]
-    }
-  },
-  "version": 10
-}
-```
-
-Final state:
-
-```
-{
-  "state": {
-    "desired": {
-      "colors": [
-        "BLUE"
-      ]
-    }
-  },
-  "version": 11
-}
-```
-
-## Retrieving a shadow document<a name="retrieving-device-shadow"></a>
-
-You can retrieve a shadow document by using the [GetThingShadow](device-shadow-rest-api.md#API_GetThingShadow) API or by subscribing and publishing to the [/get](device-shadow-mqtt.md#get-pub-sub-topic) topic\. This retrieves a complete shadow document, including any delta between the `desired` and `reported` states\. The procedure for this task is the same whether the device or a client is making the request\.
-
-**To retrieve a shadow document by using the MQTT protocol**
-
-1. The device or client should subscribe to these MQTT topics before updating the shadow:
-   + `$aws/things/thingName/shadow/name/shadowName/get/accepted`
-   + `$aws/things/thingName/shadow/name/shadowName/get/rejected`
-
-1. The device or client publishes a message to the `$aws/things/thingName/shadow/name/shadowName/get` topic with an empty message body\.
-
-1. If the request is successful, AWS IoT publishes a message to the `$aws/things/thingName/shadow/name/shadowName/get/accepted` topic with a [/accepted response state document](device-shadow-document.md#device-shadow-example-response-json-accepted) in the message body\.
-
-1. If the request was not valid, AWS IoT publishes a message to the `$aws/things/thingName/shadow/name/shadowName/get/rejected` topic with an [Error response document](device-shadow-document.md#device-shadow-example-error-json) in the message body\.
-
-**To retrieve a shadow document by using a REST API**
-
-1. The device or client call the `[GetThingShadow](device-shadow-rest-api.md#API_GetThingShadow)` API with an empty message body\.
-
-1. If the request is valid, AWS IoT returns an HTTP success response code with an [/accepted response state document](device-shadow-document.md#device-shadow-example-response-json-accepted) shadow document as its response message body\.
-
-1. If the request is not valid, AWS IoT returns an HTTP error response code an [Error response document](device-shadow-document.md#device-shadow-example-error-json) as its response message body\.
-
-## Deleting shadow data<a name="deleting-thing-data"></a>
-
-There are two ways to delete shadow data: you can delete specific properties in the shadow document and you can delete the shadow completely\.
-+ To delete specific properties from a shadow, update the shadow; however set the value of the properties that you want to delete to `null`\. Fields with a value of `null` are removed from the shadow document\.
-+ To delete the entire shadow, use the [DeleteThingShadow](device-shadow-rest-api.md#API_DeleteThingShadow) API or publish to the [/delete](device-shadow-mqtt.md#delete-pub-sub-topic) topic\.
-
-### Deleting a property from a shadow document<a name="deleting-shadow-property"></a>
-
-**To delete a property from a shadow by using the MQTT protocol**
-
-1. The device or client should have a current shadow document so that it can identify the properties to change\. See [Retrieving a shadow document](#retrieving-device-shadow) for information on how to obtain the current shadow document\.
-
-1. The device or client subscribes to these MQTT topics:
-   + `$aws/things/thingName/shadow/name/shadowName/update/accepted`
-   + `$aws/things/thingName/shadow/name/shadowName/update/rejected`
-
-1. The device or client publishes a `$aws/things/thingName/shadow/name/shadowName/update` request topic with a state document that assigns `null` values to the properties of the shadow to delete\. Only the properties to change need to be included in the document\. This is an example of a document that deletes the `engine` property\.
-
-   ```
-   {
-     "state": {
-       "desired": {
-         "engine": null
-       }
-     }
-   }
-   ```
-
-1. If the update request is valid, AWS IoT deletes the specified properties in the shadow and publishes a messages with the `$aws/things/thingName/shadow/name/shadowName/update/accepted` topic with an [/accepted response state document](device-shadow-document.md#device-shadow-example-response-json-accepted) shadow document in the message body\. 
-
-1. If the update request is not valid, AWS IoT publishes a message with the `$aws/things/thingName/shadow/name/shadowName/update/rejected` topic with an [Error response document](device-shadow-document.md#device-shadow-example-error-json) shadow document that describes the error\.
-
-**To delete a property from a shadow by using the REST API**
-
-1. The device or client calls the `[UpdateThingShadow](device-shadow-rest-api.md#API_UpdateThingShadow)` API with a [Request state document](device-shadow-document.md#device-shadow-example-request-json) that assigns `null` values to the properties of the shadow to delete\. Include only the properties that you want to delete in the document\. This is an example of a document that deletes the `engine` property\.
-
-   ```
-   {
-     "state": {
-       "desired": {
-         "engine": null
-       }
-     }
-   }
-   ```
-
-1. If the request was valid, AWS IoT returns an HTTP success response code and an [/accepted response state document](device-shadow-document.md#device-shadow-example-response-json-accepted) shadow document as its response message body\.
-
-1. If the request was not valid, AWS IoT returns an HTTP error response code an [Error response document](device-shadow-document.md#device-shadow-example-error-json) as its response message body\.
-
-### Deleting a shadow<a name="deleting-device-shadow"></a>
+To learn more about all of the MQTT topics used by the Device Shadow service, see [Shadow MQTT Topics](device-shadow-mqtt.md)\.
 
 **Note**  
-Setting the device's shadow state to `null` does not delete the shadow\. The shadow version will be incremented on the next update\.  
-Deleting a device's shadow does not delete the thing object\. Deleting a thing object does not delete the corresponding device's shadow\.
+We recommend that you subscribe to the `.../rejected` topics to see any errors sent by the Device Shadow service\.
 
-**To delete a shadow by using the MQTT protocol**
+When the light bulb comes online, it sends its current state to the Device Shadow service by sending an MQTT message to the `$aws/things/myLightBulb/shadow/update` topic\.
 
-1. The device or client subscribes to these MQTT topics:
-   + `$aws/things/thingName/shadow/name/shadowName/delete/accepted`
-   + `$aws/things/thingName/shadow/name/shadowName/delete/rejected`
+**Note**  
+Device Shadows are created the first time an attempt is made to update it\. The Device Shadow service will detect that a shadow doesn't exist and will create one\. If the shadow exists, it will be updated\.
 
-1. The device or client publishes a `$aws/things/thingName/shadow/name/shadowName/delete` with an empty message buffer\.
+ To simulate this, use the AWS IoT MQTT client to publish the following message to the `$aws/things/myLightBulb/shadow/update` topic:
 
-1. If the delete request is valid, AWS IoT deletes the shadow and publishes a messages with the `$aws/things/thingName/shadow/name/shadowName/delete/accepted` topic and an abbreviated [/accepted response state document](device-shadow-document.md#device-shadow-example-response-json-accepted) shadow document in the message body\. This is an example of the accepted delete message:
+```
+{
+    "state": {
+        "reported": {
+            "color": "red"
+        }
+    }
+}
+```
 
-   ```
-   {
-     "version": 4,
-     "timestamp": 1591057529
-   }
-   ```
+This message sets the color of the light bulb to "red\."
 
-1. If the update request is not valid, AWS IoT publishes a message with the `$aws/things/thingName/shadow/name/shadowName/delete/rejected` topic with an [Error response document](device-shadow-document.md#device-shadow-example-error-json) shadow document that describes the error\.
+The Device Shadow service responds by sending the following message to the `$aws/things/myLightBulb/shadow/update/accepted` topic:
 
-**To delete a shadow by using the REST API**
+```
+{
+  "messageNumber": 4,
+  "payload": {
+    "state": {
+      "reported": {
+        "color": "red"
+      }
+    },
+    "metadata": {
+      "reported": {
+        "color": {
+          "timestamp": 1469564492
+        }
+      }
+    },
+    "version": 1,
+    "timestamp": 1469564492
+  },
+  "qos": 0,
+  "timestamp": 1469564492848,
+  "topic": "$aws/things/myLightBulb/shadow/update/accepted"
+}
+```
 
-1. The device or client calls the `[DeleteThingShadow](device-shadow-rest-api.md#API_DeleteThingShadow)` API with an empty message buffer\.
+This message indicates the Device Shadow service received the UPDATE request and updated the device's shadow\. If the shadow doesn't exist, it is created\. Otherwise, the shadow is updated with the data in the message\. If you don't see a message published to `$aws/things/myLightBulb/shadow/update/accepted`, check the subscription to `$aws/things/myLightBulb/shadow/update/rejected` to see any error messages\.
 
-1. If the request was valid, AWS IoT returns an HTTP success response code and an [/accepted response state document](device-shadow-document.md#device-shadow-example-response-json-accepted) and an abbreviated [/accepted response state document](device-shadow-document.md#device-shadow-example-response-json-accepted) shadow document in the message body\. This is an example of the accepted delete message:
+In addition, the Device Shadow service publishes the following message to the `$aws/things/myLightBulb/shadow/update/documents` topic\.
 
-   ```
-   {
-     "version": 4,
-     "timestamp": 1591057529
-   }
-   ```
+```
+{
+    "previous":null,
+    "current":{
+        "state":{
+            "reported":{
+                "color":"red"
+            }
+         },
+         "metadata":{
+            "reported":{
+                "color":{
+                    "timestamp":1483467764
+                }
+            }
+         },
+         "version":1
+     },
+     "timestamp":1483467764
+}
+```
 
-1. If the request was not valid, AWS IoT returns an HTTP error response code an [Error response document](device-shadow-document.md#device-shadow-example-error-json) as its response message body\.
+Messages are published to the `/update/documents` topic whenever an update to the device's shadow is successfully performed\. For more information of the contents of messages published to this topic, see [Shadow MQTT Topics](device-shadow-mqtt.md)\.
+
+An application that interacts with the light bulb comes online and requests the light bulb's current state\. The application sends an empty message to the `$aws/things/myLightBulb/shadow/get` topic\. To simulate this, use the AWS IoT MQTT client to publish an empty message \(""\) to the `$aws/things/myLightBulb/shadow/get` topic\.
+
+The Device Shadow service responds by publishing the requested shadow to the `$aws/things/myLightBulb/shadow/get/accepted` topic:
+
+```
+{
+  "messageNumber": 1,
+  "payload": {
+    "state": {
+      "reported": {
+        "color": "red"
+      }
+    },
+    "metadata": {
+      "reported": {
+        "color": {
+          "timestamp": 1469564492
+        }
+      }
+    },
+    "version": 1,
+    "timestamp": 1469564571
+  },
+  "qos": 0,
+  "timestamp": 1469564571533,
+  "topic": "$aws/things/myLightBulb/shadow/get/accepted"
+}
+```
+
+If you don't see a message on the `$aws/things/myLightBulb/shadow/get/accepted` topic, check the `$aws/things/myLightBulb/shadow/get/rejected` topic for any error messages\.
+
+The application displays this information to the user, and the user requests a change to the light bulb's color \(from red to green\)\. To do this, the application publishes a message on the `$aws/things/myLightBulb/shadow/update` topic: 
+
+```
+{
+    "state": {
+        "desired": {
+            "color": "green" 
+        } 
+    }
+}
+```
+
+To simulate this, use the AWS IoT MQTT client to publish the preceding message to the `$aws/things/myLightBulb/shadow/update` topic\.
+
+The Device Shadow service responds by sending a message to the `$aws/things/myLightBulb/shadow/update/accepted` topic:
+
+```
+{
+  "messageNumber": 5,
+  "payload": {
+    "state": {
+      "desired": {
+        "color": "green"
+      }
+    },
+    "metadata": {
+      "desired": {
+        "color": {
+          "timestamp": 1469564658
+        }
+      }
+    },
+    "version": 2,
+    "timestamp": 1469564658
+  },
+  "qos": 0,
+  "timestamp": 1469564658286,
+  "topic": "$aws/things/myLightBulb/shadow/update/accepted"
+}
+```
+
+and to the `$aws/things/myLightBulb/shadow/update/delta` topic:
+
+```
+{
+  "messageNumber": 1,
+  "payload": {
+    "version": 2,
+    "timestamp": 1469564658,
+    "state": {
+      "color": "green"
+    },
+    "metadata": {
+      "color": {
+        "timestamp": 1469564658
+      }
+    }
+  },
+  "qos": 0,
+  "timestamp": 1469564658309,
+  "topic": "$aws/things/myLightBulb/shadow/update/delta"
+}
+```
+
+The Device Shadow service publishes a message to this topic when it accepts a shadow update and the resulting shadow contains different values for desired and reported states\.
+
+The Device Shadow service also publishes a message to the `$aws/things/myLightBulb/shadow/update/documents` topic:
+
+```
+{
+    "previous":{
+      "state":{
+        "reported":{
+          "color":"red"
+        }
+      },
+      "metadata":{
+        "reported":{
+          "color":{
+            "timestamp":1483467764
+          }
+        }
+      },
+      "version":1
+    },
+    "current":{
+      "state":{
+        "desired":{
+          "color":"green"
+        },
+        "reported":{
+          "color":"red"
+        }
+      },
+      "metadata":{
+        "desired":{
+          "color":{
+            "timestamp":1483468612
+          }
+        },
+        "reported":{
+          "color":{
+            "timestamp":1483467764
+          }
+        }
+      },
+      "version":2
+    },
+    "timestamp":1483468612
+}
+```
+
+The light bulb is subscribed to the `$aws/things/myLightBulb/shadow/update/delta` topic, so it receives the message, changes its color, and publishes its new state\. To simulate this, use the AWS IoT MQTT client to publish the following message to the `$aws/things/myLightBulb/shadow/update` topic to update the shadow state:
+
+```
+{
+    "state":{
+        "reported":{
+            "color":"green"
+        },
+        "desired":null}
+    }
+}
+```
+
+In response, the Device Shadow service sends a message to the `$aws/things/myLightBulb/shadow/update/accepted` topic:
+
+```
+{
+  "messageNumber": 6,
+  "payload": {
+    "state": {
+      "reported": {
+        "color": "green"
+      },
+      "desired": null
+    },
+    "metadata": {
+      "reported": {
+        "color": {
+          "timestamp": 1469564801
+        }
+      },
+      "desired": {
+        "timestamp": 1469564801
+      }
+    },
+    "version": 3,
+    "timestamp": 1469564801
+  },
+  "qos": 0,
+  "timestamp": 1469564801673,
+  "topic": "$aws/things/myLightBulb/shadow/update/accepted"
+}
+```
+
+and to the `$aws/things/myLightBulb/shadow/update/documents` topic:
+
+```
+{
+    "previous":{
+    "state":{
+      "reported":{
+        "color":"red"
+      }
+    },
+    "metadata":{
+         "reported":{
+              "color":{
+                  "timestamp":1483470355
+              }
+          }
+      },
+      "version":3
+    },
+    "current":{
+      "state":{
+        "reported":{
+          "color":"green"
+        }
+      },
+      "metadata":{
+        "reported":{
+          "color":{
+            "timestamp":1483470364
+          }
+        }
+      },
+      "version":4
+    },
+    "timestamp":1483470364
+}
+```
+
+The app requests the current state from the Device Shadow service and displays the most recent state data\. To simulate this, run the following command:
+
+```
+aws iot-data get-thing-shadow --thing-name "myLightBulb" "output.txt" && cat "output.txt"
+```
+
+**Note**  
+On Windows, omit the `&& cat "output.txt"`, which displays the contents of output\.txt to the console\. You can open the file in Notepad or any text editor to see the contents of the shadow\.
+
+The Device Shadow service returns the shadow document:
+
+```
+{
+    "state":{
+      "reported":{
+        "color":"green"
+      }
+    },
+    "metadata":{
+      "reported":{
+        "color":{
+          "timestamp":1469564801
+        }
+      }
+    },
+    "version":3,
+    "timestamp":1469564864}
+```
+
+To delete the device's shadow, publish an empty message to the `$aws/things/myLightBulb/shadow/delete` topic\. AWS IoT responds by publishing a message to the `$aws/things/myLightBulb/shadow/delete/accepted` topic:
+
+```
+{
+  "version" : 1,
+  "timestamp" : 1488565234
+}
+```
+
+## Detecting a Thing Is Connected<a name="thing-connection"></a>
+
+To determine if a device is currently connected, include a connected setting in the shadow and use an MQTT Last Will and Testament \(LWT\) message that sets the connected setting to `false` if a device is disconnected due to error\.
+
+**Note**  
+Currently, LWT messages sent to AWS IoT reserved topics \(topics that begin with $\) are ignored by the AWS IoT Device Shadow service, but are still processed by subscribed clients and by the AWS IoT rules engine\. If you want the Device Shadow service to receive LWT messages, register an LWT message to a non\-reserved topic and create a rule that republishes the message on the reserved topic\. The following example shows how to create a republish rule that listens for a messages from the `my/things/myLightBulb/update` topic and republishes it to `$aws/things/myLightBulb/shadow/update`\.  
+
+```
+{
+    "rule": {
+    "ruleDisabled": false,
+    "sql": "SELECT * FROM 'my/things/myLightBulb/update'",
+    "description": "Turn my/things/ into $aws/things/",
+    "actions": [{
+        "republish": {
+            "topic": "$$aws/things/myLightBulb/shadow/update",
+            "roleArn": "arn:aws:iam::123456789012:role/aws_iot_republish"
+        }
+    }]
+    }
+}
+```
+
+When a device connects, it registers an LWT that sets the connected setting to `false`:
+
+```
+{
+    "state": {        
+        "reported": {
+            "connected":"false"
+        }
+    }
+}
+```
+
+It also publishes a message on its update topic \(`$aws/things/myLightBulb/shadow/update`\), setting its connected state to `true`:
+
+```
+{
+     "state": {        
+        "reported": {
+            "connected":"true"
+        }
+    }
+}
+```
+
+When the device disconnects gracefully, it publishes a message on its update topic and sets its connected state to `false`:
+
+```
+{
+    "state": {        
+        "reported": {
+            "connected":"false"
+        }
+    }
+}
+```
+
+If the device disconnects due to an error, its LWT message is posted automatically to the update topic\.

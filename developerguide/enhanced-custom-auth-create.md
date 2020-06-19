@@ -1,4 +1,4 @@
-# Creating a custom authorizer for enhanced custom authentication<a name="enhanced-custom-auth-create"></a>
+# Creating a Custom Authorizer for Enhanced Custom Authentication<a name="enhanced-custom-auth-create"></a>
 
 
 ****  

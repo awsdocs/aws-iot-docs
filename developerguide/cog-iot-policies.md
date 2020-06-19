@@ -1,4 +1,4 @@
-# Authorization with Amazon Cognito identities<a name="cog-iot-policies"></a>
+# Authorization with Amazon Cognito Identities<a name="cog-iot-policies"></a>
 
 There are two types of Amazon Cognito identities: unauthenticated and authenticated\. When your app supports unauthenticated Amazon Cognito identities, no authentication is performed so you do not know who the user is\. For unauthenticated users, you grant permission by attaching an IAM role to an unauthenticated identity pool\. You should grant access to only those resources you want available to unknown users\.
 

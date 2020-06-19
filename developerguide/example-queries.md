@@ -1,11 +1,11 @@
-# Example thing queries<a name="example-queries"></a>
+# Example Thing Queries<a name="example-queries"></a>
 
 Queries are specified in a query string using a query syntax and passed to the [https://docs.aws.amazon.com/iot/latest/apireference/API_SearchIndex.html](https://docs.aws.amazon.com/iot/latest/apireference/API_SearchIndex.html) API\. The following table lists some example query strings\.
 
 
 ****  
 
-| Query string | Result | 
+| Query String | Result | 
 | --- | --- | 
 |  abc  |  Queries for "abc" in any registry or shadow field\.  | 
 |  thingName:myThingName  |  Queries for a thing with name "myThingName"\.  | 

@@ -1,4 +1,4 @@
-# Thing policy variables<a name="thing-policy-variables"></a>
+# Thing Policy Variables<a name="thing-policy-variables"></a>
 
 Thing policy variables allow you to write AWS IoT Core policies that grant or deny permissions based on thing properties like thing names, thing types, and thing attribute values\. You can use thing policy variables to apply the same policy to control many AWS IoT Core devices\. For more information about device provisioning, see [Device Provisioning](iot-provision.html)\. The thing name is obtained from the client ID in the MQTT `Connect` message sent when a thing connects to AWS IoT Core\.
 

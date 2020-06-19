@@ -1,6 +1,6 @@
-# Audit commands<a name="AuditCommands"></a>
+# Audit Commands<a name="AuditCommands"></a>
 
-## Manage audit settings<a name="AuditCommandsManageSettings"></a>
+## Manage Audit Settings<a name="AuditCommandsManageSettings"></a>
 
 Use `UpdateAccountAuditConfiguration` to configure audit settings for your account\. This command allows you to enable those checks you want to be available for audits, set up optional notifications, and configure permissions\. 
 
@@ -44,7 +44,7 @@ aws iot  update-account-audit-configuration \
 ```
 
 
-**`cli-input-json` Fields**  
+**`cli-input-json` fields**  
 
 |  Name |  Type |  Description | 
 | --- | --- | --- | 
@@ -153,7 +153,7 @@ aws iot  delete-account-audit-configuration \
 ```
 
 
-**`cli-input-json` Fields**  
+**`cli-input-json` fields**  
 
 |  Name |  Type |  Description | 
 | --- | --- | --- | 
@@ -177,7 +177,7 @@ The rate exceeds the limit\.
 `InternalFailureException`  
 An unexpected error has occurred\.
 
-## Schedule audits<a name="device-defender-AuditCommandsManageSchedules"></a>
+## Schedule Audits<a name="device-defender-AuditCommandsManageSchedules"></a>
 
 Use `CreateScheduledAudit` to create one or more scheduled audits\. This command allows you to specify the checks you want to perform during an audit and how often the audit should be run\. 
 
@@ -224,7 +224,7 @@ aws iot  create-scheduled-audit \
 ```
 
 
-**`cli-input-json` Fields**  
+**`cli-input-json` fields**  
 
 |  Name |  Type |  Description | 
 | --- | --- | --- | 
@@ -290,7 +290,7 @@ aws iot  list-scheduled-audits \
 ```
 
 
-**`cli-input-json` Fields**  
+**`cli-input-json` fields**  
 
 |  Name |  Type |  Description | 
 | --- | --- | --- | 
@@ -360,7 +360,7 @@ aws iot  describe-scheduled-audit \
 ```
 
 
-**`cli-input-json` Fields**  
+**`cli-input-json` fields**  
 
 |  Name |  Type |  Description | 
 | --- | --- | --- | 
@@ -439,7 +439,7 @@ aws iot  update-scheduled-audit \
 ```
 
 
-**`cli-input-json` Fields**  
+**`cli-input-json` fields**  
 
 |  Name |  Type |  Description | 
 | --- | --- | --- | 
@@ -500,7 +500,7 @@ aws iot  delete-scheduled-audit \
 ```
 
 
-**`cli-input-json` Fields**  
+**`cli-input-json` fields**  
 
 |  Name |  Type |  Description | 
 | --- | --- | --- | 
@@ -524,7 +524,7 @@ The rate exceeds the limit\.
 `InternalFailureException`  
 An unexpected error has occurred\.
 
-## Run an On\-Demand audit<a name="device-defender-AuditCommandsOnDemand"></a>
+## Run an On\-Demand Audit<a name="device-defender-AuditCommandsOnDemand"></a>
 
 Use `StartOnDemandAuditTask` to specify the checks you want to perform and start an audit running right away\.
 
@@ -552,7 +552,7 @@ aws iot  start-on-demand-audit-task \
 ```
 
 
-**`cli-input-json` Fields**  
+**`cli-input-json` fields**  
 
 |  Name |  Type |  Description | 
 | --- | --- | --- | 
@@ -587,7 +587,7 @@ An unexpected error has occurred\.
 `LimitExceededException`  
 A limit has been exceeded\.
 
-## Manage audit instances<a name="device-defender-AuditCommandsManageInstances"></a>
+## Manage Audit Instances<a name="device-defender-AuditCommandsManageInstances"></a>
 
 Use `DescribeAuditTask` to get information about a specific audit instance\. If it has already run, the results include which checks failed and which passed, those that the system was unable to complete, and if the audit is still in progress, those it is still working on\.
 
@@ -617,7 +617,7 @@ aws iot  describe-audit-task \
 ```
 
 
-**`cli-input-json` Fields**  
+**`cli-input-json` fields**  
 
 |  Name |  Type |  Description | 
 | --- | --- | --- | 
@@ -724,7 +724,7 @@ aws iot  list-audit-tasks \
 ```
 
 
-**`cli-input-json` Fields**  
+**`cli-input-json` fields**  
 
 |  Name |  Type |  Description | 
 | --- | --- | --- | 
@@ -794,7 +794,7 @@ aws iot  cancel-audit-task \
 ```
 
 
-**`cli-input-json` Fields**  
+**`cli-input-json` fields**  
 
 |  Name |  Type |  Description | 
 | --- | --- | --- | 
@@ -818,11 +818,11 @@ The rate exceeds the limit\.
 `InternalFailureException`  
 An unexpected error has occurred\.
 
-## Check audit results<a name="device-defender-AuditCommandsFindings"></a>
+## Check Audit Results<a name="device-defender-AuditCommandsFindings"></a>
 
 Use `ListAuditFindings` to see the results of an audit\. You can filter the results by the type of check, a specific resource, or the time of the audit\. You can use this information to mitigate any problems that were found\.
 
-You can define mitigation actions and apply them to the findings from your audit\. For more information, see [Mitigation actions](device-defender-mitigation-actions.md)\.
+You can define mitigation actions and apply them to the findings from your audit\. For more information, see [Mitigation Actions](device-defender-mitigation-actions.md)\.
 
 ### ListAuditFindings<a name="dd-api-iot-ListAuditFindings"></a>
 
@@ -870,7 +870,7 @@ aws iot  list-audit-findings \
 ```
 
 
-**`cli-input-json` Fields**  
+**`cli-input-json` fields**  
 
 |  Name |  Type |  Description | 
 | --- | --- | --- | 

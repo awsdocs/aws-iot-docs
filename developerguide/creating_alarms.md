@@ -1,24 +1,17 @@
-# Creating CloudWatch alarms to monitor AWS IoT<a name="creating_alarms"></a>
+# Creating CloudWatch Alarms to Monitor AWS IoT<a name="creating_alarms"></a>
 
-You can create a CloudWatch alarm that sends an Amazon SNS message when the alarm changes state\. An alarm watches a single metric over a time period you specify\. When the value of the metric exceeds a given threshold over a number of time periods, one or more actions are performed\. The action can be a notification sent to an Amazon SNS topic or Auto Scaling policy\. Alarms trigger actions for sustained state changes only\. CloudWatch alarms do not trigger actions simply because they are in a particular state; the state must have changed and been maintained for a specified number of periods\.
-
-**Topics**
-+ [How can I be notified if my things do not connect successfully each day?](#how_to_detect_connection_failures)
-+ [How can I be notified if my things are not publishing data each day?](#how_to_detect_publish_failures)
-+ [How can I be notified if my thing's shadow updates are being rejected each day?](#detect_rejected_updates)
-
- You can see all the metrics that CloudWatch alarms can monitor at [AWS IoT metrics and dimensions](metrics_dimensions.md)\. 
+You can create a CloudWatch alarm that sends an Amazon SNS message when the alarm changes state\. An alarm watches a single metric over a time period you specify and performs one or more actions based on the value of the metric relative to a given threshold over a number of time periods\. The action is a notification sent to an Amazon SNS topic or Auto Scaling policy\. Alarms trigger actions for sustained state changes only\. CloudWatch alarms do not trigger actions simply because they are in a particular state; the state must have changed and been maintained for a specified number of periods\.
 
 ## How can I be notified if my things do not connect successfully each day?<a name="how_to_detect_connection_failures"></a>
 
-1. Create an Amazon SNS topic named `things-not-connecting-successfully`, and record its Amazon Resource Name \(ARN\)\. This procedure will refer to your topic's ARN as `<sns-topic-arn>`\.
+1. Create an Amazon SNS topic, `arn:aws:sns:us-east-1:123456789012:things-not-connecting-successfully`\.
 
-   For more information on how to create an Amazon SNS notification, see [Getting Started with Amazon SNS](https://docs.aws.amazon.com/sns/latest/dg/sns-getting-started.html)\.
+   For more information, see [Getting Started with Amazon SNS](https://docs.aws.amazon.com/sns/latest/dg/sns-getting-started.html)\.
 
 1. Create the alarm\.
 
    ```
-   aws cloudwatch put-metric-alarm \
+   Prompt>aws cloudwatch put-metric-alarm \
        --alarm-name ConnectSuccessAlarm \
        --alarm-description "Alarm when my Things don't connect successfully" \
        --namespace AWS/IoT \
@@ -30,31 +23,27 @@ You can create a CloudWatch alarm that sends an Amazon SNS message when the alar
        --period 86400 \
        --unit Count \
        --evaluation-periods 1 \
-       --alarm-actions <sns-topic-arn>
+       --alarm-actions arn:aws:sns:us-east-1:1234567890:things-not-connecting-successfully
    ```
 
 1. Test the alarm\.
 
    ```
-   aws cloudwatch set-alarm-state --alarm-name ConnectSuccessAlarm --state-reason "initializing" --state-value OK
+   Prompt>aws cloudwatch set-alarm-state --alarm-name ConnectSuccessAlarm --state-reason "initializing" --state-value OK
    ```
 
    ```
-   aws cloudwatch set-alarm-state --alarm-name ConnectSuccessAlarm --state-reason "initializing" --state-value ALARM
+   Prompt>aws cloudwatch set-alarm-state --alarm-name ConnectSuccessAlarm --state-reason "initializing" --state-value ALARM
    ```
-
-1. Verify that the alarm appears in your [CloudWatch console](https://console.aws.amazon.com/cloudwatch)\.
 
 ## How can I be notified if my things are not publishing data each day?<a name="how_to_detect_publish_failures"></a>
 
-1. Create an Amazon SNS topic named `things-not-publishing-data`, and record its Amazon Resource Name \(ARN\)\. This procedure will refer to your topic's ARN as `<sns-topic-arn>`\.
-
-   For more information on how to create an Amazon SNS notification, see [Getting Started with Amazon SNS](https://docs.aws.amazon.com/sns/latest/dg/sns-getting-started.html)\.
+1. Create an Amazon SNS topic, `arn:aws:sns:us-east-1:123456789012:things-not-publishing-data`\.
 
 1. Create the alarm\.
 
    ```
-   aws cloudwatch put-metric-alarm \
+   Prompt>aws cloudwatch put-metric-alarm \
        --alarm-name PublishInSuccessAlarm\
        --alarm-description "Alarm when my Things don't publish their data \
        --namespace AWS/IoT \
@@ -66,31 +55,29 @@ You can create a CloudWatch alarm that sends an Amazon SNS message when the alar
        --period 86400 \
        --unit Count \
        --evaluation-periods 1 \
-       --alarm-actions <sns-topic-arn>
+       --alarm-actions arn:aws:sns:us-east-1:1234567890:things-not-publishing-data
    ```
 
 1. Test the alarm\.
 
    ```
-   aws cloudwatch set-alarm-state --alarm-name PublishInSuccessAlarm --state-reason "initializing" --state-value OK
+   Prompt>aws cloudwatch set-alarm-state --alarm-name PublishInSuccessAlarm --state-reason "initializing" --state-value OK
    ```
 
    ```
-   aws cloudwatch set-alarm-state --alarm-name PublishInSuccessAlarm --state-reason "initializing" --state-value ALARM
+   Prompt>aws cloudwatch set-alarm-state --alarm-name PublishInSuccessAlarm --state-reason "initializing" --state-value ALARM
    ```
-
-1. Verify that the alarm appears in your [CloudWatch console](https://console.aws.amazon.com/cloudwatch)\.
 
 ## How can I be notified if my thing's shadow updates are being rejected each day?<a name="detect_rejected_updates"></a>
 
-1. Create an Amazon SNS topic named `things-shadow-updates-rejected`, and record its Amazon Resource Name \(ARN\)\. This procedure will refer to your topic's ARN as `<sns-topic-arn>`\.
+1. Create an Amazon SNS topic, `arn:aws:sns:us-east-1:1234567890:things-shadow-updates-rejected`\.
 
-   For more information on how to create an Amazon SNS notification, see [Getting Started with Amazon SNS](https://docs.aws.amazon.com/sns/latest/dg/sns-getting-started.html)\.
+   For more information, see [Set Up Amazon Simple Notification Service](Amazon Simple Notification Service Developer GuideUS_SetupSNS.html)\.
 
 1. Create the alarm\.
 
    ```
-   aws cloudwatch put-metric-alarm \
+   Prompt>aws cloudwatch put-metric-alarm \
        --alarm-name UpdateThingShadowSuccessAlarm \
        --alarm-description "Alarm when my Things Shadow updates are getting rejected" \
        --namespace AWS/IoT \
@@ -102,17 +89,15 @@ You can create a CloudWatch alarm that sends an Amazon SNS message when the alar
        --period 86400 \
        --unit Count \
        --evaluation-periods 1 \
-       --alarm-actions <sns-topic-arn>
+       --alarm-actions arn:aws:sns:us-east-1:1234567890:things-shadow-updates-rejected
    ```
 
 1. Test the alarm\.
 
    ```
-   aws cloudwatch set-alarm-state --alarm-name UpdateThingShadowSuccessAlarm --state-reason "initializing" --state-value OK
+   Prompt>aws cloudwatch set-alarm-state --alarm-name UpdateThingShadowSuccessAlarm --state-reason "initializing" --state-value OK
    ```
 
    ```
-   aws cloudwatch set-alarm-state --alarm-name UpdateThingShadowSuccessAlarm --state-reason "initializing" --state-value ALARM
+   Prompt>aws cloudwatch set-alarm-state --alarm-name UpdateThingShadowSuccessAlarm --state-reason "initializing" --state-value ALARM
    ```
-
-1. Verify that the alarm appears in your [CloudWatch console](https://console.aws.amazon.com/cloudwatch)\.

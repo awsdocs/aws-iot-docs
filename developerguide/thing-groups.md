@@ -1,6 +1,6 @@
-# Static thing groups<a name="thing-groups"></a>
+# Static Thing Groups<a name="thing-groups"></a>
 
-Static thing groups allow you to manage several things at once by categorizing them into groups\. Static thing groups contain a group of things that are managed by using the console, CLI, or the API\. [Dynamic thing groups](dynamic-thing-groups.md), on the other hand, contain things that match a specified query\. Static thing groups can also contain other static thing groups — you can build a hierarchy of groups\. You can attach a policy to a parent group and it is inherited by its child groups, and by all of the things in the group and in its child groups\. This makes control of permissions easy for large numbers of things\.
+Static thing groups allow you to manage several things at once by categorizing them into groups\. Static thing groups contain a group of things that are managed by using the console, CLI, or the API\. [Dynamic thing groups](https://docs.aws.amazon.com/iot/latest/developerguide/dynamic-thing-groups.html), on the other hand, contain things that match a specified query\. Static thing groups can also contain other static thing groups — you can build a hierarchy of groups\. You can attach a policy to a parent group and it is inherited by its child groups, and by all of the things in the group and in its child groups\. This makes control of permissions easy for large numbers of things\.
 
 Here are the things you can do with static thing groups:
 + Create, describe or delete a group\.
@@ -14,7 +14,7 @@ Here are the things you can do with static thing groups:
 + Attach or detach a policy to or from a group\.
 + List the policies attached to a group\.
 + List the policies inherited by a thing \(by virtue of the policies attached to its group, or one of its parent groups\.\)
-+ Configure logging options for things in a group\. See [Configure AWS IoT logging](configure-logging.md)\. 
++ Configure logging options for things in a group\. See [Configure AWS IoT Logging](cloud-watch-logs.md#configure-logging)\. 
 + Create jobs that are sent to and executed on every thing in a group and its child groups\. See [Jobs](iot-jobs.md)\.
 
 Here are some limitations of static thing groups:
@@ -28,7 +28,7 @@ Here are some limitations of static thing groups:
 
 Attaching and detaching policies to groups can enhance the security of your AWS IoT operations in a number of significant ways\. The per\-device method of attaching a policy to a certificate, which is then attached to a thing, is time consuming and makes it difficult to quickly update or change policies across a fleet of devices\. Having a policy attached to the thing's group saves steps when it is time to rotate the certificates on a thing\. And policies are dynamically applied to things when they change group membership, so you aren't required to re\-create a complex set of permissions each time a device changes membership in a group\.
 
-## Create a static thing group<a name="create-group"></a>
+## Create a Static Thing Group<a name="create-group"></a>
 
 Use the CreateThingGroup command to create a static thing group:
 
@@ -72,7 +72,7 @@ The number of direct child groups a thing group can have is [limited](https://do
 The maximum depth of a group hierarchy is [limited](https://docs.aws.amazon.com/general/latest/gr/iot-core.html#thing-group-limits)\.
 The number of attributes a thing group can have is [limited](https://docs.aws.amazon.com/general/latest/gr/iot-core.html#thing-group-limits)\. \(Attributes are name\-value pairs you can use to store information about a group\.\) The lengths of each attribute name and each value are also [limited](https://docs.aws.amazon.com/general/latest/gr/iot-core.html#thing-group-limits)\.
 
-## Describe a thing group<a name="describe-thing-group"></a>
+## Describe a Thing Group<a name="describe-thing-group"></a>
 
 You can use the DescribeThingGroup command to get information about a thing group:
 
@@ -113,7 +113,7 @@ The DescribeThingGroup command returns information about the specified group:
 }
 ```
 
-## Add a thing to a static thing group<a name="add-thing-to-group"></a>
+## Add a Thing to a Static Thing Group<a name="add-thing-to-group"></a>
 
 You can use the AddThingToThingGroup command to add a thing to a static thing group:
 
@@ -127,7 +127,7 @@ The AddThingToThingGroup command does not produce any output\.
 You can add a thing to a maximum of 10 groups\. But you cannot add a thing to more than one group in the same hierarchy\. \(In other words, you cannot add a thing to two groups which share a common parent\.\)  
 If a thing belongs to as many thing groups as possible, and one or more of those groups is a dynamic thing group, you can use the [https://docs.aws.amazon.com/iot/latest/apireference/API_AddThingToThingGroup.html#iot-AddThingToThingGroup-request-overrideDynamicGroups](https://docs.aws.amazon.com/iot/latest/apireference/API_AddThingToThingGroup.html#iot-AddThingToThingGroup-request-overrideDynamicGroups) flag to make static groups take priority over dynamic groups\.
 
-## Remove a thing from a static thing group<a name="remove-thing-from-group"></a>
+## Remove a Thing from a Static Thing Group<a name="remove-thing-from-group"></a>
 
 You can use the RemoveThingFromThingGroup command to remove a thing from a group:
 
@@ -137,7 +137,7 @@ $ aws iot remove-thing-from-thing-group --thing-name MyLightBulb --thing-group-n
 
 The RemoveThingFromThingGroup command does not produce any output\.
 
-## List things in a thing group<a name="list-things-in-thing-group"></a>
+## List Things in a Thing Group<a name="list-things-in-thing-group"></a>
 
 You can use the ListThingsInThingGroup command to list the things that belong to a group:
 
@@ -173,7 +173,7 @@ $ aws iot list-things-in-thing-group --thing-group-name LightBulbs --recursive
 **Note**  
 This operation is [eventually consistent](https://web.stanford.edu/class/cs345d-01/rl/eventually-consistent.pdf)\. In other words, changes to the thing group might not be reflected immediately\.
 
-## List thing groups<a name="list-thing-groups"></a>
+## List Thing Groups<a name="list-thing-groups"></a>
 
 You can use the ListThingGroups command to list your account's thing groups:
 
@@ -259,7 +259,7 @@ The ListThingGroups command returns a list of all child groups of the thing grou
 **Note**  
 This operation is [eventually consistent](https://web.stanford.edu/class/cs345d-01/rl/eventually-consistent.pdf)\. In other words, changes to the thing group might not be reflected immediately\.
 
-## List groups for a thing<a name="list-thing-groups-for-thing"></a>
+## List Groups for a Thing<a name="list-thing-groups-for-thing"></a>
 
 You can use the ListThingGroupsForThing command to list the groups a thing belongs to, including any parent groups:
 
@@ -288,7 +288,7 @@ The ListThingGroupsForThing command returns a list of the thing groups this thin
 }
 ```
 
-## Update a static thing group<a name="update-group"></a>
+## Update a Static Thing Group<a name="update-group"></a>
 
 You can use the UpdateThingGroup command to update the attributes of a static thing group:
 
@@ -307,7 +307,7 @@ The UpdateThingGroup command returns a response that contains the group's versio
 **Note**  
 The number of attributes that a thing can have is [limited](https://docs.aws.amazon.com/general/latest/gr/iot-core.html#thing-limits)\.
 
-## Delete a thing group<a name="delete-thing-group"></a>
+## Delete a Thing Group<a name="delete-thing-group"></a>
 
 To delete a thing group, use the DeleteThingGroup command:
 
@@ -328,7 +328,7 @@ You must delete any child groups first before you delete the group\.
 
 You can delete a group that has child things, but any permissions granted to the things by membership in the group no longer apply\. Before deleting a group that has a policy attached, check carefully that removing those permissions would not stop the things in the group from being able to function properly\. Also, note that commands that show which groups a thing belongs to \(for example, ListGroupsForThing\) might continue to show the group while records in the cloud are being updated\.
 
-## Attach a policy to a static thing group<a name="group-attach-policy"></a>
+## Attach a Policy to a Static Thing Group<a name="group-attach-policy"></a>
 
 You can use the AttachPolicy command to attach a policy to a static thing group and so, by extension, to all things in that group and things in any of its child groups:
 
@@ -348,7 +348,7 @@ We do not recommend using personally identifiable information in your policy nam
 
 The `--target` parameter can be a thing group ARN \(as above\), a certificate ARN, or an Amazon Cognito Identity\. For more information about policies, certificates and authentication, see [Authentication](authentication.md)\.
 
-## Detach a policy from a static thing group<a name="group-detach-policy"></a>
+## Detach a Policy from a Static Thing Group<a name="group-detach-policy"></a>
 
 You can use the DetachPolicy command to detach a policy from a group and so, by extension, to all things in that group and things in any of its child groups:
 
@@ -358,7 +358,7 @@ $ aws iot detach-policy --target "arn:aws:iot:us-west-2:123456789012:thinggroup/
 
 The DetachPolicy command does not produce any output\.
 
-## List the policies attached to a static thing group<a name="group-list-policies"></a>
+## List the Policies Attached to a Static Thing Group<a name="group-list-policies"></a>
 
 You can use the ListAttachedPolicies command to list the policies attached to a static thing group:
 
@@ -381,7 +381,7 @@ The ListAttachedPolicies command returns a list of policies:
 }
 ```
 
-## List the groups for a policy<a name="group-list-targets-for-policy"></a>
+## List the Groups for a Policy<a name="group-list-targets-for-policy"></a>
 
 You can use the ListTargetsForPolicy command to list the targets, including any groups, that a policy is attached to:
 
@@ -400,7 +400,7 @@ The ListTargetsForPolicy command returns a list of targets and the token to use 
 }
 ```
 
-## Get effective policies for a thing<a name="group-get-effective-policies"></a>
+## Get Effective Policies for a Thing<a name="group-get-effective-policies"></a>
 
 You can use the GetEffectivePolicies command to list the policies in effect for a thing, including the policies attached to any groups the thing belongs to \(whether the group is a direct parent or indirect ancestor\):
 
@@ -429,7 +429,7 @@ The GetEffectivePolicies command returns a list of policies:
 }
 ```
 
-## Test authorization for MQTT actions<a name="group-test-authorization"></a>
+## Test Authorization for MQTT Actions<a name="group-test-authorization"></a>
 
 You can use the TestAuthorization command to test whether an MQTT action is allowed for a thing:
 
@@ -441,7 +441,7 @@ aws iot test-authorization \
 
 Use the `--principal` parameter to specify the ARN of the certificate attached to the thing\. If using Amazon Cognito Identity authentication, specify a Cognito Identity as the `--principal` or use the `--cognito-identity-pool-id` parameter, or both\. \(If you specify only the `--cognito-identity-pool-id` then the policies associated with that identity pool's role for unauthenticated users are considered\. If you use both, the policies associated with that identity pool's role for authenticated users are considered\.
 
-Specify one or more MQTT actions you want to test by listing sets of resources and action types following the `--auth-infos` parameter\. The `actionType` field should contain "PUBLISH", "SUBSCRIBE", "RECEIVE", or "CONNECT"\. The `resources` field should contain a list of resource ARNs\. See [AWS IoT Core policies](iot-policies.md) for more information\.
+Specify one or more MQTT actions you want to test by listing sets of resources and action types following the `--auth-infos` parameter\. The `actionType` field should contain "PUBLISH", "SUBSCRIBE", "RECEIVE", or "CONNECT"\. The `resources` field should contain a list of resource ARNs\. See [AWS IoT Core Policies](iot-policies.md) for more information\.
 
 You can test the effects of adding policies by specifying them with the `--policy-names-to-add` parameter\. Or you can test the effects of removing policies by them with the `--policy-names-to-skip` parameter\.
 

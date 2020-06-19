@@ -1,4 +1,4 @@
-# AWS IoT Core policies<a name="iot-policies"></a>
+# AWS IoT Core Policies<a name="iot-policies"></a>
 
 AWS IoT Core policies are JSON documents\. They follow the same conventions as IAM policies\. AWS IoT Core supports named policies so many identities can reference the same policy document\. Named policies are versioned so they can be easily rolled back\.
 
@@ -10,8 +10,8 @@ An AWS IoT Core policy is a JSON document that contains one or more policy state
 + `Resource`, which specifies the resource or resources on which the action is allowed or denied\.
 
 **Topics**
-+ [AWS IoT Core policy actions](iot-policy-actions.md)
-+ [AWS IoT Core action resources](iot-action-resources.md)
-+ [AWS IoT Core policy variables](iot-policy-variables.md)
-+ [Example AWS IoT policies](example-iot-policies.md)
-+ [Authorization with Amazon Cognito identities](cog-iot-policies.md)
++ [AWS IoT Core Policy Actions](iot-policy-actions.md)
++ [AWS IoT Core Action Resources](iot-action-resources.md)
++ [AWS IoT Core Policy Variables](iot-policy-variables.md)
++ [Example AWS IoT Policies](example-iot-policies.md)
++ [Authorization with Amazon Cognito Identities](cog-iot-policies.md)

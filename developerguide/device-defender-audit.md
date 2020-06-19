@@ -4,7 +4,7 @@ An AWS IoT Device Defender audit looks at account\- and device\-related settings
 
 An AWS IoT Device Defender audit runs a set of predefined checks for common IoT security best practices and device vulnerabilities\. Examples of predefined checks include policies that grant permission to read or update data on multiple devices, devices that share an identity \(X\.509 certificate\), or certificates that are expiring or have been revoked but are still active\.
 
-## Issue severity<a name="device-defender-audit-severity"></a>
+## Issue Severity<a name="device-defender-audit-severity"></a>
 
 Issue severity indicates the level of concern associated with each identified instance of noncompliance and the recommended time to remediation\.
 
@@ -20,6 +20,6 @@ Noncompliant audit checks with this severity present issues that need attention 
 **Low**  
 Noncompliant audit checks with this severity often indicate security best practices were overlooked or bypassed\. Although they might not cause an immediate security impact on their own, these lapses can be exploited by bad actors\. Like medium severity issues, low severity issues require attention as part of your continuous security posture maintenance\.
 
-## Next steps<a name="device-defender-audit-severity-next-steps"></a>
+## Next Steps<a name="device-defender-audit-severity-next-steps"></a>
 
-To understand the types of audit checks that can be performed, see [Audit checks](device-defender-audit-checks.md)\. To learn how to perform an audit, see [How to perform audits](device-defender-HowToProceed.md)\. For information about service quotas that apply to audits, see [Service Quotas](https://docs.aws.amazon.com/general/latest/gr/iot-core.html#limits_iot)\.
+To understand the types of audit checks that can be performed, see [Audit Checks](device-defender-audit-checks.md)\. To learn how to perform an audit, see [How to Perform Audits](device-defender-HowToProceed.md)\. For information about service quotas that apply to audits, see [Service Quotas](https://docs.aws.amazon.com/general/latest/gr/iot-core.html#limits_iot)\.

@@ -1,8 +1,6 @@
-# Monitoring AWS IoT<a name="monitoring_overview"></a>
+# Logging and Monitoring with AWS IoT Core<a name="monitoring_overview"></a>
 
-Monitoring is an important part of maintaining the reliability, availability, and performance of AWS IoT and your AWS solutions\.
-
-We strongly encourage you to collect monitoring data from all parts of your AWS solution to make it easier to debug a multi\-point failure, if one occurs\. Start by creating a monitoring plan that answers the following questions\. If you're not sure how to answer these, you can still continue to [enable logging](configure-logging.md) and establish your performance baselines\.
+Monitoring is an important part of maintaining the reliability, availability, and performance of AWS IoT and your AWS solutions\. You should collect monitoring data from all parts of your AWS solution so that you can more easily debug a multi\-point failure, if one occurs\. Before you start monitoring AWS IoT, you should create a monitoring plan that includes answers to the following questions:
 + What are your monitoring goals?
 + Which resources will you monitor?
 + How often will you monitor these resources?
@@ -10,23 +8,23 @@ We strongly encourage you to collect monitoring data from all parts of your AWS 
 + Who will perform the monitoring tasks?
 + Who should be notified when something goes wrong?
 
-Your next step is to [enable logging](configure-logging.md) and establish a baseline of normal AWS IoT performance in your environment by measuring performance at various times and under different load conditions\. As you monitor AWS IoT, keep historical monitoring data so that you can compare it with current performance data\. This will help you identify normal performance patterns and performance anomalies, and devise methods to address issues\.
+The next step is to establish a baseline for normal AWS IoT performance in your environment, by measuring performance at various times and under different load conditions\. As you monitor AWS IoT, store historical monitoring data so that you can compare it with current performance data, identify normal performance patterns and performance anomalies, and devise methods to address issues\.
 
-To establish your baseline performance for AWS IoT, you should monitor these metrics to start\. You can always monitor more metrics later\.
-+ [`PublishIn.Success`](metrics_dimensions.md#message-broker-metrics)
-+ [`PublishOut.Success`](metrics_dimensions.md#message-broker-metrics)
-+ [`Subscribe.Success`](metrics_dimensions.md#message-broker-metrics)
-+ [`Ping.Success`](metrics_dimensions.md#message-broker-metrics)
-+ [`Connect.Success`](metrics_dimensions.md#message-broker-metrics)
-+ [`GetThingShadow.Accepted`](metrics_dimensions.md#shadow-metrics)
-+ [`UpdateThingShadow.Accepted`](metrics_dimensions.md#shadow-metrics)
-+ [`DeleteThingShadow.Accepted`](metrics_dimensions.md#shadow-metrics)
-+ [`RulesExecuted`](metrics_dimensions.md#iot-metrics)
+For example, if you're using Amazon EC2, you can monitor CPU utilization, disk I/O, and network utilization for your instances\. When performance falls outside your established baseline, you might need to reconfigure or optimize the instance to reduce CPU utilization, improve disk I/O, or reduce network traffic\.
 
-The topics in this section can help you start logging and monitoring AWS IoT\.
+To establish a baseline you should, at a minimum, monitor the following metrics:
++ `PublishIn.Success`
++ `PublishOut.Success`
++ `Subscribe.Success`
++ `Ping.Success`
++ `Connect.Success`
++ `GetThingShadow.Accepted`
++ `UpdateThingShadow.Accepted`
++ `DeleteThingShadow.Accepted`
++ `RulesExecuted`
 
 **Topics**
-+ [Configure AWS IoT logging](configure-logging.md)
-+ [Monitor AWS IoT alarms and metrics using Amazon CloudWatch](monitoring-cloudwatch.md)
-+ [Monitor AWS IoT using CloudWatch Logs](cloud-watch-logs.md)
-+ [Log AWS IoT API calls using AWS CloudTrail](iot-using-cloudtrail.md)
++ [Monitoring Tools](monitoring_automated_manual.md)
++ [Monitoring with Amazon CloudWatch](monitoring-cloudwatch.md)
++ [Monitoring with CloudWatch Logs](cloud-watch-logs.md)
++ [Logging AWS IoT API Calls with AWS CloudTrail](iot-using-cloudtrail.md)

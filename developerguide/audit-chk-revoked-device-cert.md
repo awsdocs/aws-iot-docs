@@ -30,6 +30,6 @@ Verify that the device certificate has not been compromised\. If it has, follow 
    + Apply the `ADD_THINGS_TO_THING_GROUP` mitigation action to add the device to a group where you can take action on it\.
    + Apply the `PUBLISH_FINDINGS_TO_SNS` mitigation action if you want to implement a custom response in response to the Amazon SNS message\. 
 
-   For more information, see [Mitigation actions](device-defender-mitigation-actions.md)\. 
+   For more information, see [Mitigation Actions](device-defender-mitigation-actions.md)\. 
 
 1. Detach the old certificate from the device\. \(See [DetachThingPrincipal](https://docs.aws.amazon.com/iot/latest/apireference/API_DetachThingPrincipal.html)\.\)

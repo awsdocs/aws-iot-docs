@@ -1,4 +1,4 @@
-# Secure tunnel lifecycle<a name="tunnel-lifecycle"></a>
+# Secure Tunnel Lifecycle<a name="tunnel-lifecycle"></a>
 
 Tunnels can have one of the following statuses:
 + `OPEN`

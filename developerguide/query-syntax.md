@@ -1,4 +1,4 @@
-# Query syntax<a name="query-syntax"></a>
+# Query Syntax<a name="query-syntax"></a>
 
 Queries are speciﬁed using a query syntax\.
 

@@ -1,15 +1,15 @@
-# Monitoring soil moisture with AWS IoT and raspberry pi<a name="iot-moisture-tutorial"></a>
+# Monitoring Soil Moisture with AWS IoT and Raspberry Pi<a name="iot-moisture-tutorial"></a>
 
 This tutorial shows you how to use a [Raspberry Pi](https://www.raspberrypi.org/), a moisture sensor, and AWS IoT to monitor the soil moisture level for a house plant or garden\. The Raspberry Pi runs code that reads the moisture level and temperature from the sensor and then sends the data to AWS IoT\. You create a rule in AWS IoT that sends an email to an address subscribed to an Amazon SNS topic when the moisture level falls below a threshold\.
 
 **Contents**
 + [Prerequisites](#iot-moisture-prereqs)
-+ [Setting up AWS IoT](iot-moisture-setup.md)
-  + [Create the AWS IoT policy](iot-moisture-policy.md)
-  + [Create the AWS IoT thing, certificate, and private key](iot-moisture-create-thing.md)
-  + [Create an Amazon SNS topic and subscription](iot-moisture-create-sns-topic.md)
-  + [Create an AWS IoT rule to send an email](iot-moisture-create-rule.md)
-+ [Setting up your Raspberry Pi and moisture sensor](iot-moisture-raspi-setup.md)
++ [Setting Up AWS IoT](iot-moisture-setup.md)
+  + [Create the AWS IoT Policy](iot-moisture-policy.md)
+  + [Create the AWS IoT Thing, Certificate, and Private Key](iot-moisture-create-thing.md)
+  + [Create an Amazon SNS Topic and Subscription](iot-moisture-create-sns-topic.md)
+  + [Create an AWS IoT Rule to Send an Email](iot-moisture-create-rule.md)
++ [Setting Up Your Raspberry Pi and Moisture Sensor](iot-moisture-raspi-setup.md)
 
 ## Prerequisites<a name="iot-moisture-prereqs"></a>
 

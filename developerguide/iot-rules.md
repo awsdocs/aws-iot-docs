@@ -19,10 +19,10 @@ Rules give your devices the ability to interact with AWS services\. Rules are an
 + Send message data an asset property in AWS IoT SiteWise\.
 + Send message data to a web application or service\.
 
-Your rules can use MQTT messages that pass through the publish/subscribe [Message broker for AWS IoT](iot-message-broker.md) or, using the [Basic Ingest](iot-basic-ingest.md) feature, you can securely send device data to the AWS services listed above without incurring [messaging costs](https://aws.amazon.com/iot-core/pricing/)\. \(The [Basic Ingest](iot-basic-ingest.md) feature optimizes data flow by removing the publish/subscribe message broker from the ingestion path, so it is more cost effective while keeping the security and data processing features of AWS IoT\.\)
+Your rules can use MQTT messages that pass through the publish/subscribe [Message Broker for AWS IoT](iot-message-broker.md) or, using the [Basic Ingest](iot-basic-ingest.md) feature, you can securely send device data to the AWS services listed above without incurring [messaging costs](https://aws.amazon.com/iot-core/pricing/)\. \(The [Basic Ingest](iot-basic-ingest.md) feature optimizes data flow by removing the publish/subscribe message broker from the ingestion path, so it is more cost effective while keeping the security and data processing features of AWS IoT\.\)
 
 Before AWS IoT can perform these actions, you must grant it permission to access your AWS resources on your behalf\. When the actions are performed, you incur the standard charges for the AWS services you use\.
 
-## Troubleshooting a rule<a name="iot-troubleshoot-rule"></a>
+## Troubleshooting a Rule<a name="iot-troubleshoot-rule"></a>
 
 If you are having an issue with your rules, you should enable CloudWatch Logs\. By analyzing your logs, you can determine whether the issue is authorization or whether, for example, a WHERE clause condition did not match\. For more information, see [Setting Up CloudWatchLogs](https://docs.aws.amazon.com/iot/latest/developerguide/cloud-watch-logs.html)\.

@@ -5,7 +5,7 @@ AWS IoT jobs can be used to define a set of remote operations that are sent to a
 **Tip**  
 For job document examples, see the [jobs\-agent\.js](https://www.npmjs.com/package/aws-iot-device-sdk#jobs-agentjs) example in the AWS IoT SDK for JavaScript\.
 
-## Jobs key concepts<a name="key-concepts-jobs"></a>
+## Jobs Key Concepts<a name="key-concepts-jobs"></a>
 
 job  
 A job is a remote operation that is sent to and executed on one or more devices connected to AWS IoT\. For example, you can define a job that instructs a set of devices to download and install application or firmware updates, reboot, rotate certificates, or perform remote troubleshooting operations\.

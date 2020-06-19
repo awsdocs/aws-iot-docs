@@ -1,4 +1,4 @@
-# Querying for aggregate data<a name="index-aggregate"></a>
+# Querying for Aggregate Data<a name="index-aggregate"></a>
 
 AWS IoT provides three APIs \(`GetStatistics`, `GetCardinality`, and `GetPercentiles`\) that allow you to search your device fleet for aggregate data\. 
 
@@ -22,7 +22,7 @@ The version of the query to use\. The default value is `2017-09-30`\.
 
 The type of aggregation field can affect the statistics returned\. 
 
-### GetStatistics with string values<a name="string-aggregation"></a>
+### GetStatistics with String Values<a name="string-aggregation"></a>
 
 If you aggregate on a string field, calling `GetStatistics` returns a count of devices that have attributes that match the query\. For example:
 
@@ -38,7 +38,7 @@ This command returns the number of devices that contain an attribute named `stri
 }
 ```
 
-### GetStatistics with Boolean values<a name="boolean-aggregation"></a>
+### GetStatistics with Boolean Values<a name="boolean-aggregation"></a>
 
 When you call `GetStatistics` with a boolean aggregation field:
 + AVERAGE is the percentage of devices that match the query\.
@@ -53,7 +53,7 @@ When you call `GetStatistics` with a boolean aggregation field:
 + SUM is the sum of the integer equivalent of the boolean values\.
 + COUNT is the number of things that match the query\. 
 
-### GetStatistics with numerical values<a name="numerical-aggregation"></a>
+### GetStatistics with Numerical Values<a name="numerical-aggregation"></a>
 
 When you call `GetStatistics` and specify an aggregation field of type `Number`, `GetStatistics` returns the following values:
 

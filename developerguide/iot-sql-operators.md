@@ -9,9 +9,9 @@ Returns a `Boolean` result\. Performs a logical AND operation\. Returns true if 
 *Syntax:* ` expression AND expression`\.
 
 
-**AND operator**  
+**AND Operator**  
 
-| Left operand | Right operand | Output | 
+| Left Operand | Right Operand | Output | 
 | --- | --- | --- | 
 | Boolean | Boolean | Boolean\. True if both operands are true\. Otherwise, false\. | 
 | String/Boolean | String/Boolean | If all strings are "true" or "false" \(case insensitive\), they are converted to Boolean and processed normally as boolean AND boolean\. | 
@@ -24,9 +24,9 @@ Returns a `Boolean` result\. Performs a logical OR operation\. Returns true if e
 *Syntax:* ` expression OR expression`\.
 
 
-**OR operator**  
+**OR Operator**  
 
-| Left operand | Right operand | Output | 
+| Left Operand | Right Operand | Output | 
 | --- | --- | --- | 
 | Boolean | Boolean | Boolean\. True if either operand is true\. Otherwise, false\. | 
 | String/Boolean | String/Boolean | If all strings are "true" or "false" \(case insensitive\), they are converted to Booleans and processed normally as boolean OR boolean\. | 
@@ -39,7 +39,7 @@ Returns a `Boolean` result\. Performs a logical NOT operation\. Returns true if 
 *Syntax:* `NOT expression`\.
 
 
-**NOT operator**  
+**NOT Operator**  
 
 | Operand | Output | 
 | --- | --- | 
@@ -54,9 +54,9 @@ Returns a `Boolean` result\. Returns true if the left operand is greater than th
 *Syntax:* `expression > expression`\.
 
 
-**> operator**  
+**> Operator**  
 
-| Left operand | Right operand | Output | 
+| Left Operand | Right Operand | Output | 
 | --- | --- | --- | 
 | Int/Decimal | Int/Decimal | Boolean\. True if the left operand is greater than the right operand\. Otherwise, false\. | 
 | String/Int/Decimal | String/Int/Decimal | If all strings can be converted to Decimal, then Boolean\. Returns true if the left operand is greater than the right operand\. Otherwise, false\. | 
@@ -69,9 +69,9 @@ Returns a `Boolean` result\. Returns true if the left operand is greater than or
 *Syntax:* `expression >= expression`\.
 
 
-**>= operator**  
+**>= Operator**  
 
-| Left operand | Right operand | Output | 
+| Left Operand | Right Operand | Output | 
 | --- | --- | --- | 
 | Int/Decimal | Int/Decimal | Boolean\. True if the left operand is greater than or equal to the right operand\. Otherwise, false\. | 
 | String/Int/Decimal | String/Int/Decimal | If all strings can be converted to Decimal, then Boolean\. Returns true if the left operand is greater than or equal to the right operand\. Otherwise, false\. | 
@@ -84,9 +84,9 @@ Returns a `Boolean` result\. Returns true if the left operand is less than the r
 *Syntax:* `expression < expression`\.
 
 
-**< operator**  
+**< Operator**  
 
-| Left operand | Right operand | Output | 
+| Left Operand | Right Operand | Output | 
 | --- | --- | --- | 
 | Int/Decimal | Int/Decimal | Boolean\. True if the left operand is less than the right operand\. Otherwise, false\. | 
 | String/Int/Decimal | String/Int/Decimal | If all strings can be converted to Decimal, then Boolean\. Returns true if the left operand is less than the right operand\. Otherwise, false\. | 
@@ -99,9 +99,9 @@ Returns a `Boolean` result\. Returns true if the left operand is less than or eq
 *Syntax:* `expression <= expression`\.
 
 
-**<= operator**  
+**<= Operator**  
 
-| Left operand | Right operand | Output | 
+| Left Operand | Right Operand | Output | 
 | --- | --- | --- | 
 | Int/Decimal | Int/Decimal | Boolean\. True if the left operand is less than or equal to the right operand\. Otherwise, false\. | 
 | String/Int/Decimal | String/Int/Decimal | If all strings can be converted to Decimal, then Boolean\. Returns true if the left operand is less than or equal to the right operand\. Otherwise, false\. | 
@@ -114,9 +114,9 @@ Returns a `Boolean` result\. Returns true if both left and right operands are no
 *Syntax:* ` expression <> expression`\.
 
 
-**<> operator**  
+**<> Operator**  
 
-| Left operand | Right operand | Output | 
+| Left Operand | Right Operand | Output | 
 | --- | --- | --- | 
 | Int | Int | True if left operand is not equal to right operand\. Otherwise, false\. | 
 | Decimal | Decimal | True if left operand is not equal to right operand\. Otherwise, false\.Int is converted to Decimal before being compared\. | 
@@ -128,7 +128,7 @@ Returns a `Boolean` result\. Returns true if both left and right operands are no
 | Undefined | Any Value | Undefined\. | 
 | Mismatched Type | Mismatched Type | True\. | 
 
-## = Operator<a name="iot-sql-operators-eq"></a>
+## = operator<a name="iot-sql-operators-eq"></a>
 
 Returns a `Boolean` result\. Returns true if both left and right operands are equal\. Otherwise, returns false\. 
 
@@ -137,7 +137,7 @@ Returns a `Boolean` result\. Returns true if both left and right operands are eq
 
 **= Operator**  
 
-| Left operand | Right operand | Output | 
+| Left Operand | Right Operand | Output | 
 | --- | --- | --- | 
 | Int | Int | True if left operand is equal to right operand\. Otherwise, false\. | 
 | Decimal | Decimal | True if left operand is equal to right operand\. Otherwise, false\.Int is converted to Decimal before being compared\. | 
@@ -148,7 +148,7 @@ Returns a `Boolean` result\. Returns true if both left and right operands are eq
 | Undefined | Any Value | Undefined\. | 
 | Mismatched Type | Mismatched Type | False\. | 
 
-## \+ Operator<a name="iot-sql-operators-plus"></a>
+## \+ operator<a name="iot-sql-operators-plus"></a>
 
 The "\+" is an overloaded operator\. It can be used for string concatenation or addition\. 
 
@@ -157,7 +157,7 @@ The "\+" is an overloaded operator\. It can be used for string concatenation or 
 
 **\+ Operator**  
 
-| Left operand | Right operand | Output | 
+| Left Operand | Right Operand | Output | 
 | --- | --- | --- | 
 | String | Any Value | Converts the right operand to a string and concatenates it to the end of the left operand\. | 
 | Any Value | String | Converts the left operand to a string and concatenates the right operand to the end of the converted left operand\. | 
@@ -165,7 +165,7 @@ The "\+" is an overloaded operator\. It can be used for string concatenation or 
 | Int/Decimal | Int/Decimal | Decimal value\. Adds operands together\. | 
 | Other Value | Other Value | Undefined\. | 
 
-## \- Operator<a name="iot-sql-operators-sub"></a>
+## \- operator<a name="iot-sql-operators-sub"></a>
 
 Subtracts the right operand from the left operand\. 
 
@@ -174,7 +174,7 @@ Subtracts the right operand from the left operand\.
 
 **\- Operator**  
 
-| Left operand | Right operand | Output | 
+| Left Operand | Right Operand | Output | 
 | --- | --- | --- | 
 | Int | Int | Int value\. Subtracts right operand from left operand\. | 
 | Int/Decimal | Int/Decimal | Decimal value\. Subtracts right operand from left operand\. | 
@@ -182,7 +182,7 @@ Subtracts the right operand from the left operand\.
 | Other Value | Other value | Undefined\. | 
 | Other Value | Other Value | Undefined\. | 
 
-## \* Operator<a name="iot-sql-operators-mult"></a>
+## \* operator<a name="iot-sql-operators-mult"></a>
 
 Multiplies the left operand by the right operand\. 
 
@@ -191,14 +191,14 @@ Multiplies the left operand by the right operand\.
 
 **\* Operator**  
 
-| Left operand | Right operand | Output | 
+| Left Operand | Right Operand | Output | 
 | --- | --- | --- | 
 | Int | Int | Int value\. Multiplies the left operand by the right operand\. | 
 | Int/Decimal | Int/Decimal | Decimal value\. Multiplies the left operand by the right operand\. | 
 | String/Int/Decimal | String/Int/Decimal | If all strings convert to decimals correctly, a Decimal value is returned\. Multiplies the left operand by the right operand\. Otherwise, returns Undefined\. | 
 | Other Value | Other value | Undefined\. | 
 
-## / Operator<a name="iot-sql-operators-div"></a>
+## / operator<a name="iot-sql-operators-div"></a>
 
 Divides the left operand by the right operand\. 
 
@@ -207,14 +207,14 @@ Divides the left operand by the right operand\.
 
 **/ Operator**  
 
-| Left operand | Right operand | Output | 
+| Left Operand | Right Operand | Output | 
 | --- | --- | --- | 
 | Int | Int | Int value\. Divides the left operand by the right operand\. | 
 | Int/Decimal | Int/Decimal | Decimal value\. Divides the left operand by the right operand\. | 
 | String/Int/Decimal | String/Int/Decimal | If all strings convert to decimals correctly, a Decimal value is returned\. Divides the left operand by the right operand\. Otherwise, returns Undefined\. | 
 | Other Value | Other value | Undefined\. | 
 
-## % Operator<a name="iot-sql-operators-mod"></a>
+## % operator<a name="iot-sql-operators-mod"></a>
 
 Returns the remainder from dividing the left operand by the right operand\. 
 
@@ -223,7 +223,7 @@ Returns the remainder from dividing the left operand by the right operand\.
 
 **% Operator**  
 
-| Left operand | Right operand | Output | 
+| Left Operand | Right Operand | Output | 
 | --- | --- | --- | 
 | Int | Int | Int value\. Returns the remainder from dividing the left operand by the right operand\. | 
 | String/Int/Decimal | String/Int/Decimal | If all strings convert to decimals correctly, a Decimal value is returned\. Returns the remainder from dividing the left operand by the right operand\. Otherwise, Undefined\. | 

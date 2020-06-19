@@ -1,8 +1,8 @@
-# How to manage things with the registry<a name="thing-registry"></a>
+# How to Manage Things with the Registry<a name="thing-registry"></a>
 
 You use the AWS IoT console or the AWS CLI to interact with the registry\. The following sections show how to use the CLI to work with the registry\.
 
-## Create a thing<a name="create-thing"></a>
+## Create a Thing<a name="create-thing"></a>
 
 The following command shows how to use the AWS IoT CreateThing command from the CLI to create a thing\. You can't change a thing's name after you create it\. To change a thing's name, you must create a new thing, give it the new name, and then delete the old thing\.
 
@@ -23,7 +23,7 @@ The CreateThing command displays the name and Amazon Resource Name \(ARN\) of yo
 **Note**  
 We do not recommend using personally identifiable information in your thing names\.
 
-## List things<a name="list-things"></a>
+## List Things<a name="list-things"></a>
 
 You can use the ListThings command to list all things in your account:
 
@@ -50,7 +50,7 @@ $ aws iot list-things
 }
 ```
 
-## Search for things<a name="search-things"></a>
+## Search for Things<a name="search-things"></a>
 
 You can use the DescribeThing command to list information about a thing:
 
@@ -141,7 +141,7 @@ $  aws iot list-things --attribute-name "wattage" --attribute-value "75"
 }
 ```
 
-## Update a thing<a name="update-thing"></a>
+## Update a Thing<a name="update-thing"></a>
 
 You can use the UpdateThing command to update a thing\. Note that this command updates only the thing's attributes\. You can't change a thing's name\. To change a thing's name, you must create a new thing, give it the new name, and then delete the old thing\.
 
@@ -163,7 +163,7 @@ $ aws iot describe-thing --thing-name "MyLightBulb"
 }
 ```
 
-## Delete a thing<a name="delete-thing"></a>
+## Delete a Thing<a name="delete-thing"></a>
 
 You can use the DeleteThing command to delete a thing:
 
@@ -173,7 +173,7 @@ $ aws iot delete-thing --thing-name "MyThing"
 
 This command returns successfully with no error if the deletion is successful or you specify a thing that doesn't exist\.
 
-## Attach a principal to a thing<a name="attach-thing-principal"></a>
+## Attach a Principal to a Thing<a name="attach-thing-principal"></a>
 
 A physical device must have an X\.509 certificate to communicate with AWS IoT\. You can associate the certificate on your device with the thing in the registry that represents your device\. To attach a certificate to your thing, use the AttachThingPrincipal command:
 
@@ -183,7 +183,7 @@ $ aws iot attach-thing-principal --thing-name "MyLightBulb" --principal "arn:aws
 
 The AttachThingPrincipal command does not produce any output\.
 
-## Detach a principal from a thing<a name="detach-thing-principal"></a>
+## Detach a Principal from a Thing<a name="detach-thing-principal"></a>
 
 You can use the DetachThingPrincipal command to detach a certificate from a thing:
 

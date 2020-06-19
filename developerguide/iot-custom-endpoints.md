@@ -1,4 +1,4 @@
-# Connecting devices<a name="iot-custom-endpoints"></a>
+# Connecting Devices<a name="iot-custom-endpoints"></a>
 
 Devices connect to AWS IoT using a fully qualified domain name \(FQDN\) that is specific to your account\. All connections to AWS IoT must be secured with TLS version 1\.2 and AWS IoT requires devices to send the [Server Name Indication \(SNI\) extension](https://tools.ietf.org/html/rfc3546#section-3.1)\. For more information, see [Transport Security in AWS IoT](transport-security.html)\. 
 
@@ -26,4 +26,4 @@ This command returns an endpoint in the following format: `account-specific-pref
 You can also use your own FQDN \(for example, *example\.com*\) and the associated server certificate to connect devices to AWS IoT by using the configurable endpoints feature, which is currently in public beta\. The following section explains how to use configurable endpoints for your custom domains and AWS\-managed domains\.
 
 **Topics**
-+ [Configurable endpoints \(beta\)](iot-custom-endpoints-configurable.md)
++ [Configurable Endpoints \(Beta\)](iot-custom-endpoints-configurable.md)

@@ -9,20 +9,20 @@ Security is a shared responsibility between AWS and you\. The [shared responsibi
 This documentation helps you understand how to apply the shared responsibility model when using AWS IoT\. The following topics show you how to configure AWS IoT to meet your security and compliance objectives\. You also learn how to use other AWS services that help you to monitor and secure your AWS IoT resources\. 
 
 **Topics**
-+ [AWS IoT security](iot-security.md)
++ [AWS IoT Security](iot-security.md)
 + [Authentication](authentication.md)
-+ [Managing device certs](managing-device-certs.md)
++ [Managing Device Certs](managing-device-certs.md)
 + [Authorization](iot-authorization.md)
-+ [Data protection in AWS IoT Core](data-protection.md)
-+ [Identity and access management for AWS IoT](security-iam.md)
-+ [Logging and Monitoring](security-logging.md)
-+ [Compliance validation for AWS IoT Core](SERVICENAME-compliance.md)
++ [Data Protection in AWS IoT Core](data-protection.md)
++ [Identity and Access Management for AWS IoT](security-iam.md)
++ [Logging and Monitoring with AWS IoT Core](monitoring_overview.md)
++ [Compliance Validation for AWS IoT Core](SERVICENAME-compliance.md)
 + [Resilience in AWS IoT Core](disaster-recovery-resiliency.md)
-+ [Infrastructure security in AWS IoT](infrastructure-security.md)
-+ [Vulnerability analysis and management in AWS IoT Core](vulnerability-analysis-and-management.md)
-+ [Security best practices in AWS IoT Core](security-best-practices.md)
-+ [AWS training and certification](#iot-security-training)
++ [Infrastructure Security in AWS IoT](infrastructure-security.md)
++ [Vulnerability Analysis and Management in AWS IoT Core](vulnerability-analysis-and-management.md)
++ [Security Best Practices in AWS IoT Core](security-best-practices.md)
++ [AWS Training and Certification](#iot-security-training)
 
-## AWS training and certification<a name="iot-security-training"></a>
+## AWS Training and Certification<a name="iot-security-training"></a>
 
 Take the following course to learn about key concepts for AWS IoT security: [AWS IoT Security Primer](https://www.aws.training/Details/Curriculum?id=42304)\.

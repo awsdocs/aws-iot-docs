@@ -1,4 +1,4 @@
-# AWS IoT Device Defender troubleshooting guide<a name="device-defender-troubleshoot"></a>General
+# AWS IoT Device Defender Troubleshooting Guide<a name="device-defender-troubleshoot"></a>General
 
 Q: Are there any prerequisites for using AWS IoT Device Defender?   
 A: If you want to use device\-reported metrics, you must first deploy an agent on your AWS IoT connected devices or device gateways\. Devices must provide a consistent client identifier or thing name\.Audit
@@ -49,7 +49,7 @@ Q: Why do my device metric reports contain messages for devices that aren't in t
 If you have one or more security profiles attached to all things or to all unregistered things, AWS IoT Device Defender includes metrics from unregistered things\. If you want to exclude metrics from unregistered things, you can attach the profiles to all registered devices instead of all devices\.
 
 Q: I'm not seeing messages from one or more unregistered devices even though I applied a security profile to all unregistered devices or all devices\. How can I fix it?  
-Verify that you are sending a well\-formed metrics report using one of the supported formats, For information, see [Device metrics document specification](device-defender-detect.md#DetectMetricsMessagesSpec)\. Verify that the unregistered devices are using a consistent client identifier or thing name\. Messages reported by devices are rejected if the thing name contains control characters or if the thing name is longer than 128 bytes of UTF\-8 encoded characters\.
+Verify that you are sending a well\-formed metrics report using one of the supported formats, For information, see [Device Metrics Document Specification](device-defender-detect.md#DetectMetricsMessagesSpec)\. Verify that the unregistered devices are using a consistent client identifier or thing name\. Messages reported by devices are rejected if the thing name contains control characters or if the thing name is longer than 128 bytes of UTF\-8 encoded characters\.
 
 Q: What happens if an unregistered device is added to the registry or a registered device becomes unregistered?  
 A: If a device is added to or removed from the registry:  

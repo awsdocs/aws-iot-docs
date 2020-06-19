@@ -1,4 +1,4 @@
-# Device agent integration with AWS IoT Greengrass<a name="device-defender-DetectMetricsGreengrassIntegration"></a>
+# Device Agent Integration with AWS IoT Greengrass<a name="device-defender-DetectMetricsGreengrassIntegration"></a>
 
 AWS IoT Device Defender can be used with AWS IoT Greengrass\. Device agent integration follows the standard AWS IoT Greengrass Lambda function deployment model, allowing you to add AWS IoT Device Defender security to your AWS IoT Greengrass core devices\. Follow these steps to integrate a device agent\.
 
