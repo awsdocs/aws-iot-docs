@@ -9,7 +9,7 @@ If you want apps and services to be able to determine whether a device is connec
 **Important**  
 Because MQTT uses a publish/subscribe communication model, you must subscribe to the response topics *before* publishing a request topic\. If you don't, you won't receive the response to the request that you publish\.
 
-The examples in this section use an abbreviated form of the topic where the *ShadowTopicPrefix* can refer to either a named or an unnamed shadow, as described in this table\. `ShadowTopicPrefix` can refer to either a named or an unnamed shadow as described in this table:
+The examples in this section use an abbreviated form of the topic where the `*ShadowTopicPrefix*` can refer to either a named or an unnamed shadow, as described in this table\.
 
 Shadows can be named or unnamed \(classic\)\. The topics used by each differ only in the topic prefix\. This table shows the topic prefix used by each shadow type\.
 
