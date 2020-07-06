@@ -19,4 +19,4 @@ Although it is unlikely, root CA certificates are subject to expiration and revo
 
 1. Choose **Done** to return to the main page of the AWS IoT console\. 
 
-When working with a device, you must copy the private key, the device certificate and the root CA certificate onto your device\. The instructions in this guide are written with the assumption that you are not using a device and are simply getting familiar with the AWS IoT console\.
+When working with a device, you must copy the private key and root CA certificate onto your device\. The instructions in this guide are written with the assumption that you are not using a device and are simply getting familiar with the AWS IoT console\.
