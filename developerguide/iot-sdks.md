@@ -19,7 +19,7 @@ Fleet provisioning \(beta\) is currently supported only in the AWS IoT Device SD
 
 The AWS SDK for Android contains a library, samples, and documentation for developers to build connected mobile applications using AWS\. This SDK also includes support for calling AWS IoT APIs\. For more information, see the following:
 + [AWS Mobile SDK for Android on GitHub](https://github.com/aws/aws-sdk-android)
-+ [AWS Mobile SDK for Android Readme](https://github.com/aws/aws-sdk-android/blob/master/README.md)
++ [AWS Mobile SDK for Android Readme](https://github.com/aws-amplify/aws-sdk-android/blob/main/README.md)
 + [AWS Mobile SDK for Android Samples](https://github.com/awslabs/aws-sdk-android-samples)
 
 ## Arduino Yún SDK<a name="iot-arduino-sdk"></a>
