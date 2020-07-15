@@ -1,4 +1,4 @@
-# Deleting a Rule<a name="iot-delete-rule"></a>
+# Deleting a rule<a name="iot-delete-rule"></a>
 
 When you are finished with a rule, you can delete it\.
 

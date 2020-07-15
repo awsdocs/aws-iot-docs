@@ -1,11 +1,7 @@
-# Creating a Custom Authorizer for Enhanced Custom Authentication<a name="enhanced-custom-auth-create"></a>
-
+# Creating a custom authorizer for enhanced custom authentication<a name="enhanced-custom-auth-create"></a>
 
 ****  
-
-|  | 
-| --- |
-| This feature is currently in public beta and is available only in the US East \(N\. Virginia\) Region\. | 
+This feature is currently in public beta and is available only in the US East \(N\. Virginia\) Region\.
 
 You create a custom authorizer for enhanced custom authentication using the same [CreateAuthorizer](https://docs.aws.amazon.com/iot/latest/apireference/API_CreateAuthorizer.html) API that you use to create a custom authorizer for custom authentication\. For procedures to create a custom authorizer, see [Configure a Custom Authorizer](config-custom-auth.html)\.
 

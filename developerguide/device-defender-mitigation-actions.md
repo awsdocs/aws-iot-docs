@@ -1,4 +1,4 @@
-# Mitigation Actions<a name="device-defender-mitigation-actions"></a>
+# Mitigation actions<a name="device-defender-mitigation-actions"></a>
 
 You can use AWS IoT Device Defender to take actions to mitigate issues that were found during an audit\. AWS IoT Device Defender provides predefined actions for the different audit checks\. You configure those actions for your AWS account and then apply them to a set of findings\. Those findings can be:
 + All findings from an audit\. This option is available in both the AWS IoT console and by using the AWS CLI\.
@@ -8,9 +8,9 @@ You can use AWS IoT Device Defender to take actions to mitigate issues that were
 The following table lists the types of audit checks and the supported mitigation actions for each:
 
 
-**Audit Check to Mitigation Action Mapping**  
+**Audit check to mitigation action mapping**  
 
-| Audit Check | Supported Mitigation Actions | 
+| Audit check | Supported mitigation actions | 
 | --- | --- | 
 | REVOKED\_CA\_CERT\_CHECK | PUBLISH\_FINDING\_TO\_SNS, UPDATE\_CA\_CERTIFICATE | 
 | DEVICE\_CERTIFICATE\_SHARED\_CHECK | PUBLISH\_FINDING\_TO\_SNS, UPDATE\_DEVICE\_CERTIFICATE, ADD\_THINGS\_TO\_THING\_GROUP | 
@@ -90,11 +90,11 @@ Applying mitigation actions that change certificates, add things to a new thing 
 
 Some actions, such as reactivating a device certificate, can only be performed manually\. AWS IoT Device Defender does not provide a mechanism to automatically roll back mitigation actions that have been applied\. 
 
-## How to Define and Manage Mitigation Actions<a name="defender-manage-mitigation-actions"></a>
+## How to define and manage mitigation actions<a name="defender-manage-mitigation-actions"></a>
 
 You can use the AWS IoT console or the AWS CLI to define and manage mitigation actions for your AWS account\.
 
-### Create Mitigation Actions<a name="defender-create-mitigation-action"></a>
+### Create mitigation actions<a name="defender-create-mitigation-action"></a>
 
 Each mitigation action that you define is a combination of a predefined action type and parameters specific to your account\.
 
@@ -172,7 +172,7 @@ Each mitigation action that you define is a combination of a predefined action t
 **To use the AWS CLI to view mitigation action details**
 + Use the [DescribeMitigationAction](mitigation-action-commands.md#dd-api-iot-DescribeMitigationAction) command to view details for your mitigation action\.
 
-## Apply Mitigation Actions<a name="defender-audit-apply-mitigation-actions"></a>
+## Apply mitigation actions<a name="defender-audit-apply-mitigation-actions"></a>
 
 After you have defined a set of mitigation actions, you can apply those actions to the findings from an audit\. When you apply actions, you start an audit mitigation actions task\. This task might take some time to complete, depending on the set of findings and the actions that you apply to them\. For example, if you have a large pool of devices whose certificates have expired, it might take some time to deactivate all of those certificates or to move those devices to a quarantine group\. Other actions, such as enabling logging, can be completed quickly\.
 
@@ -256,9 +256,9 @@ If you have not configured actions for your AWS account, the list of actions is 
 For each mitigation action that you define, you must provide the role used to apply that action\.
 
 
-**Permissions for Mitigation Actions**  
+**Permissions for mitigation actions**  
 
-| Action Type | Permissions Policy Template | 
+| Action type | Permissions policy template | 
 | --- | --- | 
 |  UPDATE\_DEVICE\_CERTIFICATE  |  <pre><br />{<br />    "Version":"2012-10-17",<br />    "Statement":[<br />        {<br />            "Effect":"Allow",<br />            "Action":[<br />                "iot:UpdateCertificate"<br />            ],<br />            "Resource":[<br />                "*"<br />            ]<br />        }<br />    ]<br />}</pre>  | 
 | UPDATE\_CA\_CERTIFICATE |  <pre><br />{<br />    "Version":"2012-10-17",<br />    "Statement":[<br />        {<br />            "Effect":"Allow",<br />            "Action":[<br />                "iot:UpdateCACertificate"<br />            ],<br />            "Resource":[<br />                "*"<br />            ]<br />        }<br />    ]<br />}</pre>  | 

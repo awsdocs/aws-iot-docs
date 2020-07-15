@@ -1,4 +1,4 @@
-# Setting Up AWS IoT<a name="iot-moisture-setup"></a>
+# Setting up AWS IoT<a name="iot-moisture-setup"></a>
 
 To complete this tutorial, you need to create the following resources\. To connect a device to AWS IoT, you create an IoT thing, a device certificate, and an AWS IoT policy\. 
 + An AWS IoT thing\.
@@ -12,7 +12,7 @@ To complete this tutorial, you need to create the following resources\. To conne
   Each device certificate has one or more AWS IoT policies associated with it\. These policies determine which AWS IoT resources the device can access\. 
 + An AWS IoT root CA certificate\.
 
-  Devices and other clients use an AWS IoT root CA certificate to authenticate the AWS IoT server with which they are communicating\. For more information, see [Server Authentication](https://docs.aws.amazon.com/iot/latest/developerguide/managing-device-certs.html#server-authentication)\.
+  Devices and other clients use an AWS IoT root CA certificate to authenticate the AWS IoT server with which they are communicating\. For more information, see [Server authentication](server-authentication.md)\.
 + An AWS IoT rule\.
 
   A rule contains a query and one or more rule actions\. The query extracts data from device messages to determine if the message data should be processed\. The rule action specifies what to do if the data matches the query\.

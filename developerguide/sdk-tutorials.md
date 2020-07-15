@@ -1,29 +1,32 @@
-# Using the AWS IoT Device SDKs on a Raspberry Pi<a name="sdk-tutorials"></a>
+# Using the AWS IoT device SDKs on a Raspberry Pi<a name="sdk-tutorials"></a>
 
 The AWS IoT Device and Mobile SDKs help you to connect your devices to AWS IoT easily and quickly\. The AWS IoT Device and Mobile SDKs include open\-source libraries, developer guides with samples, and porting guides so that you can build innovative IoT products or solutions on your choice of hardware platforms\.
 
 **Important**  
-Before you start this tutorial, complete the steps in [Getting Started with AWS IoT Core](iot-gs.md)\. 
+Before you start this tutorial, complete the steps in [Getting started with AWS IoT Core](iot-gs.md)\. 
 
-These tutorials provide step\-by\-step instructions for connecting your Raspberry Pi to the [Message Broker for AWS IoT](iot-message-broker.md) using the AWS IoT Device SDK for Embedded C and the AWS IoT Device SDK for JavaScript\. After you complete the steps in these tutorials, you can connect to the AWS IoT platform and run the sample applications included with the AWS IoT Device and Mobile SDKs\.
+These tutorials provide step\-by\-step instructions for connecting your Raspberry Pi to the [Message broker for AWS IoT](iot-message-broker.md) using the AWS IoT Device SDK for Embedded C and the AWS IoT Device SDK for JavaScript\. After you complete the steps in these tutorials, you can connect to the AWS IoT platform and run the sample applications included with the AWS IoT Device and Mobile SDKs\.
 
 **Topics**
 + [Prerequisites](#iot-sdk-prereqs)
-+ [Create an AWS IoT Thing for Your Raspberry Pi](#iot-sdk-create-thing)
++ [Create an AWS IoT thing for your Raspberry Pi](#iot-sdk-create-thing)
 + [Using the AWS IoT Device SDK for Embedded C](iot-embedded-c-sdk.md)
-+ [Using the AWS IoT Device SDK for JavaScript and Node](iot-device-sdk-node.md)
++ [Using the AWS IoT device SDK for JavaScript and node](iot-device-sdk-node.md)
 
 ## Prerequisites<a name="iot-sdk-prereqs"></a>
 
 To complete this tutorial, you need the following:
 + A [Raspberry Pi 2 Model B](https://www.raspberrypi.org/help/quick-start-guide/) or more recent model\.
-+ [Raspbian Wheezy](http://archive.raspbian.org/raspbian/dists/) or later\. We recommend using the latest version of Raspbian, which is available from the [Raspberry Pi website](https://www.raspberrypi.org/downloads/raspbian/)\.
-+ An ethernet or Wi\-Fi connection\.
++ The latest version of Raspbian, which is available from the [Raspberry Pi website](https://www.raspberrypi.org/downloads/raspbian/)\. This tutorial supports [Raspbian Wheezy](http://archive.raspbian.org/raspbian/dists/) and later versions of the Raspberry Pi OS\.
++ An Ethernet or Wi\-Fi connection\.
 + An AWS account\. If you don't already have an AWS account, you can get one for free by going to the [Amazon AWS Getting Started Resource Center](https://aws.amazon.com)\.
 
-## Create an AWS IoT Thing for Your Raspberry Pi<a name="iot-sdk-create-thing"></a>
+## Create an AWS IoT thing for your Raspberry Pi<a name="iot-sdk-create-thing"></a>
 
 A *thing* represents a device whose state is stored in the AWS Cloud\. The device's state is stored in a JSON document known as the device's * shadow*\. The shadow is used to both store and retrieve state information\. The [Device Shadow service](iot-device-shadows.html) maintains a shadow for each device that is registered in AWS IoT\.
+
+**Note**  
+This procedure is written for use on a Raspberry Pi that is running an OS with a graphical user interface \(GUI\) and an Internet browser\. If your Raspberry Pi does not have a GUI, you can do this procedure on an another computer with a browser, but you will need to copy the files from that computer to your Raspberry Pi, such as by using FTP, to continue with the rest of this tutorial\.
 
 **To register your Raspberry Pi with AWS IoT**
 

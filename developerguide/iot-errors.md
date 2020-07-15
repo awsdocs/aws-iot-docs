@@ -1,11 +1,11 @@
-# AWS IoT Errors<a name="iot-errors"></a>
+# AWS IoT errors<a name="iot-errors"></a>
 
 This section lists the error codes sent by AWS IoT\. 
 
 
-**Message Broker Error Codes**  
+**Message broker error codes**  
 
-| Error Code | Error Description | 
+| Error code | Error description | 
 | --- | --- | 
 | 400 | Bad request\. | 
 | 401 | Unauthorized\. | 
@@ -13,16 +13,16 @@ This section lists the error codes sent by AWS IoT\.
 | 503 | Service unavailable\. | 
 
 
-**Identity and Security Error Codes**  
+**Identity and security error codes**  
 
-| Error Code | Error Description | 
+| Error code | Error description | 
 | --- | --- | 
 | 401 | Unauthorized\. | 
 
 
-**Device Shadow Error Codes**  
+**Device shadow error codes**  
 
-| Error Code | Error Description | 
+| Error code | Error description | 
 | --- | --- | 
 | 400 | Bad request\. | 
 | 401 | Unauthorized\. | 

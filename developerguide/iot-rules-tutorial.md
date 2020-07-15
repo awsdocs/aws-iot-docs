@@ -1,4 +1,4 @@
-# AWS IoT Rules Tutorials<a name="iot-rules-tutorial"></a>
+# AWS IoT rules tutorials<a name="iot-rules-tutorial"></a>
 
 The following tutorials show you how to create and test AWS IoT rules\. Before you begin, be sure to complete the [AWS IoT Getting Started Tutorial](iot-gs.md)\. It shows you how to create an AWS account and register a device in AWS IoT, which are prerequisites for these tutorials\.
 

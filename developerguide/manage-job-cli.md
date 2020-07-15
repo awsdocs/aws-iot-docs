@@ -1,12 +1,12 @@
-# Creating and Managing Jobs \(CLI\)<a name="manage-job-cli"></a>
+# Creating and managing jobs \(CLI\)<a name="manage-job-cli"></a>
 
 This section describes how to create and manage jobs\.
 
-## Create Jobs<a name="create-job"></a>
+## Create jobs<a name="create-job"></a>
 
 You use the CreateJob command to create an AWS IoT job\. The job is queued for execution on the targets \(things or thing groups\) that you specify\. To create an AWS IoT job, you need a job document that can be included in the body of the request or as a link to an Amazon S3 document\. If the job includes downloading files using presigned Amazon S3 URLs, you need an IAM role ARN that has permission to download the file and grants permission to the AWS IoT Jobs service to assume the role\.
 
-### Code\-signing with Jobs<a name="code-signing-with-jobs"></a>
+### Code\-signing with jobs<a name="code-signing-with-jobs"></a>
 
 If you are using Code\-signing for AWS IoT, you must start a code\-signing job and include the output in your job document\. Use the [start\-signing\-job](https://docs.aws.amazon.com/signer/latest/developerguide/api-startsigningjob.html) command to create a code\-signing job\. `start-signing-job` returns a job ID\. Use the describe\-signing\-job command to get the Amazon S3 location where the signature is stored\. You can then download the signature from Amazon S3\. For more information about code signing jobs, see [Code\-signing for AWS IoT](https://docs.aws.amazon.com/signer/latest/developerguide/Welcome.html)\.
 
@@ -30,7 +30,7 @@ Your job document must contain a presigned URL placeholder for your code file an
 }
 ```
 
-### Creating a Job with a Job Document<a name="create-job-with-document"></a>
+### Creating a job with a job document<a name="create-job-with-document"></a>
 
 The following command shows how to create a job using a job document \(*job\-document\.json*\) stored in an Amazon S3 bucket \(*jobBucket*\) and a role with permission to download files from Amazon S3 \(*S3DownloadRole*\)\.
 
@@ -56,7 +56,7 @@ For more information about creating configurations about job rollouts and aborts
 **Note**  
 Job documents that are specified as Amazon S3 files are retrieved at the time you create the job\. Changing the contents of the Amazon S3 file you used as the source of your job document after you have created the job does not change what is sent to the targets of the job\.
 
-## Update a Job<a name="update-job"></a>
+## Update a job<a name="update-job"></a>
 
 You use the UpdateJob command to update a job\. You can update the `description`, `presignedUrlConfig`, `jobExecutionsRolloutConfig`, `abortConfig`, and `timeoutConfig` fields of a job\.
 
@@ -72,7 +72,7 @@ aws iot update-job  \
 
 For more information, see [Job Rollout and Abort Configuration](job-rollout-abort.html)\.
 
-## Cancel a Job<a name="cancel-job"></a>
+## Cancel a job<a name="cancel-job"></a>
 
 You use the CancelJob command to cancel a job\. Canceling a job stops AWS IoT from rolling out any new job executions for the job\. It also cancels any job executions that are in a `QUEUED` state\. AWS IoT leaves any job executions in a terminal state  untouched because the device has already completed the job\. If the status of a job execution is `IN_PROGRESS`, it also remains untouched unless you use the optional `--force` parameter\.
 
@@ -101,7 +101,7 @@ The status of a canceled job or of one of its job executions is eventually consi
 
 If a job is canceled because it has met the criteria defined by an `AbortConfig` object, the service adds auto\-populated values for the `comment` and `reasonCode` fields\. You can create your own values for `reasonCode` when the job cancellation is user\-driven\.
 
-## Cancel a Job Execution<a name="cancel-job-execution"></a>
+## Cancel a job execution<a name="cancel-job-execution"></a>
 
 You use the CancelJobExecution command to cancel a job execution on a device\. It cancels a job execution that is in a `QUEUED` state\. If you want to cancel a job execution that is in progress, you must use the `--force` parameter\.
 
@@ -122,7 +122,7 @@ If the job execution is in a terminal state or if the job execution is in an `IN
 
 The status of a canceled job execution is eventually consistent\. Changing the status of a job execution to `CANCELED` might take some time, depending various factors\.
 
-## Delete a Job<a name="delete-job"></a>
+## Delete a job<a name="delete-job"></a>
 
 You use the DeleteJob command to delete a job and its job executions\. By default, you can only delete a job that is in a terminal state \(`SUCCEEDED` or `CANCELED`\)\. Otherwise, an exception occurs\. You can delete a job in the `IN_PROGRESS` state if the `force` parameter is set to `true`\.
 
@@ -141,7 +141,7 @@ It can take some time to delete a job, depending on the number of job executions
 
 Only 10 jobs can have a status of `DELETION_IN_PROGRESS` at the same time\. Otherwise, a `LimitExceededException` occurs\.
 
-## Get a Job Document<a name="get-job-document"></a>
+## Get a job document<a name="get-job-document"></a>
 
 You use the GetJobDocument command to retrieve a job document for a job\. A job document is a description of the remote operations to be performed by the devices\.
 
@@ -162,7 +162,7 @@ The command returns the job document for the specified job:
 **Note**  
 When you use this command to retrieve a job document, placeholder URLs are not replaced by presigned Amazon S3 URLs\. When a device calls the [GetPendingJobExecutions](jobs-api.md#mqtt-getpendingjobexecutions) MQTT API, the placeholder URLs are replaced by presigned Amazon S3 URLs in the job document\. 
 
-## List Jobs<a name="list-jobs"></a>
+## List jobs<a name="list-jobs"></a>
 
 You use the ListJobs command to get a list of all jobs in your AWS account\. Job data and job execution data are retained for a [limited time](https://docs.aws.amazon.com/general/latest/gr/iot-core.html#job-limits)\. Run the following command to list all jobs in your AWS account:
 
@@ -204,7 +204,7 @@ The command returns all jobs in your account, sorted by the job status:
 }
 ```
 
-## Describe a Job<a name="describe-job"></a>
+## Describe a job<a name="describe-job"></a>
 
 Run the DescribeJob command to get the status of a job\. The following command shows how to describe a job:
 
@@ -275,7 +275,7 @@ The command returns the status of the specified job\. For example:
 }
 ```
 
-## List Executions for a Job<a name="list-job-executions-for-job"></a>
+## List executions for a job<a name="list-job-executions-for-job"></a>
 
 A job running on a specific device is represented by a job execution object\. Run the ListJobExecutionsForJob command to list all job executions for a job\. The following shows how to list the executions for a job:
 
@@ -311,7 +311,7 @@ The command returns a list of job executions:
 }
 ```
 
-## List Job Executions for a Thing<a name="list-job-executions-for-thing"></a>
+## List job executions for a thing<a name="list-job-executions-for-thing"></a>
 
 Run the ListJobExecutionsForThing command to list all job executions running on a thing\. The following shows how to list job executions for a thing:
 
@@ -367,7 +367,7 @@ The command returns a list of job executions that are running or have run on the
 }
 ```
 
-## Describe Job Execution<a name="describe-job-execution"></a>
+## Describe job execution<a name="describe-job-execution"></a>
 
 Run the DescribeJobExecution command to get the status of a job execution\. You must specify a job ID and thing name and, optionally, an execution number to identify the job execution\. The following shows how to describe a job execution:
 
@@ -399,7 +399,7 @@ The command returns the [JobExecution](jobs-api.md#jobs-job-execution)\. For exa
 }
 ```
 
-## Delete Job Execution<a name="delete-job-execution"></a>
+## Delete job execution<a name="delete-job-execution"></a>
 
 Run the DeleteJobExecution command to delete a job execution\. You must specify a job ID, a thing name, and an execution number to identify the job execution\. The following shows how to delete a job execution:
 

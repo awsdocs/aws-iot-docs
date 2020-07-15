@@ -1,4 +1,4 @@
-# Thing Types<a name="thing-types"></a>
+# Thing types<a name="thing-types"></a>
 
 Thing types allow you to store description and configuration information that is common to all things associated with the same thing type\. This simplifies the management of things in the registry\. For example, you can define a LightBulb thing type\. All things associated with the LightBulb thing type share a set of attributes: serial number, manufacturer, and wattage\. When you create a thing of type LightBulb \(or change the type of an existing thing to LightBulb\) you can specify values for each of the attributes defined in the LightBulb thing type\. 
 
@@ -10,7 +10,7 @@ Although thing types are optional, their use makes it easier to discover things\
 
 Thing types are immutable\. You cannot change a thing type name after it has been created\. You can deprecate a thing type at any time to prevent new things from being associated with it\. You can also delete thing types that have no things associated with them\. 
 
-## Create a Thing Type<a name="create-thing-type"></a>
+## Create a thing type<a name="create-thing-type"></a>
 
 You can use the CreateThingType command to create a thing type:
 
@@ -30,7 +30,7 @@ The CreateThingType command returns a response that contains the thing type and 
 }
 ```
 
-## List Thing Types<a name="list-thing-types"></a>
+## List thing types<a name="list-thing-types"></a>
 
 You can use the ListThingTypes command to list thing types:
 
@@ -61,7 +61,7 @@ The ListThingTypes command returns a list of the thing types defined in your AWS
 }
 ```
 
-## Describe a Thing Type<a name="describe-thing-type"></a>
+## Describe a thing type<a name="describe-thing-type"></a>
 
 You can use the DescribeThingType command to get information about a thing type:
 
@@ -90,7 +90,7 @@ The DescribeThingType command returns information about the specified type:
 }
 ```
 
-## Associate a Thing Type with a Thing<a name="associate-thing-type"></a>
+## Associate a thing type with a thing<a name="associate-thing-type"></a>
 
 You can use the CreateThing command to specify a thing type when you create a thing:
 
@@ -107,7 +107,7 @@ $ aws iot update-thing --thing-name "MyLightBulb"
 
 You can also use the UpdateThing command to disassociate a thing from a thing type\.
 
-## Deprecate a Thing Type<a name="deprecate-thing-type"></a>
+## Deprecate a thing type<a name="deprecate-thing-type"></a>
 
 Thing types are immutable\. They cannot be changed after they are defined\. You can, however, deprecate a thing type to prevent users from associating any new things with it\. All existing things associated with the thing type are unchanged\.
 
@@ -174,7 +174,7 @@ $ aws iot describe-thing-type --thing-type-name "StopLight":
 }
 ```
 
-## Delete a Thing Type<a name="delete-thing-types"></a>
+## Delete a thing type<a name="delete-thing-types"></a>
 
 You can delete thing types only after they have been deprecated\. To delete a thing type, use the DeleteThingType command:
 

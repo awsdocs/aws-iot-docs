@@ -15,8 +15,8 @@ AWS IoT logs in CloudWatch provide visibility into behaviors in AWS IoT, includi
 
 ## How to fix it<a name="audit-chk-logging-disabled-how-to-fix"></a>
 
-Enable AWS IoT logs in CloudWatch\. See [Monitoring Tools](https://docs.aws.amazon.com/iot/latest/developerguide/monitoring_automated_manual.html)\. You can also use mitigation actions to:
+Enable AWS IoT logs in CloudWatch\. See [ Monitoring Tools](security-logging.md#monitoring_automated_manual)\. You can also use mitigation actions to:
 + Apply the `ENABLE_IOT_LOGGING` mitigation action on your audit findings to make this change\. 
 + Apply the `PUBLISH_FINDINGS_TO_SNS` mitigation action if you want to implement a custom response in response to the Amazon SNS message\. 
 
-For more information, see [Mitigation Actions](device-defender-mitigation-actions.md)\. 
+For more information, see [Mitigation actions](device-defender-mitigation-actions.md)\. 

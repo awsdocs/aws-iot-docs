@@ -1,4 +1,4 @@
-# AWS IoT Policy Elements<a name="example-iot-policies-elements"></a>
+# AWS IoT policy elements<a name="example-iot-policies-elements"></a>
 
 AWS IoT policies are specified in a JSON document\. An AWS IoT policy is composed of the following items:
 

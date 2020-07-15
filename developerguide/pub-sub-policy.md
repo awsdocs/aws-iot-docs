@@ -1,13 +1,13 @@
-# Publish/Subscribe Policy Examples<a name="pub-sub-policy"></a>
+# Publish/Subscribe policy examples<a name="pub-sub-policy"></a>
 
 The policy you use depends on how you are connecting to AWS IoT Core\. You can connect to AWS IoT Core using an MQTT client, HTTP, or WebSocket\. When you connect with an MQTT client, you are authenticating with an X\.509 certificate\. When you connect over HTTP or the WebSocket protocol, you are authenticating with Signature Version 4 and Amazon Cognito\.
 
-## Policies for MQTT Clients<a name="pub-sub-policy-cert"></a>
+## Policies for MQTT clients<a name="pub-sub-policy-cert"></a>
 
 To specify wildcards in topic names, use \* in the `resource` attribute of the policy when the device publishes and subscribes to multiple topics\. The following policy enables a device to publish to all subtopics that start with the same thing name\.
 
 ------
-#### [ Registered Devices \(5\) ]
+#### [ Registered devices \(5\) ]
 
 For devices registered as things in the AWS IoT Core registry, the following policy grants permission to connect to AWS IoT Core using a client ID that matches the thing name and to publish to any topic prefixed by the thing name:
 
@@ -23,7 +23,7 @@ For devices registered as things in the AWS IoT Core registry, the following pol
             "Resource": [
                 "arn:aws:iot:us-east-1:123456789012:client/${iot:Connection.Thing.ThingName}",
             ]
-        }
+        },
         {
             "Effect": "Allow",
             "Action": [
@@ -38,7 +38,7 @@ For devices registered as things in the AWS IoT Core registry, the following pol
 ```
 
 ------
-#### [ Unregistered Devices \(5\) ]
+#### [ Unregistered devices \(5\) ]
 
 For devices not registered as things in the AWS IoT Core registry, the following policy grants permission to connect to AWS IoT Core using client ID `client1`, `client2`, or `client3` and to publish to any topic prefixed by the client ID:
 
@@ -75,7 +75,7 @@ For devices not registered as things in the AWS IoT Core registry, the following
 You can also use the \* wildcard at the end of a topic filter\. Using wildcard characters might lead to granting unintended privileges, so they should only be used after careful consideration\. One situation in which they might be useful is when devices must subscribe to messages with many different topics \(for example, if a device must subscribe to reports from temperature sensors in multiple locations\)\. 
 
 ------
-#### [ Registered Devices \(6\) ]
+#### [ Registered devices \(6\) ]
 
 For devices registered as things in the AWS IoT Core registry, the following policy grants permission to connect to AWS IoT Core using the device's thing name as the client ID, and to subscribe to a topic prefixed by the thing name, followed by `room`, followed by any string\. \(It is expected that these topics are, for example, `thing1/room1`, `thing1/room2`, and so on\):
 
@@ -115,7 +115,7 @@ For devices registered as things in the AWS IoT Core registry, the following pol
 ```
 
 ------
-#### [ Unregistered Devices \(6\) ]
+#### [ Unregistered devices \(6\) ]
 
 For devices not registered as things in the AWS IoT Core registry, the following policy grants permission to connect to AWS IoT Core using client IDs `client1`, `client2`, `client3`, and to subscribe to a topic prefixed by the client ID, followed by `room`, followed by any string\. \(It is expected that these topics are, for example, `client1/room1`, `client1/room2`, and so on\):
 
@@ -161,7 +161,7 @@ For devices not registered as things in the AWS IoT Core registry, the following
 When you specify topic filters in AWS IoT Core policies for MQTT clients, MQTT wildcard characters "\+" and "\#" are treated as literal characters\. Their use might result in unexpected behavior\.
 
 ------
-#### [ Registered Devices \(4\) ]
+#### [ Registered devices \(4\) ]
 
 For devices registered as things in the AWS IoT Core registry, the following policy grants permission to connect to AWS IoT Core with the client ID that matches the thing name, and to subscribe to the topic filter `some/+/topic` only:
 
@@ -192,7 +192,7 @@ For devices registered as things in the AWS IoT Core registry, the following pol
 ```
 
 ------
-#### [ Unregistered Devices \(4\) ]
+#### [ Unregistered devices \(4\) ]
 
 For devices not registered as things in the AWS IoT Core registry, the following policy grants permission to connect to AWS IoT Core with client ID `client1` and subscribe to the topic filter `some/+/topic` only:
 
@@ -228,7 +228,7 @@ For devices not registered as things in the AWS IoT Core registry, the following
 In a policy, the MQTT wildcard character \+ is treated as a literal, not a wildcard\. Attempts to subscribe to topic filters that match the pattern `some/+/topic` fail and cause the client to disconnect\.
 
 ------
-#### [ Registered Devices \(7\) ]
+#### [ Registered devices \(7\) ]
 
 For devices registered as things in the AWS IoT Core registry, the following policy grants permission to connect to AWS IoT Core using the device's thing name as the client ID, and to subscribe to the topics `my/topic` and `my/othertopic`:
 
@@ -260,7 +260,7 @@ For devices registered as things in the AWS IoT Core registry, the following pol
 ```
 
 ------
-#### [ Unregistered Devices \(7\) ]
+#### [ Unregistered devices \(7\) ]
 
 For devices not registered as things in the AWS IoT Core registry, the following policy grants permission to connect to AWS IoT Core using client ID `client1`, and to subscribe to the topics `my/topic` and `my/othertopic`:
 
@@ -294,7 +294,7 @@ For devices not registered as things in the AWS IoT Core registry, the following
 ------
 
 ------
-#### [ Registered Devices \(8\) ]
+#### [ Registered devices \(8\) ]
 
 For devices registered as things in the AWS IoT Core registry, the following policy grants permission to connect to AWS IoT Core using the device's thing name as the client ID and to subscribe to a topic unique to that thing name/client ID:
 
@@ -325,7 +325,7 @@ For devices registered as things in the AWS IoT Core registry, the following pol
 ```
 
 ------
-#### [ Unregistered Devices \(8\) ]
+#### [ Unregistered devices \(8\) ]
 
 For devices not registered as things in the AWS IoT Core registry, the following policy grants permission to connect to AWS IoT Core using client ID `client1`, and to publish to a topic unique to that client ID:
 
@@ -358,7 +358,7 @@ For devices not registered as things in the AWS IoT Core registry, the following
 ------
 
 ------
-#### [ Registered Devices \(9\) ]
+#### [ Registered devices \(9\) ]
 
 For devices registered as things in the AWS IoT Core registry, the following policy grants permission to connect to AWS IoT Core using the device's thing name as the client ID and to publish to any topic prefixed by that thing name or client except for one topic ending with `bar`:
 
@@ -398,7 +398,7 @@ For devices registered as things in the AWS IoT Core registry, the following pol
 ```
 
 ------
-#### [ Unregistered Devices \(9\) ]
+#### [ Unregistered devices \(9\) ]
 
 For devices not registered as things in the AWS IoT Core registry, the following policy grants permission to connect to AWS IoT Core using client IDs `client1` and `client1` and to publish to any topic prefixed by the client ID used to connect, except for one topic ending with `bar`:
 
@@ -441,7 +441,7 @@ For devices not registered as things in the AWS IoT Core registry, the following
 ------
 
 ------
-#### [ Registered Devices \(10\) ]
+#### [ Registered devices \(10\) ]
 
 For devices registered as things in the AWS IoT Core registry, the following policy grants permission to connect to AWS IoT Core using the device's thing name as the client ID\. The device can subscribe to the topic `my/topic`, but cannot publish to the `<thing-name> /bar` where *<thing\-name>* is the name of the IoT thing connecting to AWS IoT Core:
 
@@ -481,7 +481,7 @@ For devices registered as things in the AWS IoT Core registry, the following pol
 ```
 
 ------
-#### [ Unregistered Devices \(10\) ]
+#### [ Unregistered devices \(10\) ]
 
 For devices not registered as things in the AWS IoT Core registry, the following policy grants permission to connect to AWS IoT Core using client ID `client1` and to subscribe to the topic `my/topic`:
 
@@ -551,7 +551,7 @@ Thing policy variables are also replaced when a certificate or authenticated Ama
 }
 ```
 
-## Policies for HTTP and WebSocket Clients<a name="pub-sub-policy-cognito"></a>
+## Policies for HTTP and WebSocket clients<a name="pub-sub-policy-cognito"></a>
 
 For the following operations, AWS IoT Core uses AWS IoT Core policies attached to Amazon Cognito identities \(through the `AttachPolicy` API\) to scope down the permissions attached to the Amazon Cognito Identity pool with authenticated identities\. That means an Amazon Cognito Identity needs permission from the IAM role policy attached to the pool and the AWS IoT Core policy attached to the Amazon Cognito Identity through the AWS IoT Core `AttachPolicy` API\.
 + `iot:Connect`
@@ -560,7 +560,7 @@ For the following operations, AWS IoT Core uses AWS IoT Core policies attached t
 + `iot:Receive`
 + `iot:GetThingShadow`
 + `iot:UpdateThingShadow`
-+ `iot:DeleteThingShadow`​
++ `iot:DeleteThingShadow`
 
 **Note**  
 For other AWS IoT Core operations or for unauthenticated identities, AWS IoT Core does not scope down the permissions attached to the Amazon Cognito identity pool role\. For both authenticated and unauthenticated identities, this is the most permissive policy that we recommend you attach to the Amazon Cognito pool role\.
@@ -620,10 +620,10 @@ To allow authenticated users, attach the preceding policy to the Amazon Cognito 
 **Note**  
 When authorizing Amazon Cognito identities, AWS IoT Core considers both and grants the least privileges specified\. An action is allowed only if both policies allow the requested action\. If either policy disallows an action, that action is unauthorized\.
 
-## Receive Policy Examples<a name="receive-policy"></a>
+## Receive policy examples<a name="receive-policy"></a>
 
 ------
-#### [ Registered Devices \(11\) ]
+#### [ Registered devices \(11\) ]
 
 For devices registered in AWS IoT Core registry, the following policy grants permission to connect to AWS IoT Core with a client ID that matches the thing name and to subscribe to and receive messages on the `my/topic` topic:
 
@@ -661,7 +661,7 @@ For devices registered in AWS IoT Core registry, the following policy grants per
 ```
 
 ------
-#### [ Unregistered Devices \(11\) ]
+#### [ Unregistered devices \(11\) ]
 
 For devices not registered in AWS IoT Core registry, the following policy grants permission to connect to AWS IoT Core with client ID `client1` and to subscribe to and receive messages on one topic:
 

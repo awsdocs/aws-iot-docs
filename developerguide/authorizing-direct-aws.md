@@ -1,8 +1,8 @@
-# Authorizing Direct Calls to AWS Services<a name="authorizing-direct-aws"></a>
+# Authorizing direct calls to AWS services<a name="authorizing-direct-aws"></a>
 
 Devices can use X\.509 certificates to connect to AWS IoT Core using TLS mutual authentication protocols\. Other AWS services do not support certificate\-based authentication, but they can be called using AWS credentials in [AWS Signature Version 4 format](https://docs.aws.amazon.com/general/latest/gr/signature-version-4.html)\. The [Signature Version 4 algorithm](https://docs.aws.amazon.com/AmazonS3/latest/API/sig-v4-authenticating-requests.html) normally requires the caller to have an access key ID and a secret access key\. AWS IoT Core has a credentials provider that allows you to use the built\-in [X\.509 certificate](x509-client-certs.html) as the unique device identity to authenticate AWS requests\. This eliminates the need to store an access key ID and a secret access key on your device\.
 
-The credentials provider authenticates a caller using an X\.509 certificate and issues a temporary, limited\-privilege security token\. The token can be used to sign and authenticate any AWS request\. This way of authenticating your AWS requests requires you to create and configure an [AWS Identity and Access Management \(IAM\) role](https://docs.aws.amazon.com/IAM/latest/UserGuide/id_roles.html) and attach appropriate IAM policies to the role so that the credentials provider can assume the role on your behalf\. For more information about AWS IoT Core and IAM, see [Identity and Access Management for AWS IoT](security-iam.md)\.
+The credentials provider authenticates a caller using an X\.509 certificate and issues a temporary, limited\-privilege security token\. The token can be used to sign and authenticate any AWS request\. This way of authenticating your AWS requests requires you to create and configure an [AWS Identity and Access Management \(IAM\) role](https://docs.aws.amazon.com/IAM/latest/UserGuide/id_roles.html) and attach appropriate IAM policies to the role so that the credentials provider can assume the role on your behalf\. For more information about AWS IoT Core and IAM, see [Identity and access management for AWS IoT](security-iam.md)\.
 
 The following diagram illustrates the credentials provider workflow\.
 
@@ -28,7 +28,7 @@ The following diagram illustrates the credentials provider workflow\.
 
 The following section describes how to use a certificate to get a security token\. It is written with the assumption that you have already [registered a device](register-device.html) and [created and activated your own certificate](device-certs-your-own.html) for it\.
 
-## How to Use a Certificate to Get a Security Token<a name="authorizing-direct-aws.walkthrough"></a>
+## How to use a certificate to get a security token<a name="authorizing-direct-aws.walkthrough"></a>
 
 1. Configure the IAM role that the credentials provider assumes on behalf of your device\. Attach the following trust policy to the role\. 
 

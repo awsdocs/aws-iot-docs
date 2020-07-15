@@ -1,6 +1,6 @@
-# Troubleshooting Aggregation Queries for the Fleet Indexing Service<a name="aggregation-troubleshooting"></a>
+# Troubleshooting aggregation queries for the fleet indexing service<a name="aggregation-troubleshooting"></a>
 
-If you are having type mismatch errors, you can use CloudWatch Logs to troubleshoot the problem\. CloudWatch Logs must be enabled before logs are written by the Fleet Indexing service\. For more information, see [CloudWatch Logs](https://docs.aws.amazon.com/iot/latest/developerguide/cloud-watch-logs.html)\.
+If you are having type mismatch errors, you can use CloudWatch Logs to troubleshoot the problem\. CloudWatch Logs must be enabled before logs are written by the Fleet Indexing service\. For more information, see [Monitor AWS IoT using CloudWatch Logs](cloud-watch-logs.md)\.
 
 When you make aggregation queries on non\-managed fields, you can only specify a field you defined in the `customFields` argument passed to `UpdateIndexingConfiguration` or update\-indexing\-configuration\. If the field value is inconsistent with the configured field data type, this value is ignored when you perform an aggregation query\.
 

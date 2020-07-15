@@ -1,4 +1,4 @@
-# How to Perform Audits<a name="device-defender-HowToProceed"></a>
+# How to perform audits<a name="device-defender-HowToProceed"></a>
 
 1. Configure audit settings for your account\. Use [ UpdateAccountAuditConfiguration](AuditCommands.md#dd-api-iot-UpdateAccountAuditConfiguration) to enable those checks you want to be available for audits, set up optional notifications, and configure permissions\. 
 
@@ -12,13 +12,13 @@
 
    Or, you can see the results of your audits with [ ListAuditFindings](AuditCommands.md#dd-api-iot-ListAuditFindings)\. With this command, you can filter the results by the type of check, a specific resource, or the time of the audit\. You can use this information to mitigate any problems found\.
 
-1. You can apply mitigation actions that you defined in your AWS account to any noncompliant findings\. For more information, see [Apply Mitigation Actions](device-defender-mitigation-actions.md#defender-audit-apply-mitigation-actions)\.
+1. You can apply mitigation actions that you defined in your AWS account to any noncompliant findings\. For more information, see [Apply mitigation actions](device-defender-mitigation-actions.md#defender-audit-apply-mitigation-actions)\.
 
 ## Notifications<a name="device-defender-audit-notifications"></a>
 
 When an audit is completed, an SNS notification can be sent with a summary of the results of each audit check that was performed, including details about the number of noncompliant resources that were found\. Use the `auditNotificationTargetConfigurations` field in the input to the [ UpdateAccountAuditConfiguration](AuditCommands.md#dd-api-iot-UpdateAccountAuditConfiguration) command\. The SNS notification has the following payload:
 
-### payload example<a name="device-defender-audit-notification-payload"></a>
+### Payload example<a name="device-defender-audit-notification-payload"></a>
 
 ```
 {
@@ -61,7 +61,7 @@ When an audit is completed, an SNS notification can be sent with a summary of th
 }
 ```
 
-### payload JSON schema<a name="device-defender-audit-notification-payload-schema"></a>
+### Payload JSON schema<a name="device-defender-audit-notification-payload-schema"></a>
 
 ```
 {
@@ -189,7 +189,7 @@ This section contains information about how to set up the IAM roles and policies
 
 When you call [ UpdateAccountAuditConfiguration](AuditCommands.md#dd-api-iot-UpdateAccountAuditConfiguration), you must specify an IAM role with two policies: a permissions policy and a trust policy\. The permissions policy grants AWS IoT Device Defender permission to access your account data, using AWS IoT APIs, when it runs an audit\. The trust policy grants AWS IoT Device Defender permission to assume the required role\. 
 
-#### permissions policy<a name="audit-account-permissions-policy"></a>
+#### Permissions policy<a name="audit-account-permissions-policy"></a>
 
 ```
 {
@@ -227,7 +227,7 @@ When you call [ UpdateAccountAuditConfiguration](AuditCommands.md#dd-api-iot-Upd
 }
 ```
 
-#### trust policy<a name="audit-account-trust-policy"></a>
+#### Trust policy<a name="audit-account-trust-policy"></a>
 
 ```
 {
@@ -249,7 +249,7 @@ When you call [ UpdateAccountAuditConfiguration](AuditCommands.md#dd-api-iot-Upd
 
 If you use the `auditNotificationTargetConfigurations` parameter in [ UpdateAccountAuditConfiguration](AuditCommands.md#dd-api-iot-UpdateAccountAuditConfiguration), you must specify an IAM role with two policies: a permissions policy and a trust policy\. The permissions policy grants permission to AWS IoT Device Defender to publish notifications to your SNS topic\. The trust policy grants AWS IoT Device Defender permission to assume the required role\.
 
-#### permissions policy<a name="audit-account-sns-permissions-policy"></a>
+#### Permissions policy<a name="audit-account-sns-permissions-policy"></a>
 
 ```
 {
@@ -268,7 +268,7 @@ If you use the `auditNotificationTargetConfigurations` parameter in [ UpdateAcco
 }
 ```
 
-#### trust policy<a name="audit-account-sns-trust-policy"></a>
+#### Trust policy<a name="audit-account-sns-trust-policy"></a>
 
 ```
 {
@@ -291,7 +291,7 @@ If you use the `auditNotificationTargetConfigurations` parameter in [ UpdateAcco
 To allow IAM users or groups to manage, run, or view the results of AWS IoT Device Defender, you must create and assign roles with attached policies that grant permission to run the appropriate commands\. The content of each policy depends on which commands you want the user or group to run\. 
 + `UpdateAccountAuditConfiguration`
 
-#### policy<a name="audit-manage1-policy"></a>
+#### Policy<a name="audit-manage1-policy"></a>
 
 You must create the IAM role with the attached policy in same account from which this command is run\. Cross account access is not allowed\. The policy should have `iam:PassRole` permissions \(permissions to pass this role\)\. 
 
@@ -332,7 +332,7 @@ In the following policy template, `audit-permissions-role-arn` is the role ARN t
 + `ListScheduledAudits`
 + `ListAuditFindings`
 
-#### policy<a name="audit-manage2-policy"></a>
+#### Policy<a name="audit-manage2-policy"></a>
 
 All of these commands require \* in the `Resource` field of the policy\.
 
@@ -364,7 +364,7 @@ All of these commands require \* in the `Resource` field of the policy\.
 + `DeleteScheduledAudit`
 + `DescribeScheduledAudit`
 
-#### policy<a name="audit-manage3-policy"></a>
+#### Policy<a name="audit-manage3-policy"></a>
 
 ```
 {

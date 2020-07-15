@@ -1,6 +1,6 @@
-# AWS IoT Rule Actions<a name="iot-rule-actions"></a>
+# AWS IoT rule actions<a name="iot-rule-actions"></a>
 
-AWS IoT rule actions are used to specify what to do when a rule is triggered\. You can define actions to write data to a DynamoDB database or a Kinesis stream or to invoke a Lambda function, and more\. The following actions are supported: 
+AWS IoT rule actions are used to specify what to do when a rule is triggered\. You can define actions to write data to a DynamoDB database or a Kinesis stream or to invoke a Lambda function, and more\. AWS supports actions in regions where the service is available\. The following actions are supported: 
 + `cloudwatchAlarm` to change a CloudWatch alarm\.
 + `cloudwatchLogs` to send data to CloudWatch Logs\.
 + `cloudwatchMetric` to capture a CloudWatch metric\.
@@ -22,21 +22,36 @@ AWS IoT rule actions are used to specify what to do when a rule is triggered\. Y
 + `stepFunctions` to start execution of a Step Functions state machine\.
 
 **Note**  
-The AWS IoT rules engine might make multiple attempts to perform an action in case of intermittent errors\. If all attempts fail, the message is discarded and the error is available in your CloudWatch logs\. You can specify an error action for each rule that is invoked after a failure occurs\. For more information, see [Error Handling \(Error Action\)](rule-error-handling.md)\.
+The AWS IoT rules engine might make multiple attempts to perform an action in case of intermittent errors\. If all attempts fail, the message is discarded and the error is available in your CloudWatch logs\. You can specify an error action for each rule that is invoked after a failure occurs\. For more information, see [Error handling \(error action\)](rule-error-handling.md)\.
 
 Some rule actions trigger actions in services that integrate with AWS Key Management Service \(AWS KMS\) to support data encryption at rest\. If you use a customer managed AWS KMS customer master key \(CMK\) to encrypt data at rest, the service must have permission to use the CMK on the caller's behalf\. See the data encryption topics in the appropriate service guide to learn how to manage permissions for your customer managed CMK\. For more information about CMKs and customer managed CMKs, see [AWS Key Management Service concepts](https://docs.aws.amazon.com/kms/latest/developerguide/concepts.html) in the *AWS Key Management Service Developer Guide*\.
 
-Each action is described in detail\.
+Each action is described in detail in the following sections\.
 
-## CloudWatch Alarm Action<a name="cloudwatch-alarm-action"></a>
+**Topics**
++ [CloudWatch alarm action](#cloudwatch-alarm-action)
++ [CloudWatch Logs action](#cloudwatch-logs-action)
++ [CloudWatch metric action](#cloudwatch-metric-action)
++ [DynamoDB action](#dynamodb-rule)
++ [DynamoDBv2 action](#dynamodb-v2-rule)
++ [Elasticsearch action](#elasticsearch-rule)
++ [Firehose action](#firehose-rule)
++ [HTTP action](#http-action)
++ [IoT Analytics action](#iotanalytics-rule)
++ [IoT Events action](#iotevents-rule)
++ [IoT SiteWise action](#iotsitewise-rule)
++ [Kinesis action](#kinesis-rule)
++ [Lambda action](#lambda-rule)
++ [Republish action](#republish-rule)
++ [S3 action](#s3-rule)
++ [Salesforce action](#salesforce-rule)
++ [SNS action](#sns-rule)
++ [SQS action](#sqs-rule)
++ [Step Functions action](#stepfunctions-rule)
 
-------
-#### [ CloudWatch Alarm Action ]
+## CloudWatch alarm action<a name="cloudwatch-alarm-action"></a>
 
 The CloudWatch alarm action allows you to change CloudWatch alarm state\. You can specify the state change reason and value in this call\. 
-
-------
-#### [ More information \(1\) ]
 
 When creating an AWS IoT rule with a CloudWatch alarm action, you must specify the following information:
 
@@ -77,17 +92,38 @@ The following JSON example shows how to define a CloudWatch alarm action in an A
 
 For more information, see [CloudWatch Alarms](https://docs.aws.amazon.com/AmazonCloudWatch/latest/DeveloperGuide/AlarmThatSendsEmail.html)\.
 
-------
+### Substitution templates<a name="cloudwatch-alarm-action-substitution-templates"></a>
 
-## CloudWatch Logs Action<a name="cloudwatch-logs-action"></a>
+The CloudWatch alarm action supports substitution templates within the `alarmName` , `stateValue`, and `stateReason` parameters for the CLI and console\. However, the `alarmName` parameter is substitutable only in the CLI\. For more information about substitution templates, see [Substitution templates](iot-substitution-templates.md)\.
 
-------
-#### [ CloudWatch Logs Action ]
+The following is an example of a substitution template in the CloudWatch alarm action in the CLI\.
+
+```
+aws iot get-topic-rule --rule-name "CWAlarmSubsitutionExample"
+{
+    "ruleArn": "arn:aws:iot:us-east-1:418092313572:rule/CWAlarmSubsitutionExample",
+    "rule": {
+        "awsIotSqlVersion": "2016-03-23",
+        "sql": "SELECT topic() AS topic FROM 'cwalarmsubstopic'",
+        "ruleDisabled": false,
+        "actions": [
+            {
+                "cloudwatchAlarm": {
+                    "stateReason": "${topic()}",
+                    "roleArn": "arn:aws:iam::418092313572:role/service-role/ArunavTest",
+                    "alarmName": "$($newuuid())",
+                    "stateValue": "$($newuuid())"
+                }
+            }
+        ],
+        "ruleName": "CWAlarmSubsitutionExample"
+    }
+}
+```
+
+## CloudWatch Logs action<a name="cloudwatch-logs-action"></a>
 
 The CloudWatch logs action allows you to send data to CloudWatch Logs\. You can specify the CloudWatch log group to which the action sends data\.
-
-------
-#### [ More information \(2\) ]
 
 When you create an AWS IoT rule with a CloudWatch logs action, you must specify the following information:
 
@@ -117,17 +153,9 @@ The following JSON example shows how to define a CloudWatch logs action in an AW
 
 For more information, see [Getting Started with CloudWatch Logs](https://docs.aws.amazon.com/AmazonCloudWatch/latest/DeveloperGuide/CWL_GettingStarted.html)\. If you use a customer managed AWS KMS CMK to encrypt log data in CloudWatch Logs, the service must have permission to use the CMK on the caller's behalf\. For more information, see [Encrypt Log Data in CloudWatch Logs Using AWS KMS](https://docs.aws.amazon.com/AmazonCloudWatch/latest/logs/encrypt-log-data-kms.html) in the *Amazon CloudWatch Logs User Guide*\.
 
-------
-
-## CloudWatch Metric Action<a name="cloudwatch-metric-action"></a>
-
-------
-#### [ CloudWatch Metric Action ]
+## CloudWatch metric action<a name="cloudwatch-metric-action"></a>
 
 The CloudWatch metric action allows you to capture a CloudWatch metric\. You can specify the metric namespace, name, value, unit, and timestamp\. 
-
-------
-#### [ More information \(3\) ]
 
 When creating an AWS IoT rule with a CloudWatch metric action, you must specify the following information:
 
@@ -176,22 +204,45 @@ The following JSON example shows how to define a CloudWatch metric action in an 
 
 For more information, see [CloudWatch Metrics\.](https://docs.aws.amazon.com/AmazonCloudWatch/latest/DeveloperGuide/CW_Support_For_AWS.html)
 
-------
+### Substitution templates<a name="cloudwatch-metric-action-substitution-templates"></a>
 
-## DynamoDB Action<a name="dynamodb-rule"></a>
+The CloudWatch metric action supports substitution templates within the `metricUnit`, `metricTimestamp`, `metricNamespace`, `metricValue`, and `metricName` parameters in both the CLI and console\. For more information about substitution templates, see [Substitution templates](iot-substitution-templates.md)\.
 
-------
-#### [ DynamoDB Action ]
+The following is an example of a substitution template in the CloudWatch metric action in the CLI\.
+
+```
+aws iot get-topic-rule --rule-name "CWMetricSubstitutionExample"
+{
+    "ruleArn": "arn:aws:iot:us-east-1:418092313572:rule/CWMetricSubstitutionExample",
+    "rule": {
+        "awsIotSqlVersion": "2016-03-23",
+        "sql": "SELECT topic() AS topic FROM 'cwmetricsubstemplate'",
+        "ruleDisabled": false,
+        "actions": [
+            {
+                "cloudwatchMetric": {
+                    "metricUnit": "${topic()}",
+                    "roleArn": "arn:aws:iam::418092313572:role/service-role/ArunavTest",
+                    "metricTimestamp": "${newuuid()}",
+                    "metricNamespace": "${topic()}",
+                    "metricValue": "${newuuid()}",
+                    "metricName": "${topic()}"
+                }
+            }
+        ],
+        "ruleName": "CWMetricSubstitutionExample"
+    }
+}
+```
+
+## DynamoDB action<a name="dynamodb-rule"></a>
 
 The `dynamoDB` action allows you to write all or part of an MQTT message to a DynamoDB table\. 
-
-------
-#### [ More information \(4\) ]
 
 When creating a DynamoDB rule, you must specify the following information: 
 
 hashKeyType  
-The data type of the hash key \(also called the partition key\)\. Valid values are: `"STRING"` or `"NUMBER"`\.
+Optional\. The data type of the hash key \(also called the partition key\)\. Valid values are: `"STRING"` or `"NUMBER"`\.
 
 hashKeyField  
 The name of the hash key \(also called the partition key\)\.
@@ -251,17 +302,43 @@ The following JSON example shows how to define a `dynamoDB` action in an AWS IoT
 
 For more information, see the [Amazon DynamoDB Getting Started Guide](https://docs.aws.amazon.com/amazondynamodb/latest/gettingstartedguide/)\. If you use a customer managed AWS KMS CMK to encrypt data at rest in DynamoDB, the service must have permission to use the CMK on the caller's behalf\. For more information, see [Customer Managed CMK](https://docs.aws.amazon.com/amazondynamodb/latest/developerguide/encryption.howitworks.html#managed-cmk-customer-managed) in the *Amazon DynamoDB Getting Started Guide*\.
 
-------
+### Substitution templates<a name="dynamodb-rule-substitution-templates"></a>
 
-## DynamoDBv2 Action<a name="dynamodb-v2-rule"></a>
+The `dynamoDB` action supports substitution templates within the `tableName` , `hasKeyField`,`hashKeyValue`, `payloadField`, `hashKeyType`, `rangeKeyField`, `rangeKeyValue` and `rangeKeyType` parameters in both the CLI and console\. However, the `tableName`, `hasKeyField`, `hashKeyType`, `rangeKeyType` parameters are substitutable only in the CLI\. For more information about substitution templates, see [Substitution templates](iot-substitution-templates.md)\.
 
-------
-#### [ DynamoDBv2 Action ]
+The following is an example of a substitution template in the `dynamoDB` action in the CLI\.
+
+```
+aws iot get-topic-rule --rule-name "DynamoV1SubstitutionExample"
+{
+    "ruleArn": "arn:aws:iot:us-east-1:418092313572:rule/DynamoV1SubstitutionExample",
+    "rule": {
+        "awsIotSqlVersion": "2016-03-23",
+        "sql": "SELECT topic() AS topic FROM 'ddbv1substopic'",
+        "ruleDisabled": false,
+        "actions": [
+            {
+                "dynamoDB": {
+                    "rangeKeyType": "${topic()}",
+                    "payloadField": "${topic()}",
+                    "hashKeyType": "${topic()}",
+                    "hashKeyField": "hashKeyField",
+                    "roleArn": "arn:aws:iam::418092313572:role/service-role/ArunavTest",
+                    "tableName": ""${topic()}"",
+                    "hashKeyValue": "${topic()}",
+                    "rangeKeyValue": "${topic()}",
+                    "rangeKeyField": "${topic()}"
+                }
+            }
+        ],
+        "ruleName": "DynamoV1SubstitutionExample"
+    }
+}
+```
+
+## DynamoDBv2 action<a name="dynamodb-v2-rule"></a>
 
 The `dynamoDBv2` action allows you to write all or part of an MQTT message to a DynamoDB table\. Each attribute in the payload is written to a separate column in the DynamoDB database\.
-
-------
-#### [ More information \(5\) ]
 
  When creating a DynamoDB rule, you must specify the following information: 
 
@@ -302,17 +379,38 @@ The following JSON example shows how to define a `dynamoDB` action in an AWS IoT
 
 For more information, see the [Amazon DynamoDB Getting Started Guide](https://docs.aws.amazon.com/amazondynamodb/latest/gettingstartedguide/)\. If you use a customer managed AWS KMS CMK to encrypt data at rest in DynamoDB, the service must have permission to use the CMK on the caller's behalf\. For more information, see [Customer Managed CMK](https://docs.aws.amazon.com/amazondynamodb/latest/developerguide/encryption.howitworks.html#managed-cmk-customer-managed) in the *Amazon DynamoDB Getting Started Guide*\.
 
-------
+### Substitution templates<a name="dynamodb-v2-rule-substitution-templates"></a>
 
-## Elasticsearch Action<a name="elasticsearch-rule"></a>
+The `dynamoDBv2` action supports substitution templates within the `tableName` parameter in the CLI\. For more information about substitution templates, see [Substitution templates](iot-substitution-templates.md)\.
 
-------
-#### [ Elasticsearch Action ]
+The following is an example of a substitution template in the `dynamoDBv2` action in the CLI\.
+
+```
+aws iot get-topic-rule --rule-name "DDBV2SubsExample"
+{
+    "ruleArn": "arn:aws:iot:us-east-1:418092313572:rule/DDBV2SubsExample",
+    "rule": {
+        "awsIotSqlVersion": "2015-10-08",
+        "sql": "SELECT topic() AS topic FROM 'ddbvssubstopic'",
+        "ruleDisabled": false,
+        "actions": [
+            {
+                "dynamoDBv2": {
+                    "putItem": {
+                        "tableName": "${topic()}"
+                    },
+                    "roleArn": "arn:aws:iam::418092313572:role/service-role/ArunavTest"
+                }
+            }
+        ],
+        "ruleName": "DDBV2SubsExample"
+    }
+}
+```
+
+## Elasticsearch action<a name="elasticsearch-rule"></a>
 
 The `elasticsearch` action allows you to write data from MQTT messages to an Amazon Elasticsearch Service domain\. Data in Elasticsearch can then be queried and visualized by using tools like Kibana\. 
-
-------
-#### [ More information \(6\) ]
 
 When you create an AWS IoT rule with an `elasticsearch` action, you must specify the following information:
 
@@ -354,17 +452,39 @@ The following JSON example shows how to define an `elasticsearch` action in an A
 
 For more information, see the [Amazon Elasticsearch Service Developer Guide](https://docs.aws.amazon.com/elasticsearch-service/latest/developerguide/)\. If you use a customer managed AWS KMS CMK to encrypt data at rest in Elasticsearch, the service must have permission to use the CMK on the caller's behalf\. For more information, see [Encryption of Data at Rest for Amazon Elasticsearch Service](https://docs.aws.amazon.com/elasticsearch-service/latest/developerguide/encryption-at-rest.html) in the *Amazon Elasticsearch Service Developer Guide*\.
 
-------
+### Substitution templates<a name="elasticsearch-rule-substitution-templates"></a>
 
-## Firehose Action<a name="firehose-rule"></a>
+The `elasticsearch` action supports substitution templates within the `endpoint` parameter for the CLI, and the `type` and `index` parameters for the CLI and console\. For more information about substitution templates, see [Substitution templates](iot-substitution-templates.md)\.
 
-------
-#### [ Firehose Action ]
+The following is an example of a substitution template in the `elasticsearch` action in the CLI\.
+
+```
+aws iot get-topic-rule --rule-name "ESWithAllSubs"
+{
+    "ruleArn": "arn:aws:iot:us-east-1:418092313572:rule/ElasticSearchSubstitutionExample",
+    "rule": {
+        "awsIotSqlVersion": "2016-03-23",
+        "sql": "SELECT topic() AS topic FROM 'subsestopic'",
+        "ruleDisabled": false,
+        "actions": [
+            {
+                "elasticsearch": {
+                    "index": "${topic()}",
+                    "roleArn": "arn:aws:iam::418092313572:role/service-role/ArunavTest",
+                    "endpoint": "https:~/~/search-arunavtestdoman-vaina2nrodxolq5ojs3c2psj4q.us-east-1.es.amazonaws.com",
+                    "type": "${topic()}",
+                    "id": "SomeID"
+                }
+            }
+        ],
+        "ruleName": "ElasticSearchSubstitutionExample"
+    }
+}
+```
+
+## Firehose action<a name="firehose-rule"></a>
 
 A `firehose` action sends data from an MQTT message that triggered the rule to a Kinesis Data Firehose stream\. 
-
-------
-#### [ More information \(7\) ]
 
 When you create a rule with a `firehose` action, you must specify the following information:
 
@@ -398,19 +518,38 @@ The following JSON example shows how to create an AWS IoT rule with a `firehose`
 }
 ```
 
-For more information, see the [Amazon Kinesis Data Firehose Developer Guide](https://docs.aws.amazon.com/firehose/latest/dev/)\. If you use Kinesis Data Firehose to send data to an Amazon S3 bucket and you use a customer managed AWS KMS CMK to encrypt data at rest in Amazon S3, Kinesis Data Firehose must have access to your bucket and permission to use the CMK on the caller's behalf\. For more information, see [Grant Kinesis Data Firehose Access to an Amazon S3 Destination](https://docs.aws.amazon.com/firehose/latest/dev/controlling-access.html#using-iam-s3) in the *Amazon Kinesis Data Firehose Developer Guide*\.
+For more information, see the [Amazon Kinesis Data Firehose Developer Guide](https://docs.aws.amazon.com/firehose/latest/dev/)\. If you use Kinesis Data Firehose to send data to an Amazon S3 bucket, and you use a customer managed AWS KMS CMK to encrypt data at rest in Amazon S3, Kinesis Data Firehose must have access to your bucket and permission to use the CMK on the caller's behalf\. For more information, see [Grant Kinesis Data Firehose Access to an Amazon S3 Destination](https://docs.aws.amazon.com/firehose/latest/dev/controlling-access.html#using-iam-s3) in the *Amazon Kinesis Data Firehose Developer Guide*\.
 
-------
+### Substitution templates<a name="firehose-rule-substitution-templates"></a>
 
-## HTTP Action<a name="http-action"></a>
+The `firehose` action supports substitution templates within the `deliveryStreamName` parameter in the CLI\. For more information about substitution templates, see [Substitution templates](iot-substitution-templates.md)\.
 
-------
-#### [ HTTP Action ]
+The following is an example of a substitution template in the `firehose` action in the CLI\.
+
+```
+aws iot get-topic-rule --rule-name "FirehoseSubstitutionExample"
+{
+    "ruleArn": "arn:aws:iot:us-east-1:418092313572:rule/FirehoseSubstitutionExample",
+    "rule": {
+        "awsIotSqlVersion": "2016-03-23",
+        "sql": "SELECT topic() as topic FROM 'firehosesubstopic'",
+        "ruleDisabled": false,
+        "actions": [
+            {
+                "firehose": {
+                    "roleArn": "arn:aws:iam::418092313572:role/service-role/ArunavTest",
+                    "deliveryStreamName": "${topic()}"
+                }
+            }
+        ],
+        "ruleName": "FirehoseSubstitutionExample"
+    }
+}
+```
+
+## HTTP action<a name="http-action"></a>
 
 The `http` action sends data from an MQTT message that triggered the rule to your web applications or services for further processing, without writing any code\. The endpoint you send data to must be verified before the rules engine can use it\.
-
-------
-#### [ More information \(8\) ]
 
 When you create a rule with an `http` action, you must specify the following information:
 
@@ -418,7 +557,7 @@ url
 The HTTPS URL where the message is sent by HTTP POST\. You can use substitution templates in the URL\. 
 
 confirmationUrl  
-Optional\. If specified, AWS IoT uses the confirmation URL to create a matching topic rule destination\. You must enable the topic rule destination before using it in an `http` action\. For more information, see [ Working with Topic Rule Destinations](rule-destination.md)\. If you use substitution templates, you must manually create topic rule destinations before the `http` action can be used\. `confirmationUrl` must be a prefix of `url`\.  
+Optional\. If specified, AWS IoT uses the confirmation URL to create a matching topic rule destination\. You must enable the topic rule destination before using it in an `http` action\. For more information, see [ Working with topic rule destinations](rule-destination.md)\. If you use substitution templates, you must manually create topic rule destinations before the `http` action can be used\. `confirmationUrl` must be a prefix of `url`\.  
 The relationship between `url` and `confirmationUrl` is described by the following:  
 + If `url` is hardcoded and `confirmationUrl` is not provided, we implicitly treat the `url` field as the `confirmationUrl`\. AWS IoT creates a topic rule destination for `url`\.
 + If `url` and `confirmationUrl` are hardcoded, `url` must begin with `confirmationUrl`\. AWS IoT creates a topic rule destination for `confirmationUrl`\.
@@ -463,8 +602,7 @@ The following JSON example shows how to create an AWS IoT rule with an `http` ac
 
 The default content type is application/json when the payload is in JSON format\. Otherwise, it is application/octet\-stream\. You can overwrite it by specifying the exact content type in the header with the key content\-type \(case insensitive\)\. 
 
-------
-#### [ HTTP action retry logic ]
+### HTTP action retry logic<a name="http-action-retry-logic"></a>
 
 The AWS IoT rules engine retries `http` actions according to these rules:
 + The rules engine tries to send a message at least once\.
@@ -478,17 +616,9 @@ The AWS IoT rules engine retries `http` actions according to these rules:
 **Note**  
 [Standard data transfer costs](https://aws.amazon.com/ec2/pricing/on-demand/) apply to retries\.
 
-------
-
-## IoT Analytics Action<a name="iotanalytics-rule"></a>
-
-------
-#### [ IoT Analytics Action ]
+## IoT Analytics action<a name="iotanalytics-rule"></a>
 
 An `iotAnalytics` action sends data from the MQTT message that triggered the rule to an AWS IoT Analytics channel\. 
-
-------
-#### [ More information \(9\) ]
 
 When you create a rule with an `iotAnalytics` action, you must specify the following information:
 
@@ -497,6 +627,9 @@ The name of the AWS IoT Analytics channel to which to write the data\.
 
 roleArn  
 The IAM role that allows access to the AWS IoT Analytics channel\.
+
+**Note**  
+These parameters do not support substitution templates\.
 
 The policy attached to the role you specify should look like this:
 
@@ -556,17 +689,9 @@ The AWS IoT Analytics console also has a **Quick start** feature that allows you
 
 ![\[Image NOT FOUND\]](http://docs.aws.amazon.com/iot/latest/developerguide/images/iota-console-quickstart.png)
 
-------
-
-## IoT Events Action<a name="iotevents-rule"></a>
-
-------
-#### [ IoT Events Action ]
+## IoT Events action<a name="iotevents-rule"></a>
 
 An `iotEvents` action sends data from the MQTT message that triggered the rule to an AWS IoT Events input\. 
-
-------
-#### [ More information \(10\) ]
 
 When you create a rule with a `iotEvents` action, you must specify the following information:
 
@@ -591,6 +716,9 @@ Here is an example trust policy that should be attached to the role:
 }
 ```
 
+**Note**  
+These parameters do not support substitution templates\.
+
 The following JSON example shows how to create an AWS IoT rule with an `iotEvents` action:
 
 ```
@@ -613,12 +741,7 @@ The following JSON example shows how to create an AWS IoT rule with an `iotEvent
 
 For more information, see the [ AWS IoT Events Developer Guide](https://docs.aws.amazon.com/iotevents/latest/developerguide/index.html)\.
 
-------
-
-## IoT SiteWise Action<a name="iotsitewise-rule"></a>
-
-------
-#### [ IoT SiteWise Action ]
+## IoT SiteWise action<a name="iotsitewise-rule"></a>
 
 An `iotSiteWise` action sends data from the MQTT message that triggered the rule to asset properties in AWS IoT SiteWise\.
 
@@ -626,11 +749,6 @@ An `iotSiteWise` action sends data from the MQTT message that triggered the rule
 When you send data to AWS IoT SiteWise with this action, your data must meet the requirements of the `BatchPutAssetPropertyValue` action\. For more information, see [BatchPutAssetPropertyValue](https://docs.aws.amazon.com/iot-sitewise/latest/APIReference/API_BatchPutAssetPropertyValue.html) in the *AWS IoT SiteWise API Reference*\.
 
 You can follow a tutorial that shows you how to ingest data from AWS IoT things\. For more information, see [Ingesting Data to AWS IoT SiteWise from AWS IoT Things](https://docs.aws.amazon.com/iot-sitewise/latest/userguide/ingest-data-from-iot-things.html) in the *AWS IoT SiteWise User Guide*\.
-
-For more information about troubleshooting this rule, see [Troubleshooting an AWS IoT SiteWise Rule Action](https://docs.aws.amazon.com/iot-sitewise/latest/userguide/troubleshooting.html#troubleshoot-rule) in the *AWS IoT SiteWise User Guide*\.
-
-------
-#### [ More information \(11\) ]
 
 When creating a rule with an `iotSiteWise` action, you must specify the following information:
 
@@ -770,19 +888,11 @@ The following JSON example shows how to create an AWS IoT rule with an `iotSiteW
 }
 ```
 
-For more information, see the [ AWS IoT SiteWise User Guide](https://docs.aws.amazon.com/iot-sitewise/latest/userguide/index.html)\.
+For more information, see the [ AWS IoT SiteWise User Guide](https://docs.aws.amazon.com/iot-sitewise/latest/userguide/index.html)\. For more information about troubleshooting this rule, see [Troubleshooting an AWS IoT SiteWise Rule Action](https://docs.aws.amazon.com/iot-sitewise/latest/userguide/troubleshooting.html#troubleshoot-rule) in the *AWS IoT SiteWise User Guide*\.
 
-------
-
-## Kinesis Action<a name="kinesis-rule"></a>
-
-------
-#### [ Kinesis Action ]
+## Kinesis action<a name="kinesis-rule"></a>
 
 The `kinesis` action allows you to write data from MQTT messages into a Kinesis stream\. 
-
-------
-#### [ More information \(12\) ]
 
 When creating an AWS IoT rule with a `kinesis` action, you must specify the following information:
 
@@ -816,17 +926,38 @@ The following JSON example shows how to define a `kinesis` action in an AWS IoT 
 
 For more information, see the [Amazon Kinesis Data Streams Developer Guide](https://docs.aws.amazon.com/streams/latest/dev/)\. If you use a customer managed AWS KMS CMK to encrypt data at rest in Kinesis Data Streams, the service must have permission to use the CMK on the caller's behalf\. For more information, see [Permissions to Use User\-Generated KMS Master Keys ](https://docs.aws.amazon.com/streams/latest/dev/permissions-user-key-KMS.html) in the *Amazon Kinesis Data Streams Developer Guide*\.
 
-------
+### Substitution templates<a name="kinesis-rule-substitution-templates"></a>
 
-## Lambda Action<a name="lambda-rule"></a>
+The `kinesis` action supports substitution templates within the `streamName` parameter for the CLI, and the `partitionKey` parameters for the CLI and console\. For more information about substitution templates, see [Substitution templates](iot-substitution-templates.md)\.
 
-------
-#### [ Lambda Action ]
+The following is an example of a substitution template in the `kinesis` action in the CLI\.
+
+```
+aws iot get-topic-rule --rule-name "KinesisSubstitutionExample"
+{
+    "ruleArn": "arn:aws:iot:us-east-1:418092313572:rule/KinesisSubstitutionExample",
+    "rule": {
+        "description": "",
+        "ruleName": "KinesisSubstitutionExample",
+        "actions": [
+            {
+                "kinesis": {
+                    "roleArn": "arn:aws:iam::418092313572:role/service-role/ArunavTest",
+                    "streamName": "${topic()}"
+                    "partitionKey": "${newuuid()}"
+                }
+            }
+        ],
+        "sql": "SELECT topic() as topic FROM 'kinesissubstopic'",
+        "awsIotSqlVersion": "2016-03-23",
+        "ruleDisabled": false
+    }
+}
+```
+
+## Lambda action<a name="lambda-rule"></a>
 
  A `lambda` action calls a Lambda function, passing in the MQTT message that triggered the rule\. Lambda functions are run asynchronously\.
-
-------
-#### [ More information \(13\) ]
 
 Lambda functions are executed asynchronously\.
 
@@ -893,22 +1024,40 @@ For more information about versioning and aliases see [AWS Lambda Function Versi
 
 If you use a customer managed AWS KMS CMK to encrypt data at rest in AWS Lambda, the service must have permission to use the CMK on the caller's behalf\. For more information, see [Encryption at Rest](https://docs.aws.amazon.com/lambda/latest/dg/security-dataprotection.html#security-privacy-atrest) in the *AWS Lambda Developer Guide*\.
 
-------
+### Substitution templates<a name="lambda-rule-substitution-templates"></a>
 
-## Republish Action<a name="republish-rule"></a>
+The `lambda` action supports substitution templates within the `functionArn` parameter in the CLI\. For more information about substitution templates, see [Substitution templates](iot-substitution-templates.md)\.
 
-------
-#### [ Republish Action ]
+The following is an example of a substitution template in the `lambda` action in the CLI\.
+
+```
+aws iot get-topic-rule --rule-name "LambdaSubstitutionExample"
+{
+    "ruleArn": "arn:aws:iot:us-east-1:418092313572:rule/LambdaSubstitutionExample",
+    "rule": {
+        "awsIotSqlVersion": "2016-03-23",
+        "sql": "SELECT topic() AS topic FROM 'lamdbasubsexample'",
+        "ruleDisabled": false,
+        "actions": [
+            {
+                "lambda": {
+                    "functionArn": "arn:aws:lambda:us-east-1:418092313572:${topic()}"
+                }
+            }
+        ],
+        "ruleName": "LambdaSubstitutionExample"
+    }
+}
+```
+
+## Republish action<a name="republish-rule"></a>
 
 The `republish` action allows you to republish the message that triggered the rule to another MQTT topic\. 
-
-------
-#### [ More information \(14\) ]
 
 When you create a rule with a `republish` action, you must specify the following information:
 
 topic  
-The MQTT topic to which to republish the message\. If you are republishing to a reserved topic, one that begins with `$` use `$$` instead\. For example, if you are republishing to a device shadow topic like `$aws/things/MyThing/shadow/update`, specify the topic as `$aws/things/MyThing/shadow/update`\.
+The MQTT topic to which to republish the message\. If you are republishing to a reserved topic, one that begins with `$` use `$$` instead\. For example, if you are republishing to a device shadow topic like `$$aws/things/MyThing/shadow/update`, specify the topic as `$$aws/things/MyThing/shadow/update`\.
 
 roleArn  
 The IAM role that allows publishing to the MQTT topic\.
@@ -936,17 +1085,36 @@ Make sure that the role associated with the rule has a policy granting the `iot:
 }
 ```
 
-------
+### Substitution templates<a name="republish-rule-substitution-templates"></a>
 
-## S3 Action<a name="s3-rule"></a>
+The `republish` action supports substitution templates within the `topic` parameter in both the console and CLI\. For more information about substitution templates, see [Substitution templates](iot-substitution-templates.md)\.
 
-------
-#### [ S3 Action ]
+The following is an example of a substitution template in the `republish` action in the CLI\.
+
+```
+aws iot get-topic-rule --rule-name "RepublishSubstitutionExample"
+{
+    "ruleArn": "arn:aws:iot:us-east-1:418092313572:rule/RepublishSubstitutionExample",
+    "rule": {
+        "awsIotSqlVersion": "2016-03-23",
+        "sql": "SELECT *, topic() AS topic FROM 'my/iot/topic'",
+        "ruleDisabled": false,
+        "actions": [
+            {
+                "republish": {
+                    "topic": "${topic()}/republish",
+                    "roleArn": "arn:aws:iam::418092313572:role/service-role/ArunavTest"
+                }
+            }
+        ],
+        "ruleName": "RepublishSubstitutionExample"
+    }
+}
+```
+
+## S3 action<a name="s3-rule"></a>
 
 An `s3` action writes the data from the MQTT message that triggered the rule to an Amazon S3 bucket\. 
-
-------
-#### [ More information \(15\) ]
 
 When creating an AWS IoT rule with an `s3` action, you must specify the following information, except `cannedacl`, which is optional:
 
@@ -988,17 +1156,37 @@ The following JSON example shows how to define an `s3` action in an AWS IoT rule
 
 For more information, see the [Amazon Simple Storage Service Developer Guide](https://docs.aws.amazon.com/AmazonS3/latest/dev/)\. If you use a customer managed AWS KMS CMK to encrypt data at rest in Amazon S3, the service must have permission to use the CMK on the caller's behalf\. For more information, see [AWS Managed CMKs and Customer Managed CMKs](https://docs.aws.amazon.com/AmazonS3/latest/dev/UsingKMSEncryption.html#aws-managed-customer-managed-cmks) in the *Amazon Simple Storage Service Developer Guide*\.
 
-------
+### Substitution templates<a name="s3-rule-substitution-templates"></a>
 
-## Salesforce Action<a name="salesforce-rule"></a>
+The `s3` action supports substitution templates within the `bucketName` parameter in the CLI, and the `key` parameter in the console\. For more information about substitution templates, see [Substitution templates](iot-substitution-templates.md)\.
 
-------
-#### [ Salesforce Action ]
+The following is an example of a substitution template in the `S3` action in the CLI\.
+
+```
+aws iot get-topic-rule --rule-name "S3WithAllSubs"
+{
+    "ruleArn": "arn:aws:iot:us-east-1:418092313572:rule/S3SubstitutionTemplateExample",
+    "rule": {
+        "awsIotSqlVersion": "2016-03-23",
+        "sql": "SELECT topic() as topic FROM 's3substopic'",
+        "ruleDisabled": false,
+        "actions": [
+            {
+                "s3": {
+                    "roleArn": "arn:aws:iam::418092313572:role/service-role/S3TestRole",
+                    "bucketName": "s3substopic",
+                    "key": "${newuuid()}"
+                }
+            }
+        ],
+        "ruleName": "S3SubstitutionTemplateExample"
+    }
+}
+```
+
+## Salesforce action<a name="salesforce-rule"></a>
 
 A `salesforce` action sends data from the MQTT message that triggered the rule to a Salesforce IoT input stream\. 
-
-------
-#### [ More information \(16\) ]
 
 When you create a rule with a `salesforce` action, you must specify the following information:
 
@@ -1009,7 +1197,7 @@ token
 The token used to authenticate access to the specified Salesforce IoT input stream\. The token is available from the Salesforce IoT platform when you create an input stream\. For more information, see the Salesforce IoT documentation\.
 
 **Note**  
-These parameters do not support substitution\.
+These parameters do not support substitution templates\.
 
 The following JSON example shows how to create an AWS IoT rule with a `salesforce` action:
 
@@ -1031,17 +1219,9 @@ The following JSON example shows how to create an AWS IoT rule with a `salesforc
 
 For more information, see the Salesforce IoT documentation\.
 
-------
-
-## SNS Action<a name="sns-rule"></a>
-
-------
-#### [ SNS Action ]
+## SNS action<a name="sns-rule"></a>
 
 A `sns` action sends the data from the MQTT message that triggered the rule as an SNS push notification\. 
-
-------
-#### [ More information \(17\) ]
 
 When you create a rule with an `sns` action, you must specify the following information:
 
@@ -1077,17 +1257,37 @@ The following JSON example shows how to define an `sns` action in an AWS IoT rul
 
 For more information, see the [Amazon Simple Notification Service Developer Guide](https://docs.aws.amazon.com/sns/latest/dg/)\. If you use a customer managed AWS KMS CMK to encrypt data at rest in Amazon SNS, the service must have permission to use the CMK on the caller's behalf\. For more information, see [Key Management](https://docs.aws.amazon.com/sns/latest/dg/sns-key-management.html) in the *Amazon Simple Notification Service Developer Guide*\.
 
-------
+### Substitution templates<a name="sns-rule-substitution-templates"></a>
 
-## SQS Action<a name="sqs-rule"></a>
+The `sns` action supports substitution templates within the `targetArn` parameter in the CLI\. For more information about substitution templates, see [Substitution templates](iot-substitution-templates.md)\.
 
-------
-#### [ SQS Action ]
+The following is an example of a substitution template in the `sns` action in the CLI\.
+
+```
+aws iot get-topic-rule --rule-name "SNSSubstitutionExample"
+{
+   "ruleArn":"arn:aws:iot:us-east-1:418092313572:rule/SNSSubstitutionExample",
+   "rule":{
+      "awsIotSqlVersion":"2016-03-23",
+      "sql":"SELECT topic() as topic FROM 'snssubstopic'",
+      "ruleDisabled":false,
+      "actions":[
+         {
+            "sns":{
+               "targetArn":"arn:aws:sns:us-east-1:418092313572:${topic()}",
+               "roleArn":"arn:aws:iam::418092313572:role/service-role/SNSTestRole",
+               "messageFormat":"RAW"
+            }
+         }
+      ],
+      "ruleName":"SNSSubstitutionExample"
+   }
+}
+```
+
+## SQS action<a name="sqs-rule"></a>
 
 An `sqs` action sends data from the MQTT message that triggered the rule to an SQS queue\. 
-
-------
-#### [ More information \(18\) ]
 
 When you create a rule with an `sqs` action, you must specify the following information:
 
@@ -1126,17 +1326,36 @@ SQS action does not support [SQS FIFO Queues](https://docs.aws.amazon.com/AWSSim
 
 For more information, see the [Amazon Simple Queue Service Developer Guide](https://docs.aws.amazon.com/AWSSimpleQueueService/latest/SQSDeveloperGuide/)\. If you use a customer managed AWS KMS CMK to encrypt data at rest in Amazon SQS, the service must have permission to use the CMK on the caller's behalf\. For more information, see [Key Management](https://docs.aws.amazon.com/AWSSimpleQueueService/latest/SQSDeveloperGuide/sqs-key-management.html) in the *Amazon Simple Queue Service Developer Guide*\.
 
-------
+### Substitution templates<a name="sqs-rule-substitution-templates"></a>
 
-## Step Functions Action<a name="stepfunctions-rule"></a>
+The `sqs` action supports substitution templates within the `queueUrl` parameter in the CLI\. For more information about substitution templates, see [Substitution templates](iot-substitution-templates.md)\.
 
-------
-#### [ Step Functions Action ]
+The following is an example of a substitution template in the `sqs` action in the CLI\.
+
+```
+aws iot get-topic-rule --rule-name "SQSSubstitutionExample"
+{
+    "ruleArn": "arn:aws:iot:us-east-1:418092313572:rule/SQSSubstitutionExample",
+    "rule": {
+        "awsIotSqlVersion": "2016-03-23",
+        "sql": "SELECT topic() AS topic FROM 'sqssubstopic'",
+        "ruleDisabled": false,
+        "actions": [
+            {
+                "sqs": {
+                    "queueUrl": "https:~/~/sqs.us-east-1.amazonaws.com/418092313572/${topic()}",
+                    "roleArn": "arn:aws:iam::418092313572:role/service-role/ArunavTest"
+                }
+            }
+        ],
+        "ruleName": "SQSSubstitutionExample"
+    }
+}
+```
+
+## Step Functions action<a name="stepfunctions-rule"></a>
 
 A `stepFunctions` action starts execution of a Step Functions state machine\. 
-
-------
-#### [ More information \(19\) ]
 
 When you create a rule with a `stepFunctions` action, you must specify the following information:
 
@@ -1161,6 +1380,9 @@ Here is an example trust policy that should be attached to the role:
 }
 ```
 
+**Note**  
+These parameters do not support substitution templates\.
+
 The following JSON example shows how to create an AWS IoT rule with a `stepFunctions` action:
 
 ```
@@ -1182,5 +1404,3 @@ The following JSON example shows how to create an AWS IoT rule with a `stepFunct
 ```
 
 For more information, see the [AWS Step Functions Developer Guide](https://docs.aws.amazon.com/step-functions/latest/dg/)\.
-
-------

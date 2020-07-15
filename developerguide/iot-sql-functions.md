@@ -11,7 +11,7 @@ Example: `abs(-5)` returns 5\.
 
 ****  
 
-| Argument Type | Result | 
+| Argument type | Result | 
 | --- | --- | 
 | Int | Int, the absolute value of the argument\. | 
 | Decimal | Decimal, the absolute value of the argument\. | 
@@ -39,7 +39,7 @@ Example: `acos(0)` = 1\.5707963267948966
 
 ****  
 
-| Argument Type | Result | 
+| Argument type | Result | 
 | --- | --- | 
 | Int | Decimal \(with double precision\), the inverse cosine of the argument\. Imaginary results are returned as Undefined\. | 
 | Decimal | Decimal \(with double precision\), the inverse cosine of the argument\. Imaginary results are returned as Undefined\. | 
@@ -59,7 +59,7 @@ Example: `asin(0)` = 0\.0
 
 ****  
 
-| Argument Type | Result | 
+| Argument type | Result | 
 | --- | --- | 
 | Int | Decimal \(with double precision\), the inverse sine of the argument\. Imaginary results are returned as Undefined\. | 
 | Decimal | Decimal \(with double precision\), the inverse sine of the argument\. Imaginary results are returned as Undefined\. | 
@@ -79,7 +79,7 @@ Example: `atan(0)` = 0\.0
 
 ****  
 
-| Argument Type | Result | 
+| Argument type | Result | 
 | --- | --- | 
 | Int | Decimal \(with double precision\), the inverse tangent of the argument\. Imaginary results are returned as Undefined\. | 
 | Decimal | Decimal \(with double precision\), the inverse tangent of the argument\. Imaginary results are returned as Undefined\. | 
@@ -99,11 +99,11 @@ Example: `atan2(1, 0)` = 1\.5707963267948966
 
 ****  
 
-| Argument Type | Argument Type | Result | 
+| Argument type | Argument type | Result | 
 | --- | --- | --- | 
 | Int/Decimal | Int/Decimal | Decimal \(with double precision\), the angle between the x\-axis and the specified \(x,y\) point\. | 
 | Int/Decimal/String | Int/Decimal/String | Decimal, the inverse tangent of the point described\. If a string cannot be converted, the result is Undefined\. | 
-| Other Value | Other Value | Undefined\. | 
+| Other value | Other value | Undefined\. | 
 
 ## aws\_lambda\(functionArn, inputJson\)<a name="iot-func-aws-lambda"></a>
 
@@ -194,12 +194,12 @@ Example: `bitand(13, 5)` = 5
 
 ****  
 
-| Argument Type | Argument Type | Result | 
+| Argument type | Argument type | Result | 
 | --- | --- | --- | 
 | Int | Int | Int, a bitwise AND of the two arguments\. | 
 | Int/Decimal | Int/Decimal | Int, a bitwise AND of the two arguments\. All non\-Int numbers are rounded down to the nearest Int\. If any of the arguments cannot be converted to an Int, the result is Undefined\. | 
 | Int/Decimal/String | Int/Decimal/String | Int, a bitwise AND of the two arguments\. All strings are converted to decimals and are rounded down to the nearest Int\. If the conversion fails, the result is Undefined\. | 
-| Other Value | Other Value | Undefined\. | 
+| Other value | Other value | Undefined\. | 
 
 ## bitor\(Int, Int\)<a name="iot-func-bitor"></a>
 
@@ -210,12 +210,12 @@ Example: `bitor(8, 5)` = 13
 
 ****  
 
-| Argument Type | Argument Type | Result | 
+| Argument type | Argument type | Result | 
 | --- | --- | --- | 
 | Int | Int | Int, the bitwise OR of the two arguments\. | 
 | Int/Decimal | Int/Decimal | Int, the bitwise OR of the two arguments\. All non\-Int numbers are rounded down to the nearest Int\. If the conversion fails, the result is Undefined\. | 
 | Int/Decimal/String | Int/Decimal/String | Int, the bitwise OR on the two arguments\. All strings are converted to decimals and rounded down to the nearest Int\. If the conversion fails, the result is Undefined\. | 
-| Other Value | Other Value | Undefined\. | 
+| Other value | Other value | Undefined\. | 
 
 ## bitxor\(Int, Int\)<a name="iot-func-xbitor"></a>
 
@@ -226,12 +226,12 @@ Example:`bitor(13, 5)` = 8
 
 ****  
 
-| Argument Type | Argument Type | Result | 
+| Argument type | Argument type | Result | 
 | --- | --- | --- | 
 | Int | Int | Int, a bitwise XOR on the two arguments\. | 
 | Int/Decimal | Int/Decimal | Int, a bitwise XOR on the two arguments\. Non\-Int numbers are rounded down to the nearest Int\. | 
 | Int/Decimal/String | Int/Decimal/String | Int, a bitwise XOR on the two arguments\. strings are converted to decimals and rounded down to the nearest Int\. If any conversion fails, the result is Undefined\. | 
-| Other Value | Other Value | Undefined\. | 
+| Other value | Other value | Undefined\. | 
 
 ## bitnot\(Int\)<a name="iot-func-bitnot"></a>
 
@@ -242,12 +242,12 @@ Example: `bitnot(13)` = 2
 
 ****  
 
-| Argument Type | Result | 
+| Argument type | Result | 
 | --- | --- | 
 | Int | Int, a bitwise NOT of the argument\. | 
 | Decimal | Int, a bitwise NOT of the argument\. The Decimal value is rounded down to the nearest Int\. | 
 | String | Int, a bitwise NOT of the argument\. Strings are converted to decimals and rounded down to the nearest Int\. If any conversion fails, the result is Undefined\. | 
-| Other Value | Other value\. | 
+| Other value | Other value\. | 
 
 ## cast\(\)<a name="iot-sql-function-cast"></a>
 
@@ -287,9 +287,9 @@ The following keywords might appear after "as" when calling `cast`:
 Casting rules:
 
 
-**Cast to Decimal**  
+**Cast to decimal**  
 
-| Argument Type | Result | 
+| Argument type | Result | 
 | --- | --- | 
 | Int | A Decimal with no decimal point\. | 
 | Decimal | The source value\. | 
@@ -301,9 +301,9 @@ Casting rules:
 | Undefined | Undefined\. | 
 
 
-**Cast to Int**  
+**Cast to int**  
 
-| Argument Type | Result | 
+| Argument type | Result | 
 | --- | --- | 
 | Int | The source value\. | 
 | Decimal | The source value, rounded down to the nearest Int\. | 
@@ -317,7 +317,7 @@ Casting rules:
 
 **Cast to `Boolean`**  
 
-| Argument Type | Result | 
+| Argument type | Result | 
 | --- | --- | 
 | Int | 0 = False, any\_nonzero\_value = True\. | 
 | Decimal | 0 = False, any\_nonzero\_value = True\. | 
@@ -329,9 +329,9 @@ Casting rules:
 | Undefined | Undefined\. | 
 
 
-**Cast to String**  
+**Cast to string**  
 
-| Argument Type | Result | 
+| Argument type | Result | 
 | --- | --- | 
 | Int | A string representation of the Int, in standard notation\. | 
 | Decimal | A string representing the Decimal value, possibly in scientific notation\. | 
@@ -355,12 +355,12 @@ Examples:
 
 ****  
 
-| Argument Type | Result | 
+| Argument type | Result | 
 | --- | --- | 
 | Int | Int, the argument value\. | 
 | Decimal | Int, the Decimal value rounded up to the nearest Int\. | 
 | String | Int\. The string is converted to Decimal and rounded up to the nearest Int\. If the string cannot be converted to a Decimal, the result is Undefined\. | 
-| Other Value | Undefined\. | 
+| Other value | Undefined\. | 
 
 ## chr\(String\)<a name="iot-func-chr"></a>
 
@@ -375,7 +375,7 @@ Examples:
 
 ****  
 
-| Argument Type | Result | 
+| Argument type | Result | 
 | --- | --- | 
 | Int | The character corresponding to the specified ASCII value\. If the argument is not a valid ASCII value, the result is Undefined\. | 
 | Decimal | The character corresponding to the specified ASCII value\. The Decimal argument is rounded down to the nearest Int\. If the argument is not a valid ASCII value, the result is Undefined\. | 
@@ -384,7 +384,7 @@ Examples:
 | Array | Undefined\. | 
 | Object | Undefined\. | 
 | Null | Undefined\. | 
-| Other Value | Undefined\. | 
+| Other value | Undefined\. | 
 
 ## clientid\(\)<a name="iot-sql-function-clientid"></a>
 
@@ -419,7 +419,7 @@ Examples:
 
 ****  
 
-| Number of Arguments | Result | 
+| Number of arguments | Result | 
 | --- | --- | 
 | 0 | Undefined\. | 
 | 1 | The argument is returned unmodified\. | 
@@ -436,7 +436,7 @@ Example:
 
 ****  
 
-| Argument Type | Result | 
+| Argument type | Result | 
 | --- | --- | 
 | Int | Decimal \(with double precision\), the cosine of the argument\. Imaginary results are returned as Undefined\. | 
 | Decimal | Decimal \(with double precision\), the cosine of the argument\. Imaginary results are returned as Undefined\. | 
@@ -456,7 +456,7 @@ Example: `cosh(2.3)` = 5\.037220649268761\.
 
 ****  
 
-| Argument Type | Result | 
+| Argument type | Result | 
 | --- | --- | 
 | Int | Decimal \(with double precision\), the hyperbolic cosine of the argument\. Imaginary results are returned as Undefined\. | 
 | Decimal | Decimal \(with double precision\), the hyperbolic cosine of the argument\. Imaginary results are returned as Undefined\. | 
@@ -472,7 +472,7 @@ Example: `cosh(2.3)` = 5\.037220649268761\.
 Use the `encode` function to encode the payload, which potentially might be non\-JSON data, into its string representation based on the encoding scheme\. Supported by SQL version 2016\-03\-23 and later\.
 
 value  
-Any of the valid expressions, as defined in [AWS IoT SQL Reference](iot-sql-reference.md)\. You can specify \* to encode the entire payload, regardless of whether it's in JSON format\. If you supply an expression, the result of the evaluation is converted to a string before it is encoded\.
+Any of the valid expressions, as defined in [AWS IoT SQL reference](iot-sql-reference.md)\. You can specify \* to encode the entire payload, regardless of whether it's in JSON format\. If you supply an expression, the result of the evaluation is converted to a string before it is encoded\.
 
 encodingScheme  
 A literal string representing the encoding scheme you want to use\. Currently, only `'base64'` is supported\.
@@ -486,10 +486,10 @@ Example: `endswith("cat","at")` = true\.
 
 ****  
 
-| argument Type 1 | argument Type 2 | Result | 
+| Argument type 1 | Argument type 2 | Result | 
 | --- | --- | --- | 
 | String | String | True if the first argument ends in the second argument\. Otherwise, false\. | 
-| Other Value | Other Value | Both arguments are converted to strings using the standard conversion rules\. True if the first argument ends in the second argument\. Otherwise, false\. If either argument is Null or Undefined, the result is Undefined\. | 
+| Other value | Other value | Both arguments are converted to strings using the standard conversion rules\. True if the first argument ends in the second argument\. Otherwise, false\. If either argument is Null or Undefined, the result is Undefined\. | 
 
 ## exp\(Decimal\)<a name="iot-func-exp"></a>
 
@@ -500,12 +500,12 @@ Example: `exp(1)` = e\.
 
 ****  
 
-| Argument Type | Result | 
+| Argument type | Result | 
 | --- | --- | 
 | Int | Decimal \(with double precision\), e ^ argument\. | 
 | Decimal | Decimal \(with double precision\), e ^ argument\. | 
 | String | Decimal \(with double precision\), e ^ argument\. If the String cannot be converted to a Decimal, the result is Undefined\.  | 
-| Other Value | Undefined\. | 
+| Other value | Undefined\. | 
 
 ## floor\(Decimal\)<a name="iot-func-floor"></a>
 
@@ -520,12 +520,12 @@ Examples:
 
 ****  
 
-| Argument Type | Result | 
+| Argument type | Result | 
 | --- | --- | 
 | Int | Int, the argument value\. | 
 | Decimal | Int, the Decimal value rounded down to the nearest Int\. | 
 | String | Int\. The string is converted to Decimal and rounded down to the nearest Int\. If the string cannot be converted to a Decimal, the result is Undefined\. | 
-| Other Value | Undefined\. | 
+| Other value | Undefined\. | 
 
 ## get<a name="iot-sql-function-get"></a>
 
@@ -542,12 +542,12 @@ Examples:
 
 ****  
 
-| argument Type 1 | argument Type 2 | Result | 
+| Argument type 1 | Argument type 2 | Result | 
 | --- | --- | --- | 
 | Array | Any Type \(converted to Int\) | The item at the 0\-based index of the Array provided by the second argument \(converted to Int\)\. If the conversion is unsuccessful, the result is Undefined\. If the index is outside the bounds of the Array \(negative or >= array\.length\), the result is Undefined\. | 
 | String | Any Type \(converted to Int\) | The character at the 0\-based index of the string provided by the second argument \(converted to Int\)\. If the conversion is unsuccessful, the result is Undefined\. If the index is outside the bounds of the string \(negative or >= string\.length\), the result is Undefined\. | 
 | Object | String \(no conversion is applied\) | The value stored in the first argument object corresponding to the string key provided as the second argument\. | 
-| Other Value | Any Value | Undefined\. | 
+| Other value | Any value | Undefined\. | 
 
 ## get\_dynamodb\(tableName, partitionKeyName, partitionKeyValue, sortKeyName, sortKeyValue, roleArn\)<a name="iot-sql-function-get-dynamodb"></a>
 
@@ -594,23 +594,40 @@ As an example of how you can use `get_dynamodb()`, say you have a DynamoDB table
 You can call `get_dynamodb()` a maximum of one time per SQL statement\. Calling `get_dynamodb()` multiple times in a single SQL statement causes the rule to terminate without invoking any actions\.
 If `get_dynamodb()` returns more than 8 KB of data, the rule's action may not be invoked\.
 
-## get\_thing\_shadow\(thingName, roleARN\)<a name="iot-sql-function-get-thing-shadow"></a>
+## get\_thing\_shadow\(thingName, shadowName, roleARN\)<a name="iot-sql-function-get-thing-shadow"></a>
 
-Returns the shadow of the specified thing\. Supported by SQL version 2016\-03\-23 and later\.
+Returns the specified shadow of the specified thing\. Supported by SQL version 2016\-03\-23 and later\.
 
 thingName  
 String: The name of the thing whose shadow you want to retrieve\.
 
+shadowName  
+Optional\. String: The name of the shadow\. This parameter is required only when referencing named shadows\.
+
 roleArn  
 String: A role ARN with `iot:GetThingShadow` permission\.
 
-Example:
+Examples:
 
-`SELECT * from 'a/b' `
+When used with a named shadow, provide the `shadowName` parameter\.
 
-`WHERE get_thing_shadow("MyThing","arn:aws:iam::123456789012:role/AllowsThingShadowAccess") .state.reported.alarm = 'ON'`
+```
+SELECT * from 'a/b'
+WHERE
+    get_thing_shadow("MyThing","MyThingShadow","arn:aws:iam::123456789012:role/AllowsThingShadowAccess")
+    .state.reported.alarm = 'ON'
+```
 
-## Hashing Functions<a name="iot-sql-function-hash"></a>
+When used with an unnamed shadow, omit the `shadowName` parameter\.
+
+```
+SELECT * from 'a/b'
+WHERE
+    get_thing_shadow("MyThing","arn:aws:iam::123456789012:role/AllowsThingShadowAccess")
+    .state.reported.alarm = 'ON'
+```
+
+## Hashing functions<a name="iot-sql-function-hash"></a>
 
  AWS IoT provides the following hashing functions:
 + md2
@@ -650,7 +667,7 @@ Examples:
 
 ****  
 
-| Argument Type | Result | 
+| Argument type | Result | 
 | --- | --- | 
 | Int | false | 
 | Decimal | false | 
@@ -674,7 +691,7 @@ Examples:
 
 ****  
 
-| Argument Type | Result | 
+| Argument type | Result | 
 | --- | --- | 
 | Int | false | 
 | Decimal | false | 
@@ -704,7 +721,7 @@ Example: `ln(e)` = 1\.
 
 ****  
 
-| Argument Type | Result | 
+| Argument type | Result | 
 | --- | --- | 
 | Int | Decimal \(with double precision\), the natural log of the argument\. | 
 | Decimal | Decimal \(with double precision\), the natural log of the argument\. | 
@@ -724,7 +741,7 @@ Example: `log(100)` = 2\.0\.
 
 ****  
 
-| Argument Type | Result | 
+| Argument type | Result | 
 | --- | --- | 
 | Int | Decimal \(with double precision\), the base 10 log of the argument\. | 
 | Decimal | Decimal \(with double precision\), the base 10 log of the argument\. | 
@@ -758,13 +775,13 @@ Examples:
 
 ****  
 
-| argument Type 1 | argument Type 2 | Result | 
+| Argument type 1 | Argument type 2 | Result | 
 | --- | --- | --- | 
 | String | Int | String, the provided String padded on the left side with a number of spaces equal to the provided Int\. | 
 | String | Decimal | The Decimal argument is rounded down to the nearest Int and the String is padded on the left with the specified number of spaces\.  | 
 | String | String | The second argument is converted to a Decimal, which is rounded down to the nearest Int, and the String is padded with the specified number spaces on the left\. If the second argument cannot be converted to an Int, the result is Undefined\.  | 
-| Other Value | Int/Decimal/String | The first value is converted to a String using the standard conversions, and then the LPAD function is applied on that String\. If it cannot be converted, the result is Undefined\. | 
-| Any Value | Other Value | Undefined\. | 
+| Other value | Int/Decimal/String | The first value is converted to a String using the standard conversions, and then the LPAD function is applied on that String\. If it cannot be converted, the result is Undefined\. | 
+| Any value | Other value | Undefined\. | 
 
 ## ltrim\(String\)<a name="iot-func-ltrim"></a>
 
@@ -777,7 +794,7 @@ Example:
 
 ****  
 
-| Argument Type | Result | 
+| Argument type | Result | 
 | --- | --- | 
 | Int | The String representation of the Int with all leading white space removed\. | 
 | Decimal | The String representation of the Decimal with all leading white space removed\. | 
@@ -837,12 +854,12 @@ Example: `mod(8, 3)` = 2\.
 
 ****  
 
-| Left Operand | Right Operand | Output | 
+| Left operand | Right operand | Output | 
 | --- | --- | --- | 
 | Int | Int | Int, the first argument modulo the second argument\. | 
 | Int/Decimal | Int/Decimal | Decimal, the first argument modulo the second operand\. | 
 | String/Int/Decimal | String/Int/Decimal | If all strings convert to decimals, the result is the first argument modulo the second argument\. Otherwise, Undefined\. | 
-| Other Value | Other Value | Undefined\. | 
+| Other value | Other value | Undefined\. | 
 
 ## nanvl\(AnyValue, AnyValue\)<a name="iot-func-nanvl"></a>
 
@@ -853,13 +870,13 @@ Example: `Nanvl(8, 3)` = 8\.
 
 ****  
 
-| argument Type 1 | argument Type 2 | Output | 
+| Argument type 1 | Argument type 2 | Output | 
 | --- | --- | --- | 
-| Undefined | Any Value | The second argument\. | 
-| Null | Any Value | The second argument\. | 
-| Decimal \(NaN\) | Any Value | The second argument\. | 
-| Decimal \(not NaN\) | Any Value | The first argument\. | 
-| Other Value | Any Value | The first argument\. | 
+| Undefined | Any value | The second argument\. | 
+| Null | Any value | The second argument\. | 
+| Decimal \(NaN\) | Any value | The second argument\. | 
+| Decimal \(not NaN\) | Any value | The first argument\. | 
+| Other value | Any value | The first argument\. | 
 
 ## newuuid\(\)<a name="iot-sql-function-newuuid"></a>
 
@@ -877,32 +894,14 @@ Examples:
 
 `numbytes("€") ` = 3
 
-## principal\(\)<a name="iot-sql-function-principal"></a>
+## parse\_time\(String, Long\[, String\]\)<a name="iot-sql-function-parse-time"></a>
 
-Returns the principal the device uses for authentication\. Which principal is return depends on how the triggering message was published\. The following table describes the principal returned for each publishing method and protocol\.
+Use the `parse_time` function to format a timestamp into a human\-readable date/time format\. Supported by SQL version 2016\-03\-23 and later\.
 
-
-****  
-
-| How message is published | Protocol | Credential Type | Principal | 
-| --- | --- | --- | --- | 
-| MQTT client | MQTT | X\.509 device certificate | X\.509 certificate thumbprint | 
-| AWS IoT console MQTT client | MQTT | IAM user or role | <iam\-role\-id>:<session\-name> | 
-| AWS CLI | HTTP | IAM user or role | <userid> | 
-| AWS IoT Device SDK | MQTT | X\.509 device certificate | X\.509 certificate thumbprint | 
-| AWS IoT Device SDK | MQTT over WebSocket | IAM user or role | <userid> | 
-
-The following examples show the different types of values returned by `principal`:
-+ X\.509 certificate thumbprint: `ba67293af50bf2506f5f93469686da660c7c844e7b3950bfb16813e0d31e9373`
-+ IAM role ID and session name: `ABCD1EFG3HIJK2LMNOP5:my-session-name`
-+ returns a user ID: `ABCD1EFG3HIJK2LMNOP5`
-
-## parse\_time\(String, Long, \[String\]\)<a name="iot-sql-function-parse-time"></a>
-
-Use the `parse_time` function to format a timestamp into a human\-readable date/time format\. Supported by SQL version 2016\-03\-23 and later\. The arguments for the `parse_time` function are:
+The `parse_time` function expects the following arguments:
 
 pattern  
-\(String\) A date/time pattern that conforms to the [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) standard format\. \(Specifically, the function supports [Joda\-Time formats](http://www.joda.org/joda-time/apidocs/org/joda/time/format/DateTimeFormat.html)\.\) 
+\(String\) A date/time pattern that follows the [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) standard format\. Specifically, the function supports [Joda\-Time formats](http://www.joda.org/joda-time/apidocs/org/joda/time/format/DateTimeFormat.html)\. 
 
 timestamp  
 \(Long\) The time to be formatted in milliseconds since Unix epoch\. See function [timestamp\(\)](#iot-function-timestamp)\.
@@ -991,11 +990,31 @@ Example: `power(2, 5)` = 32\.0\.
 
 ****  
 
-| argument Type 1 | argument Type 2 | Output | 
+| Argument type 1 | Argument type 2 | Output | 
 | --- | --- | --- | 
 | Int/Decimal | Int/Decimal | A Decimal \(with double precision\), the first argument raised to the second argument's power\. | 
 | Int/Decimal/String | Int/Decimal/String | A Decimal \(with double precision\), the first argument raised to the second argument's power\. Any strings are converted to decimals\. If any String fails to be converted to Decimal, the result is Undefined\. | 
-| Other Value | Other Value | Undefined\. | 
+| Other value | Other value | Undefined\. | 
+
+## principal\(\)<a name="iot-sql-function-principal"></a>
+
+Returns the principal that the device uses for authentication, based on how the triggering message was published\. The following table describes the principal returned for each publishing method and protocol\.
+
+
+****  
+
+| How the message is published | Protocol | Credential type | Principal | 
+| --- | --- | --- | --- | 
+| MQTT client | MQTT | X\.509 device certificate | X\.509 certificate thumbprint | 
+| AWS IoT console MQTT client | MQTT | IAM user or role | iam\-role\-id:session\-name | 
+| AWS CLI | HTTP | IAM user or role | userid | 
+| AWS IoT Device SDK | MQTT | X\.509 device certificate | X\.509 certificate thumbprint | 
+| AWS IoT Device SDK | MQTT over WebSocket | IAM user or role | userid | 
+
+The following examples show the different types of values that `principal()` can return:
++ X\.509 certificate thumbprint: `ba67293af50bf2506f5f93469686da660c7c844e7b3950bfb16813e0d31e9373`
++ IAM role ID and session name: `ABCD1EFG3HIJK2LMNOP5:my-session-name`
++ Returns a user ID: `ABCD1EFG3HIJK2LMNOP5`
 
 ## rand\(\)<a name="iot-sql-function-rand"></a>
 
@@ -1018,7 +1037,7 @@ Example:
 
 **First argument:**  
 
-| Argument Type | Result | 
+| Argument type | Result | 
 | --- | --- | 
 | Int | The String representation of the Int\. | 
 | Decimal | The String representation of the Decimal\. | 
@@ -1046,7 +1065,7 @@ Example:
 
 **First argument:**  
 
-| Argument Type | Result | 
+| Argument type | Result | 
 | --- | --- | 
 | Int | The String representation of the Int\. | 
 | Decimal | The String representation of the Decimal\. | 
@@ -1078,7 +1097,7 @@ Example:
 
 **First argument:**  
 
-| Argument Type | Result | 
+| Argument type | Result | 
 | --- | --- | 
 | Int | The String representation of the Int\. | 
 | Decimal | The String representation of the Decimal\. | 
@@ -1106,12 +1125,12 @@ Example: `remainder(8, 3)` = 2\.
 
 ****  
 
-| Left Operand | Right Operand | Output | 
+| Left operand | Right operand | Output | 
 | --- | --- | --- | 
 | Int | Int | Int, the first argument modulo the second argument\. | 
 | Int/Decimal | Int/Decimal | Decimal, the first argument modulo the second operand\. | 
 | String/Int/Decimal | String/Int/Decimal | If all strings convert to decimals, the result is the first argument modulo the second argument\. Otherwise, Undefined\. | 
-| Other Value | Other Value | Undefined\. | 
+| Other value | Other value | Undefined\. | 
 
 ## replace\(String, String, String\)<a name="iot-func-replace"></a>
 
@@ -1126,7 +1145,7 @@ Example:
 
 **All arguments**  
 
-| Argument Type | Result | 
+| Argument type | Result | 
 | --- | --- | 
 | Int | The String representation of the Int\. | 
 | Decimal | The String representation of the Decimal\. | 
@@ -1150,13 +1169,13 @@ Examples:
 
 ****  
 
-| argument Type 1 | argument Type 2 | Result | 
+| Argument type 1 | Argument type 2 | Result | 
 | --- | --- | --- | 
 | String | Int | The String is padded on the right side with a number of spaces equal to the provided Int\. | 
 | String | Decimal | The Decimal argument is rounded down to the nearest Int and the string is padded on the right side with a number of spaces equal to the provided Int\. | 
 | String | String | The second argument is converted to a Decimal, which is rounded down to the nearest Int\. The String is padded on the right side with a number of spaces equal to the Int value\. | 
-| Other Value | Int/Decimal/String | The first value is converted to a String using the standard conversions, and the rpad function is applied on that String\. If it cannot be converted, the result is Undefined\. | 
-| Any Value | Other Value | Undefined\. | 
+| Other value | Int/Decimal/String | The first value is converted to a String using the standard conversions, and the rpad function is applied on that String\. If it cannot be converted, the result is Undefined\. | 
+| Any value | Other value | Undefined\. | 
 
 ## round\(Decimal\)<a name="iot-func-round"></a>
 
@@ -1175,12 +1194,12 @@ Example: `Round(1.2)` = 1\.
 
 ****  
 
-| Argument Type | Result | 
+| Argument type | Result | 
 | --- | --- | 
 | Int | The argument\. | 
 | Decimal | Decimal is rounded down to the nearest Int\. | 
 | String | Decimal is rounded down to the nearest Int\. If the string cannot be converted to a Decimal, the result is Undefined\. | 
-| Other Value | Undefined\. | 
+| Other value | Undefined\. | 
 
 ## rtrim\(String\)<a name="iot-func-rtrim"></a>
 
@@ -1193,7 +1212,7 @@ Examples:
 
 ****  
 
-| Argument Type | Result | 
+| Argument type | Result | 
 | --- | --- | 
 | Int | The String representation of the Int\. | 
 | Decimal | The String representation of the Decimal\. | 
@@ -1218,12 +1237,12 @@ Examples:
 
 ****  
 
-| Argument Type | Result | 
+| Argument type | Result | 
 | --- | --- | 
 | Int | Int, the sign of the Int value\. | 
 | Decimal | Int, the sign of the Decimal value\. | 
 | String | Int, the sign of the Decimal value\. The string is converted to a Decimal value, and the sign of the Decimal value is returned\. If the String cannot be converted to a Decimal, the result is Undefined\. Supported by SQL version 2015\-10\-08 and later\. | 
-| Other Value | Undefined\. | 
+| Other value | Undefined\. | 
 
 ## sin\(Decimal\)<a name="iot-func-sin"></a>
 
@@ -1234,7 +1253,7 @@ Example: `sin(0)` = 0\.0
 
 ****  
 
-| Argument Type | Result | 
+| Argument type | Result | 
 | --- | --- | 
 | Int | Decimal \(with double precision\), the sine of the argument\. | 
 | Decimal | Decimal \(with double precision\), the sine of the argument\. | 
@@ -1254,7 +1273,7 @@ Example: `sinh(2.3)` = 4\.936961805545957
 
 ****  
 
-| Argument Type | Result | 
+| Argument type | Result | 
 | --- | --- | 
 | Int | Decimal \(with double precision\), the hyperbolic sine of the argument\. | 
 | Decimal | Decimal \(with double precision\), the hyperbolic sine of the argument\. | 
@@ -1265,7 +1284,7 @@ Example: `sinh(2.3)` = 4\.936961805545957
 | Null | Undefined\. | 
 | Undefined | Undefined\. | 
 
-## substring\(String, Int \[, Int\]\)<a name="iot-func-substring"></a>
+## substring\(String, Int\[, Int\]\)<a name="iot-func-substring"></a>
 
 Expects a `String` followed by one or two `Int` values\. For a `String` and a single `Int` argument, this function returns the substring of the provided `String` from the provided `Int` index \(0\-based, inclusive\) to the end of the `String`\. For a `String` and two `Int` arguments, this function returns the substring of the provided `String` from the first `Int` index argument \(0\-based, inclusive\) to the second `Int` index argument \(0\-based, exclusive\)\. Indices that are less than zero are set to zero\. Indices that are greater than the `String` length are set to the `String` length\. For the three argument version, if the first index is greater than \(or equal to\) the second index, the result is the empty `String`\.
 
@@ -1310,7 +1329,7 @@ Example: `sqrt(9)` = 3\.0\.
 
 ****  
 
-| Argument Type | Result | 
+| Argument type | Result | 
 | --- | --- | 
 | Int | The square root of the argument\. | 
 | Decimal | The square root of the argument\. | 
@@ -1332,10 +1351,10 @@ Example:
 
 ****  
 
-| argument Type 1 | argument Type 2 | Result | 
+| Argument type 1 | Argument type 2 | Result | 
 | --- | --- | --- | 
 | String | String | Whether the first string starts with the second string\. | 
-| Other Value | Other Value | Both arguments are converted to strings using the standard conversion rules\. Returns true if the first string starts with the second string\. If either argument is Null or Undefined, the result is Undefined\. | 
+| Other value | Other value | Both arguments are converted to strings using the standard conversion rules\. Returns true if the first string starts with the second string\. If either argument is Null or Undefined, the result is Undefined\. | 
 
 ## tan\(Decimal\)<a name="iot-func-tan"></a>
 
@@ -1346,7 +1365,7 @@ Example: `tan(3)` = \-0\.1425465430742778
 
 ****  
 
-| Argument Type | Result | 
+| Argument type | Result | 
 | --- | --- | 
 | Int | Decimal \(with double precision\), the tangent of the argument\. | 
 | Decimal | Decimal \(with double precision\), the tangent of the argument\. | 
@@ -1366,7 +1385,7 @@ Example: `tanh(2.3)` = 0\.9800963962661914
 
 ****  
 
-| Argument Type | Result | 
+| Argument type | Result | 
 | --- | --- | 
 | Int | Decimal \(with double precision\), the hyperbolic tangent of the argument\. | 
 | Decimal | Decimal \(with double precision\), the hyperbolic tangent of the argument\. | 
@@ -1426,12 +1445,12 @@ Examples:
 
 ****  
 
-| argument Type 1 | argument Type 2 | Result | 
+| Argument type 1 | Argument type 2 | Result | 
 | --- | --- | --- | 
 | Int | Int | The source value\. | 
 | Int/Decimal | Int/Decimal | The first argument is truncated to the length described by the second argument\. The second argument, if not an Int, is rounded down to the nearest Int\. | 
 | Int/Decimal/String | Int/Decimal | The first argument is truncated to the length described by the second argument\. The second argument, if not an Int, is rounded down to the nearest Int\. A String is converted to a Decimal value\. If the string conversion fails, the result is Undefined\. | 
-| Other Value |  | Undefined\. | 
+| Other value |  | Undefined\. | 
 
 ## trim\(String\)<a name="iot-func-trim"></a>
 
@@ -1444,7 +1463,7 @@ Example:
 
 ****  
 
-| Argument Type | Result | 
+| Argument type | Result | 
 | --- | --- | 
 | Int | The String representation of the Int with all leading and trailing white space removed\. | 
 | Decimal | The String representation of the Decimal with all leading and trailing white space removed\. | 

@@ -1,6 +1,6 @@
-# Fleet Indexing Service<a name="iot-indexing"></a>
+# Fleet indexing service<a name="iot-indexing"></a>
 
-Fleet Indexing is a managed service that you can use to index, search, and aggregate your registry data, shadow data, and device connectivity data \(device lifecycle events\) in the cloud\. After you set up your fleet index, the service manages the indexing of updates for your thing groups, thing registries, and device shadows\. For more information about aggregation queries, see [Querying for Aggregate Data](index-aggregate.md)\. You can use a simple query language to search across this data\. You can also create a [dynamic thing group](https://docs.aws.amazon.com/iot/latest/developerguide/dynamic-thing-groups.html) with a search query\.
+Fleet Indexing is a managed service that you can use to index, search, and aggregate your registry data, shadow data, and device connectivity data \(device lifecycle events\) in the cloud\. After you set up your fleet index, the service manages the indexing of updates for your thing groups, thing registries, and device shadows\. For more information about aggregation queries, see [Querying for aggregate data](index-aggregate.md)\. You can use a simple query language to search across this data\. You can also create a [dynamic thing group](dynamic-thing-groups.md) with a search query\.
 
 **Note**  
 It might take about 30 seconds for the Fleet Indexing service to update the fleet index after a thing is created, updated, or deleted\.
@@ -14,9 +14,9 @@ You can use the [ AWS IoT console](https://console.aws.amazon.com/iot/home) to m
 For information about pricing this and other services, see the [AWS IoT Device Management Pricing](https://aws.amazon.com/iot-device-management/pricing) page\.
 
 **Topics**
-+ [Managing Thing Indexing](managing-index.md)
-+ [Managing Thing Group Indexing](thinggroup-index.md)
-+ [Querying for Aggregate Data](index-aggregate.md)
-+ [Query Syntax](query-syntax.md)
-+ [Example Thing Queries](example-queries.md)
-+ [Example Thing Group Queries](example-thinggroup-queries.md)
++ [Managing thing indexing](managing-index.md)
++ [Managing thing group indexing](thinggroup-index.md)
++ [Querying for aggregate data](index-aggregate.md)
++ [Query syntax](query-syntax.md)
++ [Example thing queries](example-queries.md)
++ [Example thing group queries](example-thinggroup-queries.md)

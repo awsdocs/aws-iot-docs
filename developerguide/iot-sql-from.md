@@ -1,4 +1,4 @@
-# FROM Clause<a name="iot-sql-from"></a>
+# FROM clause<a name="iot-sql-from"></a>
 
 The FROM clause subscribes your rule to a topic or topic filter\. You must enclose the topic or topic filter in single quotes \('\)\. The rule is triggered for each message sent to an MQTT topic that matches the topic filter specified here\. A topic filter allows you to subscribe to a group of similar topics\.
 

@@ -1,8 +1,8 @@
-# Using the AWS IoT Device SDK for JavaScript and Node<a name="iot-device-sdk-node"></a>
+# Using the AWS IoT device SDK for JavaScript and node<a name="iot-device-sdk-node"></a>
 
 This tutorial shows you how to install Node\.js, the npm package manager, and the AWS IoT Device SDK for JavaScript on a Raspberry Pi and run the sample applications\.
 
-## Install the Latest Version of Node\.js<a name="iot-sdk-node-runtime"></a>
+## Install the latest version of Node\.js<a name="iot-sdk-node-runtime"></a>
 
 To use the AWS IoT Device SDK for JavaScript, install Node\.js and the npm package manager on your Raspberry Pi\.
 
@@ -24,7 +24,7 @@ To use the AWS IoT Device SDK for JavaScript, install Node\.js and the npm packa
 
    If a version number is displayed, node and npm are installed correctly\.
 
-## Install the AWS IoT Device SDK for JavaScript<a name="iot-sdk-node-intall-sdk"></a>
+## Install the AWS IoT device SDK for JavaScript<a name="iot-sdk-node-intall-sdk"></a>
 
 Install the AWS IoT Device SDK for JavaScript on your Raspberry Pi\.
 
@@ -38,9 +38,18 @@ Install the AWS IoT Device SDK for JavaScript on your Raspberry Pi\.
 
    npm install
 
-## Prepare to Run the Sample Applications<a name="iot-sdk-node-config-app"></a>
+## Prepare to run the sample applications<a name="iot-sdk-node-config-app"></a>
 
-Under `aws-iot-device-sdk-js`, create a `certs` directory and copy your private key, device certificate, and root CA certificate into it\.
+Under `/home/pi/aws-iot-device-sdk-js`, create a `certs` directory and copy your private key, device certificate, and root CA certificate into it\. The commands in the next section assume that your key and certificate files are stored on the device as shown in this table\.
+
+
+**Certificate file names**  
+
+| File | File path | 
+| --- | --- | 
+| Private key | `/home/pi/aws-iot-device-sdk-js/certs/private.pem.key` | 
+| Device certificate | `/home/pi/aws-iot-device-sdk-js/certs/device.pem.crt` | 
+| Root CA certificate | `/home/pi/aws-iot-device-sdk-js/certs/Amazon-root-CA-1.pem` | 
 
 To run the AWS IoT Device SDK for JavaScript samples, you need the following information:
 
@@ -53,13 +62,13 @@ A client ID
 An arbitrary alphanumeric string used to identify a device or application that connects to AWS IoT\. This should be the same as your IoT thing name for this tutorial\.
 
 Your private key  
-The fully qualified path to your private key on your Raspberry Pi \(for example, `/home/pi/aws-iot-device-sdk-js/certs/private.pem.key`\)\.
+The fully qualified path to your private key on your Raspberry Pi \(for this example, `/home/pi/aws-iot-device-sdk-js/certs/private.pem.key`\)\.
 
 Your AWS IoT X\.509 certificate  
-The fully qualified path to your AWS IoT certificate on your Raspberry Pi \(for example, `/home/pi/aws-iot-device-sdk-js/certs/device.pem.crt`\)\.
+The fully qualified path to your AWS IoT certificate on your Raspberry Pi \(for this example, `/home/pi/aws-iot-device-sdk-js/certs/device.pem.crt`\)\.
 
 The STS Amazon root CA  
-The fully qualified path to the Amazon root CA on your Raspberry Pi \(for example, `/home/pi/aws-iot-device-sdk-js/certs/Amazon-root-CA-1.pem`\)\.
+The fully qualified path to the Amazon root CA on your Raspberry Pi \(for this example, `/home/pi/aws-iot-device-sdk-js/certs/Amazon-root-CA-1.pem`\)\.
 
 Your AWS IoT endpoint  
 If you have installed the AWS CLI on your Raspberry Pi, you can run the describe\-endpoint CLI command to find your endpoint:  
@@ -72,20 +81,31 @@ This is always `8883`\.
 Your IoT thing name  
 This is the name you used when you registered your Raspberry Pi with AWS IoT\.
 
-## Run the Sample Applications<a name="iot-sdk-node-app-run"></a>
+## Run the sample applications<a name="iot-sdk-node-app-run"></a>
 
 The AWS IoT Device SDK for JavaScript contains a number of samples in the `aws-iot-device-sdk-js/examples` directory\. We recommend that you start with `device-example.js`\. This example runs in two modes\. In mode 1, it subscribes to the MQTT topic, `topic_1`, and publishes a message every 4 seconds on `topic_2`\. In mode 2, it subscribes to `topic_2` and publishes a message every 4 seconds on `topic_1`\. You can run two instances of `device-example.js` \(one in mode 1 and one in mode 2\) and see the messages being sent and received\.
 
-From the `aws-iot-device-sdk-js/examples` directory, run the following command to start an instance of the sample:
+From the `/home/pi/aws-iot-device-sdk-js/examples` directory, run the following command to start an instance of the sample:
 
-node device\-example \-k "\.\./certs/private\.pem\.key" \-c "\.\./certs/device\.pem\.crt" \-i "*raspberry\-pi\-1*" \-a "\.\./certs/Amazon\-root\-CA\-1" \-H "*<your\-iot\-endpoint>*" \-p 8883 \-T "*your\-thing\-name*" \-\-test\-mode 1
+```
+node device-example -k "../certs/private.pem.key" \
+                    -c "../certs/device.pem.crt" -i "client-id-1" \
+                    -a "../certs/Amazon-root-CA-1.pem" -H "your-iot-endpoint" \
+                    -p 8883 -T "your-thing-name" --test-mode 1
+```
 
 Start another instance of `device-example.js` running in mode 2:
 
-node device\-example \-k "\.\./certs/private\.pem\.key" \-c "\.\./certs/device\.pem\.crt" \-i "*raspberry\-pi\-2*" \-a "\.\./certs/Amazon\-root\-CA\-1" \-H "*<your\-iot\-endpoint>*" \-p 8883 \-T "*your\-thing\-name*" \-\-test\-mode 2
+```
+node device-example -k "../certs/private.pem.key" \
+                    -c "../certs/device.pem.crt" -i "client-id-2" \
+                    -a "../certs/Amazon-root-CA-1.pem" -H "your-iot-endpoint" \
+                    -p 8883 -T "your-thing-name" --test-mode 2
+```
 
 **Important**  
-Make sure that you use different client IDs when you run the two instances of `device-example.js`\. No two clients \(devices or applications\) can connect to AWS IoT using a the same client ID\. The first client's connection is terminated and the second client connection is established\.  
+Make sure that you use different client IDs \(the `-i` parameter value\) when you run the two instances of `device-example.js`\.  
+Two clients \(devices or applications\) cannot be connected to AWS IoT with the same client ID\. When a client uses a client ID that is already in use, the first client's connection is terminated and the second client connection is established\.  
 The thing name is important only when you create a policy specific to an IoT thing\. In the AWS IoT Getting Started tutorial, you do not create such a policy, so you can use the same thing name for both instances\.
 
 Your Raspberry Pi is now connected to AWS IoT using the AWS IoT SDK for JavaScript\.
@@ -114,4 +134,4 @@ message topic_2 {"mode2Process":4}
 ...
 ```
 
-If the sample does not run correctly, try adding the `-d` option to display debug information\.
+If the sample does not run correctly, try adding the `-D` option to display debug information\. You can also use the [AWS IoT console](https://console.aws.amazon.com/iot/home) to view the MQTT messages\. See [View MQTT messages with the AWS IoT MQTT client](view-mqtt-messages.md) for information about how to use the **MQTT client in the AWS IoT console**\.

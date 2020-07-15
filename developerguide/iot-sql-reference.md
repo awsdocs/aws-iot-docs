@@ -1,17 +1,17 @@
-# AWS IoT SQL Reference<a name="iot-sql-reference"></a>
+# AWS IoT SQL reference<a name="iot-sql-reference"></a>
 
 In AWS IoT, rules are defined using an SQL\-like syntax\. SQL statements are composed of three types of clauses:
 
 **SELECT**  
 Required\. Extracts information from the incoming message payload and performs transformations\.  
-The SELECT clause supports [Data Types](iot-sql-data-types.md), [Operators](iot-sql-operators.md), [Functions](iot-sql-functions.md), [Literals](iot-sql-literals.md), [Case Statements](iot-sql-case.md), [JSON Extensions](iot-sql-json.md), [Substitution Templates](iot-substitution-templates.md), and [Nested Object Queries](iot-sql-nested-queries.md)\.
+The SELECT clause supports [Data types](iot-sql-data-types.md), [Operators](iot-sql-operators.md), [Functions](iot-sql-functions.md), [Literals](iot-sql-literals.md), [Case statements](iot-sql-case.md), [JSON extensions](iot-sql-json.md), [Substitution templates](iot-substitution-templates.md), [Nested object queries](iot-sql-nested-queries.md), and [Binary payloads](binary-payloads.md)\.
 
 **FROM**  
 The MQTT message topic filter\. The rule is triggered for each message sent to an MQTT topic that matches the filter specified here\. Required for rules that are triggered by messages that pass through the message broker\. Optional for rules that are only triggered using the [Basic Ingest](iot-basic-ingest.md) feature\. 
 
 **WHERE**  
 Optional\. Adds conditional logic that determines if the actions specified by a rule are carried out\.   
-The WHERE clause supports [Data Types](iot-sql-data-types.md), [Operators](iot-sql-operators.md), [Functions](iot-sql-functions.md), [Literals](iot-sql-literals.md), [Case Statements](iot-sql-case.md), [JSON Extensions](iot-sql-json.md), [Substitution Templates](iot-substitution-templates.md), and [Nested Object Queries](iot-sql-nested-queries.md)\.
+The WHERE clause supports [Data types](iot-sql-data-types.md), [Operators](iot-sql-operators.md), [Functions](iot-sql-functions.md), [Literals](iot-sql-literals.md), [Case statements](iot-sql-case.md), [JSON extensions](iot-sql-json.md), [Substitution templates](iot-substitution-templates.md), and [Nested object queries](iot-sql-nested-queries.md)\.
 
 An example SQL statement looks like this:
 
@@ -36,4 +36,4 @@ If this message is published on the `'a/b'` topic, the rule is triggered and the
 }
 ```
 
-This data is then forwarded to the rule's action, which sends the data for more processing\. For more information about rule actions, see [AWS IoT Rule Actions](iot-rule-actions.md)\.
+This data is then forwarded to the rule's action, which sends the data for more processing\. For more information about rule actions, see [AWS IoT rule actions](iot-rule-actions.md)\.

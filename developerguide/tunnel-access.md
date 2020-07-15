@@ -1,8 +1,8 @@
-# Controlling Access to Tunnels<a name="tunnel-access"></a>
+# Controlling access to tunnels<a name="tunnel-access"></a>
 
 The Secure Tunneling service provides the following service\-specific actions, resources, and condition context keys for use in IAM permission policies\.
 
-## Tunnel Access Prerequisites<a name="tunnel-access-prereq"></a>
+## Tunnel access prerequisites<a name="tunnel-access-prereq"></a>
 + Learn how to secure AWS resources by using [IAM policies](https://docs.aws.amazon.com/IAM/latest/UserGuide/access_controlling.html)\.
 + Learn how to create and evaluate [IAM conditions](      https://docs.aws.amazon.com/IAM/latest/UserGuide/reference_policies_multi-value-conditions.html)\.
 + Learn how to secure AWS resources using [resource tags](https://docs.aws.amazon.com/IAM/latest/UserGuide/access_tags.html)\.
@@ -155,4 +155,4 @@ The `iot:TagResource` policy action grants a principal permission to call `TagRe
 
 The `iot:UntagResource` policy action grants a principal permission to call `UntagResource`\. You can specify a fully qualified tunnel ARN \(`arn:aws:iot:<aws-region>:<aws-account-id>:tunnel/<tunnel-id>`\) or use the wildcard tunnel ARN \(`arn:aws:iot:<aws-region>:<aws-account-id>:tunnel/*`\) in the `Resource` element of the IAM policy statement\.
 
-For more information about AWS IoT security see [Identity and Access Management for AWS IoT](security-iam.md)\.
+For more information about AWS IoT security see [Identity and access management for AWS IoT](security-iam.md)\.
