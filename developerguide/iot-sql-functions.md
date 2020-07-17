@@ -896,7 +896,7 @@ Examples:
 
 ## parse\_time\(String, Long\[, String\]\)<a name="iot-sql-function-parse-time"></a>
 
-Use the `parse_time` function to format a timestamp into a human\-readable date/time format\. Supported by SQL version 2016\-03\-23 and later\.
+Use the `parse_time` function to format a timestamp into a human\-readable date/time format\. Supported by SQL version 2016\-03\-23 and later\. To convert a timestamp string into milliseconds, see [time\_to\_epoch\(String, String\)](#iot-sql-function-time-to-epoch)\.
 
 The `parse_time` function expects the following arguments:
 
@@ -1395,6 +1395,26 @@ Example: `tanh(2.3)` = 0\.9800963962661914
 | Object | Undefined\. | 
 | Null | Undefined\. | 
 | Undefined | Undefined\. | 
+
+## time\_to\_epoch\(String, String\)<a name="iot-sql-function-time-to-epoch"></a>
+
+Use the `time_to_epoch` function to convert a timestamp string into a number of milliseconds in Unix epoch time\. Supported by SQL version 2016\-03\-23 and later\. To convert milliseconds to a formatted timestamp string, see [parse\_time\(String, Long\[, String\]\)](#iot-sql-function-parse-time)\.
+
+The `time_to_epoch` function expects the following arguments:
+
+timestamp  
+\(String\) The timestamp string to be converted to milliseconds since Unix epoch\. If the timestamp string doesn't specify a timezone, the function uses the UTC timezone\.
+
+pattern  
+\(String\) A date/time pattern that follows the [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) standard format\. Specifically, the function supports [Joda\-Time formats](http://www.joda.org/joda-time/apidocs/org/joda/time/format/DateTimeFormat.html)\. 
+
+Examples:
+
+`time_to_epoch("2020-04-03 09:45:18 UTC+01:00", "yyyy-MM-dd HH:mm:ss z")` = 1585903518000
+
+`time_to_epoch("18 December 2015", "dd MMMM yyyy")` = 1450396800000
+
+`time_to_epoch("2007-12-03 10:15:30.592 America/Los_Angeles", "yyyy-MM-dd HH:mm:ss.SSS z")` = 1196705730592
 
 ## timestamp\(\)<a name="iot-function-timestamp"></a>
 
