@@ -18,7 +18,7 @@ This section describes how to manage X\.509 certificates in AWS IoT\. You can us
 + [Activate or deactivate a client certificate](activate-or-deactivate-device-cert.md)
 + [Revoke a client certificate](revoke-ca-cert.md)
 
-For more information about the AWS CLI commands that perform these operations, see [AWS IoT CLI Reference](https://docs.aws.amazon.com/cli/latest/reference/iot/index.html)\.
+For more information about the AWS CLI commands that perform these operations, see [AWS IoT CLI Reference](https://awscli.amazonaws.com/v2/documentation/api/latest/reference/iot/index.html)\.
 
 ## Using X\.509 client certificates<a name="x509-client-cert-basics"></a>
 
@@ -35,7 +35,7 @@ The date and time when certificates signed by a CA certificate expire are set wh
  Multi\-Account Registration makes it possible to move devices between your AWS accounts in the same Region\. With this, you can register, test, and configure a device in a pre\-production account, and then register and use the same device and device certificate in a production account\. You can also [register the client certificate on the device \(the device certificates\) without a CA](manual-cert-registration.md#manual-cert-registration-noca-cli) that is registered with AWS IoT\. 
 
 **Note**  
-Certificates used for Multi\-Account Registration cannot be used on `iot:Jobs` or `iot:CredentialProvider` endpoint types\. For more information about an endpoint, see [describe\-endpoint](https://docs.aws.amazon.com/cli/latest/reference/iot/describe-endpoint.html) or `[DescribeEndpoint](https://docs.aws.amazon.com/iot/latest/apireference/API_DescribeEndpoint.html)`\.
+Certificates used for Multi\-Account Registration cannot be used on `iot:Jobs` or `iot:CredentialProvider` endpoint types\. For more information about an endpoint, see [describe\-endpoint](https://awscli.amazonaws.com/v2/documentation/api/latest/reference/iot/describe-endpoint.html) or `[DescribeEndpoint](https://docs.aws.amazon.com/iot/latest/apireference/API_DescribeEndpoint.html)`\.
 
 Devices that use Multi\-Account Registration must send the [Server Name Indication \(SNI\) extension](https://tools.ietf.org/html/rfc3546#section-3.1) to the Transport Layer Security \(TLS\) protocol and provide the complete endpoint address in the `host_name` field, when they connect to AWS IoT\. AWS IoT uses the endpoint address in `host_name` to route the connection to the correct AWS IoT account\. Existing devices that don't send a valid endpoint address in `host_name` will continue to work, but they will not be able to use the features that require this information\. For more information about the SNI extension and to learn how to identify the endpoint address for the `host_name` field, see [Transport security in AWS IoT](transport-security.md)\. 
 

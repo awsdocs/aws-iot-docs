@@ -32,7 +32,7 @@ After you complete the procedure, install the certificate files on the client\.
 
 ## Create an AWS IoT certificate \(CLI\)<a name="device-certs-create-cli"></a>
 
-The AWS CLI provides the [create\-keys\-and\-certificate](https://docs.aws.amazon.com/cli/latest/reference/iot/create-keys-and-certificate.html) command to create client certificates signed by the Amazon Root certificate authority\. This command, however, does not download the Amazon Root CA certificate file\. You can download the Amazon Root CA certificate file from [CA certificates for server authentication](server-authentication.md#server-authentication-certs)\. 
+The AWS CLI provides the [create\-keys\-and\-certificate](https://awscli.amazonaws.com/v2/documentation/api/latest/reference/iot/create-keys-and-certificate.html) command to create client certificates signed by the Amazon Root certificate authority\. This command, however, does not download the Amazon Root CA certificate file\. You can download the Amazon Root CA certificate file from [CA certificates for server authentication](server-authentication.md#server-authentication-certs)\. 
 
 This command creates private key, public key, and X\.509 certificate files and registers and activates the certificate with AWS IoT\.
 

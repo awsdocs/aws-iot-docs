@@ -38,4 +38,4 @@ Before AWS IoT can perform these actions, you must grant it permission to access
 
 ## Troubleshooting a rule<a name="iot-troubleshoot-rule"></a>
 
-If you are having an issue with your rules, you should enable CloudWatch Logs\. By analyzing your logs, you can determine whether the issue is authorization or whether, for example, a WHERE clause condition did not match\. For more information, see [Setting Up CloudWatchLogs](https://docs.aws.amazon.com/iot/latest/developerguide/cloud-watch-logs.html)\.
+If you have an issue with your rules, you should enable CloudWatch Logs\. You can analyze your logs to determine whether the issue is authorization or whether, for example, a WHERE clause condition didn't match\. For more information, see [Setting Up CloudWatch Logs](https://docs.aws.amazon.com/iot/latest/developerguide/cloud-watch-logs.html)\.

@@ -6,9 +6,9 @@ The WHERE clause supports [Data types](iot-sql-data-types.md), [Operators](iot-s
 
 Example:
 
-Incoming payload published on `a/b`: `{"color":"red", "temperature":40}`\.
+Incoming payload published on `topic/subtopic`: `{"color":"red", "temperature":40}`\.
 
-SQL: `SELECT color AS my_color FROM 'a/b' WHERE temperature > 50 AND color <> 'red'`\.
+SQL: `SELECT color AS my_color FROM 'topic/subtopic' WHERE temperature > 50 AND color <> 'red'`\.
 
 In this case, the rule would be triggered, but the actions specified by the rule would not be performed\. There would be no outgoing payload\.
 

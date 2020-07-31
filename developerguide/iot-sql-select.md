@@ -7,40 +7,40 @@ The SELECT clause supports [Data types](iot-sql-data-types.md), [Operators](iot-
 You can use the SELECT clause to extract information from incoming MQTT messages\. You can also use `SELECT *` to retrieve the entire incoming message payload\. For example:
 
 ```
-Incoming payload published on topic 'a/b': {"color":"red", "temperature":50}
-SQL statement: SELECT * FROM 'a/b'
+Incoming payload published on topic 'topic/subtopic': {"color":"red", "temperature":50}
+SQL statement: SELECT * FROM 'topic/subtopic'
 Outgoing payload: {"color":"red", "temperature":50}
 ```
 
 If the payload is a JSON object, you can reference keys in the object\. Your outgoing payload contains the key\-value pair\. For example:
 
 ```
-Incoming payload published on topic 'a/b': {"color":"red", "temperature":50}
-SQL statement: SELECT color FROM 'a/b'
+Incoming payload published on topic 'topic/subtopic': {"color":"red", "temperature":50}
+SQL statement: SELECT color FROM 'topic/subtopic'
 Outgoing payload: {"color":"red"}
 ```
 
 You can use the AS keyword to rename keys\. For example:
 
 ```
-Incoming payload published on topic 'a/b':{"color":"red", "temperature":50}
-SQL:SELECT color AS my_color FROM 'a/b'
+Incoming payload published on topic 'topic/subtopic':{"color":"red", "temperature":50}
+SQL:SELECT color AS my_color FROM 'topic/subtopic'
 Outgoing payload: {"my_color":"red"}
 ```
 
 You can select multiple items by separating them with a comma\. For example:
 
 ```
-Incoming payload published on topic 'a/b': {"color":"red", "temperature":50}
-SQL: SELECT color as my_color, temperature as fahrenheit FROM 'a/b'
+Incoming payload published on topic 'topic/subtopic': {"color":"red", "temperature":50}
+SQL: SELECT color as my_color, temperature as fahrenheit FROM 'topic/subtopic'
 Outgoing payload: {"my_color":"red","fahrenheit":50}
 ```
 
 You can select multiple items including '\*' to add items to the incoming payload\. For example:
 
 ```
-Incoming payload published on topic 'a/b': {"color":"red", "temperature":50}
-SQL: SELECT *, 15 as speed FROM 'a/b'
+Incoming payload published on topic 'topic/subtopic': {"color":"red", "temperature":50}
+SQL: SELECT *, 15 as speed FROM 'topic/subtopic'
 Outgoing payload: {"color":"red", "temperature":50, "speed":15}
 ```
 
@@ -49,23 +49,23 @@ You can use the `"VALUE"` keyword to produce outgoing payloads that are not JSON
 **Example**  
 
 ```
-Incoming payload published on topic 'a/b': {"color":"red", "temperature":50}
-SQL: SELECT VALUE color FROM 'a/b'
+Incoming payload published on topic 'topic/subtopic': {"color":"red", "temperature":50}
+SQL: SELECT VALUE color FROM 'topic/subtopic'
 Outgoing payload: "red"
 ```
 
 You can use `'.'` syntax to drill into nested JSON objects in the incoming payload\. For example:
 
 ```
-Incoming payload published on topic 'a/b': {"color":{"red":255,"green":0,"blue":0}, "temperature":50}
-SQL: SELECT color.red as red_value FROM 'a/b'
+Incoming payload published on topic 'topic/subtopic': {"color":{"red":255,"green":0,"blue":0}, "temperature":50}
+SQL: SELECT color.red as red_value FROM 'topic/subtopic'
 Outgoing payload: {"red_value":255}
 ```
 
 You can use functions \(see [Functions](iot-sql-functions.md)\) to transform the incoming payload\. You can use parentheses for grouping\. For example:
 
 ```
-Incoming payload published on topic 'a/b': {"color":"red", "temperature":50}
-SQL: SELECT (temperature – 32) * 5 / 9 AS celsius, upper(color) as my_color FROM 'a/b'
+Incoming payload published on topic 'topic/subtopic': {"color":"red", "temperature":50}
+SQL: SELECT (temperature – 32) * 5 / 9 AS celsius, upper(color) as my_color FROM 'topic/subtopic'
 Outgoing payload: {"celsius":10,"my_color":"RED"}
 ```

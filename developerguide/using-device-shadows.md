@@ -14,7 +14,7 @@ These procedures initialize the simulation by opening the [AWS IoT console](http
 
 1. Create an AWS account or, if you already have one to use for this simulation, you can skip this step\.
 
-   You'll need an AWS account to run the examples from this topic on your own\. If you don't have an AWS account, create one, as described in [Setting up](setting-up.md)\.
+   You'll need an AWS account to run the examples from this topic on your own\. If you don't have an AWS account, create one, as described in [Set up your AWS account](setting-up.md)\.
 
 1. Open the [AWS IoT console](https://console.aws.amazon.com/iot/home), and in the left menu, choose **Test** to open the **MQTT client**\.
 

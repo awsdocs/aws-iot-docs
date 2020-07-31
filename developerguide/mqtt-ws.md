@@ -1,6 +1,6 @@
 # MQTT over the WebSocket protocol<a name="mqtt-ws"></a>
 
-AWS IoT Core supports MQTT over the [WebSocket](https://en.wikipedia.org/wiki/WebSocket) protocol to enable browser\-based and remote applications to send and receive data from AWS IoT Core\-connected devices using AWS credentials\. AWS credentials are specified using [AWS Signature Version 4](https://docs.aws.amazon.com/general/latest/gr/sigv4_signing.html)\. WebSocket support is available on TCP port 443, which allows messages to pass through most firewalls and web proxies\.
+AWS IoT Core supports MQTT over the [WebSocket](https://en.wikipedia.org/wiki/WebSocket) protocol to enable browser\-based and remote applications to send and receive data from AWS IoT Core\-connected devices using AWS credentials\. AWS credentials are specified by using [AWS Signature Version 4](https://docs.aws.amazon.com/general/latest/gr/sigv4_signing.html) or by using [Custom authentication](custom-authentication.md)\. WebSocket support is available on TCP port 443, which allows messages to pass through most firewalls and web proxies\.
 
 A WebSocket connection is initiated on a client by sending an HTTP GET request\. The URL you use is of the following form:
 

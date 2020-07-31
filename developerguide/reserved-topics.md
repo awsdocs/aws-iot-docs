@@ -151,3 +151,13 @@ To create a complete topic, select the *ShadowTopicPrefix* for the type of shado
 |  *ShadowTopicPrefix*/update/rejected  |  Subscribe  |  The Device Shadow service sends messages to this topic when an update to a shadow is rejected\. For more information, see [/update/rejected](device-shadow-mqtt.md#update-rejected-pub-sub-topic)\.  | 
 |  *ShadowTopicPrefix*/update/delta  |  Subscribe  |  The Device Shadow service sends messages to this topic when a difference is detected between the reported and desired sections of a shadow\. For more information, see [/update/delta](device-shadow-mqtt.md#update-delta-pub-sub-topic)\.   | 
 |  *ShadowTopicPrefix*/update/documents  |  Subscribe  |  AWS IoT publishes a state document to this topic whenever an update to the shadow is successfully performed\. For more information, see [/update/documents](device-shadow-mqtt.md#update-documents-pub-sub-topic)\.   | 
+
+## Reserved topic ARN<a name="reserved-topicnames-arn"></a>
+
+All reserved topic ARNs \(Amazon Resource Names\) have the following form:
+
+```
+arn:aws:iot:region:AWS-account-ID:topic/Topic
+```
+
+For example, `arn:aws:iot:us-west-2:123EXAMPLE456:topic/$aws/things/thingName/jobs/get/accepted` is an ARN for the reserved topic `$aws/things/thingName/jobs/get/accepted`\.

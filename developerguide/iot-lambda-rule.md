@@ -1,4 +1,4 @@
-# Creating a rule with a AWS Lambda action<a name="iot-lambda-rule"></a>
+# Creating a rule with an AWS Lambda action<a name="iot-lambda-rule"></a>
 
 You can define a rule that calls a Lambda function, passing in data from the MQTT message that triggered the rule\. This allows you to extract data from the incoming message and then call another AWS or third\-party service\. In this tutorial, we assume you have completed the [AWS IoT Getting Started Tutorial](iot-gs.md) in which you create and subscribe to an Amazon SNS topic\. Now you create a Lambda function that publishes a message to the Amazon SNS topic you created in the [AWS IoT Getting Started Tutorial](iot-gs.md)\. You also create a Lambda rule that calls the Lambda function, passing in some data from the MQTT message that triggered the rule\.
 

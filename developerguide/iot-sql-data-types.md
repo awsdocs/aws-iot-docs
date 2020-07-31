@@ -13,7 +13,7 @@ The AWS IoT rules engine supports all JSON data types\.
 | String | A UTF\-8 string\. | 
 | Array | A series of values that don't have to have the same type\. | 
 | Object | A JSON value consisting of a key and a value\. Keys must be strings\. Values can be any type\. | 
-| Null | Null as defined by JSON\. It's an actual value that represents the absence of a value\. You can explicitly create a Null value by using the Null keyword in your SQL statement\. For example: "SELECT NULL AS n FROM 'a/b'"  | 
+| Null | Null as defined by JSON\. It's an actual value that represents the absence of a value\. You can explicitly create a Null value by using the Null keyword in your SQL statement\. For example: "SELECT NULL AS n FROM 'topic/subtopic'"  | 
 | Undefined |  Not a value\. This isn't explicitly representable in JSON except by omitting the value\. For example, in the object `{"foo": null}`, the key "foo" returns NULL, but the key "bar" returns `Undefined`\. Internally, the SQL language treats `Undefined` as a value, but it isn't representable in JSON, so when serialized to JSON, the results are `Undefined`\. <pre> {"foo":null, "bar":undefined} </pre> is serialized to JSON as: <pre> {"foo":null}</pre> Similarly, `Undefined` is converted to an empty string when serialized by itself\. Functions called with invalid arguments \(for example, wrong types, wrong number of arguments, and so on\) return `Undefined`\.   | 
 
 ## Conversions<a name="iot-sql-conversions"></a>

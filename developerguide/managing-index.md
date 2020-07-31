@@ -129,7 +129,7 @@ aws iot get\-indexing\-configuration
         "thingIndexingMode": "REGISTRY_AND_SHADOW",
         "managedFields": [
             {
-                "name": "shadow.hasDelta",
+                "name": "shadow.delta",
                 "type": "Boolean"
             },
             {
@@ -243,7 +243,7 @@ The output of these commands is:
             },
             {
                 "type": "Boolean",
-                "name": "shadow.hasDelta"
+                "name": "shadow.delta"
             },
             {
                 "type": "Number",
@@ -276,7 +276,7 @@ aws iot update\-indexing\-configuration \-\-thing\-indexing\-configuration 'thin
 This command added `shadow.desired.intensity` to the indexing configuration\.
 
 **Note**  
-Updating the custom fields inindexing configuration overwrites all existing custom fields\. Make sure to specify all custom fields when calling update\-indexing\-configuration\.
+Updating the custom fields indexing configuration overwrites all existing custom fields\. Make sure to specify all custom fields when calling update\-indexing\-configuration\.
 
 After the index is rebuilt you can, use aggregation query on the newly added fields, search registry data, shadow data, and thing connectivity status data\.
 

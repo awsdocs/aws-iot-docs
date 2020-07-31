@@ -1,12 +1,17 @@
-# Setting up<a name="setting-up"></a>
+# Set up your AWS account<a name="setting-up"></a>
 
-Before you use AWS IoT Core for the first time, you will need to complete a few tasks:
-+ [Sign up for AWS](#aws-registration)
-+ [Create an IAM user](#create-iam-user)
+Before you use AWS IoT Core for the first time, complete the following tasks:
++ [Sign up for an AWS account](#aws-registration)
++ [Create a user and grant permissions](#create-iam-user)
++ [Open the AWS IoT console](#iot-console-signin)
 
-## Sign up for AWS<a name="aws-registration"></a>
+If you already have an AWS account and an IAM user for yourself, you can use them and skip ahead to [Open the AWS IoT console](#iot-console-signin)\.
 
-When you sign up for AWS, your account is automatically signed up for all services in AWS, including AWS IoT Device Defender\. If you have an AWS account already, skip to the next task\. If you don't have an AWS account, use the following procedure to create one\.
+## Sign up for an AWS account<a name="aws-registration"></a>
+
+When you sign up for AWS, your account is automatically signed up for all services in AWS\. If you have an AWS account already, skip this procedure\. If you don't have an AWS account, use the following procedure to create one\.
+
+You can expect to spend about 5 minutes setting up your AWS account\.
 
 If you do not have an AWS account, complete the following steps to create one\.
 
@@ -18,11 +23,12 @@ If you do not have an AWS account, complete the following steps to create one\.
 
    Part of the sign\-up procedure involves receiving a phone call and entering a verification code on the phone keypad\.
 
-Note your AWS account number, because you need it for the next task\.
+**Note**  
+Save your AWS account number, because you need it for the next task\.
 
-## Create an IAM user<a name="create-iam-user"></a>
+## Create a user and grant permissions<a name="create-iam-user"></a>
 
-This procedure describes how to create a IAM user for yourself and add that user to a group that has administrative permissions from an attached managed policy\.
+This procedure describes how to create an IAM user for yourself and add that user to a group that has administrative permissions from an attached managed policy\. IAM is the AWS service that manages users of and access to AWS resources\. You must do this so that you can create the AWS IoT resources in your account and grant them permission to do what they need to do\.
 
 **To create an administrator user for yourself and add the user to an administrators group \(console\)**
 
@@ -61,3 +67,7 @@ You must activate IAM user and role access to Billing before you can use the `Ad
 1. Choose **Next: Review** to see the list of group memberships to be added to the new user\. When you are ready to proceed, choose **Create user**\.
 
 You can use this same process to create more groups and users and to give your users access to your AWS account resources\. To learn about using policies that restrict user permissions to specific AWS resources, see [Access Management](https://docs.aws.amazon.com/IAM/latest/UserGuide/access.html) and [Example Policies](https://docs.aws.amazon.com/IAM/latest/UserGuide/access_policies_examples.html)\.
+
+## Open the AWS IoT console<a name="iot-console-signin"></a>
+
+Most of the console\-oriented topics in this section start from the [AWS IoT console](https://console.aws.amazon.com/iot/home)\. If you aren't already signed in to your AWS account, sign in, then open the [AWS IoT console](https://console.aws.amazon.com/iot/home) and continue to the next section to continue getting started with AWS IoT\.

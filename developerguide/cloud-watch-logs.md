@@ -8,13 +8,13 @@ For more information about CloudWatch Logs, see [CloudWatch Logs](https://docs.a
 
 **To view your AWS IoT logs in the CloudWatch console**
 
-1.  Browse to [https://console\.aws\.amazon\.com/cloudwatch/](https://console.aws.amazon.com/cloudwatch/)\. In the navigation pane, choose **Logs**\.
+1.  Browse to [https://console\.aws\.amazon\.com/cloudwatch/](https://console.aws.amazon.com/cloudwatch/)\. In the navigation pane, choose **Log groups**\.
 
 1. In the **Filter** text box, enter **AWSIotLogsV2** , and then press Enter\.
 
 1. Double\-click the `AWSIotLogsV2` log group\.
 
-1. Choose **Search Log Group**\. A complete list of the AWS IoT logs generated for your account is displayed\.
+1. Choose **Search All**\. A complete list of the AWS IoT logs generated for your account is displayed\.
 
 1. Choose the expand icon to look at an individual stream\.
 

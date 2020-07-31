@@ -23,10 +23,10 @@ These SDKs help you develop AWS IoT apps on mobile devices\.
 + [AWS Mobile SDK for Android](#iot-android-sdk)
 + [AWS Mobile SDK for iOS](#iot-ios-sdk)
 
-**Deprecated SDKs**
+**Earlier SDK versions**
 
-These are earlier SDKs that have been replaced by newer versions\. Deprecated SDKs are not be updated to include new features and should not be used on new projects\.
-+ [Deprecated SDKs](#deprecated-sdk)
+These are earlier SDKs that have been replaced by newer versions\. These SDK versions are not be updated to include new features and should not be used on new projects\.
++ [Earlier SDK versions](#earlier-sdks)
 
 For the AWS SDKs used to access AWS APIs, see [AWS SDKs and Tools](http://aws.amazon.com/tools/#sdk)\.
 
@@ -74,19 +74,19 @@ In general, the AWS IoT Device SDK for Embedded C is intended for systems that u
 
 The AWS SDK for Android contains a library, samples, and documentation for developers to build connected mobile applications using AWS\. This SDK also includes support for calling AWS IoT APIs\. For more information, see the following:
 + [AWS Mobile SDK for Android on GitHub](https://github.com/aws/aws-sdk-android)
-+ [AWS Mobile SDK for Android Readme](https://github.com/aws/aws-sdk-android/blob/master/README.md)
++ [AWS Mobile SDK for Android Readme](https://github.com/aws/aws-sdk-android/blob/main/README.md)
 + [AWS Mobile SDK for Android Samples](https://github.com/awslabs/aws-sdk-android-samples)
 
 ## AWS Mobile SDK for iOS<a name="iot-ios-sdk"></a>
 
 The AWS SDK for iOS is an open\-source software development kit, distributed under an Apache Open Source license\. The SDK for iOS provides a library, code samples, and documentation to help developers build connected mobile applications using AWS\. This SDK also includes support for calling the AWS IoT API\.
 + [AWS SDK for iOS on GitHub](https://github.com/aws/aws-sdk-ios)
-+ [AWS SDK for iOS Readme](https://github.com/aws/aws-sdk-ios/blob/master/README.md)
-+ [AWS SDK for iOS Samples](https://github.com/aws/aws-sdk-ios/blob/master/README.md#iot-sample-swift)
++ [AWS SDK for iOS Readme](https://github.com/aws/aws-sdk-ios/blob/main/README.md)
++ [AWS SDK for iOS Samples](https://github.com/aws/aws-sdk-ios/blob/main/README.md#iot-sample-swift)
 
-## Deprecated SDKs<a name="deprecated-sdk"></a>
+## Earlier SDK versions<a name="earlier-sdks"></a>
 
-These SDKs have been deprecated and will receive only maintenance and security updates\. They will not be updated to include new features\.
+These SDKs are receiving only maintenance and security updates\. They will not be updated to include new features\.
 + [AWS IoT C\+\+ Device SDK on GitHub](https://github.com/aws/aws-iot-device-sdk-cpp/tree/release)
 + [AWS IoT C\+\+ Device SDK Readme](https://github.com/aws/aws-iot-device-sdk-cpp/blob/release/README.md)
 + [AWS IoT Device SDK for Python v1 on GitHub](https://github.com/aws/aws-iot-device-sdk-python)

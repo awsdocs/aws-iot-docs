@@ -7,7 +7,7 @@ You can use the following extensions to ANSI SQL syntax to make it easier to wor
 This operator accesses members in embedded JSON objects and functions identically to ANSI SQL and JavaScript\. For example: 
 
 ```
-SELECT foo.bar AS bar.baz FROM 'a/b'
+SELECT foo.bar AS bar.baz FROM 'topic/subtopic'
 ```
 
  `*` Operator
@@ -15,7 +15,7 @@ SELECT foo.bar AS bar.baz FROM 'a/b'
 This functions in the same way as the `*` wildcard in ANSI SQL\. It's used in the SELECT clause only and creates a new JSON object containing the message data\. If the message payload is not in JSON format, `*` returns the entire message payload as raw bytes\. For example: 
 
 ```
-SELECT * FROM 'a/b'
+SELECT * FROM 'topic/subtopic'
 ```
 
 **Applying a Function to an Attribute Value**  

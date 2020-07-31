@@ -9,7 +9,7 @@ If you want apps and services to be able to determine whether a device is connec
 **Important**  
 Because MQTT uses a publish/subscribe communication model, you must subscribe to the response topics *before* publishing a request topic\. If you don't, you won't receive the response to the request that you publish\.
 
-The examples in this section use an abbreviated form of the topic where the *ShadowTopicPrefix* can refer to either a named or an unnamed shadow, as described in this table\. can refer to either a named or an unnamed shadow as described in this table:
+The examples in this section use an abbreviated form of the topic where the *ShadowTopicPrefix* can refer to either a named or an unnamed shadow, as described in this table\.
 
 Shadows can be named or unnamed \(classic\)\. The topics used by each differ only in the topic prefix\. This table shows the topic prefix used by each shadow type\.
 
@@ -29,9 +29,6 @@ Make sure that your app's or service's use of the shadows is consistent and supp
 To create a complete topic, select the `ShadowTopicPrefix` for the type of shadow to which you want to refer, replace `thingName`, and `shadowName` if applicable, with their corresponding values, and then append that with the topic stub as shown in the following table\. Remember that topics are case sensitive\.
 
 See [Shadow topics](reserved-topics.md#reserved-topics-shadow) for more information about the reserved topics for shadows\.
-
-**Important**  
-You should make sure that your app's or service's use of the shadows is consistent and supported by the corresponding implementations in your devices\. You should consider, for example, how shadows are created, updated, and deleted and how updates are handled in the device and the apps or services that access it through a shadow\. Your design should be clear about how the device's state is updated and reported and how your apps and services interact with the device and its shadows\.
 
 ## Initializing the device on first connection to AWS IoT<a name="device-shadow-comms-device-first-connect"></a>
 

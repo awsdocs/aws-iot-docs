@@ -70,11 +70,12 @@ The following section describes how to use a certificate to get a security token
 
 1. Create an AWS IoT Core role alias\. The device that is going to make direct calls to AWS services must know which role ARN to use when connecting to AWS IoT Core\. Hard\-coding the role ARN is not a good solution because it requires you to update the device whenever the role ARN changes\. A better solution is to use the `CreateRoleAlias` API to create a role alias that points to the role ARN\. If the role ARN changes, you simply update the role alias\. No change is required on the device\. This API takes the following parameters:  
 `roleAlias`  
-Mandatory\. An arbitrary string that identifies the role alias\. It serves as the primary key in the role alias data model\. It contains 1\-128 characters and must include only alphanumeric characters and the =, @, and \- symbols\. Uppercase and lowercase alphabetic characters are allowed\.  
+Required\. An arbitrary string that identifies the role alias\. It serves as the primary key in the role alias data model\. It contains 1\-128 characters and must include only alphanumeric characters and the =, @, and \- symbols\. Uppercase and lowercase alphabetic characters are allowed\.  
 `roleArn`  
-Mandatory\. The ARN of the role to which the role alias refers\.  
+Required\. The ARN of the role to which the role alias refers\.  
 `credentialDurationInSeconds`  
-Optional\. How long \(in seconds\) the credential is valid\. The minimum value is 900 seconds \(15 minutes\)\. The maximum value is 3,600 seconds \(60 minutes\)\. The default value is 3,600 seconds\.
+Optional\. How long \(in seconds\) the credential is valid\. The minimum value is 900 seconds \(15 minutes\)\. The maximum value is 3,600 seconds \(60 minutes\)\. The default value is 3,600 seconds\.   
+Although the credential lifetime specified in the IAM role can be longer, when AWS IoT Core Credential Provider issues the credential, its maximum lifetime is 3,600 seconds \(60 minutes\)\.
 
    For more information about this API, see [CreateRoleAlias](https://docs.aws.amazon.com/iot/latest/apireference/API_CreateRoleAlias.html)\. 
 
@@ -114,7 +115,7 @@ Optional\. How long \(in seconds\) the credential is valid\. The minimum value i
 
    curl ‐‐cert *your certificate* \-\-key *your device certificate key pair* \-H "x\-amzn\-iot\-thingname: *your thing name*" \-\-cacert AmazonRootCA1\.pem https://*your endpoint* /role\-aliases/*your role alias*/credentials
 
-   This command returns a security token object that contains an `accessKeyId`, a `secretAccessKey`, a `sessionToken`, and an expiration\. The following JSON object is sample output of the `curl`command\.
+   This command returns a security token object that contains an `accessKeyId`, a `secretAccessKey`, a `sessionToken`, and an expiration\. The following JSON object is sample output of the `curl` command\.
 
    ```
        {"credentials":{"accessKeyId":"access key","secretAccessKey":"secret access key","sessionToken":"session token","expiration":"2018-01-18T09:18:06Z"}}

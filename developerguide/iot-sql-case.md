@@ -13,9 +13,9 @@ CASE v WHEN t[1] THEN r[1]
 
 The expression `v` is evaluated and matched for equality against each `t[i]` expression\. If a match is found, the corresponding `r[i]` expression becomes the result of the case statement\. If there is more than one possible match, the first match is selected\. If there are no matches, the else statement's `re` is used as the result\. If there is no match and no else statement, the result of the case statement is `Undefined`\. For example:
 
-Incoming payload published on topic `a/b`: `{"color":"yellow"}` 
+Incoming payload published on topic `topic/subtopic`: `{"color":"yellow"}` 
 
-SQL statement: `SELECT CASE color WHEN 'green' THEN 'go' WHEN 'yellow' THEN 'caution' WHEN 'red' THEN 'stop' ELSE 'you are not at a stop light' END as instructions FROM 'a/b'`
+SQL statement: `SELECT CASE color WHEN 'green' THEN 'go' WHEN 'yellow' THEN 'caution' WHEN 'red' THEN 'stop' ELSE 'you are not at a stop light' END as instructions FROM 'topic/subtopic'`
 
 The resulting output payload would be: `{"instructions":"caution"}`\.
 

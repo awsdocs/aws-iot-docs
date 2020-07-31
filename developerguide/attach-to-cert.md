@@ -39,7 +39,7 @@ The policy object should now appear in the list of policies on the certificate's
 
 ## Attach a thing to a client certificate \(CLI\)<a name="attach-to-cert-thing-cli"></a>
 
-The AWS CLI provides the [https://docs.aws.amazon.com/cli/latest/reference/iot/attach-thing-principal.html](https://docs.aws.amazon.com/cli/latest/reference/iot/attach-thing-principal.html) command to attach a thing object to a certificate\.
+The AWS CLI provides the [https://awscli.amazonaws.com/v2/documentation/api/latest/reference/iot/attach-thing-principal.html](https://awscli.amazonaws.com/v2/documentation/api/latest/reference/iot/attach-thing-principal.html) command to attach a thing object to a certificate\.
 
 ```
 aws iot attach-thing-principal \
@@ -49,7 +49,7 @@ aws iot attach-thing-principal \
 
 ## Attach a policy to a client certificate \(CLI\)<a name="attach-to-cert-policy-cli"></a>
 
-The AWS CLI provides the [https://docs.aws.amazon.com/cli/latest/reference/iot/attach-policy.html](https://docs.aws.amazon.com/cli/latest/reference/iot/attach-policy.html) command to attach a policy object to a certificate\.
+The AWS CLI provides the [https://awscli.amazonaws.com/v2/documentation/api/latest/reference/iot/attach-policy.html](https://awscli.amazonaws.com/v2/documentation/api/latest/reference/iot/attach-policy.html) command to attach a policy object to a certificate\.
 
 ```
 aws iot attach-policy \

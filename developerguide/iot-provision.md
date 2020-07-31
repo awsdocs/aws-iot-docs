@@ -3,7 +3,7 @@
 When you provision a device with AWS IoT, you must create resources so your devices and AWS IoT can communicate securely\. Other resources can be created to help you manage your device fleet\. The following resources can be created during the provisioning process: 
 + An IoT thing\.
 
-  IoT things are entries in the AWS IoT device registry\. Each thing has a unique name and set of attributes, and is associated with a physical device\. Things can be defined using a thing type or grouped into thing groups\. For more information, see [Managing devices with AWS IoT ](iot-thing-management.md)\.
+  IoT things are entries in the AWS IoT device registry\. Each thing has a unique name and set of attributes, and is associated with a physical device\. Things can be defined using a thing type or grouped into thing groups\. For more information, see [Managing devices with AWS IoT](iot-thing-management.md)\.
 
    Although not required, creating a thing makes it possible to manage your device fleet more effectively by searching for devices by thing type, thing group, and thing attributes\. For more information, see [Fleet indexing service](iot-indexing.md)\.
 + An X\.509 certificate\.

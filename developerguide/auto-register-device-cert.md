@@ -21,7 +21,7 @@ The auto\-registration status is not shown in the list of certificate authoritie
 
 ## Configure a CA certificate to support automatic registration \(CLI\)<a name="enable-auto-registration-cli"></a>
 
-If you have already registered your CA certificate with AWS IoT, use the [https://docs.aws.amazon.com/cli/latest/reference/iot/update-ca-certificate.html](https://docs.aws.amazon.com/cli/latest/reference/iot/update-ca-certificate.html) command to set `autoRegistrationStatus` of the CA certificate to `ENABLE`\.
+If you have already registered your CA certificate with AWS IoT, use the [https://awscli.amazonaws.com/v2/documentation/api/latest/reference/iot/update-ca-certificate.html](https://awscli.amazonaws.com/v2/documentation/api/latest/reference/iot/update-ca-certificate.html) command to set `autoRegistrationStatus` of the CA certificate to `ENABLE`\.
 
 ```
 aws iot update-ca-certificate \
@@ -29,7 +29,7 @@ aws iot update-ca-certificate \
 --new-auto-registration-status ENABLE
 ```
 
-If you want to enable `autoRegistrationStatus` when you register the CA certificate, use the [https://docs.aws.amazon.com/cli/latest/reference/iot/register-ca-certificate.html](https://docs.aws.amazon.com/cli/latest/reference/iot/register-ca-certificate.html) command\.
+If you want to enable `autoRegistrationStatus` when you register the CA certificate, use the [https://awscli.amazonaws.com/v2/documentation/api/latest/reference/iot/register-ca-certificate.html](https://awscli.amazonaws.com/v2/documentation/api/latest/reference/iot/register-ca-certificate.html) command\.
 
 ```
 aws iot register-ca-certificate \
@@ -38,7 +38,7 @@ aws iot register-ca-certificate \
 --verification-cert file://verification_cert_pem_filename
 ```
 
-Use the [https://docs.aws.amazon.com/cli/latest/reference/iot/describe-ca-certificate.html](https://docs.aws.amazon.com/cli/latest/reference/iot/describe-ca-certificate.html) command to see the status of the CA certificate\.
+Use the [https://awscli.amazonaws.com/v2/documentation/api/latest/reference/iot/describe-ca-certificate.html](https://awscli.amazonaws.com/v2/documentation/api/latest/reference/iot/describe-ca-certificate.html) command to see the status of the CA certificate\.
 
 ## Configure the first connection by a client for automatic registration<a name="configure-auto-reg-first-connect"></a>
 

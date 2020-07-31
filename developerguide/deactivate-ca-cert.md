@@ -26,7 +26,7 @@ The AWS IoT console does not provide a way to list the certificates that were si
 
 ## Deactivate a CA certificate \(CLI\)<a name="deactivate-ca-cert-cli"></a>
 
-The AWS CLI provides the [https://docs.aws.amazon.com/cli/latest/reference/iot/update-ca-certificate.html](https://docs.aws.amazon.com/cli/latest/reference/iot/update-ca-certificate.html) command to deactivate a CA certificate\.
+The AWS CLI provides the [https://awscli.amazonaws.com/v2/documentation/api/latest/reference/iot/update-ca-certificate.html](https://awscli.amazonaws.com/v2/documentation/api/latest/reference/iot/update-ca-certificate.html) command to deactivate a CA certificate\.
 
 ```
 aws iot update-ca-certificate \
@@ -34,6 +34,6 @@ aws iot update-ca-certificate \
     --new-status INACTIVE
 ```
 
-Use the [https://docs.aws.amazon.com/cli/latest/reference/iot/list-certificates-by-ca.html](https://docs.aws.amazon.com/cli/latest/reference/iot/list-certificates-by-ca.html) command to get a list of all registered client certificates that were signed by the specified CA\. For each client certificate signed by the specified CA certificate, use the [https://docs.aws.amazon.com/cli/latest/reference/iot/update-certificate.html](https://docs.aws.amazon.com/cli/latest/reference/iot/update-certificate.html) command to revoke the client certificate to prevent it from being used\.
+Use the [https://awscli.amazonaws.com/v2/documentation/api/latest/reference/iot/list-certificates-by-ca.html](https://awscli.amazonaws.com/v2/documentation/api/latest/reference/iot/list-certificates-by-ca.html) command to get a list of all registered client certificates that were signed by the specified CA\. For each client certificate signed by the specified CA certificate, use the [https://awscli.amazonaws.com/v2/documentation/api/latest/reference/iot/update-certificate.html](https://awscli.amazonaws.com/v2/documentation/api/latest/reference/iot/update-certificate.html) command to revoke the client certificate to prevent it from being used\.
 
-Use the [https://docs.aws.amazon.com/cli/latest/reference/iot/describe-ca-certificate.html](https://docs.aws.amazon.com/cli/latest/reference/iot/describe-ca-certificate.html) command to see the status of the CA certificate\.
+Use the [https://awscli.amazonaws.com/v2/documentation/api/latest/reference/iot/describe-ca-certificate.html](https://awscli.amazonaws.com/v2/documentation/api/latest/reference/iot/describe-ca-certificate.html) command to see the status of the CA certificate\.

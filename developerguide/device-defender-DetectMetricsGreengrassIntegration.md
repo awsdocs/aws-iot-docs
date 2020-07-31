@@ -3,13 +3,41 @@
 AWS IoT Device Defender can be used with AWS IoT Greengrass\. Device agent integration follows the standard AWS IoT Greengrass Lambda function deployment model, allowing you to add AWS IoT Device Defender security to your AWS IoT Greengrass core devices\. Follow these steps to integrate a device agent\.
 
 Prerequisites:
-+ Set up your AWS IoT Greengrass environment\.
-+ Configure and run your AWS IoT Greengrass core\.
++ Set up your AWS IoT Greengrass environment\. See, [Environment setup for AWS IoT Greengrass](https://docs.aws.amazon.com/greengrass/latest/developerguide/module1.html)\.
++ Configure and run your AWS IoT Greengrass core\. See, [Installing the AWS IoT AWS IoT Greengrass Core software](https://docs.aws.amazon.com/greengrass/latest/developerguide/module2.html)\. 
 + Ensure you can successfully deploy and run a Lambda function on your AWS IoT Greengrass core\.
 
 In general, the process described here follows the [Create and Package a Lambda Function](https://docs.aws.amazon.com/greengrass/latest/developerguide/create-lambda.html) section in the *AWS IoT Greengrass Developer Guide*\.
 
+**To use AWS IoT Greengrass Connector**
+
+The AWS IoT Device Defender AWS IoT Greengrass Connector provides the most streamlined and automated means of deploying the Device Defender agent to your AWS IoT Greengrass core, and is the recommended method of using Device Defender with AWS IoT Greengrass\.
+
+For more information about using AWS IoT Greengrass Connectors, see [Getting started with AWS IoT Greengrass connectors](https://docs.aws.amazon.com/greengrass/latest/developerguide/connectors-console.html)\. For more information about configuring the Device Defender Connector, see [ Device Defender connector](https://docs.aws.amazon.com/greengrass/latest/developerguide/device-defender-connector.html)\.
+
+1. Create a local resource to allow your Lambda to collect metrics from the AWS IoT Greengrass Core host by following [Access local resources with Lambda functions and connectors](https://docs.aws.amazon.com/greengrass/latest/developerguide/access-local-resources.html)\. Use the following paramaters:
+   + Resource Name: `Core_Proc`
+   + Type: `Volume`
+   + Source Path: `/proc`
+   + Destination Path: `/host_proc` \(make sure the same value is configured for the `PROCFS_PATH` environment variable above\)
+   + Group owner file access permission: select "Automatically add OS group permissions of the Linux group that owns the resource"
+   + Associate the resource with your metrics Lambda\.
+
+1. From the detail page of your AWS IoT Greengrass Group, select **Connectors** in the left\-hand menu\.
+
+1. Select **Add a Connector**\.
+
+1. In the **Select a connector** screen, select the **Device Defender** connector from the list and choose **Next**\.
+
+1. On the **Configure parameters** screen, select the resource you created in Step 1 in the **Resource for `/proc`** box\.
+
+1. In the **Metrics reporting interval** box, enter 300 or larger if you want to use a longer reporting interval\.
+
+1. Select **Add**\.
+
 **To create a Lambda package**
+**Note**  
+Due to platform\-specific binary extensions in the psutil package, this process should be performed on the platform where you plan to deploy your Lambda\.
 
 1. Clone the AWS IoT Device Defender Python samples repository\.
 
@@ -87,11 +115,11 @@ In general, the process described here follows the [Create and Package a Lambda 
    zip -r greengrass_defender_metrics_lambda.zip *
    ```
 
-**To configure and deploy your AWS IoT Greengrass Lambda function**
+**To configure and deploy your AWS IoT AWS IoT Greengrass Lambda function**
 
 1. [Upload your lambda zip file](https://docs.aws.amazon.com/greengrass/latest/developerguide/package.html)\. 
 
-1. Select the Python 2\.7 runtime, and in the Handler field, enter `greengrass_defender_agent.function_handler`\.
+1. Select the Python 3\.7 runtime, and in the Handler field, enter `greengrass_defender_agent.function_handler`\.
 
 1. [Configure your Lambda function as a long\-lived Lambda function](https://docs.aws.amazon.com/greengrass/latest/developerguide/long-lived.html)\.
 
@@ -103,10 +131,10 @@ In general, the process described here follows the [Create and Package a Lambda 
      + Type: `Volume`
      + Source Path: `/proc`
      + Destination Path: `/host_proc`
-     + Group owner file access permission: Automatically add OS group permissions of the Linux group that owns the resource
+     + Group owner file access permission: "Automatically add OS group permissions of the Linux group that owns the resource"
      + Associate the resource with your metrics Lambda function\.
 
-1. Deploy your Lambda function to your AWS IoT Greengrass group\. 
+1. [Deploy cloud configurations to a AWS IoT Greengrass core device](https://docs.aws.amazon.com/greengrass/latest/developerguide/configs-core.html)\.
 
 **To review your AWS IoT Device Defender device metrics using the AWS IoT console**
 

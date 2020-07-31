@@ -87,7 +87,7 @@ This section describes how use the AWS IoT console to configure logging for all 
 
 **To use the AWS IoT console to configure default logging for all of AWS IoT**
 
-1. Sign in to the AWS IoT console\. For more information, see [Sign in to the AWS IoT console](iot-console-signin.md)\.
+1. Sign in to the AWS IoT console\. For more information, see [Open the AWS IoT console](setting-up.md#iot-console-signin)\.
 
 1. In the left navigation pane, choose **Settings**\. In the **Logs** section of the **Settings** page, choose **Edit**\. 
 
@@ -115,7 +115,7 @@ You can also perform this procedure with the API by using the methods in the AWS
 
 **To use the CLI to configure default logging for AWS IoT**
 
-1. Use the [https://docs.aws.amazon.com/cli/latest/reference/iot/set-v2-logging-options.html](https://docs.aws.amazon.com/cli/latest/reference/iot/set-v2-logging-options.html) command to set the logging options for your account\.
+1. Use the [https://awscli.amazonaws.com/v2/documentation/api/latest/reference/iot/set-v2-logging-options.html](https://awscli.amazonaws.com/v2/documentation/api/latest/reference/iot/set-v2-logging-options.html) command to set the logging options for your account\.
 
    ```
    aws iot set-v2-logging-options \
@@ -133,7 +133,7 @@ An optional parameter that enables all AWS IoT logging\. Use this parameter to e
 \-\-disable\-all\-logs  
 An optional parameter that disables all AWS IoT logging\. Use this parameter to disable logging when it is currently enabled\.
 
-1. Use the [https://docs.aws.amazon.com/cli/latest/reference/iot/get-v2-logging-options.html](https://docs.aws.amazon.com/cli/latest/reference/iot/get-v2-logging-options.html) command to get your current logging options\.
+1. Use the [https://awscli.amazonaws.com/v2/documentation/api/latest/reference/iot/get-v2-logging-options.html](https://awscli.amazonaws.com/v2/documentation/api/latest/reference/iot/get-v2-logging-options.html) command to get your current logging options\.
 
    ```
    aws iot get-v2-logging-options
@@ -158,7 +158,7 @@ You can also perform this procedure with the API by using the methods in the AWS
 
 **To use the CLI to configure resource\-specific logging for AWS IoT**
 
-1. Use the [https://docs.aws.amazon.com/cli/latest/reference/iot/set-v2-logging-options.html](https://docs.aws.amazon.com/cli/latest/reference/iot/set-v2-logging-options.html) command to set the logging options for your account\.
+1. Use the [https://awscli.amazonaws.com/v2/documentation/api/latest/reference/iot/set-v2-logging-options.html](https://awscli.amazonaws.com/v2/documentation/api/latest/reference/iot/set-v2-logging-options.html) command to set the logging options for your account\.
 
    ```
    aws iot set-v2-logging-options \
@@ -176,7 +176,7 @@ An optional parameter that enables all AWS IoT logging\. Use this parameter to e
 \-\-disable\-all\-logs  
 An optional parameter that disables all AWS IoT logging\. Use this parameter to disable logging when it is currently enabled\.
 
-1. Use the [https://docs.aws.amazon.com/cli/latest/reference/iot/set-v2-logging-level.html](https://docs.aws.amazon.com/cli/latest/reference/iot/set-v2-logging-level.html) command to configure resource\-specific logging for a thing group\.
+1. Use the [https://awscli.amazonaws.com/v2/documentation/api/latest/reference/iot/set-v2-logging-level.html](https://awscli.amazonaws.com/v2/documentation/api/latest/reference/iot/set-v2-logging-level.html) command to configure resource\-specific logging for a thing group\.
 
    ```
    aws iot set-v2-logging-level \
@@ -194,13 +194,13 @@ The type and name of the resource for which you are configuring logging\. The `t
 \-\-log\-level  
 The logging level used when generating logs for the specified resource\. Valid values are: DEBUG, INFO, ERROR, WARN, and DISABLED 
 
-1. Use the [https://docs.aws.amazon.com/cli/latest/reference/iot/list-v2-logging-levels.html](https://docs.aws.amazon.com/cli/latest/reference/iot/list-v2-logging-levels.html) command to list the currently configured logging levels\.
+1. Use the [https://awscli.amazonaws.com/v2/documentation/api/latest/reference/iot/list-v2-logging-levels.html](https://awscli.amazonaws.com/v2/documentation/api/latest/reference/iot/list-v2-logging-levels.html) command to list the currently configured logging levels\.
 
    ```
    aws iot list-v2-logging-levels
    ```
 
-1. Use the [https://docs.aws.amazon.com/cli/latest/reference/iot/delete-v2-logging-levels.html](https://docs.aws.amazon.com/cli/latest/reference/iot/delete-v2-logging-levels.html) command to delete a resource\-specific logging level\.
+1. Use the [https://awscli.amazonaws.com/v2/documentation/api/latest/reference/iot/delete-v2-logging-levels.html](https://awscli.amazonaws.com/v2/documentation/api/latest/reference/iot/delete-v2-logging-levels.html) command to delete a resource\-specific logging level\.
 
    ```
    aws iot delete-v2-logging-level \

@@ -77,7 +77,7 @@ The client certificates that are registered successfully appear in the list of c
 **Note**  
 Before you perform this procedure, make sure that you have the certificate authority \(CA\) \.pem and the client certificate's \.pem file\. The client certificate must be signed by a certificate authority \(CA\) that you have [registered with AWS IoT](register-CA-cert.md)\.
 
-Use the [https://docs.aws.amazon.com/cli/latest/reference/iot/register-certificate.html](https://docs.aws.amazon.com/cli/latest/reference/iot/register-certificate.html) command to register, but not activate, a client certificate\.
+Use the [https://awscli.amazonaws.com/v2/documentation/api/latest/reference/iot/register-certificate.html](https://awscli.amazonaws.com/v2/documentation/api/latest/reference/iot/register-certificate.html) command to register, but not activate, a client certificate\.
 
 ```
 aws iot register-certificate \
@@ -103,7 +103,7 @@ For more information about activating the certificate so that it can be used to 
 **Note**  
 Before you perform this procedure, make sure that you have the certificate's \.pem file\.
 
-Use the [https://docs.aws.amazon.com/cli/latest/reference/iot/register-certificate-without-ca.html](https://docs.aws.amazon.com/cli/latest/reference/iot/register-certificate-without-ca.html) command to register, but not activate, a client certificate\.
+Use the [https://awscli.amazonaws.com/v2/documentation/api/latest/reference/iot/register-certificate-without-ca.html](https://awscli.amazonaws.com/v2/documentation/api/latest/reference/iot/register-certificate-without-ca.html) command to register, but not activate, a client certificate\.
 
 ```
 aws iot register-certificate-without-ca \

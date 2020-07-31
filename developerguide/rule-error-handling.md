@@ -10,7 +10,7 @@ If a problem occurs when triggering an action, the rules engine triggers an erro
 
 A single message is generated per rule and message\. For example, if two rule actions in the same rule fail, the error action receives one message that contains both errors\.
 
-The error action message looks like this:
+The error action message looks like the following example\.
 
 ```
 {

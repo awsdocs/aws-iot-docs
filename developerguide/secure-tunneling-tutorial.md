@@ -18,6 +18,31 @@ In this tutorial, you open a tunnel and use it to start an SSH session to a remo
 
 If you configure the destination when calling `OpenTunnel`, the Secure Tunneling service delivers the destination client access token to the remote device over MQTT and the reserved MQTT topic \(`$aws/things/RemoteDeviceA/tunnels/notify`\)\. For more information, see [Reserved topics](reserved-topics.md)\. Upon receipt of the MQTT message, the IoT agent on the remote device starts the local proxy in destination mode\. You can omit the destination configuration if you want to deliver the destination client access token to the remote device through another method\. For more information, see [Configuring a remote device](configure-remote-device.md)\.
 
+**To open a tunnel in the console**
+
+1. In the [AWS IoT console](https://console.aws.amazon.com/iot/), navigate to **Manage** and **Tunnels**\.  
+![\[Image NOT FOUND\]](http://docs.aws.amazon.com/iot/latest/developerguide/images/tunnels-page.png)
+
+1. Select **Open New**\.
+
+1. On the **Open a new secure tunnel** screen, enter the following:
+
+   1. Description: a description for your tunnel\.
+
+   1. Thing Name: the thing you want to open a tunnel for\.
+
+   1. Service: a service to be used on the thing \(e\.g\. ssh, ftp etc\)\.
+
+   1. Tunnel timeout configuration: specify a timeout duration for your tunnel\.
+
+   1. Resource Tags: apply tags to your resources to help organize and identify them\. Consists of a case\-sensitive key\-value pair\.  
+![\[Image NOT FOUND\]](http://docs.aws.amazon.com/iot/latest/developerguide/images/open-tunnel.png)
+
+1. Download the client access tokens for the source and destination\.  
+![\[Image NOT FOUND\]](http://docs.aws.amazon.com/iot/latest/developerguide/images/tunnel-success.png)
+
+1. Select **Done**\.
+
 ## Start the local proxy<a name="start-local-proxy"></a>
 
 Open a terminal on your laptop, copy the source client access token, and use it to start the local proxy in source mode\. In the following command, the local proxy is configured to listen for new connections on port 5555\.

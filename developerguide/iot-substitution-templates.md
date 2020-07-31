@@ -8,18 +8,24 @@ Because an expression in a substitution template is evaluated separately from th
 For more information about supported expressions, see [AWS IoT SQL reference](iot-sql-reference.md)\.
 
 The following rule actions support substitution templates\. Each action supports different fields that can be substituted\.
-+ [CloudWatch alarm action](iot-rule-actions.md#cloudwatch-alarm-action)
-+ [CloudWatch metric action](iot-rule-actions.md#cloudwatch-metric-action)
-+ [DynamoDB action](iot-rule-actions.md#dynamodb-rule)
-+ [DynamoDBv2 action](iot-rule-actions.md#dynamodb-v2-rule)
-+ [Elasticsearch action](iot-rule-actions.md#elasticsearch-rule)
-+ [Firehose action](iot-rule-actions.md#firehose-rule)
-+ [Kinesis action](iot-rule-actions.md#kinesis-rule)
-+ [Lambda action](iot-rule-actions.md#lambda-rule)
-+ [Republish action](iot-rule-actions.md#republish-rule)
-+ [S3 action](iot-rule-actions.md#s3-rule)
-+ [SNS action](iot-rule-actions.md#sns-rule)
-+ [SQS action](iot-rule-actions.md#sqs-rule)
++ [CloudWatch alarms](cloudwatch-alarms-rule-action.md)
++ [CloudWatch Logs](cloudwatch-logs-rule-action.md)
++ [CloudWatch metrics](cloudwatch-metrics-rule-action.md)
++ [DynamoDB](dynamodb-rule-action.md)
++ [DynamoDBv2](dynamodb-v2-rule-action.md)
++ [Elasticsearch](elasticsearch-rule-action.md)
++ [HTTPS](https-rule-action.md)
++ [IoT Analytics](iotanalytics-rule-action.md)
++ [IoT Events](iotevents-rule-action.md)
++ [IoT SiteWise](iotsitewise-rule-action.md)
++ [Kinesis Data Streams](kinesis-rule-action.md)
++ [Kinesis Data Firehose](kinesis-firehose-rule-action.md)
++ [Lambda](lambda-rule-action.md)
++ [Republish](republish-rule-action.md)
++ [S3](s3-rule-action.md)
++ [SNS](sns-rule-action.md)
++ [SQS](sqs-rule-action.md)
++ [Step Functions](stepfunctions-rule-action.md)
 
 Substitution templates appear in the action parameters within a rule: 
 

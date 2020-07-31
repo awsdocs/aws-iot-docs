@@ -428,6 +428,9 @@ This command generates the following output\.
 }
 ```
 
+**Note**  
+Jobs endpoint doesn't support ALPN `z-amzn-http-ca`\.
+
 #### AssociateTargetsWithJob<a name="jobs-AssociateTargetsWithJob"></a>
 
 ------
