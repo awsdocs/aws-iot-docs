@@ -1,6 +1,6 @@
 # LOGGING\_DISABLED\_CHECK<a name="audit-chk-logging-disabled"></a>
 
-AWS IoT logs are not enabled in Amazon CloudWatch\.
+AWS IoT logs [V1](https://docs.aws.amazon.com/iot/latest/apireference/API_SetLoggingOptions.html) or [V2](https://docs.aws.amazon.com/iot/latest/apireference/API_SetV2LoggingOptions.html) are not enabled in Amazon CloudWatch\.
 
 Severity: **Low**
 
