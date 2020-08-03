@@ -9,7 +9,7 @@ An AWS IoT Core policy is a JSON document that contains one or more policy state
 + `Action`, which specifies the action the policy is allowing or denying\.
 + `Resource`, which specifies the resource or resources on which the action is allowed or denied\.
 
-Changes made to a policy can take a few minutes to become effective because of how AWS IoT caches the policy documents\. That is, it may take a few minutes to access a resource that has recently been granted access, and a resource may be accessisble for several minutes after its access has been revoked\.
+Changes made to a policy can take a few minutes to become effective because of how AWS IoT caches the policy documents\. That is, it may take a few minutes to access a resource that has recently been granted access, and a resource may be accessible for several minutes after its access has been revoked\.
 
 **Topics**
 + [AWS IoT Core policy actions](iot-policy-actions.md)
