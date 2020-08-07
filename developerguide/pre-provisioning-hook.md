@@ -45,4 +45,4 @@ The following is an example of a successful response from the pre\-provisioning 
 
 **Note**  
 If the Lambda function fails or doesn't return the `"allowProvisioning"` parameter in the response, the provisioning request will fail and the error will be returned in the response\.
-The Lambda function must finish executing and return within 5 seconds, otherwise the provisioning request fails\.
+The Lambda function must finish running and return within 5 seconds, otherwise the provisioning request fails\.

@@ -1,8 +1,8 @@
 # Creating a rule with an AWS Lambda action<a name="iot-lambda-rule"></a>
 
-You can define a rule that calls a Lambda function, passing in data from the MQTT message that triggered the rule\. This allows you to extract data from the incoming message and then call another AWS or third\-party service\. In this tutorial, we assume you have completed the [AWS IoT Getting Started Tutorial](iot-gs.md) in which you create and subscribe to an Amazon SNS topic\. Now you create a Lambda function that publishes a message to the Amazon SNS topic you created in the [AWS IoT Getting Started Tutorial](iot-gs.md)\. You also create a Lambda rule that calls the Lambda function, passing in some data from the MQTT message that triggered the rule\.
+You can define a rule that calls a Lambda function, passing in data from the MQTT message that initiated the rule\. This allows you to extract data from the incoming message and then call another AWS or third\-party service\. In this tutorial, we assume you have completed the [AWS IoT Getting Started Tutorial](iot-gs.md) and the [Creating an Amazon SNS rule](iot-sns-rule.md) tutorial in which you create and subscribe to an Amazon SNS topic\. Now you create a Lambda function that publishes a message to the Amazon SNS topic you created in the [Creating an Amazon SNS rule](iot-sns-rule.md) tutorial\. You also create a Lambda rule that calls the Lambda function, passing in some data from the MQTT message that initiated the rule\.
 
-In this tutorial, you use the AWS IoT MQTT client to send a message that triggers the rule\.
+In this tutorial, you use the AWS IoT MQTT client to send a message that initiated the rule\.
 
 ## Create a Lambda function<a name="create-lambda-function"></a>
 
@@ -147,11 +147,11 @@ This section provides steps for creating a rule with a Lambda action and an erro
 1. Under **Publish**, enter `my/lambda/topic`, and then choose **Publish to topic** to publish the default JSON message\.  
 ![\[Image NOT FOUND\]](http://docs.aws.amazon.com/iot/latest/developerguide/images/lambda-mqtt-client-3.png)
 
-Publishing this message should trigger the rule and call your Lambda function\. Your Lambda function pushes an Amazon SNS message to a phone number subscribed to your Amazon SNS topic\. If you do not get a text message, in the MQTT client, check to see if any messages were published to `lambda/error`\.
+Publishing this message should initiate the rule and call your Lambda function\. Your Lambda function pushes an Amazon SNS message to a phone number subscribed to your Amazon SNS topic\. If you do not get a text message, in the MQTT client, check to see if any messages were published to `lambda/error`\.
 
 ## Troubleshooting a rule with a Lambda action<a name="troubleshooting-lambda-rules"></a>
 
-If your Lambda function is called, but you do not receive a text message, make sure your phone number is subscribed to your Amazon SNS topic\. If your phone number is subscribed, check the CloudWatch logs for your Lambda function\. AWS Lambda writes logs to CloudWatch, which makes it possible for you to see output from your Lambda function\.
+If your Lambda function is called, but you do not receive a text message, make sure that your phone number is subscribed to your Amazon SNS topic\. If your phone number is subscribed, check the CloudWatch logs for your Lambda function\. AWS Lambda writes logs to CloudWatch, which makes it possible for you to see output from your Lambda function\.
 
 **To view CloudWatch logs**
 

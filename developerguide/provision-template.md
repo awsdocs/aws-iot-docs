@@ -293,7 +293,7 @@ Fleet provisioning templates are used by AWS IoT to set up cloud and device conf
 
 ### Mappings<a name="mappings"></a>
 
-The optional `Mappings` section matches a key to a corresponding set of named values\. For example, if you want to set values based on an AWS Region, you can create a mapping that uses the AWS Region name as a key and contains the values you want to specify for each specific region\. You use the `Fn::FindInMap` intrinsic function to retrieve values in a map\.
+The optional `Mappings` section matches a key to a corresponding set of named values\. For example, if you want to set values based on an AWS Region, you can create a mapping that uses the AWS Region name as a key and contains the values you want to specify for each specific Region\. You use the `Fn::FindInMap` intrinsic function to retrieve values in a map\.
 
 You cannot include parameters, pseudo parameters, or call intrinsic functions in the `Mappings` section\.
 

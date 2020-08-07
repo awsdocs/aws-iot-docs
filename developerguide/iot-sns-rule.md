@@ -2,7 +2,7 @@
 
 You can define a rule that sends message data to an Amazon SNS topic\. 
 
-In this tutorial, you create a rule that sends the name of the AWS IoT thing that triggered the rule to all subscribers of an Amazon SNS topic\.
+In this tutorial, you create a rule that sends the name of the AWS IoT thing that initiated the rule to all subscribers of an Amazon SNS topic\.
 
 **To create a rule with an SNS action**
 
@@ -23,7 +23,7 @@ We do not recommend the use of personally identifiable information in rule names
    SELECT *, topic(3) as thing FROM '$aws/things/+/shadow/update/accepted'
    ```
 
-   \(The topic filter following the `"FROM"` specifies the topics that trigger the rule's action when a message is published to them\. The plus sign \(`+`\) used in the topic filter is a wildcard character that matches any thing name\. The `"topic(3)"` attribute following `"SELECT"` appends the thing name, which is the third topic field, onto the message contents\.\)  
+   \(The topic filter following the `"FROM"` specifies the topics that initiate the rule's action when a message is published to them\. The plus sign \(`+`\) used in the topic filter is a wildcard character that matches any thing name\. The `"topic(3)"` attribute following `"SELECT"` appends the thing name, which is the third topic field, onto the message contents\.\)  
 ![\[Image NOT FOUND\]](http://docs.aws.amazon.com/iot/latest/developerguide/images/sns-message-source.png)
 
 1. In **Set one or more actions**, choose **Add action**\.  
@@ -52,4 +52,4 @@ We do not recommend the use of personally identifiable information in rule names
 
 To test the rule, add a subscription to the SNS topic you created, and update the shadow of any AWS IoT thing\. 
 
-You can use the AWS IoT console to find a thing, open its details page, and change the device's shadow\. When the Device Shadow service is notified of the change, it publishes a message on `$aws/things/MySNSThing/shadow/update/accepted`\. Your rule is triggered and all subscribers to your SNS topic receive a message that contains your thing's name\. 
+You can use the AWS IoT console to find a thing, open its details page, and change the device's shadow\. When the Device Shadow service is notified of the change, it publishes a message on `$aws/things/MySNSThing/shadow/update/accepted`\. Your rule is initiated and all subscribers to your SNS topic receive a message that contains your thing's name\. 

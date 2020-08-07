@@ -76,7 +76,7 @@ Provisioning claim private keys should be secured at all times, including on the
 
 1. From the device, call [`RegisterThing`](fleet-provision-api.md#register-thing) to register the device with AWS IoT and create cloud resources\.
 
-   The Fleet Provisioning service creates cloud resources such as IoT things, thing groups, and attributes, as defined in the provisioning template\.
+   The Fleet Provisioning service creates cloud resources such as things, thing groups, and attributes, as defined in the provisioning template\.
 
 1. After saving the permanent certificate on the device, the device must disconnect from the session that it initiated with the provisioning claim certificate and reconnect using the permanent certificate\. 
 
@@ -109,7 +109,7 @@ You must manage the trusted user's access and permission to perform this procedu
 
 1. Give the AWS IoT service permission to create or update IoT resources, such as things and certificates in your account when provisioning devices\. You do this by attaching the `AWSIoTThingsRegistration` managed policy to an IAM role \(called the *provisioning role*\) that trusts the AWS IoT service principal\.
 
-1. Provide the means to identify your trusted users, such as by providing them with an account that can authenticate them and authorize their interactions with the AWS APIs necessary to register their devices
+1. Provide the means to identify your trusted users, such as by providing them with an account that can authenticate them and authorize their interactions with the AWS APIs necessary to register their devices\.
 
 **To initialize the device for use**
 
@@ -161,15 +161,15 @@ The following procedure creates a provisioning template with pre\-provisioning h
    }
    ```
 
-1. AWS IoT uses resource\-based policies to call Lambda, so you will need to give AWS IoT permission to call your Lambda function\.
+1. AWS IoT uses resource\-based policies to call Lambda, so you must give AWS IoT permission to call your Lambda function\.
 
    The following is an example using [add\-permission](https://docs.aws.amazon.com/cli/latest/reference/lambda/add-permission.html) give IoT permission to your Lambda\.
 
    ```
-   aws lambda add-permission /
-       --function-name myLambdaFunction /
-       --statement-id iot-permission /
-       --action lambda:InvokeFunction /
+   aws lambda add-permission \
+       --function-name myLambdaFunction \
+       --statement-id iot-permission \
+       --action lambda:InvokeFunction \
        --principal iot.amazonaws.com
    ```
 
@@ -178,10 +178,10 @@ The following procedure creates a provisioning template with pre\-provisioning h
    The following CLI example uses the [create\-provisioning\-template](https://docs.aws.amazon.com/cli/latest/reference/iot/create-provisioning-template.html) to create a provisioning template that has pre\-provisioning hooks:
 
    ```
-   aws iot create-provisioning template /
-       --template-name myTemplate /
-       --provisioning-role-arn arn:aws:iam:us-east-1:1234564789012:role/myRole /
-       --template-body file://template.json /
+   aws iot create-provisioning template \
+       --template-name myTemplate \
+       --provisioning-role-arn arn:aws:iam:us-east-1:1234564789012:role/myRole \
+       --template-body file://template.json \
        --pre-provisioning-hook file://hooks.json
    ```
 

@@ -18,9 +18,9 @@ An advanced course that explores the concepts of AWS IoT authentication and auth
 **[Internet of Things Foundation Series](https://www.aws.training/LearningLibrary?filters=classification%3A25)**  
 A learning path of IoT eLearning modules on different IoT technologies and features\.
 
-## AWS IoT whitepapers and guides<a name="aws-iot-learn-more-wp"></a>
+## AWS IoT resources and guides<a name="aws-iot-learn-more-wp"></a>
 
-These are in\-depth technical topics on specific aspects of AWS IoT\.
+These are in\-depth technical resources on specific aspects of AWS IoT\.
 + 
 
 **[IoT Lens – AWS Well\-Architected Framework](https://d1.awsstatic.com/whitepapers/architecture/AWS-IoT-Lens.pdf)**  
@@ -31,12 +31,16 @@ A PDF document that describes the best practices for architecting your IoT appli
 A PDF document that describes the best practices for designing MQTT topics in AWS IoT Core and leveraging AWS IoT Core features with MQTT\.
 + 
 
-**[AWS IoT Whitepapers & Guides](https://aws.amazon.com/whitepapers/?whitepapers-main.sort-by=item.additionalFields.sortDate&whitepapers-main.sort-order=desc&awsf.whitepapers-category=categories%23iot)**  
-Our current collection of whitepapers and guides on AWS IoT related topics\.
+**[AWS IoT Resources](https://aws.amazon.com/iot/resources/)**  
+IoT\-specific resources, such as Technical Guides, Reference Architectures, eBooks, and curated blog posts, presented in a searchable index\.
 + 
 
 **[IoT Atlas](https://iotatlas.net)**  
 Overviews on how to solve common IoT design problems\. The *IoT Atlas* provides in\-depth looks into the design challenges that you are likely to encounter while developing your IoT solution\.
++ 
+
+**[AWS Whitepapers & Guides](https://aws.amazon.com/whitepapers/?whitepapers-main.sort-by=item.additionalFields.sortDate&whitepapers-main.sort-order=desc&awsf.whitepapers-category=categories%23iot)**  
+Our current collection of whitepapers and guides on AWS IoT and other AWS technologies\.
 
 ## AWS IoT in social media<a name="aws-iot-learn-more-social"></a>
 

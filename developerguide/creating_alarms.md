@@ -29,7 +29,6 @@ You can create a CloudWatch alarm that sends an Amazon SNS message when the alar
        --threshold 10 \
        --comparison-operator LessThanThreshold \
        --period 86400 \
-       --unit Count \
        --evaluation-periods 1 \
        --alarm-actions <sns-topic-arn>
    ```
@@ -65,7 +64,6 @@ You can create a CloudWatch alarm that sends an Amazon SNS message when the alar
        --threshold 10 \
        --comparison-operator LessThanThreshold \
        --period 86400 \
-       --unit Count \
        --evaluation-periods 1 \
        --alarm-actions <sns-topic-arn>
    ```
