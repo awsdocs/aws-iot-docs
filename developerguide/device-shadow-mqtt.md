@@ -12,9 +12,7 @@ Shadows can be named or unnamed \(classic\)\. The topics used by each differ onl
 | $aws/things/thingName/shadow | Unnamed \(classic\) shadow | 
 | $aws/things/thingName/shadow/name/shadowName | Named shadow | 
 
-To create a complete topic, select the *ShadowTopicPrefix* for the type of shadow to which you want to refer, replace *thingName*, and *shadowName* if applicable, with their corresponding values, and then append that with the topic stub as shown in the following table\. Topics are case sensitive\.
-
-To create a complete topic, select the `ShadowTopicPrefix` for the type of shadow to which you want to refer, replace `thingName`, and `shadowName` if applicable, with their corresponding values, and then append that with the topic stub as shown in the following sections\.
+To create a complete topic, select the `ShadowTopicPrefix` for the type of shadow to which you want to refer, replace `thingName`, and `shadowName` if applicable, with their corresponding values, and then append that with the topic stub as shown in the following sections\. Topics are case sensitive\.
 
 The following are the MQTT topics used for interacting with shadows\.
 
