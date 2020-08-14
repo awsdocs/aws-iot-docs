@@ -200,7 +200,7 @@ The logging level used when generating logs for the specified resource\. Valid v
    aws iot list-v2-logging-levels
    ```
 
-1. Use the [https://awscli.amazonaws.com/v2/documentation/api/latest/reference/iot/delete-v2-logging-levels.html](https://awscli.amazonaws.com/v2/documentation/api/latest/reference/iot/delete-v2-logging-levels.html) command to delete a resource\-specific logging level\.
+1. Use the [https://awscli.amazonaws.com/v2/documentation/api/latest/reference/iot/delete-v2-logging-level.html](https://awscli.amazonaws.com/v2/documentation/api/latest/reference/iot/delete-v2-logging-level.html) command to delete a resource\-specific logging level\.
 
    ```
    aws iot delete-v2-logging-level \

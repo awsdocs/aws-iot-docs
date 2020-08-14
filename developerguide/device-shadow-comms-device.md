@@ -19,10 +19,6 @@ Shadows can be named or unnamed \(classic\)\. The topics used by each differ onl
 | $aws/things/thingName/shadow | Unnamed \(classic\) shadow | 
 | $aws/things/thingName/shadow/name/shadowName | Named shadow | 
 
-To create a complete topic, select the *ShadowTopicPrefix* for the type of shadow to which you want to refer, replace *thingName*, and *shadowName* if applicable, with their corresponding values, and then append that with the topic stub as shown in the following table\. Topic names are case sensitive\.
-
-For more information about the reserved topics for shadows, see [Shadow topics](reserved-topics.md#reserved-topics-shadow)\.
-
 **Important**  
 Make sure that your app's or service's use of the shadows is consistent and supported by the corresponding implementations in your devices\. For example, consider how shadows are created, updated, and deleted\. Also consider how updates are handled in the device and the apps or services that access the device through a shadow\. Your design should be clear about how the device's state is updated and reported and how your apps and services interact with the device and its shadows\.
 

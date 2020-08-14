@@ -22,4 +22,4 @@ Noncompliant audit checks with this severity often indicate security best practi
 
 ## Next steps<a name="device-defender-audit-severity-next-steps"></a>
 
-To understand the types of audit checks that can be performed, see [Audit checks](device-defender-audit-checks.md)\. To learn how to perform an audit, see [Getting started with AWS IoT Device Defender Audit](audit-tutorial.md)\. For information about service quotas that apply to audits, see [Service Quotas](https://docs.aws.amazon.com/general/latest/gr/iot-core.html#limits_iot)\.
+To understand the types of audit checks that can be performed, see [Audit checks](device-defender-audit-checks.md)\. For information about service quotas that apply to audits, see [Service Quotas](https://docs.aws.amazon.com/general/latest/gr/iot-core.html#limits_iot)\.

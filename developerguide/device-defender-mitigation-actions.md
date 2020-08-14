@@ -1,6 +1,9 @@
 # Mitigation actions<a name="device-defender-mitigation-actions"></a>
 
 You can use AWS IoT Device Defender to take actions to mitigate issues that were found during an audit\. AWS IoT Device Defender provides predefined actions for the different audit checks\. You configure those actions for your AWS account and then apply them to a set of findings\. Those findings can be:
+
+**Note**  
+Mitigation actions won't be performed on suppressed audit findings\. For more information about audit finding suppressions, see [Audit finding suppressions](audit-finding-suppressions.md)\.
 + All findings from an audit\. This option is available in both the AWS IoT console and by using the AWS CLI\.
 + A list of individual findings\. This option is only available by using the AWS CLI\.
 + A filtered set of findings from an audit\.

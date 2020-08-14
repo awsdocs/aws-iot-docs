@@ -1,8 +1,10 @@
-# IOT\_POLICY\_OVERLY\_PERMISSIVE\_CHECK<a name="audit-chk-iot-policy-permissive"></a>
+# AWS IoT policies overly permissive<a name="audit-chk-iot-policy-permissive"></a>
 
 An AWS IoT policy gives permissions that are too broad or unrestricted\. It grants permission to send or receive MQTT messages for a broad set of devices, or grants permission to access or modify shadow and job execution data for a broad set of devices\.  
 
 In general, a policy for a device should grant access to resources associated with just that device and no or very few other devices\. With some exceptions, using a wildcard \(for example, "\*"\) to specify resources in such a policy is considered too broad or unrestricted\.
+
+This check appears as `IOT_POLICY_OVERLY_PERMISSIVE_CHECK` in the CLI and API\.
 
 Severity: **Critical**
 

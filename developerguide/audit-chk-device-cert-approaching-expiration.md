@@ -1,6 +1,8 @@
-# DEVICE\_CERT\_APPROACHING\_EXPIRATION\_CHECK<a name="audit-chk-device-cert-approaching-expiration"></a>
+# Device certificate expiring<a name="audit-chk-device-cert-approaching-expiration"></a>
 
 A device certificate is expiring within 30 days or has expired\.
+
+This check appears as `DEVICE_CERT_APPROACHING_EXPIRATION_CHECK` in the CLI and API\.
 
 Severity: **Medium**
 

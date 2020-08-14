@@ -1,4 +1,4 @@
-# IOT\_ROLE\_ALIAS\_OVERLY\_PERMISSIVE\_CHECK<a name="audit-chk-iot-role-alias-permissive"></a>
+# Role alias overly permissive<a name="audit-chk-iot-role-alias-permissive"></a>
 
 AWS IoT role alias provides a mechanism for connected devices to authenticate to AWS IoT using X\.509 certificates and then obtain short\-lived AWS credentials from an IAM role that is associated with an AWS IoT role alias\. The permissions for these credentials must be scoped down using access policies with authentication context variables\. If your policies are not configured correctly, you could leave yourself exposed to an escalation of privilege attack\. This audit check ensures that the temporary credentials provided by AWS IoT role aliases are not overly permissive\. 
 
@@ -6,6 +6,8 @@ This check is triggered if one of the following conditions are found:
 + The policy provides administrative permissions to any services used in the past year by this role alias \(for example, "iot:\*", "dynamodb:\*", "iam:\*", and so on\)\.
 + The policy provides broad access to thing metadata actions, access to restricted AWS IoT actions, or broad access to AWS IoT data plane actions\.
 + The policy provides access to security auditing services such as "iam", "cloudtrail", "guardduty", "inspector", or "trustedadvisor"\.
+
+This check appears as `IOT_ROLE_ALIAS_OVERLY_PERMISSIVE_CHECK` in the CLI and API\.
 
 Severity: **Critical**
 

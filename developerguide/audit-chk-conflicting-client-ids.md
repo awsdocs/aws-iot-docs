@@ -1,6 +1,8 @@
-# CONFLICTING\_CLIENT\_IDS\_CHECK<a name="audit-chk-conflicting-client-ids"></a>
+# Conflicting MQTT client IDs<a name="audit-chk-conflicting-client-ids"></a>
 
 Multiple devices connect using the same client ID\.
+
+This check appears as `CONFLICTING_CLIENT_IDS_CHECK` in the CLI and API\.
 
 Severity: **High**
 

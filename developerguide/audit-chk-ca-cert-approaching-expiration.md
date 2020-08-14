@@ -1,6 +1,8 @@
-# CA\_CERT\_APPROACHING\_EXPIRATION\_CHECK<a name="audit-chk-ca-cert-approaching-expiration"></a>
+# CA certificate expiring<a name="audit-chk-ca-cert-approaching-expiration"></a>
 
 A CA certificate is expiring within 30 days or has expired\.
+
+This check appears as `CA_CERT_APPROACHING_EXPIRATION_CHECK` in the CLI and API\.
 
 Severity: **Medium**
 

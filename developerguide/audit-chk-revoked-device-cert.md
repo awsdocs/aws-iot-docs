@@ -1,6 +1,8 @@
-# REVOKED\_DEVICE\_CERT\_CHECK<a name="audit-chk-revoked-device-cert"></a>
+# Revoked device certificate still active<a name="audit-chk-revoked-device-cert"></a>
 
 A revoked device certificate is still active\.
+
+This check appears as `REVOKED_DEVICE_CERT_CHECK` in the CLI and API\.
 
 Severity: **Medium**
 

@@ -1,4 +1,4 @@
-# AUTHENTICATED\_COGNITO\_ROLE\_OVERLY\_PERMISSIVE\_CHECK<a name="audit-chk-auth-cognito-role-permissive"></a>
+# Authenticated Cognito role overly permissive<a name="audit-chk-auth-cognito-role-permissive"></a>
 
 A policy attached to an authenticated Amazon Cognito identity pool role is considered too permissive because it grants permission to perform the following AWS IoT actions:
 + Manage or modify things\.
@@ -10,6 +10,8 @@ Or, because it grants permission to perform the following AWS IoT actions on a b
 + Use API commands to read or modify shadow or job execution data\.
 
 In general, devices that connect using an authenticated Amazon Cognito identity pool role should have only limited permission to read thing\-specific administrative data, publish and subscribe to thing\-specific MQTT topics, or use the API commands to read and modify thing\-specific data related to shadow or job execution data\.
+
+This check appears as `AUTHENTICATED_COGNITO_ROLE_OVERLY_PERMISSIVE_CHECK` in the CLI and API\.
 
 Severity: **Critical**
 

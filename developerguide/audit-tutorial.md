@@ -1,4 +1,4 @@
-# Getting started with AWS IoT Device Defender Audit<a name="audit-tutorial"></a>
+# Audit guide<a name="audit-tutorial"></a>
 
 This tutorial provides instructions on how to configure a recurring audit, setting up alarms, reviewing audit results and mitigating audit issues\.
 

@@ -142,7 +142,7 @@ You must provide parameters for the type of action that you are defining\. You c
 The contents of the request were invalid\.
 
 `LimitExceededException`  
-A limit has been exceeded\. For information about mitigation action limits, see [Service Limits](aws.amazon.com/general/latest/gr/iot-core.html#limits_iot)\.
+A limit has been exceeded\. For information about mitigation action limits, see [AWS IoT Device Defender endpoints and quotas](aws.amazon.com/general/latest/gr/iot_device_defender.html)\.
 
 `RequestAlreadyExistsException`  
 A mitigation action with this name already exists\. This error occurs only if another mitigation action exists with the same name but different parameters\.

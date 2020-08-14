@@ -43,6 +43,6 @@ Further Reading
 + [ Understanding the AWS IoT Security Model](https://aws.amazon.com/blogs/iot/understanding-the-aws-iot-security-model/)
 + [ Redhat: A Bite of Python](https://access.redhat.com/blogs/766093/posts/2592591)
 + [ 10 common security gotchas in Python and how to avoid them](https://hackernoon.com/10-common-security-gotchas-in-python-and-how-to-avoid-them-e19fbe265e03)
-+ [ What Is Least Privilege & Why Do You Need It?](https://www.beyondtrust.com/blog/entry/what-is-least-privilege/)
++ [ What Is Least Privilege & Why Do You Need It?](https://www.beyondtrust.com/blog/what-is-least-privilege/)
 + [ OWASP Embedded Security Top 10](https://www.owasp.org/index.php/OWASP_Embedded_Application_Security#tab=Embedded_Top_10_Best_Practices)
 + [ OWASP IoT Project](https://www.owasp.org/index.php/OWASP_Internet_of_Things_Project#tab=Main)

@@ -1,8 +1,10 @@
-# IOT\_ROLE\_ALIAS\_ALLOWS\_ACCESS\_TO\_UNUSED\_SERVICES\_CHECK<a name="audit-chk-role-alias-unused-svcs"></a>
+# Role alias allows access to unused services<a name="audit-chk-role-alias-unused-svcs"></a>
 
 AWS IoT role alias provides a mechanism for connected devices to authenticate to AWS IoT using X\.509 certificates and then obtain short\-lived AWS credentials from an IAM role that is associated with an AWS IoT role alias\. The permissions for these credentials must be scoped down using access policies with authentication context variables\. If your policies are not configured correctly, you could leave yourself exposed to an escalation of privilege attack\. This audit check ensures that the temporary credentials provided by AWS IoT role aliases are not overly permissive\. 
 
 This check is triggered if the role alias has access to services that haven't been used for the AWS IoT device in the last year\. For example, the audit reports if you have an IAM role linked to the role alias that has only used AWS IoT in the past year but the policy attached to the role also grants permission to `"iam:getRole"` and `"dynamodb:PutItem"`\.
+
+This check appears as `IOT_ROLE_ALIAS_ALLOWS_ACCESS_TO_UNUSED_SERVICES_CHECK` in the CLI and API\.
 
 Severity: **Medium**
 

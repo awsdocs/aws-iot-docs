@@ -1,6 +1,8 @@
-# DEVICE\_CERTIFICATE\_SHARED\_CHECK<a name="audit-chk-device-cert-shared"></a>
+# Device certificate shared<a name="audit-chk-device-cert-shared"></a>
 
 Multiple, concurrent connections use the same X\.509 certificate to authenticate with AWS IoT\.
+
+This check appears as `DEVICE_CERTIFICATE_SHARED_CHECK` in the CLI and API\.
 
 Severity: **Critical**
 
