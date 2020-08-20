@@ -18,9 +18,19 @@ Before you continue to the next step, make sure you can open a command line wind
 
 In this section, you'll install Node\.js, the npm package manager, and the AWS IoT Device SDK for JavaScript on your computer\.
 
-### Install the latest version of Node\.js<a name="gs-pc-node-runtime"></a>
+### Install the latest version of Git and Node\.js<a name="gs-pc-node-runtime"></a>
 
-**To download and install Node\.js and the npm package manager on your computer**
+**To download and install Git, Node\.js, and the npm package manager on your computer**
+
+1. Check to see if you have Git installed on your computer\. Enter this command in the command line\.
+
+   ```
+   git --version
+   ```
+
+   If the command displays the Git version, Git is installed and you can continue to the next step\.
+
+   If the command displays an error, open [https://git-scm.com/download](https://git-scm.com/download) and install Git for your computer\.
 
 1. Check to see if you have already installed Node\. Enter this command in the command line\.
 
@@ -64,37 +74,44 @@ In this section, you'll install Node\.js, the npm package manager, and the AWS I
 
 **To install the AWS IoT Device SDK for JavaScript on your computer**
 
-1. Check to see if you have Git installed on your computer\. Enter this command in the command line\.
+1. Install aws\-crt, the common runtime library\.
 
    ```
-   git --version
+   npm install aws-crt
    ```
 
-   If the command displays the Git version, Git is installed and you can continue to the next step\.
+1. Install v2 of the AWS IoT Device SDK for JavaScript\.
 
-   If the command displays an error, open [https://git-scm.com/download](https://git-scm.com/download) and install Git for your computer\.
+   ```
+   npm install aws-iot-device-sdk-v2
+   ```
 
 1. Clone the AWS IoT Device SDK for JavaScript repository into the aws\-iot\-device\-sdk\-js\-v2 directory of your home directory\. This procedure refers to the base directory for the files to install as *home*\.
 
-   The actual location of the *home* directory depends on your operating system\. In Windows, you can find the home directory path by running this command in the `cmd` window\.
+   The actual location of the *home* directory depends on your operating system\.
 
-   ```
-   echo %USERPROFILE%
-   ```
+------
+#### [ Linux/macOS ]
 
    In macOS and Linux, the *home* directory is `~`\.
 
-1. From the *home* directory, run this command to create a `certs` subdirectory that you'll use when you run the sample applications\.
-
    ```
-   mkdir certs
-   ```
-
-1.  From your *home* directory, enter this command to create the `aws-iot-device-sdk-js-v2` directory and copy the SDK code into it\.
-
-   ```
+   cd ~
    git clone https://github.com/aws/aws-iot-device-sdk-js-v2.git
    ```
+
+------
+#### [ Windows ]
+
+   In Windows, you can find the *home* directory path by running this command in the `cmd` window\.
+
+   ```
+   echo %USERPROFILE%
+   cd %USERPROFILE%
+   git clone https://github.com/aws/aws-iot-device-sdk-js-v2.git
+   ```
+
+------
 
 1. Change to the `aws-iot-device-sdk-js-v2` directory that was created in the preceding step\.
 
@@ -102,21 +119,23 @@ In this section, you'll install Node\.js, the npm package manager, and the AWS I
    cd aws-iot-device-sdk-js-v2
    ```
 
-1. Use npm to install the SDK by running this command from your current directory\.
-
-   ```
-   npm install
-   ```
-
 ### Prepare to run the sample applications<a name="gs-pc-node-config-app"></a>
 
 **To prepare your system to run the sample application**
-+ Into the `certs` directory that you created in the previous section, copy the private key, device certificate, and root CA certificate files you saved when you created and registered the thing object in [Create AWS IoT resources](create-iot-resources.md)\. The file names of each file in the destination directory should match those in the table\.
++ Create the `certs` directory\. Into the `certs` directory, copy the private key, device certificate, and root CA certificate files you saved when you created and registered the thing object in [Create AWS IoT resources](create-iot-resources.md)\. The file names of each file in the destination directory should match those in the table\.
 
    The commands in the next section assume that your key and certificate files are stored on your device as shown in this table\.
 
 ------
-#### [ Linux/macOS ]  
+#### [ Linux/macOS ]
+
+  Run this command to create the `certs` subdirectory that you'll use when you run the sample applications\.
+
+  ```
+  mkdir ~/certs
+  ```
+
+  Into the new subdirectory, copy the files to the destination file paths shown in the following table\.  
 **Certificate file names**    
 [\[See the AWS documentation website for more details\]](http://docs.aws.amazon.com/iot/latest/developerguide/using-laptop-as-device.html)
 
@@ -127,7 +146,15 @@ In this section, you'll install Node\.js, the npm package manager, and the AWS I
   ```
 
 ------
-#### [ Windows ]  
+#### [ Windows ]
+
+  Run this command to create the `certs` subdirectory that you'll use when you run the sample applications\.
+
+  ```
+  mkdir %USERPROFILE%\certs
+  ```
+
+  Into the new subdirectory, copy the files to the destination file paths shown in the following table\.  
 **Certificate file names**    
 [\[See the AWS documentation website for more details\]](http://docs.aws.amazon.com/iot/latest/developerguide/using-laptop-as-device.html)
 
@@ -179,7 +206,7 @@ The *your\-iot\-endpoint* value has a format of: `endpoint_id-ats.iot.region.ama
 
 **To run the example app on a Windows PC**
 
-1. In your command line window, navigate to the `%USERPROFILE%/aws-iot-device-sdk-js-v2/samples/node/pub_sub` directory that the SDK created and install the sample app by using these commands\.
+1. In your command line window, navigate to the `%USERPROFILE%\aws-iot-device-sdk-js-v2\samples\node\pub_sub` directory that the SDK created and install the sample app by using these commands\.
 
    ```
    cd %USERPROFILE%\aws-iot-device-sdk-js-v2\samples\node\pub_sub
@@ -227,7 +254,9 @@ Publish received on topic topic_1
 {"message":"Hello world!","sequence":10}
 ```
 
-If you're having trouble running the sample app, add the `--verbosity debug` parameter to the command line so the sample app displays detailed messages about what it’s doing\. That information might provide you the help you need to correct the problem\. 
+If you're having trouble running the sample app, review [Troubleshooting problems with the sample app](gs-device-troubleshoot.md)\.
+
+You can also add the `--verbosity debug` parameter to the command line so the sample app displays detailed messages about what it’s doing\. That information might provide you the help you need to correct the problem\. 
 
 ## View messages from the sample app in the AWS IoT console<a name="gs-pc-view-msg"></a>
 

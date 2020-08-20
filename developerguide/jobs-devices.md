@@ -17,13 +17,13 @@ Communication between the AWS IoT Jobs service and your devices can occur over t
 You must use the correct endpoint when you communicate with the AWS IoT Jobs service through MQTT\. Use the DescribeEndpoint command to find it\. For example, if you run this command:   
 
 ```
-aws iot describe-endpoint --endpoint-type iot:Data
+aws iot describe-endpoint --endpoint-type iot:Data-ATS
 ```
 you get a result similar to the following:  
 
 ```
 {
-    "endpointAddress": "a1b2c3d4e5f6g7.iot.us-west-2.amazonaws.com"
+    "endpointAddress": "a1b2c3d4e5f6g7-ats.iot.us-west-2.amazonaws.com"
 }
 ```
 With this method, your device uses its device\-specific certificate and private key to authenticate with the AWS IoT Jobs service\.

@@ -1,5 +1,35 @@
 # Device provisioning<a name="iot-provision"></a>
 
+AWS provides several different ways to provision a device and install unique client certificates on it\. This section describes each way and how to select the best one for your IoT solution\.
+
+**Select the option that fits your situation best**
++ 
+
+**You can install certificates on IoT devices before they are delivered**  
+If you can securely install unique client certificates on your IoT devices before they are delivered for use by the end user, you want to use [*just\-in\-time* provisioning \(JITP\)](jit-provisioning.md) or [*just\-in\-time* registration \(JITR\)](auto-register-device-cert.md)\.
+
+  Using JITP and JITR, the certificate authority \(CA\) used to sign the device certificate is registered with AWS IoT and is recognized by AWS IoT when the device first connects\. The device is provisioned in AWS IoT on its first connection using the details of its provisioning template\.
+
+  For more information on single thing, JITP, JITR, and bulk provisioning of devices that have unique certificates, see [Provisioning devices that have device certificates](provision-w-cert.md)\.
++ 
+
+**End users or installers can use an app to install certificates on their IoT devices**  
+If you cannot securely install unique client certificates on your IoT device before they are delivered to the end user, but the end user or an installer can use an app to register the devices and install the unique device certificates, you want to use the [provisioning by trusted user](provision-wo-cert.md#trusted-user) process\.
+
+  Using a trusted user, such as an end user or an installer with a known account, can simplify the device manufacturing process\. Instead of a unique client certificate, devices have a temporary certificate that enables the device to connect to AWS IoT for only 5 minutes\. During that 5\-minute window, the trusted user obtains a unique client certificate with a longer life and installs it on the device\. The limited life of the claim certificate minimizes the risk of a compromised certificate\.
+
+  For more information, see [Provisioning by trusted user](provision-wo-cert.md#trusted-user)\.
++ 
+
+**End users CANNOT use an app to install certificates on their IoT devices**  
+If neither of the previous options will work in your IoT solution, the [provisioning by claim](provision-wo-cert.md#claim-based) process is an option\. With this process, your IoT devices have a claim certificate that is shared by other devices in the fleet\. The first time a device connects with a claim certificate, AWS IoT registers the device using its provisioning template and issues the device its unique client certificate for subsequent access to AWS IoT
+
+   This option enables automatic provisioning of a device when it connects to AWS IoT, but could present a larger risk in the event of a compromised claim certificate\. If a claim certificate becomes compromised, you can deactivate the certificate\. Deactivating the claim certificate prevents all devices with that claim certificate from being registered in the future\. However; deactivating the claim certificate does not block devices that have already been provisioned\.
+
+  For more information, see [Provisioning by claim](provision-wo-cert.md#claim-based)\.
+
+## Provisioning devices in AWS IoT<a name="provisioning-in-iot"></a>
+
 When you provision a device with AWS IoT, you must create resources so your devices and AWS IoT can communicate securely\. Other resources can be created to help you manage your device fleet\. The following resources can be created during the provisioning process: 
 + An IoT thing\.
 

@@ -2,9 +2,11 @@
 
 In this section, we'll configure a Raspberry Pi for use with AWS IoT\. If you have another device that you'd like to connect, the instructions for the Raspberry Pi include references that can help you adapt these instructions to your device\.
 
+This normally takes about 20 minutes, but it can take longer if you have many system software upgrades to install\.
+
 **Topics**
 + [Set up your device](#gs-device-prereqs)
-+ [Install Git, Node\.js, npm, and the AWS IoT Device SDK for JavaScript](#gs-device-sdk-node)
++ [Install the required libraries and the AWS IoT Device SDK for JavaScript](#gs-device-sdk-node)
 + [Install and run the sample app](#gs-device-node-app-run)
 + [View messages from the sample app in the AWS IoT console](#gs-device-view-msg)
 
@@ -30,9 +32,18 @@ Before you continue to the next step, your device must have its operating system
 
  If you are running an operating system on your Raspberry Pi that has a graphical user interface \(GUI\), open a terminal window on the device and perform the following instructions in that window\. Otherwise, if you are connecting to your device by using a remote terminal, such as PuTTY, open a remote terminal to your device and use that\.
 
-## Install Git, Node\.js, npm, and the AWS IoT Device SDK for JavaScript<a name="gs-device-sdk-node"></a>
+## Install the required libraries and the AWS IoT Device SDK for JavaScript<a name="gs-device-sdk-node"></a>
 
-In this section, you'll install Git, Node\.js, the npm package manager, and the AWS IoT Device SDK for JavaScript on your device\. These instructions are for a Raspberry Pi running the Raspberry Pi OS\. If you have another device or are using another operating system, you might need to adapt these instructions for your device\.
+In this section, you'll install the required libraries, Git, Node\.js, the npm package manager, and the AWS IoT Device SDK for JavaScript on your device\. These instructions are for a Raspberry Pi running the Raspberry Pi OS\. If you have another device or are using another operating system, you might need to adapt these instructions for your device\.
+
+### Update the operating system and install required libraries<a name="gs-device-libs"></a>
+
+```
+sudo apt-get update
+sudo apt-get upgrade
+sudo apt-get install cmake
+sudo apt-get install libssl-dev
+```
 
 ### Install Git<a name="gs-device-git"></a>
 
@@ -97,11 +108,32 @@ The AWS IoT Device SDK for JavaScript requires Node\.js and the npm package mana
 
    Confirm that the command displays the npm version\. If the npm version isn't displayed, try installing Node and npm again\.
 
+1. Restart the device\.
+
+   ```
+   sudo shutdown -r 0
+   ```
+
+   Continue after the device restarts\.
+
 ### Install the AWS IoT Device SDK for JavaScript<a name="gs-device-node-intall-sdk"></a>
 
 Install the AWS IoT Device SDK for JavaScript on your Raspberry Pi\.
 
 **To install the AWS IoT Device SDK for JavaScript on your device**
+
+1. Install aws\-crt, the common runtime library\.
+
+   ```
+   cd ~
+   npm install aws-crt
+   ```
+
+1. Install v2 of the AWS IoT Device SDK for JavaScript\.
+
+   ```
+   npm install aws-iot-device-sdk-v2
+   ```
 
 1. Clone the AWS IoT Device SDK for JavaScript repository into the `aws-iot-device-sdk-js-v2` directory of your *home* directory\. On the Raspberry Pi, the *home* directory is `~/`, which is used as the *home* directory in the following commands\. If your device uses a different path for the *home* directory, you must replace `~/` with the correct path for your device in the following commands\.
 
@@ -203,7 +235,9 @@ Publish received on topic topic_1
 {"message":"Hello world!","sequence":10}
 ```
 
-If you're having trouble running the sample app, add the `--verbosity debug` parameter to the command line so the sample app displays detailed messages about what it’s doing\. That information might provide you the help you need to correct the problem\. 
+If you're having trouble running the sample app, review [Troubleshooting problems with the sample app](gs-device-troubleshoot.md)\.
+
+You can also add the `--verbosity debug` parameter to the command line so the sample app displays detailed messages about what it’s doing\. That information might provide you the help you need to correct the problem\. 
 
 ## View messages from the sample app in the AWS IoT console<a name="gs-device-view-msg"></a>
 

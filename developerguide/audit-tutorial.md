@@ -104,7 +104,7 @@ The following procedure shows you how to apply mitigation actions to your audit 
 1. Select **Start mitigation actions**\.  
 ![\[Audit findings window.\]](http://docs.aws.amazon.com/iot/latest/developerguide/images/start-mitigation-action.png)
 
-1. Under **Select actions**, select the appropriate actions for each non\-compliant finding to address the issues\.  
+1. Under **Select actions**, select the appropriate actions for each non\-compliant finding to address the issues\.   
 ![\[Start a new mitigation action window.\]](http://docs.aws.amazon.com/iot/latest/developerguide/images/select-actions.png)
 
 1. Select **Confirm**\.

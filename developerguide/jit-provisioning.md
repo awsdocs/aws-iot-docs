@@ -5,8 +5,8 @@ You can have your devices provisioned when they first attempt to connect to AWS 
 You can make these settings when you register a CA certificate with the [RegisterCACertificate](https://docs.aws.amazon.com/iot/latest/apireference/API_RegisterCACertificate.html) API or the `register-ca-certificate` CLI command:
 
 ```
-aws iot register-ca-certificate --ca-certificate file://<your-ca-cert> --verification-cert 
-                file://<your-verification-cert> --set-as-active --allow-auto-registration --registration-config file://<your-template>
+aws iot register-ca-certificate --ca-certificate file://your-ca-cert --verification-cert 
+                file://your-verification-cert --set-as-active --allow-auto-registration --registration-config file://your-template
 ```
 
 For more information, see [Registering a CA Certificate](device-certs-your-own.html#register-CA-cert)\.
@@ -14,8 +14,11 @@ For more information, see [Registering a CA Certificate](device-certs-your-own.h
 You can also use the [UpdateCACertificate](https://docs.aws.amazon.com/iot/latest/apireference/API_UpdateCACertificate.html) API or the `update-ca-certificate` CLI command to update the settings for a CA certificate:
 
 ```
-aws iot update-ca-certificate --cert-id <caCertificateId> --new-auto-registration-status ENABLE --registration-config file://<your-template>
+aws iot update-ca-certificate --cert-id caCertificateId --new-auto-registration-status ENABLE --registration-config file://your-template
 ```
+
+**Note**  
+JITP calls other AWS IoT control plane APIs during the provisioning process\. These calls might exceed the [ AWS IoT Throttling Quotas](https://docs.aws.amazon.com/general/latest/gr/iot-core.html#throttling-limits) set for your account and result in throttled calls\. Contact [AWS Customer Support](https://console.aws.amazon.com/support/home) to raise your throttling quotas, if necessary\.
 
 When a device attempts to connect to AWS IoT by using a certificate signed by a registered CA certificate, AWS IoT loads the template from the CA certificate and uses it to call [RegisterThing](fleet-provision-api.md#register-thing)\. The JITP workflow first registers a certificate with a status value of PENDING\_ACTIVATION\. When the device provisioning flow is complete, the status of the certificate is changed to ACTIVE\.
 
@@ -97,6 +100,3 @@ This sample template declares values for the `AWS::IoT::Certificate::CommonName`
 + Update the certificate status to ACTIVE\.
 
 You can also use CloudTrail to troubleshoot issues with your JITP template\. For information about the metrics that are logged in Amazon CloudWatch, see [Device provisioning metrics](metrics_dimensions.md#provisioning-metrics)\.
-
-**Note**  
-JITP calls other AWS IoT control plane APIs during the provisioning process\. These calls might exceed the [ AWS IoT Throttling Quotas](https://docs.aws.amazon.com/general/latest/gr/aws_service_limits.html#limits_iot) set for your account and result in throttled calls\. Contact [AWS Customer Support](https://console.aws.amazon.com/support/home) to raise your throttling quotas, if necessary\.

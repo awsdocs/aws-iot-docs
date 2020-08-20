@@ -406,7 +406,9 @@ The sample app:
    {"message":"Hello world!","sequence":10}
    ```
 
-If you're having trouble running the sample app, add the `--verbosity debug` parameter to the command line so the sample app displays detailed messages about what it’s doing\. That information might provide you the help you need to correct the problem\.
+If you're having trouble running the sample app, review [Troubleshooting problems with the sample app](gs-device-troubleshoot.md)\.
+
+You can also add the `--verbosity debug` parameter to the command line so the sample app displays detailed messages about what it’s doing\. That information might provide you the help you need to correct the problem\. 
 
 ## View messages from the sample app in the AWS IoT console<a name="ec2-view-msg"></a>
 

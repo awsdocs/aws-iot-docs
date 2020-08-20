@@ -28,6 +28,7 @@ Amazon's trademarks and trade dress may not be used in
          + [Create a virtual device with Amazon EC2](creating-a-virtual-thing.md)
          + [Use your Windows or Linux PC or Mac as an AWS IoT device](using-laptop-as-device.md)
          + [Connect a Raspberry Pi or another device](connecting-to-existing-device.md)
+         + [Troubleshooting problems with the sample app](gs-device-troubleshoot.md)
    + [View MQTT messages with the AWS IoT MQTT client](view-mqtt-messages.md)
 + [AWS IoT Tutorials](iot-tutorials.md)
    + [AWS IoT rules tutorials](iot-rules-tutorial.md)

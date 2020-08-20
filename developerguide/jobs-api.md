@@ -2340,10 +2340,7 @@ Request payload:
 `clientToken`  
 Optional\. A client token used to correlate requests and responses\. Enter an arbitrary value here and it is reflected in the response\.
 
-To receive the response, subscribe to:
-+  `$aws/things/thingName/jobs/get/accepted` and 
-+  `$aws/things/thingName/jobs/get/rejected` or 
-+  `$aws/things/thingName/jobs/get/#` for both\. 
+You don't need to subscribe to `$aws/things/thingName/jobs/get/accepted` or `$aws/things/thingName/jobs/get/rejected` to receive a response\.
 
 Response payload:
 
@@ -2513,10 +2510,7 @@ Specifies the amount of time this device has to finish execution of this job\. I
 `clientToken`  
 A client token used to correlate requests and responses\. Enter an arbitrary value here and it is reflected in the response\.
 
-To receive the response, subscribe to:
-+  `$aws/things/thingName/jobs/start-next/accepted` and 
-+  `$aws/things/thingName/jobs/start-next/rejected` or 
-+  `$aws/things/thingName/jobs/start-next/#` for both\. 
+You don't need to subscribe to `$aws/things/thingName/jobs/start-next/accepted` or `$aws/things/thingName/jobs/start-next/rejected` to receive a response\.
 
 Response payload:
 
@@ -2726,10 +2720,7 @@ Optional\. Unless set to `false`, the response contains the job document\. The d
 `clientToken`  
 A client token used to correlate requests and responses\. Enter an arbitrary value here and it is reflected in the response\.
 
-To receive the response, subscribe to:
-+  `$aws/things/thingName/jobs/jobId/get/accepted` and 
-+  `$aws/things/thingName/jobs/jobId/get/rejected` or 
-+  `$aws/things/thingName/jobs/jobId/get/#` for both\. 
+You don't need to subscribe to `$aws/things/thingName/jobs/jobId/get/accepted` or `$aws/things/thingName/jobs/jobId/get/rejected` to receive a response\.
 
 Response payload:
 
@@ -2919,10 +2910,7 @@ Specifies the amount of time this device has to finish execution of this job\. I
 `clientToken`  
 A client token used to correlate requests and responses\. Enter an arbitrary value here and it is reflected in the response\.
 
-To receive the response, subscribe to:
-+  `$aws/things/thingName/jobs/jobId/update/accepted` and 
-+  `$aws/things/thingName/jobs/jobId/update/rejected` or 
-+  `$aws/things/thingName/jobs/jobId/update/#` for both\. 
+You don't need to subscribe to `$aws/things/thingName/jobs/jobId/update/accepted` or `$aws/things/thingName/jobs/jobId/update/rejected` to receive a response\.
 
 Response payload:
 

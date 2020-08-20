@@ -62,6 +62,8 @@ SQL: SELECT color.red as red_value FROM 'topic/subtopic'
 Outgoing payload: {"red_value":255}
 ```
 
+For information about how to use JSON object and property names that include reserved characters, such as numbers or the hyphen \(minus\) character, see [JSON extensions](iot-sql-json.md)
+
 You can use functions \(see [Functions](iot-sql-functions.md)\) to transform the incoming payload\. You can use parentheses for grouping\. For example:
 
 ```
