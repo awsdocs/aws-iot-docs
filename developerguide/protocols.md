@@ -13,11 +13,14 @@ How a device or client connects to the message broker by using a device endpoint
 | Protocol | Operations supported | Authentication | Port | ALPN protocol name | 
 | --- | --- | --- | --- | --- | 
 |  MQTT over WebSocket  | Publish, Subscribe | Signature Version 4 | 443 |  N/A  | 
+|  MQTT over WebSocket  | Publish, Subscribe | Custom authentication | 443 |  N/A  | 
 |  MQTT  | Publish, Subscribe |  X\.509 client certificate  |  443†  |  `x-amzn-mqtt-ca`  | 
 | MQTT | Publish, Subscribe | X\.509 client certificate | 8883 | N/A | 
+|  MQTT  | Publish, Subscribe |  Custom authentication  |  443†  |  `mqtt`  | 
 |  HTTPS  | Publish only |  Signature Version 4  |  443  |  N/A  | 
 |  HTTPS  | Publish only |  X\.509 client certificate  |  443†  |  `x-amzn-http-ca`  | 
 | HTTPS | Publish only | X\.509 client certificate | 8443 | N/A | 
+| HTTPS | Publish only | Custom authentication | 443 | N/A | 
 
 †Clients that connect on port 443 with X\.509 client certificate authentication must implement the [Application Layer Protocol Negotiation \(ALPN\)](https://tools.ietf.org/html/rfc7301) TLS extension and use the [ALPN protocol name](https://tools.ietf.org/html/rfc7301#section-3.1) listed in the ALPN ProtocolNameList sent by the client as part of the `ClientHello` message\. Clients must also send the [Server Name Indication \(SNI\) TLS extension](https://tools.ietf.org/html/rfc3546#section-3.1)\. Connection attempts that don't include the SNI are refused\. For more information, see [Transport Security in AWS IoT](transport-security.html)\. 
 

@@ -1,9 +1,9 @@
 # Device provisioning MQTT API<a name="fleet-provision-api"></a><a name="provision-mqtt-api"></a>
 
 The Fleet Provisioning service supports these MQTT APIs:
-+ ``
-+ ``
-+ ``
++ `[CreateCertificateFromCsr](#create-cert-csr)`
++ `[CreateKeysAndCertificate](#create-keys-cert)`
++ `[RegisterThing](#register-thing)`
 
 This API supports response buffers in Concise Binary Object Representation \(CBOR\) format and JavaScript Object Notation \(JSON\), depending on the *payload\-format* of the topic\. For the sake of clarity, however, the response and request examples in this section are shown in JSON format\.
 

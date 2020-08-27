@@ -1,18 +1,11 @@
 # Custom authentication<a name="custom-authentication"></a>
 
-AWS IoT lets you define custom authorizers so that you can manage your own client authentication and authorization\. To do so, you use AWS Lambda functions to send client credentials to your authentication service\.
+ AWS IoT Core lets you define custom authorizers so that you can manage your own client authentication and authorization\. This is useful when you need to use authentication mechanisms other than the ones that AWS IoT Core natively supports\. \(For more information about the natively supported mechanisms, see [Client authentication](client-authentication.md)\)\.  
 
-When an HTTP connection is established \(and, optionally, upgraded to a WebSocket connection\) and *Signature Version 4* headers aren't present, the AWS IoT device gateway checks if a custom authorizer is configured for the endpoint\. If so, AWS IoT device gateway uses the custom authorizer to authenticate the connection and authorize the device\. Custom authorizers can implement various authentication strategies \(for example, JWT verification, OAuth provider callout, and so on\) and must return policy documents that are used by the device gateway to authorize MQTT operations\.
-
-There are two ways to implement custom authentication:
-+ **Custom authentication** – Uses HTTP Publish operations or MQTT over WSS connections to receive client credentials in a bearer token \(such as a JSON Web Token \(JWT\) or OAuth token\) inside an HTTP header\.
-+ **Enhanced custom authentication** – Extends custom authentication to enable passing client credentials through an MQTT CONNECT message \(in the `username` and `password` fields\) or as query parameters in an HTTP Publish or Upgrade request \(in the case of MQTT over WSS\)\. This feature also enables you to remove the token signing requirements for your custom authorizers\. This features is beta\.
-
-**Note**  
-You can define up to 10 custom authorizers\.
+ For example, if you are migrating existing devices in the field to AWS IoT Core and these devices use a custom bearer token or MQTT user name and password to authenticate, you can migrate them to AWS IoT Core without having to provision new identities for them\. You can use custom authentication with any of the communication protocols that AWS IoT Core supports\. For more information about the protocols that AWS IoT Core supports, see [Device communication protocols](protocols.md)\. 
 
 **Topics**
-+ [Custom authorizers](custom-authorizer.md)
-+ [Configure a custom authorizer](config-custom-auth.md)
-+ [Custom authorizer workflow](custom-auth.md)
-+ [Enhanced custom authentication \(beta\)](enhanced-custom-authentication.md)
++ [Understanding the custom authentication workflow](custom-authorizer.md)
++ [Creating and managing custom authorizers](config-custom-auth.md)
++ [Connecting to AWS IoT Core by using custom authentication](custom-auth.md)
++ [Troubleshooting your authorizers](custom-auth-troubleshooting.md)

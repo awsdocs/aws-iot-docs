@@ -3100,7 +3100,7 @@ Message payload:
 ```
 {
     "jobs" : {
-        "JobExecutionState": [ JobExecutionSummary ... ]
+        "JobExecutionState": [ [JobExecutionSummary](#jobs-job-execution-summary) ... ]
     },
     "timestamp": timestamp,
 }
@@ -3134,7 +3134,7 @@ Message payload:
 
 ```
 {
-    "execution" : JobExecution,
+    "execution" : [JobExecution](#jobs-job-execution),
     "timestamp": timestamp,
 }
 ```
