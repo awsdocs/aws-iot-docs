@@ -174,7 +174,7 @@ This section describes how to install and run the sample app\. The steps in the 
 
 ## Install and run the sample app<a name="gs-device-node-app-run"></a>
 
-In this section, you'll install and run the `pub-sub.js` sample app found in the `aws-iot-device-sdk-js-v2/samples/node` directory of the AWS IoT Device SDK for JavaScript\. This app shows how your device uses the MQTT library to publish and subscribe to MQTT messages\. The `pub-sub.js` sample app subscribes to a topic, `topic_1`, publishes 10 messages to that topic, and displays the messages as they're received from the AWS IoT message broker\.
+In this section, you'll install and run the `pub-sub.js` sample app found in the `aws-iot-device-sdk-js-v2/samples/node` directory of the AWS IoT Device SDK for JavaScript\. This app shows how your device uses the MQTT library to publish and subscribe to MQTT messages\. The `pub-sub.js` sample app subscribes to a topic, `topic_1`, publishes 10 messages to that topic, and displays the messages as they're received from the message broker\.
 
 To run the `pub-sub.js` sample app, you need the following information:
 
@@ -241,11 +241,11 @@ You can also add the `--verbosity debug` parameter to the command line so the sa
 
 ## View messages from the sample app in the AWS IoT console<a name="gs-device-view-msg"></a>
 
-You can see the sample app's messages as they pass through the AWS IoT message broker by using the **MQTT client** in the **AWS IoT console**\. 
+You can see the sample app's messages as they pass through the message broker by using the **MQTT client** in the **AWS IoT console**\. 
 
 **To view the MQTT messages published by the sample app**
 
-1. Review [View MQTT messages with the AWS IoT MQTT client](view-mqtt-messages.md)\. This helps you learn how to use the **MQTT client** in the **AWS IoT console** to view MQTT messages as they pass through the AWS IoT message broker\.
+1. Review [View MQTT messages with the AWS IoT MQTT client](view-mqtt-messages.md)\. This helps you learn how to use the **MQTT client** in the **AWS IoT console** to view MQTT messages as they pass through the message broker\.
 
 1. Open the **MQTT client** in the **AWS IoT console**\.
 

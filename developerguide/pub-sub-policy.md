@@ -443,7 +443,7 @@ For devices not registered as things in the AWS IoT Core registry, the following
 ------
 #### [ Registered devices \(10\) ]
 
-For devices registered as things in the AWS IoT Core registry, the following policy grants permission to connect to AWS IoT Core using the device's thing name as the client ID\. The device can subscribe to the topic `my/topic`, but cannot publish to the `<thing-name> /bar` where *<thing\-name>* is the name of the IoT thing connecting to AWS IoT Core:
+For devices registered as things in the AWS IoT Core registry, the following policy grants permission to connect to AWS IoT Core using the device's thing name as the client ID\. The device can subscribe to the topic `my/topic`, but cannot publish to the `thing-name /bar` where *thing\-name* is the name of the IoT thing connecting to AWS IoT Core:
 
 ```
 {

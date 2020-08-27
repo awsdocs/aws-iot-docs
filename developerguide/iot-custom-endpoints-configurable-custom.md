@@ -23,10 +23,10 @@ Before you create a domain configuration with a custom domain, you must register
 **Note**  
 AWS IoT considers a certificate to be signed by a public CA if it's included in [Mozilla's trusted ca\-bundle](https://hg.mozilla.org/mozilla-central/raw-file/tip/security/nss/lib/ckfw/builtins/certdata.txt?raw=1)\.
 
-**Using One Certificate for Multiple Domains**  
+**Using one certificate for multiple domains**  
 If you plan to use one certificate to cover multiple subdomains, use a wildcard domain in the common name \(CN\) or Subject Alternative Names \(SAN\) field\. For example, use **\*\.iot\.example\.com** to cover dev\.iot\.example\.com, qa\.iot\.example\.com, and prod\.iot\.example\.com\. Each FQDN requires its own domain configuration, but more than one domain configuration can use the same wildcard value\. Either the CN or the SAN must cover the FQDN that you want to use as a custom domain\. This coverage can be an exact match or a wildcard match\. 
 
-The following sections describe how to get each type of certificate\. Every certificate resource requires an ARN registered with ACM that you use when you create your domain configuration\.
+The following sections describe how to get each type of certificate\. Every certificate resource requires an Amazon Resource Name \(ARN\) registered with ACM that you use when you create your domain configuration\.
 
 ### ACM\-generated public certificates<a name="iot-custom-endpoints-configurable-custom-register-certificate-acm"></a>
 
@@ -42,12 +42,12 @@ If you already have a server certificate that is signed by a private CA or self\
 
 After you import your certificate to ACM, generate a public certificate for your custom domain by using the [RequestCertificate](https://docs.aws.amazon.com/acm/latest/APIReference/API_RequestCertificate.html) API\. When you generate a certificate in this way, ACM validates your ownership of the custom domain\. For more information, see [Request a Public Certificate](https://docs.aws.amazon.com/acm/latest/userguide/gs-acm-request-public.html)\. When you create your domain configuration, use this public certificate as your validation certificate\.
 
-## Creating a Domain configuration<a name="iot-custom-endpoints-configurable-custom-domain-config"></a>
+## Creating a domain configuration<a name="iot-custom-endpoints-configurable-custom-domain-config"></a>
 
-You create a configurable endpoint on an custom domain by using the [CreateDomainConfiguration](https://docs.aws.amazon.com/iot/latest/apireference/API_CreateDomainConfiguration.html) API\. A domain configuration for a custom domain consists of the following:
+You create a configurable endpoint on a custom domain by using the [CreateDomainConfiguration](https://docs.aws.amazon.com/iot/latest/apireference/API_CreateDomainConfiguration.html) API\. A domain configuration for a custom domain consists of the following:
 + `domainConfigurationName` – A user\-defined name that identifies the domain configuration\.
 **Note**  
-Domain configuration names starting with `IoT:` are reserved for default endpoints and can't be used\. Also, this value must be unique to your region\.
+Domain configuration names starting with `IoT:` are reserved for default endpoints and can't be used\. Also, this value must be unique to your Region\.
 + `domainName` – The FQDN that your devices use to connect to AWS IoT\.
 **Note**  
 AWS IoT leverages the server name indication \(SNI\) TLS extension to apply domain configurations\. Devices must use this extension when connecting and pass a server name that is identical to the domain name that is specified in the domain configuration\.
@@ -57,13 +57,13 @@ AWS IoT leverages the server name indication \(SNI\) TLS extension to apply doma
 + `allowAuthorizerOverride` – A Boolean value that specifies whether devices can override the default authorizer by specifying a different authorizer in the HTTP header of the request\. This value is required if a value for `defaultAuthorizerName` is specified\.
 + `serviceType` – Possible values are `DATA`, `CREDENTIAL_PROVIDER`, and `JOB`\. If you specify `DATA`, AWS IoT returns an endpoint with an endpoint type of `iot:Data-Beta`\. This is a special endpoint type for the configurable endpoints beta release\. You can't create a configurable `iot:Data` \(VeriSign\) endpoint\.
 **Note**  
-AWS IoT Core currently supports only the `DATA` service type\.
+AWS IoT currently supports only the `DATA` service type\.
 
 The following AWS CLI command creates a domain configuration for **iot\.example\.com**\.
 
 ```
 aws iot create-domain-configuration --domain-configuration-name "myDomainConfigurationName" --service-type "DATA" 
- --domain-name "iot.example.com" --server-certificate-arns serverCertARN --validation-certificate-arn validationCertArn
+--domain-name "iot.example.com" --server-certificate-arns serverCertARN --validation-certificate-arn validationCertArn
 ```
 
 **Note**  

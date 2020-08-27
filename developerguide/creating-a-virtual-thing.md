@@ -135,7 +135,7 @@ Your Amazon EC2 instance comes preloaded with the AWS CLI\. However, you must co
    aws iot describe-endpoint --endpoint-type iot:Data-ATS
    ```
 
-   If your AWS CLI is configured correctly, the command should return an endpoint address from your AWS IoT account\.
+   If your AWS CLI is configured correctly, the command should return an endpoint address from your AWS account\.
 
 ## Create AWS IoT resources for your virtual device<a name="ec2-create-certificate"></a>
 
@@ -183,9 +183,9 @@ The [create\-keys\-and\-certificate](https://awscli.amazonaws.com/v2/documentati
    ```
    aws iot create-keys-and-certificate \
        --set-as-active \
-       --certificate-pem-outfile ~/certs/device.pem.crt \
-       --public-key-outfile ~/certs/public.pem.key \
-       --private-key-outfile ~/certs/private.pem.key
+       --certificate-pem-outfile "~/certs/device.pem.crt" \
+       --public-key-outfile "~/certs/public.pem.key" \
+       --private-key-outfile "~/certs/private.pem.key"
    ```
 
    The response looks like the following\. Save the `certificateArn` so that you can use it in subsequent commands\. You'll need it to attach your certificate to your thing and to attach the policy to the certificate in a later steps\.
@@ -222,8 +222,8 @@ The [create\-keys\-and\-certificate](https://awscli.amazonaws.com/v2/documentati
 
    ```
    aws iot attach-thing-principal \
-       --thing-name MyIotThing \
-       --principal certificateArn
+       --thing-name "MyIotThing" \
+       --principal "certificateArn"
    ```
 
    If successful, this command does not display any output\.
@@ -266,8 +266,8 @@ The [create\-keys\-and\-certificate](https://awscli.amazonaws.com/v2/documentati
 
    ```
    aws iot create-policy \
-       --policy-name MyIotThingPolicy \
-       --policy-document file://~/policy.json
+       --policy-name "MyIotThingPolicy" \
+       --policy-document "file://~/policy.json"
    ```
 
    Output:
@@ -301,7 +301,7 @@ The [create\-keys\-and\-certificate](https://awscli.amazonaws.com/v2/documentati
 
    ```
    aws iot attach-policy \
-       --policy-name MyIotThingPolicy \
+       --policy-name "MyIotThingPolicy" \
        --target "certificateArn"
    ```
 
@@ -350,7 +350,7 @@ In this section, you'll install the AWS IoT Device SDK for JavaScript, which con
 |  Device certificate  |  `~/certs/device.pem.crt`  | 
 |  Root CA certificate  |  `~/certs/Amazon-root-CA-1.pem`  | 
 
-In this section, you'll install and run the `pub-sub.js` sample app found in the `aws-iot-device-sdk-js-v2/samples/node` directory of the AWS IoT Device SDK for JavaScript\. This app shows how a device, your Amazon EC2 instance, uses the MQTT library to publish and subscribe to MQTT messages\. The `pub-sub.js` sample app subscribes to a topic, `topic_1`, publishes 10 messages to that topic, and displays the messages as they're received from the AWS IoT message broker\.
+In this section, you'll install and run the `pub-sub.js` sample app found in the `aws-iot-device-sdk-js-v2/samples/node` directory of the AWS IoT Device SDK for JavaScript\. This app shows how a device, your Amazon EC2 instance, uses the MQTT library to publish and subscribe to MQTT messages\. The `pub-sub.js` sample app subscribes to a topic, `topic_1`, publishes 10 messages to that topic, and displays the messages as they're received from the message broker\.
 
 **To install and run the sample app**
 
@@ -412,11 +412,11 @@ You can also add the `--verbosity debug` parameter to the command line so the sa
 
 ## View messages from the sample app in the AWS IoT console<a name="ec2-view-msg"></a>
 
-You can see the sample app's messages as they pass through the AWS IoT message broker by using the **MQTT client** in the **AWS IoT console**\. 
+You can see the sample app's messages as they pass through the message broker by using the **MQTT client** in the **AWS IoT console**\. 
 
 **To view the MQTT messages published by the sample app**
 
-1. Review [View MQTT messages with the AWS IoT MQTT client](view-mqtt-messages.md)\. This helps you learn how to use the **MQTT client** in the **AWS IoT console** to view MQTT messages as they pass through the AWS IoT message broker\.
+1. Review [View MQTT messages with the AWS IoT MQTT client](view-mqtt-messages.md)\. This helps you learn how to use the **MQTT client** in the **AWS IoT console** to view MQTT messages as they pass through the message broker\.
 
 1. Open the **MQTT client** in the **AWS IoT console**\.
 

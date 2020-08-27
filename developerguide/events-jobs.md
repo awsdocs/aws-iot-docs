@@ -4,7 +4,7 @@ The AWS IoT Jobs service publishes to reserved topics on the MQTT protocol when 
 
 Because it can take some time to cancel or delete a job, two messages are sent to indicate the start and end of a request\. For example, when a cancellation request starts, a message is sent to the `$aws/events/job/jobID/cancellation_in_progress` topic\. When the cancellation request is complete, a message is sent to the `$aws/events/job/jobID/canceled` topic\. A similar process occurs for a job deletion request\. Management and monitoring applications can subscribe to these topics to keep track of the status of jobs\.
 
-For more information about publishing and subscribing to MQTT topics, see [Message broker for AWS IoT](iot-message-broker.md)\.
+For more information about publishing and subscribing to MQTT topics, see [Device communication protocols](protocols.md)\.
 
 Job Completed/Canceled/Deleted  
 The AWS IoT Jobs service publishes a message on an MQTT topic when a job is completed, canceled, deleted, or when cancellation or deletion are in progress:  

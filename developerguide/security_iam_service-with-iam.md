@@ -318,8 +318,8 @@ AWS IoT defines its own set of condition keys and also supports using some globa
 
 | AWS IoT condition keys | Description | Type | 
 | --- | --- | --- | 
-| aws:RequestTag/$\{<tag\-key>\} | A tag key that is present in the request that the user makes to AWS IoT\. | String | 
-| aws:ResourceTag/$\{<tag\-key>\} | The tag key component of a tag attached to an AWS IoT resource\. | String | 
+| aws:RequestTag/$\{tag\-key\} | A tag key that is present in the request that the user makes to AWS IoT\. | String | 
+| aws:ResourceTag/$\{tag\-key\} | The tag key component of a tag attached to an AWS IoT resource\. | String | 
 | aws:TagKeys | The list of all the tag key names associated with the resource in the request\. | String | 
 
 To see a list of AWS IoT condition keys, see [Condition Keys for AWS IoT](https://docs.aws.amazon.com/IAM/latest/UserGuide/list_awsiot.html#awsiot-policy-keys) in the *IAM User Guide*\. To learn with which actions and resources you can use a condition key, see [Actions Defined by AWS IoT](https://docs.aws.amazon.com/IAM/latest/UserGuide/list_awsiot.html#awsiot-actions-as-permissions)\.

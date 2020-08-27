@@ -2,7 +2,7 @@
 
 The IoT agent is used to receive the MQTT message that includes the client access token and start a local proxy on the remote device\. You must install and run the IoT agent on the remote device if you want the Secure Tunneling service to deliver the client access token\. The IoT agent must subscribe to the following reserved IoT MQTT topic:
 
-`$aws/things/<thing-name>/tunnels/notify`
+`$aws/things/thing-name/tunnels/notify`
 
 Where `thing-name` is the name of IoT thing associated with the remote device\.
 
@@ -10,9 +10,9 @@ The following is an example MQTT message payload:
 
 ```
 {
-    "clientAccessToken": "<destination-client-access-token>",
+    "clientAccessToken": "destination-client-access-token",
     "clientMode": "destination",
-    "region": "<aws-region",
+    "region": "aws-region",
     "services": ["destination-service"]
 }
 ```

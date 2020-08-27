@@ -1,6 +1,6 @@
 # Getting started with AWS IoT Core<a name="iot-gs"></a>
 
-AWS IoT Core services connect IoT devices to AWS IoT services and other AWS services\. AWS IoT Core includes the Device Gateway and the Message Broker, which connect and process messages between your IoT devices and the cloud\.
+AWS IoT Core services connect IoT devices to AWS IoT services and other AWS services\. AWS IoT Core includes the device gateway and the message broker, which connect and process messages between your IoT devices and the cloud\.
 
 Here's how you can get started with AWS IoT Core and AWS IoT\.
 

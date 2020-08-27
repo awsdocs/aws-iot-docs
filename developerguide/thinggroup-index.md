@@ -71,5 +71,5 @@ You can specify the thing groups index as a resource ARN in an AWS IoT policy ac
 
 | Action | Resource | 
 | --- | --- | 
-|  `iot:SearchIndex`  |  An index ARN \(for example, `arn:aws:iot:<your-aws-region>:index/AWS_ThingGroups`\)\.  | 
-|  `iot:DescribeIndex`  |  An index ARN \(for example, `arn:aws:iot:<your-aws-region>:index/AWS_ThingGroups`\)\.  | 
+|  `iot:SearchIndex`  |  An index ARN \(for example, `arn:aws:iot:your-aws-region:index/AWS_ThingGroups`\)\.  | 
+|  `iot:DescribeIndex`  |  An index ARN \(for example, `arn:aws:iot:your-aws-region:index/AWS_ThingGroups`\)\.  | 

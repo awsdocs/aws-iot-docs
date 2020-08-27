@@ -2,7 +2,7 @@
 
 X\.509 certificate policy variables allow you to write AWS IoT Core policies that grant permissions based on X\.509 certificate attributes\. The following sections describe how you can use these certificate policy variables\.
 
-## CertificateId<a name="w70aac17c19c29c19b9b5"></a>
+## CertificateId<a name="cert-policy-variables-certid"></a>
 
 In the [RegisterCertificate](https://docs.aws.amazon.com/iot/latest/apireference/API_RegisterCertificate.html) API, the `certificateId` appears in the response body\. To get information about your certificate, you can use the `certificateId` in [DescribeCertificate](https://docs.aws.amazon.com/iot/latest/apireference/API_DescribeCertificate.html)\.
 

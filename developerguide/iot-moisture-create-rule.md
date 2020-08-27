@@ -7,8 +7,8 @@ In this tutorial, your Raspberry Pi publishes messages on `aws/things/RaspberryP
 ```
 {
     "reported": {
-        "moisture" : <moisture-reading>,
-        "temp" : <temperature-reading>
+        "moisture" : moisture-reading,
+        "temp" : temperature-reading
     }
 }
 ```

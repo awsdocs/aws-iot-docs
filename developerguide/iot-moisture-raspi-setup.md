@@ -229,7 +229,7 @@ The MQTT client ID\. Use `RaspberryPi`\.
 
 The command line should look like this:
 
-`python3 moistureSensor.py --endpoint <your-endpoint> --rootCA ~/certs/AmazonRootCA1.pem --cert ~/certs/raspberrypi-certificate.pem.crt --key ~/certs/raspberrypi-private.pem.key --thingName RaspberryPi --clientId RaspberryPi`
+`python3 moistureSensor.py --endpoint your-endpoint --rootCA ~/certs/AmazonRootCA1.pem --cert ~/certs/raspberrypi-certificate.pem.crt --key ~/certs/raspberrypi-private.pem.key --thingName RaspberryPi --clientId RaspberryPi`
 
 Try touching the sensor, putting it in a planter, or putting it in a glass of water to see how the sensor responds to various levels of moisture\. If needed, you can change the threshold value in the `MoistureSensorRule`\. When the moisture sensor reading goes below the value specified in your rule's SQL query statement, AWS IoT publishes a message to the Amazon SNS topic\. You should receive an email message that contains the moisture and temperature data\.
 

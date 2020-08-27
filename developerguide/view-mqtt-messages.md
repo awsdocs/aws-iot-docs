@@ -23,8 +23,31 @@ Devices publish MQTT messages that are identified by [topics](topics.md) to comm
 
 1. On the **topic\_1** message log page, you can also publish messages to a topic\. Messages published to a subscribed topic appear in the topic's message log as they are received\.
 
-**Troubleshooting**  
-If your messages are not showing up in the message log as you expect, try subscribing to a wild card topic filter as described in [Topic filters](topics.md#topicfilters)\. For example, in the example shown here, you might subscribe to wild card topic filter of `#` to see every message received by AWS IoT\. MQTT topic names and topic filters are case sensitive\. If your device is publishing messages to `Topic_1` \(with a capital *T*\) instead of `topic_1`, to which you subscribed, its messages would not appear in the MQTT client\. Subscribing to the wild card topic filter, however would show that the device is publishing messages and you could see that the topic name was not the one you expected\.
+### Troubleshooting MQTT messages<a name="view-mqtt-trouble"></a>
+
+**Use the wild card topic filter**  
+If your messages are not showing up in the message log as you expect, try subscribing to a wild card topic filter as described in [Topic filters](topics.md#topicfilters)\. The MQTT multi\-level wild card topic filter is the hash or pound sign \( `#` \) and can be used as the topic filter in the **Subscription topic** field\. 
+
+Subscribing to the `#` topic filter subscribes to every topic received by the message broker\. You can narrow the filter down by replacing elements of the topic filter path with a `#` multi\-level wild card character or the '\+' single\-level wild\-card character\. 
+
+**When using wild cards in a topic filter**
++ The multi\-level wild card character must be the last character in the topic filter\.
++ The topic filter path can have only one single\-level wild card character per topic level\. 
+
+For example:
+
+
+|  Topic filter  |  Displays messages with  | 
+| --- | --- | 
+|   `#`   |   Any topic name   | 
+|   `topic_1/#`   |   A topic name that starts with `topic_1/`  | 
+|   `topic_1/level_2/#`   |   A topic name that starts with `topic_1/level_2/`  | 
+|   `topic_1/+/level_3`   |   A topic name that starts with `topic_1/`, ends with `/level_3`, and has one element of any value in between\.  | 
+
+For more information on topic filters, see [Topic filters](topics.md#topicfilters)\.
+
+**Check for topic name errors**  
+MQTT topic names and topic filters are case sensitive\. If, for example, your device is publishing messages to `Topic_1` \(with a capital *T*\) instead of `topic_1`, the topic to which you subscribed, its messages would not appear in the MQTT client\. Subscribing to the wild card topic filter, however would show that the device is publishing messages and you could see that it was using a topic name that was not the one you expected\.
 
 ## Publishing MQTT messages from the MQTT client<a name="view-mqtt-publish"></a>
 

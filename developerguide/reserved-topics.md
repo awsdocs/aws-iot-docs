@@ -1,6 +1,6 @@
 # Reserved topics<a name="reserved-topics"></a>
 
-Topics that begin with a dollar sign \($\) are reserved for use by AWS IoT\. You can subscribe and publish to these reserved topics as they allow; however, you cannot create new topics that begin with a dollar sign\. Unsupported publish or subscribe operations to reserved topics can result in a terminated connection\.
+Topics that begin with a dollar sign \($\) are reserved for use by AWS IoT\. You can subscribe and publish to these reserved topics as they allow; however, you can't create new topics that begin with a dollar sign\. Unsupported publish or subscribe operations to reserved topics can result in a terminated connection\.
 
 ## Asset model topics<a name="reserved-topics-other"></a>
 
@@ -135,7 +135,7 @@ The topics in this section are used by named and unnamed shadows\. The topics us
 | $aws/things/thingName/shadow | Unnamed \(classic\) shadow | 
 | $aws/things/thingName/shadow/name/shadowName | Named shadow | 
 
-To create a complete topic, select the *ShadowTopicPrefix* for the type of shadow to which you want to refer, replace *thingName*, and *shadowName* if applicable, with their corresponding values, and then append that with the topic stub as shown in the following table\. Remember that topics are case sensitive\.
+To create a complete topic, select the *ShadowTopicPrefix* for the type of shadow to which you want to refer, replace *thingName* and if applicable, *shadowName*, with their corresponding values, and then append that with the topic stub as shown in the following table\. Remember that topics are case sensitive\.
 
 
 | Topic | Client operations allowed | Description | 
@@ -157,7 +157,7 @@ To create a complete topic, select the *ShadowTopicPrefix* for the type of shado
 All reserved topic ARNs \(Amazon Resource Names\) have the following form:
 
 ```
-arn:aws:iot:region:AWS-account-ID:topic/Topic
+arn:aws:iot:aws-region:AWS-account-ID:topic/Topic
 ```
 
 For example, `arn:aws:iot:us-west-2:123EXAMPLE456:topic/$aws/things/thingName/jobs/get/accepted` is an ARN for the reserved topic `$aws/things/thingName/jobs/get/accepted`\.

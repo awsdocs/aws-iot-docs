@@ -47,7 +47,7 @@ If you configure the destination when calling `OpenTunnel`, the Secure Tunneling
 
 Open a terminal on your laptop, copy the source client access token, and use it to start the local proxy in source mode\. In the following command, the local proxy is configured to listen for new connections on port 5555\.
 
-\./localproxy \-r us\-east\-1 \-s 5555 \-t *<source\-client\-access\-token>*
+\./localproxy \-r us\-east\-1 \-s 5555 \-t *source\-client\-access\-token*
 
 **Note**  
 The AWS Region in this command must be the same AWS Region where the tunnel was created\.
@@ -69,7 +69,7 @@ If you receive the following error, set up the CA path\. For information, see [G
 
 Open another terminal and use the following command to start a new SSH session by connecting to the local proxy on port 5555\.
 
-ssh *<username>*@localhost \-p 5555
+ssh *username*@localhost \-p 5555
 
 You might be prompted for a password for the SSH session\. When you are done with the SSH session, type **exit** to close the session\.
 

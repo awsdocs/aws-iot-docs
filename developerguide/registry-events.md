@@ -4,9 +4,9 @@ The registry publishes event messages when things, thing types, and thing groups
 
 Thing Created/Updated/Deleted  
 The registry publishes the following event messages when things are created, updated, or deleted:  
-+ `$aws/events/thing/<thingName>/created`
-+ `$aws/events/thing/<thingName>/updated`
-+ `$aws/events/thing/<thingName>/deleted`
++ `$aws/events/thing/thingName/created`
++ `$aws/events/thing/thingName/updated`
++ `$aws/events/thing/thingName/deleted`
 The messages contain the following example payload:  
 
 ```
@@ -54,9 +54,9 @@ A collection of name\-value pairs associated with the thing\.
 
 Thing Type Created/Deprecated/Undeprecated/Deleted  
 The registry publishes the following event messages when thing types are created, deprecated, undeprecated, or deleted:  
-+ `$aws/events/thingType/<thingTypeName>/created`
-+ `$aws/events/thingType/<thingTypeName>/updated`
-+ `$aws/events/thingType/<thingTypeName>/deleted`
++ `$aws/events/thingType/thingTypeName/created`
++ `$aws/events/thingType/thingTypeName/updated`
++ `$aws/events/thingType/thingTypeName/deleted`
 The message contains the following example payload:  
 
 ```
@@ -103,7 +103,7 @@ A description of the thing type\.
 
 Thing Type Associated or Disassociated with a Thing  
 The registry publishes the following event messages when a thing type is associated or disassociated with a thing\.  
-+ `$aws/events/thingTypeAssociation/thing/<thingName>/<typeName>`
++ `$aws/events/thingTypeAssociation/thing/thingName/typeName`
 The messages contain the following example payload:  
 
 ```
@@ -137,9 +137,9 @@ The UNIX timestamp of when the event occurred\.
 
 Thing Group Created/Updated/Deleted  
 The registry publishes the following event messages when a thing group is created, updated, or deleted\.  
-+ `$aws/events/thingGroup/<groupName>/created`
-+ `$aws/events/thingGroup/<groupName>/updated`
-+ `$aws/events/thingGroup/<groupName>/deleted`
++ `$aws/events/thingGroup/groupName/created`
++ `$aws/events/thingGroup/groupName/updated`
++ `$aws/events/thingGroup/groupName/deleted`
 The messages contain the following example payload:  
 
 ```
@@ -196,8 +196,8 @@ A collection of name\-value pairs associated with the thing group\.
 
 Thing Added to or Removed from a Thing Group  
 The registry publishes the following event messages when a thing is added to or removed from a thing group\.  
-+ `$aws/events/thingGroupMembership/thingGroup/<thingGroupName>/thing/<thingName>/added`
-+ `$aws/events/thingGroupMembership/thingGroup/<thingGroupName>/thing/<thingName>/removed`
++ `$aws/events/thingGroupMembership/thingGroup/thingGroupName/thing/thingName/added`
++ `$aws/events/thingGroupMembership/thingGroup/thingGroupName/thing/thingName/removed`
 The messages contain the following example payload:  
 
 ```
@@ -238,8 +238,8 @@ An ID that represents the relationship between the thing and the thing group\. T
 
 Thing Group Added to or Deleted from a Thing Group  
 The registry publishes the following event messages when a thing group is added to or removed from another thing group\.  
-+ `$aws/events/thingGroupHierarchy/thingGroup/<parentThingGroupName>/childThingGroup/<childThingGroupName>/added`
-+ `$aws/events/thingGroupHierarchy/thingGroup/<parentThingGroupName>/childThingGroup/<childThingGroupName>/removed`
++ `$aws/events/thingGroupHierarchy/thingGroup/parentThingGroupName/childThingGroup/childThingGroupName/added`
++ `$aws/events/thingGroupHierarchy/thingGroup/parentThingGroupName/childThingGroup/childThingGroupName/removed`
 The message contains the following example payload:  
 
 ```

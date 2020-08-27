@@ -31,7 +31,7 @@ Use the [IAM console](https://console.aws.amazon.com/iam/) to create a logging r
 
 1. Enter a **Role name** and **Role description** for the role, and then choose **Create role**\.
 
-1. In the list of **Roles**, find the role you created, open it, and copy the **Role ARN** \(*<logging\-role\-arn>*\) to use later\.
+1. In the list of **Roles**, find the role you created, open it, and copy the **Role ARN** \(*logging\-role\-arn*\) to use later\.
 
 ### Logging role policy<a name="logging-role-policy"></a>
 
@@ -119,8 +119,8 @@ You can also perform this procedure with the API by using the methods in the AWS
 
    ```
    aws iot set-v2-logging-options \
-       --role-arn <logging-role-arn> \
-       --default-log-level <log-level>
+       --role-arn logging-role-arn \
+       --default-log-level log-level
    ```
 
    where:  
@@ -162,8 +162,8 @@ You can also perform this procedure with the API by using the methods in the AWS
 
    ```
    aws iot set-v2-logging-options \
-       --role-arn <logging-role-arn> \
-       --default-log-level <log-level>
+       --role-arn logging-role-arn \
+       --default-log-level log-level
    ```
 
    where:  
@@ -180,16 +180,16 @@ An optional parameter that disables all AWS IoT logging\. Use this parameter to 
 
    ```
    aws iot set-v2-logging-level \
-                 --log-target targetType=THING_GROUP,targetName=<thing_group_name> \
-                 --log-level <log_level>
+                 --log-target targetType=THING_GROUP,targetName=thing_group_name \
+                 --log-level log_level
    ```  
 \-\-log\-target  
 The type and name of the resource for which you are configuring logging\. The `target_type` value must be `THING_GROUP`\. The log\-target parameter value can be text, as shown in the preceding command example, or a JSON string, such as the following example\.  
 
    ```
    aws iot set-v2-logging-level \
-                 --log-target '{"targetType": "THING_GROUP","targetName": "<thing_group_name>"}' \
-                 --log-level <log_level>
+                 --log-target '{"targetType": "THING_GROUP","targetName": "thing_group_name"}' \
+                 --log-level log_level
    ```  
 \-\-log\-level  
 The logging level used when generating logs for the specified resource\. Valid values are: DEBUG, INFO, ERROR, WARN, and DISABLED 
@@ -205,7 +205,7 @@ The logging level used when generating logs for the specified resource\. Valid v
    ```
    aws iot delete-v2-logging-level \
                  --targetType "THING_GROUP" \
-                 --targetName "<thing_group_name>"
+                 --targetName "thing_group_name"
    ```  
 \-\-targetType  
 The `target_type` value must be `THING_GROUP`  

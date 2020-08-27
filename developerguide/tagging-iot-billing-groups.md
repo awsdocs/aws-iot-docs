@@ -21,7 +21,7 @@ You can use billing group tags to categorize and track your costs\. When you app
 **Note**  
 To accurately associate usage and cost data with those things you have placed in billing groups, each device or application must:  
 Be registered as a thing in AWS IoT\. For more information, see [Managing devices with AWS IoT](iot-thing-management.md)\.
-Connect to the AWS IoT message broker through MQTT using only the thing's name as the client ID\. For more information, see [Message broker for AWS IoT](iot-message-broker.md)\.
+Connect to the AWS IoT message broker through MQTT using only the thing's name as the client ID\. For more information, see [Device communication protocols](protocols.md)\.
 Authenticate using a client certificate associated with the thing\.
 
 The following pricing dimensions are available for billing groups \(based on the activity of things associated with the billing group\):

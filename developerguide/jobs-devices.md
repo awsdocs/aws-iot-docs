@@ -11,7 +11,7 @@ Devices can communicate with the AWS IoT Jobs service through these methods:
 ------
 #### [ Using the MQTT protocol ]
 
-Communication between the AWS IoT Jobs service and your devices can occur over the MQTT protocol\. Devices subscribe to MQTT topics to be notified of new jobs and to receive responses from the AWS IoT Jobs service\. Devices publish on MQTT topics to query or update the state of a job execution\. Each device has its own general MQTT topic\. For more information about publishing and subscribing to MQTT topics, see [Message broker for AWS IoT](iot-message-broker.md)\.
+Communication between the AWS IoT Jobs service and your devices can occur over the MQTT protocol\. Devices subscribe to MQTT topics to be notified of new jobs and to receive responses from the AWS IoT Jobs service\. Devices publish on MQTT topics to query or update the state of a job execution\. Each device has its own general MQTT topic\. For more information about publishing and subscribing to MQTT topics, see [Device communication protocols](protocols.md)\.
 
 **Note**  
 You must use the correct endpoint when you communicate with the AWS IoT Jobs service through MQTT\. Use the DescribeEndpoint command to find it\. For example, if you run this command:   
@@ -367,7 +367,7 @@ Job notifications are published to MQTT topics as JSON payloads\. There are two 
   + The status of an existing job execution that was not the first one in the list changes from `QUEUED` to `IN_PROGRESS` and becomes the first one in the list\. \(This happens when there are no other `IN_PROGRESS` job executions in the list or when the job execution whose status changes from `QUEUED` to `IN_PROGRESS` was queued earlier than any other `IN_PROGRESS` job execution in the list\.\) 
   + The status of the job execution that is first in the list changes to a terminal status and is removed from the list\.
 
-For more information about publishing and subscribing to MQTT topics, see [Message broker for AWS IoT](iot-message-broker.md)\.
+For more information about publishing and subscribing to MQTT topics, see [Device communication protocols](protocols.md)\.
 
 **Note**  
 Notifications are not available when you use HTTP Signature Version 4 or HTTP TLS to communicate with jobs\.

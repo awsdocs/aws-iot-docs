@@ -16,4 +16,4 @@ AWS IoT uses the server name indication \(SNI\) TLS extension to apply domain co
 **Topics**
 + [Creating and configuring AWS\-managed domains](iot-custom-endpoints-configurable-aws.md)
 + [Creating and configuring custom domains](iot-custom-endpoints-configurable-custom.md)
-+ [Managing Domain configurations](iot-custom-endpoints-managing.md)
++ [Managing domain configurations](iot-custom-endpoints-managing.md)

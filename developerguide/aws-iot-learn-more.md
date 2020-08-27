@@ -97,7 +97,7 @@ Amazon CloudWatch provides a reliable, scalable, and flexible monitoring solutio
 
 ## Communication protocols used by AWS IoT<a name="aws-iot-learn-more-protocol"></a>
 
-These topics provide more information about the communication protocols used by AWS IoT\.
+These topics provide more information about the communication protocols used by AWS IoT\. For more information about the protocols used by AWS IoT and connecting devices and services to AWS IoT, see [Connecting to AWS IoT Core](connect-to-iot.md)\.
 + 
 
 **[MQTT \(Message Queuing Telemetry Transport\)](http://mqtt.org/)**  
@@ -105,8 +105,8 @@ The home page of the MQTT\.org site where you can find the MQTT protocol specifi
 + 
 
 **[HTTPS \(Hypertext Transfer Protocol \- Secure\) ](https://tools.ietf.org/html/rfc2616)**  
-Devices and apps can access AWS IoT Core services by using HTTPS\.
+Devices and apps can access AWS IoT services by using HTTPS\.
 + 
 
 **[TLS \(Transport Layer Security\) v1\.2](https://tools.ietf.org/html/rfc5246)**  
-The specification of the TLS v1\.2 \(RFC 5246\)\. AWS IoT Core uses TLS v1\.2 to establish secure connections between devices and AWS IoT Core\. 
+The specification of the TLS v1\.2 \(RFC 5246\)\. AWS IoT uses TLS v1\.2 to establish secure connections between devices and AWS IoT\. 

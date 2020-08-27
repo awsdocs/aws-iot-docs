@@ -17,7 +17,7 @@ The format of the endpoint is as follows:
 identifier.iot.region.amazonaws.com
 ```
 
-The shadow REST API follows the same HTTPS protocols/port mappings as described in [Protocols](protocols.md)\.
+The shadow REST API follows the same HTTPS protocols/port mappings as described in [Device communication protocols](protocols.md)\.
 
 **Topics**
 + [GetThingShadow](#API_GetThingShadow)

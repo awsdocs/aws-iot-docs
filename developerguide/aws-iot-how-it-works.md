@@ -88,7 +88,7 @@ AWS IoT provides this software to support your IoT devices\.
 The [AWS IoT Device and Mobile SDKs](iot-sdks.md) help you efficiently connect your devices to AWS IoT\. The AWS IoT Device and Mobile SDKs include open\-source libraries, developer guides with samples, and porting guides so that you can build innovative IoT products or solutions on your choice of hardware platforms\.
 
 **FreeRTOS**  
-[FreeRTOS](https://docs.aws.amazon.com/freertos/) is an open source, real\-time operating system for microcontrollers that lets you include small, low\-power edge devices in your IoT solution\. FreeRTOS includes a kernel and a growing set of software libraries that support many applications\. FreeRTOS systems can securely connect your small, low\-power devices to [AWS IoT Core](https://docs.aws.amazon.com/iot/) and support more powerful edge devices running [AWS IoT Greengrass](https://docs.aws.amazon.com/greengrass/)\.
+[FreeRTOS](https://docs.aws.amazon.com/freertos/) is an open source, real\-time operating system for microcontrollers that lets you include small, low\-power edge devices in your IoT solution\. FreeRTOS includes a kernel and a growing set of software libraries that support many applications\. FreeRTOS systems can securely connect your small, low\-power devices to [AWS IoT](https://docs.aws.amazon.com/iot/) and support more powerful edge devices running [AWS IoT Greengrass](https://docs.aws.amazon.com/greengrass/)\.
 
 ### AWS IoT control services<a name="aws-iot-components-control"></a>
 
@@ -123,9 +123,9 @@ Analyze the data from the devices in your IoT solution and take appropriate acti
 
 AWS IoT Core provides the services that connect your IoT devices to the AWS Cloud so that other cloud services and applications can interact with your internet\-connected devices\.
 
-![\[A high-level view of AWS IoT\]](http://docs.aws.amazon.com/iot/latest/developerguide/images/aws_iot_data_services.png)
+![\[A high-level view of AWS IoT Core\]](http://docs.aws.amazon.com/iot/latest/developerguide/images/aws_iot_data_services.png)
 
-The AWS IoT Core message broker handles communication between your devices and AWS IoT\. Device communication is secured by secure protocols that use of X\.509 certificates\. The message broker distributes device data to devices that have subscribed to it and to other AWS IoT Core services, such as the Device Shadow service and the Rules engine\.
+The message broker handles communication between your devices and AWS IoT\. Device communication is secured by secure protocols that use of X\.509 certificates\. The message broker distributes device data to devices that have subscribed to it and to other AWS IoT Core services, such as the Device Shadow service and the Rules engine\.
 
 The Device Shadow service maintains a device's state so that applications can communicate with a device whether the device is online or not\. When a device is offline, the Device Shadow service manages its data for connected applications\. When the device reconnects, it synchronizes its state with that of its shadow in the Device Shadow service\.
 
@@ -141,7 +141,7 @@ The AWS IoT Core connectivity services provide secure communication with the IoT
 Enables devices to securely and efficiently communicate with AWS IoT\.
 
 **Message broker **  
-Provides a secure mechanism for devices and AWS IoT applications to publish and receive messages from each other\. You can use either the MQTT protocol directly or MQTT over WebSocket to publish and subscribe\. You can use the HTTP REST interface to publish\. For more information, see [Message broker for AWS IoT](iot-message-broker.md)\.
+Provides a secure mechanism for devices and AWS IoT applications to publish and receive messages from each other\. You can use either the MQTT protocol directly or MQTT over WebSocket to publish and subscribe\. You can use the HTTP REST interface to publish\. For more information, see [Device communication protocols](protocols.md)\.
 
 **Rules engine **  
 Provides message processing and integration with other AWS services\. You can use an SQL\-based language to select data from message payloads, and then process and send the data to other services, such as Amazon Simple Storage Service \(Amazon S3\), Amazon DynamoDB, and AWS Lambda\. You can also use the message broker to republish messages to other subscribers\. For more information, see [Rules for AWS IoT](iot-rules.md)\.

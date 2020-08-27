@@ -5,7 +5,7 @@ The AWS IoT Device and Mobile SDKs help you to connect your devices to AWS IoT e
 **Important**  
 Before you start this tutorial, complete the steps in [Getting started with AWS IoT Core](iot-gs.md)\. 
 
-These tutorials provide step\-by\-step instructions for connecting your Raspberry Pi to the [Message broker for AWS IoT](iot-message-broker.md) using the AWS IoT Device SDK for Embedded C and the AWS IoT Device SDK for JavaScript\. After you complete the steps in these tutorials, you can connect to the AWS IoT platform and run the sample applications included with the AWS IoT Device and Mobile SDKs\.
+These tutorials provide step\-by\-step instructions for connecting your Raspberry Pi to AWS IoT using the AWS IoT Device SDK for Embedded C and the AWS IoT Device SDK for JavaScript\. After you complete the steps in these tutorials, you can connect to the AWS IoT platform and run the sample applications included with the AWS IoT Device and Mobile SDKs\.
 
 **Topics**
 + [Prerequisites](#iot-sdk-prereqs)

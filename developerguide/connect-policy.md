@@ -50,7 +50,7 @@ The following policy denies permission to client IDs `client1` and `client2` to 
 
 ## MQTT persistent sessions policy examples<a name="persistent-sessions-examples"></a>
 
-`connectAttributes` allow you to specify what attributes you want to use in your connect message in your IAM policies such as `PersistentConnect` and `LastWill`\. For more information, see [Connect Attribute Condition](mqtt-persistent-sessions.md#connect-attribute)
+`connectAttributes` allow you to specify what attributes you want to use in your connect message in your IAM policies such as `PersistentConnect` and `LastWill`\. For more information, see [Using connectAttributes](mqtt.md#connect-attribute)
 
 The following policy allows connect with `PersistentConnect` feature:
 

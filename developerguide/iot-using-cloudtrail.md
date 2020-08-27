@@ -17,7 +17,7 @@ For an ongoing record of events in your AWS account, including events for AWS Io
 **Note**  
 AWS IoT data plane actions \(device side\) are not logged by CloudTrail\. Use CloudWatch to monitor these actions\.
 
-AWS IoT control plane actions are logged by CloudTrail\. For example, calls to the **CreateThing**, **ListThings**, and **ListTopicRules** sections generate entries in the CloudTrail log files\.
+Generally speaking, AWS IoT control plane actions that make changes are logged by CloudTrail\. Calls such as **CreateThing**, **CreateKeysAndCertificate**, and **UpdateCertificate** leave CloudTrail entries, while calls such as **ListThings** and **ListTopicRules** do not\.
 
 Every event or log entry contains information about who generated the request\. The identity information helps you determine the following: 
 + Whether the request was made with root or IAM user credentials\.

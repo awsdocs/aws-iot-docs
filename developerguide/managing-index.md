@@ -13,7 +13,7 @@ The `--thing-indexing-configuration` parameter takes a string with the following
   "thingIndexingMode": "OFF"|"REGISTRY"|"REGISTRY_AND_SHADOW",
   "thingConnectivityIndexingMode": "OFF"|"STATUS",
   "customFields": [
-    { name: <field-name>, type: String | Number | Boolean },
+    { name: field-name, type: String | Number | Boolean },
     ...
   ]
 }
@@ -491,8 +491,8 @@ You can specify the things index as a resource ARN in an AWS IoT policy action, 
 
 | Action | Resource | 
 | --- | --- | 
-|  `iot:SearchIndex`  |  An index ARN \(for example, `arn:aws:iot:<your-aws-region><your-aws-account>:index/AWS_Things`\)\.  | 
-|  `iot:DescribeIndex`  |  An index ARN \(for example, `arn:aws:iot:<your-aws-region>:index/AWS_Things`\)\.  | 
+|  `iot:SearchIndex`  |  An index ARN \(for example, `arn:aws:iot:your-aws-regionyour-aws-account:index/AWS_Things`\)\.  | 
+|  `iot:DescribeIndex`  |  An index ARN \(for example, `arn:aws:iot:your-aws-region:index/AWS_Things`\)\.  | 
 
 **Note**  
 If you have permissions to query the fleet index, you can access the data of things across the entire fleet\.

@@ -35,7 +35,7 @@ In this procedure, you will create a policy that allows your device to perform t
    1. In the **Resource ARN** field, enter **\***\. This selects any client \(device\)\.
 **Note**  
 In this quick start, the wildcard \(\*\) character is used for simplicity\. For higher security, you should restrict which clients \(devices\) can connect and publish messages by specifying a client ARN \(Amazon resource name\) instead of the wildcard character as the resource\. Client ARNs follow this format:  
- `arn:aws:iot:your-region:your-aws-account:client/<my-client-id>`   
+ `arn:aws:iot:your-region:your-aws-account:client/my-client-id`   
 However, you must first create the resource \(client device, thing shadow, etc\.\) before you can assign its ARN to a policy\.
 
    1. Choose the **Allow** check box\.

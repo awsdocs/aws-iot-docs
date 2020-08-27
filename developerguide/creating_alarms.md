@@ -12,7 +12,7 @@ You can create a CloudWatch alarm that sends an Amazon SNS message when the alar
 
 ## How can I be notified if my things do not connect successfully each day?<a name="how_to_detect_connection_failures"></a>
 
-1. Create an Amazon SNS topic named `things-not-connecting-successfully`, and record its Amazon Resource Name \(ARN\)\. This procedure will refer to your topic's ARN as `<sns-topic-arn>`\.
+1. Create an Amazon SNS topic named `things-not-connecting-successfully`, and record its Amazon Resource Name \(ARN\)\. This procedure will refer to your topic's ARN as `sns-topic-arn`\.
 
    For more information on how to create an Amazon SNS notification, see [Getting Started with Amazon SNS](https://docs.aws.amazon.com/sns/latest/dg/sns-getting-started.html)\.
 
@@ -30,7 +30,7 @@ You can create a CloudWatch alarm that sends an Amazon SNS message when the alar
        --comparison-operator LessThanThreshold \
        --period 86400 \
        --evaluation-periods 1 \
-       --alarm-actions <sns-topic-arn>
+       --alarm-actions sns-topic-arn
    ```
 
 1. Test the alarm\.
@@ -47,7 +47,7 @@ You can create a CloudWatch alarm that sends an Amazon SNS message when the alar
 
 ## How can I be notified if my things are not publishing data each day?<a name="how_to_detect_publish_failures"></a>
 
-1. Create an Amazon SNS topic named `things-not-publishing-data`, and record its Amazon Resource Name \(ARN\)\. This procedure will refer to your topic's ARN as `<sns-topic-arn>`\.
+1. Create an Amazon SNS topic named `things-not-publishing-data`, and record its Amazon Resource Name \(ARN\)\. This procedure will refer to your topic's ARN as `sns-topic-arn`\.
 
    For more information on how to create an Amazon SNS notification, see [Getting Started with Amazon SNS](https://docs.aws.amazon.com/sns/latest/dg/sns-getting-started.html)\.
 
@@ -65,7 +65,7 @@ You can create a CloudWatch alarm that sends an Amazon SNS message when the alar
        --comparison-operator LessThanThreshold \
        --period 86400 \
        --evaluation-periods 1 \
-       --alarm-actions <sns-topic-arn>
+       --alarm-actions sns-topic-arn
    ```
 
 1. Test the alarm\.
@@ -82,7 +82,7 @@ You can create a CloudWatch alarm that sends an Amazon SNS message when the alar
 
 ## How can I be notified if my thing's shadow updates are being rejected each day?<a name="detect_rejected_updates"></a>
 
-1. Create an Amazon SNS topic named `things-shadow-updates-rejected`, and record its Amazon Resource Name \(ARN\)\. This procedure will refer to your topic's ARN as `<sns-topic-arn>`\.
+1. Create an Amazon SNS topic named `things-shadow-updates-rejected`, and record its Amazon Resource Name \(ARN\)\. This procedure will refer to your topic's ARN as `sns-topic-arn`\.
 
    For more information on how to create an Amazon SNS notification, see [Getting Started with Amazon SNS](https://docs.aws.amazon.com/sns/latest/dg/sns-getting-started.html)\.
 
@@ -101,7 +101,7 @@ You can create a CloudWatch alarm that sends an Amazon SNS message when the alar
        --period 86400 \
        --unit Count \
        --evaluation-periods 1 \
-       --alarm-actions <sns-topic-arn>
+       --alarm-actions sns-topic-arn
    ```
 
 1. Test the alarm\.
