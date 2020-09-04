@@ -18,7 +18,7 @@ To learn your account's device endpoint for a specific purpose, use the describe
 aws iot describe-endpoint --endpoint-type endpointType
 ```
 
-This command returns an endpoint in the following format: `account-specific-prefix.iot.aws-region.amazonaws.com`\.
+This command returns an *iot\-endpoint* in the following format: `account-specific-prefix.iot.aws-region.amazonaws.com`\.
 
 Every customer has an `iot:Data-ATS` and an `iot:Data` endpoint\. Each endpoint uses an X\.509 certificate to authenticate the client\. We strongly recommend that customers use the newer `iot:Data-ATS` endpoint type to avoid issues related to the widespread distrust of Symantec certificate authorities\. We provide the `iot:Data` endpoint for devices to retrieve data from old endpoints that use VeriSign certificates for backward compatibility\. For more information, see [Server Authentication](server-authentication.html)\.
 
@@ -50,7 +50,8 @@ The [AWS Mobile SDKs](iot-connect-service.md#iot-connect-mobile-sdks) support bo
 
 The AWS IoT C\+\+ Device SDK allows developers to build connected applications using AWS and the APIs of the AWS IoT Core services\. Specifically, this SDK was designed for devices that are not resource constrained and require advanced features such as message queuing, multi\-threading support, and the latest language features\. For more information, see the following:
 + [AWS IoT C\+\+ Device SDK v2 on GitHub](https://github.com/aws/aws-iot-device-sdk-cpp-v2)
-+ [AWS IoT C\+\+ Device SDK v2 Readme](https://github.com/aws/aws-iot-device-sdk-cpp-v2/blob/master/README.md)
++ [AWS IoT C\+\+ Device SDK v2 Readme](https://github.com/aws/aws-iot-device-sdk-cpp-v2#aws-iot-sdk-for-c-v2)
++ [AWS IoT C\+\+ Device SDK v2 Samples](https://github.com/aws/aws-iot-device-sdk-cpp-v2/tree/master/samples#samples)
 
 ------
 #### [ Python ]
@@ -59,7 +60,8 @@ The AWS IoT C\+\+ Device SDK allows developers to build connected applications u
 
 The AWS IoT Device SDK for Python makes it possible for developers to write Python scripts to use their devices to access the AWS IoT platform through MQTT or MQTT over the WebSocket protocol\. By connecting their devices to the APIs of the AWS IoT Core services, users can securely work with the message broker, rules, and Device Shadow service that AWS IoT Core provides and with other AWS services like AWS Lambda, Amazon Kinesis, and Amazon S3, and more\.
 + [AWS IoT Device SDK for Python v2 on GitHub](https://github.com/aws/aws-iot-device-sdk-python-v2)
-+ [AWS IoT Device SDK for Python v2 Readme](https://github.com/aws/aws-iot-device-sdk-python-v2/blob/master/README.md)
++ [AWS IoT Device SDK for Python v2 Readme](https://github.com/aws/aws-iot-device-sdk-python-v2#aws-iot-device-sdk-for-python-v2)
++ [AWS IoT Device SDK for Python v2 Samples](https://github.com/aws/aws-iot-device-sdk-python-v2/tree/master/samples#sample-apps-for-the-aws-iot-device-sdk-for-python-v2)
 
 ------
 #### [ JavaScript ]
@@ -68,8 +70,9 @@ The AWS IoT Device SDK for Python makes it possible for developers to write Pyth
 
 The AWS IoT Device SDK for JavaScript makes it possible for developers to write JavaScript applications that access APIs of the AWS IoT Core using MQTT or MQTT over the WebSocket protocol\. It can be used in Node\.js environments and browser applications\. For more information, see the following:
 + [AWS IoT Device SDK for JavaScript v2 on GitHub](https://github.com/aws/aws-iot-device-sdk-js-v2)
++ [AWS IoT Device SDK for JavaScript v2 Readme](https://github.com/aws/aws-iot-device-sdk-js-v2#aws-iot-sdk-for-javascript-v2)
++ [AWS IoT Device SDK for JavaScript v2 Samples](https://github.com/aws/aws-iot-device-sdk-js-v2/tree/master/samples#samples)
 + [AWS IoT Device SDK for JavaScript v2 API documentation](https://aws.github.io/aws-iot-device-sdk-js-v2/index.html)
-+ [AWS IoT Device SDK for JavaScript v2 Readme](https://github.com/aws/aws-iot-device-sdk-js-v2/blob/master/README.md)
 
 ------
 #### [ Java ]
@@ -78,7 +81,8 @@ The AWS IoT Device SDK for JavaScript makes it possible for developers to write 
 
 The AWS IoT Device SDK for Java makes it possible for Java developers to access the APIs of the AWS IoT Core through MQTT or MQTT over the WebSocket protocol\. The SDK supports the Device Shadow service\. You can access shadows by using HTTP methods, including GET, UPDATE, and DELETE\. The SDK also supports a simplified shadow access model, which allows developers to exchange data with shadows by using getter and setter methods, without having to serialize or deserialize any JSON documents\. For more information, see the following:
 + [AWS IoT Device SDK for Java v2 on GitHub](https://github.com/aws/aws-iot-device-sdk-java-v2)
-+ [AWS IoT Device SDK for Java v2 Readme](https://github.com/aws/aws-iot-device-sdk-java-dv2/blob/master/README.md)
++ [AWS IoT Device SDK for Java v2 Readme](https://github.com/aws/aws-iot-device-sdk-java-v2#aws-iot-sdk-for-java-v2)
++ [AWS IoT Device SDK for Java v2 Samples](https://github.com/aws/aws-iot-device-sdk-java-v2/tree/master/samples#samples)
 
 ------
 #### [ Embedded C ]
@@ -97,6 +101,7 @@ The AWS IoT Device SDK for Embedded C is generally targeted at resource constrai
 In general, the AWS IoT Device SDK for Embedded C is intended for systems that use MCUs or low\-end MPUs that run embedded operating systems\. This SDK is distributed as source code and is intended to be built into customer firmware along with application code, other libraries, and FreeRTOS\. For more information, see the following:
 + [AWS IoT Device SDK for Embedded C on GitHub](https://github.com/aws/aws-iot-device-sdk-embedded-C)
 + [AWS IoT Device SDK for Embedded C Readme](https://github.com/aws/aws-iot-device-sdk-embedded-C/blob/master/README.md)
-+ [AWS IoT Device SDK for Embedded C Porting Guide](https://github.com/aws/aws-iot-device-sdk-embedded-C/blob/master/PortingGuide.md)
++ [AWS IoT Device SDK for Embedded C Samples](https://github.com/aws/aws-iot-device-sdk-embedded-C/tree/master/samples#overview)
++ [AWS IoT Device SDK for Embedded C Porting Guide](https://github.com/aws/aws-iot-device-sdk-embedded-C/blob/master/PortingGuide.md#porting-guide)
 
 ------

@@ -17,7 +17,8 @@ These SDKs help you connect your IoT devices to AWS IoT using the MQTT and WSS p
 
 The AWS IoT C\+\+ Device SDK allows developers to build connected applications using AWS and the AWS IoT APIs\. Specifically, this SDK was designed for devices that are not resource constrained and require advanced features such as message queuing, multi\-threading support, and the latest language features\. For more information, see the following:
 + [AWS IoT C\+\+ Device SDK v2 on GitHub](https://github.com/aws/aws-iot-device-sdk-cpp-v2)
-+ [AWS IoT C\+\+ Device SDK v2 Readme](https://github.com/aws/aws-iot-device-sdk-cpp-v2/blob/master/README.md)
++ [AWS IoT C\+\+ Device SDK v2 Readme](https://github.com/aws/aws-iot-device-sdk-cpp-v2#aws-iot-sdk-for-c-v2)
++ [AWS IoT C\+\+ Device SDK v2 Samples](https://github.com/aws/aws-iot-device-sdk-cpp-v2/tree/master/samples#samples)
 
 ------
 #### [ Python ]
@@ -26,7 +27,8 @@ The AWS IoT C\+\+ Device SDK allows developers to build connected applications u
 
 The AWS IoT Device SDK for Python makes it possible for developers to write Python scripts to use their devices to access the AWS IoT platform through MQTT or MQTT over the WebSocket protocol\. By connecting their devices to AWS IoT, users can securely work with the message broker, rules, and shadows provided by AWS IoT and with other AWS services like AWS Lambda, Kinesis, and Amazon S3, and more\.
 + [AWS IoT Device SDK for Python v2 on GitHub](https://github.com/aws/aws-iot-device-sdk-python-v2)
-+ [AWS IoT Device SDK for Python v2 Readme](https://github.com/aws/aws-iot-device-sdk-python-v2/blob/master/README.md)
++ [AWS IoT Device SDK for Python v2 Readme](https://github.com/aws/aws-iot-device-sdk-python-v2#aws-iot-device-sdk-for-python-v2)
++ [AWS IoT Device SDK for Python v2 Samples](https://github.com/aws/aws-iot-device-sdk-python-v2/tree/master/samples#sample-apps-for-the-aws-iot-device-sdk-for-python-v2)
 
 ------
 #### [ JavaScript ]
@@ -35,7 +37,9 @@ The AWS IoT Device SDK for Python makes it possible for developers to write Pyth
 
 The aws\-iot\-device\-sdk\.js package makes it possible for developers to write JavaScript applications that access AWS IoT using MQTT or MQTT over the WebSocket protocol\. It can be used in Node\.js environments and browser applications\. For more information, see the following:
 + [AWS IoT Device SDK for JavaScript v2 on GitHub](https://github.com/aws/aws-iot-device-sdk-js-v2)
-+ [AWS IoT Device SDK for JavaScript v2 Readme](https://github.com/aws/aws-iot-device-sdk-js-v2/blob/master/README.md)
++ [AWS IoT Device SDK for JavaScript v2 Readme](https://github.com/aws/aws-iot-device-sdk-js-v2#aws-iot-sdk-for-javascript-v2)
++ [AWS IoT Device SDK for JavaScript v2 Samples](https://github.com/aws/aws-iot-device-sdk-js-v2/tree/master/samples#samples)
++ [AWS IoT Device SDK for JavaScript v2 API documentation](https://aws.github.io/aws-iot-device-sdk-js-v2/index.html)
 
 ------
 #### [ Java ]
@@ -44,7 +48,8 @@ The aws\-iot\-device\-sdk\.js package makes it possible for developers to write 
 
 The AWS IoT Device SDK for Java makes it possible for Java developers to access the AWS IoT platform through MQTT or MQTT over the WebSocket protocol\. The SDK is built with shadow support\. You can access shadows by using HTTP methods, including GET, UPDATE, and DELETE\. The SDK also supports a simplified shadow access model, which allows developers to exchange data with shadows by just using getter and setter methods, without having to serialize or deserialize any JSON documents\. For more information, see the following:
 + [AWS IoT Device SDK for Java v2 on GitHub](https://github.com/aws/aws-iot-device-sdk-java-v2)
-+ [AWS IoT Device SDK for Java v2 Readme](https://github.com/aws/aws-iot-device-sdk-java-v2/blob/master/README.md)
++ [AWS IoT Device SDK for Java v2 Readme](https://github.com/aws/aws-iot-device-sdk-java-v2#aws-iot-sdk-for-java-v2)
++ [AWS IoT Device SDK for Java v2 Samples](https://github.com/aws/aws-iot-device-sdk-java-v2/tree/master/samples#samples)
 
 ------
 
@@ -64,7 +69,8 @@ The AWS IoT Device SDK for Embedded C is generally targeted at resource constrai
 In general, the AWS IoT Device SDK for Embedded C is intended for systems that use MCUs or low\-end MPUs that run embedded operating systems\. This SDK is distributed as source code and is intended to be built into customer firmware along with application code, other libraries, and RTOS\. For more information, see the following:
 + [AWS IoT Device SDK for Embedded C on GitHub](https://github.com/aws/aws-iot-device-sdk-embedded-C)
 + [AWS IoT Device SDK for Embedded C Readme](https://github.com/aws/aws-iot-device-sdk-embedded-C/blob/master/README.md)
-+ [AWS IoT Device SDK for Embedded C Porting Guide](https://github.com/aws/aws-iot-device-sdk-embedded-C/blob/master/PortingGuide.md)
++ [AWS IoT Device SDK for Embedded C Samples](https://github.com/aws/aws-iot-device-sdk-embedded-C/tree/master/samples#overview)
++ [AWS IoT Device SDK for Embedded C Porting Guide](https://github.com/aws/aws-iot-device-sdk-embedded-C/blob/master/PortingGuide.md#porting-guide)
 
 ## AWS Mobile SDKs<a name="iot-mobile-sdks"></a>
 
@@ -77,8 +83,8 @@ The AWS Mobile SDKs provide mobile app developers platform\-specific support for
 
 The AWS SDK for Android contains a library, samples, and documentation for developers to build connected mobile applications using AWS\. This SDK also includes support for MQTT device communications and calling the APIs of the AWS IoT Core services\. For more information, see the following:
 + [AWS Mobile SDK for Android on GitHub](https://github.com/aws/aws-sdk-android)
-+ [AWS Mobile SDK for Android Readme](https://github.com/aws/aws-sdk-android/blob/main/README.md)
-+ [AWS Mobile SDK for Android Samples](https://github.com/awslabs/aws-sdk-android-samples)
++ [AWS Mobile SDK for Android Readme](https://github.com/aws-amplify/aws-sdk-android/blob/main/README.md#aws-sdk-for-android)
++ [AWS Mobile SDK for Android Samples](https://github.com/awslabs/aws-sdk-android-samples#aws-sdk-for-android-samples)
 + [AWS SDK for Android API reference](https://aws-amplify.github.io/aws-sdk-android/docs/reference/)
 + [AWSIoTClient Class reference documentation](https://aws-amplify.github.io/aws-sdk-android/docs/reference/com/amazonaws/services/iot/AWSIotClient.html)
 
@@ -89,8 +95,8 @@ The AWS SDK for Android contains a library, samples, and documentation for devel
 
 The AWS SDK for iOS is an open\-source software development kit, distributed under an Apache Open Source license\. The SDK for iOS provides a library, code samples, and documentation to help developers build connected mobile applications using AWS\. This SDK also includes support for MQTT device communications and calling the APIs of the AWS IoT Core services\. For more information, see the following:
 + [AWS SDK for iOS on GitHub](https://github.com/aws/aws-sdk-ios)
-+ [AWS SDK for iOS Readme](https://github.com/aws/aws-sdk-ios/blob/main/README.md)
-+ [AWS SDK for iOS Samples](https://github.com/aws/aws-sdk-ios/blob/main/README.md#iot-sample-swift)
++ [AWS SDK for iOS Readme](https://github.com/aws-amplify/aws-sdk-ios/blob/main/README.md#aws-sdk-for-ios)
++ [AWS SDK for iOS Samples](https://github.com/awslabs/aws-sdk-ios-samples#the-aws-sdk-for-ios-samples)
 + [AWSIoT Class reference docs in the AWS SDK for iOS](https://aws-amplify.github.io/aws-sdk-ios/docs/reference/AWSIoT/index.html)
 
 ------

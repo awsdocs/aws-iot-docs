@@ -41,7 +41,7 @@ The following is an example of a successful response from the pre\-provisioning 
 }
 ```
 
-`"parameterOverrides"` values will be added to `"parameters"` parameter in the [RegisterThing](fleet-provision-api.md#register-thing) response payload\.
+`"parameterOverrides"` values will be added to `"parameters"` parameter of the [RegisterThing](fleet-provision-api.md#register-thing) request payload\.
 
 **Note**  
 If the Lambda function fails or doesn't return the `"allowProvisioning"` parameter in the response, the provisioning request will fail and the error will be returned in the response\.

@@ -3,7 +3,7 @@
 You can access the features that the AWS IoT Core services provide by using the AWS CLI, the AWS SDK for your preferred language, or by calling the REST API directly\. We recommend using the AWS CLI or an AWS SDK to interact with AWS IoT Core because they incorporate the best practices for calling AWS services\. Calling the REST APIs directly is an option, but you must provide [the necessary security credentials](https://docs.aws.amazon.com/general/latest/gr/signing_aws_api_requests.html) that enable access to the API\.
 
 **Note**  
-IoT devices should use [AWS IoT Device and Mobile SDKs](iot-sdks.md)\. The Device SDKs are optimized for use on devices, support MQTT communication with AWS IoT, and support the AWS IoT APIs most used by devices\. For more information about the Device SDKs and the features they provide, see [AWS IoT Device and Mobile SDKs](iot-sdks.md)\.  
+IoT devices should use [AWS IoT Device SDKs](iot-connect-devices.md#iot-connect-device-sdks)\. The Device SDKs are optimized for use on devices, support MQTT communication with AWS IoT, and support the AWS IoT APIs most used by devices\. For more information about the Device SDKs and the features they provide, see [AWS IoT Device SDKs](iot-connect-devices.md#iot-connect-device-sdks)\.  
 Mobile devices should use [AWS Mobile SDKs](#iot-connect-mobile-sdks)\. The Mobile SDKs provide support for AWS IoT APIs, MQTT device communications, and the APIs of other AWS services on mobile devices\. For more information about the Mobile SDKs and the features they provide, see [AWS Mobile SDKs](#iot-connect-mobile-sdks)\.
 
 The following sections describe the tools and SDKs that you can use to develop and interact with AWS IoT and other AWS services\. For the complete list of AWS tools and development kits that are available to build and manage apps on AWS, see [Tools to Build on AWS](https://aws.amazon.com/tools/)\.
@@ -131,8 +131,8 @@ The AWS Mobile SDKs provide mobile app developers platform\-specific support for
 
 The AWS SDK for Android contains a library, samples, and documentation for developers to build connected mobile applications using AWS\. This SDK also includes support for MQTT device communications and calling the APIs of the AWS IoT Core services\. For more information, see the following:
 + [AWS Mobile SDK for Android on GitHub](https://github.com/aws/aws-sdk-android)
-+ [AWS Mobile SDK for Android Readme](https://github.com/aws/aws-sdk-android/blob/main/README.md)
-+ [AWS Mobile SDK for Android Samples](https://github.com/awslabs/aws-sdk-android-samples)
++ [AWS Mobile SDK for Android Readme](https://github.com/aws-amplify/aws-sdk-android/blob/main/README.md#aws-sdk-for-android)
++ [AWS Mobile SDK for Android Samples](https://github.com/awslabs/aws-sdk-android-samples#aws-sdk-for-android-samples)
 + [AWS SDK for Android API reference](https://aws-amplify.github.io/aws-sdk-android/docs/reference/)
 + [AWSIoTClient Class reference documentation](https://aws-amplify.github.io/aws-sdk-android/docs/reference/com/amazonaws/services/iot/AWSIotClient.html)
 
@@ -143,8 +143,8 @@ The AWS SDK for Android contains a library, samples, and documentation for devel
 
 The AWS SDK for iOS is an open\-source software development kit, distributed under an Apache Open Source license\. The SDK for iOS provides a library, code samples, and documentation to help developers build connected mobile applications using AWS\. This SDK also includes support for MQTT device communications and calling the APIs of the AWS IoT Core services\. For more information, see the following:
 + [AWS SDK for iOS on GitHub](https://github.com/aws/aws-sdk-ios)
-+ [AWS SDK for iOS Readme](https://github.com/aws/aws-sdk-ios/blob/main/README.md)
-+ [AWS SDK for iOS Samples](https://github.com/aws/aws-sdk-ios/blob/main/README.md#iot-sample-swift)
++ [AWS SDK for iOS Readme](https://github.com/aws-amplify/aws-sdk-ios/blob/main/README.md#aws-sdk-for-ios)
++ [AWS SDK for iOS Samples](https://github.com/awslabs/aws-sdk-ios-samples#the-aws-sdk-for-ios-samples)
 + [AWSIoT Class reference docs in the AWS SDK for iOS](https://aws-amplify.github.io/aws-sdk-ios/docs/reference/AWSIoT/index.html)
 
 ------

@@ -1,11 +1,7 @@
 # Managing domain configurations<a name="iot-custom-endpoints-managing"></a>
 
-
 ****  
-
-|  | 
-| --- |
-| This feature is currently in public beta and is available only in the US East \(N\. Virginia\) Region\. | 
+This feature is currently in public beta and is available only in the US East \(N\. Virginia\) Region\.
 
 You can manage the lifecycles of existing configurations by using the following APIs\.
 + [ListDomainConfigurations](https://docs.aws.amazon.com/iot/latest/apireference/API_ListDomainConfigurations.html)

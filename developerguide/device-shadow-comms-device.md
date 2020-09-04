@@ -7,7 +7,8 @@ Shadow communications emulate a request/response model using the publish/subscri
 If you want apps and services to be able to determine whether a device is connected, see [Detecting a device is connected](device-shadow-comms-app.md#thing-connection)\.
 
 **Important**  
-Because MQTT uses a publish/subscribe communication model, you must subscribe to the response topics *before* publishing a request topic\. If you don't, you won't receive the response to the request that you publish\.
+Because MQTT uses a publish/subscribe communication model, you should subscribe to the response topics *before* you publish a request topic\. If you don't, you might not receive the response to the request that you publish\.   
+If you use an [AWS IoT Device SDK](iot-sdks.md) to call the Device Shadow service APIs, this is handled for you\.
 
 The examples in this section use an abbreviated form of the topic where the *ShadowTopicPrefix* can refer to either a named or an unnamed shadow, as described in this table\.
 
@@ -59,8 +60,6 @@ While a device is connected, it should publish these messages when indicated\.
 | --- | --- | --- | 
 | The device's state has changed\. |  `ShadowTopicPrefix/update`  | A shadow document with the `reported` property\. | 
 | The device might not be synchronized with the shadow\. | `ShadowTopicPrefix/get` | \(empty\) | 
-| An action on the device indicates that a shadow will no longer be supported by the device, such as when the device is being remove or replaced\. | `ShadowTopicPrefix/delete` | When the device's state has changed | 
-| The device might not be synchronized with the shadow | `ShadowTopicPrefix/get` | \(empty\) | 
 | An action on the device indicates that a shadow will no longer be supported by the device, such as when the device is being remove or replaced | `ShadowTopicPrefix/delete` | \(empty\) | 
 
 ## Processing messages when the device reconnects to AWS IoT<a name="device-shadow-comms-device-reconnect"></a>

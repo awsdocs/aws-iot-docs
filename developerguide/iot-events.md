@@ -53,25 +53,16 @@ The output of the describe\-event\-configurations command looks like the followi
         "THING_GROUP_HIERARCHY": {
             "Enabled": false
         }, 
-        "CERTIFICATE": {
-            "Enabled": false
-        }, 
         "THING_TYPE_ASSOCIATION": {
             "Enabled": false
         }, 
         "THING_GROUP_MEMBERSHIP": {
             "Enabled": false
         }, 
-        "CA_CERTIFICATE": {
-            "Enabled": false
-        }, 
         "THING": {
             "Enabled": true
         }, 
         "JOB": {
-            "Enabled": false
-        }, 
-        "POLICY": {
             "Enabled": false
         }, 
         "THING_GROUP": {

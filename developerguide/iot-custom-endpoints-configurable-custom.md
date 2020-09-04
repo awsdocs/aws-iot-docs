@@ -1,11 +1,7 @@
 # Creating and configuring custom domains<a name="iot-custom-endpoints-configurable-custom"></a>
 
-
 ****  
-
-|  | 
-| --- |
-| This feature is currently in public beta and is available only in the US East \(N\. Virginia\) Region\. | 
+This feature is currently in public beta and is available only in the US East \(N\. Virginia\) Region\.
 
 Domain configurations let you specify a custom fully qualified domain name \(FQDN\) to connect to AWS IoT\. Custom domains enable you to manage your own server certificates so that you can manage details, such as the root certificate authority \(CA\) used to sign the certificate, the signature algorithm, the certificate chain depth, and the lifecycle of the certificate\.
 

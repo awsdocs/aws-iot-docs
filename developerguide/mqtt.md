@@ -2,7 +2,9 @@
 
 [MQTT](http://mqtt.org/) is a lightweight and widely adopted messaging protocol that is designed for constrained devices\. AWS IoT support for MQTT is based on the [MQTT v3\.1\.1 specification](http://docs.oasis-open.org/mqtt/mqtt/v3.1.1/os/mqtt-v3.1.1-os.html), with some differences\. For information about how AWS IoT differs from the MQTT v3\.1\.1 specification, see [AWS IoT differences from MQTT version 3\.1\.1 specification](#mqtt-differences)\.
 
-The easiest way to connect to AWS IoT over MQTT is by using one of the [AWS IoT Device and Mobile SDKs](iot-sdks.md)\. For information about how to connect to devices using the AWS Device SDKs and links to examples of AWS IoT in the supported languages, see [Connecting with MQTT using the AWS IoT Device SDKs](#mqtt-sdk)\. For more information about authentication methods and the port mappings for MQTT messages, see [Protocols, port mappings, and authentication](protocols.md#protocol-port-mapping)\.
+ AWS IoT Core supports device connections that use the MQTT protocol and MQTT over WSS protocol\. The [AWS IoT Device SDKs](iot-connect-devices.md#iot-connect-device-sdks) support both protocols and are the recommended ways to connect devices to AWS IoT\. The AWS IoT Device SDKs support the functions necessary for devices and clients to connect to and access AWS IoT Core services and they support the authentication protocols that the AWS IoT services require\. For information about how to connect to AWS IoT using the AWS Device SDKs and links to examples of AWS IoT in the supported languages, see [Connecting with MQTT using the AWS IoT Device SDKs](#mqtt-sdk)\. For more information about authentication methods and the port mappings for MQTT messages, see [Protocols, port mappings, and authentication](protocols.md#protocol-port-mapping)\.
+
+While we recommend using the AWS IoT Device SDKs to connect to AWS IoT, they are not required\. If you do not use the AWS IoT Device SDKs, however, you must provide the necessary connection and communication security\. Clients must send the [Server Name Indication \(SNI\) TLS extension](https://tools.ietf.org/html/rfc3546#section-3.1) in the connection request\. Connection attempts that don't include the SNI are refused\. For more information, see [Transport Security in AWS IoT](transport-security.html)\. Clients that use IAM users and AWS credentials to authenticate clients must provide the correct [Signature Version 4](https://docs.aws.amazon.com/general/latest/gr/signature-version-4.html) authentication\. 
 
 ## Connecting with MQTT using the AWS IoT Device SDKs<a name="mqtt-sdk"></a>
 
@@ -11,35 +13,35 @@ This section contains links to the AWS IoT Device SDKs and to the source code of
 ------
 #### [ C\+\+ ]
 
-**AWS IoT C\+\+ Device SDK**
+**Using the AWS IoT C\+\+ Device SDK to connect devices**
 +  [Source code of a sample app that shows an MQTT connection example in C\+\+](https://github.com/aws/aws-iot-device-sdk-cpp-v2/blob/master/samples/mqtt/basic_pub_sub/main.cpp) 
 + [AWS IoT C\+\+ Device SDK v2 on GitHub](https://github.com/aws/aws-iot-device-sdk-cpp-v2)
 
 ------
 #### [ Python ]
 
-**AWS IoT Device SDK for Python**
+**Using the AWS IoT Device SDK for Python to connect devices**
 +  [Source code of a sample app that shows an MQTT connection example in Python](https://github.com/aws/aws-iot-device-sdk-python-v2/blob/master/samples/pubsub.py) 
 + [AWS IoT Device SDK for Python v2 on GitHub](https://github.com/aws/aws-iot-device-sdk-python-v2)
 
 ------
 #### [ JavaScript ]
 
-**AWS IoT Device SDK for JavaScript**
+**Using the AWS IoT Device SDK for JavaScript to connect devices**
 +  [Source code of a sample app that shows an MQTT connection example in JavaScript](https://github.com/aws/aws-iot-device-sdk-js-v2/blob/master/samples/node/pub_sub/index.ts) 
 + [AWS IoT Device SDK for JavaScript v2 on GitHub](https://github.com/aws/aws-iot-device-sdk-js-v2)
 
 ------
 #### [ Java ]
 
-**AWS IoT Device SDK for Java**
+**Using the AWS IoT Device SDK for Java to connect devices**
 +  [Source code of a sample app that shows an MQTT connection example in Java](https://github.com/aws/aws-iot-device-sdk-java-v2/blob/master/samples/BasicPubSub/src/main/java/pubsub/PubSub.java) 
 + [AWS IoT Device SDK for Java v2 on GitHub](https://github.com/aws/aws-iot-device-sdk-java-v2)
 
 ------
 #### [ Embedded C ]
 
-**AWS IoT Device SDK for Embedded C**
+**Using the AWS IoT Device SDK for Embedded C to connect devices**
 
 **Important**  
 This SDK is intended for use by experienced embedded\-software developers\.

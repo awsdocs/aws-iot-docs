@@ -42,7 +42,7 @@ The device endpoints are specific to your account and you can see what they are 
 + 
 
 **SDKs**  
-The [AWS IoT Device SDKs](iot-sdks.md) provide language\-specific support for the Message Queueing Telemetry Transport \(MQTT\) and WebSocket Secure \(WSS\) protocols, which devices use to communicate with AWS IoT\. [AWS Mobile SDKs](iot-connect-service.md#iot-connect-mobile-sdks) also provide support for MQTT device communications, AWS IoT APIs, and the APIs of other AWS services on mobile devices\.
+The [AWS IoT Device SDKs](iot-connect-devices.md#iot-connect-device-sdks) provide language\-specific support for the Message Queueing Telemetry Transport \(MQTT\) and WebSocket Secure \(WSS\) protocols, which devices use to communicate with AWS IoT\. [AWS Mobile SDKs](iot-connect-service.md#iot-connect-mobile-sdks) also provide support for MQTT device communications, AWS IoT APIs, and the APIs of other AWS services on mobile devices\.
 + 
 
 **Authentication**  
@@ -50,4 +50,4 @@ The device endpoints use X\.509 certificates or AWS IAM users with credentials t
 + 
 
 **Learn more**  
-For more information and links to SDK references, see [Connecting devices to AWS IoT](iot-connect-devices.md)\.
+For more information and links to SDK references, see [AWS IoT Device SDKs](iot-connect-devices.md#iot-connect-device-sdks)\.

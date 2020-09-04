@@ -10,9 +10,9 @@ Unlike MQTT, HTTPS does not support a `clientId` value\. So, while a `clientId` 
 Devices and clients publish their messages by making POST requests to a client\-specific endpoint and a topic\-specific URL:
 
 ```
-https://IoT_device_data_endpoint/topics/url_encoded_topic_name?qos=1"
+https://IoT_data_endpoint/topics/url_encoded_topic_name?qos=1"
 ```
-+  *IoT\_device\_data\_endpoint* is the [AWS IoT device data endpoint](iot-connect-devices.md#iot-connect-device-endpoints)\. You can find the endpoint in the AWS IoT console on the thing's details page or on the client by using the AWS CLI command: 
++  *IoT\_data\_endpoint* is the [AWS IoT device data endpoint](iot-connect-devices.md#iot-connect-device-endpoints)\. You can find the endpoint in the AWS IoT console on the thing's details page or on the client by using the AWS CLI command: 
 
   aws iot describe\-endpoint \-\-endpoint\-type iot:Data\-ATS
 
@@ -94,7 +94,7 @@ You can use [curl](https://curl.haxx.se) from a client or device to send a messa
        --key private.pem.key \
        --request POST \ 
        --data "{ \"message\": \"Hello, world\" }" \
-       "https://IoT_device_data_endpoint:8443/topics/topic?qos=1"
+       "https://IoT_data_endpoint:8443/topics/topic?qos=1"
    ```  
 \-\-tlsv1\.2  
 Use TLS 1\.2 \(SSL\)\.  
