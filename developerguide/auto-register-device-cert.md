@@ -45,7 +45,7 @@ Use the [https://awscli.amazonaws.com/v2/documentation/api/latest/reference/iot/
 When a client attempts to connect to AWS IoT for the first time, it must present a file that contains both your registered CA certificate and the client certificate signed by your CA certificate as part of the TLS handshake\. You can combine the two files using a command, such as the following:
 
 ```
-cat device_cert_filename ca_certificate_pem_filename  combined_filename
+cat device_cert_filename ca_certificate_pem_filename > combined_filename
 ```
 
 When the client connects to AWS IoT, use the *combined\_filename* file as the certificate file\. AWS IoT recognizes the CA certificate as a registered CA certificate, registers the client certificate, and sets its status to `PENDING_ACTIVATION`\. This means that the client certificate was automatically registered and is awaiting activation\. The client certificate's state must be `ACTIVE` before it can be used to connect to AWS IoT\.
