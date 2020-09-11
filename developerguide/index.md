@@ -1,4 +1,4 @@
-# AWS IoT Developer Guide
+# AWS IoT Core Developer Guide
 
 -----
 *****Copyright &copy; 2020 Amazon Web Services, Inc. and/or its affiliates. All rights reserved.*****
@@ -226,6 +226,8 @@ Amazon's trademarks and trade dress may not be used in
    + [Getting started with AWS IoT Device Defender](dd-tutorials.md)
       + [Setting up](dd-setting-up.md)
       + [Audit guide](audit-tutorial.md)
+   + [Examples](dd-examples.md)
+      + [Customize when and how you view AWS IoT Device Defender audit results](dd-suppressions-example.md)
    + [Audit](device-defender-audit.md)
       + [Audit checks](device-defender-audit-checks.md)
          + [CA certificate revoked but device certificates still active](audit-chk-revoked-ca-cert.md)

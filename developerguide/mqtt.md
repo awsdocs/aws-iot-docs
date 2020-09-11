@@ -64,20 +64,31 @@ This table describes how each QoS level affects messages published to and by the
 
 ## Using MQTT persistent sessions<a name="mqtt-persistent-sessions"></a>
 
-Persistent sessions store subscription information and pending Quality of Service \(QoS\) 1 messages in case your devices become disconnected\. When a device reconnects, its persistent session resumes and its subscriptions are automatically reinstated\. Also, any stored messages are delivered\.
+Persistent sessions store a client’s subscriptions and messages, with a quality of service \(QoS\) of 1, that have not been acknowledged by the client\. When a disconnected device reconnects to a persistent session, the session resumes, its subscriptions are reinstated, and messages that have not been acknowledged are sent to the client\. 
 
-A persistent session represents an ongoing connection to an MQTT message broker\. When a client connects to the message broker using a persistent session, the message broker saves all subscriptions that the client makes during the connection\. When the client disconnects, the message broker stores unacknowledged QoS 1 messages and new QoS 1 messages published to topics to which the client is subscribed\. When the client reconnects to the persistent session, all subscriptions are reinstated and all stored messages are sent to the client at a maximum rate of 10 messages per second\.
+**Creating a persistent session**  
+You create an MQTT persistent session by sending a `CONNECT` message and setting the `cleanSession` flag to `0`\. If no session exists for the client sending the `CONNECT` message, a new persistent session is created\. If a session already exists for the client, the client resumes the existing session\.
 
-You create an MQTT persistent session by sending a CONNECT message and setting the `cleanSession` flag to 0\. If no session exists for the client sending the CONNECT message, a new persistent session is created\. If a session already exists for the client, it's resumed\.
+**Operations during a persistent session**  
+Clients use the `sessionPresent` attribute in the connection acknowledged \(`CONNACK`\) message to determine if a persistent session is present\. If `sessionPresent` is `1`, a persistent session is present and any stored messages for the client are delivered to the client immediately after the client receives the `CONNACK`, as described in [Message traffic after reconnection to a persistent session](#persistent-session-reconnect)\. If `sessionPresent` is `1`, there is no need for the client to resubscribe\. However, if `sessionPresent` is `0`, no persistent session is present and the client must resubscribe to its topic filters\.
 
-After the client joins the session, it can continue to publish messages and subscribe to topic filters without any additional flags on each operation\. The following conditions describe how persistent sessions begin and end\.
-+ A persistent session ends and can't be resumed when the client sends a CONNECT message that sets the `cleanSession` flag to 1\.
-+ By default, a persistent session expires one hour after the message broker detects that a client has disconnected\. You can configure this time interval\.
-+ When a client reconnects after the session has expired and sets the `cleanSession` flag to 0, the service creates a new persistent session\. Subscriptions and messages from the previous session are discarded\.
+After the client joins a persistent session, it can publish messages and subscribe to topic filters without any additional flags on each operation\.<a name="persistent-session-reconnect"></a>
 
-Devices use the `sessionPresent` attribute in the connection acknowledged \(CONNACK\) message to determine if a persistent session is present\. If `sessionPresent` is set to 1, a persistent session is present and stored messages are delivered to the client\. This starts immediately after the device receives the CONNACK\. There is no need to resubscribe\. If `sessionPresent` is set to 0, no persistent session is present and the client must resubscribe to its topic filters\. 
+**Message traffic after reconnection to a persistent session**  
+A persistent session represents an ongoing connection between a client and an MQTT message broker\. When a client connects to the message broker using a persistent session, the message broker saves all subscriptions that the client makes during the connection\. When the client disconnects, the message broker stores unacknowledged QoS 1 messages and new QoS 1 messages published to topics to which the client is subscribed\. When the client reconnects to its persistent session, all subscriptions are reinstated and all stored messages are sent to the client at a maximum rate of 10 messages per second\. The message delivery rate of the stored messages is fixed so that if a session has more than 10 messages queued up, it will take several seconds to deliver its stored messages\. The stored messages are sent to the client along with any current message traffic so the sustained throughput to the device will be at least 10 messages per second until the stored messages have all been sent\. This total message traffic to a single device during this period can reach the maximum connection throughput, described in [AWS IoT Core message broker service quotas](https://docs.aws.amazon.com/general/latest/gr/iot-core.html#message-broker-limits)\. If a client doesn't reconnect to its persistent session before it expires, the session ends and its messages are discarded\. <a name="ending-a-persistent-session"></a>
 
-Persistent sessions have a default expiry period of one hour\. The expiry period begins when the message broker detects that a client disconnects \(MQTT disconnect or timeout\)\. The persistent session expiry period can be increased through the standard limit increase process\. If a client has not resumed its session within the expiry period, the session is terminated and any associated stored messages are discarded\. The expiry period is approximate\. Sessions might be persisted for up to 30 minutes longer, but not less than the configured duration\. For more information, see [ AWS Service Quotas](https://docs.aws.amazon.com/general/latest/gr/aws_service_limits.html)\. Any messages stored for persistent sessions are billed at the standard messaging rate\. For more information, see [AWS IoT Core Pricing](https://aws.amazon.com/iot-core/pricing)\.
+**Ending a persistent session**  
+The following conditions describe how persistent sessions can end\.
++ When the persistent session expiration time elapses\. The persistent session expiration timer starts when the message broker detects that a client has disconnected, either by the client disconnecting or the connection timing out\. 
+
+  When a client reconnects after the session has expired and sets the `cleanSession` flag to `0`, the service creates a new persistent session\. Subscriptions and messages from the previous session are discarded\.
++ When the client sends a `CONNECT` message that sets the `cleanSession` flag to `1`\.
+
+**Note**  
+Messages waiting to be sent to the client when a session ends are discarded; however, they are still billed at the standard messaging rate, even though they could not be sent\. For more information about message pricing, see [AWS IoT Core Pricing](https://aws.amazon.com/iot-core/pricing)\. You can configure the expiration time interval\.
+
+**Considerations for changing the session expiration time**  
+The default persistent session expiration time of one hour can be increased by using the standard limit increase process\. With a longer session expiration time, however, you could incur higher message charges because of the additional messages that can collect during the additional session time\. Because the session expiration time is approximate, a session could persist for up to 30 minutes longer than the account limit; however, a session will not be shorter than the account limit\. For more information about session limits, see [ AWS Service Quotas](https://docs.aws.amazon.com/general/latest/gr/iot-core.html#message-broker-limits)\.
 
 ## Using connectAttributes<a name="connect-attribute"></a>
 
@@ -98,11 +109,11 @@ For `ConnectAttributes` examples, see [Connect Policy Examples](connect-policy.m
 ## AWS IoT differences from MQTT version 3\.1\.1 specification<a name="mqtt-differences"></a>
 
 The message broker implementation is based on the [MQTT v3\.1\.1 specification](http://docs.oasis-open.org/mqtt/mqtt/v3.1.1/os/mqtt-v3.1.1-os.html), but it differs from the specification in these ways:
-+ AWS IoT supports MQTT Quality of Service \(QoS\) levels 0 and 1 only\. AWS IoT doesn't support publishing or subscribing with QoS level 2\. When QoS level 2 is requested, the message broker doesn't send a PUBACK or SUBACK\.
++ AWS IoT supports MQTT quality of service \(QoS\) levels 0 and 1 only\. AWS IoT doesn't support publishing or subscribing with QoS level 2\. When QoS level 2 is requested, the message broker doesn't send a PUBACK or SUBACK\.
 + In AWS IoT, subscribing to a topic with QoS level 0 means that a message is delivered zero or more times\. A message might be delivered more than once\. Messages delivered more than once might be sent with a different packet ID\. In these cases, the DUP flag is not set\.
 + When responding to a connection request, the message broker sends a CONNACK message\. This message contains a flag to indicate if the connection is resuming a previous session\.
 + When a client subscribes to a topic, there might be a delay between the time the message broker sends a SUBACK and the time the client starts receiving new matching messages\.
-+ The MQTT specification provides a provision for the publisher to request that the broker retain the last message sent to a topic and send it to all future topic subscribers\. AWS IoT does not support retained messages\. If a request is made to retain messages, the connection is disconnected\.
++ The MQTT specification provides a provision for the publisher to request that the broker retain the last message sent to a topic and send it to all future topic subscribers\. AWS IoT doesn't support retained messages\. If a request is made to retain messages, the connection is disconnected\.
 + The message broker uses the client ID to identify each client\. The client ID is passed in from the client to the message broker as part of the MQTT payload\. Two clients with the same client ID can't be connected concurrently to the message broker\. When a client connects to the message broker using a client ID that another client is using, the new client connection is accepted and the previously connected client is disconnected\.
 + On rare occasions, the message broker might resend the same logical PUBLISH message with a different packet ID\.
 + The message broker doesn't guarantee the order in which messages and ACK are received\.

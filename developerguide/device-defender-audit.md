@@ -9,16 +9,16 @@ An AWS IoT Device Defender audit runs a set of predefined checks for common IoT 
 Issue severity indicates the level of concern associated with each identified instance of noncompliance and the recommended time to remediation\.
 
 **Critical**  
-Noncompliant audit checks with this severity identify issues that require urgent attention\. Critical issues often allow bad actors with little sophistication and no insider knowledge or special credentials to easily gain access to or control of your assets\.
+Non compliant audit checks with this severity identify issues that require urgent attention\. Critical issues often allow bad actors with little sophistication and no insider knowledge or special credentials to easily gain access to or control of your assets\.
 
 **High**  
-Noncompliant audit checks with this severity require urgent investigation and remediation planning after critical issues are addressed\. Like critical issues, high severity issues often provide bad actors with access to or control of your assets\. However, high severity issues are often more difficult to exploit\. They might require special tools, insider knowledge, or specific setups\.
+Non compliant audit checks with this severity require urgent investigation and remediation planning after critical issues are addressed\. Like critical issues, high severity issues often provide bad actors with access to or control of your assets\. However, high severity issues are often more difficult to exploit\. They might require special tools, insider knowledge, or specific setups\.
 
 **Medium**  
-Noncompliant audit checks with this severity present issues that need attention as part of your continuous security posture maintenance\. Medium severity issues might cause negative operational impact, such as unplanned outages due to malfunction of security controls\. These issues might also provide bad actors with limited access to or control of your assets, or might facilitate parts of their malicious actions\.
+Non compliant audit checks with this severity present issues that need attention as part of your continuous security posture maintenance\. Medium severity issues might cause negative operational impact, such as unplanned outages due to malfunction of security controls\. These issues might also provide bad actors with limited access to or control of your assets, or might facilitate parts of their malicious actions\.
 
 **Low**  
-Noncompliant audit checks with this severity often indicate security best practices were overlooked or bypassed\. Although they might not cause an immediate security impact on their own, these lapses can be exploited by bad actors\. Like medium severity issues, low severity issues require attention as part of your continuous security posture maintenance\.
+Non compliant audit checks with this severity often indicate security best practices were overlooked or bypassed\. Although they might not cause an immediate security impact on their own, these lapses can be exploited by bad actors\. Like medium severity issues, low severity issues require attention as part of your continuous security posture maintenance\.
 
 ## Next steps<a name="device-defender-audit-severity-next-steps"></a>
 

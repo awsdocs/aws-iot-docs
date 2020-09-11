@@ -8,9 +8,7 @@ Severity: **Critical**
 
 ## Details<a name="audit-chk-device-cert-shared-details"></a>
 
-When this check is enabled, data collection starts immediately, but results of the check are not available for at least two hours\.
-
-When performed as part of an on\-demand audit, this check looks at the certificates and client IDs that were used by devices to connect during the 31 days before the start of the audit\. For scheduled audits, this check looks at data from the last time the audit was run to the time this instance of the audit started\. If you have taken steps to mitigate this condition during the time checked, note when the concurrent connections were made to determine if the problem persists\.
+When performed as part of an on\-demand audit, this check looks at the certificates and client IDs that were used by devices to connect during the 31 days before the start of the audit up to 2 hours before the check is run\. For scheduled audits, this check looks at data from 2 hours before the last time the audit was run to 2 hours before the time this instance of the audit started\. If you have taken steps to mitigate this condition during the time checked, note when the concurrent connections were made to determine if the problem persists\.
 
 The following reason codes are returned when this check finds a noncompliant certificate:
 + CERTIFICATE\_SHARED\_BY\_MULTIPLE\_DEVICES
