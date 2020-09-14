@@ -52,7 +52,7 @@ Amazon's trademarks and trade dress may not be used in
       + [Using the AWS IoT Device SDK for Embedded C](iot-embedded-c-sdk.md)
       + [Using the AWS IoT device SDK for JavaScript and node](iot-device-sdk-node.md)
    + [Other AWS IoT tutorials](iot-additional-tutorial.md)
-      + [Monitoring soil moisture with AWS IoT and raspberry pi](iot-moisture-tutorial.md)
+      + [Monitoring soil moisture with AWS IoT and Raspberry Pi](iot-moisture-tutorial.md)
          + [Setting up AWS IoT](iot-moisture-setup.md)
             + [Create the AWS IoT policy](iot-moisture-policy.md)
             + [Create the AWS IoT thing, certificate, and private key](iot-moisture-create-thing.md)

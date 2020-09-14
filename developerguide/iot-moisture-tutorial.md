@@ -1,4 +1,4 @@
-# Monitoring soil moisture with AWS IoT and raspberry pi<a name="iot-moisture-tutorial"></a>
+# Monitoring soil moisture with AWS IoT and Raspberry Pi<a name="iot-moisture-tutorial"></a>
 
 This tutorial shows you how to use a [Raspberry Pi](https://www.raspberrypi.org/), a moisture sensor, and AWS IoT to monitor the soil moisture level for a house plant or garden\. The Raspberry Pi runs code that reads the moisture level and temperature from the sensor and then sends the data to AWS IoT\. You create a rule in AWS IoT that sends an email to an address subscribed to an Amazon SNS topic when the moisture level falls below a threshold\.
 
