@@ -84,11 +84,15 @@ Although the credential lifetime specified in the IAM role can be longer, when A
    ```
    {
        "Version": "2012-10-17",
-       "Statement": {
+       "Statement": 
+       [
+       {
+         
            "Effect": "Allow",
            "Action": "iot:AssumeRoleWithCertificate",
            "Resource": "arn:aws:iot:your region:your_aws_account_id:rolealias/your role alias"
        }
+       ]
    }
    ```
 
