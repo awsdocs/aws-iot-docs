@@ -188,6 +188,18 @@ var generateAuthResponse = function(token, effect) {
 
  `aws lambda add-permission --function-name <lambda_function_name> --principal iot.amazonaws.com --source-arn <authorizer_arn> --statement-id Id-123 --action "lambda:InvokeFunction"` 
 
+## Testing your authorizers<a name="custom-auth-testing"></a>
+
+ You can use the [TestInvokeAuthorizer](https://docs.aws.amazon.com/iot/latest/apireference/API_TestInvokeAuthorizer.html) API to test the invocation and return values of your authorizer\. This API enables you to specify protocol metadata and test the signature validation in your authorizer\.   
+
+The following example shows how to use the AWS CLI to test your authorizer\.
+
+```
+aws iot test-invoke-authorizer --authorizer-name NAME_OF_AUTHORIZER --token TOKEN_VALUE --token-signature TOKEN_SIGNATURE
+```
+
+The value of the `token-signature` parameter is the signed token\. To learn how to obtain this value, see [Signing the token](custom-auth.md#custom-auth-token-signature)\.
+
 ## Managing custom authorizers<a name="custom-auth-manage"></a>
 
  You can manage your authorizers by using the following APIs\. 

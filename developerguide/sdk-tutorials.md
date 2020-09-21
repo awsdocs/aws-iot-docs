@@ -1,4 +1,4 @@
-# Using the AWS IoT device SDKs on a Raspberry Pi<a name="sdk-tutorials"></a>
+# Using the AWS IoT Device SDKs on a Raspberry Pi<a name="sdk-tutorials"></a>
 
 The AWS IoT Device and Mobile SDKs help you to connect your devices to AWS IoT easily and quickly\. The AWS IoT Device and Mobile SDKs include open\-source libraries, developer guides with samples, and porting guides so that you can build innovative IoT products or solutions on your choice of hardware platforms\.
 
@@ -11,7 +11,7 @@ These tutorials provide step\-by\-step instructions for connecting your Raspberr
 + [Prerequisites](#iot-sdk-prereqs)
 + [Create an AWS IoT thing for your Raspberry Pi](#iot-sdk-create-thing)
 + [Using the AWS IoT Device SDK for Embedded C](iot-embedded-c-sdk.md)
-+ [Using the AWS IoT device SDK for JavaScript and node](iot-device-sdk-node.md)
++ [Using the AWS IoT Device SDK for JavaScript and node](iot-device-sdk-node.md)
 
 ## Prerequisites<a name="iot-sdk-prereqs"></a>
 

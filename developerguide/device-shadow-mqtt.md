@@ -317,7 +317,7 @@ The following is an example of the required policy:
         "iot:Receive"
       ],
       "Resource": [
-        "arn:aws:iot:region:account:topic/$aws/things/thingName/shadow/update/accepted"
+        "arn:aws:iot:region:account:topic/$aws/things/thingName/shadow/update/documents"
       ]
     }
   ]

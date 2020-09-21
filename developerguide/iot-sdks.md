@@ -53,24 +53,24 @@ The AWS IoT Device SDK for Java makes it possible for Java developers to access 
 
 ------
 
-### AWS IoT constrained device SDK<a name="iot-constrained-device-sdk"></a>
-
-This SDK is slimmed down for resource\-constrained IoT devices to help you connect them to AWS IoT\.
+### AWS IoT Device SDK for Embedded C<a name="iot-constrained-device-sdk"></a>
 
 **Note**  
 This SDK is intended for use by experienced embedded\-software developers\.
 
-The AWS IoT Device SDK for Embedded C is a collection of C source files that can be used in embedded applications to securely connect to the AWS IoT platform\. It includes transport clients, TLS implementations, and examples for their use\. It also supports AWS IoT\-specific features such as an API to access the Device Shadow service\. 
+The AWS IoT Device SDK for Embedded C \(C\-SDK\) is a collection of C source files under the MIT open source license that can be used in embedded applications to securely connect IoT devices to AWS IoT Core\. It includes an MQTT, JSON Parser, and AWS IoT Device Shadow library\. It is distributed in source form and intended to be built into customer firmware along with application code, other libraries and, optionally, an RTOS \(Real Time Operating System\)\.
 
-For Fleet Provisioning, use the `v4_beta` version of the AWS IoT Device SDK for Embedded C at [https://github\.com/aws/aws\-iot\-device\-sdk\-embedded\-C/tree/v4\_beta](https://github.com/aws/aws-iot-device-sdk-embedded-C/tree/v4_beta)\.
+For Fleet Provisioning, use the `v4_beta_deprecated` version of the AWS IoT Device SDK for Embedded C at [ https://github\.com/aws/aws\-iot\-device\-sdk\-embedded\-C/tree/v4\_beta\_deprecated](https://github.com/aws/aws-iot-device-sdk-embedded-C/tree/v4_beta_deprecated)\. Please review the README in this branch for more details\.
 
 The AWS IoT Device SDK for Embedded C is generally targeted at resource constrained devices that require an optimized C language runtime\. You can use the SDK on any operating system and host it on any processor type \(for example, MCUs and MPUs\)\. However, if your devices have sufficient memory and processing resources, we recommend that you use one of the higher order [AWS IoT Device SDKs](#iot-device-sdks)\.
 
-In general, the AWS IoT Device SDK for Embedded C is intended for systems that use MCUs or low\-end MPUs that run embedded operating systems\. This SDK is distributed as source code and is intended to be built into customer firmware along with application code, other libraries, and RTOS\. For more information, see the following:
+For more information, see the following:
 + [AWS IoT Device SDK for Embedded C on GitHub](https://github.com/aws/aws-iot-device-sdk-embedded-C)
+
+  [AWS IoT Device SDK for Embedded C on GitHub](https://github.com/aws/aws-iot-device-sdk-embedded-C)
++ [ AWS IoT Device SDK for Embedded C Readme](https://github.com/aws/aws-iot-device-sdk-embedded-C#aws-iot-device-sdk-for-embedded-c)
 + [AWS IoT Device SDK for Embedded C Readme](https://github.com/aws/aws-iot-device-sdk-embedded-C#aws-iot-device-sdk-for-embedded-c)
-+ [AWS IoT Device SDK for Embedded C Samples](https://github.com/aws/aws-iot-device-sdk-embedded-C/tree/master/samples#sample-apps-for-the-aws-iot-device-sdk-for-embedded-c)
-+ [AWS IoT Device SDK for Embedded C Porting Guide](https://github.com/aws/aws-iot-device-sdk-embedded-C/blob/master/PortingGuide.md#porting-guide)
++ [AWS IoT Device SDK for Embedded C Samples](https://docs.aws.amazon.com/freertos/latest/lib-ref/embedded-csdk/202009.00/lib-ref/docs/doxygen/output/html/demos_main.html)
 
 ## AWS Mobile SDKs<a name="iot-mobile-sdks"></a>
 

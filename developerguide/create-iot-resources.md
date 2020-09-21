@@ -28,7 +28,7 @@ In this procedure, you will create a policy that allows your device to perform t
 
    1. In the **Name** field, enter a name for the policy \(for example, **My\_Iot\_Policy**\)\. Do not use personally identifiable information in your policy names\.
 
-   1. In the **Action** field, enter **iot:Connect,iot:Receive,iot:Publish,iot:Subscribe**\. These are the actions that the device will need permission to perform when it runs the example program from the device SDK\.
+   1. In the **Action** field, enter **iot:Connect,iot:Receive,iot:Publish,iot:Subscribe**\. These are the actions that the device will need permission to perform when it runs the example program from the Device SDK\.
 
       For more information about IoT policies, see [AWS IoT Core policies](iot-policies.md)\.
 

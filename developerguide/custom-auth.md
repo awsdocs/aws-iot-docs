@@ -51,6 +51,30 @@ sec-websocket-protocol: mqtt
 sec-WebSocket-Version: websocket version
 ```
 
-## Testing your authorizers<a name="custom-auth-testing"></a>
+## Signing the token<a name="custom-auth-token-signature"></a>
 
- You can use the [TestInvokeAuthorizer](https://docs.aws.amazon.com/iot/latest/apireference/API_TestInvokeAuthorizer.html) API to test the invocation and return values of your authorizer\. This API enables you to specify protocol metadata and test the signature validation in your authorizer\.   
+You must sign the token with the private key of the public\-private key pair that you used in the `create-authorizer` call\. The following examples show how to create the token signature by using a UNIX\-like command and JavaScript\. They use the SHA\-256 hash algorithm to encode the signature\.
+
+------
+#### [ Command line ]
+
+```
+echo -n TOKEN_VALUE | openssl dgst -sha256 -sign PEM encoded RSA private key | openssl base64
+```
+
+------
+#### [ JavaScript ]
+
+```
+const crypto = require('crypto')
+
+const key = "PEM encoded RSA private key"
+
+const k = crypto.createPrivateKey(key)
+let sign = crypto.createSign('SHA256')
+sign.write(t)
+sign.end()
+const s = sign.sign(k, 'base64')
+```
+
+------

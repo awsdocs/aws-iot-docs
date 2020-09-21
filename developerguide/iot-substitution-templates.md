@@ -3,7 +3,7 @@
 You can use a substitution template to augment the JSON data returned when a rule is triggered and AWS IoT performs an action\. The syntax for a substitution template is `${`*expression*`}`, where *expression* can be any expression supported by AWS IoT in SELECT clauses, WHERE clauses, and [AWS IoT rule actions](iot-rule-actions.md)\. This expression can be plugged into an action field on a rule, allowing you to dynamically configure an action\. In effect, this feature substitutes a piece of information in an action\. This includes functions, operators, and information present in the original message payload\.
 
 **Important**  
-Because an expression in a substitution template is evaluated separately from the "SELECT \.\.\." statement, you cannot reference an alias created using the AS clause\. You can reference only information present in the original payload, in addition to supported functions and operators\.
+Because an expression in a substitution template is evaluated separately from the "SELECT \.\.\." statement, you cannot reference an alias created using the AS clause\. You can reference only information present in the original payload, [functions](iot-sql-functions.md), and [operators](iot-sql-operators.md)\.
 
 For more information about supported expressions, see [AWS IoT SQL reference](iot-sql-reference.md)\.
 

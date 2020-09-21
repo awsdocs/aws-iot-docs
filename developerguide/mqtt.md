@@ -45,7 +45,7 @@ This section contains links to the AWS IoT Device SDKs and to the source code of
 
 **Important**  
 This SDK is intended for use by experienced embedded\-software developers\.
-+  [Source code of a sample app that shows an MQTT connection example in Embedded C](https://github.com/aws/aws-iot-device-sdk-embedded-C/blob/master/samples/linux/subscribe_publish_sample/subscribe_publish_sample.c) 
++  [Source code of a sample app that shows an MQTT connection example in Embedded C](https://github.com/aws/aws-iot-device-sdk-embedded-C/blob/master/demos/mqtt/mqtt_demo_basic_tls/mqtt_demo_basic_tls.c) 
 + [AWS IoT Device SDK for Embedded C on GitHub](https://github.com/aws/aws-iot-device-sdk-embedded-C)
 
 ------

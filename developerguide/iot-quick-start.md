@@ -68,7 +68,9 @@ This page appears after AWS IoT has created the connection kit, which includes t
 
 This procedure is done in a terminal or command window on your device while following the directions displayed in the console\. The commands shown in the console are those for the operating system you selected in [Step 2\. Create a thing object](#iot-quick-start-configure)\. Those shown here are for the Linux/OSX operating systems\. 
 
-1. In a terminal or command window on your device, in the directory with the connection kit file, perform the steps shown in the AWS IoT console\.  
+1. In a terminal or command window on your device, in the directory with the connection kit file, perform the steps shown in the AWS IoT console\.
+
+   If you using a Windows PowerShell command window and the unzip command doesn't work, replace unzip with expand\-archive and try the command line again\.   
 ![\[AWS IoT console quick start install and run page\]](http://docs.aws.amazon.com/iot/latest/developerguide/images/aws-iot-learn-connect-thing-3.png)
 
 1. In the terminal or command window on your device, after you enter the command from **Step 3** in the console, you should see an output similar to this\. This output is from the messages the program is sending to and then receiving back from AWS IoT Core\. While the sample program is communicating with AWS IoT Core, you won't see any activity in the console\. To see activity in the console while you run the sample program, see Step 4 of this procedure\.   

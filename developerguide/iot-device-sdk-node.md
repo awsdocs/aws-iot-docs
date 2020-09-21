@@ -1,4 +1,4 @@
-# Using the AWS IoT device SDK for JavaScript and node<a name="iot-device-sdk-node"></a>
+# Using the AWS IoT Device SDK for JavaScript and node<a name="iot-device-sdk-node"></a>
 
 This tutorial shows you how to install Node\.js, the npm package manager, and the AWS IoT Device SDK for JavaScript on a Raspberry Pi and run the sample applications\.
 
@@ -24,7 +24,7 @@ To use the AWS IoT Device SDK for JavaScript, install Node\.js and the npm packa
 
    If a version number is displayed, node and npm are installed correctly\.
 
-## Install the AWS IoT device SDK for JavaScript<a name="iot-sdk-node-intall-sdk"></a>
+## Install the AWS IoT Device SDK for JavaScript<a name="iot-sdk-node-intall-sdk"></a>
 
 Install the AWS IoT Device SDK for JavaScript on your Raspberry Pi\.
 
