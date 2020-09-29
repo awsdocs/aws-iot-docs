@@ -31,11 +31,11 @@ With this method, your device uses its device\-specific certificate and private 
 Devices can:
 + Be notified when a job execution is added or removed from the list of pending job executions by subscribing to the `$aws/things/thing-name/jobs/notify` MQTT topic, where `thing-name` is the name of the thing associated with the device\.
 + Be notified when the next pending job execution has changed by subscribing to the `$aws/things/thing-name/jobs/notify-next` MQTT topic, where `thing-name` is the name of the thing associated with the device\.
-+ Update the status of a job execution by calling the [UpdateJobExecution](jobs-api.md#mqtt-updatejobexecution) API\.
-+ Query the status of a job execution by calling the [DescribeJobExecution](jobs-api.md#mqtt-describejobexecution) API\.
-+ Retrieve a list of pending job executions by calling the [GetPendingJobExecutions](jobs-api.md#mqtt-getpendingjobexecutions) API\.
-+ Retrieve the next pending job execution by calling the [DescribeJobExecution](jobs-api.md#mqtt-describejobexecution) API with jobId `$next`\.
-+ Get and start the next pending job execution by calling the [StartNextPendingJobExecution](jobs-api.md#mqtt-startnextpendingjobexecution) API\.
++ Update the status of a job execution by calling the [UpdateJobExecution](jobs-mqtt-api.md#mqtt-updatejobexecution) API\.
++ Query the status of a job execution by calling the [DescribeJobExecution](jobs-mqtt-api.md#mqtt-describejobexecution) API\.
++ Retrieve a list of pending job executions by calling the [GetPendingJobExecutions](jobs-mqtt-api.md#mqtt-getpendingjobexecutions) API\.
++ Retrieve the next pending job execution by calling the [DescribeJobExecution](jobs-mqtt-api.md#mqtt-describejobexecution) API with jobId `$next`\.
++ Get and start the next pending job execution by calling the [StartNextPendingJobExecution](jobs-mqtt-api.md#mqtt-startnextpendingjobexecution) API\.
 
 The AWS IoT Jobs service publishes success and failure messages on an MQTT topic\. The topic is formed by appending `accepted` or `rejected` to the topic used to make the request\. For example, if a request message is published on the `$aws/things/myThing/jobs/get` topic, the AWS IoT Jobs service publishes success messages on the `$aws/things/myThing/jobs/get/accepted` topic and publishes rejected messages on the `$aws/things/myThing/jobs/get/rejected` topic\.
 
@@ -121,17 +121,17 @@ There are two ways a device can handle the jobs it is given to execute\.
 
 1. When a device first comes online, it should subscribe to the device's `notify-next` topic\.
 
-1. Call the [DescribeJobExecution](jobs-api.md#mqtt-describejobexecution) MQTT API with jobId `$next` to get the next job, its job document, and other details, including any state saved in `statusDetails`\. If the job document has a code file signature, you must verify the signature before proceeding with processing the job request\.
+1. Call the [DescribeJobExecution](jobs-mqtt-api.md#mqtt-describejobexecution) MQTT API with jobId `$next` to get the next job, its job document, and other details, including any state saved in `statusDetails`\. If the job document has a code file signature, you must verify the signature before proceeding with processing the job request\.
 
-1. Call the [UpdateJobExecution](jobs-api.md#mqtt-updatejobexecution) MQTT API to update the job status\. Or, to combine this and the previous step in one call, the device can call [StartNextPendingJobExecution](jobs-api.md#mqtt-startnextpendingjobexecution)\.
+1. Call the [UpdateJobExecution](jobs-mqtt-api.md#mqtt-updatejobexecution) MQTT API to update the job status\. Or, to combine this and the previous step in one call, the device can call [StartNextPendingJobExecution](jobs-mqtt-api.md#mqtt-startnextpendingjobexecution)\.
 
-1. \(Optional\) You can add a step timer by setting a value for `stepTimeoutInMinutes` when you call either [UpdateJobExecution](jobs-api.md#mqtt-updatejobexecution) or [StartNextPendingJobExecution](jobs-api.md#mqtt-startnextpendingjobexecution)\.
+1. \(Optional\) You can add a step timer by setting a value for `stepTimeoutInMinutes` when you call either [UpdateJobExecution](jobs-mqtt-api.md#mqtt-updatejobexecution) or [StartNextPendingJobExecution](jobs-mqtt-api.md#mqtt-startnextpendingjobexecution)\.
 
-1. Perform the actions specified by the job document using the [UpdateJobExecution](jobs-api.md#mqtt-updatejobexecution) MQTT API to report on the progress of the job\.
+1. Perform the actions specified by the job document using the [UpdateJobExecution](jobs-mqtt-api.md#mqtt-updatejobexecution) MQTT API to report on the progress of the job\.
 
-1. Continue to monitor the job execution by calling the [DescribeJobExecution](jobs-api.md#mqtt-describejobexecution) MQTT API with this jobId\. If the job execution is canceled or deleted while the device is running the job, the device should be capable of recovering to a valid state\.
+1. Continue to monitor the job execution by calling the [DescribeJobExecution](jobs-mqtt-api.md#mqtt-describejobexecution) MQTT API with this jobId\. If the job execution is canceled or deleted while the device is running the job, the device should be capable of recovering to a valid state\.
 
-1. Call the [UpdateJobExecution](jobs-api.md#mqtt-updatejobexecution) MQTT API when finished with the job to update the job status and report success or failure\.
+1. Call the [UpdateJobExecution](jobs-mqtt-api.md#mqtt-updatejobexecution) MQTT API when finished with the job to update the job status and report success or failure\.
 
 1. Because this job's execution status has been changed to a terminal state, the next job available for execution \(if any\) changes\. The device is notified that the next pending job execution has changed\. At this point, the device should continue as described in step 2\. 
 
@@ -142,27 +142,27 @@ If the device remains online, it continues to receive a notifications of the nex
 
 1. When a device first comes online, it should subscribe to the thing's `notify` topic\.
 
-1. Call the [GetPendingJobExecutions](jobs-api.md#mqtt-getpendingjobexecutions) MQTT API to get a list of pending job executions\.
+1. Call the [GetPendingJobExecutions](jobs-mqtt-api.md#mqtt-getpendingjobexecutions) MQTT API to get a list of pending job executions\.
 
 1. If the list contains one or more job executions, pick one\.
 
-1. Call the [DescribeJobExecution](jobs-api.md#mqtt-describejobexecution) MQTT API to get the job document and other details, including any state saved in `statusDetails`\.
+1. Call the [DescribeJobExecution](jobs-mqtt-api.md#mqtt-describejobexecution) MQTT API to get the job document and other details, including any state saved in `statusDetails`\.
 
-1. Call the [UpdateJobExecution](jobs-api.md#mqtt-updatejobexecution) MQTT API to update the job status\. If the `includeJobDocument` field is set to `true` in this command, the device can skip the previous step and retrieve the job document at this point\.
+1. Call the [UpdateJobExecution](jobs-mqtt-api.md#mqtt-updatejobexecution) MQTT API to update the job status\. If the `includeJobDocument` field is set to `true` in this command, the device can skip the previous step and retrieve the job document at this point\.
 
-1. Optionally, you can add a step timer by setting a value for `stepTimeoutInMinutes` when you call [UpdateJobExecution](jobs-api.md#mqtt-updatejobexecution)\.
+1. Optionally, you can add a step timer by setting a value for `stepTimeoutInMinutes` when you call [UpdateJobExecution](jobs-mqtt-api.md#mqtt-updatejobexecution)\.
 
-1. Perform the actions specified by the job document using the [UpdateJobExecution](jobs-api.md#mqtt-updatejobexecution) MQTT API to report on the progress of the job\.
+1. Perform the actions specified by the job document using the [UpdateJobExecution](jobs-mqtt-api.md#mqtt-updatejobexecution) MQTT API to report on the progress of the job\.
 
-1. Continue to monitor the job execution by calling the [DescribeJobExecution](jobs-api.md#mqtt-describejobexecution) MQTT API with this jobId\. If the job execution is canceled or deleted while the device is running the job, the device should be capable of recovering to a valid state\.
+1. Continue to monitor the job execution by calling the [DescribeJobExecution](jobs-mqtt-api.md#mqtt-describejobexecution) MQTT API with this jobId\. If the job execution is canceled or deleted while the device is running the job, the device should be capable of recovering to a valid state\.
 
-1. Call the [UpdateJobExecution](jobs-api.md#mqtt-updatejobexecution) MQTT API when finished with the job to update the job status and to report success or failure\.
+1. Call the [UpdateJobExecution](jobs-mqtt-api.md#mqtt-updatejobexecution) MQTT API when finished with the job to update the job status and to report success or failure\.
 
 If the device remains online, it is notified of all pending job executions when a new pending job execution becomes available\. When this occurs, the device can continue as described in step 2\.
 
 ------
 
-If the device is unable to execute the job, it should call the [UpdateJobExecution](jobs-api.md#mqtt-updatejobexecution) MQTT API to update the job status to `REJECTED`\.
+If the device is unable to execute the job, it should call the [UpdateJobExecution](jobs-mqtt-api.md#mqtt-updatejobexecution) MQTT API to update the job status to `REJECTED`\.
 
 ### Starting a new job<a name="jobs-respond-new-job"></a>
 
@@ -197,7 +197,7 @@ The device receives this message on the `'$aws/things/thingName/jobs/notify'` to
 ------
 #### [ Get job information ]
 
-To get more information about a job execution, the device calls the [DescribeJobExecution](jobs-api.md#mqtt-describejobexecution) MQTT API with the `includeJobDocument` field set to `true` \(the default\)\.
+To get more information about a job execution, the device calls the [DescribeJobExecution](jobs-mqtt-api.md#mqtt-describejobexecution) MQTT API with the `includeJobDocument` field set to `true` \(the default\)\.
 
 ------
 #### [ More Information\(2\) ]
@@ -234,7 +234,7 @@ The device now has the job document that it can use to perform the remote operat
 ------
 #### [ Update execution status ]
 
-As the device is executing the job, it can call the [UpdateJobExecution](jobs-api.md#mqtt-updatejobexecution) MQTT API to update the status of the job execution\.
+As the device is executing the job, it can call the [UpdateJobExecution](jobs-mqtt-api.md#mqtt-updatejobexecution) MQTT API to update the status of the job execution\.
 
 ------
 #### [ More information \(3\) ]
@@ -261,7 +261,7 @@ Jobs responds by publishing a message to the `$aws/things/MyThing/jobs/0023/upda
 }
 ```
 
-The device can combine the two previous requests by calling [StartNextPendingJobExecution](jobs-api.md#mqtt-startnextpendingjobexecution)\. That gets and starts the next pending job execution and allows the device to update the job execution status\. This request also returns the job document when there is a job execution pending\.
+The device can combine the two previous requests by calling [StartNextPendingJobExecution](jobs-mqtt-api.md#mqtt-startnextpendingjobexecution)\. That gets and starts the next pending job execution and allows the device to update the job execution status\. This request also returns the job document when there is a job execution pending\.
 
 If the job contains a [TimeoutConfig](https://docs.aws.amazon.com/iot/latest/apireference/API_TimeoutConfig.html), the in\-progress timer starts running\. You can also set a step timer for a job execution by setting a value for `stepTimeoutInMinutes` when you call [UpdateJobExecution](https://docs.aws.amazon.com/iot/latest/apireference/API_iot-jobs-data_UpdateJobExecution.html)\. The step timer applies only to the job execution that you update\. You can set a new value for this timer each time you update a job execution\. You can also create a step timer when you call [StartNextPendingJobExecution](https://docs.aws.amazon.com/iot/latest/apireference/API_iot-jobs-data_StartNextPendingJobExecution.html)\. If the job execution remains in the `IN_PROGRESS` status for longer than the step timer interval, it fails and switches to the terminal `TIMED_OUT` status\. The step timer has no effect on the in\-progress timer that you set when you create a job\.
 
@@ -272,7 +272,7 @@ The `status` field can be set to `IN_PROGRESS`, `SUCCEEDED`, or `FAILED`\. You c
 ------
 #### [ Report execution completed ]
 
-When the device is finished executing the job, it calls the [UpdateJobExecution](jobs-api.md#mqtt-updatejobexecution) MQTT API\. If the job was successful, set `status` to `SUCCEEDED` and, in the message payload, in `statusDetails`, add other information about the job as name\-value pairs\. The in\-progress and step timers end when the job execution is complete\.
+When the device is finished executing the job, it calls the [UpdateJobExecution](jobs-mqtt-api.md#mqtt-updatejobexecution) MQTT API\. If the job was successful, set `status` to `SUCCEEDED` and, in the message payload, in `statusDetails`, add other information about the job as name\-value pairs\. The in\-progress and step timers end when the job execution is complete\.
 
 ------
 #### [ More Information\(4\) ]

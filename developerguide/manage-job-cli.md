@@ -160,7 +160,7 @@ The command returns the job document for the specified job:
 ```
 
 **Note**  
-When you use this command to retrieve a job document, placeholder URLs are not replaced by presigned Amazon S3 URLs\. When a device calls the [GetPendingJobExecutions](jobs-api.md#mqtt-getpendingjobexecutions) MQTT API, the placeholder URLs are replaced by presigned Amazon S3 URLs in the job document\. 
+When you use this command to retrieve a job document, placeholder URLs are not replaced by presigned Amazon S3 URLs\. When a device calls the [GetPendingJobExecutions](jobs-mqtt-api.md#mqtt-getpendingjobexecutions) MQTT API, the placeholder URLs are replaced by presigned Amazon S3 URLs in the job document\. 
 
 ## List jobs<a name="list-jobs"></a>
 
@@ -375,7 +375,7 @@ Run the DescribeJobExecution command to get the status of a job execution\. You 
 aws iot describe-job-execution --job-id 017 --thing-name thingOne
 ```
 
-The command returns the [JobExecution](jobs-api.md#jobs-job-execution)\. For example:
+The command returns the [JobExecution](jobs-control-plane-data-types.md#jobs-job-execution)\. For example:
 
 ```
 {

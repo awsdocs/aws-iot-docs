@@ -6,11 +6,11 @@ This section describes how to run the AWS IoT Device SDK for Embedded C\.
 
 The AWS IoT Device SDK for Embedded C is generally targeted at resource constrained devices that require an optimized C language runtime\. You can use the SDK on any operating system and host it on any processor type \(for example, MCUs and MPUs\)\. If you have more memory and processing resources available, we recommend that you use one of the higher order AWS IoT Device and Mobile SDKs \(for example, C\+\+, Java, JavaScript, and Python\)\.
 
-In general, the AWS IoT Device SDK for Embedded C is intended for systems that use MCUs or low\-end MPUs that run embedded operating systems\. For programming examples in the documentation, we use Raspberry Pi running embedded Linux\.
+In general, the AWS IoT Device SDK for Embedded C is intended for systems that use MCUs or low\-end MPUs that run embedded operating systems\. For the programming example in this section, we  assume your device uses Linux\.
 
 **Example**  
 
-1. Download the AWS IoT Device SDK for Embedded C to your Raspberry Pi from [GitHub](https://github.com/aws/aws-iot-device-sdk-embedded-C)\.
+1. Download the AWS IoT Device SDK for Embedded C to your device from [GitHub](https://github.com/aws/aws-iot-device-sdk-embedded-C)\.
 
    ```
    git clone https://github.com/aws/aws-iot-device-sdk-embedded-c.git --recurse-submodules
@@ -41,7 +41,7 @@ Device and root CA certificates are subject to expiration or revocation\. If the
 
 1. You must configure the sample with your personal AWS IoT Core endpoint, private key, certificate, and root CA certificate\. Navigate to the `aws-iot-device-sdk-embedded-c/demos/mqtt/mqtt_demo_mutual_auth` directory\.
 
-   If you have the AWS CLI installed, you can use the aws iot describe\-endpoint \-\-endpoint\-type iot:Data\-ATS command to find your personal endpoint URL\. If you don't have the AWS CLI installed, open your [AWS IoT console](https://console.aws.amazon.com/iot/home)\. From the navigation pane, choose **Manage**, and then choose **Things**\. Choose the IoT thing for your Raspberry Pi, and then choose **Interact**\. Your endpoint is displayed in the ** HTTPS** section of the thing details page\.
+   If you have the AWS CLI installed, you can use the aws iot describe\-endpoint \-\-endpoint\-type iot:Data\-ATS command to find your personal endpoint URL\. If you don't have the AWS CLI installed, open your [AWS IoT console](https://console.aws.amazon.com/iot/home)\. From the navigation pane, choose **Manage**, and then choose **Things**\. Choose the IoT thing for your device, and then choose **Interact**\. Your endpoint is displayed in the ** HTTPS** section of the thing details page\.
 
 1. Open the `demo_config.h` file and update the values for the following:  
 AWS\_IOT\_ENDPOINT  
@@ -101,7 +101,13 @@ Your private key file name, for example `certificates/private.pem.key`\.
 
 **To run the AWS IoT Device SDK for Embedded C sample applications**
 
-1. Navigate to `aws-iot-device-sdk-embedded-c/build`, then enter the following CMake command to generate the Makefiles needed to build\.
+1. Navigate to `aws-iot-device-sdk-embedded-c` and create a build directory\.
+
+   ```
+   mkdir build && cd build
+   ```
+
+1. Enter the following CMake command to generate the Makefiles needed to build\.
 
    ```
    cmake ..  
@@ -123,6 +129,6 @@ Your private key file name, for example `certificates/private.pem.key`\.
    You should see output similar to the following:   
 ![\[Image NOT FOUND\]](http://docs.aws.amazon.com/iot/latest/developerguide/images/successful-run2.png)
 
-Your Raspberry Pi is now connected to AWS IoT using the AWS IoT Device SDK for Embedded C\.
+Your device is now connected to AWS IoT using the AWS IoT Device SDK for Embedded C\.
 
 You can also use the AWS IoT console to view the MQTT messages that the sample app is publishing\. For information about how to use the MQTT client in the [AWS IoT console](https://console.aws.amazon.com/iot/home), see [View MQTT messages with the AWS IoT MQTT client](view-mqtt-messages.md) \.

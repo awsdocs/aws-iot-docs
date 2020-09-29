@@ -1,6 +1,6 @@
 # Managing jobs<a name="create-manage-jobs"></a>
 
-You can use the [AWS IoT console](https://console.aws.amazon.com/iot/), the Jobs HTTPS API, the AWS Command Line Interface, or the AWS SDKs to create and manage jobs\. For more information, see [Job management and control API](jobs-api.md#jobs-http-api), [AWS CLI Command Reference: iot](https://docs.aws.amazon.com/cli/latest/reference/iot/index.html) or [AWS SDKs and Tools](http://aws.amazon.com/tools/#sdk)\.
+You can use the [AWS IoT console](https://console.aws.amazon.com/iot/), the Jobs HTTPS API, the AWS Command Line Interface, or the AWS SDKs to create and manage jobs\. For more information, see [Job management and control API](jobs-http-api.md), [AWS CLI Command Reference: iot](https://docs.aws.amazon.com/cli/latest/reference/iot/index.html) or [AWS SDKs and Tools](http://aws.amazon.com/tools/#sdk)\.
 
 The primary purpose of jobs is to notify devices of a software or firmware update\. When sending code to devices, the best practice is to sign the code file\. This allows devices to detect if the code has been modified in transit\. The instructions in the following section are written with the assumption that you want to code\-sign the software update you are sending to your devices\.
 
@@ -14,7 +14,7 @@ When a device requests the job document, AWS IoT generates the presigned URL and
 
 When you create a job that uses presigned Amazon S3 URLs, you must provide an IAM role that grants permission to download files from the Amazon S3 bucket where the data or updates are stored\. The role must also grant permission for AWS IoT to assume the role\.
 
-You can specify an optional timeout for the presigned URL\. For more information, see [CreateJob](jobs-api.md#jobs-CreateJob)\.
+You can specify an optional timeout for the presigned URL\. For more information, see [CreateJob](jobs-http-api.md#jobs-CreateJob)\.
 
 **To grant the jobs service permission to assume your role**
 

@@ -66,10 +66,7 @@ The AWS IoT Device SDK for Embedded C is generally targeted at resource constrai
 
 For more information, see the following:
 + [AWS IoT Device SDK for Embedded C on GitHub](https://github.com/aws/aws-iot-device-sdk-embedded-C)
-
-  [AWS IoT Device SDK for Embedded C on GitHub](https://github.com/aws/aws-iot-device-sdk-embedded-C)
 + [ AWS IoT Device SDK for Embedded C Readme](https://github.com/aws/aws-iot-device-sdk-embedded-C#aws-iot-device-sdk-for-embedded-c)
-+ [AWS IoT Device SDK for Embedded C Readme](https://github.com/aws/aws-iot-device-sdk-embedded-C#aws-iot-device-sdk-for-embedded-c)
 + [AWS IoT Device SDK for Embedded C Samples](https://docs.aws.amazon.com/freertos/latest/lib-ref/embedded-csdk/202009.00/lib-ref/docs/doxygen/output/html/demos_main.html)
 
 ## AWS Mobile SDKs<a name="iot-mobile-sdks"></a>

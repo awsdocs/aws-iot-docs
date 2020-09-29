@@ -10,7 +10,6 @@ These tutorials provide step\-by\-step instructions for connecting your Raspberr
 **Topics**
 + [Prerequisites](#iot-sdk-prereqs)
 + [Create an AWS IoT thing for your Raspberry Pi](#iot-sdk-create-thing)
-+ [Using the AWS IoT Device SDK for Embedded C](iot-embedded-c-sdk.md)
 + [Using the AWS IoT Device SDK for JavaScript and node](iot-device-sdk-node.md)
 
 ## Prerequisites<a name="iot-sdk-prereqs"></a>

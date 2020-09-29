@@ -16,10 +16,6 @@ You can expect to spend about 10 minutes with this demo\. The tile in the consol
 
    Choose **Start tutorial** when you're ready to continue\.
 
-1. On the **AWS IoT Interactive Tutorial** page, review the tutorial overview to get an idea of what you'll learn\.
-
-   Choose **Start tutorial** when you're ready to continue\.
-
 1. 
 
 **Interactive demo step 1**
