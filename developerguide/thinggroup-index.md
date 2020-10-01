@@ -59,7 +59,7 @@ aws iot describe-index --index-name "AWS_ThingGroups"
 Use the search\-index CLI command to query data in the index:
 
 ```
-aws iot search-index --index-name "AWS_ThingGroups" --query-string "thingGroupName:mythinggroup*"
+aws iot search-index --index-name "AWS_ThingGroups" --query-string "thingGroupNames:mythinggroup*"
 ```
 
 ## Authorization<a name="query-thinggroup-auth"></a>
