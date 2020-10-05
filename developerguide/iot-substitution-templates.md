@@ -26,6 +26,7 @@ The following rule actions support substitution templates\. Each action supports
 + [SNS](sns-rule-action.md)
 + [SQS](sqs-rule-action.md)
 + [Step Functions](stepfunctions-rule-action.md)
++ [Timestream](timestream-rule-action.md)
 
 Substitution templates appear in the action parameters within a rule: 
 

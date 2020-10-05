@@ -19,14 +19,14 @@ These messages support response buffers in Concise Binary Object Representation 
 | cbor | Concise Binary Object Representation \(CBOR\) | 
 | json | JavaScript Object Notation \(JSON\) | 
 
-For more information, see [Sending metrics from devices](DetectMetricsMessages.md)\.
+For more information, see [Sending metrics from devices](detect-device-side-metrics.md#DetectMetricsMessages)\.
 
 
 | Topic | Allowed operations | Description | 
 | --- | --- | --- | 
-|  $aws/things/*thingName*/defender/metrics/*payload\-format*  |  Publish  |  Device Defender agents publish metrics to this topic\. For more information, see [Sending metrics from devices](DetectMetricsMessages.md)\.   | 
-|  $aws/things/*thingName*/defender/metrics/*payload\-format*/accepted  |  Subscribe  |  AWS IoT publishes to this topic after a Device Defender agent publishes a successful message to $aws/things/*thingName*/defender/metrics/*payload\-format*\. For more information, see [Sending metrics from devices](DetectMetricsMessages.md)\.   | 
-|  $aws/things/*thingName*/defender/metrics/*payload\-format*/rejected  |  Subscribe  |  AWS IoT publishes to this topic after a Device Defender agent publishes an unsuccessful message to $aws/things/*thingName*/defender/metrics/*payload\-format*\. For more information, see [Sending metrics from devices](DetectMetricsMessages.md)\.   | 
+|  $aws/things/*thingName*/defender/metrics/*payload\-format*  |  Publish  |  Device Defender agents publish metrics to this topic\. For more information, see [Sending metrics from devices](detect-device-side-metrics.md#DetectMetricsMessages)\.   | 
+|  $aws/things/*thingName*/defender/metrics/*payload\-format*/accepted  |  Subscribe  |  AWS IoT publishes to this topic after a Device Defender agent publishes a successful message to $aws/things/*thingName*/defender/metrics/*payload\-format*\. For more information, see [Sending metrics from devices](detect-device-side-metrics.md#DetectMetricsMessages)\.   | 
+|  $aws/things/*thingName*/defender/metrics/*payload\-format*/rejected  |  Subscribe  |  AWS IoT publishes to this topic after a Device Defender agent publishes an unsuccessful message to $aws/things/*thingName*/defender/metrics/*payload\-format*\. For more information, see [Sending metrics from devices](detect-device-side-metrics.md#DetectMetricsMessages)\.   | 
 
 ## Event topics<a name="reserved-topics-event"></a>
 

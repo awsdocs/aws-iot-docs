@@ -6,7 +6,8 @@ This normally takes about 20 minutes, but it can take longer if you have many sy
 
 **Topics**
 + [Set up your device](#gs-device-prereqs)
-+ [Install the required libraries and the AWS IoT Device SDK for JavaScript](#gs-device-sdk-node)
++ [Install the required tools and libraries for the AWS IoT Device SDK](#gs-device-sdk-tools)
++ [Install AWS IoT Device SDK](#gs-device-install-sdk)
 + [Install and run the sample app](#gs-device-node-app-run)
 + [View messages from the sample app in the AWS IoT console](#gs-device-view-msg)
 
@@ -32,130 +33,228 @@ Before you continue to the next step, your device must have its operating system
 
  If you are running an operating system on your Raspberry Pi that has a graphical user interface \(GUI\), open a terminal window on the device and perform the following instructions in that window\. Otherwise, if you are connecting to your device by using a remote terminal, such as PuTTY, open a remote terminal to your device and use that\.
 
-## Install the required libraries and the AWS IoT Device SDK for JavaScript<a name="gs-device-sdk-node"></a>
+## Install the required tools and libraries for the AWS IoT Device SDK<a name="gs-device-sdk-tools"></a>
 
-In this section, you'll install the required libraries, Git, Node\.js, the npm package manager, and the AWS IoT Device SDK for JavaScript on your device\. These instructions are for a Raspberry Pi running the Raspberry Pi OS\. If you have another device or are using another operating system, you might need to adapt these instructions for your device\.
+Before you install the AWS IoT Device SDK and sample code, make sure your system is up\-to\-date and has the required tools and libraries to install the SDKs\.
 
-### Update the operating system and install required libraries<a name="gs-device-libs"></a>
+1. 
 
-```
-sudo apt-get update
-sudo apt-get upgrade
-sudo apt-get install cmake
-sudo apt-get install libssl-dev
-```
-
-### Install Git<a name="gs-device-git"></a>
-
-If your device's operating system doesn't come with Git installed, you'll need to install it to install the AWS IoT Device SDK for JavaScript\.
-
-**To test for Git and install it if necessary**
-
-1. Test to see if Git is already installed by running this command\.
+**Update the operating system and install required libraries**  
+Before you install an AWS IoT Device SDK, run these commands in a terminal window on your device to update the operating system and install the required libraries\.
 
    ```
-   git --version
+   sudo apt-get update
    ```
 
-1. If the previous command returns the Git version, Git is already installed and you can skip to the next section\.
-
-1. If an error is displayed when you run the git command, install Git by running this command\.
-
    ```
-   sudo apt-get install git
+   sudo apt-get upgrade
    ```
 
-1. Test again to see if Git is installed by running this command\.
-
    ```
-   git --version
+   sudo apt-get install cmake
    ```
 
-1. If Git is installed, continue to the next section\. If not, troubleshoot and correct the error before continuing\. You need Git to install the AWS IoT Device SDK for JavaScript\.
+   ```
+   sudo apt-get install libssl-dev
+   ```
 
-### Install the latest version of Node\.js<a name="gs-device-node-runtime"></a>
+1. 
 
+**Install Git**  
+If your device's operating system doesn't come with Git installed, you'll need to install it to install the AWS IoT Device SDK for JavaScript\. 
+
+   1. Test to see if Git is already installed by running this command\.
+
+      ```
+      git --version
+      ```
+
+   1. If the previous command returns the Git version, Git is already installed and you can skip to Step 3\.
+
+   1. If an error is displayed when you run the git command, install Git by running this command\.
+
+      ```
+      sudo apt-get install git
+      ```
+
+   1. Test again to see if Git is installed by running this command\.
+
+      ```
+      git --version
+      ```
+
+   1. If Git is installed, continue to the next section\. If not, troubleshoot and correct the error before continuing\. You need Git to install the AWS IoT Device SDK for JavaScript\.
+
+## Install AWS IoT Device SDK<a name="gs-device-install-sdk"></a>
+
+Install the AWS IoT Device SDK\.
+
+------
+#### [ Python ]
+
+In this section, you'll install Python, its development tools, and the AWS IoT Device SDK for Python on your device\. These instructions are for a Raspberry Pi running the latest Raspberry Pi OS\. If you have another device or are using another operating system, you might need to adapt these instructions for your device\.
+
+1. 
+
+**Install Python and its development tools**  
+The AWS IoT Device SDK for Python requires Python v3\.5 or later to be installed on your Raspberry Pi\.
+
+   In a terminal window to your device, run these commands\.
+
+   1. Run this command to determine the version of Python installed on your device\.
+
+      ```
+      python3 --version
+      ```
+
+      If Python is installed, it will display its version\.
+
+   1. If the version displayed is `Python 3.5` or greater, you can skip to Step 2\.
+
+   1. If the version displayed is less than `Python 3.5`, you can install the correct version by running this command\.
+
+      ```
+      sudo apt install python3
+      ```
+
+   1. Run this command to confirm that the correct version of Python is now installed\.
+
+      ```
+      python3 --version
+      ```
+
+1. 
+
+**Test for pip3**  
+In a terminal window to your device, run these commands\.
+
+   1. Run this command to see if pip3 is installed\.
+
+      ```
+      pip3 --version
+      ```
+
+   1. If the command returns a version number, pip3 is installed and you can skip to Step 3\.
+
+   1. If the previous command returns an error, run this command to install pip3\.
+
+      ```
+      sudo apt install python3-pip
+      ```
+
+   1. Run this command to see if pip3 is installed\.
+
+      ```
+      pip3 --version
+      ```
+
+1. 
+
+**Install the current AWS IoT Device SDK for Python**  
+Install the AWS IoT Device SDK for Python and download the sample apps to your device\.
+
+   From the *home* directory on your device, usually `~/`, run these commands\.
+
+   ```
+   cd ~
+   python3 -m pip install awsiotsdk
+   ```
+
+   ```
+   git clone https://github.com/aws/aws-iot-device-sdk-python-v2.git
+   ```
+
+------
+#### [ JavaScript ]
+
+In this section, you'll install Node\.js, the npm package manager, and the AWS IoT Device SDK for JavaScript on your device\. These instructions are for a Raspberry Pi running the Raspberry Pi OS\. If you have another device or are using another operating system, you might need to adapt these instructions for your device\.
+
+1. 
+
+**Install the latest version of Node\.js**  
 The AWS IoT Device SDK for JavaScript requires Node\.js and the npm package manager to be installed on your Raspberry Pi\.
 
-**To download the latest version of the Node repository**
+   1. Download the latest version of the Node repository by entering this command\.
 
-1. Download the latest version of the Node repository by entering this command\.
+      ```
+      cd ~
+      curl -sL https://deb.nodesource.com/setup_12.x | sudo -E bash -
+      ```
 
-   ```
-   cd ~
-   curl -sL https://deb.nodesource.com/setup_12.x | sudo -E bash -
-   ```
+   1. Install Node and npm\.
 
-1. Install Node and npm\.
+      ```
+      sudo apt-get install -y nodejs
+      ```
 
-   ```
-   sudo apt-get install -y nodejs
-   ```
+   1. Verify the installation of Node\.
 
-1. Verify the installation of Node\.
+      ```
+      node -v
+      ```
 
-   ```
-   node -v
-   ```
+      Confirm that the command displays the Node version\. This tutorial requires Node v10\.0 or later\. If the Node version isn't displayed, try downloading the Node repository again\.
 
-   Confirm that the command displays the Node version\. This tutorial requires Node v10\.0 or later\. If the Node version isn't displayed, try downloading the Node repository again\.
+   1. Verify the installation of npm\.
 
-1. Verify the installation of npm\.
+      ```
+      npm -v
+      ```
 
-   ```
-   npm -v
-   ```
+      Confirm that the command displays the npm version\. If the npm version isn't displayed, try installing Node and npm again\.
 
-   Confirm that the command displays the npm version\. If the npm version isn't displayed, try installing Node and npm again\.
+   1. Restart the device\.
 
-1. Restart the device\.
+      ```
+      sudo shutdown -r 0
+      ```
 
-   ```
-   sudo shutdown -r 0
-   ```
+      Continue after the device restarts\.
 
-   Continue after the device restarts\.
+1. 
 
-### Install the AWS IoT Device SDK for JavaScript<a name="gs-device-node-intall-sdk"></a>
-
+**Install the AWS IoT Device SDK for JavaScript**  
 Install the AWS IoT Device SDK for JavaScript on your Raspberry Pi\.
 
-**To install the AWS IoT Device SDK for JavaScript on your device**
+   1. Install aws\-crt, the common runtime library\.
 
-1. Install aws\-crt, the common runtime library\.
+      ```
+      cd ~
+      npm install aws-crt
+      ```
 
-   ```
-   cd ~
-   npm install aws-crt
-   ```
+   1. Install v2 of the AWS IoT Device SDK for JavaScript\.
 
-1. Install v2 of the AWS IoT Device SDK for JavaScript\.
+      ```
+      npm install aws-iot-device-sdk-v2
+      ```
 
-   ```
-   npm install aws-iot-device-sdk-v2
-   ```
+   1. Clone the AWS IoT Device SDK for JavaScript repository into the `aws-iot-device-sdk-js-v2` directory of your *home* directory\. On the Raspberry Pi, the *home* directory is `~/`, which is used as the *home* directory in the following commands\. If your device uses a different path for the *home* directory, you must replace `~/` with the correct path for your device in the following commands\.
 
-1. Clone the AWS IoT Device SDK for JavaScript repository into the `aws-iot-device-sdk-js-v2` directory of your *home* directory\. On the Raspberry Pi, the *home* directory is `~/`, which is used as the *home* directory in the following commands\. If your device uses a different path for the *home* directory, you must replace `~/` with the correct path for your device in the following commands\.
+      These commands create the `~/aws-iot-device-sdk-js-v2` directory and copies the SDK code into it\.
 
-   These commands create the `~/aws-iot-device-sdk-js-v2` directory and copies the SDK code into it\.
+      ```
+      cd ~
+      git clone https://github.com/aws/aws-iot-device-sdk-js-v2.git
+      ```
 
-   ```
-   cd ~
-   git clone https://github.com/aws/aws-iot-device-sdk-js-v2.git
-   ```
+   1. Change to the `aws-iot-device-sdk-js-v2` directory that you created in the preceding step and install the SDK\.
 
-1. Change to the `aws-iot-device-sdk-js-v2` directory that you created in the preceding step and install the SDK\.
+      ```
+      cd ~/aws-iot-device-sdk-js-v2
+      npm install
+      ```
 
-   ```
-   cd ~/aws-iot-device-sdk-js-v2
-   npm install
-   ```
+------
 
-### Install and run the sample app<a name="gs-device-node-config-app"></a>
+## Install and run the sample app<a name="gs-device-node-app-run"></a>
 
-This section describes how to install and run the sample app\. The steps in the procedures are run from a command window running on, or remotely connected to, your device\.
+In this section, you'll install and run the `pubsub` sample app found in the AWS IoT Device SDK\. This app shows how your device uses the MQTT library to publish and subscribe to MQTT messages\. The sample app subscribes to a topic, `topic_1`, publishes 10 messages to that topic, and displays the messages as they're received from the message broker\.
 
-**To prepare your system to run the sample application**
+**Install the certificate files**  
+The sample app requires the certificate files that authenticate the device to be installed on the device\.
+
+**To install the device certificate files for the sample app**
 
 1. In your *home* directory, create a `certs` subdirectory by running these commands\.
 
@@ -172,11 +271,7 @@ This section describes how to install and run the sample app\. The steps in the 
 **Certificate file names**    
 [\[See the AWS documentation website for more details\]](http://docs.aws.amazon.com/iot/latest/developerguide/connecting-to-existing-device.html)
 
-## Install and run the sample app<a name="gs-device-node-app-run"></a>
-
-In this section, you'll install and run the `pub-sub.js` sample app found in the `aws-iot-device-sdk-js-v2/samples/node` directory of the AWS IoT Device SDK for JavaScript\. This app shows how your device uses the MQTT library to publish and subscribe to MQTT messages\. The `pub-sub.js` sample app subscribes to a topic, `topic_1`, publishes 10 messages to that topic, and displays the messages as they're received from the message broker\.
-
-To run the `pub-sub.js` sample app, you need the following information:
+To run the sample app, you need the following information:
 
 
 **Application parameter values**  
@@ -187,7 +282,72 @@ To run the `pub-sub.js` sample app, you need the following information:
 
 The *your\-iot\-endpoint* value has a format of: `endpoint_id-ats.iot.region.amazonaws.com`, for example, `a3qj468EXAMPLE-ats.iot.us-west-2.amazonaws.com`\. 
 
-**To install and run the example app**
+------
+#### [ Python ]
+
+**To install and run the sample app**
+
+1. Navigate to the sample app directory\.
+
+   ```
+   cd ~/aws-iot-device-sdk-python-v2/samples
+   ```
+
+1. In the command line window, replace *your\-iot\-endpoint* as indicated and run this command\.
+
+   ```
+   python3 pubsub.py --topic topic_1 --root-ca ~/certs/Amazon-root-CA-1.pem --cert ~/certs/device.pem.crt --key ~/certs/private.pem.key --endpoint your-iot-endpoint
+   ```
+
+1. Observe that the sample app:
+
+   1. Connects to the AWS IoT service for your account\.
+
+   1. Subscribes to the message topic, **topic\_1**, and displays the messages it receives on that topic\. 
+
+   1. Publishes 10 messages to the topic, **topic\_1**\. 
+
+   1. Displays output similar to the following:
+
+   ```
+   Connecting to a3qEXAMPLEffp-ats.iot.us-west-2.amazonaws.com with client ID 'test-0c8ae2ff-cc87-49d2-a82a-ae7ba1d0ca5a'...
+   Connected!
+   Subscribing to topic 'topic_1'...
+   Subscribed with QoS.AT_LEAST_ONCE
+   Sending 10 message(s)
+   Publishing message to topic 'topic_1': Hello World! [1]
+   Received message from topic 'topic_1': b'Hello World! [1]'
+   Publishing message to topic 'topic_1': Hello World! [2]
+   Received message from topic 'topic_1': b'Hello World! [2]'
+   Publishing message to topic 'topic_1': Hello World! [3]
+   Received message from topic 'topic_1': b'Hello World! [3]'
+   Publishing message to topic 'topic_1': Hello World! [4]
+   Received message from topic 'topic_1': b'Hello World! [4]'
+   Publishing message to topic 'topic_1': Hello World! [5]
+   Received message from topic 'topic_1': b'Hello World! [5]'
+   Publishing message to topic 'topic_1': Hello World! [6]
+   Received message from topic 'topic_1': b'Hello World! [6]'
+   Publishing message to topic 'topic_1': Hello World! [7]
+   Received message from topic 'topic_1': b'Hello World! [7]'
+   Publishing message to topic 'topic_1': Hello World! [8]
+   Received message from topic 'topic_1': b'Hello World! [8]'
+   Publishing message to topic 'topic_1': Hello World! [9]
+   Received message from topic 'topic_1': b'Hello World! [9]'
+   Publishing message to topic 'topic_1': Hello World! [10]
+   Received message from topic 'topic_1': b'Hello World! [10]'
+   10 message(s) received.
+   Disconnecting...
+   Disconnected!
+   ```
+
+   If you're having trouble running the sample app, review [Troubleshooting problems with the sample app](gs-device-troubleshoot.md)\.
+
+   You can also add the `--verbosity debug` parameter to the command line so the sample app displays detailed messages about what it’s doing\. That information might provide you the help you need to correct the problem\. 
+
+------
+#### [ JavaScript ]
+
+**To install and run the sample app**
 
 1. In your command line window, navigate to the `~/aws-iot-device-sdk-js-v2/samples/node/pub_sub` directory that the SDK created and install the sample app by using these commands\.
 
@@ -202,42 +362,44 @@ The *your\-iot\-endpoint* value has a format of: `endpoint_id-ats.iot.region.ama
    node dist/index.js --topic topic_1 --root-ca ~/certs/Amazon-root-CA-1.pem --cert ~/certs/device.pem.crt --key ~/certs/private.pem.key --endpoint your-iot-endpoint
    ```
 
-The sample app:
+1. Observe that the sample app:
 
-1. Connects to the AWS IoT service for your account\.
+   1. Connects to the AWS IoT service for your account\.
 
-1. Subscribes to the message topic, **topic\_1**, and displays the messages it receives on that topic\. 
+   1. Subscribes to the message topic, **topic\_1**, and displays the messages it receives on that topic\. 
 
-1. Publishes 10 messages to the topic, **topic\_1**\. 
+   1. Publishes 10 messages to the topic, **topic\_1**\. 
 
-1. Displays output similar to the following:
+   1. Displays output similar to the following:
 
-```
-Publish received on topic topic_1
-{"message":"Hello world!","sequence":1}
-Publish received on topic topic_1
-{"message":"Hello world!","sequence":2}
-Publish received on topic topic_1
-{"message":"Hello world!","sequence":3}
-Publish received on topic topic_1
-{"message":"Hello world!","sequence":4}
-Publish received on topic topic_1
-{"message":"Hello world!","sequence":5}
-Publish received on topic topic_1
-{"message":"Hello world!","sequence":6}
-Publish received on topic topic_1
-{"message":"Hello world!","sequence":7}
-Publish received on topic topic_1
-{"message":"Hello world!","sequence":8}
-Publish received on topic topic_1
-{"message":"Hello world!","sequence":9}
-Publish received on topic topic_1
-{"message":"Hello world!","sequence":10}
-```
+   ```
+   Publish received on topic topic_1
+   {"message":"Hello world!","sequence":1}
+   Publish received on topic topic_1
+   {"message":"Hello world!","sequence":2}
+   Publish received on topic topic_1
+   {"message":"Hello world!","sequence":3}
+   Publish received on topic topic_1
+   {"message":"Hello world!","sequence":4}
+   Publish received on topic topic_1
+   {"message":"Hello world!","sequence":5}
+   Publish received on topic topic_1
+   {"message":"Hello world!","sequence":6}
+   Publish received on topic topic_1
+   {"message":"Hello world!","sequence":7}
+   Publish received on topic topic_1
+   {"message":"Hello world!","sequence":8}
+   Publish received on topic topic_1
+   {"message":"Hello world!","sequence":9}
+   Publish received on topic topic_1
+   {"message":"Hello world!","sequence":10}
+   ```
 
-If you're having trouble running the sample app, review [Troubleshooting problems with the sample app](gs-device-troubleshoot.md)\.
+   If you're having trouble running the sample app, review [Troubleshooting problems with the sample app](gs-device-troubleshoot.md)\.
 
-You can also add the `--verbosity debug` parameter to the command line so the sample app displays detailed messages about what it’s doing\. That information might provide you the help you need to correct the problem\. 
+   You can also add the `--verbosity debug` parameter to the command line so the sample app displays detailed messages about what it’s doing\. That information might provide you the help you need to correct the problem\. 
+
+------
 
 ## View messages from the sample app in the AWS IoT console<a name="gs-device-view-msg"></a>
 
@@ -253,7 +415,20 @@ You can see the sample app's messages as they pass through the message broker by
 
 1. In your command line window, run the sample app again and watch the messages in the **MQTT client** in the **AWS IoT console**\.
 
+------
+#### [ Python ]
+
+   ```
+   cd ~/aws-iot-device-sdk-python-v2/samples
+   python3 pubsub.py --topic topic_1 --root-ca ~/certs/Amazon-root-CA-1.pem --cert ~/certs/device.pem.crt --key ~/certs/private.pem.key --endpoint your-iot-endpoint
+   ```
+
+------
+#### [ JavaScript ]
+
    ```
    cd ~/aws-iot-device-sdk-js-v2/samples/node/pub_sub
    node dist/index.js --topic topic_1 --root-ca ~/certs/Amazon-root-CA-1.pem --cert ~/certs/device.pem.crt --key ~/certs/private.pem.key --endpoint your-iot-endpoint
    ```
+
+------

@@ -2,7 +2,7 @@
 
 Dimensions are attributes that you can define to get more precise data about metrics and behaviors in your security profile\. You define the scope by providing a value or pattern that is used as a filter\. For example, you can define a topic filter dimension that applies a metric only to MQTT topics that match a particular value, such as "data/bulb/\+/activity"\. For information about defining a dimension that you can use in your security profile, see [CreateDimension](dd-api-iot-CreateDimension.md)\.
 
-Dimension values support MQTT wildcards\. MQTT wildcards help you subscribe to multiple topics simultaneously\. There are two different kinds of wildcards: single\-level \(`+`\) and multi\-level `(#`\)\. For example, the dimension value `Data/bulb/+/activity` creates a subscription that matches all topics that exist on the same level as the `+`\. Dimension values also supports the MQTT client ID substitution variable $\{iot:ClientId\}\.
+Dimension values support MQTT wildcards\. MQTT wildcards help you subscribe to multiple topics simultaneously\. There are two different kinds of wildcards: single\-level \(`+`\) and multi\-level `(#`\)\. For example, the dimension value `Data/bulb/+/activity` creates a subscription that matches all topics that exist on the same level as the `+`\. Dimension values also support the MQTT client ID substitution variable $\{iot:ClientId\}\.
 
 Dimensions of type TOPIC\_FILTER are compatible with the following set of cloud\-side metrics:
 + Number of messages sent
@@ -17,51 +17,51 @@ For an example of how to use the dimensions attribute, see [Monitoring legacy de
 
 **To create and apply a dimension to a security profile behavior**
 
-1. In the [AWS IoT console](https://console.aws.amazon.com/iot), in the navigation pane, expand **Defend**, expand **Detect**, and select **Security profiles**\.
+1. In the [AWS IoT console](https://console.aws.amazon.com/iot), in the navigation pane, expand **Defend**, expand **Detect**, and then choose **Security profiles**\.
 
 1. On the **Security profiles** page, choose **Create** to add a new security profile, or **Edit** to apply a dimension to an existing security profile\.
 
 1. On the **Expected behaviors** page, select one of the five cloud\-side metrics dimensions supports under **Metric**\. The **Dimension** and **Dimension operator** boxes display\. For information about supported cloud\-side metrics, see [Scoping metrics in security profiles using dimensions](#scoping-security-behavior)\.
 
-1. Under the **Dimension** dropdown, select **Add dimension**\.
+1. For **Dimension**, choose **Add dimension**\.
 
 1. On the **Create a new dimension** page, enter details for your new dimension\. **Dimensions values** supports MQTT wildcards \# and \+ and the MQTT client ID substitution variable $\{iot:ClientId\}\.  
 ![\[Image NOT FOUND\]](http://docs.aws.amazon.com/iot/latest/developerguide/images/dimensions-create-new.png)
 
 1. Choose **Save**\.
 
-1. You can also add dimensions to metrics under **Additional Metrics to retain**\.
+1. You can optionally add dimensions to metrics under **Additional Metrics to retain**\.
 
-1. Enter the information in the other required fields to finish creating the behavior, and choose **Next**\.
+1. To finish creating the behavior, type the information in the other required fields, and then choose **Next**\.
 
 1. Complete the remaining steps to finish creating a security profile\.
 
 **To view your violations**
 
-1. In the [AWS IoT console](https://console.aws.amazon.com/iot), in the navigation pane, expand **Defend** then **Detect**\. Then select **Violations**\.  
+1. In the [AWS IoT console](https://console.aws.amazon.com/iot), in the navigation pane, expand **Defend**, expand **Detect**, and then choose **Violations**\.  
 ![\[Image NOT FOUND\]](http://docs.aws.amazon.com/iot/latest/developerguide/images/dimensions-violations.png)
 
-1. In the **Behavior** column, hover over the behavior you want to see the violation information for\.
+1. In the **Behavior** column, pause over the behavior you want to see the violation information for\.
 
 **To view and update your dimensions**
 
-1. In the [AWS IoT console](https://console.aws.amazon.com/iot), in the navigation pane, expand **Defend**, expand **Detect**, and select **Dimensions**\.
+1. In the [AWS IoT console](https://console.aws.amazon.com/iot), in the navigation pane, expand **Defend**, expand **Detect**, and then choose **Dimensions**\.
 
-1. Select the dimension that you'd like to edit\.
+1. Select the dimension that you want to edit\.
 
-1. Select **Actions**, **Edit**\.  
+1. Choose **Actions**, and then choose **Edit**\.  
 ![\[Image of dimensions dropdown in console.\]](http://docs.aws.amazon.com/iot/latest/developerguide/images/dimensions-dropdown.png)
 
 **To delete a dimension**
 
-1. In the [AWS IoT console](https://console.aws.amazon.com/iot), in the navigation pane, expand **Defend**, expand **Detect**, and select **Dimensions**\.
+1. In the [AWS IoT console](https://console.aws.amazon.com/iot), in the navigation pane, expand **Defend**, expand **Detect**, and then choose **Dimensions**\.
 
 1. Select the dimension that you want to delete\.
 
-1. Confirm that the dimension isn't attached to a security profile by checking the **Used in** column\. If the dimension is attached to a security profile, open the **Security profiles** page on the left, and edit the security profiles that the dimension is attached to\. When you delete the dimesion, you also delete the behavior\. If you want to keep the behavior, choose the ellipsis, then choose **Copy**\. Then you can proceed with deleting the behavior\. If you want to delete another dimension, follow the steps in this section\.   
+1. Confirm that the dimension isn't attached to a security profile by checking the **Used in** column\. If the dimension is attached to a security profile, open the **Security profiles** page on the left, and edit the security profiles that the dimension is attached to\. When you delete the dimension, you also delete the behavior\. If you want to keep the behavior, choose the ellipsis, then choose **Copy**\. Then you can proceed with deleting the behavior\. If you want to delete another dimension, follow the steps in this section\.   
 ![\[Image of dimensions delete page.\]](http://docs.aws.amazon.com/iot/latest/developerguide/images/dimensions-delete.png)
 
-1. Select **Actions**, **Delete**\.
+1. Choose **Actions**, and then choose **Delete**\.
 
 ## How to use dimensions on the AWS CLI<a name="dimensions-cli-instruc"></a>
 
@@ -85,7 +85,7 @@ For an example of how to use the dimensions attribute, see [Monitoring legacy de
    }
    ```
 
-1. Either add the dimension to an existing security profile using [UpdateSecurityProfile](dd-api-iot-UpdateSecurityProfile.md), or add the dimension to a new security profile using [CreateSecurityProfile](dd-api-iot-CreateSecurityProfile.md)\. In the following example, we create a new security profile that checks if messages to `TopicFilterForAuthMessages` are under 128 bytes, and retains the number of messages sent to non\-auth topics\.
+1. Either add the dimension to an existing security profile by using [UpdateSecurityProfile](dd-api-iot-UpdateSecurityProfile.md), or add the dimension to a new security profile by using [CreateSecurityProfile](dd-api-iot-CreateSecurityProfile.md)\. In the following example, we create a new security profile that checks if messages to `TopicFilterForAuthMessages` are under 128 bytes, and retains the number of messages sent to non\-auth topics\.
 
    ```
    aws iot create-security-profile \
@@ -104,7 +104,7 @@ For an example of how to use the dimensions attribute, see [Monitoring legacy de
    }
    ```
 
-   You can also load a parameter from a file instead of typing it all as a command line parameter value to save time\. For more information, see [Loading AWS CLI Parameters from a File](https://docs.aws.amazon.com/cli/latest/userguide/cli-usage-parameters-file.html)\. The following shows the `behavior` parameter in expanded JSON format:
+   To save time, you can also load a parameter from a file instead of typing it as a command line parameter value\. For more information, see [Loading AWS CLI Parameters from a File](https://docs.aws.amazon.com/cli/latest/userguide/cli-usage-parameters-file.html)\. The following shows the `behavior` parameter in expanded JSON format:
 
    ```
    [

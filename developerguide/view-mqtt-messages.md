@@ -11,7 +11,7 @@ Devices publish MQTT messages that are identified by [topics](topics.md) to comm
 1. In the [AWS IoT console](https://console.aws.amazon.com/iot/home), in the left menu, choose **Test**\.  
 ![\[Image NOT FOUND\]](http://docs.aws.amazon.com/iot/latest/developerguide/images/choose-test.png)
 
-1. Subscribe to a *topicName* on which your device publishes\. For the getting started example app, the *topicName* is **topic\_1**\.
+1. Subscribe to a *topicName* on which your device publishes\. For the getting started sample app, the *topicName* is **topic\_1**\.
 
    Continuing with the getting started example, on the **Subscribe** page, in the **Subscription topic** field, enter **topic\_1**, and then choose **Subscribe to topic**\.   
 ![\[Image NOT FOUND\]](http://docs.aws.amazon.com/iot/latest/developerguide/images/subscribe-button-topic.png)

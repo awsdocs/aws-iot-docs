@@ -1,6 +1,6 @@
 # Behaviors<a name="detect-behaviors"></a>
 
-A security profile contains a set of behaviors\. Each behavior contains a metric that specifies the normal behavior for a group of devices or for all devices in your account\. See [Metrics](detect-metrics.md) and [CreateSecurityProfile](dd-api-iot-CreateSecurityProfile.md)\. 
+A security profile contains a set of behaviors\. Each behavior contains a metric that specifies the normal behavior for a group of devices or for all devices in your account\. See [Cloud\-side metrics](detect-cloud-side-metrics.md), [Device\-side metrics](detect-device-side-metrics.md) and [CreateSecurityProfile](dd-api-iot-CreateSecurityProfile.md)\. 
 
 The following describes some of the fields that are used in the definition of a `behavior`:
 

@@ -186,7 +186,7 @@ The *your\-iot\-endpoint* value has a format of: `endpoint_id-ats.iot.region.ama
 ------
 #### [ Linux/macOS ]
 
-**To install and run the example app on Linux/macOS**
+**To install and run the sample app on Linux/macOS**
 
 1. In your command line window, navigate to the `~/aws-iot-device-sdk-js-v2/samples/node/pub_sub` directory that the SDK created and install the sample app by using these commands\.
 
@@ -204,7 +204,7 @@ The *your\-iot\-endpoint* value has a format of: `endpoint_id-ats.iot.region.ama
 ------
 #### [ Windows ]
 
-**To run the example app on a Windows PC**
+**To run the sample app on a Windows PC**
 
 1. In your command line window, navigate to the `%USERPROFILE%\aws-iot-device-sdk-js-v2\samples\node\pub_sub` directory that the SDK created and install the sample app by using these commands\.
 

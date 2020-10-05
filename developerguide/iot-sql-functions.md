@@ -467,6 +467,47 @@ Example: `cosh(2.3)` = 5\.037220649268761\.
 | Null | Undefined\. | 
 | Undefined | Undefined\. | 
 
+## decode\(value, decodingScheme\)<a name="iot-sql-decode-base64"></a>
+
+Use the `decode` function to decode an encoded value\. If the decoded string is a JSON document, an addressable object is returned\. Otherwise, the decoded string is returned as a string\. The function returns NULL if the string cannot be decoded\. 
+
+Supported by SQL version 2016\-03\-23 and later\.
+
+value  
+A string value or any of the valid expressions, as defined in [AWS IoT SQL reference](iot-sql-reference.md), that return a string\.
+
+decodingScheme  
+A literal string representing the scheme used to decode the value\. Currently, only `'base64'` is supported\.
+
+**Example**  
+In this example, the message payload includes an encoded value\.
+
+```
+{
+    encoded_temp: "eyAidGVtcGVyYXR1cmUiOiAzMyB9Cg=="
+}
+```
+
+The `decode` function in this SQL statement, decodes the value in the message payload\.
+
+```
+SELECT decode(encoded_temp,"base64").temperature AS temp from 'topic/subtopic'
+```
+
+Decoding the `encoded_temp` value results in the following valid JSON document, which allows the SELECT statement to read the temperature value\.
+
+```
+{ "temperature": 33 }
+```
+
+The result of the SELECT statement in this example is shown here\.
+
+```
+{ "temp": 33 }
+```
+
+If the decoded value was not a valid JSON document, the decoded value would be returned as a string\.
+
 ## encode\(value, encodingScheme\)<a name="iot-sql-encode-payload"></a>
 
 Use the `encode` function to encode the payload, which potentially might be non\-JSON data, into its string representation based on the encoding scheme\. Supported by SQL version 2016\-03\-23 and later\.

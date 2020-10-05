@@ -24,6 +24,7 @@ AWS IoT rule actions specify what to do when a rule is triggered\. You can defin
 | [SNS](sns-rule-action.md) | Publishes a message as an Amazon Simple Notification Service \(Amazon SNS\) push notification\. | sns | 
 | [SQS](sqs-rule-action.md) | Sends a message to an Amazon Simple Queue Service \(Amazon SQS\) queue\. | sqs | 
 | [Step Functions](stepfunctions-rule-action.md) | Starts an AWS Step Functions state machine\. | stepFunctions | 
+| [Timestream](timestream-rule-action.md) | Sends a message to an Amazon Timestream database table\. | timestream | 
 
 **Notes**  
 You must define the rule in the same AWS Region as another's service's resource, so that the rule action can interact with that resource\.

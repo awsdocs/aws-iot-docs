@@ -37,8 +37,19 @@ The AWS SDKs enable your apps and compatible devices to call AWS IoT APIs and th
 ------
 #### [ C\+\+ ]
 
-**[AWS SDK for C\+\+](https://aws.amazon.com/sdk-for-cpp/)**
-+ [AWS SDK for C\+\+ developer guide](https://github.com/aws/aws-sdk-cpp#aws-sdk-for-c)
+**To install the [AWS SDK for C\+\+](https://aws.amazon.com/sdk-for-cpp/) and use it to connect to AWS IoT:**
+
+1. Follow the instructions in [Getting Started Using the AWS SDK for C\+\+](https://docs.aws.amazon.com/sdk-for-cpp/v1/developer-guide/getting-started.html)
+
+   These instructions describe how to:
+   + Install and build the SDK from source files
+   + Provide credentials to use the SDK with your AWS account
+   + Initialize and shutdown the SDK in your app or service
+   + Create a CMake project to build your app or service
+
+1. Create and run a sample app\. For sample apps that use the AWS SDK for C\+\+, see [AWS SDK for C\+\+ Code Examples](https://docs.aws.amazon.com/sdk-for-cpp/v1/developer-guide/programming-services.html)\.
+
+**Documentation for the AWS IoT Core services that the AWS SDK for C\+\+ supports**
 + [Aws::IoT::IoTClient reference documentation](http://sdk.amazonaws.com/cpp/api/LATEST/class_aws_1_1_io_t_1_1_io_t_client.html)
 + [Aws::IoTDataPlane::IoTDataPlaneClient reference documentation](http://sdk.amazonaws.com/cpp/api/LATEST/class_aws_1_1_io_t_data_plane_1_1_io_t_data_plane_client.html)
 + [Aws::IoTJobsDataPlane::IoTJobsDataPlaneClient reference documentation](http://sdk.amazonaws.com/cpp/api/LATEST/class_aws_1_1_io_t_jobs_data_plane_1_1_io_t_jobs_data_plane_client.html)
@@ -47,8 +58,18 @@ The AWS SDKs enable your apps and compatible devices to call AWS IoT APIs and th
 ------
 #### [ Go ]
 
-**[AWS SDK for Go](https://aws.amazon.com/sdk-for-go/)**
-+ [AWS SDK for Go getting started](https://docs.aws.amazon.com/sdk-for-go/v1/developer-guide/)
+**To install the [AWS SDK for Go](https://aws.amazon.com/sdk-for-go/) and use it to connect to AWS IoT:**
+
+1. Follow the instructions in [Getting Started with the AWS SDK for Go](https://docs.aws.amazon.com/sdk-for-go/v1/developer-guide/setting-up.html)
+
+   These instructions describe how to:
+   + Install the AWS SDK for GO
+   + Get access keys for the SDK to access your AWS account
+   + Import packages into the source code of our apps or services
+
+1. Create and run a sample app\. For sample apps that use the AWS SDK for Go, see [AWS SDK for Go Code Examples](https://docs.aws.amazon.com/sdk-for-go/v1/developer-guide/common-examples.html)\.
+
+**Documentation for the AWS IoT Core services that the AWS SDK for Go supports**
 + [IoT reference documentation](https://docs.aws.amazon.com/sdk-for-go/api/service/iot/)
 + [IoTDataPlane reference documentation](https://docs.aws.amazon.com/sdk-for-go/api/service/iotdataplane/)
 + [IoTJobsDataPlane reference documentation](https://docs.aws.amazon.com/sdk-for-go/api/service/iotjobsdataplane/)
@@ -57,9 +78,22 @@ The AWS SDKs enable your apps and compatible devices to call AWS IoT APIs and th
 ------
 #### [ Java ]
 
-**[AWS SDK for Java](https://aws.amazon.com/sdk-for-java/)**
-+ [AWS SDK for Java developer guide](https://docs.aws.amazon.com/sdk-for-java/v2/developer-guide/welcome.html)
-+ [SDK API reference documentation](https://sdk.amazonaws.com/java/api/latest/)
+**To install the [AWS SDK for Java](https://aws.amazon.com/sdk-for-java/) and use it to connect to AWS IoT:**
+
+1. Follow the instructions in [Getting Started with AWS SDK for Java 2\.0](https://docs.aws.amazon.com/sdk-for-java/v2/developer-guide/getting-started.html)
+
+   These instructions describe how to:
+   + Sign up for AWS and Create an IAM User
+   + Download the SDK 
+   + Set up AWS Credentials and Region 
+   + Use the SDK with Apache Maven 
+   + Use the SDK with Gradle 
+
+1. Create and run a sample app using one of the [AWS SDK for Java 2\.0 Code Examples](https://docs.aws.amazon.com/sdk-for-java/v2/developer-guide/advanced-topics.html)\.
+
+1. Review the [SDK API reference documentation](https://sdk.amazonaws.com/java/api/latest/)
+
+**Documentation for the AWS IoT Core services that the AWS SDK for Java supports**
 + [IotClient reference documentation](https://sdk.amazonaws.com/java/api/latest/software/amazon/awssdk/services/iot/IotClient.html)
 + [IotDataPlaneClient reference documentation](https://sdk.amazonaws.com/java/api/latest/software/amazon/awssdk/services/iotdataplane/IotDataPlaneClient.html)
 + [IotJobsDataPlaneClient reference documentation](https://sdk.amazonaws.com/java/api/latest/software/amazon/awssdk/services/iotjobsdataplane/IotJobsDataPlaneClient.html)
@@ -68,10 +102,20 @@ The AWS SDKs enable your apps and compatible devices to call AWS IoT APIs and th
 ------
 #### [ JavaScript ]
 
-**[AWS SDK for JavaScript in the Browser](https://aws.amazon.com/sdk-for-browser/)**
+**To install the [AWS SDK for JavaScript]() and use it to connect to AWS IoT:**
 
-**[AWS SDK for JavaScript in Node\.js](https://aws.amazon.com/sdk-for-node-js/)**
-+ [AWS SDK for JavaScript developer guide](https://docs.aws.amazon.com/sdk-for-javascript/v2/developer-guide/welcome.html)
+1. Follow the instructions in [Setting Up the AWS SDK for JavaScript](https://docs.aws.amazon.com/sdk-for-javascript/v2/developer-guide/setting-up.html)\. These instructions apply to using the AWS SDK for JavaScript in the browser and with Node\.JS\. Make sure you follow the directions that apply to your installation\. 
+
+   These instructions describe how to:
+   + Check for the prerequisites
+   + Install the SDK for JavaScript
+   + Load the SDK for JavaScript
+
+1. Create and run a sample app to get started with the SDK as the getting started option for your environment describes\.
+   + Get started with the [AWS SDK for JavaScript in the Browser](https://docs.aws.amazon.com/sdk-for-javascript/v2/developer-guide/getting-started-browser.html), or
+   + Get started with the [AWS SDK for JavaScript in Node\.js](https://docs.aws.amazon.com/sdk-for-javascript/v2/developer-guide/getting-started-nodejs.html)
+
+**Documentation for the AWS IoT Core services that the AWS SDK for JavaScript supports**
 + [AWS\.Iot reference documentation](https://docs.aws.amazon.com/AWSJavaScriptSDK/latest/AWS/Iot.html)
 + [AWS\.IotData reference documentation](https://docs.aws.amazon.com/AWSJavaScriptSDK/latest/AWS/IotData.html)
 + [AWS\.IotJobsDataPlane reference documentation](https://docs.aws.amazon.com/AWSJavaScriptSDK/latest/AWS/IoTJobsDataPlane.html)
@@ -80,9 +124,22 @@ The AWS SDKs enable your apps and compatible devices to call AWS IoT APIs and th
 ------
 #### [ \.NET ]
 
-**[AWS SDK for \.NET](https://aws.amazon.com/sdk-for-net/)**
-+ [AWS SDK for \.NET d](https://docs.aws.amazon.com/sdk-for-net/v3/developer-guide/welcome.html)
-+ [SDK API reference documentation](https://docs.aws.amazon.com/sdkfornet/v3/apidocs/index.html)
+**To install the [AWS SDK for \.NET](https://aws.amazon.com/sdk-for-net/) and use it to connect to AWS IoT:**
+
+1. Follow the instructions in [Setting up your AWS SDK for \.NET environment](https://docs.aws.amazon.com/sdk-for-net/latest/developer-guide/net-dg-setup.html)
+
+1. Follow the instructions in [Setting up your AWS SDK for \.NET project](https://docs.aws.amazon.com/sdk-for-net/latest/developer-guide/net-dg-config.html)
+
+   These instructions describe how to:
+   + Start a new project
+   + Obtain and configure AWS credentials
+   + Install AWS SDK packages
+
+1. Create and run one of the sample programs in [Working with AWS services in the AWS SDK for \.NET](https://docs.aws.amazon.com/sdk-for-net/latest/developer-guide/tutorials-examples.html)
+
+1. Review the [SDK API reference documentation](https://docs.aws.amazon.com/sdkfornet/v3/apidocs/index.html)
+
+**Documentation for the AWS IoT Core services that the AWS SDK for \.NET supports**
 + [Amazon\.IoT\.Model reference documentation](https://docs.aws.amazon.com/sdkfornet/v3/apidocs/items/IoT/NIoTModel.html)
 + [Amazon\.IotData\.Model reference documentation](https://docs.aws.amazon.com/sdkfornet/v3/apidocs/items/IotData/NIotDataModel.html)
 + [Amazon\.IoTJobsDataPlane\.Model reference documentation](https://docs.aws.amazon.com/sdkfornet/v3/apidocs/items/IoTJobsDataPlane/NIoTJobsDataPlaneModel.html)
@@ -91,8 +148,18 @@ The AWS SDKs enable your apps and compatible devices to call AWS IoT APIs and th
 ------
 #### [ PHP ]
 
-**[AWS SDK for PHP](https://aws.amazon.com/sdk-for-php/)**
-+ [AWS SDK for PHP getting started](https://docs.aws.amazon.com/sdk-for-php/v3/developer-guide/getting-started_index.html)
+**To install the [AWS SDK for PHP](https://aws.amazon.com/sdk-for-php/) and use it to connect to AWS IoT:**
+
+1. Follow the instructions in [Getting Started with the AWS SDK for PHP Version 3](https://docs.aws.amazon.com/sdk-for-php/v3/developer-guide/getting-started_index.html)
+
+   These instructions describe how to:
+   + Check for the prerequisites
+   + Install the SDK
+   + Apply the SDK to a PHP script
+
+1. Create and run a sample app using one of the [AWS SDK for PHP Version 3 Code Examples](https://docs.aws.amazon.com/sdk-for-php/v3/developer-guide/examples_index.html)
+
+**Documentation for the AWS IoT Core services that the AWS SDK for PHP supports**
 + [IoTClient reference documentation](https://docs.aws.amazon.com/aws-sdk-php/v3/api/class-Aws.Iot.IotClient.html)
 + [IoTDataPlaneClient reference documentation](https://docs.aws.amazon.com/aws-sdk-php/v3/api/class-Aws.IotDataPlane.IotDataPlaneClient.html)
 + [IoTJobsDataPlaneClient reference documentation](https://docs.aws.amazon.com/aws-sdk-php/v3/api/class-Aws.IoTJobsDataPlane.IoTJobsDataPlaneClient.html)
@@ -101,8 +168,34 @@ The AWS SDKs enable your apps and compatible devices to call AWS IoT APIs and th
 ------
 #### [ Python ]
 
-**[AWS SDK for Python \(Boto3\)](https://aws.amazon.com/sdk-for-python/)**
-+ [AWS SDK for Python Quickstart](https://boto3.amazonaws.com/v1/documentation/api/latest/guide/quickstart.html)
+**To install the [AWS SDK for Python \(Boto3\)](https://aws.amazon.com/sdk-for-python/) and use it to connect to AWS IoT:**
+
+1. Follow the instructions in the [AWS SDK for Python Quickstart](https://boto3.amazonaws.com/v1/documentation/api/latest/guide/quickstart.html)
+
+   These instructions describe how to:
+   + Install the SDK
+   + Configure the SDK
+   + Use the SDK in your code
+
+1. Create and run a sample program that uses the AWS SDK for Python
+
+   This program displays the account's currently configured logging options\. After you install the SDK and configure it for your account, you should be able to run this program\.
+
+   ```
+   import boto3
+   import json
+   
+   # initialize client
+   iot = boto3.client('iot')
+   
+   # get current logging levels, format them as JSON, and write them to stdout
+   response = iot.get_v2_logging_options()
+   print(json.dumps(response, indent=4))
+   ```
+
+    For more information about the function used in this example, see [Configure AWS IoT logging](configure-logging.md)\.
+
+**Documentation for the AWS IoT Core services that the AWS SDK for Python supports**
 + [IoT reference documentation](https://boto3.amazonaws.com/v1/documentation/api/latest/reference/services/iot.html)
 + [IoTDataPlane reference documentation](https://boto3.amazonaws.com/v1/documentation/api/latest/reference/services/iot-data.html)
 + [IoTJobsDataPlane reference documentation](https://boto3.amazonaws.com/v1/documentation/api/latest/reference/services/iot-jobs-data.html)
@@ -111,8 +204,15 @@ The AWS SDKs enable your apps and compatible devices to call AWS IoT APIs and th
 ------
 #### [ Ruby ]
 
-**[AWS SDK for Ruby](https://aws.amazon.com/sdk-for-ruby/)**
-+ [AWS SDK for Ruby developer guide](http://docs.aws.amazon.com/sdk-for-ruby/latest/DeveloperGuide/)
+**To install the [AWS SDK for Ruby](https://aws.amazon.com/sdk-for-ruby/) and use it to connect to AWS IoT:**
++ Follow the instructions in [Getting Started with the AWS SDK for Ruby](https://docs.aws.amazon.com/sdk-for-ruby/v3/developer-guide/getting-started.html)
+
+  These instructions describe how to:
+  + Install the SDK
+  + Configure the SDK
++ Create and run the [Hello World Tutorial](https://docs.aws.amazon.com/sdk-for-ruby/v3/developer-guide/hello.html)
+
+**Documentation for the AWS IoT Core services that the AWS SDK for Ruby supports**
 + [Aws::IoT::Client reference documentation](https://docs.aws.amazon.com/sdk-for-ruby/v3/api/Aws/IoT/Client.html)
 + [Aws::IoTDataPlane::Client reference documentation](https://docs.aws.amazon.com/sdk-for-ruby/v3/api/Aws/IoTDataPlane/Client.html)
 + [Aws::IoTJobsDataPlane::Client reference documentation](https://docs.aws.amazon.com/sdk-for-ruby/v3/api/Aws/IoTJobsDataPlane/Client.html)
