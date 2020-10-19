@@ -32,7 +32,7 @@ For tools to manage AWS services and resources in the PowerShell scripting envir
 
 ## AWS SDKs<a name="iot-service-sdks"></a>
 
-The AWS SDKs enable your apps and compatible devices to call AWS IoT APIs and the APIs of other AWS services\. This section provides links to the AWS SDKs and to the API reference documentation for the APIs of the AWS IoT Core services\.
+With AWS SDKs, your apps and compatible devices can call AWS IoT APIs and the APIs of other AWS services\. This section provides links to the AWS SDKs and to the API reference documentation for the APIs of the AWS IoT Core services\.
 
 ------
 #### [ C\+\+ ]

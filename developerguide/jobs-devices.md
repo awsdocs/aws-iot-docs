@@ -129,7 +129,9 @@ There are two ways a device can handle the jobs it is given to execute\.
 
 1. Perform the actions specified by the job document using the [UpdateJobExecution](jobs-mqtt-api.md#mqtt-updatejobexecution) MQTT API to report on the progress of the job\.
 
-1. Continue to monitor the job execution by calling the [DescribeJobExecution](jobs-mqtt-api.md#mqtt-describejobexecution) MQTT API with this jobId\. If the job execution is canceled or deleted while the device is running the job, the device should be capable of recovering to a valid state\.
+1. Continue to monitor the job execution by calling the [DescribeJobExecution](jobs-mqtt-api.md#mqtt-describejobexecution) MQTT API with this jobId\. If the job execution is deleted, [DescribeJobExecution](jobs-mqtt-api.md#mqtt-describejobexecution) returns a `ResourceNotFoundException`\.
+
+   The device should be able to recover to a valid state if the job execution is canceled or deleted while the device is running the job\.
 
 1. Call the [UpdateJobExecution](jobs-mqtt-api.md#mqtt-updatejobexecution) MQTT API when finished with the job to update the job status and report success or failure\.
 

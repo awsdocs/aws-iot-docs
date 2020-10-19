@@ -164,6 +164,7 @@ The device shadow metrics are displayed in the AWS IoT console under **Protocol 
 
 | Metric | Description | 
 | --- | --- | 
+|  `ApproximateNumberOfThingsRegistered`  |  The count of devices that have been registered by Fleet Provisioning\.  | 
 |  `CreateKeysAndCertificateFailed`  |  The number of failures that occurred calling the `CreateKeysAndCertificate` MQTT API\.  | 
 |  `RegisterThingFailed`  |  The number of failures that occurred when calling the MQTT `RegisterThing` API\.  | 
 
@@ -184,11 +185,12 @@ The device shadow metrics are displayed in the AWS IoT console under **Protocol 
 | Dimension | Description | 
 | --- | --- | 
 | ActionType |  The [action type](iot-rule-actions.md) specified by the rule that triggered the request\.  | 
+|  `BehaviorName`  |  The name of the Device Defender Detect security profile behavior that is being monitored\.  | 
+|  `ClaimCertificateId`  |  The `certificateId` of the claim used to provision the devices\.  | 
+|  `CheckName`  |  The name of the Device Defender audit check whose results are being monitored\.  | 
+|  `JobId`  |  The ID of the job whose progress or message connection success/failure is being monitored\.  | 
 |  `Protocol`  |  The protocol used to make the request\. Valid values are: MQTT or HTTP  | 
 |  `RuleName`  |  The name of the rule triggered by the request\.  | 
-|  `JobId`  |  The ID of the job whose progress or message connection success/failure is being monitored\.  | 
-|  `CheckName`  |  The name of the Device Defender audit check whose results are being monitored\.  | 
 |  `ScheduledAuditName`  |  The name of the Device Defender scheduled audit whose check results are being monitored\. This has the value `OnDemand` if the results reported are for an audit that was performed on demand\.  | 
 |  `SecurityProfileName`  |  The name of the Device Defender Detect security profile whose behaviors are being monitored\.  | 
-|  `BehaviorName`  |  The name of the Device Defender Detect security profile behavior that is being monitored\.  | 
 |  `TemplateName`  |  The name of the provisioning template\.  | 

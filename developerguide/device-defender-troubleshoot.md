@@ -96,3 +96,21 @@ A: A role that allows AWS IoT Device Defender to publish alerts on an alert targ
       ]
   }
   ```
++ If the SNS topic used for publishing alerts is an encrypted topic, then along with the permission to publish to SNS topic, AWS IoT needs to be granted two more permissions\. For example:
+
+  ```
+  {
+      "Version": "2012-10-17",
+      "Statement": [
+         {
+             "Effect": "Allow",
+             "Action": [
+                 "sns:Publish",
+                 "kms:Decrypt",
+                 "kms:GenerateDataKey"
+             ],
+             "Resource": "<sns-topic-arn>"
+         }
+      ]
+  }
+  ```

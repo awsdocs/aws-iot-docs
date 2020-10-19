@@ -65,9 +65,9 @@ Depending on which type of data endpoint you are using and which cipher suite yo
 
 **Note**  
 You might need to right click these links and select **Save link as\.\.\.** to save these certificates as files\.
-+ RSA 2048 bit key: [Amazon Root CA 1](https://www.amazontrust.com/repository/AmazonRootCA1.pem)\.
++ RSA 2048 bit key: [https://www.amazontrust.com/repository/AmazonRootCA1.pem](https://www.amazontrust.com/repository/AmazonRootCA1.pem)\.
 + RSA 4096 bit key: Amazon Root CA 2\. Reserved for future use\.
-+ ECC 256 bit key: [Amazon Root CA 3](https://www.amazontrust.com/repository/AmazonRootCA3.pem)\.
++ ECC 256 bit key: [https://www.amazontrust.com/repository/AmazonRootCA3.pem](https://www.amazontrust.com/repository/AmazonRootCA3.pem)\.
 + ECC 384 bit key: Amazon Root CA 4\. Reserved for future use\.
 
 These certificates are all cross\-signed by the [ Starfield Root CA Certificate](https://www.amazontrust.com/repository/SFSRootCAG2.pem)\. All new AWS IoT Core regions, beginning with the May 9, 2018 launch of AWS IoT Core in the Asia Pacific \(Mumbai\) Region, serve only ATS certificates\.
@@ -76,13 +76,13 @@ These certificates are all cross\-signed by the [ Starfield Root CA Certificate]
 
 There are many variables that can affect a device's ability to validate the AWS IoT Core server authentication certificate\. For example, devices may be too memory constrained to hold all possible root CA certificates, or devices may implement a non\-standard method of certificate validation\. For these reasons we suggest following these guidelines:
 + We recommend that you use your ATS endpoint and install all supported Amazon Root CA certificates\.
-+ If you cannot store all of these certificates on your device and if your devices do not use ECC\-based validation, you can omit the [Amazon Root CA 3](https://www.amazontrust.com/repository/AmazonRootCA3.pem) and [Amazon Root CA 4](https://www.amazontrust.com/repository/AmazonRootCA4.pem) ECC certificates\. If your devices do not implement RSA\-based certificate validation, you can omit the [Amazon Root CA 1](https://www.amazontrust.com/repository/AmazonRootCA1.pem) and [Amazon Root CA 2](https://www.amazontrust.com/repository/AmazonRootCA2.pem) RSA certificates\. You might need to right click these links and select **Save link as\.\.\.** to save these certificates as files\.
++ If you cannot store all of these certificates on your device and if your devices do not use ECC\-based validation, you can omit the [https://www.amazontrust.com/repository/AmazonRootCA3.pem](https://www.amazontrust.com/repository/AmazonRootCA3.pem) and [https://www.amazontrust.com/repository/AmazonRootCA4.pem](https://www.amazontrust.com/repository/AmazonRootCA4.pem) ECC certificates\. If your devices do not implement RSA\-based certificate validation, you can omit the [https://www.amazontrust.com/repository/AmazonRootCA1.pem](https://www.amazontrust.com/repository/AmazonRootCA1.pem) and [https://www.amazontrust.com/repository/AmazonRootCA2.pem](https://www.amazontrust.com/repository/AmazonRootCA2.pem) RSA certificates\. You might need to right click these links and select **Save link as\.\.\.** to save these certificates as files\.
 + If you are experiencing server certificate validation issues when connecting to your ATS endpoint, try adding the relevant cross\-signed Amazon Root CA certificate to your trust store\. You might need to right click these links and select **Save link as\.\.\.** to save these certificates as files\.
   + [Cross\-signed Amazon Root CA 1](https://www.amazontrust.com/repository/G2-RootCA1.pem)
   + [Cross\-signed Amazon Root CA 2](https://www.amazontrust.com/repository/G2-RootCA2.pem) \- Reserved for future use\.
   + [Cross\-signed Amazon Root CA 3](https://www.amazontrust.com/repository/G2-RootCA3.pem)
   + [Cross\-signed Amazon Root CA 4 \- Reserved for future use\.](https://www.amazontrust.com/repository/G2-RootCA4.pem)
-+ If you are experiencing server certificate validation issues, your device may need to explicitly trust the root CA\. Try adding the [Starfield Root CA Certificate](https://www.amazontrust.com/repository/SFSRootCAG2.pem) to your trust store\.
++ If you are experiencing server certificate validation issues, your device may need to explicitly trust the root CA\. Try adding the [https://www.amazontrust.com/repository/SFSRootCAG2.pem](https://www.amazontrust.com/repository/SFSRootCAG2.pem) to your trust store\.
 + If you still experience issues after executing the steps above, please contact [AWS Developer Support](https://aws.amazon.com/premiumsupport/plans/developers/)\. 
 
 **Note**  

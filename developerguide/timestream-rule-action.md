@@ -1,6 +1,10 @@
 # Timestream<a name="timestream-rule-action"></a>
 
-The Timestream rule action writes attributes \(measures\) from an MQTT message into an Amazon Timestream table\. The attributes stored are those that result from the rule's SQL statement and each attribute is stored as a separate record in the Timestream database table\.
+The Timestream rule action writes attributes \(measures\) from an MQTT message into an Amazon Timestream table\.
+
+**Important**  
+The attributes that this rule stores in the Timestream database are those that result from the rule's SQL statement\. Each attribute is stored as a separate record in the Timestream database table\.  
+For more information about Amazon Timestream, see [What Is Amazon Timestream?](https://docs.aws.amazon.com/timestream/latest/developerguide/what-is-timestream.html)\.
 
 The value of each attribute in the SQL statement's result is parsed to infer its data type \(as in a [DynamoDBv2](dynamodb-v2-rule-action.md) action\)\. Each attribute's value is written to its own record in the Timestream table\. To specify or change a value's data type, use the [`cast()`](iot-sql-functions.md#iot-sql-function-cast) function in rule's the SQL statement\. For more information about the contents of each Timestream record, see [Amazon Timestream record content](#timestream-rule-action-data)\.
 
@@ -38,6 +42,15 @@ Supports substitution templates: No
 The name of the database table into which to write the measure records\. See also `databaseName`\.  
 Supports substitution templates: API and AWS CLI only
 
+`timestamp`  
+ The value to use for the entry's timestamp\. If blank, the time that the entry was processed is used\.     
+`unit`  
+The precision of the timestamp value that results from the expression described in `value`\.  
+Valid values: `SECONDS` \| `MILLISECONDS` \| `MICROSECONDS` \| `NANOSECONDS`\. The default is `MILLISECONDS`\.  
+`value`  
+An expression that returns a long epoch time value\.  
+You can use the [time\_to\_epoch\(String, String\)](iot-sql-functions.md#iot-sql-function-time-to-epoch) function to create a valid timestamp from a date or time value passed in the message payload\. 
+
 ## Amazon Timestream record content<a name="timestream-rule-action-data"></a>
 
 The data written to the Amazon Timestream table by this action include a timestamp, metadata from the Timestream rule action, and the result of the rule's SQL statement\.
@@ -50,7 +63,7 @@ For each attribute \(measure\) in the result of the SQL statement, this rule act
 |  *dimension\-name*  |  DIMENSION  |  The value specified in the Timestream rule action entry\.  |  Each **Dimension** specified in the rule action entry creates a column in the Timestream database with the dimension's name\.  | 
 |  measure\_name  |  MEASURE\_NAME  |  The attribute's name  |  The name of the attribute in the result of the SQL statement whose value is specified in the `measure_value::data-type` column\.  | 
 |  measure\_value::*data\-type*  |  MEASURE\_VALUE  |  The value of the attribute in the result of the SQL statement\. The attribute's name is in the `measure_name` column\.  |  The value is interpreted\* and cast as the best match of: `bigint`, `boolean`, `double`, or `varchar`\. Amazon Timestream creates a separate column for each datatype\. The value in the message can be cast to another data type by using the [`cast()`](iot-sql-functions.md#iot-sql-function-cast) function in the rule's SQL statement\.  | 
-|  time  |  TIMESTAMP  |  The date and time the record was created in the database\.  |  This value is assigned by rules engine\.  | 
+|  time  |  TIMESTAMP  |  The date and time of the record in the database\.  |  This value is assigned by rules engine or the `timestamp` property, if it is defined\.  | 
 
 \* The attribute value read from the message payload is interpreted as follows\. See the [Examples](#timestream-rule-action-examples) for an illustration of each of these cases\.
 + An unquoted value of `true` or `false` is interpreted as a `boolean` type\.

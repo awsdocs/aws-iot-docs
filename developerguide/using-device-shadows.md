@@ -208,10 +208,24 @@ If the app updates the state, such as when an end user changes the color of our 
 
 1. From the command line, enter this command\.
 
+------
+#### [ AWS CLI v2\.x ]
+
+   ```
+   aws iot-data update-thing-shadow --thing-name mySimulatedThing --shadow-name simShadow1 \
+       --cli-binary-format raw-in-base64-out \
+       --payload '{"state":{"desired":{"ColorRGB":[255,255,0]}},"clientToken":"21b21b21-bfd2-4279-8c65-e2f697ff4fab"}' /dev/stdout
+   ```
+
+------
+#### [ AWS CLI v1\.x ]
+
    ```
    aws iot-data update-thing-shadow --thing-name mySimulatedThing --shadow-name simShadow1 \
        --payload '{"state":{"desired":{"ColorRGB":[255,255,0]}},"clientToken":"21b21b21-bfd2-4279-8c65-e2f697ff4fab"}' /dev/stdout
    ```
+
+------
 
 1. If successful, this command should return the following shadow document\.
 

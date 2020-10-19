@@ -35,7 +35,7 @@ In general, the AWS IoT Device SDK for Embedded C is intended for systems that u
 
 The AWS IoT Device SDK for Embedded C includes sample applications for you to try\. For simplicity, this tutorial uses the `mqtt_demo_mutual_auth` application, that illustrates how to connect to the AWS IoT Core message broker and subscribe and publish to MQTT topics\.
 
-1. Copy the certificate and private key you created in [Create an AWS IoT thing for your Raspberry Pi](sdk-tutorials.md#iot-sdk-create-thing) into the `build/bin/certificates` directory\.
+1. Copy the certificate and private key you created in [Getting started with AWS IoT Core](iot-gs.md) into the `build/bin/certificates` directory\.
 **Note**  
 Device and root CA certificates are subject to expiration or revocation\. If these certificates expire or are revoked, you must copy a new CA certificate or private key and device certificate onto your device\.
 

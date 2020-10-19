@@ -77,7 +77,7 @@ Do not use personally identifiable information in your thing name\. The thing na
 
 1. On the **Certificate created\!** page:
 
-   1. Download the each of the certificate and key files and save them for later\. You will need to install these files on your device\.
+   1. Download each of the certificate and key files and save them for later\. You will need to install these files on your device\.
 
       When you save your certificate files, give them the names in the following table\. These are the file names used in later examples\.  
 **Certificate file names**    

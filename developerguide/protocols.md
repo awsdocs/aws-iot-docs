@@ -2,7 +2,10 @@
 
 AWS IoT Core supports devices and clients that use the MQTT and the MQTT over WebSocket Secure \(WSS\) protocols to publish and subscribe to messages, and devices and clients that use the HTTPS protocol to publish messages\. All protocols support IPv4 and IPv6\. This section describes the different connection options for devices and clients\.
 
-AWS IoT Core uses [TLS](https://en.wikipedia.org/wiki/Transport_Layer_Security) [version 1\.2](https://en.wikipedia.org/wiki/Transport_Layer_Security#TLS_1.2) to encrypt all communication\. For more information, see [Transport security in AWS IoT](transport-security.md)\.<a name="protocol-port-mapping"></a>
+**TLS v1\.2**  
+AWS IoT Core uses [TLS](https://en.wikipedia.org/wiki/Transport_Layer_Security) [version 1\.2](https://en.wikipedia.org/wiki/Transport_Layer_Security#TLS_1.2) to encrypt all communication\. Clients must also send the [Server Name Indication \(SNI\) TLS extension](https://tools.ietf.org/html/rfc3546#section-3.1)\. Connection attempts that don't include the SNI are refused\. For more information, see [Transport Security in AWS IoT](transport-security.html)\.
+
+The [AWS IoT Device SDKs](iot-connect-devices.md#iot-connect-device-sdks) support MQTT and MQTT over WSS and support the security requirements of client connections\. We recommend using the [AWS IoT Device SDKs](iot-connect-devices.md#iot-connect-device-sdks) to connect clients to AWS IoT\.<a name="protocol-port-mapping"></a>
 
 **Protocols, port mappings, and authentication**  
 How a device or client connects to the message broker by using a device endpoint depends on the protocol it uses\. The following table lists the protocols that the AWS IoT device endpoints support and the authentication methods and ports they use\.
@@ -22,10 +25,10 @@ How a device or client connects to the message broker by using a device endpoint
 | HTTPS | Publish only | X\.509 client certificate | 8443 | N/A | 
 | HTTPS | Publish only | Custom authentication | 443 | N/A | 
 
-†Clients that connect on port 443 with X\.509 client certificate authentication must implement the [Application Layer Protocol Negotiation \(ALPN\)](https://tools.ietf.org/html/rfc7301) TLS extension and use the [ALPN protocol name](https://tools.ietf.org/html/rfc7301#section-3.1) listed in the ALPN ProtocolNameList sent by the client as part of the `ClientHello` message\. Clients must also send the [Server Name Indication \(SNI\) TLS extension](https://tools.ietf.org/html/rfc3546#section-3.1)\. Connection attempts that don't include the SNI are refused\. For more information, see [Transport Security in AWS IoT](transport-security.html)\. 
-
-**Note**  
-The [AWS IoT Device SDKs](iot-connect-devices.md#iot-connect-device-sdks) support MQTT and MQTT over WSS and they support the security requirements of client connections\. We recommend using the [AWS IoT Device SDKs](iot-connect-devices.md#iot-connect-device-sdks) to connect clients to AWS IoT\.
+**Application Layer Protocol Negotiation \(ALPN\)**  
+†Clients that connect on port 443 with X\.509 client certificate authentication must implement the [Application Layer Protocol Negotiation \(ALPN\)](https://tools.ietf.org/html/rfc7301) TLS extension and use the [ALPN protocol name](https://tools.ietf.org/html/rfc7301#section-3.1) listed in the ALPN ProtocolNameList sent by the client as part of the `ClientHello` message\.  
+On port 443, the [IoT:Data\-ATS](iot-connect-devices.md#iot-connect-device-endpoint-table) endpoint supports ALPN x\-amzn\-http\-ca HTTP, but the [IoT:Jobs](iot-connect-devices.md#iot-connect-device-endpoint-table) endpoint does not\.  
+On port 8443 HTTPS and port 443 MQTT with ALPN x\-amzn\-mqtt\-ca, [custom authentication](custom-authentication.md) can't be used\.
 
 Clients connect to their AWS account's device endpoints\. See [AWS IoT device data and service endpoints](iot-connect-devices.md#iot-connect-device-endpoints) for information about how to find your account's device endpoints\.
 
