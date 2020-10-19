@@ -52,9 +52,9 @@ You can't perform this procedure in the AWS IoT console\.
    ```
    openssl x509 -req \
        -in device_cert_csr_filename \
-       -CA root_ca_pem_filename \
-       -CAkey root_ca_key_filename \
-       -CAcreateserial
+       -CA root_CA_pem_filename \
+       -CAkey root_CA_key_filename \
+       -CAcreateserial \
        -out device_cert_pem_filename \
        -days 500 -sha256
    ```
