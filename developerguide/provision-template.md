@@ -152,6 +152,7 @@ The following template snippet declares a thing, a certificate, and a policy:
         "thing" : {
             "Type" : "AWS::IoT::Thing",
             "Properties" : {
+                "ThingName" : {"Ref" : "ThingName"},
                 "AttributePayload" : { "version" : "v1", "serialNumber" :  {"Ref" : "SerialNumber"}}, 
                 "ThingTypeName" :  "lightBulb-versionA",
                 "ThingGroups" : ["v1-lightbulbs", {"Ref" : "Location"}]
@@ -209,6 +210,9 @@ The following JSON file is an example of a complete provisioning template that s
 ```
 {
     "Parameters" : {
+        "ThingName " : {
+            "Type" : "String"
+        },
         "SerialNumber" : {
             "Type" : "String"
         },
@@ -224,6 +228,7 @@ The following JSON file is an example of a complete provisioning template that s
         "thing" : {
             "Type" : "AWS::IoT::Thing",
             "Properties" : {
+                "ThingName" : {"Ref" : "ThingName"},
                 "AttributePayload" : { "version" : "v1", "serialNumber" :  {"Ref" : "SerialNumber"}}, 
                 "ThingTypeName" :  "lightBulb-versionA",
                 "ThingGroups" : ["v1-lightbulbs", {"Ref" : "Location"}]
@@ -251,6 +256,9 @@ The following JSON file is an example of a complete provisioning template that s
 ```
 {
     "Parameters" : {
+        "ThingName " : {
+            "Type" : "String"
+        },
         "SerialNumber" : {
             "Type" : "String"
         },
@@ -266,6 +274,7 @@ The following JSON file is an example of a complete provisioning template that s
         "thing" : {
             "Type" : "AWS::IoT::Thing",
             "Properties" : {
+                "ThingName" : {"Ref" : "ThingName"},
                 "AttributePayload" : { "version" : "v1", "serialNumber" :  {"Ref" : "SerialNumber"}}, 
                 "ThingTypeName" :  "lightBulb-versionA",
                 "ThingGroups" : ["v1-lightbulbs", {"Ref" : "Location"}]
@@ -309,25 +318,27 @@ The device configuration section contains arbitrary data you want to send to you
 }
 ```
 
+If you're sending messages to your devices by using the JavaScript Object Notation \(JSON\) payload format, AWS IoT Core formats this data as JSON\. If you're using the Concise Binary Object Representation \(CBOR\) payload format, AWS IoT Core formats this data as CBOR\. The `DeviceConfiguration` section doesn't support nested JSON objects\.
+
 ### Intrinsic functions<a name="intrinsic-functions"></a>
 
 Intrinsic functions are used in any section of the provisioning template except the `Mappings` section\.
 
-`Fn:Join`  
+`Fn::Join`  
 Appends a set of values into a single value, separated by the specified delimiter\. If a delimiter is the empty string, the set of values are concatenated with no delimiter\.
 
-`Fn:Select`  
+`Fn::Select`  
 Returns a single object from a list of objects by index\.  
 `Fn::Select` does not check for `null` values or if the index is out of bounds of the array\. Both conditions result in a provisioning error, so you should ensure you chose a valid index value, and that the list contains non\-null values\.
 
-`Fn:FindInMap`  
+`Fn::FindInMap`  
 Returns the value corresponding to keys in a two\-level map that is declared in the `Mappings` section\.
 
-`Fn:Split`  
+`Fn::Split`  
 Splits a string into a list of string values so you can select an element from the list of strings\. You specify a delimiter that determine where the string is split \(for example, a comma\)\. After you split a string, use `Fn::Select` to select an element\.  
 For example, if a comma\-delimited string of subnet IDs is imported to your stack template, you can split the string at each comma\. From the list of subnet IDs, use `Fn::Select` to specify a subnet ID for a resource\.
 
-`Fn:Sub`  
+`Fn::Sub`  
 Substitutes variables in an input string with values that you specify\. You can use this function to construct commands or outputs that include values that aren't available until you create or update a stack\.
 
 ### Fleet provisioning template example<a name="fleet-provisioning-example"></a>
@@ -335,6 +346,9 @@ Substitutes variables in an input string with values that you specify\. You can 
 ```
 {
     "Parameters" : {
+        "ThingName " : {
+            "Type" : "String"
+        },
         "SerialNumber": {
             "Type": "String"
         },
@@ -357,6 +371,7 @@ Substitutes variables in an input string with values that you specify\. You can 
                     "version" : "v1",
                     "serialNumber" : "serialNumber"
                 },
+                "ThingName" : {"Ref" : "ThingName"},
                 "ThingTypeName" : {"Fn::Join":["",["ThingPrefix_",{"Ref":"SerialNumber"}]]},
                 "ThingGroups" : ["v1-lightbulbs", "WA"],
                 "BillingGroup": "LightBulbBillingGroup"
@@ -393,7 +408,6 @@ Substitutes variables in an input string with values that you specify\. You can 
         "LocationUrl": {
             "Fn::FindInMap": ["LocationTable",{"Ref": "DeviceLocation"}, "LocationUrl"]}
         }
-    }
 }
 ```
 

@@ -140,27 +140,49 @@ The registry publishes the following event messages when a thing group is create
 + `$aws/events/thingGroup/groupName/created`
 + `$aws/events/thingGroup/groupName/updated`
 + `$aws/events/thingGroup/groupName/deleted`
-The messages contain the following example payload:  
+The following is an example of an `updated` payload\. Payloads for `created` and `deleted` messages are similar\.  
 
 ```
 {
-    "eventType" : "THING_GROUP_EVENT",
-    "eventId" : "87f8e095-531c-47b3-aab5-5171364d138d",
-    "timestamp" : 1234567890123,
-    "operation" : "CREATED|UPDATED|DELETED",
-    "accountId" : "123456789012",
-    "thingGroupId" : "8f82a106-6b1d-4331-8984-a84db5f6f8cb",
-    "thingGroupName" : "MyRootThingGroup",
-    "versionNumber" : 1,
-    "parentGroupName" : null,
-    "parentGroupId" : null,
-    "description" : "My root thing group",
-    "rootToParentThingGroups" : null,
-    "attributes" : {
-        "attribute1" : "value1",
-        "attribute3" : "value3",
-        "attribute2" : "value2"
+  "eventType": "THING_GROUP_EVENT",
+  "eventId": "8b9ea8626aeaa1e42100f3f32b975899",
+  "timestamp": 1603995417409,
+  "operation": "UPDATED",
+  "accountId": "571EXAMPLE833",
+  "thingGroupId": "8757eec8-bb37-4cca-a6fa-403b003d139f",
+  "thingGroupName": "Tg_level5",
+  "versionNumber": 3,
+  "parentGroupName": "Tg_level4",
+  "parentGroupId": "5fce366a-7875-4c0e-870b-79d8d1dce119",
+  "description": "New description for Tg_level5",
+  "rootToParentThingGroups": [
+    {
+      "groupArn": "arn:aws:iot:us-west-2:571EXAMPLE833:thinggroup/TgTopLevel",
+      "groupId": "36aa0482-f80d-4e13-9bff-1c0a75c055f6"
+    },
+    {
+      "groupArn": "arn:aws:iot:us-west-2:571EXAMPLE833:thinggroup/Tg_level1",
+      "groupId": "bc1643e1-5a85-4eac-b45a-92509cbe2a77"
+    },
+    {
+      "groupArn": "arn:aws:iot:us-west-2:571EXAMPLE833:thinggroup/Tg_level2",
+      "groupId": "0476f3d2-9beb-48bb-ae2c-ea8bd6458158"
+    },
+    {
+      "groupArn": "arn:aws:iot:us-west-2:571EXAMPLE833:thinggroup/Tg_level3",
+      "groupId": "1d9d4ffe-a6b0-48d6-9de6-2e54d1eae78f"
+    },
+    {
+      "groupArn": "arn:aws:iot:us-west-2:571EXAMPLE833:thinggroup/Tg_level4",
+      "groupId": "5fce366a-7875-4c0e-870b-79d8d1dce119"
     }
+  ],
+  "attributes": {
+    "attribute1": "value1",
+    "attribute3": "value3",
+    "attribute2": "value2"
+  },
+  "dynamicGroupMappingId": null
 }
 ```
 The payloads contain the following attributes:    
@@ -190,7 +212,7 @@ The ID of the parent thing group, if one exists\.
 description  
 A description of the thing group\.  
 rootToParentThingGroups  
-An array of information about the parent thing group\. There is one entry for each parent thing group, starting with the parent of the current thing group and continuing until the root thing group has been reached\. Each entry contains the thing group name and the thing group ARN\.  
+An array of information about the parent thing group\. There is one element for each parent thing group, starting from the root thing group and continuing to the thing group's parent\. Each entry contains the thing group's `groupArn` and `groupId`\.  
 attributes  
 A collection of name\-value pairs associated with the thing group\.
 

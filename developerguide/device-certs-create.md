@@ -5,7 +5,7 @@ AWS IoT provides client certificates that are signed by the Amazon Root certific
 This topic describes how to create a client certificate signed by the Amazon Root certificate authority and download the certificate files\. After you create the client certificate files, you must install them on the client\.
 
 **Note**  
-Client certificates provided by AWS IoT, hold issuers and subject attributes set at the time of certificate creation\. These attributes can be used with [X\.509 Certificate AWS IoT Core policy variables](cert-policy-variables.md) to grant dynamic permissions\. Attributes of X\.509 certificates provided by AWS IoT are immutable only after the certificate is created\.
+Each X\.509 client certificate provided by AWS IoT holds issuer and subject attributes that are set at the time of certificate creation\. The certificate attributes are immutable only after the certificate is created\.
 
 You can use the AWS IoT console or the AWS CLI to create an AWS IoT certificate signed by the Amazon Root certificate authority\.
 
