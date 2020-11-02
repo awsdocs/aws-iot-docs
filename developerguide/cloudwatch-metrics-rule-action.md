@@ -30,7 +30,7 @@ A string that contains the CloudWatch metric value\.
 Supports substitution templates: Yes
 
 `metricTimestamp`  
-\(Optional\) A string that contains the timestamp, expressed in milliseconds in Unix epoch time\. Defaults to the current Unix epoch time\.  
+\(Optional\) A string that contains the timestamp, expressed in seconds in Unix epoch time\. Defaults to the current Unix epoch time\.  
 Supports substitution templates: Yes
 
 `roleArn`  
