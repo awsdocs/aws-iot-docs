@@ -53,3 +53,11 @@ Review the command you entered and double\-check the endpoint address in your co
 Compare the filenames in the command you entered to the filenames of the certificate files in the `certs` directory\.
 
 Some systems might require the filenames to be in quotes to work correctly\.
+
+## Check the SDK installation<a name="gs-device-ts-step-6"></a>
+
+Make sure that your SDK installation is complete and correct\.
+
+If in doubt, reinstall the SDK on your device\. In most cases, that's a matter of finding the section of the tutorial titled **Install the AWS IoT Device SDK for **SDK language**** and following the procedure again\.
+
+If you are using the **AWS IoT Device SDK for JavaScript**, remember to install the sample apps before you try to run them\. Installing the SDK doesn't automatically install the sample apps\. The sample apps must be installed manually after the SDK has been installed\.

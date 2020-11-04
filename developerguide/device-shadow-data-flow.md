@@ -60,7 +60,7 @@ Your app or service can update a shadow's state by using the [UpdateThingShadow]
 
 **When a client requests a state change in a shadow by using the API**
 
-1. The client calls the `UpdateThingShadow` API with a [Request state document](device-shadow-document.md#device-shadow-example-request-json) state document as its message body\.
+1. The client calls the `[UpdateThingShadow](device-shadow-rest-api.md#API_UpdateThingShadow)` API with a [Request state document](device-shadow-document.md#device-shadow-example-request-json) state document as its message body\.
 
 1. If the request was valid, AWS IoT returns an HTTP success response code and an [/accepted response state document](device-shadow-document.md#device-shadow-example-response-json-accepted) shadow document as its response message body\.
 
@@ -99,7 +99,7 @@ When the device receives the `/desired` state on the `/update/delta` topic, it m
 
 **When a device reports its current state to the shadow by using the API**
 
-1. The device calls the `UpdateThingShadow` API with a [Request state document](device-shadow-document.md#device-shadow-example-request-json) state document as its message body\.
+1. The device calls the `[UpdateThingShadow](device-shadow-rest-api.md#API_UpdateThingShadow)` API with a [Request state document](device-shadow-document.md#device-shadow-example-request-json) state document as its message body\.
 
 1. If the request was valid, AWS IoT updates the shadow and returns an HTTP success response code with an [/accepted response state document](device-shadow-document.md#device-shadow-example-response-json-accepted) shadow document as its response message body\.
 
@@ -203,7 +203,7 @@ You can retrieve a shadow document by using the [GetThingShadow](device-shadow-r
 
 **To retrieve a shadow document by using a REST API**
 
-1. The device or client call the `GetThingShadow` API with an empty message body\.
+1. The device or client call the `[GetThingShadow](device-shadow-rest-api.md#API_GetThingShadow)` API with an empty message body\.
 
 1. If the request is valid, AWS IoT returns an HTTP success response code with an [/accepted response state document](device-shadow-document.md#device-shadow-example-response-json-accepted) shadow document as its response message body\.
 
@@ -243,7 +243,7 @@ There are two ways to delete shadow data: you can delete specific properties in 
 
 **To delete a property from a shadow by using the REST API**
 
-1. The device or client calls the `UpdateThingShadow` API with a [Request state document](device-shadow-document.md#device-shadow-example-request-json) that assigns `null` values to the properties of the shadow to delete\. Include only the properties that you want to delete in the document\. This is an example of a document that deletes the `engine` property\.
+1. The device or client calls the `[UpdateThingShadow](device-shadow-rest-api.md#API_UpdateThingShadow)` API with a [Request state document](device-shadow-document.md#device-shadow-example-request-json) that assigns `null` values to the properties of the shadow to delete\. Include only the properties that you want to delete in the document\. This is an example of a document that deletes the `engine` property\.
 
    ```
    {
@@ -286,7 +286,7 @@ Deleting a device's shadow does not delete the thing object\. Deleting a thing o
 
 **To delete a shadow by using the REST API**
 
-1. The device or client calls the `DeleteThingShadow` API with an empty message buffer\.
+1. The device or client calls the `[DeleteThingShadow](device-shadow-rest-api.md#API_DeleteThingShadow)` API with an empty message buffer\.
 
 1. If the request was valid, AWS IoT returns an HTTP success response code and an [/accepted response state document](device-shadow-document.md#device-shadow-example-response-json-accepted) and an abbreviated [/accepted response state document](device-shadow-document.md#device-shadow-example-response-json-accepted) shadow document in the message body\. This is an example of the accepted delete message:
 

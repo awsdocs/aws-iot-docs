@@ -164,7 +164,7 @@ The device shadow metrics are displayed in the AWS IoT console under **Protocol 
 
 | Metric | Description | 
 | --- | --- | 
-|  `ApproximateNumberOfThingsRegistered`  |  The count of devices that have been registered by Fleet Provisioning\.  | 
+|  `ApproximateNumberOfThingsRegistered`  |  The count of devices that have been registered by Fleet Provisioning\. While the count is generally accurate, the distributed architecture of AWS IoT Core makes it difficult to maintain a precise count of registered things\.  | 
 |  `CreateKeysAndCertificateFailed`  |  The number of failures that occurred calling the `CreateKeysAndCertificate` MQTT API\.  | 
 |  `RegisterThingFailed`  |  The number of failures that occurred when calling the MQTT `RegisterThing` API\.  | 
 

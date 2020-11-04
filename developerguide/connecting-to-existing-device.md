@@ -153,7 +153,7 @@ In a terminal window to your device, run these commands\.
 **Install the current AWS IoT Device SDK for Python**  
 Install the AWS IoT Device SDK for Python and download the sample apps to your device\.
 
-   From the *home* directory on your device, usually `~/`, run these commands\.
+   On your device, run these commands\.
 
    ```
    cd ~
@@ -231,7 +231,7 @@ Install the AWS IoT Device SDK for JavaScript on your Raspberry Pi\.
 
    1. Clone the AWS IoT Device SDK for JavaScript repository into the `aws-iot-device-sdk-js-v2` directory of your *home* directory\. On the Raspberry Pi, the *home* directory is `~/`, which is used as the *home* directory in the following commands\. If your device uses a different path for the *home* directory, you must replace `~/` with the correct path for your device in the following commands\.
 
-      These commands create the `~/aws-iot-device-sdk-js-v2` directory and copies the SDK code into it\.
+      These commands create the `~/aws-iot-device-sdk-js-v2` directory and copy the SDK code into it\.
 
       ```
       cd ~
@@ -256,7 +256,7 @@ The sample app requires the certificate files that authenticate the device to be
 
 **To install the device certificate files for the sample app**
 
-1. In your *home* directory, create a `certs` subdirectory by running these commands\.
+1. Create a `certs` subdirectory in your *home* directory by running these commands\.
 
    ```
    cd ~
