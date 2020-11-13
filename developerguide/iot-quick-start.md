@@ -89,7 +89,7 @@ Here are some ideas to explore AWS IoT further after you complete the quick star
 + 
 
 **[View MQTT messages in the MQTT client](https://console.aws.amazon.com/iot/home#/test)**  
-From the [AWS IoT console](https://console.aws.amazon.com/iot/home) you can open the [MQTT client](https://console.aws.amazon.com/iot/home#/test) on the **Test** page of the AWS IoT console\. In the **MQTT client**, subscribe to **topic\_1**, and then, on your device, run the program \./start\.sh as described in the previous step\. See [View MQTT messages with the AWS IoT MQTT client](view-mqtt-messages.md) for more information\.
+From the [AWS IoT console](https://console.aws.amazon.com/iot/home) you can open the [MQTT client](https://console.aws.amazon.com/iot/home#/test) on the **Test** page of the AWS IoT console\. In the **MQTT client**, subscribe to **sdk/test/Python**, and then, on your device, run the program \./start\.sh as described in the previous step\. See [View MQTT messages with the AWS IoT MQTT client](view-mqtt-messages.md) for more information\.
 + 
 
 **[Try the AWS IoT Core interactive demo](interactive-demo.md)**  
