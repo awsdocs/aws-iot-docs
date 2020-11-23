@@ -30,6 +30,11 @@ This rule action has the following requirements:
 
 When you create an AWS IoT rule with this action, you must specify the following information:
 
+`batchMode`  
+\(Optional\) Whether to process the action as a batch\. The default value is `false`\.  
+When `batchMode` is `true` and the rule SQL statement evaluates to an Array, each Array element is delivered as a separate message when passed by [https://docs.aws.amazon.com/iotanalytics/latest/APIReference/API_BatchPutMessage.html](https://docs.aws.amazon.com/iotanalytics/latest/APIReference/API_BatchPutMessage.html) to the AWS IoT Analytics channel\. The resulting array can't have more than 100 messages\.   
+Supports substitution templates: No
+
 `channelName`  
 The name of the AWS IoT Analytics channel to which to write the data\.  
 Supports substitution templates: API and AWS CLI only

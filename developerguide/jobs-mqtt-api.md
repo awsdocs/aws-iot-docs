@@ -794,7 +794,7 @@ Message payload:
 ```
 {
 "jobs" : {
-    "JobExecutionState": [ [JobExecutionSummary](jobs-control-plane-data-types.md#jobs-job-execution-summary) ... ]
+    "JobExecutionState": [ JobExecutionSummary ... ]
 },
 "timestamp": timestamp,
 }
@@ -828,7 +828,7 @@ Message payload:
 
 ```
 {
-"execution" : [JobExecution](jobs-control-plane-data-types.md#jobs-job-execution),
+"execution" : JobExecution,
 "timestamp": timestamp,
 }
 ```

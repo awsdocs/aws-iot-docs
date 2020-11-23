@@ -266,5 +266,5 @@ The REST APIs of the AWS IoT Core services use AWS IAM credentials for authentic
 For information about the specific functions provided by the REST APIs of the AWS IoT Core services, see:
   + [API reference for IoT](https://docs.aws.amazon.com/iot/latest/apireference/API_Operations_AWS_IoT.html)\.
   + [API reference for IoT data](https://docs.aws.amazon.com/iot/latest/apireference/API_Operations_AWS_IoT_Data_Plane.html)\.
-  + [API reference for IoT jobs data](https://docs.aws.amazon.com/iot/latest/apireference/API_Operations_AWS_IoT_Secure_Tunneling.html)\.
-  + [API reference for IoT secure tunneling](https://awscli.amazonaws.com/v2/documentation/api/latest/reference/iotsecuretunneling/index.html)\.
+  + [API reference for IoT jobs data](https://docs.aws.amazon.com/iot/latest/apireference/API_Operations_AWS_IoT_Jobs_Data_Plane.html)\.
+  + [API reference for IoT secure tunneling](https://docs.aws.amazon.com/iot/latest/apireference/API_Operations_AWS_IoT_Secure_Tunneling.html)\.

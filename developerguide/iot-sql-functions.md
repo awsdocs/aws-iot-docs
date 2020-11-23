@@ -635,6 +635,49 @@ As an example of how you can use `get_dynamodb()`, say you have a DynamoDB table
 You can call `get_dynamodb()` a maximum of one time per SQL statement\. Calling `get_dynamodb()` multiple times in a single SQL statement causes the rule to terminate without invoking any actions\.
 If `get_dynamodb()` returns more than 8 KB of data, the rule's action may not be invoked\.
 
+## get\_secret\(secretId, secretType, key, roleArn\)<a name="iot-sql-function-get-secret"></a>
+
+Retrieves the value of the encrypted `SecretString` or `SecretBinary` field of the current version of a secret in [AWS Secrets Manager](https://docs.aws.amazon.com/secretsmanager/latest/userguide/)\. For more information about creating and maintaining secrets, see [CreateSecret](https://docs.aws.amazon.com/secretsmanager/latest/apireference/API_CreateSecret.html), [UpdateSecret](https://docs.aws.amazon.com/secretsmanager/latest/apireference/API_UpdateSecret.html), and [PutSecretValue](https://docs.aws.amazon.com/secretsmanager/latest/apireference/API_PutSecretValue.html)\.
+
+`get_secret()` takes the following parameters:
+
+secretId  
+String: The Amazon Resource Name \(ARN\) or the friendly name of the secret to retrieve\. 
+
+secretType  
+String: The secret type\. Valid values: `SecretString` \| `SecretBinary`\.    
+SecretString  
++ For secrets that you create as JSON objects by using the APIs, the AWS CLI, or the AWS Secrets Manager console:
+  + If you specify a value for the `key` parameter, this function returns the value of the specified key\.
+  + If you don't specify a value for the `key` parameter, this function returns the entire JSON object\.
++ For secrets that you create as non\-JSON objects by using the APIs or the AWS CLI:
+  + If you specify a value for the `key` parameter, this function fails with an exception\.
+  + If you don't specify a value for the `key` parameter, this function returns the contents of the secret\.  
+SecretBinary  
++ If you specify a value for the `key` parameter, this function fails with an exception\.
++ If you don't specify a value for the `key` parameter, this function returns the secret value as a base64\-encoded UTF\-8 string\.
+
+key  
+\(Optional\) String: The key name inside a JSON object stored in the `SecretString` field of a secret\. Use this value when you want to retrieve only the value of a key stored in a secret instead of the entire JSON object\.  
+If you specify a value for this parameter and the secret doesn't contain a JSON object inside its `SecretString` field, this function fails with an exception\.
+
+roleArn  
+String: A role ARN with `secretsmanager:GetSecretValue` and `secretsmanager:DescribeSecret` permissions\.
+
+**Note**  
+This function always returns the current version of the secret \(the version with the `AWSCURRENT` tag\)\. The AWS IoT rules engine caches each secret for up to 15 minutes\. As a result, the rules engine can take up to 15 minutes to update a secret\. This means that if you retrieve a secret up to 15 minutes after an update with AWS Secrets Manager, this function might return the older version\.  
+This function is not metered and is free to use, but AWS Secrets Manager charges apply\. Because of the secret caching mechanism, the rules engine occasionally calls AWS Secrets Manager\. Because the rules engine is a fully distributed service, you might see multiple Secrets Manager API calls from the rules engine during the 15\-minute caching window\.
+
+Examples:
+
+You can use the `get_secret` function in an authentication header in an HTTPS rule action, as in the following API key authentication example\.
+
+```
+"API_KEY": "${get_secret('API_KEY', 'SecretString', 'API_KEY_VALUE', 'arn:aws:iam::12345678910:role/getsecret')}"
+```
+
+For more information about the HTTPS rule action, see [HTTPS](https-rule-action.md)\.
+
 ## get\_thing\_shadow\(thingName, shadowName, roleARN\)<a name="iot-sql-function-get-thing-shadow"></a>
 
 Returns the specified shadow of the specified thing\. Supported by SQL version 2016\-03\-23 and later\.
@@ -1489,6 +1532,147 @@ Example:
 
 `traceid() ` = "12345678\-1234\-1234\-1234\-123456789012"
 
+## transform\(String, Object, Array\)<a name="iot-func-transform"></a>
+
+Returns an array of objects that contains the result of the specified transformation of the `Object` parameter on the `Array` parameter\.
+
+Supported by SQL version 2016\-03\-23 and later\.
+
+String  
+The transformation mode to use\. Refer to the following table for the supported transformation modes and how they create the `Result` from the `Object` and `Array` parameters\.
+
+Object  
+An object that contains the attributes to apply to each element of the `Array`\.
+
+Array  
+An array of objects into which the attributes of `Object` are applied\.  
+Each object in this Array corresponds to an object in the function's response\. Each object in the function's response contains the attributes present in the original object and the attributes provided by `Object` as determined by the transformation mode specified in `String`\.
+
+
+| `String` parameter | `Object` parameter | `Array` parameter | Result | 
+| --- | --- | --- | --- | 
+| `enrichArray` | Object | Array of objects | An Array of objects in which each object contains the attributes of an element from the `Array` parameter and the attributes of the `Object` parameter\. | 
+| Any other value | Any value | Any value | Undefined | 
+
+**Note**  
+The array returned by this function is limited to 128 KiB\.
+
+Example:
+
+In this example, the following message is published to the MQTT topic `A/B`\.
+
+```
+{
+  "foo": "example",
+  "bar": {
+    "a": "first attribute",
+    "b": "second attribute",
+    "c": [
+      {
+        "x": {
+          "someInt": 5,
+          "someString": "hello"
+        },
+        "y": true
+      },
+      {
+        "x": {
+          "someInt": 10,
+          "someString": "world"
+        },
+        "y": false
+      }
+    ]
+  }
+}
+```
+
+This SQL statement for a topic rule action uses the transform\(\)\. In this example, the `Object` for this transform function is the `foo` attribute from the message payload and the `Array` is the two objects of the `bar.c` array\.
+
+```
+select transform('enrichArray', foo, bar.c) as example from 'A/B'
+```
+
+With the preceding message, the SQL statement evaluates to the following response\.
+
+```
+{
+  "example": [
+    {
+      "x": {
+        "someInt": 5,
+        "someString": "hello"
+      },
+      "y": true,
+      "foo": "example"
+    },
+    {
+      "x": {
+        "someInt": 10,
+        "someString": "world"
+      },
+      "y": false,
+      "foo": "example"
+    }
+  ]
+}
+```
+
+Nested SELECT clauses can also use this function to select multiple attributes\. In this example, the `Object` for this transform function is the object returned by the SELECT statement, which contains the `a` and `b` elements of the message's `bar` object\. The `Array` parameter consists of the two objects from the `bar.c` array in the original message\.
+
+```
+select value transform('enrichArray', (select a, b from bar), (select value c from bar)) from 'A/B'
+```
+
+With the preceding message, the SQL statement evaluates to the following response\.
+
+```
+[
+  {
+    "x": {
+      "someInt": 5,
+      "someString": "hello"
+    },
+    "y": true,
+    "a": "first attribute",
+    "b": "second attribute"
+  },
+  {
+    "x": {
+      "someInt": 10,
+      "someString": "world"
+    },
+    "y": false,
+    "a": "first attribute",
+    "b": "second attribute"
+  }
+]
+```
+
+ The array returned in this response could be used with topic rule actions that support `batchMode`\. 
+
+## trim\(String\)<a name="iot-func-trim"></a>
+
+Removes all leading and trailing white space from the provided `String`\. Supported by SQL version 2015\-10\-08 and later\.
+
+Example:
+
+`Trim(" hi ") ` = "hi"
+
+
+****  
+
+| Argument type | Result | 
+| --- | --- | 
+| Int | The String representation of the Int with all leading and trailing white space removed\. | 
+| Decimal | The String representation of the Decimal with all leading and trailing white space removed\. | 
+| Boolean | The String representation of the Boolean \("true" or "false"\) with all leading and trailing white space removed\. | 
+| String | The String with all leading and trailing white space removed\. | 
+| Array | The String representation of the Array using standard conversion rules\. | 
+| Object | The String representation of the Object using standard conversion rules\. | 
+| Null | Undefined\. | 
+| Undefined | Undefined\. | 
+
 ## trunc\(Decimal, Int\)<a name="iot-func-trunc"></a>
 
 Truncates the first argument to the number of `Decimal` places specified by the second argument\. If the second argument is less than zero, it is set to zero\. If the second argument is greater than 34, it is set to 34\. Trailing zeroes are stripped from the result\. Supported by SQL version 2015\-10\-08 and later\.
@@ -1512,28 +1696,6 @@ Examples:
 | Int/Decimal | Int/Decimal | The first argument is truncated to the length described by the second argument\. The second argument, if not an Int, is rounded down to the nearest Int\. | 
 | Int/Decimal/String | Int/Decimal | The first argument is truncated to the length described by the second argument\. The second argument, if not an Int, is rounded down to the nearest Int\. A String is converted to a Decimal value\. If the string conversion fails, the result is Undefined\. | 
 | Other value |  | Undefined\. | 
-
-## trim\(String\)<a name="iot-func-trim"></a>
-
-Removes all leading and trailing white space from the provided `String`\. Supported by SQL version 2015\-10\-08 and later\.
-
-Example:
-
-`Trim(" hi ") ` = "hi"
-
-
-****  
-
-| Argument type | Result | 
-| --- | --- | 
-| Int | The String representation of the Int with all leading and trailing white space removed\. | 
-| Decimal | The String representation of the Decimal with all leading and trailing white space removed\. | 
-| Boolean | The String representation of the Boolean \("true" or "false"\) with all leading and trailing white space removed\. | 
-| String | The String with all leading and trailing white space removed\. | 
-| Array | The String representation of the Array using standard conversion rules\. | 
-| Object | The String representation of the Object using standard conversion rules\. | 
-| Null | Undefined\. | 
-| Undefined | Undefined\. | 
 
 ## upper\(String\)<a name="iot-sql-function-upper"></a>
 

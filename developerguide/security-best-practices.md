@@ -63,7 +63,7 @@ You can use [AWS IoT Device Defender](https://aws.amazon.com/iot-device-defender
 + [AWS IoT Core](https://aws.amazon.com/iot-core/)
 + [AWS IoT's Security Features](authentication.md)
 + [AWS IoT Core policy variables](iot-policy-variables.md)
-+ [IAM Policy Variables](https://docs.aws.amazon.com/IAM/latest/UserGuide/reference_policies_variables.html)
++ [IAM Policy Variables](https://docs.aws.amazon.com/service-authorization/latest/reference/reference_policies_variables.html)
 + [Amazon Cognito Identity](https://docs.aws.amazon.com/cognito/latest/developerguide/cognito-identities.html)
 + [AWS IoT Device Defender](https://aws.amazon.com/iot-device-defender/)
 + [CloudWatch Logs for AWS IoT](cloud-watch-logs.md)

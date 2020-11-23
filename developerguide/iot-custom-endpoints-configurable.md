@@ -1,11 +1,7 @@
 # Configurable endpoints \(beta\)<a name="iot-custom-endpoints-configurable"></a>
 
-
 ****  
-
-|  | 
-| --- |
-| This feature is currently in public beta and is available only in the US East \(N\. Virginia\) Region\. | 
+This feature is currently in public beta and is available only in the US East \(N\. Virginia\) Region\.
 
 You can create multiple endpoints for connecting devices to AWS IoT\. You can also configure some details \(such as domain name\) by using domain configurations\. You can use domain configurations to simplify tasks such as the following\.
 + Migrate devices to AWS IoT\.

@@ -34,7 +34,7 @@ Duration: a non\-negative integer, valid values are 300, 600, 900, 1800 or 3600 
 }
 ```
 
-**Example Example using a `statisticalThreshold`**  
+**Example using a `statisticalThreshold`**  
 
 ```
 {
@@ -84,7 +84,7 @@ Duration: a non\-negative integer, valid values are 300, 600, 900, 1800 or 3600 
 }
 ```
 
-**Example Example using a `statisticalThreshold`**  
+**Example using a `statisticalThreshold`**  
 
 ```
 {
@@ -134,7 +134,7 @@ Duration: a non\-negative integer\. Valid values are 300, 600, 900, 1800 or 3600
 }
 ```
 
-**Example Example using a `statisticalThreshold`**  
+**Example using a `statisticalThreshold`**  
 
 ```
 {
@@ -152,7 +152,7 @@ Duration: a non\-negative integer\. Valid values are 300, 600, 900, 1800 or 3600
 }
 ```
 
-## Packets out \(aws:all\-packets\-in\)<a name="detect-all-packets-in"></a>
+## Packets in \(aws:all\-packets\-in\)<a name="detect-all-packets-in"></a>
 
 The number of inbound packets to a device during a given time period\.
 
@@ -295,7 +295,7 @@ Duration: a non\-negative integer\. Valid values are 300, 600, 900, 1800, or 360
 }
 ```
 
-**Example Example using a `statisticalThreshold`**  
+**Example using a `statisticalThreshold`**  
 
 ```
 {
@@ -344,7 +344,7 @@ Units: connections
 }
 ```
 
-**Example Example using a `statisticalThreshold`**  
+**Example using a `statisticalThreshold`**  
 
 ```
 {
@@ -495,7 +495,7 @@ The following JSON structure uses long names\.
 }
 ```
 
-**Example Example JSON structure using short names**  
+**Example JSON structure using short names**  
 
 ```
 {

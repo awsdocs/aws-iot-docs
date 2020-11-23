@@ -13,12 +13,19 @@ This rule action has the following requirements:
 
 When you create an AWS IoT rule with this action, you must specify the following information:
 
+`batchMode`  
+\(Optional\) Whether to process the event actions as a batch\. The default value is `false`\.  
+When `batchMode` is `true` and the rule SQL statement evaluates to an Array, each Array element is treated as a separate message when it's sent to AWS IoT Events by calling [https://docs.aws.amazon.com/iotevents/latest/apireference/API_iotevents-data_BatchPutMessage.html](https://docs.aws.amazon.com/iotevents/latest/apireference/API_iotevents-data_BatchPutMessage.html)\. The resulting array can't have more than 10 messages\.  
+When `batchMode` is `true`, you can't specify a `messageId`\.   
+Supports substitution templates: No
+
 `inputName`  
 The name of the AWS IoT Events input\.  
 Supports substitution templates: API and AWS CLI only
 
 `messageId`  
 \(Optional\) Use this to ensure that only one input \(message\) with a given `messageId` is processed by an AWS IoT Events detector\. You can use the `${newuuid()}` substitution template to generate a unique ID for each request\.  
+When `batchMode` is `true`, you can't specify a `messageId`\-\-a new UUID value will be assigned\.  
 Supports substitution templates: Yes
 
 `roleArn`  

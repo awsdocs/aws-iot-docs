@@ -14,6 +14,11 @@ This rule action has the following requirements:
 
 When you create an AWS IoT rule with this action, you must specify the following information:
 
+`batchMode`  
+\(Optional\) Whether to deliver the Kinesis Data Firehose stream as a batch by using [https://docs.aws.amazon.com/firehose/latest/APIReference/API_PutRecordBatch.html](https://docs.aws.amazon.com/firehose/latest/APIReference/API_PutRecordBatch.html) \. The default value is `false`\.  
+When `batchMode` is `true` and the rule's SQL statement evaluates to an Array, each Array element forms one record in the `PutRecordBatch` request\. The resulting array can't have more than 500 records\.   
+Supports substitution templates: No
+
 `deliveryStreamName`  
 The Kinesis Data Firehose stream to which to write the message data\.  
 Supports substitution templates: API and AWS CLI only

@@ -11,8 +11,6 @@ Dimensions of type TOPIC\_FILTER are compatible with the following set of cloud\
 + Source IP address
 + Number of authorization failures
 
-For an example of how to use the dimensions attribute, see [Monitoring legacy devices with AWS IoT Device Defender detect dimensions](https://docs.aws.amazon.com/iot/latest/developerguide/dd-dimensions-example.html)\.
-
 ## How to use dimensions in the console<a name="dimensions-console-instruc"></a>
 
 **To create and apply a dimension to a security profile behavior**

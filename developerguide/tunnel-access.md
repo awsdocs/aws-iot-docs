@@ -30,7 +30,7 @@ The `iot:OpenTunnel` policy action supports the following condition keys:
 + `aws:RequestTag`/*tag\-key*
 + `aws:TagKeys`
 
-The following policy statement allows you to open a tunnel the thing if the thing belongs to a thing group with a name that starts with `TestGroup` and the configured destination service on the tunnel is SSH\.
+The following policy statement allows you to open a tunnel to the thing if the thing belongs to a thing group with a name that starts with `TestGroup` and the configured destination service on the tunnel is SSH\.
 
 ```
 {

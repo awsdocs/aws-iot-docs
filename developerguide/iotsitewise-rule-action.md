@@ -76,7 +76,7 @@ Supports substitution templates: Yes
 `offsetInNanos`  
 \(Optional\) A string that contains the nanosecond time offset from the time in seconds\. If your message payload doesn't have a timestamp, you can use [timestamp\(\)](iot-sql-functions.md#iot-function-timestamp), which returns the current time in milliseconds\. To calculate the nanosecond offset from that time, you can use the following substitution template: **$\{\(timestamp\(\) % 1E3\) \* 1E6\}**\.  
 Supports substitution templates: Yes
-With respect to Unix epoch time, AWS IoT SiteWise accepts only entries that have a timestamp of up to 15 minutes in the past and up to 5 minutes in the future\.  
+With respect to Unix epoch time, AWS IoT SiteWise accepts only entries that have a timestamp of up to 7 days in the past and up to 5 minutes in the future\.  
 `quality`  
 \(Optional\) A string that describes the quality of the value\. Valid values: `GOOD`, `BAD`, `UNCERTAIN`\.  
 Supports substitution templates: Yes  

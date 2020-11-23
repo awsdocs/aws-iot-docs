@@ -208,6 +208,7 @@ Amazon's trademarks and trade dress may not be used in
    + [Secure tunnel lifecycle](tunnel-lifecycle.md)
    + [Controlling access to tunnels](tunnel-access.md)
    + [Local proxy](local-proxy.md)
+   + [Multiplex data streams in a secure tunnel](multiplexing.md)
    + [IoT agent snippet](agent-snippet.md)
    + [Configuring a remote device](configure-remote-device.md)
 + [Device provisioning](iot-provision.md)

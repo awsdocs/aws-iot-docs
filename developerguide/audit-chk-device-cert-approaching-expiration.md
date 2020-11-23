@@ -2,7 +2,7 @@
 
 A device certificate is expiring within 30 days or has expired\.
 
-This check appears as `DEVICE_CERT_APPROACHING_EXPIRATION_CHECK` in the CLI and API\.
+This check appears as `DEVICE_CERTIFICATE_EXPIRING_CHECK` in the CLI and API\.
 
 Severity: **Medium**
 
