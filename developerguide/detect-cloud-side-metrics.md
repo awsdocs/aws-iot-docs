@@ -30,7 +30,7 @@ Units: bytes
 }
 ```
 
-**Example using a `statisticalThreshold`**  
+**Example Example using a `statisticalThreshold`**  
 
 ```
 {
@@ -85,7 +85,7 @@ Duration: a non\-negative integer, valid values are 300, 600, 900, 1800 or 3600 
 }
 ```
 
-**Example using a `statisticalThreshold`**  
+**Example Example using a `statisticalThreshold`**  
 
 ```
 {
@@ -137,7 +137,7 @@ Duration: a non\-negative integer\. Valid values are 300, 600, 900, 1800, or 360
 }
 ```
 
-**Example using a `statisticalThreshold`**  
+**Example Example using a `statisticalThreshold`**  
 
 ```
 {
@@ -214,7 +214,7 @@ Duration: a non\-negative integer\. Valid values are 300, 600, 900, 1800, or 360
 }
 ```
 
-**Example using a `statisticalThreshold`**  
+**Example Example using a `statisticalThreshold`**  
 
 ```
 {
@@ -266,7 +266,7 @@ Duration: a non\-negative integer\. Valid values are 300, 600, 900, 1800, or 360
 }
 ```
 
-**Example using a `statisticalThreshold`**  
+**Example Example using a `statisticalThreshold`**  
 
 ```
 {

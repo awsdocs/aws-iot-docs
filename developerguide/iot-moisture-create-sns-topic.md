@@ -2,9 +2,7 @@
 
 Create an Amazon SNS topic and subscription\.
 
-1. From the AWS IoT console, choose **Services**, type **SNS**, and then choose **Simple Notification Service**\.
-
-1. In the navigation pane, choose **Topics**, and then choose **Create topic**\.
+1. From the [AWS SNS console](https://console.aws.amazon.com/sns/home), in the navigation pane, choose **Topics**, and then choose **Create topic**\.
 
 1. Enter a name for the topic \(for example, **MoistureSensorTopic**\)\.
 
