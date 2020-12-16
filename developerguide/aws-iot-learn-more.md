@@ -77,7 +77,7 @@ Amazon Simple Storage Service \(Amazon S3\) can store and retrieve any amount of
 + 
 
 **[Amazon Simple Notification Service](https://docs.aws.amazon.com/sns/)**  
-Amazon Simple Notification Service \(Amazon SNS\) is a web service that enables applications, end\-users, and devices to send and receive notifications from the cloud\.
+Amazon Simple Notification Service \(Amazon SNS\) is a web service that enables applications, end users, and devices to send and receive notifications from the cloud\.
 + 
 
 **[Amazon Simple Queue Service](https://docs.aws.amazon.com/sqs/)**  
@@ -95,7 +95,7 @@ Amazon Machine Learning can create machine learning \(ML\) models by finding pat
 **[Amazon CloudWatch](https://docs.aws.amazon.com/cloudwatch/)**  
 Amazon CloudWatch provides a reliable, scalable, and flexible monitoring solution to help set up, manage, and scale your own monitoring systems and infrastructure\.
 
-## Communication protocols used by AWS IoT<a name="aws-iot-learn-more-protocol"></a>
+## Communication protocols supported by AWS IoT Core<a name="aws-iot-learn-more-protocol"></a>
 
 These topics provide more information about the communication protocols used by AWS IoT\. For more information about the protocols used by AWS IoT and connecting devices and services to AWS IoT, see [Connecting to AWS IoT Core](connect-to-iot.md)\.
 + 
@@ -106,6 +106,10 @@ The home page of the MQTT\.org site where you can find the MQTT protocol specifi
 
 **[HTTPS \(Hypertext Transfer Protocol \- Secure\) ](https://tools.ietf.org/html/rfc2616)**  
 Devices and apps can access AWS IoT services by using HTTPS\.
++ 
+
+**[LoRaWAN \(Long Range Wide Area Network\)](https://lora-alliance.org/about-lorawan)**  
+LoRaWAN devices and gateways can connect to AWS IoT Core by using AWS IoT Core for LoRaWAN\.
 + 
 
 **[TLS \(Transport Layer Security\) v1\.2](https://tools.ietf.org/html/rfc5246)**  

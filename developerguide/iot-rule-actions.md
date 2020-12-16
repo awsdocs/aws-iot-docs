@@ -5,6 +5,7 @@ AWS IoT rule actions specify what to do when a rule is triggered\. You can defin
 
 | Rule action | Description | Name in API | 
 | --- | --- | --- | 
+| [Apache Kafka](apache-kafka-rule-action.md) | Sends a message to an Apache Kafka cluster\. | kafka | 
 | [CloudWatch alarms](cloudwatch-alarms-rule-action.md) | Changes the state of an Amazon CloudWatch alarm\. | cloudwatchAlarm | 
 | [CloudWatch Logs](cloudwatch-logs-rule-action.md) | Sends a message to Amazon CloudWatch Logs\. | cloudwatchLogs | 
 | [CloudWatch metrics](cloudwatch-metrics-rule-action.md) | Sends a message to a CloudWatch metric\. | cloudwatchMetric | 
@@ -25,8 +26,9 @@ AWS IoT rule actions specify what to do when a rule is triggered\. You can defin
 | [SQS](sqs-rule-action.md) | Sends a message to an Amazon Simple Queue Service \(Amazon SQS\) queue\. | sqs | 
 | [Step Functions](stepfunctions-rule-action.md) | Starts an AWS Step Functions state machine\. | stepFunctions | 
 | [Timestream](timestream-rule-action.md) | Sends a message to an Amazon Timestream database table\. | timestream | 
+| [VPC](vpc-rule-action.md) | Sends data to an Amazon Virtual Private Cloud \(Amazon VPC\)\. | VPC | 
 
 **Notes**  
-You must define the rule in the same AWS Region as another's service's resource, so that the rule action can interact with that resource\.
+You must define the rule in the same AWS Region as another service's resource, so that the rule action can interact with that resource\.
 The AWS IoT rules engine might make multiple attempts to perform an action in case of intermittent errors\. If all attempts fail, the message is discarded and the error is available in your CloudWatch logs\. You can specify an error action for each rule that is invoked after a failure occurs\. For more information, see [Error handling \(error action\)](rule-error-handling.md)\.
-Some rule actions trigger actions in services that integrate with AWS Key Management Service \(AWS KMS\) to support data encryption at rest\. If you use a customer managed AWS KMS customer master key \(CMK\) to encrypt data at rest, the service must have permission to use the CMK on the caller's behalf\. See the data encryption topics in the appropriate service guide to learn how to manage permissions for your customer managed CMK\. For more information about CMKs and customer managed CMKs, see [AWS Key Management Service concepts](https://docs.aws.amazon.com/kms/latest/developerguide/concepts.html) in the *AWS Key Management Service Developer Guide*\.
+Some rule actions trigger actions in services that integrate with AWS Key Management Service \(AWS KMS\) to support data encryption at rest\. If you use a customer\-managed AWS KMS customer master key \(CMK\) to encrypt data at rest, the service must have permission to use the CMK on the caller's behalf\. See the data encryption topics in the appropriate service guide to learn how to manage permissions for your customer\-managed CMK\. For more information about CMKs and customer\-managed CMKs, see [AWS Key Management Service concepts](https://docs.aws.amazon.com/kms/latest/developerguide/concepts.html) in the *AWS Key Management Service Developer Guide*\.

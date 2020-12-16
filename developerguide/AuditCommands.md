@@ -822,7 +822,7 @@ An unexpected error has occurred\.
 
 Use `ListAuditFindings` to see the results of an audit\. You can filter the results by the type of check, a specific resource, or the time of the audit\. You can use this information to mitigate any problems that were found\.
 
-You can define mitigation actions and apply them to the findings from your audit\. For more information, see [Mitigation actions](device-defender-mitigation-actions.md)\.
+You can define mitigation actions and apply them to the findings from your audit\. For more information, see [Mitigation actions](dd-mitigation-actions.md)\.
 
 ### ListAuditFindings<a name="dd-api-iot-ListAuditFindings"></a>
 

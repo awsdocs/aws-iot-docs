@@ -1,6 +1,6 @@
 # Scoping metrics in security profiles using dimensions<a name="scoping-security-behavior"></a>
 
-Dimensions are attributes that you can define to get more precise data about metrics and behaviors in your security profile\. You define the scope by providing a value or pattern that is used as a filter\. For example, you can define a topic filter dimension that applies a metric only to MQTT topics that match a particular value, such as "data/bulb/\+/activity"\. For information about defining a dimension that you can use in your security profile, see [CreateDimension](dd-api-iot-CreateDimension.md)\.
+Dimensions are attributes that you can define to get more precise data about metrics and behaviors in your security profile\. You define the scope by providing a value or pattern that is used as a filter\. For example, you can define a topic filter dimension that applies a metric only to MQTT topics that match a particular value, such as "data/bulb/\+/activity"\. For information about defining a dimension that you can use in your security profile, see [CreateDimension](https://docs.aws.amazon.com/iot/latest/apireference/API_CreateDimension.html)\.
 
 Dimension values support MQTT wildcards\. MQTT wildcards help you subscribe to multiple topics simultaneously\. There are two different kinds of wildcards: single\-level \(`+`\) and multi\-level `(#`\)\. For example, the dimension value `Data/bulb/+/activity` creates a subscription that matches all topics that exist on the same level as the `+`\. Dimension values also support the MQTT client ID substitution variable $\{iot:ClientId\}\.
 
@@ -65,7 +65,7 @@ Dimensions of type TOPIC\_FILTER are compatible with the following set of cloud\
 
 **To create and apply a dimension to a security profile behavior**
 
-1. First create the dimension before attaching it to a security profile\. Use the [CreateDimension](dd-api-iot-CreateDimension.md) command to create a dimension:
+1. First create the dimension before attaching it to a security profile\. Use the [CreateDimension](https://docs.aws.amazon.com/iot/latest/apireference/API_CreateDimension.html) command to create a dimension:
 
    ```
    aws iot create-dimension \   
@@ -83,7 +83,7 @@ Dimensions of type TOPIC\_FILTER are compatible with the following set of cloud\
    }
    ```
 
-1. Either add the dimension to an existing security profile by using [UpdateSecurityProfile](dd-api-iot-UpdateSecurityProfile.md), or add the dimension to a new security profile by using [CreateSecurityProfile](dd-api-iot-CreateSecurityProfile.md)\. In the following example, we create a new security profile that checks if messages to `TopicFilterForAuthMessages` are under 128 bytes, and retains the number of messages sent to non\-auth topics\.
+1. Either add the dimension to an existing security profile by using [UpdateSecurityProfile](https://docs.aws.amazon.com/iot/latest/apireference/API_UpdateSecurityProfile.html), or add the dimension to a new security profile by using [CreateSecurityProfile](https://docs.aws.amazon.com/iot/latest/apireference/API_CreateSecurityProfile.html)\. In the following example, we create a new security profile that checks if messages to `TopicFilterForAuthMessages` are under 128 bytes, and retains the number of messages sent to non\-auth topics\.
 
    ```
    aws iot create-security-profile \
@@ -125,7 +125,7 @@ Dimensions of type TOPIC\_FILTER are compatible with the following set of cloud\
    ```
 
 **To view security profiles with a dimension**
-+ Use the [ListSecurityProfiles](dd-api-iot-ListSecurityProfiles.md) command to view security profiles with a certain dimension:
++ Use the [ListSecurityProfiles](https://docs.aws.amazon.com/iot/latest/apireference/API_ListSecurityProfiles.html) command to view security profiles with a certain dimension:
 
   ```
   aws iot list-security-profiles \
@@ -146,7 +146,7 @@ Dimensions of type TOPIC\_FILTER are compatible with the following set of cloud\
   ```
 
 **To update your dimension**
-+ Use the [UpdateDimension](dd-api-iot-UpdateDimension.md) command to update a dimension:
++ Use the [UpdateDimension](https://docs.aws.amazon.com/iot/latest/apireference/API_UpdateDimension.html) command to update a dimension:
 
   ```
   aws iot update-dimension \
@@ -171,9 +171,9 @@ Dimensions of type TOPIC\_FILTER are compatible with the following set of cloud\
 
 **To delete a dimension**
 
-1. To delete a dimension, first detach it from any security profiles that it's attached to\. Use the [ListSecurityProfiles](dd-api-iot-ListSecurityProfiles.md) command to view security profiles with a certain dimension\.
+1. To delete a dimension, first detach it from any security profiles that it's attached to\. Use the [ListSecurityProfiles](https://docs.aws.amazon.com/iot/latest/apireference/API_ListSecurityProfiles.html) command to view security profiles with a certain dimension\.
 
-1. To remove a dimension from a security profile, use the [UpdateSecurityProfile](dd-api-iot-UpdateSecurityProfile.md) command\. Enter all information that you want to keep, but exclude the dimension:
+1. To remove a dimension from a security profile, use the [UpdateSecurityProfile](https://docs.aws.amazon.com/iot/latest/apireference/API_UpdateSecurityProfile.html) command\. Enter all information that you want to keep, but exclude the dimension:
 
    ```
    aws iot update-security-profile \
@@ -222,7 +222,7 @@ Dimensions of type TOPIC\_FILTER are compatible with the following set of cloud\
    }
    ```
 
-1. After the dimension is detached, use the [DeleteDimension](dd-api-iot-DeleteDimension.md) command to delete the dimension:
+1. After the dimension is detached, use the [DeleteDimension](https://docs.aws.amazon.com/iot/latest/apireference/API_DeleteDimension.html) command to delete the dimension:
 
    ```
    aws iot delete-dimension \

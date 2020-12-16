@@ -57,7 +57,7 @@ Perform the following steps to make sure that your devices’ connection attempt
    1. This policy grants the `InvokeFunction` permission on your function to the AWS IoT Core principal\. If you don't see it, you'll have to add it by using the [AddPermission](https://docs.aws.amazon.com/lambda/latest/dg/API_AddPermission.html) API\. The following example shows you how to do this by using the AWS CLI\.
 
       ```
-        aws lambda add-permission --function-name FunctionName> --principal iot.amazonaws.com --source-arn AuthorizerARn --statement-id Id-123 --action "lambda:InvokeFunction"
+        aws lambda add-permission --function-name FunctionName --principal iot.amazonaws.com --source-arn AuthorizerARn --statement-id Id-123 --action "lambda:InvokeFunction"
       ```
 
 1. If you see invocations, verify that there are no errors\. An error might indicate that the Lambda function isn't properly handling the connection event that AWS IoT Core sends to it\.

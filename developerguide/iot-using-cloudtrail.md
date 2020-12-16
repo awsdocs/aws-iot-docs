@@ -24,7 +24,9 @@ Every event or log entry contains information about who generated the request\. 
 + Whether the request was made with temporary security credentials for a role or federated user\.
 + Whether the request was made by another AWS service\.
 
-For more information, see the [CloudTrail userIdentity Element](https://docs.aws.amazon.com/awscloudtrail/latest/userguide/cloudtrail-event-reference-user-identity.html)\. AWS IoT actions are documented in the [AWS IoT API Reference](https://docs.aws.amazon.com/iot/latest/apireference/)\. 
+For more information, see the [CloudTrail userIdentity Element](https://docs.aws.amazon.com/awscloudtrail/latest/userguide/cloudtrail-event-reference-user-identity.html)\.
+
+AWS IoT actions are documented in the [AWS IoT API Reference](https://docs.aws.amazon.com/iot/latest/apireference/)\. AWS IoT Wireless actions are documented in the [AWS IoT Wireless API Reference](https://docs.aws.amazon.com/iot-wireless/2020-11-22/apireference/welcome.html)\.
 
 ## Understanding AWS IoT log file entries<a name="understanding-aws-iot-entries"></a>
 

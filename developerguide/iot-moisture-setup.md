@@ -19,3 +19,6 @@ To complete this tutorial, you need to create the following resources\. To conne
 + An Amazon SNS topic and topic subscription\.
 
   The rule listens for moisture data from your Raspberry Pi\. If the value is below a threshold, it sends a message to the Amazon SNS topic\. Amazon SNS sends that message to all email addresses subscribed to the topic\.
+
+ 
+

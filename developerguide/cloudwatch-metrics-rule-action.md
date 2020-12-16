@@ -63,7 +63,7 @@ The following JSON example defines a CloudWatch metric action in an AWS IoT rule
 }
 ```
 
-The following JSON examples defines a CloudWatch metric action with substitution templates in an AWS IoT rule\.
+The following JSON example defines a CloudWatch metric action with substitution templates in an AWS IoT rule\.
 
 ```
 {

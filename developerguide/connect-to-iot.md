@@ -1,10 +1,10 @@
 # Connecting to AWS IoT Core<a name="connect-to-iot"></a>
 
- AWS IoT Core supports connections with IoT devices, services, and apps\. Devices connect to the AWS IoT Core so they can send data to and receive data from AWS IoT services and other devices\. Apps and other services also connect to AWS IoT Core to control and manage the IoT devices and process the data from your IoT solution\. This section describes how to choose the best way to connect and communicate with AWS IoT Core for each aspect of your IoT solution\.
+ AWS IoT Core supports connections with IoT devices, wireless gateways, services, and apps\. Devices connect to the AWS IoT Core so they can send data to and receive data from AWS IoT services and other devices\. Apps and other services also connect to AWS IoT Core to control and manage the IoT devices and process the data from your IoT solution\. This section describes how to choose the best way to connect and communicate with AWS IoT Core for each aspect of your IoT solution\.
 
 ![\[Image showing how AWS IoT Core provides device endpoints to connect IoT devices to AWS IoT and service endpoints to connect apps and other services to AWS IoT Core.\]](http://docs.aws.amazon.com/iot/latest/developerguide/images/iot-endpoints.png)
 
-In general, the two ways to interact with AWS IoT are through the [AWS IoT Core service endpoints](#iot-service-endpoint-intro) and the [AWS IoT device endpoints](#iot-device-endpoint-intro)\.
+There are several ways to interact with AWS IoT\. Apps and services can use the [AWS IoT Core service endpoints](#iot-service-endpoint-intro) and devices can connect to AWS IoT Core by using the [AWS IoT device endpoints](#iot-device-endpoint-intro) or [AWS IoT Core for LoRaWAN gateways and devices](#iot-lorawan-endpoint-intro)\.
 
 ## AWS IoT Core service endpoints<a name="iot-service-endpoint-intro"></a>
 
@@ -51,3 +51,24 @@ The device endpoints use X\.509 certificates or AWS IAM users with credentials t
 
 **Learn more**  
 For more information and links to SDK references, see [AWS IoT Device SDKs](iot-connect-devices.md#iot-connect-device-sdks)\.
+
+## AWS IoT Core for LoRaWAN gateways and devices<a name="iot-lorawan-endpoint-intro"></a>
+
+AWS IoT Core for LoRaWAN connects wireless gateways and devices to AWS IoT Core\.
++ 
+
+**Endpoints**  
+AWS IoT Core for LoRaWAN manages the gateway connections to account and Region\-specific AWS IoT Core endpoints\. Gateways can connect to your account's Configuration and Update Server \(CUPS\) endpoint that AWS IoT Core for LoRaWAN provides\.    
+[\[See the AWS documentation website for more details\]](http://docs.aws.amazon.com/iot/latest/developerguide/connect-to-iot.html)
++ 
+
+**SDKs**  
+The AWS IoT Wireless API that AWS IoT Core for LoRaWAN is built on is supported by the AWS SDK\. For more information, see [AWS SDKs and Toolkits](https://aws.amazon.com/getting-started/tools-sdks/)\.
++ 
+
+**Authentication**  
+AWS IoT Core for LoRaWAN device communications use X\.509 certificates to secure communications with AWS IoT\.
++ 
+
+**Learn more**  
+For more information about configuring and connecting wireless devices, see [Connecting devices and gateways to AWS IoT Core for LoRaWAN](connect-iot-lorawan.md)\.

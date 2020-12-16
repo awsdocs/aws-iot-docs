@@ -1,6 +1,8 @@
 # Billing groups<a name="tagging-iot-billing-groups"></a>
 
-AWS IoT doesn't allow you to directly apply tags to individual things, but it does allow you to place things in billing groups and to apply tags to these\. For AWS IoT, allocation of cost and usage data based on tags is limited to billing groups\. 
+AWS IoT doesn't allow you to directly apply tags to individual things, but it does allow you to place things in billing groups and to apply tags to these\. For AWS IoT, allocation of cost and usage data based on tags is limited to billing groups\.
+
+AWS IoT Core for LoRaWAN resources, such as wireless devices and gateways, can't be added to billing groups\. However, they can be associated with AWS IoT things, which can be added to billing groups\.
 
 The following commands are available:
 + [AddThingToBillingGroup](https://docs.aws.amazon.com/iot/latest/apireference/API_AddThingToBillingGroup) adds a thing to a billing group\.
@@ -13,6 +15,10 @@ The following commands are available:
 + [UpdateBillingGroup](https://docs.aws.amazon.com/iot/latest/apireference/API_UpdateBillingGroup) updates information about the billing group\.
 + [CreateThing](https://docs.aws.amazon.com/iot/latest/apireference/API_CreateThing) allows you to specify a billing group for the thing when you create it\.
 + [DescribeThing](https://docs.aws.amazon.com/iot/latest/apireference/API_DescribeThing) returns the description of a thing including the billing group the thing belongs to, if any\.
+
+The AWS IoT Wireless API provides these actions to associate wireless devices and gateways with AWS IoT things\.
++ [AssociateWirelessDeviceWithThing](https://docs.aws.amazon.com/iot-wireless/2020-11-22/apireference/API_AssociateWirelessDeviceWithThing.html)
++ [AssociateWirelessGatewayWithThing](https://docs.aws.amazon.com/iot-wireless/2020-11-22/apireference/API_AssociateWirelessGatewayWithThing.html)
 
 ## Viewing cost allocation and usage data<a name="tagging-iot-billing-groups-costs"></a>
 

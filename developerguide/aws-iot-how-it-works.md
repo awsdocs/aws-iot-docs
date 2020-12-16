@@ -14,7 +14,7 @@ In general, the Internet of Things \(IoT\) consists of the key components shown 
 
 ### Cloud services<a name="iot-universe-cloud"></a>
 
-Cloud services are distributed, large\-scale data storage and processing services that are connected to the Internet\. Examples include: 
+Cloud services are distributed, large\-scale data storage and processing services that are connected to the internet\. Examples include: 
 + IoT connection and management services\. 
 
   *AWS IoT is an example of an IoT connection and management service*\.
@@ -24,9 +24,10 @@ Cloud services are distributed, large\-scale data storage and processing service
 ### Communications<a name="iot-universe-comms"></a>
 
  Devices communicate with cloud services by using various technologies and protocols\. Examples include: 
-+ Wi\-Fi/Broadband Internet
++ Wi\-Fi/Broadband internet
 + Broadband cellular data
 + Narrow\-band cellular data
++ Long\-range Wide Area Network \(LoRaWAN\)
 + Proprietary RF communications
 
 ### Devices<a name="iot-universe-devices"></a>
@@ -35,6 +36,8 @@ A device is a type of hardware that manages interfaces and communications\. Devi
 + Raspberry Pi
 + Arduino
 + Voice\-interface assistants
++ LoRaWAN and devices
++ Amazon Sidewalk devices
 + Custom IoT devices
 
 ### Interfaces<a name="iot-universe-interfaces"></a>
@@ -123,28 +126,26 @@ Analyze the data from the devices in your IoT solution and take appropriate acti
 
 AWS IoT Core provides the services that connect your IoT devices to the AWS Cloud so that other cloud services and applications can interact with your internet\-connected devices\.
 
-![\[A high-level view of AWS IoT Core\]](http://docs.aws.amazon.com/iot/latest/developerguide/images/aws_iot_data_services.png)
+![\[A high-level view of AWS IoT Core that shows the device gateway, message broker, rules engine, device shadow, and the other services it provides\]](http://docs.aws.amazon.com/iot/latest/developerguide/images/aws_iot_data_services.png)
 
-The message broker handles communication between your devices and AWS IoT\. Device communication is secured by secure protocols that use of X\.509 certificates\. The message broker distributes device data to devices that have subscribed to it and to other AWS IoT Core services, such as the Device Shadow service and the Rules engine\.
-
-The Device Shadow service maintains a device's state so that applications can communicate with a device whether the device is online or not\. When a device is offline, the Device Shadow service manages its data for connected applications\. When the device reconnects, it synchronizes its state with that of its shadow in the Device Shadow service\.
-
-The Rules engine connects data from the message broker to other AWS services for storage and additional processing\. For example, you can insert, update, or query a DynamoDB table or invoke a Lambda function based on an expression that you defined in the Rules engine\.
-
-AWS IoT Core secures all communications and activities by using X\.509 certificates for authentication and policies for authorization\.
+The next section describes each of the AWS IoT Core services shown in the illustration\.
 
 ### AWS IoT Core messaging services<a name="aws-iot-core-connect"></a>
 
 The AWS IoT Core connectivity services provide secure communication with the IoT devices and manage the messages that pass between them and AWS IoT\.
 
 **Device gateway **  
-Enables devices to securely and efficiently communicate with AWS IoT\.
+Enables devices to securely and efficiently communicate with AWS IoT\. Device communication is secured by secure protocols that use of X\.509 certificates\. 
 
 **Message broker **  
-Provides a secure mechanism for devices and AWS IoT applications to publish and receive messages from each other\. You can use either the MQTT protocol directly or MQTT over WebSocket to publish and subscribe\. You can use the HTTP REST interface to publish\. For more information, see [Device communication protocols](protocols.md)\.
+Provides a secure mechanism for devices and AWS IoT applications to publish and receive messages from each other\. You can use either the MQTT protocol directly or MQTT over WebSocket to publish and subscribe\. For more information about the protocols that AWS IoT supports, see [Device communication protocols](protocols.md)\. Devices and clients can also use the HTTP REST interface to publish data to the message broker\.  
+The message broker distributes device data to devices that have subscribed to it and to other AWS IoT Core services, such as the Device Shadow service and the rules engine\.
+
+**AWS IoT Core for LoRaWAN**  
+AWS IoT Core for LoRaWAN makes is possible to set up a private LoRaWAN network by connecting your LoRaWAN devices and gateways to AWS without the need to develop and operate a LoRaWAN Network Server \(LNS\)\. Messages received from LoRaWAN devices are sent to the rules engine where they can be formatted and sent to other AWS services\.
 
 **Rules engine **  
-Provides message processing and integration with other AWS services\. You can use an SQL\-based language to select data from message payloads, and then process and send the data to other services, such as Amazon Simple Storage Service \(Amazon S3\), Amazon DynamoDB, and AWS Lambda\. You can also use the message broker to republish messages to other subscribers\. For more information, see [Rules for AWS IoT](iot-rules.md)\.
+The Rules engine connects data from the message broker to other AWS services for storage and additional processing\. For example, you can insert, update, or query a DynamoDB table or invoke a Lambda function based on an expression that you defined in the Rules engine\. You can use an SQL\-based language to select data from message payloads, and then process and send the data to other services, such as Amazon Simple Storage Service \(Amazon S3\), Amazon DynamoDB, and AWS Lambda\. You can also create rules that republish messages to the message broker and on to other subscribers\. For more information, see [Rules for AWS IoT](iot-rules.md)\.
 
 ### AWS IoT Core control services<a name="aws-iot-core-control"></a>
 
@@ -179,10 +180,14 @@ The AWS IoT Core data services help your IoT solutions provide a reliable applic
 A JSON document used to store and retrieve current state information for a device\.
 
 **Device Shadow service **  
-Provides persistent representations of your devices in the AWS Cloud\. You can publish updated state information to a device's shadow, and your device can synchronize its state when it connects\. Your devices can also publish their current state to a shadow for use by applications or other devices\. For more information, see [AWS IoT Device Shadow service](iot-device-shadows.md)\.
+The Device Shadow service maintains a device's state so that applications can communicate with a device whether the device is online or not\. When a device is offline, the Device Shadow service manages its data for connected applications\. When the device reconnects, it synchronizes its state with that of its shadow in the Device Shadow service\. Your devices can also publish their current state to a shadow for use by applications or other devices that might not be connected all the time\. For more information, see [AWS IoT Device Shadow service](iot-device-shadows.md)\.
 
 ### AWS IoT Core support service<a name="aws-iot-core-integ"></a>
 
 **Alexa Voice Service \(AVS\) Integration for AWS IoT**  
 Brings Alexa Voice to any connected device\. AVS for AWS IoT reduces the cost and complexity of integrating Alexa\. This feature uses AWS IoT to offload intensive computational and memory audio tasks from the device to the cloud\. Because of the resulting reduction in the engineering bill of materials \(EBOM\) cost, device makers can cost\-effectively bring Alexa to resource\-constrained IoT devices, and enable consumers to talk directly to Alexa in parts of their home, office, or hotel rooms for an ambient experience\.  
 AVS for AWS IoT enables Alexa built\-in functionality on MCUs, such as the ARM Cortex M class with less than 1 MB embedded RAM\. To do so, AVS offloads memory and compute tasks to a virtual Alexa Built\-in device in the cloud\. This reduces EBOM cost by up to 50 percent\. For more information, see [Alexa Voice Service \(AVS\) Integration for AWS IoT](avs-integration-aws-iot.md)\.
+
+**Amazon Sidewalk Integration for AWS IoT Core**  
+[Amazon Sidewalk](https://www.amazon.com/Amazon-Sidewalk/b?ie=UTF8&node=21328123011) is a shared network that improves connectivity options to help devices work together better\. Amazon Sidewalk supports a wide range of customer devices such as those that locate pets or valuables, those that provide smart home security and lighting control, and those that provide remote diagnostics for appliances and tools\. Amazon Sidewalk Integration for AWS IoT Core makes it possible for device manufacturers to add their Sidewalk device fleet to the AWS Cloud\.  
+For more information, see [Amazon Sidewalk Integration for AWS IoT Core](iot-sidewalk.md)

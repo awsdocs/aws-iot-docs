@@ -53,7 +53,7 @@ We do not recommend the use of personally identifiable information in rule names
        print(response)
    ```
 
-1. Replace the value of `TopicArn` with the ARN of the Amazon SNS topic that you created in [Configure and Test Rules](config-and-test-rules.html)\.
+1. Replace the value of `TopicArn` with the ARN of the Amazon SNS topic that you created in [Creating an Amazon SNS rule](iot-sns-rule.md)\.
 
 1. Choose **Save**\.  
 ![\[Edit your Lambda function to specify the SNS topic.\]](http://docs.aws.amazon.com/iot/latest/developerguide/images/save-lambda-button.png)

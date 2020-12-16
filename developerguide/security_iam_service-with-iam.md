@@ -169,7 +169,32 @@ You can specify multiple actions using wildcards \(\*\)\. For example, to specif
 "Action": "iot:Describe*"
 ```
 
-To see a list of AWS IoT actions, see [Actions Defined by AWS IoT](https://docs.aws.amazon.com/IAM/latest/UserGuide/list_awsiot.html#awsiot-actions-as-permissions) in the *IAM User Guide*\.
+To see a list of AWS IoT actions, see [Actions Defined by AWS IoT](https://docs.aws.amazon.com/service-authorization/latest/reference/list_awsiot.html#awsiot-actions-as-permissions) in the *IAM User Guide*\.
+
+#### Device Advisor actions<a name="security_iam_service-actions-device-advisor"></a>
+
+The following table lists the IAM IoT Device Advisor actions, the associated AWS IoT Device Advisor API, and the resource the action manipulates\.
+
+
+****  
+
+| Policy actions | AWS IoT API | Resources | 
+| --- | --- | --- | 
+| iotdeviceadvisor:CreateSuiteDefinition | CreateSuiteDefinition |  None  | 
+| iotdeviceadvisor:DeleteSuiteDefinition | DeleteSuiteDefinition |  arn:aws:iotdeviceadvisor:*region*:*account\-id*:suitedefinition/*suite\-definition\-id*  | 
+| iotdeviceadvisor:DescribeSuiteDefinition | DescribeSuiteDefinition |  arn:aws:iotdeviceadvisor:*region*:*account\-id*:suitedefinition/*suite\-definition\-id*  | 
+| iotdeviceadvisor:DescribeSuiteRun | DescribeSuiteRun |  arn:aws:iotdeviceadvisor:*region*:*account\-id*:suitedefinition/*suite\-definition\-id*  | 
+| iotdeviceadvisor:GetSuiteRunReport | GetSuiteRunReport |  arn:aws:iotdeviceadvisor:*region*:*account\-id*:suiterun/*suite\-definition\-id*/*suite\-run\-id*  | 
+| iotdeviceadvisor:ListSuiteDefinitions | ListSuiteDefinitions | None | 
+| iotdeviceadvisor:ListSuiteRuns | ListSuiteRuns |  arn:aws:iotdeviceadvisor:*region*:*account\-id*:suitedefinition/*suite\-definition\-id*  | 
+| ListTagsForResource | ListTagsForResource |  arn:aws:iotdeviceadvisor:*region*:*account\-id*:suitedefinition/*suite\-definition\-id* arn:aws:iotdeviceadvisor:*region*:*account\-id*:suiterun/*suite\-run\-id*  | 
+| iotdeviceadvisor:ListTestCases | ListTestCases | None | 
+| iotdeviceadvisor:StartSuiteRun | StartSuiteRun |  arn:aws:iotdeviceadvisor:*region*:*account\-id*:suitedefinition/*suite\-definition\-id*  | 
+| iotdeviceadvisor:TagResource | TagResource |  arn:aws:iotdeviceadvisor:*region*:*account\-id*:suitedefinition/*suite\-definition\-id* arn:aws:iotdeviceadvisor:*region*:*account\-id*:suiterun/*suite\-run\-id*  | 
+| iotdeviceadvisor:UntagResource | UntagResource |  arn:aws:iotdeviceadvisor:*region*:*account\-id*:suitedefinition/*suite\-definition\-id* arn:aws:iotdeviceadvisor:*region*:*account\-id*:suiterun/*suite\-run\-id*  | 
+| iotdeviceadvisor:UpdateSuiteDefinition | UpdateSuiteDefinition |  arn:aws:iotdeviceadvisor:*region*:*account\-id*:suitedefinition/*suite\-definition\-id*  | 
+
+Policy actions in AWS IoT Device Advisor use the following prefix before the action: `iotdeviceadvisor:`\. For example, to grant someone permission to list all suite definitions registered in their AWS account with the ListSuiteDefinitions API, you include the `iotdeviceadvisor:ListSuiteDefinitions` action in their policy\.
 
 ### Resources<a name="security_iam_service-with-iam-id-based-policies-resources"></a>
 
@@ -190,7 +215,7 @@ For actions that don't support resource\-level permissions, such as listing oper
 | --- | --- | --- | 
 | iot:AcceptCertificateTransfer | AcceptCertificateTransfer |  arn:aws:iot:*region*:*account\-id*:cert/*cert\-id*  The AWS account specified in the ARN must be the account to which the certificate is being transferred\.   | 
 | iot:AddThingToThingGroup | AddThingToThingGroup |  arn:aws:iot:*region*:*account\-id*:thinggroup/*thing\-group\-name* arn:aws:iot:*region*:*account\-id*:thing/*thing\-name*  | 
-| iot:AssociateTargetsWithJob | AssociateTargetsWithJob | none  | 
+| iot:AssociateTargetsWithJob | AssociateTargetsWithJob | None  | 
 | iot:AttachPolicy | AttachPolicy | arn:aws:iot:*region*:*account\-id*:thinggroup/*thing\-group\-name* or arn:aws:iot:*region*:*account\-id*:cert/*cert\-id*  | 
 | iot:AttachPrincipalPolicy | AttachPrincipalPolicy |  arn:aws:iot:*region*:*account\-id*:cert/*cert\-id*  | 
 | iot:AttachThingPrincipal | AttachThingPrincipal |  arn:aws:iot:*region*:*account\-id*:cert/*cert\-id*  | 
@@ -313,7 +338,17 @@ Some AWS IoT actions, such as those for creating resources, cannot be performed 
 "Resource": "*"
 ```
 
-To see a list of AWS IoT resource types and their ARNs, see [Resources Defined by AWS IoT](https://docs.aws.amazon.com/IAM/latest/UserGuide/list_awsiot.html#awsiot-resources-for-iam-policies) in the *IAM User Guide*\. To learn with which actions you can specify the ARN of each resource, see [Actions Defined by AWS IoT](https://docs.aws.amazon.com/IAM/latest/UserGuide/list_awsiot.html#awsiot-actions-as-permissions)\.
+To see a list of AWS IoT resource types and their ARNs, see [Resources Defined by AWS IoT](https://docs.aws.amazon.com/service-authorization/latest/reference/list_awsiot.html#awsiot-resources-for-iam-policies) in the *IAM User Guide*\. To learn with which actions you can specify the ARN of each resource, see [Actions Defined by AWS IoT](https://docs.aws.amazon.com/service-authorization/latest/reference/list_awsiot.html#awsiot-actions-as-permissions)\.
+
+#### Device Advisor resources<a name="security_iam_service-device-advisor-resources"></a>
+
+To define resource\-level restrictions for AWS IoT Device Advisor IAM policies, use the following resource ARN formats for suite definitions and suite runs\.
+
+Suite definition resource ARN format  
+arn:aws:iotdeviceadvisor:*region*:*account\-id*:suitedefinition/*suite\-definition\-id*
+
+Suite run resource ARN format  
+arn:aws:iotdeviceadvisor:*region*:*account\-id*:suiterun/*suite\-definition\-id*/*suite\-run\-id*
 
 ### Condition keys<a name="security_iam_service-with-iam-id-based-policies-conditionkeys"></a>
 
@@ -338,7 +373,7 @@ AWS IoT defines its own set of condition keys and also supports using some globa
 | aws:ResourceTag/$\{tag\-key\} | The tag key component of a tag attached to an AWS IoT resource\. | String | 
 | aws:TagKeys | The list of all the tag key names associated with the resource in the request\. | String | 
 
-To see a list of AWS IoT condition keys, see [Condition Keys for AWS IoT](https://docs.aws.amazon.com/IAM/latest/UserGuide/list_awsiot.html#awsiot-policy-keys) in the *IAM User Guide*\. To learn with which actions and resources you can use a condition key, see [Actions Defined by AWS IoT](https://docs.aws.amazon.com/IAM/latest/UserGuide/list_awsiot.html#awsiot-actions-as-permissions)\.
+To see a list of AWS IoT condition keys, see [Condition Keys for AWS IoT](https://docs.aws.amazon.com/service-authorization/latest/reference/list_awsiot.html#awsiot-policy-keys) in the *IAM User Guide*\. To learn with which actions and resources you can use a condition key, see [Actions Defined by AWS IoT](https://docs.aws.amazon.com/service-authorization/latest/reference/list_awsiot.html#awsiot-actions-as-permissions)\.
 
 ### Examples<a name="security_iam_service-with-iam-id-based-policies-examples"></a>
 
@@ -377,5 +412,3 @@ AWS IoT does not supports service\-linked roles\.
 ### Service roles<a name="security_iam_service-with-iam-roles-service"></a>
 
 This feature allows a service to assume a [service role](https://docs.aws.amazon.com/service-authorization/latest/reference/id_roles_terms-and-concepts.html#iam-term-service-role) on your behalf\. This role allows the service to access resources in other services to complete an action on your behalf\. Service roles appear in your IAM account and are owned by the account\. This means that an IAM administrator can change the permissions for this role\. However, doing so might break the functionality of the service\.
-
-AWS IoT does not support service roles\.

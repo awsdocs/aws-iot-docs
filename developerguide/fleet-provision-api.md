@@ -46,7 +46,7 @@ Subscribe to `$aws/certificates/create-from-csr/payload-format/accepted`\.
 `payload-format`  
 The message payload format as `cbor` or `json`\.
 
-#### CreateCertificateFromCsr response payload<a name="create-cert-csr-response"></a>
+#### CreateCertificateFromCsr response payload<a name="create-cert-csr-response-payload"></a>
 
 ```
 {
@@ -72,7 +72,7 @@ To receive error responses, subscribe to `$aws/certificates/create-from-csr/payl
 `payload-format`  
 The message payload format as `cbor` or `json`\.
 
-#### CreateCertificateFromCsr error payload<a name="create-cert-csr-error"></a>
+#### CreateCertificateFromCsr error payload<a name="create-cert-csr-error-payload"></a>
 
 ```
 {
@@ -109,7 +109,7 @@ Subscribe to `$aws/certificates/create/payload-format/accepted`\.
 `payload-format`  
 The message payload format as `cbor` or `json`\.
 
-#### CreateKeysAndCertificate response<a name="create-keys-cert-response"></a>
+#### CreateKeysAndCertificate response<a name="create-keys-cert-response-payload"></a>
 
 ```
 {

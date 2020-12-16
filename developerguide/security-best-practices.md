@@ -59,7 +59,11 @@ You can use a [CloudWatch Logs filter](https://docs.aws.amazon.com/AmazonCloudWa
 
 You can use [AWS IoT Device Defender](https://aws.amazon.com/iot-device-defender/) to identify overly permissive AWS IoT and IAM policies\. AWS IoT Device Defender also provides an audit check that notifies you if multiple devices in your fleet are connecting to the AWS IoT message broker using the same client ID\.
 
+You can use AWS IoT Device Advisor to validate that your devices can reliably connect to AWS IoT Core and follow security best practices\.
+
 ### See also<a name="mqtt-security-see-also"></a>
+
+
 + [AWS IoT Core](https://aws.amazon.com/iot-core/)
 + [AWS IoT's Security Features](authentication.md)
 + [AWS IoT Core policy variables](iot-policy-variables.md)
@@ -97,3 +101,53 @@ Apply the principle of least privilege and scope down the permissions per device
 ## Use just in time provisioning<a name="use-jitp"></a>
 
 Manually creating and provisioning each device can be time consuming\. AWS IoT provides a way to define a template to provision devices when they first connect to AWS IoT\. For more information, see [Just\-in\-time provisioning](jit-provisioning.md)\.
+
+## Permissions to run AWS IoT Device Advisor tests<a name="device-advisor-perms"></a>
+
+The policy template below shows the minimum permissions and IAM entity required to run AWS IoT Device Advisor test cases\. You will need to replace *your\-device\-role\-arn* with the device role ARN you create under the [prerequisites](https://docs.aws.amazon.com/iot/latest/developerguide/device-advisor-workflow.html#device-advisor-workflow-prereqs)\.
+
+```
+{
+    "Version": "2012-10-17",
+    "Statement": [
+        {
+            "Sid": "VisualEditor0",
+            "Effect": "Allow",
+            "Action": "iam:PassRole",
+            "Resource": "your-device-role-arn",
+            "Condition": {
+                "StringEquals": {
+                    "iam:PassedToService": "iotdeviceadvisor.amazonaws.com"
+                }
+            }
+        },
+        {
+            "Sid": "VisualEditor1",
+            "Effect": "Allow",
+            "Action": [
+                "iot:Connect",
+                "logs:DescribeLogStreams",
+                "iot:DescribeThing",
+                "iot:DescribeCertificate",
+                "logs:CreateLogGroup",
+                "logs:PutLogEvents",
+                "iot:DescribeEndpoint",
+                "execute-api:Invoke*",
+                "logs:CreateLogStream",
+                "iot:ListPrincipalPolicies",
+                "iot:ListThingPrincipals",
+                "iot:ListThings",
+                "iot:Publish",
+                "iot:ListCertificates"
+            ],
+            "Resource": "*"
+        },
+        {
+            "Sid": "VisualEditor2",
+            "Effect": "Allow",
+            "Action": "iotdeviceadvisor:*",
+            "Resource": "*"
+        }
+    ]
+}
+```

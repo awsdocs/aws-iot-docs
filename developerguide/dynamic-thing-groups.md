@@ -10,6 +10,8 @@ For example, suppose that you want to update the firmware on your devices, but, 
 
 For more information about specifying thing groups as job targets, see [CreateJob](jobs-http-api.md#jobs-CreateJob)\.
 
+
+
 Dynamic thing groups differ from static thing groups in the following ways:
 + Thing membership is not explicitly defined\. To create a dynamic thing group, you must define a query string that defines group membership\.
 + Dynamic thing groups cannot be part of a hierarchy\.

@@ -43,7 +43,7 @@ A policy attached to an authenticated Amazon Cognito identity pool role should g
 You can also use mitigation actions to:
 + Apply the `PUBLISH_FINDINGS_TO_SNS` mitigation action to implement a custom response in response to the Amazon SNS message\. 
 
-For more information, see [Mitigation actions](device-defender-mitigation-actions.md)\. 
+For more information, see [Mitigation actions](dd-mitigation-actions.md)\. 
 
 ## Manage or modify things<a name="audit-chk-auth-cognito-role-permissive-manage-things"></a>
 

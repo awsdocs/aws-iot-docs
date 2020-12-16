@@ -21,4 +21,4 @@ Enable AWS IoT logs in CloudWatch\. See [ Monitoring Tools](security-logging.md#
 + Apply the `ENABLE_IOT_LOGGING` mitigation action on your audit findings to make this change\. 
 + Apply the `PUBLISH_FINDINGS_TO_SNS` mitigation action if you want to implement a custom response in response to the Amazon SNS message\. 
 
-For more information, see [Mitigation actions](device-defender-mitigation-actions.md)\. 
+For more information, see [Mitigation actions](dd-mitigation-actions.md)\. 

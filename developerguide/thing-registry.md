@@ -149,6 +149,8 @@ $  aws iot list-things --attribute-name "wattage" --attribute-value "75"
 
 You can use the UpdateThing command to update a thing\. Note that this command updates only the thing's attributes\. You can't change a thing's name\. To change a thing's name, you must create a new thing, give it the new name, and then delete the old thing\.
 
+
+
 ```
 $ aws iot update-thing --thing-name "MyLightBulb" --attribute-payload "{\"attributes\": {\"wattage\":\"150\", \"model\":\"456\"}}"
 ```

@@ -12,7 +12,7 @@ This rule action has the following requirements:
 When you create an AWS IoT rule with this action, you must specify the following information:
 
 `url`  
-The HTTPS endpoint where the message is sent using the HTTP POST method\. If you use an IP address in place of a host name, it must be an IPv4 address\. IPv6 addresses are not supported\.  
+The HTTPS endpoint where the message is sent using the HTTP POST method\. If you use an IP address in place of a hostname, it must be an IPv4 address\. IPv6 addresses are not supported\.  
 Supports substitution templates: Yes
 
 `confirmationUrl`  

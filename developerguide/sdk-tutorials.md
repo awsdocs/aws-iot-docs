@@ -523,7 +523,7 @@ In this exercise, the following message will be sent with the `device/data` topi
    ```
 
 1. In the MQTT test client, check to see that it has interpreted and formatted the JSON document in the message payload, such as this:  
-![\[Image showing how a JSON message payload is displayed in the MQTT client of the AWS IoT Console.\]](http://docs.aws.amazon.com/iot/latest/developerguide/images/mqtt-test-client-output.png)
+![\[Image showing how a JSON message payload is displayed in the MQTT client of the AWS IoT console.\]](http://docs.aws.amazon.com/iot/latest/developerguide/images/mqtt-test-client-output.png)
 
 By default, `pubsub3.py` also subscribes to the messages it sends\. You should see that it received the messages in the app’s output\. The terminal window should look something like this\.
 

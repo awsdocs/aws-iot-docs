@@ -116,7 +116,7 @@ aws iot  associate-targets-with-job \
 |  Name  |  Type  |  Description  | 
 | --- | --- | --- | 
 |  targets  |  list  member: TargetArn  |  A list of thing group ARNs that define the targets of the job\.  | 
-|  TargetArn  |  string  |   | 
+|  TargetArn  |  string  |    | 
 |  jobId  |  string  length max:64 min:1  pattern: \[a\-zA\-Z0\-9\_\-\]\+  |  The unique identifier you assigned to this job when it was created\.  | 
 |  comment  |  string  length max:2028  pattern: \[^\\\\p\{C\}\]\+  |  An optional string that describes why the job was associated with the targets\.  | 
 
@@ -339,8 +339,8 @@ aws iot  cancel-job-execution \
 |  force  |  boolean  |  Optional\. If `true`, the job execution is canceled if it has status of IN\_PROGRESS or QUEUED\. Otherwise, the job execution is canceled only if it has status of QUEUED\. However, if you attempt to cancel a job execution that has a status of IN\_PROGRESS, and you do not set `--force` to `true`, an `InvalidStateTransitionException` is thrown\. The default is `false`\.   Canceling a job that has a status of IN\_PROGRESS, causes a device that is executing the job to be unable to update the job execution status\. Use caution and make sure that each device executing a job that is canceled is able to recover to a valid state\.   | 
 |  expectedVersion  |  long  java class: java\.lang\.Long  |  Optional\. The expected current version of the job execution\. Each time you update the job execution, its version is incremented\. If the version of the job execution stored in the AWS IoT Jobs service does not match, the update is rejected with a `VersionMismatch` error, and an `ErrorResponse` that contains the current job execution status data is returned\. \(This makes it unnecessary to perform a separate `DescribeJobExecution` request to obtain the job execution status data\.\)  | 
 |  statusDetails  |  map  key: DetailsKey  value: DetailsValue  |  A collection of name\-value pairs that describe the status of the job execution\. If not specified, the `statusDetails` are unchanged\.  | 
-|  DetailsKey  |  string  length max:128 min:1  pattern: \[a\-zA\-Z0\-9:\_\-\]\+  |   | 
-|  DetailsValue  |  string  length max:1024 min:1  pattern: \[^\\\\p\{C\}\]\*\+  |   | 
+|  DetailsKey  |  string  length max:128 min:1  pattern: \[a\-zA\-Z0\-9:\_\-\]\+  |    | 
+|  DetailsValue  |  string  length max:1024 min:1  pattern: \[^\\\\p\{C\}\]\*\+  |    | 
 
 Output:
 
@@ -565,7 +565,7 @@ aws iot  create-job \
 | --- | --- | --- | 
 |  jobId  |  string  length max:64 min:1  pattern: \[a\-zA\-Z0\-9\_\-\]\+  |  A job identifier which must be unique for your AWS account\. We recommend using a UUID\. Alphanumeric characters, "\-" and "\_" are valid for use here\.  | 
 |  targets  |  list  member: TargetArn  |  A list of things and thing groups to which the job should be sent\.  | 
-|  TargetArn  |  string  |   | 
+|  TargetArn  |  string  |    | 
 |  documentSource  |  string  length max:1350 min:1  |  An S3 link to the job document\.  | 
 |  document  |  string  length max:32768  |  The job document\.  | 
 |  description  |  string  length max:2028  pattern: \[^\\\\p\{C\}\]\+  |  A short text description of the job\.  | 
@@ -590,8 +590,8 @@ aws iot  create-job \
 |  timeoutConfig  |  TimeoutConfig  |  Specifies the amount of time each device has to finish its execution of the job\. The timer is started when the job execution status is set to `IN_PROGRESS`\. If the job execution status is not set to another terminal state before the time expires, it is set to `TIMED_OUT`\.  | 
 |  inProgressTimeoutInMinutes  |  long  |  Specifies the amount of time, in minutes, this device has to finish execution of this job\. A timer is started, or restarted, whenever this job's execution status is specified as `IN_PROGRESS` with this field populated\. If the job execution status is not set to a terminal state before the timer expires, or before another job execution status update is sent with this field populated, the status is set to `TIMED_OUT`\.  | 
 |  documentParameters  |  map  key: ParameterKey  value: ParameterValue  |  Parameters for the job document\.  | 
-|  ParameterKey  |  string  length max:128 min:1  pattern: \[a\-zA\-Z0\-9:\_\-\]\+  |   | 
-|  ParameterValue  |  string  length max:1024 min:1  pattern: \[^\\\\p\{C\}\]\+  |   | 
+|  ParameterKey  |  string  length max:128 min:1  pattern: \[a\-zA\-Z0\-9:\_\-\]\+  |    | 
+|  ParameterValue  |  string  length max:1024 min:1  pattern: \[^\\\\p\{C\}\]\+  |    | 
 
 Output:
 
@@ -930,7 +930,7 @@ Output:
 |  forceCanceled  |  boolean  java class: java\.lang\.Boolean  |  Is `true` if the job was canceled with the optional `force` parameter set to `true`\.  | 
 |  comment  |  string  length max:2028  pattern: \[^\\\\p\{C\}\]\+  |  If the job was updated, describes the reason for the update\.  | 
 |  targets  |  list  member: TargetArn  |  A list of AWS IoT things and thing groups to which the job should be sent\.  | 
-|  TargetArn  |  string  |   | 
+|  TargetArn  |  string  |    | 
 |  description  |  string  length max:2028  pattern: \[^\\\\p\{C\}\]\+  |  A short text description of the job\.  | 
 |  presignedUrlConfig  |  PresignedUrlConfig  |  Configuration for presigned Amazon S3 URLs\.  | 
 |  roleArn  |  string  length max:2048 min:20  |  The ARN of an IAM role that grants permission to download files from the Amazon S3 bucket where the job data or updates are stored\. The role must also grant permission for tAWS IoT Jobs service to download the files\.  | 
@@ -954,7 +954,7 @@ Output:
 |  completedAt  |  timestamp  |  The time, in seconds since the epoch, when the job was completed\.  | 
 |  jobProcessDetails  |  JobProcessDetails  |  Details about the job process\.  | 
 |  processingTargets  |  list  member: ProcessingTargetName  java class: java\.util\.List  |  The devices on which the job is executing\.  | 
-|  ProcessingTargetName  |  string  |   | 
+|  ProcessingTargetName  |  string  |    | 
 |  numberOfCanceledThings  |  integer  java class: java\.lang\.Integer  |  The number of things that canceled the job\.  | 
 |  numberOfSucceededThings  |  integer  java class: java\.lang\.Integer  |  The number of things that successfully completed the job\.  | 
 |  numberOfFailedThings  |  integer  java class: java\.lang\.Integer  |  The number of things that failed executing the job\.  | 
@@ -964,8 +964,8 @@ Output:
 |  numberOfRemovedThings  |  integer  java class: java\.lang\.Integer  |  The number of things that are no longer scheduled to execute the job because they have been deleted or have been removed from the group that was a target of the job\.  | 
 |  numberOfTimedOutThings  |  integer  java class: java\.lang\.Integer  |  The number of things whose job execution status is `TIMED_OUT`\.  | 
 |  documentParameters  |  map  key: ParameterKey  value: ParameterValue  |  The parameters specified for the job document\.  | 
-|  ParameterKey  |  string  length max:128 min:1  pattern: \[a\-zA\-Z0\-9:\_\-\]\+  |   | 
-|  ParameterValue  |  string  length max:1024 min:1  pattern: \[^\\\\p\{C\}\]\+  |   | 
+|  ParameterKey  |  string  length max:128 min:1  pattern: \[a\-zA\-Z0\-9:\_\-\]\+  |    | 
+|  ParameterValue  |  string  length max:1024 min:1  pattern: \[^\\\\p\{C\}\]\+  |    | 
 |  timeoutConfig  |  TimeoutConfig  |  Specifies the amount of time each device has to finish its execution of the job\. A timer is started when the job execution status is set to `IN_PROGRESS`\. If the job execution status is not set to another terminal state before the timer expires, it is set to `TIMED_OUT`\.   | 
 |  inProgressTimeoutInMinutes  |  long  |  Specifies the amount of time, in minutes, this device has to finish execution of this job\. The timeout interval can be anywhere between 1 minute and 7 days \(1 to 10080 minutes\)\. The in\-progress timer can't be updated and applies to all job executions for the job\. Whenever a job execution remains in the `IN_PROGRESS` status for longer than this interval, the job execution fails and switches to the terminal `TIMED_OUT` status\.   | 
 
@@ -1076,8 +1076,8 @@ Output:
 |  forceCanceled  |  boolean  java class: java\.lang\.Boolean  |  Is `true` if the job execution was canceled with the optional `force` parameter set to `true`\.  | 
 |  statusDetails  |  JobExecutionStatusDetails  |  A collection of name\-value pairs that describe the status of the job execution\.  | 
 |  detailsMap  |  map  key: DetailsKey  value: DetailsValue  |  The job execution status\.  | 
-|  DetailsKey  |  string  length max:128 min:1  pattern: \[a\-zA\-Z0\-9:\_\-\]\+  |   | 
-|  DetailsValue  |  string  length max:1024 min:1  pattern: \[^\\\\p\{C\}\]\*\+  |   | 
+|  DetailsKey  |  string  length max:128 min:1  pattern: \[a\-zA\-Z0\-9:\_\-\]\+  |    | 
+|  DetailsValue  |  string  length max:1024 min:1  pattern: \[^\\\\p\{C\}\]\*\+  |    | 
 |  thingArn  |  string  |  The ARN of the thing on which the job execution is running\.  | 
 |  queuedAt  |  timestamp  |  The time, in seconds since the epoch, when the job execution was queued\.  | 
 |  startedAt  |  timestamp  |  The time, in seconds since the epoch, when the job execution started\.  | 
@@ -1265,7 +1265,7 @@ Output:
 |  Name  |  Type  |  Description  | 
 | --- | --- | --- | 
 |  executionSummaries  |  list  member: JobExecutionSummaryForJob  java class: java\.util\.List  |  A list of job execution summaries\.  | 
-|  JobExecutionSummaryForJob  |  JobExecutionSummaryForJob  |   | 
+|  JobExecutionSummaryForJob  |  JobExecutionSummaryForJob  |    | 
 |  thingArn  |  string  |  The ARN of the thing on which the job execution is running\.  | 
 |  jobExecutionSummary  |  JobExecutionSummary  |  Contains a subset of information about a job execution\.  | 
 |  status  |  string  enum: QUEUED \| IN\_PROGRESS \| SUCCEEDED \| FAILED \| TIMED\_OUT \| REJECTED \| REMOVED \| CANCELED  |  The status of the job execution\.  | 
@@ -1378,7 +1378,7 @@ Output:
 |  Name  |  Type  |  Description  | 
 | --- | --- | --- | 
 |  executionSummaries  |  list  member: JobExecutionSummaryForThing  java class: java\.util\.List  |  A list of job execution summaries\.  | 
-|  JobExecutionSummaryForThing  |  JobExecutionSummaryForThing  |   | 
+|  JobExecutionSummaryForThing  |  JobExecutionSummaryForThing  |    | 
 |  jobId  |  string  length max:64 min:1  pattern: \[a\-zA\-Z0\-9\_\-\]\+  |  The unique identifier you assigned to this job when it was created\.  | 
 |  jobExecutionSummary  |  JobExecutionSummary  |  Contains a subset of information about a job execution\.  | 
 |  status  |  string  enum: QUEUED \| IN\_PROGRESS \| SUCCEEDED \| FAILED \| TIMED\_OUT\| REJECTED \| REMOVED \| CANCELED  |  The status of the job execution\.  | 
@@ -1503,7 +1503,7 @@ Output:
 |  Name  |  Type  |  Description  | 
 | --- | --- | --- | 
 |  jobs  |  list  member: JobSummary  java class: java\.util\.List  |  A list of jobs\.  | 
-|  JobSummary  |  JobSummary  |   | 
+|  JobSummary  |  JobSummary  |    | 
 |  jobArn  |  string  |  The job ARN\.  | 
 |  jobId  |  string  length max:64 min:1  pattern: \[a\-zA\-Z0\-9\_\-\]\+  |  The unique identifier you assigned to this job when it was created\.  | 
 |  thingGroupId  |  string  length max:128 min:1  pattern: \[a\-zA\-Z0\-9\-\]\+  |  The ID of the thing group\.  | 
@@ -1698,8 +1698,8 @@ aws iot  update-job \
 |  timeoutConfig  |  TimeoutConfig  |  Specifies the amount of time each device has to finish its execution of the job\. The timer is started when the job execution status is set to `IN_PROGRESS`\. If the job execution status is not set to another terminal state before the time expires, it is set to `TIMED_OUT`\.  | 
 |  inProgressTimeoutInMinutes  |  long  |  Specifies the amount of time, in minutes, this device has to finish execution of this job\. A timer is started, or restarted, whenever this job's execution status is specified as `IN_PROGRESS` with this field populated\. If the job execution status is not set to a terminal state before the timer expires, or before another job execution status update is sent with this field populated, the status is set to `TIMED_OUT`\.  | 
 |  documentParameters  |  map  key: ParameterKey  value: ParameterValue  |  Parameters for the job document\.  | 
-|  ParameterKey  |  string  length max:128 min:1  pattern: \[a\-zA\-Z0\-9:\_\-\]\+  |   | 
-|  ParameterValue  |  string  length max:1024 min:1  pattern: \[^\\\\p\{C\}\]\+  |   | 
+|  ParameterKey  |  string  length max:128 min:1  pattern: \[a\-zA\-Z0\-9:\_\-\]\+  |    | 
+|  ParameterValue  |  string  length max:1024 min:1  pattern: \[^\\\\p\{C\}\]\+  |    | 
 
 Output:
 

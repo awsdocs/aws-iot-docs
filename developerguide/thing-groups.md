@@ -21,7 +21,9 @@ Here are some limitations of static thing groups:
 + A group can have at most one direct parent\.
 + If a group is a child of another group, you must specify this at the time it is created\.
 + You can't change a group's parent later, so be sure to plan your group hierarchy and create a parent group before you create any child groups it contains\.
-+ The number of groups to which a thing can belong is [limited](https://docs.aws.amazon.com/general/latest/gr/iot-core.html#thing-limits)\.
++ 
+
+  The number of groups to which a thing can belong is [limited](https://docs.aws.amazon.com/general/latest/gr/iot-core.html#thing-limits)\.
 + You cannot add a thing to more than one group in the same hierarchy\. \(In other words, you cannot add a thing to two groups that share a common parent\.\)
 + You cannot rename a group\.
 + Thing group names can't contain international characters, such as û, é and ñ\.
@@ -307,7 +309,8 @@ The UpdateThingGroup command returns a response that contains the group's versio
 ```
 
 **Note**  
-The number of attributes that a thing can have is [limited](https://docs.aws.amazon.com/general/latest/gr/iot-core.html#thing-limits)\.
+The number of attributes that a thing can have is [limited](https://docs.aws.amazon.com/general/latest/gr/iot-core.html#thing-limits)\.  
+
 
 ## Delete a thing group<a name="delete-thing-group"></a>
 

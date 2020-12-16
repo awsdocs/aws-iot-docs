@@ -14,15 +14,19 @@ For ease of use, the Tag Editor in the AWS Management Console provides a central
 
 You can also work with tags using the AWS CLI and the AWS IoT API\. You can associate tags with thing groups, thing types, topic rules, jobs, security profiles, and billing groups when you create them by using the `Tags` field in the following commands: 
 + [CreateBillingGroup](https://docs.aws.amazon.com/iot/latest/apireference/API_CreateBillingGroup)
++ [CreateDestination](https://docs.aws.amazon.com/iot-wireless/2020-11-22/apireference/API_CreateDestination.html)
++ [CreateDeviceProfile](https://docs.aws.amazon.com/iot-wireless/2020-11-22/apireference/API_CreateDeviceProfile.html)
 + [CreateDynamicThingGroup](https://docs.aws.amazon.com/iot/latest/apireference/API_CreateDynamicThingGroup)
 + [CreateJob](https://docs.aws.amazon.com/iot/latest/apireference/API_CreateJob)
 + [CreateOTAUpdate](https://docs.aws.amazon.com/iot/latest/apireference/API_CreateOTAUpdate)
 + [CreateScheduledAudit](https://docs.aws.amazon.com/iot/latest/apireference/API_CreateScheduledAudit)
 + [CreateSecurityProfile](https://docs.aws.amazon.com/iot/latest/apireference/API_CreateSecurityProfile)
++ [CreateServiceProfile](https://docs.aws.amazon.com/iot-wireless/2020-11-22/apireference/API_CreateServiceProfile.html)
 + [CreateStream](https://docs.aws.amazon.com/iot/latest/apireference/API_CreateStream)
 + [CreateThingGroup](https://docs.aws.amazon.com/iot/latest/apireference/API_CreateThingGroup)
 + [CreateThingType](https://docs.aws.amazon.com/iot/latest/apireference/API_CreateThingType)
 + [CreateTopicRule](https://docs.aws.amazon.com/iot/latest/apireference/API_CreateTopicRule)
++ [CreateWirelessGateway](https://docs.aws.amazon.com/iot-wireless/2020-11-22/apireference/API_CreateWirelessGateway.html)
 
 You can add, modify, or delete tags for existing resources that support tagging by using the following commands:
 + [TagResource](https://docs.aws.amazon.com/iot/latest/apireference/API_TagResource)

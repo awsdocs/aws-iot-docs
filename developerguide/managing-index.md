@@ -195,9 +195,13 @@ Short syntax:
 
 aws iot update\-indexing\-configuration \-\-thing\-indexing\-configuration "thingIndexingMode=REGISTRY\_AND\_SHADOW,thingConnectivityIndexingMode=STATUS,customFields=\[\{name=attributes\.version,type=Number\},\{name=attributes\.color,type=String\},\{name=shadow\.desired\.power,type=Boolean\}\]"
 
+
+
 JSON syntax:
 
 aws iot update\-indexing\-configuration \-\-cli\-input\-json \\ '\{ "thingIndexingConfiguration": \{ "thingIndexingMode": "REGISTRY\_AND\_SHADOW", "thingConnectivityIndexingMode": "STATUS", "customFields": \[ \{ "name": "shadow\.desired\.power", "type": "Boolean" \}, \{ "name": "attributes\.color", "type": "String" \}, \{ "name": "attributes\.version", "type": "Number" \} \] \} \}'
+
+
 
 The output of these commands is:
 

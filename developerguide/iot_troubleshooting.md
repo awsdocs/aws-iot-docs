@@ -9,4 +9,5 @@ The following information might help you troubleshoot common issues in AWS IoT\.
 + [Diagnosing Salesforce IoT input stream action issues](diagnosing-salesforce.md)
 + [Troubleshooting aggregation queries for the fleet indexing service](aggregation-troubleshooting.md)
 + [AWS IoT Device Defender troubleshooting guide](device-defender-troubleshoot.md)
++ [Device Advisor troubleshooting guide](device-advisor-troubleshooting.md)
 + [AWS IoT errors](iot-errors.md)

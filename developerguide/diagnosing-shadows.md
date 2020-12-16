@@ -1,6 +1,8 @@
 # Diagnosing problems with shadows<a name="diagnosing-shadows"></a>
 
 
+
+
 **Diagnosing shadows**  
 
 | Issue | Troubleshooting guidelines | 

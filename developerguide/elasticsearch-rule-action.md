@@ -8,7 +8,7 @@ This rule action has the following requirements:
 + An IAM role that AWS IoT can assume to perform the `es:ESHttpPut` operation\. For more information, see [Granting AWS IoT the required access](iot-create-role.md)\.
 
   In the AWS IoT console, you can choose or create a role to allow AWS IoT to perform this rule action\.
-+ If you use a customer managed AWS Key Management Service \(AWS KMS\) customer master key \(CMK\) to encrypt data at rest in Elasticsearch, the service must have permission to use the CMK on the caller's behalf\. For more information, see [Encryption of data at rest for Amazon Elasticsearch Service](https://docs.aws.amazon.com/elasticsearch-service/latest/developerguide/encryption-at-rest.html) in the *Amazon Elasticsearch Service Developer Guide*\.
++ If you use a customer\-managed AWS Key Management Service \(AWS KMS\) customer master key \(CMK\) to encrypt data at rest in Elasticsearch, the service must have permission to use the CMK on the caller's behalf\. For more information, see [Encryption of data at rest for Amazon Elasticsearch Service](https://docs.aws.amazon.com/elasticsearch-service/latest/developerguide/encryption-at-rest.html) in the *Amazon Elasticsearch Service Developer Guide*\.
 
 ## Parameters<a name="elasticsearch-rule-action-parameters"></a>
 

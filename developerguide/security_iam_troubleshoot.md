@@ -22,6 +22,15 @@ User: arn:aws:iam::123456789012:user/mateojackson is not authorized to perform: 
 
 In this case, Mateo asks his administrator to update his policies to allow him to access the `MyIoTThing` resource using the `iot:DescribeThing` action\.
 
+Using AWS IoT Device Advisor  
+If you're using AWS IoT Device Advisor, the following example error occurs when the `mateojackson` IAM user tries to use the console to view details about a suite definition but does not have `iotdeviceadvisor:DescribeSuiteDefinition` permissions\.  
+
+```
+User: arn:aws:iam::123456789012:user/mateojackson is not authorized to perform: iotdeviceadvisor:DescribeSuiteDefinition
+            on resource: MySuiteDefinition
+```
+In this case, Mateo asks his administrator to update his policies to allow him to access the *`MySuiteDefinition`* resource using the `iotdeviceadvisor`:*DescribeSuiteDefinition* action\.
+
 ## I am not authorized to perform iam:PassRole<a name="security_iam_troubleshoot-passrole"></a>
 
 If you receive an error that you're not authorized to perform the `iam:PassRole` action, then you must contact your administrator for assistance\. Your administrator is the person that provided you with your user name and password\. Ask that person to update your policies to allow you to pass a role to AWS IoT\.

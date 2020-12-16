@@ -13,7 +13,7 @@ This rule action has the following requirements:
 + An IAM role that AWS IoT can assume to perform the `dynamodb:PutItem` operation\. For more information, see [Granting AWS IoT the required access](iot-create-role.md)\.
 
   In the AWS IoT console, you can choose or create a role to allow AWS IoT to perform this rule action\.
-+  If you use a customer managed AWS Key Management Service \(AWS KMS\) customer master key \(CMK\) to encrypt data at rest in DynamoDB, the service must have permission to use the CMK on the caller's behalf\. For more information, see [Customer Managed CMK](https://docs.aws.amazon.com/amazondynamodb/latest/developerguide/encryption.howitworks.html#managed-cmk-customer-managed) in the *Amazon DynamoDB Getting Started Guide*\.
++  If you use a customer\-managed AWS Key Management Service \(AWS KMS\) customer master key \(CMK\) to encrypt data at rest in DynamoDB, the service must have permission to use the CMK on the caller's behalf\. For more information, see [Customer Managed CMK](https://docs.aws.amazon.com/amazondynamodb/latest/developerguide/encryption.howitworks.html#managed-cmk-customer-managed) in the *Amazon DynamoDB Getting Started Guide*\.
 
 ## Parameters<a name="dynamodb-rule-action-parameters"></a>
 

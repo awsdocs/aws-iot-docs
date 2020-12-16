@@ -9,6 +9,7 @@ To learn how to create an IAM identity\-based policy using these example JSON po
 + [Using the AWS IoT console](#security_iam_id-based-policy-examples-console)
 + [Allow users to view their own permissions](#security_iam_id-based-policy-examples-view-own-permissions)
 + [Viewing AWS IoT resources based on tags](#security_iam_id-based-policy-examples-view-thing-tags)
++ [Viewing AWS IoT Device Advisor resources based on tags](#security_iam-device-advisor-tags)
 
 ## Policy best practices<a name="security_iam_service-with-iam-policy-best-practices"></a>
 
@@ -93,3 +94,24 @@ You can use conditions in your identity\-based policy to control access to AWS I
 ```
 
 You can attach this policy to the IAM users in your account\. If a user named `richard-roe` attempts to view an AWS IoT billing group, the billing group must be tagged `Owner=richard-roe` or `owner=richard-roe`\. Otherwise, he is denied access\. The condition tag key `Owner` matches both `Owner` and `owner` because condition key names are not case\-sensitive\. For more information, see [IAM JSON Policy Elements: Condition](https://docs.aws.amazon.com/service-authorization/latest/reference/reference_policies_elements_condition.html) in the *IAM User Guide*\.
+
+## Viewing AWS IoT Device Advisor resources based on tags<a name="security_iam-device-advisor-tags"></a>
+
+You can use conditions in your identity\-based policy to control access to AWS IoT Device Advisor resources based on tags\. The following example shows how you can create a policy that allows viewing a particular suite definition\. However, permission is granted only if the suite definition tag has `SuiteType` set to the value of `MQTT`\. This policy also grants the permissions necessary to complete this action on the console\.
+
+```
+{
+    "Version": "2012-10-17",
+    "Statement": [
+        {
+            "Sid": "ViewSuiteDefinition",
+            "Effect": "Allow",
+            "Action": "iotdeviceadvisor:GetSuiteDefinition",
+            "Resource": "arn:aws:iotdeviceadvisor:*:*:suitedefinition/*",
+            "Condition": {
+                "StringEquals": {"aws:ResourceTag/SuiteType": "MQTT"}
+            }
+        }
+    ]
+}
+```

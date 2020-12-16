@@ -146,7 +146,7 @@ Output:
 |  Name  |  Type  |  Description  | 
 | --- | --- | --- | 
 |  inProgressJobs  |  list  member: JobExecutionSummary  java class: java\.util\.List  |  A list of JobExecutionSummary objects with status IN\_PROGRESS\.  | 
-|  JobExecutionSummary  |  JobExecutionSummary  |   | 
+|  JobExecutionSummary  |  JobExecutionSummary  |    | 
 |  jobId  |  string  length max:64 min:1  pattern: \[a\-zA\-Z0\-9\_\-\]\+  |  The unique identifier you assigned to this job when it was created\.  | 
 |  queuedAt  |  long  |  The time, in seconds since the epoch, when the job execution was enqueued\.  | 
 |  startedAt  |  long  java class: java\.lang\.Long  |  The time, in seconds since the epoch, when the job execution started\.  | 
@@ -154,7 +154,7 @@ Output:
 |  versionNumber  |  long  |  The version of the job execution\. Job execution versions are incremented each time the AWS IoT Jobs service receives an update from a device\.  | 
 |  executionNumber  |  long  java class: java\.lang\.Long  |  A number that identifies a job execution on a device\.  | 
 |  queuedJobs  |  list  member: JobExecutionSummary  java class: java\.util\.List  |  A list of JobExecutionSummary objects with status QUEUED\.  | 
-|  JobExecutionSummary  |  JobExecutionSummary  |   | 
+|  JobExecutionSummary  |  JobExecutionSummary  |    | 
 |  jobId  |  string  length max:64 min:1  pattern: \[a\-zA\-Z0\-9\_\-\]\+  |  The unique identifier you assigned to this job when it was created\.  | 
 |  queuedAt  |  long  |  The time, in seconds since the epoch, when the job execution was enqueued\.  | 
 |  startedAt  |  long  java class: java\.lang\.Long  |  The time, in seconds since the epoch, when the job execution started\.  | 
@@ -329,8 +329,8 @@ aws iot-jobs-data  start-next-pending-job-execution \
 |  thingName  |  string  length max:128 min:1  pattern: \[a\-zA\-Z0\-9:\_\-\]\+  |  The name of the thing associated with the device\.  | 
 |  statusDetails  |  map  key: DetailsKey  value: DetailsValue  |  A collection of name\-value pairs that describe the status of the job execution\. If not specified, the statusDetails are unchanged\.  | 
 |  stepTimeOutInMinutes  |  long  |   Specifies the amount of time this device has to finish execution of this job\. If the job execution status is not set to a terminal state before this timer expires, or before the timer is reset \(by calling `UpdateJobExecution`, setting the status to `IN_PROGRESS` and specifying a new timeout value in field `stepTimeoutInMinutes`\) the job execution status is set to `TIMED_OUT`\. Setting this timeout has no effect on that job execution timeout that might have been specified when the job was created \(`CreateJob` using the `timeoutConfig` field\)\.   | 
-|  DetailsKey  |  string  length max:128 min:1  pattern: \[a\-zA\-Z0\-9:\_\-\]\+  |   | 
-|  DetailsValue  |  string  length max:1024 min:1  pattern: \[^\\\\p\{C\}\]\*\+  |   | 
+|  DetailsKey  |  string  length max:128 min:1  pattern: \[a\-zA\-Z0\-9:\_\-\]\+  |    | 
+|  DetailsValue  |  string  length max:1024 min:1  pattern: \[^\\\\p\{C\}\]\*\+  |    | 
 
 Output:
 
@@ -363,8 +363,8 @@ Output:
 |  thingName  |  string  length max:128 min:1  pattern: \[a\-zA\-Z0\-9:\_\-\]\+  |  The name of the thing that is executing the job\.  | 
 |  status  |  string  enum: QUEUED \| IN\_PROGRESS \| SUCCEEDED \| FAILED \| TIMED\_OUT \| REJECTED \| REMOVED \| CANCELED  |  The status of the job execution\. Can be one of: QUEUED, IN\_PROGRESS, FAILED, SUCCEEDED, CANCELED, TIMED\_OUT, REJECTED, or REMOVED\.  | 
 |  statusDetails  |  map  key: DetailsKey  value: DetailsValue  |  A collection of name\-value pairs that describe the status of the job execution\.  | 
-|  DetailsKey  |  string  length max:128 min:1  pattern: \[a\-zA\-Z0\-9:\_\-\]\+  |   | 
-|  DetailsValue  |  string  length max:1024 min:1  pattern: \[^\\\\p\{C\}\]\*\+  |   | 
+|  DetailsKey  |  string  length max:128 min:1  pattern: \[a\-zA\-Z0\-9:\_\-\]\+  |    | 
+|  DetailsValue  |  string  length max:1024 min:1  pattern: \[^\\\\p\{C\}\]\*\+  |    | 
 |  queuedAt  |  long  |  The time, in seconds since the epoch, when the job execution was enqueued\.  | 
 |  startedAt  |  long  java class: java\.lang\.Long  |  The time, in seconds since the epoch, when the job execution was started\.  | 
 |  lastUpdatedAt  |  long  |  The time, in seconds since the epoch, when the job execution was last updated\.   | 
@@ -539,8 +539,8 @@ Output:
 |  thingName  |  string  length max:128 min:1  pattern: \[a\-zA\-Z0\-9:\_\-\]\+  |  The name of the thing that is executing the job\.  | 
 |  status  |  string  enum: QUEUED \| IN\_PROGRESS \| SUCCEEDED \| FAILED \| TIMED\_OUT \| REJECTED \| REMOVED \| CANCELED  |  The status of the job execution\. Can be one of: QUEUED, IN\_PROGRESS, FAILED, SUCCEEDED, CANCELED, TIMED\_OUT, REJECTED, or REMOVED\.  | 
 |  statusDetails  |  map  key: DetailsKey  value: DetailsValue  |  A collection of name\-value pairs that describe the status of the job execution\.  | 
-|  DetailsKey  |  string  length max:128 min:1  pattern: \[a\-zA\-Z0\-9:\_\-\]\+  |   | 
-|  DetailsValue  |  string  length max:1024 min:1  pattern: \[^\\\\p\{C\}\]\*\+  |   | 
+|  DetailsKey  |  string  length max:128 min:1  pattern: \[a\-zA\-Z0\-9:\_\-\]\+  |    | 
+|  DetailsValue  |  string  length max:1024 min:1  pattern: \[^\\\\p\{C\}\]\*\+  |    | 
 |  queuedAt  |  long  |  The time, in seconds since the epoch, when the job execution was enqueued\.  | 
 |  startedAt  |  long  java class: java\.lang\.Long  |  The time, in seconds since the epoch, when the job execution was started\.  | 
 |  lastUpdatedAt  |  long  |  The time, in seconds since the epoch, when the job execution was last updated\.   | 
@@ -739,8 +739,8 @@ aws iot-jobs-data  update-job-execution \
 |  thingName  |  string  length max:128 min:1  pattern: \[a\-zA\-Z0\-9:\_\-\]\+  |  The name of the thing associated with the device\.  | 
 |  status  |  string  enum: QUEUED \| IN\_PROGRESS \| SUCCEEDED \| FAILED \| TIMED\_OUT \| REJECTED \| REMOVED \| CANCELED  |  The new status for the job execution \(IN\_PROGRESS, FAILED, SUCCEEDED, or REJECTED\)\. This must be specified on every update\.  | 
 |  statusDetails  |  map  key: DetailsKey  value: DetailsValue  |   Optional\. A collection of name\-value pairs that describe the status of the job execution\. If not specified, the statusDetails are unchanged\.  | 
-|  DetailsKey  |  string  length max:128 min:1  pattern: \[a\-zA\-Z0\-9:\_\-\]\+  |   | 
-|  DetailsValue  |  string  length max:1024 min:1  pattern: \[^\\\\p\{C\}\]\*\+  |   | 
+|  DetailsKey  |  string  length max:128 min:1  pattern: \[a\-zA\-Z0\-9:\_\-\]\+  |    | 
+|  DetailsValue  |  string  length max:1024 min:1  pattern: \[^\\\\p\{C\}\]\*\+  |    | 
 |  stepTimeoutInMinutes long Specifies the amount of time this device has to finish execution of this job\. If the job execution status is not set to a terminal state before this timer expires, or before the timer is reset \(by again calling `UpdateJobExecution`, setting the status to `IN_PROGRESS` and specifying a new timeout value in this field\) the job execution status is set to `TIMED_OUT`\. Setting or resetting this timeout has no effect on the job execution timeout that might have been specified when the job was created \(by using `CreateJob` with the `timeoutConfig`\)\.   | 
 |  expectedVersion  |  long  java class: java\.lang\.Long  |  Optional\. The expected current version of the job execution\. Each time you update the job execution, its version is incremented\. If the version of the job execution stored in the AWS IoT Jobs service does not match, the update is rejected with a VersionMismatch error, and an ErrorResponse that contains the current job execution status data is returned\. \(This makes it unnecessary to perform a separate DescribeJobExecution request to obtain the job execution status data\.\)  | 
 |  includeJobExecutionState  |  boolean  java class: java\.lang\.Boolean  |  Optional\. When included and set to true, the response contains the JobExecutionState data\. The default is false\.  | 
@@ -770,8 +770,8 @@ Output:
 |  executionState  |  JobExecutionState  |  A JobExecutionState object\.  | 
 |  status  |  string  enum: QUEUED \| IN\_PROGRESS \| SUCCEEDED \| FAILED \| TIMED\_OUT \| REJECTED \| REMOVED \| CANCELED  |  The status of the job execution\. Can be one of: QUEUED, IN\_PROGRESS, FAILED, SUCCEEDED, CANCELED, TIMED\_OUT, REJECTED, or REMOVED\.  | 
 |  statusDetails  |  map  key: DetailsKey  value: DetailsValue  |  A collection of name\-value pairs that describe the status of the job execution\.  | 
-|  DetailsKey  |  string  length max:128 min:1  pattern: \[a\-zA\-Z0\-9:\_\-\]\+  |   | 
-|  DetailsValue  |  string  length max:1024 min:1  pattern: \[^\\\\p\{C\}\]\*\+  |   | 
+|  DetailsKey  |  string  length max:128 min:1  pattern: \[a\-zA\-Z0\-9:\_\-\]\+  |    | 
+|  DetailsValue  |  string  length max:1024 min:1  pattern: \[^\\\\p\{C\}\]\*\+  |    | 
 |  versionNumber  |  long  |  The version of the job execution\. Job execution versions are incremented each time they are updated by a device\.  | 
 |  jobDocument  |  string  length max:32768  |  The contents of the job documents\.  | 
 

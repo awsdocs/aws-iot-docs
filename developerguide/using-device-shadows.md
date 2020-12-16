@@ -544,4 +544,4 @@ The app can now query the shadow for the current state as reported by the device
 
 ## Going beyond the simulation<a name="using-device-shadows-next-steps"></a>
 
-Experiment with the interaction between the AWS CLI \(representing the app\) and the Console \(representing the device\) to model your IoT solution\.
+Experiment with the interaction between the AWS CLI \(representing the app\) and the console \(representing the device\) to model your IoT solution\.

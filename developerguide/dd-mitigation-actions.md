@@ -1,9 +1,13 @@
-# Mitigation actions<a name="device-defender-mitigation-actions"></a>
+# Mitigation actions<a name="dd-mitigation-actions"></a>
 
-You can use AWS IoT Device Defender to take actions to mitigate issues that were found during an audit\. AWS IoT Device Defender provides predefined actions for the different audit checks\. You configure those actions for your AWS account and then apply them to a set of findings\. Those findings can be:
+You can use AWS IoT Device Defender to take actions to mitigate issues that were found in an Audit finding or Detect alarm\. 
 
 **Note**  
 Mitigation actions won't be performed on suppressed audit findings\. For more information about audit finding suppressions, see [Audit finding suppressions](audit-finding-suppressions.md)\.
+
+## Audit mitigation actions<a name="dd-audit-mitigation-actions"></a>
+
+AWS IoT Device Defender provides predefined actions for the different audit checks\. You configure those actions for your AWS account and then apply them to a set of findings\. Those findings can be:
 + All findings from an audit\. This option is available in both the AWS IoT console and by using the AWS CLI\.
 + A list of individual findings\. This option is only available by using the AWS CLI\.
 + A filtered set of findings from an audit\.
@@ -72,7 +76,7 @@ All audit checks support publishing the audit findings to Amazon SNS so you can 
 **LOGGING\_DISABLED\_CHECK**  
 + Enable logging\.
 
-AWS IoT Device Defender supports the following types of mitigation actions:
+AWS IoT Device Defender supports the following types of mitigation actions on Audit findings:
 
 
 ****  
@@ -93,15 +97,26 @@ Applying mitigation actions that change certificates, add things to a new thing 
 
 Some actions, such as reactivating a device certificate, can only be performed manually\. AWS IoT Device Defender does not provide a mechanism to automatically roll back mitigation actions that have been applied\. 
 
-## How to define and manage mitigation actions<a name="defender-manage-mitigation-actions"></a>
+## Detect mitigation actions<a name="dd-detect-mitigation-actions"></a>
+
+AWS IoT Device Defender supports the following types of mitigation actions on Detect alarms:
+
+
+|  Action type  | Notes | 
+| --- | --- | 
+| ADD\_THINGS\_TO\_THING\_GROUP | You specify the group to which you want to add the devices\. You also specify whether membership in one or more dynamic groups should be overridden if that would exceed the maximum number of groups to which the thing can belong\. | 
+
+## How to define and manage mitigation actions<a name="dd-manage-mitigation-actions"></a>
 
 You can use the AWS IoT console or the AWS CLI to define and manage mitigation actions for your AWS account\.
 
-### Create mitigation actions<a name="defender-create-mitigation-action"></a>
+### Create mitigation actions<a name="dd-create-mitigation-action"></a>
 
 Each mitigation action that you define is a combination of a predefined action type and parameters specific to your account\.
 
 **To use the AWS IoT console to create mitigation actions**
+
+ 
 
 1. Open the [AWS IoT console](https://console.aws.amazon.com/iot/home)\.
 
@@ -121,7 +136,7 @@ Each mitigation action that you define is a combination of a predefined action t
 1. Choose **Save** to save your mitigation action to your AWS account\.
 
 **To use the AWS CLI to create mitigation actions**
-+ Use the [CreateMitigationAction](mitigation-action-commands.md#dd-api-iot-CreateMitigationAction) command to create your mitigation action\. The unique name that you give the action is used when you apply that action to audit findings\. Choose a meaningful name\.
++ Use the [CreateMitigationAction](https://docs.aws.amazon.com/iot/latest/apireference/API_CreateMitigationAction.html) command to create your mitigation action\. The unique name that you give the action is used when you apply that action to audit findings\. Choose a meaningful name\.
 
 **To use the AWS IoT console to view and modify mitigation actions**
 
@@ -140,10 +155,10 @@ Each mitigation action that you define is a combination of a predefined action t
 1. Choose **Save** to save the changes to the mitigation action to your AWS account\.
 
 **To use the AWS CLI to list a mitigation action**
-+ Use the [ListMitigationActions](mitigation-action-commands.md#dd-api-iot-ListMitigationActions) command to list your mitigation actions\. If you want to change or delete a mitigation action, make a note of the name\.
++ Use the [ListMitigationAction](https://docs.aws.amazon.com/iot/latest/apireference/API_ListMitigationAction.html) command to list your mitigation actions\. If you want to change or delete a mitigation action, make a note of the name\.
 
 **To use the AWS CLI to update a mitigation action**
-+ Use the [UpdateMitigationAction](mitigation-action-commands.md#dd-api-iot-UpdateMitigationAction) command to change your mitigation action\.
++ Use the [UpdateMitigationAction](https://docs.aws.amazon.com/iot/latest/apireference/API_UpdateMitigationAction.html) command to change your mitigation action\.
 
 **To use the AWS IoT console to delete a mitigation action**
 
@@ -156,7 +171,7 @@ Each mitigation action that you define is a combination of a predefined action t
 1. Choose the ellipsis \(**\.\.\.**\) for the mitigation action that you want to delete, and then choose **Delete**\.
 
 **To use the AWS CLI to delete mitigation actions**
-+ Use the [UpdateMitigationAction](mitigation-action-commands.md#dd-api-iot-UpdateMitigationAction) command to change your mitigation action\.
++ Use the [UpdateMitigationAction](https://docs.aws.amazon.com/iot/latest/apireference/API_UpdateMitigationAction.html) command to change your mitigation action\.
 
 **To use the AWS IoT console to view mitigation action details**
 
@@ -173,9 +188,9 @@ Each mitigation action that you define is a combination of a predefined action t
 ![\[Are you sure you want to delete the mitigation action confirmation window.\]](http://docs.aws.amazon.com/iot/latest/developerguide/images/delete-mitigation-action-confirmation.png)
 
 **To use the AWS CLI to view mitigation action details**
-+ Use the [DescribeMitigationAction](mitigation-action-commands.md#dd-api-iot-DescribeMitigationAction) command to view details for your mitigation action\.
++ Use the [DescribeMitigationAction](https://docs.aws.amazon.com/iot/latest/apireference/API_DescribeMitigationAction.html) command to view details for your mitigation action\.
 
-## Apply mitigation actions<a name="defender-audit-apply-mitigation-actions"></a>
+## Apply mitigation actions<a name="dd-audit-apply-mitigation-actions"></a>
 
 After you have defined a set of mitigation actions, you can apply those actions to the findings from an audit\. When you apply actions, you start an audit mitigation actions task\. This task might take some time to complete, depending on the set of findings and the actions that you apply to them\. For example, if you have a large pool of devices whose certificates have expired, it might take some time to deactivate all of those certificates or to move those devices to a quarantine group\. Other actions, such as enabling logging, can be completed quickly\.
 
@@ -205,6 +220,8 @@ You can use the AWS IoT console or the AWS CLI to apply mitigation actions\.
 
 1. Choose **Start Mitigation Actions**\. This button is not available if all of your checks are compliant\.
 
+   
+
 1. In **Are you sure that you want to start mitigation action task**, the task name defaults to the audit ID, but you can change it to something more meaningful\.
 
 1. For each type of check that had one or more noncompliant findings in the audit, you can choose one or more actions to apply\. Only actions that are valid for the check type are displayed\.
@@ -215,13 +232,15 @@ If you have not configured actions for your AWS account, the list of actions is 
 
 **To use the AWS CLI to apply mitigation actions by starting an audit mitigation actions execution**
 
-1. If you want to apply actions to all findings for the audit, use the [ ListAuditTasks](AuditCommands.md#dd-api-iot-ListAuditTasks) command to find the task ID\.
+1. If you want to apply actions to all findings for the audit, use the [ListAuditTasks](https://docs.aws.amazon.com/iot/latest/apireference/API_ListAuditTasks.html) command to find the task ID\.
 
-1. If you want to apply actions to selected findings only, use the [ ListAuditFindings](AuditCommands.md#dd-api-iot-ListAuditFindings) command to get the finding IDs\.
+1. If you want to apply actions to selected findings only, use the [ListAuditFindings](https://docs.aws.amazon.com/iot/latest/apireference/API_ListAuditFindings.html) command to get the finding IDs\.
 
-1. Use the [ListMitigationActions](mitigation-action-commands.md#dd-api-iot-ListMitigationActions) command and make note of the names of the mitigation actions that you want to apply\.
+1. Use the [ListMitigationActions](https://docs.aws.amazon.com/iot/latest/apireference/API_ListMitigationActions.html) command and make note of the names of the mitigation actions that you want to apply\.
 
-1. Use the [StartAuditMitigationActionsTask](mitigation-action-commands.md#dd-api-iot-StartAuditMitigationActionsTask) command to apply actions to the target\. Make note of the task ID\. You can use the ID to check the state of the action execution, review the details, or cancel it\.
+1. Use the [StartAuditMitigationActionsTask](https://docs.aws.amazon.com/iot/latest/apireference/API_StartAuditMitigationActionsTask.html) command to apply actions to the target\. Make note of the task ID\. You can use the ID to check the state of the action execution, review the details, or cancel it\.
+
+   
 
 **To use the AWS IoT console to view your action executions**
 
@@ -242,21 +261,23 @@ If you have not configured actions for your AWS account, the list of actions is 
 
 **To use the AWS CLI to list your started tasks**
 
-1. Use [ListAuditMitigationActionsTasks](mitigation-action-commands.md#dd-api-iot-ListAuditMitigationActionsTasks) to view your audit mitigation actions tasks\. You can provide filters to narrow the results\. If you want to view details of the task, make note of the task ID\.
+1. Use [ListAuditMitigationActionsTasks](https://docs.aws.amazon.com/iot/latest/apireference/API_ListAuditMitigationActionsTasks.html) to view your audit mitigation actions tasks\. You can provide filters to narrow the results\. If you want to view details of the task, make note of the task ID\.
 
-1. Use [ListAuditMitigationActionsExecutions](mitigation-action-commands.md#dd-api-iot-ListAuditMitigationActionsExecutions) to view execution details for a particular audit mitigation actions task\.
+1. Use [ListAuditMitigationActionsExecutions](https://docs.aws.amazon.com/iot/latest/apireference/API_ListAuditMitigationActionsExecutions.html) to view execution details for a particular audit mitigation actions task\.
 
-1. Use [DescribeAuditMitigationActionsTask](mitigation-action-commands.md#dd-api-iot-DescribeAuditMitigationActionsTask) to view details about the task, such as the parameters specified when it was started\.
+1. Use [DescribeAuditMitigationActionsTask](https://docs.aws.amazon.com/iot/latest/apireference/API_DescribeAuditMitigationActionsTask.html) to view details about the task, such as the parameters specified when it was started\.
 
 **To use the AWS CLI to cancel a running audit mitigation actions task**
 
-1. Use the [ListAuditMitigationActionsTasks](mitigation-action-commands.md#dd-api-iot-ListAuditMitigationActionsTasks) command to find the task ID for the task whose execution you want to cancel\. You can provide filters to narrow the results\.
+1. Use the [ListAuditMitigationActionsTasks](https://docs.aws.amazon.com/iot/latest/apireference/API_ListDetectMitigationActionsExecutions.html) command to find the task ID for the task whose execution you want to cancel\. You can provide filters to narrow the results\.
 
-1. Use the [CancelAuditMitigationActionsTask](mitigation-action-commands.md#dd-api-iot-CancelAuditMitigationActionsTask) command, using the task ID, to cancel your audit mitigation actions task\. You cannot cancel tasks that have been completed\. When you cancel a task, remaining actions are not applied, but mitigation actions that were already applied are not rolled back\.
+1. Use the [ListDetectMitigationActionsExecutions](https://docs.aws.amazon.com/iot/latest/apireference/API_CancelAuditMitigationActionsTask.html) command, using the task ID, to cancel your audit mitigation actions task\. You cannot cancel tasks that have been completed\. When you cancel a task, remaining actions are not applied, but mitigation actions that were already applied are not rolled back\.
 
-## Permissions<a name="defender-audit-mitigation-permissions"></a>
+## Permissions<a name="dd-audit-mitigation-permissions"></a>
 
 For each mitigation action that you define, you must provide the role used to apply that action\.
+
+
 
 
 **Permissions for mitigation actions**  

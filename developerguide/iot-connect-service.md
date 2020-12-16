@@ -8,6 +8,8 @@ Mobile devices should use [AWS Mobile SDKs](#iot-connect-mobile-sdks)\. The Mobi
 
 The following sections describe the tools and SDKs that you can use to develop and interact with AWS IoT and other AWS services\. For the complete list of AWS tools and development kits that are available to build and manage apps on AWS, see [Tools to Build on AWS](https://aws.amazon.com/tools/)\.
 
+
+
 ## AWS CLI for AWS IoT Core<a name="iot-connect-cli"></a>
 
 The AWS CLI provides command\-line access to AWS APIs\.
@@ -32,7 +34,14 @@ For tools to manage AWS services and resources in the PowerShell scripting envir
 
 ## AWS SDKs<a name="iot-service-sdks"></a>
 
-With AWS SDKs, your apps and compatible devices can call AWS IoT APIs and the APIs of other AWS services\. This section provides links to the AWS SDKs and to the API reference documentation for the APIs of the AWS IoT Core services\.
+With AWS SDKs, your apps and compatible devices can call AWS IoT APIs and the APIs of other AWS services\. This section provides links to the AWS SDKs and to the API reference documentation for the APIs of the AWS IoT Core services\. 
+
+**The AWS SDKs support these AWS IoT Core APIs**
++ [AWS IoT](https://docs.aws.amazon.com//iot/latest/apireference/welcome.html)
++ [AWS IoT Data Plane](https://docs.aws.amazon.com//iot/latest/apireference/welcome.html)
++ [AWS IoT Jobs Data Plane](https://docs.aws.amazon.com//iot/latest/apireference/welcome.html)
++ [AWS IoT Secure Tunneling](https://docs.aws.amazon.com//iot/latest/apireference/welcome.html)
++ [AWS IoT Wireless](https://docs.aws.amazon.com/iot-wireless/2020-11-22/apireference/welcome.html)
 
 ------
 #### [ C\+\+ ]

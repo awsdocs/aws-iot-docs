@@ -83,7 +83,7 @@ Supports substitution templates: Yes
 `value`  
 A value structure that contains one of the following value fields, depending on the asset property's data type:    
 `booleanValue`  
-\(Optional\) A string that contains the boolean value of the value entry\.  
+\(Optional\) A string that contains the Boolean value of the value entry\.  
 Supports substitution templates: Yes  
 `doubleValue`  
 \(Optional\) A string that contains the double value of the value entry\.  

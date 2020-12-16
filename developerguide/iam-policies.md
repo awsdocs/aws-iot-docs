@@ -7,8 +7,6 @@ AWS IoT works with AWS IoT and IAM policies\. This topic discusses IAM policies 
 AWS IoT provides a set of IAM managed policies you can either use as\-is or as a starting point for creating custom IAM policies\. These policies allow access to configuration and data operations\. Configuration operations allow you to create things, certificates, policies, and rules\. Data operations send data over MQTT or HTTP protocols\. The following table describes these templates\.
 
 
-****  
-
 | Policy template | Description | 
 | --- | --- | 
 | AWSIoTConfigAccess | Allows the associated identity access to all AWS IoT configuration operations\. This policy can affect data processing and storage\. | 
@@ -21,3 +19,9 @@ AWS IoT provides a set of IAM managed policies you can either use as\-is or as a
 |  AWSIoTOTAUpdate   |  Allows the associated identity to create AWS IoT jobs, AWS IoT code signing jobs, and to describe AWS code signer jobs\.  | 
 | AWSIoTRuleActions | Allows the associated identity access to all AWS services supported in AWS IoT rule actions\.  | 
 |  AWSIoTThingsRegistration  | Allows the associated identity to register things in bulk using the [StartThingRegistrationTask](https://docs.aws.amazon.com/iot/latest/apireference/API_StartThingRegistrationTask.html) API\. This policy can affect data processing and storage\. | 
+|  AWSIoTWirelessDataAccess  |  Allows the associated identity to send data to AWS IoT wireless devices\.  | 
+|  AWSIoTWirelessFullAccess  |  Allows the associated identity full access to AWS IoT Wireless\.  | 
+|  AWSIoTWirelessFullPublishAccess  |  Grants AWS IoT Wireless limited access to publish to AWS IoT rules on your behalf\.  | 
+|  AWSIoTWirelessLogging  |  Allows the associated identity to create Amazon CloudWatch log groups and stream logs to the groups\. This policy is attached to your CloudWatch logging role\.  | 
+|  AWSIoTWirelessReadOnlyAccess  |  Allows the associated identity read only access to AWS IoT Wireless\.  | 
+|  IoTWirelessGatewayCertManager  |  Allows the associated identity access to create, list, and describe AWS IoT certificates\.  | 

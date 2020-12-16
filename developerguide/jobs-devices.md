@@ -93,6 +93,8 @@ you get a result similar to the following:
 ```
 With this method, your device uses X\.509 certificate\-based authentication \(for example, its device\-specific certificate and private key\)\.
 
+ 
+
 The following commands are available using this method: 
 + DescribeJobExecution
 + GetPendingJobExecutions
@@ -196,6 +198,8 @@ The device receives this message on the `'$aws/things/thingName/jobs/notify'` to
 
 ------
 
+
+
 ------
 #### [ Get job information ]
 
@@ -228,6 +232,8 @@ If the request is successful, the AWS IoT Jobs service publishes a message on th
 If the request fails, the AWS IoT Jobs service publishes a message on the `$aws/things/MyThing/jobs/0023/get/rejected` topic\.
 
 ------
+
+
 
 The device now has the job document that it can use to perform the remote operations for the job\. If the job document contains an Amazon S3 presigned URL, the device can use that URL to download any required files for the job\.
 
@@ -270,6 +276,8 @@ If the job contains a [TimeoutConfig](https://docs.aws.amazon.com/iot/latest/api
 The `status` field can be set to `IN_PROGRESS`, `SUCCEEDED`, or `FAILED`\. You cannot update the status of a job execution that is already in a terminal state\.
 
 ------
+
+
 
 ------
 #### [ Report execution completed ]

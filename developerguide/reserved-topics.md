@@ -155,6 +155,52 @@ To create a complete topic, select the *ShadowTopicPrefix* for the type of shado
 |  *ShadowTopicPrefix*/update/delta  |  Subscribe  |  The Device Shadow service sends messages to this topic when a difference is detected between the reported and desired sections of a shadow\. For more information, see [/update/delta](device-shadow-mqtt.md#update-delta-pub-sub-topic)\.   | 
 |  *ShadowTopicPrefix*/update/documents  |  Subscribe  |  AWS IoT publishes a state document to this topic whenever an update to the shadow is successfully performed\. For more information, see [/update/documents](device-shadow-mqtt.md#update-documents-pub-sub-topic)\.   | 
 
+## Streaming service topics<a name="reserved-topics-streaming"></a>
+
+These messages support response buffers in Concise Binary Object Representation \(CBOR\) format and JavaScript Object Notation \(JSON\), depending on the *payload\-format* of the topic\.
+
+
+| *payload\-format* | Response format data type | 
+| --- | --- | 
+| cbor | Concise Binary Object Representation \(CBOR\) | 
+| json | JavaScript Object Notation \(JSON\) | 
+
+
+| Topic | Client operations allowed | Description | 
+| --- | --- | --- | 
+|  $aws/things/*ThingName*/streams/*StreamId*/data/*payload\-format*  |  Subscribe  |  The AWS Streaming service publishes to this topic if the "GetStream" request from a device is accepted\. The payload contains the stream data\. For more information, see [ Using the Streaming service in devices](https://docs.aws.amazon.com/freertos/latest/userguide/streaming-service.html#streaming-service-in-devices)\.  | 
+|  $aws/things/*ThingName*/streams/*StreamId*/get/*payload\-format*  |  Publish  |  A device publishes to this topic to perform a "GetStream" request\. For more information, see [ Using the Streaming service in devices](https://docs.aws.amazon.com/freertos/latest/userguide/streaming-service.html#streaming-service-in-devices)\.  | 
+|  $aws/things/*ThingName*/streams/*StreamId*/description/*payload\-format*  |  Subscribe  |  The AWS Streaming service publishes to this topic if the "DescribeStream" request from a device is accepted\. The payload contains the stream description\. For more information, see [ Using the Streaming service in devices](https://docs.aws.amazon.com/freertos/latest/userguide/streaming-service.html#streaming-service-in-devices)\.  | 
+|  $aws/things/*ThingName*/streams/*StreamId*/describe/*payload\-format*  |  Publish  |  A device publishes to this topic to perform a "DescribeStream" request\. For more information, see [ Using the Streaming service in devices](https://docs.aws.amazon.com/freertos/latest/userguide/streaming-service.html#streaming-service-in-devices)\.  | 
+|  $aws/things/*ThingName*/streams/*StreamId*/rejected/*payload\-format*  |  Subscribe  |  The AWS Streaming service publishes to this topic if a "DescribeStream" or "GetStream" request from a device is rejected\. For more information, see [ Using the Streaming service in devices](https://docs.aws.amazon.com/freertos/latest/userguide/streaming-service.html#streaming-service-in-devices)\.  | 
+
+### Troubleshooting "Stream limit exceeded for your AWS account"<a name="ota-troubleshooting-stream-limit"></a>
+
+The OTA Update Manager Service can create a stream on your behalf\. So, if you see `"Error: You have exceeded the limit for the number of streams in your AWS account."`, you can clean up the unused streams in your account instead of requesting a limit increase\.
+
+To clean up unused streams, use the following commands\.
+
+For a stream created by the OTA Update Manager Service:
+
+```
+aws iot delete-ota-update –ota-update-id value --delete-stream
+```
+
+For more details, see [ delete\-ota\-update](https://docs.aws.amazon.com/cli/latest/reference/iot/delete-ota-update.html)\.
+
+For a stream that you created using the AWS CLI or SDK:
+
+```
+aws iot delete-stream –stream-id value
+```
+
+For more details, see [delete\-stream](https://docs.aws.amazon.com/cli/latest/reference/iot/delete-stream.html)\.
+
+**Note**  
+You can use the `list-ota-updates` or `list-streams` commands to find the OTA update ID or stream ID\.
+
+Also, be aware that because the OTA Cloud service accesses S3 object metadata in your AWS account on your behalf, this might generate a cost on your bill\. For more information, see [Amazon S3 pricing](https://aws.amazon.com/s3/pricing)\.
+
 ## Reserved topic ARN<a name="reserved-topicnames-arn"></a>
 
 All reserved topic ARNs \(Amazon Resource Names\) have the following form:

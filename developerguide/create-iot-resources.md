@@ -53,7 +53,7 @@ Devices connected to AWS IoT are represented by *thing objects* in the AWS IoT r
 
 **To create a thing in the AWS IoT console**
 
-1. In the [AWS IoT console](https://console.aws.amazon.com/iot/home), on the **Welcome to the AWS IoT Console** page, in the left menu, choose **Manage**\.
+1. In the [AWS IoT console](https://console.aws.amazon.com/iot/home), on the **Welcome to the AWS IoT console** page, in the left menu, choose **Manage**\.
 
 1. On **You don't have any things yet**, choose **Register a thing**\.
 

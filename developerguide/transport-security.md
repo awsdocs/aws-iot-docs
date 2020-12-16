@@ -12,6 +12,12 @@ AWS IoT requires devices to send the [Server Name Indication \(SNI\) extension](
 
 Connections attempted by devices without the correct `host_name` value will be refused and logged in CloudWatch\.
 
+## Transport security for LoRaWAN wireless devices<a name="tls-lorawan"></a>
+
+LoRaWAN devices follow the security practices described in [LoRaWAN ™ SECURITY: A White Paper Prepared for the LoRa Alliance™ by Gemalto, Actility, and Semtech](https://lora-alliance.org/sites/default/files/2019-05/lorawan_security_whitepaper.pdf)\. 
+
+For more information about transport security with LoRaWAN devices, see [Data security with AWS IoT Core for LoRaWAN](connect-iot-lorawan-security.md)\.
+
 ## TLS cipher suite support<a name="tls-cipher-suite-support"></a>
 
 AWS IoT supports the following cipher suites:

@@ -17,25 +17,71 @@ Before you enable AWS IoT logging, make sure you understand the CloudWatch Logs 
 
 Use the [IAM console](https://console.aws.amazon.com/iam/) to create a logging role\.
 
-**To create a logging role using the [IAM console](https://console.aws.amazon.com/iam/)**
+**To create a logging role for AWS IoT Core using the [IAM console](https://console.aws.amazon.com/iam/home#/roles)**
 
-1. From the navigation pane, choose **Roles**, and then choose **Create role**\.
+1. Open the [Roles hub of the IAM console](https://console.aws.amazon.com/iam/home#/roles), and then choose **Create role**\.
 
-1. Under **Select type of trusted entity**, choose **AWS Service**, **IoT**\.
+1. To create a logging role for AWS IoT Core:
 
-1. Under **Select your use case**, choose **IoT**, and then choose **Next: Permissions**\.
+   1. Under **Select type of trusted entity**, choose **AWS Service**, **IoT**\.
 
-1. On the page that displays the policies that are automatically attached to the service role, choose **Next: Tags**\.
+   1. Under **Select your use case**, choose **IoT**, and then choose **Next: Permissions**\.
 
-1. Choose **Next: Review**\.
+   1. On the page that displays the policies that are automatically attached to the service role\.
 
-1. Enter a **Role name** and **Role description** for the role, and then choose **Create role**\.
+   1. Choose **Next: Tags**, and then choose **Next: Review**\.
 
-1. In the list of **Roles**, find the role you created, open it, and copy the **Role ARN** \(*logging\-role\-arn*\) to use later\.
+   1. Enter a **Role name** and **Role description** for the role, and then choose **Create role**\.
+
+   1. In the list of **Roles**, find the role you created, open it, and copy the **Role ARN** \(*logging\-role\-arn*\) to use when you [Configure default logging in the AWS IoT \(console\)](#configure-logging-console)\.
+
+1. To create a logging role for AWS IoT Core for LoRaWAN:
+
+   1. Under **Select type of trusted entity**, choose **Another AWS account**\.
+
+   1. In **Account ID**, enter your AWS account ID, and then choose **Next: Permissions**\.
+
+   1. In the search box, enter **AWSIoTWirelessLogging**\.
+
+   1. Select the box next to the policy named **AWSIoTWirelessLogging**, and then choose **Next: Tags**\.
+
+   1. Choose **Next: Review**\.
+
+   1. In **Role name**, enter **IoTWirelessLogsRole**, and then choose **Create role**\.
+
+   1.  In the confirmation message, choose **IoTWirelessLogsRole**\. 
+
+   1.  In the role's **Summary** page, choose the **Trust relationships** tab, and choose **Edit trust relationship**\. 
+
+   1.  Edit the `Principal` entry so that it contains
+
+      ```
+      "Service": "iotwireless.amazonaws.com"
+      ```
+
+      as this example shows:
+
+      ```
+      {
+        "Version": "2012-10-17",
+        "Statement": [
+          {
+            "Effect": "Allow",
+            "Principal": {
+              "Service": "iotwireless.amazonaws.com"
+            },
+            "Action": "sts:AssumeRole",
+            "Condition": {}
+          }
+        ]
+      }
+      ```
+
+   1. Choose **Update Trust Policy**\. Logging for AWS IoT Core for LoRaWAN is now configured\.
 
 ### Logging role policy<a name="logging-role-policy"></a>
 
-The following policy documents provide the role policy and trust policy that allow AWS IoT to submit log entries to CloudWatch on your behalf\. 
+The following policy documents provide the role policy and trust policy that allow AWS IoT, and optionally, AWS IoT Core for LoRaWAN, to submit log entries to CloudWatch on your behalf\. 
 
 **Note**  
 These documents were created for you when you created the logging role\.
@@ -63,10 +109,31 @@ Role policy:
     }
 ```
 
-Trust policy:
+Role policy for logging only AWS IoT Core for LoRaWAN activity:
 
 ```
-{ 
+{
+    "Version": "2012-10-17",
+    "Statement": [
+        {
+            "Effect": "Allow",
+            "Action": [
+                "logs:CreateLogGroup",
+                "logs:CreateLogStream",
+                "logs:DescribeLogGroups",
+                "logs:DescribeLogStreams",
+                "logs:PutLogEvents"
+            ],
+            "Resource": "arn:aws:logs:*:*:log-group:/aws/iotwireless*"
+        }
+    ]
+}
+```
+
+Trust policy to log only AWS IoT Core activity:
+
+```
+{
      "Version": "2012-10-17",
       "Statement": [
         {
@@ -74,6 +141,25 @@ Trust policy:
           "Effect": "Allow",
           "Principal": {
             "Service": "iot.amazonaws.com"
+          },
+          "Action": "sts:AssumeRole"
+        }
+      ]
+    }
+```
+
+Trust policy to log AWS IoT Core and AWS IoT Core for LoRaWAN activity:
+
+```
+{
+     "Version": "2012-10-17",
+      "Statement": [
+        {
+          "Sid": "",
+          "Effect": "Allow",
+          "Principal": {
+            "Service": "iot.amazonaws.com",
+            "Service": "iotwireless.amazonaws.com"
           },
           "Action": "sts:AssumeRole"
         }

@@ -27,6 +27,8 @@ You can use the AWS IoT console or the AWS CLI to create an AWS IoT certificate 
 
    Choose **Activate** to activate the client certificate now\. If you don't want to activate the certificate now, [Activate a client certificate \(console\)](activate-or-deactivate-device-cert.md#activate-device-cert-console) describes how to activate the certificate later\.
 
+   
+
 1. If you want to attach a policy to the certificate, choose **Attach a policy**\.
 
    If you don't want to attach a policy now, choose **Done** to finish\. You can attach a policy later\.
@@ -56,5 +58,7 @@ aws iot create-keys-and-certificate \
     --public-key-outfile public_key_filename \
     --private-key-outfile private_key_filename
 ```
+
+
 
 Install the certificate files on the client\.

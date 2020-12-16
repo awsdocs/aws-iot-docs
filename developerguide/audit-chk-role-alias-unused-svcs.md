@@ -26,4 +26,4 @@ Follow these steps to fix any noncompliant policies attached to things, thing gr
 You can use mitigation actions to:
 + Apply the `PUBLISH_FINDINGS_TO_SNS` mitigation action if you want to implement a custom action in response to the Amazon SNS message\. 
 
-For more information, see [Mitigation actions](device-defender-mitigation-actions.md)\. 
+For more information, see [Mitigation actions](dd-mitigation-actions.md)\. 

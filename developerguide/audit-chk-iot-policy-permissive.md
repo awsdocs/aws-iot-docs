@@ -31,7 +31,7 @@ You can use mitigation actions to:
 + Apply the `REPLACE_DEFAULT_POLICY_VERSION` mitigation action on your audit findings to make this change\. 
 + Apply the `PUBLISH_FINDINGS_TO_SNS` mitigation action if you want to implement a custom response in response to the Amazon SNS message\. 
 
-For more information, see [Mitigation actions](device-defender-mitigation-actions.md)\. 
+For more information, see [Mitigation actions](dd-mitigation-actions.md)\. 
 
 Use [AWS IoT policy variables](iot-policy-variables.md) to dynamically reference AWS IoT resources in your policies\.
 

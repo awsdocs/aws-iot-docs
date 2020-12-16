@@ -5,6 +5,7 @@ Each component of AWS IoT generates its own log entries\. Each log entry has an 
 **Topics**
 + [Message broker log entries](#message-broker-logs)
 + [Device Shadow log entries](#device-shadow-logs)
++ [AWS IoT Core for LoRaWAN log entries](#iot-lorawan-logs)
 + [Rules engine log entries](#rule-engine-logs)
 + [Job log entries](#job-logs)
 + [Device provisioning log entries](#provision-logs)
@@ -30,17 +31,17 @@ The AWS IoT message broker generates a log entry with an `eventType` of `Connect
 
 ```
 {
-    "timestamp": "2017-08-10 15:37:23.476", 
-    "logLevel": "INFO", 
-    "traceId": "20b23f3f-d7f1-feae-169f-82263394fbdb", 
-    "accountId": "123456789012", 
-    "status": "Success", 
-    "eventType": "Connect", 
-    "protocol": "MQTT", 
-    "clientId": "abf27092886e49a8a5c1922749736453", 
+    "timestamp": "2017-08-10 15:37:23.476",
+    "logLevel": "INFO",
+    "traceId": "20b23f3f-d7f1-feae-169f-82263394fbdb",
+    "accountId": "123456789012",
+    "status": "Success",
+    "eventType": "Connect",
+    "protocol": "MQTT",
+    "clientId": "abf27092886e49a8a5c1922749736453",
     "principalId": "145179c40e2219e18a909d896a5340b74cf97a39641beec2fc3eeafc5a932167",
-    "sourceIp": "205.251.233.181", 
-    "sourcePort": 13490 
+    "sourceIp": "205.251.233.181",
+    "sourcePort": 13490
 }
 ```
 
@@ -68,18 +69,18 @@ The AWS IoT message broker generates a log entry with an `eventType` of `Disconn
 #### Disconnect log entry example<a name="log-mb-disconnect.example"></a>
 
 ```
-{ 
-    "timestamp": "2017-08-10 15:37:23.476", 
-    "logLevel": "INFO", 
-    "traceId": "20b23f3f-d7f1-feae-169f-82263394fbdb", 
-    "accountId": "123456789012", 
-    "status": "Success", 
-    "eventType": "Disconnect", 
-    "protocol": "MQTT", 
-    "clientId": "abf27092886e49a8a5c1922749736453", 
+{
+    "timestamp": "2017-08-10 15:37:23.476",
+    "logLevel": "INFO",
+    "traceId": "20b23f3f-d7f1-feae-169f-82263394fbdb",
+    "accountId": "123456789012",
+    "status": "Success",
+    "eventType": "Disconnect",
+    "protocol": "MQTT",
+    "clientId": "abf27092886e49a8a5c1922749736453",
     "principalId": "145179c40e2219e18a909d896a5340b74cf97a39641beec2fc3eeafc5a932167",
-    "sourceIp": "205.251.233.181", 
-    "sourcePort": 13490 
+    "sourceIp": "205.251.233.181",
+    "sourcePort": 13490
 }
 ```
 
@@ -107,19 +108,19 @@ When the AWS IoT message broker receives an MQTT message, it generates a log ent
 #### Publish\-In log entry example<a name="log-mb-publish-in.example"></a>
 
 ```
-{ 
-        "timestamp": "2017-08-10 15:39:30.961", 
-        "logLevel": "INFO", 
-        "traceId": "672ec480-31ce-fd8b-b5fb-22e3ac420699", 
-        "accountId": "123456789012", 
-        "status": "Success", 
-        "eventType": "Publish-In", 
-        "protocol": "MQTT", 
-        "topicName": "$aws/things/MyThing/shadow/get", 
-        "clientId": "abf27092886e49a8a5c1922749736453", 
-        "principalId": "145179c40e2219e18a909d896a5340b74cf97a39641beec2fc3eeafc5a932167", 
-        "sourceIp": "205.251.233.181", 
-        "sourcePort": 13490 
+{
+        "timestamp": "2017-08-10 15:39:30.961",
+        "logLevel": "INFO",
+        "traceId": "672ec480-31ce-fd8b-b5fb-22e3ac420699",
+        "accountId": "123456789012",
+        "status": "Success",
+        "eventType": "Publish-In",
+        "protocol": "MQTT",
+        "topicName": "$aws/things/MyThing/shadow/get",
+        "clientId": "abf27092886e49a8a5c1922749736453",
+        "principalId": "145179c40e2219e18a909d896a5340b74cf97a39641beec2fc3eeafc5a932167",
+        "sourceIp": "205.251.233.181",
+        "sourcePort": 13490
     }
 ```
 
@@ -150,19 +151,19 @@ When the message broker publishes an MQTT message, it generates a log entry with
 #### Publish\-Out log entry example<a name="log-mb-publish-out.example"></a>
 
 ```
-{ 
-    "timestamp": "2017-08-10 15:39:30.961", 
-    "logLevel": "INFO", 
-    "traceId": "672ec480-31ce-fd8b-b5fb-22e3ac420699", 
-    "accountId": "123456789012", 
-    "status": "Success", 
-    "eventType": "Publish-Out", 
-    "protocol": "MQTT", 
-    "topicName": "$aws/things/MyThing/shadow/get", 
-    "clientId": "abf27092886e49a8a5c1922749736453", 
-    "principalId": "145179c40e2219e18a909d896a5340b74cf97a39641beec2fc3eeafc5a932167", 
-    "sourceIp": "205.251.233.181", 
-    "sourcePort": 13490 
+{
+    "timestamp": "2017-08-10 15:39:30.961",
+    "logLevel": "INFO",
+    "traceId": "672ec480-31ce-fd8b-b5fb-22e3ac420699",
+    "accountId": "123456789012",
+    "status": "Success",
+    "eventType": "Publish-Out",
+    "protocol": "MQTT",
+    "topicName": "$aws/things/MyThing/shadow/get",
+    "clientId": "abf27092886e49a8a5c1922749736453",
+    "principalId": "145179c40e2219e18a909d896a5340b74cf97a39641beec2fc3eeafc5a932167",
+    "sourceIp": "205.251.233.181",
+    "sourcePort": 13490
 }
 ```
 
@@ -190,22 +191,22 @@ The name of the subscribed topic\.
 
 The AWS IoT message broker generates a log entry with an `eventType` of `Subscribe` when an MQTT client subscribes to a topic\.
 
-#### Subscribe log entry example<a name="log-mb-connect.example"></a>
+#### Subscribe log entry example<a name="log-mb-connect.example.subscribe"></a>
 
 ```
-{ 
-    "timestamp": "2017-08-10 15:39:04.413", 
-    "logLevel": "INFO", 
-    "traceId": "7aa5c38d-1b49-3753-15dc-513ce4ab9fa6", 
-    "accountId": "123456789012", 
-    "status": "Success", 
-    "eventType": "Subscribe", 
-    "protocol": "MQTT", 
-    "topicName": "$aws/things/MyThing/shadow/#", 
-    "clientId": "abf27092886e49a8a5c1922749736453", 
-    "principalId": "145179c40e2219e18a909d896a5340b74cf97a39641beec2fc3eeafc5a932167", 
-    "sourceIp": "205.251.233.181", 
-    "sourcePort": 13490 
+{
+    "timestamp": "2017-08-10 15:39:04.413",
+    "logLevel": "INFO",
+    "traceId": "7aa5c38d-1b49-3753-15dc-513ce4ab9fa6",
+    "accountId": "123456789012",
+    "status": "Success",
+    "eventType": "Subscribe",
+    "protocol": "MQTT",
+    "topicName": "$aws/things/MyThing/shadow/#",
+    "clientId": "abf27092886e49a8a5c1922749736453",
+    "principalId": "145179c40e2219e18a909d896a5340b74cf97a39641beec2fc3eeafc5a932167",
+    "sourceIp": "205.251.233.181",
+    "sourcePort": 13490
 }
 ```
 
@@ -245,16 +246,16 @@ The Device Shadow service generates a log entry with an `eventType` of `DeleteTh
 #### DeleteThingShadow log entry example<a name="log-shadow-delete-thing-shadow.example"></a>
 
 ```
-{ 
-    "timestamp": "2017-08-07 18:47:56.664", 
-    "logLevel": "INFO", 
-    "traceId": "1a60d02e-15b9-605b-7096-a9f584a6ad3f", 
-    "accountId": "123456789012", 
-    "status": "Success", 
-    "eventType": "DeleteThingShadow", 
-    "protocol": "MQTT", 
-    "deviceShadowName": "Jack", 
-    "topicName": "$aws/things/Jack/shadow/delete" 
+{
+    "timestamp": "2017-08-07 18:47:56.664",
+    "logLevel": "INFO",
+    "traceId": "1a60d02e-15b9-605b-7096-a9f584a6ad3f",
+    "accountId": "123456789012",
+    "status": "Success",
+    "eventType": "DeleteThingShadow",
+    "protocol": "MQTT",
+    "deviceShadowName": "Jack",
+    "topicName": "$aws/things/Jack/shadow/delete"
 }
 ```
 
@@ -276,16 +277,16 @@ The Device Shadow service generates a log entry with an `eventType` of `GetThing
 #### GetThingShadow log entry example<a name="log-shadow-get-thing-shadow.example"></a>
 
 ```
-{ 
-    "timestamp": "2017-08-09 17:56:30.941", 
-    "logLevel": "INFO", 
-    "traceId": "b575f19a-97a2-cf72-0ed0-c64a783a2504", 
-    "accountId": "123456789012", 
-    "status": "Success", 
-    "eventType": "GetThingShadow", 
-    "protocol": "MQTT", 
-    "deviceShadowName": "MyThing", 
-    "topicName": "$aws/things/MyThing/shadow/get" 
+{
+    "timestamp": "2017-08-09 17:56:30.941",
+    "logLevel": "INFO",
+    "traceId": "b575f19a-97a2-cf72-0ed0-c64a783a2504",
+    "accountId": "123456789012",
+    "status": "Success",
+    "eventType": "GetThingShadow",
+    "protocol": "MQTT",
+    "deviceShadowName": "MyThing",
+    "topicName": "$aws/things/MyThing/shadow/get"
 }
 ```
 
@@ -307,16 +308,16 @@ The Device Shadow service generates a log entry with an `eventType` of `UpdateTh
 #### UpdateThingShadow log entry example<a name="log-shadow-update-thing-shadow.example"></a>
 
 ```
-{ 
-    "timestamp": "2017-08-07 18:43:59.436", 
-    "logLevel": "INFO", 
-    "traceId": "d0074ba8-0c4b-a400-69df-76326d414c28", 
-    "accountId": "123456789012", 
-    "status": "Success", 
-    "eventType": "UpdateThingShadow", 
-    "protocol": "MQTT", 
+{
+    "timestamp": "2017-08-07 18:43:59.436",
+    "logLevel": "INFO",
+    "traceId": "d0074ba8-0c4b-a400-69df-76326d414c28",
+    "accountId": "123456789012",
+    "status": "Success",
+    "eventType": "UpdateThingShadow",
+    "protocol": "MQTT",
     "deviceShadowName": "Jack",
-    "topicName": "$aws/things/Jack/shadow/update" 
+    "topicName": "$aws/things/Jack/shadow/update"
 }
 ```
 
@@ -330,6 +331,64 @@ The protocol used when making the request\. Valid values are `MQTT` or `HTTP`\.
 
 topicName  
 The name of the topic on which the request was published\. 
+
+## AWS IoT Core for LoRaWAN log entries<a name="iot-lorawan-logs"></a>
+
+AWS IoT Core for LoRaWAN actions generate log entries for the following events\.
+
+**Topics**
++ [Join error log entry](#iot-lorawan-logs-join)
++ [Uplink permission error log entry](#iot-lorawan-logs-perm)
++ [Downlink error log entry](#iot-lorawan-logs-session)
+
+### Join error log entry<a name="iot-lorawan-logs-join"></a>
+
+AWS IoT Core for LoRaWAN generates a log entry with an `event` value of `Join` when a message fails its Message Integrity Code \(MIC\) check\.
+
+#### Join error log entry example<a name="iot-lorawan-logs-join.example"></a>
+
+```
+{
+    "timestamp": "2020-11-24T01:46:50.883481989Z",
+    "resource": "WirelessDevice",
+    "resourceId": "cb4c087c-1be5-4990-8654-ccf543ee9fff",
+    "devEui": "58a0cb000020255c",
+    "event": "Join",
+    "logLevel": "ERROR",
+    "message": "invalid MIC. It's most likely caused by wrong root keys."
+}
+```
+
+### Uplink permission error log entry<a name="iot-lorawan-logs-perm"></a>
+
+AWS IoT Core for LoRaWAN generates a log entry with an `event` value of `Uplink` when it encounters a permission error while processing a message\.
+
+#### Uplink permission error log entry example<a name="iot-lorawan-logs-perm.example"></a>
+
+```
+{
+    "resource": "WirelessDevice",
+    "resourceId": "cb4c087c-1be5-4990-8654-ccf543ee9fff",
+    "event": "Uplink",
+    "logLevel": "ERROR",
+    "message": "Cannot assume role MessageId: ef38877f-3454-4c99-96ed-5088c1cd8dee. WirelessDeviceId: cb4c087c-1be5-4990-8654-ccf543ee9fff. Context: LorawanDataPlaneUplink. reason: AccessDenied: User: arn:aws:sts::005196538709:assumed-role/DataRoutingServiceRole/6368b35fd48c445c9a14781b5d5890ed is not authorized to perform: sts:AssumeRole on resource: arn:aws:iam::400232685877:role/ExecuteRules_Role\tstatus code: 403, request id: 471c3e35-f8f3-4e94-b734-c862f63f4edb" }
+```
+
+### Downlink error log entry<a name="iot-lorawan-logs-session"></a>
+
+AWS IoT Core for LoRaWAN generates a log entry with an `event` value of `Downlink` when a device session is not found in an attempt to send data to a device\.
+
+#### Downlink error log entry example<a name="iot-lorawan-logs-session.example"></a>
+
+```
+{
+    "resource": "WirelessGateway",
+    "resourceId": "af5bada3-9ded-3416-9e2f-0d5fe052aeb8",
+    "event": "Downlink",
+    "logLevel": "ERROR",
+    "message": "Downlink returns an error when delivering application message. MessageId: 5fb8754d-2640-97975399914acd58-0007. WirelessDeviceId: af5bada3-9ded-3416-9e2f-0d5fe052aeb8. Context: LorawanDataPlaneDownlink.  reason: {\"Message\":\"device session not found. deviceId=af5bada3-9ded-3416-9e2f-0d5fe052aeb8\"}"
+}
+```
 
 ## Rules engine log entries<a name="rule-engine-logs"></a>
 
@@ -391,21 +450,21 @@ When the AWS IoT rules engine triggers a rule's action, it generates a `RuleExec
 #### RuleExecution log entry example<a name="log-rules-rule-ex.example"></a>
 
 ```
-{ 
-    "timestamp": "2017-08-10 16:32:46.070", 
-    "logLevel": "INFO", 
-    "traceId": "30aa7ccc-1d23-0b97-aa7b-76196d83537e", 
-    "accountId": "123456789012", 
-    "status": "Success", 
-    "eventType": "RuleExecution", 
-    "clientId": "abf27092886e49a8a5c1922749736453", 
-    "topicName": "rules/test", 
-    "ruleName": "JSONLogsRule", 
-    "ruleAction": "RepublishAction", 
-    "resources": { 
-        "RepublishTopic": "rules/republish" 
-    }, 
-    "principalId": "145179c40e2219e18a909d896a5340b74cf97a39641beec2fc3eeafc5a932167" 
+{
+    "timestamp": "2017-08-10 16:32:46.070",
+    "logLevel": "INFO",
+    "traceId": "30aa7ccc-1d23-0b97-aa7b-76196d83537e",
+    "accountId": "123456789012",
+    "status": "Success",
+    "eventType": "RuleExecution",
+    "clientId": "abf27092886e49a8a5c1922749736453",
+    "topicName": "rules/test",
+    "ruleName": "JSONLogsRule",
+    "ruleAction": "RepublishAction",
+    "resources": {
+        "RepublishTopic": "rules/republish"
+    },
+    "principalId": "145179c40e2219e18a909d896a5340b74cf97a39641beec2fc3eeafc5a932167"
 }
 ```
 
@@ -436,17 +495,17 @@ The AWS IoT rules engine generates a log entry with an `eventType` of `RuleMatch
 #### RuleMatch log entry example<a name="log-rules-rule-match.example"></a>
 
 ```
-{ 
-    "timestamp": "2017-08-10 16:32:46.002", 
-    "logLevel": "INFO", 
-    "traceId": "30aa7ccc-1d23-0b97-aa7b-76196d83537e", 
-    "accountId": "123456789012", 
-    "status": "Success", 
-    "eventType": "RuleMatch", 
-    "clientId": "abf27092886e49a8a5c1922749736453", 
-    "topicName": "rules/test", 
-    "ruleName": "JSONLogsRule", 
-    "principalId": "145179c40e2219e18a909d896a5340b74cf97a39641beec2fc3eeafc5a932167" 
+{
+    "timestamp": "2017-08-10 16:32:46.002",
+    "logLevel": "INFO",
+    "traceId": "30aa7ccc-1d23-0b97-aa7b-76196d83537e",
+    "accountId": "123456789012",
+    "status": "Success",
+    "eventType": "RuleMatch",
+    "clientId": "abf27092886e49a8a5c1922749736453",
+    "topicName": "rules/test",
+    "ruleName": "JSONLogsRule",
+    "principalId": "145179c40e2219e18a909d896a5340b74cf97a39641beec2fc3eeafc5a932167"
 }
 ```
 
@@ -471,16 +530,16 @@ When a message is throttled, the AWS IoT rules engine generates a log entry with
 #### RuleMessageThrottled log entry example<a name="log-rules-rule-msg-throttled.example"></a>
 
 ```
-{ 
-    "timestamp": "2017-10-04 19:25:46.070", 
-    "logLevel": "ERROR", 
-    "traceId": "30aa7ccc-1d23-0b97-aa7b-76196d83537e", 
-    "accountId": "123456789012", 
-    "status": "Failure", 
-    "eventType": "RuleMessageThrottled", 
-    "clientId": "abf27092886e49a8a5c1922749736453", 
+{
+    "timestamp": "2017-10-04 19:25:46.070",
+    "logLevel": "ERROR",
+    "traceId": "30aa7ccc-1d23-0b97-aa7b-76196d83537e",
+    "accountId": "123456789012",
+    "status": "Failure",
+    "eventType": "RuleMessageThrottled",
+    "clientId": "abf27092886e49a8a5c1922749736453",
     "topicName": "$aws/rules/example_rule",
-    "ruleName": "example_rule", 
+    "ruleName": "example_rule",
     "principalId": "145179c40e2219e18a909d896a5340b74cf97a39641beec2fc3eeafc5a932167",
     "reason": "RuleExecutionThrottled",
     "details": "Message for Rule example_rule throttled"
@@ -514,16 +573,16 @@ When the AWS IoT rules engine cannot find a rule with a given name, it generates
 #### RuleNotFound log entry example<a name="log-rules-rule-not-found.example"></a>
 
 ```
-{ 
-    "timestamp": "2017-10-04 19:25:46.070", 
-    "logLevel": "ERROR", 
-    "traceId": "30aa7ccc-1d23-0b97-aa7b-76196d83537e", 
-    "accountId": "123456789012", 
-    "status": "Failure", 
-    "eventType": "RuleNotFound", 
-    "clientId": "abf27092886e49a8a5c1922749736453", 
+{
+    "timestamp": "2017-10-04 19:25:46.070",
+    "logLevel": "ERROR",
+    "traceId": "30aa7ccc-1d23-0b97-aa7b-76196d83537e",
+    "accountId": "123456789012",
+    "status": "Failure",
+    "eventType": "RuleNotFound",
+    "clientId": "abf27092886e49a8a5c1922749736453",
     "topicName": "$aws/rules/example_rule",
-    "ruleName": "example_rule", 
+    "ruleName": "example_rule",
     "principalId": "145179c40e2219e18a909d896a5340b74cf97a39641beec2fc3eeafc5a932167",
     "reason": "RuleNotFound",
     "details": "Rule example_rule not found"
@@ -557,18 +616,18 @@ When the AWS IoT rules engine starts to trigger a rule's action, it generates a 
 #### StartingRuleExecution log entry example<a name="log-rules-start-rule-ex.example"></a>
 
 ```
-{ 
-    "timestamp": "2017-08-10 16:32:46.002", 
-    "logLevel": "DEBUG", 
-    "traceId": "30aa7ccc-1d23-0b97-aa7b-76196d83537e", 
+{
+    "timestamp": "2017-08-10 16:32:46.002",
+    "logLevel": "DEBUG",
+    "traceId": "30aa7ccc-1d23-0b97-aa7b-76196d83537e",
     "accountId": "123456789012",
-    "status": "Success", 
-    "eventType": "StartingRuleExecution", 
-    "clientId": "abf27092886e49a8a5c1922749736453", 
-    "topicName": "rules/test", 
-    "ruleName": "JSONLogsRule", 
-    "ruleAction": "RepublishAction", 
-    "principalId": "145179c40e2219e18a909d896a5340b74cf97a39641beec2fc3eeafc5a932167" 
+    "status": "Success",
+    "eventType": "StartingRuleExecution",
+    "clientId": "abf27092886e49a8a5c1922749736453",
+    "topicName": "rules/test",
+    "ruleName": "JSONLogsRule",
+    "ruleAction": "RepublishAction",
+    "principalId": "145179c40e2219e18a909d896a5340b74cf97a39641beec2fc3eeafc5a932167"
 }
 ```
 
@@ -607,18 +666,18 @@ The AWS IoT Jobs service generates a log entry with an `eventType` of `DescribeJ
 #### DescribeJobExecution log entry example<a name="log-job-describe-job-ex.example"></a>
 
 ```
-{ 
-    "timestamp": "2017-08-10 19:13:22.841", 
-    "logLevel": "DEBUG", 
-    "accountId": "123456789012", 
-    "status": "Success", 
-    "eventType": "DescribeJobExecution", 
-    "protocol": "MQTT", 
-    "clientId": "thingOne", 
-    "jobId": "002", 
-    "topicName": "$aws/things/thingOne/jobs/002/get", 
-    "clientToken": "myToken", 
-    "details": "The request status is SUCCESS." 
+{
+    "timestamp": "2017-08-10 19:13:22.841",
+    "logLevel": "DEBUG",
+    "accountId": "123456789012",
+    "status": "Success",
+    "eventType": "DescribeJobExecution",
+    "protocol": "MQTT",
+    "clientId": "thingOne",
+    "jobId": "002",
+    "topicName": "$aws/things/thingOne/jobs/002/get",
+    "clientToken": "myToken",
+    "details": "The request status is SUCCESS."
 }
 ```
 
@@ -628,7 +687,7 @@ clientId
 The ID of the client making the request\.
 
 clientToken  
-A unique, case sensitive identifier to ensure the idempotency of the request\. For more information, see [How to Ensure Idempotency](http://docs.aws.amazon.com/AWSEC2/latest/APIReference/Run_Instance_Idempotency.html)\.
+A unique, case\-sensitive identifier to ensure the idempotency of the request\. For more information, see [How to Ensure Idempotency](http://docs.aws.amazon.com/AWSEC2/latest/APIReference/Run_Instance_Idempotency.html)\.
 
 details  
 Other information from the Jobs service\.
@@ -751,19 +810,19 @@ The AWS IoT Jobs service generates a log entry with an `eventType` of `UpdateJob
 #### UpdateJobExecution log entry example<a name="log-job-update-job-ex.example"></a>
 
 ```
-{ 
-    "timestamp": "2017-08-10 19:25:14.758", 
-    "logLevel": "DEBUG", 
-    "accountId": "123456789012", 
-    "status": "Success", 
-    "eventType": "UpdateJobExecution", 
-    "protocol": "MQTT", 
-    "clientId": "thingOne", 
-    "jobId": "002", 
-    "topicName": "$aws/things/thingOne/jobs/002/update", 
-    "clientToken": "myClientToken", 
-    "versionNumber": "1", 
-    "details": "The destination status is IN_PROGRESS. The request status is SUCCESS." 
+{
+    "timestamp": "2017-08-10 19:25:14.758",
+    "logLevel": "DEBUG",
+    "accountId": "123456789012",
+    "status": "Success",
+    "eventType": "UpdateJobExecution",
+    "protocol": "MQTT",
+    "clientId": "thingOne",
+    "jobId": "002",
+    "topicName": "$aws/things/thingOne/jobs/002/update",
+    "clientToken": "myClientToken",
+    "versionNumber": "1",
+    "details": "The destination status is IN_PROGRESS. The request status is SUCCESS."
 }
 ```
 
@@ -801,6 +860,8 @@ The AWS IoT Device Provisioning service generates logs for the following events\
 ### GetDeviceCredentials log entry<a name="log-provision-get-device-credentials"></a>
 
 The AWS IoT Device Provisioning service generates a log entry with an `eventType` of `GetDeviceCredential` when a client calls `GetDeviceCredential`\.
+
+
 
 #### GetDeviceCredentials log entry example<a name="log-provision-get-device-credentials.example"></a>
 

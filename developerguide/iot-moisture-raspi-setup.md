@@ -1,5 +1,7 @@
 # Setting up your Raspberry Pi and moisture sensor<a name="iot-moisture-raspi-setup"></a>
 
+
+
 Insert your micro SD card into the Raspberry Pi, connect your monitor, keyboard, mouse, and, if you're not using Wi\-Fi, Ethernet cable\. Do not connect the power cable yet\.
 
 Connect the JST jumper cable to the moisture sensor\. The other side of the jumper has four wires:

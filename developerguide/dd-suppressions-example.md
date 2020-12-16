@@ -297,8 +297,6 @@ We use the following CLI commands\.
 
    Output:
 
-    
-
    ```
    {
        "suppressions": [

@@ -25,7 +25,7 @@ The name of an Amazon Timestream database that has the table to receive the reco
 Supports substitution templates: API and AWS CLI only
 
 `dimensions`  
-Metadata attributes of the time series that are written in each measure record\. For example, the name and availability zone of an EC2 instance or the name of the manufacturer of a wind turbine are dimensions\.    
+Metadata attributes of the time series that are written in each measure record\. For example, the name and Availability Zone of an EC2 instance or the name of the manufacturer of a wind turbine are dimensions\.    
 `name`  
 The metadata dimension name\. This is the name of the column in the database table record\.  
 Dimensions can't be named: `measure_name`, `measure_value`, or `time`\. These names are reserved\. Dimension names can't start with `ts_` or `measure_value` and they can't contain the colon \(`:`\) character\.  
@@ -62,7 +62,7 @@ For each attribute \(measure\) in the result of the SQL statement, this rule act
 | --- | --- | --- | --- | 
 |  *dimension\-name*  |  DIMENSION  |  The value specified in the Timestream rule action entry\.  |  Each **Dimension** specified in the rule action entry creates a column in the Timestream database with the dimension's name\.  | 
 |  measure\_name  |  MEASURE\_NAME  |  The attribute's name  |  The name of the attribute in the result of the SQL statement whose value is specified in the `measure_value::data-type` column\.  | 
-|  measure\_value::*data\-type*  |  MEASURE\_VALUE  |  The value of the attribute in the result of the SQL statement\. The attribute's name is in the `measure_name` column\.  |  The value is interpreted\* and cast as the best match of: `bigint`, `boolean`, `double`, or `varchar`\. Amazon Timestream creates a separate column for each datatype\. The value in the message can be cast to another data type by using the [`cast()`](iot-sql-functions.md#iot-sql-function-cast) function in the rule's SQL statement\.  | 
+|  measure\_value::*data\-type*  |  MEASURE\_VALUE  |  The value of the attribute in the result of the SQL statement\. The attribute's name is in the `measure_name` column\.  |  The value is interpreted\* and cast as the best match of: `bigint`, `boolean`, `double`, or `varchar`\. Amazon Timestream creates a separate column for each data type\. The value in the message can be cast to another data type by using the [`cast()`](iot-sql-functions.md#iot-sql-function-cast) function in the rule's SQL statement\.  | 
 |  time  |  TIMESTAMP  |  The date and time of the record in the database\.  |  This value is assigned by rules engine or the `timestamp` property, if it is defined\.  | 
 
 \* The attribute value read from the message payload is interpreted as follows\. See the [Examples](#timestream-rule-action-examples) for an illustration of each of these cases\.
