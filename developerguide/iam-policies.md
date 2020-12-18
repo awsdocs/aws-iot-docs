@@ -24,4 +24,4 @@ AWS IoT provides a set of IAM managed policies you can either use as\-is or as a
 |  AWSIoTWirelessFullPublishAccess  |  Grants AWS IoT Wireless limited access to publish to AWS IoT rules on your behalf\.  | 
 |  AWSIoTWirelessLogging  |  Allows the associated identity to create Amazon CloudWatch log groups and stream logs to the groups\. This policy is attached to your CloudWatch logging role\.  | 
 |  AWSIoTWirelessReadOnlyAccess  |  Allows the associated identity read only access to AWS IoT Wireless\.  | 
-|  IoTWirelessGatewayCertManager  |  Allows the associated identity access to create, list, and describe AWS IoT certificates\.  | 
+|  AWSIoTWirelessGatewayCertManager  |  Allows the associated identity access to create, list, and describe AWS IoT certificates\.  | 
