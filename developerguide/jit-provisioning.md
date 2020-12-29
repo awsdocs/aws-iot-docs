@@ -14,7 +14,7 @@ For more information, see [Registering a CA Certificate](device-certs-your-own.h
 You can also use the [UpdateCACertificate](https://docs.aws.amazon.com/iot/latest/apireference/API_UpdateCACertificate.html) API or the `update-ca-certificate` CLI command to update the settings for a CA certificate:
 
 ```
-aws iot update-ca-certificate --cert-id caCertificateId --new-auto-registration-status ENABLE --registration-config file://your-template
+aws iot update-ca-certificate --certificate-id caCertificateId --new-auto-registration-status ENABLE --registration-config file://your-template
 ```
 
 **Note**  
@@ -100,3 +100,5 @@ This sample template declares values for the `AWS::IoT::Certificate::CommonName`
 + Update the certificate status to ACTIVE\.
 
 You can also use CloudTrail to troubleshoot issues with your JITP template\. For information about the metrics that are logged in Amazon CloudWatch, see [Device provisioning metrics](metrics_dimensions.md#provisioning-metrics)\.
+
+Note: if the thing certificate doesn't have any of the paramter mentioned in the `Paramters` section of the `templateBody` (example `Country` is not present in the certificate but `AWS::IoT::Certificate::Country` is mentioed as paramter in the template), the device provisioning will fail.
