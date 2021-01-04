@@ -141,11 +141,11 @@ To disable a destination, call `UpdateTopicRuleDestination` and set the topic ru
 
 ## Enabling a topic rule destination<a name="enable-destination"></a>
 
-To enable a destination, call `UpdateTopicRuleDistination` and set the topic rule's status to `ENABLED`\. You do not need to re\-validate the URL\.
+To enable a destination, call `UpdateTopicRuleDestination` and set the topic rule's status to `ENABLED`\. You do not need to re\-validate the URL\.
 
 ## Sending a new confirmation message<a name="trigger-confirm"></a>
 
-To trigger a new confirmation message for a destination, call `UpdateTopicRuleDistination` and set the topic rule destination's status to `IN_PROGRESS`\. 
+To trigger a new confirmation message for a destination, call `UpdateTopicRuleDestination` and set the topic rule destination's status to `IN_PROGRESS`\. 
 
 ## Deleting a topic rule destination<a name="delete-destination"></a>
 

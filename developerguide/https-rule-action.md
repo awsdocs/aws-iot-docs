@@ -77,7 +77,7 @@ The AWS IoT rules engine retries the HTTPS action according to these rules:
 + The rules engine does not attempt a retry if:
   + The previous try provided a response larger than 16384 bytes\.
   + The downstream web service or application closes the TCP connection after the try\.
-  + The total time to complete a request with retires exceeded the request timeout limit\.
+  + The total time to complete a request with retries exceeded the request timeout limit\.
   + The request returns an HTTP status code other than 429, 500\-599\.
 
 **Note**  

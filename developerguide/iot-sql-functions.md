@@ -852,9 +852,9 @@ Returns the `String` argument, padded on the left side with the number of spaces
 
 Examples:
 
-`lpad("hello", 2)` = " hello"\.
+`lpad("hello", 2)` = "`  hello`"\.
 
-`lpad(1, 3)` = " 1"
+`lpad(1, 3)` = "`   1`"
 
 
 ****  
@@ -1224,7 +1224,7 @@ Example:
 
 `replace("abcd", "bc", "x")` = `"axd"`\.
 
-`replace("abcdabcd", "b", "x")` = `"afcdafcd"`\.
+`replace("abcdabcd", "b", "x")` = `"axcdaxcd"`\.
 
 
 **All arguments**  
@@ -1246,9 +1246,9 @@ Returns the string argument, padded on the right side with the number of spaces 
 
 Examples:
 
-`rpad("hello", 2)` = "hello "\.
+`rpad("hello", 2)` = "`hello  `"\.
 
-`rpad(1, 3)` = "1 "\.
+`rpad(1, 3)` = "`1   `"\.
 
 
 ****  

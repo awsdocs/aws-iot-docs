@@ -124,7 +124,7 @@ This field supports substitution templates\. You must use Secrets Manager to sto
 sasl\.kerberos\.service\.name  
 The Kerberos principal name under which Apache Kafka runs\. This value is required when you specify `SASL_SSL` for `security.protocol` and `GSSAPI` for `sasl.mechanism`\.  
 sasl\.kerberos\.krb5\.kdc  
-The hostname of the key distribution center \(KDC\) to which your Apache Kafka producer client connects\. This value is required when you specify `SASL_SSL` for `security.protocol` and `GSSAPI` for `sasl.mechanism`\.enecccctjddiekcebikjteudfbdihtvhtrvhbjcjckuk  
+The hostname of the key distribution center \(KDC\) to which your Apache Kafka producer client connects\. This value is required when you specify `SASL_SSL` for `security.protocol` and `GSSAPI` for `sasl.mechanism`\.  
 sasl\.kerberos\.krb5\.realm  
 The realm to which your Apache Kafka producer client connects\. This value is required when you specify `SASL_SSL` for `security.protocol` and `GSSAPI` for `sasl.mechanism`\.  
 sasl\.kerberos\.principal  

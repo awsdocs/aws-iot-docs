@@ -10,7 +10,7 @@ AWS IoT Core for LoRaWAN manages the service and device policies that AWS IoT Co
 + 
 
 **Select the wireless devices and LoRaWAN gateways that you'll need**  
-The [AWS Partner Device Catalog](https://devices.amazonaws.com/search?page=1&sv=iotclorawan) contains gateways and developer kits that are qualified for use with AWS IoT Core for LoRaWAN\. You can use [Amazon Sidewalk Integration for AWS IoT Core](iot-sidewalk.md) to connect devices that use Amazon Sidewalk to your AWS IoT Core for LoRaWAN solution\.
+The [AWS Partner Device Catalog](https://devices.amazonaws.com/search?page=1&sv=iotclorawan) contains gateways and developer kits that are qualified for use with AWS IoT Core for LoRaWAN\.
 + 
 
 **Add your wireless devices and LoRaWAN gateways to AWS IoT Core for LoRaWAN**  
