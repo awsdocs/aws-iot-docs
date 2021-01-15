@@ -158,8 +158,10 @@ Trust policy to log AWS IoT Core and AWS IoT Core for LoRaWAN activity:
           "Sid": "",
           "Effect": "Allow",
           "Principal": {
-            "Service": "iot.amazonaws.com",
-            "Service": "iotwireless.amazonaws.com"
+            "Service": [
+              "iot.amazonaws.com",
+              "iotwireless.amazonaws.com"
+            ]
           },
           "Action": "sts:AssumeRole"
         }
