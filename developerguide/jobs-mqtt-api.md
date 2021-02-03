@@ -9,16 +9,17 @@
 + [NextJobExecutionChanged](#mqtt-nextjobexecutionchanged)
 
 **Note**  
-Jobs device commands can be issued by publishing MQTT messages to the [Reserved topics used for Jobs commands](reserved-topics.md#reserved-topics-job)\. Your client is automatically subscribed to the response message topics of these commands, which means that the message broker will publish response message topics to the client that published the command message whether your client has subscribed to the response message topic or not\.   
+Jobs device commands can be issued by publishing MQTT messages to the [Reserved topics used for Jobs commands](reserved-topics.md#reserved-topics-job)\. Your client is automatically subscribed to the response message topics of these commands, which means that the message broker will publish response message topics to the client that published the command message whether your client has subscribed to the response message topics or not\.   
 Because the message broker publishes response messages, even without an explicit subscription to them, your client must be configured to receive and identify the messages it receives\. Your client must also confirm that the *thingName* in the incoming message topic applies to the client's thing name before the client acts on the message\.  
 Messages that AWS IoT sends in response to MQTT Jobs API command messages are charged to your account, whether you subscribed to them explicitly or not\.
 
 ## GetPendingJobExecutions<a name="mqtt-getpendingjobexecutions"></a>
 
-------
-#### [ GetPendingJobExecutions command ]
-
 Gets the list of all jobs for a thing that are not in a terminal state\.
+
+**Note**  
+AWS IoT publishes the response messages directly to the client that made the request, whether the client has subscribed to the response topics or not\. Clients should expect to receive the response messages even if they have not subscribed to them\. These response messages do not pass through the message broker and they cannot be subscribed to by other clients or rules\.  
+Job progress messages that are processed through the message broker and can be used by AWS IoT rules are published as [Jobs events](events-jobs.md)\.
 
 ------
 #### [ MQTT \(12\) ]
@@ -166,9 +167,6 @@ Output:
 
 ## StartNextPendingJobExecution<a name="mqtt-startnextpendingjobexecution"></a>
 
-------
-#### [ StartNextPendingJobExecution command ]
-
 Gets and starts the next pending job execution for a thing \(status IN\_PROGRESS or QUEUED\)\. 
 + Any job executions with status IN\_PROGRESS are returned first\.
 + Job executions are returned in the order in which they were created\.
@@ -176,6 +174,10 @@ Gets and starts the next pending job execution for a thing \(status IN\_PROGRESS
 + If the next pending job execution is already IN\_PROGRESS, its status details are not changed\.
 + If no job executions are pending, the response does not include the `execution` field\.
 + You can optionally create a step timer by setting a value for the `stepTimeoutInMinutes` property\. If you don't update the value of this property by running `UpdateJobExecution`, the job execution times out when the step timer expires\.
+
+**Note**  
+AWS IoT publishes the response messages directly to the client that made the request, whether the client has subscribed to the response topics or not\. Clients should expect to receive the response messages even if they have not subscribed to them\. These response messages do not pass through the message broker and they cannot be subscribed to by other clients or rules\.  
+Job progress messages that are processed through the message broker and can be used by AWS IoT rules are published as [Jobs events](events-jobs.md)\.
 
 ------
 #### [ MQTT \(13\) ]
@@ -376,9 +378,6 @@ Output:
 
 ## DescribeJobExecution<a name="mqtt-describejobexecution"></a>
 
-------
-#### [ DescribeJobExecution command ]
-
 Gets detailed information about a job execution\.
 
 You can set the `jobId` to `$next` to return the next pending job execution for a thing \(status IN\_PROGRESS or QUEUED\)\.
@@ -552,10 +551,11 @@ Output:
 
 ## UpdateJobExecution<a name="mqtt-updatejobexecution"></a>
 
-------
-#### [ UpdateJobExecution command ]
-
 Updates the status of a job execution\. You can optionally create a step timer by setting a value for the `stepTimeoutInMinutes` property\. If you don't update the value of this property by running `UpdateJobExecution` again, the job execution times out when the step timer expires\.
+
+**Note**  
+AWS IoT publishes the response messages directly to the client that made the request, whether the client has subscribed to the response topics or not\. Clients should expect to receive the response messages even if they have not subscribed to them\. These response messages do not pass through the message broker and they cannot be subscribed to by other clients or rules\.  
+Job progress messages that are processed through the message broker and can be used by AWS IoT rules are published as [Jobs events](events-jobs.md)\.
 
 ------
 #### [ MQTT \(15\) ]
@@ -779,9 +779,6 @@ Output:
 
 ## JobExecutionsChanged<a name="mqtt-jobexecutionschanged"></a>
 
-------
-#### [ JobExecutionsChanged message ]
-
 Sent whenever a job execution is added to or removed from the list of pending job executions for a thing\.
 
 ------
@@ -813,9 +810,6 @@ Not available\.
 ------
 
 ## NextJobExecutionChanged<a name="mqtt-nextjobexecutionchanged"></a>
-
-------
-#### [ NextJobExecutionChanged message ]
 
 Sent whenever there is a change to which job execution is next on the list of pending job executions for a thing, as defined for [DescribeJobExecution](#mqtt-describejobexecution) with jobId `$next`\. This message is not sent when the next job's execution details change, only when the next job that would be returned by `DescribeJobExecution` with jobId `$next` has changed\. Consider job executions J1 and J2 with state QUEUED\. J1 is next on the list of pending job executions\. If the state of J2 is changed to IN\_PROGRESS while the state of J1 remains unchanged, then this notification is sent and contains details of J2\.
 

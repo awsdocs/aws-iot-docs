@@ -11,7 +11,7 @@ A CA certificate can be registered by only one account in a Region\.
 
 **Note**  
 Make sure you have the root CA's certificate file and private key file before you begin\.  
-This procedure also requires using the command line interface to run openssl commands\.
+This procedure also requires using the command line interface to run OpenSSL v1\.1\.1i commands\.
 
 **To register a CA certificate using the AWS IoT console**
 

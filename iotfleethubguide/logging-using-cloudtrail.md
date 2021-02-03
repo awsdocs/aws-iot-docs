@@ -1,12 +1,12 @@
 --------
 
- The Fleet Hub for AWS IoT Device Management service is currently in public preview\. This service is subject to change\.
+ The Fleet Hub service is currently in public preview\. This service is subject to change\.
 
 --------
 
 # Logging Fleet Hub for AWS IoT Device Management API calls with AWS CloudTrail<a name="logging-using-cloudtrail"></a>
 
-Fleet Hub is integrated with AWS CloudTrail\. The CloudTrail service provides a record of actions that a user, role, or an AWS service takes in Fleet Hub\. CloudTrail captures all API calls for Fleet Hub as events\. Captured calls include those from the Fleet Hub console and code calls to the Fleet Hub API operations\. 
+Fleet Hub for AWS IoT Device Management is integrated with AWS CloudTrail\. The CloudTrail service provides a record of actions that a user, role, or an AWS service takes in Fleet Hub\. CloudTrail captures all API calls for Fleet Hub as events\. Captured calls include those from the Fleet Hub console and code calls to the Fleet Hub API operations\. 
 
 If you create a trail, you can enable continuous delivery of CloudTrail events to an Amazon S3 bucket, including events for Fleet Hub\. If you don't configure a trail, you can still view the most recent events in the CloudTrail console in **Event history**\. 
 
@@ -36,7 +36,7 @@ Every event or log entry contains information about who generated the request\. 
 
 For more information, see the [CloudTrail userIdentity element](https://docs.aws.amazon.com/awscloudtrail/latest/userguide/cloudtrail-event-reference-user-identity.html)\.
 
-## Understanding Fleet Hub log file entries<a name="understanding-service-name-entries"></a>
+## Understanding Fleet Hub for AWS IoT Device Management log file entries<a name="understanding-service-name-entries"></a>
 
 A trail is a configuration that enables delivery of events as log files to an Amazon S3 bucket that you specify\. 
 

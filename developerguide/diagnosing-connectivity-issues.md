@@ -18,12 +18,17 @@ The correct SNI value is the `endpointAddress` returned by the [describe\-endpoi
 
 ## Authentication<a name="troubleshooting-authentication"></a>
 
+Devices must be [authenticated](client-authentication.md) to connect to AWS IoT endpoints\. For devices that use [X\.509 client certificates](x509-client-certs.md) for authentication, the certificates must be registered with AWS IoT and be active\.
+
 How do my devices authenticate AWS IoT endpoints?  
 Add the AWS IoT CA certificate to your client's trust store\. Refer to the documentation on [Server Authentication in AWS IoT Core](x509-client-certs.html#server-authentication) and then follow the links to download the appropriate CA certificate\.
 
 How can I validate a correctly configured certificate?  
 Use the OpenSSL `s_client` command to test a connection to the AWS IoT endpoint:  
-` openssl s_client -connect custom_endpoint.iot.aws-region.amazonaws.com:8443 -CAfile CA.pem -cert cert.pem -key privateKey.pem`   
+
+```
+ openssl s_client -connect custom_endpoint.iot.aws-region.amazonaws.com:8443 -CAfile CA.pem -cert cert.pem -key privateKey.pem 
+```
 For more information about using `openssl s_client`, see [OpenSSL s\_client documentation](https://www.openssl.org/docs/man1.0.2/man1/openssl-s_client.html)\.
 
 How do I check the status of a certificate?  
@@ -34,7 +39,11 @@ If you don't know the certificate ID, you can see the status of all your certifi
 + 
 
 **Show a certificate's details**  
-If you know the certificate's ID, you can see more detailed information about the certificate by using the aws iot [describe\-certificate](https://awscli.amazonaws.com/v2/documentation/api/latest/reference/iot/describe-certificate.html) \-\-certificate\-id "*certificateId*" command\.
+If you know the certificate's ID, this command shows you more detailed information about the certificate\.
+
+  ```
+  aws iot [describe\-certificate](https://awscli.amazonaws.com/v2/documentation/api/latest/reference/iot/describe-certificate.html) --certificate-id "certificateId"
+  ```
 + 
 
 **Review the certificate in the AWS IoT Console**  
@@ -48,8 +57,17 @@ In the [AWS IoT console](https://console.aws.amazon.com/iot/home), in the left m
 
 ## Authorization<a name="troubleshooting-authorization"></a>
 
+AWS IoT resources use [AWS IoT Core policies](iot-policies.md) to authorize those resources to perform [actions](iot-policy-actions.md)\. For an action to be authorized, the specified AWS IoT resources must have a policy document attached to it that grants permission to perform that action\.
+
 I received a `PUBNACK` or `SUBNACK` response from the broker\. What do I do?  
-Make sure that there is a policy attached to the certificate you are using to call AWS IoT\. All publish/subscribe operations are denied by default\.
+Make sure that there is a policy attached to the certificate you are using to call AWS IoT\. All publish/subscribe operations are denied by default\.  
+Make sure the attached policy authorizes the [actions](iot-policy-actions.md) you are trying to perform\.  
+Make sure the attached policy authorizes the [resources](iot-action-resources.md) that are trying to perform the authorized actions\.
+
+I have an *AUTHORIZATION\_FAILURE* entry in my logs\.  
+Make sure that there is a policy attached to the certificate you are using to call AWS IoT\. All publish/subscribe operations are denied by default\.  
+Make sure the attached policy authorizes the [actions](iot-policy-actions.md) you are trying to perform\.  
+Make sure the attached policy authorizes the [resources](iot-action-resources.md) that are trying to perform the authorized actions\.
 
 How do I check what the policy authorizes?  
 In the [AWS IoT console](https://console.aws.amazon.com/iot/home), in the left menu, choose **Secure**, and then choose **Certificates**\.  

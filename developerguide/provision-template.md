@@ -187,7 +187,7 @@ The thing is declared with:
 
   The thing properties include the thing name, a set of attributes, an optional thing type name, and an optional list of thing groups to which the thing belongs\.
 
-Parameters are referenced by `{"Ref":"parameter-name>"}`\. When the template is evaluated, the parameters are replaced with the parameter's value from the dictionary passed in with the template\.
+Parameters are referenced by `{"Ref":"parameter-name"}`\. When the template is evaluated, the parameters are replaced with the parameter's value from the dictionary passed in with the template\.
 
 The certificate is declared with:
 + The logical name `"certificate"`\.

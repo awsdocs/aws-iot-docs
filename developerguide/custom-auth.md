@@ -29,7 +29,7 @@ POST /topics/topic?qos=qos&x-amz-customauthorizer-signature=${sign}&token-name=$
 
  `username?x-amz-customauthorizer-name=${name}&x-amz-customauthorizer-signature=${sign}&token-name=${token-value}` 
 
- In order to invoke an authorizer, devices connecting to AWS IoT Core by using MQTT and custom authentication must connect on port 443\. They also must pass the Application Layer Protocol Negotiation \(ALPN\) TLS extension with a value of `mqtt` and the Server Name Indication \(SNI\) extension with the host name of their AWS IoT Core data endpoint\. For more information about these values, see [Device communication protocols](protocols.md)\.  The V2 [AWS IoT Device and Mobile SDKs](iot-sdks.md) can configure both of these extensions\.    
+ In order to invoke an authorizer, devices connecting to AWS IoT Core by using MQTT and custom authentication must connect on port 443\. They also must pass the Application Layer Protocol Negotiation \(ALPN\) TLS extension with a value of `mqtt` and the Server Name Indication \(SNI\) extension with the host name of their AWS IoT Core data endpoint\. For more information about these values, see [Device communication protocols](protocols.md)\.  The V2 [AWS IoT Device SDKs, Mobile SDKs, and AWS IoT Device Client](iot-sdks.md) can configure both of these extensions\.    
 
 ## MQTT over WebSockets<a name="custom-auth-websockets"></a>
 

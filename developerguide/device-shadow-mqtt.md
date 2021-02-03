@@ -374,6 +374,8 @@ ShadowTopicPrefix/shadow/delete
 
 The content of the message is ignored\.
 
+Note that deleting a shadow does not reset its version number to 0\.
+
 AWS IoT responds by publishing to either [/delete/accepted](#delete-accepted-pub-sub-topic) or [/delete/rejected](#delete-rejected-pub-sub-topic)\.
 
 ### Example policy<a name="delete-policy"></a>

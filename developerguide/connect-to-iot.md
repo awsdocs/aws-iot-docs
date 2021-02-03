@@ -37,8 +37,7 @@ The AWS IoT device endpoints support communication between your IoT devices and 
 **Endpoints**  
 The device endpoints are specific to your account and you can see what they are by using the [describe\-endpoint](https://awscli.amazonaws.com/v2/documentation/api/latest/reference/iot/describe-endpoint.html) command\.
 
-  For each account, AWS IoT supports the device endpoints listed in the following table\. For more information about the functions that these endpoints support, see [AWS IoT device data and service endpoints](iot-connect-devices.md#iot-connect-device-endpoints)\.    
-[\[See the AWS documentation website for more details\]](http://docs.aws.amazon.com/iot/latest/developerguide/connect-to-iot.html)
+  For more information about these endpoints and the functions that they support, see [AWS IoT device data and service endpoints](iot-connect-devices.md#iot-connect-device-endpoints)\.
 + 
 
 **SDKs**  

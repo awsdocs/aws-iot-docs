@@ -33,6 +33,9 @@ You can use the ListThings command to list all things in your account:
 
 ```
 $ aws iot list-things
+```
+
+```
 {
     "things": [
        {
@@ -54,27 +57,7 @@ $ aws iot list-things
 }
 ```
 
-## Search for things<a name="search-things"></a>
-
-You can use the DescribeThing command to list information about a thing:
-
-```
-$ aws iot describe-thing --thing-name "MyLightBulb"
-{
-    "version": 3,
-    "thingName": "MyLightBulb",
-    "thingArn": "arn:aws:iot:us-east-1:123456789012:thing/MyLightBulb",
-    "thingId": "12345678abcdefgh12345678ijklmnop12345678",
-    "defaultClientId": "MyLightBulb",
-    "thingTypeName": "StopLight",
-    "attributes": {
-        "model": "123",
-        "wattage": "75"
-    }
-}
-```
-
-You can use the ListThings command to search for all things associated with a thing type name:
+You can use the ListThings command to search for all things of a specific thing type:
 
 ```
 $  aws iot list-things --thing-type-name "LightBulb"
@@ -105,7 +88,7 @@ $  aws iot list-things --thing-type-name "LightBulb"
 }
 ```
 
-You can use the ListThings command to search for all things that have an attribute with a specific value:
+You can use the ListThings command to search for all things that have an attribute with a specific value\. This command searches only searchable attributes\.
 
 ```
 $  aws iot list-things --attribute-name "wattage" --attribute-value "75"
@@ -145,11 +128,31 @@ $  aws iot list-things --attribute-name "wattage" --attribute-value "75"
 }
 ```
 
+If [fleet indexing](iot-indexing.md) is enabled, you can use the [https://awscli.amazonaws.com/v2/documentation/api/latest/reference/iot/search-index.html](https://awscli.amazonaws.com/v2/documentation/api/latest/reference/iot/search-index.html) command to search on searchable and non\-searchable thing attributes, device shadow values, and connectivity values\. For more information about what you can query by using the search\-index command, see [Example thing queries](example-queries.md) and the CLI reference on the [https://awscli.amazonaws.com/v2/documentation/api/latest/reference/iot/search-index.html](https://awscli.amazonaws.com/v2/documentation/api/latest/reference/iot/search-index.html) command\.
+
+## Describe things<a name="search-things"></a>
+
+You can use the DescribeThing command to display more detailed information about a thing:
+
+```
+$ aws iot describe-thing --thing-name "MyLightBulb"
+{
+    "version": 3,
+    "thingName": "MyLightBulb",
+    "thingArn": "arn:aws:iot:us-east-1:123456789012:thing/MyLightBulb",
+    "thingId": "12345678abcdefgh12345678ijklmnop12345678",
+    "defaultClientId": "MyLightBulb",
+    "thingTypeName": "StopLight",
+    "attributes": {
+        "model": "123",
+        "wattage": "75"
+    }
+}
+```
+
 ## Update a thing<a name="update-thing"></a>
 
 You can use the UpdateThing command to update a thing\. Note that this command updates only the thing's attributes\. You can't change a thing's name\. To change a thing's name, you must create a new thing, give it the new name, and then delete the old thing\.
-
-
 
 ```
 $ aws iot update-thing --thing-name "MyLightBulb" --attribute-payload "{\"attributes\": {\"wattage\":\"150\", \"model\":\"456\"}}"

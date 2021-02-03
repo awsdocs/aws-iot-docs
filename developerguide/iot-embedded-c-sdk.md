@@ -46,7 +46,7 @@ Device and root CA certificates are subject to expiration or revocation\. If the
 1. Open the `demo_config.h` file and update the values for the following:  
 AWS\_IOT\_ENDPOINT  
 Your personal endpoint\.  
-CLIENT\_CERT\_KEY\_PATH  
+CLIENT\_CERT\_PATH  
 Your certificate file path, for example `certificates/device.pem.crt"`\.  
 CLIENT\_PRIVATE\_KEY\_PATH  
 Your private key file name, for example `certificates/private.pem.key`\.
@@ -60,7 +60,7 @@ Your private key file name, for example `certificates/private.pem.key`\.
    #define AWS_MQTT_PORT                  8883
    #define CLIENT_IDENTIFIER              "testclient"
    #define ROOT_CA_CERT_PATH              "certificates/AmazonRootCA1.crt"
-   #define CLIENT_CERT_KEY_PATH           "certificates/my-device-cert.pem.crt"
+   #define CLIENT_CERT_PATH               "certificates/my-device-cert.pem.crt"
    #define CLIENT_PRIVATE_KEY_PATH        "certificates/my-device-private-key.pem.key"
    // =================================================
    ```

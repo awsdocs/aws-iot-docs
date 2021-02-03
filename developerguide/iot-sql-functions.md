@@ -255,7 +255,7 @@ Converts a value from one data type to another\. Cast behaves mostly like the st
 
 Example:
 
-`cast(true as Decimal) ` = 1\.0
+`cast(true as Int) ` = 1
 
 The following keywords might appear after "as" when calling `cast`:
 
@@ -264,9 +264,6 @@ The following keywords might appear after "as" when calling `cast`:
 
 | Keyword | Result | 
 | --- | --- | 
-| Decimal | Casts value to Decimal\. | 
-| Bool | Casts value to Boolean\. | 
-| Boolean | Casts value to Boolean\. | 
 | String | Casts value to String\. | 
 | Nvarchar | Casts value to String\. | 
 | Text | Casts value to String\. | 
@@ -292,7 +289,7 @@ Casting rules:
 | Argument type | Result | 
 | --- | --- | 
 | Int | A Decimal with no decimal point\. | 
-| Decimal | The source value\. | 
+| Decimal |  The source value\.  With SQL V2 \(2016\-03\-23\), numeric values that are whole numbers, such as `10.0`, return an `Int` value \(`10`\) instead of the expected `Decimal` value \(`10.0`\)\. To reliably cast whole number numeric values as `Decimal` values, use SQL V1 \(2015\-10\-08\) for the rule query statement\.   | 
 | Boolean | true = 1\.0, false = 0\.0\. | 
 | String | Tries to parse the string as a Decimal\. AWS IoT attempts to parse strings matching the regex: ^\-?\\d\+\(\\\.\\d\+\)?\(\(?i\)E\-?\\d\+\)?$\. "0", "\-1\.2", "5E\-12" are all examples of strings that are converted automatically to decimals\. | 
 | Array | Undefined\. | 

@@ -268,7 +268,7 @@ A device's shadow document has the following properties:
 
 `state`  <a name="state"></a>  
 `desired`  <a name="desired"></a>
-The desired state of the device\. Apps can write to this portion of the document to update the state of a device without having to directly connect to a it\.  
+The desired state of the device\. Apps can write to this portion of the document to update the state of a device directly without having to connect to it\.  
 `reported`  <a name="reported"></a>
 The reported state of the device\. Devices write to this portion of the document to report their new state\. Apps read this portion of the document to determine the device's last\-reported state\.
 

@@ -16,6 +16,7 @@ When you create an AWS IoT rule with this action, you must specify the following
 `topic`  
 The MQTT topic to which to republish the message\.  
 To republish to a reserved topic, which begins with `$`, use `$$` instead\. For example, to republish to the device shadow topic `$aws/things/MyThing/shadow/update`, specify the topic as `$$aws/things/MyThing/shadow/update`\.  
+Republishing to [reserved job topics](reserved-topics.md#reserved-topics-job) is not supported\.
 Supports substitution templates: Yes
 
 `qos`  

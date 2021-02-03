@@ -1,7 +1,7 @@
 # AWS IoT Core Developer Guide
 
 -----
-*****Copyright &copy; 2020 Amazon Web Services, Inc. and/or its affiliates. All rights reserved.*****
+*****Copyright &copy; 2021 Amazon Web Services, Inc. and/or its affiliates. All rights reserved.*****
 
 -----
 Amazon's trademarks and trade dress may not be used in 
@@ -238,6 +238,11 @@ Amazon's trademarks and trade dress may not be used in
    + [Query syntax](query-syntax.md)
    + [Example thing queries](example-queries.md)
    + [Example thing group queries](example-thinggroup-queries.md)
++ [AWS IoT Streaming service](streaming-service.md)
+   + [What is a stream?](streaming-service-what-is.md)
+   + [Managing a stream in the AWS Cloud](streaming-service-managing.md)
+   + [Using the AWS IoT Streaming service in devices](streaming-service-in-devices.md)
+   + [An example use case in FreeRTOS OTA](streaming-service-example.md)
 + [AWS IoT Device Defender](device-defender.md)
    + [Getting started with AWS IoT Device Defender](dd-tutorials.md)
       + [Setting up](dd-setting-up.md)
@@ -292,13 +297,14 @@ Amazon's trademarks and trade dress may not be used in
    + [Getting started with Alexa Voice Service (AVS) Integration for AWS IoT on an NXP device](avs-integration-aws-iot-gs-nxp.md)
 + [Amazon Sidewalk Integration for AWS IoT Core](iot-sidewalk.md)
    + [AWS IoT Wireless API actions for Amazon Sidewalk Integration for AWS IoT Core](iot-sidewalk-wireless-api.md)
-+ [AWS IoT Device and Mobile SDKs](iot-sdks.md)
++ [AWS IoT Device SDKs, Mobile SDKs, and AWS IoT Device Client](iot-sdks.md)
 + [Troubleshooting AWS IoT](iot_troubleshooting.md)
    + [Diagnosing connectivity issues](diagnosing-connectivity-issues.md)
    + [Diagnosing rules issues](diagnosing-rules.md)
    + [Diagnosing problems with shadows](diagnosing-shadows.md)
    + [Diagnosing Salesforce IoT input stream action issues](diagnosing-salesforce.md)
    + [Troubleshooting aggregation queries for the fleet indexing service](aggregation-troubleshooting.md)
+   + [Troubleshooting "Stream limit exceeded for your AWS account"](ota-troubleshooting-stream-limit.md)
    + [AWS IoT Device Defender troubleshooting guide](device-defender-troubleshoot.md)
    + [Device Advisor troubleshooting guide](device-advisor-troubleshooting.md)
    + [AWS IoT errors](iot-errors.md)

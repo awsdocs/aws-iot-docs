@@ -1,6 +1,6 @@
 --------
 
- The Fleet Hub for AWS IoT Device Management service is currently in public preview\. This service is subject to change\.
+ The Fleet Hub service is currently in public preview\. This service is subject to change\.
 
 --------
 
@@ -10,9 +10,9 @@ This topic walks you through the steps required to create a Fleet Hub for AWS Io
 
 The alarm that you create sends an Amazon Simple Notification Service \(Amazon SNS\) message to a list of people in your organization whenever the average battery level of devices in your fleet falls below 50% during a period of 1 minute\.
 
-**Create a Fleet Hub for AWS IoT Device Management query**
+**Create a Fleet Hub query**
 
-1. Navigate to your Fleet Hub for AWS IoT Device Management application\.
+1. Navigate to your Fleet Hub application\.
 
 1. If you want to target a specific set of devices, create a query\. For instructions on how to create a simple query, see [Creating queries with filters](aws-iot-monitor-user-queries-creating.md)\. If you don't create a query, your alarm applies to all of the devices in your fleet\.
 

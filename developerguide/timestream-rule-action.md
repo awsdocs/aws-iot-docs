@@ -8,6 +8,9 @@ For more information about Amazon Timestream, see [What Is Amazon Timestream?](h
 
 The value of each attribute in the SQL statement's result is parsed to infer its data type \(as in a [DynamoDBv2](dynamodb-v2-rule-action.md) action\)\. Each attribute's value is written to its own record in the Timestream table\. To specify or change a value's data type, use the [`cast()`](iot-sql-functions.md#iot-sql-function-cast) function in rule's the SQL statement\. For more information about the contents of each Timestream record, see [Amazon Timestream record content](#timestream-rule-action-data)\.
 
+**Note**  
+With SQL V2 \(2016\-03\-23\), numeric values that are whole numbers, such as `10.0`, are converted their Integer representation \(`10`\)\. Explicitly casting them to a `Decimal` value, such as by using the [cast\(\)](iot-sql-functions.md#iot-sql-function-cast) function, does not prevent this behavior—the result is still an `Integer` value\. This can cause type mismatch errors that prevent data from being recorded in the Timestream database\. To reliably process whole number numeric values as `Decimal` values, use SQL V1 \(2015\-10\-08\) for the rule query statement\.
+
 ## Requirements<a name="timestream-rule-action-requirements"></a>
 
 This rule action has the following requirements:
@@ -129,15 +132,15 @@ Using the Timestream topic rule action defined in the previous example with the 
 The following table displays the database columns and records that using the specified topic rule action to process the previous message payload creates\. The `device_firmware_sku` and `device_id` columns are the DIMENSIONS defined in the topic rule action\. The Timestream topic rule action creates the `time` column and the `measure_name` and `measure_value::*` columns, which it fills with the values from the result of the topic rule action's SQL statement\. 
 
 
-| device\_firmware\_sku | device\_id | measure\_name | measure\_value::bigint | measure\_value::varchar | measure\_value::boolean | time | 
-| --- | --- | --- | --- | --- | --- | --- | 
-| My Static Metadata | iotconsole\-159EXAMPLE738\-0 | complex\_value | \- | \{"simple\_element":42,"array\_of\_integers":\[23,36,56,72\],"array of strings":\["red","green","blue"\]\} | \- | 2020\-08\-26 22:42:16\.423000000 | 
-| My Static Metadata | iotconsole\-159EXAMPLE738\-0 | integer\_value\_as\_string | \- | 123456789012 | \- | 2020\-08\-26 22:42:16\.423000000 | 
-| My Static Metadata | iotconsole\-159EXAMPLE738\-0 | boolean\_value | \- | \- | TRUE | 2020\-08\-26 22:42:16\.423000000 | 
-| My Static Metadata | iotconsole\-159EXAMPLE738\-0 | integer\_value | 123456789012 | \- | \- | 2020\-08\-26 22:42:16\.423000000 | 
-| My Static Metadata | iotconsole\-159EXAMPLE738\-0 | string\_value | \- | AWS IoT is super\! | \- | 2020\-08\-26 22:42:16\.423000000 | 
-| My Static Metadata | iotconsole\-159EXAMPLE738\-0 | array\_of\_integers | \- | \[23,36,56,72\] | \- | 2020\-08\-26 22:42:16\.423000000 | 
-| My Static Metadata | iotconsole\-159EXAMPLE738\-0 | array of strings | \- | \["red","green","blue"\] | \- | 2020\-08\-26 22:42:16\.423000000 | 
-| My Static Metadata | iotconsole\-159EXAMPLE738\-0 | boolean\_value\_as\_string | \- | TRUE | \- | 2020\-08\-26 22:42:16\.423000000 | 
-| My Static Metadata | iotconsole\-159EXAMPLE738\-0 | double\_value | \- | \- | \- | 2020\-08\-26 22:42:16\.423000000 | 
-| My Static Metadata | iotconsole\-159EXAMPLE738\-0 | double\_value\_as\_string | \- | 123\.45679 | \- | 2020\-08\-26 22:42:16\.423000000 | 
+| device\_firmware\_sku | device\_id | measure\_name | measure\_value::bigint | measure\_value::varchar | measure\_value::double | measure\_value::boolean | time | 
+| --- | --- | --- | --- | --- | --- | --- | --- | 
+| My Static Metadata | iotconsole\-159EXAMPLE738\-0 | complex\_value | \- | \{"simple\_element":42,"array\_of\_integers":\[23,36,56,72\],"array of strings":\["red","green","blue"\]\} | \- | \- | 2020\-08\-26 22:42:16\.423000000 | 
+| My Static Metadata | iotconsole\-159EXAMPLE738\-0 | integer\_value\_as\_string | \- | 123456789012 | \- | \- | 2020\-08\-26 22:42:16\.423000000 | 
+| My Static Metadata | iotconsole\-159EXAMPLE738\-0 | boolean\_value | \- | \- | \- | TRUE | 2020\-08\-26 22:42:16\.423000000 | 
+| My Static Metadata | iotconsole\-159EXAMPLE738\-0 | integer\_value | 123456789012 | \- | \- | \- | 2020\-08\-26 22:42:16\.423000000 | 
+| My Static Metadata | iotconsole\-159EXAMPLE738\-0 | string\_value | \- | AWS IoT is super\! | \- | \- | 2020\-08\-26 22:42:16\.423000000 | 
+| My Static Metadata | iotconsole\-159EXAMPLE738\-0 | array\_of\_integers | \- | \[23,36,56,72\] | \- | \- | 2020\-08\-26 22:42:16\.423000000 | 
+| My Static Metadata | iotconsole\-159EXAMPLE738\-0 | array of strings | \- | \["red","green","blue"\] | \- | \- | 2020\-08\-26 22:42:16\.423000000 | 
+| My Static Metadata | iotconsole\-159EXAMPLE738\-0 | boolean\_value\_as\_string | \- | TRUE | \- | \- | 2020\-08\-26 22:42:16\.423000000 | 
+| My Static Metadata | iotconsole\-159EXAMPLE738\-0 | double\_value | \- | \- | 123\.456789012 | \- | 2020\-08\-26 22:42:16\.423000000 | 
+| My Static Metadata | iotconsole\-159EXAMPLE738\-0 | double\_value\_as\_string | \- | 123\.45679 | \- | \- | 2020\-08\-26 22:42:16\.423000000 | 

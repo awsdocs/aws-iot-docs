@@ -1,6 +1,6 @@
 --------
 
- The Fleet Hub for AWS IoT Device Management service is currently in public preview\. This service is subject to change\.
+ The Fleet Hub service is currently in public preview\. This service is subject to change\.
 
 --------
 
@@ -22,7 +22,7 @@ You can connect your own identity provider to AWS SSO\. For more information, se
 
 1. On the **Index AWS IoT data** page, review the information in the **How the data flow works from AWS IoT to Fleet Hub** section\. This page links you to the pages in the AWS IoT Core console where you can activate and manage the AWS IoT Core fleet indexing service\. You can use this service to index, search, and aggregate your registry data, shadow data, and device connectivity data \(device lifecycle events\)\. You can also create custom fields in addition to the managed fields that AWS IoT Core fleet indexing indexes by default\.
 
-   If you have already activated fleet indexing, this page displays your fleet indexing settings and any custom fields that you have created\. You must enable thing indexing and thing connectivity to use Fleet Hub for AWS IoT Device Management\.
+   If you have already activated fleet indexing, this page displays your fleet indexing settings and any custom fields that you have created\. You must enable thing indexing and thing connectivity to use Fleet Hub\.
 
    In addition to activating fleet indexing, you also must activate thing connectivity and thing indexing to work with Fleet Hub\.
 
@@ -30,11 +30,11 @@ You can connect your own identity provider to AWS SSO\. For more information, se
 
    When you're done managing and reviewing your fleet indexing settings, choose **Next**\.
 
-1. On the **Configure application** page, in the **Application role** section, create a new service role or select an existing service role\. Your Fleet Hub for AWS IoT Device Management web application assumes this role when it uses Fleet Hub for AWS IoT Device Management resources\. Federated users have the same permissions as the role when they use the web application\.
+1. On the **Configure application** page, in the **Application role** section, create a new service role or select an existing service role\. Your Fleet Hub web application assumes this role when it uses Fleet Hub resources\. Federated users have the same permissions as the role when they use the web application\.
 
    If you create a new role, the role name must begin with the following string: `AWSIotFleetHub_random_string`\.
 
-   To see the permissions that your Fleet Hub for AWS IoT Device Management web application needs, choose **View role details**\. This opens a window that shows you the policy document that the service applies to any new role that you create from this page\. If you select an existing role, make sure that it has the permissions that are in this policy document\.
+   To see the permissions that your Fleet Hub web application needs, choose **View role details**\. This opens a window that shows you the policy document that the service applies to any new role that you create from this page\. If you select an existing role, make sure that it has the permissions that are in this policy document\.
 
 1. On the **Configure application** page, in the **Application properties** section, enter a name for your application\. Optionally, you can also enter an application description\.
 

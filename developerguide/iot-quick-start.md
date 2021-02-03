@@ -6,11 +6,11 @@ You can expect to spend 15\-20 minutes on this tutorial\.
 
 This tutorial is best for people who want to quickly get started with AWS IoT to see how it works in a limited scenario\. If you are looking for an example that will get you started so that you can explore more features and services, try [Explore AWS IoT Core services in hands\-on tutorial](iot-gs-first-thing.md)\.
 
-In this tutorial, you'll download and run software on a device that connects to a *thing object* in AWS IoT Core as part of a very small IoT solution\. The device can be an IoT device, such as a Raspberry Pi; however, and it can also be a personal computer that is running Linux, OS/X, or Windows\.
+In this tutorial, you'll download and run software on a device that connects to a *thing object* in AWS IoT Core as part of a very small IoT solution\. The device can be an IoT device, such as a Raspberry Pi; however, and it can also be a personal computer that is running Linux, OS/X, or Windows\. If you are looking to connect a Long Range WAN \(LoRaWAN\) device to AWS IoT, refer to the tutorial [Connecting devices and gateways to AWS IoT Core for LoRaWAN](connect-iot-lorawan.md)\.
 
 If your device supports a browser that can run the [AWS IoT console](https://console.aws.amazon.com/iot/home), complete this tutorial on the device\.
 
-If your device does not support a compatible browser, complete this tutorial on a PC or Mac and, when the procedure asks you to download the file, you'll need to download it to your PC or Mac, and then transfer the downloaded file to your device using FTP or similar process\. If you're not sure about how to do this, try to find a device that supports a compatible browser to do this tutorial\.
+If your device does not support a compatible browser, complete this tutorial on a PC or Mac and, when the procedure asks you to download the file, you'll need to download it to your PC or Mac, and then transfer the downloaded file to your device using SCP or similar process\. If you're not sure about how to do this, try to find a device that supports a compatible browser to do this tutorial\.
 
 ## Step 1\. Start the tutorial<a name="iot-quick-start-connect"></a>
 
@@ -78,7 +78,7 @@ This procedure is done in a terminal or command window on your device while foll
 
 1. You can repeat the commands from **Step 3/3** in the console \(Step 1 of this procedure\), to run the sample program again\.
 
-1. \(Optional\) If you want to see the messages from your IoT client in the [AWS IoT console](https://console.aws.amazon.com/iot/home), open the [MQTT client](https://console.aws.amazon.com/iot/home#/test) on the **Test** page of the AWS IoT console\. In the **MQTT client**, subscribe to **topic\_1**, and then, on your device, run the program \./start\.sh as described in the previous step\. See [View MQTT messages with the AWS IoT MQTT client](view-mqtt-messages.md) for more information\.
+1. \(Optional\) If you want to see the messages from your IoT client in the [AWS IoT console](https://console.aws.amazon.com/iot/home), open the [MQTT client](https://console.aws.amazon.com/iot/home#/test) on the **Test** page of the AWS IoT console\. In the **MQTT client**, subscribe to **\#**, and then, on your device, run the program \./start\.sh as described in the previous step\. See [View MQTT messages with the AWS IoT MQTT client](view-mqtt-messages.md) for more information\.
 
 1. After you have finished running the sample app on your device, in the AWS IoT console, choose **Done** to finish the tutorial and see this summary\.  
 ![\[AWS IoT console quick start complete\]](http://docs.aws.amazon.com/iot/latest/developerguide/images/aws-iot-learn-connect-complete.png)
@@ -89,7 +89,7 @@ Here are some ideas to explore AWS IoT further after you complete the quick star
 + 
 
 **[View MQTT messages in the MQTT client](https://console.aws.amazon.com/iot/home#/test)**  
-From the [AWS IoT console](https://console.aws.amazon.com/iot/home) you can open the [MQTT client](https://console.aws.amazon.com/iot/home#/test) on the **Test** page of the AWS IoT console\. In the **MQTT client**, subscribe to **topic\_1**, and then, on your device, run the program \./start\.sh as described in the previous step\. See [View MQTT messages with the AWS IoT MQTT client](view-mqtt-messages.md) for more information\.
+From the [AWS IoT console](https://console.aws.amazon.com/iot/home) you can open the [MQTT client](https://console.aws.amazon.com/iot/home#/test) on the **Test** page of the AWS IoT console\. In the **MQTT client**, subscribe to **\#**, and then, on your device, run the program \./start\.sh as described in the previous step\. See [View MQTT messages with the AWS IoT MQTT client](view-mqtt-messages.md) for more information\.
 + 
 
 **[Try the AWS IoT Core interactive demo](interactive-demo.md)**  

@@ -2,7 +2,9 @@
 
 You can define a rule that sends message data to an Amazon SNS topic\. 
 
-In this tutorial, you create a rule that sends the name of the AWS IoT thing that initiated the rule to all subscribers of an Amazon SNS topic\.
+In this tutorial, you create a rule that sends the name of an AWS IoT thing to all subscribers of an Amazon SNS topic whenever the thing's classic \(unnamed\) device shadow is updated\.
+
+While this tutorial uses the topic filter of a classic device shadow, you can modify it to use a named shadow by changing the format of the topic filter accordingly\. For information about the different topic filter formats used by device shadows, see [Shadow topics](reserved-topics.md#reserved-topics-shadow)\.
 
 **To create a rule with an SNS action**
 
@@ -17,13 +19,15 @@ In this tutorial, you create a rule that sends the name of the AWS IoT thing tha
 We do not recommend the use of personally identifiable information in rule names or descriptions\.  
 ![\[Image NOT FOUND\]](http://docs.aws.amazon.com/iot/latest/developerguide/images/sns-create-rule.png)
 
-1. In the **Rule query statement** editor, enter the following:
+1. In the **Rule query statement** editor, enter the following query:
 
    ```
    SELECT *, topic(3) as thing FROM '$aws/things/+/shadow/update/accepted'
    ```
 
-   \(The topic filter following the `"FROM"` specifies the topics that initiate the rule's action when a message is published to them\. The plus sign \(`+`\) used in the topic filter is a wildcard character that matches any thing name\. The `"topic(3)"` attribute following `"SELECT"` appends the thing name, which is the third topic field, onto the message contents\.\)  
+   The topic filter, `$aws/things/+/shadow/update/accepted`, specifies the topics that initiate the rule's action when a message is published to them\. In this case, the topics specified are those that AWS IoT publishes when a thing's classic device shadow is updated\. The plus sign \(`+`\) used in the topic filter is a wildcard character that matches any thing name\. `"topic(3)"` specifies the third element of the topic filter string, which is the thing name in this example, and appends it to the message contents\.
+
+   While this tutorial uses the topic filter of a classic device shadow, you can modify it to use a named shadow by changing the format of the topic filter accordingly\. For information about the different topic filter formats used by device shadows, see [Shadow topics](reserved-topics.md#reserved-topics-shadow)\.  
 ![\[Image NOT FOUND\]](http://docs.aws.amazon.com/iot/latest/developerguide/images/sns-message-source.png)
 
 1. In **Set one or more actions**, choose **Add action**\.  

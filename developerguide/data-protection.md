@@ -18,4 +18,6 @@ AWS IoT devices gather data, perform some manipulation on that data, and then se
 
 ## Data encryption in AWS IoT<a name="data-protection-encrypt"></a>
 
-By default, all AWS IoT data in transit and at rest is encrypted\. [Data in transit is encrypted using TLS](transport-security.md), and data at rest is encrypted using AWS owned keys\. AWS IoT does not currently support customer\-managed customer master keys \(CMKs\) from AWS Key Management Service \(AWS KMS\)\. 
+By default, all AWS IoT data in transit and at rest is encrypted\. [Data in transit is encrypted using TLS](transport-security.md), and data at rest is encrypted using AWS owned keys\. AWS IoT does not currently support customer\-managed customer master keys \(CMKs\) from AWS Key Management Service \(AWS KMS\); however, Device Advisor and AWS IoT Wireless use only a KMS AWS Owned Customer Master Key \(AOCMK\) to encrypt customer data\.
+
+ 

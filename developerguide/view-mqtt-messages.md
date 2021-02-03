@@ -11,17 +11,19 @@ Devices publish MQTT messages that are identified by [topics](topics.md) to comm
 1. In the [AWS IoT console](https://console.aws.amazon.com/iot/home), in the left menu, choose **Test**\.  
 ![\[Image NOT FOUND\]](http://docs.aws.amazon.com/iot/latest/developerguide/images/choose-test.png)
 
-1. Subscribe to a *topicName* on which your device publishes\. For the getting started sample app, the *topicName* is **topic\_1**\.
+1. Subscribe to a *topicName* on which your device publishes\. For the getting started sample app, subscribe to **\#**, which subscribes to all message topics\.
 
-   Continuing with the getting started example, on the **Subscribe** page, in the **Subscription topic** field, enter **topic\_1**, and then choose **Subscribe to topic**\.   
+   Continuing with the getting started example, on the **Subscribe** page, in the **Subscription topic** field, enter **\#**, and then choose **Subscribe to topic**\.   
 ![\[Image NOT FOUND\]](http://docs.aws.amazon.com/iot/latest/developerguide/images/subscribe-button-topic.png)
 
-   The topic message log page, **topic\_1**, opens and **topic\_1** appears in the **Subscriptions** column\.  
+   The topic message log page, **\#** opens and **\#** appears in the **Subscriptions** column\.  
 ![\[Image NOT FOUND\]](http://docs.aws.amazon.com/iot/latest/developerguide/images/subscribed-button-topic.png)
 
-1. If the device that you configured in [Configure your device](configure-device.md) is running the example program, you should see the messages it sends to AWS IoT in the **topic\_1** message log\. The message log entries will appear below the **Publish** section when messages with the subscribed topic are received by AWS IoT\.
+1. If the device that you configured in [Configure your device](configure-device.md) is running the example program, you should see the messages it sends to AWS IoT in the **\#** message log\. The message log entries will appear below the **Publish** section when messages with the subscribed topic are received by AWS IoT\.
 
-1. On the **topic\_1** message log page, you can also publish messages to a topic\. Messages published to a subscribed topic appear in the topic's message log as they are received\.
+1. On the **\#** message log page, you can also publish messages to a topic, but you'll need to specify the topic name\. You cannot publish to the **\#** topic\.
+
+   Messages published to subscribed topics appear in the message log as they are received, with the most recent message first\.
 
 ### Troubleshooting MQTT messages<a name="view-mqtt-trouble"></a>
 

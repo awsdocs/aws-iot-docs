@@ -64,7 +64,7 @@ Provisioning claim private keys should be secured at all times, including on the
 
 **To initialize the device for use**
 
-1. The device uses the [AWS IoT Device and Mobile SDKs](iot-sdks.md) to connect to and authenticate with AWS IoT using the provisioning claim certificate that is installed on the device\.
+1. The device uses the [AWS IoT Device SDKs, Mobile SDKs, and AWS IoT Device Client](iot-sdks.md) to connect to and authenticate with AWS IoT using the provisioning claim certificate that is installed on the device\.
 
 1. The device obtains a permanent certificate and private key by using one of these options\. The device will use the certificate and key for all future authentication with AWS IoT\.
 
@@ -121,7 +121,7 @@ For security, the temporary provisioning claim certificate returned by `CreatePr
 
 1. The mobile app or web application supplies the temporary provisioning claim certificate to the device along with any required configuration information, such as Wi\-Fi credentials\.
 
-1. The device uses the temporary provisioning claim certificate to connect to AWS IoT using the [AWS IoT Device and Mobile SDKs](iot-sdks.md)\.
+1. The device uses the temporary provisioning claim certificate to connect to AWS IoT using the [AWS IoT Device SDKs, Mobile SDKs, and AWS IoT Device Client](iot-sdks.md)\.
 **Note**  
 The device must perform the following steps such that it calls [`RegisterThing`](fleet-provision-api.md#register-thing) within five minutes of connecting to AWS IoT with the temporary provisioning claim certificate\.
 

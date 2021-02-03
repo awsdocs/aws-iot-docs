@@ -141,6 +141,8 @@ HTTP 200
 Response body: Empty response state document
 ```
 
+Note that deleting a shadow does not reset its version number to 0\.
+
 **Authorization**  
 Deleting a device's shadow requires a policy that allows the caller to perform the `iot:DeleteThingShadow` action\. The Device Shadow service accepts two forms of authentication: Signature Version 4 with IAM credentials or TLS mutual authentication with a client certificate\.
 
