@@ -92,7 +92,7 @@ You can use [curl](https://curl.haxx.se) from a client or device to send a messa
        --cacert Amazon-root-CA-1.pem \
        --cert device.pem.crt \
        --key private.pem.key \
-       --request POST \ 
+       --request POST \
        --data "{ \"message\": \"Hello, world\" }" \
        "https://IoT_data_endpoint:8443/topics/topic?qos=1"
    ```  
