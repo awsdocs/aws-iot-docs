@@ -2,7 +2,7 @@
 
 Long range WAN \(LoRaWAN\) devices and gateways can connect to AWS IoT Core by using AWS IoT Core for LoRaWAN\. The [LoRa Alliance](https://lora-alliance.org/about-lorawan) describes LoRaWAN as, *"a Low Power, Wide Area \(LPWA\) networking protocol designed to wirelessly connect battery operated ‘things’ to the internet in regional, national or global networks, and targets key Internet of Things \(IoT\) requirements such as bi\-directional communication, end\-to\-end security, mobility and localization services\."* 
 
-LoRaWAN devices communicate with AWS IoT Core through LoRaWAN gateways\. AWS IoT rules send LoRaWAN device messages to other AWS services and can process the device messages to format the data for the services\.
+LoRaWAN devices communicate with AWS IoT Core through LoRaWAN gateways\. AWS IoT rules send LoRaWAN device messages to other AWS services and can process the device messages to format the data for the services\. 
 
 AWS IoT Core for LoRaWAN manages the service and device policies that AWS IoT Core requires to manage and communicate with the LoRaWAN gateways and devices\. AWS IoT Core for LoRaWAN also manages the destinations that describe the AWS IoT rules that send device data to other services\.
 
@@ -40,6 +40,13 @@ AWS IoT Core for LoRaWAN assigns unique IDs to the resources you create for wire
    You can also add tags to the resources you create\. Before you add your LoRaWAN devices, consider how you might use tags to identify and manage your AWS IoT Core for LoRaWAN resources\. Tags can be modified after you add them\. 
 
    For more information about naming and tagging, see [Describe your AWS IoT Core for LoRaWAN resources](connect-iot-lorawan-describe-resource.md)\.
+
+1. 
+
+**The selection of LoRa frequency bands for your gateways and device connection**  
+AWS IoT Core for LoRaWAN supports EU863\-870, US902\-928, and AS923\-1 frequency bands, which you can use to connect your gateways and devices that are physically present in countries that support the frequency ranges and characteristics of these bands\. The EU863\-870 and US902\-928 bands are commonly used in Europe and North America, respectively\. The AS923\-1 band is commonly used in Australia, New Zealand, Japan, and Singapore among other countries\. To learn more about which frequency band to use in your region or country, see [ LoRaWAN® Regional Parameters](https://lora-alliance.org/resource_hub/rp2-101-lorawan-regional-parameters-2/)\.
+
+   LoRa Alliance publishes LoRaWAN specifications and regional parameter documents that are available for download from the LoRa Alliance website\. The LoRa Alliance regional parameters help companies decide which frequency band to use in their region or country\. AWS IoT Core for LoRaWAN's frequency band implementation follows the recommendation in the regional parameters specification document\. These regional parameters are grouped into a set of radio parameters, along with a frequency allocation that is adapted to the Industrial, Scientific, and Medical \(ISM\) band\. We recommend that you work with the compliance teams to ensure that you meet any applicable regulatory requirements\. 
 
 1. 
 

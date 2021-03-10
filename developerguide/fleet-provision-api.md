@@ -19,7 +19,7 @@ If you do not subscribe to the response topics *before* you publish a request, y
 
 ## CreateCertificateFromCsr<a name="create-cert-csr"></a>
 
-Creates a certificate from a certificate signing request \(CSR\)\. The new certificate has a `PENDING_ACTIVATION` status\. When you call `RegisterThing` to provision a thing with this certificate, the certificate status changes to `ACTIVE` or `INACTIVE` as described in the template\.
+Creates a certificate from a certificate signing request \(CSR\)\. AWS IoT provides client certificates that are signed by the Amazon Root certificate authority \(CA\)\. The new certificate has a `PENDING_ACTIVATION` status\. When you call `RegisterThing` to provision a thing with this certificate, the certificate status changes to `ACTIVE` or `INACTIVE` as described in the template\.
 
 ### CreateCertificateFromCsr request<a name="create-cert-csr-request"></a>
 
@@ -93,7 +93,7 @@ The error message\.
 
 ## CreateKeysAndCertificate<a name="create-keys-cert"></a>
 
-Creates new keys and a certificate\. The new certificate has a `PENDING_ACTIVATION` status\. When you call `RegisterThing` to provision a thing with this certificate, the certificate status changes to `ACTIVE` or `INACTIVE` as described in the template\.
+Creates new keys and a certificate\. AWS IoT provides client certificates that are signed by the Amazon Root certificate authority \(CA\)\. The new certificate has a `PENDING_ACTIVATION` status\. When you call `RegisterThing` to provision a thing with this certificate, the certificate status changes to `ACTIVE` or `INACTIVE` as described in the template\.
 
 ### CreateKeysAndCertificate request<a name="create-keys-cert-request"></a>
 

@@ -15,19 +15,19 @@ When you create an AWS IoT rule with this action, you must specify the following
 
 `alarmName`  
 The CloudWatch alarm name\.  
-Supports substitution templates: API and AWS CLI only
+Supports [substitution templates](iot-substitution-templates.md): API and AWS CLI only
 
 `stateReason`  
 Reason for the alarm change\.  
-Supports substitution templates: Yes
+Supports [substitution templates](iot-substitution-templates.md): Yes
 
 `stateValue`  
 The value of the alarm state\. Valid values: `OK`, `ALARM`, `INSUFFICIENT_DATA`\.  
-Supports substitution templates: Yes
+Supports [substitution templates](iot-substitution-templates.md): Yes
 
 `roleArn`  
 The IAM role that allows access to the CloudWatch alarm\. For more information, see [Requirements](#cloudwatch-alarms-rule-action-requirements)\.  
-Supports substitution templates: No
+Supports [substitution templates](iot-substitution-templates.md): No
 
 ## Examples<a name="cloudwatch-alarms-rule-action-examples"></a>
 

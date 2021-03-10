@@ -110,7 +110,7 @@ Duration: a non\-negative integer\. Valid values are 300, 600, 900, 1800, or 360
 
 The number of TCP ports the device is listening on\.
 
-Use this metric to specify the maximum number of authorization failures allowed for each device in a given period of time\. An authorization failure occurs when a request from a device to AWS IoT is denied \(for example, if a device attempts to publish to a topic for which it does not have sufficient permissions\)\. 
+Use this metric to specify the maximum number of TCP ports that each device should monitor\.
 
 Can be used with ML Detect: No
 
@@ -128,8 +128,8 @@ Duration: a non\-negative integer\. Valid values are 300, 600, 900, 1800, or 360
 
 ```
 {
-  "name": "Authorization Failures",
-  "metric": "aws:num-authorization-failures",
+  "name": "Max TCP Ports",
+  "metric": "aws:num-listening-tcp-ports",
   "criteria": {
     "comparisonOperator": "less-than",
     "value": {
@@ -146,8 +146,8 @@ Duration: a non\-negative integer\. Valid values are 300, 600, 900, 1800, or 360
 
 ```
 {
-  "name": "Authorization Failures",
-  "metric": "aws:num-authorization-failures",
+  "name": "Max TCP Ports",
+  "metric": "aws:num-listening-tcp-ports",
   "criteria": {
     "comparisonOperator": "less-than",
     "statisticalThreshold": {
@@ -164,7 +164,7 @@ Duration: a non\-negative integer\. Valid values are 300, 600, 900, 1800, or 360
 
 The number of UDP ports the device is listening on\.
 
-Use this metric to specify the maximum number of authorization failures allowed for each device in a given period of time\. An authorization failure occurs when a request from a device to AWS IoT is denied \(for example, if a device attempts to publish to a topic for which it does not have sufficient permissions\)\. 
+Use this metric to specify the maximum number of UDP ports that each device should monitor\.
 
 Can be used with ML Detect: No
 
@@ -182,8 +182,8 @@ Duration: a non\-negative integer\. Valid values are 300, 600, 900, 1800, or 360
 
 ```
 {
-  "name": "Authorization Failures",
-  "metric": "aws:num-authorization-failures",
+  "name": "Max UDP Ports",
+  "metric": "aws:num-listening-udp-ports",
   "criteria": {
     "comparisonOperator": "less-than",
     "value": {
@@ -200,8 +200,8 @@ Duration: a non\-negative integer\. Valid values are 300, 600, 900, 1800, or 360
 
 ```
 {
-  "name": "Authorization Failures",
-  "metric": "aws:num-authorization-failures",
+  "name": "Max UDP Ports",
+  "metric": "aws:num-listening-udp-ports",
   "criteria": {
     "comparisonOperator": "less-than",
     "statisticalThreshold": {
@@ -585,42 +585,6 @@ The following JSON structure uses long names\.
             }
          ],
          "total":3
-      },
-      "listening_udp_ports":{
-         "ports":[
-            {
-               "interface":"eth0",
-               "port":5353
-            },
-            {
-               "interface":"eth0",
-               "port":67
-            }
-         ],
-         "total":2
-      },
-      "network_stats":{
-         "bytes_in":29358693495,
-         "bytes_out":26485035,
-         "packets_in":10013573555,
-         "packets_out":11382615
-      },
-      "tcp_connections":{
-         "established_connections":{
-            "connections":[
-               {
-                  "local_interface":"eth0",
-                  "local_port":80,
-                  "remote_addr":"192.168.0.1:8000"
-               },
-               {
-                  "local_interface":"eth0",
-                  "local_port":80,
-                  "remote_addr":"192.168.0.1:8000"
-               }
-            ],
-            "total":2
-         }
       }
    },
    "custom_metrics":{

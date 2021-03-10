@@ -2,7 +2,7 @@
 
 The SNS \(`sns`\) action sends the data from an MQTT message as an Amazon Simple Notification Service \(Amazon SNS\) push notification\.
 
-You can follow a tutorial that shows you how to create and test a rule with an SNS action\. For more information, see [Creating an Amazon SNS rule](iot-sns-rule.md)\.
+You can follow a tutorial that shows you how to create and test a rule with an SNS action\. For more information, see [Send an Amazon SNS notification](iot-sns-rule.md)\.
 
 ## Requirements<a name="sns-rule-action-requirements"></a>
 
@@ -18,15 +18,15 @@ When you create an AWS IoT rule with this action, you must specify the following
 
 `targetArn`  
 The SNS topic or individual device to which the push notification is sent\.  
-Supports substitution templates: API and AWS CLI only
+Supports [substitution templates](iot-substitution-templates.md): API and AWS CLI only
 
 `messageFormat`  
 \(Optional\) The message format\. Amazon SNS uses this setting to determine if the payload should be parsed and if relevant platform\-specific parts of the payload should be extracted\. Valid values: `JSON`, `RAW`\. Defaults to `RAW`\.  
-Supports substitution templates: No
+Supports [substitution templates](iot-substitution-templates.md): No
 
 `roleArn`  
 The IAM role that allows access to SNS\. For more information, see [Requirements](#sns-rule-action-requirements)\.  
-Supports substitution templates: No
+Supports [substitution templates](iot-substitution-templates.md): No
 
 ## Examples<a name="sns-rule-action-examples"></a>
 
@@ -73,4 +73,4 @@ The following JSON example defines an SNS action with substitution templates in 
 
 ## See also<a name="sns-rule-action-see-also"></a>
 + [What is Amazon Simple Notification Service?](https://docs.aws.amazon.com/sns/latest/dg/) in the *Amazon Simple Notification Service Developer Guide*
-+ [Creating an Amazon SNS rule](iot-sns-rule.md)
++ [Send an Amazon SNS notification](iot-sns-rule.md)

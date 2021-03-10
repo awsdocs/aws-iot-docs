@@ -16,23 +16,23 @@ When you create an AWS IoT rule with this action, you must specify the following
 
 `endpoint`  
 The endpoint of your Amazon Elasticsearch Service domain\.  
-Supports substitution templates: API and AWS CLI only
+Supports [substitution templates](iot-substitution-templates.md): API and AWS CLI only
 
 `index`  
 The Elasticsearch index where you want to store your data\.  
-Supports substitution templates: Yes
+Supports [substitution templates](iot-substitution-templates.md): Yes
 
 `type`  
 The type of document you are storing\.  
-Supports substitution templates: Yes
+Supports [substitution templates](iot-substitution-templates.md): Yes
 
 `id`  
 The unique identifier for each document\.  
-Supports substitution templates: Yes
+Supports [substitution templates](iot-substitution-templates.md): Yes
 
 `roleARN`  
 The IAM role that allows access to the Elasticsearch domain\. For more information, see [Requirements](#elasticsearch-rule-action-requirements)\.  
-Supports substitution templates: No
+Supports [substitution templates](iot-substitution-templates.md): No
 
 ## Examples<a name="elasticsearch-rule-action-examples"></a>
 

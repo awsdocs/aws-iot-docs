@@ -17,19 +17,19 @@ When you create an AWS IoT rule with this action, you must specify the following
 `batchMode`  
 \(Optional\) Whether to deliver the Kinesis Data Firehose stream as a batch by using [https://docs.aws.amazon.com/firehose/latest/APIReference/API_PutRecordBatch.html](https://docs.aws.amazon.com/firehose/latest/APIReference/API_PutRecordBatch.html) \. The default value is `false`\.  
 When `batchMode` is `true` and the rule's SQL statement evaluates to an Array, each Array element forms one record in the `PutRecordBatch` request\. The resulting array can't have more than 500 records\.   
-Supports substitution templates: No
+Supports [substitution templates](iot-substitution-templates.md): No
 
 `deliveryStreamName`  
 The Kinesis Data Firehose stream to which to write the message data\.  
-Supports substitution templates: API and AWS CLI only
+Supports [substitution templates](iot-substitution-templates.md): API and AWS CLI only
 
 `separator`  
 \(Optional\) A character separator that is used to separate records written to the Kinesis Data Firehose stream\. If you omit this parameter, the stream uses no separator\. Valid values: `,` \(comma\), `\t` \(tab\), `\n` \(newline\), `\r\n` \(Windows newline\)\.  
-Supports substitution templates: No
+Supports [substitution templates](iot-substitution-templates.md): No
 
 `roleArn`  
 The IAM role that allows access to the Kinesis Data Firehose stream\. For more information, see [Requirements](#kinesis-firehose-rule-action-requirements)\.  
-Supports substitution templates: No
+Supports [substitution templates](iot-substitution-templates.md): No
 
 ## Examples<a name="kinesis-firehose-rule-action-examples"></a>
 

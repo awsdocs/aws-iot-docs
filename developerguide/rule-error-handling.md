@@ -1,6 +1,6 @@
 # Error handling \(error action\)<a name="rule-error-handling"></a>
 
-When AWS IoT receives a message from a device, the rules engine checks to see if the message matches a rule\. If so, the rule's SQL statement is evaluated and the rule's actions are triggered, passing the SQL statement's result\. 
+When AWS IoT receives a message from a device, the rules engine checks to see if the message matches a rule\. If so, the rule's query statement is evaluated and the rule's actions are triggered, passing the query statement's result\. 
 
 If a problem occurs when triggering an action, the rules engine triggers an error action, if one is specified for the rule\. This might happen when:
 + A rule doesn't have permission to access an Amazon S3 bucket\.

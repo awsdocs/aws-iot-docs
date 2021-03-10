@@ -3,7 +3,7 @@
 A shadow exposes the following URI for updating state information:
 
 ```
-https://endpoint/things/thingName/shadow
+https://endpoint:8443/things/thingName/shadow
 ```
 
 The endpoint is specific to your AWS account\. To find your endpoint, you can:
@@ -35,7 +35,7 @@ The response state document includes the delta between the `desired` and `report
 The request includes the standard HTTP headers plus the following URI:
 
 ```
-HTTP GET https://endpoint/things/thingName/shadow?name=shadowName
+HTTP GET https://endpoint:8443/things/thingName/shadow?name=shadowName
 Request body: (none)
 ```
 
@@ -81,7 +81,7 @@ Updates affect only the fields specified in the request state document\. Any fie
 The request includes the standard HTTP headers plus the following URI and body:
 
 ```
-HTTP POST https://endpoint/things/thingName/shadow?name=shadowName
+HTTP POST https://endpoint:8443/things/thingName/shadow?name=shadowName
 Request body: request state document
 ```
 
@@ -127,7 +127,7 @@ Deletes the shadow for the specified thing\.
 The request includes the standard HTTP headers plus the following URI:
 
 ```
-HTTP DELETE https://endpoint/things/thingName/shadow?name=shadowName
+HTTP DELETE https://endpoint:8443/things/thingName/shadow?name=shadowName
 Request body: (none)
 ```
 

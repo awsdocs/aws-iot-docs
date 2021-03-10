@@ -1,6 +1,6 @@
 # Provisioning devices that don't have device certificates using fleet provisioning<a name="provision-wo-cert"></a>
 
-By using AWS IoT fleet provisioning, AWS IoT can generate and securely deliver device certificates and private keys to your devices when they connect to AWS IoT for the first time\.
+By using AWS IoT fleet provisioning, AWS IoT can generate and securely deliver device certificates and private keys to your devices when they connect to AWS IoT for the first time\. AWS IoT provides client certificates that are signed by the Amazon Root certificate authority \(CA\)\.
 
 There are two ways to use fleet provisioning:
 + By claim

@@ -122,7 +122,7 @@ The following procedure shows you how to apply mitigation actions to your audit 
 
 In the following procedure, you enable Simple Notifications Service \(SNS\) notifications to alert you when your audits identifies any non\-compliant resources\. In this tutorial you will set up notifications for the audit checks enabled in the [Enable audit checks](#audit-tutorial-enable-checks) tutorial\.
 
-1. First, you need to create an IAM policy that provides access to Amazon SNS via the AWS Management Console\. You can do this by following the [Creating a AWS IoT Device Defender Audit IAM role \(optional\)](#audit-iam) process, but selecting **AmazonSNSRole** in step 8\.
+1. First, you need to create an IAM policy that provides access to Amazon SNS via the AWS Management Console\. You can do this by following the [Creating a AWS IoT Device Defender Audit IAM role \(optional\)](#audit-iam) process, but selecting **AWSIoTDeviceDefenderPublishFindingsToSNSMitigationAction** in step 8\.
 
 1. In the [AWS IoT console](https://console.aws.amazon.com/iot), in the navigation pane, expand **Defend** and select **Settings**\.
 

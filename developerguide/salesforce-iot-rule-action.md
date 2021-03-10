@@ -8,11 +8,11 @@ When you create an AWS IoT rule with this action, you must specify the following
 
 `url`  
 The URL exposed by the Salesforce IoT input stream\. The URL is available from the Salesforce IoT platform when you create an input stream\. For more information, see the Salesforce IoT documentation\.  
-Supports substitution templates: No
+Supports [substitution templates](iot-substitution-templates.md): No
 
 `token`  
 The token used to authenticate access to the specified Salesforce IoT input stream\. The token is available from the Salesforce IoT platform when you create an input stream\. For more information, see the Salesforce IoT documentation\.  
-Supports substitution templates: No
+Supports [substitution templates](iot-substitution-templates.md): No
 
 ## Examples<a name="salesforce-iot-rule-action-examples"></a>
 

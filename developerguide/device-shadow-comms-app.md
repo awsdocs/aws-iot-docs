@@ -10,13 +10,13 @@ Make sure that your app's or service's use of the shadows is consistent with and
 The REST API's URL for a named shadows is:
 
 ```
-https://endpoint/things/thingName/shadow?name=shadowName
+https://endpoint:8443/things/thingName/shadow?name=shadowName
 ```
 
 and for an unnamed shadow:
 
 ```
-https://endpoint/things/thingName/shadow
+https://endpoint:8443/things/thingName/shadow
 ```
 
 where:
@@ -64,7 +64,7 @@ MQTT LWT messages sent to AWS IoT reserved topics \(topics that begin with $\) a
        "actions": [{
            "republish": {
                "topic": "$$aws/things/myLightBulb/shadow/update",
-               "roleArn": "arn:aws:iam::123456789012:role/aws_iot_republish"
+               "roleArn": "arn:aws:iam:123456789012:role/aws_iot_republish"
            }
        }]
        }

@@ -6,7 +6,7 @@ You can use the AWS IoT Device Defender Detect commands in this section to ident
 + [CreateSecurityProfile](https://docs.aws.amazon.com/iot/latest/apireference/API_CreateSecurityProfile.html)
 + [DeleteDimension](https://docs.aws.amazon.com/iot/latest/apireference/API_DeleteDimension.html)
 + [DeleteSecurityProfile](https://docs.aws.amazon.com/iot/latest/apireference/API_DeleteSecurityProfile.html)
-+ [CreateDimension](https://docs.aws.amazon.com/iot/latest/apireference/API_CreateDimension.html)
++ [DescribeSecurityProfile](https://docs.aws.amazon.com/iot/latest/apireference/API_DescribeSecurityProfile.html)
 + [DescribeDimension](https://docs.aws.amazon.com/iot/latest/apireference/API_DescribeDimension.html)
 + [DetachSecurityProfile](https://docs.aws.amazon.com/iot/latest/apireference/API_DetachSecurityProfile.html)
 + [GetBehaviorModelTrainingSummaries](https://docs.aws.amazon.com/iot/latest/apireference/GetBehaviorModelTrainingSummaries.html)

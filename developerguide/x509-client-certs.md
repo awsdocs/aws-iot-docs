@@ -32,7 +32,7 @@ The date and time when certificates signed by a CA certificate expire are set wh
 
 ## Using X\.509 client certificates in multiple AWS accounts with multi\-account registration<a name="multiple-account-cert"></a>
 
- Multi\-Account Registration makes it possible to move devices between your AWS accounts in the same Region\. With this, you can register, test, and configure a device in a pre\-production account, and then register and use the same device and device certificate in a production account\. You can also [register the client certificate on the device \(the device certificates\) without a CA](manual-cert-registration.md#manual-cert-registration-noca-cli) that is registered with AWS IoT\. 
+ Multi\-Account Registration makes it possible to move devices between your AWS accounts in the same Region or in different Regions\. With this, you can register, test, and configure a device in a pre\-production account, and then register and use the same device and device certificate in a production account\. You can also [register the client certificate on the device \(the device certificates\) without a CA](manual-cert-registration.md#manual-cert-registration-noca-cli) that is registered with AWS IoT\. 
 
 **Note**  
 Certificates used for Multi\-Account Registration are supported on the `iot:Data-ATS`, `iot:Data` \(legacy\), and `iot:Jobs` endpoint types\. Certificates used for Multi\-Account Registration cannot be used on the `iot:CredentialProvider` endpoint type\. For more information about AWS IoT device endpoints, see [AWS IoT device data and service endpoints](iot-connect-devices.md#iot-connect-device-endpoints)\.

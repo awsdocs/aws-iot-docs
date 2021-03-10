@@ -1,12 +1,11 @@
 # Timestream<a name="timestream-rule-action"></a>
 
-The Timestream rule action writes attributes \(measures\) from an MQTT message into an Amazon Timestream table\.
+The Timestream rule action writes attributes \(measures\) from an MQTT message into an Amazon Timestream table\. For more information about Amazon Timestream, see [What Is Amazon Timestream?](https://docs.aws.amazon.com/timestream/latest/developerguide/what-is-timestream.html)\.
 
-**Important**  
-The attributes that this rule stores in the Timestream database are those that result from the rule's SQL statement\. Each attribute is stored as a separate record in the Timestream database table\.  
-For more information about Amazon Timestream, see [What Is Amazon Timestream?](https://docs.aws.amazon.com/timestream/latest/developerguide/what-is-timestream.html)\.
+**Note**  
+Amazon Timestream is not available in all AWS Regions\. If Amazon Timestream is not available in your Region, it won't appear in the list of rule actions\.
 
-The value of each attribute in the SQL statement's result is parsed to infer its data type \(as in a [DynamoDBv2](dynamodb-v2-rule-action.md) action\)\. Each attribute's value is written to its own record in the Timestream table\. To specify or change a value's data type, use the [`cast()`](iot-sql-functions.md#iot-sql-function-cast) function in rule's the SQL statement\. For more information about the contents of each Timestream record, see [Amazon Timestream record content](#timestream-rule-action-data)\.
+The attributes that this rule stores in the Timestream database are those that result from the rule's query statement\. The value of each attribute in the query statement's result is parsed to infer its data type \(as in a [DynamoDBv2](dynamodb-v2-rule-action.md) action\)\. Each attribute's value is written to its own record in the Timestream table\. To specify or change an attribute's data type, use the [`cast()`](iot-sql-functions.md#iot-sql-function-cast) function in the query statement\. For more information about the contents of each Timestream record, see [Amazon Timestream record content](#timestream-rule-action-data)\.
 
 **Note**  
 With SQL V2 \(2016\-03\-23\), numeric values that are whole numbers, such as `10.0`, are converted their Integer representation \(`10`\)\. Explicitly casting them to a `Decimal` value, such as by using the [cast\(\)](iot-sql-functions.md#iot-sql-function-cast) function, does not prevent this behavior—the result is still an `Integer` value\. This can cause type mismatch errors that prevent data from being recorded in the Timestream database\. To reliably process whole number numeric values as `Decimal` values, use SQL V1 \(2015\-10\-08\) for the rule query statement\.
@@ -25,25 +24,25 @@ When you create an AWS IoT rule with this action, you must specify the following
 
 `databaseName`  
 The name of an Amazon Timestream database that has the table to receive the records this action creates\. See also `tableName`\.  
-Supports substitution templates: API and AWS CLI only
+Supports [substitution templates](iot-substitution-templates.md): API and AWS CLI only
 
 `dimensions`  
 Metadata attributes of the time series that are written in each measure record\. For example, the name and Availability Zone of an EC2 instance or the name of the manufacturer of a wind turbine are dimensions\.    
 `name`  
 The metadata dimension name\. This is the name of the column in the database table record\.  
 Dimensions can't be named: `measure_name`, `measure_value`, or `time`\. These names are reserved\. Dimension names can't start with `ts_` or `measure_value` and they can't contain the colon \(`:`\) character\.  
-Supports substitution templates: No  
+Supports [substitution templates](iot-substitution-templates.md): No  
 `value`  
 The value to write in this column of the database record\.  
-Supports substitution templates: Yes
+Supports [substitution templates](iot-substitution-templates.md): Yes
 
 `roleArn`  
 The Amazon Resource Name \(ARN\) of the role that grants AWS IoT permission to write to the Timestream database table\. For more information, see [Requirements](#timestream-rule-action-requirements)\.  
-Supports substitution templates: No
+Supports [substitution templates](iot-substitution-templates.md): No
 
 `tableName`  
 The name of the database table into which to write the measure records\. See also `databaseName`\.  
-Supports substitution templates: API and AWS CLI only
+Supports [substitution templates](iot-substitution-templates.md): API and AWS CLI only
 
 `timestamp`  
  The value to use for the entry's timestamp\. If blank, the time that the entry was processed is used\.     
@@ -56,16 +55,16 @@ You can use the [time\_to\_epoch\(String, String\)](iot-sql-functions.md#iot-sql
 
 ## Amazon Timestream record content<a name="timestream-rule-action-data"></a>
 
-The data written to the Amazon Timestream table by this action include a timestamp, metadata from the Timestream rule action, and the result of the rule's SQL statement\.
+The data written to the Amazon Timestream table by this action include a timestamp, metadata from the Timestream rule action, and the result of the rule's query statement\.
 
-For each attribute \(measure\) in the result of the SQL statement, this rule action writes a record to the specified Timestream table with these columns\.
+For each attribute \(measure\) in the result of the query statement, this rule action writes a record to the specified Timestream table with these columns\.
 
 
 |  Column name  |  Attribute type  |  Value  |  Comments  | 
 | --- | --- | --- | --- | 
 |  *dimension\-name*  |  DIMENSION  |  The value specified in the Timestream rule action entry\.  |  Each **Dimension** specified in the rule action entry creates a column in the Timestream database with the dimension's name\.  | 
-|  measure\_name  |  MEASURE\_NAME  |  The attribute's name  |  The name of the attribute in the result of the SQL statement whose value is specified in the `measure_value::data-type` column\.  | 
-|  measure\_value::*data\-type*  |  MEASURE\_VALUE  |  The value of the attribute in the result of the SQL statement\. The attribute's name is in the `measure_name` column\.  |  The value is interpreted\* and cast as the best match of: `bigint`, `boolean`, `double`, or `varchar`\. Amazon Timestream creates a separate column for each data type\. The value in the message can be cast to another data type by using the [`cast()`](iot-sql-functions.md#iot-sql-function-cast) function in the rule's SQL statement\.  | 
+|  measure\_name  |  MEASURE\_NAME  |  The attribute's name  |  The name of the attribute in the result of the query statement whose value is specified in the `measure_value::data-type` column\.  | 
+|  measure\_value::*data\-type*  |  MEASURE\_VALUE  |  The value of the attribute in the result of the query statement\. The attribute's name is in the `measure_name` column\.  |  The value is interpreted\* and cast as the best match of: `bigint`, `boolean`, `double`, or `varchar`\. Amazon Timestream creates a separate column for each data type\. The value in the message can be cast to another data type by using the [`cast()`](iot-sql-functions.md#iot-sql-function-cast) function in the rule's query statement\.  | 
 |  time  |  TIMESTAMP  |  The date and time of the record in the database\.  |  This value is assigned by rules engine or the `timestamp` property, if it is defined\.  | 
 
 \* The attribute value read from the message payload is interpreted as follows\. See the [Examples](#timestream-rule-action-examples) for an illustration of each of these cases\.
@@ -129,7 +128,7 @@ Using the Timestream topic rule action defined in the previous example with the 
 }
 ```
 
-The following table displays the database columns and records that using the specified topic rule action to process the previous message payload creates\. The `device_firmware_sku` and `device_id` columns are the DIMENSIONS defined in the topic rule action\. The Timestream topic rule action creates the `time` column and the `measure_name` and `measure_value::*` columns, which it fills with the values from the result of the topic rule action's SQL statement\. 
+The following table displays the database columns and records that using the specified topic rule action to process the previous message payload creates\. The `device_firmware_sku` and `device_id` columns are the DIMENSIONS defined in the topic rule action\. The Timestream topic rule action creates the `time` column and the `measure_name` and `measure_value::*` columns, which it fills with the values from the result of the topic rule action's query statement\. 
 
 
 | device\_firmware\_sku | device\_id | measure\_name | measure\_value::bigint | measure\_value::varchar | measure\_value::double | measure\_value::boolean | time | 

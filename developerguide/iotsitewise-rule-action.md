@@ -56,48 +56,48 @@ When you create an AWS IoT rule with this action, you must specify the following
 A list of asset property value entries that each contain the following information:    
 `propertyAlias`  
 \(Optional\) The property alias associated with your asset property\. You must specify either a `propertyAlias` or both an `assetId` and a `propertyId`\. For more information about property aliases, see [Mapping industrial data streams to asset properties](https://docs.aws.amazon.com/iot-sitewise/latest/userguide/connect-data-streams.html) in the *AWS IoT SiteWise User Guide*\.  
-Supports substitution templates: Yes  
+Supports [substitution templates](iot-substitution-templates.md): Yes  
 `assetId`  
 \(Optional\) The ID of the AWS IoT SiteWise asset\. You must specify either a `propertyAlias` or both an `assetId` and a `propertyId`\.  
-Supports substitution templates: Yes  
+Supports [substitution templates](iot-substitution-templates.md): Yes  
 `propertyId`  
 \(Optional\) The ID of the asset's property\. You must specify either a `propertyAlias` or both an `assetId` and a `propertyId`\.  
-Supports substitution templates: API and AWS CLI only  
+Supports [substitution templates](iot-substitution-templates.md): API and AWS CLI only  
 `entryId`  
 \(Optional\) A unique identifier for this entry\. You can define the `entryId` to better track which message caused an error in case of failure\. Defaults to a new UUID\.  
-Supports substitution templates: Yes  
+Supports [substitution templates](iot-substitution-templates.md): Yes  
 `propertyValues`  
 A list of property values to insert that each contain timestamp, quality, and value \(TQV\) in the following format:    
 `timestamp`  
 A timestamp structure that contains the following information:    
 `timeInSeconds`  
 A string that contains the time in seconds in Unix epoch time\. If your message payload doesn't have a timestamp, you can use [timestamp\(\)](iot-sql-functions.md#iot-function-timestamp), which returns the current time in milliseconds\. To convert that time to seconds, you can use the following substitution template: **$\{floor\(timestamp\(\) / 1E3\)\}**\.  
-Supports substitution templates: Yes  
+Supports [substitution templates](iot-substitution-templates.md): Yes  
 `offsetInNanos`  
 \(Optional\) A string that contains the nanosecond time offset from the time in seconds\. If your message payload doesn't have a timestamp, you can use [timestamp\(\)](iot-sql-functions.md#iot-function-timestamp), which returns the current time in milliseconds\. To calculate the nanosecond offset from that time, you can use the following substitution template: **$\{\(timestamp\(\) % 1E3\) \* 1E6\}**\.  
-Supports substitution templates: Yes
+Supports [substitution templates](iot-substitution-templates.md): Yes
 With respect to Unix epoch time, AWS IoT SiteWise accepts only entries that have a timestamp of up to 7 days in the past and up to 5 minutes in the future\.  
 `quality`  
 \(Optional\) A string that describes the quality of the value\. Valid values: `GOOD`, `BAD`, `UNCERTAIN`\.  
-Supports substitution templates: Yes  
+Supports [substitution templates](iot-substitution-templates.md): Yes  
 `value`  
 A value structure that contains one of the following value fields, depending on the asset property's data type:    
 `booleanValue`  
 \(Optional\) A string that contains the Boolean value of the value entry\.  
-Supports substitution templates: Yes  
+Supports [substitution templates](iot-substitution-templates.md): Yes  
 `doubleValue`  
 \(Optional\) A string that contains the double value of the value entry\.  
-Supports substitution templates: Yes  
+Supports [substitution templates](iot-substitution-templates.md): Yes  
 `integerValue`  
 \(Optional\) A string that contains the integer value of the value entry\.  
-Supports substitution templates: Yes  
+Supports [substitution templates](iot-substitution-templates.md): Yes  
 `stringValue`  
 \(Optional\) The string value of the value entry\.  
-Supports substitution templates: Yes
+Supports [substitution templates](iot-substitution-templates.md): Yes
 
 `roleArn`  
 The ARN of the IAM role that grants AWS IoT permission to send an asset property value to AWS IoT SiteWise\. For more information, see [Requirements](#iotsitewise-rule-action-requirements)\.  
-Supports substitution templates: No
+Supports [substitution templates](iot-substitution-templates.md): No
 
 ## Examples<a name="iotsitewise-rule-action-examples"></a>
 

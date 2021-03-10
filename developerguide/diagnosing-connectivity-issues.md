@@ -23,6 +23,15 @@ Devices must be [authenticated](client-authentication.md) to connect to AWS IoT 
 How do my devices authenticate AWS IoT endpoints?  
 Add the AWS IoT CA certificate to your client's trust store\. Refer to the documentation on [Server Authentication in AWS IoT Core](x509-client-certs.html#server-authentication) and then follow the links to download the appropriate CA certificate\.
 
+What is checked when a device connects to AWS IoT?  
+When a device attempts to connect to AWS IoT:  
+
+1. AWS IoT checks for a valid certificate and Server Name Indication \(SNI\) value\.
+
+1. AWS IoT checks to see that the certificate used is registered with the AWS Account and that it has been activated\.
+
+1. When a device attempts to perform any action in AWS IoT, such as to subscribe to or publish a message, the policy attached to the certificate it used to connect is checked to confirm that the device is authorized to perform that action\.
+
 How can I validate a correctly configured certificate?  
 Use the OpenSSL `s_client` command to test a connection to the AWS IoT endpoint:  
 

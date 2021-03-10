@@ -2,7 +2,7 @@
 
 The DynamoDB \(`dynamoDB`\) action writes all or part of an MQTT message to an Amazon DynamoDB table\. 
 
-You can follow a tutorial that shows you how to create and test a rule with a DynamoDB action\. For more information, see [Creating a rule with a DynamoDB action](iot-ddb-rule.md)\.
+You can follow a tutorial that shows you how to create and test a rule with a DynamoDB action\. For more information, see [Store device data in a DynamoDB table](iot-ddb-rule.md)\.
 
 **Note**  
 This rule writes non\-JSON data to DynamoDB as binary data\. The DynamoDB console displays the data as base64\-encoded text\.
@@ -21,43 +21,43 @@ When you create an AWS IoT rule with this action, you must specify the following
 
 `tableName`  
 The name of the DynamoDB table\.  
-Supports substitution templates: API and AWS CLI only
+Supports [substitution templates](iot-substitution-templates.md): API and AWS CLI only
 
 `hashKeyField`  
 The name of the hash key \(also called the partition key\)\.  
-Supports substitution templates: API and AWS CLI only
+Supports [substitution templates](iot-substitution-templates.md): API and AWS CLI only
 
 `hashKeyType`  
 \(Optional\) The data type of the hash key \(also called the partition key\)\. Valid values: `STRING`, `NUMBER`\.  
-Supports substitution templates: API and AWS CLI only
+Supports [substitution templates](iot-substitution-templates.md): API and AWS CLI only
 
 `hashKeyValue`  
 The value of the hash key\. Consider using a substitution template such as `${topic()}` or `${timestamp()}`\.  
-Supports substitution templates: Yes
+Supports [substitution templates](iot-substitution-templates.md): Yes
 
 `rangeKeyField`  
 \(Optional\) The name of the range key \(also called the sort key\)\.  
-Supports substitution templates: API and AWS CLI only
+Supports [substitution templates](iot-substitution-templates.md): API and AWS CLI only
 
 `rangeKeyType`  
 \(Optional\) The data type of the range key \(also called the sort key\)\. Valid values: `STRING`, `NUMBER`\.  
-Supports substitution templates: API and AWS CLI only
+Supports [substitution templates](iot-substitution-templates.md): API and AWS CLI only
 
 `rangeKeyValue`  
 \(Optional\) The value of the range key\. Consider using a substitution template such as `${topic()}` or `${timestamp()}`\.  
-Supports substitution templates: Yes
+Supports [substitution templates](iot-substitution-templates.md): Yes
 
 `payloadField`  
 \(Optional\) The name of the column where the payload is written\. If you omit this value, the payload is written to the column named `payload`\.  
-Supports substitution templates: Yes
+Supports [substitution templates](iot-substitution-templates.md): Yes
 
 `operation`  
 \(Optional\) The type of operation to be performed\. Valid values: `INSERT`, `UPDATE`, `DELETE`\.  
-Supports substitution templates: Yes
+Supports [substitution templates](iot-substitution-templates.md): Yes
 
 `roleARN`  
 The IAM role that allows access to the DynamoDB table\. For more information, see [Requirements](#dynamodb-rule-action-requirements)\.  
-Supports substitution templates: No
+Supports [substitution templates](iot-substitution-templates.md): No
 
 The data written to the DynamoDB table is the result from the SQL statement of the rule\.
 
@@ -90,4 +90,4 @@ The following JSON example defines a DynamoDB action in an AWS IoT rule\.
 ## See also<a name="dynamodb-rule-action-see-also"></a>
 + [What is Amazon DynamoDB?](https://docs.aws.amazon.com/amazondynamodb/latest/developerguide/) in the *Amazon DynamoDB Developer Guide*
 + [Getting started with DynamoDB](https://docs.aws.amazon.com/amazondynamodb/latest/developerguide/GettingStartedDynamoDB.html) in the *Amazon DynamoDB Developer Guide*
-+ [Creating a rule with a DynamoDB action](iot-ddb-rule.md)
++ [Store device data in a DynamoDB table](iot-ddb-rule.md)
