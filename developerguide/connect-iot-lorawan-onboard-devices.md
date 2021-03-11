@@ -16,7 +16,7 @@ The EUI of the individual gateway device\.
   + 
 
 **Frequency band \(RFRegion\)**  
-The gateway's frequency band\.
+The gateway's frequency band\. You can choose from `US915`, `EU868`, or `AS923-1`, depending on what your gateway supports and which country or region the gateway is physically connecting from\. For more information about the bands, see [Connecting devices and gateways to AWS IoT Core for LoRaWAN](connect-iot-lorawan.md)\.
 + 
 
 **Your wireless system configuration data**  
@@ -66,7 +66,7 @@ Whether to create an AWS IoT thing and associate it with the device\. Associatin
 + 
 
 **Device and service profiles**  
-The device's configuration parameters depend on the LoRaWAN specification it uses\. The configuration parameters are found in the device's documentation or on the device itself\. You'll want to identify a device profile that matches the configuration parameters of the device, or create one if necessary, before you add the device\.
+The device's configuration parameters depend on the LoRaWAN specification it uses\. The configuration parameters are found in the device's documentation or on the device itself\. You'll want to identify a device profile that matches the configuration parameters of the device, or create one if necessary, before you add the device\. For more information, see see [Add profiles to AWS IoT Core for LoRaWAN](connect-iot-lorawan-define-profiles.md)\.
 + 
 
 **AWS IoT Core for LoRaWAN destination**  

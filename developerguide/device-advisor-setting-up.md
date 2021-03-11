@@ -17,12 +17,10 @@ Before you use Device Advisor for the first time, complete the following tasks\.
 ## Create an IAM role to be used as your device role<a name="da-iam-role"></a>
 
 This section shows you how to create an AWS account and add permissions to an IAM user that you can use to run Device Advisor tests on your devices\.
-**Note**  
-We recommend that you create an IAM user to use when you run Device Advisor tests\. Although it is not recommended, you can also use an IAM Admin user\.
 
 1. Go to the [AWS IAM console](https://console.aws.amazon.com/iam/home?region=us-west-2#/home) and log in to the account you use for Device Advisor testing\.
 
-1. First, create a policy that restricts the role permissions to the device thing policies\. On the left navigation pane, choose **Policies**\.
+1. First, create a policy that restricts the role permissions to the device thing policies\. On the left navigation pane, chose **Policies**\.
 
 1. Choose **Create policy**\.
 
@@ -30,7 +28,7 @@ We recommend that you create an IAM user to use when you run Device Advisor test
 
    1. Choose **IoT** for **Service**\.
 
-   1. Under **Actions**, check **All IoT actions \(iot:\*\)**\.
+   1. Under **Action**, check **All IoT actions \(iot:\*\)**\.
 
    1. Under **Resources**, you can select all resources\. However, for best security practices, restrict **client**, **topic**, and **topicfilter**\. If you choose to restrict these resources, follow the steps below\.
 
@@ -40,11 +38,15 @@ We recommend that you create an IAM user to use when you run Device Advisor test
 
          1. Specify the **region**, **accountId**, and **clientId** in the visual ARN editor or manually specify the Amazon Resource Names \(ARN\) of the IoT topics you want to use to run test cases\. The **clientId** is the MQTT **clientId** your device uses to interact with Device Advisor\.
 
+         1. Choose **Add**\.
+
       1. Choose **Specify topic resource ARN for the Receive and 1 more action**\.
 
          1. Choose **Add ARN**\.
 
          1. Specify the **region**, **accountId**, and **topic name** in the visual ARN editor or manually specify the ARNs of the IoT topics you want to use to run test cases\. The **topic name** is the MQTT **topic** your device use to publish messages to\.
+
+         1. Choose **Add**\.
 
       1. Choose **Specify topicfilter resource ARN for the Subscribe action**\.
 
@@ -52,7 +54,7 @@ We recommend that you create an IAM user to use when you run Device Advisor test
 
          1. Specify the **region**, **accountId**, and **topic name** in the visual ARN editor or manually specify the ARNs of the IoT topics you want to use to run test cases\. The **topic name** is the MQTT **topic** your device uses to subscribe to\.
 
-1. Choose **Add**\.
+         1. Choose **Add**\.
 
 1. Choose **Review policy**\.
 
@@ -70,9 +72,7 @@ We recommend that you create an IAM user to use when you run Device Advisor test
 
 1. Choose **Next: Permissions**\.
 
-1. Under **Attach permissions policies**, search for and select the policy you created in Step 4\.
-
-   Under **Set permissions boundary**, Choose **Use a permissions boundary to control the maximum role permissions**, and then choose the policy you just created\.
+1. Under **Set permissions boundary**, Choose **Use a permissions boundary to control the maximum role permissions**, and then choose the policy you just created\.
 
 1. Choose **Next: Tags**\.
 
@@ -83,6 +83,10 @@ We recommend that you create an IAM user to use when you run Device Advisor test
 1. Choose **Create role**\.
 
 1. Navigate to the role you created\.
+
+1. Choose **Attach policies** in the **Permissions** tab, and then choose the policy you created in **Step 4**\.
+
+1. Choose **Attach policy**\.
 
 1. Choose **Trust relationships** tab and choose **Edit trust relationship**\.
 
@@ -123,6 +127,9 @@ We recommend that you create an IAM user to use when you run Device Advisor test
 1. Choose **Create Policy**\.
 
 ## Create an IAM user to use to run Device Advisor tests<a name="da-iam-user"></a>
+
+**Note**  
+We recommend that you create an IAM user to use when you run Device Advisor tests\. Although we don't recommend it, you can also use an IAM Admin user\.
 
 1. Navigate to the IAM console at [https://console\.aws\.amazon\.com/iam/](https://console.aws.amazon.com/iam/) and log in to your account\.
 

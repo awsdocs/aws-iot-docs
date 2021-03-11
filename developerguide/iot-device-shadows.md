@@ -76,8 +76,8 @@ Initial state document:
       "color": "blue"
     }
   },
-  "version": 10,
-  "timestamp": 123456777
+  "version": 9,
+  "timestamp": 123456776
 }
 ```
 
@@ -161,7 +161,7 @@ The rule is specified in JSON and should look like the following:
     {
       "republish": {
         "topic": "${topic(3)}/delta",
-        "roleArn": "arn:aws:iam::123456789012:role/my-iot-role"
+        "roleArn": "arn:aws:iam:123456789012:role/my-iot-role"
       }
     }
   ]

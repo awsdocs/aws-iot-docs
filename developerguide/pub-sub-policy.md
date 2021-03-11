@@ -21,7 +21,7 @@ For devices registered as things in the AWS IoT Core registry, the following pol
                 "iot:Connect"
             ],
             "Resource": [
-                "arn:aws:iot:us-east-1:123456789012:client/${iot:Connection.Thing.ThingName}",
+                "arn:aws:iot:us-east-1:123456789012:client/${iot:Connection.Thing.ThingName}"
             ]
         },
         {
@@ -56,7 +56,7 @@ For devices not registered as things in the AWS IoT Core registry, the following
                 "arn:aws:iot:us-east-1:123456789012:client/client2",
                 "arn:aws:iot:us-east-1:123456789012:client/client3"
             ]
-        }
+        },
         {
             "Effect": "Allow",
             "Action": [

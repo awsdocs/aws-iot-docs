@@ -1,4 +1,4 @@
-# Using the AWS IoT Device SDK to connect a device to AWS IoT Core<a name="sdk-tutorials"></a>
+# Connect a device to AWS IoT Core by using the AWS IoT Device SDK<a name="sdk-tutorials"></a>
 
 This tutorial demonstrates how to connect a device to AWS IoT Core so that it can send and receive data to and from AWS IoT\. After you complete this tutorial, your device will be configured to connect to AWS IoT Core and you'll understand how devices communicate with AWS IoT\.
 
@@ -551,6 +551,6 @@ With this, your device can generate messages to send to AWS IoT Core to test bas
 The examples in this tutorial gave you hands\-on experience with the basics of how devices can communicate with AWS IoT Core—a fundamental part of your AWS IoT solution\. When your devices are able to communicate with AWS IoT Core, they can pass messages to AWS services and other devices on which they can act\. Likewise, AWS services and other devices can process information that results in messages sent back to your devices\.
 
 When you are ready to explore AWS IoT Core further, try these tutorials:
-+ [Creating an Amazon SNS rule](iot-sns-rule.md)
-+ [Creating a rule with a DynamoDB action](iot-ddb-rule.md)
-+ [Creating a rule with an AWS Lambda action](iot-lambda-rule.md)
++ [Send an Amazon SNS notification](iot-sns-rule.md)
++ [Store device data in a DynamoDB table](iot-ddb-rule.md)
++ [Format a notification by using an AWS Lambda function](iot-lambda-rule.md)

@@ -6,6 +6,11 @@ For more information about CloudWatch Logs, see [CloudWatch Logs](https://docs.a
 
 ## Viewing AWS IoT logs in the CloudWatch console<a name="viewing-logs"></a>
 
+**Note**  
+The `AWSIotLogsV2` log group is not visible in the CloudWatch console until:  
+You've enabled logging in AWS IoT\. For more info on how to enable logging in AWS IoT, see [Configure AWS IoT logging](configure-logging.md)
+Some log entries have been written by AWS IoT operations\.
+
 **To view your AWS IoT logs in the CloudWatch console**
 
 1.  Browse to [https://console\.aws\.amazon\.com/cloudwatch/](https://console.aws.amazon.com/cloudwatch/)\. In the navigation pane, choose **Log groups**\.

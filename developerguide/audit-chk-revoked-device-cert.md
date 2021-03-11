@@ -2,7 +2,7 @@
 
 A revoked device certificate is still active\.
 
-This check appears as `REVOKED_DEVICE_CERT_CHECK` in the CLI and API\.
+This check appears as `REVOKED_DEVICE_CERTIFICATE_STILL_ACTIVE_CHECK` in the CLI and API\.
 
 Severity: **Medium**
 

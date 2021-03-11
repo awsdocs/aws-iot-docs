@@ -8,6 +8,7 @@ The following information might help you troubleshoot common issues in AWS IoT\.
 + [Diagnosing problems with shadows](diagnosing-shadows.md)
 + [Diagnosing Salesforce IoT input stream action issues](diagnosing-salesforce.md)
 + [Troubleshooting aggregation queries for the fleet indexing service](aggregation-troubleshooting.md)
++ [Troubleshooting "Stream limit exceeded for your AWS account"](ota-troubleshooting-stream-limit.md)
 + [AWS IoT Device Defender troubleshooting guide](device-defender-troubleshoot.md)
 + [Device Advisor troubleshooting guide](device-advisor-troubleshooting.md)
 + [AWS IoT errors](iot-errors.md)

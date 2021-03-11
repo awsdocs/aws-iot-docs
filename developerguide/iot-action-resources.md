@@ -14,7 +14,7 @@ The following table shows the resource to specify for each action type:
 | Action | Resource type | Resource name | ARN example | 
 | --- | --- | --- | --- | 
 | iot:DeleteThingShadow | thing | The thing's name |  `arn:aws:iot:us-east-1:123456789012:thing/thingOne`  | 
-| iot:Connect | client | The client's client ID | arn:aws:iot:us\-east1:123456789012:client/myClientId | 
+| iot:Connect | client | The client's client ID | arn:aws:iot:us\-east\-1:123456789012:client/myClientId | 
 | iot:Publish | `topic` | A topic string | arn:aws:iot:us\-east\-1:123456789012:topic/myTopicName | 
 | iot:Subscribe | `topicfilter` | A topic filter string | arn:aws:iot:us\-east\-1:123456789012:topicfilter/myTopicFilter | 
 | iot:Receive |  `topic`  |  A topic string  | arn:aws:iot:us\-east\-1:123456789012:topic/myTopicName | 

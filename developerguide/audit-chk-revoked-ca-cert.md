@@ -2,7 +2,7 @@
 
 A CA certificate was revoked, but is still active in AWS IoT\.
 
-This check appears as `REVOKED_CA_CERT_CHECK` in the CLI and API\.
+This check appears as `REVOKED_CA_CERTIFICATE_STILL_ACTIVE_CHECK` in the CLI and API\.
 
 Severity: **Critical**
 

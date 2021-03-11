@@ -16,11 +16,11 @@ When you create an AWS IoT rule with this action, you must specify the following
 
 `logGroupName`  
 The CloudWatch log group to which the action sends data\.  
-Supports substitution templates: API and AWS CLI only
+Supports [substitution templates](iot-substitution-templates.md): API and AWS CLI only
 
 `roleArn`  
 The IAM role that allows access to the CloudWatch log group\. For more information, see [Requirements](#cloudwatch-logs-rule-action-requirements)\.  
-Supports substitution templates: No
+Supports [substitution templates](iot-substitution-templates.md): No
 
 ## Examples<a name="cloudwatch-logs-rule-action-examples"></a>
 

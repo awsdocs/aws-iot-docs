@@ -164,7 +164,7 @@ Duration: a non\-negative integer\. Valid values are 300, 600, 900, 1800, or 360
 }
 ```
 
-## Authorization failures \(aws:authorization\-failures\)<a name="detect-auth-failures"></a>
+## Authorization failures \(aws:num\-authorization\-failures\)<a name="detect-auth-failures"></a>
 
 Use this metric to specify the maximum number of authorization failures allowed for each device in a given period of time\. An authorization failure occurs when a request from a device to AWS IoT is denied \(for example, if a device attempts to publish to a topic for which it does not have sufficient permissions\)\. 
 

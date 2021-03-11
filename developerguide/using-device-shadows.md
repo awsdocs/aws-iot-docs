@@ -160,7 +160,13 @@ This section uses the AWS CLI to demonstrate how an app can interact with a shad
 1. From the command line, enter this command\.
 
    ```
-   aws iot-data get-thing-shadow --thing-name mySimulatedThing --shadow-name simShadow1  /dev/stdout
+   aws iot-data get-thing-shadow --thing-name mySimulatedThing --shadow-name simShadow1 /dev/stdout
+   ```
+
+   On Windows platforms, you can use `con` instead of `/dev/stdout`\.
+
+   ```
+   aws iot-data get-thing-shadow --thing-name mySimulatedThing --shadow-name simShadow1 con
    ```
 
 1. Because the shadow exists and had been initialized by the device to reflect its current state, it should return the following shadow document\.
@@ -482,7 +488,13 @@ The app can now query the shadow for the current state as reported by the device
 1. From the command line, enter this command\.
 
    ```
-   aws iot-data get-thing-shadow --thing-name mySimulatedThing --shadow-name simShadow1  /dev/stdout
+   aws iot-data get-thing-shadow --thing-name mySimulatedThing --shadow-name simShadow1 /dev/stdout
+   ```
+
+   On Windows platforms, you can use `con` instead of `/dev/stdout`\.
+
+   ```
+   aws iot-data get-thing-shadow --thing-name mySimulatedThing --shadow-name simShadow1 con
    ```
 
 1. Because the shadow has just been updated by the device to reflect its current state, it should return the following shadow document\.

@@ -19,15 +19,15 @@ When you create an AWS IoT rule with this action, you must specify the following
 
 `queueUrl`  
 The URL of the Amazon SQS queue to which to write the data\.  
-Supports substitution templates: API and AWS CLI only
+Supports [substitution templates](iot-substitution-templates.md): API and AWS CLI only
 
 `useBase64`  
 Set this parameter to `true` to configure the rule action to base64\-encode the message data before it writes the data to the Amazon SQS queue\. Defaults to `false`\.  
-Supports substitution templates: No
+Supports [substitution templates](iot-substitution-templates.md): No
 
 `roleArn`  
 The IAM role that allows access to the Amazon SQS queue\. For more information, see [Requirements](#sqs-rule-action-requirements)\.  
-Supports substitution templates: No
+Supports [substitution templates](iot-substitution-templates.md): No
 
 ## Examples<a name="sqs-rule-action-examples"></a>
 

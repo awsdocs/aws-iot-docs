@@ -1,6 +1,6 @@
 --------
 
- The Fleet Hub for AWS IoT Device Management service is currently in public preview\. This service is subject to change\.
+ The Fleet Hub service is currently in public preview\. This service is subject to change\.
 
 --------
 
@@ -9,12 +9,12 @@
 This topic walks you through the steps to create a simple Fleet Hub for AWS IoT Device Management query\.
 
 **Prerequisites**
-+ A Fleet Hub for AWS IoT Device Management application associated with an AWS IoT Core account that contains devices \(things\)\.
-+ An account in your organization that has permissions to use the Fleet Hub for AWS IoT Device Management application\.
++ A Fleet Hub application associated with an AWS IoT Core account that contains devices \(things\)\.
++ An account in your organization that has permissions to use the Fleet Hub application\.
 
-**Create your first Fleet Hub for AWS IoT Device Management query**
+**Create your first Fleet Hub query**
 
-1. Navigate to your Fleet Hub for AWS IoT Device Management application\.
+1. Navigate to your Fleet Hub application\.
 
    The default dashboard view displays a list of all devices that contains the managed and custom attributes\. The attributes that contain the **attributes** prefix are custom attributes\.
 

@@ -1,6 +1,6 @@
 --------
 
- The Fleet Hub for AWS IoT Device Management service is currently in public preview\. This service is subject to change\.
+ The Fleet Hub service is currently in public preview\. This service is subject to change\.
 
 --------
 
@@ -8,7 +8,7 @@
 
 This topic explains how the features in Fleet Hub for AWS IoT Device Management interact with other AWS services to deliver the capabilities in your Fleet Hub web applications\.
 
-The following table indicates what AWS services Fleet Hub uses to implement each feature\.
+The following table indicates what AWS services Fleet Hub for AWS IoT Device Management uses to implement each feature\.
 
 
 | Capability | AWS service | Description | 

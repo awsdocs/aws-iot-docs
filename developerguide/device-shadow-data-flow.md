@@ -9,7 +9,7 @@ Creates a shadow if it doesn't exist, or updates the contents of an existing sha
 Retrieves a current shadow document that contains the complete state of the shadow, including metadata\.
 
 `DELETE`  <a name="delete"></a>
-Deletes the shadow and all of its content\. You can't restore a deleted shadow, but you can create a new shadow with the same name\.
+Deletes the shadow and all of its content\. You can't restore a deleted shadow, but you can create a new shadow with the same name\. Note that deleting a shadow does not reset its version number to 0\.
 
 ## Protocol support<a name="protocol-support"></a>
 
@@ -215,6 +215,8 @@ There are two ways to delete shadow data: you can delete specific properties in 
 + To delete specific properties from a shadow, update the shadow; however set the value of the properties that you want to delete to `null`\. Fields with a value of `null` are removed from the shadow document\.
 + To delete the entire shadow, use the [DeleteThingShadow](device-shadow-rest-api.md#API_DeleteThingShadow) API or publish to the [/delete](device-shadow-mqtt.md#delete-pub-sub-topic) topic\.
 
+Note that deleting a shadow does not reset its version number to 0\.
+
 ### Deleting a property from a shadow document<a name="deleting-shadow-property"></a>
 
 **To delete a property from a shadow by using the MQTT protocol**
@@ -263,7 +265,8 @@ There are two ways to delete shadow data: you can delete specific properties in 
 
 **Note**  
 Setting the device's shadow state to `null` does not delete the shadow\. The shadow version will be incremented on the next update\.  
-Deleting a device's shadow does not delete the thing object\. Deleting a thing object does not delete the corresponding device's shadow\.
+Deleting a device's shadow does not delete the thing object\. Deleting a thing object does not delete the corresponding device's shadow\.  
+Deleting a shadow does not reset its version number to 0\.
 
 **To delete a shadow by using the MQTT protocol**
 

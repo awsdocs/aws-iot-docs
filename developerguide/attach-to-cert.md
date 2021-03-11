@@ -5,6 +5,8 @@ When you create and register a certificate separate from an AWS IoT thing, it wi
 **Important**  
 To complete these procedures, you must have already created the thing or policy that you want to attach to the certificate\.
 
+The certificate authenticates a device with AWS IoT so that it can connect\. Attaching the certificate to a thing resource establishes the relationship between the device \(by way of the certificate\) and the thing resource\. To authorize the device to perform AWS IoT actions, such as to allow the device to connect and publish messages, an appropriate policy must be attached to the device's certificate\. 
+
 ## Attach a thing to a client certificate \(console\)<a name="attach-to-cert-thing-console"></a>
 
 You will need the name of the thing object to complete this procedure\.

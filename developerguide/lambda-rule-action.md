@@ -2,7 +2,7 @@
 
 A Lambda \(`lambda`\) action invokes an AWS Lambda function, passing in an MQTT message\. AWS IoT invokes Lambda functions asynchronously\.
 
-You can follow a tutorial that shows you how to create and test a rule with a Lambda action\. For more information, see [Creating a rule with an AWS Lambda action](iot-lambda-rule.md)\.
+You can follow a tutorial that shows you how to create and test a rule with a Lambda action\. For more information, see [Format a notification by using an AWS Lambda function](iot-lambda-rule.md)\.
 
 ## Requirements<a name="lambda-rule-action-requirements"></a>
 
@@ -48,7 +48,7 @@ If you don't specify a version or alias for your Lambda function, the most recen
 arn:aws:lambda:us-east-2:123456789012:function:myLambdaFunction:someAlias
 ```
 For more information about versioning and aliases see [AWS Lambda function versioning and aliases](https://docs.aws.amazon.com/lambda/latest/dg/versioning-aliases.html)\.  
-Supports substitution templates: API and AWS CLI only
+Supports [substitution templates](iot-substitution-templates.md): API and AWS CLI only
 
 ## Examples<a name="lambda-rule-action-examples"></a>
 
@@ -92,4 +92,4 @@ The following JSON example defines a Lambda action with substitution templates i
 
 ## See also<a name="lambda-rule-action-see-also"></a>
 + [What is AWS Lambda?](https://docs.aws.amazon.com/lambda/latest/dg/) in the *AWS Lambda Developer Guide*
-+ [Creating a rule with an AWS Lambda action](iot-lambda-rule.md)
++ [Format a notification by using an AWS Lambda function](iot-lambda-rule.md)

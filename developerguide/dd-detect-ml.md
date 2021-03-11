@@ -45,7 +45,7 @@ After the initial model is created, ML models refresh on a daily basis and requi
 ## Supported metrics<a name="dd-detect-ml-metrics"></a>
 
 You can use the following cloud\-side metrics with ML Detect:
-+ [Authorization failures \(aws:authorization\-failures\)](detect-cloud-side-metrics.md#detect-auth-failures)
++ [Authorization failures \(aws:num\-authorization\-failures\)](detect-cloud-side-metrics.md#detect-auth-failures)
 + [Connection attempts \(aws:num\-connection\-attempts\)](detect-cloud-side-metrics.md#detect-num-connection-attempts)
 + [Disconnects \(aws:num\-disconnects\)](detect-cloud-side-metrics.md#detect-num-disconnects)
 + [Message size \(aws:message\-byte\-size\)](detect-cloud-side-metrics.md#detect-message-size)

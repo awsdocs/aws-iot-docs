@@ -2,8 +2,6 @@
 
 Monitoring is an important part of maintaining the reliability, availability, and performance of AWS IoT and your AWS solutions\. You should collect monitoring data from all parts of your AWS solution so that you can more easily debug a multi\-point failure, if one occurs\. For information on logging and monitoring procedures, see [Monitoring AWS IoT](monitoring_overview.md)
 
-Before you start monitoring AWS IoT, you should create a monitoring plan that includes answers to the following questions:
-
 ## Monitoring Tools<a name="monitoring_automated_manual"></a>
 
 AWS provides tools that you can use to monitor AWS IoT\. You can configure some of these tools to do the monitoring for you\. Some of the tools require manual intervention\. We recommend that you automate monitoring tasks as much as possible\.

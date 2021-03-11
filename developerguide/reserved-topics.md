@@ -82,7 +82,9 @@ For more information, see [Device provisioning MQTT API](fleet-provision-api.md)
 ## Job topics<a name="reserved-topics-job"></a>
 
 **Note**  
-The client operations noted as **Receive** in this table indicate topics that AWS IoT publishes to clients whether the client has subscribed to the topic or not\. Clients should expect to receive these messages even if they have not subscribed to them\. For more information, see [Jobs device MQTT and HTTPS APIs](jobs-mqtt-api.md)\.
+The client operations noted as **Receive** in this table indicate topics that AWS IoT publishes directly to the client that requested it, whether the client has subscribed to the topic or not\. Clients should also expect to receive these response messages even if they have not subscribed to them\.  
+These response messages do not pass through the message broker and they cannot be subscribed to by other clients or rules\. To subscribe to job activity related messages, use the `notify` and `notify-next` topics\.  
+For more information, see [Jobs device MQTT and HTTPS APIs](jobs-mqtt-api.md)\.
 
 
 | Topic | Client operations allowed | Description | 
@@ -168,38 +170,11 @@ These messages support response buffers in Concise Binary Object Representation 
 
 | Topic | Client operations allowed | Description | 
 | --- | --- | --- | 
-|  $aws/things/*ThingName*/streams/*StreamId*/data/*payload\-format*  |  Subscribe  |  The AWS Streaming service publishes to this topic if the "GetStream" request from a device is accepted\. The payload contains the stream data\. For more information, see [ Using the Streaming service in devices](https://docs.aws.amazon.com/freertos/latest/userguide/streaming-service.html#streaming-service-in-devices)\.  | 
-|  $aws/things/*ThingName*/streams/*StreamId*/get/*payload\-format*  |  Publish  |  A device publishes to this topic to perform a "GetStream" request\. For more information, see [ Using the Streaming service in devices](https://docs.aws.amazon.com/freertos/latest/userguide/streaming-service.html#streaming-service-in-devices)\.  | 
-|  $aws/things/*ThingName*/streams/*StreamId*/description/*payload\-format*  |  Subscribe  |  The AWS Streaming service publishes to this topic if the "DescribeStream" request from a device is accepted\. The payload contains the stream description\. For more information, see [ Using the Streaming service in devices](https://docs.aws.amazon.com/freertos/latest/userguide/streaming-service.html#streaming-service-in-devices)\.  | 
-|  $aws/things/*ThingName*/streams/*StreamId*/describe/*payload\-format*  |  Publish  |  A device publishes to this topic to perform a "DescribeStream" request\. For more information, see [ Using the Streaming service in devices](https://docs.aws.amazon.com/freertos/latest/userguide/streaming-service.html#streaming-service-in-devices)\.  | 
-|  $aws/things/*ThingName*/streams/*StreamId*/rejected/*payload\-format*  |  Subscribe  |  The AWS Streaming service publishes to this topic if a "DescribeStream" or "GetStream" request from a device is rejected\. For more information, see [ Using the Streaming service in devices](https://docs.aws.amazon.com/freertos/latest/userguide/streaming-service.html#streaming-service-in-devices)\.  | 
-
-### Troubleshooting "Stream limit exceeded for your AWS account"<a name="ota-troubleshooting-stream-limit"></a>
-
-The OTA Update Manager Service can create a stream on your behalf\. So, if you see `"Error: You have exceeded the limit for the number of streams in your AWS account."`, you can clean up the unused streams in your account instead of requesting a limit increase\.
-
-To clean up unused streams, use the following commands\.
-
-For a stream created by the OTA Update Manager Service:
-
-```
-aws iot delete-ota-update –ota-update-id value --delete-stream
-```
-
-For more details, see [ delete\-ota\-update](https://docs.aws.amazon.com/cli/latest/reference/iot/delete-ota-update.html)\.
-
-For a stream that you created using the AWS CLI or SDK:
-
-```
-aws iot delete-stream –stream-id value
-```
-
-For more details, see [delete\-stream](https://docs.aws.amazon.com/cli/latest/reference/iot/delete-stream.html)\.
-
-**Note**  
-You can use the `list-ota-updates` or `list-streams` commands to find the OTA update ID or stream ID\.
-
-Also, be aware that because the OTA Cloud service accesses S3 object metadata in your AWS account on your behalf, this might generate a cost on your bill\. For more information, see [Amazon S3 pricing](https://aws.amazon.com/s3/pricing)\.
+|  $aws/things/*ThingName*/streams/*StreamId*/data/*payload\-format*  |  Subscribe  |  The AWS Streaming service publishes to this topic if the "GetStream" request from a device is accepted\. The payload contains the stream data\. For more information, see [Using the AWS IoT Streaming service in devices](streaming-service-in-devices.md)\.   | 
+|  $aws/things/*ThingName*/streams/*StreamId*/get/*payload\-format*  |  Publish  |  A device publishes to this topic to perform a "GetStream" request\. For more information, see [Using the AWS IoT Streaming service in devices](streaming-service-in-devices.md)\.   | 
+|  $aws/things/*ThingName*/streams/*StreamId*/description/*payload\-format*  |  Subscribe  |  The AWS Streaming service publishes to this topic if the "DescribeStream" request from a device is accepted\. The payload contains the stream description\. For more information, see [Using the AWS IoT Streaming service in devices](streaming-service-in-devices.md)\.   | 
+|  $aws/things/*ThingName*/streams/*StreamId*/describe/*payload\-format*  |  Publish  |  A device publishes to this topic to perform a "DescribeStream" request\. For more information, see [Using the AWS IoT Streaming service in devices](streaming-service-in-devices.md)\.   | 
+|  $aws/things/*ThingName*/streams/*StreamId*/rejected/*payload\-format*  |  Subscribe  |  The AWS Streaming service publishes to this topic if a "DescribeStream" or "GetStream" request from a device is rejected\. For more information, see [Using the AWS IoT Streaming service in devices](streaming-service-in-devices.md)\.   | 
 
 ## Reserved topic ARN<a name="reserved-topicnames-arn"></a>
 

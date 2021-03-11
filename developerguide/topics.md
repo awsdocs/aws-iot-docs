@@ -25,7 +25,7 @@ AWS IoT Core can't send or receive messages between AWS accounts or Regions\.
 
 For more information on designing your topic names and namespace, see our whitepaper, [Designing MQTT Topics for AWS IoT Core](https://d1.awsstatic.com/whitepapers/Designing_MQTT_Topics_for_AWS_IoT_Core.pdf)\.
 
-For examples of how apps can publish and subscribe to messages, start with [Getting started with AWS IoT Core](iot-gs.md) and [AWS IoT Device and Mobile SDKs](iot-sdks.md)\.
+For examples of how apps can publish and subscribe to messages, start with [Getting started with AWS IoT Core](iot-gs.md) and [AWS IoT Device SDKs, Mobile SDKs, and AWS IoT Device Client](iot-sdks.md)\.
 
 **Important**  
 The topic namespace is limited to an AWS account and Region\. For example, the `sensor/temp/room1` topic used by an AWS account in one Region is distinct from the `sensor/temp/room1` topic used by the same AWS account in another Region or used by any other AWS account in any Region\.

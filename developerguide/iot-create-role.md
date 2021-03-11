@@ -40,7 +40,7 @@ You use IAM roles to control the AWS resources to which each rule has access\. B
    }
    ```
 
-1. Save the following JSON into a file named `iot-policy.json`\.
+1. Save the following JSON into a file named `my-iot-policy.json`\.
 
    ```
    {
@@ -55,7 +55,7 @@ You use IAM roles to control the AWS resources to which each rule has access\. B
 
    This JSON is an example policy document that grants AWS IoT administrator access to DynamoDB\.
 
-   Use the [create\-policy](https://docs.aws.amazon.com/cli/latest/reference/iam/create-policy.html) command to grant AWS IoT access to your AWS resources upon assuming the role, passing in the `iot-policy.json` file:
+   Use the [create\-policy](https://docs.aws.amazon.com/cli/latest/reference/iam/create-policy.html) command to grant AWS IoT access to your AWS resources upon assuming the role, passing in the `my-iot-policy.json` file:
 
    ```
    aws iam create-policy --policy-name my-iot-policy --policy-document file://my-iot-policy.json

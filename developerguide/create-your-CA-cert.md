@@ -1,11 +1,11 @@
 # Create a CA certificate<a name="create-your-CA-cert"></a>
 
-If you do not have a CA certificate, you can use [OpenSSL](https://www.openssl.org/) tools to create one\.
+If you do not have a CA certificate, you can use [OpenSSL v1\.1\.1i](https://www.openssl.org/) tools to create one\.
 
 **Note**  
 You can't perform this procedure in the AWS IoT console\.
 
-**To create a CA certificate using [OpenSSL](https://www.openssl.org/) tools**
+**To create a CA certificate using [OpenSSL v1\.1\.1i](https://www.openssl.org/) tools**
 
 1. Generate a key pair\.
 

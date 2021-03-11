@@ -15,27 +15,27 @@ When you create an AWS IoT rule with this action, you must specify the following
 
 `metricName`  
 The CloudWatch metric name\.  
-Supports substitution templates: Yes
+Supports [substitution templates](iot-substitution-templates.md): Yes
 
 `metricNamespace`  
 The CloudWatch metric namespace name\.  
-Supports substitution templates: Yes
+Supports [substitution templates](iot-substitution-templates.md): Yes
 
 `metricUnit`  
 The metric unit supported by CloudWatch\.  
-Supports substitution templates: Yes
+Supports [substitution templates](iot-substitution-templates.md): Yes
 
 `metricValue`  
 A string that contains the CloudWatch metric value\.  
-Supports substitution templates: Yes
+Supports [substitution templates](iot-substitution-templates.md): Yes
 
 `metricTimestamp`  
 \(Optional\) A string that contains the timestamp, expressed in seconds in Unix epoch time\. Defaults to the current Unix epoch time\.  
-Supports substitution templates: Yes
+Supports [substitution templates](iot-substitution-templates.md): Yes
 
 `roleArn`  
 The IAM role that allows access to the CloudWatch metric\. For more information, see [Requirements](#cloudwatch-metrics-rule-action-requirements)\.  
-Supports substitution templates: No
+Supports [substitution templates](iot-substitution-templates.md): No
 
 ## Examples<a name="cloudwatch-metrics-rule-action-examples"></a>
 

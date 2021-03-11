@@ -8,7 +8,7 @@ The AWS IoT rules engine supports all JSON data types\.
 | Type | Meaning | 
 | --- | --- | 
 | Int | A discrete Int\. 34 digits maximum\. | 
-| Decimal |  A `Decimal` with a precision of 34 digits, with a minimum non\-zero magnitude of 1E\-999 and a maximum magnitude 9\.999\.\.\.E999\.  Some functions return `Decimal`s with double precision rather than 34\-digit precision\.    | 
+| Decimal |  A `Decimal` with a precision of 34 digits, with a minimum non\-zero magnitude of 1E\-999 and a maximum magnitude 9\.999\.\.\.E999\.  Some functions return `Decimal` values with double precision rather than 34\-digit precision\.  With SQL V2 \(2016\-03\-23\), numeric values that are whole numbers, such as `10.0`, are processed as an `Int` value \(`10`\) instead of the expected `Decimal` value \(`10.0`\)\. To reliably process whole number numeric values as `Decimal` values, use SQL V1 \(2015\-10\-08\) for the rule query statement\.   | 
 | Boolean | True or False\. | 
 | String | A UTF\-8 string\. | 
 | Array | A series of values that don't have to have the same type\. | 

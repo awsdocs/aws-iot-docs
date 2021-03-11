@@ -16,21 +16,21 @@ When you create an AWS IoT rule with this action, you must specify the following
 
 `bucket`  
 The Amazon S3 bucket to which to write data\.  
-Supports substitution templates: API and AWS CLI only
+Supports [substitution templates](iot-substitution-templates.md): API and AWS CLI only
 
 `cannedacl`  
 \(Optional\) The Amazon S3 canned ACL that controls access to the object identified by the object key\. For more information, including allowed values, see [Canned ACL](https://docs.aws.amazon.com/AmazonS3/latest/dev/acl-overview.html#canned-acl)\.   
-Supports substitution templates: No
+Supports [substitution templates](iot-substitution-templates.md): No
 
 `key`  
 The path to the file where the data is written\.  
 Consider an example where this parameter is `${topic()}/${timestamp()}` and the rule receives a message where the topic is `some/topic`\. If the current timestamp is `1460685389`, then this action writes the data to a file called `1460685389` in the `some/topic` folder of the S3 bucket\.  
 If you use a static key, AWS IoT overwrites a single file each time the rule invokes\. We recommend that you use the message timestamp or another unique message identifier so that a new file is saved in Amazon S3 for each message received\.
-Supports substitution templates: Yes
+Supports [substitution templates](iot-substitution-templates.md): Yes
 
 `roleArn`  
 The IAM role that allows access to the Amazon S3 bucket\. For more information, see [Requirements](#s3-rule-action-requirements)\.  
-Supports substitution templates: No
+Supports [substitution templates](iot-substitution-templates.md): No
 
 ## Examples<a name="s3-rule-action-examples"></a>
 

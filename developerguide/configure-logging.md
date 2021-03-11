@@ -11,7 +11,8 @@ When considering how to configure your AWS IoT logging, the default logging conf
  Before you can enable logging in AWS IoT, you must create an IAM role and a policy that gives AWS permission to monitor AWS IoT activity on your behalf\. 
 
 **Note**  
-Before you enable AWS IoT logging, make sure you understand the CloudWatch Logs access permissions\. Users with access to CloudWatch Logs can see debugging information from your devices\. For more information, see [Authentication and Access Control for Amazon CloudWatch Logs](https://docs.aws.amazon.com/AmazonCloudWatch/latest/monitoring/auth-and-access-control-cw.html)\.
+Before you enable AWS IoT logging, make sure you understand the CloudWatch Logs access permissions\. Users with access to CloudWatch Logs can see debugging information from your devices\. For more information, see [Authentication and Access Control for Amazon CloudWatch Logs](https://docs.aws.amazon.com/AmazonCloudWatch/latest/monitoring/auth-and-access-control-cw.html)\.  
+If you expect high traffic patterns in AWS IoT Core due to load testing, consider turning off IoT logging to prevent throttling\. If high traffic is detected, our service may disable logging in your account\.
 
 ### Create a logging role<a name="create-logging-role"></a>
 
@@ -159,8 +160,8 @@ Trust policy to log AWS IoT Core and AWS IoT Core for LoRaWAN activity:
           "Effect": "Allow",
           "Principal": {
             "Service": [
-              "iot.amazonaws.com",
-              "iotwireless.amazonaws.com"
+            "iot.amazonaws.com",
+            "iotwireless.amazonaws.com"
             ]
           },
           "Action": "sts:AssumeRole"

@@ -16,15 +16,15 @@ When you create an AWS IoT rule with this action, you must specify the following
 
 `stream`  
 The Kinesis data stream to which to write data\.  
-Supports substitution templates: API and AWS CLI only
+Supports [substitution templates](iot-substitution-templates.md): API and AWS CLI only
 
 `partitionKey`  
 The partition key used to determine to which shard the data is written\. The partition key is usually composed of an expression \(for example, `${topic()}` or `${timestamp()}`\)\.  
-Supports substitution templates: Yes
+Supports [substitution templates](iot-substitution-templates.md): Yes
 
 `roleArn`  
 The ARN of the IAM role that grants AWS IoT permission to access the Kinesis data stream\. For more information, see [Requirements](#kinesis-rule-action-requirements)\.  
-Supports substitution templates: No
+Supports [substitution templates](iot-substitution-templates.md): No
 
 ## Examples<a name="kinesis-rule-action-examples"></a>
 

@@ -20,6 +20,8 @@ aws iot describe-endpoint --endpoint-type endpointType
 
 This command returns an *iot\-endpoint* in the following format: `account-specific-prefix.iot.aws-region.amazonaws.com`\.
 
+The `DescribeEndpoint` API does not have to be queried every time a new device is connected\. The endpoints that you create presist forever and do not change once they are created\. 
+
 Every customer has an `iot:Data-ATS` and an `iot:Data` endpoint\. Each endpoint uses an X\.509 certificate to authenticate the client\. We strongly recommend that customers use the newer `iot:Data-ATS` endpoint type to avoid issues related to the widespread distrust of Symantec certificate authorities\. We provide the `iot:Data` endpoint for devices to retrieve data from old endpoints that use VeriSign certificates for backward compatibility\. For more information, see [Server Authentication](server-authentication.html)\.
 
 
@@ -31,6 +33,8 @@ Every customer has an `iot:Data-ATS` and an `iot:Data` endpoint\. Each endpoint 
 | IoT data \(legacy\) |  `iot:Data`  | iot:Data returns a VeriSign signed data endpoint provided for backward compatibility\. | 
 |  IoT credential access  |  `iot:CredentialProvider`  |  Used to exchange a device's built\-in X\.509 certificate for temporary credentials to connect directly with other AWS services\. For more information about connecting to other AWS services, see [Authorizing Direct Calls to AWS Services](authorizing-direct-aws.md)\.  | 
 |  IoT job management  |  `iot:Jobs`  |  Used to enable devices to interact with the AWS IoT Jobs service using the [Jobs Device HTTPS APIs](jobs-mqtt-api.md)\.  | 
+|  IoT device advisor \(preview\)  |  `iot:DeviceAdvisor`  |  A test endpoint type used for testing devices with Device Advisor\. For more information, see [Device Advisor](device-advisor.md)\.  | 
+|  IoT data beta \(preview\)  |  `iot:Data-Beta`  |  An endpoint type reserved for beta releases\. For information about its current use, see [Configurable endpoints \(beta\)](iot-custom-endpoints-configurable.md)\.  | 
 
 You can also use your own fully\-qualified domain name \(FQDN\), such as *example\.com*, and the associated server certificate to connect devices to AWS IoT by using [Configurable endpoints \(beta\)](iot-custom-endpoints-configurable.md), which is currently in public beta\.
 
@@ -50,8 +54,8 @@ The [AWS Mobile SDKs](iot-connect-service.md#iot-connect-mobile-sdks) support bo
 
 The AWS IoT C\+\+ Device SDK allows developers to build connected applications using AWS and the APIs of the AWS IoT Core services\. Specifically, this SDK was designed for devices that are not resource constrained and require advanced features such as message queuing, multi\-threading support, and the latest language features\. For more information, see the following:
 + [AWS IoT C\+\+ Device SDK v2 on GitHub](https://github.com/aws/aws-iot-device-sdk-cpp-v2)
-+ [AWS IoT C\+\+ Device SDK v2 Readme](https://github.com/aws/aws-iot-device-sdk-cpp-v2#aws-iot-sdk-for-c-v2)
-+ [AWS IoT C\+\+ Device SDK v2 Samples](https://github.com/aws/aws-iot-device-sdk-cpp-v2/tree/master/samples#samples)
++ [AWS IoT C\+\+ Device SDK v2 Readme](https://github.com/aws/aws-iot-device-sdk-cpp-v2#aws-iot-device-sdk-for-c-v2)
++ [AWS IoT C\+\+ Device SDK v2 Samples](https://github.com/aws/aws-iot-device-sdk-cpp-v2/tree/main/samples#sample-apps-for-the-aws-iot-device-sdk-for-c-v2)
 
 ------
 #### [ Python ]
@@ -60,8 +64,9 @@ The AWS IoT C\+\+ Device SDK allows developers to build connected applications u
 
 The AWS IoT Device SDK for Python makes it possible for developers to write Python scripts to use their devices to access the AWS IoT platform through MQTT or MQTT over the WebSocket protocol\. By connecting their devices to the APIs of the AWS IoT Core services, users can securely work with the message broker, rules, and Device Shadow service that AWS IoT Core provides and with other AWS services like AWS Lambda, Amazon Kinesis, and Amazon S3, and more\.
 + [AWS IoT Device SDK for Python v2 on GitHub](https://github.com/aws/aws-iot-device-sdk-python-v2)
-+ [AWS IoT Device SDK for Python v2 Readme](https://github.com/aws/aws-iot-device-sdk-python-v2#aws-iot-device-sdk-for-python-v2)
-+ [AWS IoT Device SDK for Python v2 Samples](https://github.com/aws/aws-iot-device-sdk-python-v2/tree/master/samples#sample-apps-for-the-aws-iot-device-sdk-for-python-v2)
++ [AWS IoT Device SDK for Python v2 Readme](https://github.com/aws/aws-iot-device-sdk-python-v2#aws-iot-device-sdk-v2-for-python)
++ [AWS IoT Device SDK for Python v2 Samples](https://github.com/aws/aws-iot-device-sdk-python-v2/tree/main/samples#sample-apps-for-the-aws-iot-device-sdk-v2-for-python)
++ [AWS IoT Device SDK for Python v2 API documentation](https://aws.github.io/aws-iot-device-sdk-python-v2/)
 
 ------
 #### [ JavaScript ]
@@ -70,8 +75,8 @@ The AWS IoT Device SDK for Python makes it possible for developers to write Pyth
 
 The AWS IoT Device SDK for JavaScript makes it possible for developers to write JavaScript applications that access APIs of the AWS IoT Core using MQTT or MQTT over the WebSocket protocol\. It can be used in Node\.js environments and browser applications\. For more information, see the following:
 + [AWS IoT Device SDK for JavaScript v2 on GitHub](https://github.com/aws/aws-iot-device-sdk-js-v2)
-+ [AWS IoT Device SDK for JavaScript v2 Readme](https://github.com/aws/aws-iot-device-sdk-js-v2#aws-iot-sdk-for-javascript-v2)
-+ [AWS IoT Device SDK for JavaScript v2 Samples](https://github.com/aws/aws-iot-device-sdk-js-v2/tree/master/samples#samples)
++ [AWS IoT Device SDK for JavaScript v2 Readme](https://github.com/aws/aws-iot-device-sdk-js-v2#aws-iot-device-sdk-for-javascript-v2)
++ [AWS IoT Device SDK for JavaScript v2 Samples](https://github.com/aws/aws-iot-device-sdk-js-v2/tree/main/samples#sample-apps-for-the-aws-iot-device-sdk-for-javascript-v2)
 + [AWS IoT Device SDK for JavaScript v2 API documentation](https://aws.github.io/aws-iot-device-sdk-js-v2/index.html)
 
 ------
@@ -81,8 +86,8 @@ The AWS IoT Device SDK for JavaScript makes it possible for developers to write 
 
 The AWS IoT Device SDK for Java makes it possible for Java developers to access the APIs of the AWS IoT Core through MQTT or MQTT over the WebSocket protocol\. The SDK supports the Device Shadow service\. You can access shadows by using HTTP methods, including GET, UPDATE, and DELETE\. The SDK also supports a simplified shadow access model, which allows developers to exchange data with shadows by using getter and setter methods, without having to serialize or deserialize any JSON documents\. For more information, see the following:
 + [AWS IoT Device SDK for Java v2 on GitHub](https://github.com/aws/aws-iot-device-sdk-java-v2)
-+ [AWS IoT Device SDK for Java v2 Readme](https://github.com/aws/aws-iot-device-sdk-java-v2#aws-iot-sdk-for-java-v2)
-+ [AWS IoT Device SDK for Java v2 Samples](https://github.com/aws/aws-iot-device-sdk-java-v2/tree/master/samples#samples)
++ [AWS IoT Device SDK for Java v2 Readme](https://github.com/aws/aws-iot-device-sdk-java-v2#aws-iot-device-sdk-for-java-v2)
++ [AWS IoT Device SDK for Java v2 Samples](https://github.com/aws/aws-iot-device-sdk-java-v2/tree/main/samples#sample-apps-for-the-aws-iot-device-sdk-for-java-v2)
 
 ------
 #### [ Embedded C ]
@@ -100,7 +105,7 @@ The AWS IoT Device SDK for Embedded C is generally targeted at resource constrai
 
 For more information, see the following:
 + [AWS IoT Device SDK for Embedded C on GitHub](https://github.com/aws/aws-iot-device-sdk-embedded-C)
-+ [AWS IoT Device SDK for Embedded C Readme](https://github.com/aws/aws-iot-device-sdk-embedded-C#aws-iot-device-sdk-for-embedded-c)
++ [ AWS IoT Device SDK for Embedded C Readme](https://github.com/aws/aws-iot-device-sdk-embedded-C#aws-iot-device-sdk-for-embedded-c)
 + [AWS IoT Device SDK for Embedded C Samples](https://docs.aws.amazon.com/freertos/latest/lib-ref/embedded-csdk/202009.00/lib-ref/docs/doxygen/output/html/demos_main.html)
 
 ------

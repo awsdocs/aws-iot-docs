@@ -1,12 +1,12 @@
 --------
 
- The Fleet Hub for AWS IoT Device Management service is currently in public preview\. This service is subject to change\.
+ The Fleet Hub service is currently in public preview\. This service is subject to change\.
 
 --------
 
 # Troubleshooting<a name="aws-iot-monitor-user-troubleshoot"></a>
 
-This section provides troubleshooting information and possible solutions to help resolve issues as a user of Fleet Hub for AWS IoT Device Management\.
+This section provides troubleshooting information and possible solutions to help resolve issues as a user of Fleet Hub\.
 
 
 | Symptom | Solution | 
