@@ -197,7 +197,7 @@ Response body: Shadow name list document
 ```
 
 **Authorization**  
-Listing a device's shadow requires a policy that allows the caller to perform the `iot:ListNamedShadowsForThing` action\. The Device Shadow service accepts two forms of authentication: Signature Version 4 with IAM credentials or TLS mutual authentication with a client certificate\.
+Listing a device's shadows requires a policy that allows the caller to perform the `iot:ListNamedShadowsForThing` action\. The Device Shadow service accepts two forms of authentication: Signature Version 4 with IAM credentials or TLS mutual authentication with a client certificate\.
 
 The following is an example policy that allows a caller to list a thing's named shadows:
 
