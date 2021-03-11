@@ -464,6 +464,7 @@ Units: connections
 | --- | --- | --- | --- | --- | --- | 
 |  header  |  hed  |  Y  |  Object  |    |  Complete block required for well\-formed report\.  | 
 |  metrics  |  met  |  Y  |  Object  |    |  Complete block required for well\-formed report\.  | 
+|  custom\_metrics  |  cmet  |  Y  |  Object  |    |  Complete block required for well\-formed report\.  | 
 
 
 **Header block**  

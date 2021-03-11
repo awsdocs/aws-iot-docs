@@ -2,7 +2,7 @@
 
 A CA certificate is expiring within 30 days or has expired\.
 
-This check appears as `CA_CERT_APPROACHING_EXPIRATION_CHECK` in the CLI and API\.
+This check appears as `CA_CERTIFICATE_EXPIRING_CHECK` in the CLI and API\.
 
 Severity: **Medium**
 
