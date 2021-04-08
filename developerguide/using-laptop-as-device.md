@@ -74,7 +74,8 @@ In this section, you'll install Python, and the AWS IoT Device SDK for Python on
    In macOS and Linux, the *home* directory is `~`\.
 
    ```
-   cd ~ git clone https://github.com/aws/aws-iot-device-sdk-python-v2.git
+   cd ~
+   git clone https://github.com/aws/aws-iot-device-sdk-python-v2.git
    ```
 
 ------
