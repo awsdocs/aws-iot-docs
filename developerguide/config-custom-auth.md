@@ -44,11 +44,11 @@ If you leave signing enabled, you can prevent excessive triggering of your Lambd
 ```
 
  The Lambda function should use this information to authenticate the incoming connection and decide what actions are permitted in the connection\. The function should send a response that contains the following values\. 
-+  `IsAuthenticated`: A Boolean value that indicates whether the request is authenticated\. 
-+  `PrincipalId`: An alphanumeric string that acts as an identifier for the token sent by the custom authorization request\. Its minimum length is 1 character\. Its maximum length is 128 characters\. 
-+  `PolicyDocuments`: A list of JSON\-formatted AWS IoT Core policy documents For more information about creating AWS IoT Core policies, see [AWS IoT Core policies](iot-policies.md)\. The maximum number of policy documents is 10 policy documents\. Each policy document can contain a maximum of 2,048 characters\. 
-+  `DisconnectAfterInSeconds`: An integer that specifies the maximum duration \(in seconds\) of the connection to the AWS IoT Core gateway\. The minimum value is 300 seconds, and the maximum value is 86,400 seconds\. 
-+  `RefreshAfterInSeconds`: An integer that specifies the interval between policy refreshes\. When this interval passes, AWS IoT Core invokes the Lambda function to allow for policy refreshes\. The minimum value is 300 seconds, and the maximum value is 86,400 seconds\. 
++  `isAuthenticated`: A Boolean value that indicates whether the request is authenticated\. 
++  `principalId`: An alphanumeric string that acts as an identifier for the token sent by the custom authorization request\. Its minimum length is 1 character\. Its maximum length is 128 characters\. 
++  `policyDocuments`: A list of JSON\-formatted AWS IoT Core policy documents For more information about creating AWS IoT Core policies, see [AWS IoT Core policies](iot-policies.md)\. The maximum number of policy documents is 10 policy documents\. Each policy document can contain a maximum of 2,048 characters\. 
++  `disconnectAfterInSeconds`: An integer that specifies the maximum duration \(in seconds\) of the connection to the AWS IoT Core gateway\. The minimum value is 300 seconds, and the maximum value is 86,400 seconds\. 
++  `refreshAfterInSeconds`: An integer that specifies the interval between policy refreshes\. When this interval passes, AWS IoT Core invokes the Lambda function to allow for policy refreshes\. The minimum value is 300 seconds, and the maximum value is 86,400 seconds\. 
 
   The following JSON object contains an example of a response that your Lambda function can send\. 
 
