@@ -39,6 +39,7 @@ In this section, you'll install Python, and the AWS IoT Device SDK for Python on
    ```
 
    If the command displays the Python version, Python is already installed\. This tutorial requires Python v3\.5 or later\. 
+   On some operating system distributions, the Python v3.x executable is called `python3`\. If this is the case for you, then replace all occurrences of `python` with `python3` in the remainder of this tutorial\.
 
 1. If Python is installed, you can skip the rest of the steps in this section\. If not, continue\.
 
@@ -61,7 +62,7 @@ In this section, you'll install Python, and the AWS IoT Device SDK for Python on
 1. Install v2 of the AWS IoT Device SDK for Python\.
 
    ```
-   python3 -m pip install awsiotsdk
+   python -m pip install awsiotsdk
    ```
 
 1. Clone the AWS IoT Device SDK for Python repository into the aws\-iot\-device\-sdk\-python\-v2 directory of your home directory\. This procedure refers to the base directory for the files you're installing as *home*\.
@@ -291,7 +292,7 @@ You can see the sample app's messages as they pass through the message broker by
 
    ```
    cd ~/aws-iot-device-sdk-python-v2/samples
-   python3 pubsub.py --topic test/topic --root-ca ~/certs/Amazon-root-CA-1.pem --cert ~/certs/device.pem.crt --key ~/certs/private.pem.key --endpoint your-iot-endpoint
+   python pubsub.py --topic test/topic --root-ca ~/certs/Amazon-root-CA-1.pem --cert ~/certs/device.pem.crt --key ~/certs/private.pem.key --endpoint your-iot-endpoint
    ```
 
 ------
@@ -299,7 +300,7 @@ You can see the sample app's messages as they pass through the message broker by
 
    ```
    cd %USERPROFILE%\aws-iot-device-sdk-python-v2\samples\node\pub_sub
-   python3 pubsub.py --topic test/topic --root-ca %USERPROFILE%\certs\Amazon-root-CA-1.pem --cert %USERPROFILE%\certs\device.pem.crt --key %USERPROFILE%\certs\private.pem.key --endpoint your-iot-endpoint
+   python pubsub.py --topic test/topic --root-ca %USERPROFILE%\certs\Amazon-root-CA-1.pem --cert %USERPROFILE%\certs\device.pem.crt --key %USERPROFILE%\certs\private.pem.key --endpoint your-iot-endpoint
    ```
 
 ------
