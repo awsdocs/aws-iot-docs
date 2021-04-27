@@ -25,7 +25,7 @@ If you have already registered your CA certificate with AWS IoT, use the [https:
 
 ```
 aws iot update-ca-certificate \
---certificate-idcaCertificateId \
+--certificate-id caCertificateId \
 --new-auto-registration-status ENABLE
 ```
 

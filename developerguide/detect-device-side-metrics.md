@@ -8,9 +8,9 @@ The number of outbound bytes from a device during a given time period\.
 
 Use this metric to specify the maximum or minimum amount of outbound traffic that a device should send, measured in bytes, in a given period of time\.
 
-Can be used with ML Detect: No
+Compatible with: Rules Detect \| ML Detect
 
-Operators: less\-than \| less\-than\-equals \| greater\-than \| greater\-than\-equals 
+Operators: less\-than \| less\-than\-equal \| greater\-than \| greater\-than\-equal 
 
 Value: a non\-negative integer 
 
@@ -25,14 +25,15 @@ Duration: a non\-negative integer\. Valid values are 300, 600, 900, 1800, or 360
   "name": "TCP outbound traffic",
   "metric": "aws:all-bytes-out",
   "criteria": {
-    "comparisonOperator": "less-than",
+    "comparisonOperator": "less-than-equal",
     "value": {
       "count": 4096
     },
     "durationSeconds": 300,
-    "consecutiveDatapointsToAlarm": 5,
-    "consecutiveDatapointsToClear": 4
-  }
+    "consecutiveDatapointsToAlarm": 1,
+    "consecutiveDatapointsToClear": 1
+  },
+  "suppressAlerts": true
 }
 ```
 
@@ -43,14 +44,32 @@ Duration: a non\-negative integer\. Valid values are 300, 600, 900, 1800, or 360
   "name": "TCP outbound traffic",
   "metric": "aws:all-bytes-out",
   "criteria": {
-    "comparisonOperator": "less-than",
+    "comparisonOperator": "less-than-equal",
     "statisticalThreshold": {
       "statistic": "p50"
     },
     "durationSeconds": 900,
-    "consecutiveDatapointsToAlarm": 5,
-    "consecutiveDatapointsToClear": 4
-  }
+    "consecutiveDatapointsToAlarm": 1,
+    "consecutiveDatapointsToClear": 1
+  },
+  "suppressAlerts": true
+}
+```
+
+**Example using ML Detect**  
+
+```
+{
+  "name": "Outbound traffic ML behavior",
+  "metric": "aws:all-bytes-out",
+  "criteria": {
+    "consecutiveDatapointsToAlarm": 1,
+    "consecutiveDatapointsToClear": 1,
+    "mlDetectionConfig": {
+      "confidenceLevel": "HIGH"
+    }
+  },
+  "suppressAlerts": true
 }
 ```
 
@@ -60,9 +79,9 @@ The number of inbound bytes to a device during a given time period\.
 
 Use this metric to specify the maximum or minimum amount of inbound traffic that a device should receive, measured in bytes, in a given period of time\.
 
-Can be used with ML Detect: No
+Compatible with: Rules Detect \| ML Detect
 
-Operators: less\-than \| less\-than\-equals \| greater\-than \| greater\-than\-equals 
+Operators: less\-than \| less\-than\-equal \| greater\-than \| greater\-than\-equal 
 
 Value: a non\-negative integer 
 
@@ -77,14 +96,15 @@ Duration: a non\-negative integer\. Valid values are 300, 600, 900, 1800, or 360
   "name": "TCP inbound traffic",
   "metric": "aws:all-bytes-in",
   "criteria": {
-    "comparisonOperator": "less-than",
+    "comparisonOperator": "less-than-equal",
     "value": {
       "count": 4096
     },
     "durationSeconds": 300,
     "consecutiveDatapointsToAlarm": 1,
-    "consecutiveDatapointsToClear": 3
-  }
+    "consecutiveDatapointsToClear": 1
+  },
+  "suppressAlerts": true
 }
 ```
 
@@ -95,14 +115,32 @@ Duration: a non\-negative integer\. Valid values are 300, 600, 900, 1800, or 360
   "name": "TCP inbound traffic",
   "metric": "aws:all-bytes-in",
   "criteria": {
-    "comparisonOperator": "less-than",
+    "comparisonOperator": "less-than-equal",
     "statisticalThreshold": {
       "statistic": "p90"
     },
     "durationSeconds": 300,
     "consecutiveDatapointsToAlarm": 1,
-    "consecutiveDatapointsToClear": 3
-  }
+    "consecutiveDatapointsToClear": 1
+  },
+  "suppressAlerts": true
+}
+```
+
+**Example using ML Detect**  
+
+```
+{
+  "name": "Inbound traffic ML behavior",
+  "metric": "aws:all-bytes-in",
+  "criteria": {
+    "consecutiveDatapointsToAlarm": 1,
+    "consecutiveDatapointsToClear": 1,
+    "mlDetectionConfig": {
+      "confidenceLevel": "HIGH"
+    }
+  },
+  "suppressAlerts": true
 }
 ```
 
@@ -112,11 +150,11 @@ The number of TCP ports the device is listening on\.
 
 Use this metric to specify the maximum number of TCP ports that each device should monitor\.
 
-Can be used with ML Detect: No
+Compatible with: Rules Detect \| ML Detect
 
 Unit: failures 
 
-Operators: less\-than \| less\-than\-equals \| greater\-than \| greater\-than\-equals 
+Operators: less\-than \| less\-than\-equal \| greater\-than \| greater\-than\-equal 
 
 Value: a non\-negative integer 
 
@@ -131,14 +169,15 @@ Duration: a non\-negative integer\. Valid values are 300, 600, 900, 1800, or 360
   "name": "Max TCP Ports",
   "metric": "aws:num-listening-tcp-ports",
   "criteria": {
-    "comparisonOperator": "less-than",
+    "comparisonOperator": "less-than-equal",
     "value": {
       "count": 5
     },
     "durationSeconds": 300,
-    "consecutiveDatapointsToAlarm": 2,
+    "consecutiveDatapointsToAlarm": 1,
     "consecutiveDatapointsToClear": 1
-  }
+  },
+  "suppressAlerts": true
 }
 ```
 
@@ -149,14 +188,32 @@ Duration: a non\-negative integer\. Valid values are 300, 600, 900, 1800, or 360
   "name": "Max TCP Ports",
   "metric": "aws:num-listening-tcp-ports",
   "criteria": {
-    "comparisonOperator": "less-than",
+    "comparisonOperator": "less-than-equal",
     "statisticalThreshold": {
       "statistic": "p50"
     },
     "durationSeconds": 300,
-    "consecutiveDatapointsToAlarm": 2,
+    "consecutiveDatapointsToAlarm": 1,
     "consecutiveDatapointsToClear": 1
-  }
+  },
+  "suppressAlerts": true
+}
+```
+
+**Example using ML detect**  
+
+```
+{
+  "name": "Max TCP Port ML behavior",
+  "metric": "aws:num-listening-tcp-ports",
+  "criteria": {
+    "consecutiveDatapointsToAlarm": 1,
+    "consecutiveDatapointsToClear": 1,
+    "mlDetectionConfig": {
+      "confidenceLevel": "HIGH"
+    }
+  },
+  "suppressAlerts": true
 }
 ```
 
@@ -166,11 +223,11 @@ The number of UDP ports the device is listening on\.
 
 Use this metric to specify the maximum number of UDP ports that each device should monitor\.
 
-Can be used with ML Detect: No
+Compatible with: Rules Detect \| ML Detect
 
 Unit: failures 
 
-Operators: less\-than \| less\-than\-equals \| greater\-than \| greater\-than\-equals 
+Operators: less\-than \| less\-than\-equal \| greater\-than \| greater\-than\-equal 
 
 Value: a non\-negative integer 
 
@@ -185,14 +242,15 @@ Duration: a non\-negative integer\. Valid values are 300, 600, 900, 1800, or 360
   "name": "Max UDP Ports",
   "metric": "aws:num-listening-udp-ports",
   "criteria": {
-    "comparisonOperator": "less-than",
+    "comparisonOperator": "less-than-equal",
     "value": {
       "count": 5
     },
     "durationSeconds": 300,
-    "consecutiveDatapointsToAlarm": 2,
+    "consecutiveDatapointsToAlarm": 1,
     "consecutiveDatapointsToClear": 1
-  }
+  },
+  "suppressAlerts": true
 }
 ```
 
@@ -203,14 +261,32 @@ Duration: a non\-negative integer\. Valid values are 300, 600, 900, 1800, or 360
   "name": "Max UDP Ports",
   "metric": "aws:num-listening-udp-ports",
   "criteria": {
-    "comparisonOperator": "less-than",
+    "comparisonOperator": "less-than-equal",
     "statisticalThreshold": {
       "statistic": "p50"
     },
     "durationSeconds": 300,
-    "consecutiveDatapointsToAlarm": 2,
+    "consecutiveDatapointsToAlarm": 1,
     "consecutiveDatapointsToClear": 1
-  }
+  },
+  "suppressAlerts": true
+}
+```
+
+**Example using ML Detect**  
+
+```
+{
+  "name": "Max UPD Port ML behavior",
+  "metric": "aws:num-listening-tcp-ports",
+  "criteria": {
+	 "consecutiveDatapointsToAlarm": 1,
+	 "consecutiveDatapointsToClear": 1,
+	 "mlDetectionConfig": {
+	   "confidenceLevel": "HIGH"
+   }
+	},
+  "suppressAlerts": true
 }
 ```
 
@@ -220,9 +296,9 @@ The number of outbound packets from a device during a given time period\.
 
 Use this metric to specify the maximum or minimum amount of total outbound traffic that a device should send in a given period of time\.
 
-Can be used with ML Detect: No
+Compatible with: Rules Detect \| ML Detect
 
-Operators: less\-than \| less\-than\-equals \| greater\-than \| greater\-than\-equals 
+Operators: less\-than \| less\-than\-equal \| greater\-than \| greater\-than\-equal 
 
 Value: a non\-negative integer 
 
@@ -237,14 +313,15 @@ Duration: a non\-negative integer\. Valid values are 300, 600, 900, 1800, or 360
   "name": "TCP outbound traffic",
   "metric": "aws:all-packets-out",
   "criteria": {
-    "comparisonOperator": "less-than",
+    "comparisonOperator": "less-than-equal",
     "value": {
       "count": 100
     },
     "durationSeconds": 300,
     "consecutiveDatapointsToAlarm": 1,
-    "consecutiveDatapointsToClear": 3
-  }
+    "consecutiveDatapointsToClear": 1
+  },
+  "suppressAlerts": true
 }
 ```
 
@@ -255,14 +332,32 @@ Duration: a non\-negative integer\. Valid values are 300, 600, 900, 1800, or 360
   "name": "TCP outbound traffic",
   "metric": "aws:all-packets-out",
   "criteria": {
-    "comparisonOperator": "less-than",
+    "comparisonOperator": "less-than-equal",
     "statisticalThreshold": {
       "statistic": "p90"
     },
     "durationSeconds": 300,
     "consecutiveDatapointsToAlarm": 1,
-    "consecutiveDatapointsToClear": 3
-  }
+    "consecutiveDatapointsToClear": 1
+  },
+  "suppressAlerts": true
+}
+```
+
+**Example using ML Detect**  
+
+```
+{
+  "name": "Outbound sent ML behavior",
+  "metric": "aws:all-packets-out",
+  "criteria": {
+    "consecutiveDatapointsToAlarm": 1,
+    "consecutiveDatapointsToClear": 1,
+    "mlDetectionConfig": {
+      "confidenceLevel": "HIGH"
+    }
+  },
+  "suppressAlerts": true
 }
 ```
 
@@ -272,9 +367,9 @@ The number of inbound packets to a device during a given time period\.
 
 Use this metric to specify the maximum or minimum amount of total inbound traffic that a device should receive in a given period of time\.
 
-Can be used with ML Detect: No
+Compatible with: Rule Detect \| ML Detect
 
-Operators: less\-than \| less\-than\-equals \| greater\-than \| greater\-than\-equals 
+Operators: less\-than \| less\-than\-equal \| greater\-than \| greater\-than\-equal 
 
 Value: a non\-negative integer 
 
@@ -289,14 +384,15 @@ Duration: a non\-negative integer\. Valid values are 300, 600, 900, 1800 or 3600
   "name": "TCP inbound traffic",
   "metric": "aws:all-packets-in",
   "criteria": {
-    "comparisonOperator": "less-than",
+    "comparisonOperator": "less-than-equal",
     "value": {
       "count": 100
     },
     "durationSeconds": 300,
-    "consecutiveDatapointsToAlarm": 2,
+    "consecutiveDatapointsToAlarm": 1,
     "consecutiveDatapointsToClear": 1
-  }
+  },
+  "suppressAlerts": true
 }
 ```
 
@@ -308,14 +404,32 @@ Example using a `statisticalThreshold`
   "name": "TCP inbound traffic",
   "metric": "aws:all-packets-in",
   "criteria": {
-    "comparisonOperator": "less-than",
+    "comparisonOperator": "less-than-equal",
     "statisticalThreshold": {
       "statistic": "p90"
     },
     "durationSeconds": 300,
-    "consecutiveDatapointsToAlarm": 2,
+    "consecutiveDatapointsToAlarm": 1,
     "consecutiveDatapointsToClear": 1
-  }
+  },
+  "suppressAlerts": true
+}
+```
+
+**Example using ML Detect**  
+
+```
+{
+  "name": "Inbound sent ML behavior",
+  "metric": "aws:all-packets-in",
+  "criteria": {
+    "consecutiveDatapointsToAlarm": 1,
+    "consecutiveDatapointsToClear": 1,
+    "mlDetectionConfig": {
+      "confidenceLevel": "HIGH"
+    }
+  },
+  "suppressAlerts": true
 }
 ```
 
@@ -325,7 +439,7 @@ A set of IP destinations\.
 
 Use this metric to specify a set of allowed \(formerly referred to as whitelisted\) or denied \(formerly referred to as blacklisted\) Classless Inter\-Domain Routings \(CIDR\) from which each device must or must not connect to AWS IoT\.
 
-Can be used with ML Detect: No
+Compatible with: Rules Detect
 
 Operators: in\-cidr\-set \| not\-in\-cidr\-set 
 
@@ -344,7 +458,8 @@ Units: n/a
     "value": {
       "cidrs": [ "12.8.0.0/16", "15.102.16.0/24" ]
     }
-  }
+  },
+  "suppressAlerts": true
 }
 ```
 
@@ -354,7 +469,7 @@ The TCP ports that the device is listening on\.
 
 Use this metric to specify a set of allowed \(formerly referred to as whitelisted\) or denied \(formerly referred to as blacklisted\) TCP ports on which each device must or must not listen\.
 
-Can be used with ML Detect: No
+Compatible with: Rules Detect
 
 Operators: in\-port\-set \| not\-in\-port\-set 
 
@@ -373,7 +488,8 @@ Units: n/a
     "value": {
       "ports": [ 443, 80 ]
     }
-  }
+  },
+  "suppressAlerts": true
 }
 ```
 
@@ -383,7 +499,7 @@ The UDP ports that the device is listening on\.
 
 Use this metric to specify a set of allowed \(formerly referred to as whitelisted\) or denied \(formerly referred to as blacklisted\) UDP ports on which each device must or must not listen\.
 
-Can be used with ML Detect: No
+Compatible with: Rules Detect
 
 Operators: in\-port\-set \| not\-in\-port\-set 
 
@@ -410,11 +526,11 @@ Units: n/a
 
 The number of TCP connections for a device\.
 
-Use this metric to specify the maximum or minimum number of active TCP connections that each device should have\. \(All TCP states\) 
+Use this metric to specify the maximum or minimum number of active TCP connections that each device should have \(All TCP states\)\. 
 
-Can be used with ML Detect: No
+Compatible with: Rules Detect \| ML Detect
 
-Operators: less\-than \| less\-than\-equals \| greater\-than \| greater\-than\-equals 
+Operators: less\-than \| less\-than\-equal \| greater\-than \| greater\-than\-equal
 
 Value: a non\-negative integer 
 
@@ -427,13 +543,14 @@ Units: connections
   "name": "TCP Connection Count",
   "metric": "aws:num-established-tcp-connections",
   "criteria": {
-    "comparisonOperator": "less-than",
+    "comparisonOperator": "less-than-equal",
     "value": {
       "count": 3
     },
-    "consecutiveDatapointsToAlarm": 3,
-    "consecutiveDatapointsToClear": 3
-  }
+    "consecutiveDatapointsToAlarm": 1,
+    "consecutiveDatapointsToClear": 1
+  },
+  "suppressAlerts": true
 }
 ```
 
@@ -444,14 +561,32 @@ Units: connections
   "name": "TCP Connection Count",
   "metric": "aws:num-established-tcp-connections",
   "criteria": {
-    "comparisonOperator": "less-than",
+    "comparisonOperator": "less-than-equal",
     "statisticalThreshold": {
       "statistic": "p90"
     },
     "durationSeconds": 900,
-    "consecutiveDatapointsToAlarm": 3,
-    "consecutiveDatapointsToClear": 3
-  }
+    "consecutiveDatapointsToAlarm": 1,
+    "consecutiveDatapointsToClear": 1
+  },
+  "suppressAlerts": true
+}
+```
+
+**Example using ML Detect**  
+
+```
+{
+  "name": "Connection count ML behavior",
+  "metric": "aws:num-established-tcp-connections",
+  "criteria": {
+    "consecutiveDatapointsToAlarm": 1,
+    "consecutiveDatapointsToClear": 1,
+    "mlDetectionConfig": {
+      "confidenceLevel": "HIGH"
+    }
+  },
+  "suppressAlerts": true
 }
 ```
 
@@ -463,8 +598,8 @@ Units: connections
 |  Long name  |  Short name  |  Required  |  Type  |  Constraints  |  Notes  | 
 | --- | --- | --- | --- | --- | --- | 
 |  header  |  hed  |  Y  |  Object  |    |  Complete block required for well\-formed report\.  | 
-|  metrics  |  met  |  Y  |  Object  |    |  Complete block required for well\-formed report\.  | 
-|  custom\_metrics  |  cmet  |  Y  |  Object  |    |  Complete block required for well\-formed report\.  | 
+|  metrics  |  met  |  Y  |  Object  |    |  A report can have both or at least one `metrics` or `custom_metrics` block\.  | 
+|  custom\_metrics  |  cmet  |  Y  |  Object  |    |  A report can have both or at least one `metrics` or `custom_metrics` block\.  | 
 
 
 **Header block**  
@@ -527,99 +662,97 @@ The following JSON structure uses long names\.
 
 ```
 {
-    "header": {
-        "report_id": 1530304554,
-        "version": "1.0"
+  "header": {
+    "report_id": 1530304554,
+    "version": "1.0"
+  },
+  "metrics": {
+    "listening_tcp_ports": {
+      "ports": [
+        {
+          "interface": "eth0",
+          "port": 24800
+        },
+        {
+          "interface": "eth0",
+          "port": 22
+        },
+        {
+          "interface": "eth0",
+          "port": 53
+        }
+      ],
+      "total": 3
     },
-    "metrics": {
-        "listening_tcp_ports": {
-            "ports": [
-                {
-                    "interface": "eth0",
-                    "port": 24800
-                },
-                {
-                    "interface": "eth0",
-                    "port": 22
-                },
-                {
-                    "interface": "eth0",
-                    "port": 53
-                }
-            ],
-            "total": 3
+    "listening_udp_ports": {
+      "ports": [
+        {
+          "interface": "eth0",
+          "port": 5353
         },
-        "listening_udp_ports": {
-            "ports": [
-                {
-                    "interface": "eth0",
-                    "port": 5353
-                },
-                {
-                    "interface": "eth0",
-                    "port": 67
-                }
-            ],
-            "total": 2
-        },
-        "network_stats": {
-            "bytes_in": 29358693495,
-            "bytes_out": 26485035,
-            "packets_in": 10013573555,
-            "packets_out": 11382615
-        },
-        "tcp_connections": {
-            "established_connections": {
-                "connections": [
-                    {
-                        "local_interface": "eth0",
-                        "local_port": 80,
-                        "remote_addr": "192.168.0.1:8000"
-                    },
-                    {
-                        "local_interface": "eth0",
-                        "local_port": 80,
-                        "remote_addr": "192.168.0.1:8000"
-                    }
-                ],
-                "total": 2
-            }
-         ],
-         "total":3
+        {
+          "interface": "eth0",
+          "port": 67
+        }
+      ],
+      "total": 2
+    },
+    "network_stats": {
+      "bytes_in": 29358693495,
+      "bytes_out": 26485035,
+      "packets_in": 10013573555,
+      "packets_out": 11382615
+    },
+    "tcp_connections": {
+      "established_connections": {
+        "connections": [
+          {
+            "local_interface": "eth0",
+            "local_port": 80,
+            "remote_addr": "192.168.0.1:8000"
+          },
+          {
+            "local_interface": "eth0",
+            "local_port": 80,
+            "remote_addr": "192.168.0.1:8000"
+          }
+        ],
+        "total": 2
       }
-   },
-   "custom_metrics":{
-      "MyMetricOfType_Number":[
-         {
-            "number":1.0
-         }
-      ],
-      "MyMetricOfType_NumberList":[
-         {
-            "number_list":[
-               1.0,
-               2.0,
-               3.0
-            ]
-         }
-      ],
-      "MyMetricOfType_StringList":[
-         {
-            "string_list":[
-               "value_1",
-               "value_2"
-            ]
-         }
-      ],
-      "MyMetricOfType_IpList":[
-         {
-            "ip_list":[
-               "172.0.0.0",
-               "172.0.0.10"
-            ]
-         }
-      ]
-   }
+    }
+  },
+  "custom_metrics": {
+    "MyMetricOfType_Number": [
+      {
+        "number": 1
+      }
+    ],
+    "MyMetricOfType_NumberList": [
+      {
+        "number_list": [
+          1,
+          2,
+          3
+        ]
+      }
+    ],
+    "MyMetricOfType_StringList": [
+      {
+        "string_list": [
+          "value_1",
+          "value_2"
+        ]
+      }
+    ],
+    "MyMetricOfType_IpList": [
+      {
+        "ip_list": [
+          "172.0.0.0",
+          "172.0.0.10"
+        ]
+      }
+    ]
+  }
 }
 ```
 
@@ -627,27 +760,16 @@ The following JSON structure uses long names\.
 
 ```
 {
-    "hed": {
-        "rid": 1530305228,
-        "v": "1.0"
-    },
-    "met": {
-        "tp": {
-            "pts": [
-                {
-                    "if": "eth0",
-                    "pt": 24800
-                },
-                {
-                    "if": "eth0",
-                    "pt": 22
-                },
-                {
-                    "if": "eth0",
-                    "pt": 53
-                }
-            ],
-            "t": 3
+  "hed": {
+    "rid": 1530305228,
+    "v": "1.0"
+  },
+  "met": {
+    "tp": {
+      "pts": [
+        {
+          "if": "eth0",
+          "pt": 24800
         },
         {
           "if": "eth0",
@@ -738,7 +860,7 @@ AWS IoT Device Defender Detect can collect, aggregate, and monitor metrics data 
 
 You must securely deploy the AWS IoT SDK version two on your AWS IoT connected devices or device gateways to collect device\-side metrics\. AWS IoT Device Defender provides sample agents to use as examples when you create your own\. If you can't provide device metrics, you can still get limited functionality based on cloud\-side metrics\. See the full list of SDKs [here](https://docs.aws.amazon.com/iot/latest/developerguide/iot-sdks.html)\.
 
- There are two methods for configuring your device to publish metrics, through AWS IoT Device Client and AWS IoT Device Defender sample agent\. Generally you should use AWS IoT Device Client because it provides a single agent that covers the features present in both AWS IoT Device Defender and AWS IoT Device Management\. These features include jobs, secure tunneling, AWS IoT Device Defender metrics publishing and more\. If you define custom metrics for your device to monitor, then you should use AWS IoT Device Defender sample agent in Python to send data\. 
+There are two methods for configuring your device to publish metrics: AWS IoT Device Client and AWS IoT Device Defender sample agent\. Generally you should use AWS IoT Device Client because it provides a single agent that covers the features present in both AWS IoT Device Defender and AWS IoT Device Management\. These features include jobs, secure tunneling, AWS IoT Device Defender metrics publishing, and more\. If you define custom metrics for your device to monitor, then you should use AWS IoT Device Defender sample agent in Python to send data\. 
 
 ### Using the AWS IoT Device Client to publish metrics<a name="UsingAWSIoTDeviceClient"></a>
 
@@ -761,7 +883,7 @@ At a minimum, you should set the time interval to 300 seconds\. If you set the t
 
 You can use the AWS IoT Device Defender sample agent to monitor device\-side metrics and [custom metrics](https://docs.aws.amazon.com/iot/latest/developerguide/dd-detect-custom-metrics.html) from AWS IoT devices\.
 
-A sample device metric reporting agent is currently available in C at [https://github\.com/aws\-samples/aws\-iot\-device\-defender\-agent\-c](https://github.com/aws-samples/aws-iot-device-defender-agent-c)\. There is also a sample device metric reporting agent available in Python on GitHub at [ https://github\.com/aws\-samples/aws\-iot\-device\-defender\-agent\-sdk\-python](https://github.com/aws-samples/aws-iot-device-defender-agent-sdk-python)\. Custom metrics are only supported by the Python sample agent\. Specifically see the [greengrass\_defender\_agent\.py](https://github.com/aws-samples/aws-iot-device-defender-agent-sdk-python/tree/master/samples/greengrass/greengrass_core_metrics_agent) file for a sample agent used with AWS IoT Greengrass devices\.
+A sample device metric reporting agent is currently available in C at [https://github\.com/aws\-samples/aws\-iot\-device\-defender\-agent\-c](https://github.com/aws-samples/aws-iot-device-defender-agent-c)\. There is also a sample device metric reporting agent available in Python on GitHub at [ https://github\.com/aws\-samples/aws\-iot\-device\-defender\-agent\-sdk\-python](https://github.com/aws-samples/aws-iot-device-defender-agent-sdk-python)\. Custom metrics are supported only by the Python sample agent\. Specifically see the [greengrass\_defender\_agent\.py](https://github.com/aws-samples/aws-iot-device-defender-agent-sdk-python/tree/master/samples/greengrass/greengrass_core_metrics_agent) file for a sample agent used with AWS IoT Greengrass devices\.
 
 To use the sample agents or create your own custom agent, you must install the AWS IoT Device SDK\. To find resources for your development language, see [AWS IoT Core Resources](https://aws.amazon.com/iot-core/resources)\.
 + All agents must create a connection to AWS IoT and publish metrics to one of these reserved AWS IoT Device Defender MQTT topics: 
@@ -796,4 +918,4 @@ To use the sample agents or create your own custom agent, you must install the A
 + To report metrics, a device must be registered as a thing in AWS IoT\.
 + A device should, generally, send a metric report once every five minutes\. Devices are throttled so they can't make more than one metric report every five minutes\. 
 + Devices must report current metrics\. Historical metrics reporting isn't supported\.
-+ You can optionally use [Jobs](iot-jobs.md) to change how often Device Defender sends metrics\. An example is included with the AWS IoT Device Defender Agent C samples\. For more information, see the [README\.md](https://github.com/aws-samples/aws-iot-device-defender-agent-c/blob/master/README.md)\.
++ You can optionally use [Jobs](iot-jobs.md) to change how often AWS IoT Device Defender sends metrics\. An example is included with the AWS IoT Device Defender Agent C samples\. For more information, see the [README\.md](https://github.com/aws-samples/aws-iot-device-defender-agent-c/blob/master/README.md)\.

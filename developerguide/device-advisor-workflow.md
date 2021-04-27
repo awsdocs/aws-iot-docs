@@ -17,7 +17,7 @@ This tutorial provides instructions on how to create a custom test suite and run
 
 ## Prerequisites<a name="device-advisor-workflow-prereqs"></a>
 
-To complete this tutorial, you need to complete the steps outlined in [Setting up](device-advisor-setting-up.md)\.
+To complete this tutorial, complete the steps outlined in [Setting up](device-advisor-setting-up.md)\.
 
 ## Create a test suite definition<a name="device-advisor-workflow-create-suite-definition"></a>
 
@@ -63,7 +63,7 @@ Each root group has this basic structure:
 
 A block that contains a `"name"`, `"configuration"`, and `"tests"` is referred to as a "group definition"\. A block that contains a `"name"`, `"configuration"`, and `"test"` is referred to as a "test case definition"\. Each `"test"` block that contains an `"id"` and `"version"` is referred to as a "test case"\.
 
-See [Device Advisor test cases](device-advisor-tests.md) for information on how to fill in the `"id"` and `"version"` fields for each test case \(`"test"` block\)\. That section also contains information on the available `"configuration"` settings\.
+For information on how to fill in the `"id"` and `"version"` fields for each test case \(`"test"` block\), see [Device Advisor test cases](device-advisor-tests.md)\. That section also contains information on the available `"configuration"` settings\.
 
 The following is an example of a root group configuration that specifies the "MQTT Connect Happy Case" and "MQTT Connect Exponential Backoff Retries" test cases along with descriptions of the configuration fields\.
 
@@ -124,7 +124,7 @@ response = iotDeviceAdvisorClient.createSuiteDefinition(
 
 ## Get a test suite run<a name="device-advisor-workflow-describe-suite"></a>
 
-After you create your test suite definition, you will receive the `suiteDefinitionId` in the response object of the `CreateSuiteDefinition` API\. Use the [ GetSuiteDefinition](device-advisor-iot-commands.md#api-iot-GetSuiteDefinition) API to retrieve the test suite definitions information and to verify that all the information in the test suite definition is correct\. 
+After you create your test suite definition, you receive the `suiteDefinitionId` in the response object of the `CreateSuiteDefinition` API\. Use the [ GetSuiteDefinition](device-advisor-iot-commands.md#api-iot-GetSuiteDefinition) API to retrieve the test suite definitions information and to verify that all the information in the test suite definition is correct\. 
 
 You may see that there are new `id` fields within each of the group and test case definitions in the root group that is returned\. This is expected and you can use these IDs to run a subset of your test suite definition\.
 
@@ -176,7 +176,7 @@ GetSuiteRunRequest.builder()
 
 ## Get a qualification report for a successful qualification test suite run<a name="device-advisor-workflow-qualification-report"></a>
 
-If you successfully run a qualification test suite and all test cases have passed, you can retrieve a qualification report using the GetSuiteRunReport API\. This qualification report can be used to qualify your device with the AWS IoT Core qualification program\. To determine whether your test suite is a qualification test suite, you can check whether the `intendedForQualification` parameter is set to `true`\. Once you call the GetSuiteRunReport API, the download URL returned is available for you to download for 90 seconds\. If more than 90 seconds elapse from the previous time you called the GetSuiteRunReport API, call the API again to retrieve a valid URL\.
+If you successfully run a qualification test suite and all test cases have passed, you can retrieve a qualification report using the GetSuiteRunReport API\. This qualification report can be used to qualify your device with the AWS IoT Core qualification program\. To determine whether your test suite is a qualification test suite, you can check whether the `intendedForQualification` parameter is set to `true`\. After you call the GetSuiteRunReport API, the download URL returned is available for you to download for 90 seconds\. If more than 90 seconds elapse from the previous time you called the GetSuiteRunReport API, call the API again to retrieve a valid URL\.
 
 SDK example:
 

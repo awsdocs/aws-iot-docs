@@ -28,6 +28,7 @@ The `iot:OpenTunnel` policy action supports the following condition keys:
 + `iot:ThingGroupArn`
 + `iot:TunnelDestinationService`
 + `aws:RequestTag`/*tag\-key*
++ `aws:SecureTransport`
 + `aws:TagKeys`
 
 The following policy statement allows you to open a tunnel to the thing if the thing belongs to a thing group with a name that starts with `TestGroup` and the configured destination service on the tunnel is SSH\.
@@ -78,8 +79,9 @@ You can also use resource tags to control permission to open tunnels\. For examp
 
 The `iot:DescribeTunnel` policy action grants a principal permission to call [DescribeTunnel](https://docs.aws.amazon.com/iot/latest/apireference/API_iot-secure-tunneling_DescribeTunnel.html)\. You can specify a fully qualified tunnel ARN \(for example, `arn:aws:iot:aws-region: aws-account-id:tunnel/tunnel-id`\) or use the wildcard tunnel ARN \(`arn:aws:iot:aws-region:aws-account-id:tunnel/*`\) in the `Resource` element of the IAM policy statement\.
 
-The `iot:DescribeTunnel` policy action supports the following condition key:
+The `iot:DescribeTunnel` policy action supports the following condition keys:
 + `aws:ResourceTag/tag-key`
++ `aws:SecureTransport`
 
 The following policy statement allows you to call `DescribeTunnel` if the requested tunnel is tagged with the key `Owner` with a value of `Admin`\.
 
@@ -102,6 +104,9 @@ The following policy statement allows you to call `DescribeTunnel` if the reques
 
 The `iot:ListTunnels` policy action grants a principal permission to call [ListTunnels](https://docs.aws.amazon.com/iot/latest/apireference/API_iot-secure-tunneling_ListTunnels.html)\. You must specify the wildcard tunnel ARN \(`arn:aws:iot:aws-region:aws-account-id:tunnel/*`\) in the `Resource` element of the IAM policy statement\. To manage `ListTunnels` permission on selected IoT things, you can also specify a thing ARN \(`arn:aws:iot:aws-region:aws-account-id:thing/thing-name`\) in the `Resource` element of the IAM policy statement\.
 
+The `iot:ListTunnels` policy action supports the following condition key:
++ `aws:SecureTransport`
+
 The following policy statement allows you to list tunnels for the thing named `TestDevice`\.
 
 ```
@@ -119,6 +124,9 @@ The following policy statement allows you to list tunnels for the thing named `T
 
 The `iot:ListTagsForResource` policy action grants a principal permission to call `ListTagsForResource`\. You can specify a fully qualified tunnel ARN \(`arn:aws:iot:aws-region: aws-account-id:tunnel/tunnel-id`\) or use the wildcard tunnel ARN \(`arn:aws:iot:aws-region:aws-account-id:tunnel/*`\) in the `Resource` element of the IAM policy statement\.
 
+The `iot:ListTagsForResource` policy action supports the following condition key:
++ `aws:SecureTransport`
+
 ## iot:CloseTunnel<a name="close-tunnel-action"></a>
 
 The `iot:CloseTunnel` policy action grants a principal permission to call [CloseTunnel](https://docs.aws.amazon.com/iot/latest/apireference/API_iot-secure-tunneling_CloseTunnel.html)\. You can specify a fully qualified tunnel ARN \(`arn:aws:iot:aws-region: aws-account-id:tunnel/tunnel-id`\) or use the wildcard tunnel ARN \(`arn:aws:iot:aws-region:aws-account-id:tunnel/*`\) in the `Resource` element of the IAM policy statement\.
@@ -126,6 +134,7 @@ The `iot:CloseTunnel` policy action grants a principal permission to call [Close
 The `iot:CloseTunnel` policy action supports the following condition keys:
 + `iot:Delete`
 + `aws:ResourceTag/tag-key`
++ `aws:SecureTransport`
 
 The following policy statement allows you to call `CloseTunnel` if the request's `Delete` parameter is `false` and the requested tunnel is tagged with the key `Owner` with a value of `QATeam`\.
 
@@ -151,8 +160,14 @@ The following policy statement allows you to call `CloseTunnel` if the request's
 
 The `iot:TagResource` policy action grants a principal permission to call `TagResource`\. You can specify a fully qualified tunnel ARN \(`arn:aws:iot:aws-region: aws-account-id:tunnel/tunnel-id`\) or use the wildcard tunnel ARN \(`arn:aws:iot:aws-region:aws-account-id:tunnel/*`\) in the `Resource` element of the IAM policy statement\.
 
+The `iot:TagResource` policy action supports the following condition key:
++ `aws:SecureTransport`
+
 ## iot:UntagResource<a name="untag-resource-action"></a>
 
 The `iot:UntagResource` policy action grants a principal permission to call `UntagResource`\. You can specify a fully qualified tunnel ARN \(`arn:aws:iot:aws-region:aws-account-id:tunnel/tunnel-id`\) or use the wildcard tunnel ARN \(`arn:aws:iot:aws-region:aws-account-id:tunnel/*`\) in the `Resource` element of the IAM policy statement\.
+
+The `iot:UntagResource` policy action supports the following condition key:
++ `aws:SecureTransport`
 
 For more information about AWS IoT security see [Identity and access management for AWS IoT](security-iam.md)\.

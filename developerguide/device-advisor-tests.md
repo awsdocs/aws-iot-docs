@@ -5,7 +5,7 @@
 | --- |
 | Device Advisor is in preview and is subject to change\. | 
 
-Device Advisor provides prebuilt tests in three categories\.
+Device Advisor provides prebuilt tests in two categories\.
 + Reliable connectivity
 
   Device connects and stays connected with AWS IoT Core\.
@@ -13,15 +13,24 @@ Device Advisor provides prebuilt tests in three categories\.
 
   Validate that your devices follow recommended security best practices\.
 
-**Note**  
-More test cases will be released in the future\.
+`EXECUTION_TIMEOUT` is in milliseconds\.
 
-## TLS<a name="device-advisor-tests-tls"></a>Cipher suites
+**Note**  
+Your device needs to pass the following tests for qualification and to be able to list your device in the AWS Partner Device Catalog:  
+**TLS Incorrect Subject Name Server Cert** \("Incorrect Subject Common Name \(CN\) / Subject Alternative Name \(SAN\)"\)
+**TLS Unsecure Server Cert** \("Not Signed By Recognized CA"\)​
+**TLS Connect** \("TLS Connect"\)​
+**MQTT Connect** \("Device send CONNECT to AWS IoT Core \(Happy case\)"\)​
+**MQTT Subscribe** \("Can Subscribe \(Happy Case\)"\)​
+**MQTT Publish** \("QoS0 \(Happy Case\)"\)​
+
+## TLS<a name="device-advisor-tests-tls"></a>
+
+You use these tests to determine if the transport layer security protocol \(TLS\) between your devices and AWS IoT is secure\.Cipher suites
 
 **"TLS Connect"**  
 Validates if the client device can complete TLS handshake to AWS IoT\. This test doesn't validate the MQTT implementation of the client device\.  
 *API test case definition:*  
-`EXECUTION_TIMEOUT` is in milliseconds\.  
 `EXECUTION_TIMEOUT` has a default value of 5 minutes\.
 
 ```
@@ -142,7 +151,7 @@ Validates that the client device sends a CONNECT request\.
 ```
 
 **"Device re\-connect with exponential backoff \- No CONNACK response"**  
-Validates that the client device uses the proper exponential backoff when reconnecting with the server for at least 5 times\. The server will log the timestamp of the client device's CONNECT request, perform packet validation, then pause without sending a CONNACK to the client device, and wait for the client device to resend the request\. The collected timestamps are used to validate that exponential backoff is used by the client device\.   
+Validates that the client device uses the proper exponential backoff when reconnecting with the server for at least five times\. The server logs the timestamp of the client device's CONNECT request, performs packet validation, pauses without sending a CONNACK to the client device, and waits for the client device to resend the request\. The collected timestamps are used to validate that exponential backoff is used by the client device\.   
 *API test case definition:*  
 `EXECUTION_TIMEOUT` has a default value of 10 minutes\.
 
@@ -247,3 +256,90 @@ Validates that the client device retries a failed subscription to MQTT topics\. 
    }
 ]
 ```
+
+## Permissions and policies<a name="device-advisor-tests-permissions-policies"></a>
+
+You use these tests to determine if the policies attached to your devices’ certificates follow the best practice\.
+
+**"Device certificate attached policies don’t contain wildcards"**  
+ Validates if the permission policies associated with a device follow best practices and do not grant the device more permissions than needed\.  
+*API test case definition:*  
+`EXECUTION_TIMEOUT` has a default value of 1 minute\.
+
+```
+"tests":[
+   {
+        "name":"my_security_device_policies"
+        "configuration": {
+            // optional:
+            "EXECUTION_TIMEOUT":"60000"
+        } 
+        "test": {
+            "id": "Security_Device_Policies",
+            "version": "0.0.0"
+        }
+    }
+]
+```
+These test cases are currently not available through the AWS IoT console\. Please use the AWS IoT CLI or the AWS IoT IoT Core Device Advisor SDK to configure this test case\.
+
+## Shadow<a name="device-advisor-tests-shadow"></a>
+
+Use these test to verify your devices use AWS IoT Device Shadow service correctly\. See [IoT device shadows](https://docs.aws.amazon.com/https://docs.aws.amazon.com/iot/latest/developerguide/iot-device-shadows.html) for more information\. If these test cases are configured in your test suite, then providing a thing is required when starting the suite run\.
+
+**Note**  
+These test cases are currently not available through the AWS console\. Please use the AWS CLI or the AWS IoT Core Device Advisor SDK to configure this test case\.Publish
+
+***"Device publishes state after it connects \(Happy case\)"***  
+Validates if a device can publish its state after it connects to AWS IoT Core  
+*API test case definition:*  
+`EXECUTION_TIMEOUT` has a default value of 5 minute\.
+
+```
+"tests":[
+   {
+      "name":"my_shadow_publish_reported_state",
+      "configuration": {
+         // optional:
+         "EXECUTION_TIMEOUT":"300000",
+         "SHADOW_NAME": "SHADOW_NAME",
+         "REPORTED_STATE": {
+            "STATE_ATTRIBUTE": "STATE_VALUE"
+         }
+      },
+      "test":{
+         "id":"Shadow_Publish_Reported_State",
+         "version":"0.0.0"
+      }
+   }
+]
+```
+The `REPORTED_STATE` can be provided for additional validation on your device's exact shadow state, after it connects\. By default, this test case validates your device publishing state\.  
+If `SHADOW_NAME` is not provided, then the test case looks for messages published to topic prefixes of the Unnamed \(classic\) shadow type by default\. Provide a shadow name if your device uses the named shadow type\. See [Using shadows in devices](https://docs.aws.amazon.com/https://docs.aws.amazon.com/iot/latest/developerguide/device-shadow-comms-device.html) for more information\.Update
+
+***"Device updates reported state to desired state \(Happy case\)"***  
+Validates if your device reads all update messages received and synchronizes the device's state to match the desired state properties\. Your device should publish its latest reported state after synchronizing\.   
+*API test case definition:*  
+`EXECUTION_TIMEOUT` has a default value of 5 minutes\.
+
+```
+"tests":[
+   {
+      "name":"my_shadow_update_reported_state",
+      "configuration": {
+         "DESIRED_STATE": {
+            "STATE_ATTRIBUTE": "STATE_VALUE"
+         },
+         // optional:
+         "EXECUTION_TIMEOUT":"300000",
+         "SHADOW_NAME": "SHADOW_NAME"
+      },
+      "test":{
+         "id":"Shadow_Update_Reported_State",
+         "version":"0.0.0"
+      }
+   }
+]
+```
+The `DESIRED_STATE` should have at least one attribute and associated value\.  
+If `SHADOW_NAME`is not provided, then the test case looks for messages published to topic prefixes of the Unnamed \(classic\) shadow type by default\. Provide a shadow name if your device uses the named shadow type\. See [Using shadows in devices](https://docs.aws.amazon.com/https://docs.aws.amazon.com/iot/latest/developerguide/device-shadow-comms-device.html) for more information\.

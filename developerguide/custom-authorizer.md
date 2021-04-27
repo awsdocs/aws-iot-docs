@@ -26,7 +26,7 @@ The following list explains each step in the custom authentication and authoriza
 
 ## Scaling considerations<a name="custom-authentication-scaling"></a>
 
- Because a Lambda function handles authentication and authorization for your authorizer, the function is subject to Lambda pricing and service limits, such as concurrent execution rate\. For more information about Lambda pricing, see [Lambda Pricing](https://aws.amazon.com/lambda/pricing/)\. You can manage the load on your Lambda function by adjusting the `refreshAfterInSecs` and `disconnectAfterInSeconds` parameters in your Lambda function response\. For more information about the contents of your Lambda function response, see [Defining your Lambda function](config-custom-auth.md#custom-auth-lambda)\. 
+ Because a Lambda function handles authentication and authorization for your authorizer, the function is subject to Lambda pricing and service limits, such as concurrent execution rate\. For more information about Lambda pricing, see [Lambda Pricing](https://aws.amazon.com/lambda/pricing/)\. You can manage the load on your Lambda function by adjusting the `refreshAfterInSeconds` and `disconnectAfterInSeconds` parameters in your Lambda function response\. For more information about the contents of your Lambda function response, see [Defining your Lambda function](config-custom-auth.md#custom-auth-lambda)\. 
 
 **Note**  
 If you leave signing enabled, you can prevent excessive triggering of your Lambda by unrecognized clients\. Consider this before you disable signing in your authorizer\.

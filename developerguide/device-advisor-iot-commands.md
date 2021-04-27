@@ -670,9 +670,9 @@ Output
 |  Name  |  Description  | 
 | --- | --- | 
 | categories |  This group of test cases belong to this category\. array  | 
-| groupConfiguration |  Available configurations for test groups and cases in the the test suite\.  | 
+| groupConfiguration |  Available configurations for test groups and cases in the test suite\.  | 
 |   `nextToken`  |  A token that can be used to retrieve the next set of results, or `null` if there are no additional results\. string  length\- max:2000  pattern: \\S\+  | 
-| rootGroupConfiguration |  Available configurations for the top\-most group of test groups and cases in the the test suite\.  | 
+| rootGroupConfiguration |  Available configurations for the top\-most group of test groups and cases in the test suite\.  | 
 
  **Errors**
 

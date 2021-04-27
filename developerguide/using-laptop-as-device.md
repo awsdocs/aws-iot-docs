@@ -37,9 +37,10 @@ In this section, you'll install Python, and the AWS IoT Device SDK for Python on
    ```
    python -V
    ```
+**Note**  
+If this command gives an error: `Python was not found`, it might be because your operating system calls the Python v3\.x executable as `Python3`\. In that case, replace all instances of `python` with `python3` and continue the remainder of this tutorial\.
 
    If the command displays the Python version, Python is already installed\. This tutorial requires Python v3\.5 or later\. 
-   On some operating system distributions, the Python v3.x executable is called `python3`\. If this is the case for you, then replace all occurrences of `python` with `python3` in the remainder of this tutorial\.
 
 1. If Python is installed, you can skip the rest of the steps in this section\. If not, continue\.
 
@@ -75,8 +76,7 @@ In this section, you'll install Python, and the AWS IoT Device SDK for Python on
    In macOS and Linux, the *home* directory is `~`\.
 
    ```
-   cd ~
-   git clone https://github.com/aws/aws-iot-device-sdk-python-v2.git
+   cd ~ git clone https://github.com/aws/aws-iot-device-sdk-python-v2.git
    ```
 
 ------
@@ -292,7 +292,7 @@ You can see the sample app's messages as they pass through the message broker by
 
    ```
    cd ~/aws-iot-device-sdk-python-v2/samples
-   python pubsub.py --topic test/topic --root-ca ~/certs/Amazon-root-CA-1.pem --cert ~/certs/device.pem.crt --key ~/certs/private.pem.key --endpoint your-iot-endpoint
+   python3 pubsub.py --topic test/topic --root-ca ~/certs/Amazon-root-CA-1.pem --cert ~/certs/device.pem.crt --key ~/certs/private.pem.key --endpoint your-iot-endpoint
    ```
 
 ------
@@ -300,7 +300,7 @@ You can see the sample app's messages as they pass through the message broker by
 
    ```
    cd %USERPROFILE%\aws-iot-device-sdk-python-v2\samples\node\pub_sub
-   python pubsub.py --topic test/topic --root-ca %USERPROFILE%\certs\Amazon-root-CA-1.pem --cert %USERPROFILE%\certs\device.pem.crt --key %USERPROFILE%\certs\private.pem.key --endpoint your-iot-endpoint
+   python3 pubsub.py --topic test/topic --root-ca %USERPROFILE%\certs\Amazon-root-CA-1.pem --cert %USERPROFILE%\certs\device.pem.crt --key %USERPROFILE%\certs\private.pem.key --endpoint your-iot-endpoint
    ```
 
 ------

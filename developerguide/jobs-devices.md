@@ -112,7 +112,7 @@ The examples in this section use MQTT to illustrate how a device works with the 
 + `$aws/things/MyThing/jobs/jobId/get/accepted`
 + `$aws/things/MyThing/jobs/jobId/get/rejected`
 
- If you are using Code\-signing for AWS IoT your device code must verify the signature of your code file\. The signature is in the job document in the `codesign` property\. For more information about verifying a code file signature, see [Device Agent Sample](https://github.com/aws/aws-iot-device-sdk-js#jobsAgent)\.
+ If you are using code signing for AWS IoT your device code must verify the signature of your code file\. The signature is in the job document in the `codesign` property\. For more information about verifying a code file signature, see [Device Agent Sample](https://github.com/aws/aws-iot-device-sdk-js#jobsAgent)\.
 
 ### Device workflow<a name="jobs-workflow-device-online"></a>
 

@@ -271,6 +271,7 @@ The following keywords might appear after "as" when calling `cast`:
 | varchar | Casts value to String\. | 
 | Int | Casts value to Int\. | 
 | Integer | Casts value to Int\. | 
+| Double | Casts value to Decimal \(with double precision\)\. | 
 
 
 **Additionally, for SQL version 2016\-03\-23**  
@@ -1487,11 +1488,11 @@ timestamp
 \(String\) The timestamp string to be converted to milliseconds since Unix epoch\. If the timestamp string doesn't specify a timezone, the function uses the UTC timezone\.
 
 pattern  
-\(String\) A date/time pattern that follows the [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) standard format\. Specifically, the function supports [Joda\-Time formats](http://www.joda.org/joda-time/apidocs/org/joda/time/format/DateTimeFormat.html)\. 
+\(String\) A date/time pattern that follows the [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) standard format\. Specifically, the function supports [JDK11 Time Formats](http://docs.oracle.com/en/java/javase/11/docs/api/java.base/java/time/format/DateTimeFormatter.html)\. 
 
 Examples:
 
-`time_to_epoch("2020-04-03 09:45:18 UTC+01:00", "yyyy-MM-dd HH:mm:ss z")` = 1585903518000
+`time_to_epoch("2020-04-03 09:45:18 UTC+01:00", "yyyy-MM-dd HH:mm:ss VV")` = 1585903518000
 
 `time_to_epoch("18 December 2015", "dd MMMM yyyy")` = 1450396800000
 

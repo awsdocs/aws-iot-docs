@@ -1,8 +1,8 @@
 # Behaviors<a name="detect-behaviors"></a>
 
-A Security Profile contains a set of behaviors\. Each behavior contains a metric that specifies the normal behavior for a group of devices or for all devices in your account\. Behaviors fall into two categories: Rules Detect behaviors and ML Detect behaviors\. With Rules Detect behaviors, you define how your devices should behave whereas ML Detect uses historical device data to define how your devices should behave\.
+A Security Profile contains a set of behaviors\. Each behavior contains a metric that specifies the normal behavior for a group of devices or for all devices in your account\. Behaviors fall into two categories: Rules Detect behaviors and ML Detect behaviors\. With Rules Detect behaviors, you define how your devices should behave whereas ML Detect uses ML models built on historical device data to evaluate how your devices should behave\.
 
-See [Cloud\-side metrics](detect-cloud-side-metrics.md), [Device\-side metrics](detect-device-side-metrics.md) and [CreateSecurityProfile](https://docs.aws.amazon.com/iot/latest/apireference/API_CreateSecurityProfile.html) for more information\.
+A Security Profile can be one of two threshold types: **ML** or **Rule\-based**\. ML Security Profiles automatically detect device\-level operational and security anomalies across your fleet by learning from past data\. Rule\-based Security Profiles require that you manually set static rules to monitor your device behaviors\.
 
 The following describes some of the fields that are used in the definition of a `behavior`:Common to Rules Detect and ML Detect
 
@@ -13,16 +13,16 @@ The name for the behavior\.
 The name of the metric used \(that is, what is measured by the behavior\)\.
 
 **`consecutiveDatapointsToAlarm`**  
-If a device is in violation of the behavior for the specified number of consecutive data points, an alarm occurs\. If not specified, the default is 1\. This appears as **Datapoints required to trigger alarm** for ML Detect in the console\. 
+If a device is in violation of the behavior for the specified number of consecutive data points, an alarm occurs\. If not specified, the default is 1\.
 
 **`consecutiveDatapointsToClear`**  
-If an alarm has occurred and the offending device is no longer in violation of the behavior for the specified number of consecutive data points, the alarm is cleared\. If not specified, the default is 1\. This appears as **Datapoints required to clear alarm** for ML Detect in the console\.
+If an alarm has occurred and the offending device is no longer in violation of the behavior for the specified number of consecutive data points, the alarm is cleared\. If not specified, the default is 1\.
 
 **`threshold type`**  
-A Security Profile can be one of two threshold types: ML Detect or Rules Detect\. ML Security Profiles automatically detect device\-level operational and security anomalies across your fleet by learning from past data\. Rule\-based Security Profiles require that you manually set static alarms for your device behaviors\.
+A Security Profile can be one of two threshold types: ML or Rules based\. ML Security Profiles automatically detect device\-level operational and security anomalies across your fleet by learning from past data\. Rule\-based Security Profiles require that you manually set static rules to monitor your device behaviors\.
 
 **`alarm suppressions`**  
-Manage Detect alarm SNS notifications by setting behavior notification to `on` or `suppressed`\. Suppressing alarms doesn't stop Detect from performing device behavior evaluations; Detect continues to flag anomalous behaviors as violation alarms\. However, suppressed alarms wouldn't be forwarded for SNS notification\. They can only be accessed through the AWS IoT console or API\.Rules Detect
+Manage Detect alarm SNS notifications by setting behavior notification to `on` or `suppressed`\. Suppressing alarms doesn't stop Detect from performing device behavior evaluations; Detect continues to flag anomalous behaviors as violation alarms\. However, suppressed alarms aren't forwarded for SNS notification\. They can be accessed only through the AWS IoT console or API\.Rules Detect
 
 `dimension`  
 You can define a dimension to adjust the scope of a behavior\. For example, you can define a topic filter dimension that applies a behavior to MQTT topics that match a pattern\. To define a dimension for use in a Security Profile, see [CreateDimension](https://docs.aws.amazon.com/iot/latest/apireference/API_CreateDimension.html)\. Applies to Rules Detect only\.
@@ -42,4 +42,4 @@ A [percentile](https://en.wikipedia.org/wiki/Percentile) indicates the percentag
 Use this to specify the period of time over which the behavior is evaluated, for those criteria that have a time dimension \(for example, `NUM_MESSAGES_SENT`\)\. For a `statisticalThreshhold` metric comparison, this is the time period during which measurements are collected for all devices to determine the `statisticalThreshold` values, and then for each device to determine how its behavior ranks in comparison\.ML Detect
 
 `ML Detect confidence`  
-ML Detect supports three confidence levels: `High`, `Medium` and `Low`\. `High` confidence means low sensitivity in anomalous behavior evaluation and frequently a lower number of alarms\. `Medium` confidence means medium sensitivity and `Low` confidence means high sensitivity and frequently a higher number of alarms\.
+ML Detect supports three confidence levels: `High`, `Medium`, and `Low`\. `High` confidence means low sensitivity in anomalous behavior evaluation and frequently a lower number of alarms, `Medium` confidence means medium sensitivity, and `Low` confidence means high sensitivity and frequently a higher number of alarms\.

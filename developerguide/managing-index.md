@@ -50,7 +50,7 @@ Managed fields contain data associated with IoT things, thing groups, and device
     {name:thingId, type:String},
     {name:thingName, type:String},
     {name:registry.version, type:Number},
-    {name:registry.thingType, type:String},
+    {name:registry.thingTypeName, type:String},
     {name:registry.thingGroupNames, type:String},
   ]
   ```
@@ -59,7 +59,7 @@ Managed fields contain data associated with IoT things, thing groups, and device
   ```
   "managedFields" : [
     {name:shadow.version, type:Number},
-    {name:shadow.delta, type:Boolean}
+    {name:shadow.hasDelta, type:Boolean}
   ]
   ```
 + Managed fields for thing connectivity
@@ -129,7 +129,7 @@ aws iot get\-indexing\-configuration
         "thingIndexingMode": "REGISTRY_AND_SHADOW",
         "managedFields": [
             {
-                "name": "shadow.delta",
+                "name": "shadow.hasDelta",
                 "type": "Boolean"
             },
             {
@@ -247,7 +247,7 @@ The output of these commands is:
             },
             {
                 "type": "Boolean",
-                "name": "shadow.delta"
+                "name": "shadow.hasDelta"
             },
             {
                 "type": "Number",

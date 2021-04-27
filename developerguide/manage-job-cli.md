@@ -6,9 +6,9 @@ This section describes how to create and manage jobs\.
 
 You use the CreateJob command to create an AWS IoT job\. The job is queued for execution on the targets \(things or thing groups\) that you specify\. To create an AWS IoT job, you need a job document that can be included in the body of the request or as a link to an Amazon S3 document\. If the job includes downloading files using presigned Amazon S3 URLs, you need an IAM role ARN that has permission to download the file and grants permission to the AWS IoT Jobs service to assume the role\.
 
-### Code\-signing with jobs<a name="code-signing-with-jobs"></a>
+### Code signing with jobs<a name="code-signing-with-jobs"></a>
 
-If you are using Code\-signing for AWS IoT, you must start a code\-signing job and include the output in your job document\. Use the [start\-signing\-job](https://docs.aws.amazon.com/signer/latest/developerguide/api-startsigningjob.html) command to create a code\-signing job\. `start-signing-job` returns a job ID\. Use the describe\-signing\-job command to get the Amazon S3 location where the signature is stored\. You can then download the signature from Amazon S3\. For more information about code signing jobs, see [Code\-signing for AWS IoT](https://docs.aws.amazon.com/signer/latest/developerguide/Welcome.html)\.
+If you are using code signing for AWS IoT, you must start a code signing job and include the output in your job document\. Use the [start\-signing\-job](https://docs.aws.amazon.com/signer/latest/developerguide/api-startsigningjob.html) command to create a code signing job\. `start-signing-job` returns a job ID\. Use the describe\-signing\-job command to get the Amazon S3 location where the signature is stored\. You can then download the signature from Amazon S3\. For more information about code signing jobs, see [Code signing for AWS IoT](https://docs.aws.amazon.com/signer/latest/developerguide/Welcome.html)\.
 
 Your job document must contain a presigned URL placeholder for your code file and the JSON signature output placed in an Amazon S3 bucket using the start\-signing\-job command, enclosed in a `codesign` element:
 

@@ -1,18 +1,13 @@
 # ML Detect guide<a name="dd-detect-ml-getting-started"></a>
 
-
-|  | 
-| --- |
-| ML Detect is in preview release for AWS IoT Device Defender and is subject to change\. | 
-
-In this Getting Started guide, you create an ML Detect Security Profile that uses machine learning \(ML\) to create models of expected behavior based on historical metric data from your devices\. While ML Detect is creating the ML model, you can monitor its progress\. Once the ML model is built, you can view and investigate alarms on an ongoing basis and mitigate identified issues\.
+In this Getting Started guide, you create an ML Detect Security Profile that uses machine learning \(ML\) to create models of expected behavior based on historical metric data from your devices\. While ML Detect is creating the ML model, you can monitor its progress\. After the ML model is built, you can view and investigate alarms on an ongoing basis and mitigate identified issues\.
 
 For more information about ML Detect and its API and CLI commands, see [ML Detect reference](dd-detect-ml.md)\.
 
 **Topics**
 + [Prerequisites](#ml-detect-prereqs)
 + [How to use ML Detect in the console](#dd-detect-ml-console)
-+ [How to use ML Detect on the CLI](#dd-detect-ml-cli)
++ [How to use ML Detect with the CLI](#dd-detect-ml-cli)
 
 ## Prerequisites<a name="ml-detect-prereqs"></a>
 + An AWS account\. If you don't have this, see [Setting up](https://docs.aws.amazon.com/iot/latest/developerguide/dd-setting-up.html)\.
@@ -30,45 +25,44 @@ For more information about ML Detect and its API and CLI commands, see [ML Detec
 
 The following procedures detail how to set up ML Detect in the console\.
 
-1. First, make sure your devices will create the minimum datapoints required as defined in [ML Detect minimum requirements](dd-detect-ml.md#dd-detect-ml-requirements) for ongoing training and refreshing of the model\. For data collection to progress, ensure your Security Profile is attached to a target \(for example, a thing group\)\.
+1. First, make sure your devices will create the minimum datapoints required as defined in [ML Detect minimum requirements](dd-detect-ml.md#dd-detect-ml-requirements) for ongoing training and refreshing of the model\. For data collection to progress, ensure your Security Profile is attached to a target, which can be a thing or thing group\.
 
 1. In the [AWS IoT console](https://console.aws.amazon.com/iot), in the navigation pane, expand **Defend**\. Choose **Detect**, **Security profiles**, **Create security profile**, and then **Create ML anomaly Detect profile**\.
 
 1. On the **Set basic configurations** page, do the following\.
    + Under **Target**, choose your target device groups\.
    + Under **Security profile name**, enter a name for your Security Profile\.
-   + Under **Device behavior metrics**, choose the metrics you'd like to monitor\.
-   + \(Optional\) If you don't want to customize your metric configurations, select **Skip edit metric behaviors** and then select **Next**\.  
+   + \(Optional\) Under **Description** you can write in a short description for the ML profile\.
+   + Under **Selected metric behaviors in Security Profile**, choose the metrics you'd like to monitor\.  
 ![\[Image NOT FOUND\]](http://docs.aws.amazon.com/iot/latest/developerguide/images/dd-ml-set-basic.png)
 
    When you're done, choose **Next**\.
 
-1. On the **Update configurations** page, you can optionally customize your ML behavior settings\.   
+1. On the **Set SNS \(optional\)** page, specify an SNS topic for alarm notifications when a device violates a behavior in your profile\. Choose an IAM role you will use to publish to the selected SNS topic\.
+
+   If you don't have an SNS role yet, use the following steps to create a role with the proper permissions and trust relationships required\. 
+   + Navigate to the [IAM console](https://console.aws.amazon.com/iam/)\. In the navigation pane, choose **Roles** and then choose **Create role**\.
+   + Under **Select type of trusted entity**, select **AWS Service**\. Then, under **Choose a use case**, choose **IoT** and under **Select your use case**, choose **IoT \- Device Defender Mitigation Actions**\. When you're done, choose **Next: Permissions**\.
+   + Under **Attached permissions policies**, ensure that **AWSIoTDeviceDefenderPublishFindingsToSNSMitigationAction** is selected, and then choose **Next: Tags**\.  
+![\[Image NOT FOUND\]](http://docs.aws.amazon.com/iot/latest/developerguide/images/dd-ml-sns-findings.png)
+   + Under **Add tags \(optional\)**, you can add any tags you'd like to associate with your role\. When you're done, choose **Next: Review**\.
+   + Under **Review**, give your role a name and ensure that **AWSIoTDeviceDefenderPublishFindingsToSNSMitigationAction** is listed under **Permissions** and **AWS service: iot\.amazonaws\.com** is listed under **Trust relationships**\. When you're done, choose **Create role**\.  
+![\[Image NOT FOUND\]](http://docs.aws.amazon.com/iot/latest/developerguide/images/dd-ml-detect-permissions.png)  
+![\[Image NOT FOUND\]](http://docs.aws.amazon.com/iot/latest/developerguide/images/dd-ml-detect-trust-relationships.png)
+
+1. On the **Edit Metric behavior** page, you can customize your ML behavior settings\.   
 ![\[Image NOT FOUND\]](http://docs.aws.amazon.com/iot/latest/developerguide/images/dd-ml-update-config.png)
 
 1. When you're done, choose **Next**\.
 
-1. On the **Review metric behaviors** screen, verify the behaviors you'd like machine learning to monitor\.
+1. On the **Review configuration** page, verify the behaviors you'd like machine learning to monitor, and then choose **Next**\.  
+![\[Image NOT FOUND\]](http://docs.aws.amazon.com/iot/latest/developerguide/images/dd-ml-review-config.png)
 
-   \(Optional\) If you don't want to enable SNS, select **Skip next step and finish**\.
+   
 
-   When you're done, choose **Next**\.
-
-1. \(Optional\) On the **Set SNS \(optional\)** page, specify an SNS topic for alarms when a device violates a behavior in your profile\. Select an IAM role you will use to publish on the selected SNS topic\.
-
-   If you don't have an SNS role yet, use the following steps to create a role with the proper permissions and trust relationships required\. 
-   + Navigate to the [IAM console](https://console.aws.amazon.com/iam/)\. In the navigation pane, choose **Roles** and then choose **Create role**\.
-   + Under **Select type of trusted entity**, select **AWS Service**\. Then, under **Choose a use case**, choose **IoT** and under **Select your use case**, choose **IoT \- Device Defender Mitigation Actions**\. Choose **Next: Permissions** when done\.
-   + Under **Attached permissions policies**, ensure that **AWSIoTDeviceDefenderPublishFindingsToSNSMitigationAction** is selected then choose **Next: Tags**\.  
-![\[Image NOT FOUND\]](http://docs.aws.amazon.com/iot/latest/developerguide/images/dd-ml-sns-findings.png)
-   + Under **Add tags \(optional\)**, you can add any tags you'd like to associate with your role\. Choose **Next: Review** when done\.
-   + Under **Review**, give your role a name and ensure that **AWSIoTDeviceDefenderPublishFindingsToSNSMitigationAction** is listed under **Permissions** and **AWS service: iot\.amazonaws\.com** is listed under **Trust relationships**\. Choose **Create role** when done\.  
-![\[Image NOT FOUND\]](http://docs.aws.amazon.com/iot/latest/developerguide/images/dd-ml-detect-permissions.png)  
-![\[Image NOT FOUND\]](http://docs.aws.amazon.com/iot/latest/developerguide/images/dd-ml-detect-trust-relationships.png)
-
-1. After you've created your Security Profile, you're redirected to the **Security Profiles** page, where newly created Security Profile is displayed\.
+1. After you've created your Security Profile, you're redirected to the **Security Profiles** page, where the newly created Security Profile appears\.
 **Note**  
-The initial ML model training and creation takes 14 days to complete\. You can expect to see alarms after it's complete if there is any anomalous activity on your devices\.
+The initial ML model training and creation takes 14 days to complete\. You can expect to see alarms after it's complete, if there is any anomalous activity on your devices\.
 
 ### Monitor your ML model status<a name="monitor-ml-models-console"></a>
 
@@ -76,12 +70,11 @@ While your ML models are in the initial training period, you can monitor their p
 
 1. In the [AWS IoT console](https://console.aws.amazon.com/iot), in the navigation pane, expand **Defend**, and then choose **Detect**, **Security profiles**\.
 
-1. On the **Security Profiles** page, select the check box next to the Security Profile you'd like to review\. Then, choose **Other actions** and **View ML model training report**\.
+1. On the **Security Profiles** page, choose the Security Profile you'd like to review\. Then, choose **Behaviors and ML training**\.
 
-1. On the **ML model training report** page, check the training progress of your ML models\.  
-![\[Image NOT FOUND\]](http://docs.aws.amazon.com/iot/latest/developerguide/images/dd-ml-model-training.png)
+1. On the **Behaviors and ML training** page, check the training progress of your ML models\.
 
-   Once your model status is **Active**, it'll start making Detect decisions based on your usage and update the profile every day\.  
+   After your model status is **Active**, it'll start making Detect decisions based on your usage and update the profile every day\.  
 ![\[Image NOT FOUND\]](http://docs.aws.amazon.com/iot/latest/developerguide/images/dd-ml-active-state.png)
 
 **Note**  
@@ -94,36 +87,34 @@ After your ML models are built and ready for data inference, you can regularly v
 1. In the [AWS IoT console](https://console.aws.amazon.com/iot), in the navigation pane, expand **Defend**, and then choose **Detect**, **Alarms**\.  
 ![\[Image NOT FOUND\]](http://docs.aws.amazon.com/iot/latest/developerguide/images/dd-ml-alarms.png)
 
-1. If you navigate to the **History** tab and scroll down, you can view details about your alarms and their state\.
-
-   Here, you can see thing `ddml12` received too many messages and cleared subsequently, which cleared the alarm state\.  
+1. If you navigate to the **History** tab, you can also view details about your devices that went out of alarms\.  
 ![\[Image NOT FOUND\]](http://docs.aws.amazon.com/iot/latest/developerguide/images/dd-ml-history-alarm.png)
 
-   To dive deeper, choose the **Thing name** you'd like to see more details for\. Here, we select `ddml12` and then navigate to **Defender metrics**\. You can access the **Defender metrics graph** and perform your investigation on any thing in alarm from the **Active** tab\. In this case, the graph shows a spike in messages received, which triggered the alarm\. However, the alarm cleared subsequently\.  
+   To get more information, under **Manage** choose **Things**, chose the thing you'd like to see more details for, and then navigate to **Defender metrics**\. You can access the **Defender metrics graph** and perform your investigation on anything in alarm from the **Active** tab\. In this case, the graph shows a spike in message size, which triggered the alarm\. You can see the alarm subsequently cleared\.  
 ![\[Image NOT FOUND\]](http://docs.aws.amazon.com/iot/latest/developerguide/images/dd-ml-defender-metrics.png)
 
 ### Fine\-tune your ML alarms<a name="fine-tune-ml-models-console"></a>
 
-After your ML models are built, you can update your Security Profile's ML behavior settings by using the following steps\.
+After your ML models are built and ready for data evaluations, you can update your Security Profile's ML behavior settings to change the configuration\. The following procedure shows you how to update your Security Profile's ML behavior settings in the AWS CLI\.
 
 1. In the [AWS IoT console](https://console.aws.amazon.com/iot), in the navigation pane, expand **Defend**, and then choose **Detect**, **Security profiles**\.
 
 1. On the **Security Profiles** page, select the check box next to the Security Profile you'd like to review\. Then, choose **Actions**, **Edit**\.   
 ![\[Image NOT FOUND\]](http://docs.aws.amazon.com/iot/latest/developerguide/images/dd-ml-fine-tune.png)
 
-1. Under **Set basic configurations**, you can change what metrics you want to monitor as well as attach them to other things or thing groups\.  
+1. Under **Set basic configurations**, you can adjust Security Profile target thing groups or change what metrics you want to monitor\.  
 ![\[Image NOT FOUND\]](http://docs.aws.amazon.com/iot/latest/developerguide/images/dd-ml-set-basic.png)
 
-1. You can update any of the following by navigating to **Edit metric behaviors \(optional\)**\.
+1. You can update any of the following by navigating to **Edit metric behaviors**\.
    + Your ML model datapoints required to trigger alarm
    + Your ML model datapoints required to clear alarm
    + Your ML Detect confidence level
-   + Your ML Detect notifications \(for example, **On**, **Suppressed**\)  
+   + Your ML Detect notifications \(for example, **Not suppressed**, **Suppressed**\)  
 ![\[Image NOT FOUND\]](http://docs.aws.amazon.com/iot/latest/developerguide/images/dd-ml-update-config-2.png)
 
 ### Mitigate identified device issues<a name="mitigate-ml-issues-console"></a>
 
-1. *\(Optional\)* Before setting up quarantine mitigation actions, let's set up a quarantine group where we'll move the device in violation to\. You can use any existing group if you have it\.
+1. *\(Optional\)* Before setting up quarantine mitigation actions, let's set up a quarantine group where we'll move the device that's in violation to\. You can also use an existing group\.
 
 1. Navigate to **Manage**, **Thing groups**, and then **Create Thing Group**\. Name your thing group\. For this tutorial, we'll name our thing group `Quarantine_group`\. Under **Thing group**, **Security**, apply the following policy to the thing group\.
 
@@ -141,36 +132,36 @@ After your ML models are built, you can update your Security Profile's ML behavi
    ```  
 ![\[Image NOT FOUND\]](http://docs.aws.amazon.com/iot/latest/developerguide/images/dd-create-thing-group.png)
 
-   Choose **Create thing group** when done\.
+   When you're done, choose **Create thing group**\.
 
-1. Now that we've created a thing group, let's create a mitigation action that move devices in alarm into `Quarantine_group`\.
+1. Now that we've created a thing group, let's create a mitigation action that move devices that in alarm into the `Quarantine_group`\.
 
    Under **Defend**, **Mitigation actions**, choose **Create**\.  
 ![\[Image NOT FOUND\]](http://docs.aws.amazon.com/iot/latest/developerguide/images/dd-miti-create.png)
 
-1. On the **Create a new mitigation action** screen, fill out the following\.
+1. On the **Create a new mitigation action** page, enter the following information\.
    + **Action name**: Give your mitigation action a name, such as **Quarantine\_action**\.
-   + **Action type**: Select the type of action\. We'll select **Add things to thing group \(Audit or Detect mitigation\)**\.
-   + **Action execution role**: Create a role or select an existing role if you created one earlier\.
-   + **Parameters**: Select a thing group\. We can use `Quarantine_group`, which we created earlier\.  
+   + **Action type**: Choose the type of action\. We'll choose **Add things to thing group \(Audit or Detect mitigation\)**\.
+   + **Action execution role**: Create a role or choose an existing role if you created one earlier\.
+   + **Parameters**: Choose a thing group\. We can use `Quarantine_group`, which we created earlier\.  
 ![\[Image NOT FOUND\]](http://docs.aws.amazon.com/iot/latest/developerguide/images/dd-miti-create-form.png)
 
-   Once you're done, choose **Save**\. You'll now have a mitigation action that moves devices in alarm to a quarantine thing group and a mitigation action to isolate the device while you investigate\.
+   When you're done, choose **Save**\. You now have a mitigation action that moves devices in alarm to a quarantine thing group, and a mitigation action to isolate the device while you investigate\.
 
-1. Navigate to **Defender**, **Detect**, **Alarms**\. You'll be able to see which devices are in alarm state under **Active**\.  
-![\[Image NOT FOUND\]](http://docs.aws.amazon.com/iot/latest/developerguide/images/dd-published-alarms.png)
+1. Navigate to **Defender**, **Detect**, **Alarms**\. You can see which devices are in alarm state under **Active**\.  
+![\[Image NOT FOUND\]](http://docs.aws.amazon.com/iot/latest/developerguide/images/dd-ml-alarms.png)
 
    Select the device you want to move to the quarantine group and choose **Start Mitigation Actions**\.
 
-1. Under **Start mitigation actions**, **Start Actions** select the mitigation action you created earlier\. For example, we'll choose **Quarantine\_action**\. Then choose **Start**\.  
+1. Under **Start mitigation actions**, **Start Actions** select the mitigation action you created earlier\. For example, we'll choose **Quarantine\_action**, then choose **Start**\. The Action Tasks page opens\.  
 ![\[Image NOT FOUND\]](http://docs.aws.amazon.com/iot/latest/developerguide/images/dd-ml-start-action.png)
 
-1. You'll be redirected to **Action tasks**\.  
+1. The device is now isolated in **Quarantine\_group** and you can investigate the root cause of the issue that set off the alarm\. After you complete the investigation, you can move the device out of the thing group or take further actions\.  
 ![\[Image NOT FOUND\]](http://docs.aws.amazon.com/iot/latest/developerguide/images/dd-ml-action-tasks.png)
 
-   The device is now isolated in **Quarantine\_group** and you can investigate the root cause of the issue that set off the alarm\. Once the investigation is complete, you can always move the device out of the thing group or take further actions\.
+   
 
-## How to use ML Detect on the CLI<a name="dd-detect-ml-cli"></a>
+## How to use ML Detect with the CLI<a name="dd-detect-ml-cli"></a>
 
 The following shows you how to set up ML Detect using the CLI\.
 
@@ -185,54 +176,61 @@ The following shows you how to set up ML Detect using the CLI\.
 
 The following procedure shows you how to enable ML Detect in the AWS CLI\. 
 
-1. First, make sure your devices will create the minimum datapoints required as defined in [ML Detect minimum requirements](dd-detect-ml.md#dd-detect-ml-requirements) for ongoing training and refreshing of the model\. For data collection to progress, ensure your things are in a thing group attached to a Security Profile\.
+1. Make sure your devices will create the minimum datapoints required as defined in [ML Detect minimum requirements](dd-detect-ml.md#dd-detect-ml-requirements) for ongoing training and refreshing of the model\. For data collection to progress, ensure your things are in a thing group attached to a Security Profile\.
 
-1. First, create an ML Detect Security Profile by using the `[create\-security\-profile](https://docs.aws.amazon.com/cli/latest/reference/iot/create-security-profile.html)` command\. The following example creates a Security Profile named *security\-profile\-for\-smart\-lights* that checks for number of messages sent, number of authorization failures, number of connection attempts, and number of disconnects\. The example uses `mlDetectionConfig` to establish that the metric will use the ML Detect model\.
+1. Create an ML Detect Security Profile by using the `[create\-security\-profile](https://docs.aws.amazon.com/cli/latest/reference/iot/create-security-profile.html)` command\. The following example creates a Security Profile named *security\-profile\-for\-smart\-lights* that checks for number of messages sent, number of authorization failures, number of connection attempts, and number of disconnects\. The example uses `mlDetectionConfig` to establish that the metric will use the ML Detect model\.
 
    ```
    aws iot create-security-profile \
        --security-profile-name security-profile-for-smart-lights \
        --behaviors \
         '[{
-         "name": "num-messages-sent-ml-behavior",
-         "metric": "aws:num-messages-sent",
-         "criteria": {
-             "mlDetectionConfig": {
-                 "confidenceLevel" : "MEDIUM"
-             }
-         },
-         "suppressAlerts": true    
+       "name": "num-messages-sent-ml-behavior",
+       "metric": "aws:num-messages-sent",
+       "criteria": {
+         "consecutiveDatapointsToAlarm": 1,
+         "consecutiveDatapointsToClear": 1,
+         "mlDetectionConfig": {
+           "confidenceLevel": "HIGH"
+         }
+       },
+       "suppressAlerts": true
      },
      {
-         "name": "num-authorization-failures-ml-behavior",
-         "metric": "aws:num-authorization-failures",
-         "criteria": {
-             "mlDetectionConfig": {
-                 "confidenceLevel" : "MEDIUM"
-             }
-         },
-         "suppressAlerts": true                
+       "name": "num-authorization-failures-ml-behavior",
+       "metric": "aws:num-authorization-failures",
+       "criteria": {
+         "consecutiveDatapointsToAlarm": 1,
+         "consecutiveDatapointsToClear": 1,
+         "mlDetectionConfig": {
+           "confidenceLevel": "HIGH"
+         }
+       },
+       "suppressAlerts": true
      },
      {
-         "name": "num-connection-attempts-ml-behavior",
-         "metric": "aws:num-connection-attempts",
-         "criteria": {
-             "mlDetectionConfig": {
-                 "confidenceLevel" : "MEDIUM"
-             }
-         },
-         "suppressAlerts": true
+       "name": "num-connection-attempts-ml-behavior",
+       "metric": "aws:num-connection-attempts",
+       "criteria": {
+         "consecutiveDatapointsToAlarm": 1,
+         "consecutiveDatapointsToClear": 1,
+         "mlDetectionConfig": {
+           "confidenceLevel": "HIGH"
+         }
+       },
+       "suppressAlerts": true
      },
      {
-         "name": "num-disconnects-ml-behavior",
-         "metric": "aws:num-disconnects",
-         "criteria": {
-             "mlDetectionConfig": {
-                 "confidenceLevel" : "MEDIUM"
-             }
-         },
-         "suppressAlerts": true
-   
+       "name": "num-disconnects-ml-behavior",
+       "metric": "aws:num-disconnects",
+       "criteria": {
+         "consecutiveDatapointsToAlarm": 1,
+         "consecutiveDatapointsToClear": 1,
+         "mlDetectionConfig": {
+           "confidenceLevel": "HIGH"
+         }
+       },
+       "suppressAlerts": true
      }]'
    ```
 
@@ -257,12 +255,12 @@ The following procedure shows you how to enable ML Detect in the AWS CLI\.
 
    None\.
 
-1. After you've created your complete Security Profile, the ML model will begin training\. The initial ML model training and building takes 14 days to complete\. After 14 days, if there's anomalous activity on your device, you can expect to see alarms\.
+1. After you've created your complete Security Profile, the ML model begins training\. The initial ML model training and building takes 14 days to complete\. After 14 days, if there's anomalous activity on your device, you can expect to see alarms\.
 
 ### Monitor your ML model status<a name="monitor-ml-models-cli"></a>
 
 The following procedure shows you how to monitor your ML models in\-progress training\.
-+ Use the `[get\-behavior\-model\-training\-summaries](https://docs.aws.amazon.com/cli/latest/reference/iot/get-behavior-model-training-summaries.html)` command to view your ML model's progress\. The following example gets the ML model training progress summary for the *security\-profile\-for\-smart\-lights* Security Profile\. `modelStatus` will show you if a model has completed training or still pending build for a particular behavior\.
++ Use the `[get\-behavior\-model\-training\-summaries](https://docs.aws.amazon.com/cli/latest/reference/iot/get-behavior-model-training-summaries.html)` command to view your ML model's progress\. The following example gets the ML model training progress summary for the *security\-profile\-for\-smart\-lights* Security Profile\. `modelStatus` shows you if a model has completed training or is still pending build for a particular behavior\.
 
   ```
   aws iot get-behavior-model-training-summaries \
@@ -325,7 +323,7 @@ The following procedure shows you how to monitor your ML models in\-progress tra
   ```
 
 **Note**  
-If your model doesn't progress as expected, make sure your devices are meeting the [ML Detect minimum requirements](dd-detect-ml.md#dd-detect-ml-requirements)\.
+If your model doesn't progress as expected, make sure your devices are meeting the [Minimum requirements](dd-detect-ml.md#dd-detect-ml-requirements)\.
 
 ### Review your ML Detect alarms<a name="review-ml-alarms-cli"></a>
 
@@ -367,11 +365,13 @@ After your ML models are built and ready for data evaluations, you can regularly
                   "name": "LowConfidence_MladBehavior_MessagesSent",
                   "metric": "aws:num-messages-sent",
                   "criteria": {
+                      "consecutiveDatapointsToAlarm": 1,
+                      "consecutiveDatapointsToClear": 1,
                       "mlDetectionConfig": {
-                          "confidenceLevel": "MEDIUM"
+                          "confidenceLevel": "HIGH"
                       }
                   },
-                  "suppressAlerts": false
+                  "suppressAlerts": true
               },
               "violationEventType": "alarm-invalidated",
               "violationEventTime": 1600780245.29
@@ -384,11 +384,13 @@ After your ML models are built and ready for data evaluations, you can regularly
                   "name": "LowConfidence_MladBehavior_MessagesSent",
                   "metric": "aws:num-messages-sent",
                   "criteria": {
+                      "consecutiveDatapointsToAlarm": 1,
+                      "consecutiveDatapointsToClear": 1,
                       "mlDetectionConfig": {
-                          "confidenceLevel": "MEDIUM"
+                          "confidenceLevel": "HIGH"
                       }
                   },
-                  "suppressAlerts": false
+                  "suppressAlerts": true
               },
               "violationEventType": "alarm-invalidated",
               "violationEventTime": 1600780245.281
@@ -401,12 +403,12 @@ After your ML models are built and ready for data evaluations, you can regularly
 ### Fine\-tune your ML alarms<a name="fine-tune-ml-models-cli"></a>
 
 Once your ML models are built and ready for data evaluations, you can update your Security Profile's ML behavior settings to change the configuration\. The following procedure shows you how to update your Security Profile's ML behavior settings in the AWS CLI\.
-+ Use the `[update\-security\-profile](https://docs.aws.amazon.com/cli/latest/reference/iot/update-security-profile.html)` command to change your Security Profile's ML behavior settings\. The following example updates the *security\-profile\-for\-smart\-lights* Security Profile's behaviors by changing the `confidenceLevel` of a few of the behaviors and unsuppresses notifications\.
++ To change your Security Profile's ML behavior settings, use the `[update\-security\-profile](https://docs.aws.amazon.com/cli/latest/reference/iot/update-security-profile.html)` command\. The following example updates the *security\-profile\-for\-smart\-lights* Security Profile's behaviors by changing the `confidenceLevel` of a few of the behaviors and unsuppresses notifications for all behaviors\.
 
   ```
   aws iot update-security-profile \
       --security-profile-name security-profile-for-smart-lights \
-      --behaviors 
+      --behaviors \
        '[{
         "name": "num-messages-sent-ml-behavior",
         "metric": "aws:num-messages-sent",
@@ -415,6 +417,7 @@ Once your ML models are built and ready for data evaluations, you can update you
                 "confidenceLevel" : "HIGH"
             }
         },
+        "suppressAlerts": false
     },
     {
         "name": "num-authorization-failures-ml-behavior",
@@ -424,6 +427,7 @@ Once your ML models are built and ready for data evaluations, you can update you
                 "confidenceLevel" : "HIGH"
             }
         },
+        "suppressAlerts": false
     },
     {
         "name": "num-connection-attempts-ml-behavior",
@@ -443,7 +447,7 @@ Once your ML models are built and ready for data evaluations, you can update you
                 "confidenceLevel" : "LOW"
             }
         },
-        "suppressAlerts": true
+        "suppressAlerts": false
   
     }]'
   ```
@@ -502,7 +506,7 @@ Once your ML models are built and ready for data evaluations, you can update you
 
 ### Mitigate identified device issues<a name="mitigate-issues-cli"></a>
 
-1. Use the `[create\-thing\-group](https://docs.aws.amazon.com/cli/latest/reference/iot/create-thing-group.html)` command to create a thing group for the mitigation action\. In the following example we create a thing group called **ThingGroupForDetectMitigationAction**
+1. Use the `[create\-thing\-group](https://docs.aws.amazon.com/cli/latest/reference/iot/create-thing-group.html)` command to create a thing group for the mitigation action\. In the following example, we create a thing group called **ThingGroupForDetectMitigationAction**\.
 
    ```
    aws iot create-thing-group —thing-group-name ThingGroupForDetectMitigationAction
@@ -523,7 +527,7 @@ Once your ML models are built and ready for data evaluations, you can update you
    ```
    aws iot create-mitigation-action --action-name detect_mitigation_action \
    --role-arn arn:aws:iam::123456789012:role/MitigationActionValidRole \
-   --action-params  
+   --action-params \  
    '{
         "addThingsToThingGroupParams": {
             "thingGroupNames": ["ThingGroupForDetectMitigationAction"],
@@ -549,7 +553,7 @@ Once your ML models are built and ready for data evaluations, you can update you
        --target '{ "violationIds" : [ "violationId-1", "violationId-2" ] }' \
        --actions "detect_mitigation_action" \
        --include-only-active-violations \
-       --include-suppressed-alerts \
+       --include-suppressed-alerts
    ```
 
    Output:
@@ -557,6 +561,33 @@ Once your ML models are built and ready for data evaluations, you can update you
    ```
    {
        "taskId": "taskIdForMitigationAction"
+   }
+   ```
+
+1. \(Optional\)To view mitigation action executions included in a task, use the `[list\-detect\-mitigation\-actions\-executions](https://docs.aws.amazon.com/cli/latest/reference/iot/list-detect-mitigation-actions-executions.html)` command\.
+
+   ```
+   aws iot list-detect-mitigation-actions-executions \
+       --task-id taskIdForMitigationAction \
+       --max-items 5 \
+       --page-size 4
+   ```
+
+   Output:
+
+   ```
+   {
+       "actionsExecutions": [
+           {
+               "taskId": "e56ee95e - f4e7 - 459 c - b60a - 2701784290 af",
+               "violationId": "214_fe0d92d21ee8112a6cf1724049d80",
+               "actionName": "underTest_MAThingGroup71232127",
+               "thingName": "cancelDetectMitigationActionsTaskd143821b",
+               "executionStartDate": "Thu Jan 07 18: 35: 21 UTC 2021",
+               "executionEndDate": "Thu Jan 07 18: 35: 21 UTC 2021",
+               "status": "SUCCESSFUL",
+           }
+       ]
    }
    ```
 
@@ -607,33 +638,6 @@ Once your ML models are built and ready for data evaluations, you can update you
                "actionsFailed": 0
            }
        }
-   }
-   ```
-
-1. \(Optional\) To view mitigation actions executions included in a task, use the `[list\-detect\-mitigation\-actions\-executions](https://docs.aws.amazon.com/cli/latest/reference/iot/list-detect-mitigation-actions-executions.html)` command\.
-
-   ```
-   aws iot list-detect-mitigation-actions-executions \
-       --task-id taskIdForMitigationAction \
-       --max-items 5 \
-       --page-size 4
-   ```
-
-   Output:
-
-   ```
-   {
-       "actionsExecutions": [
-           {
-               "taskId": "e56ee95e - f4e7 - 459 c - b60a - 2701784290 af",
-               "violationId": "214_fe0d92d21ee8112a6cf1724049d80",
-               "actionName": "underTest_MAThingGroup71232127",
-               "thingName": "cancelDetectMitigationActionsTaskd143821b",
-               "executionStartDate": "Thu Jan 07 18: 35: 21 UTC 2021",
-               "executionEndDate": "Thu Jan 07 18: 35: 21 UTC 2021",
-               "status": "SUCCESSFUL",
-           }
-       ]
    }
    ```
 

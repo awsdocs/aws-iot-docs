@@ -13,10 +13,10 @@ Devices publish MQTT messages that are identified by [topics](topics.md) to comm
 
 1. Subscribe to a *topicName* on which your device publishes\. For the getting started sample app, subscribe to **\#**, which subscribes to all message topics\.
 
-   Continuing with the getting started example, on the **Subscribe** page, in the **Subscription topic** field, enter **\#**, and then choose **Subscribe to topic**\.   
+   Continuing with the getting started example, on the **Subscribe to a topic** tab, in the **Topic filter** field, enter **\#**, and then choose **Subscribe**\.   
 ![\[Image NOT FOUND\]](http://docs.aws.amazon.com/iot/latest/developerguide/images/subscribe-button-topic.png)
 
-   The topic message log page, **\#** opens and **\#** appears in the **Subscriptions** column\.  
+   The topic message log page, **\#** opens and **\#** appears in the **Subscriptions** list\.  
 ![\[Image NOT FOUND\]](http://docs.aws.amazon.com/iot/latest/developerguide/images/subscribed-button-topic.png)
 
 1. If the device that you configured in [Configure your device](configure-device.md) is running the example program, you should see the messages it sends to AWS IoT in the **\#** message log\. The message log entries will appear below the **Publish** section when messages with the subscribed topic are received by AWS IoT\.
@@ -55,7 +55,7 @@ MQTT topic names and topic filters are case sensitive\. If, for example, your de
 
 **To publish a message to an MQTT topic**
 
-1. On the MQTT client page, in the **Publish** section, in the **Specify a topic and a message to publish** field, enter the *topicName* of your message\. In this example, use **my/topic**\. 
+1. On the MQTT client page, in the **Publish to a topic** tab, in the **Topic name** field, enter the *topicName* of your message\. In this example, use **my/topic**\. 
 **Note**  
 Do not use personally identifiable information in topic names, whether using them in the MQTT client or in your system implementation\. Topic names can appear in unencrypted communications and reports\.
 
@@ -68,10 +68,12 @@ Do not use personally identifiable information in topic names, whether using the
    }
    ```
 
-1. Choose **Publish to topic** to publish your message to AWS IoT\.  
+1. Choose **Publish** to publish your message to AWS IoT\.
+**Note**  
+Make sure you are subscribed to the **my/topic** topic before publishing your message\.  
 ![\[Image NOT FOUND\]](http://docs.aws.amazon.com/iot/latest/developerguide/images/publish-to-topic.png)
 
-1. In the **Subscriptions** column, choose **my/topic** to see the message\. You should see the message appear in the MQTT client below the publish message payload window\.  
+1. In the **Subscriptions** list, choose **my/topic** to see the message\. You should see the message appear in the MQTT client below the publish message payload window\.  
 ![\[Image NOT FOUND\]](http://docs.aws.amazon.com/iot/latest/developerguide/images/publish-to-topic-received.png)
 
-You can publish MQTT messages to other topics by changing the *topicName* in the **Specify a topic and a message to publish** field and choosing the **Publish to topic** button\.
+You can publish MQTT messages to other topics by changing the *topicName* in the **Topic name** field and choosing the **Publish** button\.

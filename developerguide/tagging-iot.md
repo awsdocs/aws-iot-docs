@@ -27,6 +27,7 @@ You can also work with tags using the AWS CLI and the AWS IoT API\. You can asso
 + [CreateThingType](https://docs.aws.amazon.com/iot/latest/apireference/API_CreateThingType)
 + [CreateTopicRule](https://docs.aws.amazon.com/iot/latest/apireference/API_CreateTopicRule)
 + [CreateWirelessGateway](https://docs.aws.amazon.com/iot-wireless/2020-11-22/apireference/API_CreateWirelessGateway.html)
++ [CreateWirelessDevice](https://docs.aws.amazon.com/iot-wireless/2020-11-22/apireference/API_CreateWirelessDevice.html)
 
 You can add, modify, or delete tags for existing resources that support tagging by using the following commands:
 + [TagResource](https://docs.aws.amazon.com/iot/latest/apireference/API_TagResource)

@@ -7,17 +7,19 @@ AWS IoT jobs can be deployed using variable rollout rates as various criteria an
 You set a job rollout rate by configuring the [https://docs.aws.amazon.com/iot/latest/apireference/API_ExponentialRolloutRate.html](https://docs.aws.amazon.com/iot/latest/apireference/API_ExponentialRolloutRate.html) property of the `JobExecutionsRolloutConfig` object when you run the [https://docs.aws.amazon.com/iot/latest/apireference/API_CreateJob.html](https://docs.aws.amazon.com/iot/latest/apireference/API_CreateJob.html) API\. The following example sets a variable rollout rate by using the `exponentialRate` parameter\.
 
 ```
-{  
+{
 ...
-  "jobExecutionsRolloutConfig": { 
-      "exponentialRate": { 
-         "baseRatePerMinute": 50,
-         "incrementFactor": 2,
-         "rateIncreaseCriteria": { 
-            "numberOfNotifiedThings": 1000, // Set one or the other
-            "numberOfSucceededThings": 1000 // of these two values.
-         },
-         "maximumPerMinute": 1000
+  "jobExecutionsRolloutConfig": {
+    "exponentialRate": {
+      "baseRatePerMinute": 50,
+      "incrementFactor": 2,
+      "rateIncreaseCriteria": {
+        "numberOfNotifiedThings": 1000,
+        "numberOfSucceededThings": 1000
+      },
+      "maximumPerMinute": 1000
+    }
+  }
 ...
 }
 ```

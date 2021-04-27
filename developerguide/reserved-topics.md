@@ -157,7 +157,7 @@ To create a complete topic, select the *ShadowTopicPrefix* for the type of shado
 |  *ShadowTopicPrefix*/update/delta  |  Subscribe  |  The Device Shadow service sends messages to this topic when a difference is detected between the reported and desired sections of a shadow\. For more information, see [/update/delta](device-shadow-mqtt.md#update-delta-pub-sub-topic)\.   | 
 |  *ShadowTopicPrefix*/update/documents  |  Subscribe  |  AWS IoT publishes a state document to this topic whenever an update to the shadow is successfully performed\. For more information, see [/update/documents](device-shadow-mqtt.md#update-documents-pub-sub-topic)\.   | 
 
-## Streaming service topics<a name="reserved-topics-streaming"></a>
+## MQTT\-based file delivery topics<a name="reserved-topics-mqtt-based-file-delivery"></a>
 
 These messages support response buffers in Concise Binary Object Representation \(CBOR\) format and JavaScript Object Notation \(JSON\), depending on the *payload\-format* of the topic\.
 
@@ -170,11 +170,11 @@ These messages support response buffers in Concise Binary Object Representation 
 
 | Topic | Client operations allowed | Description | 
 | --- | --- | --- | 
-|  $aws/things/*ThingName*/streams/*StreamId*/data/*payload\-format*  |  Subscribe  |  The AWS Streaming service publishes to this topic if the "GetStream" request from a device is accepted\. The payload contains the stream data\. For more information, see [Using the AWS IoT Streaming service in devices](streaming-service-in-devices.md)\.   | 
-|  $aws/things/*ThingName*/streams/*StreamId*/get/*payload\-format*  |  Publish  |  A device publishes to this topic to perform a "GetStream" request\. For more information, see [Using the AWS IoT Streaming service in devices](streaming-service-in-devices.md)\.   | 
-|  $aws/things/*ThingName*/streams/*StreamId*/description/*payload\-format*  |  Subscribe  |  The AWS Streaming service publishes to this topic if the "DescribeStream" request from a device is accepted\. The payload contains the stream description\. For more information, see [Using the AWS IoT Streaming service in devices](streaming-service-in-devices.md)\.   | 
-|  $aws/things/*ThingName*/streams/*StreamId*/describe/*payload\-format*  |  Publish  |  A device publishes to this topic to perform a "DescribeStream" request\. For more information, see [Using the AWS IoT Streaming service in devices](streaming-service-in-devices.md)\.   | 
-|  $aws/things/*ThingName*/streams/*StreamId*/rejected/*payload\-format*  |  Subscribe  |  The AWS Streaming service publishes to this topic if a "DescribeStream" or "GetStream" request from a device is rejected\. For more information, see [Using the AWS IoT Streaming service in devices](streaming-service-in-devices.md)\.   | 
+|  $aws/things/*ThingName*/streams/*StreamId*/data/*payload\-format*  |  Subscribe  |  AWS MQTT\-based file delivery publishes to this topic if the "GetStream" request from a device is accepted\. The payload contains the stream data\. For more information, see [Using AWS IoT MQTT\-based file delivery in devices](mqtt-based-file-delivery-in-devices.md)\.   | 
+|  $aws/things/*ThingName*/streams/*StreamId*/get/*payload\-format*  |  Publish  |  A device publishes to this topic to perform a "GetStream" request\. For more information, see [Using AWS IoT MQTT\-based file delivery in devices](mqtt-based-file-delivery-in-devices.md)\.   | 
+|  $aws/things/*ThingName*/streams/*StreamId*/description/*payload\-format*  |  Subscribe  |  AWS MQTT\-based file delivery publishes to this topic if the "DescribeStream" request from a device is accepted\. The payload contains the stream description\. For more information, see [Using AWS IoT MQTT\-based file delivery in devices](mqtt-based-file-delivery-in-devices.md)\.   | 
+|  $aws/things/*ThingName*/streams/*StreamId*/describe/*payload\-format*  |  Publish  |  A device publishes to this topic to perform a "DescribeStream" request\. For more information, see [Using AWS IoT MQTT\-based file delivery in devices](mqtt-based-file-delivery-in-devices.md)\.   | 
+|  $aws/things/*ThingName*/streams/*StreamId*/rejected/*payload\-format*  |  Subscribe  |  AWS MQTT\-based file delivery publishes to this topic if a "DescribeStream" or "GetStream" request from a device is rejected\. For more information, see [Using AWS IoT MQTT\-based file delivery in devices](mqtt-based-file-delivery-in-devices.md)\.   | 
 
 ## Reserved topic ARN<a name="reserved-topicnames-arn"></a>
 

@@ -23,10 +23,10 @@ Only the us\-east\-1 Region is supported for preview\.
 1. Select **Create Test Suite**\. Choose between Use the AWS Qualification test suite and Create a new test suite\.  
 ![\[Image NOT FOUND\]](http://docs.aws.amazon.com/iot/latest/developerguide/images/da-create-test-suite.png)
 
-   Choose Use the AWS Qualification test suite if you'd like to qualify and list your device to the AWS Partner Device Catalog\. By choosing this option, test cases required for qualification of your device to the AWS IoT Core qualification program are pre\-selected\. Test groups and test cases cannot be added or removed\. However, you'll still need to configure the test suite properties\.  
+   Choose Use the AWS Qualification test suite if you'd like to qualify and list your device to the AWS Partner Device Catalog\. By choosing this option, test cases required for qualification of your device to the AWS IoT Core qualification program are pre\-selected\. Test groups and test cases can't be added or removed\. However, you'll still need to configure the test suite properties\.  
 ![\[Image NOT FOUND\]](http://docs.aws.amazon.com/iot/latest/developerguide/images/da-core-test-suite.png)
 
-   Choose Create a new test suite to create and configure a custom test suite\. We recommend starting with this option for initial testing and troubleshooting\. A custom test suite must have at least one test group, and each test group must have at least one test case\. For the purpose of this tutorial, we'll select this option and select **Next**\.
+   Choose Create a new test suite to create and configure a custom test suite\. We recommend starting with this option for initial testing and troubleshooting\. A custom test suite must have at least one test group, and each test group must have at least one test case\. For the purpose of this tutorial, we'll select this option and choose **Next**\.
 
 1. Choose **Test suite properties**\. You must add the test suite properties when you create your test suite\.  
 ![\[Image NOT FOUND\]](http://docs.aws.amazon.com/iot/latest/developerguide/images/da-test-suite-properties.png)
@@ -34,36 +34,36 @@ Only the us\-east\-1 Region is supported for preview\.
    Under **Test suite properties**, fill out the following\.
    + **Test suite name**: You can create the suite with a custom name\.
    + **Device role ARN**: Provide the device role ARN that was created as part of the [prerequisites](device-advisor-setting-up.md)\.
-   + **Timeout** \(optional\): The timeout in milliseconds for each test case in the current test suite\. The default timeout value will be used if no timeout value is specified\.
-   + **Tags** \(optional\): Add tags to the test suite that you are going to create\.  
+   + **Timeout** \(optional\): The timeout in milliseconds for each test case in the current test suite\. If you don't specify a timeout value, the default value is used\.
+   + **Tags** \(optional\): Add tags to the test suite that you're going to create\.  
 ![\[Image NOT FOUND\]](http://docs.aws.amazon.com/iot/latest/developerguide/images/da-test-suite-properties-panel.png)
 
-   Once done, choose **Update properties**\.
+   When you've finished, choose **Update properties**\.
 
-1. Choose **Edit** under `Test group 1` to modify the group level configuration\. Then, enter a **Name** to give the group a custom name\. Optionally, you can also enter a **Timeout** value in milliseconds under the selected test group\. The default timeout value will be used if no timeout value is specified\.  
+1. To modify the group level configuration, under `Test group 1`, choose **Edit**\. Then, enter a **Name** to give the group a custom name\. Optionally, you can also enter a **Timeout** value in milliseconds under the selected test group\. If you don't specify a timeout value, the default value is used\.  
 ![\[Image NOT FOUND\]](http://docs.aws.amazon.com/iot/latest/developerguide/images/da-edit-test-group.png)
 
    Choose **Done**\.
 
-1. Then, drag one of the available test cases from **Test cases** into the test group\.  
+1. Drag one of the available test cases from **Test cases** into the test group\.  
 ![\[Image NOT FOUND\]](http://docs.aws.amazon.com/iot/latest/developerguide/images/da-drag-test-cases.png)
 
-1. Choose **Edit** on the test case under your test group to modify the test case level configuration\. Then, enter a **Name** to give the group a custom name\. Optionally, you can also enter a **Timeout** value in milliseconds under the selected test group\. The default timeout value will be used if no timeout value is specified\.  
+1. To modify the test case level configuration on the test case under your test group, choose **Edit**\. Then, enter a **Name** to give the group a custom name\. Optionally, you can also enter a **Timeout** value in milliseconds under the selected test group\. If you don't specify a timeout value, the default value is used\.  
 ![\[Image NOT FOUND\]](http://docs.aws.amazon.com/iot/latest/developerguide/images/da-edit-test-case.png)
 
    Choose **Done**\.
 **Note**  
-Select **Add test group** to add more test groups to the test suite\. Follow the steps above to create and configure more test groups or to add more test cases to one or more test groups\. Test groups and test cases can be reordered by dragging\. Device Advisor will run tests in the order in which you define the test groups and test cases\.
+To add more test groups to the test suite, choose **Add test group**\. Follow the preceding steps to create and configure more test groups or to add more test cases to one or more test groups\. Test groups and test cases can be reordered by dragging\. Device Advisor runs tests in the order in which you define the test groups and test cases\.
 
 1. Choose **Create test suite**\.
 
    The test suite should be created successfully and you'll be redirected to the **Test suites** page where you can view all the test suite that have been created\.
 
-   If the test suite creation failed, make sure the test suite, test groups and test cases have been configured according to the instructions\.
+   If the test suite creation failed, make sure the test suite, test groups, and test cases have been configured according to the instructions\.
 
 ## Start a test suite run<a name="device-advisor-console-run-test-suite"></a>
 
-1. In the [AWS IoT console](https://console.aws.amazon.com/iot), in the navigation pane, expand **Test**, **Device Advisor** and then choose **Test suites**\.
+1. In the [AWS IoT console](https://console.aws.amazon.com/iot), in the navigation pane, expand **Test**, **Device Advisor**, and then choose **Test suites**\.
 
 1. Choose the test suite for which you'd like to view the test suite details\.  
 ![\[Image NOT FOUND\]](http://docs.aws.amazon.com/iot/latest/developerguide/images/da-test-suites.png)
@@ -72,7 +72,7 @@ Select **Add test group** to add more test groups to the test suite\. Follow the
 
 1. Choose **Actions**, then **Run test suite**\.
 
-1. Under **Run configuration**, you'll need to select an AWS IoT thing or certificate to test using Device Advisor\. If you don't have any existing things or certificates, you'll need to first [create AWS IoT Core resources](device-advisor-setting-up.md)\. Once you select a thing or certificate, choose **Run test**\.  
+1. Under **Run configuration**, you'll need to select an AWS IoT thing or certificate to test using Device Advisor\. If you don't have any existing things or certificates, first [create AWS IoT Core resources](device-advisor-setting-up.md)\. After you select a thing or certificate, choose **Run test**\.  
 ![\[Image NOT FOUND\]](http://docs.aws.amazon.com/iot/latest/developerguide/images/da-choose-thing-certificate.png)
 
 1. Choose **Go to results** on the top banner for viewing the test run details\.
@@ -82,15 +82,15 @@ Select **Add test group** to add more test groups to the test suite\. Follow the
 1. In the [AWS IoT console](https://console.aws.amazon.com/iot), in the navigation pane, expand **Test**, **Device Advisor** and then choose **Test runs and results**\.
 
    This page displays:
-   + Number of IoT things\.
-   + Number of IoT certificates\.
-   + Number of test suites currently running\.
-   + All the test suite runs that have been created\.
+   + Number of IoT things
+   + Number of IoT certificates
+   + Number of test suites currently running
+   + All the test suite runs that have been created
 
 1. Choose the test suite for which you'd like to view the run details and logs\.  
 ![\[Image NOT FOUND\]](http://docs.aws.amazon.com/iot/latest/developerguide/images/da-test-suite-run.png)
 
-   The run summary page displays the status of the current test suite run\. This page auto refreshes every 10 seconds\. We recommend that you have a mechanism built for your device to try connecting to our test end point every 5 seconds for one to two minutes\. This will enable you to run multiple test cases in sequence in an automated manner\.  
+   The run summary page displays the status of the current test suite run\. This page auto refreshes every 10 seconds\. We recommend that you have a mechanism built for your device to try connecting to our test endpoint every five seconds for one to two minutes\. Then you can run multiple test cases in sequence in an automated manner\.  
 ![\[Image NOT FOUND\]](http://docs.aws.amazon.com/iot/latest/developerguide/images/da-run-summary.png)
 
 1. To access the CloudWatch logs for the test suite run, choose **Test suite log**\.

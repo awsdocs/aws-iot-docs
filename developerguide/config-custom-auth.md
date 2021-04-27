@@ -115,7 +115,7 @@ var generateAuthResponse = function(token, effect) {
     policyDocument.Statement[1] = publishStatement; 
     authResponse.policyDocuments = [policyDocument]; 
     authResponse.disconnectAfterInSeconds = 3600; 
-    authResponse.refreshAfterInSeconds = 600; 
+    authResponse.refreshAfterInSeconds = 300;
     
     return authResponse; 
 }
@@ -156,7 +156,7 @@ var generateAuthResponse = function(token, effect) {
     }
   ],
   "disconnectAfterInSeconds": 3600,
-  "refreshAfterInSeconds": 600
+  "refreshAfterInSeconds": 300
 }
 ```
 

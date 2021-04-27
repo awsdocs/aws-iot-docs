@@ -1,6 +1,6 @@
 # How to manage things with the registry<a name="thing-registry"></a>
 
-You use the AWS IoT console or the AWS CLI to interact with the registry\. The following sections show how to use the CLI to work with the registry\.
+You use the AWS IoT console, AWS IoT API, or the AWS CLI to interact with the registry\. The following sections show how to use the CLI to work with the registry\.
 
 **When naming your thing objects:**
 + You should not use personally identifiable information in your thing name\. The thing name can appear in unencrypted communications and reports\. 

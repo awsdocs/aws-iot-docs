@@ -9,5 +9,5 @@ aws iot list-topic-rules
 Use the [get\-topic\-rule](https://docs.aws.amazon.com/cli/latest/reference/iot/get-topic-rule.html) command to get information about a rule:
 
 ```
-aws iot get-topic-rule --rule-name my-rule
+aws iot get-topic-rule --rule-name myrule
 ```

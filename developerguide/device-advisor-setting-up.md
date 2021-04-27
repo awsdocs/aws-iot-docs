@@ -9,7 +9,7 @@ Before you use Device Advisor for the first time, complete the following tasks\.
 
 **Topics**
 + [Create an IAM role to be used as your device role](#da-iam-role)
-+ [Create a custom managed policy for your Device Advisor user account](#da-managed-policy)
++ [Create a custom\-managed policy for your Device Advisor user account](#da-managed-policy)
 + [Create an IAM user to use to run Device Advisor tests](#da-iam-user)
 + [Create an AWS IoT thing and certificate](#da-create-thing-certificate)
 + [Configure your test device](#da-configure-device)
@@ -66,13 +66,13 @@ This section shows you how to create an AWS account and add permissions to an IA
 
 1. Choose **Create Role**\.
 
-1. Under **Or select a service to view its use cases**, select **IoT**\.
+1. Under **Or select a service to view its use cases**, choose **IoT**\.
 
-1. Under **Select your use case**, select **IoT**\.
+1. Under **Select your use case**, choose **IoT**\.
 
 1. Choose **Next: Permissions**\.
 
-1. Under **Set permissions boundary**, Choose **Use a permissions boundary to control the maximum role permissions**, and then choose the policy you just created\.
+1. **\(Optional\)** Under **Set permissions boundary**, Choose **Use a permissions boundary to control the maximum role permissions**, and then choose the policy you just created\.
 
 1. Choose **Next: Tags**\.
 
@@ -110,7 +110,7 @@ This section shows you how to create an AWS account and add permissions to an IA
 
 1. Choose **Update Trust Policy**\.
 
-## Create a custom managed policy for your Device Advisor user account<a name="da-managed-policy"></a>
+## Create a custom\-managed policy for your Device Advisor user account<a name="da-managed-policy"></a>
 
 1. Navigate to the IAM console at [https://console\.aws\.amazon\.com/iam/](https://console.aws.amazon.com/iam/) and log in to your account\.
 
@@ -173,13 +173,15 @@ Device Advisor requires access to your AWS resources \(things, certificates, end
 
 ## Configure your test device<a name="da-configure-device"></a>
 
-**Configure your test device**
-
 Device Advisor uses the server name indication \(SNI\) TLS extension to apply TLS configurations\. Devices must use this extension when connecting and pass a server name that is identical to the Device Advisor test endpoint\.
 
-Device Advisor allows the TLS connection when test is in ”Running“ state and denies the TLS connection before and after each test run\. Device connect retry mechanism is recommended to have full\-automated testing experience with Device Advisor\. If you run a test suite with more than one test case say \- TLS connect, MQTT connect and MQTT publish then we recommend that you have a mechanism built for your device to try connecting to our test end point every 5 seconds for one to two minutes\. This will enable you to run multiple test cases in sequence in an automated manner\.
-+ You must configure the firmware or software on the device that you'll use for testing to connect to the Device Advisor test endpoint for your account\. The command to get the test endpoint is:
+Device Advisor allows the TLS connection when test is in Running state and denies the TLS connection before and after each test run\. For this reason, we also recommend using the device connect retry mechanism to have fully automated testing experience with Device Advisor\. If you run a test suite with more than one test case, for instance TLS connect, MQTT connect, and MQTT publish, then we recommend that you have a mechanism built for your device to try connecting to our test endpoint every five seconds for one to two minutes\. You can then run multiple test cases in sequence in an automated manner\.
 
-  ```
-  aws iot describe-endpoint --endpoint-type iot:DeviceAdvisor --region us-east-1
-  ```
+**Note**  
+To make your device software ready for testing we recommend you to have an SDK that can connect to AWS IoT Core and update the SDK with the Device Advisor test endpoint provided for your account\. 
+
+ The command to get the test endpoint is:
+
+```
+aws iot describe-endpoint --endpoint-type iot:DeviceAdvisor --region us-east-1
+```

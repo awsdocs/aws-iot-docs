@@ -1,7 +1,7 @@
 # AWS IoT Core Developer Guide
 
 -----
-*****Copyright &copy; 2021 Amazon Web Services, Inc. and/or its affiliates. All rights reserved.*****
+*****Copyright &copy;  Amazon Web Services, Inc. and/or its affiliates. All rights reserved.*****
 
 -----
 Amazon's trademarks and trade dress may not be used in 
@@ -40,7 +40,7 @@ Amazon's trademarks and trade dress may not be used in
       + [MQTT topics](topics.md)
          + [MQTT message payload](topicdata.md)
          + [Reserved topics](reserved-topics.md)
-      + [Configurable endpoints (beta)](iot-custom-endpoints-configurable.md)
+      + [Configurable endpoints](iot-custom-endpoints-configurable.md)
          + [Creating and configuring AWS-managed domains](iot-custom-endpoints-configurable-aws.md)
          + [Creating and configuring custom domains](iot-custom-endpoints-configurable-custom.md)
          + [Managing domain configurations](iot-custom-endpoints-managing.md)
@@ -62,6 +62,7 @@ Amazon's trademarks and trade dress may not be used in
       + [Store device data in a DynamoDB table](iot-ddb-rule.md)
       + [Format a notification by using an AWS Lambda function](iot-lambda-rule.md)
    + [Other AWS IoT tutorials](iot-additional-tutorial.md)
+      + [Create a custom authorizer for AWS IoT Core](custom-auth-tutorial.md)
       + [Monitoring soil moisture with AWS IoT and Raspberry Pi](iot-moisture-tutorial.md)
          + [Setting up AWS IoT](iot-moisture-setup.md)
             + [Create the AWS IoT policy](iot-moisture-policy.md)
@@ -239,11 +240,11 @@ Amazon's trademarks and trade dress may not be used in
    + [Query syntax](query-syntax.md)
    + [Example thing queries](example-queries.md)
    + [Example thing group queries](example-thinggroup-queries.md)
-+ [AWS IoT Streaming service](streaming-service.md)
-   + [What is a stream?](streaming-service-what-is.md)
-   + [Managing a stream in the AWS Cloud](streaming-service-managing.md)
-   + [Using the AWS IoT Streaming service in devices](streaming-service-in-devices.md)
-   + [An example use case in FreeRTOS OTA](streaming-service-example.md)
++ [MQTT-based file delivery](mqtt-based-file-delivery.md)
+   + [What is a stream?](mqtt-based-file-delivery-what-is.md)
+   + [Managing a stream in the AWS Cloud](mqtt-based-file-delivery-managing.md)
+   + [Using AWS IoT MQTT-based file delivery in devices](mqtt-based-file-delivery-in-devices.md)
+   + [An example use case in FreeRTOS OTA](mqtt-based-file-delivery-example.md)
 + [AWS IoT Device Defender](device-defender.md)
    + [Getting started with AWS IoT Device Defender](dd-tutorials.md)
       + [Setting up](dd-setting-up.md)

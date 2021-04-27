@@ -17,7 +17,7 @@ AWS IoT sends this object to the Lambda function when a device registers with AW
     "templateArn" : "arn:aws:iot:us-east-1:1234567890:provisioningtemplate/MyTemplate",
     "clientId" : "221a6d10-9c7f-42f1-9153-e52e6fc869c1",
     "parameters" : {
-        "key" : "value",
+        "string" : "string",
         ...
     }
 }

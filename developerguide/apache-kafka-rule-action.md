@@ -58,7 +58,7 @@ This rule action has the following requirements:
       ]
   }
   ```
-+ You must create a virtual private cloud \(VPC\) destination\. \(You can run your Apache Kafka clusters inside Amazon Virtual Private Cloud\.\) The AWS IoT rules engine creates an network interface in each of the subnets listed in the VPC destination\. This allows the rules engine to route traffic directly to the VPC\. When you create a VPC destination, the AWS IoT rules engine automatically creates a VPC rule action\. For more information about VPC rule actions, see [VPC](vpc-rule-action.md)\.
++ You must create a virtual private cloud \(VPC\) destination\. \(You can run your Apache Kafka clusters inside Amazon Virtual Private Cloud\.\) The AWS IoT rules engine creates a network interface in each of the subnets listed in the VPC destination\. This allows the rules engine to route traffic directly to the VPC\. When you create a VPC destination, the AWS IoT rules engine automatically creates a VPC rule action\. For more information about VPC rule actions, see [VPC](vpc-rule-action.md)\.
 + If you use a customer\-managed AWS Key Management Service \(AWS KMS\) customer master key \(CMK\) to encrypt data at rest, the service must have permission to use the CMK on the caller's behalf\. For more information, see [Amazon MSK encryption](https://docs.aws.amazon.com/msk/latest/developerguide/msk-encryption.html) in the *Amazon Managed Streaming for Apache Kafka Developer Guide*\.
 
 ## Parameters<a name="apache-kafka-rule-action-parameters"></a>
@@ -100,6 +100,7 @@ Valid value: `ByteBufferSerializer`\.
 ssl\.truststore  
 The truststore file in base64 format or the location of the truststore file in [AWS Secrets Manager](https://docs.aws.amazon.com/secretsmanager/latest/userguide/)\. This value isn't required if your truststore is trusted by Amazon certificate authoriies \(CA\)\.  
 This field supports substitution templates\. If you use Secrets Manager to store the credentials required to connect to your Kafka broker, you can use the get\_secret SQL function to retrieve the value for this field\. For more information about substitution templates, see [Substitution templates](iot-substitution-templates.md)\. For more information about the get\_secret SQL function, see [get\_secret\(secretId, secretType, key, roleArn\) ](iot-sql-functions.md#iot-sql-function-get-secret)\. If the truststore is in the form of a file, use the `SecretBinary` parameter\. If the truststore is in the form of a string, use the `SecretString` parameter\.  
+The maximum size of this value is 65 KB\.  
 ssl\.truststore\.password  
 The password for the truststore\. This value is required only if you've created a password for the truststore\.  
 ssl\.keystore  
@@ -113,11 +114,16 @@ The password of the private key in your keystore file\.
 This field supports substitution templates\. You must use Secrets Manager to store the credentials required to connect to your Kafka broker\. Use the get\_secret SQL function to retrieve the value for this field\. For more information about substitution templates, see [Substitution templates](iot-substitution-templates.md)\. For more information about the get\_secret SQL function, see [get\_secret\(secretId, secretType, key, roleArn\) ](iot-sql-functions.md#iot-sql-function-get-secret)\. Use the `SecretString` parameter\.  
 sasl\.mechanism  
 The security mechanism used to connect to your Kafka broker\. This value is required when you specify `SASL_SSL` for `security.protocol`\.  
-Valid values: `PLAIN`, `GSSAPI`\.  
+Valid values: `PLAIN`, `SCRAM-SHA-512`, `GSSAPI`\.  
+`SCRAM-SHA-512` is the only supported security mechanism in the cn\-north\-1, cn\-northwest\-1, us\-gov\-east\-1, and us\-gov\-west\-1 Regions\.  
 sasl\.plain\.username  
 The user name used to retrieve the secret string from Secrets Manager\. This value is required when you specify `SASL_SSL` for `security.protocol` and `PLAIN` for `sasl.mechanism`\.  
 sasl\.plain\.password  
 The password used to retrieve the secret string from Secrets Manager\. This value is required when you specify `SASL_SSL` for `security.protocol` and `PLAIN` for `sasl.mechanism`\.  
+sasl\.scram\.username  
+The user name used to retrieve the secret string from Secrets Manager\. This value is required when you specify `SASL_SSL` for `security.protocol` and `SCRAM-SHA-512` for `sasl.mechanism`\.  
+sasl\.scram\.password  
+The password used to retrieve the secret string from Secrets Manager\. This value is required when you specify `SASL_SSL` for `security.protocol` and `SCRAM-SHA-512` for `sasl.mechanism`\.  
 sasl\.kerberos\.keytab  
 The keytab file for Kerberos authentication in Secrets Manager\. This value is required when you specify `SASL_SSL` for `security.protocol` and `GSSAPI` for `sasl.mechanism`\.  
 This field supports substitution templates\. You must use Secrets Manager to store the credentials required to connect to your Kafka broker\. Use the get\_secret SQL function to retrieve the value for this field\. For more information about substitution templates, see [Substitution templates](iot-substitution-templates.md)\. For more information about the get\_secret SQL function, see [get\_secret\(secretId, secretType, key, roleArn\) ](iot-sql-functions.md#iot-sql-function-get-secret)\.Use the `SecretBinary` parameter\.  
@@ -172,3 +178,4 @@ The following JSON example defines an Apache Kafka action in an AWS IoT rule\.
 + Network interface security groups and instance\-level security groups in the VPC destination must allow traffic from within your VPC on the following ports\.
   + TCP traffic on the bootstrap broker listener port \(often 9092, but must be within the 9000 \- 9100 range\)
   + TCP and UDP traffic on port 88 for the KDC
++ `SCRAM-SHA-512` is the only supported security mechanism in the cn\-north\-1, cn\-northwest\-1, us\-gov\-east\-1, and us\-gov\-west\-1 Regions\.

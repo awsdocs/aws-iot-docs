@@ -60,7 +60,7 @@ While a device is connected, it should publish these messages when indicated\.
 | --- | --- | --- | 
 | The device's state has changed\. |  `ShadowTopicPrefix/update`  | A shadow document with the `reported` property\. | 
 | The device might not be synchronized with the shadow\. | `ShadowTopicPrefix/get` | \(empty\) | 
-| An action on the device indicates that a shadow will no longer be supported by the device, such as when the device is being remove or replaced | `ShadowTopicPrefix/delete` | \(empty\) | 
+| An action on the device indicates that a shadow will no longer be supported by the device, such as when the device is being removed or replaced | `ShadowTopicPrefix/delete` | \(empty\) | 
 
 ## Processing messages when the device reconnects to AWS IoT<a name="device-shadow-comms-device-reconnect"></a>
 

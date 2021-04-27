@@ -138,7 +138,10 @@ The policy template below shows the minimum permissions and IAM entity required 
                 "iot:ListThingPrincipals",
                 "iot:ListThings",
                 "iot:Publish",
-                "iot:ListCertificates"
+                "iot:ListCertificates",
+                "iot:ListAttachedPolicies",
+                "iot:UpdateThingShadow",
+                "iot:GetPolicy"
             ],
             "Resource": "*"
         },

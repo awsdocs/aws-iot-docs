@@ -34,9 +34,9 @@ Every customer has an `iot:Data-ATS` and an `iot:Data` endpoint\. Each endpoint 
 |  IoT credential access  |  `iot:CredentialProvider`  |  Used to exchange a device's built\-in X\.509 certificate for temporary credentials to connect directly with other AWS services\. For more information about connecting to other AWS services, see [Authorizing Direct Calls to AWS Services](authorizing-direct-aws.md)\.  | 
 |  IoT job management  |  `iot:Jobs`  |  Used to enable devices to interact with the AWS IoT Jobs service using the [Jobs Device HTTPS APIs](jobs-mqtt-api.md)\.  | 
 |  IoT device advisor \(preview\)  |  `iot:DeviceAdvisor`  |  A test endpoint type used for testing devices with Device Advisor\. For more information, see [Device Advisor](device-advisor.md)\.  | 
-|  IoT data beta \(preview\)  |  `iot:Data-Beta`  |  An endpoint type reserved for beta releases\. For information about its current use, see [Configurable endpoints \(beta\)](iot-custom-endpoints-configurable.md)\.  | 
+|  IoT data beta \(preview\)  |  `iot:Data-Beta`  |  An endpoint type reserved for beta releases\. For information about its current use, see [Configurable endpoints](iot-custom-endpoints-configurable.md)\.  | 
 
-You can also use your own fully\-qualified domain name \(FQDN\), such as *example\.com*, and the associated server certificate to connect devices to AWS IoT by using [Configurable endpoints \(beta\)](iot-custom-endpoints-configurable.md), which is currently in public beta\.
+You can also use your own fully\-qualified domain name \(FQDN\), such as *example\.com*, and the associated server certificate to connect devices to AWS IoT by using [Configurable endpoints](iot-custom-endpoints-configurable.md), which is currently in public beta\.
 
 ## AWS IoT Device SDKs<a name="iot-connect-device-sdks"></a>
 

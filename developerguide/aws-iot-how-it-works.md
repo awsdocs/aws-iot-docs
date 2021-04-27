@@ -142,7 +142,7 @@ Provides a secure mechanism for devices and AWS IoT applications to publish and 
 The message broker distributes device data to devices that have subscribed to it and to other AWS IoT Core services, such as the Device Shadow service and the rules engine\.
 
 **AWS IoT Core for LoRaWAN**  
-AWS IoT Core for LoRaWAN makes is possible to set up a private LoRaWAN network by connecting your LoRaWAN devices and gateways to AWS without the need to develop and operate a LoRaWAN Network Server \(LNS\)\. Messages received from LoRaWAN devices are sent to the rules engine where they can be formatted and sent to other AWS services\.
+AWS IoT Core for LoRaWAN makes it possible to set up a private LoRaWAN network by connecting your LoRaWAN devices and gateways to AWS without the need to develop and operate a LoRaWAN Network Server \(LNS\)\. Messages received from LoRaWAN devices are sent to the rules engine where they can be formatted and sent to other AWS services\.
 
 **Rules engine **  
 The Rules engine connects data from the message broker to other AWS services for storage and additional processing\. For example, you can insert, update, or query a DynamoDB table or invoke a Lambda function based on an expression that you defined in the Rules engine\. You can use an SQL\-based language to select data from message payloads, and then process and send the data to other services, such as Amazon Simple Storage Service \(Amazon S3\), Amazon DynamoDB, and AWS Lambda\. You can also create rules that republish messages to the message broker and on to other subscribers\. For more information, see [Rules for AWS IoT](iot-rules.md)\.

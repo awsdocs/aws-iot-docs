@@ -31,7 +31,7 @@ Creating and updating rules are administrator\-level actions\. Any user who has 
 Use the [create\-topic\-rule](https://docs.aws.amazon.com/cli/latest/reference/iot/create-topic-rule.html) command to create a rule:
 
 ```
-aws iot create-topic-rule --rule-name my-rule --topic-rule-payload file://my-rule.json
+aws iot create-topic-rule --rule-name myrule --topic-rule-payload file://myrule.json
 ```
 
 The following is an example payload file with a rule that inserts all messages sent to the `iot/test` topic into the specified DynamoDB table\. The SQL statement filters the messages and the role ARN grants AWS IoT permission to write to the DynamoDB table\.

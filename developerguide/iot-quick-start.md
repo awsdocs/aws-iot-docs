@@ -79,9 +79,9 @@ This procedure is done in a terminal or command window on your device while foll
 
 1. You can repeat the commands from **Step 3/3** in the console of this procedure\), to run the sample program again\.
 
-1. \(Optional\) If you want to see the messages from your IoT client in the [AWS IoT console](https://console.aws.amazon.com/iot/home), open the [MQTT client](https://console.aws.amazon.com/iot/home#/test) on the **Test** page of the AWS IoT console\. In the **MQTT client**, subscribe to **sdk/test/SDK\_programming\_language**\. The topic name depends on the programming language of the SDK you chose in **Step 1/1**\. The possible topic names are as follows\.
+1. \(Optional\) If you want to see the messages from your IoT client in the [AWS IoT console](https://console.aws.amazon.com/iot/home), open the [MQTT client](https://console.aws.amazon.com/iot/home#/test) on the **Test** page of the AWS IoT console\. In the **MQTT client**, subscribe to **sdk/test/*SDK\_programming\_language***\. The topic name depends on the programming language of the SDK you chose in **Step 1/1**\. The possible topic names are as follows and are case sensitive\.
    + For the AWS IoT Device SDK, the topic is **sdk/test/javascript**\.
-   + For the Python AWS IoT Device SDK, the topic is **sdk/test/python**\.
+   + For the Python AWS IoT Device SDK, the topic is **sdk/test/Python**\.
    + For the Java AWS IoT Device SDK, the topic is **sdk/test/java**\.
 
 1.  After you subscribe to the test topic, run this program on your device \./start\.sh as described in the previous step\. For more information, see [View MQTT messages with the AWS IoT MQTT client](view-mqtt-messages.md) for more information\.

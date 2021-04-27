@@ -99,7 +99,7 @@ Examples:
   ```
   {
       "certificate" : {
-          "Type" : "AWS::IoT::Certificate"
+          "Type" : "AWS::IoT::Certificate",
           "Properties" : {
               "CACertificatePem": {"Ref" : "CACertificatePem"},
               "CertificatePem": {"Ref" : "CertificatePem"}
