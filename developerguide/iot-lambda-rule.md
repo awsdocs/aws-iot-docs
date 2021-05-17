@@ -237,7 +237,7 @@ This contains all the information the Lambda function needs to format and send t
       ```
 
       This statement:
-      + Listens for MQTT messages with a topic that matches the `device/+/data` topic filter and that have a `temperature` value greater than 75\. 
+      + Listens for MQTT messages with a topic that matches the `device/+/data` topic filter and that have a `temperature` value greater than 30\. 
       + Selects the second element from the topic string, converts it to a decimal number, and then assigns it to the `device_id` field\.
       + Selects the value of the `temperature` field from the message payload and assigns it to the `reported_temperature` field\. 
       + Creates a constant value, `30`, to represent the limit value and assigns it to the `max_temperature` field\. 

@@ -1,7 +1,7 @@
 # Fleet Hub for AWS IoT Device Management Fleet Hub for AWS IoT Device Management Guide
 
 -----
-*****Copyright &copy; 2021 Amazon Web Services, Inc. and/or its affiliates. All rights reserved.*****
+*****Copyright &copy; Amazon Web Services, Inc. and/or its affiliates. All rights reserved.*****
 
 -----
 Amazon's trademarks and trade dress may not be used in 
@@ -38,3 +38,4 @@ Amazon's trademarks and trade dress may not be used in
 + [Security in Fleet Hub for AWS IoT Device Management](aws-iot-monitor-security.md)
    + [Data protection in Fleet Hub](data-protection.md)
    + [Resilience in Fleet Hub for AWS IoT Device Management](disaster-recovery-resiliency.md)
+   + [AWS managed policies for Fleet Hub for AWS IoT Device Management](security-iam-awsmanpol.md)

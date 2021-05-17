@@ -34,6 +34,18 @@ For more information, see [Sending metrics from devices](detect-device-side-metr
 | Topic | Client operations allowed | Description | 
 | --- | --- | --- | 
 |  $aws/events/certificates/registered/*caCertificateId*  |  Subscribe  |  AWS IoT publishes this message when AWS IoT automatically registers a certificate and when a client presents a certificate with the `PENDING_ACTIVATION` status\. For more information, see [Configure the first connection by a client for automatic registration](auto-register-device-cert.md#configure-auto-reg-first-connect)\.  | 
+|  $aws/events/job/*jobID*/canceled  |  Subscribe  | AWS IoT publishes this message when a job is canceled\. For more information, see [Jobs events](events-jobs.md)\. | 
+| $aws/events/job/jobID/cancellation\_in\_progress |  Subscribe  | AWS IoT publishes this message when a job is being canceled\. For more information, see [Jobs events](events-jobs.md)\. | 
+|  $aws/events/job/*jobID*/completed  |  Subscribe  | AWS IoT publishes this message when a job has completed\. For more information, see [Jobs events](events-jobs.md)\. | 
+| $aws/events/job/jobID/deleted |  Subscribe  | AWS IoT publishes this message when a job is deleted For more information, see [Jobs events](events-jobs.md)\. | 
+| $aws/events/job/jobID/deletion\_in\_progress |  Subscribe  | AWS IoT publishes this message when a job is being deleted\. For more information, see [Jobs events](events-jobs.md)\. | 
+| $aws/events/jobExecution/jobID/canceled |  Subscribe  | AWS IoT publishes this message when a job execution is canceled\. For more information, see [Jobs events](events-jobs.md)\. | 
+| $aws/events/jobExecution/jobID/deleted |  Subscribe  | AWS IoT publishes this message when a job execution is deleted\. For more information, see [Jobs events](events-jobs.md)\. | 
+| $aws/events/jobExecution/jobID/failed |  Subscribe  | AWS IoT publishes this message when a job execution has failed\. For more information, see [Jobs events](events-jobs.md)\. | 
+| $aws/events/jobExecution/jobID/rejected |  Subscribe  | AWS IoT publishes this message when a job execution was rejected\. For more information, see [Jobs events](events-jobs.md)\. | 
+| $aws/events/jobExecution/jobID/removed |  Subscribe  | AWS IoT publishes this message when a job execution was removed\. For more information, see [Jobs events](events-jobs.md)\. | 
+| $aws/events/jobExecution/jobID/succeeded |  Subscribe  | AWS IoT publishes this message when a job execution succeeded\. For more information, see [Jobs events](events-jobs.md)\. | 
+| $aws/events/jobExecution/jobID/timed\_out |  Subscribe  | AWS IoT publishes this message when a job execution timed out\. For more information, see [Jobs events](events-jobs.md)\. | 
 |  $aws/events/presence/connected/*clientId*  |  Subscribe  |  AWS IoT publishes to this topic when an MQTT client with the specified client ID connects to AWS IoT\. For more information, see [Connect/Disconnect events](life-cycle-events.md#connect-disconnect)\.  | 
 |  $aws/events/presence/disconnected/*clientId*  |  Subscribe  |  AWS IoT publishes to this topic when an MQTT client with the specified client ID disconnects to AWS IoT\. For more information, see [Connect/Disconnect events](life-cycle-events.md#connect-disconnect)\.   | 
 |  $aws/events/subscriptions/subscribed/*clientId*  |  Subscribe  |  AWS IoT publishes to this topic when an MQTT client with the specified client ID subscribes to an MQTT topic\. For more information, see [Subscribe/Unsubscribe events](life-cycle-events.md#subscribe-unsubscribe-events)\.  | 

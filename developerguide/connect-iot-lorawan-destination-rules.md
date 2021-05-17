@@ -60,7 +60,7 @@ SELECT WirelessDeviceId, WirelessMetadata.LoRaWAN.FPort as FPort,
                   {                                      
                    "PayloadData":PayloadData,                                       
                    "Fport": WirelessMetadata.LoRaWAN.FPort   
-                  })
+                  }) as decodingoutput
 ```
 
 For more information on using the SELECT AND WHERE clauses, see [AWS IoT SQL reference](iot-sql-reference.md)

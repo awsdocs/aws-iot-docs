@@ -59,7 +59,12 @@ The type of message\.
 
 ## Creating a VPC topic rule destination<a name="create-destination-vpc"></a>
 
-You create a virtual private cloud \(VPC\) destination by using the [CreateTopicRuleDestination](https://docs.aws.amazon.com/iot/latest/apireference/API_CreateTopicRuleDestination.html) API or the AWS IoT Core console\. When you create a VPC destination, you must specify the following information\.
+You create a virtual private cloud \(VPC\) destination by using the [CreateTopicRuleDestination](https://docs.aws.amazon.com/iot/latest/apireference/API_CreateTopicRuleDestination.html) API or the AWS IoT Core console\. 
+
+**Note**  
+VPC topic rule destinations that don't receive any traffic for 30 days in a row will be disabled\.
+
+When you create a VPC destination, you must specify the following information\.
 
 vpcId  
 The unique ID of the VPC destination\.

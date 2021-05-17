@@ -285,10 +285,10 @@ These test cases are currently not available through the AWS IoT console\. Pleas
 
 ## Shadow<a name="device-advisor-tests-shadow"></a>
 
-Use these test to verify your devices use AWS IoT Device Shadow service correctly\. See [IoT device shadows](https://docs.aws.amazon.com/https://docs.aws.amazon.com/iot/latest/developerguide/iot-device-shadows.html) for more information\. If these test cases are configured in your test suite, then providing a thing is required when starting the suite run\.
+Use these test to verify your devices use AWS IoT Device Shadow service correctly\. See [AWS IoT Device Shadow service](iot-device-shadows.md) for more information\. If these test cases are configured in your test suite, then providing a thing is required when starting the suite run\.
 
 **Note**  
-These test cases are currently not available through the AWS console\. Please use the AWS CLI or the AWS IoT Core Device Advisor SDK to configure this test case\.Publish
+These test cases are currently not available through the AWS console\. To configure this test case, you can use the AWS CLI or the AWS IoT Core Device Advisor SDK\.Publish
 
 ***"Device publishes state after it connects \(Happy case\)"***  
 Validates if a device can publish its state after it connects to AWS IoT Core  
@@ -315,7 +315,7 @@ Validates if a device can publish its state after it connects to AWS IoT Core
 ]
 ```
 The `REPORTED_STATE` can be provided for additional validation on your device's exact shadow state, after it connects\. By default, this test case validates your device publishing state\.  
-If `SHADOW_NAME` is not provided, then the test case looks for messages published to topic prefixes of the Unnamed \(classic\) shadow type by default\. Provide a shadow name if your device uses the named shadow type\. See [Using shadows in devices](https://docs.aws.amazon.com/https://docs.aws.amazon.com/iot/latest/developerguide/device-shadow-comms-device.html) for more information\.Update
+If `SHADOW_NAME` is not provided, then the test case looks for messages published to topic prefixes of the Unnamed \(classic\) shadow type by default\. Provide a shadow name if your device uses the named shadow type\. For more information, see [Using shadows in devices](device-shadow-comms-device.md)\.Update
 
 ***"Device updates reported state to desired state \(Happy case\)"***  
 Validates if your device reads all update messages received and synchronizes the device's state to match the desired state properties\. Your device should publish its latest reported state after synchronizing\.   
@@ -342,4 +342,4 @@ Validates if your device reads all update messages received and synchronizes the
 ]
 ```
 The `DESIRED_STATE` should have at least one attribute and associated value\.  
-If `SHADOW_NAME`is not provided, then the test case looks for messages published to topic prefixes of the Unnamed \(classic\) shadow type by default\. Provide a shadow name if your device uses the named shadow type\. See [Using shadows in devices](https://docs.aws.amazon.com/https://docs.aws.amazon.com/iot/latest/developerguide/device-shadow-comms-device.html) for more information\.
+If `SHADOW_NAME`is not provided, then the test case looks for messages published to topic prefixes of the Unnamed \(classic\) shadow type by default\. Provide a shadow name if your device uses the named shadow type\. See [Using shadows in devices](device-shadow-comms-device.md) for more information\.

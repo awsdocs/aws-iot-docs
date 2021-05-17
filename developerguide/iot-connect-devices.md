@@ -12,7 +12,9 @@ Device connections to AWS IoT use [X\.509 client certificates](x509-client-certs
 
 Each account has several device endpoints that are unique to the account and support specific IoT functions\. The AWS IoT device data endpoints support a publish/subscribe protocol that is designed for the communication needs of IoT devices; however, other clients, such as apps and services, can also use this interface if their application requires the specialized features that these endpoints provide\. The AWS IoT device service endpoints support device\-centric access to security and management services\.
 
-To learn your account's device endpoint for a specific purpose, use the describe\-endpoint CLI command shown here, or the `DescribeEndpoint` REST API, and provide the *`endpointType`* parameter value from the following table\.
+To learn your account's device data endpoint, you can find it in the [https://console.aws.amazon.com/iot/home#/settings](https://console.aws.amazon.com/iot/home#/settings) page of your AWS IoT Core console\.
+
+To learn your account's device endpoint for a specific purpose, including the device data endpoint, use the describe\-endpoint CLI command shown here, or the `DescribeEndpoint` REST API, and provide the *`endpointType`* parameter value from the following table\.
 
 ```
 aws iot describe-endpoint --endpoint-type endpointType
@@ -20,7 +22,7 @@ aws iot describe-endpoint --endpoint-type endpointType
 
 This command returns an *iot\-endpoint* in the following format: `account-specific-prefix.iot.aws-region.amazonaws.com`\.
 
-The `DescribeEndpoint` API does not have to be queried every time a new device is connected\. The endpoints that you create presist forever and do not change once they are created\. 
+The `DescribeEndpoint` API does not have to be queried every time a new device is connected\. The endpoints that you create persist forever and do not change once they are created\. 
 
 Every customer has an `iot:Data-ATS` and an `iot:Data` endpoint\. Each endpoint uses an X\.509 certificate to authenticate the client\. We strongly recommend that customers use the newer `iot:Data-ATS` endpoint type to avoid issues related to the widespread distrust of Symantec certificate authorities\. We provide the `iot:Data` endpoint for devices to retrieve data from old endpoints that use VeriSign certificates for backward compatibility\. For more information, see [Server Authentication](server-authentication.html)\.
 
@@ -62,7 +64,7 @@ The AWS IoT C\+\+ Device SDK allows developers to build connected applications u
 
 **AWS IoT Device SDK for Python**
 
-The AWS IoT Device SDK for Python makes it possible for developers to write Python scripts to use their devices to access the AWS IoT platform through MQTT or MQTT over the WebSocket protocol\. By connecting their devices to the APIs of the AWS IoT Core services, users can securely work with the message broker, rules, and Device Shadow service that AWS IoT Core provides and with other AWS services like AWS Lambda, Amazon Kinesis, and Amazon S3, and more\.
+The AWS IoT Device SDK for Python makes it possible for developers to write Python scripts to use their devices to access the AWS IoT platform through MQTT or MQTT over the WebSocket Secure \(WSS\) protocol\. By connecting their devices to the APIs of the AWS IoT Core services, users can securely work with the message broker, rules, and Device Shadow service that AWS IoT Core provides and with other AWS services like AWS Lambda, Amazon Kinesis, and Amazon S3, and more\.
 + [AWS IoT Device SDK for Python v2 on GitHub](https://github.com/aws/aws-iot-device-sdk-python-v2)
 + [AWS IoT Device SDK for Python v2 Readme](https://github.com/aws/aws-iot-device-sdk-python-v2#aws-iot-device-sdk-v2-for-python)
 + [AWS IoT Device SDK for Python v2 Samples](https://github.com/aws/aws-iot-device-sdk-python-v2/tree/main/samples#sample-apps-for-the-aws-iot-device-sdk-v2-for-python)

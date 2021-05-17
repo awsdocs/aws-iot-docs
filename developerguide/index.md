@@ -1,7 +1,7 @@
 # AWS IoT Core Developer Guide
 
 -----
-*****Copyright &copy;  Amazon Web Services, Inc. and/or its affiliates. All rights reserved.*****
+*****Copyright &copy; Amazon Web Services, Inc. and/or its affiliates. All rights reserved.*****
 
 -----
 Amazon's trademarks and trade dress may not be used in 
@@ -61,6 +61,10 @@ Amazon's trademarks and trade dress may not be used in
       + [Send an Amazon SNS notification](iot-sns-rule.md)
       + [Store device data in a DynamoDB table](iot-ddb-rule.md)
       + [Format a notification by using an AWS Lambda function](iot-lambda-rule.md)
+   + [AWS IoT Device Shadow tutorials](iot-shadows-tutorial.md)
+      + [Create AWS IoT resources and connect Raspberry Pi to run shadow application](create-resources-shadow.md)
+         + [Install the Device SDK and run the shadow.py sample application for Device Shadows](lightbulb-shadow-application.md)
+         + [Interact with Device Shadow using the shadow.py sample app and MQTT test client](interact-lights-device-shadows.md)
    + [Other AWS IoT tutorials](iot-additional-tutorial.md)
       + [Create a custom authorizer for AWS IoT Core](custom-auth-tutorial.md)
       + [Monitoring soil moisture with AWS IoT and Raspberry Pi](iot-moisture-tutorial.md)
@@ -122,7 +126,7 @@ Amazon's trademarks and trade dress may not be used in
             + [Thing policy examples](thing-policy-examples.md)
          + [Authorization with Amazon Cognito identities](cog-iot-policies.md)
       + [Authorizing direct calls to AWS services](authorizing-direct-aws.md)
-      + [Cross account access](cross-account-access.md)
+      + [Cross account access with IAM](cross-account-access.md)
    + [Data protection in AWS IoT Core](data-protection.md)
       + [Transport security in AWS IoT](transport-security.md)
       + [Data encryption in AWS IoT](data-encryption.md)
@@ -133,7 +137,7 @@ Amazon's trademarks and trade dress may not be used in
       + [AWS IoT identity-based policy examples](security_iam_id-based-policy-examples.md)
       + [Troubleshooting AWS IoT identity and access](security_iam_troubleshoot.md)
    + [Logging and Monitoring](security-logging.md)
-   + [Compliance validation for AWS IoT Core](SERVICENAME-compliance.md)
+   + [Compliance validation for AWS IoT Core](compliance.md)
    + [Resilience in AWS IoT Core](disaster-recovery-resiliency.md)
    + [Infrastructure security in AWS IoT](infrastructure-security.md)
    + [Vulnerability analysis and management in AWS IoT Core](vulnerability-analysis-and-management.md)
@@ -270,6 +274,7 @@ Amazon's trademarks and trade dress may not be used in
       + [Audit commands](AuditCommands.md)
       + [Audit finding suppressions](audit-finding-suppressions.md)
    + [Detect](device-defender-detect.md)
+      + [Security use cases](dd-detect-security-use-cases.md)
       + [Concepts](detect-concepts.md)
       + [Behaviors](detect-behaviors.md)
       + [ML Detect reference](dd-detect-ml.md)

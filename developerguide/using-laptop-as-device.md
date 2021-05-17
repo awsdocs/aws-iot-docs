@@ -63,7 +63,7 @@ If this command gives an error: `Python was not found`, it might be because your
 1. Install v2 of the AWS IoT Device SDK for Python\.
 
    ```
-   python -m pip install awsiotsdk
+   python3 -m pip install awsiotsdk
    ```
 
 1. Clone the AWS IoT Device SDK for Python repository into the aws\-iot\-device\-sdk\-python\-v2 directory of your home directory\. This procedure refers to the base directory for the files you're installing as *home*\.
@@ -76,7 +76,8 @@ If this command gives an error: `Python was not found`, it might be because your
    In macOS and Linux, the *home* directory is `~`\.
 
    ```
-   cd ~ git clone https://github.com/aws/aws-iot-device-sdk-python-v2.git
+   cd ~ 
+   git clone https://github.com/aws/aws-iot-device-sdk-python-v2.git
    ```
 
 ------
@@ -299,7 +300,7 @@ You can see the sample app's messages as they pass through the message broker by
 #### [ Windows ]
 
    ```
-   cd %USERPROFILE%\aws-iot-device-sdk-python-v2\samples\node\pub_sub
+   cd %USERPROFILE%\aws-iot-device-sdk-python-v2\samples
    python3 pubsub.py --topic test/topic --root-ca %USERPROFILE%\certs\Amazon-root-CA-1.pem --cert %USERPROFILE%\certs\device.pem.crt --key %USERPROFILE%\certs\private.pem.key --endpoint your-iot-endpoint
    ```
 

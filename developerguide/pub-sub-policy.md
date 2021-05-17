@@ -553,7 +553,9 @@ Thing policy variables are also replaced when a certificate or authenticated Ama
 
 ## Policies for HTTP and WebSocket clients<a name="pub-sub-policy-cognito"></a>
 
-For the following operations, AWS IoT Core uses AWS IoT Core policies attached to Amazon Cognito identities \(through the `AttachPolicy` API\) to scope down the permissions attached to the Amazon Cognito Identity pool with authenticated identities\. That means an Amazon Cognito Identity needs permission from the IAM role policy attached to the pool and the AWS IoT Core policy attached to the Amazon Cognito Identity through the AWS IoT Core `AttachPolicy` API\.
+Amazon Cognito identities can be authenticated or unauthenticated\. Authenticated identities belong to users who are authenticated by any supported identity provider\. Unauthenticated identities typically belong to guest users who do not authenticate with an identity provider\. Amazon Cognito provides a unique identifier and AWS credentials to support unauthenticated identities\. 
+
+For the following operations, AWS IoT Core uses AWS IoT Core policies attached to Amazon Cognito identities \(through the `AttachPolicy` API\) to scope down the permissions attached to the Amazon Cognito Identity pool with authenticated identities\.
 + `iot:Connect`
 + `iot:Publish`
 + `iot:Subscribe`
@@ -561,6 +563,8 @@ For the following operations, AWS IoT Core uses AWS IoT Core policies attached t
 + `iot:GetThingShadow`
 + `iot:UpdateThingShadow`
 + `iot:DeleteThingShadow`
+
+That means an Amazon Cognito Identity needs permission from the IAM role policy attached to the pool and the AWS IoT Core policy attached to the Amazon Cognito Identity through the AWS IoT Core `AttachPolicy` API\.
 
 **Note**  
 For other AWS IoT Core operations or for unauthenticated identities, AWS IoT Core does not scope down the permissions attached to the Amazon Cognito identity pool role\. For both authenticated and unauthenticated identities, this is the most permissive policy that we recommend you attach to the Amazon Cognito pool role\.

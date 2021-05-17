@@ -63,7 +63,7 @@ The AWS IoT Device SDK for Embedded C \(C\-SDK\) is a collection of C source fil
 
 For Fleet Provisioning, use the `v4_beta_deprecated` version of the AWS IoT Device SDK for Embedded C at [ https://github\.com/aws/aws\-iot\-device\-sdk\-embedded\-C/tree/v4\_beta\_deprecated](https://github.com/aws/aws-iot-device-sdk-embedded-C/tree/v4_beta_deprecated)\. Please review the README in this branch for more details\.
 
-The AWS IoT Device SDK for Embedded C is generally targeted at resource constrained devices that require an optimized C language runtime\. You can use the SDK on any operating system and host it on any processor type \(for example, MCUs and MPUs\)\. However, if your devices have sufficient memory and processing resources, we recommend that you use one of the higher order [AWS IoT Device SDKs](#iot-device-sdks)\.
+The AWS IoT Device SDK for Embedded C is generally targeted at resource constrained devices that require an optimized C language runtime\. You can use the SDK on any operating system and host it on any processor type \(for example, MCUs and MPUs\)\. 
 
 For more information, see the following:
 + [AWS IoT Device SDK for Embedded C on GitHub](https://github.com/aws/aws-iot-device-sdk-embedded-C)
@@ -91,25 +91,25 @@ The AWS Mobile SDKs provide mobile app developers platform\-specific support for
 ------
 #### [ Android ]
 
-**AWS SDK for Android**
+**AWS Mobile SDK for Android**
 
-The AWS SDK for Android contains a library, samples, and documentation for developers to build connected mobile applications using AWS\. This SDK also includes support for MQTT device communications and calling the APIs of the AWS IoT Core services\. For more information, see the following:
+The AWS Mobile SDK for Android contains a library, samples, and documentation for developers to build connected mobile applications using AWS\. This SDK also includes support for MQTT device communications and calling the APIs of the AWS IoT Core services\. For more information, see the following:
 + [AWS Mobile SDK for Android on GitHub](https://github.com/aws/aws-sdk-android)
 + [AWS Mobile SDK for Android Readme](https://github.com/aws-amplify/aws-sdk-android/blob/main/README.md#aws-sdk-for-android)
 + [AWS Mobile SDK for Android Samples](https://github.com/awslabs/aws-sdk-android-samples#aws-sdk-for-android-samples)
-+ [AWS SDK for Android API reference](https://aws-amplify.github.io/aws-sdk-android/docs/reference/)
++ [AWS Mobile SDK for Android API reference](https://aws-amplify.github.io/aws-sdk-android/docs/reference/)
 + [AWSIoTClient Class reference documentation](https://aws-amplify.github.io/aws-sdk-android/docs/reference/com/amazonaws/services/iot/AWSIotClient.html)
 
 ------
 #### [ iOS ]
 
-**AWS SDK for iOS**
+**AWS Mobile SDK for iOS**
 
-The AWS SDK for iOS is an open\-source software development kit, distributed under an Apache Open Source license\. The SDK for iOS provides a library, code samples, and documentation to help developers build connected mobile applications using AWS\. This SDK also includes support for MQTT device communications and calling the APIs of the AWS IoT Core services\. For more information, see the following:
-+ [AWS SDK for iOS on GitHub](https://github.com/aws/aws-sdk-ios)
-+ [AWS SDK for iOS Readme](https://github.com/aws-amplify/aws-sdk-ios/blob/main/README.md#aws-sdk-for-ios)
-+ [AWS SDK for iOS Samples](https://github.com/awslabs/aws-sdk-ios-samples#the-aws-sdk-for-ios-samples)
-+ [AWSIoT Class reference docs in the AWS SDK for iOS](https://aws-amplify.github.io/aws-sdk-ios/docs/reference/AWSIoT/index.html)
+The AWS Mobile SDK for iOS is an open\-source software development kit, distributed under an Apache Open Source license\. The AWS Mobile SDK for iOS provides a library, code samples, and documentation to help developers build connected mobile applications using AWS\. This SDK also includes support for MQTT device communications and calling the APIs of the AWS IoT Core services\. For more information, see the following:
++ [AWS Mobile SDK for iOS on GitHub](https://github.com/aws/aws-sdk-ios)
++ [AWS Mobile SDK for iOS Readme](https://github.com/aws-amplify/aws-sdk-ios/blob/main/README.md#aws-sdk-for-ios)
++ [AWS Mobile SDK for iOS Samples](https://github.com/awslabs/aws-sdk-ios-samples#the-aws-sdk-for-ios-samples)
++ [AWSIoT Class reference docs in the AWS Mobile SDK for iOS](https://aws-amplify.github.io/aws-sdk-ios/docs/reference/AWSIoT/index.html)
 
 ------
 

@@ -17,3 +17,4 @@ This documentation helps you understand how to apply the shared responsibility m
 **Topics**
 + [Data protection in Fleet Hub](data-protection.md)
 + [Resilience in Fleet Hub for AWS IoT Device Management](disaster-recovery-resiliency.md)
++ [AWS managed policies for Fleet Hub for AWS IoT Device Management](security-iam-awsmanpol.md)

@@ -82,7 +82,7 @@ In the IoT universe, AWS IoT provides the services that support the devices that
 AWS IoT provides this software to support your IoT devices\.
 
 **AWS IoT Greengrass**  
- [AWS IoT Greengrass](https://docs.aws.amazon.com/greengrass/) extends AWS to edge devices so they can act locally on the data they generate and use the cloud for management, analytics, and durable storage\. With AWS IoT Greengrass, connected devices can run [AWS Lambda](https://docs.aws.amazon.com/lambda/) functions, Docker containers, or both, execute predictions based on machine learning models, keep device data in sync, and communicate with other devices securely – even when they are not connected to the Internet\.
+ [AWS IoT Greengrass](https://docs.aws.amazon.com/greengrass/) extends AWS IoT to edge devices so they can act locally on the data they generate and use the cloud for management, analytics, and durable storage\. With AWS IoT Greengrass, connected devices can run [AWS Lambda](https://docs.aws.amazon.com/lambda/) functions, Docker containers, or both, execute predictions based on machine learning models, keep device data in sync, and communicate with other devices securely – even when they are not connected to the Internet\.
 
 **AWS IoT Device Tester**  
 [AWS IoT Device Tester](https://docs.aws.amazon.com/freertos/latest/userguide/device-tester-for-freertos-ug.html) for FreeRTOS and AWS IoT Greengrass is a test automation tool for microcontrollers\. AWS IoT Device Tester, test your device to determine if it will run FreeRTOS or AWS IoT Greengrass and interoperate with AWS IoT services\.
@@ -98,7 +98,7 @@ The [AWS IoT Device and Mobile SDKs](iot-sdks.md) help you efficiently connect y
 Connect to the following AWS IoT services to manage the devices in your IoT solution\.
 
 **AWS IoT Core**  
-[AWS IoT Core](https://docs.aws.amazon.com/iot/) is a managed cloud service that enables connected devices to securely interact with cloud applications and other devices\. AWS IoT Core can support many devices and messages, and it can process and route those messages to AWS endpoints and other devices\. With AWS IoT Core, your applications can interact with all of your devices even when they aren’t connected\.
+[AWS IoT Core](https://docs.aws.amazon.com/iot/) is a managed cloud service that enables connected devices to securely interact with cloud applications and other devices\. AWS IoT Core can support many devices and messages, and it can process and route those messages to AWS IoT endpoints and other devices\. With AWS IoT Core, your applications can interact with all of your devices even when they aren’t connected\.
 
 **AWS IoT Device Management**  
 [AWS IoT Device Management](https://docs.aws.amazon.com/iot-device-management/) services help you track, monitor, and manage the plethora of connected devices that make up your devices fleets\. AWS IoT Device Management services help you ensure that your IoT devices work properly and securely after they have been deployed\. They also provide secure tunneling to access your devices, monitor their health, detect and remotely troubleshoot problems, as well as services to manage device software and firmware updates\.
@@ -142,10 +142,10 @@ Provides a secure mechanism for devices and AWS IoT applications to publish and 
 The message broker distributes device data to devices that have subscribed to it and to other AWS IoT Core services, such as the Device Shadow service and the rules engine\.
 
 **AWS IoT Core for LoRaWAN**  
-AWS IoT Core for LoRaWAN makes it possible to set up a private LoRaWAN network by connecting your LoRaWAN devices and gateways to AWS without the need to develop and operate a LoRaWAN Network Server \(LNS\)\. Messages received from LoRaWAN devices are sent to the rules engine where they can be formatted and sent to other AWS services\.
+AWS IoT Core for LoRaWAN makes it possible to set up a private LoRaWAN network by connecting your LoRaWAN devices and gateways to AWS without the need to develop and operate a LoRaWAN Network Server \(LNS\)\. Messages received from LoRaWAN devices are sent to the rules engine where they can be formatted and sent to other AWS IoT services\.
 
 **Rules engine **  
-The Rules engine connects data from the message broker to other AWS services for storage and additional processing\. For example, you can insert, update, or query a DynamoDB table or invoke a Lambda function based on an expression that you defined in the Rules engine\. You can use an SQL\-based language to select data from message payloads, and then process and send the data to other services, such as Amazon Simple Storage Service \(Amazon S3\), Amazon DynamoDB, and AWS Lambda\. You can also create rules that republish messages to the message broker and on to other subscribers\. For more information, see [Rules for AWS IoT](iot-rules.md)\.
+The Rules engine connects data from the message broker to other AWS IoT services for storage and additional processing\. For example, you can insert, update, or query a DynamoDB table or invoke a Lambda function based on an expression that you defined in the Rules engine\. You can use an SQL\-based language to select data from message payloads, and then process and send the data to other services, such as Amazon Simple Storage Service \(Amazon S3\), Amazon DynamoDB, and AWS Lambda\. You can also create rules that republish messages to the message broker and on to other subscribers\. For more information, see [Rules for AWS IoT](iot-rules.md)\.
 
 ### AWS IoT Core control services<a name="aws-iot-core-control"></a>
 
@@ -189,5 +189,5 @@ Brings Alexa Voice to any connected device\. AVS for AWS IoT reduces the cost an
 AVS for AWS IoT enables Alexa built\-in functionality on MCUs, such as the ARM Cortex M class with less than 1 MB embedded RAM\. To do so, AVS offloads memory and compute tasks to a virtual Alexa Built\-in device in the cloud\. This reduces EBOM cost by up to 50 percent\. For more information, see [Alexa Voice Service \(AVS\) Integration for AWS IoT](avs-integration-aws-iot.md)\.
 
 **Amazon Sidewalk Integration for AWS IoT Core**  
-[Amazon Sidewalk](https://www.amazon.com/Amazon-Sidewalk/b?ie=UTF8&node=21328123011) is a shared network that improves connectivity options to help devices work together better\. Amazon Sidewalk supports a wide range of customer devices such as those that locate pets or valuables, those that provide smart home security and lighting control, and those that provide remote diagnostics for appliances and tools\. Amazon Sidewalk Integration for AWS IoT Core makes it possible for device manufacturers to add their Sidewalk device fleet to the AWS Cloud\.  
+[Amazon Sidewalk](https://www.amazon.com/Amazon-Sidewalk/b?ie=UTF8&node=21328123011) is a shared network that improves connectivity options to help devices work together better\. Amazon Sidewalk supports a wide range of customer devices such as those that locate pets or valuables, those that provide smart home security and lighting control, and those that provide remote diagnostics for appliances and tools\. Amazon Sidewalk Integration for AWS IoT Core makes it possible for device manufacturers to add their Sidewalk device fleet to the AWS IoT Cloud\.  
 For more information, see [Amazon Sidewalk Integration for AWS IoT Core](iot-sidewalk.md)

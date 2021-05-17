@@ -74,7 +74,7 @@ This procedure is done in a terminal or command window on your device while foll
    If you're using a Windows PowerShell command window and the unzip command doesn't work, replace unzip with expand\-archive and try the command line again\.   
 ![\[AWS IoT console quick start install and run page\]](http://docs.aws.amazon.com/iot/latest/developerguide/images/aws-iot-learn-connect-thing-3.png)
 
-1. In the terminal or command window on your device, after you enter the command from **Step 3** in the console, you should see an output similar to this\. This output is from the messages the program is sending to and then receiving back from AWS IoT Core\. While the sample program is communicating with AWS IoT Core, you won't see any activity in the console\. To see activity in the console while you run the sample program, see **Step 4** of this procedure\.  
+1. In the terminal or command window on your device, after you enter the command from **Step 3** in the console, you should see an output similar to this\. This output is from the messages the program is sending to and then receiving back from AWS IoT Core\. While the sample program is communicating with AWS IoT Core, you won't see any activity in the console\. To see activity in the console while you run the sample program, see **Step 4** of this procedure\. Sometimes, instead of `topic_1`, you might see a message from the terminal that shows it's received from the topic **sdk/test/*SDK\_programming\_language***, where the *SDK\_programming\_language* can be Python, JavaScript, or Java\.  
 ![\[AWS IoT console quick start example program output\]](http://docs.aws.amazon.com/iot/latest/developerguide/images/aws-iot-learn-connect-console-output.png)
 
 1. You can repeat the commands from **Step 3/3** in the console of this procedure\), to run the sample program again\.
@@ -86,7 +86,18 @@ This procedure is done in a terminal or command window on your device while foll
 
 1.  After you subscribe to the test topic, run this program on your device \./start\.sh as described in the previous step\. For more information, see [View MQTT messages with the AWS IoT MQTT client](view-mqtt-messages.md) for more information\.
 
-1. After you've finished running the sample app on your device, in the AWS IoT console, choose **Done** to finish the tutorial and see this summary\.  
+   After you run \./start\.sh, you'll see messages displayed in the MQTT client similar to the following:
+
+   ```
+   {
+     "message": "Hello World!",
+     "sequence": 10
+   }
+   ```
+
+   The `sequence` number increments by one each time a new `Hello World` message is received and stops when you terminate the program\.
+
+1. After you've finished running the program on your device, in the AWS IoT console, choose **Done** to finish the tutorial and see this summary\.  
 ![\[AWS IoT console quick start complete\]](http://docs.aws.amazon.com/iot/latest/developerguide/images/aws-iot-learn-connect-complete.png)
 
 ## Step 5\. Explore further<a name="iot-quick-start-test"></a>

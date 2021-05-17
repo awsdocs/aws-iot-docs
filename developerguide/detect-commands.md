@@ -30,10 +30,10 @@ You can use the Detect commands in this section to configure ML Detect or Rules 
 |  Start and manage CustomMetric execution  | 
 | --- | 
 | [CreateCustomMetric](https://docs.aws.amazon.com/iot/latest/apireference/API_CreateCustomMetric.html) | 
-| [UpdateCustomMetric](https://docs.aws.amazon.com/ https://docs.aws.amazon.com/iot/latest/apireference/API_UpdateCustomMetric.html)  | 
-| [DescribeCustomMetric](https://docs.aws.amazon.com/https://docs.aws.amazon.com/iot/latest/apireference/API_DescribeCustomMetric.html)  | 
-| [ListCustomMetrics](https://docs.aws.amazon.com/https://docs.aws.amazon.com/iot/latest/apireference/API_ListCustomMetrics.html) | 
-| [DeleteCustomMetric](https://docs.aws.amazon.com/https://docs.aws.amazon.com/iot/latest/apireference/API_DeleteCustomMetric.html)  | 
+| [UpdateCustomMetric](https://docs.aws.amazon.com/iot/latest/apireference/API_UpdateCustomMetric.html)  | 
+| [DescribeCustomMetric](https://docs.aws.amazon.com/iot/latest/apireference/API_DescribeCustomMetric.html)  | 
+| [ListCustomMetrics](https://docs.aws.amazon.com/iot/latest/apireference/API_ListCustomMetrics.html) | 
+| [DeleteCustomMetric](https://docs.aws.amazon.com/iot/latest/apireference/API_DeleteCustomMetric.html)  | 
 
 
 **Security Profile action commands**  
@@ -63,4 +63,4 @@ You can use the Detect commands in this section to configure ML Detect or Rules 
 
 |  List ML model training data  | 
 | --- | 
-| [GetBehaviorModelTrainingSummaries](https://docs.aws.amazon.com/https://docs.aws.amazon.com/iot/latest/apireference/API_GetBehaviorModelTrainingSummaries.html)  | 
+| [GetBehaviorModelTrainingSummaries](https://docs.aws.amazon.com/iot/latest/apireference/API_GetBehaviorModelTrainingSummaries.html)  | 

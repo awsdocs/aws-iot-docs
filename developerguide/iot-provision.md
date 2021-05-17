@@ -1,6 +1,6 @@
 # Device provisioning<a name="iot-provision"></a>
 
-AWS provides several different ways to provision a device and install unique client certificates on it\. This section describes each way and how to select the best one for your IoT solution\.
+AWS provides several different ways to provision a device and install unique client certificates on it\. This section describes each way and how to select the best one for your IoT solution\. We also offer [an interactive tool to help guide your decision](https://pythia.architecture.aws.dev/conversation/WoJ6Vp/WoJ6Vp-4pKLxC/DECISION_1597211738237)\. These options are described in detail in the white paper titled, [Device Manufacturing and Provisioning with X\.509 Certificates in AWS IoT Core](https://d1.awsstatic.com/whitepapers/device-manufacturing-provisioning.pdf)\. 
 
 **Select the option that fits your situation best**
 + 

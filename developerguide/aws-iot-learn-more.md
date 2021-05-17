@@ -23,12 +23,16 @@ A learning path of IoT eLearning modules on different IoT technologies and featu
 These are in\-depth technical resources on specific aspects of AWS IoT\.
 + 
 
-**[IoT Lens – AWS Well\-Architected Framework](https://d1.awsstatic.com/whitepapers/architecture/AWS-IoT-Lens.pdf)**  
-A PDF document that describes the best practices for architecting your IoT applications on AWS\.
+**[IoT Lens – AWS IoT Well\-Architected Framework](https://docs.aws.amazon.com/wellarchitected/latest/iot-lens/welcome.html)**  
+A document that describes the best practices for architecting your IoT applications on AWS\.
 + 
 
 **[Designing MQTT Topics for AWS IoT Core](https://d1.awsstatic.com/whitepapers/Designing_MQTT_Topics_for_AWS_IoT_Core.pdf)**  
 A PDF document that describes the best practices for designing MQTT topics in AWS IoT Core and leveraging AWS IoT Core features with MQTT\.
++ 
+
+**[Device Manufacturing and Provisioning with X\.509 Certificates in AWS IoT Core](https://d1.awsstatic.com/whitepapers/device-manufacturing-provisioning.pdf)**  
+A PDF document that describes the different ways that AWS IoT provides to provision large fleets of devices\.
 + 
 
 **[AWS IoT Resources](https://aws.amazon.com/iot/resources/)**  
@@ -45,7 +49,7 @@ Our current collection of whitepapers and guides on AWS IoT and other AWS techno
 ## AWS IoT in social media<a name="aws-iot-learn-more-social"></a>
 
 These social media channels provide information about AWS IoT and AWS\-related topics\.
-+ [The Internet of Things on AWS – Official Blog](https://aws.amazon.com/blogs/iot/)
++ [The Internet of Things on AWS IoT – Official Blog](https://aws.amazon.com/blogs/iot/)
 + [AWS IoT videos in the Amazon Web Services channel on YouTube](https://www.youtube.com/user/AmazonWebServices/search?query=IoT)
 
 These social media accounts cover all AWS services, including AWS IoT
