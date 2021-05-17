@@ -603,7 +603,7 @@ A resource could not be found\.
 
 ## ListTestCases<a name="api-iot-ListTestCases"></a>
 
-Lists all the available test cases that you can use in a test suite\.
+This API is deprecated\. For more information on available test cases, see [Device Advisor test cases](device-advisor-tests.md)\.
 
  **Synopsis**
 

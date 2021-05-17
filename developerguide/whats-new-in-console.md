@@ -17,15 +17,15 @@ We're in the process of updating the user interface of the AWS IoT console to a 
 |  **Manage** \- Types  |  Available  |  Not available yet  |    | 
 |  **Manage** \- Thing groups  |  Available  |  Not available yet  |    | 
 |  **Manage** \- Billing groups  |  Available  |  Not available yet  |    | 
-|  **Manage** \- Jobs  |  Available  |  Not available yet  |    | 
+|  **Manage** \- Jobs  |  Available  |  Available  |    | 
 |  **Manage** \- Tunnels  |  Available  |  Not available yet  |    | 
 |  **Fleet Hub** \- Get started  |  Not available  |  Available  | Not available in all AWS Regions | 
 |  **Fleet Hub** \- Applications  |  Not available  |  Available  | Not available in all AWS Regions | 
-|  **Greengrass** \- Getting started  |  Available  |  Not available yet  |    | 
-|  **Greengrass** \- Core devices  |  Available  |  Not available yet  |    | 
-|  **Greengrass** \- Components  |  Available  |  Not available yet  |    | 
-|  **Greengrass** \- Deployments  |  Available  |  Not available yet  |    | 
-|  **Greengrass** \- Classic \(V1\)  |  Available  |  Not available yet  |    | 
+|  **Greengrass** \- Getting started  |  Not available  |  Available  |    | 
+|  **Greengrass** \- Core devices  |  Not available  |  Available  |    | 
+|  **Greengrass** \- Components  |  Not available  |  Available  |    | 
+|  **Greengrass** \- Deployments  |  Not available  |  Available  |    | 
+|  **Greengrass** \- Classic \(V1\)  |  Available  |  Not available  |    | 
 |  **Wireless connectivity** \- Intro  |  Not available  |  Available  |  Not available in all AWS Regions  | 
 |  **Wireless connectivity** \- Gateways  |  Not available  |  Available  |  Not available in all AWS Regions  | 
 |  **Wireless connectivity** \- Devices  |  Not available  |  Available  |  Not available in all AWS Regions  | 

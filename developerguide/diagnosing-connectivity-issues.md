@@ -28,7 +28,7 @@ When a device attempts to connect to AWS IoT:
 
 1. AWS IoT checks for a valid certificate and Server Name Indication \(SNI\) value\.
 
-1. AWS IoT checks to see that the certificate used is registered with the AWS Account and that it has been activated\.
+1. AWS IoT checks to see that the certificate used is registered with the AWS IoT Account and that it has been activated\.
 
 1. When a device attempts to perform any action in AWS IoT, such as to subscribe to or publish a message, the policy attached to the certificate it used to connect is checked to confirm that the device is authorized to perform that action\.
 

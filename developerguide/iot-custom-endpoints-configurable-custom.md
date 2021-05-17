@@ -58,9 +58,7 @@ AWS IoT leverages the server name indication \(SNI\) TLS extension to apply doma
 + `validationCertificateArn` – The ARN of the public certificate that you generated in ACM to validate ownership of your custom domain\. This argument isn't required if you use a publicly signed or ACM\-generated server certificate\.
 + `defaultAuthorizerName` \(optional\) – The name of the custom authorizer to use on the endpoint\.
 + `allowAuthorizerOverride` – A Boolean value that specifies whether devices can override the default authorizer by specifying a different authorizer in the HTTP header of the request\. This value is required if a value for `defaultAuthorizerName` is specified\.
-+ `serviceType` – Possible values are `DATA`, `CREDENTIAL_PROVIDER`, and `JOB`\.
-**Note**  
-AWS IoT currently supports only the `DATA` service type\.
++ `serviceType` – AWS IoT currently supports only the `DATA` service type\. When you specify `DATA`, AWS IoT returns an endpoint with an endpoint type of `iot:Data-ATS`\.
 
 The following AWS CLI command creates a domain configuration for **iot\.example\.com**\.
 

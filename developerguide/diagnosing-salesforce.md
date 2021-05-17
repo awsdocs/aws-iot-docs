@@ -25,4 +25,4 @@ Salesforce IoT does not support a binary payload at this time\. Check that you a
 Check that the `token` parameter of the action is correct and that your token is still valid\.  
 `Received Not Found Exception from Salesforce`  
 Check that the `url` parameter of the action is correct and that your Salesforce IoT input stream exists\.
-If you receive an error that is not listed here, contact AWS Support\.
+If you receive an error that is not listed here, contact AWS IoT Support\.

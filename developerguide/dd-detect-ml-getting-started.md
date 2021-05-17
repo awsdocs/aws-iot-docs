@@ -87,7 +87,7 @@ After your ML models are built and ready for data inference, you can regularly v
 1. In the [AWS IoT console](https://console.aws.amazon.com/iot), in the navigation pane, expand **Defend**, and then choose **Detect**, **Alarms**\.  
 ![\[Image NOT FOUND\]](http://docs.aws.amazon.com/iot/latest/developerguide/images/dd-ml-alarms.png)
 
-1. If you navigate to the **History** tab, you can also view details about your devices that went out of alarms\.  
+1. If you navigate to the **History** tab, you can also view details about your devices that are no longer in alarms\.  
 ![\[Image NOT FOUND\]](http://docs.aws.amazon.com/iot/latest/developerguide/images/dd-ml-history-alarm.png)
 
    To get more information, under **Manage** choose **Things**, chose the thing you'd like to see more details for, and then navigate to **Defender metrics**\. You can access the **Defender metrics graph** and perform your investigation on anything in alarm from the **Active** tab\. In this case, the graph shows a spike in message size, which triggered the alarm\. You can see the alarm subsequently cleared\.  

@@ -72,7 +72,7 @@ With AWS SDKs, your apps and compatible devices can call AWS IoT APIs and the AP
 1. Follow the instructions in [Getting Started with the AWS SDK for Go](https://docs.aws.amazon.com/sdk-for-go/v1/developer-guide/setting-up.html)
 
    These instructions describe how to:
-   + Install the AWS SDK for GO
+   + Install the AWS SDK for Go
    + Get access keys for the SDK to access your AWS account
    + Import packages into the source code of our apps or services
 
@@ -89,7 +89,7 @@ With AWS SDKs, your apps and compatible devices can call AWS IoT APIs and the AP
 
 **To install the [AWS SDK for Java](https://aws.amazon.com/sdk-for-java/) and use it to connect to AWS IoT:**
 
-1. Follow the instructions in [Getting Started with AWS SDK for Java 2\.0](https://docs.aws.amazon.com/sdk-for-java/v2/developer-guide/getting-started.html)
+1. Follow the instructions in [Getting Started with AWS SDK for Java 2\.x](https://docs.aws.amazon.com/sdk-for-java/v2/developer-guide/getting-started.html)
 
    These instructions describe how to:
    + Sign up for AWS and Create an IAM User
@@ -98,7 +98,7 @@ With AWS SDKs, your apps and compatible devices can call AWS IoT APIs and the AP
    + Use the SDK with Apache Maven 
    + Use the SDK with Gradle 
 
-1. Create and run a sample app using one of the [AWS SDK for Java 2\.0 Code Examples](https://docs.aws.amazon.com/sdk-for-java/v2/developer-guide/advanced-topics.html)\.
+1. Create and run a sample app using one of the [AWS SDK for Java 2\.x Code Examples](https://docs.aws.amazon.com/sdk-for-java/v2/developer-guide/advanced-topics.html)\.
 
 1. Review the [SDK API reference documentation](https://sdk.amazonaws.com/java/api/latest/)
 
@@ -179,14 +179,14 @@ With AWS SDKs, your apps and compatible devices can call AWS IoT APIs and the AP
 
 **To install the [AWS SDK for Python \(Boto3\)](https://aws.amazon.com/sdk-for-python/) and use it to connect to AWS IoT:**
 
-1. Follow the instructions in the [AWS SDK for Python Quickstart](https://boto3.amazonaws.com/v1/documentation/api/latest/guide/quickstart.html)
+1. Follow the instructions in the [AWS SDK for Python \(Boto3\) Quickstart](https://boto3.amazonaws.com/v1/documentation/api/latest/guide/quickstart.html)
 
    These instructions describe how to:
    + Install the SDK
    + Configure the SDK
    + Use the SDK in your code
 
-1. Create and run a sample program that uses the AWS SDK for Python
+1. Create and run a sample program that uses the AWS SDK for Python \(Boto3\)
 
    This program displays the account's currently configured logging options\. After you install the SDK and configure it for your account, you should be able to run this program\.
 
@@ -204,7 +204,7 @@ With AWS SDKs, your apps and compatible devices can call AWS IoT APIs and the AP
 
     For more information about the function used in this example, see [Configure AWS IoT logging](configure-logging.md)\.
 
-**Documentation for the AWS IoT Core services that the AWS SDK for Python supports**
+**Documentation for the AWS IoT Core services that the AWS SDK for Python \(Boto3\) supports**
 + [IoT reference documentation](https://boto3.amazonaws.com/v1/documentation/api/latest/reference/services/iot.html)
 + [IoTDataPlane reference documentation](https://boto3.amazonaws.com/v1/documentation/api/latest/reference/services/iot-data.html)
 + [IoTJobsDataPlane reference documentation](https://boto3.amazonaws.com/v1/documentation/api/latest/reference/services/iot-jobs-data.html)
@@ -236,9 +236,9 @@ The AWS Mobile SDKs provide mobile app developers platform\-specific support for
 ------
 #### [ Android ]
 
-**AWS SDK for Android**
+**AWS Mobile SDK for Android**
 
-The AWS SDK for Android contains a library, samples, and documentation for developers to build connected mobile applications using AWS\. This SDK also includes support for MQTT device communications and calling the APIs of the AWS IoT Core services\. For more information, see the following:
+The AWS Mobile SDK for Android contains a library, samples, and documentation for developers to build connected mobile applications using AWS\. This SDK also includes support for MQTT device communications and calling the APIs of the AWS IoT Core services\. For more information, see the following:
 + [AWS Mobile SDK for Android on GitHub](https://github.com/aws/aws-sdk-android)
 + [AWS Mobile SDK for Android Readme](https://github.com/aws-amplify/aws-sdk-android/blob/main/README.md#aws-sdk-for-android)
 + [AWS Mobile SDK for Android Samples](https://github.com/awslabs/aws-sdk-android-samples#aws-sdk-for-android-samples)
@@ -248,13 +248,13 @@ The AWS SDK for Android contains a library, samples, and documentation for devel
 ------
 #### [ iOS ]
 
-**AWS SDK for iOS**
+**AWS Mobile SDK for iOS**
 
-The AWS SDK for iOS is an open\-source software development kit, distributed under an Apache Open Source license\. The SDK for iOS provides a library, code samples, and documentation to help developers build connected mobile applications using AWS\. This SDK also includes support for MQTT device communications and calling the APIs of the AWS IoT Core services\. For more information, see the following:
-+ [AWS SDK for iOS on GitHub](https://github.com/aws/aws-sdk-ios)
+The AWS Mobile SDK for iOS is an open\-source software development kit, distributed under an Apache Open Source license\. The SDK for iOS provides a library, code samples, and documentation to help developers build connected mobile applications using AWS\. This SDK also includes support for MQTT device communications and calling the APIs of the AWS IoT Core services\. For more information, see the following:
++ [AWS Mobile SDK for iOS on GitHub](https://github.com/aws/aws-sdk-ios)
 + [AWS SDK for iOS Readme](https://github.com/aws-amplify/aws-sdk-ios/blob/main/README.md#aws-sdk-for-ios)
 + [AWS SDK for iOS Samples](https://github.com/awslabs/aws-sdk-ios-samples#the-aws-sdk-for-ios-samples)
-+ [AWSIoT Class reference docs in the AWS SDK for iOS](https://aws-amplify.github.io/aws-sdk-ios/docs/reference/AWSIoT/index.html)
++ [AWS IoT Class reference docs in the AWS SDK for iOS](https://aws-amplify.github.io/aws-sdk-ios/docs/reference/AWSIoT/index.html)
 
 ------
 

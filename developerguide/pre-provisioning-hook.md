@@ -46,3 +46,105 @@ The following is an example of a successful response from the pre\-provisioning 
 **Note**  
 If the Lambda function fails or doesn't return the `"allowProvisioning"` parameter in the response, the provisioning request will fail and the error will be returned in the response\.
 The Lambda function must finish running and return within 5 seconds, otherwise the provisioning request fails\.
+
+## Pre\-provisioning hook Lambda example<a name="pre-provisioning-example"></a>
+
+------
+#### [ Python ]
+
+An example of a pre\-provisioning hook Lambda in Python\.
+
+```
+import json
+
+def pre_provisioning_hook(event, context):
+    print(event)
+
+    return {
+        'allowProvisioning': True,
+        'parameterOverrides': {
+            'DeviceLocation': 'Seattle'
+        }
+    }
+```
+
+------
+#### [ Java ]
+
+An example of a pre\-provisioning hook Lambda in Java\.
+
+Handler class:
+
+```
+package example;
+
+import java.util.Map;
+import java.util.HashMap;
+import com.amazonaws.services.lambda.runtime.Context;
+import com.amazonaws.services.lambda.runtime.RequestHandler;
+
+public class PreProvisioningHook implements RequestHandler<PreProvisioningHookRequest, PreProvisioningHookResponse> {
+
+    public PreProvisioningHookResponse handleRequest(PreProvisioningHookRequest object, Context context) {
+        Map<String, String> parameterOverrides = new HashMap<String, String>();
+        parameterOverrides.put("DeviceLocation", "Seattle");
+
+        PreProvisioningHookResponse response = PreProvisioningHookResponse.builder()
+                .allowProvisioning(true)
+                .parameterOverrides(parameterOverrides)
+                .build();
+
+        return response;
+    }
+
+}
+```
+
+Request class:
+
+```
+package example;
+
+import java.util.Map;
+import lombok.Builder;
+import lombok.Data;
+import lombok.AllArgsConstructor;
+import lombok.NoArgsConstructor;
+
+@Data
+@Builder
+@AllArgsConstructor
+@NoArgsConstructor
+public class PreProvisioningHookRequest {
+    private String claimCertificateId;
+    private String certificateId;
+    private String certificatePem;
+    private String templateArn;
+    private String clientId;
+    private Map<String, String> parameters;
+}
+```
+
+Response class:
+
+```
+package example;
+
+import java.util.Map;
+import lombok.Builder;
+import lombok.Data;
+import lombok.AllArgsConstructor;
+import lombok.NoArgsConstructor;
+
+
+@Data
+@Builder
+@AllArgsConstructor
+@NoArgsConstructor
+public class PreProvisioningHookResponse {
+    private boolean allowProvisioning;
+    private Map<String, String> parameterOverrides;
+}
+```
+
+------

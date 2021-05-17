@@ -16,7 +16,7 @@ The EUI of the individual gateway device\.
   + 
 
 **Frequency band \(RFRegion\)**  
-The gateway's frequency band\. You can choose from `US915`, `EU868`, or `AS923-1`, depending on what your gateway supports and which country or region the gateway is physically connecting from\. For more information about the bands, see [Connecting devices and gateways to AWS IoT Core for LoRaWAN](connect-iot-lorawan.md)\.
+The gateway's frequency band\. You can choose from `US915`, `EU868`, `AU915`, or `AS923-1`, depending on what your gateway supports and which country or region the gateway is physically connecting from\. For more information about the bands, see [Connecting devices and gateways to AWS IoT Core for LoRaWAN](connect-iot-lorawan.md)\.
 + 
 
 **Your wireless system configuration data**  

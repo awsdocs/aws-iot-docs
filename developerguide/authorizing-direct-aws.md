@@ -63,7 +63,7 @@ The following section describes how to use a certificate to get a security token
                "iam:GetRole",
                "iam:PassRole"
            ],
-           "Resource": "arn:aws:iam::your aws account id:role/your role name"
+           "Resource": "arn:aws:iam::your AWS account id:role/your role name"
        }
    }
    ```
