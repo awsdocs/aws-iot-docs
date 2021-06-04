@@ -1,6 +1,8 @@
 # Describe your AWS IoT Core for LoRaWAN resources<a name="connect-iot-lorawan-describe-resource"></a>
 
- AWS IoT Core for LoRaWAN provides several options to identify the resources you create\. While AWS IoT Core for LoRaWAN resources are given a unique ID when they're created, this ID is not descriptive nor can it be changed after the resource is created\. You can also assign a name, add a description, and attach tags and tag values to most AWS IoT Core for LoRaWAN resources to make it more convenient to select, identify, and manage your AWS IoT Core for LoRaWAN resources\. 
+If you're using AWS IoT Core for LoRaWAN for the first time, you can add your first LoRaWAN gateway and device by using the [AWS IoT Core for LoRaWAN](https://console.aws.amazon.com/iot/home#/wireless/landing) Intro page of the AWS IoT console\.
+
+Before you get started with creating the resources, consider the naming convention of your devices, gateways, and destination\. AWS IoT Core for LoRaWAN provides several options to identify the resources you create\. While AWS IoT Core for LoRaWAN resources are given a unique ID when they're created, this ID is not descriptive nor can it be changed after the resource is created\. You can also assign a name, add a description, and attach tags and tag values to most AWS IoT Core for LoRaWAN resources to make it more convenient to select, identify, and manage your AWS IoT Core for LoRaWAN resources\. 
 + 
 
 **[Resource names](#connect-iot-lorawan-describe-resource-names)**  
@@ -14,7 +16,7 @@ For gateways, devices, and profiles, the resource name is an optional field that
 **[Resource tags](#connect-iot-lorawan-describe-resource-tags)**  
 Tags are key\-value pairs of metadata that can be attached to AWS resources\. You choose both tag keys and their corresponding values\.
 
-   Gateways, destinations, and profiles can have up to 50 tags attached to them\. Devices don't support tags\. 
+  Gateways, destinations, and profiles can have up to 50 tags attached to them\. Devices don't support tags\. 
 
 ## Resource names<a name="connect-iot-lorawan-describe-resource-names"></a>
 

@@ -1,9 +1,3 @@
---------
-
- The Fleet Hub service is currently in public preview\. This service is subject to change\.
-
---------
-
 # Logging Fleet Hub for AWS IoT Device Management API calls with AWS CloudTrail<a name="logging-using-cloudtrail"></a>
 
 Fleet Hub for AWS IoT Device Management is integrated with AWS CloudTrail\. The CloudTrail service provides a record of actions that a user, role, or an AWS service takes in Fleet Hub\. CloudTrail captures all API calls for Fleet Hub as events\. Captured calls include those from the Fleet Hub console and code calls to the Fleet Hub API operations\. 

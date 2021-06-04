@@ -43,7 +43,7 @@ Devices that use Multi\-Account Registration must send the [Server Name Indicati
 
 1. Do not register the CA that signed the device certificates with AWS IoT\.
 
-1. Register the device certificates without a CA\. See [Register a client certificate without a registered CA \(CLI\)](manual-cert-registration.md#manual-cert-registration-noca-cli)\.
+1. Register the device certificates without a CA\. See [Register a client certificate signed by an unregistered CA \(CLI\)](manual-cert-registration.md#manual-cert-registration-noca-cli)\.
 
 1. Use the correct `host_name` in the SNI extension to TLS when the device connects to AWS IoT\. See [Transport security in AWS IoT](transport-security.md)\.
 

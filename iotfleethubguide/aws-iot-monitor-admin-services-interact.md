@@ -1,9 +1,3 @@
---------
-
- The Fleet Hub service is currently in public preview\. This service is subject to change\.
-
---------
-
 # AWS and AWS IoT Core services that interact with Fleet Hub for AWS IoT Device Management<a name="aws-iot-monitor-admin-services-interact"></a>
 
 This topic explains how the features in Fleet Hub for AWS IoT Device Management interact with other AWS services to deliver the capabilities in your Fleet Hub web applications\.

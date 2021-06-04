@@ -14,11 +14,12 @@ We're in the process of updating the user interface of the AWS IoT console to a 
 |  **Onboard** \- Get started  |  Available  |  Not available yet  |    | 
 |  **Onboard** \- Fleet provisioning templates  |  Available  |  Not available yet  |    | 
 |  **Manage** \- Things  |  Available  |  Not available yet  |    | 
-|  **Manage** \- Types  |  Available  |  Not available yet  |    | 
+|  **Manage** \- Types  |  Available  |  Available  |    | 
 |  **Manage** \- Thing groups  |  Available  |  Not available yet  |    | 
-|  **Manage** \- Billing groups  |  Available  |  Not available yet  |    | 
+|  **Manage** \- Billing groups  |  Available  |  Available  |    | 
 |  **Manage** \- Jobs  |  Available  |  Available  |    | 
-|  **Manage** \- Tunnels  |  Available  |  Not available yet  |    | 
+|  **Manage** \- Job templates  |  Available  |  Available  |  The save a job as a job template and create a job with a job template features are not available in the original experience\.  | 
+|  **Manage** \- Tunnels  |  Not available  |  Available  |    | 
 |  **Fleet Hub** \- Get started  |  Not available  |  Available  | Not available in all AWS Regions | 
 |  **Fleet Hub** \- Applications  |  Not available  |  Available  | Not available in all AWS Regions | 
 |  **Greengrass** \- Getting started  |  Not available  |  Available  |    | 

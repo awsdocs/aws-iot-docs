@@ -1,11 +1,9 @@
 # Device Advisor<a name="device-advisor"></a>
 
+[Device Advisor](https://aws.amazon.com/iot-core/features/) is a cloud\-based, fully managed test capability for validating IoT devices during device software development\. Device Advisor provides pre\-built tests that you can use to validate IoT devices for reliable and secure connectivity with AWS IoT Core, before deploying devices to production\. Device Advisor’s pre\-built tests help you validate your device software against best practices for usage of [TLS](https://docs.aws.amazon.com/iot/latest/developerguide/protocols.html), [MQTT](https://docs.aws.amazon.com/iot/latest/developerguide/protocols.html), [Device Shadow](https://docs.aws.amazon.com/iot/latest/developerguide/iot-device-shadows.html), and [IoT Jobs](https://docs.aws.amazon.com/iot/latest/developerguide/iot-jobs.html)\. You can also download signed qualification reports to submit to the AWS Partner Network to get your device qualified for the [AWS Partner Device Catalog](https://devices.amazonaws.com/) without the need to send your device in and wait for it to be tested\.
 
-|  | 
-| --- |
-| Device Advisor is in preview and is subject to change\. | 
-
-[Device Advisor](https://aws.amazon.com/iot-core/features/) is a cloud\-based, fully managed test capability for validating IoT devices during device software development\. Device Advisor provides pre\-built tests that you can use to validate IoT devices for reliable and secure connectivity with AWS IoT Core, before deploying devices to production\. By using Device Advisor, you can confirm that your devices can reliably connect to AWS IoT Core and follow security best practices\. You can also download signed qualification reports to submit to the AWS Partner Network to get your device qualified for the [AWS Partner Device Catalog](https://devices.amazonaws.com/) without the need to send your device in and wait for it to be tested\.
+**Note**  
+Device Advisor is supported in us\-east\-1, us\-west\-2, ap\-northeast\-1, and eu\-west\-1 regions\. Device Advisor supports MQTT with X509 client certificates\.
 
 **Topics**
 + [Setting up](device-advisor-setting-up.md)
@@ -13,7 +11,6 @@
 + [Device Advisor workflow](device-advisor-workflow.md)
 + [Device Advisor detailed console workflow](device-advisor-console-tutorial.md)
 + [Device Advisor test cases](device-advisor-tests.md)
-+ [Device Advisor commands](device-advisor-iot-commands.md)
 
 Any device that has been built to connect to AWS IoT Core can take advantage of Device Advisor\. You can access Device Advisor from the [AWS IoT console](https://us-east-1.console.aws.amazon.com/iot/home?region=us-east-1#/deviceadvisor/intro), or by using the AWS CLI or SDK\. When you're ready to test your device, register it with AWS IoT Core and configure the device software with the Device Advisor endpoint\. Then choose the prebuilt tests, configure them, run the tests on your device, and get the test results along with detailed logs or a qualification report\.
 

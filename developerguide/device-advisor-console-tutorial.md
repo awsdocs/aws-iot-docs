@@ -6,6 +6,7 @@ In this tutorial, you'll create a custom test suite and run tests against the de
 + [Prerequisites](#da-detailed-prereqs)
 + [Create a test suite definition](#device-advisor-console-create-suite)
 + [Start a test suite run](#device-advisor-console-run-test-suite)
++ [Stop a test suite run \(optional\)](#device-advisor-stop-test-run)
 + [View test suite run details and logs](#device-advisor-console-view-logs)
 + [Download an AWS IoT qualification report](#device-advisor-console-qualification-report)
 
@@ -15,9 +16,7 @@ To complete this tutorial, you need to complete the steps outlined in [Setting u
 
 ## Create a test suite definition<a name="device-advisor-console-create-suite"></a>
 
-1. In the [AWS IoT console](https://console.aws.amazon.com/iot), in the navigation pane, expand **Test**, **Device Advisor** and then choose **Test suites**\.
-**Note**  
-Only the us\-east\-1 Region is supported for preview\.  
+1. In the [AWS IoT console](https://console.aws.amazon.com/iot), in the navigation pane, expand **Test**, **Device Advisor** and then choose **Test suites**\.  
 ![\[Image NOT FOUND\]](http://docs.aws.amazon.com/iot/latest/developerguide/images/da-testsuite.png)
 
 1. Select **Create Test Suite**\. Choose between Use the AWS Qualification test suite and Create a new test suite\.  
@@ -34,13 +33,13 @@ Only the us\-east\-1 Region is supported for preview\.
    Under **Test suite properties**, fill out the following\.
    + **Test suite name**: You can create the suite with a custom name\.
    + **Device role ARN**: Provide the device role ARN that was created as part of the [prerequisites](device-advisor-setting-up.md)\.
-   + **Timeout** \(optional\): The timeout in milliseconds for each test case in the current test suite\. If you don't specify a timeout value, the default value is used\.
+   + **Timeout** \(optional\): The timeout in seconds for each test case in the current test suite\. If you don't specify a timeout value, the default value is used\.
    + **Tags** \(optional\): Add tags to the test suite that you're going to create\.  
 ![\[Image NOT FOUND\]](http://docs.aws.amazon.com/iot/latest/developerguide/images/da-test-suite-properties-panel.png)
 
    When you've finished, choose **Update properties**\.
 
-1. To modify the group level configuration, under `Test group 1`, choose **Edit**\. Then, enter a **Name** to give the group a custom name\. Optionally, you can also enter a **Timeout** value in milliseconds under the selected test group\. If you don't specify a timeout value, the default value is used\.  
+1. To modify the group level configuration, under `Test group 1`, choose **Edit**\. Then, enter a **Name** to give the group a custom name\. Optionally, you can also enter a **Timeout** value in seconds under the selected test group\. If you don't specify a timeout value, the default value is used\.  
 ![\[Image NOT FOUND\]](http://docs.aws.amazon.com/iot/latest/developerguide/images/da-edit-test-group.png)
 
    Choose **Done**\.
@@ -48,7 +47,7 @@ Only the us\-east\-1 Region is supported for preview\.
 1. Drag one of the available test cases from **Test cases** into the test group\.  
 ![\[Image NOT FOUND\]](http://docs.aws.amazon.com/iot/latest/developerguide/images/da-drag-test-cases.png)
 
-1. To modify the test case level configuration on the test case under your test group, choose **Edit**\. Then, enter a **Name** to give the group a custom name\. Optionally, you can also enter a **Timeout** value in milliseconds under the selected test group\. If you don't specify a timeout value, the default value is used\.  
+1. To modify the test case level configuration on the test case under your test group, choose **Edit**\. Then, enter a **Name** to give the group a custom name\. Optionally, you can also enter a **Timeout** value in seconds under the selected test group\. If you don't specify a timeout value, the default value is used\.  
 ![\[Image NOT FOUND\]](http://docs.aws.amazon.com/iot/latest/developerguide/images/da-edit-test-case.png)
 
    Choose **Done**\.
@@ -70,12 +69,27 @@ To add more test groups to the test suite, choose **Add test group**\. Follow th
 
    The test suite detail page displays all the information related to the test suite\. The **Device Advisor Endpoint** displayed on this page can be used to configure the firmware/software on the device that you'll use for testing to connect to the Device Advisor test endpoint for your account\.
 
-1. Choose **Actions**, then **Run test suite**\.
+1. Choose **Actions**, then **Run test suite**\.  
+![\[Image NOT FOUND\]](http://docs.aws.amazon.com/iot/latest/developerguide/images/da-run-test-suites.png)
 
 1. Under **Run configuration**, you'll need to select an AWS IoT thing or certificate to test using Device Advisor\. If you don't have any existing things or certificates, first [create AWS IoT Core resources](device-advisor-setting-up.md)\. After you select a thing or certificate, choose **Run test**\.  
 ![\[Image NOT FOUND\]](http://docs.aws.amazon.com/iot/latest/developerguide/images/da-choose-thing-certificate.png)
 
-1. Choose **Go to results** on the top banner for viewing the test run details\.
+1. Choose **Go to results** on the top banner for viewing the test run details\.  
+![\[Image NOT FOUND\]](http://docs.aws.amazon.com/iot/latest/developerguide/images/da-test-run-results.png)
+
+## Stop a test suite run \(optional\)<a name="device-advisor-stop-test-run"></a>
+
+1. In the [AWS IoT console](https://console.aws.amazon.com/https://console.aws.amazon.com/iot), in the navigation pane, expand **Test**, **Device Advisor**, and then choose **Test runs and results**\.
+
+1. Choose the test suite in progress that you want to stop\.  
+![\[Image NOT FOUND\]](http://docs.aws.amazon.com/iot/latest/developerguide/images/da-test-suite-to-stop.PNG)
+
+1. Choose **Actions**, then **Stop** **test suite**\.  
+![\[Image NOT FOUND\]](http://docs.aws.amazon.com/iot/latest/developerguide/images/da-stop-test-suite.PNG)
+
+1. The cleanup process takes several minutes to complete\. While the cleanup process is happening, the test run status will be `STOPPING`\. Wait for the cleanup process to complete and for the test suite status to change to `STOPPED` status before starting a new suite run\.  
+![\[Image NOT FOUND\]](http://docs.aws.amazon.com/iot/latest/developerguide/images/da-stopped-test-suite.PNG)
 
 ## View test suite run details and logs<a name="device-advisor-console-view-logs"></a>
 

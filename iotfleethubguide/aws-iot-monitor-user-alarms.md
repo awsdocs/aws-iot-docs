@@ -1,9 +1,3 @@
---------
-
- The Fleet Hub service is currently in public preview\. This service is subject to change\.
-
---------
-
 # Alarms<a name="aws-iot-monitor-user-alarms"></a>
 
 This section explains how Fleet Hub for AWS IoT Device Management alarms work and walks you through the steps required to create an alarm\.

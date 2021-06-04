@@ -2,9 +2,11 @@
 
 You can register a client certificate manually by using the AWS IoT console and AWS CLI\.
 
-The procedures in this topic must be performed in each account and Region in which you want to use the client certificate\. Client certificates can be shared by AWS accounts and Regions, but only if the client certificate is signed by a certificate authority \(CA\) that is NOT registered with AWS IoT\. The registration of a client certificate in one account or Region is not automatically recognized by another\.
+The registration procedure to use depends on whether the certificate will be shared by shared by AWS accounts and Regions\. The registration of a client certificate in one account or Region is not automatically recognized by another\.
 
-## Register a client certificate manually \(console\)<a name="manual-cert-registration-console"></a>
+The procedures in this topic must be performed in each account and Region in which you want to use the client certificate\. Client certificates can be shared by AWS accounts and Regions, but only if the client certificate is signed by a certificate authority \(CA\) that is NOT registered with AWS IoT\. 
+
+## Register a client certificate signed by a registered CA \(console\)<a name="manual-cert-registration-console"></a>
 
 **Note**  
 Before you perform this procedure, make sure that you have the client certificate's \.pem file and that the client certificate was signed by a CA that you have [registered with AWS IoT](register-CA-cert.md)\.
@@ -25,13 +27,13 @@ Choose that CA from the list, and then choose **Next**\.
    + 
 
 **If the client certificates are not signed by a CA that is registered with AWS IoT**  
-See [Register a client certificate without a registered CA manually \(console\)](#manual-cert-registration-console-noca)\. 
+See [Register a client certificate signed by an unregistered CA \(console\)](#manual-cert-registration-console-noca)\. 
    + 
 
 **If the client certificates are signed by Amazon's CA**  
 Don't select any CA, just choose **Next**\.
 
-   If the client certificates are not signed by a CA that is registered with AWS IoT, see [Register a client certificate without a registered CA manually \(console\)](#manual-cert-registration-console-noca)\. 
+   If the client certificates are not signed by a CA that is registered with AWS IoT, see [Register a client certificate signed by an unregistered CA \(console\)](#manual-cert-registration-console-noca)\. 
 
 1.  On **Register existing device certificates**, choose **Select certificates**, and select up to 10 certificate files to register\. 
 
@@ -45,7 +47,7 @@ Don't select any CA, just choose **Next**\.
 
 The client certificates that are registered successfully appear in the list of certificates\.
 
-## Register a client certificate without a registered CA manually \(console\)<a name="manual-cert-registration-console-noca"></a>
+## Register a client certificate signed by an unregistered CA \(console\)<a name="manual-cert-registration-console-noca"></a>
 
 **Note**  
 Before you perform this procedure, make sure that you have the client certificate's \.pem file\.
@@ -72,7 +74,7 @@ Before you perform this procedure, make sure that you have the client certificat
 
 The client certificates that are registered successfully appear in the list of certificates\.
 
-## Register a client certificate manually \(CLI\)<a name="manual-cert-registration-cli"></a>
+## Register a client certificate signed by a registered CA \(CLI\)<a name="manual-cert-registration-cli"></a>
 
 **Note**  
 Before you perform this procedure, make sure that you have the certificate authority \(CA\) \.pem and the client certificate's \.pem file\. The client certificate must be signed by a certificate authority \(CA\) that you have [registered with AWS IoT](register-CA-cert.md)\.
@@ -98,7 +100,7 @@ aws iot register-certificate \
 
 For more information about activating the certificate so that it can be used to connect to AWS IoT, see [Activate or deactivate a client certificate](activate-or-deactivate-device-cert.md)
 
-## Register a client certificate without a registered CA \(CLI\)<a name="manual-cert-registration-noca-cli"></a>
+## Register a client certificate signed by an unregistered CA \(CLI\)<a name="manual-cert-registration-noca-cli"></a>
 
 **Note**  
 Before you perform this procedure, make sure that you have the certificate's \.pem file\.
@@ -120,4 +122,4 @@ aws iot register-certificate-without-ca \
     --certificate-pem file://device_cert_pem_filename
 ```
 
-For more information about activating the certificate so that it can be used to connect to AWS IoT, see [Activate or deactivate a client certificate](activate-or-deactivate-device-cert.md)
+For more information about activating the certificate so that it can be used to connect to AWS IoT, see [Activate or deactivate a client certificate](activate-or-deactivate-device-cert.md)\.

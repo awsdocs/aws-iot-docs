@@ -1,9 +1,3 @@
---------
-
- The Fleet Hub service is currently in public preview\. This service is subject to change\.
-
---------
-
 # Security in Fleet Hub for AWS IoT Device Management<a name="aws-iot-monitor-security"></a>
 
 Cloud security at AWS is the highest priority\. As an AWS customer, you benefit from a data center and network architecture that is built to meet the requirements of the most security\-sensitive organizations\.
@@ -16,5 +10,8 @@ This documentation helps you understand how to apply the shared responsibility m
 
 **Topics**
 + [Data protection in Fleet Hub](data-protection.md)
++ [Identity and Access Management for Fleet Hub for AWS IoT Device Management](security-iam.md)
++ [Compliance validation for Fleet Hub for AWS IoT Device Management](SERVICENAME-compliance.md)
 + [Resilience in Fleet Hub for AWS IoT Device Management](disaster-recovery-resiliency.md)
 + [AWS managed policies for Fleet Hub for AWS IoT Device Management](security-iam-awsmanpol.md)
++ [Infrastructure security in Fleet Hub for AWS IoT Device Management](infrastructure-security.md)

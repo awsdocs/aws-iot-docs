@@ -4,19 +4,19 @@ AWS IoT Core for LoRaWAN destinations describe the AWS IoT rule that processes a
 
 Because most LoRaWAN devices don't send data to AWS IoT Core for LoRaWAN in a format that can be used by AWS services, an AWS IoT rule must process it first\. The AWS IoT rule contains the SQL statement that interprets the device's data and the topic rule actions that send the result of the SQL statement to the services that will use it\.
 
-To process a device's data, an AWS IoT Core for LoRaWAN destination contains the following elements\.
+Enter a **Destination name**\. To process a device's data, an AWS IoT Core for LoRaWAN destination contains the following elements\.
++ 
+
+**Rule name**  
+The AWS IoT rule that is configured to process the device's data\. Your destination will need a rule to process the messages it receives\. Enter a rule name and then 2choose **Copy** to copy the rule name that you'll enter when creating the AWS IoT rule\. You can either choose **Create rule** to create the rule now or navigate to the [ Rules](https://console.aws.amazon.com/iot/home#/create/rule) Hub of the AWS IoT console and create a rule with that name\.
+
+  For more information about AWS IoT rules for destinations, see [Create rules to process LoRaWAN device messages](connect-iot-lorawan-destination-rules.md)\.
 + 
 
 **Role name**  
 The IAM role that gives the device's data permission to access the rule named in **Rule name**\. For more information about the details that a definition requires in the role, see [Create an IAM roles for your destinations](#connect-iot-lorawan-create-destinations-roles)
 
   For more information about IAM roles, see [Using IAM roles](https://docs.aws.amazon.com/IAM/latest/UserGuide/id_roles_use.html)\.
-+ 
-
-**Rule name**  
-The AWS IoT rule that is configured to process the device's data\.
-
-  For more information about AWS IoT rules for destinations, see [Create rules to process LoRaWAN device messages](connect-iot-lorawan-destination-rules.md)\.
 
 ## Create an IAM roles for your destinations<a name="connect-iot-lorawan-create-destinations-roles"></a>
 

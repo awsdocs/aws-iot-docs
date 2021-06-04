@@ -100,6 +100,8 @@ Although the credential lifetime specified in the IAM role can be longer, when A
      To make sure your device is communicating with AWS IoT Core \(and not a service impersonating it\), see [Server Authentication](x509-client-certs.html#server-authentication), follow the links to download the appropriate CA certificates, and then copy them to your device\.
    + *RoleAlias*: The name of the role alias that you created for the credentials provider\.
    + *ThingName*: The thing name that you created when you registered your AWS IoT Core thing\. This is passed as the value of the `x-amzn-iot-thingname` HTTP header\. This value is required only if you are using thing attributes as policy variables in AWS IoT Core or IAM policies\.
+**Note**  
+The *ThingName* that you provide in `x-amzn-iot-thingname` must match the name of the AWS IoT Thing resource assigned to a cert\. If it doesn't match, a 403 error is returned\.
 
    Run the following command in the AWS CLI to obtain the credentials provider endpoint for your AWS account\. For more information about this API, see [DescribeEndpoint](https://docs.aws.amazon.com/iot/latest/apireference/API_DescribeEndpoint.html)\.
 

@@ -42,7 +42,8 @@ The following table lists the IAM IoT actions, the associated AWS IoT API, and t
 | iot:CreateAuthorizer | CreateAuthorizer |  arn:aws:iot:*region*:*account\-id*:authorizer/*authorizer\-function\-name*  | 
 | iot:CreateCertificateFromCsr | CreateCertificateFromCsr | \* | 
 | iot:CreateDimension | CreateDimension | arn:aws:iot:region:account\-id:dimension/dimension\-name | 
-| iot:CreateJob | CreateJob |  arn:aws:iot:*region*:*account\-id*:job/*job\-id*  | 
+| iot:CreateJob | CreateJob |  arn:aws:iot:*region*:*account\-id*:job/*job\-id* arn:aws:iot:*region*:*account\-id*:thinggroup/*thing\-group\-name* arn:aws:iot:*region*:*account\-id*:thing/*thing\-name* arn:aws:iot:*region*:*account\-id*:jobtemplate/*job\-template\-id*  | 
+| iot:CreateJobTemplate | CreateJobTemplate |  arn:aws:iot:*region*:*account\-id*:job/*job\-id* arn:aws:iot:*region*:*account\-id*:jobtemplate/*job\-template\-id*  | 
 | iot:CreateKeysAndCertificate | CreateKeysAndCertificate | \* | 
 | iot:CreatePolicy | CreatePolicy | \* | 
 | iot:CreatePolicyVersion | CreatePolicyVersion |  arn:aws:iot:*region*:*account\-id*:policy/*policy\-name*  This must be an AWS IoT policy, not an IAM policy\.   | 
@@ -57,6 +58,7 @@ The following table lists the IAM IoT actions, the associated AWS IoT API, and t
 | iot:DeleteCertificate | DeleteCertificate |  arn:aws:iot:*region*:*account\-id*:cert/*cert\-id*  | 
 | iot:DeleteDimension | DeleteDimension |  arn:aws:iot:*region*:*account\-id*:dimension/*dimension\-name*  | 
 | iot:DeleteJob | DeleteJob |  arn:aws:iot:*region*:*account\-id*:job/*job\-id*  | 
+| iot:DeleteJobTemplate | DeleteJobTemplate |  arn:aws:iot:*region*:*account\-id*:job/*job\-template\-id*  | 
 | iot:DeleteJobExecution | DeleteJobExecution |  arn:aws:iot:*region*:*account\-id*:job/*job\-id* arn:aws:iot:*region*:*account\-id*:thing/*thing\-name*  | 
 | iot:DeletePolicy | DeletePolicy |  arn:aws:iot:*region*:*account\-id*:policy/*policy\-name*  | 
 | iot:DeletePolicyVersion | DeletePolicyVersion |  arn:aws:iot:*region*:*account\-id*:policy/*policy\-name*  | 
@@ -78,6 +80,7 @@ The following table lists the IAM IoT actions, the associated AWS IoT API, and t
 | iot:DescribeIndex | DescribeIndex |  arn:aws:iot:*region*:*account\-id*:index/*index\-name*  | 
 | iot:DescribeJob | DescribeJob |  arn:aws:iot:*region*:*account\-id*:job/*job\-id*  | 
 | iot:DescribeJobExecution | DescribeJobExecution | None | 
+| iot:DescribeJobTemplate | DescribeJobTemplate |  arn:aws:iot:*region*:*account\-id*:job/*job\-template\-id*  | 
 | iot:DescribeRoleAlias | DescribeRoleAlias |  arn:aws:iot:*region*:*account\-id*:rolealias/*role\-alias\-name*  | 
 | iot:DescribeThing | DescribeThing |  arn:aws:iot:*region*:*account\-id*:thing/*thing\-name*  | 
 | iot:DescribeThingGroup | DescribeThingGroup |  arn:aws:iot:*region*:*account\-id*:thinggroup/*thing\-group\-name*  | 
@@ -106,6 +109,7 @@ The following table lists the IAM IoT actions, the associated AWS IoT API, and t
 | iot:ListJobExecutionsForJob | ListJobExecutionsForJob | None | 
 | iot:ListJobExecutionsForThing | ListJobExecutionsForThing | None | 
 | iot:ListJobs | ListJobs |  arn:aws:iot:*region*:*account\-id*:thinggroup/*thing\-group\-name* if thingGroupName parameter used  | 
+| iot:ListJobTemplates | ListJobs | None | 
 | iot:ListOutgoingCertificates | ListOutgoingCertificates | \* | 
 | iot:ListPolicies | ListPolicies | \* | 
 | iot:ListPolicyPrincipals | ListPolicyPrincipals |  arn:aws:iot:*region*:*account\-id*:policy/*policy\-name*  | 
@@ -182,17 +186,17 @@ The following table lists the IAM IoT Device Advisor actions, the associated AWS
 | --- | --- | --- | 
 | iotdeviceadvisor:CreateSuiteDefinition | CreateSuiteDefinition |  None  | 
 | iotdeviceadvisor:DeleteSuiteDefinition | DeleteSuiteDefinition |  arn:aws:iotdeviceadvisor:*region*:*account\-id*:suitedefinition/*suite\-definition\-id*  | 
-| iotdeviceadvisor:DescribeSuiteDefinition | DescribeSuiteDefinition |  arn:aws:iotdeviceadvisor:*region*:*account\-id*:suitedefinition/*suite\-definition\-id*  | 
-| iotdeviceadvisor:DescribeSuiteRun | DescribeSuiteRun |  arn:aws:iotdeviceadvisor:*region*:*account\-id*:suitedefinition/*suite\-definition\-id*  | 
+| iotdeviceadvisor:GetSuiteDefinition | GetSuiteDefinition |  arn:aws:iotdeviceadvisor:*region*:*account\-id*:suitedefinition/*suite\-definition\-id*  | 
+| iotdeviceadvisor:GetSuiteRun | GetSuiteRun |  arn:aws:iotdeviceadvisor:*region*:*account\-id*:suitedefinition/*suite\-run\-id*  | 
 | iotdeviceadvisor:GetSuiteRunReport | GetSuiteRunReport |  arn:aws:iotdeviceadvisor:*region*:*account\-id*:suiterun/*suite\-definition\-id*/*suite\-run\-id*  | 
 | iotdeviceadvisor:ListSuiteDefinitions | ListSuiteDefinitions | None | 
 | iotdeviceadvisor:ListSuiteRuns | ListSuiteRuns |  arn:aws:iotdeviceadvisor:*region*:*account\-id*:suitedefinition/*suite\-definition\-id*  | 
-| ListTagsForResource | ListTagsForResource |  arn:aws:iotdeviceadvisor:*region*:*account\-id*:suitedefinition/*suite\-definition\-id* arn:aws:iotdeviceadvisor:*region*:*account\-id*:suiterun/*suite\-run\-id*  | 
-| iotdeviceadvisor:ListTestCases | ListTestCases | None | 
+| iotdeviceadvisor:ListTagsForResource | ListTagsForResource |  arn:aws:iotdeviceadvisor:*region*:*account\-id*:suitedefinition/*suite\-definition\-id* arn:aws:iotdeviceadvisor:*region*:*account\-id*:suiterun/suite\-definition\-id/*suite\-run\-id*  | 
 | iotdeviceadvisor:StartSuiteRun | StartSuiteRun |  arn:aws:iotdeviceadvisor:*region*:*account\-id*:suitedefinition/*suite\-definition\-id*  | 
-| iotdeviceadvisor:TagResource | TagResource |  arn:aws:iotdeviceadvisor:*region*:*account\-id*:suitedefinition/*suite\-definition\-id* arn:aws:iotdeviceadvisor:*region*:*account\-id*:suiterun/*suite\-run\-id*  | 
-| iotdeviceadvisor:UntagResource | UntagResource |  arn:aws:iotdeviceadvisor:*region*:*account\-id*:suitedefinition/*suite\-definition\-id* arn:aws:iotdeviceadvisor:*region*:*account\-id*:suiterun/*suite\-run\-id*  | 
+| iotdeviceadvisor:TagResource | TagResource |  arn:aws:iotdeviceadvisor:*region*:*account\-id*:suitedefinition/*suite\-definition\-id* arn:aws:iotdeviceadvisor:*region*:*account\-id*:suiterun/suite\-definition\-id/*suite\-run\-id*  | 
+| iotdeviceadvisor:UntagResource | UntagResource |  arn:aws:iotdeviceadvisor:*region*:*account\-id*:suitedefinition/*suite\-definition\-id* arn:aws:iotdeviceadvisor:*region*:*account\-id*:suiterun/suite\-definition\-id/*suite\-run\-id*  | 
 | iotdeviceadvisor:UpdateSuiteDefinition | UpdateSuiteDefinition |  arn:aws:iotdeviceadvisor:*region*:*account\-id*:suitedefinition/*suite\-definition\-id*  | 
+| iotdeviceadvisor:StopSuiteRun | StopSuiteRun |  arn:aws:iotdeviceadvisor:*region*:*account\-id*:suiterun/suite\-definition\-id/*suite\-run\-id*  | 
 
 Policy actions in AWS IoT Device Advisor use the following prefix before the action: `iotdeviceadvisor:`\. For example, to grant someone permission to list all suite definitions registered in their AWS account with the ListSuiteDefinitions API, you include the `iotdeviceadvisor:ListSuiteDefinitions` action in their policy\.
 
@@ -225,7 +229,8 @@ For actions that don't support resource\-level permissions, such as listing oper
 | iot:ClearDefaultAuthorizer | ClearDefaultAuthorizer | None | 
 | iot:CreateAuthorizer | CreateAuthorizer |  arn:aws:iot:*region*:*account\-id*:authorizer/*authorizer\-function\-name*  | 
 | iot:CreateCertificateFromCsr | CreateCertificateFromCsr | \* | 
-| iot:CreateJob | CreateJob |  arn:aws:iot:*region*:*account\-id*:job/*job\-id*  | 
+| iot:CreateJob | CreateJob |  arn:aws:iot:*region*:*account\-id*:job/*job\-id* arn:aws:iot:*region*:*account\-id*:thinggroup/*thing\-group\-name* arn:aws:iot:*region*:*account\-id*:thing/*thing\-name* arn:aws:iot:*region*:*account\-id*:jobtemplate/*job\-template\-id*  | 
+| iot:CreateJobTemplate | CreateJobTemplate |  arn:aws:iot:*region*:*account\-id*:job/*job\-id* arn:aws:iot:*region*:*account\-id*:jobtemplate/*job\-template\-id*  | 
 | iot:CreateKeysAndCertificate | CreateKeysAndCertificate | \* | 
 | iot:CreatePolicy | CreatePolicy | \* | 
 | CreatePolicyVersion | iot:CreatePolicyVersion |  arn:aws:iot:*region*:*account\-id*:policy/*policy\-name*  This must be an AWS IoT policy, not an IAM policy\.   | 
@@ -239,6 +244,7 @@ For actions that don't support resource\-level permissions, such as listing oper
 | iot:DeleteCertificate | DeleteCertificate |  arn:aws:iot:*region*:*account\-id*:cert/*cert\-id*  | 
 | iot:DeleteJob | DeleteJob |  arn:aws:iot:*region*:*account\-id*:job/*job\-id*  | 
 | iot:DeleteJobExecution | DeleteJobExecution |  arn:aws:iot:*region*:*account\-id*:job/*job\-id* arn:aws:iot:*region*:*account\-id*:thing/*thing\-name*  | 
+| iot:DeleteJobTemplate | DeleteJobTemplate |  arn:aws:iot:*region*:*account\-id*:jobtemplate/*job\-template\-id*  | 
 | iot:DeletePolicy | DeletePolicy |  arn:aws:iot:*region*:*account\-id*:policy/*policy\-name*  | 
 | iot:DeletePolicyVersion | DeletePolicyVersion |  arn:aws:iot:*region*:*account\-id*:policy/*policy\-name*  | 
 | iot:DeleteRegistrationCode | DeleteRegistrationCode | \* | 
@@ -258,6 +264,7 @@ For actions that don't support resource\-level permissions, such as listing oper
 | iot:DescribeIndex | DescribeIndex |  arn:aws:iot:*region*:*account\-id*:index/*index\-name*  | 
 | iot:DescribeJob | DescribeJob |  arn:aws:iot:*region*:*account\-id*:job/*job\-id*  | 
 | iot:DescribeJobExecution | DescribeJobExecution | None | 
+| iot:DescribeJobTemplate | DescribeJobTemplate |  arn:aws:iot:*region*:*account\-id*:jobtemplate/*job\-template\-id*  | 
 | iot:DescribeRoleAlias | DescribeRoleAlias |  arn:aws:iot:*region*:*account\-id*:rolealias/*role\-alias\-name*  | 
 | iot:DescribeThing | DescribeThing |  arn:aws:iot:*region*:*account\-id*:thing/*thing\-name*  | 
 | iot:DescribeThingGroup | DescribeThingGroup |  arn:aws:iot:*region*:*account\-id*:thinggroup/*thing\-group\-name*  | 
@@ -285,6 +292,7 @@ For actions that don't support resource\-level permissions, such as listing oper
 | iot:ListJobExecutionsForJob | ListJobExecutionsForJob | None | 
 | iot:ListJobExecutionsForThing | ListJobExecutionsForThing | None | 
 | iot:ListJobs | ListJobs |  arn:aws:iot:*region*:*account\-id*:thinggroup/*thing\-group\-name* if thingGroupName parameter used  | 
+| iot:ListJobTemplates | ListJobTemplates | None | 
 | iot:ListOutgoingCertificates | ListOutgoingCertificates | \* | 
 | iot:ListPolicies | ListPolicies | \* | 
 | iot:ListPolicyPrincipals | ListPolicyPrincipals |  arn:aws:iot:*region*:*account\-id*:policy/*policy\-name*  | 

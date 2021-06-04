@@ -1,18 +1,15 @@
---------
-
- The Fleet Hub service is currently in public preview\. This service is subject to change\.
-
---------
-
 # How Fleet Hub for AWS IoT Device Management works<a name="what-is-aws-iot-monitor-how-it-works"></a>
 
 Administrators can use Fleet Hub for AWS IoT Device Management to create secure web applications in a few minutes without provisioning any resources or writing any code\. Web applications that you create by using Fleet Hub integrate with your existing identity systems, such as Active Directory\. This allows your administrators to apply their own authentication and authorization models\.
 
 Fleet Hub web applications integrate with AWS IoT Core fleet indexing and device monitoring\. These integrations provide the ability to monitor device health data and create alarms when devices in your fleet reach a specified state\.
 
+Fleet Hub applications use the `AWSIoTFleetHubFederationAccess` managed policy\. For more information, see [AWS managed policies for Fleet Hub for AWS IoT Device Management](security-iam-awsmanpol.md)\.
+
 **Example use cases:**
 + Visualize device connectivity issues \- You can see the number of disconnected devices in your fleet, the last connection status for a device, and the reason or reasons why devices disconnected\.
 + Set alarms \- You can set thresholds that trigger alarms when a particular number of devices disconnect\. Alarms can also notify you when a device or devices disconnect for a particular reason\. You can then look at detailed device data to investigate and troubleshoot\.
++ Run jobs \- You can run remote operations \(such as firmware updates\) on one more more devices\.
 
 ## How Fleet Hub data indexing works<a name="what-is-aws-iot-monitor-how-it-works-indexing"></a>
 
@@ -29,3 +26,9 @@ Fleet Hub web applications provide an interface that allows your users to create
 1. Configure threshold \- Set a threshold that triggers the alarms when a condition in the indexed data \(such as connectivity status over a specified interval\) is reached\.
 
 1. Configure notification \- Specify a group of recipients whom Fleet Hub notifies when the specified devices are in alarm\.
+
+## How Fleet Hub jobs work<a name="what-is-aws-iot-monitor-how-it-works-jobs"></a>
+
+You can use the Fleet Hub console to run remote operations on devices\.
+
+When job templates are enabled, you can create specific jobs from the templates in your Fleet Hub applications\.

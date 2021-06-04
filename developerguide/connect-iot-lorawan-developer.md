@@ -2,7 +2,7 @@
 
 The AWS IoT Wireless API provides the actions to create and manage AWS IoT Core for LoRaWAN resources\.
 
-The AWS SDK supports the AWS IoT Wireless API\. The following lists describe the API actions that perform the tasks described in [Using the console to add AWS IoT Core for LoRaWAN resources](connect-iot-lorawan-console.md)\.
+The AWS SDK supports the AWS IoT Wireless API\. The following lists describe the API actions that perform the tasks described in [Using the console to onboard your device and gateway to AWS IoT Core for LoRaWAN](connect-iot-lorawan-getting-started.md#connect-iot-lorawan-console)\.
 
 **AWS IoT Wireless API actions to create AWS IoT Core for LoRaWAN resources**
 + [CreateDestination](https://docs.aws.amazon.com/iot-wireless/2020-11-22/apireference/API_CreateDestination.html)

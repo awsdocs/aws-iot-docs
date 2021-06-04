@@ -1,9 +1,3 @@
---------
-
- The Fleet Hub service is currently in public preview\. This service is subject to change\.
-
---------
-
 # Creating alarms<a name="aws-iot-monitor-user-alarms-create"></a>
 
 This topic walks you through the steps required to create a Fleet Hub for AWS IoT Device Management alarm\. It assumes that your administrator has created an aggregation field out of a device shadow field named **shadow\.reported\.batterylevel**\. This custom field indicates the battery level of a device\. You need to ask your administrator to create searchable custom fields in the AWS IoT fleet indexing service\.

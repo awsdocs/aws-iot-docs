@@ -1,9 +1,3 @@
---------
-
- The Fleet Hub service is currently in public preview\. This service is subject to change\.
-
---------
-
 # AWS managed policies for Fleet Hub for AWS IoT Device Management<a name="security-iam-awsmanpol"></a>
 
 
@@ -58,4 +52,5 @@ View details about updates to AWS managed policies for Fleet Hub since this serv
 | Change | Description | Date | 
 | --- | --- | --- | 
 |   [AWSIoTFleetHubFederationAccess](https://console.aws.amazon.com/iam/home?#/policies/arn:aws:iam::aws:policy/service-role/AWSIoTFleetHubFederationAccess$jsonEditor) – Update to an existing policy  |  Fleet Hub removed the following unsupported APIs\. [\[See the AWS documentation website for more details\]](http://docs.aws.amazon.com/iot/latest/fleethubuserguide/security-iam-awsmanpol.html)  | April 12, 2021 | 
+|   [AWSIoTFleetHubFederationAccess](https://console.aws.amazon.com/iam/home?#/policies/arn:aws:iam::aws:policy/service-role/AWSIoTFleetHubFederationAccess$jsonEditor) – Update to an existing policy  |  Fleet Hub added the following APIs\. [\[See the AWS documentation website for more details\]](http://docs.aws.amazon.com/iot/latest/fleethubuserguide/security-iam-awsmanpol.html)  | May 24, 2021 | 
 |  Fleet Hub started tracking changes  |  Fleet Hub started tracking changes for its AWS managed policies\.  | April 12, 2021 | 

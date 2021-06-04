@@ -11,4 +11,5 @@ The following information might help you troubleshoot common issues in AWS IoT\.
 + [Troubleshooting "Stream limit exceeded for your AWS account"](ota-troubleshooting-stream-limit.md)
 + [AWS IoT Device Defender troubleshooting guide](device-defender-troubleshoot.md)
 + [Device Advisor troubleshooting guide](device-advisor-troubleshooting.md)
++ [Troubleshooting device fleet disconnects](ota-troubleshooting-fleet-disconnects.md)
 + [AWS IoT errors](iot-errors.md)
