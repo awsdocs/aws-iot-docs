@@ -1,10 +1,5 @@
 # Setting up<a name="device-advisor-setting-up"></a>
 
-
-|  | 
-| --- |
-| Device Advisor is in preview and is subject to change\. | 
-
 Before you use Device Advisor for the first time, complete the following tasks\.
 
 **Topics**
@@ -155,6 +150,8 @@ We recommend that you create an IAM user to use when you run Device Advisor test
 
 1. Choose **Close**\.
 
+Device Advisor requires access to your AWS resources \(things, certificates, endpoint\) on your behalf\. Your IAM user must have the necessary permissions\. Device Advisor will also publish logs to Amazon CloudWatch if you attach the necessary permissions policy to your IAM user\.
+
 ## Create an AWS IoT thing and certificate<a name="da-create-thing-certificate"></a>
 
 1. Go to the [AWS IoT Core console](https://console.aws.amazon.com/iot/)\. Log in to the account you use for Device Advisor testing, and in the left navigation pane, choose **Manage**\.
@@ -169,13 +166,11 @@ We recommend that you create an IAM user to use when you run Device Advisor test
 
 1. Copy the certificate you created in the previous step to your device\. The correct location of the certificate depends on references to the certificate in your device's software or firmware\.
 
-Device Advisor requires access to your AWS resources \(things, certificates, endpoint\) on your behalf\. Your IAM user must have the necessary permissions\. Device Advisor will also publish logs to Amazon CloudWatch if you attach the necessary permissions policy to your IAM user\.
-
 ## Configure your test device<a name="da-configure-device"></a>
 
 Device Advisor uses the server name indication \(SNI\) TLS extension to apply TLS configurations\. Devices must use this extension when connecting and pass a server name that is identical to the Device Advisor test endpoint\.
 
-Device Advisor allows the TLS connection when test is in Running state and denies the TLS connection before and after each test run\. For this reason, we also recommend using the device connect retry mechanism to have fully automated testing experience with Device Advisor\. If you run a test suite with more than one test case, for instance TLS connect, MQTT connect, and MQTT publish, then we recommend that you have a mechanism built for your device to try connecting to our test endpoint every five seconds for one to two minutes\. You can then run multiple test cases in sequence in an automated manner\.
+Device Advisor allows the TLS connection when test is in Running state and denies the TLS connection before and after each test run\. For this reason, we also recommend using the device connect retry mechanism to have fully automated testing experience with Device Advisor\. If you run a test suite with more than one test case, for instance TLS connect, MQTT connect, and MQTT publish, then we recommend that you have a mechanism built for your device to try connecting to our test endpoint every five seconds\. You can then run multiple test cases in sequence in an automated manner\.
 
 **Note**  
 To make your device software ready for testing we recommend you to have an SDK that can connect to AWS IoT Core and update the SDK with the Device Advisor test endpoint provided for your account\. 
@@ -183,5 +178,5 @@ To make your device software ready for testing we recommend you to have an SDK t
  The command to get the test endpoint is:
 
 ```
-aws iot describe-endpoint --endpoint-type iot:DeviceAdvisor --region us-east-1
+aws iot describe-endpoint --endpoint-type iot:DeviceAdvisor --region region
 ```

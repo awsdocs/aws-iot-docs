@@ -1,10 +1,5 @@
 # Device Advisor workflow<a name="device-advisor-workflow"></a>
 
-
-|  | 
-| --- |
-| Device Advisor is in preview and is subject to change\. | 
-
 This tutorial provides instructions on how to create a custom test suite and run tests against the device you want to test in the console\. After the tests are complete, you can view the test results and detailed logs\.
 
 **Topics**
@@ -12,7 +7,8 @@ This tutorial provides instructions on how to create a custom test suite and run
 + [Create a test suite definition](#device-advisor-workflow-create-suite-definition)
 + [Get a test suite run](#device-advisor-workflow-describe-suite)
 + [Start a test suite run](#device-advisor-workflow-start-suite-run)
-+ [Get a test suite run](#device-advisor-workflow-describe-suite-run)
++ [Get a test suite definition](#device-advisor-workflow-describe-suite-run)
++ [Stop a test suite run](#devive-advisor-workflow-stop-suite-run)
 + [Get a qualification report for a successful qualification test suite run](#device-advisor-workflow-qualification-report)
 
 ## Prerequisites<a name="device-advisor-workflow-prereqs"></a>
@@ -22,8 +18,6 @@ To complete this tutorial, complete the steps outlined in [Setting up](device-ad
 ## Create a test suite definition<a name="device-advisor-workflow-create-suite-definition"></a>
 
 First, [install an AWS SDK](https://docs.aws.amazon.com/iot/latest/developerguide/iot-connect-service.html#iot-service-sdks)\.
-
-Use the [ CreateSuiteDefinition](device-advisor-iot-commands.md#api-iot-CreateSuiteDefinition) API to create a test suite definition\.
 
 ### `rootGroup` syntax<a name="rootGroup"></a>
 
@@ -78,7 +72,7 @@ The following is an example of a root group configuration that specifies the "MQ
         {
             "name": "My_MQTT_Connect_Happy_Case",  // Test case definition name
             "configuration": {
-                "EXECUTION_TIMEOUT": 300000        // Test case definition-level configuration
+                "EXECUTION_TIMEOUT": 300        // Test case definition-level configuration, in seconds
             }, 
             "test": {
                 "id": "MQTT_Connect",              // test case id
@@ -86,12 +80,12 @@ The following is an example of a root group configuration that specifies the "MQ
             }
         },
         {
-            "name": "My_MQTT_Connect_Exponential_Backoff",  // Test case definition name
+            "name": "My_MQTT_Connect_Jitter_Backoff_Retries",  // Test case definition name
             "configuration": {
-                "EXECUTION_TIMEOUT": 600000                 // Test case definition-level configuration
+                "EXECUTION_TIMEOUT": 600                 // Test case definition-level configuration,  in seconds
             },
             "test": {
-                "id": "MQTT_Connect_Exponential_Backoff_Retries",  // test case id
+                "id": "MQTT_Connect_Jitter_Backoff_Retries",  // test case id
                 "version": "0.0.0"                                 // test case version
             }
         }]
@@ -124,7 +118,7 @@ response = iotDeviceAdvisorClient.createSuiteDefinition(
 
 ## Get a test suite run<a name="device-advisor-workflow-describe-suite"></a>
 
-After you create your test suite definition, you receive the `suiteDefinitionId` in the response object of the `CreateSuiteDefinition` API\. Use the [ GetSuiteDefinition](device-advisor-iot-commands.md#api-iot-GetSuiteDefinition) API to retrieve the test suite definitions information and to verify that all the information in the test suite definition is correct\. 
+After you create your test suite definition, you receive the `suiteDefinitionId` in the response object of the `CreateSuiteDefinition` API\.
 
 You may see that there are new `id` fields within each of the group and test case definitions in the root group that is returned\. This is expected and you can use these IDs to run a subset of your test suite definition\.
 
@@ -140,7 +134,7 @@ response = iotDeviceAdvisorClient.GetSuiteDefinition(
 
 ## Start a test suite run<a name="device-advisor-workflow-start-suite-run"></a>
 
-After you've successfully created a test suite definition and configured your test device to connect to your Device Advisor test endpoint, run your test suite with the [ StartSuiteRun](device-advisor-iot-commands.md#api-iot-StartSuiteRun) API\. Use either `certificateArn` or `thingArn` to run the test suite\. If both are configured, the certificate will be used if it belongs to the thing\.
+After you've successfully created a test suite definition and configured your test device to connect to your Device Advisor test endpoint, run your test suite with the `StartSuiteRun` API\. Use either `certificateArn` or `thingArn` to run the test suite\. If both are configured, the certificate will be used if it belongs to the thing\.
 
 SDK example: 
 
@@ -158,9 +152,9 @@ response = iotDeviceAdvisorClient.startSuiteRun(StartSuiteRunRequest.builder()
 
 Save the `suiteRunId` that is returned in the response—you will use this to retrieve the results of this test suite run\.
 
-## Get a test suite run<a name="device-advisor-workflow-describe-suite-run"></a>
+## Get a test suite definition<a name="device-advisor-workflow-describe-suite-run"></a>
 
-After you start a test suite run, you can check its progress and, eventually, its results with the [ GetSuiteRun](device-advisor-iot-commands.md#api-iot-GetSuiteRun) API\.
+After you start a test suite run, you can check its progress and its results with the `GetSuiteRun` API\.
 
 SDK example:
 
@@ -169,6 +163,22 @@ SDK example:
 
 response = iotDeviceAdvisorClient.GetSuiteRun(
 GetSuiteRunRequest.builder()
+    .suiteDefinitionId("your-suite-definition-id")
+    .suiteRunId("your-suite-run-id")
+.build())
+```
+
+## Stop a test suite run<a name="devive-advisor-workflow-stop-suite-run"></a>
+
+ AWS IoT Device Advisor allows one active test suite run at a time\. To stop a test suite run still in progress, you can call the `StopSuiteRun` API\. After you call the `StopSuiteRun` API, the service will start the cleanup process\. While the service is running the cleanup process, test suite run status will be `Stopping`\. The cleanup process will take several minutes, and once the process is complete, the test suite run will have the `Stopped` status\. After a test run has completely stopped you will be able to start another test suite run\. You can periodically check the suite run status using the `GetSuiteRun` API as shown in the previous section\. 
+
+SDK example:
+
+```
+// Using the SDK, call the StopSuiteRun API.
+
+response = iotDeviceAdvisorClient.StopSuiteRun(
+StopSuiteRun.builder()
     .suiteDefinitionId("your-suite-definition-id")
     .suiteRunId("your-suite-run-id")
 .build())

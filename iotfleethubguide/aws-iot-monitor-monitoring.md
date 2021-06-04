@@ -1,9 +1,3 @@
---------
-
- The Fleet Hub service is currently in public preview\. This service is subject to change\.
-
---------
-
 # Monitoring Fleet Hub for AWS IoT Device Management<a name="aws-iot-monitor-monitoring"></a>
 
 Monitoring is an important part of maintaining the reliability, availability, and performance of Fleet Hub and your other AWS solutions\. AWS provides the following monitoring tools to watch Fleet Hub, report when something is wrong, and take automatic actions when appropriate\.

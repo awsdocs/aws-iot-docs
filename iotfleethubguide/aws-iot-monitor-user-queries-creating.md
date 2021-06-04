@@ -1,9 +1,3 @@
---------
-
- The Fleet Hub service is currently in public preview\. This service is subject to change\.
-
---------
-
 # Creating queries with filters<a name="aws-iot-monitor-user-queries-creating"></a>
 
 This topic explains how Fleet Hub for AWS IoT Device Management queries work and walks you through the steps required to create a query with filters\.

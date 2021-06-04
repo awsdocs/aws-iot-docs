@@ -1,9 +1,3 @@
---------
-
- The Fleet Hub service is currently in public preview\. This service is subject to change\.
-
---------
-
 # Create your first query<a name="aws-iot-monitor-user-getting-started-first-query"></a>
 
 This topic walks you through the steps to create a simple Fleet Hub for AWS IoT Device Management query\.

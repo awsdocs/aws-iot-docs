@@ -1,9 +1,3 @@
---------
-
- The Fleet Hub service is currently in public preview\. This service is subject to change\.
-
---------
-
 # Getting started<a name="aws-iot-monitor-user-getting-started"></a>
 
 This section contains information about getting started with using the features of Fleet Hub for AWS IoT Device Management web applications\.

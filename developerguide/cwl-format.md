@@ -80,7 +80,8 @@ The AWS IoT message broker generates a log entry with an `eventType` of `Disconn
     "clientId": "abf27092886e49a8a5c1922749736453",
     "principalId": "145179c40e2219e18a909d896a5340b74cf97a39641beec2fc3eeafc5a932167",
     "sourceIp": "205.251.233.181",
-    "sourcePort": 13490
+    "sourcePort": 13490,
+    "disconnectReason": "CLIENT_INITIATED_DISCONNECT"
 }
 ```
 
@@ -100,6 +101,9 @@ The IP address where the request originated\.
 
 sourcePort  
 The port where the request originated\.
+
+disconnectReason  
+The reason why the client is disconnecting\.
 
 ### Publish\-In log entry<a name="log-mb-publish-in"></a>
 

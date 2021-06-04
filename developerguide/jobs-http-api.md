@@ -379,6 +379,7 @@ PUT /jobs/jobId
 "document": "string",
 "documentSource": "string",
 "description": "string",
+"jobTemplateArn": "string",
 "presignedUrlConfigData": {
     "roleArn": "string", 
     "expiresInSec": "integer" 
@@ -425,6 +426,9 @@ Optional\. An Amazon S3 link to the job document\.
 
 `description`  
 Optional\. A short text description of the job\.
+
+`jobTemplateArn`  
+The ARN of the job template used to create the job\.
 
 `presignedUrlConfigData`  
 Optional\. Configuration information for presigned Amazon S3 URLs\.    
@@ -502,6 +506,7 @@ aws iot  create-job \
 [--document-source <value>] \
 [--document <value>] \
 [--description <value>] \
+[--job-template-arn <value>] \
 [--presigned-url-config <value>] \
 [--target-selection <value>] \
 [--job-executions-rollout-config <value>] \
@@ -523,6 +528,7 @@ aws iot  create-job \
 "documentSource": "string",
 "document": "string",
 "description": "string",
+"jobTemplateArn": "string",
 "presignedUrlConfig": {
 "roleArn": "string",
 "expiresInSec": long
@@ -569,6 +575,7 @@ aws iot  create-job \
 |  documentSource  |  string  length max:1350 min:1  |  An S3 link to the job document\.  | 
 |  document  |  string  length max:32768  |  The job document\.  | 
 |  description  |  string  length max:2028  pattern: \[^\\\\p\{C\}\]\+  |  A short text description of the job\.  | 
+|  jobTemplateArn  |  string  length max:1600  pattern: ^arn:\[\!\-\~\]\+$  |  The ARN of the job template used to create the job\.  | 
 |  presignedUrlConfig  |  PresignedUrlConfig  |  Configuration information for presigned S3 URLs\.  | 
 |  roleArn  |  string  length max:2048 min:20  |  The ARN of an IAM role that grants permission to download files from the Amazon S3 bucket where the job data or updates are stored\. The role must also grant permission for AWS IoT to download the files\.  | 
 |  expiresInSec  |  long  java class: java\.lang\.Long  range\- max:3600 min:60  |  How long \(in seconds\) presigned URLs are valid\. Valid values are 60 \- 3600\. The default value is 3600 seconds\. Presigned URLs are generated when the AWS IoT Jobs service receives an MQTT request for the job document\.  | 
@@ -865,6 +872,7 @@ Output:
   "string"
 ],
 "description": "string",
+"jobTemplateArn": "string",
 "presignedUrlConfig": {
   "roleArn": "string",
   "expiresInSec": long
@@ -932,6 +940,7 @@ Output:
 |  targets  |  list  member: TargetArn  |  A list of AWS IoT things and thing groups to which the job should be sent\.  | 
 |  TargetArn  |  string  |    | 
 |  description  |  string  length max:2028  pattern: \[^\\\\p\{C\}\]\+  |  A short text description of the job\.  | 
+|  jobTemplateArn  |  string  length max:1600  pattern: ^arn:\[\!\-\~\]\+$  |  The ARN of the job template used to create the job\.  | 
 |  presignedUrlConfig  |  PresignedUrlConfig  |  Configuration for presigned Amazon S3 URLs\.  | 
 |  roleArn  |  string  length max:2048 min:20  |  The ARN of an IAM role that grants permission to download files from the Amazon S3 bucket where the job data or updates are stored\. The role must also grant permission for tAWS IoT Jobs service to download the files\.  | 
 |  expiresInSec  |  long  java class: java\.lang\.Long  range\- max:3600 min:60  |  How long \(in seconds\) presigned URLs are valid\. Valid values are 60 \- 3600\. The default value is 3600 seconds\. Presigned URLs are generated when the AWS IoT Jobs service receives an MQTT request for the job document\.  | 

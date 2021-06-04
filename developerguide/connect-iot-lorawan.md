@@ -1,76 +1,58 @@
-# Connecting devices and gateways to AWS IoT Core for LoRaWAN<a name="connect-iot-lorawan"></a>
+# AWS IoT Core for LoRaWAN<a name="connect-iot-lorawan"></a>
 
-Long range WAN \(LoRaWAN\) devices and gateways can connect to AWS IoT Core by using AWS IoT Core for LoRaWAN\. The [LoRa Alliance](https://lora-alliance.org/about-lorawan) describes LoRaWAN as, *"a Low Power, Wide Area \(LPWA\) networking protocol designed to wirelessly connect battery operated ‘things’ to the internet in regional, national or global networks, and targets key Internet of Things \(IoT\) requirements such as bi\-directional communication, end\-to\-end security, mobility and localization services\."* 
+The [LoRa Alliance](https://lora-alliance.org/about-lorawan) describes LoRaWAN as, *"a Low Power, Wide Area \(LPWA\) networking protocol designed to wirelessly connect battery operated ‘things’ to the internet in regional, national or global networks, and targets key Internet of Things \(IoT\) requirements such as bi\-directional communication, end\-to\-end security, mobility and localization services\."*\.
 
-LoRaWAN devices communicate with AWS IoT Core through LoRaWAN gateways\. AWS IoT rules send LoRaWAN device messages to other AWS services and can process the device messages to format the data for the services\. 
+## What is LoRaWAN?<a name="connect-iot-lorawan-what-is-lorawan"></a>
 
-AWS IoT Core for LoRaWAN manages the service and device policies that AWS IoT Core requires to manage and communicate with the LoRaWAN gateways and devices\. AWS IoT Core for LoRaWAN also manages the destinations that describe the AWS IoT rules that send device data to other services\.
+The LoRaWAN protocol is a Low Power Wide Area Networking \(LPWAN\) protocol that functions on LoRa, which is a wireless audio frequency technology that operates in a license\-free radio frequency spectrum\. The LoRaWAN specification is open so anyone can set up and operate a LoRa network\. The LoRa technology supports long\-range communication at the cost of a narrow bandwidth\. It uses a narrow band waveform with a central frequency to send data, which makes it robust to interference\. Following are the characteristics of the LoRaWAN technology\.
 
-**To get started using AWS IoT Core for LoRaWAN**
+**Characteristics of LoRaWAN technology**
++ Long range communication up to 10 miles in line of sight\.
++ Long battery duration of up to 10 years\. For enhanced battery life, you can operate your devices in Class A or Class B mode, which requires increased downlink latency\.
++ Low cost for devices and maintenance\.
++ License\-free radio spectrum but region\-specific regulations apply\.
++ Low power but has a limited payload size of 51 bytes to 241 bytes depending on the data rate\. The data rate can be 0,3 Kbit/s – 27 Kbit/s data rate with a 222 maximal payload size\.
+
+## What AWS IoT Core for LoRaWAN can do<a name="connect-iot-lorawan-what-is-iot-lorawan"></a>
+
+The LoRaWAN network architecture is deployed in a star of stars topology in which gateways relay information between end devices and the LoRaWAN Network Server \(LNS\)\.
+
+AWS IoT Core for LoRaWAN helps you connect and manage wireless LoRaWAN \(low\-power long\-range Wide Area Network\) devices and replaces the need for you to develop and operate a LNS\. Long range WAN \(LoRaWAN\) devices and gateways can connect to AWS IoT Core by using AWS IoT Core for LoRaWAN\.
+
+![\[Image showing how AWS IoT Core provides device endpoints to connect IoT devices to AWS IoT and service endpoints to connect apps and other services to AWS IoT Core.\]](http://docs.aws.amazon.com/iot/latest/developerguide/images/iot-endpoints.png)
+
+LoRaWAN devices communicate with AWS IoT Core through LoRaWAN gateways\.
++ **Devices**: LoRaWAN end devices connect to LoRaWAN gateways using the LoRa communication protocol\.
++ **Gateways**: LoRaWAN gateways connect to AWS IoT Core using LoRa BasicStation protocol over secure WebSockets\.
++ **AWS IoT Core for LoRaWAN**: AWS IoT Core for LoRaWAN manages the service and device policies that AWS IoT Core requires to manage and communicate with the LoRaWAN gateways and devices\. AWS IoT Core for LoRaWAN also manages the destinations that describe the AWS IoT rules that send device data to other services\.
++ **Apps and services**: AWS IoT rules send LoRaWAN device messages to other AWS services and can process the device messages to format the data for the services\.
+
+## Learning resources for AWS IoT Core for LoRaWAN<a name="connect-iot-lorawan-training-learn-more"></a>
+
+The following resources will help you get familiar with the LoRaWAN technology and AWS IoT Core for LoRaWAN\.
+
+**Learn more about LoRaWAN**  
+The following links contain helpful information about the LoRaWAN technology and about LoRa Basics Station, which is the software that runs on your LoRaWAN gateways for connecting end devices to AWS IoT Core for LoRaWAN\.
 + 
 
-**Select the wireless devices and LoRaWAN gateways that you'll need**  
-The [AWS Partner Device Catalog](https://devices.amazonaws.com/search?page=1&sv=iotclorawan) contains gateways and developer kits that are qualified for use with AWS IoT Core for LoRaWAN\.
+**[ The Things Fundamentals on LoRaWAN](https://www.thethingsnetwork.org/docs/lorawan/)**  
+The Things Fundamentals on LoRaWAN contains an introductory video that covers the fundamentals of LoRaWAN and a series of chapters that'll help you learn about LoRa and LoRaWAN\.
 + 
 
-**Add your wireless devices and LoRaWAN gateways to AWS IoT Core for LoRaWAN**  
-[Adding LoRaWAN gateways and devices](#connect-iot-lorawan-getting-started-overview) describes how to add your wireless devices and LoRaWAN gateways to AWS IoT Core for LoRaWAN\. You'll also learn how to configure the other AWS IoT Core for LoRaWAN resources that you'll need to manage these devices and send their data to AWS services\.
+**[ What is LoRaWAN](https://lora-alliance.org/resource_hub/what-is-lorawan/)**  
+LoRa Alliance provides a technical overview of LoRa and LoRaWAN including a summary of the LoRaWAN specifications in different regions\.
 + 
 
-**Complete your AWS IoT Core for LoRaWAN solution**  
-Start with [our sample AWS IoT Core for LoRaWAN solution](https://github.com/aws-samples/aws-iot-core-lorawan) and make it yours\.
+**[ LoRa Basics Station](https://lora-developers.semtech.com/resources/tools/lora-basics/)**  
+Semtech Corporation provides helpful concepts about LoRa basics for gateways and end nodes\. LoRa Basics Station, an open source software that runs on your LoRaWAN gateway, is maintained and distributed via Semtech Corporation's [ GitHub](https://github.com/lorabasics/basicstation) repository\. You can also learn about the LNS and CUPS protocols that describe how to exchange LoRaWAN data and perform configuration updates\.
 
-**Topics**
-+ [Adding LoRaWAN gateways and devices](#connect-iot-lorawan-getting-started-overview)
-+ [Using the console to add AWS IoT Core for LoRaWAN resources](connect-iot-lorawan-console.md)
-+ [Using the API to manage AWS IoT Core for LoRaWAN resources](connect-iot-lorawan-developer.md)
-+ [Data security with AWS IoT Core for LoRaWAN](connect-iot-lorawan-security.md)
+**AWS IoT Core for LoRaWAN Resources**  
+The following links contain helpful information about getting started with AWS IoT Core for LoRaWAN and how it can help you build IoT solutions\.
++ 
 
-## Adding LoRaWAN gateways and devices<a name="connect-iot-lorawan-getting-started-overview"></a>
+**[ Getting Started with AWS IoT Core for LoRaWAN](https://www.youtube.com/watch?v=6-ZrdRjqdTk/)**  
+ The following video describes how AWS IoT Core for LoRaWAN works and walks you through the process of adding LoRaWAN gateways from the AWS Management Console\.
++ 
 
-If you're using AWS IoT Core for LoRaWAN for the first time, you can add your first LoRaWAN gateway and device by using the [AWS IoT Core for LoRaWAN](https://console.aws.amazon.com/iot/home#/wireless/landing) Intro page of the AWS IoT console and choosing **Get started**\.
-
-Whether you [use the console](connect-iot-lorawan-console.md) or [use the API](connect-iot-lorawan-developer.md) to add your AWS IoT Core for LoRaWAN resources, consider the following topics before you get started\. Adding the resources can be easier when you have the following information ready before you start\.
-
-1. 
-
-**The naming conventions for your devices, gateways, profiles, and destinations**  
-AWS IoT Core for LoRaWAN assigns unique IDs to the resources you create for wireless devices, gateways, and profiles; however, you can also give your resources more descriptive names to make it easier to identify them\. Before you add devices, gateways, profiles, and destinations to AWS IoT Core for LoRaWAN, consider how you'll name them to make them easier to manage\.
-
-   You can also add tags to the resources you create\. Before you add your LoRaWAN devices, consider how you might use tags to identify and manage your AWS IoT Core for LoRaWAN resources\. Tags can be modified after you add them\. 
-
-   For more information about naming and tagging, see [Describe your AWS IoT Core for LoRaWAN resources](connect-iot-lorawan-describe-resource.md)\.
-
-1. 
-
-**The selection of LoRa frequency bands for your gateways and device connection**  
-AWS IoT Core for LoRaWAN supports EU863\-870, US902\-928, AU915, and AS923\-1 frequency bands, which you can use to connect your gateways and devices that are physically present in countries that support the frequency ranges and characteristics of these bands\. The EU863\-870 and US902\-928 bands are commonly used in Europe and North America, respectively\. The AS923\-1 band is commonly used in Australia, New Zealand, Japan, and Singapore among other countries\. The AU915 is used in Australia and Argentina among other countries\. To learn more about which frequency band to use in your region or country, see [ LoRaWAN® Regional Parameters](https://lora-alliance.org/resource_hub/rp2-101-lorawan-regional-parameters-2/)\.
-
-   LoRa Alliance publishes LoRaWAN specifications and regional parameter documents that are available for download from the LoRa Alliance website\. The LoRa Alliance regional parameters help companies decide which frequency band to use in their region or country\. AWS IoT Core for LoRaWAN's frequency band implementation follows the recommendation in the regional parameters specification document\. These regional parameters are grouped into a set of radio parameters, along with a frequency allocation that is adapted to the Industrial, Scientific, and Medical \(ISM\) band\. We recommend that you work with the compliance teams to ensure that you meet any applicable regulatory requirements\. 
-
-1. 
-
-**The configuration parameters of the wireless devices**  
-Some wireless device configuration parameters are shared by many devices and can be stored in AWS IoT Core for LoRaWAN as device and service profiles\. Collecting these parameters in advance can make it easier to identify and enter them\.
-   + Wireless device configuration parameters include: the device's EUI, application and session security keys, and device profile settings such as data rate and channel information\.
-   + Wireless gateway configuration parameters include: the gateway's EUI and its LoRa frequency band\.
-   + Refer to the documentation about each device that its vendor provides for the complete listing of its specifications and configuration parameters\.
-
-   Having the configuration parameters that are unique to each device ready to enter in advance makes entering the data into the console go more smoothly\. The specific parameters that you need to enter depend on the LoRaWAN specification that the device uses\.
-
-1. 
-
-**The configuration parameters of the LoRaWAN gateways**  
-Having the configuration parameters that are unique to each gateway ready to enter in advance makes entering the data into the console go more smoothly\.
-
-1. 
-
-**The mapping of the device data to service data**  
-The data from LoRaWAN wireless devices is often encoded to optimize bandwidth\. These encoded messages arrive at AWS IoT Core for LoRaWAN in a format that might not be easily used by other AWS services\. AWS IoT Core for LoRaWAN uses AWS IoT rules that can use AWS Lambda functions to process and decode the device messages to a format that other AWS services can use\.
-
-   To transform device data and send it to other AWS services, you need to know:
-   + The format and contents of the data that the wireless devices send\.
-   + The service to which you want to send the data\.
-   + The format that service requires\.
-
-   Using that information, you can create the AWS IoT rule that performs the conversion and sends the converted data to the AWS services that will use it\.
+**[AWS IoT Core for LoRaWAN workshop](https://iotwireless.workshop.aws/en/)**  
+The workshop covers fundamentals of LoRaWAN technology and their implementation with AWS IoT Core for LoRaWAN\. You can also use the workshop to walk through labs that show how to connect your gateway and device to AWS IoT Core for LoRaWAN to building a sample IoT solution\.

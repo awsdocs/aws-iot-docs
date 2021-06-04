@@ -1,9 +1,3 @@
---------
-
- The Fleet Hub service is currently in public preview\. This service is subject to change\.
-
---------
-
 # Getting started<a name="aws-iot-monitor-admin-getting-started"></a>
 
 This topic explains how to get set up to create Fleet Hub for AWS IoT Device Management web applications and create your first web application\.

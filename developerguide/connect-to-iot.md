@@ -70,4 +70,4 @@ AWS IoT Core for LoRaWAN device communications use X\.509 certificates to secure
 + 
 
 **Learn more**  
-For more information about configuring and connecting wireless devices, see [Connecting devices and gateways to AWS IoT Core for LoRaWAN](connect-iot-lorawan.md)\.
+For more information about configuring and connecting wireless devices, see [AWS IoT Core for LoRaWAN](connect-iot-lorawan.md)\.
