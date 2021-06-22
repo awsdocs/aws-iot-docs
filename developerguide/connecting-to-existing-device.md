@@ -342,7 +342,7 @@ The *your\-iot\-endpoint* value has a format of: `endpoint_id-ats.iot.region.ama
 
    If you're having trouble running the sample app, review [Troubleshooting problems with the sample app](gs-device-troubleshoot.md)\.
 
-   You can also add the `--verbosity debug` parameter to the command line so the sample app displays detailed messages about what it’s doing\. That information might provide you the help you need to correct the problem\. 
+   You can also add the `--verbosity Debug` parameter to the command line so the sample app displays detailed messages about what it’s doing\. That information might provide you the help you need to correct the problem\. 
 
 ------
 #### [ JavaScript ]
