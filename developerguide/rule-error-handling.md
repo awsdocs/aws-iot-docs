@@ -68,7 +68,7 @@ Here is an example of a rule with an added error action\. The following rule has
     "errorAction" : { 
         "s3" : {
             "roleArn": "arn:aws:iam::123456789012:role/aws_iot_s3",
-            "bucket" : "message-processing-errors",
+            "bucketName" : "message-processing-errors",
             "key" : "${replace(topic(), '/', '-') + '-' + timestamp() + '-' + newuuid()}"
         }
     }
