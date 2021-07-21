@@ -1,0 +1,625 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" ng-app="AWSDocsDocPageApp">
+   <head>
+      <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+      <title>Creating and managing custom authorizers - AWS IoT Core</title>
+      <meta name="viewport" content="width=device-width,initial-scale=1" />
+      <meta name="assets_root" content="assets" />
+      <meta name="target_state" content="config-custom-auth" />
+      <meta name="default_state" content="config-custom-auth" />
+      <link rel="icon" type="image/ico" href="/assets/images/favicon.ico" />
+      <link rel="shortcut icon" type="image/ico" href="/assets/images/favicon.ico" />
+      <link rel="canonical" href="https://docs.aws.amazon.com/iot/latest/developerguide/config-custom-auth.html" />
+      <meta name="description" content="AWS IoT Core implements custom authentication and authorization schemes by using authorizer resources . Each authorizer consists of the following components:" />
+      <meta name="deployment_region" content="IAD" />
+      <meta name="product" content="AWS IoT Core" />
+      <meta name="guide" content="Developer Guide" />
+      <meta name="locales" content="de_de:Deutsch/en_us:English/es_es:Español/fr_fr:Français/it_it:Italiano/ja_jp:日本語/ko_kr:한국어/pt_br:Português/zh_cn:中文 (简体)/zh_tw:中文 (繁體)" />
+      <meta name="abstract" content="AWS IoT provides secure, bi-directional communication between Internet-connected devices such as sensors, actuators, embedded micro-controllers, or smart appliances and the AWS Cloud. This enables you to collect telemetry data from multiple devices, and store and analyze the data. You can also create applications that enable your users to control these devices from their phones or tablets." />
+      <meta name="guide-locale" content="en_us" />
+      <meta name="tocs" content="toc-contents.json" />
+      <meta name="feedback-item" content="IoT Docs" />
+      <meta name="this_doc_product" content="AWS IoT Core" />
+      <meta name="this_doc_guide" content="Developer Guide" />
+      <link href="assets/css/vendor4.css" rel="stylesheet" />
+      <link href="assets/css/awsdocs-common.css" rel="stylesheet" /><script type="text/javascript" src="assets/js/vendor3.js" defer=""></script><script type="text/javascript" src="assets/js/vendor4.js" defer=""></script><script type="text/javascript" src="assets/js/vendor1.js" defer=""></script><script type="text/javascript" src="assets/js/awsdocs-common.js" defer=""></script><script type="text/javascript" src="assets/js/awsdocs-doc-app.js" defer=""></script></head>
+   <body class="awsdocs awsui">
+      <div class="awsdocs-container">
+         <awsdocs-header></awsdocs-header>
+         <awsui-app-layout id="app-layout" class="awsui-util-no-gutters" ng-controller="ContentController as $ctrl" header-selector="awsdocs-header" navigation-hide="false" navigation-width="$ctrl.navWidth" navigation-open="$ctrl.navOpen" navigation-change="$ctrl.onNavChange($event)" tools-hide="$ctrl.hideTools" tools-width="$ctrl.toolsWidth" tools-open="$ctrl.toolsOpen" tools-change="$ctrl.onToolsChange($event)">
+            <div id="guide-toc" dom-region="navigation">
+               <awsdocs-toc></awsdocs-toc>
+            </div>
+            <div id="main-column" dom-region="content" tabindex="-1">
+               <awsdocs-view class="awsdocs-view">
+                  <div id="awsdocs-content">
+                     <head>
+                        <title>Creating and managing custom authorizers - AWS IoT Core</title>
+                        <meta name="pdf" content="iot-dg.pdf#config-custom-auth" />
+                        <meta name="kindle" content="https://www.amazon.com/dp/B07JBRCWWZ" />
+                        <meta name="github" content="https://github.com/awsdocs/aws-iot-docs/tree/master/developerguide/config-custom-auth.md" />
+                        <meta name="forums" content="http://forums.aws.amazon.com/forum.jspa?forumID=210" />
+                        <meta name="feedback" content="https://docs.aws.amazon.com/forms/aws-doc-feedback?hidden_service_name=IoT%20Docs&amp;topic_url=http://docs.aws.amazon.com/en_us/iot/latest/developerguide/config-custom-auth.html" />
+                        <meta name="feedback-yes" content="feedbackyes.html?topic_url=http://docs.aws.amazon.com/en_us/iot/latest/developerguide/config-custom-auth.html" />
+                        <meta name="feedback-no" content="feedbackno.html?topic_url=http://docs.aws.amazon.com/en_us/iot/latest/developerguide/config-custom-auth.html" />
+                        <meta name="keywords" content="AWS IoT,IoT,Internet of Things" />
+                     </head>
+                     <body>
+                        <div id="main">
+                           <div style="display: none"><a href="iot-dg.pdf#config-custom-auth" target="_blank" rel="noopener noreferrer" title="Open PDF"></a><a target="_blank" rel="noopener noreferrer" href="https://www.amazon.com/dp/B07JBRCWWZ" title="Open Kindle"></a><a href="https://github.com/awsdocs/aws-iot-docs/tree/master/developerguide/config-custom-auth.md" target="_blank" rel="noopener noreferrer" title="Edit this page on GitHub"></a></div>
+                           <div id="breadcrumbs" class="breadcrumb"><a href="http://aws.amazon.com">AWS</a><a href="/index.html">Documentation</a><a href="/iot/index.html">AWS IoT Core</a><a href="what-is-aws-iot.html">Developer Guide</a></div>
+                           <div id="page-toc-src"><a href="#custom-auth-lambda">Defining your Lambda function</a><a href="#custom-auth-create-authorizer">Creating an authorizer</a><a href="#custom-auth-testing">Testing your authorizers</a><a href="#custom-auth-manage">Managing custom authorizers</a></div>
+                           <div id="main-content" class="awsui-util-container">
+                              <div id="main-col-body">
+                                 <awsdocs-language-banner data-service="$ctrl.pageService"></awsdocs-language-banner>
+                                 <h1 class="topictitle" id="config-custom-auth">Creating and managing custom authorizers</h1>
+                                 <div class="awsdocs-page-header-container">
+                                    <awsdocs-page-header></awsdocs-page-header>
+                                    <awsdocs-filter-selector id="awsdocs-filter-selector"></awsdocs-filter-selector>
+                                 </div>
+                                 <p>
+                                    AWS IoT Core implements custom authentication and authorization schemes by using <a href="https://docs.aws.amazon.com/iot/latest/apireference/API_AuthorizerDescription.html">authorizer resources</a>. Each authorizer
+                                    consists of the following components:
+                                    
+                                 </p>
+                                 <div class="itemizedlist">
+                                     
+                                     
+                                     
+                                     
+                                     
+                                    
+                                    <ul class="itemizedlist" type="disc">
+                                       <li class="listitem">            
+                                          <p>
+                                             <em>Name</em>: A unique user-defined string that
+                                             identifies the authorizer.
+                                             
+                                          </p>
+                                       </li>
+                                       <li class="listitem">
+                                          <p>
+                                             <em>Lambda function ARN</em>: The Amazon Resource Name (ARN) of
+                                             the Lambda function that implements the authorization and authentication
+                                             logic.  
+                                          </p>
+                                       </li>
+                                       <li class="listitem">
+                                          <p>
+                                             <em>Token key name</em>: The key
+                                             name used to extract the token from the HTTP headers, query parameters, 
+                                             or MQTT CONNECT user name in order to perform signature validation. This value is
+                                             required if signing
+                                             is enabled in your authorizer.
+                                             
+                                          </p>
+                                       </li>
+                                       <li class="listitem">
+                                          <p>
+                                             <em>Signing disabled flag (optional)</em>: A Boolean value that
+                                             specifies whether to disable the signing requirement on credentials. This is
+                                             useful for scenarios where signing the credentials doesn't make sense, such
+                                             as authentication schemes that use MQTT user name and password. The default
+                                             value is <code class="code">false</code>, so signing is enabled by default. 
+                                          </p>
+                                       </li>
+                                       <li class="listitem">
+                                          <p>
+                                             <em>Token signing public key</em>: The public key that AWS IoT Core
+                                             uses to validate the token signature. Its minimum length is 2,048 bits. This
+                                             value is required if signing is enabled in your authorizer.  
+                                          </p>
+                                       </li>
+                                    </ul>
+                                 </div>
+                                 <p>Lambda charges you for the number of times your Lambda function runs and for the amount
+                                    of time it takes for the code in your function to execute. 
+                                    For more information about Lambda pricing, 
+                                    see <a href="https://aws.amazon.com/lambda/pricing/" rel="noopener noreferrer" target="_blank"><span>Lambda Pricing</span><awsui-icon class="awsdocs-link-icon" name="external"></awsui-icon></a>. For more information about creating Lambda functions, see the 
+                                    <a href="https://docs.aws.amazon.com/lambda/latest/dg/">Lambda Developer Guide</a>.
+                                 </p>
+                                 <div class="awsdocs-note">
+                                    <div class="awsdocs-note-title">
+                                       <awsui-icon name="status-info" variant="link"></awsui-icon><span>Note</span></div>
+                                    <div class="awsdocs-note-text">
+                                       <p>If you leave signing enabled, you can prevent excessive triggering
+                                          of your Lambda by unrecognized clients. Consider this before
+                                          you disable signing in your authorizer.
+                                       </p>
+                                    </div>
+                                 </div>
+                                 
+                                 <h2 id="custom-auth-lambda">Defining your Lambda function</h2>
+                                 
+                                 <p> When AWS IoT Core invokes your authorizer, it triggers the associated Lambda
+                                    associated with the authorizer with an event that contains the following JSON
+                                    object. The example JSON object contains all of the possible fields. Any fields
+                                    that aren't relevant to the connection request aren't included. 
+                                 </p>
+                                 <pre class="programlisting"><div class="code-btn-container"><div class="btn-copy-code" title="Copy"><awsui-icon name="copy"></awsui-icon></div></div><code class="json ">
+<span>{</span>
+    "token" :"aToken",
+    "signatureVerified": Boolean, // Indicates whether the device gateway has validated the signature.
+    "protocols": ["tls", "http", "mqtt"], // Indicates which protocols to expect for the request.
+    "protocolData": <span>{</span>
+        "tls" : <span>{</span>
+            "serverName": "serverName" // The server name indication (SNI) <code class="code" copy="true">host_name</code> string.
+        },
+        "http": <span>{</span>
+            "headers": <span>{</span>
+                "#<span>{</span>name}": "#<span>{</span>value}"
+            },
+            "queryString": "?#<span>{</span>name}=#<span>{</span>value}"
+        },
+        "mqtt": <span>{</span>
+            "username": "myUserName",
+            "password": "myPassword", // A base64-encoded string.
+            "clientId": "myClientId" // Included in the event only when the device sends the value.
+        }
+    },
+    "connectionMetadata": <span>{</span>
+        "id": UUID // The connection ID. You can use this for logging.
+    },
+}
+</code></pre>
+                                 <p> The Lambda function should use this information to authenticate the incoming
+                                    connection and decide what actions are permitted in the connection. The function
+                                    should send a response that contains the following values. 
+                                 </p>
+                                 
+                                 <div class="itemizedlist">
+                                     
+                                     
+                                     
+                                     
+                                     
+                                    
+                                    <ul class="itemizedlist" type="disc">
+                                       <li class="listitem">
+                                          
+                                          <p>
+                                             <code class="code">isAuthenticated</code>: A Boolean value that indicates whether the
+                                             request is authenticated. 
+                                          </p>
+                                          
+                                       </li>
+                                       <li class="listitem">
+                                          
+                                          <p>
+                                             <code class="code">principalId</code>: An alphanumeric string that acts as an
+                                             identifier for the token sent by the custom authorization request. Its
+                                             minimum length is 1 character. Its maximum length is 128 characters. 
+                                          </p>
+                                          
+                                       </li>
+                                       <li class="listitem">
+                                          
+                                          <p>
+                                             <code class="code">policyDocuments</code>: A list of JSON-formatted AWS IoT Core policy
+                                             documents For more information about creating AWS IoT Core policies, see
+                                             <a href="./iot-policies.html">AWS IoT Core policies</a>. The maximum number of policy
+                                             documents is 10 policy documents. Each policy document can contain a
+                                             maximum of 2,048 characters. 
+                                          </p>
+                                          
+                                       </li>
+                                       <li class="listitem">
+                                          
+                                          <p>
+                                             <code class="code">disconnectAfterInSeconds</code>: An integer that specifies the
+                                             maximum duration (in seconds) of the connection to the AWS IoT Core
+                                             gateway. The minimum value is 300 seconds, and the maximum value is
+                                             86,400 seconds. 
+                                          </p>
+                                          
+                                       </li>
+                                       <li class="listitem">
+                                          
+                                          <p>
+                                             <code class="code">refreshAfterInSeconds</code>: An integer that specifies the
+                                             interval between policy refreshes. When this interval passes, AWS IoT Core
+                                             invokes the Lambda function to allow for policy refreshes. The minimum
+                                             value is 300 seconds, and the maximum value is 86,400 seconds. 
+                                          </p>
+                                          
+                                       </li>
+                                    </ul>
+                                 </div>
+                                 
+                                 <p>  The following JSON object contains an example of a response that your Lambda
+                                    function can send. 
+                                 </p>
+                                 <pre class="programlisting"><div class="code-btn-container"><div class="btn-copy-code" title="Copy"><awsui-icon name="copy"></awsui-icon></div></div><code class="json ">
+<span>{</span>
+"isAuthenticated":true, //A Boolean that determines whether client can connect.
+"principalId": "xxxxxxxx",  //A string that identifies the connection in logs.
+"disconnectAfterInSeconds": 86400, 
+"refreshAfterInSeconds": 300, 
+ "policyDocuments": [
+      <span>{</span>
+        "Version": "2012-10-17",
+        "Statement": [
+           <span>{</span>
+              "Action": "iot:Publish",
+              "Effect": "Allow",
+              "Resource": "arn:aws:iot:us-east-1:&lt;your_aws_account_id&gt;:topic/customauthtesting"
+            }
+         ]
+       }
+    ]
+}
+</code></pre>
+                                 <p> The <code class="code">policyDocument</code> value must contain a valid AWS IoT Core policy
+                                    document. For more information about AWS IoT Core policies, see <a href="./iot-policies.html">AWS IoT Core policies</a>.  In MQTT over TLS and MQTT over WebSockets
+                                    connections, AWS IoT Core caches this policy for the interval specified in the
+                                    value of the <code class="code">refreshAfterInSeconds</code> field. During this interval,
+                                    AWS IoT Core authorizes actions in an established connection against this cached
+                                    policy without triggering your Lambda function again. If failures occur during
+                                    custom authentication, AWS IoT Core terminates the connection. AWS IoT Core also
+                                    terminates the connection if it has been open for longer than the value
+                                    specified in the <code class="code">disconnectAfterInSeconds</code>parameter. 
+                                 </p>
+                                 
+                                 <p> The following JavaScript contains a sample Node.js Lambda function that looks
+                                    for a password in the MQTT Connect message with a value of <code class="code">test</code> and
+                                    returns a policy that grants permission to connect to AWS IoT Core with a client
+                                    named <code class="code">myClientName</code> and publish to a topic that contains the same
+                                    client name. If it doesn't find the expected password, it returns a policy that
+                                    denies those two actions. 
+                                 </p>
+                                 <pre class="programlisting"><div class="code-btn-container"><div class="btn-copy-code" title="Copy"><awsui-icon name="copy"></awsui-icon></div></div><code class="javascript ">
+// A simple Lambda function for an authorizer. It demonstrates 
+// how to parse an MQTT password and generate a response.
+
+exports.handler = function(event, context, callback) <span>{</span> 
+    var uname = event.protocolData.mqtt.username;
+    var pwd = event.protocolData.mqtt.password;
+    var buff = new Buffer(pwd, 'base64');
+    var passwd = buff.toString('ascii');
+    switch (passwd) <span>{</span> 
+        case 'test': 
+            callback(null, generateAuthResponse(passwd, 'Allow')); 
+        default: 
+            callback(null, generateAuthResponse(passwd, 'Deny'));  
+    }
+};
+
+// Helper function to generate the authorization response.
+var generateAuthResponse = function(token, effect) <span>{</span> 
+    var authResponse = <span>{</span>}; 
+    authResponse.isAuthenticated = true; 
+    authResponse.principalId = 'TEST123'; 
+    
+    var policyDocument = <span>{</span>}; 
+    policyDocument.Version = '2012-10-17'; 
+    policyDocument.Statement = []; 
+    var publishStatement = <span>{</span>}; 
+    var connectStatement = <span>{</span>};
+    connectStatement.Action = ["iot:Connect"];
+    connectStatement.Effect = effect;
+    connectStatement.Resource = ["arn:aws:iot:us-east-1:123456789012:client/myClientName"];
+    publishStatement.Action = ["iot:Publish"]; 
+    publishStatement.Effect = effect; 
+    publishStatement.Resource = ["arn:aws:iot:us-east-1:123456789012:topic/telemetry/myClientName"]; 
+    policyDocument.Statement[0] = connectStatement;
+    policyDocument.Statement[1] = publishStatement; 
+    authResponse.policyDocuments = [policyDocument]; 
+    authResponse.disconnectAfterInSeconds = 3600; 
+    authResponse.refreshAfterInSeconds = 300;
+    
+    return authResponse; 
+}
+</code></pre>
+                                 <p> This Lambda function returns the following values when it receives the
+                                    expected value of <code class="code">test</code> in the MQTT Connect password field. 
+                                 </p>
+                                 <pre class="programlisting"><div class="code-btn-container"><div class="btn-copy-code" title="Copy"><awsui-icon name="copy"></awsui-icon></div></div><code class="json ">
+<span>{</span>
+  "password": "<code class="replaceable">password</code>",
+  "isAuthenticated": true,
+  "principalId": "<code class="replaceable">principalId</code>",
+  "policyDocuments": [
+    <span>{</span>
+      "Version": "2012-10-17",
+      "Statement": [
+        <span>{</span>
+          "Action": "iot:Connect",
+          "Effect": "Allow",
+          "Resource": "*"
+        },
+        <span>{</span>
+          "Action": "iot:Publish",
+          "Effect": "Allow",
+          "Resource": "arn:aws:<code class="replaceable">region</code>:<code class="replaceable">accountId</code>:topic/telemetry/$<span>{</span>iot:ClientId}"
+        },
+        <span>{</span>
+          "Action": "iot:Subscribe",
+          "Effect": "Allow",
+          "Resource": "arn:aws:iot:<code class="replaceable">region</code>:<code class="replaceable">accountId</code>:topicfilter/telemetry/$<span>{</span>iot:ClientId}"
+        },
+        <span>{</span>
+          "Action": "iot:Receive",
+          "Effect": "Allow",
+          "Resource": "arn:aws:iot:<code class="replaceable">region</code>:<code class="replaceable">accountId</code>:topic/telemetry/$<span>{</span>iot:ClientId}"
+        }
+      ]
+    }
+  ],
+  "disconnectAfterInSeconds": 3600,
+  "refreshAfterInSeconds": 300
+}
+</code></pre>
+                                  
+                                 <h2 id="custom-auth-create-authorizer">Creating an authorizer</h2>
+                                 
+                                 <p> You can create an authorizer by using the <a href="https://docs.aws.amazon.com/iot/latest/apireference/API_CreateAuthorizer.html">CreateAuthorizer
+                                       API</a>. The following example shows how to do this. 
+                                 </p>
+                                 <pre class="programlisting"><div class="code-btn-container"><div class="btn-copy-code" title="Copy"><awsui-icon name="copy"></awsui-icon></div></div><code class="nohighlight">
+ aws iot create-authorizer
+--authorizer-name MyAuthorizer
+--authorizer-function-arn arn:aws:lambda:us-west-2:&lt;account_id&gt;:function:MyAuthorizerFunction  //The ARN of the Lambda function.
+[--token-key-name MyAuthorizerToken //The key used to extract the token from headers.
+[--token-signing-public-keys FirstKey=
+ "-----BEGIN PUBLIC KEY-----
+  [...insert your public key here...] 
+  -----END PUBLIC KEY-----"
+[--status ACTIVE]
+[--tags &lt;value&gt;]
+[--signing-disabled | --no-signing-disabled]
+</code></pre>
+                                 <p> ​ </p>
+                                 
+                                 <p> You can use the <code class="code">signing-disabled</code> parameter to opt out of
+                                    signature validation for each invocation of your authorizer. We strongly
+                                    recommend that you do not disable signing unless you have to. Signature
+                                    validation protects you against excessive invocations of your Lambda function
+                                    from unknown devices. You can't update the <code class="code">signing-disabled</code> status
+                                    of an authorizer after you create it. To change this behavior, you must create
+                                    another custom authorizer with a different value for the
+                                    <code class="code">signing-disabled</code> parameter. 
+                                 </p>
+                                 
+                                 <p> Values for the <code class="code">tokenKeyName</code> and
+                                    <code class="code">tokenSigningPublicKeys</code> parameters are optional if you have
+                                    disabled signing. They are required values if signing is enabled. 
+                                 </p>
+                                 
+                                 <p> After you create your Lambda function and the custom authorizer, you must
+                                    explicitly grant the AWS IoT Core service permission to invoke the function on your
+                                    behalf. You can do this with the following command. 
+                                 </p>
+                                 
+                                 <p>
+                                    <code class="code">aws lambda add-permission --function-name &lt;lambda_function_name&gt;
+                                       --principal iot.amazonaws.com --source-arn &lt;authorizer_arn&gt;
+                                       --statement-id Id-123 --action "lambda:InvokeFunction"</code>
+                                    
+                                 </p>
+                                  
+                                 
+                                 <h2 id="custom-auth-testing">Testing your authorizers</h2>
+                                 
+                                 <p>
+                                    You can use the
+                                    <a href="https://docs.aws.amazon.com/iot/latest/apireference/API_TestInvokeAuthorizer.html">TestInvokeAuthorizer</a>
+                                    API to test the invocation and return values of your authorizer. This
+                                    API enables you to specify protocol metadata and test the
+                                    signature validation in your authorizer.  
+                                    
+                                 </p>
+                                 
+                                 <p>The following tabs show how to use the AWS CLI to test your authorizer.</p>
+                                 
+                                 <awsdocs-tabs>
+                                    <dl style="display: none">
+                                       
+                                       <dt>Unix-like</dt>
+                                       <dd tab-id="unix-like">
+                                          <pre class="programlisting"><div class="code-btn-container"><div class="btn-copy-code" title="Copy"><awsui-icon name="copy"></awsui-icon></div></div><code class="nohighlight">aws iot test-invoke-authorizer --authorizer-name <code class="replaceable">NAME_OF_AUTHORIZER</code> \
+--token <code class="replaceable">TOKEN_VALUE</code> --token-signature <code class="replaceable">TOKEN_SIGNATURE</code></code></pre>
+                                          </dd>
+                                       
+                                       <dt>Windows CMD</dt>
+                                       <dd tab-id="windows-cmd">
+                                          <pre class="programlisting"><div class="code-btn-container"><div class="btn-copy-code" title="Copy"><awsui-icon name="copy"></awsui-icon></div></div><code class="nohighlight">aws iot test-invoke-authorizer --authorizer-name <code class="replaceable">NAME_OF_AUTHORIZER</code> ^
+--token <code class="replaceable">TOKEN_VALUE</code> --token-signature <code class="replaceable">TOKEN_SIGNATURE</code></code></pre>
+                                          </dd> 
+                                       
+                                       <dt>Windows PowerShell</dt>
+                                       <dd tab-id="windows-powershell">
+                                          <pre class="programlisting"><div class="code-btn-container"><div class="btn-copy-code" title="Copy"><awsui-icon name="copy"></awsui-icon></div></div><code class="nohighlight">aws iot test-invoke-authorizer --authorizer-name <code class="replaceable">NAME_OF_AUTHORIZER</code> `
+--token <code class="replaceable">TOKEN_VALUE</code> --token-signature <code class="replaceable">TOKEN_SIGNATURE</code></code></pre>
+                                          </dd> 
+                                       
+                                    </dl>
+                                 </awsdocs-tabs>
+                                 
+                                 <p>The value of the <code class="code">token-signature</code> parameter is the signed token. To learn how to obtain this value, see <a href="./custom-auth.html#custom-auth-token-signature">Signing the token</a>.
+                                 </p>
+                                 
+                                 <p>If your authorizer takes a user name and password, you can pass this information by
+                                    using the <code class="code">--mqtt-context</code> parameter. The following tabs 
+                                    show how to use the <code class="code">TestInvokeAuthorizer</code> API to send a JSON object that contains a user name, password, and client name to
+                                    your custom authorizer.
+                                 </p>
+                                 
+                                 <awsdocs-tabs>
+                                    <dl style="display: none">
+                                       
+                                       <dt>Unix-like</dt>
+                                       <dd tab-id="unix-like">
+                                          <pre class="programlisting"><div class="code-btn-container"><div class="btn-copy-code" title="Copy"><awsui-icon name="copy"></awsui-icon></div></div><code class="nohighlight">
+aws iot test-invoke-authorizer --authorizer-name <code class="replaceable">NAME_OF_AUTHORIZER</code>  \
+--mqtt-context '<span>{</span>"username": "<code class="replaceable">USER_NAME</code>", "password": "dGVzdA==", "clientId":"<code class="replaceable">CLIENT_NAME</code>"}'
+                </code></pre>
+                                          </dd>
+                                       
+                                       <dt>Windows CMD</dt>
+                                       <dd tab-id="windows-cmd">
+                                          <pre class="programlisting"><div class="code-btn-container"><div class="btn-copy-code" title="Copy"><awsui-icon name="copy"></awsui-icon></div></div><code class="nohighlight">
+aws iot test-invoke-authorizer --authorizer-name <code class="replaceable">NAME_OF_AUTHORIZER</code>  ^
+--mqtt-context '<span>{</span>"username": "<code class="replaceable">USER_NAME</code>", "password": "dGVzdA==", "clientId":"<code class="replaceable">CLIENT_NAME</code>"}'
+                </code></pre>
+                                          </dd> 
+                                       
+                                       <dt>Windows PowerShell</dt>
+                                       <dd tab-id="windows-powershell">
+                                          <pre class="programlisting"><div class="code-btn-container"><div class="btn-copy-code" title="Copy"><awsui-icon name="copy"></awsui-icon></div></div><code class="nohighlight">
+aws iot test-invoke-authorizer --authorizer-name <code class="replaceable">NAME_OF_AUTHORIZER</code>  `
+--mqtt-context '<span>{</span>"username": "<code class="replaceable">USER_NAME</code>", "password": "dGVzdA==", "clientId":"<code class="replaceable">CLIENT_NAME</code>"}'
+                </code></pre>
+                                          </dd> 
+                                       
+                                    </dl>
+                                 </awsdocs-tabs>
+                                 
+                                 <p>The password must be base64-encoded. The following example shows how to encode a password
+                                    in a Unix-like environment.
+                                 </p>
+                                 <pre class="programlisting"><div class="code-btn-container"><div class="btn-copy-code" title="Copy"><awsui-icon name="copy"></awsui-icon></div></div><code class="nohighlight">
+echo -n <code class="replaceable">PASSWORD</code> | base64
+                </code></pre>
+                                  
+                                 <h2 id="custom-auth-manage">Managing custom authorizers</h2>
+                                 
+                                 <p>
+                                    You can manage your authorizers by using the following APIs.
+                                    
+                                 </p>
+                                 
+                                 <div class="itemizedlist">
+                                     
+                                     
+                                     
+                                     
+                                     
+                                    
+                                    <ul class="itemizedlist" type="disc">
+                                       <li class="listitem">
+                                          <p><a href="https://docs.aws.amazon.com/iot/latest/apireference/API_ListAuthorizers.html">ListAuthorizers</a>: 
+                                             Show all authorizers in your account.
+                                          </p>
+                                       </li>
+                                       <li class="listitem">
+                                          <p>
+                                             <a href="https://docs.aws.amazon.com/iot/latest/apireference/API_DescribeAuthorizer.html">DescribeAuthorizer</a>: 
+                                             Displays properties of the specified authorizer. These values include
+                                             creation date, last modified date, and other attributes.
+                                          </p>
+                                       </li>
+                                       <li class="listitem">
+                                          <p><a href="https://docs.aws.amazon.com/iot/latest/apireference/API_SetDefaultAuthorizer.html">SetDefaultAuthorizer</a>: Specifies the default authorizer for your AWS IoT Core data endpoints. 
+                                             AWS IoT Core uses this authorizer if a device doesn't pass AWS IoT Core credentials
+                                             and doesn't specify an authorizer. 
+                                             For more information about using AWS IoT Core credentials, see <a href="./client-authentication.html">Client authentication</a>.
+                                          </p>
+                                       </li>
+                                       <li class="listitem">
+                                          <p><a href="https://docs.aws.amazon.com/iot/latest/apireference/API_UpdateAuthorizer.html">UpdateAuthorizer</a>: 
+                                             Changes the status, token key name, or public keys for the
+                                             specified authorizer.
+                                          </p>
+                                       </li>
+                                       <li class="listitem">
+                                          <p>
+                                             <a href="https://docs.aws.amazon.com/iot/latest/apireference/API_DeleteAuthorizer.html">DeleteAuthorizer</a>: Deletes the specified authorizer.
+                                             
+                                          </p>
+                                       </li>
+                                    </ul>
+                                 </div>
+                                 
+                                 <div class="awsdocs-note">
+                                    <div class="awsdocs-note-title">
+                                       <awsui-icon name="status-info" variant="link"></awsui-icon><span>Note</span></div>
+                                    <div class="awsdocs-note-text">
+                                       <p> You can't update an authorizer's signing requirement. This means that you can't disable
+                                          signing in an existing authorizer that requires it. You also can't require
+                                          signing in an existing authorizer that doesn't require it. 
+                                       </p>
+                                    </div>
+                                 </div>
+                                 
+                                 
+                                 <awsdocs-copyright class="copyright-print"></awsdocs-copyright>
+                                 <awsdocs-thumb-feedback right-edge="{{$ctrl.thumbFeedbackRightEdge}}"></awsdocs-thumb-feedback>
+                              </div>
+                              <noscript>
+                                 <div>
+                                    <div>
+                                       <div>
+                                          <div id="js_error_message">
+                                             <p><img src="https://d1ge0kk1l5kms0.cloudfront.net/images/G/01/webservices/console/warning.png" alt="Warning" /> <strong>Javascript is disabled or is unavailable in your
+                                                   browser.</strong></p>
+                                             <p>To use the Amazon Web Services Documentation, Javascript must be
+                                                enabled. Please refer to your browser's Help pages for instructions.
+                                             </p>
+                                          </div>
+                                       </div>
+                                    </div>
+                                 </div>
+                              </noscript>
+                              <div id="main-col-footer" class="awsui-util-font-size-0">
+                                 <div id="doc-conventions"><a target="_top" href="/general/latest/gr/docconventions.html">Document Conventions</a></div>
+                                 <div class="prev-next">
+                                    <div id="previous" class="prev-link" accesskey="p" href="./custom-authorizer.html">Understanding the custom authentication workflow</div>
+                                    <div id="next" class="next-link" accesskey="n" href="./custom-auth.html">Connecting to AWS IoT Core by using custom authentication</div>
+                                 </div>
+                              </div>
+                              <awsdocs-page-utilities></awsdocs-page-utilities>
+                           </div>
+                           <div id="quick-feedback-yes" style="display: none;">
+                              <div class="title">Did this page help you? - Yes</div>
+                              <div class="content">
+                                 <p>Thanks for letting us know we're doing a good
+                                    job!
+                                 </p>
+                                 <p>If you've got a moment, please tell us what we did right
+                                    so we can do more of it.
+                                 </p>
+                                 <p>
+                                    <awsui-button id="fblink" target="_blank" text="Feedback" click="linkClick($event)" href="https://docs.aws.amazon.com/forms/aws-doc-feedback?hidden_service_name=IoT Docs&amp;topic_url=https://docs.aws.amazon.com/en_us/iot/latest/developerguide/config-custom-auth.html"></awsui-button>
+                                 </p>
+                              </div>
+                           </div>
+                           <div id="quick-feedback-no" style="display: none;">
+                              <div class="title">Did this page help you? - No</div>
+                              <div class="content">
+                                 <p>Thanks for letting us know this page needs work. We're
+                                    sorry we let you down.
+                                 </p>
+                                 <p>If you've got a moment, please tell us how we can make
+                                    the documentation better.
+                                 </p>
+                                 <p>
+                                    <awsui-button id="fblink" target="_blank" text="Feedback" click="linkClick($event)" href="https://docs.aws.amazon.com/forms/aws-doc-feedback?hidden_service_name=IoT Docs&amp;topic_url=https://docs.aws.amazon.com/en_us/iot/latest/developerguide/config-custom-auth.html"></awsui-button>
+                                 </p>
+                              </div>
+                           </div>
+                        </div>
+                     </body>
+                  </div>
+               </awsdocs-view>
+               <div class="page-loading-indicator" id="page-loading-indicator">
+                  <awsui-spinner size="large"></awsui-spinner>
+               </div>
+            </div>
+            <div id="tools-panel" dom-region="tools">
+               <awsdocs-tools-panel id="awsdocs-tools-panel"></awsdocs-tools-panel>
+            </div>
+         </awsui-app-layout>
+         <awsdocs-cookie-banner class="doc-cookie-banner"></awsdocs-cookie-banner>
+         <!--
+                SiteCatalyst code version: H.25.2.
+                Copyright 1996-2012 Adobe, Inc. All Rights Reserved
+                More info available at http://www.omniture.com
+            --><script language="JavaScript" type="text/javascript">
+var awsdocs = awsdocs || {};
+awsdocs.prop66 = 'AWS IoT Core';
+awsdocs.prop65 =  'Developer Guide';
+            </script><script src="https://a0.awsstatic.com/s_code/js/3.0/awshome_s_code.js" language="JavaScript" type="text/javascript"></script>
+         <!--/DO NOT REMOVE/-->
+         <!--End SiteCatalyst code version: H.25.2.--></div>
+   </body>
+</html>

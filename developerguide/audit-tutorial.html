@@ -1,0 +1,789 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" ng-app="AWSDocsDocPageApp">
+   <head>
+      <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+      <title>Audit guide - AWS IoT Core</title>
+      <meta name="viewport" content="width=device-width,initial-scale=1" />
+      <meta name="assets_root" content="assets" />
+      <meta name="target_state" content="audit-tutorial" />
+      <meta name="default_state" content="audit-tutorial" />
+      <link rel="icon" type="image/ico" href="/assets/images/favicon.ico" />
+      <link rel="shortcut icon" type="image/ico" href="/assets/images/favicon.ico" />
+      <link rel="canonical" href="https://docs.aws.amazon.com/iot/latest/developerguide/audit-tutorial.html" />
+      <meta name="description" content="Initialize AWS IoT Device Defender's auditing capabilities." />
+      <meta name="deployment_region" content="IAD" />
+      <meta name="product" content="AWS IoT Core" />
+      <meta name="guide" content="Developer Guide" />
+      <meta name="locales" content="de_de:Deutsch/en_us:English/es_es:Español/fr_fr:Français/it_it:Italiano/ja_jp:日本語/ko_kr:한국어/pt_br:Português/zh_cn:中文 (简体)/zh_tw:中文 (繁體)" />
+      <meta name="abstract" content="AWS IoT provides secure, bi-directional communication between Internet-connected devices such as sensors, actuators, embedded micro-controllers, or smart appliances and the AWS Cloud. This enables you to collect telemetry data from multiple devices, and store and analyze the data. You can also create applications that enable your users to control these devices from their phones or tablets." />
+      <meta name="guide-locale" content="en_us" />
+      <meta name="tocs" content="toc-contents.json" />
+      <meta name="feedback-item" content="IoT Docs" />
+      <meta name="this_doc_product" content="AWS IoT Core" />
+      <meta name="this_doc_guide" content="Developer Guide" />
+      <link href="assets/css/vendor4.css" rel="stylesheet" />
+      <link href="assets/css/awsdocs-common.css" rel="stylesheet" /><script type="text/javascript" src="assets/js/vendor3.js" defer=""></script><script type="text/javascript" src="assets/js/vendor4.js" defer=""></script><script type="text/javascript" src="assets/js/vendor1.js" defer=""></script><script type="text/javascript" src="assets/js/awsdocs-common.js" defer=""></script><script type="text/javascript" src="assets/js/awsdocs-doc-app.js" defer=""></script></head>
+   <body class="awsdocs awsui">
+      <div class="awsdocs-container">
+         <awsdocs-header></awsdocs-header>
+         <awsui-app-layout id="app-layout" class="awsui-util-no-gutters" ng-controller="ContentController as $ctrl" header-selector="awsdocs-header" navigation-hide="false" navigation-width="$ctrl.navWidth" navigation-open="$ctrl.navOpen" navigation-change="$ctrl.onNavChange($event)" tools-hide="$ctrl.hideTools" tools-width="$ctrl.toolsWidth" tools-open="$ctrl.toolsOpen" tools-change="$ctrl.onToolsChange($event)">
+            <div id="guide-toc" dom-region="navigation">
+               <awsdocs-toc></awsdocs-toc>
+            </div>
+            <div id="main-column" dom-region="content" tabindex="-1">
+               <awsdocs-view class="awsdocs-view">
+                  <div id="awsdocs-content">
+                     <head>
+                        <title>Audit guide - AWS IoT Core</title>
+                        <meta name="pdf" content="iot-dg.pdf#audit-tutorial" />
+                        <meta name="kindle" content="https://www.amazon.com/dp/B07JBRCWWZ" />
+                        <meta name="github" content="https://github.com/awsdocs/aws-iot-docs/tree/master/developerguide/audit-tutorial.md" />
+                        <meta name="forums" content="http://forums.aws.amazon.com/forum.jspa?forumID=210" />
+                        <meta name="feedback" content="https://docs.aws.amazon.com/forms/aws-doc-feedback?hidden_service_name=IoT%20Docs&amp;topic_url=http://docs.aws.amazon.com/en_us/iot/latest/developerguide/audit-tutorial.html" />
+                        <meta name="feedback-yes" content="feedbackyes.html?topic_url=http://docs.aws.amazon.com/en_us/iot/latest/developerguide/audit-tutorial.html" />
+                        <meta name="feedback-no" content="feedbackno.html?topic_url=http://docs.aws.amazon.com/en_us/iot/latest/developerguide/audit-tutorial.html" />
+                        <meta name="keywords" content="AWS IoT,IoT,Internet of Things" />
+                     </head>
+                     <body>
+                        <div id="main">
+                           <div style="display: none"><a href="iot-dg.pdf#audit-tutorial" target="_blank" rel="noopener noreferrer" title="Open PDF"></a><a target="_blank" rel="noopener noreferrer" href="https://www.amazon.com/dp/B07JBRCWWZ" title="Open Kindle"></a><a href="https://github.com/awsdocs/aws-iot-docs/tree/master/developerguide/audit-tutorial.md" target="_blank" rel="noopener noreferrer" title="Edit this page on GitHub"></a></div>
+                           <div id="breadcrumbs" class="breadcrumb"><a href="http://aws.amazon.com">AWS</a><a href="/index.html">Documentation</a><a href="/iot/index.html">AWS IoT Core</a><a href="what-is-aws-iot.html">Developer Guide</a></div>
+                           <div id="page-toc-src"><a href="#audit-tutorial-prerequisites">Prerequisites</a><a href="#audit-tutorial-enable-checks">Enable audit checks</a><a href="#audit-tutorial-view-audit">View audit results</a><a href="#audit-tutorial-mitigation">Creating audit mitigation actions</a><a href="#apply-mitigation-actions">Apply mitigation actions to your audit findings</a><a href="#audit-tutorial-enable-sns">Enable SNS notifications (optional)</a><a href="#enable-logging">Enable logging (optional)</a><a href="#audit-iam">Creating a AWS IoT Device Defender Audit IAM role (optional)</a></div>
+                           <div id="main-content" class="awsui-util-container">
+                              <div id="main-col-body">
+                                 <awsdocs-language-banner data-service="$ctrl.pageService"></awsdocs-language-banner>
+                                 <h1 class="topictitle" id="audit-tutorial">Audit guide</h1>
+                                 <div class="awsdocs-page-header-container">
+                                    <awsdocs-page-header></awsdocs-page-header>
+                                    <awsdocs-filter-selector id="awsdocs-filter-selector"></awsdocs-filter-selector>
+                                 </div>
+                                 <p>This tutorial provides instructions on how to configure a recurring audit, setting
+                                    up
+                                    alarms, reviewing audit results and mitigating audit issues.
+                                 </p>
+                                 <div class="highlights" id="inline-topiclist">
+                                    <p><strong>Topics</strong></p>
+                                    <ul>
+                                       <li><a href="#audit-tutorial-prerequisites">Prerequisites</a></li>
+                                       <li><a href="#audit-tutorial-enable-checks">Enable audit checks</a></li>
+                                       <li><a href="#audit-tutorial-view-audit">View audit results</a></li>
+                                       <li><a href="#audit-tutorial-mitigation">Creating audit mitigation actions</a></li>
+                                       <li><a href="#apply-mitigation-actions">Apply mitigation actions to your audit findings</a></li>
+                                       <li><a href="#audit-tutorial-enable-sns">Enable SNS notifications (optional)</a></li>
+                                       <li><a href="#enable-logging">Enable logging (optional)</a></li>
+                                       <li><a href="#audit-iam">Creating a AWS IoT Device Defender Audit IAM role (optional)</a></li>
+                                    </ul>
+                                 </div>
+                                 
+                                 <h2 id="audit-tutorial-prerequisites">Prerequisites</h2>
+                                 
+                                 <p>To complete this tutorial, you need the following:</p>
+                                 
+                                 <div class="itemizedlist">
+                                     
+                                    
+                                    <ul class="itemizedlist" type="disc">
+                                       <li class="listitem">
+                                          
+                                          <p>An AWS account. If you don't have this, see <a href="https://docs.aws.amazon.com/iot/latest/developerguide/dd-setting-up.html">Setting
+                                                up</a>.
+                                          </p>
+                                          
+                                       </li>
+                                    </ul>
+                                 </div>
+                                  
+                                 
+                                 <h2 id="audit-tutorial-enable-checks">Enable audit checks</h2>
+                                 
+                                 <p>In the following procedure, you enable audit checks that look at account and device
+                                    settings and policies to ensure security measures are in place. In this tutorial we
+                                    instruct you to enable all audit checks, but you're able to select whichever checks
+                                    you
+                                    wish.
+                                 </p>
+                                 
+                                 <p>Audit pricing is per device count per month (fleet devices connected to AWS IoT).
+                                    Therefore, adding or removing audit checks would not affect your monthly bill when
+                                    using
+                                    this feature.
+                                 </p>
+                                 
+                                 <div class="procedure">
+                                    <ol>
+                                       <li>
+                                          
+                                          <p>In the <a href="https://console.aws.amazon.com/iot" rel="noopener noreferrer" target="_blank"><span>AWS IoT console</span><awsui-icon class="awsdocs-link-icon" name="external"></awsui-icon></a>,
+                                             in the navigation pane, expand <b>Defend</b> and select
+                                             <b>Get started with an audit</b>.
+                                          </p>
+                                          
+                                          <div class="mediaobject">
+                                              
+                                             <img src="images/audit-get-started.png" class="aws-docs-img-whiteBg aws-docs-img-padding" />
+                                              
+                                             
+                                          </div>
+                                          
+                                       </li>
+                                       <li>
+                                          
+                                          <p>The <b>Get started with Device Defender Audit</b> screen gives
+                                             an overview of the steps required to enable the audit checks. Once you've
+                                             reviewed the screen, select <b>Next</b>.
+                                          </p>
+                                          
+                                       </li>
+                                       <li>
+                                          
+                                          <p>If you already have a role to use, you can select it. Otherwise select
+                                             <b>Create Role</b> and name it
+                                             <code class="replaceable">AWSIoTDeviceDefenderAudit</code>.
+                                          </p>
+                                          
+                                          <div class="mediaobject">
+                                              
+                                             <img src="images/audit-review-perms.png" class="aws-docs-img-whiteBg aws-docs-img-padding" />
+                                              
+                                             
+                                          </div>
+                                          
+                                          <p>You should see the required permissions automatically attached to the role.
+                                             Select the triangles next to <b>Permissions</b> and
+                                             <b>Trust relationships</b> to see what permissions are
+                                             granted. Select <b>Next</b> when you're ready to move on.
+                                          </p>
+                                          
+                                          <div class="mediaobject">
+                                              
+                                             <img src="images/audit-role-attached.png" class="aws-docs-img-whiteBg aws-docs-img-padding" />
+                                              
+                                             
+                                          </div>
+                                          
+                                       </li>
+                                       <li>
+                                          
+                                          <p>On the <b>Select checks</b> screen you will see all audit checks
+                                             you can select. For this tutorial, we instruct you to select all checks but you
+                                             can select whichever checks you want. Next to each audit check is a help icon
+                                             that describes what the audit check does. For more information about audit
+                                             checks, see <a href="https://docs.aws.amazon.com/iot/latest/developerguide/device-defender-audit-checks.html">Audit
+                                                Checks</a>.
+                                          </p>
+                                          
+                                          <p>Select <b>Next</b> once you've selected your checks.
+                                          </p>
+                                          
+                                          <div class="mediaobject">
+                                              
+                                             <img src="images/audit-select-checks.png" class="aws-docs-img-whiteBg aws-docs-img-padding" />
+                                              
+                                             
+                                          </div>
+                                          
+                                          <p>You can always change your configured Audit checks under
+                                             <b>Settings</b>.
+                                          </p>
+                                          
+                                       </li>
+                                       <li>
+                                          
+                                          <p>On the <b>Configure SNS (optional)</b> screen, select
+                                             <b>Enable audit</b>. If you'd like to enable SNS
+                                             notifications, see <a href="#audit-tutorial-enable-sns">Enable SNS notifications (optional)</a>.
+                                          </p>
+                                          
+                                          <div class="mediaobject">
+                                              
+                                             <img src="images/audit-optional-sns-config.png" class="aws-docs-img-whiteBg aws-docs-img-padding" />
+                                              
+                                             
+                                          </div>
+                                          
+                                       </li>
+                                       <li>
+                                          
+                                          <p>You'll be redirected to <b>Schedules</b> under
+                                             <b>Audit</b>.
+                                          </p>
+                                          
+                                          <div class="mediaobject">
+                                              
+                                             <img src="images/scheduled-audits.png" class="aws-docs-img-whiteBg aws-docs-img-padding" />
+                                              
+                                             
+                                          </div>
+                                          
+                                       </li>
+                                    </ol>
+                                 </div>
+                                  
+                                 
+                                 <h2 id="audit-tutorial-view-audit">View audit results</h2>
+                                 
+                                 <p>The following procedure shows you how to view your audit results. In this tutorial,
+                                    you see the audit results from the audit checks set up in <a href="#audit-tutorial-enable-checks">Enable audit checks</a> tutorial.
+                                 </p>
+                                 
+                                 <div class="procedure">
+                                    <p class="title"><b>To view audit results</b></p>
+                                    <ol>
+                                       <li>
+                                          
+                                          <p>In the <a href="https://console.aws.amazon.com/iot" rel="noopener noreferrer" target="_blank"><span>AWS IoT console</span><awsui-icon class="awsdocs-link-icon" name="external"></awsui-icon></a>,
+                                             in the navigation pane, expand <b>Defend</b>, select
+                                             <b>Audit</b>, and select <b>Results</b>.
+                                          </p>
+                                          
+                                       </li>
+                                       <li>
+                                          
+                                          <p>The <b>Summary</b> will tell you if you have any non-compliant
+                                             checks.
+                                          </p>
+                                          
+                                          <div class="mediaobject">
+                                              
+                                             <img src="images/audit-results.png" class="aws-docs-img-whiteBg aws-docs-img-padding" />
+                                              
+                                             
+                                          </div>
+                                          
+                                       </li>
+                                       <li>
+                                          
+                                          <p>Select the <b>Name</b> of the audit check you'd like to
+                                             investigate.
+                                          </p>
+                                          
+                                          <div class="mediaobject">
+                                              
+                                             <img src="images/audit-findings.png" class="aws-docs-img-whiteBg aws-docs-img-padding" />
+                                              
+                                             
+                                          </div>
+                                          
+                                       </li>
+                                       <li>
+                                          
+                                          <p>Use the question marks for guidance on how to make your non-compliant checks
+                                             compliant. For example, you can follow <a href="#enable-logging">Enable logging (optional)</a> to make the "Logging disabled" check
+                                             compliant.
+                                          </p>
+                                          
+                                       </li>
+                                    </ol>
+                                 </div>
+                                  
+                                 
+                                 <h2 id="audit-tutorial-mitigation">Creating audit mitigation actions</h2>
+                                 
+                                 <p>In the following procedure, you will create a AWS IoT Device Defender Audit Mitigation
+                                    Action to enable
+                                    AWS IoT logging. Each audit check has mapped mitigation actions that will affect which
+                                    <b>Action type</b> you choose for the audit check you want to fix. For
+                                    more information, see <a href="https://docs.aws.amazon.com/iot/latest/developerguide/device-defender-mitigation-actions.html#defender-audit-apply-mitigation-actions.html">Mitigation actions</a>.
+                                 </p>
+                                 
+                                 <div class="procedure">
+                                    <p class="title"><b>To use the AWS IoT console to create mitigation actions</b></p>
+                                    <ol>
+                                       <li>
+                                          
+                                          <p>Open the <a href="https://console.aws.amazon.com/iot/home" rel="noopener noreferrer" target="_blank"><span>AWS IoT
+                                                   console</span><awsui-icon class="awsdocs-link-icon" name="external"></awsui-icon></a>.
+                                          </p>
+                                          
+                                       </li>
+                                       <li>
+                                          
+                                          <p>In the left navigation pane, choose <b>Defend</b>, and then
+                                             choose <b>Mitigation Actions</b>.
+                                          </p>
+                                          
+                                       </li>
+                                       <li>
+                                          
+                                          <p>On the <b>Mitigation Actions</b> page, choose
+                                             <b>Create</b>.
+                                          </p>
+                                          
+                                       </li>
+                                       <li>
+                                          
+                                          <p>On the <b>Create a Mitigation Action</b> page, in
+                                             <b>Action name</b>, enter a unique name for your mitigation
+                                             action such as <code class="replaceable">EnableErrorLoggingAction</code>.
+                                          </p>
+                                          
+                                       </li>
+                                       <li>
+                                          
+                                          <p>In <b>Action type</b>, choose <b>Enable IoT
+                                                logging</b>.
+                                          </p>
+                                          
+                                       </li>
+                                       <li>
+                                          
+                                          <p>In <b>Action execution role</b>, select <b>Create
+                                                Role</b>. For <b>Name</b>, use
+                                             <code class="replaceable">IoTMitigationActionErrorLoggingRole</code>. Then, choose
+                                             <b>Create role</b>.
+                                          </p>
+                                          
+                                       </li>
+                                       <li>
+                                          
+                                          <p>In <b>Parameters</b>, under <b>Role for
+                                                logging</b>, select <code class="option">AWSIoTLoggingRole</code>. For
+                                             <b>Log level</b>, choose <code class="option">Error</code>.
+                                          </p>
+                                          
+                                          <div class="mediaobject">
+                                              
+                                             <img src="images/create-mitigation-action.png" class="aws-docs-img-whiteBg aws-docs-img-padding" alt="&#xA;                        Create a new mitigation action window.&#xA;                    " style="max-width:100%" />
+                                              
+                                              
+                                             
+                                          </div>
+                                          
+                                       </li>
+                                       <li>
+                                          
+                                          <p>Choose <b>Save</b> to save your mitigation action to your AWS
+                                             account.
+                                          </p>
+                                          
+                                       </li>
+                                       <li>
+                                          
+                                          <p>Once created, you will see the following screen indication that your
+                                             mitigation action was created successfully.
+                                          </p>
+                                          
+                                          <div class="mediaobject">
+                                              
+                                             <img src="images/mitigation-action-created.png" class="aws-docs-img-whiteBg aws-docs-img-padding" alt="&#xA;                        Mitigation action successfully created window.&#xA;                    " style="max-width:100%" />
+                                              
+                                              
+                                             
+                                          </div>
+                                          
+                                       </li>
+                                    </ol>
+                                 </div>
+                                  
+                                 
+                                 <h2 id="apply-mitigation-actions">Apply mitigation actions to your audit findings</h2>
+                                 
+                                 <p>The following procedure shows you how to apply mitigation actions to your audit
+                                    results.
+                                 </p>
+                                 
+                                 <div class="procedure">
+                                    <p class="title"><b>To mitigate non-compliant audit findings</b></p>
+                                    <ol>
+                                       <li>
+                                          
+                                          <p>Open the <a href="https://console.aws.amazon.com/iot/home" rel="noopener noreferrer" target="_blank"><span>AWS IoT
+                                                   console</span><awsui-icon class="awsdocs-link-icon" name="external"></awsui-icon></a>.
+                                          </p>
+                                          
+                                       </li>
+                                       <li>
+                                          
+                                          <p>In the left navigation pane, choose <b>Audit</b>, and then
+                                             choose <b>Results</b>. Select the name of the audit that you want
+                                             to respond to.
+                                          </p>
+                                          
+                                       </li>
+                                       <li>
+                                          
+                                          <p>Check your results. Notice that <code class="option">Logging disabled</code> is located
+                                             under <b>Non-compliant checks</b>.
+                                          </p>
+                                          
+                                       </li>
+                                       <li>
+                                          
+                                          <p>Select <b>Start mitigation actions</b>.
+                                          </p>
+                                          
+                                          <div class="mediaobject">
+                                              
+                                             <img src="images/start-mitigation-action.png" class="aws-docs-img-whiteBg aws-docs-img-padding" alt="&#xA;                        Audit findings window.&#xA;                    " style="max-width:100%" />
+                                              
+                                              
+                                             
+                                          </div>
+                                          
+                                       </li>
+                                       <li>
+                                          
+                                          <p>Under <b>Select actions</b>, select the appropriate actions for
+                                             each non-compliant finding to address the issues.
+                                          </p>
+                                          
+                                          <div class="mediaobject">
+                                              
+                                             <img src="images/select-actions.png" class="aws-docs-img-whiteBg aws-docs-img-padding" alt="&#xA;                        Start a new mitigation action window.&#xA;                    " style="max-width:100%" />
+                                              
+                                              
+                                             
+                                          </div>
+                                          
+                                       </li>
+                                       <li>
+                                          
+                                          <p>Select <b>Confirm</b>.
+                                          </p>
+                                          
+                                       </li>
+                                       <li>
+                                          
+                                          <p>Once the mitigation action is started, it may take a few minutes for it to
+                                             run.
+                                          </p>
+                                          
+                                          <div class="mediaobject">
+                                              
+                                             <img src="images/mitigation-action-started.png" class="aws-docs-img-whiteBg aws-docs-img-padding" alt="&#xA;                        Start a new mitigation action window.&#xA;                    " style="max-width:100%" />
+                                              
+                                              
+                                             
+                                          </div>
+                                          
+                                       </li>
+                                    </ol>
+                                 </div>
+                                 
+                                 <div class="procedure">
+                                    <p class="title"><b>To check that the mitigation action worked</b></p>
+                                    <ol>
+                                       <li>
+                                          
+                                          <p>In the AWS console, in the navigation pane, select
+                                             <b>Settings</b>.
+                                          </p>
+                                          
+                                       </li>
+                                       <li>
+                                          
+                                          <p>Confirm that <b>Logs</b> are <code class="code">Enabled</code> and the
+                                             <b>Level of verbosity</b> is <code class="code">Error</code>.
+                                          </p>
+                                          
+                                       </li>
+                                    </ol>
+                                 </div>
+                                  
+                                 
+                                 <h2 id="audit-tutorial-enable-sns">Enable SNS notifications (optional)</h2>
+                                 
+                                 <p>In the following procedure, you enable Simple Notifications Service (SNS)
+                                    notifications to alert you when your audits identifies any non-compliant resources.
+                                    In
+                                    this tutorial you will set up notifications for the audit checks enabled in the <a href="#audit-tutorial-enable-checks">Enable audit checks</a> tutorial.
+                                 </p>
+                                 
+                                 <div class="procedure">
+                                    <ol>
+                                       <li>
+                                          
+                                          <p>First, you need to create an IAM policy that provides access to Amazon SNS
+                                             via the AWS Management Console. You can do this by following the <a href="#audit-iam">Creating a AWS IoT Device Defender Audit IAM role (optional)</a> process, but selecting
+                                             <b>AWSIoTDeviceDefenderPublishFindingsToSNSMitigationAction</b> in step 8.
+                                          </p>
+                                          
+                                       </li>
+                                       <li>
+                                          
+                                          <p>In the <a href="https://console.aws.amazon.com/iot" rel="noopener noreferrer" target="_blank"><span>AWS IoT console</span><awsui-icon class="awsdocs-link-icon" name="external"></awsui-icon></a>,
+                                             in the navigation pane, expand <b>Defend</b> and select
+                                             <b>Settings</b>.
+                                          </p>
+                                          
+                                       </li>
+                                       <li>
+                                          
+                                          <p>Under <b>SNS alerts</b>, select
+                                             <b>Edit</b>.
+                                          </p>
+                                          
+                                          <div class="mediaobject">
+                                              
+                                             <img src="images/sns-edit-alert.png" class="aws-docs-img-whiteBg aws-docs-img-padding" />
+                                              
+                                             
+                                          </div>
+                                          
+                                       </li>
+                                       <li>
+                                          
+                                          <p>On the <b>Edit SNS alerts</b> screen, select
+                                             <b>Enabled</b>. Under <b>Topic</b>, select
+                                             <b>Create</b>. Name the topic
+                                             <code class="replaceable">IoTDDNotifications</code> and select
+                                             <b>Create</b>. Under <b>Role</b>, select the
+                                             role you created called
+                                             <code class="replaceable">AWSIoTDeviceDefenderAudit</code>.
+                                          </p>
+                                          
+                                          <div class="mediaobject">
+                                              
+                                             <img src="images/sns-enable.png" class="aws-docs-img-whiteBg aws-docs-img-padding" />
+                                              
+                                             
+                                          </div>
+                                          
+                                          <p>Select <b>Update</b>.
+                                          </p>
+                                          
+                                          <div class="mediaobject">
+                                              
+                                             <img src="images/sns-update.png" class="aws-docs-img-whiteBg aws-docs-img-padding" />
+                                              
+                                             
+                                          </div>
+                                          
+                                          <p>If you'd like to receive email or text in your Ops platforms through SNS, see
+                                             <a href="https://docs.aws.amazon.com/sns/latest/dg/sns-user-notifications.html">Using Amazon SNS for user notifications</a>.
+                                          </p>
+                                          
+                                       </li>
+                                    </ol>
+                                 </div>
+                                  
+                                 
+                                 <h2 id="enable-logging">Enable logging (optional)</h2>
+                                 
+                                 <p>This procedure describes how to enable AWS IoT to log information to CloudWatch Logs.
+                                    This will allow you to view your audit results. Enabling logging may result in incurred
+                                    charges.
+                                 </p>
+                                 
+                                 <div class="procedure">
+                                    <p class="title"><b>To enable logging</b></p>
+                                    <ol>
+                                       <li>
+                                          
+                                          <p>In the AWS console, in the navigation pane, select
+                                             <b>Settings</b>.
+                                          </p>
+                                          
+                                       </li>
+                                       <li>
+                                          
+                                          <p>Under <b>Logs</b>, select <b>Edit</b>.
+                                          </p>
+                                          
+                                          <div class="mediaobject">
+                                              
+                                             <img src="images/logs-edit.png" class="aws-docs-img-whiteBg aws-docs-img-padding" />
+                                              
+                                             
+                                          </div>
+                                          
+                                       </li>
+                                       <li>
+                                          
+                                          <p>Under <b>Level of verbosity</b>, select <b>Debug (most
+                                                verbose)</b>.
+                                          </p>
+                                          
+                                       </li>
+                                       <li>
+                                          
+                                          <p>Under <b>Set role</b>, select <b>Create Role</b>
+                                             and name the role <code class="replaceable">AWSIoTLoggingRole</code>. A policy will
+                                             automatically be attached.
+                                          </p>
+                                          
+                                          <div class="mediaobject">
+                                              
+                                             <img src="images/logs-create-role.png" class="aws-docs-img-whiteBg aws-docs-img-padding" />
+                                              
+                                             
+                                          </div>
+                                          
+                                          <p>Select <b>Update</b>.
+                                          </p>
+                                          
+                                          <div class="mediaobject">
+                                              
+                                             <img src="images/logs-update.png" class="aws-docs-img-whiteBg aws-docs-img-padding" />
+                                              
+                                             
+                                          </div>
+                                          
+                                       </li>
+                                    </ol>
+                                 </div>
+                                  
+                                 
+                                 <h2 id="audit-iam">Creating a AWS IoT Device Defender Audit IAM role (optional)</h2>
+                                 
+                                 <p>In the following procedure, you create a AWS IoT Device Defender Audit IAM role that
+                                    provides AWS IoT Device Defender
+                                    read access to AWS IoT.
+                                 </p>
+                                 
+                                 <div class="procedure">
+                                    <ol>
+                                       <li>
+                                          
+                                          <p>Navigate to the IAM console at <a href="https://console.aws.amazon.com/iam/" rel="noopener noreferrer" target="_blank"><span>https://console.aws.amazon.com/iam/</span><awsui-icon class="awsdocs-link-icon" name="external"></awsui-icon></a></p>
+                                          
+                                       </li>
+                                       <li>
+                                          
+                                          <p>In the navigation pane, chose <b>Users</b> and then choose
+                                             <b>Add user</b>.
+                                          </p>
+                                          
+                                       </li>
+                                       <li>
+                                          
+                                          <p>For <b>User name</b>, enter
+                                             <code class="userinput">Administrator</code>.
+                                          </p>
+                                          
+                                       </li>
+                                       <li>
+                                          
+                                          <p>Select the check box next to <b>AWS Management Console
+                                                access</b>. Then select <b>Custom password</b>, and
+                                             then enter your new password in the text box.
+                                          </p>
+                                          
+                                       </li>
+                                       <li>
+                                          
+                                          <p>(Optional) By default, AWS requires the new user to create a new password when
+                                             first signing in. You can clear the check box next to <b>User must create
+                                                a new password at next sign-in</b> to allow the new user to reset
+                                             their password after they sign in.
+                                          </p>
+                                          
+                                       </li>
+                                       <li>
+                                          
+                                          <p>Choose <b>Next: Permissions</b>.
+                                          </p>
+                                          
+                                       </li>
+                                       <li>
+                                          
+                                          <p>Under <b>Set permissions</b>, choose <b>Attach existing
+                                                policies directly</b>.
+                                          </p>
+                                          
+                                       </li>
+                                       <li>
+                                          
+                                          <p>In the policy list, select the check box for
+                                             <b>AWSIoTDeviceDefenderAudit</b>.
+                                          </p>
+                                          
+                                       </li>
+                                       <li>
+                                          
+                                          <p>Choose <b>Next: Tags</b>.
+                                          </p>
+                                          
+                                       </li>
+                                       <li>
+                                          
+                                          <p>Choose <b>Next: Review</b> to see the list of group memberships
+                                             to be added to the new user. When you are ready to proceed, choose
+                                             <b>Create user</b>.
+                                          </p>
+                                          
+                                       </li>
+                                    </ol>
+                                 </div>
+                                 
+                                 <awsdocs-copyright class="copyright-print"></awsdocs-copyright>
+                                 <awsdocs-thumb-feedback right-edge="{{$ctrl.thumbFeedbackRightEdge}}"></awsdocs-thumb-feedback>
+                              </div>
+                              <noscript>
+                                 <div>
+                                    <div>
+                                       <div>
+                                          <div id="js_error_message">
+                                             <p><img src="https://d1ge0kk1l5kms0.cloudfront.net/images/G/01/webservices/console/warning.png" alt="Warning" /> <strong>Javascript is disabled or is unavailable in your
+                                                   browser.</strong></p>
+                                             <p>To use the Amazon Web Services Documentation, Javascript must be
+                                                enabled. Please refer to your browser's Help pages for instructions.
+                                             </p>
+                                          </div>
+                                       </div>
+                                    </div>
+                                 </div>
+                              </noscript>
+                              <div id="main-col-footer" class="awsui-util-font-size-0">
+                                 <div id="doc-conventions"><a target="_top" href="/general/latest/gr/docconventions.html">Document Conventions</a></div>
+                                 <div class="prev-next">
+                                    <div id="previous" class="prev-link" accesskey="p" href="./dd-setting-up.html">Setting up</div>
+                                    <div id="next" class="next-link" accesskey="n" href="./dd-detect-ml-getting-started.html">ML Detect guide</div>
+                                 </div>
+                              </div>
+                              <awsdocs-page-utilities></awsdocs-page-utilities>
+                           </div>
+                           <div id="quick-feedback-yes" style="display: none;">
+                              <div class="title">Did this page help you? - Yes</div>
+                              <div class="content">
+                                 <p>Thanks for letting us know we're doing a good
+                                    job!
+                                 </p>
+                                 <p>If you've got a moment, please tell us what we did right
+                                    so we can do more of it.
+                                 </p>
+                                 <p>
+                                    <awsui-button id="fblink" target="_blank" text="Feedback" click="linkClick($event)" href="https://docs.aws.amazon.com/forms/aws-doc-feedback?hidden_service_name=IoT Docs&amp;topic_url=https://docs.aws.amazon.com/en_us/iot/latest/developerguide/audit-tutorial.html"></awsui-button>
+                                 </p>
+                              </div>
+                           </div>
+                           <div id="quick-feedback-no" style="display: none;">
+                              <div class="title">Did this page help you? - No</div>
+                              <div class="content">
+                                 <p>Thanks for letting us know this page needs work. We're
+                                    sorry we let you down.
+                                 </p>
+                                 <p>If you've got a moment, please tell us how we can make
+                                    the documentation better.
+                                 </p>
+                                 <p>
+                                    <awsui-button id="fblink" target="_blank" text="Feedback" click="linkClick($event)" href="https://docs.aws.amazon.com/forms/aws-doc-feedback?hidden_service_name=IoT Docs&amp;topic_url=https://docs.aws.amazon.com/en_us/iot/latest/developerguide/audit-tutorial.html"></awsui-button>
+                                 </p>
+                              </div>
+                           </div>
+                        </div>
+                     </body>
+                  </div>
+               </awsdocs-view>
+               <div class="page-loading-indicator" id="page-loading-indicator">
+                  <awsui-spinner size="large"></awsui-spinner>
+               </div>
+            </div>
+            <div id="tools-panel" dom-region="tools">
+               <awsdocs-tools-panel id="awsdocs-tools-panel"></awsdocs-tools-panel>
+            </div>
+         </awsui-app-layout>
+         <awsdocs-cookie-banner class="doc-cookie-banner"></awsdocs-cookie-banner>
+         <!--
+                SiteCatalyst code version: H.25.2.
+                Copyright 1996-2012 Adobe, Inc. All Rights Reserved
+                More info available at http://www.omniture.com
+            --><script language="JavaScript" type="text/javascript">
+var awsdocs = awsdocs || {};
+awsdocs.prop66 = 'AWS IoT Core';
+awsdocs.prop65 =  'Developer Guide';
+            </script><script src="https://a0.awsstatic.com/s_code/js/3.0/awshome_s_code.js" language="JavaScript" type="text/javascript"></script>
+         <!--/DO NOT REMOVE/-->
+         <!--End SiteCatalyst code version: H.25.2.--></div>
+   </body>
+</html>

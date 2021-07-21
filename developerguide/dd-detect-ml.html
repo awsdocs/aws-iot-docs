@@ -1,0 +1,747 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" ng-app="AWSDocsDocPageApp">
+   <head>
+      <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+      <title>ML Detect - AWS IoT Core</title>
+      <meta name="viewport" content="width=device-width,initial-scale=1" />
+      <meta name="assets_root" content="assets" />
+      <meta name="target_state" content="dd-detect-ml" />
+      <meta name="default_state" content="dd-detect-ml" />
+      <link rel="icon" type="image/ico" href="/assets/images/favicon.ico" />
+      <link rel="shortcut icon" type="image/ico" href="/assets/images/favicon.ico" />
+      <link rel="canonical" href="https://docs.aws.amazon.com/iot/latest/developerguide/dd-detect-ml.html" />
+      <meta name="description" content="Learn about getting started with AWS IoT Device Defender ML Detect." />
+      <meta name="deployment_region" content="IAD" />
+      <meta name="product" content="AWS IoT Core" />
+      <meta name="guide" content="Developer Guide" />
+      <meta name="locales" content="de_de:Deutsch/en_us:English/es_es:Español/fr_fr:Français/it_it:Italiano/ja_jp:日本語/ko_kr:한국어/pt_br:Português/zh_cn:中文 (简体)/zh_tw:中文 (繁體)" />
+      <meta name="abstract" content="AWS IoT provides secure, bi-directional communication between Internet-connected devices such as sensors, actuators, embedded micro-controllers, or smart appliances and the AWS Cloud. This enables you to collect telemetry data from multiple devices, and store and analyze the data. You can also create applications that enable your users to control these devices from their phones or tablets." />
+      <meta name="guide-locale" content="en_us" />
+      <meta name="tocs" content="toc-contents.json" />
+      <meta name="feedback-item" content="IoT Docs" />
+      <meta name="this_doc_product" content="AWS IoT Core" />
+      <meta name="this_doc_guide" content="Developer Guide" />
+      <link href="assets/css/vendor4.css" rel="stylesheet" />
+      <link href="assets/css/awsdocs-common.css" rel="stylesheet" /><script type="text/javascript" src="assets/js/vendor3.js" defer=""></script><script type="text/javascript" src="assets/js/vendor4.js" defer=""></script><script type="text/javascript" src="assets/js/vendor1.js" defer=""></script><script type="text/javascript" src="assets/js/awsdocs-common.js" defer=""></script><script type="text/javascript" src="assets/js/awsdocs-doc-app.js" defer=""></script></head>
+   <body class="awsdocs awsui">
+      <div class="awsdocs-container">
+         <awsdocs-header></awsdocs-header>
+         <awsui-app-layout id="app-layout" class="awsui-util-no-gutters" ng-controller="ContentController as $ctrl" header-selector="awsdocs-header" navigation-hide="false" navigation-width="$ctrl.navWidth" navigation-open="$ctrl.navOpen" navigation-change="$ctrl.onNavChange($event)" tools-hide="$ctrl.hideTools" tools-width="$ctrl.toolsWidth" tools-open="$ctrl.toolsOpen" tools-change="$ctrl.onToolsChange($event)">
+            <div id="guide-toc" dom-region="navigation">
+               <awsdocs-toc></awsdocs-toc>
+            </div>
+            <div id="main-column" dom-region="content" tabindex="-1">
+               <awsdocs-view class="awsdocs-view">
+                  <div id="awsdocs-content">
+                     <head>
+                        <title>ML Detect - AWS IoT Core</title>
+                        <meta name="pdf" content="iot-dg.pdf#dd-detect-ml" />
+                        <meta name="kindle" content="https://www.amazon.com/dp/B07JBRCWWZ" />
+                        <meta name="github" content="https://github.com/awsdocs/aws-iot-docs/tree/master/developerguide/dd-detect-ml.md" />
+                        <meta name="forums" content="http://forums.aws.amazon.com/forum.jspa?forumID=210" />
+                        <meta name="feedback" content="https://docs.aws.amazon.com/forms/aws-doc-feedback?hidden_service_name=IoT%20Docs&amp;topic_url=http://docs.aws.amazon.com/en_us/iot/latest/developerguide/dd-detect-ml.html" />
+                        <meta name="feedback-yes" content="feedbackyes.html?topic_url=http://docs.aws.amazon.com/en_us/iot/latest/developerguide/dd-detect-ml.html" />
+                        <meta name="feedback-no" content="feedbackno.html?topic_url=http://docs.aws.amazon.com/en_us/iot/latest/developerguide/dd-detect-ml.html" />
+                        <meta name="keywords" content="AWS IoT,IoT,Internet of Things" />
+                     </head>
+                     <body>
+                        <div id="main">
+                           <div style="display: none"><a href="iot-dg.pdf#dd-detect-ml" target="_blank" rel="noopener noreferrer" title="Open PDF"></a><a target="_blank" rel="noopener noreferrer" href="https://www.amazon.com/dp/B07JBRCWWZ" title="Open Kindle"></a><a href="https://github.com/awsdocs/aws-iot-docs/tree/master/developerguide/dd-detect-ml.md" target="_blank" rel="noopener noreferrer" title="Edit this page on GitHub"></a></div>
+                           <div id="breadcrumbs" class="breadcrumb"><a href="http://aws.amazon.com">AWS</a><a href="/index.html">Documentation</a><a href="/iot/index.html">AWS IoT Core</a><a href="what-is-aws-iot.html">Developer Guide</a></div>
+                           <div id="page-toc-src"><a href="#dd-detect-ml-use-cases">Use cases of ML Detect</a><a href="#dd-detect-ml-how-it-works">How ML Detect works</a><a href="#dd-detect-ml-requirements">Minimum requirements</a><a href="#dd-detect-ml-limitations">Limitations</a><a href="#dd-detect-ml-metrics">Supported metrics</a><a href="#dd-detect-ml-quotas">Service quotas</a><a href="#dd-detect-ml-cli-commands">ML Detect CLI commands</a><a href="#dd-detect-ml-apis">ML Detect APIs</a><a href="#dd-detect-ml-disable-feature">Pause or delete an ML Detect Security
+                                 Profile</a></div>
+                           <div id="main-content" class="awsui-util-container">
+                              <div id="main-col-body">
+                                 <awsdocs-language-banner data-service="$ctrl.pageService"></awsdocs-language-banner>
+                                 <h1 class="topictitle" id="dd-detect-ml">ML Detect</h1>
+                                 <div class="awsdocs-page-header-container">
+                                    <awsdocs-page-header></awsdocs-page-header>
+                                    <awsdocs-filter-selector id="awsdocs-filter-selector"></awsdocs-filter-selector>
+                                 </div>
+                                 <p>With machine learning Detect (ML Detect), you create Security Profiles that use machine
+                                    learning to learn expected device behaviors by automatically creating models based
+                                    on historical
+                                    device data, and assign these profiles to a group of devices or all the devices in
+                                    your fleet.
+                                    AWS IoT Device Defender then identifies anomalies and triggers alarms using the ML
+                                    models.
+                                 </p>
+                                 <p>For information about how to get started with ML Detect, see <a href="./dd-detect-ml-getting-started.html">ML Detect guide</a>.
+                                 </p>
+                                 <div class="highlights" id="inline-topiclist">
+                                    <p><strong>This chapter contains the following sections:</strong></p>
+                                    <ul>
+                                       <li><a href="#dd-detect-ml-use-cases">Use cases of ML Detect</a></li>
+                                       <li><a href="#dd-detect-ml-how-it-works">How ML Detect works</a></li>
+                                       <li><a href="#dd-detect-ml-requirements">Minimum requirements</a></li>
+                                       <li><a href="#dd-detect-ml-limitations">Limitations</a></li>
+                                       <li><a href="#dd-detect-ml-metrics">Supported metrics</a></li>
+                                       <li><a href="#dd-detect-ml-quotas">Service quotas</a></li>
+                                       <li><a href="#dd-detect-ml-cli-commands">ML Detect CLI commands</a></li>
+                                       <li><a href="#dd-detect-ml-apis">ML Detect APIs</a></li>
+                                       <li><a href="#dd-detect-ml-disable-feature">Pause or delete an ML Detect Security
+                                             Profile</a></li>
+                                    </ul>
+                                 </div>
+                                 
+                                 <h2 id="dd-detect-ml-use-cases">Use cases of ML Detect</h2>
+                                 
+                                 <p>You can use ML Detect to monitor your fleet devices when it's difficult to set the
+                                    expected
+                                    behaviors of devices. For example, to monitor the number of disconnects metric, it
+                                    might not be
+                                    clear what is considered an acceptable threshold. In this case, you can enable ML
+                                    Detect to
+                                    identify anomalous disconnect metric datapoints based off historical data reported
+                                    from
+                                    devices.
+                                 </p>
+                                 
+                                 <p>Another use case of ML Detect is to monitor device behaviors that change dynamically
+                                    over
+                                    time. ML Detect periodically learns the dynamic expected device behaviors based on
+                                    changing data
+                                    patterns from devices. For example, device message sent volume could vary between
+                                    weekdays and
+                                    weekends, and ML detect will learn this dynamic behavior.
+                                 </p>
+                                  
+                                 
+                                 <h2 id="dd-detect-ml-how-it-works">How ML Detect works</h2>
+                                 
+                                 <p>Using ML Detect, you can create behaviors to identify operational and security anomalies
+                                    across <a href="#dd-detect-ml-metrics">6 cloud-side metrics</a> and <a href="#dd-detect-ml-metrics">7 device-side metrics</a>. After the initial model training
+                                    period, ML Detect refreshes the models daily based on the trailing 14 days of data.
+                                    It monitors
+                                    datapoints for these metrics with the ML models and triggers an alarm if an anomaly
+                                    is
+                                    detected.
+                                 </p>
+                                 
+                                 <p>ML Detect works best if you attach a Security Profile to a collection of devices with
+                                    similar expected behaviors. For example, if some of your devices are used at customers’
+                                    homes and
+                                    other devices at business offices, the device behavior patterns might differ significantly
+                                    between the two groups. You can organize the devices into a <em>home-device</em>
+                                    thing group and an <em>office-device</em> thing group. For the best anomaly detection
+                                    efficacy, attach each thing group to a separate ML Detect Security Profile.
+                                 </p>
+                                 
+                                 <p>While ML Detect is building the initial model, it requires 14 days and a minimum of
+                                    25,000
+                                    datapoints per metric over the trailing 14-day period to generate a model. Afterwards,
+                                    it updates
+                                    the model every day there is a minimum number of metric datapoints. If the minimum
+                                    requirement
+                                    isn't met, ML Detect attempts to build the model the next day, and will retry daily
+                                    for the next
+                                    30 days before discontinuing the model for evaluations.
+                                 </p>
+                                  
+                                 
+                                 <h2 id="dd-detect-ml-requirements">Minimum requirements</h2>
+                                 
+                                 <p>For training and creating the initial ML model, ML Detect has the following minimum
+                                    requirements.
+                                 </p>
+                                 
+                                 <div class="variablelist">
+                                     
+                                     
+                                     
+                                    
+                                    <dl>
+                                       
+                                       <dt><b><span class="term">Minimum training period</span></b></dt>
+                                       
+                                       <dd>
+                                          
+                                          <p>It takes 14 days for the initial models to be built. After that, the model refreshes
+                                             every day with metric data from a 14-day trailing period.
+                                          </p>
+                                          
+                                       </dd>
+                                       
+                                       
+                                       <dt><b><span class="term">Minimum total datapoints</span></b></dt>
+                                       
+                                       <dd>
+                                          
+                                          <p>The minimum required datapoints to build an ML model is 25,000 datapoints per metric
+                                             for
+                                             the last 14 days. For ongoing training and refreshing of the model, ML Detect requires
+                                             the
+                                             minimum datapoints be met from monitored devices. It’s roughly the equivalent of the
+                                             following
+                                             setups:
+                                          </p>
+                                          
+                                          <div class="itemizedlist">
+                                              
+                                              
+                                              
+                                              
+                                             
+                                             <ul class="itemizedlist" type="disc">
+                                                <li class="listitem">
+                                                   
+                                                   <p>60 devices connecting and having activity on AWS IoT at 45-minute intervals.</p>
+                                                   
+                                                </li>
+                                                <li class="listitem">
+                                                   
+                                                   <p>40 devices at 30-minute intervals.</p>
+                                                   
+                                                </li>
+                                                <li class="listitem">
+                                                   
+                                                   <p>15 devices at 10-minute intervals.</p>
+                                                   
+                                                </li>
+                                                <li class="listitem">
+                                                   
+                                                   <p>7 devices at 5-minute intervals.</p>
+                                                   
+                                                </li>
+                                             </ul>
+                                          </div>
+                                          
+                                       </dd>
+                                       
+                                       
+                                       <dt><b><span class="term">Device group targets</span></b></dt>
+                                       
+                                       <dd>
+                                          
+                                          <p>In order for data collection to progress, you must have things in the target thing
+                                             groups
+                                             for the Security Profile.
+                                          </p>
+                                          
+                                       </dd>
+                                       
+                                    </dl>
+                                 </div>
+                                 
+                                 <p>After the initial model is created, ML models refresh every day and require at least
+                                    25,000
+                                    datapoints for 14-day trailing period.
+                                 </p>
+                                  
+                                 
+                                 <h2 id="dd-detect-ml-limitations">Limitations</h2>
+                                 
+                                 <p>You can't currently use ML Detect with dimensions or with custom metrics. The following
+                                    metrics are not supported with ML Detect.
+                                 </p>
+                                 
+                                 <div class="variablelist">
+                                     
+                                     
+                                    
+                                    <dl>
+                                       
+                                       <dt><span class="term"><b>Cloud-side metrics not supported with ML Detect:</b></span></dt>
+                                       
+                                       <dd>
+                                          
+                                          <div class="itemizedlist">
+                                              
+                                             
+                                             <ul class="itemizedlist" type="disc">
+                                                <li class="listitem">
+                                                   
+                                                   <p><a href="./detect-cloud-side-metrics.html#detect-ip-address">Source IP (aws:source-ip-address)</a></p>
+                                                   
+                                                </li>
+                                             </ul>
+                                          </div>
+                                          
+                                       </dd>
+                                        
+                                       
+                                       <dt><span class="term"><b>Device-side metrics not supported with ML Detect:</b></span></dt>
+                                       
+                                       <dd>
+                                          
+                                          <div class="itemizedlist">
+                                              
+                                              
+                                              
+                                             
+                                             <ul class="itemizedlist" type="disc">
+                                                <li class="listitem">
+                                                   
+                                                   <p><a href="./detect-device-side-metrics.html#detect-destination-ip-addresses">Destination IPs
+                                                         (aws:destination-ip-addresses)</a></p>
+                                                   
+                                                </li>
+                                                <li class="listitem">
+                                                   
+                                                   <p><a href="./detect-device-side-metrics.html#detect-listening-tcp-ports">Listening TCP ports
+                                                         (aws:listening-tcp-ports)</a></p>
+                                                   
+                                                </li>
+                                                <li class="listitem">
+                                                   
+                                                   <p><a href="./detect-device-side-metrics.html#detect-listening-udp-ports">Listening UDP ports
+                                                         (aws:listening-udp-ports)</a></p>
+                                                   
+                                                </li>
+                                             </ul>
+                                          </div>
+                                          
+                                       </dd>
+                                       
+                                    </dl>
+                                 </div>
+                                  
+                                 
+                                 <h2 id="dd-detect-ml-metrics">Supported metrics</h2>
+                                 
+                                 <p>You can use the following cloud-side metrics with ML Detect:</p>
+                                 
+                                 <div class="itemizedlist">
+                                     
+                                     
+                                     
+                                     
+                                     
+                                     
+                                    
+                                    <ul class="itemizedlist" type="disc">
+                                       <li class="listitem">
+                                          
+                                          <p><a href="./detect-cloud-side-metrics.html#detect-auth-failures">Authorization failures
+                                                (aws:num-authorization-failures)</a></p>
+                                          
+                                       </li>
+                                       <li class="listitem">
+                                          
+                                          <p><a href="./detect-cloud-side-metrics.html#detect-num-connection-attempts">Connection attempts
+                                                (aws:num-connection-attempts)</a></p>
+                                          
+                                       </li>
+                                       <li class="listitem">
+                                          
+                                          <p><a href="./detect-cloud-side-metrics.html#detect-num-disconnects">Disconnects (aws:num-disconnects)</a></p>
+                                          
+                                       </li>
+                                       <li class="listitem">
+                                          
+                                          <p><a href="./detect-cloud-side-metrics.html#detect-message-size">Message size (aws:message-byte-size)</a></p>
+                                          
+                                       </li>
+                                       <li class="listitem">
+                                          
+                                          <p><a href="./detect-cloud-side-metrics.html#detect-messages-sent">Messages sent (aws:num-messages-sent)</a></p>
+                                          
+                                       </li>
+                                       <li class="listitem">
+                                          
+                                          <p><a href="./detect-cloud-side-metrics.html#detect-messages-received">Messages received (aws:num-messages-received)</a></p>
+                                          
+                                       </li>
+                                    </ul>
+                                 </div>
+                                 
+                                 <p>You can use the following device-side metrics with ML Detect:</p>
+                                 
+                                 <div class="itemizedlist">
+                                     
+                                     
+                                     
+                                     
+                                     
+                                     
+                                     
+                                    
+                                    <ul class="itemizedlist" type="disc">
+                                       <li class="listitem">
+                                          
+                                          <p><a href="./detect-device-side-metrics.html#detect-all-bytes-out">Bytes out (aws:all-bytes-out)</a></p>
+                                          
+                                       </li>
+                                       <li class="listitem">
+                                          
+                                          <p><a href="./detect-device-side-metrics.html#detect-all-bytes-in">Bytes in (aws:all-bytes-in)</a></p>
+                                          
+                                       </li>
+                                       <li class="listitem">
+                                          
+                                          <p><a href="./detect-device-side-metrics.html#detect-num-listening-tcp-ports">Listening TCP port count
+                                                (aws:num-listening-tcp-ports)</a></p>
+                                          
+                                       </li>
+                                       <li class="listitem">
+                                          
+                                          <p><a href="./detect-device-side-metrics.html#detect-num-listening-udp-ports">Listening UDP port count
+                                                (aws:num-listening-udp-ports)</a></p>
+                                          
+                                       </li>
+                                       <li class="listitem">
+                                          
+                                          <p><a href="./detect-device-side-metrics.html#detect-all-packets-out">Packets out (aws:all-packets-out)</a></p>
+                                          
+                                       </li>
+                                       <li class="listitem">
+                                          
+                                          <p><a href="./detect-device-side-metrics.html#detect-all-packets-in">Packets in (aws:all-packets-in)</a></p>
+                                          
+                                       </li>
+                                       <li class="listitem">
+                                          
+                                          <p><a href="./detect-device-side-metrics.html#detect-num-established-tcp-connections">Established TCP connections count
+                                                (aws:num-established-tcp-connections)</a></p>
+                                          
+                                       </li>
+                                    </ul>
+                                 </div>
+                                  
+                                 
+                                 <h2 id="dd-detect-ml-quotas">Service quotas</h2>
+                                 
+                                 <p>For information about ML Detect service quotas and limits, see <a href="https://docs.aws.amazon.com/general/latest/gr/iot_device_defender.html">AWS IoT Device Defender endpoints and quotas</a>.
+                                 </p>
+                                  
+                                 
+                                 <h2 id="dd-detect-ml-cli-commands">ML Detect CLI commands</h2>
+                                 
+                                 <p>You can use the following CLI commands to create and manage ML Detect.</p>
+                                 
+                                 <div class="itemizedlist">
+                                     
+                                     
+                                     
+                                     
+                                     
+                                     
+                                     
+                                     
+                                     
+                                    
+                                    <ul class="itemizedlist" type="disc">
+                                       <li class="listitem">
+                                          
+                                          <p><a href="https://docs.aws.amazon.com/cli/latest/reference/iot/create-security-profile.html">create-security-profile</a></p>
+                                          
+                                       </li>
+                                       <li class="listitem">
+                                          
+                                          <p><a href="https://docs.aws.amazon.com/cli/latest/reference/iot/attach-security-profile.html">attach-security-profile</a></p>
+                                          
+                                       </li>
+                                       <li class="listitem">
+                                          
+                                          <p><a href="https://docs.aws.amazon.com/cli/latest/reference/iot/list-security-profiles.html">list-security-profiles</a></p>
+                                          
+                                       </li>
+                                       <li class="listitem">
+                                          
+                                          <p><a href="https://docs.aws.amazon.com/cli/latest/reference/iot/describe-security-profile.html">describe-security-profile</a></p>
+                                          
+                                       </li>
+                                       <li class="listitem">
+                                          
+                                          <p><a href="https://docs.aws.amazon.com/cli/latest/reference/iot/update-security-profile.html">update-security-profile</a></p>
+                                          
+                                       </li>
+                                       <li class="listitem">
+                                          
+                                          <p><a href="https://docs.aws.amazon.com/cli/latest/reference/iot/delete-security-profile.html">delete-security-profile</a></p>
+                                          
+                                       </li>
+                                       <li class="listitem">
+                                          
+                                          <p><a href="https://docs.aws.amazon.com/cli/latest/reference/iot/get-behavior-model-training-summaries.html">get-behavior-model-training-summaries</a></p>
+                                          
+                                       </li>
+                                       <li class="listitem">
+                                          
+                                          <p><a href="https://docs.aws.amazon.com/cli/latest/reference/iot/list-active-violations.html">list-active-violations</a></p>
+                                          
+                                       </li>
+                                       <li class="listitem">
+                                          
+                                          <p><a href="https://docs.aws.amazon.com/cli/latest/reference/iot/list-violation-events.html">list-violation-events</a></p>
+                                          
+                                       </li>
+                                    </ul>
+                                 </div>
+                                  
+                                 
+                                 <h2 id="dd-detect-ml-apis">ML Detect APIs</h2>
+                                 
+                                 <p>The following APIs can be used to create and manage ML Detect Security Profiles.</p>
+                                 
+                                 <div class="itemizedlist">
+                                     
+                                     
+                                     
+                                     
+                                     
+                                     
+                                     
+                                     
+                                     
+                                    
+                                    <ul class="itemizedlist" type="disc">
+                                       <li class="listitem">
+                                          
+                                          <p><a href="https://docs.aws.amazon.com/iot/latest/apireference/API_CreateSecurityProfile.html">CreateSecurityProfile</a></p>
+                                          
+                                       </li>
+                                       <li class="listitem">
+                                          
+                                          <p><a href="https://docs.aws.amazon.com/iot/latest/apireference/API_AttachSecurityProfile.html">AttachSecurityProfile</a></p>
+                                          
+                                       </li>
+                                       <li class="listitem">
+                                          
+                                          <p><a href="https://docs.aws.amazon.com/iot/latest/apireference/API_ListSecurityProfiles.html">ListSecurityProfiles</a></p>
+                                          
+                                       </li>
+                                       <li class="listitem">
+                                          
+                                          <p><a href="https://docs.aws.amazon.com/iot/latest/apireference/API_DescribeSecurityProfile.html">DescribeSecurityProfile</a></p>
+                                          
+                                       </li>
+                                       <li class="listitem">
+                                          
+                                          <p><a href="https://docs.aws.amazon.com/iot/latest/apireference/API_UpdateSecurityProfile.html">UpdateSecurityProfile</a></p>
+                                          
+                                       </li>
+                                       <li class="listitem">
+                                          
+                                          <p><a href="https://docs.aws.amazon.com/iot/latest/apireference/API_DeleteSecurityProfile.html">DeleteSecurityProfile</a></p>
+                                          
+                                       </li>
+                                       <li class="listitem">
+                                          
+                                          <p><a href="https://docs.aws.amazon.com/iot/latest/apireference/API_GetBehaviorModelTrainingSummaries.html">GetBehaviorModelTrainingSummaries</a></p>
+                                          
+                                       </li>
+                                       <li class="listitem">
+                                          
+                                          <p><a href="https://docs.aws.amazon.com/iot/latest/apireference/API_ListActiveViolations.html">ListActiveViolations</a></p>
+                                          
+                                       </li>
+                                       <li class="listitem">
+                                          
+                                          <p><a href="https://docs.aws.amazon.com/iot/latest/apireference/API_ListViolationEvents.html">ListViolationEvents</a></p>
+                                          
+                                       </li>
+                                    </ul>
+                                 </div>
+                                  
+                                 
+                                 <h2 id="dd-detect-ml-disable-feature">Pause or delete an ML Detect Security
+                                    Profile
+                                 </h2>
+                                 
+                                 <p>You can pause your ML Detect Security Profile to stop monitoring device behaviors
+                                    temporarily, or delete your ML Detect Security Profile to stop monitoring device behaviors
+                                    for an
+                                    extended period of time.
+                                 </p>
+                                 
+                                 <div class="variablelist">
+                                     
+                                     
+                                      
+                                     
+                                    
+                                    <dl>
+                                       
+                                       <dt><span class="term"><b>Pause ML Detect Security Profile by using the console</b></span></dt>
+                                       
+                                       <dd>
+                                          
+                                          <p>To pause an ML Detect Security Profile using the console, you must first have an empty
+                                             thing group. To create an empty thing group, see <a href="./thing-groups.html">Static thing groups</a>. If you have created an empty thing group, then set the empty thing
+                                             group as the target of the ML Detect Security Profile.
+                                          </p>
+                                          
+                                          <div class="awsdocs-note">
+                                             <div class="awsdocs-note-title">
+                                                <awsui-icon name="status-info" variant="link"></awsui-icon><span>Note</span></div>
+                                             <div class="awsdocs-note-text">
+                                                <p> You need to set the target of your Security Profile back to a device group with devices
+                                                   within 30 days, or you won't be able to reactivate the Security Profile.
+                                                </p>
+                                             </div>
+                                          </div>
+                                          
+                                       </dd>
+                                        
+                                       
+                                       <dt><span class="term"><b>Delete ML Detect Security Profile by using the console</b></span></dt>
+                                       
+                                       <dd>
+                                          
+                                          <div class="procedure">
+                                             <p>To delete a Security Profile, follow these steps:</p>
+                                             <ol>
+                                                <li>
+                                                   <p> In the AWS IoT console navigate to the sidebar and choose the <b>Defend</b>
+                                                      section.
+                                                   </p>
+                                                   
+                                                </li>
+                                                <li>
+                                                   <p>Under <b>Defend</b>, choose <b>Detect</b> and then
+                                                      <b>Security Profiles</b>.
+                                                   </p>
+                                                </li>
+                                                <li>
+                                                   <p>Choose the ML Detect Security Profile you want to delete.</p>
+                                                </li>
+                                                <li>
+                                                   <p>Choose <b>Actions</b>, and then from the options, choose
+                                                      <b>Delete</b>.
+                                                   </p>
+                                                </li>
+                                             </ol>
+                                          </div>
+                                          
+                                          <div class="awsdocs-note">
+                                             <div class="awsdocs-note-title">
+                                                <awsui-icon name="status-info" variant="link"></awsui-icon><span>Note</span></div>
+                                             <div class="awsdocs-note-text">
+                                                <p>After an ML Detect Security Profile is deleted, you won’t be able to reactivate the
+                                                   Security Profile.
+                                                </p>
+                                             </div>
+                                          </div>
+                                          
+                                       </dd>
+                                        
+                                       
+                                       <dt><span class="term"><b>Pause an ML Detect Security Profile by using the CLI</b></span></dt>
+                                       
+                                       <dd>
+                                          <p>To pause a ML Detect Security Profile by using the CLI, use the
+                                             <code class="code">detach-security-security-profile</code> command:
+                                          </p>
+                                          <pre class="programlisting"><div class="code-btn-container"><div class="btn-copy-code" title="Copy"><awsui-icon name="copy"></awsui-icon></div></div><code class="nohighlight">$aws iot detach-security-profile --security-profile-name <code class="replaceable">SecurityProfileName</code> --security-profile-target-arn <code class="replaceable">arn:aws:iot:us-east-1:123456789012:all/registered-things</code></code></pre>
+                                          <div class="awsdocs-note">
+                                             <div class="awsdocs-note-title">
+                                                <awsui-icon name="status-info" variant="link"></awsui-icon><span>Note</span></div>
+                                             <div class="awsdocs-note-text">
+                                                <p>This option is only available in AWS CLI. Similar to the console workflow, you need
+                                                   to set the
+                                                   target of your Security Profile back to a device group with devices within 30 days,
+                                                   or
+                                                   you won't be able to reactivate the Security Profile. To attach a Security Profile
+                                                   to
+                                                   a device group, use the <a href="https://docs.aws.amazon.com/cli/latest/reference/iot/attach-security-profile.html"><code class="code">attach-security-profile</code></a> command.
+                                                </p>
+                                             </div>
+                                          </div>
+                                          
+                                       </dd>
+                                        
+                                       
+                                       <dt><span class="term"><b>Delete a ML Detect Security Profile by using the CLI</b></span></dt>
+                                       
+                                       <dd>
+                                          <p>You can delete a Security Profile by using the <code class="code">delete-security-profile</code> command below: 
+                                             
+                                          </p>
+                                          <pre class="programlisting"><div class="code-btn-container"><div class="btn-copy-code" title="Copy"><awsui-icon name="copy"></awsui-icon></div></div><code class="nohighlight">delete-security-profile --security-profile-name <code class="replaceable">SecurityProfileName</code></code></pre>
+                                          <div class="awsdocs-note">
+                                             <div class="awsdocs-note-title">
+                                                <awsui-icon name="status-info" variant="link"></awsui-icon><span>Note</span></div>
+                                             <div class="awsdocs-note-text">
+                                                <p>After an ML Detect Security Profile is deleted, you won’t be able to reactivate the
+                                                   Security Profile.
+                                                </p>
+                                             </div>
+                                          </div>
+                                          
+                                       </dd>
+                                       
+                                    </dl>
+                                 </div>
+                                 
+                                 <awsdocs-copyright class="copyright-print"></awsdocs-copyright>
+                                 <awsdocs-thumb-feedback right-edge="{{$ctrl.thumbFeedbackRightEdge}}"></awsdocs-thumb-feedback>
+                              </div>
+                              <noscript>
+                                 <div>
+                                    <div>
+                                       <div>
+                                          <div id="js_error_message">
+                                             <p><img src="https://d1ge0kk1l5kms0.cloudfront.net/images/G/01/webservices/console/warning.png" alt="Warning" /> <strong>Javascript is disabled or is unavailable in your
+                                                   browser.</strong></p>
+                                             <p>To use the Amazon Web Services Documentation, Javascript must be
+                                                enabled. Please refer to your browser's Help pages for instructions.
+                                             </p>
+                                          </div>
+                                       </div>
+                                    </div>
+                                 </div>
+                              </noscript>
+                              <div id="main-col-footer" class="awsui-util-font-size-0">
+                                 <div id="doc-conventions"><a target="_top" href="/general/latest/gr/docconventions.html">Document Conventions</a></div>
+                                 <div class="prev-next">
+                                    <div id="previous" class="prev-link" accesskey="p" href="./detect-behaviors.html">Behaviors</div>
+                                    <div id="next" class="next-link" accesskey="n" href="./dd-detect-custom-metrics.html">Custom metrics</div>
+                                 </div>
+                              </div>
+                              <awsdocs-page-utilities></awsdocs-page-utilities>
+                           </div>
+                           <div id="quick-feedback-yes" style="display: none;">
+                              <div class="title">Did this page help you? - Yes</div>
+                              <div class="content">
+                                 <p>Thanks for letting us know we're doing a good
+                                    job!
+                                 </p>
+                                 <p>If you've got a moment, please tell us what we did right
+                                    so we can do more of it.
+                                 </p>
+                                 <p>
+                                    <awsui-button id="fblink" target="_blank" text="Feedback" click="linkClick($event)" href="https://docs.aws.amazon.com/forms/aws-doc-feedback?hidden_service_name=IoT Docs&amp;topic_url=https://docs.aws.amazon.com/en_us/iot/latest/developerguide/dd-detect-ml.html"></awsui-button>
+                                 </p>
+                              </div>
+                           </div>
+                           <div id="quick-feedback-no" style="display: none;">
+                              <div class="title">Did this page help you? - No</div>
+                              <div class="content">
+                                 <p>Thanks for letting us know this page needs work. We're
+                                    sorry we let you down.
+                                 </p>
+                                 <p>If you've got a moment, please tell us how we can make
+                                    the documentation better.
+                                 </p>
+                                 <p>
+                                    <awsui-button id="fblink" target="_blank" text="Feedback" click="linkClick($event)" href="https://docs.aws.amazon.com/forms/aws-doc-feedback?hidden_service_name=IoT Docs&amp;topic_url=https://docs.aws.amazon.com/en_us/iot/latest/developerguide/dd-detect-ml.html"></awsui-button>
+                                 </p>
+                              </div>
+                           </div>
+                        </div>
+                     </body>
+                  </div>
+               </awsdocs-view>
+               <div class="page-loading-indicator" id="page-loading-indicator">
+                  <awsui-spinner size="large"></awsui-spinner>
+               </div>
+            </div>
+            <div id="tools-panel" dom-region="tools">
+               <awsdocs-tools-panel id="awsdocs-tools-panel"></awsdocs-tools-panel>
+            </div>
+         </awsui-app-layout>
+         <awsdocs-cookie-banner class="doc-cookie-banner"></awsdocs-cookie-banner>
+         <!--
+                SiteCatalyst code version: H.25.2.
+                Copyright 1996-2012 Adobe, Inc. All Rights Reserved
+                More info available at http://www.omniture.com
+            --><script language="JavaScript" type="text/javascript">
+var awsdocs = awsdocs || {};
+awsdocs.prop66 = 'AWS IoT Core';
+awsdocs.prop65 =  'Developer Guide';
+            </script><script src="https://a0.awsstatic.com/s_code/js/3.0/awshome_s_code.js" language="JavaScript" type="text/javascript"></script>
+         <!--/DO NOT REMOVE/-->
+         <!--End SiteCatalyst code version: H.25.2.--></div>
+   </body>
+</html>

@@ -1,0 +1,637 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" ng-app="AWSDocsDocPageApp">
+   <head>
+      <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+      <title>Lifecycle events - AWS IoT Core</title>
+      <meta name="viewport" content="width=device-width,initial-scale=1" />
+      <meta name="assets_root" content="assets" />
+      <meta name="target_state" content="life-cycle-events" />
+      <meta name="default_state" content="life-cycle-events" />
+      <link rel="icon" type="image/ico" href="/assets/images/favicon.ico" />
+      <link rel="shortcut icon" type="image/ico" href="/assets/images/favicon.ico" />
+      <link rel="canonical" href="https://docs.aws.amazon.com/iot/latest/developerguide/life-cycle-events.html" />
+      <meta name="description" content="See the following lifecycle events that AWS IoT publishes." />
+      <meta name="deployment_region" content="IAD" />
+      <meta name="product" content="AWS IoT Core" />
+      <meta name="guide" content="Developer Guide" />
+      <meta name="locales" content="de_de:Deutsch/en_us:English/es_es:Español/fr_fr:Français/it_it:Italiano/ja_jp:日本語/ko_kr:한국어/pt_br:Português/zh_cn:中文 (简体)/zh_tw:中文 (繁體)" />
+      <meta name="abstract" content="AWS IoT provides secure, bi-directional communication between Internet-connected devices such as sensors, actuators, embedded micro-controllers, or smart appliances and the AWS Cloud. This enables you to collect telemetry data from multiple devices, and store and analyze the data. You can also create applications that enable your users to control these devices from their phones or tablets." />
+      <meta name="guide-locale" content="en_us" />
+      <meta name="tocs" content="toc-contents.json" />
+      <meta name="feedback-item" content="IoT Docs" />
+      <meta name="this_doc_product" content="AWS IoT Core" />
+      <meta name="this_doc_guide" content="Developer Guide" />
+      <link href="assets/css/vendor4.css" rel="stylesheet" />
+      <link href="assets/css/awsdocs-common.css" rel="stylesheet" /><script type="text/javascript" src="assets/js/vendor3.js" defer=""></script><script type="text/javascript" src="assets/js/vendor4.js" defer=""></script><script type="text/javascript" src="assets/js/vendor1.js" defer=""></script><script type="text/javascript" src="assets/js/awsdocs-common.js" defer=""></script><script type="text/javascript" src="assets/js/awsdocs-doc-app.js" defer=""></script></head>
+   <body class="awsdocs awsui">
+      <div class="awsdocs-container">
+         <awsdocs-header></awsdocs-header>
+         <awsui-app-layout id="app-layout" class="awsui-util-no-gutters" ng-controller="ContentController as $ctrl" header-selector="awsdocs-header" navigation-hide="false" navigation-width="$ctrl.navWidth" navigation-open="$ctrl.navOpen" navigation-change="$ctrl.onNavChange($event)" tools-hide="$ctrl.hideTools" tools-width="$ctrl.toolsWidth" tools-open="$ctrl.toolsOpen" tools-change="$ctrl.onToolsChange($event)">
+            <div id="guide-toc" dom-region="navigation">
+               <awsdocs-toc></awsdocs-toc>
+            </div>
+            <div id="main-column" dom-region="content" tabindex="-1">
+               <awsdocs-view class="awsdocs-view">
+                  <div id="awsdocs-content">
+                     <head>
+                        <title>Lifecycle events - AWS IoT Core</title>
+                        <meta name="pdf" content="iot-dg.pdf#life-cycle-events" />
+                        <meta name="kindle" content="https://www.amazon.com/dp/B07JBRCWWZ" />
+                        <meta name="github" content="https://github.com/awsdocs/aws-iot-docs/tree/master/developerguide/life-cycle-events.md" />
+                        <meta name="forums" content="http://forums.aws.amazon.com/forum.jspa?forumID=210" />
+                        <meta name="feedback" content="https://docs.aws.amazon.com/forms/aws-doc-feedback?hidden_service_name=IoT%20Docs&amp;topic_url=http://docs.aws.amazon.com/en_us/iot/latest/developerguide/life-cycle-events.html" />
+                        <meta name="feedback-yes" content="feedbackyes.html?topic_url=http://docs.aws.amazon.com/en_us/iot/latest/developerguide/life-cycle-events.html" />
+                        <meta name="feedback-no" content="feedbackno.html?topic_url=http://docs.aws.amazon.com/en_us/iot/latest/developerguide/life-cycle-events.html" />
+                        <meta name="keywords" content="AWS IoT,IoT,Internet of Things" />
+                     </head>
+                     <body>
+                        <div id="main">
+                           <div style="display: none"><a href="iot-dg.pdf#life-cycle-events" target="_blank" rel="noopener noreferrer" title="Open PDF"></a><a target="_blank" rel="noopener noreferrer" href="https://www.amazon.com/dp/B07JBRCWWZ" title="Open Kindle"></a><a href="https://github.com/awsdocs/aws-iot-docs/tree/master/developerguide/life-cycle-events.md" target="_blank" rel="noopener noreferrer" title="Edit this page on GitHub"></a></div>
+                           <div id="breadcrumbs" class="breadcrumb"><a href="http://aws.amazon.com">AWS</a><a href="/index.html">Documentation</a><a href="/iot/index.html">AWS IoT Core</a><a href="what-is-aws-iot.html">Developer Guide</a></div>
+                           <div id="page-toc-src"><a href="#connect-disconnect">Connect/Disconnect events</a><a href="#subscribe-unsubscribe-events">Subscribe/Unsubscribe events</a></div>
+                           <div id="main-content" class="awsui-util-container">
+                              <div id="main-col-body">
+                                 <awsdocs-language-banner data-service="$ctrl.pageService"></awsdocs-language-banner>
+                                 <h1 class="topictitle" id="life-cycle-events">Lifecycle events</h1>
+                                 <div class="awsdocs-page-header-container">
+                                    <awsdocs-page-header></awsdocs-page-header>
+                                    <awsdocs-filter-selector id="awsdocs-filter-selector"></awsdocs-filter-selector>
+                                 </div>
+                                 <p>AWS IoT publishes lifecycle events on the MQTT topics discussed in the following
+                                    sections. These messages allow you to be notified of lifecycle events from the message
+                                    broker.
+                                 </p>
+                                 <div class="awsdocs-note">
+                                    <div class="awsdocs-note-title">
+                                       <awsui-icon name="status-info" variant="link"></awsui-icon><span>Note</span></div>
+                                    <div class="awsdocs-note-text">
+                                       <p>Lifecycle messages might be sent out of order. You might receive duplicate
+                                          messages.
+                                       </p>
+                                    </div>
+                                 </div>
+                                 
+                                 <h2 id="connect-disconnect">Connect/Disconnect events</h2>
+                                 
+                                 <p>AWS IoT publishes a message to the following MQTT topics when a client connects or
+                                    disconnects:
+                                 </p>
+                                 
+                                 <div class="itemizedlist">
+                                     
+                                     
+                                    
+                                    <ul class="itemizedlist" type="disc">
+                                       <li class="listitem">
+                                          
+                                          <p><code class="code">$aws/events/presence/connected/<code class="replaceable">clientId</code></code>
+                                             – A client connected to the message broker.
+                                          </p>
+                                          
+                                       </li>
+                                       <li class="listitem">
+                                          
+                                          <p><code class="code">$aws/events/presence/disconnected/<code class="replaceable">clientId</code></code>
+                                             – A client disconnected from the message broker.
+                                          </p>
+                                          
+                                       </li>
+                                    </ul>
+                                 </div>
+                                 
+                                 
+                                 <p>The following is a list of JSON elements that are contained in the
+                                    connection/disconnection messages published to the
+                                    <code class="code">$aws/events/presence/connected/<code class="replaceable">clientId</code></code>
+                                    topic.
+                                 </p>
+                                 
+                                 <div class="variablelist">
+                                     
+                                     
+                                     
+                                     
+                                     
+                                     
+                                     
+                                     
+                                     
+                                    
+                                    <dl>
+                                       
+                                       <dt><b><span class="term">clientId</span></b></dt>
+                                       
+                                       <dd>
+                                          
+                                          <p>The client ID of the connecting or disconnecting client.</p>
+                                          
+                                          <div class="awsdocs-note">
+                                             <div class="awsdocs-note-title">
+                                                <awsui-icon name="status-info" variant="link"></awsui-icon><span>Note</span></div>
+                                             <div class="awsdocs-note-text">
+                                                <p>Client IDs that contain # or + do not receive lifecycle
+                                                   events.
+                                                </p>
+                                             </div>
+                                          </div>
+                                          
+                                       </dd>
+                                       
+                                       
+                                       <dt><b><span class="term">clientInitiatedDisconnect</span></b></dt>
+                                       
+                                       <dd>
+                                          
+                                          <p>True if the client initiated the disconnect. Otherwise, false. Found
+                                             in disconnection messages only.
+                                          </p>
+                                          
+                                       </dd>
+                                       
+                                       
+                                       <dt><b><span class="term">disconnectReason</span></b></dt>
+                                       
+                                       <dd>
+                                          
+                                          <p>The reason why the client is disconnecting. Found in disconnect
+                                             messages only. The following table contains valid values.
+                                          </p>
+                                          
+                                          <div class="table-container">
+                                             <div class="table-contents">
+                                                <table id="w332aac48c33b7b9b5b3b3">
+                                                   <thead>
+                                                      
+                                                      <tr>
+                                                         
+                                                         <th>Disconnect reason</th>
+                                                         
+                                                         <th>Description</th>
+                                                         
+                                                      </tr>
+                                                      
+                                                   </thead>
+                                                   
+                                                   <tr>
+                                                      
+                                                      <td><code class="code">AUTH_ERROR</code></td>
+                                                      
+                                                      <td>The client failed to authenticate or authorization
+                                                         failed.
+                                                      </td>
+                                                      
+                                                   </tr>
+                                                   
+                                                   <tr>
+                                                      
+                                                      <td><code class="code">CLIENT_INITIATED_DISCONNECT</code></td>
+                                                      
+                                                      <td>The client indicates that it will disconnect. The
+                                                         client can do this by sending either a MQTT
+                                                         <code class="code">DISCONNECT</code> control packet or a
+                                                         <code class="code">Close frame</code> if the client is using a
+                                                         WebSocket connection.
+                                                      </td>
+                                                      
+                                                   </tr>
+                                                   
+                                                   <tr>
+                                                      
+                                                      <td><code class="code">CLIENT_ERROR</code></td>
+                                                      
+                                                      <td>The client did something wrong that causes it to
+                                                         disconnect. For example, a client will be disconnected
+                                                         for sending more than 1 MQTT <code class="code">CONNECT</code> packet
+                                                         on the same connection or if the client attempts to
+                                                         publish with a payload that exceeds the payload
+                                                         limit.
+                                                      </td>
+                                                      
+                                                   </tr>
+                                                   
+                                                   <tr>
+                                                      
+                                                      <td><code class="code">CONNECTION_LOST</code></td>
+                                                      
+                                                      <td>The client-server connection is cut off. This can
+                                                         happen during a period of high network latency or when
+                                                         the internet connection is lost.
+                                                      </td>
+                                                      
+                                                   </tr>
+                                                   
+                                                   <tr>
+                                                      
+                                                      <td><code class="code">DUPLICATE_CLIENTID</code></td>
+                                                      
+                                                      <td>The client is using a client ID that is already in
+                                                         use. In this case, the client that is already connected
+                                                         will be disconnected with this disconnect
+                                                         reason.
+                                                      </td>
+                                                      
+                                                   </tr>
+                                                   
+                                                   <tr>
+                                                      
+                                                      <td><code class="code">FORBIDDEN_ACCESS</code></td>
+                                                      
+                                                      <td>The client is not allowed to be connected. For
+                                                         example, a client with a denied IP address will fail to
+                                                         connect.
+                                                      </td>
+                                                      
+                                                   </tr>
+                                                   
+                                                   <tr>
+                                                      
+                                                      <td><code class="code">MQTT_KEEP_ALIVE_TIMEOUT</code></td>
+                                                      
+                                                      <td>If there is no client-server communication for 1.5x
+                                                         of the client's keep-alive time, the client is
+                                                         disconnected.
+                                                      </td>
+                                                      
+                                                   </tr>
+                                                   
+                                                   <tr>
+                                                      
+                                                      <td><code class="code">SERVER_ERROR</code></td>
+                                                      
+                                                      <td>Disconnected due to unexpected server issues.</td>
+                                                      
+                                                   </tr>
+                                                   
+                                                   <tr>
+                                                      
+                                                      <td><code class="code">SERVER_INITIATED_DISCONNECT</code></td>
+                                                      
+                                                      <td>Server intentionally disconnects a client for
+                                                         operational reasons.
+                                                      </td>
+                                                      
+                                                   </tr>
+                                                   
+                                                   <tr>
+                                                      
+                                                      <td><code class="code">THROTTLED</code></td>
+                                                      
+                                                      <td>The client is disconnected for exceeding a throttling
+                                                         limit.
+                                                      </td>
+                                                      
+                                                   </tr>
+                                                   
+                                                   <tr>
+                                                      
+                                                      <td><code class="code">WEBSOCKET_TTL_EXPIRATION</code></td>
+                                                      
+                                                      <td>The client is disconnected because a WebSocket has
+                                                         been connected longer than its time-to-live
+                                                         value.
+                                                      </td>
+                                                      
+                                                   </tr>
+                                                   
+                                                </table>
+                                             </div>
+                                          </div>
+                                          
+                                       </dd>
+                                       
+                                       
+                                       <dt><b><span class="term">eventType</span></b></dt>
+                                       
+                                       <dd>
+                                          
+                                          <p>The type of event. Valid values are <code class="code">connected</code> or
+                                             <code class="code">disconnected</code>. 
+                                          </p>
+                                          
+                                       </dd>
+                                       
+                                       
+                                       <dt><b><span class="term">ipAddress</span></b></dt>
+                                       
+                                       <dd>
+                                          
+                                          <p>The IP address of the connecting client. This can be in IPv4 or IPv6
+                                             format. Found in connection messages only. 
+                                          </p>
+                                          
+                                       </dd>
+                                       
+                                       
+                                       <dt><b><span class="term">principalIdentifier</span></b></dt>
+                                       
+                                       <dd>
+                                          
+                                          <p>The credential used to authenticate. For TLS mutual authentication
+                                             certificates, this is the certificate ID. For other connections, this is
+                                             IAM credentials.
+                                          </p>
+                                          
+                                       </dd>
+                                       
+                                       
+                                       <dt><b><span class="term">sessionIdentifier</span></b></dt>
+                                       
+                                       <dd>
+                                          
+                                          <p>A globally unique identifier in AWS IoT that exists for the life of the
+                                             session.
+                                          </p>
+                                          
+                                       </dd>
+                                       
+                                       
+                                       <dt><b><span class="term">timestamp</span></b></dt>
+                                       
+                                       <dd>
+                                          
+                                          <p>An approximation of when the event occurred, expressed in milliseconds
+                                             since the Unix epoch. The accuracy of the timestamp is +/- 2
+                                             minutes.
+                                          </p>
+                                          
+                                       </dd>
+                                       
+                                       
+                                       <dt><b><span class="term">versionNumber</span></b></dt>
+                                       
+                                       <dd>
+                                          
+                                          <p>The version number for the lifecycle event. This is a monotonically
+                                             increasing long integer value for each client ID connection. The version
+                                             number can be used by a subscriber to infer the order of lifecycle
+                                             events.
+                                          </p>
+                                          
+                                          <div class="awsdocs-note">
+                                             <div class="awsdocs-note-title">
+                                                <awsui-icon name="status-info" variant="link"></awsui-icon><span>Note</span></div>
+                                             <div class="awsdocs-note-text">
+                                                <p>The connect and disconnect messages for a client connection have
+                                                   the same version number.
+                                                </p>
+                                                <p>The version number might skip values and is not guaranteed to be
+                                                   consistently increasing by 1 for each event.
+                                                </p>
+                                                <p>If a client is not connected for approximately one hour, the
+                                                   version number is reset to 0. For persistent sessions, the version
+                                                   number is reset to 0 after a client has been disconnected longer
+                                                   than the configured time-to-live (TTL) for the persistent
+                                                   session.
+                                                </p>
+                                             </div>
+                                          </div>
+                                          
+                                       </dd>
+                                       
+                                    </dl>
+                                 </div>
+                                 
+                                 <p>A connect message has the following structure.</p>
+                                 <pre class="programlisting"><div class="code-btn-container"><div class="btn-copy-code" title="Copy"><awsui-icon name="copy"></awsui-icon></div></div><code class="json ">
+ <span>{</span>
+    "clientId": "186b5",
+    "timestamp": 1573002230757,
+    "eventType": "connected",
+    "sessionIdentifier": "a4666d2a7d844ae4ac5d7b38c9cb7967",
+    "principalIdentifier": "12345678901234567890123456789012",
+    "ipAddress": "192.0.2.0",
+    "versionNumber": 0
+}</code></pre>
+                                 <p>A disconnect message has the following structure.</p>
+                                 <pre class="programlisting"><div class="code-btn-container"><div class="btn-copy-code" title="Copy"><awsui-icon name="copy"></awsui-icon></div></div><code class="json ">
+<span>{</span>
+    "clientId": "186b5",
+    "timestamp": 1573002340451,
+    "eventType": "disconnected",
+    "sessionIdentifier": "a4666d2a7d844ae4ac5d7b38c9cb7967",
+    "principalIdentifier": "12345678901234567890123456789012",
+    "clientInitiatedDisconnect": true,
+    "disconnectReason": "CLIENT_INITIATED_DISCONNECT",
+    "versionNumber": 0
+}</code></pre>
+                                  
+                                 <h3 id="reconnect">Handling client disconnections</h3>
+                                 
+                                 <p>The best practice is to always have a wait state implemented for lifecycle
+                                    events, including Last Will and Testament (LWT) messages. When a disconnect
+                                    message is received, your code should wait a period of time and verify a device
+                                    is still offline before taking action. One way to do this is by using <a href="https://docs.aws.amazon.com/AWSSimpleQueueService/latest/SQSDeveloperGuide/sqs-delay-queues.html">SQS Delay Queues</a>. When a client receives a LWT or a lifecycle
+                                    event, you can enqueue a message (for example, for 5 seconds). When that message
+                                    becomes available and is processed (by Lambda or another service), you can first
+                                    check if the device is still offline before taking further action.
+                                 </p>
+                                  
+                                 
+                                  
+                                 
+                                 <h2 id="subscribe-unsubscribe-events">Subscribe/Unsubscribe events</h2>
+                                 
+                                 <p>AWS IoT publishes a message to the following MQTT topic when a client subscribes or
+                                    unsubscribes to an MQTT topic:
+                                 </p>
+                                 <pre class="programlisting"><div class="code-btn-container"><div class="btn-copy-code" title="Copy"><awsui-icon name="copy"></awsui-icon></div></div><code class="nohighlight">$aws/events/subscriptions/subscribed/<code class="replaceable">clientId</code></code></pre>
+                                 <p> or </p>
+                                 <pre class="programlisting"><div class="code-btn-container"><div class="btn-copy-code" title="Copy"><awsui-icon name="copy"></awsui-icon></div></div><code class="nohighlight">$aws/events/subscriptions/unsubscribed/<code class="replaceable">clientId</code></code></pre>
+                                 <p>Where <code class="code">clientId</code> is the MQTT client ID that connects to the AWS IoT
+                                    message broker.
+                                 </p>
+                                 
+                                 <p>The message published to this topic has the following structure:</p>
+                                 <pre class="programlisting"><div class="code-btn-container"><div class="btn-copy-code" title="Copy"><awsui-icon name="copy"></awsui-icon></div></div><code class="JSON "><span>{</span>
+    "clientId": "186b5",
+    "timestamp": 1460065214626,
+    "eventType": "subscribed" | "unsubscribed",
+    "sessionIdentifier": "00000000-0000-0000-0000-000000000000",
+    "principalIdentifier": "000000000000/ABCDEFGHIJKLMNOPQRSTU:some-user/ABCDEFGHIJKLMNOPQRSTU:some-user",
+    "topics" : ["foo/bar","device/data","dog/cat"]
+}</code></pre>
+                                 <p>The following is a list of JSON elements that are contained in the subscribed and
+                                    unsubscribed messages published to the
+                                    <code class="code">$aws/events/subscriptions/subscribed/<code class="replaceable">clientId</code></code>
+                                    and
+                                    <code class="code">$aws/events/subscriptions/unsubscribed/<code class="replaceable">clientId</code></code>
+                                    topics.
+                                 </p>
+                                 
+                                 <div class="variablelist">
+                                     
+                                     
+                                     
+                                     
+                                     
+                                     
+                                    
+                                    <dl>
+                                       
+                                       <dt><span class="term">clientId</span></dt>
+                                       
+                                       <dd>
+                                          
+                                          <p>The client ID of the subscribing or unsubscribing client.</p>
+                                          
+                                          <div class="awsdocs-note">
+                                             <div class="awsdocs-note-title">
+                                                <awsui-icon name="status-info" variant="link"></awsui-icon><span>Note</span></div>
+                                             <div class="awsdocs-note-text">
+                                                <p>Client IDs that contain # or + do not receive lifecycle
+                                                   events.
+                                                </p>
+                                             </div>
+                                          </div>
+                                          
+                                       </dd>
+                                        
+                                       
+                                       <dt><span class="term">eventType</span></dt>
+                                       
+                                       <dd>
+                                          
+                                          <p>The type of event. Valid values are <code class="code">subscribed</code> or
+                                             <code class="code">unsubscribed</code>. 
+                                          </p>
+                                          
+                                       </dd>
+                                        
+                                       
+                                       <dt><span class="term">principalIdentifier</span></dt>
+                                       
+                                       <dd>
+                                          
+                                          <p>The credential used to authenticate. For TLS mutual authentication
+                                             certificates, this is the certificate ID. For other connections, this is
+                                             IAM credentials.
+                                          </p>
+                                          
+                                       </dd>
+                                        
+                                       
+                                       <dt><span class="term">sessionIdentifier</span></dt>
+                                       
+                                       <dd>
+                                          
+                                          <p>A globally unique identifier in AWS IoT that exists for the life of the
+                                             session.
+                                          </p>
+                                          
+                                       </dd>
+                                        
+                                       
+                                       <dt><span class="term">timestamp</span></dt>
+                                       
+                                       <dd>
+                                          
+                                          <p>An approximation of when the event occurred, expressed in milliseconds
+                                             since the Unix epoch. The accuracy of the timestamp is +/- 2
+                                             minutes.
+                                          </p>
+                                          
+                                       </dd>
+                                        
+                                       
+                                       <dt><span class="term">topics</span></dt>
+                                       
+                                       <dd>
+                                          
+                                          <p>An array of the MQTT topics to which the client has subscribed.</p>
+                                          
+                                       </dd>
+                                       
+                                    </dl>
+                                 </div>
+                                 
+                                 <div class="awsdocs-note">
+                                    <div class="awsdocs-note-title">
+                                       <awsui-icon name="status-info" variant="link"></awsui-icon><span>Note</span></div>
+                                    <div class="awsdocs-note-text">
+                                       <p>Lifecycle messages might be sent out of order. You might receive duplicate
+                                          messages.
+                                       </p>
+                                    </div>
+                                 </div>
+                                 
+                                 <awsdocs-copyright class="copyright-print"></awsdocs-copyright>
+                                 <awsdocs-thumb-feedback right-edge="{{$ctrl.thumbFeedbackRightEdge}}"></awsdocs-thumb-feedback>
+                              </div>
+                              <noscript>
+                                 <div>
+                                    <div>
+                                       <div>
+                                          <div id="js_error_message">
+                                             <p><img src="https://d1ge0kk1l5kms0.cloudfront.net/images/G/01/webservices/console/warning.png" alt="Warning" /> <strong>Javascript is disabled or is unavailable in your
+                                                   browser.</strong></p>
+                                             <p>To use the Amazon Web Services Documentation, Javascript must be
+                                                enabled. Please refer to your browser's Help pages for instructions.
+                                             </p>
+                                          </div>
+                                       </div>
+                                    </div>
+                                 </div>
+                              </noscript>
+                              <div id="main-col-footer" class="awsui-util-font-size-0">
+                                 <div id="doc-conventions"><a target="_top" href="/general/latest/gr/docconventions.html">Document Conventions</a></div>
+                                 <div class="prev-next">
+                                    <div id="previous" class="prev-link" accesskey="p" href="./events-jobs.html">Jobs events</div>
+                                    <div id="next" class="next-link" accesskey="n" href="./connect-iot-lorawan.html">AWS IoT Core for LoRaWAN</div>
+                                 </div>
+                              </div>
+                              <awsdocs-page-utilities></awsdocs-page-utilities>
+                           </div>
+                           <div id="quick-feedback-yes" style="display: none;">
+                              <div class="title">Did this page help you? - Yes</div>
+                              <div class="content">
+                                 <p>Thanks for letting us know we're doing a good
+                                    job!
+                                 </p>
+                                 <p>If you've got a moment, please tell us what we did right
+                                    so we can do more of it.
+                                 </p>
+                                 <p>
+                                    <awsui-button id="fblink" target="_blank" text="Feedback" click="linkClick($event)" href="https://docs.aws.amazon.com/forms/aws-doc-feedback?hidden_service_name=IoT Docs&amp;topic_url=https://docs.aws.amazon.com/en_us/iot/latest/developerguide/life-cycle-events.html"></awsui-button>
+                                 </p>
+                              </div>
+                           </div>
+                           <div id="quick-feedback-no" style="display: none;">
+                              <div class="title">Did this page help you? - No</div>
+                              <div class="content">
+                                 <p>Thanks for letting us know this page needs work. We're
+                                    sorry we let you down.
+                                 </p>
+                                 <p>If you've got a moment, please tell us how we can make
+                                    the documentation better.
+                                 </p>
+                                 <p>
+                                    <awsui-button id="fblink" target="_blank" text="Feedback" click="linkClick($event)" href="https://docs.aws.amazon.com/forms/aws-doc-feedback?hidden_service_name=IoT Docs&amp;topic_url=https://docs.aws.amazon.com/en_us/iot/latest/developerguide/life-cycle-events.html"></awsui-button>
+                                 </p>
+                              </div>
+                           </div>
+                        </div>
+                     </body>
+                  </div>
+               </awsdocs-view>
+               <div class="page-loading-indicator" id="page-loading-indicator">
+                  <awsui-spinner size="large"></awsui-spinner>
+               </div>
+            </div>
+            <div id="tools-panel" dom-region="tools">
+               <awsdocs-tools-panel id="awsdocs-tools-panel"></awsdocs-tools-panel>
+            </div>
+         </awsui-app-layout>
+         <awsdocs-cookie-banner class="doc-cookie-banner"></awsdocs-cookie-banner>
+         <!--
+                SiteCatalyst code version: H.25.2.
+                Copyright 1996-2012 Adobe, Inc. All Rights Reserved
+                More info available at http://www.omniture.com
+            --><script language="JavaScript" type="text/javascript">
+var awsdocs = awsdocs || {};
+awsdocs.prop66 = 'AWS IoT Core';
+awsdocs.prop65 =  'Developer Guide';
+            </script><script src="https://a0.awsstatic.com/s_code/js/3.0/awshome_s_code.js" language="JavaScript" type="text/javascript"></script>
+         <!--/DO NOT REMOVE/-->
+         <!--End SiteCatalyst code version: H.25.2.--></div>
+   </body>
+</html>

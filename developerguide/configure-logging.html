@@ -1,0 +1,782 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" ng-app="AWSDocsDocPageApp">
+   <head>
+      <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+      <title>Configure AWS IoT logging - AWS IoT Core</title>
+      <meta name="viewport" content="width=device-width,initial-scale=1" />
+      <meta name="assets_root" content="assets" />
+      <meta name="target_state" content="configure-logging" />
+      <meta name="default_state" content="configure-logging" />
+      <link rel="icon" type="image/ico" href="/assets/images/favicon.ico" />
+      <link rel="shortcut icon" type="image/ico" href="/assets/images/favicon.ico" />
+      <link rel="canonical" href="https://docs.aws.amazon.com/iot/latest/developerguide/configure-logging.html" />
+      <meta name="description" content="Configure AWS tools to monitor AWS IoT." />
+      <meta name="deployment_region" content="IAD" />
+      <meta name="product" content="AWS IoT Core" />
+      <meta name="guide" content="Developer Guide" />
+      <meta name="locales" content="de_de:Deutsch/en_us:English/es_es:Español/fr_fr:Français/it_it:Italiano/ja_jp:日本語/ko_kr:한국어/pt_br:Português/zh_cn:中文 (简体)/zh_tw:中文 (繁體)" />
+      <meta name="abstract" content="AWS IoT provides secure, bi-directional communication between Internet-connected devices such as sensors, actuators, embedded micro-controllers, or smart appliances and the AWS Cloud. This enables you to collect telemetry data from multiple devices, and store and analyze the data. You can also create applications that enable your users to control these devices from their phones or tablets." />
+      <meta name="guide-locale" content="en_us" />
+      <meta name="tocs" content="toc-contents.json" />
+      <meta name="feedback-item" content="IoT Docs" />
+      <meta name="this_doc_product" content="AWS IoT Core" />
+      <meta name="this_doc_guide" content="Developer Guide" />
+      <link href="assets/css/vendor4.css" rel="stylesheet" />
+      <link href="assets/css/awsdocs-common.css" rel="stylesheet" /><script type="text/javascript" src="assets/js/vendor3.js" defer=""></script><script type="text/javascript" src="assets/js/vendor4.js" defer=""></script><script type="text/javascript" src="assets/js/vendor1.js" defer=""></script><script type="text/javascript" src="assets/js/awsdocs-common.js" defer=""></script><script type="text/javascript" src="assets/js/awsdocs-doc-app.js" defer=""></script></head>
+   <body class="awsdocs awsui">
+      <div class="awsdocs-container">
+         <awsdocs-header></awsdocs-header>
+         <awsui-app-layout id="app-layout" class="awsui-util-no-gutters" ng-controller="ContentController as $ctrl" header-selector="awsdocs-header" navigation-hide="false" navigation-width="$ctrl.navWidth" navigation-open="$ctrl.navOpen" navigation-change="$ctrl.onNavChange($event)" tools-hide="$ctrl.hideTools" tools-width="$ctrl.toolsWidth" tools-open="$ctrl.toolsOpen" tools-change="$ctrl.onToolsChange($event)">
+            <div id="guide-toc" dom-region="navigation">
+               <awsdocs-toc></awsdocs-toc>
+            </div>
+            <div id="main-column" dom-region="content" tabindex="-1">
+               <awsdocs-view class="awsdocs-view">
+                  <div id="awsdocs-content">
+                     <head>
+                        <title>Configure AWS IoT logging - AWS IoT Core</title>
+                        <meta name="pdf" content="iot-dg.pdf#configure-logging" />
+                        <meta name="kindle" content="https://www.amazon.com/dp/B07JBRCWWZ" />
+                        <meta name="github" content="https://github.com/awsdocs/aws-iot-docs/tree/master/developerguide/configure-logging.md" />
+                        <meta name="forums" content="http://forums.aws.amazon.com/forum.jspa?forumID=210" />
+                        <meta name="feedback" content="https://docs.aws.amazon.com/forms/aws-doc-feedback?hidden_service_name=IoT%20Docs&amp;topic_url=http://docs.aws.amazon.com/en_us/iot/latest/developerguide/configure-logging.html" />
+                        <meta name="feedback-yes" content="feedbackyes.html?topic_url=http://docs.aws.amazon.com/en_us/iot/latest/developerguide/configure-logging.html" />
+                        <meta name="feedback-no" content="feedbackno.html?topic_url=http://docs.aws.amazon.com/en_us/iot/latest/developerguide/configure-logging.html" />
+                        <meta name="keywords" content="AWS IoT,IoT,Internet of Things" />
+                     </head>
+                     <body>
+                        <div id="main">
+                           <div style="display: none"><a href="iot-dg.pdf#configure-logging" target="_blank" rel="noopener noreferrer" title="Open PDF"></a><a target="_blank" rel="noopener noreferrer" href="https://www.amazon.com/dp/B07JBRCWWZ" title="Open Kindle"></a><a href="https://github.com/awsdocs/aws-iot-docs/tree/master/developerguide/configure-logging.md" target="_blank" rel="noopener noreferrer" title="Edit this page on GitHub"></a></div>
+                           <div id="breadcrumbs" class="breadcrumb"><a href="http://aws.amazon.com">AWS</a><a href="/index.html">Documentation</a><a href="/iot/index.html">AWS IoT Core</a><a href="what-is-aws-iot.html">Developer Guide</a></div>
+                           <div id="page-toc-src"><a href="#configure-logging-role-and-policy">Configure logging role and
+                                 policy</a><a href="#configure-logging-console">Configure default logging in the AWS IoT
+                                 (console)</a><a href="#global-logging-cli">Configure default logging in AWS IoT (CLI)</a><a href="#fine-logging-cli">Configure resource-specific logging in AWS IoT
+                                 (CLI)</a><a href="#log-level">Log levels</a></div>
+                           <div id="main-content" class="awsui-util-container">
+                              <div id="main-col-body">
+                                 <awsdocs-language-banner data-service="$ctrl.pageService"></awsdocs-language-banner>
+                                 <h1 class="topictitle" id="configure-logging">Configure AWS IoT logging</h1>
+                                 <div class="awsdocs-page-header-container">
+                                    <awsdocs-page-header></awsdocs-page-header>
+                                    <awsdocs-filter-selector id="awsdocs-filter-selector"></awsdocs-filter-selector>
+                                 </div>
+                                 <p>You must enable logging by using the AWS IoT console, CLI, or API before you can monitor
+                                    and
+                                    log AWS IoT activity. 
+                                 </p>
+                                 <p>You can enable logging for all of AWS IoT or only specific thing groups. You can configure
+                                    AWS IoT logging by using the AWS IoT console, CLI, or API; however, you must use the
+                                    CLI or API to
+                                    configure logging for specific thing groups. 
+                                 </p>
+                                 <p>When considering how to configure your AWS IoT logging, the default logging configuration
+                                    determines how AWS IoT activity will be logged unless specified otherwise. Starting
+                                    out, you
+                                    might want to obtain detailed logs with a default <a href="#log-level">log level</a>
+                                    of <code class="code">INFO</code> or <code class="code">DEBUG</code>. After reviewing the initial logs, you can change
+                                    the default log level to a less verbose level such as <code class="code">WARN</code> or <code class="code">ERROR</code>
+                                    and set a more verbose resource-specific log level on resources that might need more
+                                    attention. Log levels can be changed whenever you want.
+                                 </p>
+                                 
+                                 <h2 id="configure-logging-role-and-policy">Configure logging role and
+                                    policy
+                                 </h2>
+                                 
+                                 <p> Before you can enable logging in AWS IoT, you must create an IAM role and a policy
+                                    that
+                                    gives AWS permission to monitor AWS IoT activity on your behalf. 
+                                 </p>
+                                 
+                                 <div class="awsdocs-note">
+                                    <div class="awsdocs-note-title">
+                                       <awsui-icon name="status-info" variant="link"></awsui-icon><span>Note</span></div>
+                                    <div class="awsdocs-note-text">
+                                       <p>Before you enable AWS IoT logging, make sure you understand the CloudWatch Logs access
+                                          permissions. Users with access to CloudWatch Logs can see debugging information from
+                                          your devices.
+                                          For more information, see <a href="https://docs.aws.amazon.com/AmazonCloudWatch/latest/monitoring/auth-and-access-control-cw.html">Authentication and Access Control for Amazon CloudWatch Logs</a>.
+                                       </p>
+                                       <p>If you expect high traffic patterns in AWS IoT Core due to load testing, consider
+                                          turning
+                                          off IoT logging to prevent throttling. If high traffic is detected, our service may
+                                          disable logging in your account.
+                                       </p>
+                                    </div>
+                                 </div>
+                                 
+                                 <p>Following shows how to create a logging role and policy for AWS IoT Core resources.
+                                    For 
+                                    information about how you can create an IAM logging role and policy for AWS IoT Core
+                                    for LoRaWAN, 
+                                    see <a href="./connect-iot-lorawan-create-logging-role-policy.html">Create
+                                       logging role and policy for AWS IoT Core for LoRaWAN</a>.
+                                 </p>
+                                  
+                                 
+                                 <h3 id="create-logging-role">Create a logging role</h3>
+                                 
+                                 <p>To create a logging role, open the <a href="https://console.aws.amazon.com/iam/home#/roles" rel="noopener noreferrer" target="_blank"><span>Roles hub of the IAM
+                                          console</span><awsui-icon class="awsdocs-link-icon" name="external"></awsui-icon></a> and choose <b>Create role</b>.
+                                 </p>
+                                 
+                                 <div class="procedure">
+                                    <ol>
+                                       <li>
+                                          
+                                          <p>Under <b>Select type of trusted entity</b>, choose <b>AWS
+                                                Service</b>, <b>IoT</b>.
+                                          </p>
+                                          
+                                       </li>
+                                       <li>
+                                          
+                                          <p>Under <b>Select your use case</b>, choose <b>IoT</b>,
+                                             and then choose <b>Next: Permissions</b>.
+                                          </p>
+                                          
+                                       </li>
+                                       <li>
+                                          
+                                          <p>On the page that displays the policies that are automatically attached to the
+                                             service role, choose <b>Next: Tags</b>, and then choose <b>Next:
+                                                Review</b>.
+                                          </p>
+                                          
+                                       </li>
+                                       <li>
+                                          
+                                          <p>Enter a <b>Role name</b> and <b>Role
+                                                description</b> for the role, and then choose <b>Create
+                                                role</b>.
+                                          </p>
+                                          
+                                       </li>
+                                       <li>
+                                          
+                                          <p>In the list of <b>Roles</b>, find the role you created, open it,
+                                             and copy the <b>Role ARN</b>
+                                             (<code class="replaceable">logging-role-arn</code>) to use when you <a href="#configure-logging-console">Configure default logging in the AWS IoT
+                                                (console)</a>.
+                                          </p>
+                                          
+                                       </li>
+                                    </ol>
+                                 </div>
+                                  
+                                  
+                                 
+                                 <h3 id="logging-role-policy">Logging role policy</h3>
+                                 
+                                 <p>The following policy documents provide the role policy and trust policy that allow
+                                    AWS IoT to submit log entries to CloudWatch on your behalf. If you also allowed AWS
+                                    IoT Core for LoRaWAN 
+                                    to submit log entries, you'll see a policy document created for you that logs both
+                                    activities. For 
+                                    information about how to create an IAM logging role and policy for AWS IoT Core for
+                                    LoRaWAN, 
+                                    see <a href="./connect-iot-lorawan-create-logging-role-policy.html">Create
+                                       logging role and policy for AWS IoT Core for LoRaWAN</a>.
+                                    
+                                 </p>
+                                 
+                                 <div class="awsdocs-note">
+                                    <div class="awsdocs-note-title">
+                                       <awsui-icon name="status-info" variant="link"></awsui-icon><span>Note</span></div>
+                                    <div class="awsdocs-note-text">
+                                       <p>These documents were created for you when you created the logging role.</p>
+                                    </div>
+                                 </div>
+                                 
+                                 <p>Role policy:</p>
+                                 <pre class="programlisting"><div class="code-btn-container"><div class="btn-copy-code" title="Copy"><awsui-icon name="copy"></awsui-icon></div></div><code class="JSON "><span>{</span>
+        "Version": "2012-10-17",
+        "Statement": [
+            <span>{</span>
+                "Effect": "Allow",
+                "Action": [
+                    "logs:CreateLogGroup",
+                    "logs:CreateLogStream",
+                    "logs:PutLogEvents",
+                    "logs:PutMetricFilter",
+                    "logs:PutRetentionPolicy"
+                 ],
+                "Resource": [
+                    "*"
+                ]
+            }
+        ]
+    }
+        </code></pre>
+                                 <p>Trust policy to log only AWS IoT Core activity:</p>
+                                 <pre class="programlisting"><div class="code-btn-container"><div class="btn-copy-code" title="Copy"><awsui-icon name="copy"></awsui-icon></div></div><code class="JSON "><span>{</span>
+     "Version": "2012-10-17",
+      "Statement": [
+        <span>{</span>
+          "Sid": "",
+          "Effect": "Allow",
+          "Principal": <span>{</span>
+            "Service": "iot.amazonaws.com"
+          },
+          "Action": "sts:AssumeRole"
+        }
+      ]
+    }
+    </code></pre>       
+                                  
+                                  
+                                 <h2 id="configure-logging-console">Configure default logging in the AWS IoT
+                                    (console)
+                                 </h2>
+                                 
+                                 <p>This section describes how use the AWS IoT console to configure logging for all of
+                                    AWS IoT.
+                                    To configure logging for only specific thing groups, you must use the CLI or API.
+                                    For
+                                    information about configuring logging for specific thing groups, see <a href="#fine-logging-cli">Configure resource-specific logging in AWS IoT
+                                       (CLI)</a>.
+                                 </p>
+                                 
+                                 <div class="procedure">
+                                    <p class="title"><b>To use the AWS IoT console to configure default logging for all of AWS IoT</b></p>
+                                    <ol>
+                                       <li>
+                                          
+                                          <p>Sign in to the AWS IoT console. For more information, see <a href="./setting-up.html#iot-console-signin">Open the AWS IoT console</a>.
+                                          </p>
+                                          
+                                       </li>
+                                       <li>
+                                          
+                                          <p>In the left navigation pane, choose <b>Settings</b>. In the
+                                             <b>Logs</b> section of the <b>Settings</b> page, choose
+                                             <b>Edit</b>. 
+                                          </p>
+                                          
+                                          <p>The <b>Logs</b> section displays the logging role and level of
+                                             verbosity used by all of AWS IoT.
+                                          </p>
+                                          
+                                          <div class="mediaobject">
+                                              
+                                             <img src="images/configure-cloudwatch-logging-1.png" class="aws-docs-img-whiteBg aws-docs-img-padding" style="max-width:100%" />
+                                              
+                                             
+                                          </div>
+                                          
+                                       </li>
+                                       <li>
+                                          
+                                          <p>On the <b>Configure role setting</b> page, choose the <b>Level
+                                                of verbosity</b> that describes the <a href="#log-level">level of detail</a> of the log entries that you want to
+                                             appear in the CloudWatch logs.
+                                          </p>
+                                          
+                                          <div class="mediaobject">
+                                              
+                                             <img src="images/configure-cloudwatch-logging-2.png" class="aws-docs-img-whiteBg aws-docs-img-padding" style="max-width:100%" />
+                                              
+                                             
+                                          </div>
+                                          
+                                       </li>
+                                       <li>
+                                          
+                                          <p>Choose <b>Select</b> to specify a role that you created in <a href="#create-logging-role">Create a logging role</a>, or
+                                             <b>Create Role</b> to create a new role to use for logging.
+                                          </p>
+                                          
+                                       </li>
+                                       <li>
+                                          
+                                          <p>Choose <b>Update</b> to save your changes.
+                                          </p>
+                                          
+                                       </li>
+                                    </ol>
+                                 </div>
+                                 
+                                 <p>After you've enabled logging, visit <a href="./cloud-watch-logs.html#viewing-logs">Viewing AWS IoT logs in the CloudWatch console</a>
+                                    to learn more about viewing the log entries.
+                                 </p>
+                                  
+                                 
+                                 <h2 id="global-logging-cli">Configure default logging in AWS IoT (CLI)</h2>
+                                 
+                                 <p>This section describes how to configure global logging for AWS IoT by using the
+                                    CLI.
+                                 </p>
+                                 
+                                 <div class="awsdocs-note">
+                                    <div class="awsdocs-note-title">
+                                       <awsui-icon name="status-info" variant="link"></awsui-icon><span>Note</span></div>
+                                    <div class="awsdocs-note-text">
+                                       <p>You need the Amazon Resource Name (ARN) of the role that you want to use. If you need
+                                          to create a role to use for logging, see <a href="#create-logging-role">Create a logging role</a> before continuing.
+                                       </p>
+                                       <p> The principal used to call the API must have <a href="./pass-role.html">Pass role permissions</a> for your logging role. 
+                                       </p>
+                                    </div>
+                                 </div>
+                                 
+                                 <p>You can also perform this procedure with the API by using the methods in the AWS API
+                                    that correspond to the CLI commands shown here.
+                                 </p>
+                                 
+                                 <div class="procedure">
+                                    <p class="title"><b>To use the CLI to configure default logging for AWS IoT</b></p>
+                                    <ol>
+                                       <li>
+                                          
+                                          <p>Use the <a href="https://awscli.amazonaws.com/v2/documentation/api/latest/reference/iot/set-v2-logging-options.html" rel="noopener noreferrer" target="_blank"><span><b>set-v2-logging-options</b></span><awsui-icon class="awsdocs-link-icon" name="external"></awsui-icon></a> command to set the logging
+                                             options for your account.
+                                          </p>
+                                          <pre class="programlisting"><div class="code-btn-container"><div class="btn-copy-code" title="Copy"><awsui-icon name="copy"></awsui-icon></div></div><code class="nohighlight">aws iot set-v2-logging-options \
+    --role-arn <code class="replaceable">logging-role-arn</code> \
+    --default-log-level <code class="replaceable">log-level</code></code></pre>
+                                          <p>where:</p>
+                                          
+                                          <div class="variablelist">
+                                              
+                                              
+                                              
+                                              
+                                             
+                                             <dl>
+                                                
+                                                <dt><span class="term"><b>--role-arn</b></span></dt>
+                                                
+                                                <dd>
+                                                   
+                                                   <p>The role ARN that grants AWS IoT permission to write to your logs in
+                                                      CloudWatch Logs.
+                                                   </p>
+                                                   
+                                                </dd>
+                                                 
+                                                
+                                                <dt><span class="term"><b>--default-log-level</b></span></dt>
+                                                
+                                                <dd>
+                                                   
+                                                   <p>The <a href="#log-level">log level</a> to
+                                                      use. Valid values are: <code class="code">ERROR</code>, <code class="code">WARN</code>, <code class="code">INFO</code>,
+                                                      <code class="code">DEBUG</code>, or <code class="code">DISABLED</code></p>
+                                                   
+                                                </dd>
+                                                 
+                                                
+                                                <dt><span class="term"><b>--no-disable-all-logs</b></span></dt>
+                                                
+                                                <dd>
+                                                   
+                                                   <p>An optional parameter that enables all AWS IoT logging. Use this parameter to
+                                                      enable logging when it is currently disabled.
+                                                   </p>
+                                                   
+                                                </dd>
+                                                 
+                                                
+                                                <dt><span class="term"><b>--disable-all-logs</b></span></dt>
+                                                
+                                                <dd>
+                                                   
+                                                   <p>An optional parameter that disables all AWS IoT logging. Use this parameter to
+                                                      disable logging when it is currently enabled.
+                                                   </p>
+                                                   
+                                                </dd>
+                                                
+                                             </dl>
+                                          </div>
+                                          
+                                       </li>
+                                       <li>
+                                          
+                                          <p>Use the <a href="https://awscli.amazonaws.com/v2/documentation/api/latest/reference/iot/get-v2-logging-options.html" rel="noopener noreferrer" target="_blank"><span><b>get-v2-logging-options</b></span><awsui-icon class="awsdocs-link-icon" name="external"></awsui-icon></a> command to get your current
+                                             logging options.
+                                          </p>
+                                          <pre class="programlisting"><div class="code-btn-container"><div class="btn-copy-code" title="Copy"><awsui-icon name="copy"></awsui-icon></div></div><code class="nohighlight">aws iot get-v2-logging-options</code></pre>
+                                          </li>
+                                    </ol>
+                                 </div>
+                                 
+                                 <p>After you've enabled logging, visit <a href="./cloud-watch-logs.html#viewing-logs">Viewing AWS IoT logs in the CloudWatch console</a>
+                                    to learn more about viewing the log entries.
+                                 </p>
+                                 
+                                 <div class="awsdocs-note">
+                                    <div class="awsdocs-note-title">
+                                       <awsui-icon name="status-info" variant="link"></awsui-icon><span>Note</span></div>
+                                    <div class="awsdocs-note-text">
+                                       <p>AWS IoT continues to support older commands (<b>set-logging-options</b> and
+                                          <b>get-logging-options</b>) to set and get global logging on your account.
+                                          Be aware that when these commands are used, the resulting logs contain plain-text,
+                                          rather
+                                          than JSON payloads and logging latency is generally higher. No further improvements
+                                          will
+                                          be made to the implementation of these older commands. We recommend that you use the
+                                          "v2"
+                                          versions to configure your logging options and, when possible, change legacy applications
+                                          that use the older versions.
+                                       </p>
+                                    </div>
+                                 </div>
+                                  
+                                 
+                                 <h2 id="fine-logging-cli">Configure resource-specific logging in AWS IoT
+                                    (CLI)
+                                 </h2>
+                                 
+                                 <p>This section describes how to configure resource-specific logging for AWS IoT by using
+                                    the
+                                    CLI. Resource-specific logging allows you to specify a logging level for a specific
+                                    <a href="./thing-groups.html">thing group</a>. 
+                                 </p>
+                                 
+                                 <p>Thing groups can contain other thing groups to create a hierarchical relationship.
+                                    This
+                                    procedure describes how to configure the logging of a single thing group. You can
+                                    apply this
+                                    procedure to the parent thing group in a hierarchy to configure the logging for all
+                                    thing
+                                    groups in the hierarchy. You can also apply this procedure to a child thing group
+                                    to
+                                    override the logging configuration of its parent.
+                                 </p>
+                                 
+                                 <div class="awsdocs-note">
+                                    <div class="awsdocs-note-title">
+                                       <awsui-icon name="status-info" variant="link"></awsui-icon><span>Note</span></div>
+                                    <div class="awsdocs-note-text">
+                                       <p>You need the Amazon Resource Name (ARN) of the role you want to use. If you need to
+                                          create a role to use for logging, see <a href="#create-logging-role">Create a logging role</a> before continuing.
+                                       </p>
+                                       <p>The principal used to call the API must have <a href="./pass-role.html">Pass role permissions</a> for your logging role. 
+                                       </p>
+                                    </div>
+                                 </div>
+                                 
+                                 <p>You can also perform this procedure with the API by using the methods in the AWS API
+                                    that correspond to the CLI commands shown here. 
+                                 </p>
+                                 
+                                 <div class="procedure">
+                                    <p class="title"><b>To use the CLI to configure resource-specific logging for AWS IoT</b></p>
+                                    <ol>
+                                       <li>
+                                          
+                                          <p>Use the <a href="https://awscli.amazonaws.com/v2/documentation/api/latest/reference/iot/set-v2-logging-options.html" rel="noopener noreferrer" target="_blank"><span><b>set-v2-logging-options</b></span><awsui-icon class="awsdocs-link-icon" name="external"></awsui-icon></a> command to set the logging
+                                             options for your account.
+                                          </p>
+                                          <pre class="programlisting"><div class="code-btn-container"><div class="btn-copy-code" title="Copy"><awsui-icon name="copy"></awsui-icon></div></div><code class="nohighlight">aws iot set-v2-logging-options \
+    --role-arn <code class="replaceable">logging-role-arn</code> \
+    --default-log-level <code class="replaceable">log-level</code></code></pre>
+                                          <p>where:</p>
+                                          
+                                          <div class="variablelist">
+                                              
+                                              
+                                              
+                                              
+                                             
+                                             <dl>
+                                                
+                                                <dt><span class="term"><b>--role-arn</b></span></dt>
+                                                
+                                                <dd>
+                                                   
+                                                   <p>The role ARN that grants AWS IoT permission to write to your logs in
+                                                      CloudWatch Logs.
+                                                   </p>
+                                                   
+                                                </dd>
+                                                 
+                                                
+                                                <dt><span class="term"><b>--default-log-level</b></span></dt>
+                                                
+                                                <dd>
+                                                   
+                                                   <p>The <a href="#log-level">log level</a> to
+                                                      use. Valid values are: <code class="code">ERROR</code>, <code class="code">WARN</code>, <code class="code">INFO</code>,
+                                                      <code class="code">DEBUG</code>, or <code class="code">DISABLED</code></p>
+                                                   
+                                                </dd>
+                                                 
+                                                
+                                                <dt><span class="term"><b>--no-disable-all-logs</b></span></dt>
+                                                
+                                                <dd>
+                                                   
+                                                   <p>An optional parameter that enables all AWS IoT logging. Use this parameter to
+                                                      enable logging when it is currently disabled.
+                                                   </p>
+                                                   
+                                                </dd>
+                                                 
+                                                
+                                                <dt><span class="term"><b>--disable-all-logs</b></span></dt>
+                                                
+                                                <dd>
+                                                   
+                                                   <p>An optional parameter that disables all AWS IoT logging. Use this parameter to
+                                                      disable logging when it is currently enabled.
+                                                   </p>
+                                                   
+                                                </dd>
+                                                
+                                             </dl>
+                                          </div>
+                                          
+                                       </li>
+                                       <li>
+                                          
+                                          <p>Use the <a href="https://awscli.amazonaws.com/v2/documentation/api/latest/reference/iot/set-v2-logging-level.html" rel="noopener noreferrer" target="_blank"><span><b>set-v2-logging-level</b></span><awsui-icon class="awsdocs-link-icon" name="external"></awsui-icon></a> command to configure
+                                             resource-specific logging for a thing group.
+                                          </p>
+                                          <pre class="programlisting"><div class="code-btn-container"><div class="btn-copy-code" title="Copy"><awsui-icon name="copy"></awsui-icon></div></div><code class="nohighlight">aws iot set-v2-logging-level \
+              --log-target targetType=THING_GROUP,targetName=<code class="replaceable">thing_group_name</code> \
+              --log-level <code class="replaceable">log_level</code></code></pre>
+                                          <div class="variablelist">
+                                              
+                                              
+                                             
+                                             <dl>
+                                                
+                                                <dt><span class="term"><b>--log-target</b></span></dt>
+                                                
+                                                <dd>
+                                                   
+                                                   <p>The type and name of the resource for which you are configuring logging. The
+                                                      <code class="code">target_type</code> value must be <code class="code">THING_GROUP</code>. The log-target
+                                                      parameter value can be text, as shown in the preceding command example, or a JSON
+                                                      string, such as the following example.
+                                                   </p>
+                                                   <pre class="programlisting"><div class="code-btn-container"><div class="btn-copy-code" title="Copy"><awsui-icon name="copy"></awsui-icon></div></div><code class="nohighlight">aws iot set-v2-logging-level \
+              --log-target '<span>{</span>"targetType": "THING_GROUP","targetName": "<code class="replaceable">thing_group_name</code>"}' \
+              --log-level <code class="replaceable">log_level</code></code></pre>
+                                                   </dd>
+                                                 
+                                                
+                                                <dt><span class="term"><b>--log-level</b></span></dt>
+                                                
+                                                <dd>
+                                                   
+                                                   <p>The logging level used when generating logs for the specified resource. Valid
+                                                      values are: <b>DEBUG</b>, <b>INFO</b>,
+                                                      <b>ERROR</b>, <b>WARN</b>, and
+                                                      <b>DISABLED</b>
+                                                      
+                                                   </p>
+                                                   
+                                                </dd>
+                                                
+                                             </dl>
+                                          </div>
+                                          
+                                       </li>
+                                       <li>
+                                          
+                                          <p>Use the <a href="https://awscli.amazonaws.com/v2/documentation/api/latest/reference/iot/list-v2-logging-levels.html" rel="noopener noreferrer" target="_blank"><span><b>list-v2-logging-levels</b></span><awsui-icon class="awsdocs-link-icon" name="external"></awsui-icon></a> command to list the currently
+                                             configured logging levels.
+                                          </p>
+                                          <pre class="programlisting"><div class="code-btn-container"><div class="btn-copy-code" title="Copy"><awsui-icon name="copy"></awsui-icon></div></div><code class="nohighlight">aws iot list-v2-logging-levels</code></pre>
+                                          </li>
+                                       <li>
+                                          
+                                          <p>Use the <a href="https://awscli.amazonaws.com/v2/documentation/api/latest/reference/iot/delete-v2-logging-level.html" rel="noopener noreferrer" target="_blank"><span><b>delete-v2-logging-level</b></span><awsui-icon class="awsdocs-link-icon" name="external"></awsui-icon></a> command to delete a
+                                             resource-specific logging level.
+                                          </p>
+                                          <pre class="programlisting"><div class="code-btn-container"><div class="btn-copy-code" title="Copy"><awsui-icon name="copy"></awsui-icon></div></div><code class="nohighlight">aws iot delete-v2-logging-level \
+              --targetType "THING_GROUP" \
+              --targetName "<code class="replaceable">thing_group_name</code>"</code></pre>
+                                          <div class="variablelist">
+                                              
+                                              
+                                             
+                                             <dl>
+                                                
+                                                <dt><span class="term"><b>--targetType</b></span></dt>
+                                                
+                                                <dd>
+                                                   
+                                                   <p>The <code class="code">target_type</code> value must be <code class="code">THING_GROUP</code></p>
+                                                   
+                                                </dd>
+                                                 
+                                                
+                                                <dt><span class="term"><b>--targetName</b></span></dt>
+                                                
+                                                <dd>
+                                                   
+                                                   <p>The name of the thing group for which to remove the logging level.</p>
+                                                   
+                                                </dd>
+                                                
+                                             </dl>
+                                          </div>
+                                          
+                                       </li>
+                                    </ol>
+                                 </div>
+                                 
+                                 <p>After you've enabled logging, visit <a href="./cloud-watch-logs.html#viewing-logs">Viewing AWS IoT logs in the CloudWatch console</a>
+                                    to learn more about viewing the log entries.
+                                 </p>
+                                  
+                                 
+                                 <h2 id="log-level">Log levels</h2>
+                                 
+                                 <p>These log levels determine the events that are logged and apply to default and
+                                    resource-specific log levels.
+                                 </p>
+                                 
+                                 <div class="variablelist">
+                                     
+                                     
+                                     
+                                     
+                                     
+                                    
+                                    <dl>
+                                       
+                                       <dt><span class="term">ERROR</span></dt>
+                                       
+                                       <dd>
+                                          
+                                          <p>Any error that causes an operation to fail.</p>
+                                          
+                                          <p>Logs include ERROR information only.</p>
+                                          
+                                       </dd>
+                                        
+                                       
+                                       <dt><span class="term">WARN</span></dt>
+                                       
+                                       <dd>
+                                          
+                                          <p>Anything that can potentially cause inconsistencies in the system, but might not
+                                             cause the operation to fail.
+                                          </p>
+                                          
+                                          <p>Logs include ERROR and WARN information.</p>
+                                          
+                                       </dd>
+                                        
+                                       
+                                       <dt><span class="term">INFO</span></dt>
+                                       
+                                       <dd>
+                                          
+                                          <p>High-level information about the flow of things.</p>
+                                          
+                                          <p>Logs include INFO, ERROR, and WARN information.</p>
+                                          
+                                       </dd>
+                                        
+                                       
+                                       <dt><span class="term">DEBUG</span></dt>
+                                       
+                                       <dd>
+                                          
+                                          <p>Information that might be helpful when debugging a problem.</p>
+                                          
+                                          <p>Logs include DEBUG, INFO, ERROR, and WARN information.</p>
+                                          
+                                       </dd>
+                                        
+                                       
+                                       <dt><span class="term">DISABLED</span></dt>
+                                       
+                                       <dd>
+                                          
+                                          <p>All logging is disabled.</p>
+                                          
+                                       </dd>
+                                       
+                                    </dl>
+                                 </div>
+                                 
+                                 <awsdocs-copyright class="copyright-print"></awsdocs-copyright>
+                                 <awsdocs-thumb-feedback right-edge="{{$ctrl.thumbFeedbackRightEdge}}"></awsdocs-thumb-feedback>
+                              </div>
+                              <noscript>
+                                 <div>
+                                    <div>
+                                       <div>
+                                          <div id="js_error_message">
+                                             <p><img src="https://d1ge0kk1l5kms0.cloudfront.net/images/G/01/webservices/console/warning.png" alt="Warning" /> <strong>Javascript is disabled or is unavailable in your
+                                                   browser.</strong></p>
+                                             <p>To use the Amazon Web Services Documentation, Javascript must be
+                                                enabled. Please refer to your browser's Help pages for instructions.
+                                             </p>
+                                          </div>
+                                       </div>
+                                    </div>
+                                 </div>
+                              </noscript>
+                              <div id="main-col-footer" class="awsui-util-font-size-0">
+                                 <div id="doc-conventions"><a target="_top" href="/general/latest/gr/docconventions.html">Document Conventions</a></div>
+                                 <div class="prev-next">
+                                    <div id="previous" class="prev-link" accesskey="p" href="./monitoring_overview.html">Monitoring AWS IoT</div>
+                                    <div id="next" class="next-link" accesskey="n" href="./monitoring-cloudwatch.html">Monitor AWS IoT alarms and metrics using
+                                       Amazon CloudWatch
+                                    </div>
+                                 </div>
+                              </div>
+                              <awsdocs-page-utilities></awsdocs-page-utilities>
+                           </div>
+                           <div id="quick-feedback-yes" style="display: none;">
+                              <div class="title">Did this page help you? - Yes</div>
+                              <div class="content">
+                                 <p>Thanks for letting us know we're doing a good
+                                    job!
+                                 </p>
+                                 <p>If you've got a moment, please tell us what we did right
+                                    so we can do more of it.
+                                 </p>
+                                 <p>
+                                    <awsui-button id="fblink" target="_blank" text="Feedback" click="linkClick($event)" href="https://docs.aws.amazon.com/forms/aws-doc-feedback?hidden_service_name=IoT Docs&amp;topic_url=https://docs.aws.amazon.com/en_us/iot/latest/developerguide/configure-logging.html"></awsui-button>
+                                 </p>
+                              </div>
+                           </div>
+                           <div id="quick-feedback-no" style="display: none;">
+                              <div class="title">Did this page help you? - No</div>
+                              <div class="content">
+                                 <p>Thanks for letting us know this page needs work. We're
+                                    sorry we let you down.
+                                 </p>
+                                 <p>If you've got a moment, please tell us how we can make
+                                    the documentation better.
+                                 </p>
+                                 <p>
+                                    <awsui-button id="fblink" target="_blank" text="Feedback" click="linkClick($event)" href="https://docs.aws.amazon.com/forms/aws-doc-feedback?hidden_service_name=IoT Docs&amp;topic_url=https://docs.aws.amazon.com/en_us/iot/latest/developerguide/configure-logging.html"></awsui-button>
+                                 </p>
+                              </div>
+                           </div>
+                        </div>
+                     </body>
+                  </div>
+               </awsdocs-view>
+               <div class="page-loading-indicator" id="page-loading-indicator">
+                  <awsui-spinner size="large"></awsui-spinner>
+               </div>
+            </div>
+            <div id="tools-panel" dom-region="tools">
+               <awsdocs-tools-panel id="awsdocs-tools-panel"></awsdocs-tools-panel>
+            </div>
+         </awsui-app-layout>
+         <awsdocs-cookie-banner class="doc-cookie-banner"></awsdocs-cookie-banner>
+         <!--
+                SiteCatalyst code version: H.25.2.
+                Copyright 1996-2012 Adobe, Inc. All Rights Reserved
+                More info available at http://www.omniture.com
+            --><script language="JavaScript" type="text/javascript">
+var awsdocs = awsdocs || {};
+awsdocs.prop66 = 'AWS IoT Core';
+awsdocs.prop65 =  'Developer Guide';
+            </script><script src="https://a0.awsstatic.com/s_code/js/3.0/awshome_s_code.js" language="JavaScript" type="text/javascript"></script>
+         <!--/DO NOT REMOVE/-->
+         <!--End SiteCatalyst code version: H.25.2.--></div>
+   </body>
+</html>

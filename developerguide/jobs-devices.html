@@ -1,0 +1,1396 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" ng-app="AWSDocsDocPageApp">
+   <head>
+      <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+      <title>Devices and jobs - AWS IoT Core</title>
+      <meta name="viewport" content="width=device-width,initial-scale=1" />
+      <meta name="assets_root" content="assets" />
+      <meta name="target_state" content="jobs-devices" />
+      <meta name="default_state" content="jobs-devices" />
+      <link rel="icon" type="image/ico" href="/assets/images/favicon.ico" />
+      <link rel="shortcut icon" type="image/ico" href="/assets/images/favicon.ico" />
+      <link rel="canonical" href="https://docs.aws.amazon.com/iot/latest/developerguide/jobs-devices.html" />
+      <meta name="description" content="Devices can communicate with the AWS IoT Jobs service through these methods: MQTT HTTP Signature Version 4 HTTP TLS Communication between the AWS IoT Jobs service and your devices can occur over the MQTT protocol. Devices subscribe to MQTT topics to be notified of new jobs and to receive responses from the AWS IoT Jobs service. Devices publish on MQTT topics to query or update the state of a job execution. Each device has its own general MQTT topic. For more information about publishing and subscribing to MQTT topics, see" />
+      <meta name="deployment_region" content="IAD" />
+      <meta name="product" content="AWS IoT Core" />
+      <meta name="guide" content="Developer Guide" />
+      <meta name="locales" content="de_de:Deutsch/en_us:English/es_es:Español/fr_fr:Français/it_it:Italiano/ja_jp:日本語/ko_kr:한국어/pt_br:Português/zh_cn:中文 (简体)/zh_tw:中文 (繁體)" />
+      <meta name="abstract" content="AWS IoT provides secure, bi-directional communication between Internet-connected devices such as sensors, actuators, embedded micro-controllers, or smart appliances and the AWS Cloud. This enables you to collect telemetry data from multiple devices, and store and analyze the data. You can also create applications that enable your users to control these devices from their phones or tablets." />
+      <meta name="guide-locale" content="en_us" />
+      <meta name="tocs" content="toc-contents.json" />
+      <meta name="feedback-item" content="IoT Docs" />
+      <meta name="this_doc_product" content="AWS IoT Core" />
+      <meta name="this_doc_guide" content="Developer Guide" />
+      <link href="assets/css/vendor4.css" rel="stylesheet" />
+      <link href="assets/css/awsdocs-common.css" rel="stylesheet" /><script type="text/javascript" src="assets/js/vendor3.js" defer=""></script><script type="text/javascript" src="assets/js/vendor4.js" defer=""></script><script type="text/javascript" src="assets/js/vendor1.js" defer=""></script><script type="text/javascript" src="assets/js/awsdocs-common.js" defer=""></script><script type="text/javascript" src="assets/js/awsdocs-doc-app.js" defer=""></script></head>
+   <body class="awsdocs awsui">
+      <div class="awsdocs-container">
+         <awsdocs-header></awsdocs-header>
+         <awsui-app-layout id="app-layout" class="awsui-util-no-gutters" ng-controller="ContentController as $ctrl" header-selector="awsdocs-header" navigation-hide="false" navigation-width="$ctrl.navWidth" navigation-open="$ctrl.navOpen" navigation-change="$ctrl.onNavChange($event)" tools-hide="$ctrl.hideTools" tools-width="$ctrl.toolsWidth" tools-open="$ctrl.toolsOpen" tools-change="$ctrl.onToolsChange($event)">
+            <div id="guide-toc" dom-region="navigation">
+               <awsdocs-toc></awsdocs-toc>
+            </div>
+            <div id="main-column" dom-region="content" tabindex="-1">
+               <awsdocs-view class="awsdocs-view">
+                  <div id="awsdocs-content">
+                     <head>
+                        <title>Devices and jobs - AWS IoT Core</title>
+                        <meta name="pdf" content="iot-dg.pdf#jobs-devices" />
+                        <meta name="kindle" content="https://www.amazon.com/dp/B07JBRCWWZ" />
+                        <meta name="github" content="https://github.com/awsdocs/aws-iot-docs/tree/master/developerguide/jobs-devices.md" />
+                        <meta name="forums" content="http://forums.aws.amazon.com/forum.jspa?forumID=210" />
+                        <meta name="feedback" content="https://docs.aws.amazon.com/forms/aws-doc-feedback?hidden_service_name=IoT%20Docs&amp;topic_url=http://docs.aws.amazon.com/en_us/iot/latest/developerguide/jobs-devices.html" />
+                        <meta name="feedback-yes" content="feedbackyes.html?topic_url=http://docs.aws.amazon.com/en_us/iot/latest/developerguide/jobs-devices.html" />
+                        <meta name="feedback-no" content="feedbackno.html?topic_url=http://docs.aws.amazon.com/en_us/iot/latest/developerguide/jobs-devices.html" />
+                        <meta name="keywords" content="AWS IoT,IoT,Internet of Things" />
+                     </head>
+                     <body>
+                        <div id="main">
+                           <div style="display: none"><a href="iot-dg.pdf#jobs-devices" target="_blank" rel="noopener noreferrer" title="Open PDF"></a><a target="_blank" rel="noopener noreferrer" href="https://www.amazon.com/dp/B07JBRCWWZ" title="Open Kindle"></a><a href="https://github.com/awsdocs/aws-iot-docs/tree/master/developerguide/jobs-devices.md" target="_blank" rel="noopener noreferrer" title="Edit this page on GitHub"></a></div>
+                           <div id="breadcrumbs" class="breadcrumb"><a href="http://aws.amazon.com">AWS</a><a href="/index.html">Documentation</a><a href="/iot/index.html">AWS IoT Core</a><a href="what-is-aws-iot.html">Developer Guide</a></div>
+                           <div id="page-toc-src"><a href="#programming-devices">Programming devices to work with jobs</a></div>
+                           <div id="main-content" class="awsui-util-container">
+                              <div id="main-col-body">
+                                 <awsdocs-language-banner data-service="$ctrl.pageService"></awsdocs-language-banner>
+                                 <h1 class="topictitle" id="jobs-devices">Devices and jobs</h1>
+                                 <div class="awsdocs-page-header-container">
+                                    <awsdocs-page-header></awsdocs-page-header>
+                                    <awsdocs-filter-selector id="awsdocs-filter-selector"></awsdocs-filter-selector>
+                                 </div>
+                                 <awsdocs-tabs>
+                                    <dl style="display: none">
+                                       
+                                       <dt>Device
+                                          communication
+                                          with jobs
+                                       </dt>
+                                       <dd tab-id="device---------------------communication---------------------with-jobs">
+                                          
+                                          <p>Devices can communicate with the AWS IoT Jobs service through these methods: </p>
+                                          
+                                          <div class="itemizedlist">
+                                              
+                                              
+                                              
+                                             
+                                             <ul class="itemizedlist" type="disc">
+                                                <li class="listitem">
+                                                   
+                                                   <p>MQTT</p>
+                                                   
+                                                </li>
+                                                <li class="listitem">
+                                                   
+                                                   <p>HTTP Signature Version 4</p>
+                                                   
+                                                </li>
+                                                <li class="listitem">
+                                                   
+                                                   <p>HTTP TLS</p>
+                                                   
+                                                </li>
+                                             </ul>
+                                          </div>
+                                          
+                                       </dd>
+                                       
+                                       <dt>Using
+                                          the MQTT
+                                          protocol
+                                       </dt>
+                                       <dd tab-id="using---------------------the-mqtt---------------------protocol">
+                                          
+                                          <p>Communication between the AWS IoT Jobs service and your devices can occur
+                                             over the MQTT protocol. Devices subscribe to MQTT topics to be notified of
+                                             new jobs and to receive responses from the AWS IoT Jobs service. Devices
+                                             publish on MQTT topics to query or update the state of a job execution. Each
+                                             device has its own general MQTT topic. For more information about publishing
+                                             and subscribing to MQTT topics, see <a href="./protocols.html">Device communication protocols</a>.
+                                          </p>
+                                          
+                                          <div class="awsdocs-note">
+                                             <div class="awsdocs-note-title">
+                                                <awsui-icon name="status-info" variant="link"></awsui-icon><span>Note</span></div>
+                                             <div class="awsdocs-note-text">
+                                                <p>You must use the correct endpoint when you communicate with the AWS IoT
+                                                   Jobs service through MQTT. Use the <b>DescribeEndpoint</b>
+                                                   command to find it. For example, if you run this command: 
+                                                </p><pre class="programlisting"><div class="code-btn-container"><div class="btn-copy-code" title="Copy"><awsui-icon name="copy"></awsui-icon></div></div><code class="bash ">aws iot describe-endpoint --endpoint-type iot:Data-ATS</code></pre><p>you get a result similar to the following:</p><pre class="programlisting"><div class="code-btn-container"><div class="btn-copy-code" title="Copy"><awsui-icon name="copy"></awsui-icon></div></div><code class="bash "><span>{</span>
+    "endpointAddress": "a1b2c3d4e5f6g7-ats.iot.us-west-2.amazonaws.com"
+}</code></pre><p>With this method, your device uses its device-specific certificate and
+                                                   private key to authenticate with the AWS IoT Jobs service.
+                                                </p>
+                                             </div>
+                                          </div>
+                                          
+                                          <p>Devices can:</p>
+                                          
+                                          <div class="itemizedlist">
+                                              
+                                              
+                                              
+                                              
+                                              
+                                              
+                                              
+                                             
+                                             <ul class="itemizedlist" type="disc">
+                                                <li class="listitem">
+                                                   
+                                                   <p>Be notified when a job execution is added or removed from the list
+                                                      of pending job executions by subscribing to the
+                                                      <code class="code">$aws/things/<code class="replaceable">thing-name</code>/jobs/notify</code>
+                                                      MQTT topic, where <code class="code">thing-name</code> is the name of the thing
+                                                      associated with the device.
+                                                   </p>
+                                                   
+                                                </li>
+                                                <li class="listitem">
+                                                   
+                                                   <p>Be notified when the next pending job execution has changed by
+                                                      subscribing to the
+                                                      <code class="code">$aws/things/<code class="replaceable">thing-name</code>/jobs/notify-next</code>
+                                                      MQTT topic, where <code class="code">thing-name</code> is the name of the thing
+                                                      associated with the device.
+                                                   </p>
+                                                   
+                                                </li>
+                                                <li class="listitem">
+                                                   
+                                                   <p>Update the status of a job execution by calling the <a href="./jobs-mqtt-api.html#mqtt-updatejobexecution">UpdateJobExecution</a> API.
+                                                   </p>
+                                                   
+                                                </li>
+                                                <li class="listitem">
+                                                   
+                                                   <p>Query the status of a job execution by calling the <a href="./jobs-mqtt-api.html#mqtt-describejobexecution">DescribeJobExecution</a> API.
+                                                   </p>
+                                                   
+                                                </li>
+                                                <li class="listitem">
+                                                   
+                                                   <p>Retrieve a list of pending job executions by calling the <a href="./jobs-mqtt-api.html#mqtt-getpendingjobexecutions">GetPendingJobExecutions</a> API.
+                                                   </p>
+                                                   
+                                                </li>
+                                                <li class="listitem">
+                                                   
+                                                   <p>Retrieve the next pending job execution by calling the <a href="./jobs-mqtt-api.html#mqtt-describejobexecution">DescribeJobExecution</a> API with jobId
+                                                      <code class="code">$next</code>.
+                                                   </p>
+                                                   
+                                                </li>
+                                                <li class="listitem">
+                                                   
+                                                   <p>Get and start the next pending job execution by calling the <a href="./jobs-mqtt-api.html#mqtt-startnextpendingjobexecution">StartNextPendingJobExecution</a> API.
+                                                   </p>
+                                                   
+                                                </li>
+                                             </ul>
+                                          </div>
+                                          
+                                          <p>The AWS IoT Jobs service publishes success and failure messages on an MQTT
+                                             topic. The topic is formed by appending <code class="code">accepted</code> or
+                                             <code class="code">rejected</code> to the topic used to make the request. For
+                                             example, if a request message is published on the
+                                             <code class="code">$aws/things/myThing/jobs/get</code> topic, the AWS IoT Jobs service
+                                             publishes success messages on the
+                                             <code class="code">$aws/things/myThing/jobs/get/accepted</code> topic and publishes
+                                             rejected messages on the <code class="code">$aws/things/myThing/jobs/get/rejected</code>
+                                             topic.
+                                          </p>
+                                          
+                                       </dd>
+                                       
+                                       <dt>Using
+                                          HTTP Signature Version 4
+                                       </dt>
+                                       <dd tab-id="using---------------------http-signature-version-4">
+                                          
+                                          <p>Communication between the AWS IoT Jobs service and your devices can occur
+                                             over HTTP Signature Version 4 on port 443. This is the method used by the
+                                             AWS SDKs and CLI. For more information about those tools, see <a href="https://docs.aws.amazon.com/cli/latest/reference/iot-jobs-data/index.html">AWS CLI Command Reference:
+                                                iot-jobs-data</a> or <a href="http://aws.amazon.com/tools/#sdk" rel="noopener noreferrer" target="_blank"><span>AWS SDKs and Tools</span><awsui-icon class="awsdocs-link-icon" name="external"></awsui-icon></a> and refer to the IotJobsDataPlane section
+                                             for your preferred language.
+                                          </p>
+                                          
+                                          <div class="awsdocs-note">
+                                             <div class="awsdocs-note-title">
+                                                <awsui-icon name="status-info" variant="link"></awsui-icon><span>Note</span></div>
+                                             <div class="awsdocs-note-text">
+                                                <p>You must use the correct endpoint when you communicate with the AWS IoT
+                                                   Jobs service through HTTP Signature Version 4 or using an AWS SDK or CLI
+                                                   <b>IotJobsDataPlane</b> command. Use the
+                                                   <b>DescribeEndpoint</b> command to find it. For example,
+                                                   if you run this command:
+                                                </p><pre class="programlisting"><div class="code-btn-container"><div class="btn-copy-code" title="Copy"><awsui-icon name="copy"></awsui-icon></div></div><code class="bash ">aws iot describe-endpoint --endpoint-type iot:Jobs</code></pre><p>you get a result similar to the following:</p><pre class="programlisting"><div class="code-btn-container"><div class="btn-copy-code" title="Copy"><awsui-icon name="copy"></awsui-icon></div></div><code class="bash "><span>{</span>
+    "endpointAddress": "a1b2c3d4e5f6g7.jobs.iot.us-west-2.amazonaws.com"
+}</code></pre><p>With this method of communication, your device uses IAM credentials to
+                                                   authenticate with the AWS IoT Jobs service.
+                                                </p>
+                                             </div>
+                                          </div>
+                                          
+                                          <p>The following commands are available using this method: </p>
+                                          
+                                          <div class="itemizedlist">
+                                              
+                                              
+                                              
+                                              
+                                             
+                                             <ul class="itemizedlist" type="disc">
+                                                <li class="listitem">
+                                                   
+                                                   <p><b>DescribeJobExecution</b></p>
+                                                   
+                                                   <p><code class="code">aws iot-jobs-data describe-job-execution ...</code>
+                                                      
+                                                   </p>
+                                                   
+                                                </li>
+                                                <li class="listitem">
+                                                   
+                                                   <p><b>GetPendingJobExecutions</b></p>
+                                                   
+                                                   <p><code class="code">aws iot-jobs-data get-pending-job-executions ...</code>
+                                                      
+                                                   </p>
+                                                   
+                                                </li>
+                                                <li class="listitem">
+                                                   
+                                                   <p><b>StartNextPendingJobExecution</b></p>
+                                                   
+                                                   <p><code class="code">aws iot-jobs-data start-next-pending-job-execution
+                                                         ...</code>
+                                                      
+                                                   </p>
+                                                   
+                                                </li>
+                                                <li class="listitem">
+                                                   
+                                                   <p><b>UpdateJobExecution</b></p>
+                                                   
+                                                   <p><code class="code">aws iot-jobs-data update-job-execution ...</code>
+                                                      
+                                                   </p>
+                                                   
+                                                </li>
+                                             </ul>
+                                          </div>
+                                          
+                                       </dd>
+                                       
+                                       <dt>Using
+                                          HTTP TLS
+                                       </dt>
+                                       <dd tab-id="using---------------------http-tls">
+                                          
+                                          <p>Communication between the AWS IoT Jobs service and your devices can occur
+                                             over HTTP TLS on port 8443 using a third-party software client that supports
+                                             this protocol.
+                                          </p>
+                                          
+                                          <div class="awsdocs-note">
+                                             <div class="awsdocs-note-title">
+                                                <awsui-icon name="status-info" variant="link"></awsui-icon><span>Note</span></div>
+                                             <div class="awsdocs-note-text">
+                                                <p>You must use the correct endpoint when you communicate with the AWS IoT
+                                                   Jobs service through HTTP TLS. Use the
+                                                   <b>DescribeEndpoint</b> command to find it. For example,
+                                                   if you run this command: 
+                                                </p><pre class="programlisting"><div class="code-btn-container"><div class="btn-copy-code" title="Copy"><awsui-icon name="copy"></awsui-icon></div></div><code class="bash ">aws iot describe-endpoint --endpoint-type iot:Jobs </code></pre><p>you get a result similar to the following:</p><pre class="programlisting"><div class="code-btn-container"><div class="btn-copy-code" title="Copy"><awsui-icon name="copy"></awsui-icon></div></div><code class="bash "><span>{</span>
+    "endpointAddress": "a1b2c3d4e5f6g7.jobs.iot.us-west-2.amazonaws.com"
+}</code></pre><p>With this method, your device uses X.509 certificate-based
+                                                   authentication (for example, its device-specific certificate and private
+                                                   key).
+                                                </p>
+                                             </div>
+                                          </div>
+                                          
+                                          <p> </p>
+                                          
+                                          <p>The following commands are available using this method: </p>
+                                          
+                                          <div class="itemizedlist">
+                                              
+                                              
+                                              
+                                              
+                                             
+                                             <ul class="itemizedlist" type="disc">
+                                                <li class="listitem">
+                                                   
+                                                   <p><b>DescribeJobExecution</b></p>
+                                                   
+                                                </li>
+                                                <li class="listitem">
+                                                   
+                                                   <p><b>GetPendingJobExecutions</b></p>
+                                                   
+                                                </li>
+                                                <li class="listitem">
+                                                   
+                                                   <p><b>StartNextPendingJobExecution</b></p>
+                                                   
+                                                </li>
+                                                <li class="listitem">
+                                                   
+                                                   <p><b>UpdateJobExecution</b></p>
+                                                   
+                                                </li>
+                                             </ul>
+                                          </div>
+                                          
+                                       </dd>
+                                       
+                                    </dl>
+                                 </awsdocs-tabs>
+                                 
+                                 <h2 id="programming-devices">Programming devices to work with jobs</h2>
+                                 
+                                 <p>The examples in this section use MQTT to illustrate how a device works with the
+                                    AWS IoT Jobs service. Alternatively, you could use the corresponding API or CLI
+                                    commands. For these examples, we assume a device called <code class="code">MyThing</code>
+                                    subscribes to the following MQTT topics:
+                                 </p>
+                                 
+                                 <div class="itemizedlist">
+                                     
+                                     
+                                     
+                                     
+                                     
+                                    
+                                    <ul class="itemizedlist" type="disc">
+                                       <li class="listitem">
+                                          
+                                          <p><code class="code">$aws/things/<code class="replaceable">MyThing</code>/jobs/notify</code>
+                                             (or
+                                             <code class="code">$aws/things/<code class="replaceable">MyThing</code>/jobs/notify-next</code>)
+                                          </p>
+                                          
+                                       </li>
+                                       <li class="listitem">
+                                          
+                                          <p><code class="code">$aws/things/<code class="replaceable">MyThing</code>/jobs/get/accepted</code></p>
+                                          
+                                       </li>
+                                       <li class="listitem">
+                                          
+                                          <p><code class="code">$aws/things/<code class="replaceable">MyThing</code>/jobs/get/rejected</code></p>
+                                          
+                                       </li>
+                                       <li class="listitem">
+                                          
+                                          <p><code class="code">$aws/things/<code class="replaceable">MyThing</code>/jobs/<code class="replaceable">jobId</code>/get/accepted</code></p>
+                                          
+                                       </li>
+                                       <li class="listitem">
+                                          
+                                          <p><code class="code">$aws/things/<code class="replaceable">MyThing</code>/jobs/<code class="replaceable">jobId</code>/get/rejected</code></p>
+                                          
+                                       </li>
+                                    </ul>
+                                 </div>
+                                 
+                                 <p> If you are using code signing for AWS IoT your device code must verify the
+                                    signature of your code file. The signature is in the job document in the
+                                    <code class="code">codesign</code> property. For more information about verifying a code file
+                                    signature, see <a href="https://github.com/aws/aws-iot-device-sdk-js#jobsAgent" rel="noopener noreferrer" target="_blank"><span>Device Agent Sample</span><awsui-icon class="awsdocs-link-icon" name="external"></awsui-icon></a>.
+                                 </p>
+                                  
+                                 
+                                 <h3 id="jobs-workflow-device-online">Device workflow</h3>
+                                 
+                                 <p>There are two ways a device can handle the jobs it is given to execute. </p>
+                                 
+                                 <awsdocs-tabs>
+                                    <dl style="display: none">
+                                       
+                                       <dt>Option a: Get the next job</dt>
+                                       <dd tab-id="option-a:-get-the-next-job">
+                                          
+                                          <div class="procedure">
+                                             <ol>
+                                                <li>
+                                                   
+                                                   <p>When a device first comes online, it should subscribe to
+                                                      the device's <code class="code">notify-next</code> topic.
+                                                   </p>
+                                                   
+                                                </li>
+                                                <li>
+                                                   
+                                                   <p>Call the <a href="./jobs-mqtt-api.html#mqtt-describejobexecution">DescribeJobExecution</a> MQTT API with
+                                                      jobId <code class="code">$next</code> to get the next job, its job
+                                                      document, and other details, including any state saved in
+                                                      <code class="code">statusDetails</code>. If the job document has a
+                                                      code file signature, you must verify the signature before
+                                                      proceeding with processing the job request.
+                                                   </p>
+                                                   
+                                                </li>
+                                                <li>
+                                                   
+                                                   <p>Call the <a href="./jobs-mqtt-api.html#mqtt-updatejobexecution">UpdateJobExecution</a> MQTT API to update
+                                                      the job status. Or, to combine this and the previous step in
+                                                      one call, the device can call <a href="./jobs-mqtt-api.html#mqtt-startnextpendingjobexecution">StartNextPendingJobExecution</a>.
+                                                   </p>
+                                                   
+                                                </li>
+                                                <li>
+                                                   
+                                                   <p>(Optional) You can add a step timer by setting a value for
+                                                      <code class="code">stepTimeoutInMinutes</code> when you call either
+                                                      <a href="./jobs-mqtt-api.html#mqtt-updatejobexecution">UpdateJobExecution</a> or <a href="./jobs-mqtt-api.html#mqtt-startnextpendingjobexecution">StartNextPendingJobExecution</a>.
+                                                   </p>
+                                                   
+                                                </li>
+                                                <li>
+                                                   
+                                                   <p>Perform the actions specified by the job document using
+                                                      the <a href="./jobs-mqtt-api.html#mqtt-updatejobexecution">UpdateJobExecution</a> MQTT API to report
+                                                      on the progress of the job.
+                                                   </p>
+                                                   
+                                                </li>
+                                                <li>
+                                                   
+                                                   <p>Continue to monitor the job execution by calling the <a href="./jobs-mqtt-api.html#mqtt-describejobexecution">DescribeJobExecution</a> MQTT API with this
+                                                      jobId. If the job execution is deleted, <a href="./jobs-mqtt-api.html#mqtt-describejobexecution">DescribeJobExecution</a> returns a
+                                                      <code class="code">ResourceNotFoundException</code>.
+                                                   </p>
+                                                   
+                                                   <p>The device should be able to recover to a valid state if
+                                                      the job execution is canceled or deleted while the device is
+                                                      running the job.
+                                                   </p>
+                                                   
+                                                </li>
+                                                <li>
+                                                   
+                                                   <p>Call the <a href="./jobs-mqtt-api.html#mqtt-updatejobexecution">UpdateJobExecution</a> MQTT API when
+                                                      finished with the job to update the job status and report
+                                                      success or failure.
+                                                   </p>
+                                                   
+                                                </li>
+                                                <li>
+                                                   
+                                                   <p>Because this job's execution status has been changed to a
+                                                      terminal state, the next job available for execution (if
+                                                      any) changes. The device is notified that the next pending
+                                                      job execution has changed. At this point, the device should
+                                                      continue as described in step 2. 
+                                                   </p>
+                                                   
+                                                </li>
+                                             </ol>
+                                          </div>
+                                          
+                                          <p>If the device remains online, it continues to receive a
+                                             notifications of the next pending job execution, including its job
+                                             execution data, when it completes a job or a new pending job
+                                             execution is added. When this occurs, the device continues as
+                                             described in step 2.
+                                          </p>
+                                          
+                                       </dd>
+                                       
+                                       <dt>Option b: Pick from available jobs</dt>
+                                       <dd tab-id="option-b:-pick-from-available-jobs">
+                                          
+                                          <div class="procedure">
+                                             <ol>
+                                                <li>
+                                                   
+                                                   <p>When a device first comes online, it should subscribe to
+                                                      the thing's <code class="code">notify</code> topic.
+                                                   </p>
+                                                   
+                                                </li>
+                                                <li>
+                                                   
+                                                   <p>Call the <a href="./jobs-mqtt-api.html#mqtt-getpendingjobexecutions">GetPendingJobExecutions</a> MQTT API
+                                                      to get a list of pending job executions.
+                                                   </p>
+                                                   
+                                                </li>
+                                                <li>
+                                                   
+                                                   <p>If the list contains one or more job executions, pick
+                                                      one.
+                                                   </p>
+                                                   
+                                                </li>
+                                                <li>
+                                                   
+                                                   <p>Call the <a href="./jobs-mqtt-api.html#mqtt-describejobexecution">DescribeJobExecution</a> MQTT API to get
+                                                      the job document and other details, including any state
+                                                      saved in <code class="code">statusDetails</code>.
+                                                   </p>
+                                                   
+                                                </li>
+                                                <li>
+                                                   
+                                                   <p>Call the <a href="./jobs-mqtt-api.html#mqtt-updatejobexecution">UpdateJobExecution</a> MQTT API to update
+                                                      the job status. If the <code class="code">includeJobDocument</code> field
+                                                      is set to <code class="code">true</code> in this command, the device can
+                                                      skip the previous step and retrieve the job document at this
+                                                      point.
+                                                   </p>
+                                                   
+                                                </li>
+                                                <li>
+                                                   
+                                                   <p>Optionally, you can add a step timer by setting a value
+                                                      for <code class="code">stepTimeoutInMinutes</code> when you call <a href="./jobs-mqtt-api.html#mqtt-updatejobexecution">UpdateJobExecution</a>.
+                                                   </p>
+                                                   
+                                                </li>
+                                                <li>
+                                                   
+                                                   <p>Perform the actions specified by the job document using
+                                                      the <a href="./jobs-mqtt-api.html#mqtt-updatejobexecution">UpdateJobExecution</a> MQTT API to report
+                                                      on the progress of the job.
+                                                   </p>
+                                                   
+                                                </li>
+                                                <li>
+                                                   
+                                                   <p>Continue to monitor the job execution by calling the <a href="./jobs-mqtt-api.html#mqtt-describejobexecution">DescribeJobExecution</a> MQTT API with this
+                                                      jobId. If the job execution is canceled or deleted while the
+                                                      device is running the job, the device should be capable of
+                                                      recovering to a valid state.
+                                                   </p>
+                                                   
+                                                </li>
+                                                <li>
+                                                   
+                                                   <p>Call the <a href="./jobs-mqtt-api.html#mqtt-updatejobexecution">UpdateJobExecution</a> MQTT API when
+                                                      finished with the job to update the job status and to report
+                                                      success or failure.
+                                                   </p>
+                                                   
+                                                </li>
+                                             </ol>
+                                          </div>
+                                          
+                                          <p>If the device remains online, it is notified of all pending job
+                                             executions when a new pending job execution becomes available. When
+                                             this occurs, the device can continue as described in step 2.
+                                          </p>
+                                          
+                                       </dd>
+                                       
+                                    </dl>
+                                 </awsdocs-tabs>
+                                 
+                                 <p>If the device is unable to execute the job, it should call the <a href="./jobs-mqtt-api.html#mqtt-updatejobexecution">UpdateJobExecution</a>
+                                    MQTT API to update the job status to <code class="code">REJECTED</code>.
+                                 </p>
+                                  
+                                  
+                                 
+                                 <h3 id="jobs-respond-new-job">Starting a new job</h3>
+                                 
+                                 <awsdocs-tabs>
+                                    <dl style="display: none">
+                                       
+                                       <dt>New job notification</dt>
+                                       <dd tab-id="new-job-notification">
+                                          
+                                          <p>When a new job is created, the AWS IoT Jobs service publishes a
+                                             message on the
+                                             <code class="code">$aws/things/<code class="replaceable">thing-name</code>/jobs/notify</code>
+                                             topic for each target device.
+                                          </p>
+                                          
+                                       </dd>
+                                       
+                                       <dt>More
+                                          Information(1)
+                                       </dt>
+                                       <dd tab-id="more-----------------------------information(1)">
+                                          
+                                          <p>The message contains the following information:</p>
+                                          <pre class="programlisting"><div class="code-btn-container"><div class="btn-copy-code" title="Copy"><awsui-icon name="copy"></awsui-icon></div></div><code class="JSON "><span>{</span>
+    "timestamp":1476214217017,
+    "jobs":<span>{</span>
+        "QUEUED":[<span>{</span>
+            "jobId":"0001",
+            "queuedAt":1476214216981,
+            "lastUpdatedAt":1476214216981,
+            "versionNumber" : 1
+        }]
+    }
+}</code></pre>
+                                          <p>The device receives this message on the
+                                             <code class="code">'$aws/things/<code class="replaceable">thingName</code>/jobs/notify'</code>
+                                             topic when the job execution is queued.
+                                          </p>
+                                          
+                                       </dd>
+                                       
+                                    </dl>
+                                 </awsdocs-tabs>
+                                 
+                                 <p></p>
+                                 
+                                 <awsdocs-tabs>
+                                    <dl style="display: none">
+                                       
+                                       <dt>Get job information</dt>
+                                       <dd tab-id="get-job-information">
+                                          
+                                          <p>To get more information about a job execution, the device calls
+                                             the <a href="./jobs-mqtt-api.html#mqtt-describejobexecution">DescribeJobExecution</a> MQTT API with the
+                                             <code class="code">includeJobDocument</code> field set to <code class="code">true</code>
+                                             (the default).
+                                          </p>
+                                          
+                                       </dd>
+                                       
+                                       <dt>More
+                                          Information(2)
+                                       </dt>
+                                       <dd tab-id="more-----------------------------information(2)">
+                                          
+                                          <p>If the request is successful, the AWS IoT Jobs service publishes a
+                                             message on the
+                                             <code class="code">$aws/things/MyThing/jobs/0023/get/accepted</code>
+                                             topic:
+                                          </p>
+                                          <pre class="programlisting"><div class="code-btn-container"><div class="btn-copy-code" title="Copy"><awsui-icon name="copy"></awsui-icon></div></div><code class="JSON "><span>{</span>
+    "clientToken" : "client-001",
+    "timestamp" : 1489097434407,
+    "execution" : <span>{</span>
+        "approximateSecondsBeforeTimedOut": number,
+        "jobId" : "023",
+        "status" : "QUEUED",
+        "queuedAt" : 1489097374841,
+        "lastUpdatedAt" : 1489097374841,
+        "versionNumber" : 1,
+        "jobDocument" : <span>{</span>
+            &lt; contents of job document &gt;
+        }
+    }
+}</code></pre>
+                                          <div class="awsdocs-note">
+                                             <div class="awsdocs-note-title">
+                                                <awsui-icon name="status-info" variant="link"></awsui-icon><span>Note</span></div>
+                                             <div class="awsdocs-note-text">
+                                                <p>If the request fails, the AWS IoT Jobs service publishes a
+                                                   message on the
+                                                   <code class="code">$aws/things/MyThing/jobs/0023/get/rejected</code>
+                                                   topic.
+                                                </p>
+                                             </div>
+                                          </div>
+                                          
+                                       </dd>
+                                       
+                                    </dl>
+                                 </awsdocs-tabs>
+                                 
+                                 <p></p>
+                                 
+                                 <p>The device now has the job document that it can use to perform the remote
+                                    operations for the job. If the job document contains an Amazon S3 presigned URL, the
+                                    device can use that URL to download any required files for the job.
+                                 </p>
+                                  
+                                  
+                                 
+                                 <h3 id="jobs-job-processing">Report job execution status</h3>
+                                 
+                                 <awsdocs-tabs>
+                                    <dl style="display: none">
+                                       
+                                       <dt>Update
+                                          execution
+                                          status
+                                       </dt>
+                                       <dd tab-id="update-----------------------------execution-----------------------------status">
+                                          
+                                          <p>As the device is executing the job, it can call the <a href="./jobs-mqtt-api.html#mqtt-updatejobexecution">UpdateJobExecution</a> MQTT API to update the
+                                             status of the job execution.
+                                          </p>
+                                          
+                                       </dd>
+                                       
+                                       <dt>More
+                                          information
+                                          (3)
+                                       </dt>
+                                       <dd tab-id="more-----------------------------information-----------------------------(3)">
+                                          
+                                          <p>For example, a device can update the job execution status to
+                                             <code class="code">IN_PROGRESS</code> by publishing the following message on
+                                             the <code class="code">$aws/things/MyThing/jobs/0023/update</code> topic:
+                                          </p>
+                                          <pre class="programlisting"><div class="code-btn-container"><div class="btn-copy-code" title="Copy"><awsui-icon name="copy"></awsui-icon></div></div><code class="JSON "><span>{</span>
+    "status":"IN_PROGRESS",
+    "statusDetails": <span>{</span>
+        "progress":"50%"
+    },
+    "expectedVersion":"1",
+    "clientToken":"client001"
+}</code></pre>
+                                          <p>Jobs responds by publishing a message to the
+                                             <code class="code">$aws/things/MyThing/jobs/0023/update/accepted</code> or
+                                             <code class="code">$aws/things/MyThing/jobs/0023/update/rejected</code>
+                                             topic:
+                                          </p>
+                                          <pre class="programlisting"><div class="code-btn-container"><div class="btn-copy-code" title="Copy"><awsui-icon name="copy"></awsui-icon></div></div><code class="JSON "><span>{</span>
+    "clientToken":"client001",
+    "timestamp":1476289222841
+}</code></pre>
+                                          <p>The device can combine the two previous requests by calling <a href="./jobs-mqtt-api.html#mqtt-startnextpendingjobexecution">StartNextPendingJobExecution</a>. That gets
+                                             and starts the next pending job execution and allows the device to
+                                             update the job execution status. This request also returns the job
+                                             document when there is a job execution pending.
+                                          </p>
+                                          
+                                          <p>If the job contains a <a href="https://docs.aws.amazon.com/iot/latest/apireference/API_TimeoutConfig.html">TimeoutConfig</a>, the in-progress timer starts running.
+                                             You can also set a step timer for a job execution by setting a value
+                                             for <code class="code">stepTimeoutInMinutes</code> when you call <a href="https://docs.aws.amazon.com/iot/latest/apireference/API_iot-jobs-data_UpdateJobExecution.html">UpdateJobExecution</a>. The step timer applies only to the
+                                             job execution that you update. You can set a new value for this
+                                             timer each time you update a job execution. You can also create a
+                                             step timer when you call <a href="https://docs.aws.amazon.com/iot/latest/apireference/API_iot-jobs-data_StartNextPendingJobExecution.html">StartNextPendingJobExecution</a>. If the job execution
+                                             remains in the <code class="code">IN_PROGRESS</code> status for longer than the
+                                             step timer interval, it fails and switches to the terminal
+                                             <code class="code">TIMED_OUT</code> status. The step timer has no effect on
+                                             the in-progress timer that you set when you create a job.
+                                          </p>
+                                          
+                                          <p>The <code class="code">status</code> field can be set to
+                                             <code class="code">IN_PROGRESS</code>, <code class="code">SUCCEEDED</code>, or
+                                             <code class="code">FAILED</code>. You cannot update the status of a job
+                                             execution that is already in a terminal state.
+                                          </p>
+                                          
+                                       </dd>
+                                       
+                                    </dl>
+                                 </awsdocs-tabs>
+                                 
+                                 <p></p>
+                                 
+                                 <awsdocs-tabs>
+                                    <dl style="display: none">
+                                       
+                                       <dt>Report
+                                          execution
+                                          completed
+                                       </dt>
+                                       <dd tab-id="report-----------------------------execution-----------------------------completed">
+                                          
+                                          <p>When the device is finished executing the job, it calls the <a href="./jobs-mqtt-api.html#mqtt-updatejobexecution">UpdateJobExecution</a> MQTT API. If the job
+                                             was successful, set <code class="code">status</code> to <code class="code">SUCCEEDED</code>
+                                             and, in the message payload, in <code class="code">statusDetails</code>, add
+                                             other information about the job as name-value pairs. The in-progress
+                                             and step timers end when the job execution is complete.
+                                          </p>
+                                          
+                                       </dd>
+                                       
+                                       <dt>More
+                                          Information(4)
+                                       </dt>
+                                       <dd tab-id="more-----------------------------information(4)">
+                                          
+                                          <p>For example:</p>
+                                          <pre class="programlisting"><div class="code-btn-container"><div class="btn-copy-code" title="Copy"><awsui-icon name="copy"></awsui-icon></div></div><code class="JSON "><span>{</span>
+    "status":"SUCCEEDED",
+    "statusDetails": <span>{</span>
+        "progress":"100%"
+    },
+    "expectedVersion":"2",
+    "clientToken":"client-001"
+}</code></pre>
+                                          <p>If the job was not successful, set <code class="code">status</code> to
+                                             <code class="code">FAILED</code> and, in <code class="code">statusDetails</code>, add
+                                             information about the error that occurred:
+                                          </p>
+                                          <pre class="programlisting"><div class="code-btn-container"><div class="btn-copy-code" title="Copy"><awsui-icon name="copy"></awsui-icon></div></div><code class="JSON "><span>{</span>
+    "status":"FAILED",
+    "statusDetails": <span>{</span>
+        "errorCode":"101",
+        "errorMsg":"Unable to install update"
+    },
+    "expectedVersion":"2",
+    "clientToken":"client-001"
+}</code></pre>
+                                          <div class="awsdocs-note">
+                                             <div class="awsdocs-note-title">
+                                                <awsui-icon name="status-info" variant="link"></awsui-icon><span>Note</span></div>
+                                             <div class="awsdocs-note-text">
+                                                <p>The <code class="code">statusDetails</code> attribute can contain any
+                                                   number of name-value pairs.
+                                                </p>
+                                             </div>
+                                          </div>
+                                          
+                                          <p>When the AWS IoT Jobs service receives this update, it publishes a
+                                             message on the <code class="code">$aws/things/MyThing/jobs/notify</code> topic to
+                                             indicate the job execution is complete:
+                                          </p>
+                                          <pre class="programlisting"><div class="code-btn-container"><div class="btn-copy-code" title="Copy"><awsui-icon name="copy"></awsui-icon></div></div><code class="JSON "><span>{</span>
+    "timestamp":1476290692776,
+    "jobs":<span>{</span>}
+}</code></pre>
+                                          </dd>
+                                       
+                                    </dl>
+                                 </awsdocs-tabs>
+                                  
+                                  
+                                 
+                                 <h3 id="jobs-additional-job">Additional jobs</h3>
+                                 
+                                 <awsdocs-tabs>
+                                    <dl style="display: none">
+                                       
+                                       <dt>Additional jobs</dt>
+                                       <dd tab-id="additional-jobs">
+                                          
+                                          <p>If there are other job executions pending for the device, they are
+                                             included in the message published to
+                                             <code class="code">$aws/things/MyThing/jobs/notify</code>.
+                                          </p>
+                                          
+                                       </dd>
+                                       
+                                       <dt>More
+                                          Information(5)
+                                       </dt>
+                                       <dd tab-id="more-----------------------------information(5)">
+                                          
+                                          <p>For example:</p>
+                                          <pre class="programlisting"><div class="code-btn-container"><div class="btn-copy-code" title="Copy"><awsui-icon name="copy"></awsui-icon></div></div><code class="JSON "><span>{</span>
+    "timestamp":1476290692776,
+    "jobs":<span>{</span>
+        "QUEUED":[<span>{</span>
+            "jobId":"0002",
+            "queuedAt":1476290646230,
+            "lastUpdatedAt":1476290646230
+        }],
+        "IN_PROGRESS":[<span>{</span>
+            "jobId":"0003",
+            "queuedAt":1476290646230,
+            "lastUpdatedAt":1476290646230
+        }]
+    }
+}</code></pre>
+                                          </dd>
+                                       
+                                    </dl>
+                                 </awsdocs-tabs>
+                                  
+                                  
+                                 
+                                 <h3 id="jobs-comm-notifications">Jobs notifications</h3>
+                                 
+                                 <p>The AWS IoT Jobs service publishes MQTT messages to reserved topics when jobs
+                                    are pending or when the first job execution in the list changes. Devices can
+                                    keep track of pending jobs by subscribing to these topics.
+                                 </p>
+                                 
+                                 <p>Job notifications are published to MQTT topics as JSON payloads. There are two
+                                    kinds of notifications:
+                                 </p>
+                                 
+                                 <div class="itemizedlist">
+                                     
+                                     
+                                    
+                                    <ul class="itemizedlist" type="disc">
+                                       <li class="listitem">
+                                          
+                                          <p>A <code class="code">ListNotification</code> contains a list of no more than 10
+                                             pending job executions. The job executions in this list have status
+                                             values of either <code class="code">IN_PROGRESS</code> or <code class="code">QUEUED</code>. They
+                                             are sorted by status (<code class="code">IN_PROGRESS</code> job executions before
+                                             <code class="code">QUEUED</code> job executions) and then by the times when they
+                                             were queued.
+                                          </p>
+                                          
+                                          <p>A <code class="code">ListNotification</code> is published whenever one of the
+                                             following criteria is met.
+                                          </p>
+                                          
+                                          <div class="itemizedlist">
+                                              
+                                              
+                                             
+                                             <ul class="itemizedlist" type="disc">
+                                                <li class="listitem">
+                                                   
+                                                   <p>A new job execution is queued or changes to a non-terminal
+                                                      status (<code class="code">IN_PROGRESS</code> or <code class="code">QUEUED</code>).
+                                                   </p>
+                                                   
+                                                </li>
+                                                <li class="listitem">
+                                                   
+                                                   <p>An old job execution changes to a terminal status
+                                                      (<code class="code">FAILED</code>, <code class="code">SUCCEEDED</code>,
+                                                      <code class="code">CANCELED</code>, <code class="code">TIMED_OUT</code>,
+                                                      <code class="code">REJECTED</code>, or <code class="code">REMOVED</code>).
+                                                   </p>
+                                                   
+                                                </li>
+                                             </ul>
+                                          </div>
+                                          
+                                       </li>
+                                       <li class="listitem">
+                                          
+                                          <p>A <code class="code">NextNotification</code> contains summary information about the
+                                             one job execution that is next in the queue.
+                                          </p>
+                                          
+                                          <p>A <code class="code">NextNotification</code> is published whenever the first job
+                                             execution in the list changes.
+                                          </p>
+                                          
+                                          <div class="itemizedlist">
+                                              
+                                              
+                                              
+                                             
+                                             <ul class="itemizedlist" type="disc">
+                                                <li class="listitem">
+                                                   
+                                                   <p>A new job execution is added to the list as
+                                                      <code class="code">QUEUED</code>, and it is the first one in the
+                                                      list.
+                                                   </p>
+                                                   
+                                                </li>
+                                                <li class="listitem">
+                                                   
+                                                   <p>The status of an existing job execution that was not the first
+                                                      one in the list changes from <code class="code">QUEUED</code> to
+                                                      <code class="code">IN_PROGRESS</code> and becomes the first one in the
+                                                      list. (This happens when there are no other
+                                                      <code class="code">IN_PROGRESS</code> job executions in the list or when
+                                                      the job execution whose status changes from <code class="code">QUEUED</code>
+                                                      to <code class="code">IN_PROGRESS</code> was queued earlier than any other
+                                                      <code class="code">IN_PROGRESS</code> job execution in the list.) 
+                                                   </p>
+                                                   
+                                                </li>
+                                                <li class="listitem">
+                                                   
+                                                   <p>The status of the job execution that is first in the list
+                                                      changes to a terminal status and is removed from the
+                                                      list.
+                                                   </p>
+                                                   
+                                                </li>
+                                             </ul>
+                                          </div>
+                                          
+                                       </li>
+                                    </ul>
+                                 </div>
+                                 
+                                 <p>For more information about publishing and subscribing to MQTT topics, see
+                                    <a href="./protocols.html">Device communication protocols</a>.
+                                 </p>
+                                 
+                                 <div class="awsdocs-note">
+                                    <div class="awsdocs-note-title">
+                                       <awsui-icon name="status-info" variant="link"></awsui-icon><span>Note</span></div>
+                                    <div class="awsdocs-note-text">
+                                       <p>Notifications are not available when you use HTTP Signature Version 4 or
+                                          HTTP TLS to communicate with jobs.
+                                       </p>
+                                    </div>
+                                 </div>
+                                 
+                                 <awsdocs-tabs>
+                                    <dl style="display: none">
+                                       
+                                       <dt>Job pending</dt>
+                                       <dd tab-id="job-pending">
+                                          
+                                          <p>The AWS IoT Jobs service publishes a message on an MQTT topic when a
+                                             job is added to or removed from the list of pending job executions
+                                             for a thing or the first job execution in the list changes:
+                                          </p>
+                                          
+                                          <div class="itemizedlist">
+                                              
+                                              
+                                             
+                                             <ul class="itemizedlist" type="disc">
+                                                <li class="listitem">
+                                                   
+                                                   <p><code class="code">$aws/things/<code class="replaceable">thingName</code>/jobs/notify</code></p>
+                                                   
+                                                </li>
+                                                <li class="listitem">
+                                                   
+                                                   <p><code class="code">$aws/things/<code class="replaceable">thingName</code>/jobs/notify-next</code></p>
+                                                   
+                                                </li>
+                                             </ul>
+                                          </div>
+                                          
+                                       </dd>
+                                       
+                                       <dt>More
+                                          Information(6)
+                                       </dt>
+                                       <dd tab-id="more-----------------------------information(6)">
+                                          
+                                          <p>The messages contain the following example payloads:</p>
+                                          
+                                          <p><code class="code">$aws/things/<code class="replaceable">thingName</code>/jobs/notify</code>:
+                                          </p>
+                                          <pre class="programlisting"><div class="code-btn-container"><div class="btn-copy-code" title="Copy"><awsui-icon name="copy"></awsui-icon></div></div><code class="JSON "><span>{</span>
+  "timestamp" : 10011,
+  "jobs" : <span>{</span>
+    "IN_PROGRESS" : [ <span>{</span>
+      "jobId" : "other-job",
+      "queuedAt" : 10003,
+      "lastUpdatedAt" : 10009,
+      "executionNumber" : 1,
+      "versionNumber" : 1
+    } ],
+    "QUEUED" : [ <span>{</span>
+      "jobId" : "this-job",
+      "queuedAt" : 10011,
+      "lastUpdatedAt" : 10011,
+      "executionNumber" : 1,
+      "versionNumber" : 0
+    } ]
+  }
+}</code></pre>
+                                          <p><code class="code">$aws/things/<code class="replaceable">thingName</code>/jobs/notify-next</code>:
+                                          </p>
+                                          <pre class="programlisting"><div class="code-btn-container"><div class="btn-copy-code" title="Copy"><awsui-icon name="copy"></awsui-icon></div></div><code class="JSON "><span>{</span>
+  "timestamp" : 10011,
+  "execution" : <span>{</span>
+    "jobId" : "other-job",
+    "status" : "IN_PROGRESS",
+    "queuedAt" : 10009,
+    "lastUpdatedAt" : 10009,
+    "versionNumber" : 1,
+    "executionNumber" : 1,
+    "jobDocument" : <span>{</span>"c":"d"}
+  }
+}</code></pre>
+                                          <p>Possible job execution status values are <code class="code">QUEUED</code>,
+                                             <code class="code">IN_PROGRESS</code>, <code class="code">FAILED</code>,
+                                             <code class="code">SUCCEEDED</code>, <code class="code">CANCELED</code>,
+                                             <code class="code">TIMED_OUT</code>, <code class="code">REJECTED</code>, and
+                                             <code class="code">REMOVED</code>.
+                                          </p>
+                                          
+                                          <p>The following series of examples show the notifications that are
+                                             published to each topic as job executions are created and change
+                                             from one state to another. 
+                                          </p>
+                                          
+                                          <p>First, one job, called <code class="code">job1</code>, is created. This
+                                             notification is published to the <code class="code">jobs/notify</code>
+                                             topic:
+                                          </p>
+                                          <pre class="programlisting"><div class="code-btn-container"><div class="btn-copy-code" title="Copy"><awsui-icon name="copy"></awsui-icon></div></div><code class="JSON "><span>{</span>
+  "timestamp": 1517016948,
+  "jobs": <span>{</span>
+    "QUEUED": [
+      <span>{</span>
+        "jobId": "job1",
+        "queuedAt": 1517016947,
+        "lastUpdatedAt": 1517016947,
+        "executionNumber": 1,
+        "versionNumber": 1
+      }
+    ]
+  }
+} </code></pre>
+                                          <p>This notification is published to the
+                                             <code class="code">jobs/notify-next</code> topic:
+                                          </p>
+                                          <pre class="programlisting"><div class="code-btn-container"><div class="btn-copy-code" title="Copy"><awsui-icon name="copy"></awsui-icon></div></div><code class="JSON "><span>{</span>
+  "timestamp": 1517016948,
+  "execution": <span>{</span>
+    "jobId": "job1",
+    "status": "QUEUED",
+    "queuedAt": 1517016947,
+    "lastUpdatedAt": 1517016947,
+    "versionNumber": 1,
+    "executionNumber": 1,
+    "jobDocument": <span>{</span>
+      "operation": "test"
+    }
+  }
+} </code></pre>
+                                          <p>When another job is created (<code class="code">job2</code>), this notification
+                                             is published to the <code class="code">jobs/notify</code> topic:
+                                          </p>
+                                          <pre class="programlisting"><div class="code-btn-container"><div class="btn-copy-code" title="Copy"><awsui-icon name="copy"></awsui-icon></div></div><code class="JSON "><span>{</span>
+  "timestamp": 1517017192,
+  "jobs": <span>{</span>
+    "QUEUED": [
+      <span>{</span>
+        "jobId": "job1",
+        "queuedAt": 1517016947,
+        "lastUpdatedAt": 1517016947,
+        "executionNumber": 1,
+        "versionNumber": 1
+      },
+      <span>{</span>
+        "jobId": "job2",
+        "queuedAt": 1517017191,
+        "lastUpdatedAt": 1517017191,
+        "executionNumber": 1,
+        "versionNumber": 1
+      }
+    ]
+  }
+} </code></pre>
+                                          <p>A notification is not published to the
+                                             <code class="code">jobs/notify-next</code> topic because the next job in the
+                                             queue (<code class="code">job1</code>) has not changed. When <code class="code">job1</code>
+                                             starts to execute, its status changes to <code class="code">IN_PROGRESS</code>.
+                                             No notifications are published because the list of jobs and the next
+                                             job in the queue have not changed.
+                                          </p>
+                                          
+                                          <p>When a third job (<code class="code">job3</code>) is added, this notification
+                                             is published to the <code class="code">jobs/notify</code> topic:
+                                          </p>
+                                          <pre class="programlisting"><div class="code-btn-container"><div class="btn-copy-code" title="Copy"><awsui-icon name="copy"></awsui-icon></div></div><code class="JSON "><span>{</span>
+  "timestamp": 1517017906,
+  "jobs": <span>{</span>
+    "IN_PROGRESS": [
+      <span>{</span>
+        "jobId": "job1",
+        "queuedAt": 1517016947,
+        "lastUpdatedAt": 1517017472,
+        "startedAt": 1517017472,
+        "executionNumber": 1,
+        "versionNumber": 2
+      }
+    ],
+    "QUEUED": [
+      <span>{</span>
+        "jobId": "job2",
+        "queuedAt": 1517017191,
+        "lastUpdatedAt": 1517017191,
+        "executionNumber": 1,
+        "versionNumber": 1
+      },
+      <span>{</span>
+        "jobId": "job3",
+        "queuedAt": 1517017905,
+        "lastUpdatedAt": 1517017905,
+        "executionNumber": 1,
+        "versionNumber": 1
+      }
+    ]
+  }
+} </code></pre>
+                                          <p>A notification is not published to the
+                                             <code class="code">jobs/notify-next</code> topic because the next job in the
+                                             queue is still <code class="code">job1</code>.
+                                          </p>
+                                          
+                                          <p>When <code class="code">job1</code> is complete, its status changes to
+                                             <code class="code">SUCCEEDED</code>, and this notification is published to
+                                             the <code class="code">jobs/notify</code> topic:
+                                          </p>
+                                          <pre class="programlisting"><div class="code-btn-container"><div class="btn-copy-code" title="Copy"><awsui-icon name="copy"></awsui-icon></div></div><code class="JSON "><span>{</span>
+  "timestamp": 1517186269,
+  "jobs": <span>{</span>
+    "QUEUED": [
+      <span>{</span>
+        "jobId": "job2",
+        "queuedAt": 1517017191,
+        "lastUpdatedAt": 1517017191,
+        "executionNumber": 1,
+        "versionNumber": 1
+      },
+      <span>{</span>
+        "jobId": "job3",
+        "queuedAt": 1517017905,
+        "lastUpdatedAt": 1517017905,
+        "executionNumber": 1,
+        "versionNumber": 1
+      }
+    ]
+  }
+} </code></pre>
+                                          <p>At this point, <code class="code">job1</code> has been removed from the queue,
+                                             and the next job to be executed is <code class="code">job2</code>. This
+                                             notification is published to the <code class="code">jobs/notify-next</code>
+                                             topic:
+                                          </p>
+                                          <pre class="programlisting"><div class="code-btn-container"><div class="btn-copy-code" title="Copy"><awsui-icon name="copy"></awsui-icon></div></div><code class="JSON "><span>{</span>
+  "timestamp": 1517186269,
+  "execution": <span>{</span>
+    "jobId": "job2",
+    "status": "QUEUED",
+    "queuedAt": 1517017191,
+    "lastUpdatedAt": 1517017191,
+    "versionNumber": 1,
+    "executionNumber": 1,
+    "jobDocument": <span>{</span>
+      "operation": "test"
+    }
+  }
+} </code></pre>
+                                          <p>If <code class="code">job3</code> must begin executing before <code class="code">job2</code>
+                                             (which is not recommended), the status of <code class="code">job3</code> can be
+                                             changed to <code class="code">IN_PROGRESS</code>. If this happens,
+                                             <code class="code">job2</code> is no longer next in the queue, and this
+                                             notification is published to the <code class="code">jobs/notify-next</code>
+                                             topic:
+                                          </p>
+                                          <pre class="programlisting"><div class="code-btn-container"><div class="btn-copy-code" title="Copy"><awsui-icon name="copy"></awsui-icon></div></div><code class="JSON "><span>{</span>
+  "timestamp": 1517186779,
+  "execution": <span>{</span>
+    "jobId": "job3",
+    "status": "IN_PROGRESS",
+    "queuedAt": 1517017905,
+    "startedAt": 1517186779,
+    "lastUpdatedAt": 1517186779,
+    "versionNumber": 2,
+    "executionNumber": 1,
+    "jobDocument": <span>{</span>
+      "operation": "test"
+    }
+  }
+} </code></pre>
+                                          <p>No notification is published to the <code class="code">jobs/notify</code> topic
+                                             because no job has been added or removed.
+                                          </p>
+                                          
+                                          <p>If the device rejects <code class="code">job2</code> and updates its status to
+                                             <code class="code">REJECTED</code>, this notification is published to the
+                                             <code class="code">jobs/notify</code> topic:
+                                          </p>
+                                          <pre class="programlisting"><div class="code-btn-container"><div class="btn-copy-code" title="Copy"><awsui-icon name="copy"></awsui-icon></div></div><code class="JSON "><span>{</span>
+  "timestamp": 1517189392,
+  "jobs": <span>{</span>
+    "IN_PROGRESS": [
+      <span>{</span>
+        "jobId": "job3",
+        "queuedAt": 1517017905,
+        "lastUpdatedAt": 1517186779,
+        "startedAt": 1517186779,
+        "executionNumber": 1,
+        "versionNumber": 2
+      }
+    ]
+  }
+} </code></pre>
+                                          <p>If <code class="code">job3</code> (which is still in progress) is force
+                                             deleted, this notification is published to the
+                                             <code class="code">jobs/notify</code> topic:
+                                          </p>
+                                          <pre class="programlisting"><div class="code-btn-container"><div class="btn-copy-code" title="Copy"><awsui-icon name="copy"></awsui-icon></div></div><code class="JSON "><span>{</span>
+  "timestamp": 1517189551,
+  "jobs": <span>{</span>}
+} </code></pre>
+                                          <p>At this point, the queue is empty. This notification is published
+                                             to the <code class="code">jobs/notify-next</code> topic:
+                                          </p>
+                                          <pre class="programlisting"><div class="code-btn-container"><div class="btn-copy-code" title="Copy"><awsui-icon name="copy"></awsui-icon></div></div><code class="JSON "><span>{</span>
+  "timestamp": 1517189551
+} </code></pre>
+                                          </dd>
+                                       
+                                    </dl>
+                                 </awsdocs-tabs>
+                                  
+                                 
+                                 <awsdocs-copyright class="copyright-print"></awsdocs-copyright>
+                                 <awsdocs-thumb-feedback right-edge="{{$ctrl.thumbFeedbackRightEdge}}"></awsdocs-thumb-feedback>
+                              </div>
+                              <noscript>
+                                 <div>
+                                    <div>
+                                       <div>
+                                          <div id="js_error_message">
+                                             <p><img src="https://d1ge0kk1l5kms0.cloudfront.net/images/G/01/webservices/console/warning.png" alt="Warning" /> <strong>Javascript is disabled or is unavailable in your
+                                                   browser.</strong></p>
+                                             <p>To use the Amazon Web Services Documentation, Javascript must be
+                                                enabled. Please refer to your browser's Help pages for instructions.
+                                             </p>
+                                          </div>
+                                       </div>
+                                    </div>
+                                 </div>
+                              </noscript>
+                              <div id="main-col-footer" class="awsui-util-font-size-0">
+                                 <div id="doc-conventions"><a target="_top" href="/general/latest/gr/docconventions.html">Document Conventions</a></div>
+                                 <div class="prev-next">
+                                    <div id="previous" class="prev-link" accesskey="p" href="./job-templates-cli.html">Creating and managing job templates (CLI)</div>
+                                    <div id="next" class="next-link" accesskey="n" href="./jobs-api.html">Using the AWS IoT jobs APIs</div>
+                                 </div>
+                              </div>
+                              <awsdocs-page-utilities></awsdocs-page-utilities>
+                           </div>
+                           <div id="quick-feedback-yes" style="display: none;">
+                              <div class="title">Did this page help you? - Yes</div>
+                              <div class="content">
+                                 <p>Thanks for letting us know we're doing a good
+                                    job!
+                                 </p>
+                                 <p>If you've got a moment, please tell us what we did right
+                                    so we can do more of it.
+                                 </p>
+                                 <p>
+                                    <awsui-button id="fblink" target="_blank" text="Feedback" click="linkClick($event)" href="https://docs.aws.amazon.com/forms/aws-doc-feedback?hidden_service_name=IoT Docs&amp;topic_url=https://docs.aws.amazon.com/en_us/iot/latest/developerguide/jobs-devices.html"></awsui-button>
+                                 </p>
+                              </div>
+                           </div>
+                           <div id="quick-feedback-no" style="display: none;">
+                              <div class="title">Did this page help you? - No</div>
+                              <div class="content">
+                                 <p>Thanks for letting us know this page needs work. We're
+                                    sorry we let you down.
+                                 </p>
+                                 <p>If you've got a moment, please tell us how we can make
+                                    the documentation better.
+                                 </p>
+                                 <p>
+                                    <awsui-button id="fblink" target="_blank" text="Feedback" click="linkClick($event)" href="https://docs.aws.amazon.com/forms/aws-doc-feedback?hidden_service_name=IoT Docs&amp;topic_url=https://docs.aws.amazon.com/en_us/iot/latest/developerguide/jobs-devices.html"></awsui-button>
+                                 </p>
+                              </div>
+                           </div>
+                        </div>
+                     </body>
+                  </div>
+               </awsdocs-view>
+               <div class="page-loading-indicator" id="page-loading-indicator">
+                  <awsui-spinner size="large"></awsui-spinner>
+               </div>
+            </div>
+            <div id="tools-panel" dom-region="tools">
+               <awsdocs-tools-panel id="awsdocs-tools-panel"></awsdocs-tools-panel>
+            </div>
+         </awsui-app-layout>
+         <awsdocs-cookie-banner class="doc-cookie-banner"></awsdocs-cookie-banner>
+         <!--
+                SiteCatalyst code version: H.25.2.
+                Copyright 1996-2012 Adobe, Inc. All Rights Reserved
+                More info available at http://www.omniture.com
+            --><script language="JavaScript" type="text/javascript">
+var awsdocs = awsdocs || {};
+awsdocs.prop66 = 'AWS IoT Core';
+awsdocs.prop65 =  'Developer Guide';
+            </script><script src="https://a0.awsstatic.com/s_code/js/3.0/awshome_s_code.js" language="JavaScript" type="text/javascript"></script>
+         <!--/DO NOT REMOVE/-->
+         <!--End SiteCatalyst code version: H.25.2.--></div>
+   </body>
+</html>

@@ -1,0 +1,921 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" ng-app="AWSDocsDocPageApp">
+   <head>
+      <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+      <title>Simulating Device Shadow service communications - AWS IoT Core</title>
+      <meta name="viewport" content="width=device-width,initial-scale=1" />
+      <meta name="assets_root" content="assets" />
+      <meta name="target_state" content="using-device-shadows" />
+      <meta name="default_state" content="using-device-shadows" />
+      <link rel="icon" type="image/ico" href="/assets/images/favicon.ico" />
+      <link rel="shortcut icon" type="image/ico" href="/assets/images/favicon.ico" />
+      <link rel="canonical" href="https://docs.aws.amazon.com/iot/latest/developerguide/using-device-shadows.html" />
+      <meta name="description" content="Demonstrates how devices and apps use the Device Shadow service to retrieve and update state data." />
+      <meta name="deployment_region" content="IAD" />
+      <meta name="product" content="AWS IoT Core" />
+      <meta name="guide" content="Developer Guide" />
+      <meta name="locales" content="de_de:Deutsch/en_us:English/es_es:Español/fr_fr:Français/it_it:Italiano/ja_jp:日本語/ko_kr:한국어/pt_br:Português/zh_cn:中文 (简体)/zh_tw:中文 (繁體)" />
+      <meta name="abstract" content="AWS IoT provides secure, bi-directional communication between Internet-connected devices such as sensors, actuators, embedded micro-controllers, or smart appliances and the AWS Cloud. This enables you to collect telemetry data from multiple devices, and store and analyze the data. You can also create applications that enable your users to control these devices from their phones or tablets." />
+      <meta name="guide-locale" content="en_us" />
+      <meta name="tocs" content="toc-contents.json" />
+      <meta name="feedback-item" content="IoT Docs" />
+      <meta name="this_doc_product" content="AWS IoT Core" />
+      <meta name="this_doc_guide" content="Developer Guide" />
+      <link href="assets/css/vendor4.css" rel="stylesheet" />
+      <link href="assets/css/awsdocs-common.css" rel="stylesheet" /><script type="text/javascript" src="assets/js/vendor3.js" defer=""></script><script type="text/javascript" src="assets/js/vendor4.js" defer=""></script><script type="text/javascript" src="assets/js/vendor1.js" defer=""></script><script type="text/javascript" src="assets/js/awsdocs-common.js" defer=""></script><script type="text/javascript" src="assets/js/awsdocs-doc-app.js" defer=""></script></head>
+   <body class="awsdocs awsui">
+      <div class="awsdocs-container">
+         <awsdocs-header></awsdocs-header>
+         <awsui-app-layout id="app-layout" class="awsui-util-no-gutters" ng-controller="ContentController as $ctrl" header-selector="awsdocs-header" navigation-hide="false" navigation-width="$ctrl.navWidth" navigation-open="$ctrl.navOpen" navigation-change="$ctrl.onNavChange($event)" tools-hide="$ctrl.hideTools" tools-width="$ctrl.toolsWidth" tools-open="$ctrl.toolsOpen" tools-change="$ctrl.onToolsChange($event)">
+            <div id="guide-toc" dom-region="navigation">
+               <awsdocs-toc></awsdocs-toc>
+            </div>
+            <div id="main-column" dom-region="content" tabindex="-1">
+               <awsdocs-view class="awsdocs-view">
+                  <div id="awsdocs-content">
+                     <head>
+                        <title>Simulating Device Shadow service communications - AWS IoT Core</title>
+                        <meta name="pdf" content="iot-dg.pdf#using-device-shadows" />
+                        <meta name="kindle" content="https://www.amazon.com/dp/B07JBRCWWZ" />
+                        <meta name="github" content="https://github.com/awsdocs/aws-iot-docs/tree/master/developerguide/using-device-shadows.md" />
+                        <meta name="forums" content="http://forums.aws.amazon.com/forum.jspa?forumID=210" />
+                        <meta name="feedback" content="https://docs.aws.amazon.com/forms/aws-doc-feedback?hidden_service_name=IoT%20Docs&amp;topic_url=http://docs.aws.amazon.com/en_us/iot/latest/developerguide/using-device-shadows.html" />
+                        <meta name="feedback-yes" content="feedbackyes.html?topic_url=http://docs.aws.amazon.com/en_us/iot/latest/developerguide/using-device-shadows.html" />
+                        <meta name="feedback-no" content="feedbackno.html?topic_url=http://docs.aws.amazon.com/en_us/iot/latest/developerguide/using-device-shadows.html" />
+                        <meta name="keywords" content="AWS IoT,IoT,Internet of Things" />
+                     </head>
+                     <body>
+                        <div id="main">
+                           <div style="display: none"><a href="iot-dg.pdf#using-device-shadows" target="_blank" rel="noopener noreferrer" title="Open PDF"></a><a target="_blank" rel="noopener noreferrer" href="https://www.amazon.com/dp/B07JBRCWWZ" title="Open Kindle"></a><a href="https://github.com/awsdocs/aws-iot-docs/tree/master/developerguide/using-device-shadows.md" target="_blank" rel="noopener noreferrer" title="Edit this page on GitHub"></a></div>
+                           <div id="breadcrumbs" class="breadcrumb"><a href="http://aws.amazon.com">AWS</a><a href="/index.html">Documentation</a><a href="/iot/index.html">AWS IoT Core</a><a href="what-is-aws-iot.html">Developer Guide</a></div>
+                           <div id="page-toc-src"><a href="#using-device-shadows-setup">Setting up the simulation</a><a href="#using-device-shadows-init-device">Initialize the device</a><a href="#using-device-shadows-app-update">Send an update from the app</a><a href="#using-device-shadows-device-update">Respond to update in device</a><a href="#using-device-shadows-view-result">Observe the update in the app</a><a href="#using-device-shadows-next-steps">Going beyond the simulation</a></div>
+                           <div id="main-content" class="awsui-util-container">
+                              <div id="main-col-body">
+                                 <awsdocs-language-banner data-service="$ctrl.pageService"></awsdocs-language-banner>
+                                 <h1 class="topictitle" id="using-device-shadows">Simulating Device Shadow service
+                                    communications
+                                 </h1>
+                                 <div class="awsdocs-page-header-container">
+                                    <awsdocs-page-header></awsdocs-page-header>
+                                    <awsdocs-filter-selector id="awsdocs-filter-selector"></awsdocs-filter-selector>
+                                 </div>
+                                 <p>This topic demonstrates how the Device Shadow service acts as an intermediary and
+                                    allows devices and apps to use a shadow to update, store, and retrieve a 
+                                    device's state.
+                                 </p>
+                                 <p>To demonstrate the interaction described in this topic, and to explore it further,
+                                    you'll need an AWS account and a system on which you can run the AWS CLI. If you don't
+                                    have these, you can still see the interaction in the code examples.
+                                 </p>
+                                 <p>In this example, the AWS IoT console represents the device. The AWS CLI  represents
+                                    the
+                                    app or service that accesses the device by way of the shadow. The AWS CLI interface
+                                    is
+                                    very similar to the API that an app might use to communicate with AWS IoT. The device
+                                    in
+                                    this example is a smart light bulb and the app displays the light bulb's state and
+                                    can
+                                    change the light bulb's state.
+                                 </p>
+                                 
+                                 <h2 id="using-device-shadows-setup">Setting up the simulation</h2>
+                                 
+                                 <p>These procedures initialize the simulation by opening the <a href="https://console.aws.amazon.com/iot/home" rel="noopener noreferrer" target="_blank"><span>AWS IoT console</span><awsui-icon class="awsdocs-link-icon" name="external"></awsui-icon></a>, which simulates
+                                    your device, and the command line window that simulates your app.
+                                 </p>
+                                 
+                                 <div class="procedure">
+                                    <p class="title"><b>To set up your simulation environment</b></p>
+                                    <ol>
+                                       <li>
+                                          
+                                          <p>Create an AWS account or, if you already have one to use for this
+                                             simulation, you can skip this step.
+                                          </p>
+                                          
+                                          <p>You'll need an AWS account to run the examples from this topic on your
+                                             own. If you don't have an AWS account, create one, as described in <a href="./setting-up.html">Set up your AWS account</a>.
+                                          </p>
+                                       </li>
+                                       <li>
+                                          
+                                          <p>Open the <a href="https://console.aws.amazon.com/iot/home" rel="noopener noreferrer" target="_blank"><span>AWS IoT
+                                                   console</span><awsui-icon class="awsdocs-link-icon" name="external"></awsui-icon></a>, and in the left menu, choose <b>Test</b>
+                                             to open the <b>MQTT client</b>.
+                                          </p>
+                                          
+                                       </li>
+                                       <li>
+                                          
+                                          <p>In another window, open a terminal window on a system that has the AWS CLI
+                                             installed on it.
+                                          </p>
+                                          
+                                       </li>
+                                    </ol>
+                                 </div>
+                                 
+                                 <p>You should have two windows open: one with the AWS IoT console on the <b>Test</b> page,
+                                    and one with a command line prompt.
+                                 </p>           
+                                  
+                                 
+                                 <h2 id="using-device-shadows-init-device">Initialize the device</h2>
+                                 
+                                 <p>In this simulation, we'll be working with a thing object named,
+                                    <em>mySimulatedThing</em>, and its shadow named,
+                                    <em>simShadow1</em>.
+                                    
+                                 </p>
+                                  
+                                 
+                                 <p class="title"><b>Create thing object and its named shadow</b></p>
+                                 
+                                 <p>To create a thing object, in the <b>AWS IoT Console</b>:
+                                 </p>
+                                  
+                                 
+                                 <div class="orderedlist">
+                                     
+                                     
+                                     
+                                     
+                                     
+                                    
+                                    <ol>
+                                       <li>
+                                          
+                                          <p>Choose <b>Manage</b> and then choose
+                                             <b>Things</b>.
+                                             
+                                          </p>
+                                          
+                                       </li>
+                                       <li>
+                                          
+                                          <p>Click the <b>Create</b> button if things are listed
+                                             otherwise click <b>Register a single thing&gt;</b> to
+                                             create a single AWS IoT thing.
+                                             
+                                          </p>
+                                          
+                                       </li>
+                                       <li>
+                                          
+                                          <p>Enter the name <code class="code">mySimulatedThing</code>, leave other
+                                             settings to default, and then click <b>Next</b>.
+                                          </p>
+                                          
+                                       </li>
+                                       <li>
+                                          
+                                          <p>Use one-click certificate creation to generate the certificates that will
+                                             authenticate the device's connection to AWS IoT. Click
+                                             <b>Activate</b> to activate the certificate.
+                                          </p>
+                                          
+                                       </li>
+                                       <li>
+                                          
+                                          <p>You can attach the policy <code class="code">My_IoT_Policy</code> that would give the
+                                             device permission to publish and subscribe to the MQTT reserved topics. For
+                                             more detailed steps about how to create an AWS IoT thing and how to create
+                                             this policy, see <a href="./create-iot-resources.html#create-aws-thing">Create a thing object</a>.
+                                          </p>
+                                          
+                                       </li>
+                                    </ol>
+                                 </div>
+                                 
+                                 <p>By default, every AWS IoT thing object has a single, classic shadow. You can create
+                                    a shadow by publishing an update request to the topic
+                                    <code class="code">$aws/things/mySimulatedThing/shadow/name/simShadow1/update</code> as
+                                    described below, Alternatively, in the <b>AWS IoT Console</b>, choose
+                                    your thing object in the list of things displayed and then choose
+                                    <b>Shadows</b>. Choose <b>Add a shadow</b>, enter
+                                    the name <code class="code">simShadow1</code>, and then choose <b>Create</b> to
+                                    add the named shadow.
+                                 </p>
+                                  
+                                 
+                                 <p class="title"><b>Subscribe and publish to reserved MQTT topics</b></p>
+                                 
+                                 <p>In the console, subscribe to the reserved MQTT shadow topics. These topics are the
+                                    responses to
+                                    the <code class="code">get</code>, <code class="code">update</code>, and <code class="code">delete</code> actions so that
+                                    your device will be ready to receive the responses after it publishes an
+                                    action.
+                                    
+                                 </p>
+                                             
+                                 
+                                 <div class="procedure">
+                                    <p class="title"><b>To subscribe to an MQTT topic in the <b>MQTT client</b></b></p>
+                                    <ol>
+                                       <li>
+                                          
+                                          <p>In the <b>MQTT client</b>, choose <b>Subscribe to topic</b>.
+                                          </p>
+                                          
+                                       </li>
+                                       <li>
+                                          
+                                          <p>Enter the <code class="code">get</code>, <code class="code">update</code>, and <code class="code">delete</code> topics to subscribe to. Copy
+                                             one topic at a time from the following list, paste it in the <b>Topic filter</b> field, and then click 
+                                             <b>Subscribe</b>. You should see the topics appear under <b>Subscriptions</b>.
+                                          </p>
+                                          
+                                          <div class="itemizedlist">
+                                              
+                                              
+                                              
+                                              
+                                              
+                                              
+                                              
+                                              
+                                             
+                                             <ul class="itemizedlist" type="disc">
+                                                <li class="listitem">
+                                                   <p><code class="code">$aws/things/mySimulatedThing/shadow/name/simShadow1/delete/accepted</code></p>
+                                                </li>
+                                                <li class="listitem">
+                                                   <p><code class="code">$aws/things/mySimulatedThing/shadow/name/simShadow1/delete/rejected</code></p>
+                                                </li>
+                                                <li class="listitem">
+                                                   <p><code class="code">$aws/things/mySimulatedThing/shadow/name/simShadow1/get/accepted</code></p>
+                                                </li>
+                                                <li class="listitem">
+                                                   <p><code class="code">$aws/things/mySimulatedThing/shadow/name/simShadow1/get/rejected</code></p>
+                                                </li>
+                                                <li class="listitem">
+                                                   <p><code class="code">$aws/things/mySimulatedThing/shadow/name/simShadow1/update/accepted</code></p>
+                                                </li>
+                                                <li class="listitem">
+                                                   <p><code class="code">$aws/things/mySimulatedThing/shadow/name/simShadow1/update/rejected</code></p>
+                                                </li>
+                                                <li class="listitem">
+                                                   <p><code class="code">$aws/things/mySimulatedThing/shadow/name/simShadow1/update/delta</code></p>
+                                                </li>
+                                                <li class="listitem">
+                                                   <p><code class="code">$aws/things/mySimulatedThing/shadow/name/simShadow1/update/documents</code></p>
+                                                </li>
+                                             </ul>
+                                          </div>
+                                          
+                                          <p>At this point, your simulated device is ready to receive the topics as they are published
+                                             by AWS IoT.
+                                          </p>
+                                          
+                                       </li>
+                                    </ol>
+                                 </div>
+                                  
+                                 
+                                 <p class="title"><b>To publish to an MQTT topic in the <b>MQTT client</b></b></p>
+                                 
+                                 <p>After a device has initialized itself and subscribed to the response topics, 
+                                    it should query for the shadows it supports. This simulation supports only one
+                                    shadow, the shadow that supports a thing object named, <em>mySimulatedThing</em>,
+                                    named, <em>simShadow1</em>.
+                                 </p>
+                                  
+                                 
+                                 <div class="procedure">
+                                    <p class="title"><b>To get the current shadow state from the <b>MQTT client</b></b></p>
+                                    <ol>
+                                       <li>                    
+                                          
+                                          <p>In the <b>MQTT client</b>, choose <b>Publish to a topic</b>.
+                                          </p>
+                                          
+                                       </li>
+                                       <li>
+                                          
+                                          <p>Under <b>Publish</b>, enter the following topic and delete any content from 
+                                             the message body window below where you entered the topic to get. You can then
+                                             choose <b>Publish to topic</b> to publish the request.
+                                             <code class="code">$aws/things/mySimulatedThing/shadow/name/simShadow1/get</code>.
+                                          </p>
+                                          
+                                          <p>If you haven't created the named shadow, <code class="code">simShadow1</code>, you receive
+                                             a message in the
+                                             <code class="code">$aws/things/mySimulatedThing/shadow/name/simShadow1/get/rejected</code>
+                                             topic and the <code class="code">code</code> is <code class="code">404</code>, such as in this example as
+                                             the shadow has not been created, so we'll create it next.
+                                          </p>
+                                          <pre class="programlisting"><div class="code-btn-container"><div class="btn-copy-code" title="Copy"><awsui-icon name="copy"></awsui-icon></div></div><code class="json "><span>{</span>
+  "code": 404,
+  "message": "No shadow exists with name: 'simShadow1'"
+}</code></pre>
+                                          </li>
+                                    </ol>
+                                 </div>
+                                 
+                                 <div class="procedure">
+                                    <p class="title"><b>To create a shadow with the current status of the device</b></p>
+                                    <ol>
+                                       <li>
+                                          
+                                          <p>In the <b>MQTT client</b>, choose <b>Publish to a topic</b> and
+                                             enter this topic:
+                                          </p>
+                                          <pre class="programlisting"><div class="code-btn-container"><div class="btn-copy-code" title="Copy"><awsui-icon name="copy"></awsui-icon></div></div><code class="">$aws/things/mySimulatedThing/shadow/name/simShadow1/update</code></pre>
+                                          </li>
+                                       <li>
+                                          
+                                          <p>In the message body window below where you entered the topic, enter this shadow document
+                                             to show the
+                                             device is reporting its ID and its current color in RGB
+                                             values. Choose <b>Publish</b> to publish the request.
+                                          </p>
+                                          <pre class="programlisting"><div class="code-btn-container"><div class="btn-copy-code" title="Copy"><awsui-icon name="copy"></awsui-icon></div></div><code class="json "><span>{</span>
+  "state": <span>{</span>
+    "reported": <span>{</span>
+      "ID": "SmartLamp21",
+      "ColorRGB": [
+        128,
+        128,
+        128
+      ]
+    }
+  },
+  "clientToken": "426bfd96-e720-46d3-95cd-014e3ef12bb6"
+}</code></pre>
+                                          </li>
+                                    </ol>
+                                 </div>
+                                 
+                                 <p>If you receive a message in the topic:
+                                    
+                                 </p>
+                                 
+                                 <div class="itemizedlist">
+                                     
+                                     
+                                     
+                                    
+                                    <ul class="itemizedlist" type="disc">
+                                       <li class="listitem">
+                                          
+                                          <p><code class="code">$aws/things/mySimulatedThing/shadow/name/simShadow1/update/accepted</code>: It means that
+                                             the shadow was created and the message body contains the  current shadow document.
+                                          </p>
+                                          
+                                       </li>
+                                       <li class="listitem">
+                                          
+                                          <p><code class="code">$aws/things/mySimulatedThing/shadow/name/simShadow1/update/rejected</code>:
+                                             Review the error in the message body.
+                                          </p>
+                                          
+                                       </li>
+                                       <li class="listitem">
+                                          
+                                          <p><code class="code">$aws/things/mySimulatedThing/shadow/name/simShadow1/get/accepted</code>:
+                                             The shadow already exists and the message body has the current shadow
+                                             state, such as in this example. With this, you could set your device or
+                                             confirm that it matches the shadow state.
+                                          </p>
+                                          <pre class="programlisting"><div class="code-btn-container"><div class="btn-copy-code" title="Copy"><awsui-icon name="copy"></awsui-icon></div></div><code class="json "><span>{</span>
+  "state": <span>{</span>
+    "reported": <span>{</span>
+      "ID": "SmartLamp21",
+      "ColorRGB": [
+        128,
+        128,
+        128
+      ]
+    }
+  },
+  "metadata": <span>{</span>
+    "reported": <span>{</span>
+      "ID": <span>{</span>
+        "timestamp": 1591140517
+      },
+      "ColorRGB": [
+        <span>{</span>
+          "timestamp": 1591140517
+        },
+        <span>{</span>
+          "timestamp": 1591140517
+        },
+        <span>{</span>
+          "timestamp": 1591140517
+        }
+      ]
+    }
+  },
+  "version": 3,
+  "timestamp": 1591140517,
+  "clientToken": "426bfd96-e720-46d3-95cd-014e3ef12bb6"
+}</code></pre>
+                                          </li>
+                                    </ul>
+                                 </div>
+                                  
+                                 
+                                 <h2 id="using-device-shadows-app-update">Send an update from the app</h2>
+                                 
+                                 <p>This section uses the AWS CLI to demonstrate how an app can interact with a
+                                    shadow.
+                                 </p>
+                                  
+                                 
+                                 <p class="title"><b>To get the current state of the shadow using the AWS CLI</b></p>
+                                 
+                                 <p>From the command line, enter this command.</p>
+                                  
+                                 <pre class="programlisting"><div class="code-btn-container"><div class="btn-copy-code" title="Copy"><awsui-icon name="copy"></awsui-icon></div></div><code class="bash ">aws iot-data get-thing-shadow --thing-name mySimulatedThing --shadow-name simShadow1 /dev/stdout</code></pre>
+                                 <p>On Windows platforms, you can use <code class="code">con</code> instead of <code class="code">/dev/stdout</code>.
+                                 </p>
+                                 <pre class="programlisting"><div class="code-btn-container"><div class="btn-copy-code" title="Copy"><awsui-icon name="copy"></awsui-icon></div></div><code class="bash ">aws iot-data get-thing-shadow --thing-name mySimulatedThing --shadow-name simShadow1 con</code></pre>
+                                 <p>Because the shadow exists and had been initialized by the device to reflect its current
+                                    state,
+                                    it should return the following shadow document.
+                                 </p>
+                                 <pre class="programlisting"><div class="code-btn-container"><div class="btn-copy-code" title="Copy"><awsui-icon name="copy"></awsui-icon></div></div><code class="json "><span>{</span>
+  "state": <span>{</span>
+    "reported": <span>{</span>
+      "ID": "SmartLamp21",
+      "ColorRGB": [
+        128,
+        128,
+        128
+      ]
+    }
+  },
+  "metadata": <span>{</span>
+    "reported": <span>{</span>
+      "ID": <span>{</span>
+        "timestamp": 1591140517
+      },
+      "ColorRGB": [
+        <span>{</span>
+          "timestamp": 1591140517
+        },
+        <span>{</span>
+          "timestamp": 1591140517
+        },
+        <span>{</span>
+          "timestamp": 1591140517
+        }
+      ]
+    }
+  },
+  "version": 3,
+  "timestamp": 1591141111
+}</code></pre>
+                                 <p>The app can use this response to initialize its representation of the device state.</p>
+                                 
+                                 <p>If the app updates the state, such as when an end user changes the color of our
+                                    smart light bulb to yellow, the app would send an
+                                    <b>update-thing-shadow</b> command. This command corresponds to the
+                                    <code class="code">UpdateThingShadow</code> REST API.
+                                 </p>
+                                  
+                                 
+                                 <p class="title"><b>To update a shadow from an app</b></p>
+                                 
+                                 <p>From the command line, enter this command.</p>                
+                                           
+                                 
+                                 <awsdocs-tabs>
+                                    <dl style="display: none">
+                                       
+                                       <dt>AWS CLI v2.x</dt>
+                                       <dd tab-id="aws-cli-v2.x">
+                                          <pre class="programlisting"><div class="code-btn-container"><div class="btn-copy-code" title="Copy"><awsui-icon name="copy"></awsui-icon></div></div><code class="bash ">aws iot-data update-thing-shadow --thing-name mySimulatedThing --shadow-name simShadow1 \
+    --cli-binary-format raw-in-base64-out \
+    --payload '<span>{</span>"state":<span>{</span>"desired":<span>{</span>"ColorRGB":[255,255,0]}},"clientToken":"21b21b21-bfd2-4279-8c65-e2f697ff4fab"}' /dev/stdout</code></pre>
+                                          </dd>
+                                       
+                                       <dt>AWS CLI v1.x</dt>
+                                       <dd tab-id="aws-cli-v1.x">
+                                          <pre class="programlisting"><div class="code-btn-container"><div class="btn-copy-code" title="Copy"><awsui-icon name="copy"></awsui-icon></div></div><code class="bash ">aws iot-data update-thing-shadow --thing-name mySimulatedThing --shadow-name simShadow1 \
+    --payload '<span>{</span>"state":<span>{</span>"desired":<span>{</span>"ColorRGB":[255,255,0]}},"clientToken":"21b21b21-bfd2-4279-8c65-e2f697ff4fab"}' /dev/stdout</code></pre>                                
+                                          </dd>
+                                       
+                                    </dl>
+                                 </awsdocs-tabs>
+                                 
+                                 <p>If successful, this command should return the following shadow document.</p>
+                                 <pre class="programlisting"><div class="code-btn-container"><div class="btn-copy-code" title="Copy"><awsui-icon name="copy"></awsui-icon></div></div><code class="json "><span>{</span>
+  "state": <span>{</span>
+    "desired": <span>{</span>
+      "ColorRGB": [
+        255,
+        255,
+        0
+      ]
+    }
+  },
+  "metadata": <span>{</span>
+    "desired": <span>{</span>
+      "ColorRGB": [
+        <span>{</span>
+          "timestamp": 1591141596
+        },
+        <span>{</span>
+          "timestamp": 1591141596
+        },
+        <span>{</span>
+          "timestamp": 1591141596
+        }
+      ]
+    }
+  },
+  "version": 4,
+  "timestamp": 1591141596,
+  "clientToken": "21b21b21-bfd2-4279-8c65-e2f697ff4fab"
+}</code></pre>
+                                  
+                                 <h2 id="using-device-shadows-device-update">Respond to update in device</h2>
+                                 
+                                 <p>Returning to the <b>MQTT client</b> in the AWS console, you should see
+                                    the messages that AWS IoT published to reflect the update command issued in the previous
+                                    
+                                    section.
+                                 </p>
+                                  
+                                 
+                                 <p class="title"><b>To view the update messages in the <b>MQTT client</b></b></p>
+                                 
+                                 <p>In the <b>MQTT client</b>, choose
+                                    <b>$aws/things/mySimulatedThing/shadow/name/simShadow1/update/delta</b>
+                                    in the <b>Subscriptions</b> column. If the topic name is
+                                    truncated, you can pause on it to see the full topic. In the topic log of this
+                                    topic, you should see a <code class="code">/delta</code> message similar to this one.
+                                 </p>
+                                        
+                                 <pre class="programlisting"><div class="code-btn-container"><div class="btn-copy-code" title="Copy"><awsui-icon name="copy"></awsui-icon></div></div><code class="json "><span>{</span>
+  "version": 4,
+  "timestamp": 1591141596,
+  "state": <span>{</span>
+    "ColorRGB": [
+      255,
+      255,
+      0
+    ]
+  },
+  "metadata": <span>{</span>
+    "ColorRGB": [
+      <span>{</span>
+        "timestamp": 1591141596
+      },
+      <span>{</span>
+        "timestamp": 1591141596
+      },
+      <span>{</span>
+        "timestamp": 1591141596
+      }
+    ]
+  },
+  "clientToken": "21b21b21-bfd2-4279-8c65-e2f697ff4fab"
+}</code></pre>
+                                 <p>Your device would process the contents of this message to set the device state to
+                                    match the <code class="code">desired</code> state in the message.
+                                 </p>
+                                 
+                                 <p>After the device updates the state to match the <code class="code">desired</code> state in the message, it
+                                    must send the new reported state back to AWS IoT by publishing an update message.
+                                    This procedure simulates
+                                    this in the <b>MQTT client</b>.
+                                 </p>
+                                 
+                                 <div class="procedure">
+                                    <p class="title"><b>To update the shadow from the device</b></p>
+                                    <ol>
+                                       <li>
+                                          <p>In the <b>MQTT client</b>, choose <b>Publish to a topic</b>.
+                                          </p>
+                                       </li>
+                                       <li>
+                                          <p>In the message body window , in the topic field above the message body window, enter
+                                             the
+                                             shadow's topic followed by the <code class="code">/update</code> action:
+                                             <code class="code">$aws/things/mySimulatedThing/shadow/name/simShadow1/update</code>
+                                             and in the message body, enter this updated shadow document, which describes
+                                             the current state of the device. Click <b>Publish</b> to
+                                             publish the updated device state.
+                                          </p>
+                                          <pre class="programlisting"><div class="code-btn-container"><div class="btn-copy-code" title="Copy"><awsui-icon name="copy"></awsui-icon></div></div><code class="javascro[t "><span>{</span>
+  "state": <span>{</span>
+    "reported": <span>{</span>
+      "ColorRGB": [255,255,0]
+      }
+  },
+  "clientToken": "a4dc2227-9213-4c6a-a6a5-053304f60258"
+}</code></pre>
+                                          <p>If the message was successfully received by AWS IoT, you should see a new response
+                                             in the 
+                                             <b>$aws/things/mySimulatedThing/shadow/name/simShadow1/update/accepted</b> message log
+                                             in the <b>MQTT client</b> with the current state of the shadow, such as this example.
+                                          </p>
+                                          <pre class="programlisting"><div class="code-btn-container"><div class="btn-copy-code" title="Copy"><awsui-icon name="copy"></awsui-icon></div></div><code class="json "><span>{</span>
+  "state": <span>{</span>
+    "reported": <span>{</span>
+      "ColorRGB": [
+        255,
+        255,
+        0
+      ]
+    }
+  },
+  "metadata": <span>{</span>
+    "reported": <span>{</span>
+      "ColorRGB": [
+        <span>{</span>
+          "timestamp": 1591142747
+        },
+        <span>{</span>
+          "timestamp": 1591142747
+        },
+        <span>{</span>
+          "timestamp": 1591142747
+        }
+      ]
+    }
+  },
+  "version": 5,
+  "timestamp": 1591142747,
+  "clientToken": "a4dc2227-9213-4c6a-a6a5-053304f60258"
+}</code></pre>
+                                          </li>
+                                    </ol>
+                                 </div>
+                                 
+                                 <p>A successful update to the reported state of the device also causes AWS IoT to send
+                                    a comprehensive description of the shadow state in a message to the <code class="code"></code> topic,
+                                    such as this message body that resulted from the shadow update performed by the
+                                    device in the preceding procedure.
+                                 </p>
+                                 <pre class="programlisting"><div class="code-btn-container"><div class="btn-copy-code" title="Copy"><awsui-icon name="copy"></awsui-icon></div></div><code class="json "><span>{</span>
+  "previous": <span>{</span>
+    "state": <span>{</span>
+      "desired": <span>{</span>
+        "ColorRGB": [
+          255,
+          255,
+          0
+        ]
+      },
+      "reported": <span>{</span>
+        "ID": "SmartLamp21",
+        "ColorRGB": [
+          128,
+          128,
+          128
+        ]
+      }
+    },
+    "metadata": <span>{</span>
+      "desired": <span>{</span>
+        "ColorRGB": [
+          <span>{</span>
+            "timestamp": 1591141596
+          },
+          <span>{</span>
+            "timestamp": 1591141596
+          },
+          <span>{</span>
+            "timestamp": 1591141596
+          }
+        ]
+      },
+      "reported": <span>{</span>
+        "ID": <span>{</span>
+          "timestamp": 1591140517
+        },
+        "ColorRGB": [
+          <span>{</span>
+            "timestamp": 1591140517
+          },
+          <span>{</span>
+            "timestamp": 1591140517
+          },
+          <span>{</span>
+            "timestamp": 1591140517
+          }
+        ]
+      }
+    },
+    "version": 4
+  },
+  "current": <span>{</span>
+    "state": <span>{</span>
+      "desired": <span>{</span>
+        "ColorRGB": [
+          255,
+          255,
+          0
+        ]
+      },
+      "reported": <span>{</span>
+        "ID": "SmartLamp21",
+        "ColorRGB": [
+          255,
+          255,
+          0
+        ]
+      }
+    },
+    "metadata": <span>{</span>
+      "desired": <span>{</span>
+        "ColorRGB": [
+          <span>{</span>
+            "timestamp": 1591141596
+          },
+          <span>{</span>
+            "timestamp": 1591141596
+          },
+          <span>{</span>
+            "timestamp": 1591141596
+          }
+        ]
+      },
+      "reported": <span>{</span>
+        "ID": <span>{</span>
+          "timestamp": 1591140517
+        },
+        "ColorRGB": [
+          <span>{</span>
+            "timestamp": 1591142747
+          },
+          <span>{</span>
+            "timestamp": 1591142747
+          },
+          <span>{</span>
+            "timestamp": 1591142747
+          }
+        ]
+      }
+    },
+    "version": 5
+  },
+  "timestamp": 1591142747,
+  "clientToken": "a4dc2227-9213-4c6a-a6a5-053304f60258"
+}</code></pre>
+                                  
+                                 <h2 id="using-device-shadows-view-result">Observe the update in the app</h2>
+                                 
+                                 <p>The app can now query the shadow for the current state as reported by the device.</p>
+                                 
+                                 <div class="procedure">
+                                    <p class="title"><b>To get the current state of the shadow using the AWS CLI</b></p>
+                                    <ol>
+                                       <li>
+                                          <p>From the command line, enter this command.</p>
+                                          <pre class="programlisting"><div class="code-btn-container"><div class="btn-copy-code" title="Copy"><awsui-icon name="copy"></awsui-icon></div></div><code class="bash ">aws iot-data get-thing-shadow --thing-name mySimulatedThing --shadow-name simShadow1 /dev/stdout</code></pre>
+                                          <p>On Windows platforms, you can use <code class="code">con</code> instead of
+                                             <code class="code">/dev/stdout</code>.
+                                          </p>
+                                          <pre class="programlisting"><div class="code-btn-container"><div class="btn-copy-code" title="Copy"><awsui-icon name="copy"></awsui-icon></div></div><code class="bash ">aws iot-data get-thing-shadow --thing-name mySimulatedThing --shadow-name simShadow1 con</code></pre>
+                                          </li>
+                                       <li>
+                                          <p>Because the shadow has just been updated by the device to reflect its current state,
+                                             it should return the following shadow document.
+                                          </p>
+                                          <pre class="programlisting"><div class="code-btn-container"><div class="btn-copy-code" title="Copy"><awsui-icon name="copy"></awsui-icon></div></div><code class="json "><span>{</span>
+  "state": <span>{</span>
+    "desired": <span>{</span>
+      "ColorRGB": [
+        255,
+        255,
+        0
+      ]
+    },
+    "reported": <span>{</span>
+      "ID": "SmartLamp21",
+      "ColorRGB": [
+        255,
+        255,
+        0
+      ]
+    }
+  },
+  "metadata": <span>{</span>
+    "desired": <span>{</span>
+      "ColorRGB": [
+        <span>{</span>
+          "timestamp": 1591141596
+        },
+        <span>{</span>
+          "timestamp": 1591141596
+        },
+        <span>{</span>
+          "timestamp": 1591141596
+        }
+      ]
+    },
+    "reported": <span>{</span>
+      "ID": <span>{</span>
+        "timestamp": 1591140517
+      },
+      "ColorRGB": [
+        <span>{</span>
+          "timestamp": 1591142747
+        },
+        <span>{</span>
+          "timestamp": 1591142747
+        },
+        <span>{</span>
+          "timestamp": 1591142747
+        }
+      ]
+    }
+  },
+  "version": 5,
+  "timestamp": 1591143269
+}</code></pre></li>
+                                    </ol>
+                                 </div>
+                                  
+                                 
+                                 <h2 id="using-device-shadows-next-steps">Going beyond the simulation</h2>
+                                 
+                                 <p>Experiment with the interaction between the AWS CLI (representing the app) and the
+                                    console (representing the device) to model your IoT solution.
+                                 </p>
+                                 
+                                 <awsdocs-copyright class="copyright-print"></awsdocs-copyright>
+                                 <awsdocs-thumb-feedback right-edge="{{$ctrl.thumbFeedbackRightEdge}}"></awsdocs-thumb-feedback>
+                              </div>
+                              <noscript>
+                                 <div>
+                                    <div>
+                                       <div>
+                                          <div id="js_error_message">
+                                             <p><img src="https://d1ge0kk1l5kms0.cloudfront.net/images/G/01/webservices/console/warning.png" alt="Warning" /> <strong>Javascript is disabled or is unavailable in your
+                                                   browser.</strong></p>
+                                             <p>To use the Amazon Web Services Documentation, Javascript must be
+                                                enabled. Please refer to your browser's Help pages for instructions.
+                                             </p>
+                                          </div>
+                                       </div>
+                                    </div>
+                                 </div>
+                              </noscript>
+                              <div id="main-col-footer" class="awsui-util-font-size-0">
+                                 <div id="doc-conventions"><a target="_top" href="/general/latest/gr/docconventions.html">Document Conventions</a></div>
+                                 <div class="prev-next">
+                                    <div id="previous" class="prev-link" accesskey="p" href="./device-shadow-comms-app.html">Using shadows in apps and services</div>
+                                    <div id="next" class="next-link" accesskey="n" href="./device-shadow-data-flow.html">Interacting with shadows</div>
+                                 </div>
+                              </div>
+                              <awsdocs-page-utilities></awsdocs-page-utilities>
+                           </div>
+                           <div id="quick-feedback-yes" style="display: none;">
+                              <div class="title">Did this page help you? - Yes</div>
+                              <div class="content">
+                                 <p>Thanks for letting us know we're doing a good
+                                    job!
+                                 </p>
+                                 <p>If you've got a moment, please tell us what we did right
+                                    so we can do more of it.
+                                 </p>
+                                 <p>
+                                    <awsui-button id="fblink" target="_blank" text="Feedback" click="linkClick($event)" href="https://docs.aws.amazon.com/forms/aws-doc-feedback?hidden_service_name=IoT Docs&amp;topic_url=https://docs.aws.amazon.com/en_us/iot/latest/developerguide/using-device-shadows.html"></awsui-button>
+                                 </p>
+                              </div>
+                           </div>
+                           <div id="quick-feedback-no" style="display: none;">
+                              <div class="title">Did this page help you? - No</div>
+                              <div class="content">
+                                 <p>Thanks for letting us know this page needs work. We're
+                                    sorry we let you down.
+                                 </p>
+                                 <p>If you've got a moment, please tell us how we can make
+                                    the documentation better.
+                                 </p>
+                                 <p>
+                                    <awsui-button id="fblink" target="_blank" text="Feedback" click="linkClick($event)" href="https://docs.aws.amazon.com/forms/aws-doc-feedback?hidden_service_name=IoT Docs&amp;topic_url=https://docs.aws.amazon.com/en_us/iot/latest/developerguide/using-device-shadows.html"></awsui-button>
+                                 </p>
+                              </div>
+                           </div>
+                        </div>
+                     </body>
+                  </div>
+               </awsdocs-view>
+               <div class="page-loading-indicator" id="page-loading-indicator">
+                  <awsui-spinner size="large"></awsui-spinner>
+               </div>
+            </div>
+            <div id="tools-panel" dom-region="tools">
+               <awsdocs-tools-panel id="awsdocs-tools-panel"></awsdocs-tools-panel>
+            </div>
+         </awsui-app-layout>
+         <awsdocs-cookie-banner class="doc-cookie-banner"></awsdocs-cookie-banner>
+         <!--
+                SiteCatalyst code version: H.25.2.
+                Copyright 1996-2012 Adobe, Inc. All Rights Reserved
+                More info available at http://www.omniture.com
+            --><script language="JavaScript" type="text/javascript">
+var awsdocs = awsdocs || {};
+awsdocs.prop66 = 'AWS IoT Core';
+awsdocs.prop65 =  'Developer Guide';
+            </script><script src="https://a0.awsstatic.com/s_code/js/3.0/awshome_s_code.js" language="JavaScript" type="text/javascript"></script>
+         <!--/DO NOT REMOVE/-->
+         <!--End SiteCatalyst code version: H.25.2.--></div>
+   </body>
+</html>

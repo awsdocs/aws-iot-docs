@@ -1,0 +1,501 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" ng-app="AWSDocsDocPageApp">
+   <head>
+      <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+      <title>Getting started with Device Advisor in the console - AWS IoT Core</title>
+      <meta name="viewport" content="width=device-width,initial-scale=1" />
+      <meta name="assets_root" content="assets" />
+      <meta name="target_state" content="da-console-guide" />
+      <meta name="default_state" content="da-console-guide" />
+      <link rel="icon" type="image/ico" href="/assets/images/favicon.ico" />
+      <link rel="shortcut icon" type="image/ico" href="/assets/images/favicon.ico" />
+      <link rel="canonical" href="https://docs.aws.amazon.com/iot/latest/developerguide/da-console-guide.html" />
+      <meta name="description" content="This tutorial helps you quickly get started with Device Advisor in the console. Device Advisor offers features such as required tests and signed qualification reports to qualify and list devices in the AWS Partner Device Catalog as per the AWS IoT Core qualification program" />
+      <meta name="deployment_region" content="IAD" />
+      <meta name="product" content="AWS IoT Core" />
+      <meta name="guide" content="Developer Guide" />
+      <meta name="locales" content="de_de:Deutsch/en_us:English/es_es:Español/fr_fr:Français/it_it:Italiano/ja_jp:日本語/ko_kr:한국어/pt_br:Português/zh_cn:中文 (简体)/zh_tw:中文 (繁體)" />
+      <meta name="abstract" content="AWS IoT provides secure, bi-directional communication between Internet-connected devices such as sensors, actuators, embedded micro-controllers, or smart appliances and the AWS Cloud. This enables you to collect telemetry data from multiple devices, and store and analyze the data. You can also create applications that enable your users to control these devices from their phones or tablets." />
+      <meta name="guide-locale" content="en_us" />
+      <meta name="tocs" content="toc-contents.json" />
+      <meta name="feedback-item" content="IoT Docs" />
+      <meta name="this_doc_product" content="AWS IoT Core" />
+      <meta name="this_doc_guide" content="Developer Guide" />
+      <link href="assets/css/vendor4.css" rel="stylesheet" />
+      <link href="assets/css/awsdocs-common.css" rel="stylesheet" /><script type="text/javascript" src="assets/js/vendor3.js" defer=""></script><script type="text/javascript" src="assets/js/vendor4.js" defer=""></script><script type="text/javascript" src="assets/js/vendor1.js" defer=""></script><script type="text/javascript" src="assets/js/awsdocs-common.js" defer=""></script><script type="text/javascript" src="assets/js/awsdocs-doc-app.js" defer=""></script></head>
+   <body class="awsdocs awsui">
+      <div class="awsdocs-container">
+         <awsdocs-header></awsdocs-header>
+         <awsui-app-layout id="app-layout" class="awsui-util-no-gutters" ng-controller="ContentController as $ctrl" header-selector="awsdocs-header" navigation-hide="false" navigation-width="$ctrl.navWidth" navigation-open="$ctrl.navOpen" navigation-change="$ctrl.onNavChange($event)" tools-hide="$ctrl.hideTools" tools-width="$ctrl.toolsWidth" tools-open="$ctrl.toolsOpen" tools-change="$ctrl.onToolsChange($event)">
+            <div id="guide-toc" dom-region="navigation">
+               <awsdocs-toc></awsdocs-toc>
+            </div>
+            <div id="main-column" dom-region="content" tabindex="-1">
+               <awsdocs-view class="awsdocs-view">
+                  <div id="awsdocs-content">
+                     <head>
+                        <title>Getting started with Device Advisor in the console - AWS IoT Core</title>
+                        <meta name="pdf" content="iot-dg.pdf#da-console-guide" />
+                        <meta name="kindle" content="https://www.amazon.com/dp/B07JBRCWWZ" />
+                        <meta name="github" content="https://github.com/awsdocs/aws-iot-docs/tree/master/developerguide/da-console-guide.md" />
+                        <meta name="forums" content="http://forums.aws.amazon.com/forum.jspa?forumID=210" />
+                        <meta name="feedback" content="https://docs.aws.amazon.com/forms/aws-doc-feedback?hidden_service_name=IoT%20Docs&amp;topic_url=http://docs.aws.amazon.com/en_us/iot/latest/developerguide/da-console-guide.html" />
+                        <meta name="feedback-yes" content="feedbackyes.html?topic_url=http://docs.aws.amazon.com/en_us/iot/latest/developerguide/da-console-guide.html" />
+                        <meta name="feedback-no" content="feedbackno.html?topic_url=http://docs.aws.amazon.com/en_us/iot/latest/developerguide/da-console-guide.html" />
+                        <meta name="keywords" content="AWS IoT,IoT,Internet of Things" />
+                     </head>
+                     <body>
+                        <div id="main">
+                           <div style="display: none"><a href="iot-dg.pdf#da-console-guide" target="_blank" rel="noopener noreferrer" title="Open PDF"></a><a target="_blank" rel="noopener noreferrer" href="https://www.amazon.com/dp/B07JBRCWWZ" title="Open Kindle"></a><a href="https://github.com/awsdocs/aws-iot-docs/tree/master/developerguide/da-console-guide.md" target="_blank" rel="noopener noreferrer" title="Edit this page on GitHub"></a></div>
+                           <div id="breadcrumbs" class="breadcrumb"><a href="http://aws.amazon.com">AWS</a><a href="/index.html">Documentation</a><a href="/iot/index.html">AWS IoT Core</a><a href="what-is-aws-iot.html">Developer Guide</a></div>
+                           <div id="main-content" class="awsui-util-container">
+                              <div id="main-col-body">
+                                 <awsdocs-language-banner data-service="$ctrl.pageService"></awsdocs-language-banner>
+                                 <h1 class="topictitle" id="da-console-guide">Getting started with Device Advisor in the console</h1>
+                                 <div class="awsdocs-page-header-container">
+                                    <awsdocs-page-header></awsdocs-page-header>
+                                    <awsdocs-filter-selector id="awsdocs-filter-selector"></awsdocs-filter-selector>
+                                 </div>
+                                 <p>This tutorial helps you quickly get started with Device Advisor in the console. Device
+                                    Advisor
+                                    offers features such as required tests and signed qualification reports to qualify
+                                    and
+                                    list devices in the <a href="https://devices.amazonaws.com/" rel="noopener noreferrer" target="_blank"><span>AWS Partner Device
+                                          Catalog</span><awsui-icon class="awsdocs-link-icon" name="external"></awsui-icon></a> as per the <a href="https://aws.amazon.com/partners/dqp/" rel="noopener noreferrer" target="_blank"><span>AWS IoT Core qualification program</span><awsui-icon class="awsdocs-link-icon" name="external"></awsui-icon></a>.
+                                 </p>
+                                 <p>For more information about using Device Advisor, see <a href="./device-advisor-workflow.html">Device Advisor workflow</a> and <a href="./device-advisor-console-tutorial.html">Device Advisor detailed console
+                                       workflow</a>.
+                                 </p>
+                                 <p>To complete this tutorial, follow the steps outlined in <a href="./device-advisor-setting-up.html">Setting up</a>.
+                                 </p>
+                                 <div class="awsdocs-note">
+                                    <div class="awsdocs-note-title">
+                                       <awsui-icon name="status-info" variant="link"></awsui-icon><span>Note</span></div>
+                                    <div class="awsdocs-note-text">
+                                       <p>Device Advisor is supported in us-east-1, us-west-2, ap-northeast-1, and eu-west-1
+                                          regions.
+                                       </p>
+                                    </div>
+                                 </div>
+                                 <div class="procedure">
+                                    <p class="title"><b>Getting started</b></p>
+                                    <ol>
+                                       <li>
+                                          
+                                          <p>In the <a href="https://console.aws.amazon.com/iot" rel="noopener noreferrer" target="_blank"><span>AWS IoT console</span><awsui-icon class="awsdocs-link-icon" name="external"></awsui-icon></a>,
+                                             in the navigation pane, expand <b>Test</b>, <b>Device
+                                                Advisor</b>, and then choose <b>Start
+                                                walkthrough</b>.
+                                          </p>
+                                          
+                                          <div class="mediaobject">
+                                              
+                                             <img src="images/da-console-gs.png" class="aws-docs-img-whiteBg aws-docs-img-padding" />
+                                              
+                                             
+                                          </div>
+                                          
+                                       </li>
+                                       <li>
+                                          
+                                          <p>The <b>Getting started with Device Advisor</b> gives an overview of the
+                                             steps required to create a test suite and run tests against your device. You can
+                                             also find the Device Advisor test endpoint for your account. You must configure the
+                                             firmware or software on the device that you'll use for testing to connect to
+                                             this test endpoint.
+                                          </p>
+                                          
+                                          <div class="mediaobject">
+                                              
+                                             <img src="images/da-console-gs1.png" class="aws-docs-img-whiteBg aws-docs-img-padding" />
+                                              
+                                             
+                                          </div>
+                                          
+                                          <p>After you've reviewed the informaton, choose
+                                             <b>Next</b>.
+                                          </p>
+                                          
+                                       </li>
+                                       <li>
+                                          <p>
+                                             In <b>Step 1</b>, select the device role that was created as part of <a href="https://docs.aws.amazon.com/iot/latest/developerguide/device-advisor-setting-up.html">Setting up</a>.
+                                             
+                                          </p>
+                                          
+                                          <div class="mediaobject">
+                                              
+                                             <img src="images/da-select-decive-role.png" class="aws-docs-img-whiteBg aws-docs-img-padding" />
+                                              
+                                             
+                                          </div>
+                                          
+                                       </li>
+                                       <li>
+                                          
+                                          <p>In <b>Step 1</b>, you selected an AWS IoT thing or certificate
+                                             to test using Device Advisor. If you don't have any existing things or certificates,
+                                             see <a href="./device-advisor-setting-up.html">Setting up</a>.
+                                          </p>
+                                          
+                                          <p>If you see the AWS IoT thing or certificate that you've configured with your
+                                             Device Advisor test endpoint, choose that device from the list, and then choose
+                                             <b>Next</b>.
+                                          </p>
+                                          
+                                          <div class="mediaobject">
+                                              
+                                             <img src="images/da-console-thing-certificate.png" class="aws-docs-img-whiteBg aws-docs-img-padding" />
+                                              
+                                             
+                                          </div>
+                                          
+                                       </li>
+                                       <li>
+                                          
+                                          <p>In <b>Step 2</b>, you can create and configure a custom test
+                                             suite. A custom test suite must have at least one test group, and each test
+                                             group must have at least one test case. We've added the <b>MQTT
+                                                Connect</b> test case for you to get started.
+                                          </p>
+                                          
+                                       </li>
+                                       <li>
+                                          
+                                          <p>Choose <b>Test suite properties</b>. You must supply the test
+                                             suite properties when you create your test suite.
+                                          </p>
+                                          
+                                          <div class="mediaobject">
+                                              
+                                             <img src="images/da-console-step1.png" class="aws-docs-img-whiteBg aws-docs-img-padding" />
+                                              
+                                             
+                                          </div>
+                                          
+                                          <p>You can configure the suite-level properties here.</p>
+                                          
+                                          <div class="itemizedlist">
+                                              
+                                              
+                                              
+                                             
+                                             <ul class="itemizedlist" type="disc">
+                                                <li class="listitem">
+                                                   
+                                                   <p><b>Test suite name</b>: You can create the suite with a
+                                                      custom name.
+                                                   </p>
+                                                   
+                                                </li>
+                                                <li class="listitem">
+                                                   
+                                                   <p><b>Timeout</b> (optional): The timeout in seconds for
+                                                      each test case in the current test suite. If you don't specify a timeout
+                                                      value, the default value is used.
+                                                   </p>
+                                                   
+                                                </li>
+                                                <li class="listitem">
+                                                   
+                                                   <p><b>Tags</b> (optional): Add tags to the test suite that
+                                                      you're going to create.
+                                                   </p>
+                                                   
+                                                </li>
+                                             </ul>
+                                          </div>
+                                          
+                                          <div class="mediaobject">
+                                              
+                                             <img src="images/da-test-suite-properties-1.png" class="aws-docs-img-whiteBg aws-docs-img-padding" />
+                                              
+                                             
+                                          </div>
+                                          
+                                          <p>When you've finished, choose <b>Update properties</b>.
+                                          </p>
+                                          
+                                       </li>
+                                       <li>
+                                          
+                                          <p>(Optional) You can update the test suite group configuration by choosing
+                                             <b>Edit</b> next to the test group name.
+                                          </p>
+                                          
+                                          <div class="itemizedlist">
+                                              
+                                              
+                                             
+                                             <ul class="itemizedlist" type="disc">
+                                                <li class="listitem">
+                                                   
+                                                   <p><b>Name</b>: You can update the group with a custom
+                                                      name.
+                                                   </p>
+                                                   
+                                                </li>
+                                                <li class="listitem">
+                                                   
+                                                   <p><b>Timeout</b> (optional): The timeout in seconds
+                                                      for each test case in the current test suite. If you don't specify a
+                                                      timeout value, the default value is used.
+                                                   </p>
+                                                   
+                                                </li>
+                                             </ul>
+                                          </div>
+                                          
+                                          <div class="mediaobject">
+                                              
+                                             <img src="images/da-console-test-suite-config.png" class="aws-docs-img-whiteBg aws-docs-img-padding" />
+                                              
+                                             
+                                          </div>
+                                          
+                                          <p>Choose <b>Done</b>.
+                                          </p>
+                                          
+                                       </li>
+                                       <li>
+                                          
+                                          <p>(Optional) You can update the test case configuration by choosing
+                                             <b>Edit</b> next to the test case name.
+                                          </p>
+                                          
+                                          <div class="itemizedlist">
+                                              
+                                              
+                                             
+                                             <ul class="itemizedlist" type="disc">
+                                                <li class="listitem">
+                                                   
+                                                   <p><b>Name</b>: You can update the test case with a custom
+                                                      name.
+                                                   </p>
+                                                   
+                                                </li>
+                                                <li class="listitem">
+                                                   
+                                                   <p><b>Timeout</b> (optional): The timeout in seconds
+                                                      for the selected test case. If you don't specify a timeout value, the
+                                                      default value is used.
+                                                   </p>
+                                                   
+                                                </li>
+                                             </ul>
+                                          </div>
+                                          
+                                          <div class="mediaobject">
+                                              
+                                             <img src="images/da-console-test-case-config.png" class="aws-docs-img-whiteBg aws-docs-img-padding" />
+                                              
+                                             
+                                          </div>
+                                          
+                                          <p>Choose <b>Done</b>.
+                                          </p>
+                                          
+                                       </li>
+                                       <li>
+                                          
+                                          <p>(Optional) To add more test groups to the test suite, choose <b>Add
+                                                test group</b> and configure accordingly.
+                                          </p>
+                                          
+                                       </li>
+                                       <li>
+                                          
+                                          <p>(Optional) To add more test cases, drag the test cases under <b>Test
+                                                cases</b> into any of the test groups you have.
+                                          </p>
+                                          
+                                          <div class="mediaobject">
+                                              
+                                             <img src="images/da-console-drag.png" class="aws-docs-img-whiteBg aws-docs-img-padding" />
+                                              
+                                             
+                                          </div>
+                                          
+                                       </li>
+                                       <li>
+                                          
+                                          <p>Test groups and test cases can be reordered by dragging. Device Advisor runs tests
+                                             in
+                                             the order
+                                             they're
+                                             defined.
+                                          </p>
+                                          
+                                          <p>After you've configured your test suite, choose
+                                             <b>Next</b>.
+                                          </p>
+                                          
+                                       </li>
+                                       <li>
+                                          
+                                          <p><b>Step 4</b> provides you with an overview of the selected test
+                                             device role, test device and test suite that you've configured. If you want to
+                                             make changes, choose <b>Edit</b>.
+                                          </p>
+                                          
+                                          <div class="awsdocs-note">
+                                             <div class="awsdocs-note-title">
+                                                <awsui-icon name="status-info" variant="link"></awsui-icon><span>Note</span></div>
+                                             <div class="awsdocs-note-text">
+                                                <p>For a smoother experience, you can connect your selected test device to the Device
+                                                   Advisor test endpoint
+                                                   before starting the suite run. We recommend that you have a mechanism built
+                                                   for your device to try connecting to our test endpoint every 5 seconds for
+                                                   one to two minutes.
+                                                </p>
+                                             </div>
+                                          </div>
+                                          
+                                          <p>To create the test suite and run the tests against your device, choose
+                                             <b>Run</b>.
+                                          </p>
+                                          
+                                          <div class="mediaobject">
+                                              
+                                             <img src="images/da-run-tests.png" class="aws-docs-img-whiteBg aws-docs-img-padding" />
+                                              
+                                             
+                                          </div>
+                                          
+                                       </li>
+                                       <li>
+                                          
+                                          <p>In the navigation pane, expand <b>Test</b>,
+                                             <b>Device Advisor</b>, and then choose <b>Test runs and
+                                                results</b> to view the run details and logs.
+                                          </p>
+                                          
+                                          <p>Select the test suite run that has been started to view the run details and
+                                             logs.
+                                          </p>
+                                          
+                                          <div class="mediaobject">
+                                              
+                                             <img src="images/da-console-runs-results.png" class="aws-docs-img-whiteBg aws-docs-img-padding" />
+                                              
+                                             
+                                          </div>
+                                          
+                                       </li>
+                                       <li>
+                                          
+                                          <p>To access the CloudWatch logs for the suite run:</p>
+                                          
+                                          <div class="itemizedlist">
+                                              
+                                              
+                                             
+                                             <ul class="itemizedlist" type="disc">
+                                                <li class="listitem">
+                                                   
+                                                   <p>Choose <b>Test suite log</b> to view the CloudWatch
+                                                      logs for the test suite run.
+                                                   </p>
+                                                   
+                                                </li>
+                                                <li class="listitem">
+                                                   
+                                                   <p>Choose <b>Test case log</b> for any test case to view
+                                                      test case-specific CloudWatch logs.
+                                                   </p>
+                                                   
+                                                </li>
+                                             </ul>
+                                          </div>
+                                          
+                                       </li>
+                                       <li>
+                                          
+                                          <p>Based on your test results, <a href="https://docs.aws.amazon.com/iot/latest/developerguide/iot_troubleshooting.html#device-advisor-troubleshooting">troubleshoot</a> your device until all tests pass.
+                                          </p>
+                                          
+                                       </li>
+                                    </ol>
+                                 </div>
+                                 <awsdocs-copyright class="copyright-print"></awsdocs-copyright>
+                                 <awsdocs-thumb-feedback right-edge="{{$ctrl.thumbFeedbackRightEdge}}"></awsdocs-thumb-feedback>
+                              </div>
+                              <noscript>
+                                 <div>
+                                    <div>
+                                       <div>
+                                          <div id="js_error_message">
+                                             <p><img src="https://d1ge0kk1l5kms0.cloudfront.net/images/G/01/webservices/console/warning.png" alt="Warning" /> <strong>Javascript is disabled or is unavailable in your
+                                                   browser.</strong></p>
+                                             <p>To use the Amazon Web Services Documentation, Javascript must be
+                                                enabled. Please refer to your browser's Help pages for instructions.
+                                             </p>
+                                          </div>
+                                       </div>
+                                    </div>
+                                 </div>
+                              </noscript>
+                              <div id="main-col-footer" class="awsui-util-font-size-0">
+                                 <div id="doc-conventions"><a target="_top" href="/general/latest/gr/docconventions.html">Document Conventions</a></div>
+                                 <div class="prev-next">
+                                    <div id="previous" class="prev-link" accesskey="p" href="./device-advisor-setting-up.html">Setting up</div>
+                                    <div id="next" class="next-link" accesskey="n" href="./device-advisor-workflow.html">Device Advisor workflow</div>
+                                 </div>
+                              </div>
+                              <awsdocs-page-utilities></awsdocs-page-utilities>
+                           </div>
+                           <div id="quick-feedback-yes" style="display: none;">
+                              <div class="title">Did this page help you? - Yes</div>
+                              <div class="content">
+                                 <p>Thanks for letting us know we're doing a good
+                                    job!
+                                 </p>
+                                 <p>If you've got a moment, please tell us what we did right
+                                    so we can do more of it.
+                                 </p>
+                                 <p>
+                                    <awsui-button id="fblink" target="_blank" text="Feedback" click="linkClick($event)" href="https://docs.aws.amazon.com/forms/aws-doc-feedback?hidden_service_name=IoT Docs&amp;topic_url=https://docs.aws.amazon.com/en_us/iot/latest/developerguide/da-console-guide.html"></awsui-button>
+                                 </p>
+                              </div>
+                           </div>
+                           <div id="quick-feedback-no" style="display: none;">
+                              <div class="title">Did this page help you? - No</div>
+                              <div class="content">
+                                 <p>Thanks for letting us know this page needs work. We're
+                                    sorry we let you down.
+                                 </p>
+                                 <p>If you've got a moment, please tell us how we can make
+                                    the documentation better.
+                                 </p>
+                                 <p>
+                                    <awsui-button id="fblink" target="_blank" text="Feedback" click="linkClick($event)" href="https://docs.aws.amazon.com/forms/aws-doc-feedback?hidden_service_name=IoT Docs&amp;topic_url=https://docs.aws.amazon.com/en_us/iot/latest/developerguide/da-console-guide.html"></awsui-button>
+                                 </p>
+                              </div>
+                           </div>
+                        </div>
+                     </body>
+                  </div>
+               </awsdocs-view>
+               <div class="page-loading-indicator" id="page-loading-indicator">
+                  <awsui-spinner size="large"></awsui-spinner>
+               </div>
+            </div>
+            <div id="tools-panel" dom-region="tools">
+               <awsdocs-tools-panel id="awsdocs-tools-panel"></awsdocs-tools-panel>
+            </div>
+         </awsui-app-layout>
+         <awsdocs-cookie-banner class="doc-cookie-banner"></awsdocs-cookie-banner>
+         <!--
+                SiteCatalyst code version: H.25.2.
+                Copyright 1996-2012 Adobe, Inc. All Rights Reserved
+                More info available at http://www.omniture.com
+            --><script language="JavaScript" type="text/javascript">
+var awsdocs = awsdocs || {};
+awsdocs.prop66 = 'AWS IoT Core';
+awsdocs.prop65 =  'Developer Guide';
+            </script><script src="https://a0.awsstatic.com/s_code/js/3.0/awshome_s_code.js" language="JavaScript" type="text/javascript"></script>
+         <!--/DO NOT REMOVE/-->
+         <!--End SiteCatalyst code version: H.25.2.--></div>
+   </body>
+</html>

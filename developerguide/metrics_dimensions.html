@@ -1,0 +1,2189 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" ng-app="AWSDocsDocPageApp">
+   <head>
+      <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+      <title>AWS IoT metrics and dimensions - AWS IoT Core</title>
+      <meta name="viewport" content="width=device-width,initial-scale=1" />
+      <meta name="assets_root" content="assets" />
+      <meta name="target_state" content="metrics_dimensions" />
+      <meta name="default_state" content="metrics_dimensions" />
+      <link rel="icon" type="image/ico" href="/assets/images/favicon.ico" />
+      <link rel="shortcut icon" type="image/ico" href="/assets/images/favicon.ico" />
+      <link rel="canonical" href="https://docs.aws.amazon.com/iot/latest/developerguide/metrics_dimensions.html" />
+      <meta name="description" content="When you interact with AWS IoT, the service sends the following metrics and dimensions to CloudWatch every minute. You can use the following procedures to view the metrics for AWS IoT." />
+      <meta name="deployment_region" content="IAD" />
+      <meta name="product" content="AWS IoT Core" />
+      <meta name="guide" content="Developer Guide" />
+      <meta name="locales" content="de_de:Deutsch/en_us:English/es_es:Español/fr_fr:Français/it_it:Italiano/ja_jp:日本語/ko_kr:한국어/pt_br:Português/zh_cn:中文 (简体)/zh_tw:中文 (繁體)" />
+      <meta name="abstract" content="AWS IoT provides secure, bi-directional communication between Internet-connected devices such as sensors, actuators, embedded micro-controllers, or smart appliances and the AWS Cloud. This enables you to collect telemetry data from multiple devices, and store and analyze the data. You can also create applications that enable your users to control these devices from their phones or tablets." />
+      <meta name="guide-locale" content="en_us" />
+      <meta name="tocs" content="toc-contents.json" />
+      <meta name="feedback-item" content="IoT Docs" />
+      <meta name="this_doc_product" content="AWS IoT Core" />
+      <meta name="this_doc_guide" content="Developer Guide" />
+      <link href="assets/css/vendor4.css" rel="stylesheet" />
+      <link href="assets/css/awsdocs-common.css" rel="stylesheet" /><script type="text/javascript" src="assets/js/vendor3.js" defer=""></script><script type="text/javascript" src="assets/js/vendor4.js" defer=""></script><script type="text/javascript" src="assets/js/vendor1.js" defer=""></script><script type="text/javascript" src="assets/js/awsdocs-common.js" defer=""></script><script type="text/javascript" src="assets/js/awsdocs-doc-app.js" defer=""></script></head>
+   <body class="awsdocs awsui">
+      <div class="awsdocs-container">
+         <awsdocs-header></awsdocs-header>
+         <awsui-app-layout id="app-layout" class="awsui-util-no-gutters" ng-controller="ContentController as $ctrl" header-selector="awsdocs-header" navigation-hide="false" navigation-width="$ctrl.navWidth" navigation-open="$ctrl.navOpen" navigation-change="$ctrl.onNavChange($event)" tools-hide="$ctrl.hideTools" tools-width="$ctrl.toolsWidth" tools-open="$ctrl.toolsOpen" tools-change="$ctrl.onToolsChange($event)">
+            <div id="guide-toc" dom-region="navigation">
+               <awsdocs-toc></awsdocs-toc>
+            </div>
+            <div id="main-column" dom-region="content" tabindex="-1">
+               <awsdocs-view class="awsdocs-view">
+                  <div id="awsdocs-content">
+                     <head>
+                        <title>AWS IoT metrics and dimensions - AWS IoT Core</title>
+                        <meta name="pdf" content="iot-dg.pdf#metrics_dimensions" />
+                        <meta name="kindle" content="https://www.amazon.com/dp/B07JBRCWWZ" />
+                        <meta name="github" content="https://github.com/awsdocs/aws-iot-docs/tree/master/developerguide/metrics_dimensions.md" />
+                        <meta name="forums" content="http://forums.aws.amazon.com/forum.jspa?forumID=210" />
+                        <meta name="feedback" content="https://docs.aws.amazon.com/forms/aws-doc-feedback?hidden_service_name=IoT%20Docs&amp;topic_url=http://docs.aws.amazon.com/en_us/iot/latest/developerguide/metrics_dimensions.html" />
+                        <meta name="feedback-yes" content="feedbackyes.html?topic_url=http://docs.aws.amazon.com/en_us/iot/latest/developerguide/metrics_dimensions.html" />
+                        <meta name="feedback-no" content="feedbackno.html?topic_url=http://docs.aws.amazon.com/en_us/iot/latest/developerguide/metrics_dimensions.html" />
+                        <meta name="keywords" content="AWS IoT,IoT,Internet of Things" />
+                     </head>
+                     <body>
+                        <div id="main">
+                           <div style="display: none"><a href="iot-dg.pdf#metrics_dimensions" target="_blank" rel="noopener noreferrer" title="Open PDF"></a><a target="_blank" rel="noopener noreferrer" href="https://www.amazon.com/dp/B07JBRCWWZ" title="Open Kindle"></a><a href="https://github.com/awsdocs/aws-iot-docs/tree/master/developerguide/metrics_dimensions.md" target="_blank" rel="noopener noreferrer" title="Edit this page on GitHub"></a></div>
+                           <div id="breadcrumbs" class="breadcrumb"><a href="http://aws.amazon.com">AWS</a><a href="/index.html">Documentation</a><a href="/iot/index.html">AWS IoT Core</a><a href="what-is-aws-iot.html">Developer Guide</a></div>
+                           <div id="page-toc-src"><a href="#iot-metrics">AWS IoT metrics</a><a href="#credential-provider-metrics">AWS IoT Core credential provider metrics</a><a href="#rulemetrics">Rule metrics</a><a href="#rule-action-metrics">Rule action metrics</a><a href="#http-action-metrics">HTTP action specific metrics</a><a href="#message-broker-metrics">Message broker metrics</a><a href="#shadow-metrics">Device shadow metrics</a><a href="#jobs-metrics">Jobs metrics</a><a href="#device-defender-audit-metrics">Device Defender audit metrics</a><a href="#device-defender-detect-metrics">Device Defender detect metrics</a><a href="#provisioning-metrics">Device provisioning metrics</a><a href="#aws-iot-metricdimensions">Dimensions for metrics</a></div>
+                           <div id="main-content" class="awsui-util-container">
+                              <div id="main-col-body">
+                                 <awsdocs-language-banner data-service="$ctrl.pageService"></awsdocs-language-banner>
+                                 <h1 class="topictitle" id="metrics_dimensions">AWS IoT metrics and dimensions</h1>
+                                 <div class="awsdocs-page-header-container">
+                                    <awsdocs-page-header></awsdocs-page-header>
+                                    <awsdocs-filter-selector id="awsdocs-filter-selector"></awsdocs-filter-selector>
+                                 </div>
+                                 <p>When you interact with AWS IoT, the service sends the following metrics and dimensions
+                                    to
+                                    CloudWatch every minute. You can use the following procedures to view the metrics
+                                    for
+                                    AWS IoT.
+                                 </p>
+                                 <div class="procedure">
+                                    <p class="title"><b>To view metrics (CloudWatch console)</b></p>
+                                    <p>Metrics are grouped first by the service namespace, and then by the various dimension
+                                       combinations within each namespace.
+                                    </p>
+                                    <ol>
+                                       <li>
+                                          <p>Open the CloudWatch console at
+                                             <a href="https://console.aws.amazon.com/cloudwatch/" rel="noopener noreferrer" target="_blank"><span>https://console.aws.amazon.com/cloudwatch/</span><awsui-icon class="awsdocs-link-icon" name="external"></awsui-icon></a>.
+                                          </p>
+                                       </li>
+                                       <li>
+                                          
+                                          <p>In the navigation pane, choose <b>Metrics</b>.
+                                          </p>
+                                          
+                                       </li>
+                                       <li>
+                                          
+                                          <p>In the <b>CloudWatch Metrics by Category</b> pane, under the metrics
+                                             category for AWS IoT, choose a metrics category, and then in the upper pane,
+                                             scroll down to view the full list of metrics.
+                                          </p>
+                                          
+                                       </li>
+                                    </ol>
+                                 </div>
+                                 <div class="procedure">
+                                    <p class="title"><b>To view metrics (CLI)</b></p>
+                                    <ul>
+                                       <li>
+                                          
+                                          <p>At a command prompt, use the following command:</p>
+                                          <pre class="programlisting"><div class="code-btn-container"><div class="btn-copy-code" title="Copy"><awsui-icon name="copy"></awsui-icon></div></div><code class="nohighlight"><code class="userinput">aws cloudwatch list-metrics --namespace "AWS/IoT"</code>
+                       </code></pre>
+                                          </li>
+                                    </ul>
+                                 </div>
+                                 <div class="highlights" id="inline-topiclist">
+                                    <p><strong>CloudWatch displays the following groups of metrics for AWS IoT:</strong></p>
+                                    <ul>
+                                       <li><a href="#iot-metrics">AWS IoT metrics</a></li>
+                                       <li><a href="#credential-provider-metrics">AWS IoT Core credential provider metrics</a></li>
+                                       <li><a href="#rulemetrics">Rule metrics</a></li>
+                                       <li><a href="#rule-action-metrics">Rule action metrics</a></li>
+                                       <li><a href="#http-action-metrics">HTTP action specific metrics</a></li>
+                                       <li><a href="#message-broker-metrics">Message broker metrics</a></li>
+                                       <li><a href="#shadow-metrics">Device shadow metrics</a></li>
+                                       <li><a href="#jobs-metrics">Jobs metrics</a></li>
+                                       <li><a href="#device-defender-audit-metrics">Device Defender audit metrics</a></li>
+                                       <li><a href="#device-defender-detect-metrics">Device Defender detect metrics</a></li>
+                                       <li><a href="#provisioning-metrics">Device provisioning metrics</a></li>
+                                       <li><a href="#aws-iot-metricdimensions">Dimensions for metrics</a></li>
+                                    </ul>
+                                 </div>
+                                 
+                                 <h2 id="iot-metrics">AWS IoT metrics</h2>
+                                 <a id="iot-metrics-table"></a><div class="table-container">
+                                    <div class="table-contents">
+                                       <table id="w332aac21c27c11c11b3">
+                                          <thead>
+                                             
+                                             <tr>
+                                                
+                                                <th>Metric</th>
+                                                
+                                                <th>Description</th>
+                                                
+                                             </tr>
+                                             
+                                          </thead>
+                                          
+                                          <tr>
+                                             
+                                             <td>
+                                                
+                                                <p><code class="code">AddThingToDynamicThingGroupsFailed</code></p>
+                                                
+                                             </td>
+                                             
+                                             <td>
+                                                
+                                                <p>The number of failure events associated with adding a thing to a dynamic
+                                                   thing group. The <code class="code">DynamicThingGroupName</code> dimension contains the name
+                                                   of the dynamic groups that failed to add things.
+                                                </p>
+                                                
+                                             </td>
+                                             
+                                          </tr>
+                                          
+                                          <tr>
+                                             
+                                             <td>
+                                                
+                                                <p><code class="code">NumLogBatchesFailedToPublishThrottled</code></p>
+                                                
+                                             </td>
+                                             
+                                             <td>
+                                                
+                                                <p>The singular batch of log events that has failed to publish due to
+                                                   throttling errors.
+                                                </p>
+                                                
+                                             </td>
+                                             
+                                          </tr>
+                                          
+                                          <tr>
+                                             
+                                             <td>
+                                                
+                                                <p><code class="code">NumLogEventsFailedToPublishThrottled</code></p>
+                                                
+                                             </td>
+                                             
+                                             <td>
+                                                
+                                                <p>The number of log events within the batch that have failed to publish due to
+                                                   throttling errors.
+                                                </p>
+                                                
+                                             </td>
+                                             
+                                          </tr>
+                                          
+                                       </table>
+                                    </div>
+                                 </div>
+                                  
+                                 
+                                 <h2 id="credential-provider-metrics">AWS IoT Core credential provider metrics</h2>    
+                                 <a id="iot-metrics-table"></a><div class="table-container">
+                                    <div class="table-contents">
+                                       <table id="w332aac21c27c11c13b3">
+                                          <thead>
+                                             
+                                             <tr>
+                                                
+                                                <th>Metric</th>
+                                                
+                                                <th>Description</th>
+                                                
+                                             </tr>
+                                             
+                                          </thead>
+                                          
+                                          <tr>
+                                             
+                                             <td>
+                                                
+                                                <p><code class="code">CredentialExchangeSuccess</code></p>
+                                                
+                                             </td>
+                                             
+                                             <td>
+                                                
+                                                <p>The number of successful <code class="code">AssumeRoleWithCertificate</code> requests to AWS IoT Core credentials provider.
+                                                </p>
+                                                
+                                             </td>
+                                             
+                                          </tr>
+                                          
+                                       </table>
+                                    </div>
+                                 </div>
+                                  
+                                 
+                                 <h2 id="rulemetrics">Rule metrics</h2>
+                                 <a id="rulemetrics-table"></a><div class="table-container">
+                                    <div class="table-contents">
+                                       <table id="w332aac21c27c11c15b3">
+                                          <thead>
+                                             
+                                             <tr>
+                                                
+                                                <th>Metric</th>
+                                                
+                                                <th>Description</th>
+                                                
+                                             </tr>
+                                             
+                                          </thead>
+                                          
+                                          <tr>
+                                             
+                                             <td>
+                                                
+                                                <p><code class="code">ParseError</code></p>
+                                                
+                                             </td>
+                                             
+                                             <td>
+                                                
+                                                <p>The number of JSON parse errors that occurred in messages published on a
+                                                   topic on which a rule is listening. The <code class="code">RuleName</code> dimension contains
+                                                   the name of the rule.
+                                                </p>
+                                                
+                                             </td>
+                                             
+                                          </tr>
+                                          
+                                          <tr>
+                                             
+                                             <td>
+                                                
+                                                <p><code class="code">RuleMessageThrottled</code></p>
+                                                
+                                             </td>
+                                             
+                                             <td>
+                                                
+                                                <p>The number of messages throttled by the rules engine because of malicious
+                                                   behavior or because the number of messages exceeds the rules engine's throttle
+                                                   limit. The <code class="code">RuleName</code> dimension contains the name of the rule to be
+                                                   triggered.
+                                                </p>
+                                                
+                                             </td>
+                                             
+                                          </tr>
+                                          
+                                          <tr>
+                                             
+                                             <td>
+                                                
+                                                <p><code class="code">RuleNotFound</code></p>
+                                                
+                                             </td>
+                                             
+                                             <td>
+                                                
+                                                <p>The rule to be triggered could not be found. The <code class="code">RuleName</code>
+                                                   dimension contains the name of the rule.
+                                                </p>
+                                                
+                                             </td>
+                                             
+                                          </tr>
+                                          
+                                          <tr>
+                                             
+                                             <td>
+                                                
+                                                <p><code class="code">RulesExecuted</code></p>
+                                                
+                                             </td>
+                                             
+                                             <td>
+                                                
+                                                <p>The number of AWS IoT rules executed.</p>
+                                                
+                                             </td>
+                                             
+                                          </tr>
+                                          
+                                          <tr>
+                                             
+                                             <td>
+                                                
+                                                <p><code class="code">TopicMatch</code></p>
+                                                
+                                             </td>
+                                             
+                                             <td>
+                                                
+                                                <p>The number of incoming messages published on a topic on which a rule is
+                                                   listening. The <code class="code">RuleName</code> dimension contains the name of the
+                                                   rule.
+                                                </p>
+                                                
+                                             </td>
+                                             
+                                          </tr>
+                                          
+                                       </table>
+                                    </div>
+                                 </div>
+                                  
+                                 
+                                 <h2 id="rule-action-metrics">Rule action metrics</h2>
+                                 <a id="rule-action-metrics-table"></a><div class="table-container">
+                                    <div class="table-contents">
+                                       <table id="w332aac21c27c11c17b3">
+                                          <thead>
+                                             
+                                             <tr>
+                                                
+                                                <th>Metric</th>
+                                                
+                                                <th>Description</th>
+                                                
+                                             </tr>
+                                             
+                                          </thead>
+                                          
+                                          <tr>
+                                             
+                                             <td>
+                                                
+                                                <p><code class="code">Failure</code></p>
+                                                
+                                             </td>
+                                             
+                                             <td>
+                                                
+                                                <p>The number of failed rule action invocations. The <code class="code">RuleName</code>
+                                                   dimension contains the name of the rule that specifies the action. The <code class="code">ActionType</code> dimension contains the type of action
+                                                   that was invoked.
+                                                </p>
+                                                
+                                             </td>
+                                             
+                                          </tr>
+                                          
+                                          <tr>
+                                             
+                                             <td>
+                                                
+                                                <p><code class="code">Success</code></p>
+                                                
+                                             </td>
+                                             
+                                             <td>
+                                                
+                                                <p>The number of successful rule action invocations. The <code class="code">RuleName</code>
+                                                   dimension contains the name of the rule that specifies the action. The
+                                                   <code class="code">ActionType</code> dimension contains the type of action that was
+                                                   invoked.
+                                                </p>
+                                                
+                                             </td>
+                                             
+                                          </tr>
+                                          
+                                       </table>
+                                    </div>
+                                 </div>
+                                  
+                                 
+                                 <h2 id="http-action-metrics">HTTP action specific metrics</h2>
+                                 <a id="http-action-metrics-table"></a><div class="table-container">
+                                    <div class="table-contents">
+                                       <table id="w332aac21c27c11c19b3">
+                                          <thead>
+                                             
+                                             <tr>
+                                                
+                                                <th>Metric</th>
+                                                
+                                                <th>Description</th>
+                                                
+                                             </tr>
+                                             
+                                          </thead>
+                                          
+                                          <tr>
+                                             
+                                             <td>
+                                                
+                                                <p><code class="code">HttpCode_Other</code></p>
+                                                
+                                             </td>
+                                             
+                                             <td>
+                                                
+                                                <p>Generated if the status code of the response from the downstream web
+                                                   service/application is not 2xx, 4xx or 5xx.
+                                                </p>
+                                                
+                                             </td>
+                                             
+                                          </tr>
+                                          
+                                          <tr>
+                                             
+                                             <td>
+                                                
+                                                <p><code class="code">HttpCode_4XX</code></p>
+                                                
+                                             </td>
+                                             
+                                             <td>
+                                                
+                                                <p>Generated if the status code of the response from the downstream web
+                                                   service/application is between 400 and 499.
+                                                </p>
+                                                
+                                             </td>
+                                             
+                                          </tr>
+                                          
+                                          <tr>
+                                             
+                                             <td>
+                                                
+                                                <p><code class="code">HttpCode_5XX</code></p>
+                                                
+                                             </td>
+                                             
+                                             <td>
+                                                
+                                                <p>Generated if the status code of the response from the downstream web
+                                                   service/application is between 500 and 599.
+                                                </p>
+                                                
+                                             </td>
+                                             
+                                          </tr>
+                                          
+                                          <tr>
+                                             
+                                             <td>
+                                                
+                                                <p><code class="code">HttpInvalidUrl</code></p>
+                                                
+                                             </td>
+                                             
+                                             <td>
+                                                
+                                                <p>Generated if an endpoint URL, after substitution templates are replaced,
+                                                   does not start with <code class="code">https://</code>.
+                                                </p>
+                                                
+                                             </td>
+                                             
+                                          </tr>
+                                          
+                                          <tr>
+                                             
+                                             <td>
+                                                
+                                                <p><code class="code">HttpRequestTimeout</code></p>
+                                                
+                                             </td>
+                                             
+                                             <td>
+                                                
+                                                <p>Generated if the downstream web service/application does not return response
+                                                   within request timeout limit. For more information, see <a href="https://docs.aws.amazon.com/general/latest/gr/iot-core.html#limits_iot">Service
+                                                      Quotas</a>.
+                                                </p>
+                                                
+                                             </td>
+                                             
+                                          </tr>
+                                          
+                                          <tr>
+                                             
+                                             <td>
+                                                
+                                                <p><code class="code">HttpUnknownHost</code></p>
+                                                
+                                             </td>
+                                             
+                                             <td>
+                                                
+                                                <p>Generated if the URL is valid, but the service does not exist or is
+                                                   unreachable.
+                                                </p>
+                                                
+                                             </td>
+                                             
+                                          </tr>
+                                          
+                                       </table>
+                                    </div>
+                                 </div>
+                                  
+                                 
+                                 <h2 id="message-broker-metrics">Message broker metrics</h2>
+                                 
+                                 <div class="awsdocs-note">
+                                    <div class="awsdocs-note-title">
+                                       <awsui-icon name="status-info" variant="link"></awsui-icon><span>Note</span></div>
+                                    <div class="awsdocs-note-text">
+                                       <p>The message broker metrics are displayed in the CloudWatch console under
+                                          <b>Protocol Metrics</b>.
+                                       </p>
+                                    </div>
+                                 </div>
+                                 <a id="message-broker-metrics-table"></a><div class="table-container">
+                                    <div class="table-contents">
+                                       <table id="w332aac21c27c11c21b5">
+                                          <thead>
+                                             
+                                             <tr>
+                                                
+                                                <th>Metric</th>
+                                                
+                                                <th>Description</th>
+                                                
+                                             </tr>
+                                             
+                                          </thead>
+                                          
+                                          <tr>
+                                             
+                                             <td>
+                                                
+                                                <p><code class="code">Connect.AuthError</code></p>
+                                                
+                                             </td>
+                                             
+                                             <td>
+                                                
+                                                <p>The number of connection requests that could not be authorized by the
+                                                   message broker. The <code class="code">Protocol</code> dimension contains the protocol used
+                                                   to send the <code class="code">CONNECT</code> message.
+                                                </p>
+                                                
+                                             </td>
+                                             
+                                          </tr>
+                                          
+                                          <tr>
+                                             
+                                             <td>
+                                                
+                                                <p><code class="code">Connect.ClientError</code></p>
+                                                
+                                             </td>
+                                             
+                                             <td>
+                                                
+                                                <p>The number of connection requests rejected because the MQTT message did not
+                                                   meet the requirements defined in <a href="./limits-iot.html">AWS IoT quotas</a>. The <code class="code">Protocol</code> dimension contains the
+                                                   protocol used to send the <code class="code">CONNECT</code> message.
+                                                </p>
+                                                
+                                             </td>
+                                             
+                                          </tr>
+                                          
+                                          <tr>
+                                             
+                                             <td>
+                                                
+                                                <p><code class="code">Connect.ClientIDThrottle</code></p>
+                                                
+                                             </td>
+                                             
+                                             <td>
+                                                
+                                                <p>The number of connection requests throttled because the client exceeded the
+                                                   allowed connect request rate for a specific client ID. The <code class="code">Protocol</code>
+                                                   dimension contains the protocol used to send the <code class="code">CONNECT</code>
+                                                   message.
+                                                </p>
+                                                
+                                             </td>
+                                             
+                                          </tr>
+                                          
+                                          <tr>
+                                             
+                                             <td>
+                                                
+                                                <p><code class="code">Connect.ServerError</code></p>
+                                                
+                                             </td>
+                                             
+                                             <td>
+                                                
+                                                <p>The number of connection requests that failed because an internal error
+                                                   occurred. The <code class="code">Protocol</code> dimension contains the protocol used to send
+                                                   the <code class="code">CONNECT</code> message.
+                                                </p>
+                                                
+                                             </td>
+                                             
+                                          </tr>
+                                          
+                                          <tr>
+                                             
+                                             <td>
+                                                
+                                                <p><code class="code">Connect.Success</code></p>
+                                                
+                                             </td>
+                                             
+                                             <td>
+                                                
+                                                <p>The number of successful connections to the message broker. The
+                                                   <code class="code">Protocol</code> dimension contains the protocol used to send the
+                                                   <code class="code">CONNECT</code> message.
+                                                </p>
+                                                
+                                             </td>
+                                             
+                                          </tr>
+                                          
+                                          <tr>
+                                             
+                                             <td>
+                                                
+                                                <p><code class="code">Connect.Throttle</code></p>
+                                                
+                                             </td>
+                                             
+                                             <td>
+                                                
+                                                <p>The number of connection requests that were throttled because the account
+                                                   exceeded the allowed connect request rate. The <code class="code">Protocol</code> dimension
+                                                   contains the protocol used to send the <code class="code">CONNECT</code> message.
+                                                </p>
+                                                
+                                             </td>
+                                             
+                                          </tr>
+                                          
+                                          <tr>
+                                             
+                                             <td>
+                                                
+                                                <p><code class="code">Ping.Success</code></p>
+                                                
+                                             </td>
+                                             
+                                             <td>
+                                                
+                                                <p>The number of ping messages received by the message broker. The
+                                                   <code class="code">Protocol</code> dimension contains the protocol used to send the ping
+                                                   message.
+                                                </p>
+                                                
+                                             </td>
+                                             
+                                          </tr>
+                                          
+                                          <tr>
+                                             
+                                             <td>
+                                                
+                                                <p><code class="code">PublishIn.AuthError</code></p>
+                                                
+                                             </td>
+                                             
+                                             <td>
+                                                
+                                                <p>The number of publish requests the message broker was unable to authorize.
+                                                   The <code class="code">Protocol</code> dimension contains the protocol used to publish the
+                                                   message.
+                                                </p>
+                                                
+                                             </td>
+                                             
+                                          </tr>
+                                          
+                                          <tr>
+                                             
+                                             <td>
+                                                
+                                                <p><code class="code">PublishIn.ClientError</code></p>
+                                                
+                                             </td>
+                                             
+                                             <td>
+                                                
+                                                <p>The number of publish requests rejected by the message broker because the
+                                                   message did not meet the requirements defined in <a href="./limits-iot.html">AWS IoT quotas</a>. The <code class="code">Protocol</code> dimension contains the
+                                                   protocol used to publish the message.
+                                                </p>
+                                                
+                                             </td>
+                                             
+                                          </tr>
+                                          
+                                          <tr>
+                                             
+                                             <td>
+                                                
+                                                <p><code class="code">PublishIn.ServerError</code></p>
+                                                
+                                             </td>
+                                             
+                                             <td>
+                                                
+                                                <p>The number of publish requests the message broker failed to process because
+                                                   an internal error occurred. The <code class="code">Protocol</code> dimension contains the
+                                                   protocol used to send the <code class="code">PUBLISH</code> message.
+                                                </p>
+                                                
+                                             </td>
+                                             
+                                          </tr>
+                                          
+                                          <tr>
+                                             
+                                             <td>
+                                                
+                                                <p><code class="code">PublishIn.Success</code></p>
+                                                
+                                             </td>
+                                             
+                                             <td>
+                                                
+                                                <p>The number of publish requests successfully processed by the message broker.
+                                                   The <code class="code">Protocol</code> dimension contains the protocol used to send the
+                                                   <code class="code">PUBLISH</code> message.
+                                                </p>
+                                                
+                                             </td>
+                                             
+                                          </tr>
+                                          
+                                          <tr>
+                                             
+                                             <td>
+                                                
+                                                <p><code class="code">PublishIn.Throttle</code></p>
+                                                
+                                             </td>
+                                             
+                                             <td>
+                                                
+                                                <p>The number of publish request that were throttled because the client
+                                                   exceeded the allowed inbound message rate. The <code class="code">Protocol</code> dimension
+                                                   contains the protocol used to send the <code class="code">PUBLISH</code> message.
+                                                </p>
+                                                
+                                             </td>
+                                             
+                                          </tr>
+                                          
+                                          <tr>
+                                             
+                                             <td>
+                                                
+                                                <p><code class="code">PublishOut.AuthError</code></p>
+                                                
+                                             </td>
+                                             
+                                             <td>
+                                                
+                                                <p>The number of publish requests made by the message broker that could not be
+                                                   authorized by AWS IoT. The <code class="code">Protocol</code> dimension contains the protocol
+                                                   used to send the <code class="code">PUBLISH</code> message.
+                                                </p>
+                                                
+                                             </td>
+                                             
+                                          </tr>
+                                          
+                                          <tr>
+                                             
+                                             <td>
+                                                
+                                                <p><code class="code">PublishOut.ClientError</code></p>
+                                                
+                                             </td>
+                                             
+                                             <td>
+                                                
+                                                <p>The number of publish requests made by the message broker that were rejected
+                                                   because the message did not meet the requirements defined in <a href="./limits-iot.html">AWS IoT quotas</a>. The <code class="code">Protocol</code>
+                                                   dimension contains the protocol used to send the <code class="code">PUBLISH</code>
+                                                   message.
+                                                </p>
+                                                
+                                             </td>
+                                             
+                                          </tr>
+                                          
+                                          <tr>
+                                             
+                                             <td>
+                                                
+                                                <p><code class="code">PublishOut.Success</code></p>
+                                                
+                                             </td>
+                                             
+                                             <td>
+                                                
+                                                <p>The number of publish requests successfully made by the message broker. The
+                                                   <code class="code">Protocol</code> dimension contains the protocol used to send the
+                                                   <code class="code">PUBLISH</code> message.
+                                                </p>
+                                                
+                                             </td>
+                                             
+                                          </tr>
+                                          
+                                          <tr>
+                                             
+                                             <td><code class="code">PublishOut.Throttle</code></td>
+                                             
+                                             <td>
+                                                
+                                                <p>The number of publish requests that were throttled because the client
+                                                   exceeded the allowed outbound message rate. The <code class="code">Protocol</code> dimension
+                                                   contains the protocol used to send the <code class="code">PUBLISH</code> message.
+                                                </p>
+                                                
+                                             </td>
+                                             
+                                          </tr>
+                                          
+                                          <tr>
+                                             
+                                             <td>
+                                                
+                                                <p><code class="code">Subscribe.AuthError</code></p>
+                                                
+                                             </td>
+                                             
+                                             <td>
+                                                
+                                                <p>The number of subscription requests made by a client that could not be
+                                                   authorized. The <code class="code">Protocol</code> dimension contains the protocol used to
+                                                   send the <code class="code">SUBSCRIBE</code> message.
+                                                </p>
+                                                
+                                             </td>
+                                             
+                                          </tr>
+                                          
+                                          <tr>
+                                             
+                                             <td>
+                                                
+                                                <p><code class="code">Subscribe.ClientError</code></p>
+                                                
+                                             </td>
+                                             
+                                             <td>
+                                                
+                                                <p>The number of subscribe requests that were rejected because the
+                                                   <code class="code">SUBSCRIBE</code> message did not meet the requirements defined in <a href="./limits-iot.html">AWS IoT quotas</a>. The <code class="code">Protocol</code>
+                                                   dimension contains the protocol used to send the <code class="code">SUBSCRIBE</code>
+                                                   message.
+                                                </p>
+                                                
+                                             </td>
+                                             
+                                          </tr>
+                                          
+                                          <tr>
+                                             
+                                             <td>
+                                                
+                                                <p><code class="code">Subscribe.ServerError</code></p>
+                                                
+                                             </td>
+                                             
+                                             <td>
+                                                
+                                                <p>The number of subscribe requests that were rejected because an internal
+                                                   error occurred. The <code class="code">Protocol</code> dimension contains the protocol used
+                                                   to send the <code class="code">SUBSCRIBE</code> message.
+                                                </p>
+                                                
+                                             </td>
+                                             
+                                          </tr>
+                                          
+                                          <tr>
+                                             
+                                             <td>
+                                                
+                                                <p><code class="code">Subscribe.Success</code></p>
+                                                
+                                             </td>
+                                             
+                                             <td>
+                                                
+                                                <p>The number of subscribe requests that were successfully processed by the
+                                                   message broker. The <code class="code">Protocol</code> dimension contains the protocol used
+                                                   to send the <code class="code">SUBSCRIBE</code> message.
+                                                </p>
+                                                
+                                             </td>
+                                             
+                                          </tr>
+                                          
+                                          <tr>
+                                             
+                                             <td>
+                                                
+                                                <p><code class="code">Subscribe.Throttle</code></p>
+                                                
+                                             </td>
+                                             
+                                             <td>
+                                                
+                                                <p>The number of subscribe requests that were throttled because the client
+                                                   exceeded the allowed subscribe request rate. The <code class="code">Protocol</code> dimension
+                                                   contains the protocol used to send the <code class="code">SUBSCRIBE</code> message.
+                                                </p>
+                                                
+                                             </td>
+                                             
+                                          </tr>
+                                          
+                                          <tr>
+                                             
+                                             <td>
+                                                
+                                                <p><code class="code">Unsubscribe.ClientError</code></p>
+                                                
+                                             </td>
+                                             
+                                             <td>
+                                                
+                                                <p>The number of unsubscribe requests that were rejected because the
+                                                   <code class="code">UNSUBSCRIBE</code> message did not meet the requirements defined in
+                                                   <a href="./limits-iot.html">AWS IoT quotas</a>. The
+                                                   <code class="code">Protocol</code> dimension contains the protocol used to send the
+                                                   <code class="code">UNSUBSCRIBE</code> message.
+                                                </p>
+                                                
+                                             </td>
+                                             
+                                          </tr>
+                                          
+                                          <tr>
+                                             
+                                             <td>
+                                                
+                                                <p><code class="code">Unsubscribe.ServerError</code></p>
+                                                
+                                             </td>
+                                             
+                                             <td>
+                                                
+                                                <p>The number of unsubscribe requests that were rejected because an internal
+                                                   error occurred. The <code class="code">Protocol</code> dimension contains the protocol used
+                                                   to send the <code class="code">UNSUBSCRIBE</code> message.
+                                                </p>
+                                                
+                                             </td>
+                                             
+                                          </tr>
+                                          
+                                          <tr>
+                                             
+                                             <td>
+                                                
+                                                <p><code class="code">Unsubscribe.Success</code></p>
+                                                
+                                             </td>
+                                             
+                                             <td>
+                                                
+                                                <p>The number of unsubscribe requests that were successfully processed by the
+                                                   message broker. The <code class="code">Protocol</code> dimension contains the protocol used
+                                                   to send the <code class="code">UNSUBSCRIBE</code> message.
+                                                </p>
+                                                
+                                             </td>
+                                             
+                                          </tr>
+                                          
+                                          <tr>
+                                             
+                                             <td>
+                                                
+                                                <p><code class="code">Unsubscribe.Throttle</code></p>
+                                                
+                                             </td>
+                                             
+                                             <td>
+                                                
+                                                <p>The number of unsubscribe requests that were rejected because the client
+                                                   exceeded the allowed unsubscribe request rate. The <code class="code">Protocol</code>
+                                                   dimension contains the protocol used to send the <code class="code">UNSUBSCRIBE</code>
+                                                   message. 
+                                                </p>
+                                                
+                                             </td>
+                                             
+                                          </tr>
+                                          
+                                       </table>
+                                    </div>
+                                 </div>
+                                  
+                                 
+                                 <h2 id="shadow-metrics">Device shadow metrics</h2>
+                                 
+                                 <div class="awsdocs-note">
+                                    <div class="awsdocs-note-title">
+                                       <awsui-icon name="status-info" variant="link"></awsui-icon><span>Note</span></div>
+                                    <div class="awsdocs-note-text">
+                                       <p>The device shadow metrics are displayed in the CloudWatch console under
+                                          <b>Protocol Metrics</b>.
+                                       </p>
+                                    </div>
+                                 </div>
+                                 <a id="shadow-metrics-table"></a><div class="table-container">
+                                    <div class="table-contents">
+                                       <table id="w332aac21c27c11c23b5">
+                                          <thead>
+                                             
+                                             <tr>
+                                                
+                                                <th>Metric</th>
+                                                
+                                                <th>Description</th>
+                                                
+                                             </tr>
+                                             
+                                          </thead>
+                                          
+                                          <tr>
+                                             
+                                             <td>
+                                                
+                                                <p><code class="code">DeleteThingShadow.Accepted</code></p>
+                                                
+                                             </td>
+                                             
+                                             <td>
+                                                
+                                                <p>The number of <code class="code">DeleteThingShadow</code> requests processed
+                                                   successfully. The <code class="code">Protocol</code> dimension contains the protocol used to
+                                                   make the request.
+                                                </p>
+                                                
+                                             </td>
+                                             
+                                          </tr>
+                                          
+                                          <tr>
+                                             
+                                             <td>
+                                                
+                                                <p><code class="code">GetThingShadow.Accepted</code></p>
+                                                
+                                             </td>
+                                             
+                                             <td>
+                                                
+                                                <p>The number of <code class="code">GetThingShadow</code> requests processed successfully.
+                                                   The <code class="code">Protocol</code> dimension contains the protocol used to make the
+                                                   request.
+                                                </p>
+                                                
+                                             </td>
+                                             
+                                          </tr>
+                                          
+                                          <tr>
+                                             
+                                             <td>
+                                                
+                                                <p><code class="code">ListThingShadow.Accepted</code></p>
+                                                
+                                             </td>
+                                             
+                                             <td>
+                                                
+                                                <p>The number of <code class="code">ListThingShadow</code> requests processed successfully.
+                                                   The <code class="code">Protocol</code> dimension contains the protocol used to make the
+                                                   request.
+                                                </p>
+                                                
+                                             </td>
+                                             
+                                          </tr>
+                                          
+                                          <tr>
+                                             
+                                             <td>
+                                                
+                                                <p><code class="code">UpdateThingShadow.Accepted</code></p>
+                                                
+                                             </td>
+                                             
+                                             <td>
+                                                
+                                                <p>The number of <code class="code">UpdateThingShadow</code> requests processed
+                                                   successfully. The <code class="code">Protocol</code> dimension contains the protocol used to
+                                                   make the request.
+                                                </p>
+                                                
+                                             </td>
+                                             
+                                          </tr>
+                                          
+                                       </table>
+                                    </div>
+                                 </div>
+                                  
+                                 
+                                 <h2 id="jobs-metrics">Jobs metrics</h2>
+                                 <a id="jobs-metrics-table"></a><div class="table-container">
+                                    <div class="table-contents">
+                                       <table id="w332aac21c27c11c25b3">
+                                          <thead>
+                                             
+                                             <tr>
+                                                
+                                                <th>Metric</th>
+                                                
+                                                <th>Description</th>
+                                                
+                                             </tr>
+                                             
+                                          </thead>
+                                          
+                                          <tr>
+                                             
+                                             <td>
+                                                
+                                                <p><code class="code">CanceledJobExecutionCount</code></p>
+                                                
+                                             </td>
+                                             
+                                             <td>
+                                                
+                                                <p>The number of job executions whose status has changed to
+                                                   <code class="code">CANCELED</code> within a time period that is determined by CloudWatch. (For
+                                                   more information about CloudWatch metrics, see <a href="https://docs.aws.amazon.com/AmazonCloudWatch/latest/monitoring/cloudwatch_concepts.html#Metric">Amazon CloudWatch
+                                                      Metrics</a>.) The <code class="code">JobId</code> dimension contains the ID of the
+                                                   job.
+                                                </p>
+                                                
+                                             </td>
+                                             
+                                          </tr>
+                                          
+                                          <tr>
+                                             
+                                             <td>
+                                                
+                                                <p><code class="code">CanceledJobExecutionTotalCount</code></p>
+                                                
+                                             </td>
+                                             
+                                             <td>
+                                                
+                                                <p>The total number of job executions whose status is <code class="code">CANCELED</code> for
+                                                   the given job. The <code class="code">JobId</code> dimension contains the ID of the
+                                                   job.
+                                                </p>
+                                                
+                                             </td>
+                                             
+                                          </tr>
+                                          
+                                          <tr>
+                                             
+                                             <td>
+                                                
+                                                <p><code class="code">ClientErrorCount</code></p>
+                                                
+                                             </td>
+                                             
+                                             <td>
+                                                
+                                                <p>The number of client errors generated while executing the job. The
+                                                   <code class="code">JobId</code> dimension contains the ID of the job.
+                                                </p>
+                                                
+                                             </td>
+                                             
+                                          </tr>
+                                          
+                                          <tr>
+                                             
+                                             <td>
+                                                
+                                                <p><code class="code">FailedJobExecutionCount</code></p>
+                                                
+                                             </td>
+                                             
+                                             <td>
+                                                
+                                                <p>The number of job executions whose status has changed to <code class="code">FAILED</code>
+                                                   within a time period that is determined by CloudWatch. (For more information about
+                                                   CloudWatch metrics, see <a href="https://docs.aws.amazon.com/AmazonCloudWatch/latest/monitoring/cloudwatch_concepts.html#Metric">Amazon CloudWatch Metrics</a>.) The <code class="code">JobId</code> dimension contains the
+                                                   ID of the job.
+                                                </p>
+                                                
+                                             </td>
+                                             
+                                          </tr>
+                                          
+                                          <tr>
+                                             
+                                             <td>
+                                                
+                                                <p><code class="code">FailedJobExecutionTotalCount</code></p>
+                                                
+                                             </td>
+                                             
+                                             <td>
+                                                
+                                                <p>The total number of job executions whose status is <code class="code">FAILED</code> for
+                                                   the given job. The <code class="code">JobId</code> dimension contains the ID of the
+                                                   job.
+                                                </p>
+                                                
+                                             </td>
+                                             
+                                          </tr>
+                                          
+                                          <tr>
+                                             
+                                             <td>
+                                                
+                                                <p><code class="code">InProgressJobExecutionCount</code></p>
+                                                
+                                             </td>
+                                             
+                                             <td>
+                                                
+                                                <p>The number of job executions whose status has changed to
+                                                   <code class="code">IN_PROGRESS</code> within a time period that is determined by CloudWatch. (For
+                                                   more information about CloudWatch metrics, see <a href="https://docs.aws.amazon.com/AmazonCloudWatch/latest/monitoring/cloudwatch_concepts.html#Metric">Amazon CloudWatch
+                                                      Metrics</a>.) The <code class="code">JobId</code> dimension contains the ID of the
+                                                   job.
+                                                </p>
+                                                
+                                             </td>
+                                             
+                                          </tr>
+                                          
+                                          <tr>
+                                             
+                                             <td>
+                                                
+                                                <p><code class="code">InProgressJobExecutionTotalCount</code></p>
+                                                
+                                             </td>
+                                             
+                                             <td>
+                                                
+                                                <p>The total number of job executions whose status is <code class="code">IN_PROGRESS</code>
+                                                   for the given job. The <code class="code">JobId</code> dimension contains the ID of the
+                                                   job.
+                                                </p>
+                                                
+                                             </td>
+                                             
+                                          </tr>
+                                          
+                                          <tr>
+                                             
+                                             <td>
+                                                
+                                                <p><code class="code">RejectedJobExecutionTotalCount</code></p>
+                                                
+                                             </td>
+                                             
+                                             <td>
+                                                
+                                                <p>The total number of job executions whose status is <code class="code">REJECTED</code> for
+                                                   the given job. The <code class="code">JobId</code> dimension contains the ID of the
+                                                   job.
+                                                </p>
+                                                
+                                             </td>
+                                             
+                                          </tr>
+                                          
+                                          <tr>
+                                             
+                                             <td>
+                                                
+                                                <p><code class="code">RemovedJobExecutionTotalCount</code></p>
+                                                
+                                             </td>
+                                             
+                                             <td>
+                                                
+                                                <p>The total number of job executions whose status is <code class="code">REMOVED</code> for
+                                                   the given job. The <code class="code">JobId</code> dimension contains the ID of the
+                                                   job.
+                                                </p>
+                                                
+                                             </td>
+                                             
+                                          </tr>
+                                          
+                                          <tr>
+                                             
+                                             <td>
+                                                
+                                                <p><code class="code">QueuedJobExecutionCount</code></p>
+                                                
+                                             </td>
+                                             
+                                             <td>
+                                                
+                                                <p>The number of job executions whose status has changed to <code class="code">QUEUED</code>
+                                                   within a time period that is determined by CloudWatch. (For more information about
+                                                   CloudWatch metrics, see <a href="https://docs.aws.amazon.com/AmazonCloudWatch/latest/monitoring/cloudwatch_concepts.html#Metric">Amazon CloudWatch Metrics</a>.) The <code class="code">JobId</code> dimension contains the
+                                                   ID of the job.
+                                                </p>
+                                                
+                                             </td>
+                                             
+                                          </tr>
+                                          
+                                          <tr>
+                                             
+                                             <td>
+                                                
+                                                <p><code class="code">QueuedJobExecutionTotalCount</code></p>
+                                                
+                                             </td>
+                                             
+                                             <td>
+                                                
+                                                <p>The total number of job executions whose status is <code class="code">QUEUED</code> for
+                                                   the given job. The <code class="code">JobId</code> dimension contains the ID of the
+                                                   job.
+                                                </p>
+                                                
+                                             </td>
+                                             
+                                          </tr>
+                                          
+                                          <tr>
+                                             
+                                             <td>
+                                                
+                                                <p><code class="code">RejectedJobExecutionCount</code></p>
+                                                
+                                             </td>
+                                             
+                                             <td>
+                                                
+                                                <p>The number of job executions whose status has changed to
+                                                   <code class="code">REJECTED</code> within a time period that is determined by CloudWatch. (For
+                                                   more information about CloudWatch metrics, see <a href="https://docs.aws.amazon.com/AmazonCloudWatch/latest/monitoring/cloudwatch_concepts.html#Metric">Amazon CloudWatch
+                                                      Metrics</a>.) The <code class="code">JobId</code> dimension contains the ID of the
+                                                   job.
+                                                </p>
+                                                
+                                             </td>
+                                             
+                                          </tr>
+                                          
+                                          <tr>
+                                             
+                                             <td>
+                                                
+                                                <p><code class="code">RemovedJobExecutionCount</code></p>
+                                                
+                                             </td>
+                                             
+                                             <td>
+                                                
+                                                <p>The number of job executions whose status has changed to
+                                                   <code class="code">REMOVED</code> within a time period that is determined by CloudWatch. (For
+                                                   more information about CloudWatch metrics, see <a href="https://docs.aws.amazon.com/AmazonCloudWatch/latest/monitoring/cloudwatch_concepts.html#Metric">Amazon CloudWatch
+                                                      Metrics</a>.) The <code class="code">JobId</code> dimension contains the ID of the
+                                                   job.
+                                                </p>
+                                                
+                                             </td>
+                                             
+                                          </tr>
+                                          
+                                          <tr>
+                                             
+                                             <td>
+                                                
+                                                <p><code class="code">ServerErrorCount</code></p>
+                                                
+                                             </td>
+                                             
+                                             <td>
+                                                
+                                                <p>The number of server errors generated while executing the job. The
+                                                   <code class="code">JobId</code> dimension contains the ID of the job.
+                                                </p>
+                                                
+                                             </td>
+                                             
+                                          </tr>
+                                          
+                                          <tr>
+                                             
+                                             <td>
+                                                
+                                                <p><code class="code">SuccededJobExecutionCount</code></p>
+                                                
+                                             </td>
+                                             
+                                             <td>
+                                                
+                                                <p>The number of job executions whose status has changed to
+                                                   <code class="code">SUCCESS</code> within a time period that is determined by CloudWatch. (For
+                                                   more information about CloudWatch metrics, see <a href="https://docs.aws.amazon.com/AmazonCloudWatch/latest/monitoring/cloudwatch_concepts.html#Metric">Amazon CloudWatch
+                                                      Metrics</a>.) The <code class="code">JobId</code> dimension contains the ID of the
+                                                   job.
+                                                </p>
+                                                
+                                             </td>
+                                             
+                                          </tr>
+                                          
+                                          <tr>
+                                             
+                                             <td>
+                                                
+                                                <p><code class="code">SuccededJobExecutionTotalCount</code></p>
+                                                
+                                             </td>
+                                             
+                                             <td>
+                                                
+                                                <p>The total number of job executions whose status is <code class="code">SUCCESS</code> for
+                                                   the given job. The <code class="code">JobId</code> dimension contains the ID of the
+                                                   job.
+                                                </p>
+                                                
+                                             </td>
+                                             
+                                          </tr>
+                                          
+                                       </table>
+                                    </div>
+                                 </div>
+                                  
+                                 
+                                 <h2 id="device-defender-audit-metrics">Device Defender audit metrics</h2>
+                                 <a id="device-defender-audit-metrics-table"></a><div class="table-container">
+                                    <div class="table-contents">
+                                       <table id="w332aac21c27c11c27b3">
+                                          <thead>
+                                             
+                                             <tr>
+                                                
+                                                <th>Metric</th>
+                                                
+                                                <th>Description</th>
+                                                
+                                             </tr>
+                                             
+                                          </thead>
+                                          
+                                          <tr>
+                                             
+                                             <td>
+                                                
+                                                <p><code class="code">NonCompliantResources</code></p>
+                                                
+                                             </td>
+                                             
+                                             <td>
+                                                
+                                                <p>The number of resources that were found to be noncompliant with a check. The
+                                                   system reports the number of resources that were out of compliance for each
+                                                   check of each audit performed. 
+                                                </p>
+                                                
+                                             </td>
+                                             
+                                          </tr>
+                                          
+                                          <tr>
+                                             
+                                             <td>
+                                                
+                                                <p><code class="code">ResourcesEvaluated</code></p>
+                                                
+                                             </td>
+                                             
+                                             <td>
+                                                
+                                                <p>The number of resources that were evaluated for compliance. The system
+                                                   reports the number of resources that were evaluated for each check of each audit
+                                                   performed. 
+                                                </p>
+                                                
+                                             </td>
+                                             
+                                          </tr>
+                                          
+                                       </table>
+                                    </div>
+                                 </div>
+                                  
+                                 
+                                 <h2 id="device-defender-detect-metrics">Device Defender detect metrics</h2>
+                                 <a id="device-defender-detect-metrics-table"></a><div class="table-container">
+                                    <div class="table-contents">
+                                       <table id="w332aac21c27c11c29b3">
+                                          <thead>
+                                             
+                                             <tr>
+                                                
+                                                <th>Metric</th>
+                                                
+                                                <th>Description</th>
+                                                
+                                             </tr>
+                                             
+                                          </thead>
+                                          
+                                          <tr>
+                                             
+                                             <td>
+                                                
+                                                <p><code class="code">Violations</code>
+                                                   
+                                                </p>
+                                                
+                                             </td>
+                                             
+                                             <td>
+                                                
+                                                <p>The number of new violations of security profile behaviors that have been
+                                                   found since the last time an evaluation was performed. The system reports the
+                                                   number of new violations for the account, for a specific security profile, and
+                                                   for a specific behavior of a specific security profile. 
+                                                </p>
+                                                
+                                             </td>
+                                             
+                                          </tr>
+                                          
+                                          <tr>
+                                             
+                                             <td>
+                                                
+                                                <p><code class="code">ViolationsCleared</code>
+                                                   
+                                                </p>
+                                                
+                                             </td>
+                                             
+                                             <td>
+                                                
+                                                <p>The number of violations of security profile behaviors that have been
+                                                   resolved since the last time an evaluation was performed. The system reports the
+                                                   number of resolved violations for the account, for a specific security profile,
+                                                   and for a specific behavior of a specific security profile. 
+                                                </p>
+                                                
+                                             </td>
+                                             
+                                          </tr>
+                                          
+                                          <tr>
+                                             
+                                             <td>
+                                                
+                                                <p><code class="code">ViolationsInvalidated</code>
+                                                   
+                                                </p>
+                                                
+                                             </td>
+                                             
+                                             <td>
+                                                
+                                                <p>The number of violations of security profile behaviors for which information
+                                                   is no longer available since the last time an evaluation was performed (because
+                                                   the reporting device stopped reporting, or is no longer being monitored for some
+                                                   reason). The system reports the number of invalidated violations for the entire
+                                                   account, for a specific security profile, and for a specific behavior of a
+                                                   specific security profile. 
+                                                </p>
+                                                
+                                             </td>
+                                             
+                                          </tr>
+                                          
+                                       </table>
+                                    </div>
+                                 </div>
+                                  
+                                 
+                                 <h2 id="provisioning-metrics">Device provisioning metrics</h2>
+                                 <a id="provisioning-metrics-table-fleet"></a><div class="table-container">
+                                    <div class="table-contents">
+                                       <table id="w332aac21c27c11c31b3">
+                                          <thead>
+                                             <tr>
+                                                <th class="table-header" colspan="100%">
+                                                   <div class="title">AWS IoT Fleet provisioning metrics</div>
+                                                </th>
+                                             </tr>
+                                             
+                                             <tr>
+                                                
+                                                <th>Metric</th>
+                                                
+                                                <th>Description</th>
+                                                
+                                             </tr>
+                                             
+                                          </thead>
+                                          
+                                          <tr>
+                                             
+                                             <td>
+                                                
+                                                <p><code class="code">ApproximateNumberOfThingsRegistered</code></p>
+                                                
+                                             </td>
+                                             
+                                             <td>
+                                                
+                                                <p>The count of things that have been registered by Fleet Provisioning.</p>
+                                                
+                                                <p>While the count is generally accurate, the distributed architecture of
+                                                   AWS IoT Core makes it difficult to maintain a precise count of registered things.
+                                                   
+                                                </p>
+                                                
+                                                <p>The statistic to use for this metric is:</p>
+                                                
+                                                <div class="itemizedlist">
+                                                    
+                                                   
+                                                   <ul class="itemizedlist" type="disc">
+                                                      <li class="listitem">
+                                                         
+                                                         <p><b>Max</b> to report the total number of things that have
+                                                            been registered. For a count of things registered during the CloudWatch
+                                                            aggregation window, see the <code class="code">RegisterThingFailed</code> metric.
+                                                         </p>
+                                                         
+                                                      </li>
+                                                   </ul>
+                                                </div>
+                                                
+                                                <p> Dimensions:  <a href="#aws-iot-metricdimensions">ClaimCertificateId</a></p>
+                                                
+                                             </td>
+                                             
+                                          </tr>
+                                          
+                                          <tr>
+                                             
+                                             <td>
+                                                
+                                                <p><code class="code">CreateKeysAndCertificateFailed</code></p>
+                                                
+                                             </td>
+                                             
+                                             <td>
+                                                
+                                                <p>The number of failures that occurred by calls to the
+                                                   <code class="code">CreateKeysAndCertificate</code> MQTT API.
+                                                </p>
+                                                
+                                                <p>The metric is emitted in both Success (value = 0) and Failure (value = 1)
+                                                   cases. This metric can be used to track the number of certificates created and
+                                                   registered during the CloudWatch-supported aggregation windows, such as 5 min. or
+                                                   1
+                                                   hour.
+                                                </p>
+                                                
+                                                <p>The statistics available for this metric are:</p>
+                                                
+                                                <div class="itemizedlist">
+                                                    
+                                                    
+                                                   
+                                                   <ul class="itemizedlist" type="disc">
+                                                      <li class="listitem">
+                                                         <p><b>Sum</b> to report the number of failed calls.
+                                                         </p>
+                                                      </li>
+                                                      <li class="listitem">
+                                                         <p><b>SampleCount</b> to report the total number of successful and failed
+                                                            calls.
+                                                         </p>
+                                                      </li>
+                                                   </ul>
+                                                </div>
+                                                
+                                             </td>
+                                             
+                                          </tr>
+                                          
+                                          <tr>
+                                             
+                                             <td>
+                                                
+                                                <p><code class="code">CreateCertificateFromCsrFailed</code></p>
+                                                
+                                             </td>
+                                             
+                                             <td>
+                                                
+                                                <p>The number of failures that occurred by calls to the
+                                                   <code class="code">CreateCertificateFromCsr</code> MQTT API.
+                                                </p>
+                                                
+                                                <p>The metric is emitted in both Success (value = 0) and Failure (value = 1)
+                                                   cases. This metric can be used to track the number of  things registered during
+                                                   the CloudWatch-supported aggregation windows, such as 5 min. or 1 hour. 
+                                                </p>
+                                                
+                                                <p>The statistics available for this metric are:</p>
+                                                
+                                                <div class="itemizedlist">
+                                                    
+                                                    
+                                                   
+                                                   <ul class="itemizedlist" type="disc">
+                                                      <li class="listitem">
+                                                         
+                                                         <p><b>Sum</b> to report the number of failed calls.
+                                                         </p>
+                                                         
+                                                      </li>
+                                                      <li class="listitem">
+                                                         
+                                                         <p><b>SampleCount</b> to report the total number of
+                                                            successful and failed calls.
+                                                         </p>
+                                                         
+                                                      </li>
+                                                   </ul>
+                                                </div>
+                                                
+                                             </td>
+                                             
+                                          </tr>
+                                          
+                                          <tr>
+                                             
+                                             <td>
+                                                
+                                                <p><code class="code">RegisterThingFailed</code></p>
+                                                
+                                             </td>
+                                             
+                                             <td>
+                                                
+                                                <p>The number of failures that occurred by calls to the
+                                                   <code class="code">RegisterThing</code> MQTT API.
+                                                </p>
+                                                
+                                                <p>The metric is emitted in both Success (value = 0) and Failure (value = 1)
+                                                   cases. This metric can be used to track the number of  things registered during
+                                                   the CloudWatch-supported aggregation windows, such as 5 min. or 1 hour. For the
+                                                   total number of things registered , see the
+                                                   <code class="code">ApproximateNumberOfThingsRegistered</code> metric.
+                                                </p>
+                                                
+                                                <p>The statistics available for this metric are:</p>
+                                                
+                                                <div class="itemizedlist">
+                                                    
+                                                    
+                                                   
+                                                   <ul class="itemizedlist" type="disc">
+                                                      <li class="listitem">
+                                                         
+                                                         <p><b>Sum</b> to report the number of failed calls.
+                                                         </p>
+                                                         
+                                                      </li>
+                                                      <li class="listitem">
+                                                         
+                                                         <p><b>SampleCount</b> to report the total number of
+                                                            successful and failed calls.
+                                                         </p>
+                                                         
+                                                      </li>
+                                                   </ul>
+                                                </div>
+                                                
+                                                <p>Dimensions: <a href="#aws-iot-metricdimensions">TemplateName</a></p>
+                                                
+                                             </td>
+                                             
+                                          </tr>
+                                          
+                                       </table>
+                                    </div>
+                                 </div>
+                                 <a id="provisioning-metrics-table-jitp"></a><div class="table-container">
+                                    <div class="table-contents">
+                                       <table id="w332aac21c27c11c31b5">
+                                          <thead>
+                                             <tr>
+                                                <th class="table-header" colspan="100%">
+                                                   <div class="title">Just-in-time provisioning metrics</div>
+                                                </th>
+                                             </tr>
+                                             
+                                             <tr>
+                                                
+                                                <th>Metric</th>
+                                                
+                                                <th>Description</th>
+                                                
+                                             </tr>
+                                             
+                                          </thead>
+                                          
+                                          <tr>
+                                             
+                                             <td>
+                                                
+                                                <p><code class="code">ProvisionThing.ClientError</code></p>
+                                                
+                                             </td>
+                                             
+                                             <td>
+                                                
+                                                <p>The number of times a device failed to provision due to a client error. For
+                                                   example, the policy specified in the template did not exist.
+                                                </p>
+                                                
+                                             </td>
+                                             
+                                          </tr>
+                                          
+                                          <tr>
+                                             
+                                             <td><code class="code">ProvisionThing.ServerError</code></td>
+                                             
+                                             <td>
+                                                
+                                                <p>The number of times a device failed to provision due to a server error.
+                                                   Customers can retry to provision the device after waiting and they can contact
+                                                   AWS IoT if the issue remains the same.
+                                                </p>
+                                                
+                                             </td>
+                                             
+                                          </tr>
+                                          
+                                          <tr>
+                                             
+                                             <td><code class="code">ProvisionThing.Success</code></td>
+                                             
+                                             <td>
+                                                
+                                                <p>The number of times a device was successfully provisioned.</p>
+                                                
+                                             </td>
+                                             
+                                          </tr>
+                                          
+                                       </table>
+                                    </div>
+                                 </div>
+                                  
+                                 
+                                 <h2 id="aws-iot-metricdimensions">Dimensions for metrics</h2>
+                                 
+                                 <div class="table-container">
+                                    <div class="table-contents">
+                                       <table id="w332aac21c27c11c33b3">
+                                          <thead>
+                                             <tr>
+                                                <th class="table-header" colspan="100%">
+                                                   <div class="title">Metrics use the namespace and provide metrics for the following dimensions</div>
+                                                </th>
+                                             </tr>
+                                             
+                                             <tr>
+                                                
+                                                <th>Dimension</th>
+                                                
+                                                <th>Description</th>
+                                                
+                                             </tr>
+                                             
+                                          </thead>
+                                          
+                                          <tr>
+                                             
+                                             <td><code class="code">ActionType</code></td>
+                                             
+                                             <td>
+                                                
+                                                <p>The <a href="./iot-rule-actions.html">action type</a> specified by the
+                                                   rule that triggered the request.
+                                                </p>
+                                                
+                                             </td>
+                                             
+                                          </tr>
+                                          
+                                          <tr>
+                                             
+                                             <td>
+                                                
+                                                <p><code class="code">BehaviorName</code></p>
+                                                
+                                             </td>
+                                             
+                                             <td>
+                                                
+                                                <p>The name of the Device Defender Detect security profile behavior that is
+                                                   being monitored.
+                                                </p>
+                                                
+                                             </td>
+                                             
+                                          </tr>
+                                          
+                                          <tr>
+                                             
+                                             <td>
+                                                
+                                                <p><code class="code">ClaimCertificateId</code></p>
+                                                
+                                             </td>
+                                             
+                                             <td>
+                                                
+                                                <p>The <code class="code">certificateId</code> of the claim used to provision the
+                                                   devices.
+                                                </p>
+                                                
+                                             </td>
+                                             
+                                          </tr>
+                                          
+                                          <tr>
+                                             
+                                             <td>
+                                                
+                                                <p><code class="code">CheckName</code></p>
+                                                
+                                             </td>
+                                             
+                                             <td>
+                                                
+                                                <p>The name of the Device Defender audit check whose results are being
+                                                   monitored.
+                                                </p>
+                                                
+                                             </td>
+                                             
+                                          </tr>
+                                          
+                                          <tr>
+                                             
+                                             <td>
+                                                
+                                                <p><code class="code">JobId</code></p>
+                                                
+                                             </td>
+                                             
+                                             <td>
+                                                
+                                                <p>The ID of the job whose progress or message connection success/failure is
+                                                   being monitored.
+                                                </p>
+                                                
+                                             </td>
+                                             
+                                          </tr>
+                                          
+                                          <tr>
+                                             
+                                             <td>
+                                                
+                                                <p><code class="code">Protocol</code></p>
+                                                
+                                             </td>
+                                             
+                                             <td>
+                                                
+                                                <p>The protocol used to make the request. Valid values are: MQTT or HTTP</p>
+                                                
+                                             </td>
+                                             
+                                          </tr>
+                                          
+                                          <tr>
+                                             
+                                             <td>
+                                                
+                                                <p><code class="code">RuleName</code></p>
+                                                
+                                             </td>
+                                             
+                                             <td>
+                                                
+                                                <p>The name of the rule triggered by the request.</p>
+                                                
+                                             </td>
+                                             
+                                          </tr>
+                                          
+                                          <tr>
+                                             
+                                             <td>
+                                                
+                                                <p><code class="code">ScheduledAuditName</code></p>
+                                                
+                                             </td>
+                                             
+                                             <td>
+                                                
+                                                <p>The name of the Device Defender scheduled audit whose check results are
+                                                   being monitored. This has the value <code class="code">OnDemand</code> if the results
+                                                   reported are for an audit that was performed on demand.
+                                                </p>
+                                                
+                                             </td>
+                                             
+                                          </tr>
+                                          
+                                          <tr>
+                                             
+                                             <td>
+                                                
+                                                <p><code class="code">SecurityProfileName</code></p>
+                                                
+                                             </td>
+                                             
+                                             <td>
+                                                
+                                                <p>The name of the Device Defender Detect security profile whose behaviors are
+                                                   being monitored.
+                                                </p>
+                                                
+                                             </td>
+                                             
+                                          </tr>
+                                          
+                                          
+                                          <tr>
+                                             
+                                             <td>
+                                                
+                                                <p><code class="code">TemplateName</code></p>
+                                                
+                                             </td>
+                                             
+                                             <td>
+                                                
+                                                <p>The name of the provisioning template.</p>
+                                                
+                                             </td>
+                                             
+                                          </tr>
+                                          
+                                       </table>
+                                    </div>
+                                 </div>
+                                 
+                                 <awsdocs-copyright class="copyright-print"></awsdocs-copyright>
+                                 <awsdocs-thumb-feedback right-edge="{{$ctrl.thumbFeedbackRightEdge}}"></awsdocs-thumb-feedback>
+                              </div>
+                              <noscript>
+                                 <div>
+                                    <div>
+                                       <div>
+                                          <div id="js_error_message">
+                                             <p><img src="https://d1ge0kk1l5kms0.cloudfront.net/images/G/01/webservices/console/warning.png" alt="Warning" /> <strong>Javascript is disabled or is unavailable in your
+                                                   browser.</strong></p>
+                                             <p>To use the Amazon Web Services Documentation, Javascript must be
+                                                enabled. Please refer to your browser's Help pages for instructions.
+                                             </p>
+                                          </div>
+                                       </div>
+                                    </div>
+                                 </div>
+                              </noscript>
+                              <div id="main-col-footer" class="awsui-util-font-size-0">
+                                 <div id="doc-conventions"><a target="_top" href="/general/latest/gr/docconventions.html">Document Conventions</a></div>
+                                 <div class="prev-next">
+                                    <div id="previous" class="prev-link" accesskey="p" href="./creating_alarms.html">Creating CloudWatch alarms in AWS IoT</div>
+                                    <div id="next" class="next-link" accesskey="n" href="./cloud-watch-logs.html">Monitor AWS IoT using CloudWatch Logs</div>
+                                 </div>
+                              </div>
+                              <awsdocs-page-utilities></awsdocs-page-utilities>
+                           </div>
+                           <div id="quick-feedback-yes" style="display: none;">
+                              <div class="title">Did this page help you? - Yes</div>
+                              <div class="content">
+                                 <p>Thanks for letting us know we're doing a good
+                                    job!
+                                 </p>
+                                 <p>If you've got a moment, please tell us what we did right
+                                    so we can do more of it.
+                                 </p>
+                                 <p>
+                                    <awsui-button id="fblink" target="_blank" text="Feedback" click="linkClick($event)" href="https://docs.aws.amazon.com/forms/aws-doc-feedback?hidden_service_name=IoT Docs&amp;topic_url=https://docs.aws.amazon.com/en_us/iot/latest/developerguide/metrics_dimensions.html"></awsui-button>
+                                 </p>
+                              </div>
+                           </div>
+                           <div id="quick-feedback-no" style="display: none;">
+                              <div class="title">Did this page help you? - No</div>
+                              <div class="content">
+                                 <p>Thanks for letting us know this page needs work. We're
+                                    sorry we let you down.
+                                 </p>
+                                 <p>If you've got a moment, please tell us how we can make
+                                    the documentation better.
+                                 </p>
+                                 <p>
+                                    <awsui-button id="fblink" target="_blank" text="Feedback" click="linkClick($event)" href="https://docs.aws.amazon.com/forms/aws-doc-feedback?hidden_service_name=IoT Docs&amp;topic_url=https://docs.aws.amazon.com/en_us/iot/latest/developerguide/metrics_dimensions.html"></awsui-button>
+                                 </p>
+                              </div>
+                           </div>
+                        </div>
+                     </body>
+                  </div>
+               </awsdocs-view>
+               <div class="page-loading-indicator" id="page-loading-indicator">
+                  <awsui-spinner size="large"></awsui-spinner>
+               </div>
+            </div>
+            <div id="tools-panel" dom-region="tools">
+               <awsdocs-tools-panel id="awsdocs-tools-panel"></awsdocs-tools-panel>
+            </div>
+         </awsui-app-layout>
+         <awsdocs-cookie-banner class="doc-cookie-banner"></awsdocs-cookie-banner>
+         <!--
+                SiteCatalyst code version: H.25.2.
+                Copyright 1996-2012 Adobe, Inc. All Rights Reserved
+                More info available at http://www.omniture.com
+            --><script language="JavaScript" type="text/javascript">
+var awsdocs = awsdocs || {};
+awsdocs.prop66 = 'AWS IoT Core';
+awsdocs.prop65 =  'Developer Guide';
+            </script><script src="https://a0.awsstatic.com/s_code/js/3.0/awshome_s_code.js" language="JavaScript" type="text/javascript"></script>
+         <!--/DO NOT REMOVE/-->
+         <!--End SiteCatalyst code version: H.25.2.--></div>
+   </body>
+</html>

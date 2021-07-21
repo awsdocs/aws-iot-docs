@@ -1,0 +1,704 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" ng-app="AWSDocsDocPageApp">
+   <head>
+      <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+      <title>Create AWS IoT resources and connect Raspberry Pi to run shadow application - AWS IoT Core</title>
+      <meta name="viewport" content="width=device-width,initial-scale=1" />
+      <meta name="assets_root" content="assets" />
+      <meta name="target_state" content="create-resources-shadow" />
+      <meta name="default_state" content="create-resources-shadow" />
+      <link rel="icon" type="image/ico" href="/assets/images/favicon.ico" />
+      <link rel="shortcut icon" type="image/ico" href="/assets/images/favicon.ico" />
+      <link rel="canonical" href="https://docs.aws.amazon.com/iot/latest/developerguide/create-resources-shadow.html" />
+      <meta name="description" content="This tutorial demonstrates how to set up and configure a Raspberry Pi device and create the AWS IoT resources that a device requires to connect and exchange MQTT messages." />
+      <meta name="deployment_region" content="IAD" />
+      <meta name="product" content="AWS IoT Core" />
+      <meta name="guide" content="Developer Guide" />
+      <meta name="locales" content="de_de:Deutsch/en_us:English/es_es:Español/fr_fr:Français/it_it:Italiano/ja_jp:日本語/ko_kr:한국어/pt_br:Português/zh_cn:中文 (简体)/zh_tw:中文 (繁體)" />
+      <meta name="abstract" content="AWS IoT provides secure, bi-directional communication between Internet-connected devices such as sensors, actuators, embedded micro-controllers, or smart appliances and the AWS Cloud. This enables you to collect telemetry data from multiple devices, and store and analyze the data. You can also create applications that enable your users to control these devices from their phones or tablets." />
+      <meta name="guide-locale" content="en_us" />
+      <meta name="tocs" content="toc-contents.json" />
+      <meta name="feedback-item" content="IoT Docs" />
+      <meta name="this_doc_product" content="AWS IoT Core" />
+      <meta name="this_doc_guide" content="Developer Guide" />
+      <link href="assets/css/vendor4.css" rel="stylesheet" />
+      <link href="assets/css/awsdocs-common.css" rel="stylesheet" /><script type="text/javascript" src="assets/js/vendor3.js" defer=""></script><script type="text/javascript" src="assets/js/vendor4.js" defer=""></script><script type="text/javascript" src="assets/js/vendor1.js" defer=""></script><script type="text/javascript" src="assets/js/awsdocs-common.js" defer=""></script><script type="text/javascript" src="assets/js/awsdocs-doc-app.js" defer=""></script></head>
+   <body class="awsdocs awsui">
+      <div class="awsdocs-container">
+         <awsdocs-header></awsdocs-header>
+         <awsui-app-layout id="app-layout" class="awsui-util-no-gutters" ng-controller="ContentController as $ctrl" header-selector="awsdocs-header" navigation-hide="false" navigation-width="$ctrl.navWidth" navigation-open="$ctrl.navOpen" navigation-change="$ctrl.onNavChange($event)" tools-hide="$ctrl.hideTools" tools-width="$ctrl.toolsWidth" tools-open="$ctrl.toolsOpen" tools-change="$ctrl.onToolsChange($event)">
+            <div id="guide-toc" dom-region="navigation">
+               <awsdocs-toc></awsdocs-toc>
+            </div>
+            <div id="main-column" dom-region="content" tabindex="-1">
+               <awsdocs-view class="awsdocs-view">
+                  <div id="awsdocs-content">
+                     <head>
+                        <title>Create AWS IoT resources and connect Raspberry Pi to run shadow application - AWS IoT Core</title>
+                        <meta name="pdf" content="iot-dg.pdf#create-resources-shadow" />
+                        <meta name="kindle" content="https://www.amazon.com/dp/B07JBRCWWZ" />
+                        <meta name="github" content="https://github.com/awsdocs/aws-iot-docs/tree/master/developerguide/create-resources-shadow.md" />
+                        <meta name="forums" content="http://forums.aws.amazon.com/forum.jspa?forumID=210" />
+                        <meta name="feedback" content="https://docs.aws.amazon.com/forms/aws-doc-feedback?hidden_service_name=IoT%20Docs&amp;topic_url=http://docs.aws.amazon.com/en_us/iot/latest/developerguide/create-resources-shadow.html" />
+                        <meta name="feedback-yes" content="feedbackyes.html?topic_url=http://docs.aws.amazon.com/en_us/iot/latest/developerguide/create-resources-shadow.html" />
+                        <meta name="feedback-no" content="feedbackno.html?topic_url=http://docs.aws.amazon.com/en_us/iot/latest/developerguide/create-resources-shadow.html" />
+                        <meta name="keywords" content="AWS IoT,IoT,Internet of Things" />
+                     </head>
+                     <body>
+                        <div id="main">
+                           <div style="display: none"><a href="iot-dg.pdf#create-resources-shadow" target="_blank" rel="noopener noreferrer" title="Open PDF"></a><a target="_blank" rel="noopener noreferrer" href="https://www.amazon.com/dp/B07JBRCWWZ" title="Open Kindle"></a><a href="https://github.com/awsdocs/aws-iot-docs/tree/master/developerguide/create-resources-shadow.md" target="_blank" rel="noopener noreferrer" title="Edit this page on GitHub"></a></div>
+                           <div id="breadcrumbs" class="breadcrumb"><a href="http://aws.amazon.com">AWS</a><a href="/index.html">Documentation</a><a href="/iot/index.html">AWS IoT Core</a><a href="what-is-aws-iot.html">Developer Guide</a></div>
+                           <div id="page-toc-src"><a href="#setup-device-shadow">Set up and configure Raspberry Pi device</a><a href="#create-policy-shadow">Create an AWS IoT policy for thing shadow</a><a href="#create-thing-shadow">Create a thing resource and attach the policy to the
+                                 thing</a><a href="#resources-shadow-review">Review the results and next steps</a></div>
+                           <div id="main-content" class="awsui-util-container">
+                              <div id="main-col-body">
+                                 <awsdocs-language-banner data-service="$ctrl.pageService"></awsdocs-language-banner>
+                                 <h1 class="topictitle" id="create-resources-shadow">Create AWS IoT resources and connect Raspberry Pi to
+                                    run shadow application
+                                 </h1>
+                                 <div class="awsdocs-page-header-container">
+                                    <awsdocs-page-header></awsdocs-page-header>
+                                    <awsdocs-filter-selector id="awsdocs-filter-selector"></awsdocs-filter-selector>
+                                 </div>
+                                 <p>This tutorial demonstrates how to set up and configure a Raspberry Pi device and create
+                                    the AWS IoT resources that a device requires to connect and exchange MQTT messages.
+                                 </p>
+                                 <div class="awsdocs-note">
+                                    <div class="awsdocs-note-title">
+                                       <awsui-icon name="status-info" variant="link"></awsui-icon><span>Note</span></div>
+                                    <div class="awsdocs-note-text">
+                                       <p>If you're planning to <a href="./creating-a-virtual-thing.html">Create a virtual device with
+                                             Amazon EC2</a>, you can skip this page
+                                          and continue to <a href="./configure-device.html">Configure your device</a>. You'll create these resources when you
+                                          create your virtual thing. If you would like to use a different device instead of
+                                          the
+                                          Raspberry Pi, you can try to follow these tutorials by adapting them to a device of
+                                          your
+                                          choice.
+                                       </p>
+                                    </div>
+                                 </div>
+                                 <div class="itemizedlist">
+                                    
+                                    <p class="title"><b>In this tutorial, you'll learn how to:</b></p>
+                                     
+                                     
+                                     
+                                    
+                                    <ul class="itemizedlist" type="disc">
+                                       <li class="listitem">
+                                          
+                                          <p>Set up a Raspberry Pi device and configure it for use with AWS IoT.</p>
+                                          
+                                       </li>
+                                       <li class="listitem">
+                                          
+                                          <p>Create an AWS IoT policy document, which authorizes your device to interact with AWS
+                                             IoT
+                                             services.
+                                          </p>
+                                          
+                                       </li>
+                                       <li class="listitem">
+                                          
+                                          <p>Create a thing resource in AWS IoT the X.509 device certificates, and then attach
+                                             the
+                                             policy document.
+                                          </p>
+                                          
+                                          <p>The thing is the virtual representation of your device in the AWS IoT
+                                             registry. The certificate authenticates your device to AWS IoT Core, and the policy
+                                             document authorizes your device to interact with AWS IoT.
+                                          </p>
+                                          
+                                       </li>
+                                    </ul>
+                                 </div>
+                                 
+                                 <p class="title"><b>How to run this tutorial?</b></p>
+                                 
+                                 <p>To run the <code class="code">shadow.py</code> sample application for Device Shadows, you'll need a Raspberry Pi device that
+                                    connects to AWS IoT. We recommend that you follow this tutorial in the order it's
+                                    presented
+                                    here, starting with setting up the Raspberry Pi and it's accessories, and then creating
+                                    a
+                                    policy and attaching the policy to a thing resource that you create. You can then
+                                    follow this
+                                    tutorial by using the graphical user interface (GUI) supported by the Raspberry Pi
+                                    to open
+                                    the AWS IoT console on the device's web browser, which also makes it easier to download
+                                    the
+                                    certificates directly to your Raspberry Pi for connecting to AWS IoT.
+                                 </p>
+                                 
+                                 <div class="itemizedlist">
+                                    
+                                    <p class="title"><b>Before you start this tutorial, make sure that you have:</b></p>
+                                     
+                                     
+                                    
+                                    <ul class="itemizedlist" type="disc">
+                                       <li class="listitem">
+                                          
+                                          <p>An AWS account. If you don't have one, complete the steps described in <a href="./setting-up.html">Set up your AWS account</a> before you continue. You'll need
+                                             your AWS account and AWS IoT console to complete this tutorial. 
+                                          </p>
+                                          
+                                       </li>
+                                       <li class="listitem">
+                                          
+                                          <p>The Raspberry Pi and its necessary accessories. You'll need:</p>
+                                          
+                                          <div class="itemizedlist">
+                                              
+                                              
+                                              
+                                              
+                                             
+                                             <ul class="itemizedlist" type="disc">
+                                                <li class="listitem">
+                                                   
+                                                   <p>A <a href="https://www.raspberrypi.org/products/" rel="noopener noreferrer" target="_blank"><span>Raspberry Pi 3 Model
+                                                            B</span><awsui-icon class="awsdocs-link-icon" name="external"></awsui-icon></a> or more recent model. This tutorial might work on earlier versions of
+                                                      the Raspberry Pi, but we haven't tested it.
+                                                   </p>
+                                                   
+                                                </li>
+                                                <li class="listitem">
+                                                   
+                                                   <p><a href="https://www.raspberrypi.org/downloads/raspberry-pi-os/" rel="noopener noreferrer" target="_blank"><span>Raspberry
+                                                            Pi OS (32-bit)</span><awsui-icon class="awsdocs-link-icon" name="external"></awsui-icon></a> or later. We recommend using the latest version of the
+                                                      Raspberry Pi OS. Earlier versions of the OS might work, but we haven't tested
+                                                      it.
+                                                   </p>
+                                                   
+                                                </li>
+                                                <li class="listitem">
+                                                   
+                                                   <p>An Ethernet or Wi-Fi connection.</p>
+                                                   
+                                                </li>
+                                                <li class="listitem">
+                                                   
+                                                   <p>Keyboard, mouse, monitor, cables, and power supplies.</p>
+                                                   
+                                                </li>
+                                             </ul>
+                                          </div>
+                                          
+                                       </li>
+                                    </ul>
+                                 </div>
+                                 <p>This tutorial takes about 30 minutes to complete.</p>
+                                 
+                                 <h2 id="setup-device-shadow">Set up and configure Raspberry Pi device</h2>
+                                 
+                                 <p>In this section, we'll configure a Raspberry Pi device for use with AWS IoT.</p>
+                                 
+                                 <div class="awsdocs-note awsdocs-important">
+                                    <div class="awsdocs-note-title">
+                                       <awsui-icon name="status-warning" variant="error"></awsui-icon><span>Important</span></div>
+                                    <div class="awsdocs-note-text">
+                                       <p>Adapting these instructions to other devices and operating systems can be
+                                          challenging. You'll need to understand your device well enough to be able to
+                                          interpret these instructions and apply them to your device. If you encounter
+                                          difficulties, you might try one of the other device options as an alternative,
+                                          such as <a href="./creating-a-virtual-thing.html">Create a virtual device with
+                                             Amazon EC2</a> 
+                                          or <a href="./using-laptop-as-device.html">Use your Windows or Linux
+                                             PC or Mac as an AWS IoT device</a>.
+                                          
+                                       </p>
+                                    </div>
+                                 </div>
+                                 
+                                 <p>You'll need to configure your Raspberry Pi such that it can start the operating system
+                                    (OS), connect to the internet, and allow you to interact with it at a command line
+                                    interface. You can also use the graphical user interface (GUI) supported with the
+                                    Raspberry
+                                    Pi to open the AWS IoT console and run the rest of this tutorial.
+                                 </p>
+                                 
+                                 <div class="orderedlist">
+                                    
+                                    <p class="title"><b>To set up the Raspberry Pi:</b></p>
+                                     
+                                     
+                                     
+                                    
+                                    <ol>
+                                       <li>
+                                          
+                                          <p>Insert the SD card into the MicroSD card slot on the Raspberry Pi. Some SD cards
+                                             come pre-loaded with an installation manager that prompts you with a menu to install
+                                             the OS after booting up the board. You can also use the Raspberry Pi imager to install
+                                             the OS on your card.
+                                          </p>
+                                          
+                                       </li>
+                                       <li>
+                                          
+                                          <p>Connect an HDMI TV or monitor to the HDMI cable that connects to the HDMI port of
+                                             the Raspberry Pi. 
+                                          </p>
+                                          
+                                       </li>
+                                       <li>
+                                          
+                                          <p>Connect the keyboard and mouse to the USB ports of the Raspberry Pi and then plug
+                                             in the power adapter to boot up the board.
+                                          </p>
+                                          
+                                       </li>
+                                    </ol>
+                                 </div>
+                                 
+                                 <p>After the Raspberry Pi boots up, if the SD card came pre-loaded with the installation
+                                    manager, a menu appears to install the operating system. If you have trouble installing
+                                    the OS, you can try the following steps. For more information about setting up the
+                                    Raspberry Pi, see <a href="https://projects.raspberrypi.org/en/projects/raspberry-pi-setting-up/" rel="noopener noreferrer" target="_blank"><span>Setting up
+                                          your Raspberry Pi</span><awsui-icon class="awsdocs-link-icon" name="external"></awsui-icon></a>.
+                                 </p>
+                                 
+                                 <div class="itemizedlist">
+                                    
+                                    <p class="title"><b>If you're having trouble setting up the Raspberry Pi:</b></p>
+                                     
+                                     
+                                     
+                                    
+                                    <ul class="itemizedlist" type="disc">
+                                       <li class="listitem">
+                                          
+                                          <p>Check whether you inserted the SD card before booting up the board. If you plug in
+                                             the SD card after booting up the board, the installation menu might not appear.
+                                          </p>
+                                          
+                                       </li>
+                                       <li class="listitem">
+                                          
+                                          <p>Make sure that the TV or monitor is turned on and the correct input is
+                                             selected.
+                                          </p>
+                                          
+                                       </li>
+                                       <li class="listitem">
+                                          
+                                          <p>Ensure that you are using Raspberry Pi compatible software.</p>
+                                          
+                                       </li>
+                                    </ul>
+                                 </div>
+                                 
+                                 <p>If you're still having trouble or need additional help, see <a href="https://projects.raspberrypi.org/en/projects/raspberry-pi-setting-up/5" rel="noopener noreferrer" target="_blank"><span>Getting help
+                                          for your Raspberry Pi</span><awsui-icon class="awsdocs-link-icon" name="external"></awsui-icon></a>.
+                                 </p>
+                                 
+                                 <p>After you have installed the OS, use the Raspberry Pi's web browser to open the
+                                    AWS IoT console to continue the rest of the steps in this tutorial.
+                                 </p>
+                                  
+                                 
+                                 <h2 id="create-policy-shadow">Create an AWS IoT policy for thing shadow</h2>
+                                 
+                                 <p>X.509 certificates authenticate your device with AWS IoT Core. AWS IoT policies are
+                                    attached
+                                    to the certificate that permits the device to perform AWS IoT operations, such as
+                                    subscribing
+                                    or publishing to MQTT reserved topics used by the Device Shadow service. Your device
+                                    presents its certificate when it connects and sends messages to AWS IoT Core. 
+                                 </p>
+                                 
+                                 <p>In this procedure, you'll create a policy that allows your device to perform the AWS
+                                    IoT
+                                    operations necessary to run the example program. We recommend that you create a policy
+                                    that
+                                    grants only the permissions required to perform the task. You create the AWS IoT policy
+                                    first,
+                                    and then attach it to the device certificate that you'll create later.
+                                 </p>     
+                                 
+                                 <div class="procedure">
+                                    <p class="title"><b>To create an AWS IoT policy</b></p>
+                                    <ol>
+                                       <li>
+                                          
+                                          <p>On the left menu, choose <b>Secure</b>, and then choose
+                                             <b>Policies</b>. If your account has existing policies, choose
+                                             <b>Create</b>, otherwise, on the <b>You don’t have a policy
+                                                yet</b> page, choose <b>Create a policy</b>.
+                                          </p>
+                                          
+                                       </li>
+                                       <li>
+                                          
+                                          <p>On the <b>Create a policy</b> page:
+                                          </p>
+                                          
+                                          <ol>
+                                             <li>
+                                                
+                                                <p>Enter a name for the policy in the <b>Name</b> field (for example,
+                                                   <code class="userinput">My_Device_Shadow_policy</code>). Do not use personally
+                                                   identifiable information in your policy names.
+                                                </p>
+                                                
+                                             </li>
+                                             <li>
+                                                
+                                                <p>In the policy document, you describe connect, subscribe, receive, and publish
+                                                   actions that give the device permission to publish and subscribe to the MQTT
+                                                   reserved topics.
+                                                </p>
+                                                
+                                                <p>Copy the following sample policy and paste it in your policy document. Replace
+                                                   <code class="code">thingname</code> with the name of the thing that you'll create (for example,
+                                                   <code class="code">My_light_bulb</code>), <code class="code">region</code> with the AWS IoT Region where
+                                                   you're using the services, and <code class="code">account</code> with your AWS account number.
+                                                   For more information about AWS IoT policies, see <a href="./iot-policies.html">AWS IoT Core policies</a>.
+                                                </p>
+                                                <pre class="programlisting"><div class="code-btn-container"><div class="btn-copy-code" title="Copy"><awsui-icon name="copy"></awsui-icon></div></div><code class=""><span>{</span>
+  "Version": "2012-10-17",
+  "Statement": [
+    <span>{</span>
+      "Effect": "Allow",
+      "Action": [
+        "iot:Publish"
+      ],
+      "Resource": [
+        "arn:aws:iot:region:account:topic/$aws/things/thingname/shadow/get",
+        "arn:aws:iot:region:account:topic/$aws/things/thingname/shadow/update"
+      ]
+    },
+    <span>{</span>
+      "Effect": "Allow",
+      "Action": [
+        "iot:Receive"
+      ],
+      "Resource": [
+        "arn:aws:iot:region:account:topic/$aws/things/thingname/shadow/get/accepted",
+        "arn:aws:iot:region:account:topic/$aws/things/thingname/shadow/get/rejected",
+        "arn:aws:iot:region:account:topic/$aws/things/thingname/shadow/update/accepted",
+        "arn:aws:iot:region:account:topic/$aws/things/thingname/shadow/update/rejected",
+        "arn:aws:iot:region:account:topic/$aws/things/thingname/shadow/update/delta"
+      ]
+    },
+    <span>{</span>
+      "Effect": "Allow",
+      "Action": [
+        "iot:Subscribe"
+      ],
+      "Resource": [
+        "arn:aws:iot:region:account:topicfilter/$aws/things/thingname/shadow/get/accepted",
+        "arn:aws:iot:region:account:topicfilter/$aws/things/thingname/shadow/get/rejected",
+        "arn:aws:iot:region:account:topicfilter/$aws/things/thingname/shadow/update/accepted",
+        "arn:aws:iot:region:account:topicfilter/$aws/things/thingname/shadow/update/rejected",
+        "arn:aws:iot:region:account:topicfilter/$aws/things/thingname/shadow/update/delta"
+      ]
+    },
+    <span>{</span>
+      "Effect": "Allow",
+      "Action": "iot:Connect",
+      "Resource": "arn:aws:iot:region:account:client/test-*"
+    }
+  ]
+}             </code></pre>
+                                                </li>
+                                          </ol>
+                                          
+                                       </li>
+                                    </ol>
+                                 </div>
+                                  
+                                 
+                                 <h2 id="create-thing-shadow">Create a thing resource and attach the policy to the
+                                    thing
+                                 </h2>
+                                 
+                                 <p>Devices connected to AWS IoT can be represented by <em>thing resources</em> in the
+                                    AWS IoT registry. A <em>thing resource</em> represents a specific device or
+                                    logical entity, such as the light bulb in this tutorial.
+                                 </p>
+                                 
+                                 <p>To learn how to create a thing in AWS IoT, follow the steps described in <a href="./create-iot-resources.html#create-aws-thing">Create a thing object</a>. Here are some key things to
+                                    note as you follow the steps in that tutorial:
+                                 </p>
+                                 
+                                 <div class="orderedlist">
+                                     
+                                     
+                                     
+                                    
+                                    <ol>
+                                       <li>
+                                          
+                                          <p>Choose <b>Create a single thing</b>, and in the
+                                             <b>Name</b> field, enter a name for the thing that is the same as the
+                                             <code class="code">thingname</code> (for example, <code class="code">My_light_bulb</code>) you specified when
+                                             you created the policy earlier.
+                                          </p>
+                                          
+                                          <p>You can't change a thing name after it has been created. If you gave it a
+                                             different name other than <code class="code">thingname</code>, create a new thing with name as
+                                             <code class="code">thingname</code> and delete the old thing.
+                                          </p>
+                                          
+                                          <div class="awsdocs-note">
+                                             <div class="awsdocs-note-title">
+                                                <awsui-icon name="status-info" variant="link"></awsui-icon><span>Note</span></div>
+                                             <div class="awsdocs-note-text">
+                                                <p>Do not use personally identifiable information in your thing name. The thing
+                                                   name can appear in unencrypted communications and reports.
+                                                </p>
+                                             </div>
+                                          </div>
+                                          
+                                       </li>
+                                       <li>
+                                          
+                                          <p>We recommend that you download each of the certificate files on the
+                                             <b>Certificate created!</b> page into a location where you can easily
+                                             find them. You'll need to install these files for running the sample
+                                             application.
+                                          </p>
+                                          
+                                          <p>We recommend that you download the files into a <code class="code">certs</code> subdirectory in
+                                             your <code class="code">home</code> directory on the Raspberry Pi and name each of them with a
+                                             simpler name as suggested in the following table.
+                                          </p>
+                                          
+                                          <div class="table-container">
+                                             <div class="table-contents">
+                                                <table id="w332aac11c11c47c19b7b3b5">
+                                                   <thead>
+                                                      <tr>
+                                                         <th class="table-header" colspan="100%">
+                                                            <div class="title">Certificate file names</div>
+                                                         </th>
+                                                      </tr>
+                                                      
+                                                      <tr>
+                                                         
+                                                         <th>
+                                                            
+                                                            <p>File</p>
+                                                            
+                                                         </th>
+                                                         
+                                                         <th>
+                                                            
+                                                            <p>File path</p>
+                                                            
+                                                         </th>
+                                                         
+                                                      </tr>
+                                                      
+                                                   </thead>
+                                                   
+                                                   <tr>
+                                                      
+                                                      <td>
+                                                         
+                                                         <p>Root CA certificate</p>
+                                                         
+                                                      </td>
+                                                      
+                                                      <td>
+                                                         
+                                                         <p><code class="code">~/certs/Amazon-root-CA-1.pem</code></p>
+                                                         
+                                                      </td>
+                                                      
+                                                   </tr>
+                                                   
+                                                   <tr>
+                                                      
+                                                      <td>
+                                                         
+                                                         <p>Device certificate</p>
+                                                         
+                                                      </td>
+                                                      
+                                                      <td>
+                                                         
+                                                         <p><code class="code">~/certs/device.pem.crt</code></p>
+                                                         
+                                                      </td>
+                                                      
+                                                   </tr>
+                                                   
+                                                   <tr>
+                                                      
+                                                      <td>
+                                                         
+                                                         <p>Private key</p>
+                                                         
+                                                      </td>
+                                                      
+                                                      <td>
+                                                         
+                                                         <p><code class="code">~/certs/private.pem.key</code></p>
+                                                         
+                                                      </td>
+                                                      
+                                                   </tr>
+                                                   
+                                                </table>
+                                             </div>
+                                          </div>
+                                          
+                                       </li>
+                                       <li>
+                                          
+                                          <p>After you activate the certificate to enable connections to AWS IoT, choose
+                                             <b>Attach a policy</b> and make sure you attach the policy that you
+                                             created earlier (for example, <code class="userinput">My_Device_Shadow_policy</code>) to the
+                                             thing.
+                                          </p>
+                                          
+                                          <p>After you've created a thing, you can see your thing resource displayed in the list
+                                             of
+                                             things in the AWS IoT console.
+                                          </p>
+                                          
+                                       </li>
+                                    </ol>
+                                 </div>
+                                  
+                                 
+                                 <h2 id="resources-shadow-review">Review the results and next steps</h2>
+                                 
+                                 <div class="itemizedlist">
+                                    
+                                    <p class="title"><b>In this tutorial, you learned how to:</b></p>
+                                     
+                                     
+                                     
+                                    
+                                    <ul class="itemizedlist" type="disc">
+                                       <li class="listitem">
+                                          
+                                          <p>Set up and configure the Raspberry Pi device.</p>
+                                          
+                                       </li>
+                                       <li class="listitem">
+                                          
+                                          <p>Create an AWS IoT policy document that authorizes your device to interact with AWS
+                                             IoT
+                                             services.
+                                          </p>
+                                          
+                                       </li>
+                                       <li class="listitem">
+                                          
+                                          <p>Create a thing resource and associated X.509 device certificate, and attach the
+                                             policy document to it.
+                                          </p>
+                                          
+                                       </li>
+                                    </ul>
+                                 </div>
+                                  
+                                 
+                                 <p class="title"><b>Next steps</b></p>
+                                 
+                                 <p>You can now install the AWS IoT device SDK for Python, run the <code class="code">shadow.py</code> 
+                                    sample application, and use Device Shadows to control the state. For more information
+                                    
+                                    about how to run this tutorial, see <a href="./lightbulb-shadow-application.html">Install the Device SDK and run the
+                                       shadow.py sample application for Device Shadows</a>.
+                                 </p>
+                                  
+                                 
+                                 <div class="highlights">
+                                    <p><strong>Tutorials in this section</strong></p>
+                                    <ul>
+                                       <li><a href="./lightbulb-shadow-application.html">Install the Device SDK and run the
+                                             shadow.py sample application for Device Shadows</a></li>
+                                       <li><a href="./interact-lights-device-shadows.html">Interact with Device Shadow using the
+                                             shadow.py sample app and MQTT test client</a></li>
+                                    </ul>
+                                 </div>
+                                 <awsdocs-copyright class="copyright-print"></awsdocs-copyright>
+                                 <awsdocs-thumb-feedback right-edge="{{$ctrl.thumbFeedbackRightEdge}}"></awsdocs-thumb-feedback>
+                              </div>
+                              <noscript>
+                                 <div>
+                                    <div>
+                                       <div>
+                                          <div id="js_error_message">
+                                             <p><img src="https://d1ge0kk1l5kms0.cloudfront.net/images/G/01/webservices/console/warning.png" alt="Warning" /> <strong>Javascript is disabled or is unavailable in your
+                                                   browser.</strong></p>
+                                             <p>To use the Amazon Web Services Documentation, Javascript must be
+                                                enabled. Please refer to your browser's Help pages for instructions.
+                                             </p>
+                                          </div>
+                                       </div>
+                                    </div>
+                                 </div>
+                              </noscript>
+                              <div id="main-col-footer" class="awsui-util-font-size-0">
+                                 <div id="doc-conventions"><a target="_top" href="/general/latest/gr/docconventions.html">Document Conventions</a></div>
+                                 <div class="prev-next">
+                                    <div id="previous" class="prev-link" accesskey="p" href="./iot-shadows-tutorial.html">AWS IoT Device Shadow tutorials</div>
+                                    <div id="next" class="next-link" accesskey="n" href="./lightbulb-shadow-application.html">Install the Device SDK and run the
+                                       shadow.py sample application for Device Shadows
+                                    </div>
+                                 </div>
+                              </div>
+                              <awsdocs-page-utilities></awsdocs-page-utilities>
+                           </div>
+                           <div id="quick-feedback-yes" style="display: none;">
+                              <div class="title">Did this page help you? - Yes</div>
+                              <div class="content">
+                                 <p>Thanks for letting us know we're doing a good
+                                    job!
+                                 </p>
+                                 <p>If you've got a moment, please tell us what we did right
+                                    so we can do more of it.
+                                 </p>
+                                 <p>
+                                    <awsui-button id="fblink" target="_blank" text="Feedback" click="linkClick($event)" href="https://docs.aws.amazon.com/forms/aws-doc-feedback?hidden_service_name=IoT Docs&amp;topic_url=https://docs.aws.amazon.com/en_us/iot/latest/developerguide/create-resources-shadow.html"></awsui-button>
+                                 </p>
+                              </div>
+                           </div>
+                           <div id="quick-feedback-no" style="display: none;">
+                              <div class="title">Did this page help you? - No</div>
+                              <div class="content">
+                                 <p>Thanks for letting us know this page needs work. We're
+                                    sorry we let you down.
+                                 </p>
+                                 <p>If you've got a moment, please tell us how we can make
+                                    the documentation better.
+                                 </p>
+                                 <p>
+                                    <awsui-button id="fblink" target="_blank" text="Feedback" click="linkClick($event)" href="https://docs.aws.amazon.com/forms/aws-doc-feedback?hidden_service_name=IoT Docs&amp;topic_url=https://docs.aws.amazon.com/en_us/iot/latest/developerguide/create-resources-shadow.html"></awsui-button>
+                                 </p>
+                              </div>
+                           </div>
+                        </div>
+                     </body>
+                  </div>
+               </awsdocs-view>
+               <div class="page-loading-indicator" id="page-loading-indicator">
+                  <awsui-spinner size="large"></awsui-spinner>
+               </div>
+            </div>
+            <div id="tools-panel" dom-region="tools">
+               <awsdocs-tools-panel id="awsdocs-tools-panel"></awsdocs-tools-panel>
+            </div>
+         </awsui-app-layout>
+         <awsdocs-cookie-banner class="doc-cookie-banner"></awsdocs-cookie-banner>
+         <!--
+                SiteCatalyst code version: H.25.2.
+                Copyright 1996-2012 Adobe, Inc. All Rights Reserved
+                More info available at http://www.omniture.com
+            --><script language="JavaScript" type="text/javascript">
+var awsdocs = awsdocs || {};
+awsdocs.prop66 = 'AWS IoT Core';
+awsdocs.prop65 =  'Developer Guide';
+            </script><script src="https://a0.awsstatic.com/s_code/js/3.0/awshome_s_code.js" language="JavaScript" type="text/javascript"></script>
+         <!--/DO NOT REMOVE/-->
+         <!--End SiteCatalyst code version: H.25.2.--></div>
+   </body>
+</html>

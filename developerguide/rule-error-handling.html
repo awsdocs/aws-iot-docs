@@ -1,0 +1,327 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" ng-app="AWSDocsDocPageApp">
+   <head>
+      <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+      <title>Error handling (error action) - AWS IoT Core</title>
+      <meta name="viewport" content="width=device-width,initial-scale=1" />
+      <meta name="assets_root" content="assets" />
+      <meta name="target_state" content="rule-error-handling" />
+      <meta name="default_state" content="rule-error-handling" />
+      <link rel="icon" type="image/ico" href="/assets/images/favicon.ico" />
+      <link rel="shortcut icon" type="image/ico" href="/assets/images/favicon.ico" />
+      <link rel="canonical" href="https://docs.aws.amazon.com/iot/latest/developerguide/rule-error-handling.html" />
+      <meta name="description" content="Learn how to handle errors that occur while working with your AWS IoT rules." />
+      <meta name="deployment_region" content="IAD" />
+      <meta name="product" content="AWS IoT Core" />
+      <meta name="guide" content="Developer Guide" />
+      <meta name="locales" content="de_de:Deutsch/en_us:English/es_es:Español/fr_fr:Français/it_it:Italiano/ja_jp:日本語/ko_kr:한국어/pt_br:Português/zh_cn:中文 (简体)/zh_tw:中文 (繁體)" />
+      <meta name="abstract" content="AWS IoT provides secure, bi-directional communication between Internet-connected devices such as sensors, actuators, embedded micro-controllers, or smart appliances and the AWS Cloud. This enables you to collect telemetry data from multiple devices, and store and analyze the data. You can also create applications that enable your users to control these devices from their phones or tablets." />
+      <meta name="guide-locale" content="en_us" />
+      <meta name="tocs" content="toc-contents.json" />
+      <meta name="feedback-item" content="IoT Docs" />
+      <meta name="this_doc_product" content="AWS IoT Core" />
+      <meta name="this_doc_guide" content="Developer Guide" />
+      <link href="assets/css/vendor4.css" rel="stylesheet" />
+      <link href="assets/css/awsdocs-common.css" rel="stylesheet" /><script type="text/javascript" src="assets/js/vendor3.js" defer=""></script><script type="text/javascript" src="assets/js/vendor4.js" defer=""></script><script type="text/javascript" src="assets/js/vendor1.js" defer=""></script><script type="text/javascript" src="assets/js/awsdocs-common.js" defer=""></script><script type="text/javascript" src="assets/js/awsdocs-doc-app.js" defer=""></script></head>
+   <body class="awsdocs awsui">
+      <div class="awsdocs-container">
+         <awsdocs-header></awsdocs-header>
+         <awsui-app-layout id="app-layout" class="awsui-util-no-gutters" ng-controller="ContentController as $ctrl" header-selector="awsdocs-header" navigation-hide="false" navigation-width="$ctrl.navWidth" navigation-open="$ctrl.navOpen" navigation-change="$ctrl.onNavChange($event)" tools-hide="$ctrl.hideTools" tools-width="$ctrl.toolsWidth" tools-open="$ctrl.toolsOpen" tools-change="$ctrl.onToolsChange($event)">
+            <div id="guide-toc" dom-region="navigation">
+               <awsdocs-toc></awsdocs-toc>
+            </div>
+            <div id="main-column" dom-region="content" tabindex="-1">
+               <awsdocs-view class="awsdocs-view">
+                  <div id="awsdocs-content">
+                     <head>
+                        <title>Error handling (error action) - AWS IoT Core</title>
+                        <meta name="pdf" content="iot-dg.pdf#rule-error-handling" />
+                        <meta name="kindle" content="https://www.amazon.com/dp/B07JBRCWWZ" />
+                        <meta name="github" content="https://github.com/awsdocs/aws-iot-docs/tree/master/developerguide/rule-error-handling.md" />
+                        <meta name="forums" content="http://forums.aws.amazon.com/forum.jspa?forumID=210" />
+                        <meta name="feedback" content="https://docs.aws.amazon.com/forms/aws-doc-feedback?hidden_service_name=IoT%20Docs&amp;topic_url=http://docs.aws.amazon.com/en_us/iot/latest/developerguide/rule-error-handling.html" />
+                        <meta name="feedback-yes" content="feedbackyes.html?topic_url=http://docs.aws.amazon.com/en_us/iot/latest/developerguide/rule-error-handling.html" />
+                        <meta name="feedback-no" content="feedbackno.html?topic_url=http://docs.aws.amazon.com/en_us/iot/latest/developerguide/rule-error-handling.html" />
+                        <meta name="keywords" content="AWS IoT,IoT,Internet of Things" />
+                     </head>
+                     <body>
+                        <div id="main">
+                           <div style="display: none"><a href="iot-dg.pdf#rule-error-handling" target="_blank" rel="noopener noreferrer" title="Open PDF"></a><a target="_blank" rel="noopener noreferrer" href="https://www.amazon.com/dp/B07JBRCWWZ" title="Open Kindle"></a><a href="https://github.com/awsdocs/aws-iot-docs/tree/master/developerguide/rule-error-handling.md" target="_blank" rel="noopener noreferrer" title="Edit this page on GitHub"></a></div>
+                           <div id="breadcrumbs" class="breadcrumb"><a href="http://aws.amazon.com">AWS</a><a href="/index.html">Documentation</a><a href="/iot/index.html">AWS IoT Core</a><a href="what-is-aws-iot.html">Developer Guide</a></div>
+                           <div id="page-toc-src"><a href="#rule-error-message-format">Error action message format</a><a href="#rule-error-example">Error action example</a></div>
+                           <div id="main-content" class="awsui-util-container">
+                              <div id="main-col-body">
+                                 <awsdocs-language-banner data-service="$ctrl.pageService"></awsdocs-language-banner>
+                                 <h1 class="topictitle" id="rule-error-handling">Error handling (error action)</h1>
+                                 <div class="awsdocs-page-header-container">
+                                    <awsdocs-page-header></awsdocs-page-header>
+                                    <awsdocs-filter-selector id="awsdocs-filter-selector"></awsdocs-filter-selector>
+                                 </div>
+                                 <p>When AWS IoT receives a message from a device, the rules engine checks to see if the
+                                    message matches a rule. If so, the rule's query statement is evaluated and the rule's
+                                    actions are triggered, passing the query statement's result. 
+                                 </p>
+                                 <p>If a problem occurs when triggering an action, the rules engine triggers an error
+                                    action, if one is specified for the rule. This might happen when:
+                                 </p>
+                                 <div class="itemizedlist">
+                                     
+                                     
+                                    
+                                    <ul class="itemizedlist" type="disc">
+                                       <li class="listitem">
+                                          
+                                          <p>A rule doesn't have permission to access an Amazon S3 bucket.</p>
+                                          
+                                       </li>
+                                       <li class="listitem">
+                                          
+                                          <p>A user error causes DynamoDB provisioned throughput to be exceeded.</p>
+                                          
+                                       </li>
+                                    </ul>
+                                 </div>
+                                 
+                                 <h2 id="rule-error-message-format">Error action message format</h2>
+                                 
+                                 <p>A single message is generated per rule and message. For example, if two rule
+                                    actions in the same rule fail, the error action receives one message that contains
+                                    both errors.
+                                 </p>
+                                 
+                                 <p>The error action message looks like the following example.</p>
+                                 <pre class="programlisting"><div class="code-btn-container"><div class="btn-copy-code" title="Copy"><awsui-icon name="copy"></awsui-icon></div></div><code class="JSON "><span>{</span>
+  "ruleName": "TestAction",
+  "topic": "testme/action",
+  "cloudwatchTraceId": "7e146a2c-95b5-6caf-98b9-50e3969734c7",
+  "clientId": "iotconsole-1511213971966-0",
+  "base64OriginalPayload": "ewogICJtZXNzYWdlIjogIkhlbGxvIHZyb20gQVdTIElvVCBjb25zb2xlIgp9",
+  "failures": [
+    <span>{</span>
+      "failedAction": "S3Action",
+      "failedResource": "us-east-1-s3-verify-user",
+      "errorMessage": "Failed to put S3 object. The error received was The specified bucket does not exist (Service: Amazon S3; Status Code: 404; Error Code: NoSuchBucket; Request ID: 9DF5416B9B47B9AF; S3 Extended Request ID: yMah1cwPhqTH267QLPhTKeVPKJB8BO5ndBHzOmWtxLTM6uAvwYYuqieAKyb6qRPTxP1tHXCoR4Y=). Message arrived on: error/action, Action: s3, Bucket: us-east-1-s3-verify-user, Key: \"aaa\". Value of x-amz-id-2: yMah1cwPhqTH267QLPhTKeVPKJB8BO5ndBHzOmWtxLTM6uAvwYYuqieAKyb6qRPTxP1tHXCoR4Y="
+    }
+  ]
+} </code></pre>
+                                 <div class="variablelist">
+                                     
+                                     
+                                     
+                                     
+                                     
+                                     
+                                    
+                                    <dl>
+                                       
+                                       <dt><span class="term">ruleName</span></dt>
+                                       
+                                       <dd>
+                                          
+                                          <p>The name of the rule that triggered the error action.</p>
+                                          
+                                       </dd>
+                                        
+                                       
+                                       <dt><span class="term">topic</span></dt>
+                                       
+                                       <dd>
+                                          
+                                          <p>The topic on which the original message was received.</p>
+                                          
+                                       </dd>
+                                        
+                                       
+                                       <dt><span class="term">cloudwatchTraceId</span></dt>
+                                       
+                                       <dd>
+                                          
+                                          <p>A unique identity referring to the error logs in CloudWatch.</p>
+                                          
+                                       </dd>
+                                        
+                                       
+                                       <dt><span class="term">clientId</span></dt>
+                                       
+                                       <dd>
+                                          
+                                          <p>The client ID of the message publisher.</p>
+                                          
+                                       </dd>
+                                        
+                                       
+                                       <dt><span class="term">base64OriginalPayload</span></dt>
+                                       
+                                       <dd>
+                                          
+                                          <p>The original message payload Base64-encoded.</p>
+                                          
+                                       </dd>
+                                        
+                                       
+                                       <dt><span class="term">failures</span></dt>
+                                       
+                                       <dd>
+                                          
+                                          <div class="variablelist">
+                                              
+                                              
+                                              
+                                             
+                                             <dl>
+                                                
+                                                <dt><span class="term">failedAction</span></dt>
+                                                
+                                                <dd>
+                                                   
+                                                   <p>The name of the action that failed to complete (for
+                                                      example, "S3Action").
+                                                   </p>
+                                                   
+                                                </dd>
+                                                 
+                                                
+                                                <dt><span class="term">failedResource</span></dt>
+                                                
+                                                <dd>
+                                                   
+                                                   <p>The name of the resource (for example, the name of an S3
+                                                      bucket).
+                                                   </p>
+                                                   
+                                                </dd>
+                                                 
+                                                
+                                                <dt><span class="term">errorMessage</span></dt>
+                                                
+                                                <dd>
+                                                   
+                                                   <p>The description and explanation of the error.</p>
+                                                   
+                                                </dd>
+                                                
+                                             </dl>
+                                          </div>
+                                          
+                                       </dd>
+                                       
+                                    </dl>
+                                 </div>
+                                  
+                                 
+                                 <h2 id="rule-error-example">Error action example</h2>
+                                 
+                                 <p>Here is an example of a rule with an added error action. The following rule has an
+                                    action that writes message data to a DynamoDB table and an error action that writes
+                                    data to an Amazon S3 bucket:
+                                 </p>
+                                 <pre class="programlisting"><div class="code-btn-container"><div class="btn-copy-code" title="Copy"><awsui-icon name="copy"></awsui-icon></div></div><code class="JSON "><span>{</span>
+    "sql" : "SELECT * FROM ..."
+    "actions" : [<span>{</span> 
+        "dynamoDB" : <span>{</span>
+            "table" : "PoorlyConfiguredTable",
+            "hashKeyField" : "AConstantString",
+            "hashKeyValue" : "AHashKey"}}
+    ],
+    "errorAction" : <span>{</span> 
+        "s3" : <span>{</span>
+            "roleArn": "arn:aws:iam::123456789012:role/aws_iot_s3",
+            "bucket" : "message-processing-errors",
+            "key" : "$<span>{</span>replace(topic(), '/', '-') + '-' + timestamp() + '-' + newuuid()}"
+        }
+    }
+}</code></pre>
+                                 <p>You can use any function or substitution in an error action's SQL statement,
+                                    except for external functions (for example, <code class="code">get_thing_shadow</code>,
+                                    <code class="code">aws_lambda</code>, and <code class="code">machinelearning_predict</code>.)
+                                 </p>
+                                 
+                                 <p>For more information about rules and how to specify an error action, see <a href="https://docs.aws.amazon.com/iot/latest/developerguide/iot-create-rule.html">Creating an AWS IoT Rule</a>.
+                                 </p>
+                                 
+                                 <p>For more information about using CloudWatch to monitor the success or failure of rules,
+                                    see <a href="./metrics_dimensions.html">AWS IoT metrics and dimensions</a>.
+                                 </p>
+                                 
+                                 
+                                 <awsdocs-copyright class="copyright-print"></awsdocs-copyright>
+                                 <awsdocs-thumb-feedback right-edge="{{$ctrl.thumbFeedbackRightEdge}}"></awsdocs-thumb-feedback>
+                              </div>
+                              <noscript>
+                                 <div>
+                                    <div>
+                                       <div>
+                                          <div id="js_error_message">
+                                             <p><img src="https://d1ge0kk1l5kms0.cloudfront.net/images/G/01/webservices/console/warning.png" alt="Warning" /> <strong>Javascript is disabled or is unavailable in your
+                                                   browser.</strong></p>
+                                             <p>To use the Amazon Web Services Documentation, Javascript must be
+                                                enabled. Please refer to your browser's Help pages for instructions.
+                                             </p>
+                                          </div>
+                                       </div>
+                                    </div>
+                                 </div>
+                              </noscript>
+                              <div id="main-col-footer" class="awsui-util-font-size-0">
+                                 <div id="doc-conventions"><a target="_top" href="/general/latest/gr/docconventions.html">Document Conventions</a></div>
+                                 <div class="prev-next">
+                                    <div id="previous" class="prev-link" accesskey="p" href="./accessing-cross-account-resources-using-rules.html">Accessing cross-account resources using AWS IoT rules</div>
+                                    <div id="next" class="next-link" accesskey="n" href="./rule-destination.html"> Working with topic rule destinations</div>
+                                 </div>
+                              </div>
+                              <awsdocs-page-utilities></awsdocs-page-utilities>
+                           </div>
+                           <div id="quick-feedback-yes" style="display: none;">
+                              <div class="title">Did this page help you? - Yes</div>
+                              <div class="content">
+                                 <p>Thanks for letting us know we're doing a good
+                                    job!
+                                 </p>
+                                 <p>If you've got a moment, please tell us what we did right
+                                    so we can do more of it.
+                                 </p>
+                                 <p>
+                                    <awsui-button id="fblink" target="_blank" text="Feedback" click="linkClick($event)" href="https://docs.aws.amazon.com/forms/aws-doc-feedback?hidden_service_name=IoT Docs&amp;topic_url=https://docs.aws.amazon.com/en_us/iot/latest/developerguide/rule-error-handling.html"></awsui-button>
+                                 </p>
+                              </div>
+                           </div>
+                           <div id="quick-feedback-no" style="display: none;">
+                              <div class="title">Did this page help you? - No</div>
+                              <div class="content">
+                                 <p>Thanks for letting us know this page needs work. We're
+                                    sorry we let you down.
+                                 </p>
+                                 <p>If you've got a moment, please tell us how we can make
+                                    the documentation better.
+                                 </p>
+                                 <p>
+                                    <awsui-button id="fblink" target="_blank" text="Feedback" click="linkClick($event)" href="https://docs.aws.amazon.com/forms/aws-doc-feedback?hidden_service_name=IoT Docs&amp;topic_url=https://docs.aws.amazon.com/en_us/iot/latest/developerguide/rule-error-handling.html"></awsui-button>
+                                 </p>
+                              </div>
+                           </div>
+                        </div>
+                     </body>
+                  </div>
+               </awsdocs-view>
+               <div class="page-loading-indicator" id="page-loading-indicator">
+                  <awsui-spinner size="large"></awsui-spinner>
+               </div>
+            </div>
+            <div id="tools-panel" dom-region="tools">
+               <awsdocs-tools-panel id="awsdocs-tools-panel"></awsdocs-tools-panel>
+            </div>
+         </awsui-app-layout>
+         <awsdocs-cookie-banner class="doc-cookie-banner"></awsdocs-cookie-banner>
+         <!--
+                SiteCatalyst code version: H.25.2.
+                Copyright 1996-2012 Adobe, Inc. All Rights Reserved
+                More info available at http://www.omniture.com
+            --><script language="JavaScript" type="text/javascript">
+var awsdocs = awsdocs || {};
+awsdocs.prop66 = 'AWS IoT Core';
+awsdocs.prop65 =  'Developer Guide';
+            </script><script src="https://a0.awsstatic.com/s_code/js/3.0/awshome_s_code.js" language="JavaScript" type="text/javascript"></script>
+         <!--/DO NOT REMOVE/-->
+         <!--End SiteCatalyst code version: H.25.2.--></div>
+   </body>
+</html>

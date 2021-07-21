@@ -1,0 +1,1074 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" ng-app="AWSDocsDocPageApp">
+   <head>
+      <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+      <title>How Fleet Hub for AWS IoT Device Management works with IAM - Fleet Hub for AWS IoT Device Management</title>
+      <meta name="viewport" content="width=device-width,initial-scale=1" />
+      <meta name="assets_root" content="assets" />
+      <meta name="target_state" content="security_iam_service-with-iam" />
+      <meta name="default_state" content="security_iam_service-with-iam" />
+      <link rel="icon" type="image/ico" href="/assets/images/favicon.ico" />
+      <link rel="shortcut icon" type="image/ico" href="/assets/images/favicon.ico" />
+      <link rel="canonical" href="https://docs.aws.amazon.com/iot/latest/fleethubuserguide/security_iam_service-with-iam.html" />
+      <meta name="description" content="Before you use IAM to manage access to Fleet Hub, learn what IAM features are available to use with Fleet Hub. Identity-based policies Yes Resource-based policies No Policy actions Yes Policy resources Yes Policy condition keys Yes ACLs No" />
+      <meta name="deployment_region" content="IAD" />
+      <meta name="product" content="Fleet Hub for AWS IoT Device Management" />
+      <meta name="guide" content="Fleet Hub for AWS IoT Device Management Guide" />
+      <meta name="locales" content="de_de:Deutsch/en_us:English/es_es:Español/fr_fr:Français/it_it:Italiano/ja_jp:日本語/ko_kr:한국어/pt_br:Português/zh_cn:中文 (简体)/zh_tw:中文 (繁體)" />
+      <meta name="abstract" content="Fleet Hub for AWS IoT Device Management enables you to build standalone web applications for monitoring the health of your device fleets. You can make these applications available to technicians in your organization, even if they don't have AWS accounts. Use Fleet Hub for AWS IoT Device Management to manage common fleet-wide tasks such as restarting devices, updating firmware, rotating expired certificates, and investigating and remediating operational and security issues." />
+      <meta name="guide-locale" content="en_us" />
+      <meta name="tocs" content="toc-contents.json" />
+      <meta name="feedback-item" content="IoT Docs" />
+      <meta name="this_doc_product" content="Fleet Hub for AWS IoT Device Management" />
+      <meta name="this_doc_guide" content="Fleet Hub for AWS IoT Device Management Guide" />
+      <link href="assets/css/vendor4.css" rel="stylesheet" />
+      <link href="assets/css/awsdocs-common.css" rel="stylesheet" /><script type="text/javascript" src="assets/js/vendor3.js" defer=""></script><script type="text/javascript" src="assets/js/vendor4.js" defer=""></script><script type="text/javascript" src="assets/js/vendor1.js" defer=""></script><script type="text/javascript" src="assets/js/awsdocs-common.js" defer=""></script><script type="text/javascript" src="assets/js/awsdocs-doc-app.js" defer=""></script></head>
+   <body class="awsdocs awsui">
+      <div class="awsdocs-container">
+         <awsdocs-header></awsdocs-header>
+         <awsui-app-layout id="app-layout" class="awsui-util-no-gutters" ng-controller="ContentController as $ctrl" header-selector="awsdocs-header" navigation-hide="false" navigation-width="$ctrl.navWidth" navigation-open="$ctrl.navOpen" navigation-change="$ctrl.onNavChange($event)" tools-hide="$ctrl.hideTools" tools-width="$ctrl.toolsWidth" tools-open="$ctrl.toolsOpen" tools-change="$ctrl.onToolsChange($event)">
+            <div id="guide-toc" dom-region="navigation">
+               <awsdocs-toc></awsdocs-toc>
+            </div>
+            <div id="main-column" dom-region="content" tabindex="-1">
+               <awsdocs-view class="awsdocs-view">
+                  <div id="awsdocs-content">
+                     <head>
+                        <title>How Fleet Hub for AWS IoT Device Management works with IAM - Fleet Hub for AWS IoT Device Management</title>
+                        <meta name="pdf" content="iotfleethub-ug.pdf#security_iam_service-with-iam" />
+                        <meta name="github" content="https://github.com/awsdocs/aws-iot-docs/tree/master/iotfleethubguide/security_iam_service-with-iam.md" />
+                        <meta name="forums" content="http://forums.aws.amazon.com/forum.jspa?forumID=210" />
+                        <meta name="feedback" content="https://docs.aws.amazon.com/forms/aws-doc-feedback?hidden_service_name=IoT%20Docs&amp;topic_url=http://docs.aws.amazon.com/en_us/iot/latest/fleethubuserguide/security_iam_service-with-iam.html" />
+                        <meta name="feedback-yes" content="feedbackyes.html?topic_url=http://docs.aws.amazon.com/en_us/iot/latest/fleethubuserguide/security_iam_service-with-iam.html" />
+                        <meta name="feedback-no" content="feedbackno.html?topic_url=http://docs.aws.amazon.com/en_us/iot/latest/fleethubuserguide/security_iam_service-with-iam.html" />
+                        <meta name="keywords" content="AWS IoT,Spyglass,Monitoring" />
+                     </head>
+                     <body>
+                        <div id="main">
+                           <div style="display: none"><a href="iotfleethub-ug.pdf#security_iam_service-with-iam" target="_blank" rel="noopener noreferrer" title="Open PDF"></a><a href="https://github.com/awsdocs/aws-iot-docs/tree/master/iotfleethubguide/security_iam_service-with-iam.md" target="_blank" rel="noopener noreferrer" title="Edit this page on GitHub"></a></div>
+                           <div id="breadcrumbs" class="breadcrumb"><a href="http://aws.amazon.com">AWS</a><a href="/index.html">Documentation</a><a href="/iot/index.html">AWS IoT Core</a><a href="what-is-aws-iot-monitor.html">Fleet Hub for AWS IoT Device Management Guide</a></div>
+                           <div id="page-toc-src"><a href="#security_iam_service-with-iam-id-based-policies">Identity-based policies</a><a href="#security_iam_service-with-iam-resource-based-policies">Resource-based policies</a><a href="#security_iam_service-with-iam-id-based-policies-actions">Policy actions</a><a href="#security_iam_service-with-iam-id-based-policies-resources">Policy resources</a><a href="#security_iam_service-with-iam-id-based-policies-conditionkeys">Policy condition keys</a><a href="#security_iam_service-with-iam-acls">ACLs</a><a href="#security_iam_service-with-iam-tags">ABAC</a><a href="#security_iam_service-with-iam-roles-tempcreds">Temporary credentials</a><a href="#security_iam_service-with-iam-principal-permissions">Principal permissions</a><a href="#security_iam_service-with-iam-roles-service">Service roles</a><a href="#security_iam_service-with-iam-roles-service-linked">Service-linked roles</a></div>
+                           <div id="main-content" class="awsui-util-container">
+                              <div id="main-col-body">
+                                 <awsdocs-language-banner data-service="$ctrl.pageService"></awsdocs-language-banner>
+                                 <h1 class="topictitle" id="security_iam_service-with-iam">How Fleet Hub for AWS IoT Device Management works with IAM</h1>
+                                 <div class="awsdocs-page-header-container">
+                                    <awsdocs-page-header></awsdocs-page-header>
+                                    <awsdocs-filter-selector id="awsdocs-filter-selector"></awsdocs-filter-selector>
+                                 </div>
+                                 <p>Before you use IAM to manage access to Fleet Hub, learn what IAM features are
+                                    available to use with Fleet Hub.
+                                 </p>
+                                 <p></p>
+                                 <p></p>
+                                 <div class="table-container">
+                                    <div class="table-contents">
+                                       <table id="w249aac15c19c27c11">
+                                          <thead>
+                                             <tr>
+                                                <th class="table-header" colspan="100%">
+                                                   <div class="title">IAM features you can use with Fleet Hub for AWS IoT Device Management</div>
+                                                </th>
+                                             </tr>
+                                             
+                                             <tr>
+                                                
+                                                <th>IAM feature</th>
+                                                
+                                                <th>Fleet Hub support</th>
+                                                
+                                             </tr>
+                                             
+                                          </thead>
+                                          
+                                          <tr>
+                                             
+                                             <td>
+                                                
+                                                <p><a href="#security_iam_service-with-iam-id-based-policies">Identity-based policies</a></p>
+                                                
+                                             </td>
+                                             
+                                             <td>
+                                                
+                                                <p>Yes</p>
+                                                
+                                             </td>
+                                             
+                                          </tr>
+                                          
+                                          <tr>
+                                             
+                                             <td>
+                                                
+                                                <p><a href="#security_iam_service-with-iam-resource-based-policies">Resource-based policies</a></p>
+                                                
+                                             </td>
+                                             
+                                             <td>
+                                                
+                                                <p>No
+                                                   
+                                                </p>
+                                                
+                                             </td>
+                                             
+                                          </tr>
+                                          
+                                          <tr>
+                                             
+                                             <td>
+                                                
+                                                <p><a href="#security_iam_service-with-iam-id-based-policies-actions">Policy actions</a></p>
+                                                
+                                             </td>
+                                             
+                                             <td>
+                                                
+                                                <p>Yes</p>
+                                                
+                                             </td>
+                                             
+                                          </tr>
+                                          
+                                          <tr>
+                                             
+                                             <td>
+                                                
+                                                <p><a href="#security_iam_service-with-iam-id-based-policies-resources">Policy resources</a></p>
+                                                
+                                             </td>
+                                             
+                                             <td>
+                                                
+                                                <p>Yes</p>
+                                                
+                                             </td>
+                                             
+                                          </tr>
+                                          
+                                          <tr>
+                                             
+                                             <td>
+                                                
+                                                <p><a href="#security_iam_service-with-iam-id-based-policies-conditionkeys">Policy condition keys</a></p>
+                                                
+                                             </td>
+                                             
+                                             <td>
+                                                
+                                                <p>Yes</p>
+                                                
+                                             </td>
+                                             
+                                          </tr>
+                                          
+                                          <tr>
+                                             
+                                             <td>
+                                                
+                                                <p><a href="#security_iam_service-with-iam-acls">ACLs</a></p>
+                                                
+                                             </td>
+                                             
+                                             <td>
+                                                
+                                                <p>No
+                                                   
+                                                </p>
+                                                
+                                             </td>
+                                             
+                                          </tr>
+                                          
+                                          <tr>
+                                             
+                                             <td>
+                                                
+                                                <p><a href="#security_iam_service-with-iam-tags">ABAC (tags in
+                                                      policies)</a></p>
+                                                
+                                             </td>
+                                             
+                                             <td>
+                                                
+                                                <p>Partial</p>
+                                                
+                                             </td>
+                                             
+                                          </tr>
+                                          
+                                          <tr>
+                                             
+                                             <td>
+                                                
+                                                <p><a href="#security_iam_service-with-iam-roles-tempcreds">Temporary
+                                                      credentials</a></p>
+                                                
+                                             </td>
+                                             
+                                             <td>
+                                                
+                                                <p>Yes</p>
+                                                
+                                             </td>
+                                             
+                                          </tr>
+                                          
+                                          <tr>
+                                             
+                                             <td>
+                                                
+                                                <p><a href="#security_iam_service-with-iam-principal-permissions">Principal permissions</a></p>
+                                                
+                                             </td>
+                                             
+                                             <td>
+                                                
+                                                <p>Yes</p>
+                                                
+                                             </td>
+                                             
+                                          </tr>
+                                          
+                                          <tr>
+                                             
+                                             <td>
+                                                
+                                                <p><a href="#security_iam_service-with-iam-roles-service">Service
+                                                      roles</a></p>
+                                                
+                                             </td>
+                                             
+                                             <td>
+                                                
+                                                <p>Yes</p>
+                                                
+                                             </td>
+                                             
+                                          </tr>
+                                          
+                                          <tr>
+                                             
+                                             <td>
+                                                
+                                                <p><a href="#security_iam_service-with-iam-roles-service-linked">Service-linked roles</a></p>
+                                                
+                                             </td>
+                                             
+                                             <td>
+                                                
+                                                <p>No
+                                                   
+                                                </p>
+                                                
+                                             </td>
+                                             
+                                          </tr>
+                                          
+                                       </table>
+                                    </div>
+                                 </div>
+                                 <p>To get a high-level view of how Fleet Hub and other AWS services work with most IAM
+                                    features, see <a href="https://docs.aws.amazon.com/IAM/latest/UserGuide/reference_aws-services-that-work-with-iam.html">AWS services that work with IAM</a> in the
+                                    <em>IAM User Guide</em>.
+                                 </p>
+                                 
+                                 <h2 id="security_iam_service-with-iam-id-based-policies">Identity-based
+                                    policies for Fleet Hub
+                                 </h2> 
+                                 
+                                 <div class="table-container">
+                                    <div class="table-contents">
+                                       <table id="w249aac15c19c27c15b3">
+                                          
+                                          <tr>
+                                             
+                                             <td>
+                                                
+                                                <p>Supports identity-based policies</p>
+                                                
+                                             </td>
+                                             
+                                             <td>
+                                                
+                                                <p>Yes</p>
+                                                
+                                             </td>
+                                             
+                                          </tr>
+                                          
+                                       </table>
+                                    </div>
+                                 </div>
+                                 
+                                 
+                                 
+                                 
+                                 
+                                 
+                                 <p>Identity-based policies are JSON permissions policy documents that you can attach
+                                    to an identity, such as an IAM user, group of users, or role. These
+                                    policies control what actions users and roles can perform, on which resources, and
+                                    under what conditions. To learn how to create an identity-based
+                                    policy, see <a href="https://docs.aws.amazon.com/IAM/latest/UserGuide/access_policies_create.html">Creating IAM policies</a> in the
+                                    <em>IAM User Guide</em>.
+                                 </p>
+                                 
+                                 
+                                 <p>With IAM identity-based policies, you can specify allowed or denied actions and
+                                    resources as well as the conditions under which actions are allowed or denied.  You
+                                    can't specify the principal in an identity-based policy because it applies to the
+                                    user
+                                    or role to which it is attached. To learn about all of the elements that you can use
+                                    in a
+                                    JSON policy, see <a href="https://docs.aws.amazon.com/IAM/latest/UserGuide/reference_policies_elements.html">IAM JSON
+                                       policy elements reference</a> in the
+                                    <em>IAM User Guide</em>.
+                                 </p>
+                                 
+                                  
+                                 
+                                 <h3 id="security_iam_service-with-iam-id-based-policies-examples">
+                                    Identity-based policy examples for Fleet Hub
+                                 </h3>
+                                 
+                                 <p></p>
+                                 
+                                 
+                                 
+                                 <p>To view examples of Fleet Hub identity-based policies, see <a href="./security_iam_id-based-policy-examples.html">Identity-based policy
+                                       examples for Fleet Hub for AWS IoT Device Management</a>.
+                                 </p>
+                                 
+                                  
+                                  
+                                 
+                                 <h2 id="security_iam_service-with-iam-resource-based-policies">Resource-based
+                                    policies within Fleet Hub
+                                 </h2>
+                                 
+                                 
+                                 <div class="table-container">
+                                    <div class="table-contents">
+                                       <table id="w249aac15c19c27c17b3">
+                                          
+                                          <tr>
+                                             
+                                             <td>
+                                                
+                                                <p>Supports resource-based policies</p>
+                                                
+                                             </td>
+                                             
+                                             <td>
+                                                
+                                                <p>No
+                                                   
+                                                </p>
+                                                
+                                             </td>
+                                             
+                                          </tr>
+                                          
+                                       </table>
+                                    </div>
+                                 </div>
+                                 
+                                 
+                                 
+                                 
+                                 
+                                 
+                                 <p>Resource-based policies are JSON policy documents that you attach to a resource. Examples
+                                    of resource-based policies are 
+                                    IAM <em>role trust policies</em> and Amazon S3 <em>bucket policies</em>. In services that support resource-based policies, service 
+                                    administrators can use them to control access to a specific resource. For the resource
+                                    where the policy is attached, the policy defines what actions
+                                    a specified principal can perform on that resource and under what conditions. You
+                                    must <a href="https://docs.aws.amazon.com/IAM/latest/UserGuide/reference_policies_elements_principal.html">specify a principal</a> in a resource-based policy. Principals 
+                                    can include accounts, users, roles, federated users, or AWS services.
+                                 </p>
+                                 
+                                 
+                                 <p>To enable cross-account access, you can specify an entire account or IAM entities
+                                    in another account as the principal in a
+                                    resource-based policy. Adding a cross-account principal to a resource-based
+                                    policy is only half of establishing the trust relationship. When the principal and
+                                    the
+                                    resource are in different AWS accounts, an IAM administrator in the trusted account
+                                    
+                                    must also grant the principal entity (user or role) permission to access the resource.
+                                    They grant 
+                                    permission by attaching an identity-based policy to the entity. However, if a resource-based
+                                    
+                                    policy grants access to a principal in the same account, no additional identity-based
+                                    policy is 
+                                    required. For more information, see <a href="https://docs.aws.amazon.com/IAM/latest/UserGuide/id_roles_compare-resource-policies.html">How
+                                       IAM roles differ from resource-based policies </a>in the
+                                    <em>IAM User Guide</em>.
+                                 </p>
+                                 
+                                 
+                                 
+                                 
+                                  
+                                 
+                                 <h2 id="security_iam_service-with-iam-id-based-policies-actions">Policy actions
+                                    for Fleet Hub
+                                 </h2> 
+                                 <div class="awsdocs-note">
+                                    <div class="awsdocs-note-title">
+                                       <awsui-icon name="status-info" variant="link"></awsui-icon><span>Note</span></div>
+                                    <div class="awsdocs-note-text">
+                                       <p>Fleet Hub applications use the <code class="code">AWSIoTFleetHubFederationAccess</code> managed policy. For 
+                                          more information, see <a href="./security-iam-awsmanpol.html">AWS managed policies for Fleet Hub for AWS IoT Device Management</a>.
+                                       </p>
+                                    </div>
+                                 </div>
+                                 
+                                 
+                                 <div class="table-container">
+                                    <div class="table-contents">
+                                       <table id="w249aac15c19c27c19b5">
+                                          
+                                          <tr>
+                                             
+                                             <td>
+                                                
+                                                <p>Supports policy actions</p>
+                                                
+                                             </td>
+                                             
+                                             <td>
+                                                
+                                                <p>Yes</p>
+                                                
+                                             </td>
+                                             
+                                          </tr>
+                                          
+                                       </table>
+                                    </div>
+                                 </div>
+                                 
+                                 
+                                 
+                                 
+                                 
+                                 <p>Administrators can use AWS JSON policies to specify who has access to what. That is,
+                                    which <b>principal</b> can perform 
+                                    <b>actions</b> on what <b>resources</b>, and under what <b>conditions</b>.
+                                 </p>
+                                 
+                                 
+                                 <p>The <code class="code">Action</code> element of a JSON policy describes the
+                                    actions that you can use to allow or deny access in a policy. Policy
+                                    actions usually have the same name as the associated AWS API operation. There are
+                                    some exceptions, such as <em>permission-only 
+                                       actions</em> that don't have a matching API operation. There are also some operations that require
+                                    multiple actions in a policy. 
+                                    These additional actions are called <em>dependent actions</em>.
+                                 </p>
+                                 
+                                 <p>Include actions in a policy to grant permissions to perform the associated operation.</p>
+                                 
+                                 
+                                 <p></p>
+                                 
+                                 <p>To see a list of Fleet Hub actions, see <a href="https://docs.aws.amazon.com/service-authorization/latest/reference/list_awskeymanagementservice.html#awskeymanagementservice-actions-as-permissions">Actions defined by Fleet Hub for AWS IoT Device Management</a> in the
+                                    <em>Service Authorization Reference</em>.
+                                 </p>
+                                 
+                                 <p>Policy actions in Fleet Hub use the following prefix before the action:</p>
+                                 <pre class="programlisting"><div class="code-btn-container"><div class="btn-copy-code" title="Copy"><awsui-icon name="copy"></awsui-icon></div></div><code class="">iotfleethub</code></pre>
+                                 <p>To specify multiple actions in a single statement, separate them with commas.</p>
+                                 <pre class="programlisting"><div class="code-btn-container"><div class="btn-copy-code" title="Copy"><awsui-icon name="copy"></awsui-icon></div></div><code class="nohighlight">"Action": [
+      "iotfleethub:<code class="replaceable">action1</code>",
+      "iotfleethub:<code class="replaceable">action2</code>"
+         ]</code></pre>
+                                 <p></p>
+                                 
+                                 <p></p>
+                                 
+                                 
+                                 
+                                 
+                                 
+                                 <p>To view examples of Fleet Hub identity-based policies, see <a href="./security_iam_id-based-policy-examples.html">Identity-based policy
+                                       examples for Fleet Hub for AWS IoT Device Management</a>.
+                                 </p>
+                                 
+                                 
+                                  
+                                 
+                                 <h2 id="security_iam_service-with-iam-id-based-policies-resources">Policy
+                                    resources for Fleet Hub
+                                 </h2> 
+                                 
+                                 
+                                 <div class="table-container">
+                                    <div class="table-contents">
+                                       <table id="w249aac15c19c27c21b3">
+                                          
+                                          <tr>
+                                             
+                                             <td>
+                                                
+                                                <p>Supports policy resources</p>
+                                                
+                                             </td>
+                                             
+                                             <td>
+                                                
+                                                <p>Yes</p>
+                                                
+                                             </td>
+                                             
+                                          </tr>
+                                          
+                                       </table>
+                                    </div>
+                                 </div>
+                                 
+                                 
+                                 
+                                 
+                                 
+                                 
+                                 <p>Administrators can use AWS JSON policies to specify who has access to what. That is,
+                                    which <b>principal</b> can perform 
+                                    <b>actions</b> on what <b>resources</b>, and under what <b>conditions</b>.
+                                 </p>
+                                 
+                                 
+                                 <p>The <code class="code">Resource</code> JSON policy element specifies the object or objects to which the action applies.
+                                    Statements must include either a
+                                    <code class="code">Resource</code> or a <code class="code">NotResource</code> element. As a best practice, specify a resource using its <a href="https://docs.aws.amazon.com/general/latest/gr/aws-arns-and-namespaces.html">Amazon Resource Name (ARN)</a>. You can do this for actions that support a 
+                                    specific resource type, known as <em>resource-level permissions</em>.
+                                 </p>
+                                 
+                                 <p>For actions that don't support resource-level permissions, such as listing operations,
+                                    use a wildcard (*) to indicate that the statement applies to all resources.
+                                 </p>
+                                 <pre class="programlisting"><div class="code-btn-container"><div class="btn-copy-code" title="Copy"><awsui-icon name="copy"></awsui-icon></div></div><code class="">"Resource": "*"</code></pre>
+                                 
+                                 <p>To see a list of Fleet Hub resource types and their ARNs, see
+                                    <a href="https://docs.aws.amazon.com/service-authorization/latest/reference/list_awskeymanagementservice.html#awskeymanagementservice-resources-for-iam-policies">Resources defined by Fleet Hub for AWS IoT Device Management</a> in the <em>Service Authorization Reference</em>. To learn with
+                                    which actions you can specify the ARN of each resource, see
+                                    <a href="https://docs.aws.amazon.com/service-authorization/latest/reference/list_awskeymanagementservice.html#awskeymanagementservice-actions-as-permissions">Actions defined by Fleet Hub for AWS IoT Device Management</a>.
+                                 </p>
+                                 
+                                 <p></p>
+                                 
+                                 <p></p>
+                                 
+                                 
+                                 
+                                 
+                                 
+                                 <p>To view examples of Fleet Hub identity-based policies, see <a href="./security_iam_id-based-policy-examples.html">Identity-based policy
+                                       examples for Fleet Hub for AWS IoT Device Management</a>.
+                                 </p>
+                                 
+                                 
+                                 
+                                  
+                                 
+                                 <h2 id="security_iam_service-with-iam-id-based-policies-conditionkeys">Policy
+                                    condition keys for Fleet Hub
+                                 </h2>
+                                 
+                                 
+                                 <div class="table-container">
+                                    <div class="table-contents">
+                                       <table id="w249aac15c19c27c23b3">
+                                          
+                                          <tr>
+                                             
+                                             <td>
+                                                
+                                                <p>Supports policy condition keys</p>
+                                                
+                                             </td>
+                                             
+                                             <td>
+                                                
+                                                <p>Yes</p>
+                                                
+                                             </td>
+                                             
+                                          </tr>
+                                          
+                                       </table>
+                                    </div>
+                                 </div>
+                                 
+                                 
+                                 
+                                 
+                                 
+                                 
+                                 <p>Administrators can use AWS JSON policies to specify who has access to what. That is,
+                                    which <b>principal</b> can perform 
+                                    <b>actions</b> on what <b>resources</b>, and under what <b>conditions</b>.
+                                 </p>
+                                 
+                                 
+                                 <p>The <code class="code">Condition</code> element (or <code class="code">Condition</code>
+                                    <em>block</em>) lets you specify conditions in which a
+                                    statement is in effect. The <code class="code">Condition</code> element is optional. You can create
+                                    conditional expressions that use <a href="https://docs.aws.amazon.com/IAM/latest/UserGuide/reference_policies_elements_condition_operators.html">condition
+                                       operators</a>, such as equals or less than, to match the condition in the
+                                    policy with values in the request. 
+                                 </p>
+                                 
+                                 <p>If you specify multiple <code class="code">Condition</code> elements in a statement, or
+                                    multiple keys in a single <code class="code">Condition</code> element, AWS evaluates them using
+                                    a logical <code class="code">AND</code> operation. If you specify multiple values for a single
+                                    condition key, AWS evaluates the condition using a logical <code class="code">OR</code>
+                                    operation. All of the conditions must be met before the statement's permissions are
+                                    granted.
+                                 </p>
+                                 
+                                 <p> You can also use placeholder variables when you specify conditions. For example,
+                                    you can grant an IAM user permission to access a resource only if it is tagged with
+                                    their IAM user name. For more information, see <a href="https://docs.aws.amazon.com/IAM/latest/UserGuide/reference_policies_variables.html">IAM policy elements:
+                                       variables and tags</a> in the <em>IAM User Guide</em>. 
+                                 </p>
+                                 
+                                 <p>AWS supports global condition keys and service-specific condition keys. To see all
+                                    AWS global
+                                    condition keys, see <a href="https://docs.aws.amazon.com/IAM/latest/UserGuide/reference_policies_condition-keys.html">AWS global condition context keys</a> in the
+                                    <em>IAM User Guide</em>.
+                                 </p>
+                                 
+                                 
+                                 <p>To see a list of Fleet Hub condition keys, see <a href="https://docs.aws.amazon.com/service-authorization/latest/reference/list_awskeymanagementservice.html#awskeymanagementservice-policy-keys">Condition keys for Fleet Hub for AWS IoT Device Management</a> in the
+                                    <em>Service Authorization Reference</em>. To learn with which actions and resources you
+                                    can use a condition key, see <a href="https://docs.aws.amazon.com/service-authorization/latest/reference/list_awskeymanagementservice.html#awskeymanagementservice-actions-as-permissions">Actions defined by Fleet Hub for AWS IoT Device Management</a>.
+                                 </p>
+                                 
+                                 
+                                 
+                                 
+                                 
+                                 
+                                 
+                                 <p>To view examples of Fleet Hub identity-based policies, see <a href="./security_iam_id-based-policy-examples.html">Identity-based policy
+                                       examples for Fleet Hub for AWS IoT Device Management</a>.
+                                 </p>
+                                 
+                                 
+                                 
+                                  
+                                 
+                                 <h2 id="security_iam_service-with-iam-acls">Access control lists (ACLs) in
+                                    Fleet Hub
+                                 </h2>
+                                 
+                                 
+                                 <div class="table-container">
+                                    <div class="table-contents">
+                                       <table id="w249aac15c19c27c25b3">
+                                          
+                                          <tr>
+                                             
+                                             <td>
+                                                
+                                                <p>Supports ACLs</p>
+                                                
+                                             </td>
+                                             
+                                             <td>
+                                                
+                                                <p>No
+                                                   
+                                                </p>
+                                                
+                                             </td>
+                                             
+                                          </tr>
+                                          
+                                       </table>
+                                    </div>
+                                 </div>
+                                 
+                                 
+                                 
+                                 
+                                 
+                                 
+                                 <p>Access control lists (ACLs) control which principals (account members, users, or roles)
+                                    have permissions to access a resource. ACLs are
+                                    similar to resource-based policies, although they do not use the JSON policy document
+                                    format.
+                                 </p>
+                                 
+                                 
+                                 
+                                 
+                                  
+                                 
+                                 <h2 id="security_iam_service-with-iam-tags">Attribute-based access control
+                                    (ABAC) with Fleet Hub
+                                 </h2> 
+                                 
+                                 
+                                 <div class="table-container">
+                                    <div class="table-contents">
+                                       <table id="w249aac15c19c27c27b3">
+                                          
+                                          <tr>
+                                             
+                                             <td>
+                                                
+                                                <p>Supports ABAC (tags in policies)</p>
+                                                
+                                             </td>
+                                             
+                                             <td>
+                                                
+                                                <p>Partial</p>
+                                                
+                                             </td>
+                                             
+                                          </tr>
+                                          
+                                       </table>
+                                    </div>
+                                 </div>
+                                 
+                                 
+                                 
+                                 
+                                 <p>Attribute-based access control (ABAC) is an authorization strategy that defines permissions
+                                    based on attributes. In AWS, these attributes are called <em>tags</em>. You can attach tags to IAM entities (users
+                                    or roles) and to many AWS resources. Tagging entities and resources is the first step
+                                    of ABAC. Then you 
+                                    design ABAC policies to allow operations when the principal's tag matches the tag
+                                    on the resource that they 
+                                    are trying to access.
+                                 </p>
+                                 
+                                 <p>ABAC is helpful in environments that are growing rapidly and helps with situations
+                                    where policy management becomes cumbersome.
+                                 </p>
+                                 
+                                 <p>To control access based on tags, you provide tag information in the <a href="https://docs.aws.amazon.com/IAM/latest/UserGuide/reference_policies_elements_condition.html">condition
+                                       element</a> of a policy using the
+                                    <code class="code">aws:ResourceTag/<code class="replaceable">key-name</code></code>,
+                                    <code class="code">aws:RequestTag/<code class="replaceable">key-name</code></code>, or
+                                    <code class="code">aws:TagKeys</code> condition keys.
+                                 </p>
+                                 
+                                 <p>For more information about ABAC, see <a href="https://docs.aws.amazon.com/IAM/latest/UserGuide/introduction_attribute-based-access-control.html">What is ABAC?</a> in the
+                                    <em>IAM User Guide</em>. To view a tutorial with steps for setting up ABAC, see <a href="https://docs.aws.amazon.com/IAM/latest/UserGuide/tutorial_attribute-based-access-control.html">Use attribute-based access control (ABAC)</a> in the
+                                    <em>IAM User Guide</em>.
+                                 </p>
+                                 
+                                 
+                                 
+                                  
+                                 
+                                 <h2 id="security_iam_service-with-iam-roles-tempcreds">Using Temporary
+                                    credentials with Fleet Hub
+                                 </h2> 
+                                 
+                                 
+                                 <div class="table-container">
+                                    <div class="table-contents">
+                                       <table id="w249aac15c19c27c31b3">
+                                          
+                                          <tr>
+                                             
+                                             <td>
+                                                
+                                                <p>Supports temporary credentials</p>
+                                                
+                                             </td>
+                                             
+                                             <td>
+                                                
+                                                <p>Yes</p>
+                                                
+                                             </td>
+                                             
+                                          </tr>
+                                          
+                                       </table>
+                                    </div>
+                                 </div>
+                                 
+                                 
+                                 
+                                 
+                                 <p>Some AWS services don't work when you sign in using temporary credentials. For additional
+                                    
+                                    information, including which AWS services work with temporary credentials, see <a href="https://docs.aws.amazon.com/IAM/latest/UserGuide/reference_aws-services-that-work-with-iam.html">AWS services
+                                       that work with IAM</a> in the <em>IAM User Guide</em>.
+                                 </p>
+                                 
+                                 <p>You are using temporary credentials if you sign in to the AWS Management Console using
+                                    any method
+                                    except a user name and password. For example, when you access AWS using your
+                                    company's single sign-on (SSO) link, that process automatically creates temporary
+                                    credentials.
+                                    You also automatically create temporary credentials when you sign in to the console
+                                    as a user and
+                                    then switch roles. For more information about switching roles, see <a href="https://docs.aws.amazon.com/IAM/latest/UserGuide/id_roles_use_switch-role-console.html">Switching to a role
+                                       (console)</a> in the <em>IAM User Guide</em>.
+                                 </p>
+                                 
+                                 <p>You can manually create temporary credentials using the AWS CLI or AWS API. You can
+                                    then use those temporary credentials to access AWS. AWS recommends that you
+                                    dynamically generate temporary credentials instead of using long-term access keys.
+                                    For
+                                    more information, see <a href="https://docs.aws.amazon.com/IAM/latest/UserGuide/id_credentials_temp.html">Temporary
+                                       security credentials in IAM</a>.
+                                 </p>
+                                 
+                                  
+                                 
+                                 <h2 id="security_iam_service-with-iam-principal-permissions">Cross-service
+                                    principal permissions for Fleet Hub
+                                 </h2> 
+                                 
+                                 
+                                 <div class="table-container">
+                                    <div class="table-contents">
+                                       <table id="w249aac15c19c27c33b3">
+                                          
+                                          <tr>
+                                             
+                                             <td>
+                                                
+                                                <p>Supports principal permissions</p>
+                                                
+                                             </td>
+                                             
+                                             <td>
+                                                
+                                                <p>Yes</p>
+                                                
+                                             </td>
+                                             
+                                          </tr>
+                                          
+                                       </table>
+                                    </div>
+                                 </div>
+                                 
+                                 
+                                 
+                                 
+                                 <p>
+                                    
+                                    When you use an IAM user or role to perform actions in AWS, you are considered a principal.
+                                    Policies 
+                                    grant permissions to a principal. When you use some services, you might perform an
+                                    action that then triggers 
+                                    another action in a different service. In this case, you must have permissions to
+                                    perform both actions. To 
+                                    see whether an action requires additional dependent actions in a policy, see <a href="https://docs.aws.amazon.com/service-authorization/latest/reference/list_awskeymanagementservice.html">Actions, resources, and condition keys for Fleet Hub for AWS IoT Device Management</a> in the 
+                                    <em>Service Authorization Reference</em>.
+                                    
+                                 </p>
+                                 
+                                  
+                                 
+                                 <h2 id="security_iam_service-with-iam-roles-service">Service roles for
+                                    Fleet Hub
+                                 </h2> 
+                                 
+                                 
+                                 <div class="table-container">
+                                    <div class="table-contents">
+                                       <table id="w249aac15c19c27c35b3">
+                                          
+                                          <tr>
+                                             
+                                             <td>
+                                                
+                                                <p>Supports service roles</p>
+                                                
+                                             </td>
+                                             
+                                             <td>
+                                                
+                                                <p>Yes</p>
+                                                
+                                             </td>
+                                             
+                                          </tr>
+                                          
+                                       </table>
+                                    </div>
+                                 </div>
+                                 
+                                 
+                                 
+                                 
+                                 <p>
+                                    
+                                    A service role is an <a href="https://docs.aws.amazon.com/IAM/latest/UserGuide/id_roles.html">IAM role</a> that a service assumes to perform 
+                                    actions on your behalf. Service roles  provide access only within your account and
+                                    cannot be  used to grant access to 
+                                    services in other accounts. An IAM administrator can create, modify, and delete a
+                                    service role from within IAM. For 
+                                    more information, see <a href="https://docs.aws.amazon.com/IAM/latest/UserGuide/id_roles_create_for-service.html">Creating a role to delegate permissions 
+                                       to an AWS service</a> in the <em>IAM User Guide</em>.
+                                    
+                                 </p>
+                                 
+                                 
+                                 
+                                 <div class="awsdocs-note awsdocs-warning">
+                                    <div class="awsdocs-note-title">
+                                       <awsui-icon name="status-warning" variant="error"></awsui-icon><span>Warning</span></div>
+                                    <div class="awsdocs-note-text">
+                                       <p>Changing the permissions for a service role might break Fleet Hub functionality.
+                                          Edit service roles only when Fleet Hub provides guidance to do so.
+                                       </p>
+                                    </div>
+                                 </div>
+                                 
+                                 
+                                  
+                                 
+                                 <h2 id="security_iam_service-with-iam-roles-service-linked">Service-linked
+                                    roles for Fleet Hub
+                                 </h2>
+                                 
+                                 
+                                 <div class="table-container">
+                                    <div class="table-contents">
+                                       <table id="w249aac15c19c27c37b3">
+                                          
+                                          <tr>
+                                             
+                                             <td>
+                                                
+                                                <p>Supports service-linked roles</p>
+                                                
+                                             </td>
+                                             
+                                             <td>
+                                                
+                                                <p>No
+                                                   
+                                                </p>
+                                                
+                                             </td>
+                                             
+                                          </tr>
+                                          
+                                       </table>
+                                    </div>
+                                 </div>
+                                 
+                                 
+                                 
+                                 
+                                 <p>
+                                    
+                                    A service-linked role is a type of service role that is linked to an AWS service.
+                                    The service can assume the role to perform an action on your behalf. 
+                                    Service-linked roles appear in your IAM account and are owned by the service. An IAM
+                                    administrator can view, 
+                                    but not edit the permissions for service-linked roles. 
+                                    
+                                 </p>
+                                 
+                                 
+                                 
+                                 
+                                 <p>For details about creating or managing service-linked roles, see <a href="https://docs.aws.amazon.com/IAM/latest/UserGuide/reference_aws-services-that-work-with-iam.html">AWS services
+                                       that work with IAM</a>. Find a service in the table that includes a
+                                    <code class="code">Yes</code> in the <b>Service-linked role</b> column. Choose the
+                                    <b>Yes</b> link to view the service-linked role documentation for that
+                                    service.
+                                 </p>
+                                 
+                                 
+                                 <awsdocs-copyright class="copyright-print"></awsdocs-copyright>
+                                 <awsdocs-thumb-feedback right-edge="{{$ctrl.thumbFeedbackRightEdge}}"></awsdocs-thumb-feedback>
+                              </div>
+                              <noscript>
+                                 <div>
+                                    <div>
+                                       <div>
+                                          <div id="js_error_message">
+                                             <p><img src="https://d1ge0kk1l5kms0.cloudfront.net/images/G/01/webservices/console/warning.png" alt="Warning" /> <strong>Javascript is disabled or is unavailable in your
+                                                   browser.</strong></p>
+                                             <p>To use the Amazon Web Services Documentation, Javascript must be
+                                                enabled. Please refer to your browser's Help pages for instructions.
+                                             </p>
+                                          </div>
+                                       </div>
+                                    </div>
+                                 </div>
+                              </noscript>
+                              <div id="main-col-footer" class="awsui-util-font-size-0">
+                                 <div id="doc-conventions"><a target="_top" href="/general/latest/gr/docconventions.html">Document Conventions</a></div>
+                                 <div class="prev-next">
+                                    <div id="previous" class="prev-link" accesskey="p" href="./security-iam.html">Identity and Access Management</div>
+                                    <div id="next" class="next-link" accesskey="n" href="./security_iam_id-based-policy-examples.html">Identity-based policy examples</div>
+                                 </div>
+                              </div>
+                              <awsdocs-page-utilities></awsdocs-page-utilities>
+                           </div>
+                           <div id="quick-feedback-yes" style="display: none;">
+                              <div class="title">Did this page help you? - Yes</div>
+                              <div class="content">
+                                 <p>Thanks for letting us know we're doing a good
+                                    job!
+                                 </p>
+                                 <p>If you've got a moment, please tell us what we did right
+                                    so we can do more of it.
+                                 </p>
+                                 <p>
+                                    <awsui-button id="fblink" target="_blank" text="Feedback" click="linkClick($event)" href="https://docs.aws.amazon.com/forms/aws-doc-feedback?hidden_service_name=IoT Docs&amp;topic_url=https://docs.aws.amazon.com/en_us/iot/latest/fleethubuserguide/security_iam_service-with-iam.html"></awsui-button>
+                                 </p>
+                              </div>
+                           </div>
+                           <div id="quick-feedback-no" style="display: none;">
+                              <div class="title">Did this page help you? - No</div>
+                              <div class="content">
+                                 <p>Thanks for letting us know this page needs work. We're
+                                    sorry we let you down.
+                                 </p>
+                                 <p>If you've got a moment, please tell us how we can make
+                                    the documentation better.
+                                 </p>
+                                 <p>
+                                    <awsui-button id="fblink" target="_blank" text="Feedback" click="linkClick($event)" href="https://docs.aws.amazon.com/forms/aws-doc-feedback?hidden_service_name=IoT Docs&amp;topic_url=https://docs.aws.amazon.com/en_us/iot/latest/fleethubuserguide/security_iam_service-with-iam.html"></awsui-button>
+                                 </p>
+                              </div>
+                           </div>
+                        </div>
+                     </body>
+                  </div>
+               </awsdocs-view>
+               <div class="page-loading-indicator" id="page-loading-indicator">
+                  <awsui-spinner size="large"></awsui-spinner>
+               </div>
+            </div>
+            <div id="tools-panel" dom-region="tools">
+               <awsdocs-tools-panel id="awsdocs-tools-panel"></awsdocs-tools-panel>
+            </div>
+         </awsui-app-layout>
+         <awsdocs-cookie-banner class="doc-cookie-banner"></awsdocs-cookie-banner>
+         <!--
+                SiteCatalyst code version: H.25.2.
+                Copyright 1996-2012 Adobe, Inc. All Rights Reserved
+                More info available at http://www.omniture.com
+            --><script language="JavaScript" type="text/javascript">
+var awsdocs = awsdocs || {};
+awsdocs.prop66 = 'Fleet Hub for AWS IoT Device Management';
+awsdocs.prop65 =  'Fleet Hub for AWS IoT Device Management Guide';
+            </script><script src="https://a0.awsstatic.com/s_code/js/3.0/awshome_s_code.js" language="JavaScript" type="text/javascript"></script>
+         <!--/DO NOT REMOVE/-->
+         <!--End SiteCatalyst code version: H.25.2.--></div>
+   </body>
+</html>

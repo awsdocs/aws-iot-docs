@@ -1,0 +1,359 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" ng-app="AWSDocsDocPageApp">
+   <head>
+      <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+      <title>AWS managed policies for Fleet Hub for AWS IoT Device Management - Fleet Hub for AWS IoT Device Management</title>
+      <meta name="viewport" content="width=device-width,initial-scale=1" />
+      <meta name="assets_root" content="assets" />
+      <meta name="target_state" content="security-iam-awsmanpol" />
+      <meta name="default_state" content="security-iam-awsmanpol" />
+      <link rel="icon" type="image/ico" href="/assets/images/favicon.ico" />
+      <link rel="shortcut icon" type="image/ico" href="/assets/images/favicon.ico" />
+      <link rel="canonical" href="https://docs.aws.amazon.com/iot/latest/fleethubuserguide/security-iam-awsmanpol.html" />
+      <meta name="description" content="Learn about AWS managed policies for Fleet Hub and recent changes to those policies." />
+      <meta name="deployment_region" content="IAD" />
+      <meta name="product" content="Fleet Hub for AWS IoT Device Management" />
+      <meta name="guide" content="Fleet Hub for AWS IoT Device Management Guide" />
+      <meta name="locales" content="de_de:Deutsch/en_us:English/es_es:Español/fr_fr:Français/it_it:Italiano/ja_jp:日本語/ko_kr:한국어/pt_br:Português/zh_cn:中文 (简体)/zh_tw:中文 (繁體)" />
+      <meta name="abstract" content="Fleet Hub for AWS IoT Device Management enables you to build standalone web applications for monitoring the health of your device fleets. You can make these applications available to technicians in your organization, even if they don't have AWS accounts. Use Fleet Hub for AWS IoT Device Management to manage common fleet-wide tasks such as restarting devices, updating firmware, rotating expired certificates, and investigating and remediating operational and security issues." />
+      <meta name="guide-locale" content="en_us" />
+      <meta name="tocs" content="toc-contents.json" />
+      <meta name="feedback-item" content="IoT Docs" />
+      <meta name="this_doc_product" content="Fleet Hub for AWS IoT Device Management" />
+      <meta name="this_doc_guide" content="Fleet Hub for AWS IoT Device Management Guide" />
+      <link href="assets/css/vendor4.css" rel="stylesheet" />
+      <link href="assets/css/awsdocs-common.css" rel="stylesheet" /><script type="text/javascript" src="assets/js/vendor3.js" defer=""></script><script type="text/javascript" src="assets/js/vendor4.js" defer=""></script><script type="text/javascript" src="assets/js/vendor1.js" defer=""></script><script type="text/javascript" src="assets/js/awsdocs-common.js" defer=""></script><script type="text/javascript" src="assets/js/awsdocs-doc-app.js" defer=""></script></head>
+   <body class="awsdocs awsui">
+      <div class="awsdocs-container">
+         <awsdocs-header></awsdocs-header>
+         <awsui-app-layout id="app-layout" class="awsui-util-no-gutters" ng-controller="ContentController as $ctrl" header-selector="awsdocs-header" navigation-hide="false" navigation-width="$ctrl.navWidth" navigation-open="$ctrl.navOpen" navigation-change="$ctrl.onNavChange($event)" tools-hide="$ctrl.hideTools" tools-width="$ctrl.toolsWidth" tools-open="$ctrl.toolsOpen" tools-change="$ctrl.onToolsChange($event)">
+            <div id="guide-toc" dom-region="navigation">
+               <awsdocs-toc></awsdocs-toc>
+            </div>
+            <div id="main-column" dom-region="content" tabindex="-1">
+               <awsdocs-view class="awsdocs-view">
+                  <div id="awsdocs-content">
+                     <head>
+                        <title>AWS managed policies for Fleet Hub for AWS IoT Device Management - Fleet Hub for AWS IoT Device Management</title>
+                        <meta name="pdf" content="iotfleethub-ug.pdf#security-iam-awsmanpol" />
+                        <meta name="github" content="https://github.com/awsdocs/aws-iot-docs/tree/master/iotfleethubguide/security-iam-awsmanpol.md" />
+                        <meta name="forums" content="http://forums.aws.amazon.com/forum.jspa?forumID=210" />
+                        <meta name="feedback" content="https://docs.aws.amazon.com/forms/aws-doc-feedback?hidden_service_name=IoT%20Docs&amp;topic_url=http://docs.aws.amazon.com/en_us/iot/latest/fleethubuserguide/security-iam-awsmanpol.html" />
+                        <meta name="feedback-yes" content="feedbackyes.html?topic_url=http://docs.aws.amazon.com/en_us/iot/latest/fleethubuserguide/security-iam-awsmanpol.html" />
+                        <meta name="feedback-no" content="feedbackno.html?topic_url=http://docs.aws.amazon.com/en_us/iot/latest/fleethubuserguide/security-iam-awsmanpol.html" />
+                        <meta name="keywords" content="AWS IoT,Spyglass,Monitoring" />
+                     </head>
+                     <body>
+                        <div id="main">
+                           <div style="display: none"><a href="iotfleethub-ug.pdf#security-iam-awsmanpol" target="_blank" rel="noopener noreferrer" title="Open PDF"></a><a href="https://github.com/awsdocs/aws-iot-docs/tree/master/iotfleethubguide/security-iam-awsmanpol.md" target="_blank" rel="noopener noreferrer" title="Edit this page on GitHub"></a></div>
+                           <div id="breadcrumbs" class="breadcrumb"><a href="http://aws.amazon.com">AWS</a><a href="/index.html">Documentation</a><a href="/iot/index.html">AWS IoT Core</a><a href="what-is-aws-iot-monitor.html">Fleet Hub for AWS IoT Device Management Guide</a></div>
+                           <div id="page-toc-src"><a href="#security-iam-awsmanpol-AWSIoTFleetHubFederationAccess">AWSIoTFleetHubFederationAccess</a><a href="#security-iam-awsmanpol-updates">Policy updates</a></div>
+                           <div id="main-content" class="awsui-util-container">
+                              <div id="main-col-body">
+                                 <awsdocs-language-banner data-service="$ctrl.pageService"></awsdocs-language-banner>
+                                 <h1 class="topictitle" id="security-iam-awsmanpol">AWS managed policies for Fleet Hub for AWS IoT Device Management</h1>
+                                 <div class="awsdocs-page-header-container">
+                                    <awsdocs-page-header></awsdocs-page-header>
+                                    <awsdocs-filter-selector id="awsdocs-filter-selector"></awsdocs-filter-selector>
+                                 </div>
+                                 <p></p>
+                                 <p></p>
+                                 <p></p>
+                                 <p>To add permissions to users, groups, and roles, it is easier to use AWS managed policies
+                                    than to write policies yourself. It takes time and expertise to <a href="https://docs.aws.amazon.com/IAM/latest/UserGuide/access_policies_create-console.html">create IAM customer
+                                       managed policies</a> that provide your team with only the permissions they need. To get
+                                    started quickly, you can use our AWS managed policies. These policies cover common
+                                    use cases
+                                    and are available in your AWS account. For more information about AWS managed policies,
+                                    see <a href="https://docs.aws.amazon.com/IAM/latest/UserGuide/access_policies_managed-vs-inline.html#aws-managed-policies">AWS managed policies</a> in the <em>IAM User Guide</em>.
+                                 </p>
+                                 <p>AWS services maintain and update AWS managed policies. You can't change the
+                                    permissions in AWS managed policies. Services occasionally add additional permissions
+                                    to an
+                                    AWS managed policy to support new features. This type of update affects all identities
+                                    (users, groups, and roles) where the policy is attached. Services are most likely
+                                    to update an
+                                    AWS managed policy when a new feature is launched or when new operations become available.
+                                    Services do not remove permissions from an AWS managed policy, so policy updates won't
+                                    break your existing permissions.
+                                 </p>
+                                 <p>Additionally, AWS supports managed policies for job functions that span multiple
+                                    services. For example, the <b>ReadOnlyAccess</b> AWS managed
+                                    policy provides read-only access to all AWS services and resources. When a service
+                                    launches
+                                    a new feature, AWS adds read-only permissions for new operations and resources. For
+                                    a list
+                                    and descriptions of job function policies, see <a href="https://docs.aws.amazon.com/IAM/latest/UserGuide/access_policies_job-functions.html">AWS managed policies for
+                                       job functions</a> in the <em>IAM User Guide</em>.
+                                 </p>
+                                 <p></p>
+                                 <p></p>
+                                 <p></p>
+                                 <p></p>
+                                 
+                                 <h2 id="security-iam-awsmanpol-AWSIoTFleetHubFederationAccess">AWS managed policy: AWSIoTFleetHubFederationAccess</h2>
+                                 
+                                 <p></p>
+                                 
+                                 <p></p>
+                                 
+                                 <p>You can attach the <code class="code">AWSIoTFleetHubFederationAccess</code> policy to your IAM identities.
+                                 </p>
+                                 
+                                 <p></p>
+                                 
+                                 <p>This policy grants Fleet Hub for AWS IoT Device Management federated users the permissions
+                                    they need to take actions in 
+                                    AWS IoT and other AWS services from Fleet Hub web applications.
+                                 </p>
+                                 
+                                 <p>For more information about adding users to Fleet Hub web applications, see <a href="./aws-iot-monitor-admin-work-with-apps-add-users.html">How to add users to Fleet Hub for AWS IoT Device Management applications</a>.
+                                 </p>
+                                 
+                                 <p>View this policy in the 
+                                    <a href="https://console.aws.amazon.com/iam/home?#/policies/arn:aws:iam::aws:policy/service-role/AWSIoTFleetHubFederationAccess$jsonEditor" rel="noopener noreferrer" target="_blank"><span>AWS console</span><awsui-icon class="awsdocs-link-icon" name="external"></awsui-icon></a>.
+                                 </p>
+                                 
+                                 <p></p>
+                                 <p></p>
+                                 
+                                 <h2 id="security-iam-awsmanpol-updates">Fleet Hub updates to AWS managed
+                                    policies
+                                 </h2>
+                                 
+                                 <p></p>
+                                 
+                                 <p>View details about updates to AWS managed policies for Fleet Hub since this service
+                                    began tracking these changes.
+                                 </p>
+                                 
+                                 <p></p>
+                                 
+                                 <div class="table-container">
+                                    <div class="table-contents">
+                                       <table id="w249aac15c37c45b9">
+                                          <thead>
+                                             
+                                             <tr>
+                                                
+                                                <th>Change</th>
+                                                
+                                                <th>Description</th>
+                                                
+                                                <th>Date</th>
+                                                
+                                             </tr>
+                                             
+                                          </thead>
+                                          
+                                          
+                                          <tr>
+                                             
+                                             <td>
+                                                
+                                                <p>
+                                                   <a href="https://console.aws.amazon.com/iam/home?#/policies/arn:aws:iam::aws:policy/service-role/AWSIoTFleetHubFederationAccess$jsonEditor" rel="noopener noreferrer" target="_blank"><span>AWSIoTFleetHubFederationAccess</span><awsui-icon class="awsdocs-link-icon" name="external"></awsui-icon></a> –
+                                                   Update to an existing policy
+                                                </p>
+                                                
+                                             </td>
+                                             
+                                             <td>
+                                                
+                                                <p>Fleet Hub removed the following unsupported APIs.</p>
+                                                
+                                                <div class="itemizedlist">
+                                                    
+                                                    
+                                                   
+                                                   <ul class="itemizedlist" type="disc">
+                                                      <li class="listitem">
+                                                         <p>iotfleethub:ListDashboards</p>
+                                                      </li>
+                                                      <li class="listitem">
+                                                         <p>iotfleethub:DescribeDashboard</p>
+                                                      </li>
+                                                   </ul>
+                                                </div>
+                                                
+                                             </td>
+                                             
+                                             <td>April 12, 2021</td>
+                                             
+                                          </tr>
+                                          
+                                          <tr>
+                                             
+                                             <td>
+                                                
+                                                <p>
+                                                   <a href="https://console.aws.amazon.com/iam/home?#/policies/arn:aws:iam::aws:policy/service-role/AWSIoTFleetHubFederationAccess$jsonEditor" rel="noopener noreferrer" target="_blank"><span>AWSIoTFleetHubFederationAccess</span><awsui-icon class="awsdocs-link-icon" name="external"></awsui-icon></a> –
+                                                   Update to an existing policy
+                                                </p>
+                                                
+                                             </td>
+                                             
+                                             <td>
+                                                
+                                                <p>Fleet Hub added the following APIs.</p>
+                                                
+                                                <div class="itemizedlist">
+                                                    
+                                                    
+                                                                                   
+                                                    
+                                                    
+                                                                                 
+                                                    
+                                                    
+                                                    
+                                                    
+                                                    
+                                                   
+                                                   <ul class="itemizedlist" type="disc">
+                                                      <li class="listitem">
+                                                         <p>iot:ListThingGroups</p>
+                                                      </li>
+                                                      <li class="listitem">
+                                                         <p>iot:ListThingsInThingGroup</p>
+                                                      </li>
+                                                      <li class="listitem">
+                                                         <p>iot:ListJobTemplates</p>
+                                                      </li>
+                                                      <li class="listitem">
+                                                         <p>iot:DescribeJobTemplate</p>
+                                                      </li>
+                                                      <li class="listitem">
+                                                         <p>iot:ListJobs</p>
+                                                      </li>
+                                                      <li class="listitem">
+                                                         <p>iot:CreateJob</p>
+                                                      </li>
+                                                      <li class="listitem">
+                                                         <p>iot:CancelJob</p>
+                                                      </li>
+                                                      <li class="listitem">
+                                                         <p>iot:DescribeJob</p>
+                                                      </li>
+                                                      <li class="listitem">
+                                                         <p>iot:ListJobExecutionsForJob</p>
+                                                      </li>
+                                                      <li class="listitem">
+                                                         <p>iot:ListJobExecutionsForThing</p>
+                                                      </li>
+                                                      <li class="listitem">
+                                                         <p>iot:DescribeJobExecution</p>
+                                                      </li>
+                                                   </ul>
+                                                </div>                          
+                                                
+                                             </td>
+                                             
+                                             <td>May 24, 2021</td>
+                                             
+                                          </tr>
+                                          
+                                          <tr>
+                                             
+                                             <td>
+                                                
+                                                <p>Fleet Hub started tracking changes</p>
+                                                
+                                             </td>
+                                             
+                                             <td>
+                                                
+                                                <p>Fleet Hub started tracking changes for its AWS managed policies.</p>
+                                                
+                                             </td>
+                                             
+                                             <td>April 12, 2021</td>
+                                             
+                                          </tr>
+                                          
+                                          
+                                       </table>
+                                    </div>
+                                 </div>
+                                 
+                                 <awsdocs-copyright class="copyright-print"></awsdocs-copyright>
+                                 <awsdocs-thumb-feedback right-edge="{{$ctrl.thumbFeedbackRightEdge}}"></awsdocs-thumb-feedback>
+                              </div>
+                              <noscript>
+                                 <div>
+                                    <div>
+                                       <div>
+                                          <div id="js_error_message">
+                                             <p><img src="https://d1ge0kk1l5kms0.cloudfront.net/images/G/01/webservices/console/warning.png" alt="Warning" /> <strong>Javascript is disabled or is unavailable in your
+                                                   browser.</strong></p>
+                                             <p>To use the Amazon Web Services Documentation, Javascript must be
+                                                enabled. Please refer to your browser's Help pages for instructions.
+                                             </p>
+                                          </div>
+                                       </div>
+                                    </div>
+                                 </div>
+                              </noscript>
+                              <div id="main-col-footer" class="awsui-util-font-size-0">
+                                 <div id="doc-conventions"><a target="_top" href="/general/latest/gr/docconventions.html">Document Conventions</a></div>
+                                 <div class="prev-next">
+                                    <div id="previous" class="prev-link" accesskey="p" href="./disaster-recovery-resiliency.html">Resilience</div>
+                                    <div id="next" class="next-link" accesskey="n" href="./infrastructure-security.html">Infrastructure security</div>
+                                 </div>
+                              </div>
+                              <awsdocs-page-utilities></awsdocs-page-utilities>
+                           </div>
+                           <div id="quick-feedback-yes" style="display: none;">
+                              <div class="title">Did this page help you? - Yes</div>
+                              <div class="content">
+                                 <p>Thanks for letting us know we're doing a good
+                                    job!
+                                 </p>
+                                 <p>If you've got a moment, please tell us what we did right
+                                    so we can do more of it.
+                                 </p>
+                                 <p>
+                                    <awsui-button id="fblink" target="_blank" text="Feedback" click="linkClick($event)" href="https://docs.aws.amazon.com/forms/aws-doc-feedback?hidden_service_name=IoT Docs&amp;topic_url=https://docs.aws.amazon.com/en_us/iot/latest/fleethubuserguide/security-iam-awsmanpol.html"></awsui-button>
+                                 </p>
+                              </div>
+                           </div>
+                           <div id="quick-feedback-no" style="display: none;">
+                              <div class="title">Did this page help you? - No</div>
+                              <div class="content">
+                                 <p>Thanks for letting us know this page needs work. We're
+                                    sorry we let you down.
+                                 </p>
+                                 <p>If you've got a moment, please tell us how we can make
+                                    the documentation better.
+                                 </p>
+                                 <p>
+                                    <awsui-button id="fblink" target="_blank" text="Feedback" click="linkClick($event)" href="https://docs.aws.amazon.com/forms/aws-doc-feedback?hidden_service_name=IoT Docs&amp;topic_url=https://docs.aws.amazon.com/en_us/iot/latest/fleethubuserguide/security-iam-awsmanpol.html"></awsui-button>
+                                 </p>
+                              </div>
+                           </div>
+                        </div>
+                     </body>
+                  </div>
+               </awsdocs-view>
+               <div class="page-loading-indicator" id="page-loading-indicator">
+                  <awsui-spinner size="large"></awsui-spinner>
+               </div>
+            </div>
+            <div id="tools-panel" dom-region="tools">
+               <awsdocs-tools-panel id="awsdocs-tools-panel"></awsdocs-tools-panel>
+            </div>
+         </awsui-app-layout>
+         <awsdocs-cookie-banner class="doc-cookie-banner"></awsdocs-cookie-banner>
+         <!--
+                SiteCatalyst code version: H.25.2.
+                Copyright 1996-2012 Adobe, Inc. All Rights Reserved
+                More info available at http://www.omniture.com
+            --><script language="JavaScript" type="text/javascript">
+var awsdocs = awsdocs || {};
+awsdocs.prop66 = 'Fleet Hub for AWS IoT Device Management';
+awsdocs.prop65 =  'Fleet Hub for AWS IoT Device Management Guide';
+            </script><script src="https://a0.awsstatic.com/s_code/js/3.0/awshome_s_code.js" language="JavaScript" type="text/javascript"></script>
+         <!--/DO NOT REMOVE/-->
+         <!--End SiteCatalyst code version: H.25.2.--></div>
+   </body>
+</html>

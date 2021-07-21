@@ -1,0 +1,359 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" ng-app="AWSDocsDocPageApp">
+   <head>
+      <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+      <title>AWS IoT Core policy actions - AWS IoT Core</title>
+      <meta name="viewport" content="width=device-width,initial-scale=1" />
+      <meta name="assets_root" content="assets" />
+      <meta name="target_state" content="iot-policy-actions" />
+      <meta name="default_state" content="iot-policy-actions" />
+      <link rel="icon" type="image/ico" href="/assets/images/favicon.ico" />
+      <link rel="shortcut icon" type="image/ico" href="/assets/images/favicon.ico" />
+      <link rel="canonical" href="https://docs.aws.amazon.com/iot/latest/developerguide/iot-policy-actions.html" />
+      <meta name="description" content="The following policy actions are defined by AWS IoT Core:" />
+      <meta name="deployment_region" content="IAD" />
+      <meta name="product" content="AWS IoT Core" />
+      <meta name="guide" content="Developer Guide" />
+      <meta name="locales" content="de_de:Deutsch/en_us:English/es_es:Español/fr_fr:Français/it_it:Italiano/ja_jp:日本語/ko_kr:한국어/pt_br:Português/zh_cn:中文 (简体)/zh_tw:中文 (繁體)" />
+      <meta name="abstract" content="AWS IoT provides secure, bi-directional communication between Internet-connected devices such as sensors, actuators, embedded micro-controllers, or smart appliances and the AWS Cloud. This enables you to collect telemetry data from multiple devices, and store and analyze the data. You can also create applications that enable your users to control these devices from their phones or tablets." />
+      <meta name="guide-locale" content="en_us" />
+      <meta name="tocs" content="toc-contents.json" />
+      <meta name="feedback-item" content="IoT Docs" />
+      <meta name="this_doc_product" content="AWS IoT Core" />
+      <meta name="this_doc_guide" content="Developer Guide" />
+      <link href="assets/css/vendor4.css" rel="stylesheet" />
+      <link href="assets/css/awsdocs-common.css" rel="stylesheet" /><script type="text/javascript" src="assets/js/vendor3.js" defer=""></script><script type="text/javascript" src="assets/js/vendor4.js" defer=""></script><script type="text/javascript" src="assets/js/vendor1.js" defer=""></script><script type="text/javascript" src="assets/js/awsdocs-common.js" defer=""></script><script type="text/javascript" src="assets/js/awsdocs-doc-app.js" defer=""></script></head>
+   <body class="awsdocs awsui">
+      <div class="awsdocs-container">
+         <awsdocs-header></awsdocs-header>
+         <awsui-app-layout id="app-layout" class="awsui-util-no-gutters" ng-controller="ContentController as $ctrl" header-selector="awsdocs-header" navigation-hide="false" navigation-width="$ctrl.navWidth" navigation-open="$ctrl.navOpen" navigation-change="$ctrl.onNavChange($event)" tools-hide="$ctrl.hideTools" tools-width="$ctrl.toolsWidth" tools-open="$ctrl.toolsOpen" tools-change="$ctrl.onToolsChange($event)">
+            <div id="guide-toc" dom-region="navigation">
+               <awsdocs-toc></awsdocs-toc>
+            </div>
+            <div id="main-column" dom-region="content" tabindex="-1">
+               <awsdocs-view class="awsdocs-view">
+                  <div id="awsdocs-content">
+                     <head>
+                        <title>AWS IoT Core policy actions - AWS IoT Core</title>
+                        <meta name="pdf" content="iot-dg.pdf#iot-policy-actions" />
+                        <meta name="kindle" content="https://www.amazon.com/dp/B07JBRCWWZ" />
+                        <meta name="github" content="https://github.com/awsdocs/aws-iot-docs/tree/master/developerguide/iot-policy-actions.md" />
+                        <meta name="forums" content="http://forums.aws.amazon.com/forum.jspa?forumID=210" />
+                        <meta name="feedback" content="https://docs.aws.amazon.com/forms/aws-doc-feedback?hidden_service_name=IoT%20Docs&amp;topic_url=http://docs.aws.amazon.com/en_us/iot/latest/developerguide/iot-policy-actions.html" />
+                        <meta name="feedback-yes" content="feedbackyes.html?topic_url=http://docs.aws.amazon.com/en_us/iot/latest/developerguide/iot-policy-actions.html" />
+                        <meta name="feedback-no" content="feedbackno.html?topic_url=http://docs.aws.amazon.com/en_us/iot/latest/developerguide/iot-policy-actions.html" />
+                        <meta name="keywords" content="AWS IoT,IoT,Internet of Things" />
+                     </head>
+                     <body>
+                        <div id="main">
+                           <div style="display: none"><a href="iot-dg.pdf#iot-policy-actions" target="_blank" rel="noopener noreferrer" title="Open PDF"></a><a target="_blank" rel="noopener noreferrer" href="https://www.amazon.com/dp/B07JBRCWWZ" title="Open Kindle"></a><a href="https://github.com/awsdocs/aws-iot-docs/tree/master/developerguide/iot-policy-actions.md" target="_blank" rel="noopener noreferrer" title="Edit this page on GitHub"></a></div>
+                           <div id="breadcrumbs" class="breadcrumb"><a href="http://aws.amazon.com">AWS</a><a href="/index.html">Documentation</a><a href="/iot/index.html">AWS IoT Core</a><a href="what-is-aws-iot.html">Developer Guide</a></div>
+                           <div id="main-content" class="awsui-util-container">
+                              <div id="main-col-body">
+                                 <awsdocs-language-banner data-service="$ctrl.pageService"></awsdocs-language-banner>
+                                 <h1 class="topictitle" id="iot-policy-actions">AWS IoT Core policy actions</h1>
+                                 <div class="awsdocs-page-header-container">
+                                    <awsdocs-page-header></awsdocs-page-header>
+                                    <awsdocs-filter-selector id="awsdocs-filter-selector"></awsdocs-filter-selector>
+                                 </div>
+                                 <p>The following policy actions are defined by AWS IoT Core:</p>
+                                 <div class="variablelist">
+                                    
+                                    <p class="title"><b>MQTT Policy Actions</b></p>
+                                     
+                                     
+                                     
+                                     
+                                    
+                                    <dl>
+                                       
+                                       <dt><a id="action_connect"></a><span class="term">iot:Connect</span></dt>
+                                       
+                                       <dd>
+                                          
+                                          <p>Represents the permission to connect to the AWS IoT Core message broker. The
+                                             <code class="code">iot:Connect</code> permission is checked every time a
+                                             <code class="code">CONNECT</code> request is sent to the broker. The message
+                                             broker does not allow two clients with the same client ID to stay
+                                             connected at the same time. After the second client connects, the broker
+                                             closes the existing connection. The <code class="code">iot:Connect</code> permission
+                                             can be used to ensure only authorized clients using a specific client ID
+                                             can connect.
+                                          </p>
+                                          
+                                       </dd>
+                                        
+                                       
+                                       <dt><a id="action_publish"></a><span class="term">iot:Publish</span></dt>
+                                       
+                                       <dd>
+                                          
+                                          <p>Represents the permission to publish on an MQTT topic. This permission
+                                             is checked every time a PUBLISH request is sent to the broker. This can
+                                             be used to allow clients to publish to specific topic patterns.
+                                          </p>
+                                          
+                                          <div class="awsdocs-note">
+                                             <div class="awsdocs-note-title">
+                                                <awsui-icon name="status-info" variant="link"></awsui-icon><span>Note</span></div>
+                                             <div class="awsdocs-note-text">
+                                                <p>To grant <code class="code">iot:Publish</code> permission, you must also grant
+                                                   <code class="code">iot:Connect</code> permission.
+                                                </p>
+                                             </div>
+                                          </div>
+                                          
+                                       </dd>
+                                        
+                                       
+                                       <dt><a id="action_receive"></a><span class="term">iot:Receive</span></dt>
+                                       
+                                       <dd>
+                                          
+                                          <p>Represents the permission to receive a message from AWS IoT Core. The
+                                             <code class="code">iot:Receive</code> permission is checked every time a message
+                                             is delivered to a client. Because this permission is checked on every
+                                             delivery, it can be used to revoke permissions to clients that are
+                                             currently subscribed to a topic.
+                                          </p>
+                                          
+                                       </dd>
+                                        
+                                       
+                                       <dt><a id="action_subscribe"></a><span class="term">iot:Subscribe</span></dt>
+                                       
+                                       <dd>
+                                          
+                                          <p>Represents the permission to subscribe to a topic filter. This
+                                             permission is checked every time a SUBSCRIBE request is sent to the
+                                             broker. This can be used to allow clients to subscribe to topics that
+                                             match specific topic patterns.
+                                          </p>
+                                          
+                                          <div class="awsdocs-note">
+                                             <div class="awsdocs-note-title">
+                                                <awsui-icon name="status-info" variant="link"></awsui-icon><span>Note</span></div>
+                                             <div class="awsdocs-note-text">
+                                                <p>To grant <code class="code">iot:Subscribe</code> permission, you must also
+                                                   grant <code class="code">iot:Connect</code> permission.
+                                                </p>
+                                             </div>
+                                          </div>
+                                          
+                                       </dd>
+                                       
+                                    </dl>
+                                 </div>
+                                 <div class="variablelist">
+                                    
+                                    <p class="title"><b>Device Shadow Policy Actions</b></p>
+                                     
+                                     
+                                     
+                                     
+                                    
+                                    <dl>
+                                       
+                                       <dt><a id="action_deleteThingShadow"></a><span class="term">iot:DeleteThingShadow</span></dt>
+                                       
+                                       <dd>
+                                          
+                                          <p>Represents the permission to delete a thing's Device Shadow. The
+                                             <code class="code">iot:DeleteThingShadow</code> permission is checked every time
+                                             a request is made to delete a thing's Device Shadow contents.
+                                          </p>
+                                          
+                                       </dd>
+                                        
+                                       
+                                       <dt><a id="action_getThingShadow"></a><span class="term">iot:GetThingShadow</span></dt>
+                                       
+                                       <dd>
+                                          
+                                          <p>Represents the permission to retrieve a thing's Device Shadow. The
+                                             <code class="code">iot:GetThingShadow</code> permission is checked every time a
+                                             request is made to retrieve a thing's Device Shadow contents.
+                                          </p>
+                                          
+                                       </dd>
+                                        
+                                       
+                                       <dt><span class="term">iot:ListNamedShadowsForThing</span></dt>
+                                       
+                                       <dd>
+                                          
+                                          <p>Represents the permission to list a thing's named Shadows. The
+                                             <code class="code">iot:ListNamedShadowsForThing</code> permission is checked
+                                             every time a request is made to list a thing's named Shadows.
+                                          </p>
+                                          
+                                       </dd>
+                                        
+                                       
+                                       <dt><a id="action_updateThingShadow"></a><span class="term">iot:UpdateThingShadow</span></dt>
+                                       
+                                       <dd>
+                                          
+                                          <p>Represents the permission to update a device's shadow. The
+                                             <code class="code">iot:UpdateThingShadow</code> permission is checked every time
+                                             a request is made to update a thing's Device Shadow contents.
+                                          </p>
+                                          
+                                       </dd>
+                                       
+                                    </dl>
+                                 </div>
+                                 <div class="awsdocs-note">
+                                    <div class="awsdocs-note-title">
+                                       <awsui-icon name="status-info" variant="link"></awsui-icon><span>Note</span></div>
+                                    <div class="awsdocs-note-text">
+                                       <p>The job execution policy actions apply only for the HTTP TLS endpoint. If you
+                                          use the MQTT endpoint, you must use MQTT policy actions defined in this
+                                          topic.
+                                       </p>
+                                    </div>
+                                 </div>
+                                 <div class="variablelist">
+                                    
+                                    <p class="title"><b>Job Executions AWS IoT Core Policy Actions</b></p>
+                                     
+                                     
+                                     
+                                     
+                                    
+                                    <dl>
+                                       
+                                       <dt><a id="action_DescribeJobExecution"></a><span class="term">iot:DescribeJobExecution</span></dt>
+                                       
+                                       <dd>
+                                          
+                                          <p>Represents the permission to retrieve a job execution for a given
+                                             thing. The <code class="code">iot:DescribeJobExecution</code> permission is checked
+                                             every time a request is made to get a job execution.
+                                          </p>
+                                          
+                                       </dd>
+                                        
+                                       
+                                       <dt><a id="action_GetPendingJobExecutions"></a><span class="term">iot:GetPendingJobExecutions</span></dt>
+                                       
+                                       <dd>
+                                          
+                                          <p>Represents the permission to retrieve the list of jobs that are not in
+                                             a terminal status for a thing. The
+                                             <code class="code">iot:GetPendingJobExecutions</code> permission is checked every
+                                             time a request is made to retrieve the list. 
+                                          </p>
+                                          
+                                       </dd>
+                                        
+                                       
+                                       <dt><a id="action_UpdateJobExecution"></a><span class="term">iot:UpdateJobExecution</span></dt>
+                                       
+                                       <dd>
+                                          
+                                          <p>Represents the permission to update a job execution. The
+                                             <code class="code">iot:UpdateJobExecution</code> permission is checked every time
+                                             a request is made to update the state of a job execution.
+                                          </p>
+                                          
+                                       </dd>
+                                        
+                                       
+                                       <dt><a id="action_StartNextPendingJobExecution"></a><span class="term">iot:StartNextPendingJobExecution</span></dt>
+                                       
+                                       <dd>
+                                          
+                                          <p>Represents the permission to get and start the next pending job
+                                             execution for a thing. (That is, to update a job execution with status
+                                             QUEUED to IN_PROGRESS.) The
+                                             <code class="code">iot:StartNextPendingJobExecution</code> permission is checked
+                                             every time a request is made to start the next pending job
+                                             execution.
+                                          </p>
+                                          
+                                       </dd>
+                                       
+                                    </dl>
+                                 </div>
+                                 <awsdocs-copyright class="copyright-print"></awsdocs-copyright>
+                                 <awsdocs-thumb-feedback right-edge="{{$ctrl.thumbFeedbackRightEdge}}"></awsdocs-thumb-feedback>
+                              </div>
+                              <noscript>
+                                 <div>
+                                    <div>
+                                       <div>
+                                          <div id="js_error_message">
+                                             <p><img src="https://d1ge0kk1l5kms0.cloudfront.net/images/G/01/webservices/console/warning.png" alt="Warning" /> <strong>Javascript is disabled or is unavailable in your
+                                                   browser.</strong></p>
+                                             <p>To use the Amazon Web Services Documentation, Javascript must be
+                                                enabled. Please refer to your browser's Help pages for instructions.
+                                             </p>
+                                          </div>
+                                       </div>
+                                    </div>
+                                 </div>
+                              </noscript>
+                              <div id="main-col-footer" class="awsui-util-font-size-0">
+                                 <div id="doc-conventions"><a target="_top" href="/general/latest/gr/docconventions.html">Document Conventions</a></div>
+                                 <div class="prev-next">
+                                    <div id="previous" class="prev-link" accesskey="p" href="./iot-policies.html">AWS IoT Core policies</div>
+                                    <div id="next" class="next-link" accesskey="n" href="./iot-action-resources.html">AWS IoT Core action resources</div>
+                                 </div>
+                              </div>
+                              <awsdocs-page-utilities></awsdocs-page-utilities>
+                           </div>
+                           <div id="quick-feedback-yes" style="display: none;">
+                              <div class="title">Did this page help you? - Yes</div>
+                              <div class="content">
+                                 <p>Thanks for letting us know we're doing a good
+                                    job!
+                                 </p>
+                                 <p>If you've got a moment, please tell us what we did right
+                                    so we can do more of it.
+                                 </p>
+                                 <p>
+                                    <awsui-button id="fblink" target="_blank" text="Feedback" click="linkClick($event)" href="https://docs.aws.amazon.com/forms/aws-doc-feedback?hidden_service_name=IoT Docs&amp;topic_url=https://docs.aws.amazon.com/en_us/iot/latest/developerguide/iot-policy-actions.html"></awsui-button>
+                                 </p>
+                              </div>
+                           </div>
+                           <div id="quick-feedback-no" style="display: none;">
+                              <div class="title">Did this page help you? - No</div>
+                              <div class="content">
+                                 <p>Thanks for letting us know this page needs work. We're
+                                    sorry we let you down.
+                                 </p>
+                                 <p>If you've got a moment, please tell us how we can make
+                                    the documentation better.
+                                 </p>
+                                 <p>
+                                    <awsui-button id="fblink" target="_blank" text="Feedback" click="linkClick($event)" href="https://docs.aws.amazon.com/forms/aws-doc-feedback?hidden_service_name=IoT Docs&amp;topic_url=https://docs.aws.amazon.com/en_us/iot/latest/developerguide/iot-policy-actions.html"></awsui-button>
+                                 </p>
+                              </div>
+                           </div>
+                        </div>
+                     </body>
+                  </div>
+               </awsdocs-view>
+               <div class="page-loading-indicator" id="page-loading-indicator">
+                  <awsui-spinner size="large"></awsui-spinner>
+               </div>
+            </div>
+            <div id="tools-panel" dom-region="tools">
+               <awsdocs-tools-panel id="awsdocs-tools-panel"></awsdocs-tools-panel>
+            </div>
+         </awsui-app-layout>
+         <awsdocs-cookie-banner class="doc-cookie-banner"></awsdocs-cookie-banner>
+         <!--
+                SiteCatalyst code version: H.25.2.
+                Copyright 1996-2012 Adobe, Inc. All Rights Reserved
+                More info available at http://www.omniture.com
+            --><script language="JavaScript" type="text/javascript">
+var awsdocs = awsdocs || {};
+awsdocs.prop66 = 'AWS IoT Core';
+awsdocs.prop65 =  'Developer Guide';
+            </script><script src="https://a0.awsstatic.com/s_code/js/3.0/awshome_s_code.js" language="JavaScript" type="text/javascript"></script>
+         <!--/DO NOT REMOVE/-->
+         <!--End SiteCatalyst code version: H.25.2.--></div>
+   </body>
+</html>

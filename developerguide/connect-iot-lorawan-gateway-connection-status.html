@@ -1,0 +1,325 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" ng-app="AWSDocsDocPageApp">
+   <head>
+      <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+      <title>Connect your LoRaWAN gateway and verify its connection status - AWS IoT Core</title>
+      <meta name="viewport" content="width=device-width,initial-scale=1" />
+      <meta name="assets_root" content="assets" />
+      <meta name="target_state" content="connect-iot-lorawan-gateway-connection-status" />
+      <meta name="default_state" content="connect-iot-lorawan-gateway-connection-status" />
+      <link rel="icon" type="image/ico" href="/assets/images/favicon.ico" />
+      <link rel="shortcut icon" type="image/ico" href="/assets/images/favicon.ico" />
+      <link rel="canonical" href="https://docs.aws.amazon.com/iot/latest/developerguide/connect-iot-lorawan-gateway-connection-status.html" />
+      <meta name="description" content="Before you can check the gateway connection status, you must have already added your gateway and connected it to AWS IoT Core for LoRaWAN. For information about how to add your gateway, see ." />
+      <meta name="deployment_region" content="IAD" />
+      <meta name="product" content="AWS IoT Core" />
+      <meta name="guide" content="Developer Guide" />
+      <meta name="locales" content="de_de:Deutsch/en_us:English/es_es:Español/fr_fr:Français/it_it:Italiano/ja_jp:日本語/ko_kr:한국어/pt_br:Português/zh_cn:中文 (简体)/zh_tw:中文 (繁體)" />
+      <meta name="abstract" content="AWS IoT provides secure, bi-directional communication between Internet-connected devices such as sensors, actuators, embedded micro-controllers, or smart appliances and the AWS Cloud. This enables you to collect telemetry data from multiple devices, and store and analyze the data. You can also create applications that enable your users to control these devices from their phones or tablets." />
+      <meta name="guide-locale" content="en_us" />
+      <meta name="tocs" content="toc-contents.json" />
+      <meta name="feedback-item" content="IoT Docs" />
+      <meta name="this_doc_product" content="AWS IoT Core" />
+      <meta name="this_doc_guide" content="Developer Guide" />
+      <link href="assets/css/vendor4.css" rel="stylesheet" />
+      <link href="assets/css/awsdocs-common.css" rel="stylesheet" /><script type="text/javascript" src="assets/js/vendor3.js" defer=""></script><script type="text/javascript" src="assets/js/vendor4.js" defer=""></script><script type="text/javascript" src="assets/js/vendor1.js" defer=""></script><script type="text/javascript" src="assets/js/awsdocs-common.js" defer=""></script><script type="text/javascript" src="assets/js/awsdocs-doc-app.js" defer=""></script></head>
+   <body class="awsdocs awsui">
+      <div class="awsdocs-container">
+         <awsdocs-header></awsdocs-header>
+         <awsui-app-layout id="app-layout" class="awsui-util-no-gutters" ng-controller="ContentController as $ctrl" header-selector="awsdocs-header" navigation-hide="false" navigation-width="$ctrl.navWidth" navigation-open="$ctrl.navOpen" navigation-change="$ctrl.onNavChange($event)" tools-hide="$ctrl.hideTools" tools-width="$ctrl.toolsWidth" tools-open="$ctrl.toolsOpen" tools-change="$ctrl.onToolsChange($event)">
+            <div id="guide-toc" dom-region="navigation">
+               <awsdocs-toc></awsdocs-toc>
+            </div>
+            <div id="main-column" dom-region="content" tabindex="-1">
+               <awsdocs-view class="awsdocs-view">
+                  <div id="awsdocs-content">
+                     <head>
+                        <title>Connect your LoRaWAN gateway and verify its connection status - AWS IoT Core</title>
+                        <meta name="pdf" content="iot-dg.pdf#connect-iot-lorawan-gateway-connection-status" />
+                        <meta name="kindle" content="https://www.amazon.com/dp/B07JBRCWWZ" />
+                        <meta name="github" content="https://github.com/awsdocs/aws-iot-docs/tree/master/developerguide/connect-iot-lorawan-gateway-connection-status.md" />
+                        <meta name="forums" content="http://forums.aws.amazon.com/forum.jspa?forumID=210" />
+                        <meta name="feedback" content="https://docs.aws.amazon.com/forms/aws-doc-feedback?hidden_service_name=IoT%20Docs&amp;topic_url=http://docs.aws.amazon.com/en_us/iot/latest/developerguide/connect-iot-lorawan-gateway-connection-status.html" />
+                        <meta name="feedback-yes" content="feedbackyes.html?topic_url=http://docs.aws.amazon.com/en_us/iot/latest/developerguide/connect-iot-lorawan-gateway-connection-status.html" />
+                        <meta name="feedback-no" content="feedbackno.html?topic_url=http://docs.aws.amazon.com/en_us/iot/latest/developerguide/connect-iot-lorawan-gateway-connection-status.html" />
+                        <meta name="keywords" content="AWS IoT,IoT,Internet of Things" />
+                     </head>
+                     <body>
+                        <div id="main">
+                           <div style="display: none"><a href="iot-dg.pdf#connect-iot-lorawan-gateway-connection-status" target="_blank" rel="noopener noreferrer" title="Open PDF"></a><a target="_blank" rel="noopener noreferrer" href="https://www.amazon.com/dp/B07JBRCWWZ" title="Open Kindle"></a><a href="https://github.com/awsdocs/aws-iot-docs/tree/master/developerguide/connect-iot-lorawan-gateway-connection-status.md" target="_blank" rel="noopener noreferrer" title="Edit this page on GitHub"></a></div>
+                           <div id="breadcrumbs" class="breadcrumb"><a href="http://aws.amazon.com">AWS</a><a href="/index.html">Documentation</a><a href="/iot/index.html">AWS IoT Core</a><a href="what-is-aws-iot.html">Developer Guide</a></div>
+                           <div id="page-toc-src"><a href="#connect-iot-lorawan-connect-gateway">Connect your 
+                                 gateway to AWS IoT Core for LoRaWAN</a><a href="#connect-iot-lorawan-connection-status-console">Check 
+                                 gateway connection status using the console</a><a href="#connect-iot-lorawan-connection-status-api">Check 
+                                 gateway connection status using the API</a></div>
+                           <div id="main-content" class="awsui-util-container">
+                              <div id="main-col-body">
+                                 <awsdocs-language-banner data-service="$ctrl.pageService"></awsdocs-language-banner>
+                                 <h1 class="topictitle" id="connect-iot-lorawan-gateway-connection-status">Connect
+                                    your LoRaWAN gateway and verify its connection status
+                                 </h1>
+                                 <div class="awsdocs-page-header-container">
+                                    <awsdocs-page-header></awsdocs-page-header>
+                                    <awsdocs-filter-selector id="awsdocs-filter-selector"></awsdocs-filter-selector>
+                                 </div>
+                                 <p>Before you can check the gateway connection status, you must have
+                                    already added your gateway and connected it to AWS IoT Core for LoRaWAN. For information
+                                    about how to add your gateway, see <a href="./connect-iot-lorawan-onboard-gateway-add.html">Add a gateway
+                                       to AWS IoT Core for LoRaWAN</a>.
+                                 </p>
+                                 
+                                 <h2 id="connect-iot-lorawan-connect-gateway">Connect your 
+                                    gateway to AWS IoT Core for LoRaWAN
+                                 </h2>
+                                 
+                                 <p>After you've added your gateway, connect to the configuration interface 
+                                    of your gateway to enter the configuration information and trust 
+                                    certificates.
+                                 </p>
+                                 
+                                 <p>After adding the gateway's information to AWS IoT Core for LoRaWAN, add some
+                                    AWS IoT Core for LoRaWAN information to the gateway device. The documentation
+                                    provided by the gateway's vendor should describe the process for
+                                    uploading the certificate files to the gateway and configuring the
+                                    gateway device to communicate with AWS IoT Core for LoRaWAN.
+                                 </p>
+                                  
+                                 
+                                 <p class="title"><b>Gateways qualified for use with AWS IoT Core for LoRaWAN</b></p>
+                                 
+                                 <p>For instructions on how to configure your LoRaWAN gateway, 
+                                    refer to the <a href="https://iotwireless.workshop.aws/en/200_gateway/400_configuregateway.html" rel="noopener noreferrer" target="_blank"><span>
+                                          configure gateway device</span><awsui-icon class="awsdocs-link-icon" name="external"></awsui-icon></a> section of the AWS IoT Core for LoRaWAN workshop. Here, you'll 
+                                    find information about instructions for connecting gateways that are qualified for
+                                    
+                                    use with AWS IoT Core for LoRaWAN.
+                                 </p>
+                                                                                          
+                                  
+                                 
+                                 <p class="title"><b>Gateways that support CUPS protocol</b></p>
+                                 
+                                 <p>The following instructions show how you can connect your gateways that 
+                                    support the CUPS protocol.
+                                 </p>
+                                  
+                                 
+                                 <div class="orderedlist">
+                                     
+                                     
+                                    
+                                    <ol>
+                                       <li>
+                                          <p>Upload the following files that you obtained when
+                                             adding your gateway.
+                                          </p>
+                                          
+                                          <div class="itemizedlist">
+                                              
+                                              
+                                             
+                                             <ul class="itemizedlist" type="disc">
+                                                <li class="listitem">
+                                                   
+                                                   <p>Gateway device certificate and private key files.</p>
+                                                   
+                                                </li>
+                                                <li class="listitem">
+                                                   
+                                                   <p>Trust certificate file for CUPS endpoint, <code class="code">cups.trust</code>.
+                                                   </p>
+                                                   
+                                                </li>
+                                             </ul>
+                                          </div>
+                                          
+                                       </li>
+                                       <li>
+                                          
+                                          <p>Specify the CUPS endpoint URL that you obtained
+                                             previously. The endpoint will be of the format
+                                             <code class="code"><code class="replaceable">prefix</code>.cups.lorawan.<code class="replaceable">region</code>.amazonaws.com:443</code>.
+                                          </p>
+                                          
+                                       </li>
+                                    </ol>
+                                 </div>                            
+                                 
+                                 <p>For details about how to obtain this information, see <a href="./connect-iot-lorawan-onboard-gateway-add.html">Add a gateway
+                                       to AWS IoT Core for LoRaWAN</a>.
+                                 </p>
+                                  
+                                 
+                                 <p class="title"><b>Gateways that support LNS protocol</b></p>
+                                 
+                                 <p>The following instructions show how you can connect your gateways that 
+                                    support the LNS protocol.
+                                 </p>
+                                  
+                                 
+                                 <div class="orderedlist">
+                                     
+                                     
+                                    
+                                    <ol>
+                                       <li>
+                                          <p>Upload the following files that you obtained when
+                                             adding your gateway.
+                                          </p>
+                                          
+                                          <div class="itemizedlist">
+                                              
+                                              
+                                             
+                                             <ul class="itemizedlist" type="disc">
+                                                <li class="listitem">
+                                                   
+                                                   <p>Gateway device certificate and private key files.</p>
+                                                   
+                                                </li>
+                                                <li class="listitem">
+                                                   
+                                                   <p>Trust certificate file for LNS endpoint, <code class="code">lns.trust</code>.
+                                                   </p>
+                                                   
+                                                </li>
+                                             </ul>
+                                          </div>
+                                          
+                                       </li>
+                                       <li>
+                                          
+                                          <p>Specify the LNS endpoint URL that you obtained
+                                             previously. The endpoint will be of the format
+                                             <code class="code"><code class="replaceable">prefix</code>.lns.lorawan.<code class="replaceable">region</code>.amazonaws.com:443</code>.
+                                          </p>
+                                          
+                                       </li>
+                                    </ol>
+                                 </div>                            
+                                 
+                                 <p>For details about how to obtain this information, see <a href="./connect-iot-lorawan-onboard-gateway-add.html">Add a gateway
+                                       to AWS IoT Core for LoRaWAN</a>.
+                                 </p>
+                                 
+                                 <p>After that you've connected your gateway to AWS IoT Core for LoRaWAN, you
+                                    can check the status of your connection and get information about when the
+                                    last uplink was received by using the console or the API.
+                                 </p>                            
+                                  
+                                 
+                                 <h2 id="connect-iot-lorawan-connection-status-console">Check 
+                                    gateway connection status using the console
+                                 </h2>                    
+                                 
+                                 <p>To check the connection status using the console, navigate
+                                    to the <a href="https://console.aws.amazon.com/iot/home#/wireless/gateways" rel="noopener noreferrer" target="_blank"><span><b>Gateways</b></span><awsui-icon class="awsdocs-link-icon" name="external"></awsui-icon></a> page of the AWS IoT 
+                                    console and choose the gateway you've added. In the <b>LoRaWAN 
+                                       specific details</b> section of the Gateway details page, 
+                                    you'll see the connection status and the date and time the last uplink
+                                    was received.
+                                 </p>                     
+                                  
+                                 
+                                 <h2 id="connect-iot-lorawan-connection-status-api">Check 
+                                    gateway connection status using the API
+                                 </h2>                    
+                                 
+                                 <p>To check the connection status using the API, use the
+                                    <code class="code">GetWirelessGatewayStatistics</code> API. This API doesn't
+                                    have a request body and only contains a response body that shows whether
+                                    the gateway is connected and when the last uplink was received.
+                                 </p>      
+                                 <pre class="programlisting"><div class="code-btn-container"><div class="btn-copy-code" title="Copy"><awsui-icon name="copy"></awsui-icon></div></div><code class="JSON ">HTTP/1.1 200
+Content-type: application/json
+
+<span>{</span>
+  “ConnectionStatus”: “Connected”,
+  “LastUplinkReceivedAt”: “2021-03-24T23:13:08.476015749Z”,
+  “WirelessGatewayId”: “30cbdcf3-86de-4291-bfab-5bfa2b12bad5"
+}</code></pre>
+                                 <awsdocs-copyright class="copyright-print"></awsdocs-copyright>
+                                 <awsdocs-thumb-feedback right-edge="{{$ctrl.thumbFeedbackRightEdge}}"></awsdocs-thumb-feedback>
+                              </div>
+                              <noscript>
+                                 <div>
+                                    <div>
+                                       <div>
+                                          <div id="js_error_message">
+                                             <p><img src="https://d1ge0kk1l5kms0.cloudfront.net/images/G/01/webservices/console/warning.png" alt="Warning" /> <strong>Javascript is disabled or is unavailable in your
+                                                   browser.</strong></p>
+                                             <p>To use the Amazon Web Services Documentation, Javascript must be
+                                                enabled. Please refer to your browser's Help pages for instructions.
+                                             </p>
+                                          </div>
+                                       </div>
+                                    </div>
+                                 </div>
+                              </noscript>
+                              <div id="main-col-footer" class="awsui-util-font-size-0">
+                                 <div id="doc-conventions"><a target="_top" href="/general/latest/gr/docconventions.html">Document Conventions</a></div>
+                                 <div class="prev-next">
+                                    <div id="previous" class="prev-link" accesskey="p" href="./connect-iot-lorawan-onboard-gateway-add.html">Add a gateway
+                                       to AWS IoT Core for LoRaWAN
+                                    </div>
+                                    <div id="next" class="next-link" accesskey="n" href="./connect-iot-lorawan-onboard-end-devices.html">Onboard your devices to
+                                       AWS IoT Core for LoRaWAN
+                                    </div>
+                                 </div>
+                              </div>
+                              <awsdocs-page-utilities></awsdocs-page-utilities>
+                           </div>
+                           <div id="quick-feedback-yes" style="display: none;">
+                              <div class="title">Did this page help you? - Yes</div>
+                              <div class="content">
+                                 <p>Thanks for letting us know we're doing a good
+                                    job!
+                                 </p>
+                                 <p>If you've got a moment, please tell us what we did right
+                                    so we can do more of it.
+                                 </p>
+                                 <p>
+                                    <awsui-button id="fblink" target="_blank" text="Feedback" click="linkClick($event)" href="https://docs.aws.amazon.com/forms/aws-doc-feedback?hidden_service_name=IoT Docs&amp;topic_url=https://docs.aws.amazon.com/en_us/iot/latest/developerguide/connect-iot-lorawan-gateway-connection-status.html"></awsui-button>
+                                 </p>
+                              </div>
+                           </div>
+                           <div id="quick-feedback-no" style="display: none;">
+                              <div class="title">Did this page help you? - No</div>
+                              <div class="content">
+                                 <p>Thanks for letting us know this page needs work. We're
+                                    sorry we let you down.
+                                 </p>
+                                 <p>If you've got a moment, please tell us how we can make
+                                    the documentation better.
+                                 </p>
+                                 <p>
+                                    <awsui-button id="fblink" target="_blank" text="Feedback" click="linkClick($event)" href="https://docs.aws.amazon.com/forms/aws-doc-feedback?hidden_service_name=IoT Docs&amp;topic_url=https://docs.aws.amazon.com/en_us/iot/latest/developerguide/connect-iot-lorawan-gateway-connection-status.html"></awsui-button>
+                                 </p>
+                              </div>
+                           </div>
+                        </div>
+                     </body>
+                  </div>
+               </awsdocs-view>
+               <div class="page-loading-indicator" id="page-loading-indicator">
+                  <awsui-spinner size="large"></awsui-spinner>
+               </div>
+            </div>
+            <div id="tools-panel" dom-region="tools">
+               <awsdocs-tools-panel id="awsdocs-tools-panel"></awsdocs-tools-panel>
+            </div>
+         </awsui-app-layout>
+         <awsdocs-cookie-banner class="doc-cookie-banner"></awsdocs-cookie-banner>
+         <!--
+                SiteCatalyst code version: H.25.2.
+                Copyright 1996-2012 Adobe, Inc. All Rights Reserved
+                More info available at http://www.omniture.com
+            --><script language="JavaScript" type="text/javascript">
+var awsdocs = awsdocs || {};
+awsdocs.prop66 = 'AWS IoT Core';
+awsdocs.prop65 =  'Developer Guide';
+            </script><script src="https://a0.awsstatic.com/s_code/js/3.0/awshome_s_code.js" language="JavaScript" type="text/javascript"></script>
+         <!--/DO NOT REMOVE/-->
+         <!--End SiteCatalyst code version: H.25.2.--></div>
+   </body>
+</html>

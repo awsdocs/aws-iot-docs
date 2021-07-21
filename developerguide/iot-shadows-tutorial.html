@@ -1,0 +1,350 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" ng-app="AWSDocsDocPageApp">
+   <head>
+      <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+      <title>AWS IoT Device Shadow tutorials - AWS IoT Core</title>
+      <meta name="viewport" content="width=device-width,initial-scale=1" />
+      <meta name="assets_root" content="assets" />
+      <meta name="target_state" content="iot-shadows-tutorial" />
+      <meta name="default_state" content="iot-shadows-tutorial" />
+      <link rel="icon" type="image/ico" href="/assets/images/favicon.ico" />
+      <link rel="shortcut icon" type="image/ico" href="/assets/images/favicon.ico" />
+      <link rel="canonical" href="https://docs.aws.amazon.com/iot/latest/developerguide/iot-shadows-tutorial.html" />
+      <meta name="description" content="Learn how to use AWS IoT Device Shadow to store and update state information of a thing." />
+      <meta name="deployment_region" content="IAD" />
+      <meta name="product" content="AWS IoT Core" />
+      <meta name="guide" content="Developer Guide" />
+      <meta name="locales" content="de_de:Deutsch/en_us:English/es_es:Español/fr_fr:Français/it_it:Italiano/ja_jp:日本語/ko_kr:한국어/pt_br:Português/zh_cn:中文 (简体)/zh_tw:中文 (繁體)" />
+      <meta name="abstract" content="AWS IoT provides secure, bi-directional communication between Internet-connected devices such as sensors, actuators, embedded micro-controllers, or smart appliances and the AWS Cloud. This enables you to collect telemetry data from multiple devices, and store and analyze the data. You can also create applications that enable your users to control these devices from their phones or tablets." />
+      <meta name="guide-locale" content="en_us" />
+      <meta name="tocs" content="toc-contents.json" />
+      <meta name="feedback-item" content="IoT Docs" />
+      <meta name="this_doc_product" content="AWS IoT Core" />
+      <meta name="this_doc_guide" content="Developer Guide" />
+      <link href="assets/css/vendor4.css" rel="stylesheet" />
+      <link href="assets/css/awsdocs-common.css" rel="stylesheet" /><script type="text/javascript" src="assets/js/vendor3.js" defer=""></script><script type="text/javascript" src="assets/js/vendor4.js" defer=""></script><script type="text/javascript" src="assets/js/vendor1.js" defer=""></script><script type="text/javascript" src="assets/js/awsdocs-common.js" defer=""></script><script type="text/javascript" src="assets/js/awsdocs-doc-app.js" defer=""></script></head>
+   <body class="awsdocs awsui">
+      <div class="awsdocs-container">
+         <awsdocs-header></awsdocs-header>
+         <awsui-app-layout id="app-layout" class="awsui-util-no-gutters" ng-controller="ContentController as $ctrl" header-selector="awsdocs-header" navigation-hide="false" navigation-width="$ctrl.navWidth" navigation-open="$ctrl.navOpen" navigation-change="$ctrl.onNavChange($event)" tools-hide="$ctrl.hideTools" tools-width="$ctrl.toolsWidth" tools-open="$ctrl.toolsOpen" tools-change="$ctrl.onToolsChange($event)">
+            <div id="guide-toc" dom-region="navigation">
+               <awsdocs-toc></awsdocs-toc>
+            </div>
+            <div id="main-column" dom-region="content" tabindex="-1">
+               <awsdocs-view class="awsdocs-view">
+                  <div id="awsdocs-content">
+                     <head>
+                        <title>AWS IoT Device Shadow tutorials - AWS IoT Core</title>
+                        <meta name="pdf" content="iot-dg.pdf#iot-shadows-tutorial" />
+                        <meta name="kindle" content="https://www.amazon.com/dp/B07JBRCWWZ" />
+                        <meta name="github" content="https://github.com/awsdocs/aws-iot-docs/tree/master/developerguide/iot-shadows-tutorial.md" />
+                        <meta name="forums" content="http://forums.aws.amazon.com/forum.jspa?forumID=210" />
+                        <meta name="feedback" content="https://docs.aws.amazon.com/forms/aws-doc-feedback?hidden_service_name=IoT%20Docs&amp;topic_url=http://docs.aws.amazon.com/en_us/iot/latest/developerguide/iot-shadows-tutorial.html" />
+                        <meta name="feedback-yes" content="feedbackyes.html?topic_url=http://docs.aws.amazon.com/en_us/iot/latest/developerguide/iot-shadows-tutorial.html" />
+                        <meta name="feedback-no" content="feedbackno.html?topic_url=http://docs.aws.amazon.com/en_us/iot/latest/developerguide/iot-shadows-tutorial.html" />
+                        <meta name="keywords" content="AWS IoT,IoT,Internet of Things" />
+                     </head>
+                     <body>
+                        <div id="main">
+                           <div style="display: none"><a href="iot-dg.pdf#iot-shadows-tutorial" target="_blank" rel="noopener noreferrer" title="Open PDF"></a><a target="_blank" rel="noopener noreferrer" href="https://www.amazon.com/dp/B07JBRCWWZ" title="Open Kindle"></a><a href="https://github.com/awsdocs/aws-iot-docs/tree/master/developerguide/iot-shadows-tutorial.md" target="_blank" rel="noopener noreferrer" title="Edit this page on GitHub"></a></div>
+                           <div id="breadcrumbs" class="breadcrumb"><a href="http://aws.amazon.com">AWS</a><a href="/index.html">Documentation</a><a href="/iot/index.html">AWS IoT Core</a><a href="what-is-aws-iot.html">Developer Guide</a></div>
+                           <div id="main-content" class="awsui-util-container">
+                              <div id="main-col-body">
+                                 <awsdocs-language-banner data-service="$ctrl.pageService"></awsdocs-language-banner>
+                                 <h1 class="topictitle" id="iot-shadows-tutorial">AWS IoT Device Shadow tutorials</h1>
+                                 <div class="awsdocs-page-header-container">
+                                    <awsdocs-page-header></awsdocs-page-header>
+                                    <awsdocs-filter-selector id="awsdocs-filter-selector"></awsdocs-filter-selector>
+                                 </div>
+                                 <p>These tutorials show you how to use the AWS IoT Device Shadow service to store and
+                                    update the
+                                    state information of a device. The Shadow document, which is a JSON document, shows
+                                    the change
+                                    in the device's state based on the messages published by a device, local app, or service.
+                                    In
+                                    this tutorial, the Shadow document shows the change in the color of a light bulb.
+                                    These
+                                    tutorials
+                                    also
+                                    show how the shadow stores this information even when the device is disconnected from
+                                    the
+                                    internet, and passes the latest state information back to the device when it comes
+                                    back online
+                                    and requests this information.
+                                 </p>
+                                 <p>We recommend that you try these tutorials in the order they're shown here, starting
+                                    with the
+                                    AWS IoT resources you need to create and the necessary hardware setup, which also
+                                    helps you learn
+                                    the concepts incrementally. These tutorials show how to configure and connect a Raspberry
+                                    Pi
+                                    device for use with AWS IoT. If you don't have the required hardware, you can follow
+                                    these
+                                    tutorials by adapting them to a device of your choice or by <a href="./creating-a-virtual-thing.html">creating a virtual device with Amazon EC2</a>.
+                                 </p>
+                                 
+                                 <p class="title"><b>Tutorial scenario overview</b></p>
+                                 
+                                 <p>The scenario for these tutorials is a local app or service that changes the color
+                                    of a
+                                    light bulb and that publishes its data to reserved shadow topics. These tutorials
+                                    are similar
+                                    to the Device Shadow functionality described in the <a href="./interactive-demo.html">interactive getting started tutorial</a> and are
+                                    implemented
+                                    on
+                                    a Raspberry Pi device. The tutorials in this section focus on a single, classic shadow
+                                    while
+                                    showing how you might accommodate named shadows or multiple devices.
+                                 </p>
+                                 
+                                 <p>The following tutorials in this section will help you learn how to use the AWS IoT
+                                    Device Shadow
+                                    service.
+                                 </p>
+                                 <div class="itemizedlist">
+                                     
+                                     
+                                     
+                                    
+                                    <ul class="itemizedlist" type="disc">
+                                       <li class="listitem">
+                                           
+                                          
+                                          <p class="title"><b><a href="./create-resources-shadow.html">Create AWS IoT resources and connect Raspberry Pi to
+                                                   run shadow application</a></b></p>
+                                          
+                                          <p>This tutorial shows how to set up a Raspberry Pi device for connecting with AWS IoT.
+                                             You'll also create an AWS IoT policy document and a thing resource, download the
+                                             certificates, and then attach the policy to that thing resource. This tutorial takes
+                                             about 
+                                             30 minutes to complete.
+                                          </p>
+                                           
+                                          
+                                       </li>
+                                       <li class="listitem">
+                                           
+                                          
+                                          <p class="title"><b><a href="./lightbulb-shadow-application.html">Install the Device SDK and run the
+                                                   shadow.py sample application for Device Shadows</a></b></p>
+                                          
+                                          <p>This tutorial shows how to install the required tools, software, and the AWS IoT Device
+                                             SDK
+                                             for Python, and then run the sample shadow application. This tutorial builds on concepts
+                                             presented in <a href="./connecting-to-existing-device.html">Connect a Raspberry
+                                                Pi or another device</a>
+                                             and takes 20 minutes to complete.
+                                          </p>
+                                           
+                                          
+                                       </li>
+                                       <li class="listitem">
+                                           
+                                          
+                                          <p class="title"><b><a href="./interact-lights-device-shadows.html">Interact with Device Shadow using the
+                                                   shadow.py sample app and MQTT test client</a></b></p>
+                                          
+                                          <p>This tutorial shows how you use the <code class="code">shadow.py</code> sample app and <b>AWS IoT console</b>
+                                             to observe the interaction between AWS IoT Device Shadows and the state changes of
+                                             the light
+                                             bulb. The tutorial also shows how to send MQTT messages to the Device Shadow's reserved
+                                             topics. This tutorial can take 45 minutes to complete.
+                                          </p>
+                                           
+                                          
+                                       </li>
+                                    </ul>
+                                 </div>
+                                 
+                                 <p class="title"><b>AWS IoT Device Shadow overview</b></p>
+                                 
+                                 <p>A Device Shadow is a persistent, virtual representation of a device that is managed
+                                    by
+                                    a <a href="./iot-thing-management.html">thing resource</a>
+                                    you create in the AWS IoT registry. The Shadow document is a JSON or a JavaScript
+                                    
+                                    notation doc that is used to store and retrieve the current state information for
+                                    a device. 
+                                    You can use the shadow to get and set the state of a device over MQTT topics or HTTP
+                                    REST APIs, 
+                                    regardless of whether the device is connected to the internet.
+                                 </p>
+                                 
+                                 <p>A Shadow document contains a <code class="code">state</code> property that describes these aspects of the
+                                    device's state.
+                                 </p>
+                                 <div class="itemizedlist">
+                                     
+                                     
+                                     
+                                    
+                                    <ul class="itemizedlist" type="disc">
+                                       <li class="listitem">
+                                          
+                                          <p><code class="code">desired</code>: Apps specify the desired states of device properties by updating
+                                             the <code class="code">desired</code> object.
+                                          </p>
+                                          
+                                       </li>
+                                       <li class="listitem">
+                                          
+                                          <p><code class="code">reported</code>: Devices report their current state in the <code class="code">reported</code>
+                                             object.
+                                          </p>
+                                          
+                                       </li>
+                                       <li class="listitem">
+                                          
+                                          <p><code class="code">delta</code>: AWS IoT reports differences between the desired and the reported state
+                                             in the <code class="code">delta</code> object.
+                                          </p>
+                                          
+                                       </li>
+                                    </ul>
+                                 </div>
+                                 <p>Here is an example of a Shadow state document.</p><pre class="programlisting"><div class="code-btn-container"><div class="btn-copy-code" title="Copy"><awsui-icon name="copy"></awsui-icon></div></div><code class="JSON "><span>{</span>
+  "state": <span>{</span>
+    "desired": <span>{</span>
+      "color": "green"
+      },
+    "reported": <span>{</span>
+      "color": "blue"
+      },
+    "delta": <span>{</span>
+      "color": "green"
+      }
+   }
+}</code></pre><p>To update a device's Shadow document, you can use the <a href="./reserved-topics.html#reserved-topics-shadow">reserved MQTT topics</a>, the <a href="./device-shadow-rest-api.html">Device
+                                       Shadow REST APIs</a> that support the <code class="code">GET</code>, <code class="code">UPDATE</code>, and
+                                    <code class="code">DELETE</code> methods with HTTP, and the <a href="https://awscli.amazonaws.com/v2/documentation/api/latest/reference/iot-data/index.html" rel="noopener noreferrer" target="_blank"><span>AWS IoT CLI</span><awsui-icon class="awsdocs-link-icon" name="external"></awsui-icon></a>.
+                                 </p>
+                                 <p>In the previous example, say you want to change the <code class="code">desired</code> color to
+                                    <code class="code">yellow</code>. To do this, send a request to the <a href="./device-shadow-rest-api.html#API_UpdateThingShadow">UpdateThingShadow</a> API or publish a message to the <a href="./device-shadow-mqtt.html#update-pub-sub-topic">Update</a> topic,
+                                    <code class="code">$aws/things/THING_NAME/shadow/update</code>.
+                                 </p><pre class="programlisting"><div class="code-btn-container"><div class="btn-copy-code" title="Copy"><awsui-icon name="copy"></awsui-icon></div></div><code class="JSON "><span>{</span>
+  "state": <span>{</span>
+    "desired": <span>{</span>
+      "color": yellow
+    }
+  }
+} </code></pre><p>Updates affect only the fields specified in the request. After successfully updating
+                                    the
+                                    Device Shadow, AWS IoT publishes the new
+                                    <code class="code">desired</code> state to the <code class="code">delta</code> topic,
+                                    <code class="code">$aws/things/THING_NAME/shadow/delta</code>. The Shadow document in this case looks like
+                                    this:
+                                 </p><pre class="programlisting"><div class="code-btn-container"><div class="btn-copy-code" title="Copy"><awsui-icon name="copy"></awsui-icon></div></div><code class=""><span>{</span>
+  "state": <span>{</span>
+    "desired": <span>{</span>
+      "color": yellow
+    },
+    "reported": <span>{</span>
+      "color": green
+    },
+    "delta": <span>{</span>
+      "color": yellow
+      }
+  }
+} </code></pre><p>The new state is then reported to the AWS IoT Device Shadow using the <code class="code">Update</code>
+                                    topic <code class="code">$aws/things/THING_NAME/shadow/update</code> with the following JSON message: 
+                                 </p><pre class="programlisting"><div class="code-btn-container"><div class="btn-copy-code" title="Copy"><awsui-icon name="copy"></awsui-icon></div></div><code class=""><span>{</span>
+  "state": <span>{</span>
+    "reported": <span>{</span>
+      "color": yellow
+    }
+  }
+} </code></pre><p>If you want to get the current state information, send a request to the <a href="./device-shadow-rest-api.html#API_GetThingShadow">GetThingShadow</a> API or publish an MQTT
+                                    message to the <a href="./device-shadow-mqtt.html#get-pub-sub-topic">Get</a> topic, <code class="code">$aws/things/THING_NAME/shadow/get</code>.
+                                 </p>
+                                 <p>For more information about using the Device Shadow service, see <a href="./iot-device-shadows.html">AWS IoT Device Shadow service</a>.
+                                 </p>
+                                 <p>For more information about using Device Shadows in devices, apps, and services, see
+                                    <a href="./device-shadow-comms-device.html">Using shadows in devices</a> and <a href="./device-shadow-comms-app.html">Using shadows in apps and services</a>.
+                                 </p>
+                                 <p>For information about interacting with AWS IoT shadows, see <a href="./device-shadow-data-flow.html">Interacting with shadows</a>.
+                                 </p>
+                                 <p>For information about the MQTT reserved topics and HTTP REST APIs, see <a href="./device-shadow-mqtt.html">Device Shadow MQTT topics</a> and <a href="./device-shadow-rest-api.html">Device Shadow REST API</a>.
+                                 </p>
+                                 <awsdocs-copyright class="copyright-print"></awsdocs-copyright>
+                                 <awsdocs-thumb-feedback right-edge="{{$ctrl.thumbFeedbackRightEdge}}"></awsdocs-thumb-feedback>
+                              </div>
+                              <noscript>
+                                 <div>
+                                    <div>
+                                       <div>
+                                          <div id="js_error_message">
+                                             <p><img src="https://d1ge0kk1l5kms0.cloudfront.net/images/G/01/webservices/console/warning.png" alt="Warning" /> <strong>Javascript is disabled or is unavailable in your
+                                                   browser.</strong></p>
+                                             <p>To use the Amazon Web Services Documentation, Javascript must be
+                                                enabled. Please refer to your browser's Help pages for instructions.
+                                             </p>
+                                          </div>
+                                       </div>
+                                    </div>
+                                 </div>
+                              </noscript>
+                              <div id="main-col-footer" class="awsui-util-font-size-0">
+                                 <div id="doc-conventions"><a target="_top" href="/general/latest/gr/docconventions.html">Document Conventions</a></div>
+                                 <div class="prev-next">
+                                    <div id="previous" class="prev-link" accesskey="p" href="./iot-lambda-rule.html">Format a notification by using an AWS Lambda function</div>
+                                    <div id="next" class="next-link" accesskey="n" href="./create-resources-shadow.html">Create AWS IoT resources and connect Raspberry Pi to
+                                       run shadow application
+                                    </div>
+                                 </div>
+                              </div>
+                              <awsdocs-page-utilities></awsdocs-page-utilities>
+                           </div>
+                           <div id="quick-feedback-yes" style="display: none;">
+                              <div class="title">Did this page help you? - Yes</div>
+                              <div class="content">
+                                 <p>Thanks for letting us know we're doing a good
+                                    job!
+                                 </p>
+                                 <p>If you've got a moment, please tell us what we did right
+                                    so we can do more of it.
+                                 </p>
+                                 <p>
+                                    <awsui-button id="fblink" target="_blank" text="Feedback" click="linkClick($event)" href="https://docs.aws.amazon.com/forms/aws-doc-feedback?hidden_service_name=IoT Docs&amp;topic_url=https://docs.aws.amazon.com/en_us/iot/latest/developerguide/iot-shadows-tutorial.html"></awsui-button>
+                                 </p>
+                              </div>
+                           </div>
+                           <div id="quick-feedback-no" style="display: none;">
+                              <div class="title">Did this page help you? - No</div>
+                              <div class="content">
+                                 <p>Thanks for letting us know this page needs work. We're
+                                    sorry we let you down.
+                                 </p>
+                                 <p>If you've got a moment, please tell us how we can make
+                                    the documentation better.
+                                 </p>
+                                 <p>
+                                    <awsui-button id="fblink" target="_blank" text="Feedback" click="linkClick($event)" href="https://docs.aws.amazon.com/forms/aws-doc-feedback?hidden_service_name=IoT Docs&amp;topic_url=https://docs.aws.amazon.com/en_us/iot/latest/developerguide/iot-shadows-tutorial.html"></awsui-button>
+                                 </p>
+                              </div>
+                           </div>
+                        </div>
+                     </body>
+                  </div>
+               </awsdocs-view>
+               <div class="page-loading-indicator" id="page-loading-indicator">
+                  <awsui-spinner size="large"></awsui-spinner>
+               </div>
+            </div>
+            <div id="tools-panel" dom-region="tools">
+               <awsdocs-tools-panel id="awsdocs-tools-panel"></awsdocs-tools-panel>
+            </div>
+         </awsui-app-layout>
+         <awsdocs-cookie-banner class="doc-cookie-banner"></awsdocs-cookie-banner>
+         <!--
+                SiteCatalyst code version: H.25.2.
+                Copyright 1996-2012 Adobe, Inc. All Rights Reserved
+                More info available at http://www.omniture.com
+            --><script language="JavaScript" type="text/javascript">
+var awsdocs = awsdocs || {};
+awsdocs.prop66 = 'AWS IoT Core';
+awsdocs.prop65 =  'Developer Guide';
+            </script><script src="https://a0.awsstatic.com/s_code/js/3.0/awshome_s_code.js" language="JavaScript" type="text/javascript"></script>
+         <!--/DO NOT REMOVE/-->
+         <!--End SiteCatalyst code version: H.25.2.--></div>
+   </body>
+</html>

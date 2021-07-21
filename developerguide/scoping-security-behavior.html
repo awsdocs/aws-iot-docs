@@ -1,0 +1,566 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" ng-app="AWSDocsDocPageApp">
+   <head>
+      <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+      <title>Scoping metrics in security profiles using dimensions - AWS IoT Core</title>
+      <meta name="viewport" content="width=device-width,initial-scale=1" />
+      <meta name="assets_root" content="assets" />
+      <meta name="target_state" content="scoping-security-behavior" />
+      <meta name="default_state" content="scoping-security-behavior" />
+      <link rel="icon" type="image/ico" href="/assets/images/favicon.ico" />
+      <link rel="shortcut icon" type="image/ico" href="/assets/images/favicon.ico" />
+      <link rel="canonical" href="https://docs.aws.amazon.com/iot/latest/developerguide/scoping-security-behavior.html" />
+      <meta name="description" content="Dimensions are attributes that you can define to get more precise data about metrics and behaviors in your security profile. You define the scope by providing a value or pattern that is used as a filter. For example, you can define a topic filter dimension that applies a metric only to MQTT topics that match a particular value, such as &#34;data/bulb/+/activity&#34;. For information about defining a dimension that you can use in your security profile, see" />
+      <meta name="deployment_region" content="IAD" />
+      <meta name="product" content="AWS IoT Core" />
+      <meta name="guide" content="Developer Guide" />
+      <meta name="locales" content="de_de:Deutsch/en_us:English/es_es:Español/fr_fr:Français/it_it:Italiano/ja_jp:日本語/ko_kr:한국어/pt_br:Português/zh_cn:中文 (简体)/zh_tw:中文 (繁體)" />
+      <meta name="abstract" content="AWS IoT provides secure, bi-directional communication between Internet-connected devices such as sensors, actuators, embedded micro-controllers, or smart appliances and the AWS Cloud. This enables you to collect telemetry data from multiple devices, and store and analyze the data. You can also create applications that enable your users to control these devices from their phones or tablets." />
+      <meta name="guide-locale" content="en_us" />
+      <meta name="tocs" content="toc-contents.json" />
+      <meta name="feedback-item" content="IoT Docs" />
+      <meta name="this_doc_product" content="AWS IoT Core" />
+      <meta name="this_doc_guide" content="Developer Guide" />
+      <link href="assets/css/vendor4.css" rel="stylesheet" />
+      <link href="assets/css/awsdocs-common.css" rel="stylesheet" /><script type="text/javascript" src="assets/js/vendor3.js" defer=""></script><script type="text/javascript" src="assets/js/vendor4.js" defer=""></script><script type="text/javascript" src="assets/js/vendor1.js" defer=""></script><script type="text/javascript" src="assets/js/awsdocs-common.js" defer=""></script><script type="text/javascript" src="assets/js/awsdocs-doc-app.js" defer=""></script></head>
+   <body class="awsdocs awsui">
+      <div class="awsdocs-container">
+         <awsdocs-header></awsdocs-header>
+         <awsui-app-layout id="app-layout" class="awsui-util-no-gutters" ng-controller="ContentController as $ctrl" header-selector="awsdocs-header" navigation-hide="false" navigation-width="$ctrl.navWidth" navigation-open="$ctrl.navOpen" navigation-change="$ctrl.onNavChange($event)" tools-hide="$ctrl.hideTools" tools-width="$ctrl.toolsWidth" tools-open="$ctrl.toolsOpen" tools-change="$ctrl.onToolsChange($event)">
+            <div id="guide-toc" dom-region="navigation">
+               <awsdocs-toc></awsdocs-toc>
+            </div>
+            <div id="main-column" dom-region="content" tabindex="-1">
+               <awsdocs-view class="awsdocs-view">
+                  <div id="awsdocs-content">
+                     <head>
+                        <title>Scoping metrics in security profiles using dimensions - AWS IoT Core</title>
+                        <meta name="pdf" content="iot-dg.pdf#scoping-security-behavior" />
+                        <meta name="kindle" content="https://www.amazon.com/dp/B07JBRCWWZ" />
+                        <meta name="github" content="https://github.com/awsdocs/aws-iot-docs/tree/master/developerguide/scoping-security-behavior.md" />
+                        <meta name="forums" content="http://forums.aws.amazon.com/forum.jspa?forumID=210" />
+                        <meta name="feedback" content="https://docs.aws.amazon.com/forms/aws-doc-feedback?hidden_service_name=IoT%20Docs&amp;topic_url=http://docs.aws.amazon.com/en_us/iot/latest/developerguide/scoping-security-behavior.html" />
+                        <meta name="feedback-yes" content="feedbackyes.html?topic_url=http://docs.aws.amazon.com/en_us/iot/latest/developerguide/scoping-security-behavior.html" />
+                        <meta name="feedback-no" content="feedbackno.html?topic_url=http://docs.aws.amazon.com/en_us/iot/latest/developerguide/scoping-security-behavior.html" />
+                        <meta name="keywords" content="AWS IoT,IoT,Internet of Things" />
+                     </head>
+                     <body>
+                        <div id="main">
+                           <div style="display: none"><a href="iot-dg.pdf#scoping-security-behavior" target="_blank" rel="noopener noreferrer" title="Open PDF"></a><a target="_blank" rel="noopener noreferrer" href="https://www.amazon.com/dp/B07JBRCWWZ" title="Open Kindle"></a><a href="https://github.com/awsdocs/aws-iot-docs/tree/master/developerguide/scoping-security-behavior.md" target="_blank" rel="noopener noreferrer" title="Edit this page on GitHub"></a></div>
+                           <div id="breadcrumbs" class="breadcrumb"><a href="http://aws.amazon.com">AWS</a><a href="/index.html">Documentation</a><a href="/iot/index.html">AWS IoT Core</a><a href="what-is-aws-iot.html">Developer Guide</a></div>
+                           <div id="page-toc-src"><a href="#dimensions-console-instruc">How to use dimensions in the console</a><a href="#dimensions-cli-instruc">How to use dimensions on the AWS CLI</a></div>
+                           <div id="main-content" class="awsui-util-container">
+                              <div id="main-col-body">
+                                 <awsdocs-language-banner data-service="$ctrl.pageService"></awsdocs-language-banner>
+                                 <h1 class="topictitle" id="scoping-security-behavior">Scoping metrics in security profiles using
+                                    dimensions
+                                 </h1>
+                                 <div class="awsdocs-page-header-container">
+                                    <awsdocs-page-header></awsdocs-page-header>
+                                    <awsdocs-filter-selector id="awsdocs-filter-selector"></awsdocs-filter-selector>
+                                 </div>
+                                 <p>Dimensions are attributes that you can define to get more precise data about metrics
+                                    and
+                                    behaviors in your security profile. You define the scope by providing a value or pattern
+                                    that is
+                                    used as a filter. For example, you can define a topic filter dimension that applies
+                                    a metric
+                                    only to MQTT topics that match a particular value, such as "data/bulb/+/activity".
+                                    For
+                                    information about defining a dimension that you can use in your security profile,
+                                    see <a href="https://docs.aws.amazon.com/iot/latest/apireference/API_CreateDimension.html">CreateDimension</a>.
+                                 </p>
+                                 <p>Dimension values support MQTT wildcards. MQTT wildcards help you subscribe to multiple
+                                    topics simultaneously. There are two different kinds of wildcards: single-level (<code class="code">+</code>)
+                                    and multi-level <code class="code">(#</code>). For example, the dimension value
+                                    <code class="code">Data/bulb/+/activity</code> creates a subscription that matches all topics that exist on
+                                    the same level as the <code class="code">+</code>. Dimension values also support the MQTT client ID
+                                    substitution variable $<span>{</span>iot:ClientId}.
+                                 </p>
+                                 <p>Dimensions of type TOPIC_FILTER are compatible with the following set of cloud-side
+                                    metrics:
+                                 </p>
+                                 <div class="itemizedlist">
+                                     
+                                     
+                                     
+                                     
+                                     
+                                    
+                                    <ul class="itemizedlist" type="disc">
+                                       <li class="listitem">
+                                          
+                                          <p>Number of messages sent</p>
+                                          
+                                       </li>
+                                       <li class="listitem">
+                                          
+                                          <p>Number of messages received</p>
+                                          
+                                       </li>
+                                       <li class="listitem">
+                                          
+                                          <p>Message byte size</p>
+                                          
+                                       </li>
+                                       <li class="listitem">
+                                          
+                                          <p>Source IP address</p>
+                                          
+                                       </li>
+                                       <li class="listitem">
+                                          
+                                          <p>Number of authorization failures</p>
+                                          
+                                       </li>
+                                    </ul>
+                                 </div>
+                                 
+                                 <h2 id="dimensions-console-instruc">How to use dimensions in the console</h2>
+                                 
+                                 <div class="procedure">
+                                    <p class="title"><b>To create and apply a dimension to a security profile behavior</b></p>
+                                    <ol>
+                                       <li>
+                                          
+                                          <p>In the <a href="https://console.aws.amazon.com/iot" rel="noopener noreferrer" target="_blank"><span>AWS IoT console</span><awsui-icon class="awsdocs-link-icon" name="external"></awsui-icon></a>, in the
+                                             navigation pane, expand <b>Defend</b>, expand <b>Detect</b>,
+                                             and then choose <b>Security profiles</b>.
+                                          </p>
+                                          
+                                       </li>
+                                       <li>
+                                          
+                                          <p>On the <b>Security profiles</b> page, choose <b>Create</b>
+                                             to add a new security profile, or <b>Edit</b> to apply a dimension to an
+                                             existing security profile.
+                                          </p>
+                                          
+                                       </li>
+                                       <li>
+                                          
+                                          <p>On the <b>Expected behaviors</b> page, select one of the five cloud-side
+                                             metrics dimensions supports under <b>Metric</b>. The
+                                             <b>Dimension</b> and <b>Dimension operator</b> boxes
+                                             display. For information about supported cloud-side metrics, see <a href="./scoping-security-behavior.html">Scoping metrics in security profiles using
+                                                dimensions</a>.
+                                          </p>
+                                          
+                                       </li>
+                                       <li>
+                                          
+                                          <p>For <b>Dimension</b>, choose <b>Add dimension</b>.
+                                          </p>
+                                          
+                                       </li>
+                                       <li>
+                                          
+                                          <p>On the <b>Create a new dimension</b> page, enter details for your new
+                                             dimension. <b>Dimensions values</b> supports MQTT wildcards # and + and the
+                                             MQTT client ID substitution variable $<span>{</span>iot:ClientId}.
+                                          </p>
+                                          
+                                          <div class="mediaobject">
+                                              
+                                             <img src="images/dimensions-create-new.png" class="aws-docs-img-whiteBg aws-docs-img-padding" />
+                                              
+                                             
+                                          </div>
+                                          
+                                       </li>
+                                       <li>
+                                          
+                                          <p>Choose <b>Save</b>.
+                                          </p>
+                                          
+                                       </li>
+                                       <li>
+                                          
+                                          <p>You can optionally add dimensions to metrics under <b>Additional Metrics to
+                                                retain</b>.
+                                          </p>
+                                          
+                                       </li>
+                                       <li>
+                                          
+                                          <p>To finish creating the behavior, type the information in the other required fields,
+                                             and then choose <b>Next</b>.
+                                          </p>
+                                          
+                                       </li>
+                                       <li>
+                                          
+                                          <p>Complete the remaining steps to finish creating a security profile.</p>
+                                          
+                                       </li>
+                                    </ol>
+                                 </div>
+                                 
+                                 <div class="procedure">
+                                    <p class="title"><b>To view your violations</b></p>
+                                    <ol>
+                                       <li>
+                                          
+                                          <p>In the <a href="https://console.aws.amazon.com/iot" rel="noopener noreferrer" target="_blank"><span>AWS IoT console</span><awsui-icon class="awsdocs-link-icon" name="external"></awsui-icon></a>, in the
+                                             navigation pane, expand <b>Defend</b>, expand <b>Detect</b>,
+                                             and then choose <b>Violations</b>.
+                                          </p>
+                                          
+                                          <div class="mediaobject">
+                                              
+                                             <img src="images/dimensions-violations.png" class="aws-docs-img-whiteBg aws-docs-img-padding" />
+                                              
+                                             
+                                          </div>
+                                          
+                                       </li>
+                                       <li>
+                                          
+                                          <p>In the <b>Behavior</b> column, pause over the behavior you want to see
+                                             the violation information for.
+                                          </p>
+                                          
+                                       </li>
+                                    </ol>
+                                 </div>
+                                 
+                                 <div class="procedure">
+                                    <p class="title"><b>To view and update your dimensions</b></p>
+                                    <ol>
+                                       <li>
+                                          
+                                          <p>In the <a href="https://console.aws.amazon.com/iot" rel="noopener noreferrer" target="_blank"><span>AWS IoT console</span><awsui-icon class="awsdocs-link-icon" name="external"></awsui-icon></a>, in the
+                                             navigation pane, expand <b>Defend</b>, expand <b>Detect</b>,
+                                             and then choose <b>Dimensions</b>.
+                                          </p>
+                                          
+                                       </li>
+                                       <li>
+                                          
+                                          <p>Select the dimension that you want to edit.</p>
+                                          
+                                       </li>
+                                       <li>
+                                          
+                                          <p>Choose <b>Actions</b>, and then choose <b>Edit</b>.
+                                          </p>
+                                          
+                                          <div class="mediaobject">
+                                              
+                                             <img src="images/dimensions-dropdown.png" class="aws-docs-img-whiteBg aws-docs-img-padding" alt="&#xA;            Image of dimensions dropdown in console.&#xA;          " />
+                                              
+                                              
+                                             
+                                          </div>
+                                          
+                                       </li>
+                                    </ol>
+                                 </div>
+                                 
+                                 <div class="procedure">
+                                    <p class="title"><b>To delete a dimension</b></p>
+                                    <ol>
+                                       <li>
+                                          
+                                          <p>In the <a href="https://console.aws.amazon.com/iot" rel="noopener noreferrer" target="_blank"><span>AWS IoT console</span><awsui-icon class="awsdocs-link-icon" name="external"></awsui-icon></a>, in the
+                                             navigation pane, expand <b>Defend</b>, expand <b>Detect</b>,
+                                             and then choose <b>Dimensions</b>.
+                                          </p>
+                                          
+                                       </li>
+                                       <li>
+                                          
+                                          <p>Select the dimension that you want to delete.</p>
+                                          
+                                       </li>
+                                       <li>
+                                          
+                                          <p>Confirm that the dimension isn't attached to a security profile by checking the
+                                             <b>Used in</b> column. If the dimension is attached to a security profile,
+                                             open the <b>Security profiles</b> page on the left, and edit the security
+                                             profiles that the dimension is attached to. When you delete the dimension, you also
+                                             delete
+                                             the behavior. If you want to keep the behavior, choose the ellipsis, then choose
+                                             <b>Copy</b>. Then you can proceed with deleting the behavior. If you want
+                                             to delete another dimension, follow the steps in this section. 
+                                          </p>
+                                          
+                                          <div class="mediaobject">
+                                              
+                                             <img src="images/dimensions-delete.png" class="aws-docs-img-whiteBg aws-docs-img-padding" alt="&#xA;            Image of dimensions delete page.&#xA;          " />
+                                              
+                                              
+                                             
+                                          </div>
+                                          
+                                       </li>
+                                       <li>
+                                          
+                                          <p>Choose <b>Actions</b>, and then choose
+                                             <b>Delete</b>.
+                                          </p>
+                                          
+                                       </li>
+                                    </ol>
+                                 </div>
+                                  
+                                 
+                                 <h2 id="dimensions-cli-instruc">How to use dimensions on the AWS CLI</h2>
+                                 
+                                 <div class="procedure">
+                                    <p class="title"><b>To create and apply a dimension to a security profile behavior</b></p>
+                                    <ol>
+                                       <li>
+                                          
+                                          <p>First create the dimension before attaching it to a security profile. Use the <a href="https://docs.aws.amazon.com/iot/latest/apireference/API_CreateDimension.html">CreateDimension</a>
+                                             command to create a dimension:
+                                          </p>
+                                          <pre class="programlisting"><div class="code-btn-container"><div class="btn-copy-code" title="Copy"><awsui-icon name="copy"></awsui-icon></div></div><code class="nohighlight">aws iot create-dimension \   
+  --name <code class="replaceable">TopicFilterForAuthMessages</code> \ 
+  --type TOPIC_FILTER \ 
+  --string-values <code class="replaceable">device/+/auth</code></code></pre>
+                                          <p>The output of this command looks like the following:</p>
+                                          <pre class="programlisting"><div class="code-btn-container"><div class="btn-copy-code" title="Copy"><awsui-icon name="copy"></awsui-icon></div></div><code class="nohighlight"><span>{</span>
+    "arn": "<code class="replaceable">arn:aws:iot:us-west-2:123456789012:dimension/TopicFilterForAuthMessages</code>",
+    "name": "TopicFilterForAuthMessages"
+}</code></pre>
+                                          </li>
+                                       <li>
+                                          
+                                          <p>Either add the dimension to an existing security profile by using <a href="https://docs.aws.amazon.com/iot/latest/apireference/API_UpdateSecurityProfile.html">UpdateSecurityProfile</a>, or add the dimension to a new
+                                             security profile by using <a href="https://docs.aws.amazon.com/iot/latest/apireference/API_CreateSecurityProfile.html">CreateSecurityProfile</a>. In the following example, we create
+                                             a new security profile that checks if messages to <code class="code">TopicFilterForAuthMessages</code>
+                                             are under 128 bytes, and retains the number of messages sent to non-auth topics.
+                                          </p>
+                                          <pre class="programlisting"><div class="code-btn-container"><div class="btn-copy-code" title="Copy"><awsui-icon name="copy"></awsui-icon></div></div><code class="nohighlight">aws iot create-security-profile \
+  --security-profile-name ProfileForConnectedDevice \
+  --security-profile-description "Check to see if messages to TopicFilterForAuthMessages are under 128 bytes and retains the number of messages sent to non-auth topics." \ 
+  --behaviors "[<span>{</span>\"name\":\"CellularBandwidth\",\"metric\":\"aws:message-byte-size\",\"criteria\":<span>{</span>\"comparisonOperator\":\"less-than\",\"value\":<span>{</span>\"count\":128},\"consecutiveDatapointsToAlarm\":1,\"consecutiveDatapointsToClear\":1}},<span>{</span>\"name\":\"Authorization\",\"metric\":\"aws:num-authorization-failures\",\"criteria\":<span>{</span>\"comparisonOperator\":\"less-than\",\"value\":<span>{</span>\"count\":10},\"durationSeconds\":300,\"consecutiveDatapointsToAlarm\":1,\"consecutiveDatapointsToClear\":1}}]" \ 
+  --additional-metrics-to-retain-v2 "[<span>{</span>\"metric\": \"aws:num-authorization-failures\",\"metricDimension\": <span>{</span>\"dimensionName\": \"TopicFilterForAuthMessages\",\"operator\": \"NOT_IN\"}}]"</code></pre>
+                                          <p>The output of this command looks like the following:</p>
+                                          <pre class="programlisting"><div class="code-btn-container"><div class="btn-copy-code" title="Copy"><awsui-icon name="copy"></awsui-icon></div></div><code class="nohighlight"><span>{</span>
+    "securityProfileArn": "<code class="replaceable">arn:aws:iot:us-west-2:1234564789012:securityprofile/ProfileForConnectedDevice</code>",
+    "securityProfileName": "ProfileForConnectedDevice"
+}</code></pre>
+                                          <p>To save time, you can also load a parameter from a file instead of typing it as a
+                                             command line parameter value. For more information, see <a href="https://docs.aws.amazon.com/cli/latest/userguide/cli-usage-parameters-file.html">Loading AWS CLI Parameters
+                                                from a File</a>. The following shows the <code class="code">behavior</code> parameter in expanded
+                                             JSON format:
+                                          </p>
+                                          <pre class="programlisting"><div class="code-btn-container"><div class="btn-copy-code" title="Copy"><awsui-icon name="copy"></awsui-icon></div></div><code class="">[
+  <span>{</span>
+    "criteria": <span>{</span>
+      "comparisonOperator": "less-than",
+      "consecutiveDatapointsToAlarm": 1,
+      "consecutiveDatapointsToClear": 1,
+      "value": <span>{</span>
+        "count": 128
+      }
+    },
+    "metric": "aws:message-byte-size",
+    "metricDimension": <span>{</span>
+      "dimensionName:": "TopicFilterForAuthMessages"
+    },
+    "name": "CellularBandwidth"
+  }
+]</code></pre>
+                                          </li>
+                                    </ol>
+                                 </div>
+                                 
+                                 <div class="procedure">
+                                    <p class="title"><b>To view security profiles with a dimension</b></p>
+                                    <ul>
+                                       <li>
+                                          
+                                          <p>Use the <a href="https://docs.aws.amazon.com/iot/latest/apireference/API_ListSecurityProfiles.html">ListSecurityProfiles</a> command to view security profiles with
+                                             a certain dimension:
+                                          </p>
+                                          <pre class="programlisting"><div class="code-btn-container"><div class="btn-copy-code" title="Copy"><awsui-icon name="copy"></awsui-icon></div></div><code class="nohighlight">aws iot list-security-profiles \
+  --dimension-name <code class="replaceable">TopicFilterForAuthMessages</code></code></pre>
+                                          <p>The output of this command looks like the following:</p>
+                                          <pre class="programlisting"><div class="code-btn-container"><div class="btn-copy-code" title="Copy"><awsui-icon name="copy"></awsui-icon></div></div><code class="nohighlight"><span>{</span>
+    "securityProfileIdentifiers": [
+        <span>{</span>
+            "name": "ProfileForConnectedDevice",
+            "arn": "<code class="replaceable">arn:aws:iot:us-west-2:1234564789012:securityprofile/ProfileForConnectedDevice</code>"
+        }
+    ]
+}</code></pre>
+                                          </li>
+                                    </ul>
+                                 </div>
+                                 
+                                 <div class="procedure">
+                                    <p class="title"><b>To update your dimension</b></p>
+                                    <ul>
+                                       <li>
+                                          
+                                          <p>Use the <a href="https://docs.aws.amazon.com/iot/latest/apireference/API_UpdateDimension.html">UpdateDimension</a> command to update a dimension:
+                                          </p>
+                                          <pre class="programlisting"><div class="code-btn-container"><div class="btn-copy-code" title="Copy"><awsui-icon name="copy"></awsui-icon></div></div><code class="nohighlight">aws iot update-dimension \
+  --name <code class="replaceable">TopicFilterForAuthMessages</code> \  
+  --string-values <code class="replaceable">device/$<span>{</span>iot:ClientId}/auth</code></code></pre>
+                                          <p>The output of this command looks like the following:</p>
+                                          <pre class="programlisting"><div class="code-btn-container"><div class="btn-copy-code" title="Copy"><awsui-icon name="copy"></awsui-icon></div></div><code class="nohighlight"><span>{</span>
+    "name": "TopicFilterForAuthMessages",
+    "lastModifiedDate": <code class="replaceable">1585866222.317</code>,
+    "stringValues": [
+        "device/$<span>{</span>iot:ClientId}/auth"
+    ],
+    "creationDate": <code class="replaceable">1585854500.474</code>,
+    "type": "TOPIC_FILTER",
+    "arn": "<code class="replaceable">arn:aws:iot:us-west-2:1234564789012:dimension/TopicFilterForAuthMessages</code>"
+}</code></pre>
+                                          </li>
+                                    </ul>
+                                 </div>
+                                 
+                                 <div class="procedure">
+                                    <p class="title"><b>To delete a dimension</b></p>
+                                    <ol>
+                                       <li>
+                                          
+                                          <p>To delete a dimension, first detach it from any security profiles that it's attached
+                                             to. Use the <a href="https://docs.aws.amazon.com/iot/latest/apireference/API_ListSecurityProfiles.html">ListSecurityProfiles</a> command to view security profiles with
+                                             a certain dimension.
+                                          </p>
+                                          
+                                       </li>
+                                       <li>
+                                          
+                                          <p>To remove a dimension from a security profile, use the <a href="https://docs.aws.amazon.com/iot/latest/apireference/API_UpdateSecurityProfile.html">UpdateSecurityProfile</a> command. Enter all information that
+                                             you want to keep, but exclude the dimension:
+                                          </p>
+                                          <pre class="programlisting"><div class="code-btn-container"><div class="btn-copy-code" title="Copy"><awsui-icon name="copy"></awsui-icon></div></div><code class="nohighlight">aws iot update-security-profile \
+  --security-profile-name ProfileForConnectedDevice \
+  --security-profile-description "Check to see if authorization fails 10 times in 5 minutes or if cellular bandwidth exceeds 128" \
+  --behaviors "[<span>{</span>\"name\":\"metric\":\"aws:message-byte-size\",\"criteria\":<span>{</span>\"comparisonOperator\":\"less-than\",\"value\":<span>{</span>\"count\":128},\"consecutiveDatapointsToAlarm\":1,\"consecutiveDatapointsToClear\":1}},<span>{</span>\"name\":\"Authorization\",\"metric\":\"aws:num-authorization-failures\",\"criteria\":<span>{</span>\comparisonOperator\":\"less-than\",\"value\"<span>{</span>\"count\":10},\"durationSeconds\":300,\"consecutiveDatapointsToAlarm\":1,\"consecutiveDatapointsToClear\":1}}]"</code></pre>
+                                          <p>The output of this command looks like the following:</p>
+                                          <pre class="programlisting"><div class="code-btn-container"><div class="btn-copy-code" title="Copy"><awsui-icon name="copy"></awsui-icon></div></div><code class=""><span>{</span>
+  "behaviors": [
+    <span>{</span>
+      "metric": "aws:message-byte-size",
+      "name": "CellularBandwidth",
+      "criteria": <span>{</span>
+        "consecutiveDatapointsToClear": 1,
+        "comparisonOperator": "less-than",
+        "consecutiveDatapointsToAlarm": 1,
+        "value": <span>{</span>
+          "count": 128
+        }
+      }
+    },
+    <span>{</span>
+      "metric": "aws:num-authorization-failures",
+      "name": "Authorization",
+      "criteria": <span>{</span>
+        "durationSeconds": 300,
+        "comparisonOperator": "less-than",
+        "consecutiveDatapointsToClear": 1,
+        "consecutiveDatapointsToAlarm": 1,
+        "value": <span>{</span>
+          "count": 10
+        }
+      }
+    }
+  ],
+  "securityProfileName": "ProfileForConnectedDevice",
+  "lastModifiedDate": 1585936349.12,
+  "securityProfileDescription": "Check to see if authorization fails 10 times in 5 minutes or if cellular bandwidth exceeds 128",
+  "version": 2,
+  "securityProfileArn": "arn:aws:iot:us-west-2:123456789012:securityprofile/Preo/ProfileForConnectedDevice",  
+  "creationDate": 1585846909.127
+}</code></pre>
+                                          </li>
+                                       <li>
+                                          
+                                          <p>After the dimension is detached, use the <a href="https://docs.aws.amazon.com/iot/latest/apireference/API_DeleteDimension.html">DeleteDimension</a> command to delete the dimension:
+                                          </p>
+                                          <pre class="programlisting"><div class="code-btn-container"><div class="btn-copy-code" title="Copy"><awsui-icon name="copy"></awsui-icon></div></div><code class="nohighlight">aws iot delete-dimension \
+  --name <code class="replaceable">TopicFilterForAuthMessages</code></code></pre>
+                                          </li>
+                                    </ol>
+                                 </div>
+                                 
+                                 <awsdocs-copyright class="copyright-print"></awsdocs-copyright>
+                                 <awsdocs-thumb-feedback right-edge="{{$ctrl.thumbFeedbackRightEdge}}"></awsdocs-thumb-feedback>
+                              </div>
+                              <noscript>
+                                 <div>
+                                    <div>
+                                       <div>
+                                          <div id="js_error_message">
+                                             <p><img src="https://d1ge0kk1l5kms0.cloudfront.net/images/G/01/webservices/console/warning.png" alt="Warning" /> <strong>Javascript is disabled or is unavailable in your
+                                                   browser.</strong></p>
+                                             <p>To use the Amazon Web Services Documentation, Javascript must be
+                                                enabled. Please refer to your browser's Help pages for instructions.
+                                             </p>
+                                          </div>
+                                       </div>
+                                    </div>
+                                 </div>
+                              </noscript>
+                              <div id="main-col-footer" class="awsui-util-font-size-0">
+                                 <div id="doc-conventions"><a target="_top" href="/general/latest/gr/docconventions.html">Document Conventions</a></div>
+                                 <div class="prev-next">
+                                    <div id="previous" class="prev-link" accesskey="p" href="./detect-cloud-side-metrics.html">Cloud-side metrics</div>
+                                    <div id="next" class="next-link" accesskey="n" href="./device-defender-detect-permissions.html">Permissions</div>
+                                 </div>
+                              </div>
+                              <awsdocs-page-utilities></awsdocs-page-utilities>
+                           </div>
+                           <div id="quick-feedback-yes" style="display: none;">
+                              <div class="title">Did this page help you? - Yes</div>
+                              <div class="content">
+                                 <p>Thanks for letting us know we're doing a good
+                                    job!
+                                 </p>
+                                 <p>If you've got a moment, please tell us what we did right
+                                    so we can do more of it.
+                                 </p>
+                                 <p>
+                                    <awsui-button id="fblink" target="_blank" text="Feedback" click="linkClick($event)" href="https://docs.aws.amazon.com/forms/aws-doc-feedback?hidden_service_name=IoT Docs&amp;topic_url=https://docs.aws.amazon.com/en_us/iot/latest/developerguide/scoping-security-behavior.html"></awsui-button>
+                                 </p>
+                              </div>
+                           </div>
+                           <div id="quick-feedback-no" style="display: none;">
+                              <div class="title">Did this page help you? - No</div>
+                              <div class="content">
+                                 <p>Thanks for letting us know this page needs work. We're
+                                    sorry we let you down.
+                                 </p>
+                                 <p>If you've got a moment, please tell us how we can make
+                                    the documentation better.
+                                 </p>
+                                 <p>
+                                    <awsui-button id="fblink" target="_blank" text="Feedback" click="linkClick($event)" href="https://docs.aws.amazon.com/forms/aws-doc-feedback?hidden_service_name=IoT Docs&amp;topic_url=https://docs.aws.amazon.com/en_us/iot/latest/developerguide/scoping-security-behavior.html"></awsui-button>
+                                 </p>
+                              </div>
+                           </div>
+                        </div>
+                     </body>
+                  </div>
+               </awsdocs-view>
+               <div class="page-loading-indicator" id="page-loading-indicator">
+                  <awsui-spinner size="large"></awsui-spinner>
+               </div>
+            </div>
+            <div id="tools-panel" dom-region="tools">
+               <awsdocs-tools-panel id="awsdocs-tools-panel"></awsdocs-tools-panel>
+            </div>
+         </awsui-app-layout>
+         <awsdocs-cookie-banner class="doc-cookie-banner"></awsdocs-cookie-banner>
+         <!--
+                SiteCatalyst code version: H.25.2.
+                Copyright 1996-2012 Adobe, Inc. All Rights Reserved
+                More info available at http://www.omniture.com
+            --><script language="JavaScript" type="text/javascript">
+var awsdocs = awsdocs || {};
+awsdocs.prop66 = 'AWS IoT Core';
+awsdocs.prop65 =  'Developer Guide';
+            </script><script src="https://a0.awsstatic.com/s_code/js/3.0/awshome_s_code.js" language="JavaScript" type="text/javascript"></script>
+         <!--/DO NOT REMOVE/-->
+         <!--End SiteCatalyst code version: H.25.2.--></div>
+   </body>
+</html>

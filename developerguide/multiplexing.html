@@ -1,0 +1,358 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" ng-app="AWSDocsDocPageApp">
+   <head>
+      <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+      <title>Multiplex data streams in a secure tunnel - AWS IoT Core</title>
+      <meta name="viewport" content="width=device-width,initial-scale=1" />
+      <meta name="assets_root" content="assets" />
+      <meta name="target_state" content="multiplexing" />
+      <meta name="default_state" content="multiplexing" />
+      <link rel="icon" type="image/ico" href="/assets/images/favicon.ico" />
+      <link rel="shortcut icon" type="image/ico" href="/assets/images/favicon.ico" />
+      <link rel="canonical" href="https://docs.aws.amazon.com/iot/latest/developerguide/multiplexing.html" />
+      <meta name="description" content="You can use multiple data streams per tunnel by using the Secure Tunneling multiplexing feature. With multiplexing, you can troubleshoot devices using multiple connections or ports (for example, a web browser that requires sending multiple HTTP and SSH data streams). You can also reduce your operational load by eliminating the need to build, deploy, and start multiple local proxies or open multiple tunnels to the same device." />
+      <meta name="deployment_region" content="IAD" />
+      <meta name="product" content="AWS IoT Core" />
+      <meta name="guide" content="Developer Guide" />
+      <meta name="locales" content="de_de:Deutsch/en_us:English/es_es:Español/fr_fr:Français/it_it:Italiano/ja_jp:日本語/ko_kr:한국어/pt_br:Português/zh_cn:中文 (简体)/zh_tw:中文 (繁體)" />
+      <meta name="abstract" content="AWS IoT provides secure, bi-directional communication between Internet-connected devices such as sensors, actuators, embedded micro-controllers, or smart appliances and the AWS Cloud. This enables you to collect telemetry data from multiple devices, and store and analyze the data. You can also create applications that enable your users to control these devices from their phones or tablets." />
+      <meta name="guide-locale" content="en_us" />
+      <meta name="tocs" content="toc-contents.json" />
+      <meta name="feedback-item" content="IoT Docs" />
+      <meta name="this_doc_product" content="AWS IoT Core" />
+      <meta name="this_doc_guide" content="Developer Guide" />
+      <link href="assets/css/vendor4.css" rel="stylesheet" />
+      <link href="assets/css/awsdocs-common.css" rel="stylesheet" /><script type="text/javascript" src="assets/js/vendor3.js" defer=""></script><script type="text/javascript" src="assets/js/vendor4.js" defer=""></script><script type="text/javascript" src="assets/js/vendor1.js" defer=""></script><script type="text/javascript" src="assets/js/awsdocs-common.js" defer=""></script><script type="text/javascript" src="assets/js/awsdocs-doc-app.js" defer=""></script></head>
+   <body class="awsdocs awsui">
+      <div class="awsdocs-container">
+         <awsdocs-header></awsdocs-header>
+         <awsui-app-layout id="app-layout" class="awsui-util-no-gutters" ng-controller="ContentController as $ctrl" header-selector="awsdocs-header" navigation-hide="false" navigation-width="$ctrl.navWidth" navigation-open="$ctrl.navOpen" navigation-change="$ctrl.onNavChange($event)" tools-hide="$ctrl.hideTools" tools-width="$ctrl.toolsWidth" tools-open="$ctrl.toolsOpen" tools-change="$ctrl.onToolsChange($event)">
+            <div id="guide-toc" dom-region="navigation">
+               <awsdocs-toc></awsdocs-toc>
+            </div>
+            <div id="main-column" dom-region="content" tabindex="-1">
+               <awsdocs-view class="awsdocs-view">
+                  <div id="awsdocs-content">
+                     <head>
+                        <title>Multiplex data streams in a secure tunnel - AWS IoT Core</title>
+                        <meta name="pdf" content="iot-dg.pdf#multiplexing" />
+                        <meta name="kindle" content="https://www.amazon.com/dp/B07JBRCWWZ" />
+                        <meta name="github" content="https://github.com/awsdocs/aws-iot-docs/tree/master/developerguide/multiplexing.md" />
+                        <meta name="forums" content="http://forums.aws.amazon.com/forum.jspa?forumID=210" />
+                        <meta name="feedback" content="https://docs.aws.amazon.com/forms/aws-doc-feedback?hidden_service_name=IoT%20Docs&amp;topic_url=http://docs.aws.amazon.com/en_us/iot/latest/developerguide/multiplexing.html" />
+                        <meta name="feedback-yes" content="feedbackyes.html?topic_url=http://docs.aws.amazon.com/en_us/iot/latest/developerguide/multiplexing.html" />
+                        <meta name="feedback-no" content="feedbackno.html?topic_url=http://docs.aws.amazon.com/en_us/iot/latest/developerguide/multiplexing.html" />
+                        <meta name="keywords" content="AWS IoT,IoT,Internet of Things" />
+                     </head>
+                     <body>
+                        <div id="main">
+                           <div style="display: none"><a href="iot-dg.pdf#multiplexing" target="_blank" rel="noopener noreferrer" title="Open PDF"></a><a target="_blank" rel="noopener noreferrer" href="https://www.amazon.com/dp/B07JBRCWWZ" title="Open Kindle"></a><a href="https://github.com/awsdocs/aws-iot-docs/tree/master/developerguide/multiplexing.md" target="_blank" rel="noopener noreferrer" title="Edit this page on GitHub"></a></div>
+                           <div id="breadcrumbs" class="breadcrumb"><a href="http://aws.amazon.com">AWS</a><a href="/index.html">Documentation</a><a href="/iot/index.html">AWS IoT Core</a><a href="what-is-aws-iot.html">Developer Guide</a></div>
+                           <div id="page-toc-src"><a href="#multiplexing-multiple-streams">Example use case</a><a href="#multiplexing-tutorial">How to set up a multiplexed tunnel</a></div>
+                           <div id="main-content" class="awsui-util-container">
+                              <div id="main-col-body">
+                                 <awsdocs-language-banner data-service="$ctrl.pageService"></awsdocs-language-banner>
+                                 <h1 class="topictitle" id="multiplexing">Multiplex data streams in a secure tunnel</h1>
+                                 <div class="awsdocs-page-header-container">
+                                    <awsdocs-page-header></awsdocs-page-header>
+                                    <awsdocs-filter-selector id="awsdocs-filter-selector"></awsdocs-filter-selector>
+                                 </div>
+                                 <p>You can use multiple data streams per tunnel by using the Secure Tunneling
+                                    			multiplexing feature. With multiplexing, you can troubleshoot devices using multiple
+                                    			connections or ports (for example, a web browser that requires sending multiple
+                                    HTTP and
+                                    			SSH data streams). You can also reduce your operational load by eliminating the
+                                    need to
+                                    			build, deploy, and start multiple local proxies or open multiple tunnels to the
+                                    same
+                                    			device.
+                                 </p>
+                                 			
+                                 <h2 id="multiplexing-multiple-streams">Example use case</h2>
+                                 			
+                                 <p>You can use the multiplexing feature in the event that a device in the field
+                                    				requires more than one connection to the device in order to properly troubleshoot
+                                    				it. For example, you might need to connect to an on-device web application to
+                                    change
+                                    				some networking parameters, while simultaneously issuing shell commands through
+                                    the
+                                    				terminal to verify that the device is working properly with the new networking
+                                    				parameters. In this scenario, you may need to connect to the device through both
+                                    				HTTP and SSH and transfer two parallel data streams in order to concurrently access
+                                    				the web application and terminal. With the multiplexing feature, these two
+                                    				independent streams can be transferred over the same tunnel at the same time.
+                                 </p>
+                                 		 
+                                 			
+                                 <h2 id="multiplexing-tutorial">How to set up a multiplexed tunnel</h2>
+                                 			
+                                 <p>The following procedure will walk you through how to set up a multiplexed tunnel
+                                    				for troubleshooting devices using applications that require connections to multiple
+                                    				ports. You will set up one tunnel with two multiplexed streams: one HTTP stream
+                                    and
+                                    				one SSH stream.
+                                 </p>
+                                 			
+                                 <div class="procedure">
+                                    <ol>
+                                       <li>
+                                          					
+                                          <p>First, configure the destination device with configuration files. Configuration files
+                                             can
+                                             						be provided on the device if the port mappings are unlikely to change. On
+                                             						the destination device, create a configuration directory called
+                                             							<code>config</code> in the same folder where the local proxy is
+                                             						running. Then, create a file called <code>SSHSource.ini</code> in
+                                             						this directory. The content of this file is:
+                                          </p>
+                                          					<pre class="programlisting"><div class="code-btn-container"><div class="btn-copy-code" title="Copy"><awsui-icon name="copy"></awsui-icon></div></div><code class="">HTTP1 = 5555
+SSH1 = 3333</code></pre>
+                                          					<div class="awsdocs-note">
+                                             <div class="awsdocs-note-title">
+                                                <awsui-icon name="status-info" variant="link"></awsui-icon><span>Note</span></div>
+                                             <div class="awsdocs-note-text">
+                                                <p>You can skip this step if you prefer to specify the port mapping
+                                                   							through the CLI or don't need to start local proxy on designated
+                                                   							listening ports.
+                                                </p>
+                                             </div>
+                                          </div>
+                                          				
+                                       </li>
+                                       <li>
+                                          					
+                                          <p>Next, configure the source device with configuration files. In the same
+                                             						folder as where the local proxy is running, create a configuration directory
+                                             						called <code>config</code> and give local proxy the read permission
+                                             						to this directory. Then, create a file called
+                                             							<code>SSHDestination.ini</code> in this directory. The content
+                                             						of this file is:
+                                          </p>
+                                          					<pre class="programlisting"><div class="code-btn-container"><div class="btn-copy-code" title="Copy"><awsui-icon name="copy"></awsui-icon></div></div><code class="">HTTP1 = 80
+SSH1 = 22</code></pre>
+                                          					<div class="awsdocs-note">
+                                             <div class="awsdocs-note-title">
+                                                <awsui-icon name="status-info" variant="link"></awsui-icon><span>Note</span></div>
+                                             <div class="awsdocs-note-text">
+                                                <p>You can skip this step if you prefer to specify the port mapping
+                                                   							through the CLI. If so, you will need to update the <a href="./agent-snippet.html">tunnel agent</a> to use the new
+                                                   							parameters.
+                                                </p>
+                                             </div>
+                                          </div>
+                                          				
+                                       </li>
+                                       <li>
+                                          					
+                                          <p>Open a tunnel with the service identifier <code class="code">HTTP1</code> and
+                                             							<code class="code">SSH1</code>. <code class="code">thingName</code> is optional if your
+                                             						device isn't registered with AWS IoT.
+                                          </p>
+                                          					<pre class="programlisting"><div class="code-btn-container"><div class="btn-copy-code" title="Copy"><awsui-icon name="copy"></awsui-icon></div></div><code class="nohighlight">aws iotsecuretunneling open-tunnel \
+--destination-config thingName=<code class="replaceable">foo</code>,services=HTTP1,SSH1</code></pre>
+                                          					<p>A destination and source client access token will be given after this call. Note the
+                                             							<code class="code">destination_client_access_token</code> and
+                                             							<code class="code">source_client_access_token</code> for next steps. The output
+                                             						should look similar to the following.
+                                          </p>
+                                          					<pre class="programlisting"><div class="code-btn-container"><div class="btn-copy-code" title="Copy"><awsui-icon name="copy"></awsui-icon></div></div><code class="nohighlight"><span>{</span>
+	"tunnelId": "<code class="replaceable">b2de92a3-b8ff-46c0-b0f2-afa28b00cecd</code>",
+	"tunnelArn": "arn:aws:iot:<code class="replaceable">us-west-2</code>:<code class="replaceable">431600097591</code>:tunnel/<code class="replaceable">b2de92a3-b8ff-46c0-b0f2-afa28b00cecd</code>",
+	"sourceAccessToken": <code class="replaceable">source_client_access_token</code>,
+	"destinationAccessToken": <code class="replaceable">destination_client_access_token</code>
+}</code></pre>
+                                          				</li>
+                                       <li>
+                                          					
+                                          <p>Next, start the destination local proxy. You will be connected to the
+                                             						secure tunneling service upon token delivery. A local proxy running on
+                                             						destination devices starts in destination mode. You have two options to
+                                             						achieve this:
+                                          </p>
+                                          					
+                                          <div class="orderedlist">
+                                             						 
+                                             						 
+                                             					
+                                             <ol>
+                                                <li>
+                                                   							
+                                                   <p>Start destination local proxy with configuration files from Step
+                                                      								1.
+                                                   </p>
+                                                   							<pre class="programlisting"><div class="code-btn-container"><div class="btn-copy-code" title="Copy"><awsui-icon name="copy"></awsui-icon></div></div><code class="nohighlight">./localproxy -r <code class="replaceable">us-east-1</code> -m dst -t <code class="replaceable">destination_client_access_token</code></code></pre>
+                                                   						</li>
+                                                <li>
+                                                   							
+                                                   <p>Start destination local proxy with the mapping specified through
+                                                      								the CLI.
+                                                   </p>
+                                                   							<pre class="programlisting"><div class="code-btn-container"><div class="btn-copy-code" title="Copy"><awsui-icon name="copy"></awsui-icon></div></div><code class="nohighlight">./localproxy -r <code class="replaceable">us-east-1</code> -d HTTP1=80,SSH1=22 -t <code class="replaceable">destination_client_access_token</code></code></pre>
+                                                   						</li>
+                                             </ol>
+                                          </div>
+                                          				
+                                       </li>
+                                       <li>
+                                          					
+                                          <p>Now, start the source local proxy. A local proxy running on source devices
+                                             						starts in source mode. You have three options to achieve this:
+                                          </p>
+                                          					
+                                          <div class="orderedlist">
+                                             						 
+                                             						 
+                                             						 
+                                             					
+                                             <ol>
+                                                <li>
+                                                   							
+                                                   <p>Start source local proxy with configuration files from Step
+                                                      								2.
+                                                   </p>
+                                                   							<pre class="programlisting"><div class="code-btn-container"><div class="btn-copy-code" title="Copy"><awsui-icon name="copy"></awsui-icon></div></div><code class="nohighlight">./localproxy -r <code class="replaceable">us-east-1</code> -m src -t <code class="replaceable">source_client_access_token</code></code></pre>
+                                                   						</li>
+                                                <li>
+                                                   							
+                                                   <p>Start source local proxy with the mapping specified through the
+                                                      								CLI.
+                                                   </p>
+                                                   							<pre class="programlisting"><div class="code-btn-container"><div class="btn-copy-code" title="Copy"><awsui-icon name="copy"></awsui-icon></div></div><code class="nohighlight">./localproxy -r <code class="replaceable">us-east-1</code> -s HTTP1=5555,SSH1=3333 -t <code class="replaceable">source_client_access_token</code></code></pre>
+                                                   						</li>
+                                                <li>
+                                                   							
+                                                   <p>Start source local proxy with no configuration files and no
+                                                      								mapping specified from the CLI. Local proxy will pick up available
+                                                      								ports to use and manage the mappings for you.
+                                                   </p>
+                                                   							<pre class="programlisting"><div class="code-btn-container"><div class="btn-copy-code" title="Copy"><awsui-icon name="copy"></awsui-icon></div></div><code class="nohighlight">./localproxy -r <code class="replaceable">us-east-1</code> -m src -t <code class="replaceable">source_client_access_token</code></code></pre>
+                                                   						</li>
+                                             </ol>
+                                          </div>
+                                          				
+                                       </li>
+                                       <li>
+                                          					
+                                          <p>Application data from SSH and HTTP connection can now be transferred
+                                             						concurrently over the multiplexed tunnel. As can be seen from the map below,
+                                             						the service identifier acts as a readable format to translate the port
+                                             						mapping between the source and destination device. With this configuration,
+                                             						the secure tunneling service will:
+                                          </p>
+                                          					
+                                          <div class="orderedlist">
+                                             						 
+                                             						 
+                                             					
+                                             <ol>
+                                                <li>
+                                                   							
+                                                   <p>Forward any incoming HTTP traffic from port 5555 on the source
+                                                      								device to port 80 on the destination device.
+                                                   </p>
+                                                   						
+                                                </li>
+                                                <li>
+                                                   							
+                                                   <p>Forward any incoming SSH traffic from port 3333 on the source
+                                                      								device to port 22 on the destination device.
+                                                   </p>
+                                                   						
+                                                </li>
+                                             </ol>
+                                          </div>
+                                          					
+                                          <div class="mediaobject">
+                                             						 
+                                             							<img src="images/multiplexing-post-mapping-translation.png" class="aws-docs-img-whiteBg aws-docs-img-padding" />
+                                             						 
+                                             					
+                                          </div>
+                                          				
+                                       </li>
+                                    </ol>
+                                 </div>
+                                 		
+                                 <awsdocs-copyright class="copyright-print"></awsdocs-copyright>
+                                 <awsdocs-thumb-feedback right-edge="{{$ctrl.thumbFeedbackRightEdge}}"></awsdocs-thumb-feedback>
+                              </div>
+                              <noscript>
+                                 <div>
+                                    <div>
+                                       <div>
+                                          <div id="js_error_message">
+                                             <p><img src="https://d1ge0kk1l5kms0.cloudfront.net/images/G/01/webservices/console/warning.png" alt="Warning" /> <strong>Javascript is disabled or is unavailable in your
+                                                   browser.</strong></p>
+                                             <p>To use the Amazon Web Services Documentation, Javascript must be
+                                                enabled. Please refer to your browser's Help pages for instructions.
+                                             </p>
+                                          </div>
+                                       </div>
+                                    </div>
+                                 </div>
+                              </noscript>
+                              <div id="main-col-footer" class="awsui-util-font-size-0">
+                                 <div id="doc-conventions"><a target="_top" href="/general/latest/gr/docconventions.html">Document Conventions</a></div>
+                                 <div class="prev-next">
+                                    <div id="previous" class="prev-link" accesskey="p" href="./configure-local-proxy-web-proxy.html">Configure local proxy for devices 
+                                       				that use web proxy
+                                    </div>
+                                    <div id="next" class="next-link" accesskey="n" href="./agent-snippet.html">IoT agent snippet</div>
+                                 </div>
+                              </div>
+                              <awsdocs-page-utilities></awsdocs-page-utilities>
+                           </div>
+                           <div id="quick-feedback-yes" style="display: none;">
+                              <div class="title">Did this page help you? - Yes</div>
+                              <div class="content">
+                                 <p>Thanks for letting us know we're doing a good
+                                    job!
+                                 </p>
+                                 <p>If you've got a moment, please tell us what we did right
+                                    so we can do more of it.
+                                 </p>
+                                 <p>
+                                    <awsui-button id="fblink" target="_blank" text="Feedback" click="linkClick($event)" href="https://docs.aws.amazon.com/forms/aws-doc-feedback?hidden_service_name=IoT Docs&amp;topic_url=https://docs.aws.amazon.com/en_us/iot/latest/developerguide/multiplexing.html"></awsui-button>
+                                 </p>
+                              </div>
+                           </div>
+                           <div id="quick-feedback-no" style="display: none;">
+                              <div class="title">Did this page help you? - No</div>
+                              <div class="content">
+                                 <p>Thanks for letting us know this page needs work. We're
+                                    sorry we let you down.
+                                 </p>
+                                 <p>If you've got a moment, please tell us how we can make
+                                    the documentation better.
+                                 </p>
+                                 <p>
+                                    <awsui-button id="fblink" target="_blank" text="Feedback" click="linkClick($event)" href="https://docs.aws.amazon.com/forms/aws-doc-feedback?hidden_service_name=IoT Docs&amp;topic_url=https://docs.aws.amazon.com/en_us/iot/latest/developerguide/multiplexing.html"></awsui-button>
+                                 </p>
+                              </div>
+                           </div>
+                        </div>
+                     </body>
+                  </div>
+               </awsdocs-view>
+               <div class="page-loading-indicator" id="page-loading-indicator">
+                  <awsui-spinner size="large"></awsui-spinner>
+               </div>
+            </div>
+            <div id="tools-panel" dom-region="tools">
+               <awsdocs-tools-panel id="awsdocs-tools-panel"></awsdocs-tools-panel>
+            </div>
+         </awsui-app-layout>
+         <awsdocs-cookie-banner class="doc-cookie-banner"></awsdocs-cookie-banner>
+         <!--
+                SiteCatalyst code version: H.25.2.
+                Copyright 1996-2012 Adobe, Inc. All Rights Reserved
+                More info available at http://www.omniture.com
+            --><script language="JavaScript" type="text/javascript">
+var awsdocs = awsdocs || {};
+awsdocs.prop66 = 'AWS IoT Core';
+awsdocs.prop65 =  'Developer Guide';
+            </script><script src="https://a0.awsstatic.com/s_code/js/3.0/awshome_s_code.js" language="JavaScript" type="text/javascript"></script>
+         <!--/DO NOT REMOVE/-->
+         <!--End SiteCatalyst code version: H.25.2.--></div>
+   </body>
+</html>

@@ -1,0 +1,637 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" ng-app="AWSDocsDocPageApp">
+   <head>
+      <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+      <title>Create VPC interface endpoint and private hosted zone - AWS IoT Core</title>
+      <meta name="viewport" content="width=device-width,initial-scale=1" />
+      <meta name="assets_root" content="assets" />
+      <meta name="target_state" content="connect-iot-lorawan-create-vpc-lns-cups" />
+      <meta name="default_state" content="connect-iot-lorawan-create-vpc-lns-cups" />
+      <link rel="icon" type="image/ico" href="/assets/images/favicon.ico" />
+      <link rel="shortcut icon" type="image/ico" href="/assets/images/favicon.ico" />
+      <link rel="canonical" href="https://docs.aws.amazon.com/iot/latest/developerguide/connect-iot-lorawan-create-vpc-lns-cups.html" />
+      <meta name="description" content="AWS IoT Core for LoRaWAN has two data plane endpoints, Configuration and Update Server (CUPS) endpoint and LoRaWAN Network Server (LNS) endpoint. The setup process to establish a privatelink connection to both endpoints is the same, so we can use the LNS endpoint for illustration purposes." />
+      <meta name="deployment_region" content="IAD" />
+      <meta name="product" content="AWS IoT Core" />
+      <meta name="guide" content="Developer Guide" />
+      <meta name="locales" content="de_de:Deutsch/en_us:English/es_es:Español/fr_fr:Français/it_it:Italiano/ja_jp:日本語/ko_kr:한국어/pt_br:Português/zh_cn:中文 (简体)/zh_tw:中文 (繁體)" />
+      <meta name="abstract" content="AWS IoT provides secure, bi-directional communication between Internet-connected devices such as sensors, actuators, embedded micro-controllers, or smart appliances and the AWS Cloud. This enables you to collect telemetry data from multiple devices, and store and analyze the data. You can also create applications that enable your users to control these devices from their phones or tablets." />
+      <meta name="guide-locale" content="en_us" />
+      <meta name="tocs" content="toc-contents.json" />
+      <meta name="feedback-item" content="IoT Docs" />
+      <meta name="this_doc_product" content="AWS IoT Core" />
+      <meta name="this_doc_guide" content="Developer Guide" />
+      <link href="assets/css/vendor4.css" rel="stylesheet" />
+      <link href="assets/css/awsdocs-common.css" rel="stylesheet" /><script type="text/javascript" src="assets/js/vendor3.js" defer=""></script><script type="text/javascript" src="assets/js/vendor4.js" defer=""></script><script type="text/javascript" src="assets/js/vendor1.js" defer=""></script><script type="text/javascript" src="assets/js/awsdocs-common.js" defer=""></script><script type="text/javascript" src="assets/js/awsdocs-doc-app.js" defer=""></script></head>
+   <body class="awsdocs awsui">
+      <div class="awsdocs-container">
+         <awsdocs-header></awsdocs-header>
+         <awsui-app-layout id="app-layout" class="awsui-util-no-gutters" ng-controller="ContentController as $ctrl" header-selector="awsdocs-header" navigation-hide="false" navigation-width="$ctrl.navWidth" navigation-open="$ctrl.navOpen" navigation-change="$ctrl.onNavChange($event)" tools-hide="$ctrl.hideTools" tools-width="$ctrl.toolsWidth" tools-open="$ctrl.toolsOpen" tools-change="$ctrl.onToolsChange($event)">
+            <div id="guide-toc" dom-region="navigation">
+               <awsdocs-toc></awsdocs-toc>
+            </div>
+            <div id="main-column" dom-region="content" tabindex="-1">
+               <awsdocs-view class="awsdocs-view">
+                  <div id="awsdocs-content">
+                     <head>
+                        <title>Create VPC interface endpoint and private hosted zone - AWS IoT Core</title>
+                        <meta name="pdf" content="iot-dg.pdf#connect-iot-lorawan-create-vpc-lns-cups" />
+                        <meta name="kindle" content="https://www.amazon.com/dp/B07JBRCWWZ" />
+                        <meta name="github" content="https://github.com/awsdocs/aws-iot-docs/tree/master/developerguide/connect-iot-lorawan-create-vpc-lns-cups.md" />
+                        <meta name="forums" content="http://forums.aws.amazon.com/forum.jspa?forumID=210" />
+                        <meta name="feedback" content="https://docs.aws.amazon.com/forms/aws-doc-feedback?hidden_service_name=IoT%20Docs&amp;topic_url=http://docs.aws.amazon.com/en_us/iot/latest/developerguide/connect-iot-lorawan-create-vpc-lns-cups.html" />
+                        <meta name="feedback-yes" content="feedbackyes.html?topic_url=http://docs.aws.amazon.com/en_us/iot/latest/developerguide/connect-iot-lorawan-create-vpc-lns-cups.html" />
+                        <meta name="feedback-no" content="feedbackno.html?topic_url=http://docs.aws.amazon.com/en_us/iot/latest/developerguide/connect-iot-lorawan-create-vpc-lns-cups.html" />
+                        <meta name="keywords" content="AWS IoT,IoT,Internet of Things" />
+                     </head>
+                     <body>
+                        <div id="main">
+                           <div style="display: none"><a href="iot-dg.pdf#connect-iot-lorawan-create-vpc-lns-cups" target="_blank" rel="noopener noreferrer" title="Open PDF"></a><a target="_blank" rel="noopener noreferrer" href="https://www.amazon.com/dp/B07JBRCWWZ" title="Open Kindle"></a><a href="https://github.com/awsdocs/aws-iot-docs/tree/master/developerguide/connect-iot-lorawan-create-vpc-lns-cups.md" target="_blank" rel="noopener noreferrer" title="Edit this page on GitHub"></a></div>
+                           <div id="breadcrumbs" class="breadcrumb"><a href="http://aws.amazon.com">AWS</a><a href="/index.html">Documentation</a><a href="/iot/index.html">AWS IoT Core</a><a href="what-is-aws-iot.html">Developer Guide</a></div>
+                           <div id="page-toc-src"><a href="#connect-iot-lorawan-lns-create-vpc">Create an Amazon VPC and
+                                 subnet</a><a href="#connect-iot-lorawan-create-vpc-endpoint-lns">Create an
+                                 Amazon VPC interface endpoint</a><a href="#connect-iot-lorawan-create-phz-lns">Configure private hosted zone</a><a href="#connect-iot-lorawan-configure-route53-resolver">Configure Route 53 
+                                 inbound resolver</a><a href="#connect-iot-lorawan-lns-cups-next-steps">Next steps</a></div>
+                           <div id="main-content" class="awsui-util-container">
+                              <div id="main-col-body">
+                                 <awsdocs-language-banner data-service="$ctrl.pageService"></awsdocs-language-banner>
+                                 <h1 class="topictitle" id="connect-iot-lorawan-create-vpc-lns-cups">Create VPC interface endpoint
+                                    and private hosted zone
+                                 </h1>
+                                 <div class="awsdocs-page-header-container">
+                                    <awsdocs-page-header></awsdocs-page-header>
+                                    <awsdocs-filter-selector id="awsdocs-filter-selector"></awsdocs-filter-selector>
+                                 </div>
+                                 <p>AWS IoT Core for LoRaWAN has two data plane endpoints, Configuration and Update Server
+                                    (CUPS) endpoint and LoRaWAN Network Server (LNS) endpoint. The setup process to
+                                    establish a privatelink connection to both endpoints is the same, so we can use
+                                    the LNS endpoint for illustration purposes.
+                                 </p>
+                                 <p>For your data plane endpoints, the LoRa gateways first connect to your
+                                    AWS account in your Amazon VPC, which then connects to the VPC endpoint in the
+                                    AWS IoT Core for LoRaWAN VPC.
+                                 </p>
+                                 <p>When connecting to the endpoints, the DNS names can be resolved within one VPC
+                                    but can't be resolved across multiple VPCs. To disable private DNS when creating
+                                    the endpoint, disable the <b>Enable DNS name</b> setting. You can
+                                    use private hosted zone to provide information about how you want Route 53 to
+                                    respond to DNS queries for your VPCs. To share your VPC with an on-premises
+                                    environment, you can use a
+                                    Route 53 Resolver
+                                    to facilitate hybrid DNS.
+                                 </p>
+                                 <div class="highlights" id="inline-topiclist">
+                                    <p><strong>To complete this procedure, perform the following
+                                          steps.</strong></p>
+                                    <ul>
+                                       <li><a href="#connect-iot-lorawan-lns-create-vpc">Create an Amazon VPC and
+                                             subnet</a></li>
+                                       <li><a href="#connect-iot-lorawan-create-vpc-endpoint-lns">Create an
+                                             Amazon VPC interface endpoint</a></li>
+                                       <li><a href="#connect-iot-lorawan-create-phz-lns">Configure private hosted zone</a></li>
+                                       <li><a href="#connect-iot-lorawan-configure-route53-resolver">Configure Route 53 
+                                             inbound resolver</a></li>
+                                       <li><a href="#connect-iot-lorawan-lns-cups-next-steps">Next steps</a></li>
+                                    </ul>
+                                 </div>
+                                 
+                                 <h2 id="connect-iot-lorawan-lns-create-vpc">Create an Amazon VPC and
+                                    subnet
+                                 </h2>
+                                 
+                                 
+                                 <p>You can reuse your Amazon VPC and subnet that you created when onboarding your
+                                    control plane endpoint. For information, see <a href="./connect-iot-lorawan-onboard-control-plane-endpoint.html#connect-iot-lorawan-control-plane-create-vpc">Create your Amazon VPC and
+                                       subnet</a>.
+                                 </p>
+                                 
+                                  
+                                 
+                                 <h2 id="connect-iot-lorawan-create-vpc-endpoint-lns">Create an
+                                    Amazon VPC interface endpoint
+                                 </h2>
+                                 
+                                 
+                                 <p>You can create a VPC endpoint for your VPC, which is similar to how you
+                                    would create one for your control plane endpoint.
+                                 </p>
+                                 
+                                 
+                                 <div class="orderedlist">
+                                     
+                                     
+                                     
+                                    
+                                    <ol>
+                                       <li>
+                                          
+                                          <p>Navigate to the <a href="https://console.aws.amazon.com/vpc/home#/endpoints" rel="noopener noreferrer" target="_blank"><span>VPC</span><awsui-icon class="awsdocs-link-icon" name="external"></awsui-icon></a>
+                                             <b>Endpoints</b> console and choose 
+                                             <b>Create Endpoint</b>.
+                                          </p>
+                                          
+                                       </li>
+                                       <li>
+                                          
+                                          <p>In the <b>Create Endpoint</b> page, specify the
+                                             following information.
+                                          </p>
+                                          
+                                          <div class="itemizedlist">
+                                              
+                                              
+                                              
+                                              
+                                              
+                                              
+                                             
+                                             <ul class="itemizedlist" type="disc">
+                                                <li class="listitem">
+                                                   
+                                                   <p>Choose <b>AWS services</b> for
+                                                      <b>Service category</b>.
+                                                   </p>
+                                                   
+                                                </li>
+                                                <li class="listitem">
+                                                   
+                                                   <p>For <b>Service Name</b>, search by entering
+                                                      the keyword <code class="userinput">lns</code>. In the list of
+                                                      <code class="code">lns</code> services displayed, choose the LNS data
+                                                      plane API endpoint for your Region. The endpoint will be of
+                                                      the format
+                                                      <code class="code">com.amazonaws.<code class="replaceable">region</code>.lorawan.lns</code>.
+                                                   </p>
+                                                   
+                                                   <div class="awsdocs-note">
+                                                      <div class="awsdocs-note-title">
+                                                         <awsui-icon name="status-info" variant="link"></awsui-icon><span>Note</span></div>
+                                                      <div class="awsdocs-note-text">
+                                                         <p>If you're following this procedure for your CUPS endpoint, 
+                                                            search for <code class="code">cups</code>. The endpoint will be of the format 
+                                                            <code class="code">com.amazonaws.<code class="replaceable">region</code>.lorawan.cups</code>.
+                                                         </p>
+                                                      </div>
+                                                   </div>
+                                                   
+                                                </li>
+                                                <li class="listitem">
+                                                   
+                                                   <p>For <b>VPC</b> and <b>Subnets</b>,
+                                                      choose the VPC where you want to create the endpoint, and the
+                                                      Availability Zones (AZs) in which you want to create the
+                                                      endpoint network.
+                                                   </p>
+                                                   
+                                                   <div class="awsdocs-note">
+                                                      <div class="awsdocs-note-title">
+                                                         <awsui-icon name="status-info" variant="link"></awsui-icon><span>Note</span></div>
+                                                      <div class="awsdocs-note-text">
+                                                         <p>The <code class="code">iotwireless</code> service might not support all
+                                                            Availability Zones.
+                                                         </p>
+                                                      </div>
+                                                   </div>
+                                                   
+                                                </li>
+                                                <li class="listitem">
+                                                   
+                                                   <p>For <b>Enable DNS name</b>, make sure that 
+                                                      <b>Enable for this endpoint</b> is not selected.
+                                                   </p>
+                                                   
+                                                   <p>By not selecting this option, you can disable private DNS for the 
+                                                      VPC endpoint and use private hosted zone instead.
+                                                   </p>                                    
+                                                   
+                                                </li>
+                                                <li class="listitem">
+                                                   
+                                                   <p>For <b>Security group</b>, choose the security
+                                                      groups you want to associate with the endpoint network
+                                                      interfaces.
+                                                   </p>
+                                                   
+                                                </li>
+                                                <li class="listitem">
+                                                   
+                                                   <p>Optionally, you can add or remove tags. Tags are name-value
+                                                      pairs that you use to associate with your endpoint. 
+                                                   </p>
+                                                   
+                                                </li>
+                                             </ul>
+                                          </div>
+                                          
+                                       </li>
+                                       <li>
+                                          
+                                          <p>To create your VPC endpoint, choose <b>Create
+                                                endpoint</b>.
+                                          </p>
+                                          
+                                       </li>
+                                    </ol>
+                                 </div>                    
+                                  
+                                 
+                                 <h2 id="connect-iot-lorawan-create-phz-lns">Configure private hosted zone</h2>
+                                 
+                                 <p>After you create the privatelink endpoint, in the
+                                    <b>Details</b> tab of your endpoint, you'll see a list of
+                                    DNS names. You can use one of these DNS names to configure your private
+                                    hosted zone. The DNS name will be of the format
+                                    <code class="code">vpce-<code class="replaceable">xxxx</code>.lns.lorawan.<code class="replaceable">region</code>.vpce.amazonaws.com</code>.
+                                 </p>
+                                 
+                                  
+                                 
+                                 <p class="title"><b>Create the private hosted zone</b></p>
+                                 
+                                 <p>To create the private hosted zone:</p>
+                                                      
+                                 
+                                 
+                                 <div class="orderedlist">
+                                     
+                                     
+                                     
+                                    
+                                    <ol>
+                                       <li>
+                                          
+                                          <p>Navigate to the <a href="https://console.aws.amazon.com/route53/v2/hostedzones#/" rel="noopener noreferrer" target="_blank"><span>Route 53</span><awsui-icon class="awsdocs-link-icon" name="external"></awsui-icon></a>
+                                             <b>Hosted zones</b> console and choose 
+                                             <b>Create hosted zone</b>.
+                                          </p>
+                                          
+                                       </li>
+                                       <li>
+                                          
+                                          <p>In the <b>Create hosted zone</b> page, specify the
+                                             following information.
+                                          </p>
+                                          
+                                          <div class="itemizedlist">
+                                              
+                                                                              
+                                              
+                                             
+                                             <ul class="itemizedlist" type="disc">
+                                                <li class="listitem">
+                                                   
+                                                   <p>For <b>Domain name</b>, enter the full
+                                                      service name for your LNS endpoint,
+                                                      <code class="userinput">lns.lorawan.region.amazonaws.com</code>.
+                                                   </p>
+                                                   
+                                                   <div class="awsdocs-note">
+                                                      <div class="awsdocs-note-title">
+                                                         <awsui-icon name="status-info" variant="link"></awsui-icon><span>Note</span></div>
+                                                      <div class="awsdocs-note-text">
+                                                         <p>If you're following this procedure for your CUPS endpoint, 
+                                                            enter <code class="userinput">cups.lorawan.region.amazonaws.com</code>.
+                                                         </p>
+                                                      </div>
+                                                   </div>
+                                                   
+                                                </li>
+                                                <li class="listitem">
+                                                   
+                                                   <p>For <b>Type</b>, choose <b>Private
+                                                         hosted zone</b>.
+                                                   </p>
+                                                   
+                                                </li>
+                                                <li class="listitem">
+                                                   
+                                                   <p>Optionally, you can add or remove tags to associate 
+                                                      with your hosted zone.
+                                                   </p>
+                                                   
+                                                </li>
+                                             </ul>
+                                          </div>
+                                          
+                                       </li>
+                                       <li>
+                                          
+                                          <p>To create your private hosted zone, choose <b>Create
+                                                hosted zone</b>.
+                                          </p>
+                                          
+                                       </li>
+                                    </ol>
+                                 </div>   
+                                 
+                                 
+                                 <p>For more information, see <a href="https://docs.aws.amazon.com/Route53/latest/DeveloperGuide/hosted-zone-private-creating.html">Creating a private hosted zone</a>.
+                                 </p>
+                                 
+                                 <p>After you have created a private hosted zone, you can create a record that 
+                                    tells the DNS how you want traffic to be routed to that domain.
+                                 </p>
+                                 
+                                  
+                                 
+                                 <p class="title"><b>Create a record</b></p>
+                                 
+                                 <p>After you have created a private hosted zone, you can create a record that
+                                    tells the DNS how you want traffic to be routed to that domain. To create a
+                                    record:
+                                 </p>
+                                                      
+                                 
+                                 <div class="orderedlist">
+                                     
+                                     
+                                     
+                                     
+                                     
+                                     
+                                    
+                                    <ol>
+                                       <li>
+                                          
+                                          <p>In the list of hosted zones displayed, choose the private hosted
+                                             zone that you created earlier and choose <b>Create
+                                                record</b>.
+                                          </p>
+                                          
+                                       </li>
+                                       <li>
+                                          
+                                          <p>Use the wizard method to create the record. If the console 
+                                             presents you the <b>Quick create</b> method, choose 
+                                             <b>Switch to wizard</b>.
+                                          </p>
+                                          
+                                       </li>
+                                       <li>
+                                          
+                                          <p>Choose <b>Simple Routing</b> for <b>Routing policy</b> 
+                                             and then choose <b>Next</b>.
+                                          </p>
+                                          
+                                       </li>
+                                       <li>
+                                          
+                                          <p>In the <b>Configure records</b> page, choose <b>Define 
+                                                simple record</b>.
+                                          </p>
+                                          
+                                       </li>
+                                       <li>
+                                          
+                                          <p>In the <b>Define simple record</b> page:
+                                          </p>
+                                          
+                                          <div class="itemizedlist">
+                                              
+                                              
+                                              
+                                             
+                                             <ul class="itemizedlist" type="disc">
+                                                <li class="listitem">
+                                                   
+                                                   <p>For <b>Record name</b>, enter the alias of
+                                                      your AWS account number. You get this value when onboarding 
+                                                      your gateway or by using the <a href="https://docs.aws.amazon.com/iotwireless/latest/apireference/API_GetServiceEndpoint.html"><code class="code">GetServiceEndpoint</code></a> REST API.
+                                                   </p>
+                                                   
+                                                </li>
+                                                <li class="listitem">
+                                                   
+                                                   <p>For <b>Record type</b>, keep the value as 
+                                                      <code class="code">A - Routes traffic to an IPv4 address and some AWS resources</code>.
+                                                   </p>
+                                                   
+                                                </li>
+                                                <li class="listitem">
+                                                   
+                                                   <p>For <b>Value/Route traffic to</b>, choose 
+                                                      <b>Alias to VPC endpoint</b>. Then choose your <b>Region</b> 
+                                                      and then choose the endpoint that you created previously, as described  in 
+                                                      <a href="#connect-iot-lorawan-create-vpc-endpoint-lns">Create an
+                                                         Amazon VPC interface endpoint</a> from the list of endpoints 
+                                                      displayed.
+                                                   </p>
+                                                   
+                                                </li>
+                                             </ul>
+                                          </div>
+                                          
+                                       </li>
+                                       <li>
+                                          
+                                          <p>Choose <b>Define simple record</b> to create your record.
+                                          </p>
+                                          
+                                       </li>
+                                    </ol>
+                                 </div>
+                                 
+                                  
+                                 
+                                 <h2 id="connect-iot-lorawan-configure-route53-resolver">Configure Route 53 
+                                    inbound resolver
+                                 </h2>
+                                 
+                                 
+                                 <p>To share a VPC endpoint to an on-premises environment, a Route 53 Resolver can be
+                                    used to facilitate hybrid DNS.  The inbound resolver will enable you to
+                                    route traffic from the on-premises network to the data plane endpoints
+                                    without going over the public internet. To return the private IP address
+                                    values for your service, create the Route 53 Resolver in the same VPC as the VPC
+                                    endpoint.
+                                 </p>
+                                 
+                                 <p>When you create the inbound resolver, you only have to specify your VPC 
+                                    and the subnets that you created previously in your Availability Zones (AZs).
+                                    The Route 53 Resolver uses this information to automatically assigns an IP address
+                                    to route 
+                                    traffic to each of the subnets.
+                                 </p>
+                                 
+                                 
+                                 <p>To create the inbound resolver:</p>
+                                 
+                                 <div class="orderedlist">
+                                     
+                                     
+                                     
+                                    
+                                    <ol>
+                                       <li>
+                                          
+                                          <p>Navigate to the <a href="https://console.aws.amazon.com/route53/v2/inbound-endpoints#/" rel="noopener noreferrer" target="_blank"><span>Route 53</span><awsui-icon class="awsdocs-link-icon" name="external"></awsui-icon></a>
+                                             <b>Inbound endpoints</b> console and choose 
+                                             <b>Create inbound endpoint</b>.
+                                          </p>
+                                          
+                                          <div class="awsdocs-note">
+                                             <div class="awsdocs-note-title">
+                                                <awsui-icon name="status-info" variant="link"></awsui-icon><span>Note</span></div>
+                                             <div class="awsdocs-note-text">
+                                                <p>Make sure that you're using the same AWS Region that you used
+                                                   when creating the endpoint and private hosted zone.
+                                                </p>
+                                             </div>
+                                          </div>
+                                          
+                                       </li>
+                                       <li>
+                                          
+                                          <p>In the <b>Create inbound endpoint</b> page, specify the
+                                             following information.
+                                          </p>
+                                          
+                                          <div class="itemizedlist">
+                                              
+                                              
+                                                                              
+                                              
+                                             
+                                             <ul class="itemizedlist" type="disc">
+                                                <li class="listitem">
+                                                   
+                                                   <p>Enter a name for <b>Endpoint name</b> (for 
+                                                      example, <code class="userinput">VPC_A_Test</code>).
+                                                   </p>                                    
+                                                   
+                                                </li>
+                                                <li class="listitem">
+                                                   
+                                                   <p>For <b>VPC in the region</b>, choose the same 
+                                                      VPC that you used when creating the VPC endpoint.
+                                                   </p>
+                                                   
+                                                </li>
+                                                <li class="listitem">
+                                                   
+                                                   <p>Configure the <b>Security group for this
+                                                         endpoint</b> to allow incoming traffic from the
+                                                      on premises network.
+                                                   </p>
+                                                   
+                                                </li>
+                                                <li class="listitem">
+                                                   
+                                                   <p>For IP address, choose <b>Use an IP address that is 
+                                                         selected automatically.</b></p>                                    
+                                                   
+                                                </li>
+                                             </ul>
+                                          </div>
+                                          
+                                       </li>
+                                       <li>
+                                          
+                                          <p>Choose <b>Submit</b> to create your inbound
+                                             resolver.
+                                          </p>
+                                          
+                                       </li>
+                                    </ol>
+                                 </div>   
+                                 
+                                 <p>For this eample, let's assume that the IP addresses <code class="code">10.100.0.145</code> and
+                                    <code class="code">10.100.192.10</code> were assigned for the inbound Route 53 Resolver for
+                                    routing traffic.
+                                 </p>
+                                  
+                                 
+                                 <h2 id="connect-iot-lorawan-lns-cups-next-steps">Next steps</h2>
+                                 
+                                 <p>You've created the private hosted zone and an inbound resolver to route
+                                    traffic for your DNS entries. You can now use either a Site-to-Site VPN or a Client
+                                    VPN
+                                    endpoint. For more information, see <a href="./connect-iot-lorawan-create-vpc-vpn-connection.html">Use VPN to connect LoRa 
+                                       gateways to your AWS account</a>.
+                                 </p>
+                                 
+                                 <awsdocs-copyright class="copyright-print"></awsdocs-copyright>
+                                 <awsdocs-thumb-feedback right-edge="{{$ctrl.thumbFeedbackRightEdge}}"></awsdocs-thumb-feedback>
+                              </div>
+                              <noscript>
+                                 <div>
+                                    <div>
+                                       <div>
+                                          <div id="js_error_message">
+                                             <p><img src="https://d1ge0kk1l5kms0.cloudfront.net/images/G/01/webservices/console/warning.png" alt="Warning" /> <strong>Javascript is disabled or is unavailable in your
+                                                   browser.</strong></p>
+                                             <p>To use the Amazon Web Services Documentation, Javascript must be
+                                                enabled. Please refer to your browser's Help pages for instructions.
+                                             </p>
+                                          </div>
+                                       </div>
+                                    </div>
+                                 </div>
+                              </noscript>
+                              <div id="main-col-footer" class="awsui-util-font-size-0">
+                                 <div id="doc-conventions"><a target="_top" href="/general/latest/gr/docconventions.html">Document Conventions</a></div>
+                                 <div class="prev-next">
+                                    <div id="previous" class="prev-link" accesskey="p" href="./connect-iot-lorawan-onboard-lns-cups-endpoints.html">Onboard
+                                       AWS IoT Core for LoRaWAN data plane API endpoints
+                                    </div>
+                                    <div id="next" class="next-link" accesskey="n" href="./connect-iot-lorawan-create-vpc-vpn-connection.html">Use VPN to connect LoRa 
+                                       gateways to your AWS account
+                                    </div>
+                                 </div>
+                              </div>
+                              <awsdocs-page-utilities></awsdocs-page-utilities>
+                           </div>
+                           <div id="quick-feedback-yes" style="display: none;">
+                              <div class="title">Did this page help you? - Yes</div>
+                              <div class="content">
+                                 <p>Thanks for letting us know we're doing a good
+                                    job!
+                                 </p>
+                                 <p>If you've got a moment, please tell us what we did right
+                                    so we can do more of it.
+                                 </p>
+                                 <p>
+                                    <awsui-button id="fblink" target="_blank" text="Feedback" click="linkClick($event)" href="https://docs.aws.amazon.com/forms/aws-doc-feedback?hidden_service_name=IoT Docs&amp;topic_url=https://docs.aws.amazon.com/en_us/iot/latest/developerguide/connect-iot-lorawan-create-vpc-lns-cups.html"></awsui-button>
+                                 </p>
+                              </div>
+                           </div>
+                           <div id="quick-feedback-no" style="display: none;">
+                              <div class="title">Did this page help you? - No</div>
+                              <div class="content">
+                                 <p>Thanks for letting us know this page needs work. We're
+                                    sorry we let you down.
+                                 </p>
+                                 <p>If you've got a moment, please tell us how we can make
+                                    the documentation better.
+                                 </p>
+                                 <p>
+                                    <awsui-button id="fblink" target="_blank" text="Feedback" click="linkClick($event)" href="https://docs.aws.amazon.com/forms/aws-doc-feedback?hidden_service_name=IoT Docs&amp;topic_url=https://docs.aws.amazon.com/en_us/iot/latest/developerguide/connect-iot-lorawan-create-vpc-lns-cups.html"></awsui-button>
+                                 </p>
+                              </div>
+                           </div>
+                        </div>
+                     </body>
+                  </div>
+               </awsdocs-view>
+               <div class="page-loading-indicator" id="page-loading-indicator">
+                  <awsui-spinner size="large"></awsui-spinner>
+               </div>
+            </div>
+            <div id="tools-panel" dom-region="tools">
+               <awsdocs-tools-panel id="awsdocs-tools-panel"></awsdocs-tools-panel>
+            </div>
+         </awsui-app-layout>
+         <awsdocs-cookie-banner class="doc-cookie-banner"></awsdocs-cookie-banner>
+         <!--
+                SiteCatalyst code version: H.25.2.
+                Copyright 1996-2012 Adobe, Inc. All Rights Reserved
+                More info available at http://www.omniture.com
+            --><script language="JavaScript" type="text/javascript">
+var awsdocs = awsdocs || {};
+awsdocs.prop66 = 'AWS IoT Core';
+awsdocs.prop65 =  'Developer Guide';
+            </script><script src="https://a0.awsstatic.com/s_code/js/3.0/awshome_s_code.js" language="JavaScript" type="text/javascript"></script>
+         <!--/DO NOT REMOVE/-->
+         <!--End SiteCatalyst code version: H.25.2.--></div>
+   </body>
+</html>

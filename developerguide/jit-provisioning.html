@@ -1,0 +1,353 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" ng-app="AWSDocsDocPageApp">
+   <head>
+      <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+      <title>Just-in-time provisioning - AWS IoT Core</title>
+      <meta name="viewport" content="width=device-width,initial-scale=1" />
+      <meta name="assets_root" content="assets" />
+      <meta name="target_state" content="jit-provisioning" />
+      <meta name="default_state" content="jit-provisioning" />
+      <link rel="icon" type="image/ico" href="/assets/images/favicon.ico" />
+      <link rel="shortcut icon" type="image/ico" href="/assets/images/favicon.ico" />
+      <link rel="canonical" href="https://docs.aws.amazon.com/iot/latest/developerguide/jit-provisioning.html" />
+      <meta name="description" content="You can have your devices provisioned when they first attempt to connect to AWS IoT. Just-in-time provisioning (JITP) settings are made on CA certificates. To provision the device, you must enable automatic registration and associate a provisioning template with the CA certificate used to sign the device certificate. Provisioning successes and errors are logged as" />
+      <meta name="deployment_region" content="IAD" />
+      <meta name="product" content="AWS IoT Core" />
+      <meta name="guide" content="Developer Guide" />
+      <meta name="locales" content="de_de:Deutsch/en_us:English/es_es:Español/fr_fr:Français/it_it:Italiano/ja_jp:日本語/ko_kr:한국어/pt_br:Português/zh_cn:中文 (简体)/zh_tw:中文 (繁體)" />
+      <meta name="abstract" content="AWS IoT provides secure, bi-directional communication between Internet-connected devices such as sensors, actuators, embedded micro-controllers, or smart appliances and the AWS Cloud. This enables you to collect telemetry data from multiple devices, and store and analyze the data. You can also create applications that enable your users to control these devices from their phones or tablets." />
+      <meta name="guide-locale" content="en_us" />
+      <meta name="tocs" content="toc-contents.json" />
+      <meta name="feedback-item" content="IoT Docs" />
+      <meta name="this_doc_product" content="AWS IoT Core" />
+      <meta name="this_doc_guide" content="Developer Guide" />
+      <link href="assets/css/vendor4.css" rel="stylesheet" />
+      <link href="assets/css/awsdocs-common.css" rel="stylesheet" /><script type="text/javascript" src="assets/js/vendor3.js" defer=""></script><script type="text/javascript" src="assets/js/vendor4.js" defer=""></script><script type="text/javascript" src="assets/js/vendor1.js" defer=""></script><script type="text/javascript" src="assets/js/awsdocs-common.js" defer=""></script><script type="text/javascript" src="assets/js/awsdocs-doc-app.js" defer=""></script></head>
+   <body class="awsdocs awsui">
+      <div class="awsdocs-container">
+         <awsdocs-header></awsdocs-header>
+         <awsui-app-layout id="app-layout" class="awsui-util-no-gutters" ng-controller="ContentController as $ctrl" header-selector="awsdocs-header" navigation-hide="false" navigation-width="$ctrl.navWidth" navigation-open="$ctrl.navOpen" navigation-change="$ctrl.onNavChange($event)" tools-hide="$ctrl.hideTools" tools-width="$ctrl.toolsWidth" tools-open="$ctrl.toolsOpen" tools-change="$ctrl.onToolsChange($event)">
+            <div id="guide-toc" dom-region="navigation">
+               <awsdocs-toc></awsdocs-toc>
+            </div>
+            <div id="main-column" dom-region="content" tabindex="-1">
+               <awsdocs-view class="awsdocs-view">
+                  <div id="awsdocs-content">
+                     <head>
+                        <title>Just-in-time provisioning - AWS IoT Core</title>
+                        <meta name="pdf" content="iot-dg.pdf#jit-provisioning" />
+                        <meta name="kindle" content="https://www.amazon.com/dp/B07JBRCWWZ" />
+                        <meta name="github" content="https://github.com/awsdocs/aws-iot-docs/tree/master/developerguide/jit-provisioning.md" />
+                        <meta name="forums" content="http://forums.aws.amazon.com/forum.jspa?forumID=210" />
+                        <meta name="feedback" content="https://docs.aws.amazon.com/forms/aws-doc-feedback?hidden_service_name=IoT%20Docs&amp;topic_url=http://docs.aws.amazon.com/en_us/iot/latest/developerguide/jit-provisioning.html" />
+                        <meta name="feedback-yes" content="feedbackyes.html?topic_url=http://docs.aws.amazon.com/en_us/iot/latest/developerguide/jit-provisioning.html" />
+                        <meta name="feedback-no" content="feedbackno.html?topic_url=http://docs.aws.amazon.com/en_us/iot/latest/developerguide/jit-provisioning.html" />
+                        <meta name="keywords" content="AWS IoT,IoT,Internet of Things" />
+                     </head>
+                     <body>
+                        <div id="main">
+                           <div style="display: none"><a href="iot-dg.pdf#jit-provisioning" target="_blank" rel="noopener noreferrer" title="Open PDF"></a><a target="_blank" rel="noopener noreferrer" href="https://www.amazon.com/dp/B07JBRCWWZ" title="Open Kindle"></a><a href="https://github.com/awsdocs/aws-iot-docs/tree/master/developerguide/jit-provisioning.md" target="_blank" rel="noopener noreferrer" title="Edit this page on GitHub"></a></div>
+                           <div id="breadcrumbs" class="breadcrumb"><a href="http://aws.amazon.com">AWS</a><a href="/index.html">Documentation</a><a href="/iot/index.html">AWS IoT Core</a><a href="what-is-aws-iot.html">Developer Guide</a></div>
+                           <div id="main-content" class="awsui-util-container">
+                              <div id="main-col-body">
+                                 <awsdocs-language-banner data-service="$ctrl.pageService"></awsdocs-language-banner>
+                                 <h1 class="topictitle" id="jit-provisioning">Just-in-time provisioning</h1>
+                                 <div class="awsdocs-page-header-container">
+                                    <awsdocs-page-header></awsdocs-page-header>
+                                    <awsdocs-filter-selector id="awsdocs-filter-selector"></awsdocs-filter-selector>
+                                 </div>
+                                 <p>You can have your devices provisioned when they first attempt to connect to AWS IoT.
+                                    Just-in-time provisioning (JITP) settings are made on CA certificates. To provision
+                                    the device, you must enable automatic registration and associate a provisioning
+                                    template with the CA certificate used to sign the device certificate. Provisioning
+                                    successes and errors are logged as <a href="./metrics_dimensions.html#provisioning-metrics">Device provisioning metrics</a> in Amazon CloudWatch.
+                                 </p>
+                                 <p>You can make these settings when you register a CA certificate with the <a href="https://docs.aws.amazon.com/iot/latest/apireference/API_RegisterCACertificate.html">RegisterCACertificate</a>
+                                    API or the <code class="code">register-ca-certificate</code> CLI command:
+                                 </p><pre class="programlisting"><div class="code-btn-container"><div class="btn-copy-code" title="Copy"><awsui-icon name="copy"></awsui-icon></div></div><code class="bash ">aws iot register-ca-certificate --ca-certificate file://<code class="replaceable">your-ca-cert</code> --verification-cert 
+                file://<code class="replaceable">your-verification-cert</code> --set-as-active --allow-auto-registration --registration-config file://<code class="replaceable">your-template</code></code></pre><p>For more information, see <a href="device-certs-your-own.html#register-CA-cert" rel="noopener noreferrer" target="_blank">Registering a CA Certificate</a>.
+                                 </p>
+                                 <p>You can also use the <a href="https://docs.aws.amazon.com/iot/latest/apireference/API_UpdateCACertificate.html">UpdateCACertificate</a> API or the <code class="code">update-ca-certificate</code> CLI
+                                    command to update the settings for a CA certificate:
+                                 </p><pre class="programlisting"><div class="code-btn-container"><div class="btn-copy-code" title="Copy"><awsui-icon name="copy"></awsui-icon></div></div><code class="bash ">aws iot update-ca-certificate --certificate-id <code class="replaceable">caCertificateId</code> --new-auto-registration-status ENABLE --registration-config file://<code class="replaceable">your-template</code></code></pre><div class="awsdocs-note">
+                                    <div class="awsdocs-note-title">
+                                       <awsui-icon name="status-info" variant="link"></awsui-icon><span>Note</span></div>
+                                    <div class="awsdocs-note-text">
+                                       <p>JITP calls other AWS IoT control plane APIs during the provisioning process.
+                                          These calls might exceed the <a href="https://docs.aws.amazon.com/general/latest/gr/iot-core.html#throttling-limits"> AWS IoT Throttling
+                                             Quotas</a> set for your account and result in throttled calls. Contact
+                                          <a href="https://console.aws.amazon.com/support/home" rel="noopener noreferrer" target="_blank"><span>AWS Customer
+                                                Support</span><awsui-icon class="awsdocs-link-icon" name="external"></awsui-icon></a> to raise your throttling quotas, if necessary.
+                                       </p>
+                                    </div>
+                                 </div>
+                                 <p>When a device attempts to connect to AWS IoT by using a certificate signed by a
+                                    registered CA certificate, AWS IoT loads the template from the CA certificate and
+                                    uses
+                                    it to call <a href="./fleet-provision-api.html#register-thing">RegisterThing</a>. The JITP workflow
+                                    first registers a certificate with a status value of PENDING_ACTIVATION. When the
+                                    device provisioning flow is complete, the status of the certificate is changed to
+                                    ACTIVE.
+                                 </p>
+                                 <p>AWS IoT defines the following parameters that you can declare and reference in
+                                    provisioning templates:
+                                 </p>
+                                 <div class="itemizedlist">
+                                     
+                                     
+                                     
+                                     
+                                     
+                                     
+                                     
+                                     
+                                    
+                                    <ul class="itemizedlist" type="disc">
+                                       <li class="listitem">
+                                          
+                                          <p><code class="code">AWS::IoT::Certificate::Country</code></p>
+                                          
+                                       </li>
+                                       <li class="listitem">
+                                          
+                                          <p><code class="code">AWS::IoT::Certificate::Organization</code></p>
+                                          
+                                       </li>
+                                       <li class="listitem">
+                                          
+                                          <p><code class="code">AWS::IoT::Certificate::OrganizationalUnit</code></p>
+                                          
+                                       </li>
+                                       <li class="listitem">
+                                          
+                                          <p><code class="code">AWS::IoT::Certificate::DistinguishedNameQualifier</code></p>
+                                          
+                                       </li>
+                                       <li class="listitem">
+                                          
+                                          <p><code class="code">AWS::IoT::Certificate::StateName</code></p>
+                                          
+                                       </li>
+                                       <li class="listitem">
+                                          
+                                          <p><code class="code">AWS::IoT::Certificate::CommonName</code></p>
+                                          
+                                       </li>
+                                       <li class="listitem">
+                                          
+                                          <p><code class="code">AWS::IoT::Certificate::SerialNumber</code></p>
+                                          
+                                       </li>
+                                       <li class="listitem">
+                                          
+                                          <p><code class="code">AWS::IoT::Certificate::Id</code></p>
+                                          
+                                       </li>
+                                    </ul>
+                                 </div>
+                                 <p>The values for these provisioning template parameters are limited to what JITP can
+                                    extract from the subject field of the certificate of the device being provisioned.
+                                    The certificate must contain values for all of the parameters in the template body.
+                                    The <code class="code">AWS::IoT::Certificate::Id</code> parameter refers to an internally
+                                    generated ID, not an ID that is contained in the certificate. You can get the value
+                                    of this ID using the <code class="code">principal()</code> function inside an AWS IoT rule.
+                                 </p>
+                                 <p>The following JSON file is an example of a complete JITP template. The value of
+                                    the <code class="code">templateBody</code> field must be a JSON object specified as an escaped
+                                    string and can use only the values in the preceding list. You can use a variety of
+                                    tools to create the required JSON output, such as <code class="code">json.dumps</code> (Python)
+                                    or <code class="code">JSON.stringify</code> (Node). The value of the <code class="code">roleARN</code> field
+                                    must be the ARN of a role that has the <code class="code">AWSIoTThingsRegistration</code>
+                                    attached to it. Also, your template can use an existing <code class="code">PolicyName</code>
+                                    instead of the inline <code class="code">PolicyDocument</code> in the example. (The first example
+                                    adds line breaks for readability, but you can copy and paste the template that
+                                    appears directly below it.)
+                                 </p><pre class="programlisting"><div class="code-btn-container"><div class="btn-copy-code" title="Copy"><awsui-icon name="copy"></awsui-icon></div></div><code class="json ">
+        <span>{</span> 
+            "templateBody" : "<span>{</span>
+                \r\n    \"Parameters\" : <span>{</span>\r\n        
+                            \"AWS::IoT::Certificate::CommonName\": <span>{</span>\r\n    \"Type\": \"String\"\r\n        },\r\n        
+                            \"AWS::IoT::Certificate::SerialNumber\": <span>{</span>\r\n  \"Type\": \"String\"\r\n        },\r\n        
+                            \"AWS::IoT::Certificate::Country\": <span>{</span>\r\n   \"Type\": \"String\"\r\n        },\r\n        
+                            \"AWS::IoT::Certificate::Id\": <span>{</span>\r\n    \"Type\": \"String\"\r\n        }\r\n    },\r\n    
+                        \"Resources\": <span>{</span>\r\n        
+                            \"thing\": <span>{</span>\r\n            
+                                \"Type\": \"AWS::IoT::Thing\",\r\n            
+                                \"Properties\": <span>{</span>\r\n                
+                                    \"ThingName\": <span>{</span>\r\n    \"Ref\": \"AWS::IoT::Certificate::CommonName\"\r\n  },\r\n                
+                                    \"AttributePayload\": <span>{</span>\r\n                    
+                                        \"version\": \"v1\",\r\n                    
+                                        \"serialNumber\": <span>{</span>\r\n                        
+                                            \"Ref\": \"AWS::IoT::Certificate::SerialNumber\"\r\n    }\r\n   },\r\n                
+                                    \"ThingTypeName\": \"lightBulb-versionA\",\r\n                
+                                    \"ThingGroups\": [\r\n                    
+                                        \"v1-lightbulbs\",\r\n  <span>{</span>\r\n                        
+                                            \"Ref\": \"AWS::IoT::Certificate::Country\"\r\n }\r\n   ]\r\n   },\r\n            
+                            \"OverrideSettings\": <span>{</span>\r\n                
+                                \"AttributePayload\": \"MERGE\",\r\n                
+                                \"ThingTypeName\": \"REPLACE\",\r\n                
+                                \"ThingGroups\": \"DO_NOTHING\"\r\n }\r\n   },\r\n        
+                        \"certificate\": <span>{</span>\r\n            
+                            \"Type\": \"AWS::IoT::Certificate\",\r\n            
+                            \"Properties\": <span>{</span>\r\n                
+                                \"CertificateId\": <span>{</span>\r\n    \"Ref\": \"AWS::IoT::Certificate::Id\"\r\n  },\r\n                
+                                \"Status\": \"ACTIVE\"\r\n  },\r\n            
+                            \"OverrideSettings\": <span>{</span>\r\n                
+                                \"Status\": \"DO_NOTHING\"\r\n  }\r\n   },\r\n        
+                        \"policy\": <span>{</span>\r\n            
+                            \"Type\": \"AWS::IoT::Policy\",\r\n            
+                            \"Properties\": <span>{</span>\r\n                
+                                \"PolicyDocument\": \"<span>{</span> 
+                                    \\\"Version\\\": \\\"2012-10-17\\\", 
+                                    \\\"Statement\\\": [<span>{</span> 
+                                    \\\"Effect\\\": \\\"Allow\\\", 
+                                    \\\"Action\\\":[\\\"iot:Publish\\\"], 
+                                    \\\"Resource\\\": [\\\"arn:aws:iot:us-east-1:123456789012:topic\/sample\/topic\\\"] }] }\"\r\n   }\r\n   }\r\n    
+                              }\r\n}",
+            "roleArn" : "arn:aws:iam::123456789012:role/Provisioning-JITP"
+        } 
+            </code></pre><p>Here is a version you can copy and paste:</p><pre class="programlisting"><div class="code-btn-container"><div class="btn-copy-code" title="Copy"><awsui-icon name="copy"></awsui-icon></div></div><code class="JSON ">
+    <span>{</span> 
+      "templateBody" : "<span>{</span>\r\n    \"Parameters\" : <span>{</span>\r\n        \"AWS::IoT::Certificate::CommonName\": <span>{</span>\r\n            \"Type\": \"String\"\r\n        },\r\n        \"AWS::IoT::Certificate::SerialNumber\": <span>{</span>\r\n            \"Type\": \"String\"\r\n        },\r\n        \"AWS::IoT::Certificate::Country\": <span>{</span>\r\n            \"Type\": \"String\"\r\n        },\r\n        \"AWS::IoT::Certificate::Id\": <span>{</span>\r\n            \"Type\": \"String\"\r\n        }\r\n    },\r\n    \"Resources\": <span>{</span>\r\n        \"thing\": <span>{</span>\r\n            \"Type\": \"AWS::IoT::Thing\",\r\n            \"Properties\": <span>{</span>\r\n                \"ThingName\": <span>{</span>\r\n                    \"Ref\": \"AWS::IoT::Certificate::CommonName\"\r\n                },\r\n                \"AttributePayload\": <span>{</span>\r\n                    \"version\": \"v1\",\r\n                    \"serialNumber\": <span>{</span>\r\n                        \"Ref\": \"AWS::IoT::Certificate::SerialNumber\"\r\n                    }\r\n                },\r\n                \"ThingTypeName\": \"lightBulb-versionA\",\r\n                \"ThingGroups\": [\r\n                    \"v1-lightbulbs\",\r\n                    <span>{</span>\r\n                        \"Ref\": \"AWS::IoT::Certificate::Country\"\r\n                    }\r\n                ]\r\n            },\r\n            \"OverrideSettings\": <span>{</span>\r\n                \"AttributePayload\": \"MERGE\",\r\n                \"ThingTypeName\": \"REPLACE\",\r\n                \"ThingGroups\": \"DO_NOTHING\"\r\n            }\r\n        },\r\n        \"certificate\": <span>{</span>\r\n            \"Type\": \"AWS::IoT::Certificate\",\r\n            \"Properties\": <span>{</span>\r\n                \"CertificateId\": <span>{</span>\r\n                    \"Ref\": \"AWS::IoT::Certificate::Id\"\r\n                },\r\n                \"Status\": \"ACTIVE\"\r\n            },\r\n            \"OverrideSettings\": <span>{</span>\r\n                \"Status\": \"DO_NOTHING\"\r\n            }\r\n        },\r\n        \"policy\": <span>{</span>\r\n            \"Type\": \"AWS::IoT::Policy\",\r\n            \"Properties\": <span>{</span>\r\n                \"PolicyDocument\": \"<span>{</span> \\\"Version\\\": \\\"2012-10-17\\\", \\\"Statement\\\": [<span>{</span> \\\"Effect\\\": \\\"Allow\\\", \\\"Action\\\":[\\\"iot:Publish\\\"], \\\"Resource\\\": [\\\"arn:aws:iot:us-east-1:123456789012:topic\/foo\/bar\\\"] }] }\"\r\n            }\r\n        }\r\n    }\r\n}",
+      "roleArn" : "arn:aws:iam::123456789012:role/JITPRole"
+    } 
+            </code></pre><p>This sample template declares values for the
+                                    <code class="code">AWS::IoT::Certificate::CommonName</code>,
+                                    <code class="code">AWS::IoT::Certificate::SerialNumber</code>,
+                                    <code class="code">AWS::IoT::Certificate::Country</code>, and
+                                    <code class="code">AWS::IoT::Certificate::Id</code> provisioning parameters that are
+                                    extracted from the certificate and used in the <code class="code">Resources</code> section. The
+                                    JITP workflow then uses this template to perform the following actions:
+                                 </p>
+                                 <div class="itemizedlist">
+                                     
+                                     
+                                     
+                                     
+                                     
+                                     
+                                    
+                                    <ul class="itemizedlist" type="disc">
+                                       <li class="listitem">
+                                          
+                                          <p>Register a certificate and set its status to PENDING_ACTIVE.</p>
+                                          
+                                       </li>
+                                       <li class="listitem">
+                                          
+                                          <p>Create one thing resource.</p>
+                                          
+                                       </li>
+                                       <li class="listitem">
+                                          
+                                          <p>Create one policy resource.</p>
+                                          
+                                       </li>
+                                       <li class="listitem">
+                                          
+                                          <p>Attach the policy to the certificate.</p>
+                                          
+                                       </li>
+                                       <li class="listitem">
+                                          
+                                          <p>Attach the certificate to the thing.</p>
+                                          
+                                       </li>
+                                       <li class="listitem">
+                                          
+                                          <p>Update the certificate status to ACTIVE.</p>
+                                          
+                                       </li>
+                                    </ul>
+                                 </div>
+                                 <p>Note that the device provisioning fails if the certificate doesn't have all of the
+                                    properties mentioned in the <code class="code">Parameters</code> section of the
+                                    <code class="code">templateBody</code>. For example, if
+                                    <code class="code">AWS::IoT::Certificate::Country</code> is included in the template, but the
+                                    certificate doesn't have a <code class="code">Country</code> property, the device provisioning
+                                    fails.
+                                 </p>
+                                 <p>You can also use CloudTrail to troubleshoot issues with your JITP template. For
+                                    information about the metrics that are logged in Amazon CloudWatch, see <a href="./metrics_dimensions.html#provisioning-metrics">Device provisioning metrics</a>.
+                                 </p>
+                                 <awsdocs-copyright class="copyright-print"></awsdocs-copyright>
+                                 <awsdocs-thumb-feedback right-edge="{{$ctrl.thumbFeedbackRightEdge}}"></awsdocs-thumb-feedback>
+                              </div>
+                              <noscript>
+                                 <div>
+                                    <div>
+                                       <div>
+                                          <div id="js_error_message">
+                                             <p><img src="https://d1ge0kk1l5kms0.cloudfront.net/images/G/01/webservices/console/warning.png" alt="Warning" /> <strong>Javascript is disabled or is unavailable in your
+                                                   browser.</strong></p>
+                                             <p>To use the Amazon Web Services Documentation, Javascript must be
+                                                enabled. Please refer to your browser's Help pages for instructions.
+                                             </p>
+                                          </div>
+                                       </div>
+                                    </div>
+                                 </div>
+                              </noscript>
+                              <div id="main-col-footer" class="awsui-util-font-size-0">
+                                 <div id="doc-conventions"><a target="_top" href="/general/latest/gr/docconventions.html">Document Conventions</a></div>
+                                 <div class="prev-next">
+                                    <div id="previous" class="prev-link" accesskey="p" href="./single-thing-provisioning.html">Single thing provisioning</div>
+                                    <div id="next" class="next-link" accesskey="n" href="./bulk-provisioning.html">Bulk registration</div>
+                                 </div>
+                              </div>
+                              <awsdocs-page-utilities></awsdocs-page-utilities>
+                           </div>
+                           <div id="quick-feedback-yes" style="display: none;">
+                              <div class="title">Did this page help you? - Yes</div>
+                              <div class="content">
+                                 <p>Thanks for letting us know we're doing a good
+                                    job!
+                                 </p>
+                                 <p>If you've got a moment, please tell us what we did right
+                                    so we can do more of it.
+                                 </p>
+                                 <p>
+                                    <awsui-button id="fblink" target="_blank" text="Feedback" click="linkClick($event)" href="https://docs.aws.amazon.com/forms/aws-doc-feedback?hidden_service_name=IoT Docs&amp;topic_url=https://docs.aws.amazon.com/en_us/iot/latest/developerguide/jit-provisioning.html"></awsui-button>
+                                 </p>
+                              </div>
+                           </div>
+                           <div id="quick-feedback-no" style="display: none;">
+                              <div class="title">Did this page help you? - No</div>
+                              <div class="content">
+                                 <p>Thanks for letting us know this page needs work. We're
+                                    sorry we let you down.
+                                 </p>
+                                 <p>If you've got a moment, please tell us how we can make
+                                    the documentation better.
+                                 </p>
+                                 <p>
+                                    <awsui-button id="fblink" target="_blank" text="Feedback" click="linkClick($event)" href="https://docs.aws.amazon.com/forms/aws-doc-feedback?hidden_service_name=IoT Docs&amp;topic_url=https://docs.aws.amazon.com/en_us/iot/latest/developerguide/jit-provisioning.html"></awsui-button>
+                                 </p>
+                              </div>
+                           </div>
+                        </div>
+                     </body>
+                  </div>
+               </awsdocs-view>
+               <div class="page-loading-indicator" id="page-loading-indicator">
+                  <awsui-spinner size="large"></awsui-spinner>
+               </div>
+            </div>
+            <div id="tools-panel" dom-region="tools">
+               <awsdocs-tools-panel id="awsdocs-tools-panel"></awsdocs-tools-panel>
+            </div>
+         </awsui-app-layout>
+         <awsdocs-cookie-banner class="doc-cookie-banner"></awsdocs-cookie-banner>
+         <!--
+                SiteCatalyst code version: H.25.2.
+                Copyright 1996-2012 Adobe, Inc. All Rights Reserved
+                More info available at http://www.omniture.com
+            --><script language="JavaScript" type="text/javascript">
+var awsdocs = awsdocs || {};
+awsdocs.prop66 = 'AWS IoT Core';
+awsdocs.prop65 =  'Developer Guide';
+            </script><script src="https://a0.awsstatic.com/s_code/js/3.0/awshome_s_code.js" language="JavaScript" type="text/javascript"></script>
+         <!--/DO NOT REMOVE/-->
+         <!--End SiteCatalyst code version: H.25.2.--></div>
+   </body>
+</html>

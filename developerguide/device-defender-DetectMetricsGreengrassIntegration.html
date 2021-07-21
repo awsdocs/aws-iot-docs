@@ -1,0 +1,419 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" ng-app="AWSDocsDocPageApp">
+   <head>
+      <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+      <title>Device agent integration with AWS IoT Greengrass - AWS IoT Core</title>
+      <meta name="viewport" content="width=device-width,initial-scale=1" />
+      <meta name="assets_root" content="assets" />
+      <meta name="target_state" content="device-defender-DetectMetricsGreengrassIntegration" />
+      <meta name="default_state" content="device-defender-DetectMetricsGreengrassIntegration" />
+      <link rel="icon" type="image/ico" href="/assets/images/favicon.ico" />
+      <link rel="shortcut icon" type="image/ico" href="/assets/images/favicon.ico" />
+      <link rel="canonical" href="https://docs.aws.amazon.com/iot/latest/developerguide/device-defender-DetectMetricsGreengrassIntegration.html" />
+      <meta name="description" content="AWS IoT Device Defender can be used with AWS IoT Greengrass. Device agent integration follows the standard AWS IoT Greengrass Lambda function deployment model, allowing you to add AWS IoT Device Defender security to your AWS IoT Greengrass core devices. Follow these steps to integrate a device agent." />
+      <meta name="deployment_region" content="IAD" />
+      <meta name="product" content="AWS IoT Core" />
+      <meta name="guide" content="Developer Guide" />
+      <meta name="locales" content="de_de:Deutsch/en_us:English/es_es:Español/fr_fr:Français/it_it:Italiano/ja_jp:日本語/ko_kr:한국어/pt_br:Português/zh_cn:中文 (简体)/zh_tw:中文 (繁體)" />
+      <meta name="abstract" content="AWS IoT provides secure, bi-directional communication between Internet-connected devices such as sensors, actuators, embedded micro-controllers, or smart appliances and the AWS Cloud. This enables you to collect telemetry data from multiple devices, and store and analyze the data. You can also create applications that enable your users to control these devices from their phones or tablets." />
+      <meta name="guide-locale" content="en_us" />
+      <meta name="tocs" content="toc-contents.json" />
+      <meta name="feedback-item" content="IoT Docs" />
+      <meta name="this_doc_product" content="AWS IoT Core" />
+      <meta name="this_doc_guide" content="Developer Guide" />
+      <link href="assets/css/vendor4.css" rel="stylesheet" />
+      <link href="assets/css/awsdocs-common.css" rel="stylesheet" /><script type="text/javascript" src="assets/js/vendor3.js" defer=""></script><script type="text/javascript" src="assets/js/vendor4.js" defer=""></script><script type="text/javascript" src="assets/js/vendor1.js" defer=""></script><script type="text/javascript" src="assets/js/awsdocs-common.js" defer=""></script><script type="text/javascript" src="assets/js/awsdocs-doc-app.js" defer=""></script></head>
+   <body class="awsdocs awsui">
+      <div class="awsdocs-container">
+         <awsdocs-header></awsdocs-header>
+         <awsui-app-layout id="app-layout" class="awsui-util-no-gutters" ng-controller="ContentController as $ctrl" header-selector="awsdocs-header" navigation-hide="false" navigation-width="$ctrl.navWidth" navigation-open="$ctrl.navOpen" navigation-change="$ctrl.onNavChange($event)" tools-hide="$ctrl.hideTools" tools-width="$ctrl.toolsWidth" tools-open="$ctrl.toolsOpen" tools-change="$ctrl.onToolsChange($event)">
+            <div id="guide-toc" dom-region="navigation">
+               <awsdocs-toc></awsdocs-toc>
+            </div>
+            <div id="main-column" dom-region="content" tabindex="-1">
+               <awsdocs-view class="awsdocs-view">
+                  <div id="awsdocs-content">
+                     <head>
+                        <title>Device agent integration with AWS IoT Greengrass - AWS IoT Core</title>
+                        <meta name="pdf" content="iot-dg.pdf#device-defender-DetectMetricsGreengrassIntegration" />
+                        <meta name="kindle" content="https://www.amazon.com/dp/B07JBRCWWZ" />
+                        <meta name="github" content="https://github.com/awsdocs/aws-iot-docs/tree/master/developerguide/device-defender-DetectMetricsGreengrassIntegration.md" />
+                        <meta name="forums" content="http://forums.aws.amazon.com/forum.jspa?forumID=210" />
+                        <meta name="feedback" content="https://docs.aws.amazon.com/forms/aws-doc-feedback?hidden_service_name=IoT%20Docs&amp;topic_url=http://docs.aws.amazon.com/en_us/iot/latest/developerguide/device-defender-DetectMetricsGreengrassIntegration.html" />
+                        <meta name="feedback-yes" content="feedbackyes.html?topic_url=http://docs.aws.amazon.com/en_us/iot/latest/developerguide/device-defender-DetectMetricsGreengrassIntegration.html" />
+                        <meta name="feedback-no" content="feedbackno.html?topic_url=http://docs.aws.amazon.com/en_us/iot/latest/developerguide/device-defender-DetectMetricsGreengrassIntegration.html" />
+                        <meta name="keywords" content="AWS IoT,IoT,Internet of Things" />
+                     </head>
+                     <body>
+                        <div id="main">
+                           <div style="display: none"><a href="iot-dg.pdf#device-defender-DetectMetricsGreengrassIntegration" target="_blank" rel="noopener noreferrer" title="Open PDF"></a><a target="_blank" rel="noopener noreferrer" href="https://www.amazon.com/dp/B07JBRCWWZ" title="Open Kindle"></a><a href="https://github.com/awsdocs/aws-iot-docs/tree/master/developerguide/device-defender-DetectMetricsGreengrassIntegration.md" target="_blank" rel="noopener noreferrer" title="Edit this page on GitHub"></a></div>
+                           <div id="breadcrumbs" class="breadcrumb"><a href="http://aws.amazon.com">AWS</a><a href="/index.html">Documentation</a><a href="/iot/index.html">AWS IoT Core</a><a href="what-is-aws-iot.html">Developer Guide</a></div>
+                           <div id="main-content" class="awsui-util-container">
+                              <div id="main-col-body">
+                                 <awsdocs-language-banner data-service="$ctrl.pageService"></awsdocs-language-banner>
+                                 <h1 class="topictitle" id="device-defender-DetectMetricsGreengrassIntegration"> Device agent integration
+                                    with AWS IoT Greengrass
+                                 </h1>
+                                 <div class="awsdocs-page-header-container">
+                                    <awsdocs-page-header></awsdocs-page-header>
+                                    <awsdocs-filter-selector id="awsdocs-filter-selector"></awsdocs-filter-selector>
+                                 </div>
+                                 <p>AWS IoT Device Defender can be used with AWS IoT Greengrass. Device agent integration
+                                    follows the standard AWS IoT Greengrass Lambda
+                                    function deployment model, allowing you to add AWS IoT Device Defender security to
+                                    your AWS IoT Greengrass core devices.
+                                    Follow these steps to integrate a device agent.
+                                 </p>
+                                 <p>Prerequisites:</p>
+                                 <div class="itemizedlist">
+                                     
+                                     
+                                     
+                                    
+                                    <ul class="itemizedlist" type="disc">
+                                       <li class="listitem">
+                                          
+                                          <p>Set up your AWS IoT Greengrass environment.</p>
+                                          
+                                       </li>
+                                       <li class="listitem">
+                                          
+                                          <p>Configure and run your AWS IoT Greengrass core.</p>
+                                          
+                                       </li>
+                                       <li class="listitem">
+                                          
+                                          <p>Ensure you can successfully deploy and run a Lambda function on your AWS IoT Greengrass
+                                             core.
+                                          </p>
+                                          
+                                       </li>
+                                    </ul>
+                                 </div>
+                                 <p>In general, the process described here follows the <a href="https://docs.aws.amazon.com/greengrass/latest/developerguide/create-lambda.html">Create
+                                       and Package a Lambda Function</a> section in the <em>AWS IoT Greengrass Developer
+                                       Guide</em>.
+                                 </p>
+                                 <div class="procedure">
+                                    <p class="title"><b>To create a Lambda package</b></p>
+                                    <ol>
+                                       <li>
+                                          
+                                          <p>Clone the AWS IoT Device Defender Python samples repository.</p>
+                                          <pre class="programlisting"><div class="code-btn-container"><div class="btn-copy-code" title="Copy"><awsui-icon name="copy"></awsui-icon></div></div><code class="bash ">git clone https://github.com/aws-samples/aws-iot-device-defender-agent-sdk-python.git</code></pre>
+                                          </li>
+                                       <li>
+                                          
+                                          <p>Create and activate a virtual environment (optional, but recommended).</p>
+                                          <pre class="programlisting"><div class="code-btn-container"><div class="btn-copy-code" title="Copy"><awsui-icon name="copy"></awsui-icon></div></div><code class="bash ">pip install virtualenv
+virtualenv metrics_lambda_environment
+source metrics_lambda_environment/bin/activate</code></pre>
+                                          </li>
+                                       <li>
+                                          
+                                          <p>Install the AWS IoT Device Defender sample agent in the virtual environment. Install
+                                             from PyPi.
+                                          </p>
+                                          <pre class="programlisting"><div class="code-btn-container"><div class="btn-copy-code" title="Copy"><awsui-icon name="copy"></awsui-icon></div></div><code class="bash ">pip install AWSIoTDeviceDefenderAgentSDK</code></pre>
+                                          </li>
+                                       <li>
+                                          
+                                          <p>Install the downloaded source.</p>
+                                          <pre class="programlisting"><div class="code-btn-container"><div class="btn-copy-code" title="Copy"><awsui-icon name="copy"></awsui-icon></div></div><code class="bash ">cd aws-iot-device-defender-agent-sdk-python
+#This must be run from the same directory as setup.py
+pip install . </code></pre>
+                                          </li>
+                                       <li>
+                                          
+                                          <p>Create an empty directory to assemble your Lambda function. This is your Lambda
+                                             directory.
+                                          </p>
+                                          <pre class="programlisting"><div class="code-btn-container"><div class="btn-copy-code" title="Copy"><awsui-icon name="copy"></awsui-icon></div></div><code class="bash ">mkdir metrics_lambda
+cd metrics_lambda </code></pre>
+                                          </li>
+                                       <li>
+                                          
+                                          <p>Complete steps 1-4 in <a href="https://docs.aws.amazon.com/greengrass/latest/developerguide/create-lambda.html">Create and Package a Lambda Function</a>.
+                                          </p>
+                                          
+                                       </li>
+                                       <li>
+                                          
+                                          <p>Unzip the AWS IoT Greengrass Python SDK into your Lambda directory. </p>
+                                          <pre class="programlisting"><div class="code-btn-container"><div class="btn-copy-code" title="Copy"><awsui-icon name="copy"></awsui-icon></div></div><code class="bash ">unzip ../aws_greengrass_core_sdk/sdk/python_sdk_1_1_0.zip
+cp -R ../aws_greengrass_core_sdk/examples/HelloWorld/greengrass_common .
+cp -R ../aws_greengrass_core_sdk/examples/HelloWorld/greengrasssdk .
+cp -R ../aws_greengrass_core_sdk/examples/HelloWorld/greengrass_ipc_python_sdk .  </code></pre>
+                                          </li>
+                                       <li>
+                                          
+                                          <p>Copy the <code class="code">AWSIoTDeviceDefenderAgentSDK</code> module to the root level of your
+                                             Lambda directory.
+                                          </p>
+                                          <pre class="programlisting"><div class="code-btn-container"><div class="btn-copy-code" title="Copy"><awsui-icon name="copy"></awsui-icon></div></div><code class="bash ">cp -R ../aws-iot-device-defender-agent-sdk-python/AWSIoTDeviceDefenderAgentSDK . </code></pre>
+                                          </li>
+                                       <li>
+                                          
+                                          <p>Copy the AWS IoT Greengrass agent to the root level of your Lambda directory. </p>
+                                          <pre class="programlisting"><div class="code-btn-container"><div class="btn-copy-code" title="Copy"><awsui-icon name="copy"></awsui-icon></div></div><code class="bash ">cp ../aws-iot-device-defender-agent-sdk-python/samples/greengrass/greengrass_core_metrics_agent/greengrass_defender_agent.py . </code></pre>
+                                          </li>
+                                       <li>
+                                          
+                                          <p>Customize the AWS IoT Greengrass agent to include the name of your AWS IoT Greengrass
+                                             core device and the desired
+                                             metrics sample rate:
+                                          </p>
+                                          
+                                          <div class="itemizedlist">
+                                              
+                                              
+                                             
+                                             <ul class="itemizedlist" type="disc">
+                                                <li class="listitem">
+                                                   
+                                                   <p>Replace <code class="code">GREENGRASS_CORENAME</code> with the name of your AWS IoT Greengrass core.
+                                                   </p>
+                                                   
+                                                </li>
+                                                <li class="listitem">
+                                                   
+                                                   <p>Set the <code class="code">SAMPLE_RATE_SECONDS</code> to your desired metrics reporting
+                                                      interval. The shortest reporting interval supported by AWS IoT Device Defender is
+                                                      5 minutes (300
+                                                      seconds).
+                                                   </p>
+                                                   
+                                                </li>
+                                             </ul>
+                                          </div>
+                                          
+                                       </li>
+                                       <li>
+                                          
+                                          <p>Copy the dependencies from your virtual environment (or your system) into the root
+                                             level of your Lambda directory. 
+                                          </p>
+                                          <pre class="programlisting"><div class="code-btn-container"><div class="btn-copy-code" title="Copy"><awsui-icon name="copy"></awsui-icon></div></div><code class="bash ">cp -R ../metrics_lambda_environment/lib/python2.7/site-packages/psutil .
+cp -R ../metrics_lambda_environment/lib/python2.7/site-packages/cbor .  </code></pre>
+                                          </li>
+                                       <li>
+                                          
+                                          <p>Create your Lambda function zip file. Perform this command in the root level of your
+                                             Lambda directory.
+                                          </p>
+                                          <pre class="programlisting"><div class="code-btn-container"><div class="btn-copy-code" title="Copy"><awsui-icon name="copy"></awsui-icon></div></div><code class="bash ">rm *.zip
+zip -r greengrass_defender_metrics_lambda.zip * </code></pre>
+                                          </li>
+                                    </ol>
+                                 </div>
+                                 <div class="procedure">
+                                    <p class="title"><b>To configure and deploy your AWS IoT Greengrass Lambda function</b></p>
+                                    <ol>
+                                       <li>
+                                          
+                                          <p><a href="https://docs.aws.amazon.com/greengrass/latest/developerguide/package.html">Upload your lambda zip file</a>. 
+                                          </p>
+                                          
+                                       </li>
+                                       <li>
+                                          
+                                          <p>Select the Python 2.7 runtime, and in the Handler field, enter
+                                             <code class="code">greengrass_defender_agent.function_handler</code>.
+                                          </p>
+                                          
+                                       </li>
+                                       <li>
+                                          
+                                          <p><a href="https://docs.aws.amazon.com/greengrass/latest/developerguide/long-lived.html">Configure your Lambda function as a long-lived Lambda function</a>.
+                                          </p>
+                                          
+                                       </li>
+                                       <li>
+                                          
+                                          <p><a href="https://docs.aws.amazon.com/greengrass/latest/developerguide/config-subs.html">Configure a subscription from your Lambda function to the AWS IoT cloud</a>. For
+                                             AWS IoT Device Defender, a subscription from the AWS Cloud to your Lambda function
+                                             is not required.
+                                          </p>
+                                          
+                                       </li>
+                                       <li>
+                                          
+                                          <p>Create a local resource to allow your Lambda function to collect metrics from your
+                                             AWS IoT Greengrass core host: 
+                                          </p>
+                                          
+                                          <div class="itemizedlist">
+                                              
+                                             
+                                             <ul class="itemizedlist" type="disc">
+                                                <li class="listitem">
+                                                   
+                                                   <p>Follow the instructions in <a href="https://docs.aws.amazon.com/greengrass/latest/developerguide/access-local-resources.html">Access Local Resources with Lambda Functions</a>. Use the following
+                                                      parameters:
+                                                   </p>
+                                                   
+                                                   <div class="itemizedlist">
+                                                       
+                                                       
+                                                       
+                                                       
+                                                       
+                                                       
+                                                      
+                                                      <ul class="itemizedlist" type="disc">
+                                                         <li class="listitem">
+                                                            
+                                                            <p>Resource Name: <code class="code">Core Proc</code></p>
+                                                            
+                                                         </li>
+                                                         <li class="listitem">
+                                                            
+                                                            <p>Type: <code class="code">Volume</code></p>
+                                                            
+                                                         </li>
+                                                         <li class="listitem">
+                                                            
+                                                            <p>Source Path: <code class="code">/proc</code></p>
+                                                            
+                                                         </li>
+                                                         <li class="listitem">
+                                                            
+                                                            <p>Destination Path: <code class="code">/host_proc</code></p>
+                                                            
+                                                         </li>
+                                                         <li class="listitem">
+                                                            
+                                                            <p>Group owner file access permission: Automatically add OS group permissions of
+                                                               the Linux group that owns the resource
+                                                            </p>
+                                                            
+                                                         </li>
+                                                         <li class="listitem">
+                                                            
+                                                            <p>Associate the resource with your metrics Lambda function.</p>
+                                                            
+                                                         </li>
+                                                      </ul>
+                                                   </div>
+                                                   
+                                                </li>
+                                             </ul>
+                                          </div>
+                                          
+                                       </li>
+                                       <li>
+                                          
+                                          <p>Deploy your Lambda function to your AWS IoT Greengrass group. </p>
+                                          
+                                       </li>
+                                    </ol>
+                                 </div>
+                                 <div class="procedure">
+                                    <p class="title"><b>To review your AWS IoT Device Defender device metrics using the AWS IoT console</b></p>
+                                    <ol>
+                                       <li>
+                                          
+                                          <p>Temporarily modify the publish topic in your AWS IoT Greengrass Lambda function to
+                                             "metrics/test".
+                                             
+                                          </p>
+                                          
+                                       </li>
+                                       <li>
+                                          
+                                          <p>Deploy the Lambda function. </p>
+                                          
+                                       </li>
+                                       <li>
+                                          
+                                          <p>To see the metrics your AWS IoT Greengrass core is emitting, on the <b>Test</b> page
+                                             of the AWS IoT console, add a subscription to the temporary topic ("metrics/test")
+                                             . 
+                                          </p>
+                                          
+                                       </li>
+                                    </ol>
+                                 </div>
+                                 <awsdocs-copyright class="copyright-print"></awsdocs-copyright>
+                                 <awsdocs-thumb-feedback right-edge="{{$ctrl.thumbFeedbackRightEdge}}"></awsdocs-thumb-feedback>
+                              </div>
+                              <noscript>
+                                 <div>
+                                    <div>
+                                       <div>
+                                          <div id="js_error_message">
+                                             <p><img src="https://d1ge0kk1l5kms0.cloudfront.net/images/G/01/webservices/console/warning.png" alt="Warning" /> <strong>Javascript is disabled or is unavailable in your
+                                                   browser.</strong></p>
+                                             <p>To use the Amazon Web Services Documentation, Javascript must be
+                                                enabled. Please refer to your browser's Help pages for instructions.
+                                             </p>
+                                          </div>
+                                       </div>
+                                    </div>
+                                 </div>
+                              </noscript>
+                              <div id="main-col-footer" class="awsui-util-font-size-0">
+                                 <div id="doc-conventions"><a target="_top" href="/general/latest/gr/docconventions.html">Document Conventions</a></div>
+                                 <div class="prev-next">
+                                    <div id="previous" class="prev-link" accesskey="p" href="./mitigation-action-commands.html">Mitigation action commands</div>
+                                    <div id="next" class="next-link" accesskey="n" href="./device-defender-DetectMetricsMessagesBestPract.html"> Security best practices for
+                                       device agents
+                                    </div>
+                                 </div>
+                              </div>
+                              <awsdocs-page-utilities></awsdocs-page-utilities>
+                           </div>
+                           <div id="quick-feedback-yes" style="display: none;">
+                              <div class="title">Did this page help you? - Yes</div>
+                              <div class="content">
+                                 <p>Thanks for letting us know we're doing a good
+                                    job!
+                                 </p>
+                                 <p>If you've got a moment, please tell us what we did right
+                                    so we can do more of it.
+                                 </p>
+                                 <p>
+                                    <awsui-button id="fblink" target="_blank" text="Feedback" click="linkClick($event)" href="https://docs.aws.amazon.com/forms/aws-doc-feedback?hidden_service_name=IoT Docs&amp;topic_url=https://docs.aws.amazon.com/en_us/iot/latest/developerguide/device-defender-DetectMetricsGreengrassIntegration.html"></awsui-button>
+                                 </p>
+                              </div>
+                           </div>
+                           <div id="quick-feedback-no" style="display: none;">
+                              <div class="title">Did this page help you? - No</div>
+                              <div class="content">
+                                 <p>Thanks for letting us know this page needs work. We're
+                                    sorry we let you down.
+                                 </p>
+                                 <p>If you've got a moment, please tell us how we can make
+                                    the documentation better.
+                                 </p>
+                                 <p>
+                                    <awsui-button id="fblink" target="_blank" text="Feedback" click="linkClick($event)" href="https://docs.aws.amazon.com/forms/aws-doc-feedback?hidden_service_name=IoT Docs&amp;topic_url=https://docs.aws.amazon.com/en_us/iot/latest/developerguide/device-defender-DetectMetricsGreengrassIntegration.html"></awsui-button>
+                                 </p>
+                              </div>
+                           </div>
+                        </div>
+                     </body>
+                  </div>
+               </awsdocs-view>
+               <div class="page-loading-indicator" id="page-loading-indicator">
+                  <awsui-spinner size="large"></awsui-spinner>
+               </div>
+            </div>
+            <div id="tools-panel" dom-region="tools">
+               <awsdocs-tools-panel id="awsdocs-tools-panel"></awsdocs-tools-panel>
+            </div>
+         </awsui-app-layout>
+         <awsdocs-cookie-banner class="doc-cookie-banner"></awsdocs-cookie-banner>
+         <!--
+                SiteCatalyst code version: H.25.2.
+                Copyright 1996-2012 Adobe, Inc. All Rights Reserved
+                More info available at http://www.omniture.com
+            --><script language="JavaScript" type="text/javascript">
+var awsdocs = awsdocs || {};
+awsdocs.prop66 = 'AWS IoT Core';
+awsdocs.prop65 =  'Developer Guide';
+            </script><script src="https://a0.awsstatic.com/s_code/js/3.0/awshome_s_code.js" language="JavaScript" type="text/javascript"></script>
+         <!--/DO NOT REMOVE/-->
+         <!--End SiteCatalyst code version: H.25.2.--></div>
+   </body>
+</html>

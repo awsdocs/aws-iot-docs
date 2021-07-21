@@ -1,0 +1,1030 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" ng-app="AWSDocsDocPageApp">
+   <head>
+      <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+      <title>Managing thing indexing - AWS IoT Core</title>
+      <meta name="viewport" content="width=device-width,initial-scale=1" />
+      <meta name="assets_root" content="assets" />
+      <meta name="target_state" content="managing-index" />
+      <meta name="default_state" content="managing-index" />
+      <link rel="icon" type="image/ico" href="/assets/images/favicon.ico" />
+      <link rel="shortcut icon" type="image/ico" href="/assets/images/favicon.ico" />
+      <link rel="canonical" href="https://docs.aws.amazon.com/iot/latest/developerguide/managing-index.html" />
+      <meta name="description" content="AWS_Things is the index created for all of your things. You can control what to index: registry data, shadow data, and device connectivity status data (driven by device lifecycle events)." />
+      <meta name="deployment_region" content="IAD" />
+      <meta name="product" content="AWS IoT Core" />
+      <meta name="guide" content="Developer Guide" />
+      <meta name="locales" content="de_de:Deutsch/en_us:English/es_es:Español/fr_fr:Français/it_it:Italiano/ja_jp:日本語/ko_kr:한국어/pt_br:Português/zh_cn:中文 (简体)/zh_tw:中文 (繁體)" />
+      <meta name="abstract" content="AWS IoT provides secure, bi-directional communication between Internet-connected devices such as sensors, actuators, embedded micro-controllers, or smart appliances and the AWS Cloud. This enables you to collect telemetry data from multiple devices, and store and analyze the data. You can also create applications that enable your users to control these devices from their phones or tablets." />
+      <meta name="guide-locale" content="en_us" />
+      <meta name="tocs" content="toc-contents.json" />
+      <meta name="feedback-item" content="IoT Docs" />
+      <meta name="this_doc_product" content="AWS IoT Core" />
+      <meta name="this_doc_guide" content="Developer Guide" />
+      <link href="assets/css/vendor4.css" rel="stylesheet" />
+      <link href="assets/css/awsdocs-common.css" rel="stylesheet" /><script type="text/javascript" src="assets/js/vendor3.js" defer=""></script><script type="text/javascript" src="assets/js/vendor4.js" defer=""></script><script type="text/javascript" src="assets/js/vendor1.js" defer=""></script><script type="text/javascript" src="assets/js/awsdocs-common.js" defer=""></script><script type="text/javascript" src="assets/js/awsdocs-doc-app.js" defer=""></script></head>
+   <body class="awsdocs awsui">
+      <div class="awsdocs-container">
+         <awsdocs-header></awsdocs-header>
+         <awsui-app-layout id="app-layout" class="awsui-util-no-gutters" ng-controller="ContentController as $ctrl" header-selector="awsdocs-header" navigation-hide="false" navigation-width="$ctrl.navWidth" navigation-open="$ctrl.navOpen" navigation-change="$ctrl.onNavChange($event)" tools-hide="$ctrl.hideTools" tools-width="$ctrl.toolsWidth" tools-open="$ctrl.toolsOpen" tools-change="$ctrl.onToolsChange($event)">
+            <div id="guide-toc" dom-region="navigation">
+               <awsdocs-toc></awsdocs-toc>
+            </div>
+            <div id="main-column" dom-region="content" tabindex="-1">
+               <awsdocs-view class="awsdocs-view">
+                  <div id="awsdocs-content">
+                     <head>
+                        <title>Managing thing indexing - AWS IoT Core</title>
+                        <meta name="pdf" content="iot-dg.pdf#managing-index" />
+                        <meta name="kindle" content="https://www.amazon.com/dp/B07JBRCWWZ" />
+                        <meta name="github" content="https://github.com/awsdocs/aws-iot-docs/tree/master/developerguide/managing-index.md" />
+                        <meta name="forums" content="http://forums.aws.amazon.com/forum.jspa?forumID=210" />
+                        <meta name="feedback" content="https://docs.aws.amazon.com/forms/aws-doc-feedback?hidden_service_name=IoT%20Docs&amp;topic_url=http://docs.aws.amazon.com/en_us/iot/latest/developerguide/managing-index.html" />
+                        <meta name="feedback-yes" content="feedbackyes.html?topic_url=http://docs.aws.amazon.com/en_us/iot/latest/developerguide/managing-index.html" />
+                        <meta name="feedback-no" content="feedbackno.html?topic_url=http://docs.aws.amazon.com/en_us/iot/latest/developerguide/managing-index.html" />
+                        <meta name="keywords" content="AWS IoT,IoT,Internet of Things" />
+                     </head>
+                     <body>
+                        <div id="main">
+                           <div style="display: none"><a href="iot-dg.pdf#managing-index" target="_blank" rel="noopener noreferrer" title="Open PDF"></a><a target="_blank" rel="noopener noreferrer" href="https://www.amazon.com/dp/B07JBRCWWZ" title="Open Kindle"></a><a href="https://github.com/awsdocs/aws-iot-docs/tree/master/developerguide/managing-index.md" target="_blank" rel="noopener noreferrer" title="Edit this page on GitHub"></a></div>
+                           <div id="breadcrumbs" class="breadcrumb"><a href="http://aws.amazon.com">AWS</a><a href="/index.html">Documentation</a><a href="/iot/index.html">AWS IoT Core</a><a href="what-is-aws-iot.html">Developer Guide</a></div>
+                           <div id="page-toc-src"><a href="#enable-index">Enabling thing indexing</a><a href="#describe-index">Describing a thing index</a><a href="#search-index">Querying a thing index</a><a href="#index-limitations">Restrictions and limitations</a><a href="#query-auth">Authorization</a></div>
+                           <div id="main-content" class="awsui-util-container">
+                              <div id="main-col-body">
+                                 <awsdocs-language-banner data-service="$ctrl.pageService"></awsdocs-language-banner>
+                                 <h1 class="topictitle" id="managing-index">Managing thing indexing</h1>
+                                 <div class="awsdocs-page-header-container">
+                                    <awsdocs-page-header></awsdocs-page-header>
+                                    <awsdocs-filter-selector id="awsdocs-filter-selector"></awsdocs-filter-selector>
+                                 </div>
+                                 <p><code class="code">AWS_Things</code> is the index created for all of your things. You can control what
+                                    to index: registry data, shadow data, and device connectivity status data (driven
+                                    by device
+                                    lifecycle events).
+                                 </p>
+                                 
+                                 <h2 id="enable-index">Enabling thing indexing</h2>
+                                 
+                                 <p>You use the <a href="https://docs.aws.amazon.com/cli/latest/reference/iot/update-indexing-configuration.html">update-indexing-configuration</a> CLI command or the <a href="https://docs.aws.amazon.com/iot/latest/apireference/API_UpdateIndexingConfiguration.html">UpdateIndexingConfiguration</a> API to create the <code class="code">AWS_Things</code> index and
+                                    control its configuration. The <code class="code">--thing-indexing-configuration</code>
+                                    (<code class="code">thingIndexingConfiguration</code>) parameter allows you to control what kind of
+                                    data (for example, registry, shadow, and device connectivity data) is indexed. 
+                                 </p>
+                                 
+                                 <p>The <code class="code">--thing-indexing-configuration</code> parameter takes a string with the
+                                    following structure:
+                                 </p>
+                                 <pre class="programlisting"><div class="code-btn-container"><div class="btn-copy-code" title="Copy"><awsui-icon name="copy"></awsui-icon></div></div><code class="nohighlight"><span>{</span>
+  "thingIndexingMode": "OFF"|"REGISTRY"|"REGISTRY_AND_SHADOW",
+  "thingConnectivityIndexingMode": "OFF"|"STATUS",
+  "customFields": [
+    <span>{</span> name: <code class="replaceable">field-name</code>, type: String | Number | Boolean },
+    ...
+  ]
+}</code></pre>
+                                 <p>The <code class="code">thingIndexingMode</code> attribute controls what kind of data is indexed.
+                                    Valid values are:
+                                 </p>
+                                 
+                                 <div class="variablelist">
+                                     
+                                     
+                                     
+                                    
+                                    <dl>
+                                       
+                                       <dt><span class="term">OFF</span></dt>
+                                       
+                                       <dd>
+                                          
+                                          <p>No indexing.</p>
+                                          
+                                       </dd>
+                                        
+                                       
+                                       <dt><span class="term">REGISTRY</span></dt>
+                                       
+                                       <dd>
+                                          
+                                          <p>Index registry data.</p>
+                                          
+                                       </dd>
+                                        
+                                       
+                                       <dt><span class="term">REGISTRY_AND_SHADOW</span></dt>
+                                       
+                                       <dd>
+                                          
+                                          <p>Index registry and thing shadow data.</p>
+                                          
+                                       </dd>
+                                       
+                                    </dl>
+                                 </div>
+                                 
+                                 <p>The <code class="code">thingConnectivityIndexingMode</code> attribute specifies if thing connectivity
+                                    data is indexed. Valid values are:
+                                 </p>
+                                 
+                                 <div class="variablelist">
+                                     
+                                     
+                                    
+                                    <dl>
+                                       
+                                       <dt><span class="term">OFF</span></dt>
+                                       
+                                       <dd>
+                                          
+                                          <p>Thing connectivity data is not indexed.</p>
+                                          
+                                       </dd>
+                                        
+                                       
+                                       <dt><span class="term">STATUS</span></dt>
+                                       
+                                       <dd>
+                                          
+                                          <p>Thing connectivity data is indexed.</p>
+                                          
+                                       </dd>
+                                       
+                                    </dl>
+                                 </div>
+                                 
+                                 <p>The <code class="code">customFields</code> attribute is a list of field and data type pairs.
+                                    Aggregation queries can be performed over these fields based on the data type. The
+                                    indexing
+                                    mode you choose (REGISTRY or REGISTRY_AND_SHADOW) affects what fields can be specified
+                                    in
+                                    <code class="code">customFields</code>. For example, if you specify the <code class="code">REGISTRY</code> indexing
+                                    mode, you cannot specify a field from a thing shadow. Custom fields must be specified
+                                    in
+                                    <code class="code">customFields</code> to be indexed.
+                                 </p>
+                                 
+                                 <p>If there is a type inconsistency between a custom field in your configuration and
+                                    the
+                                    value being indexed, the Fleet Indexing service ignores the inconsistent value for
+                                    aggregation queries. CloudWatch logs are helpful when troubleshooting aggregation
+                                    query problems.
+                                    For more information, see <a href="./aggregation-troubleshooting.html">Troubleshooting aggregation queries for the
+                                       fleet indexing service</a>. 
+                                 </p>
+                                 
+                                 <p>Managed fields contain data associated with IoT things, thing groups, and device
+                                    shadows. The data type of managed fields are defined by AWS IoT. You specify the values
+                                    of
+                                    each managed field when you create an IoT thing. For example thing names, thing groups,
+                                    and
+                                    thing descriptions are all managed fields. The Fleet Indexing service indexes managed
+                                    fields
+                                    based on the indexing mode you specify:
+                                 </p>
+                                 
+                                 <div class="itemizedlist">
+                                     
+                                     
+                                     
+                                     
+                                    
+                                    <ul class="itemizedlist" type="disc">
+                                       <li class="listitem">
+                                          
+                                          <p>Managed fields for the registry</p>
+                                          <pre class="programlisting"><div class="code-btn-container"><div class="btn-copy-code" title="Copy"><awsui-icon name="copy"></awsui-icon></div></div><code class="json ">"managedFields" : [
+  <span>{</span>name:thingId, type:String},
+  <span>{</span>name:thingName, type:String},
+  <span>{</span>name:registry.version, type:Number},
+  <span>{</span>name:registry.thingTypeName, type:String},
+  <span>{</span>name:registry.thingGroupNames, type:String},
+]</code></pre>
+                                          </li>
+                                       <li class="listitem">
+                                          
+                                          <p>Managed fields for thing shadows</p>
+                                          <pre class="programlisting"><div class="code-btn-container"><div class="btn-copy-code" title="Copy"><awsui-icon name="copy"></awsui-icon></div></div><code class="json ">"managedFields" : [
+  <span>{</span>name:shadow.version, type:Number},
+  <span>{</span>name:shadow.hasDelta, type:Boolean}
+]</code></pre>
+                                          </li>
+                                       <li class="listitem">
+                                          
+                                          <p>Managed fields for thing connectivity</p>
+                                          <pre class="programlisting"><div class="code-btn-container"><div class="btn-copy-code" title="Copy"><awsui-icon name="copy"></awsui-icon></div></div><code class="json ">"managedFields" : [
+  <span>{</span>name:connectivity.timestamp, type:Number},
+  <span>{</span>name:connectivity.version, type:Number},
+  <span>{</span>name:connectivity.connected, type:Boolean},
+  <span>{</span>name:connectivity.disconnectReason, type:String}
+]</code></pre>
+                                          </li>
+                                       <li class="listitem">
+                                          
+                                          <p>Managed fields for thing groups</p>
+                                          <pre class="programlisting"><div class="code-btn-container"><div class="btn-copy-code" title="Copy"><awsui-icon name="copy"></awsui-icon></div></div><code class="json ">"managedFields" : [
+  <span>{</span>name:description, type:String},
+  <span>{</span>name:parentGroupNames, type:String},
+  <span>{</span>name:thingGroupId, type:String},
+  <span>{</span>name:thingGroupName, type:String},
+  <span>{</span>name:version, type:Number},
+]</code></pre>
+                                          </li>
+                                    </ul>
+                                 </div>
+                                 
+                                 <p>Managed fields cannot be changed or appear in <code class="code">customFields</code>.
+                                 </p>
+                                 
+                                 <p>The following is an example of how to use
+                                    <b>update-indexing-configuration</b> to configure indexing:
+                                 </p>
+                                 <pre class="programlisting"><div class="code-btn-container"><div class="btn-copy-code" title="Copy"><awsui-icon name="copy"></awsui-icon></div></div><code class="nohighlight">aws iot update-indexing-configuration --thing-indexing-configuration
+          'thingIndexingMode=REGISTRY_AND_SHADOW,customFields=[<span>{</span>name=attributes.version,type=Number},<span>{</span>name=attributes.color,
+          type=String},<span>{</span>name=shadow.desired.power, type=Boolean}}]</code></pre>
+                                 <p>This command enables indexing for registry and shadow data. Aggregation queries work
+                                    with the managed fields and the provided <code class="code">customFields</code> based on the data
+                                    type.
+                                 </p>
+                                 
+                                 <p>You can use the <b>get-indexing-configuration</b> CLI command or the <a href="https://docs.aws.amazon.com/iot/latest/apireference/API_GetIndexingConfiguration.html">GetIndexingConfiguration</a> API
+                                    to retrieve the current indexing configuration.
+                                 </p>
+                                 
+                                 <p>The following command shows how to use the <b>get-indexing-configuration</b>
+                                    CLI command to retrieve the current thing indexing configuration where five custom
+                                    fields
+                                    (three registry custom fields and two shadow custom fields) are defined.
+                                 </p>
+                                 <pre class="programlisting"><div class="code-btn-container"><div class="btn-copy-code" title="Copy"><awsui-icon name="copy"></awsui-icon></div></div><code class="nohighlight">aws iot get-indexing-configuration</code></pre>
+                                 <pre class="programlisting"><div class="code-btn-container"><div class="btn-copy-code" title="Copy"><awsui-icon name="copy"></awsui-icon></div></div><code class="json "><span>{</span>
+    "thingGroupIndexingConfiguration": <span>{</span>
+        "thingGroupIndexingMode": "OFF"
+    },
+    "thingIndexingConfiguration": <span>{</span>
+        "thingConnectivityIndexingMode": "STATUS",
+        "customFields": [
+            <span>{</span>
+                "name": "attributes.customField_NUM",
+                "type": "Number"
+            },
+            <span>{</span>
+                "name": "shadow.desired.customField_STR",
+                "type": "String"
+            },
+            <span>{</span>
+                "name": "shadow.desired.customField_NUM",
+                "type": "Number"
+            },
+            <span>{</span>
+                "name": "attributes.customField_STR",
+                "type": "String"
+            },
+            <span>{</span>
+                "name": "attributes.customField_BOOL",
+                "type": "Boolean"
+            }
+        ],
+        "thingIndexingMode": "REGISTRY_AND_SHADOW",
+        "managedFields": [
+            <span>{</span>
+                "name": "shadow.hasDelta",
+                "type": "Boolean"
+            },
+            <span>{</span>
+                "name": "registry.thingGroupNames",
+                "type": "String"
+            },
+            <span>{</span>
+                "name": "connectivity.version",
+                "type": "Number"
+            },
+            <span>{</span>
+                "name": "connectivity.disconnectReason",
+                "type": "String"
+            },
+            <span>{</span>
+                "name": "registry.thingTypeName",
+                "type": "String"
+            },
+            <span>{</span>
+                "name": "connectivity.connected",
+                "type": "Boolean"
+            },
+            <span>{</span>
+                "name": "registry.version",
+                "type": "Number"
+            },
+            <span>{</span>
+                "name": "thingId",
+                "type": "String"
+            },
+            <span>{</span>
+                "name": "connectivity.timestamp",
+                "type": "Number"
+            },
+            <span>{</span>
+                "name": "thingName",
+                "type": "String"
+            },
+            <span>{</span>
+                "name": "shadow.version",
+                "type": "Number"
+            }
+        ]
+    }
+}</code></pre>
+                                 <p>The following table provides the allowed combinations of <code class="code">thingIndexingMode</code>
+                                    and <code class="code">thingConnectivityIndexingMode</code>, and their associated effects. The required
+                                    <code class="code">thingIndexingMode</code> parameter specifies if the <code class="code">AWS_Things</code> index
+                                    contains just registry data or registry and shadow data. The optional
+                                    <code class="code">thingConnectivityIndexingMode</code> parameter specifies whether the index also
+                                    contains connectivity status data (when devices have last connected and disconnected
+                                    to
+                                    AWS IoT).
+                                 </p>
+                                 
+                                 <div class="table-container">
+                                    <div class="table-contents">
+                                       <table id="w332aac38c17b5c43">
+                                          <thead>
+                                             
+                                             <tr>
+                                                
+                                                <th><code class="code">thingIndexingMode</code></th>
+                                                
+                                                <th><code class="code">thingConnectivityIndexingMode</code></th>
+                                                
+                                                <th>Result</th>
+                                                
+                                             </tr>
+                                             
+                                          </thead>
+                                          
+                                          <tr>
+                                             
+                                             <td>OFF</td>
+                                             
+                                             <td><em>Not specified.</em></td>
+                                             
+                                             <td>No indexing or delete an index.</td>
+                                             
+                                          </tr>
+                                          
+                                          <tr>
+                                             
+                                             <td>OFF</td>
+                                             
+                                             <td>OFF</td>
+                                             
+                                             <td>Equivalent to the previous entry.</td>
+                                             
+                                          </tr>
+                                          
+                                          <tr>
+                                             
+                                             <td>REGISTRY</td>
+                                             
+                                             <td><em>Not specified.</em></td>
+                                             
+                                             <td>Create or configure the <code class="code">AWS_Things</code> index to index registry data
+                                                only.
+                                             </td>
+                                             
+                                          </tr>
+                                          
+                                          <tr>
+                                             
+                                             <td>REGISTRY</td>
+                                             
+                                             <td>OFF</td>
+                                             
+                                             <td>Equivalent to the previous entry. (Only registry data is indexed.)</td>
+                                             
+                                          </tr>
+                                          
+                                          <tr>
+                                             
+                                             <td>REGISTRY_AND_SHADOW</td>
+                                             
+                                             <td><em>Not specified.</em></td>
+                                             
+                                             <td>Create or configure the <code class="code">AWS_Things</code> index to index registry data
+                                                and shadow data.
+                                             </td>
+                                             
+                                          </tr>
+                                          
+                                          <tr>
+                                             
+                                             <td>REGISTRY_AND_SHADOW</td>
+                                             
+                                             <td>OFF</td>
+                                             
+                                             <td>Equivalent to the previous entry. (Registry data and shadow data are
+                                                indexed.)
+                                             </td>
+                                             
+                                          </tr>
+                                          
+                                          <tr>
+                                             
+                                             <td>REGISTRY</td>
+                                             
+                                             <td>STATUS</td>
+                                             
+                                             <td>Create or configure the <code class="code">AWS_Things</code> index to index registry data
+                                                and thing connectivity status data (REGISTRY_AND_CONNECTIVITY_STATUS).
+                                             </td>
+                                             
+                                          </tr>
+                                          
+                                          <tr>
+                                             
+                                             <td>REGISTRY_AND_SHADOW</td>
+                                             
+                                             <td>STATUS</td>
+                                             
+                                             <td>Create or configure the <code class="code">AWS_Things</code> index to index registry data,
+                                                shadow data, and thing connectivity status data
+                                                (REGISTRY_AND_SHADOW_AND_CONNECTIVITY_STATUS).
+                                             </td>
+                                             
+                                          </tr>
+                                          
+                                       </table>
+                                    </div>
+                                 </div>
+                                 
+                                 <p>You can use the AWS IoT <b>update-indexing-configuration</b> CLI command to
+                                    update your indexing configuration. The following examples show how to use the
+                                    <b>update-indexing-configuration</b> CLI command.
+                                 </p>
+                                 
+                                 <p>Short syntax:</p>
+                                 <pre class="programlisting"><div class="code-btn-container"><div class="btn-copy-code" title="Copy"><awsui-icon name="copy"></awsui-icon></div></div><code class="nohighlight">aws iot update-indexing-configuration --thing-indexing-configuration
+          "thingIndexingMode=REGISTRY_AND_SHADOW,thingConnectivityIndexingMode=STATUS,customFields=[<span>{</span>name=attributes.version,type=Number},<span>{</span>name=attributes.color,type=String},<span>{</span>name=shadow.desired.power,type=Boolean}]"</code></pre>
+                                 <p></p>
+                                 
+                                 <p>JSON syntax:</p>
+                                 <pre class="programlisting"><div class="code-btn-container"><div class="btn-copy-code" title="Copy"><awsui-icon name="copy"></awsui-icon></div></div><code class="nohighlight">aws iot update-indexing-configuration --cli-input-json \ '<span>{</span>
+          "thingIndexingConfiguration": <span>{</span> "thingIndexingMode": "REGISTRY_AND_SHADOW",
+          "thingConnectivityIndexingMode": "STATUS", "customFields": [ <span>{</span> "name":
+          "shadow.desired.power", "type": "Boolean" }, <span>{</span> "name": "attributes.color", "type":
+          "String" }, <span>{</span> "name": "attributes.version", "type": "Number" } ] } }'</code></pre>
+                                 <p></p>
+                                 
+                                 <p>The output of these commands is:</p>
+                                 <pre class="programlisting"><div class="code-btn-container"><div class="btn-copy-code" title="Copy"><awsui-icon name="copy"></awsui-icon></div></div><code class="json "><span>{</span>
+    "thingIndexingConfiguration": <span>{</span>
+        "thingConnectivityIndexingMode": "STATUS",
+        "customFields": [
+            <span>{</span>
+                "type": "String",
+                "name": "attributes.color"
+            },
+            <span>{</span>
+                "type": "Number",
+                "name": "attributes.version"
+            },
+            <span>{</span>
+                "type": "Boolean",
+                "name": "shadow.desired.power"
+            }
+        ],
+        "thingIndexingMode": "REGISTRY_AND_SHADOW",
+        "managedFields": [
+            <span>{</span>
+                "type": "Boolean",
+                "name": "connectivity.connected"
+            },
+            <span>{</span>
+                "type": "String",
+                "name": "registry.thingTypeName"
+            },
+            <span>{</span>
+                "type": "String",
+                "name": "thingName"
+            },
+            <span>{</span>
+                "type": "Number",
+                "name": "shadow.version"
+            },
+            <span>{</span>
+                "type": "String",
+                "name": "thingId"
+            },
+            <span>{</span>
+                "type": "Boolean",
+                "name": "shadow.hasDelta"
+            },
+            <span>{</span>
+                "type": "Number",
+                "name": "connectivity.timestamp"
+            },
+            <span>{</span>
+                "type": "String",
+                "name": "connectivity.disconnectReason"
+            },
+            <span>{</span>
+                "type": "String",
+                "name": "registry.thingGroupNames"
+            },
+            <span>{</span>
+                "type": "Number",
+                "name": "connectivity.version"
+            },
+            <span>{</span>
+                "type": "Number",
+                "name": "registry.version"
+            }
+        ]
+    },
+    "thingGroupIndexingConfiguration": <span>{</span>
+        "thingGroupIndexingMode": "OFF"
+    }
+}</code></pre>
+                                 <p>In the following example, a new custom field is added to the configuration:</p>
+                                 <pre class="programlisting"><div class="code-btn-container"><div class="btn-copy-code" title="Copy"><awsui-icon name="copy"></awsui-icon></div></div><code class="nohighlight">aws iot update-indexing-configuration --thing-indexing-configuration
+          'thingIndexingMode=REGISTRY_AND_SHADOW,customFields=[<span>{</span>name=attributes.version,type=Number},<span>{</span>name=attributes.color,type=String},<span>{</span>name=shadow.desired.power,type=Boolean},<span>{</span>name=shadow.desired.intensity,type=Number}]'</code></pre>
+                                 <p>This command added <code class="code">shadow.desired.intensity</code> to the indexing
+                                    configuration.
+                                 </p>
+                                 
+                                 <div class="awsdocs-note">
+                                    <div class="awsdocs-note-title">
+                                       <awsui-icon name="status-info" variant="link"></awsui-icon><span>Note</span></div>
+                                    <div class="awsdocs-note-text">
+                                       <p>Updating the custom fields indexing configuration overwrites all existing custom
+                                          fields. Make sure to specify all custom fields when calling
+                                          <b>update-indexing-configuration</b>.
+                                       </p>
+                                    </div>
+                                 </div>
+                                 
+                                 <p>After the index is rebuilt you can, use aggregation query on the newly added fields,
+                                    search registry data, shadow data, and thing connectivity status data.
+                                 </p>
+                                 
+                                 <p>When changing the indexing mode, make sure all of your custom fields are valid using
+                                    the
+                                    new indexing mode. For example, if you start off with <code class="code">REGISTRY_AND_SHADOW</code> mode
+                                    with a custom field called <code class="code">shadow.desired.temperature</code> you must delete the
+                                    <code class="code">shadow.desired.temperature</code> custom field before changing the indexing mode to
+                                    <code class="code">REGISTRY</code>. If your indexing configuration contains custom fields that are not
+                                    indexed by the indexing mode, the update fails. 
+                                 </p>
+                                  
+                                 
+                                 <h2 id="describe-index">Describing a thing index</h2>
+                                 
+                                 <p>The following command shows you how to use the <b>describe-index</b> CLI
+                                    command to retrieve the current status of the thing index.
+                                 </p>
+                                 <pre class="programlisting"><div class="code-btn-container"><div class="btn-copy-code" title="Copy"><awsui-icon name="copy"></awsui-icon></div></div><code class="nohighlight">aws iot describe-index --index-name "AWS_Things"
+<span>{</span>
+    "indexName": "AWS_Things", 
+    "indexStatus": "BUILDING", 
+    "schema": "REGISTRY_AND_SHADOW_AND_CONNECTIVITY_STATUS"
+}</code></pre>
+                                 <p>The first time you enable indexing, AWS IoT builds your index. You can't query the
+                                    index
+                                    if <code class="code">indexStatus</code> is in the <code class="code">BUILDING</code> state. The <code class="code">schema</code>
+                                    for the things index indicates which type of data
+                                    (<code class="code">REGISTRY_AND_SHADOW_AND_CONNECTIVITY_STATUS</code>) is indexed.
+                                 </p>
+                                 
+                                 <p>Changing the configuration of your index causes the index to be rebuilt. During this
+                                    process, the <code class="code">indexStatus</code> is <code class="code">REBUILDING</code>. You can execute queries on
+                                    data in the things index while it is being rebuilt. For example, if you change the
+                                    index
+                                    configuration from <code class="code">REGISTRY</code> to <code class="code">REGISTRY_AND_SHADOW</code> while the index
+                                    is being rebuilt, you can query registry data, including the latest updates. However,
+                                    you
+                                    can't query the shadow data until the rebuild is complete. The amount of time it takes
+                                    to
+                                    build or rebuild the index depends on the amount of data.
+                                 </p>
+                                  
+                                 
+                                 <h2 id="search-index">Querying a thing index</h2>
+                                 
+                                 <p>Use the <b>search-index</b> CLI command to query data in the index.
+                                 </p>
+                                 <pre class="programlisting"><div class="code-btn-container"><div class="btn-copy-code" title="Copy"><awsui-icon name="copy"></awsui-icon></div></div><code class="nohighlight">aws iot search-index --index-name "AWS_Things" --query-string
+          "thingName:mything*"</code></pre>
+                                 <pre class="programlisting"><div class="code-btn-container"><div class="btn-copy-code" title="Copy"><awsui-icon name="copy"></awsui-icon></div></div><code class="nohighlight">
+<span>{</span>  
+    "things":[<span>{</span>  
+         "thingName":"mything1",
+         "thingGroupNames":[  
+            "mygroup1"
+         ],
+         "thingId":"a4b9f759-b0f2-4857-8a4b-967745ed9f4e",
+         "attributes":<span>{</span>  
+            "attribute1":"abc"
+         },
+         "connectivity": <span>{</span> 
+            "connected":false,
+            "timestamp":1556649874716
+         }         
+    },
+    <span>{</span>  
+        "thingName":"mything2",
+        "thingTypeName":"MyThingType",
+        "thingGroupNames":[  
+            "mygroup1",
+            "mygroup2"
+        ],
+        "thingId":"01014ef9-e97e-44c6-985a-d0b06924f2af",
+        "attributes":<span>{</span>  
+            "model":"1.2",
+            "country":"usa"
+        },
+        "shadow":<span>{</span>  
+            "desired":<span>{</span>  
+                "location":"new york",
+                "myvalues":[3, 4, 5]
+            },
+            "reported":<span>{</span>  
+                "location":"new york",
+                "myvalues":[1, 2, 3],
+                "stats":<span>{</span>  
+                    "battery":78
+                }
+            },
+            "metadata":<span>{</span>  
+                 "desired":<span>{</span>  
+                       "location":<span>{</span>  
+                            "timestamp":123456789
+                        },
+                       "myvalues":<span>{</span>  
+                             "timestamp":123456789
+                       }
+                  },
+                  "reported":<span>{</span>  
+                        "location":<span>{</span>  
+                             "timestamp":34535454
+                         },
+                        "myvalues":<span>{</span>  
+                             "timestamp":34535454
+                        },
+                        "stats":<span>{</span>  
+                             "battery":<span>{</span>  
+                                   "timestamp":34535454
+                             }
+                        }
+                 }
+            },
+            "version":10,
+            "timestamp":34535454
+        },
+        "connectivity": <span>{</span> 
+            "connected":true,
+            "timestamp":1556649855046
+        }        
+    }],
+    "nextToken":"AQFCuvk7zZ3D9pOYMbFCeHbdZ+h=G"
+}</code></pre>
+                                 <p>In the JSON response, <code class="code">"connectivity"</code> (as enabled by the
+                                    <code class="code">thingConnectivityIndexingMode=STATUS</code> setting) provides a Boolean value and a
+                                    timestamp that indicates if the device is connected to AWS IoT Core. The device
+                                    <code class="code">"mything1"</code> disconnected (<code class="code">false</code>) at POSIX time
+                                    <code class="code">1556649874716</code>:
+                                 </p>
+                                 <pre class="programlisting"><div class="code-btn-container"><div class="btn-copy-code" title="Copy"><awsui-icon name="copy"></awsui-icon></div></div><code class="nohighlight">"connectivity": <span>{</span> 
+    "connected":false,
+    "timestamp":1556649874716
+}</code></pre>
+                                 <p>The device <code class="code">"mything2"</code> connected (<code class="code">true</code>) at POSIX time
+                                    <code class="code">1556649855046</code>:
+                                 </p>
+                                 <pre class="programlisting"><div class="code-btn-container"><div class="btn-copy-code" title="Copy"><awsui-icon name="copy"></awsui-icon></div></div><code class="nohighlight">"connectivity": <span>{</span> 
+    "connected":true,
+    "timestamp":1556649855046
+}</code></pre>
+                                 <p>Timestamps are given in milliseconds since epoch, so <code class="code">1556649855046</code>
+                                    represents 6:44:15.046 PM on Tuesday, April 30, 2019 (GMT).
+                                 </p>
+                                 
+                                 <div class="awsdocs-note awsdocs-important">
+                                    <div class="awsdocs-note-title">
+                                       <awsui-icon name="status-warning" variant="error"></awsui-icon><span>Important</span></div>
+                                    <div class="awsdocs-note-text">
+                                       <p>If a device has been disconnected for approximately an hour, the
+                                          <code class="code">"timestamp"</code> value of the connectivity status might be missing.
+                                       </p>
+                                    </div>
+                                 </div>
+                                  
+                                 
+                                 <h2 id="index-limitations">Restrictions and limitations</h2>
+                                 
+                                 <p>These are the restrictions and limitations for <code class="code">AWS_Things</code>.
+                                 </p>
+                                 
+                                 <div class="variablelist">
+                                     
+                                     
+                                     
+                                     
+                                     
+                                     
+                                     
+                                     
+                                    
+                                    <dl>
+                                       
+                                       <dt><span class="term">Shadow fields with complex types</span></dt>
+                                       
+                                       <dd>
+                                          
+                                          <p>A shadow field is indexed only if the value of the field is a simple type, a JSON
+                                             object that does not contain an array, or an array that consists entirely of simple
+                                             types. Simple type means a string, number, or one of the literals <code class="code">true</code> or
+                                             <code class="code">false</code>. For example, given the following shadow state, the value of
+                                             field <code class="code">"palette"</code> is not indexed because it's an array that contains items
+                                             of complex types. The value of field <code class="code">"colors"</code> is indexed because each
+                                             value in the array is a string. 
+                                          </p>
+                                          <pre class="programlisting"><div class="code-btn-container"><div class="btn-copy-code" title="Copy"><awsui-icon name="copy"></awsui-icon></div></div><code class="JSON "><span>{</span>
+    "state": <span>{</span>
+        "reported": <span>{</span>
+            "switched": "ON",
+            "colors": [ "RED", "GREEN", "BLUE" ],
+            "palette": [
+                <span>{</span>
+                    "name": "RED", 
+                    "intensity": 124
+                },
+                <span>{</span>
+                    "name": "GREEN", 
+                    "intensity": 68
+                },
+                <span>{</span>
+                    "name": "BLUE", 
+                    "intensity": 201
+                }
+            ]
+        }
+    }
+}</code></pre>
+                                          </dd>
+                                        
+                                       
+                                       <dt><span class="term">Nested shadow field names</span></dt>
+                                       
+                                       <dd>
+                                          
+                                          <p>The names of nested shadow fields are stored as a period (.) delimited string. For
+                                             example, given a shadow document:
+                                          </p>
+                                          <pre class="programlisting"><div class="code-btn-container"><div class="btn-copy-code" title="Copy"><awsui-icon name="copy"></awsui-icon></div></div><code class="json "><span>{</span>
+  "state": <span>{</span>
+    "desired": <span>{</span>
+      "one": <span>{</span>
+        "two": <span>{</span>
+          "three": "v2"
+        }
+      }
+    }    
+  }
+}</code></pre>
+                                          <p>the name of field <code class="code">three</code> is stored as
+                                             <code class="code">desired.one.two.three</code>. If you also have a shadow document like
+                                             this:
+                                          </p>
+                                          <pre class="programlisting"><div class="code-btn-container"><div class="btn-copy-code" title="Copy"><awsui-icon name="copy"></awsui-icon></div></div><code class="json "><span>{</span>
+  "state": <span>{</span>
+    "desired": <span>{</span>
+      "one.two.three": "v2"
+    }    
+  }
+}</code></pre>
+                                          <p>both match a query for <code class="code">shadow.desired.one.two.three:v2</code>. As a best
+                                             practice, do not use periods in shadow field names.
+                                          </p>
+                                          
+                                       </dd>
+                                        
+                                       
+                                       <dt><span class="term">Shadow metadata</span></dt>
+                                       
+                                       <dd>
+                                          
+                                          <p>A field in a shadow's metadata section is indexed, but only if the corresponding
+                                             field in the shadow's <code class="code">"state"</code> section is indexed. (In the previous
+                                             example, the <code class="code">"palette"</code> field in the shadow's metadata section is not
+                                             indexed either.)
+                                          </p>
+                                          
+                                       </dd>
+                                        
+                                       
+                                       <dt><span class="term">Unregistered shadows</span></dt>
+                                       
+                                       <dd>
+                                          
+                                          <p>If you use <a href="https://docs.aws.amazon.com/iot/latest/apireference/API_iotdata_UpdateThingShadow.html">UpdateThingShadow</a> to create a shadow using a thing name that hasn't been
+                                             registered in your AWS IoT account, fields in this shadow are not indexed.
+                                          </p>
+                                          
+                                       </dd>
+                                        
+                                       
+                                       <dt><span class="term">Numeric values</span></dt>
+                                       
+                                       <dd>
+                                          
+                                          <p>If any registry or shadow data is recognized by the service as a numeric value,
+                                             it's indexed as such. You can form queries involving ranges and comparison operators
+                                             on numeric values (for example, <code class="code">"attribute.foo&lt;5"</code> or
+                                             <code class="code">"shadow.reported.foo:[75 TO 80]"</code>). To be recognized as numeric, the
+                                             value of the data must be a valid JSON number type literal (an integer in the range
+                                             -2^53...2^53-1 or a double-precision floating point with optional exponential
+                                             notation) or part of an array that contains only such values.
+                                          </p>
+                                          
+                                       </dd>
+                                        
+                                       
+                                       <dt><span class="term">Null values</span></dt>
+                                       
+                                       <dd>
+                                          
+                                          <p>Null values are not indexed.</p>
+                                          
+                                       </dd>
+                                        
+                                       
+                                       <dt><span class="term">Maximum number of custom fields for aggregation queries</span></dt>
+                                       
+                                       <dd>
+                                          
+                                          <p>5</p>
+                                          
+                                       </dd>
+                                        
+                                       
+                                       <dt><span class="term">Maximum number of requested percentiles for aggregation queries.</span></dt>
+                                       
+                                       <dd>
+                                          
+                                          <p>100</p>
+                                          
+                                       </dd>
+                                       
+                                    </dl>
+                                 </div>
+                                  
+                                 
+                                 <h2 id="query-auth">Authorization</h2>
+                                 
+                                 <p>You can specify the things index as a resource ARN in an AWS IoT policy action, as
+                                    follows.
+                                 </p>
+                                 
+                                 <div class="table-container">
+                                    <div class="table-contents">
+                                       <table id="w332aac38c17c13b5">
+                                          <thead>
+                                             
+                                             <tr>
+                                                
+                                                <th>Action</th>
+                                                
+                                                <th>Resource</th>
+                                                
+                                             </tr>
+                                             
+                                          </thead>
+                                          
+                                          <tr>
+                                             
+                                             <td>
+                                                
+                                                <p><code class="code">iot:SearchIndex</code></p>
+                                                
+                                             </td>
+                                             
+                                             <td>
+                                                
+                                                <p>An index ARN (for example,
+                                                   <code class="code">arn:aws:iot:<code class="replaceable">your-aws-region</code><code class="replaceable">your-aws-account</code>:index/AWS_Things</code>).
+                                                </p>
+                                                
+                                             </td>
+                                             
+                                          </tr>
+                                          
+                                          <tr>
+                                             
+                                             <td>
+                                                
+                                                <p><code class="code">iot:DescribeIndex</code></p>
+                                                
+                                             </td>
+                                             
+                                             <td>
+                                                
+                                                <p>An index ARN (for example,
+                                                   <code class="code">arn:aws:iot:<code class="replaceable">your-aws-region</code>:index/AWS_Things</code>).
+                                                </p>
+                                                
+                                             </td>
+                                             
+                                          </tr>
+                                          
+                                       </table>
+                                    </div>
+                                 </div>
+                                 
+                                 <div class="awsdocs-note">
+                                    <div class="awsdocs-note-title">
+                                       <awsui-icon name="status-info" variant="link"></awsui-icon><span>Note</span></div>
+                                    <div class="awsdocs-note-text">
+                                       <p>If you have permissions to query the fleet index, you can access the data of things
+                                          across the entire fleet.
+                                       </p>
+                                    </div>
+                                 </div>
+                                 <awsdocs-copyright class="copyright-print"></awsdocs-copyright>
+                                 <awsdocs-thumb-feedback right-edge="{{$ctrl.thumbFeedbackRightEdge}}"></awsdocs-thumb-feedback>
+                              </div>
+                              <noscript>
+                                 <div>
+                                    <div>
+                                       <div>
+                                          <div id="js_error_message">
+                                             <p><img src="https://d1ge0kk1l5kms0.cloudfront.net/images/G/01/webservices/console/warning.png" alt="Warning" /> <strong>Javascript is disabled or is unavailable in your
+                                                   browser.</strong></p>
+                                             <p>To use the Amazon Web Services Documentation, Javascript must be
+                                                enabled. Please refer to your browser's Help pages for instructions.
+                                             </p>
+                                          </div>
+                                       </div>
+                                    </div>
+                                 </div>
+                              </noscript>
+                              <div id="main-col-footer" class="awsui-util-font-size-0">
+                                 <div id="doc-conventions"><a target="_top" href="/general/latest/gr/docconventions.html">Document Conventions</a></div>
+                                 <div class="prev-next">
+                                    <div id="previous" class="prev-link" accesskey="p" href="./iot-indexing.html">Fleet indexing service</div>
+                                    <div id="next" class="next-link" accesskey="n" href="./thinggroup-index.html">Managing thing group indexing</div>
+                                 </div>
+                              </div>
+                              <awsdocs-page-utilities></awsdocs-page-utilities>
+                           </div>
+                           <div id="quick-feedback-yes" style="display: none;">
+                              <div class="title">Did this page help you? - Yes</div>
+                              <div class="content">
+                                 <p>Thanks for letting us know we're doing a good
+                                    job!
+                                 </p>
+                                 <p>If you've got a moment, please tell us what we did right
+                                    so we can do more of it.
+                                 </p>
+                                 <p>
+                                    <awsui-button id="fblink" target="_blank" text="Feedback" click="linkClick($event)" href="https://docs.aws.amazon.com/forms/aws-doc-feedback?hidden_service_name=IoT Docs&amp;topic_url=https://docs.aws.amazon.com/en_us/iot/latest/developerguide/managing-index.html"></awsui-button>
+                                 </p>
+                              </div>
+                           </div>
+                           <div id="quick-feedback-no" style="display: none;">
+                              <div class="title">Did this page help you? - No</div>
+                              <div class="content">
+                                 <p>Thanks for letting us know this page needs work. We're
+                                    sorry we let you down.
+                                 </p>
+                                 <p>If you've got a moment, please tell us how we can make
+                                    the documentation better.
+                                 </p>
+                                 <p>
+                                    <awsui-button id="fblink" target="_blank" text="Feedback" click="linkClick($event)" href="https://docs.aws.amazon.com/forms/aws-doc-feedback?hidden_service_name=IoT Docs&amp;topic_url=https://docs.aws.amazon.com/en_us/iot/latest/developerguide/managing-index.html"></awsui-button>
+                                 </p>
+                              </div>
+                           </div>
+                        </div>
+                     </body>
+                  </div>
+               </awsdocs-view>
+               <div class="page-loading-indicator" id="page-loading-indicator">
+                  <awsui-spinner size="large"></awsui-spinner>
+               </div>
+            </div>
+            <div id="tools-panel" dom-region="tools">
+               <awsdocs-tools-panel id="awsdocs-tools-panel"></awsdocs-tools-panel>
+            </div>
+         </awsui-app-layout>
+         <awsdocs-cookie-banner class="doc-cookie-banner"></awsdocs-cookie-banner>
+         <!--
+                SiteCatalyst code version: H.25.2.
+                Copyright 1996-2012 Adobe, Inc. All Rights Reserved
+                More info available at http://www.omniture.com
+            --><script language="JavaScript" type="text/javascript">
+var awsdocs = awsdocs || {};
+awsdocs.prop66 = 'AWS IoT Core';
+awsdocs.prop65 =  'Developer Guide';
+            </script><script src="https://a0.awsstatic.com/s_code/js/3.0/awshome_s_code.js" language="JavaScript" type="text/javascript"></script>
+         <!--/DO NOT REMOVE/-->
+         <!--End SiteCatalyst code version: H.25.2.--></div>
+   </body>
+</html>

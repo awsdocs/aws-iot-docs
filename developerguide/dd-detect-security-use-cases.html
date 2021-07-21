@@ -1,0 +1,1029 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" ng-app="AWSDocsDocPageApp">
+   <head>
+      <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+      <title>Security use cases - AWS IoT Core</title>
+      <meta name="viewport" content="width=device-width,initial-scale=1" />
+      <meta name="assets_root" content="assets" />
+      <meta name="target_state" content="dd-detect-security-use-cases" />
+      <meta name="default_state" content="dd-detect-security-use-cases" />
+      <link rel="icon" type="image/ico" href="/assets/images/favicon.ico" />
+      <link rel="shortcut icon" type="image/ico" href="/assets/images/favicon.ico" />
+      <link rel="canonical" href="https://docs.aws.amazon.com/iot/latest/developerguide/dd-detect-security-use-cases.html" />
+      <meta name="description" content="Learn the use cases in which AWS IoT Device Defender Detect metrics can be used to monitor for security threats." />
+      <meta name="deployment_region" content="IAD" />
+      <meta name="product" content="AWS IoT Core" />
+      <meta name="guide" content="Developer Guide" />
+      <meta name="locales" content="de_de:Deutsch/en_us:English/es_es:Español/fr_fr:Français/it_it:Italiano/ja_jp:日本語/ko_kr:한국어/pt_br:Português/zh_cn:中文 (简体)/zh_tw:中文 (繁體)" />
+      <meta name="abstract" content="AWS IoT provides secure, bi-directional communication between Internet-connected devices such as sensors, actuators, embedded micro-controllers, or smart appliances and the AWS Cloud. This enables you to collect telemetry data from multiple devices, and store and analyze the data. You can also create applications that enable your users to control these devices from their phones or tablets." />
+      <meta name="guide-locale" content="en_us" />
+      <meta name="tocs" content="toc-contents.json" />
+      <meta name="feedback-item" content="IoT Docs" />
+      <meta name="this_doc_product" content="AWS IoT Core" />
+      <meta name="this_doc_guide" content="Developer Guide" />
+      <link href="assets/css/vendor4.css" rel="stylesheet" />
+      <link href="assets/css/awsdocs-common.css" rel="stylesheet" /><script type="text/javascript" src="assets/js/vendor3.js" defer=""></script><script type="text/javascript" src="assets/js/vendor4.js" defer=""></script><script type="text/javascript" src="assets/js/vendor1.js" defer=""></script><script type="text/javascript" src="assets/js/awsdocs-common.js" defer=""></script><script type="text/javascript" src="assets/js/awsdocs-doc-app.js" defer=""></script></head>
+   <body class="awsdocs awsui">
+      <div class="awsdocs-container">
+         <awsdocs-header></awsdocs-header>
+         <awsui-app-layout id="app-layout" class="awsui-util-no-gutters" ng-controller="ContentController as $ctrl" header-selector="awsdocs-header" navigation-hide="false" navigation-width="$ctrl.navWidth" navigation-open="$ctrl.navOpen" navigation-change="$ctrl.onNavChange($event)" tools-hide="$ctrl.hideTools" tools-width="$ctrl.toolsWidth" tools-open="$ctrl.toolsOpen" tools-change="$ctrl.onToolsChange($event)">
+            <div id="guide-toc" dom-region="navigation">
+               <awsdocs-toc></awsdocs-toc>
+            </div>
+            <div id="main-column" dom-region="content" tabindex="-1">
+               <awsdocs-view class="awsdocs-view">
+                  <div id="awsdocs-content">
+                     <head>
+                        <title>Security use cases - AWS IoT Core</title>
+                        <meta name="pdf" content="iot-dg.pdf#dd-detect-security-use-cases" />
+                        <meta name="kindle" content="https://www.amazon.com/dp/B07JBRCWWZ" />
+                        <meta name="github" content="https://github.com/awsdocs/aws-iot-docs/tree/master/developerguide/dd-detect-security-use-cases.md" />
+                        <meta name="forums" content="http://forums.aws.amazon.com/forum.jspa?forumID=210" />
+                        <meta name="feedback" content="https://docs.aws.amazon.com/forms/aws-doc-feedback?hidden_service_name=IoT%20Docs&amp;topic_url=http://docs.aws.amazon.com/en_us/iot/latest/developerguide/dd-detect-security-use-cases.html" />
+                        <meta name="feedback-yes" content="feedbackyes.html?topic_url=http://docs.aws.amazon.com/en_us/iot/latest/developerguide/dd-detect-security-use-cases.html" />
+                        <meta name="feedback-no" content="feedbackno.html?topic_url=http://docs.aws.amazon.com/en_us/iot/latest/developerguide/dd-detect-security-use-cases.html" />
+                        <meta name="keywords" content="AWS IoT,IoT,Internet of Things" />
+                     </head>
+                     <body>
+                        <div id="main">
+                           <div style="display: none"><a href="iot-dg.pdf#dd-detect-security-use-cases" target="_blank" rel="noopener noreferrer" title="Open PDF"></a><a target="_blank" rel="noopener noreferrer" href="https://www.amazon.com/dp/B07JBRCWWZ" title="Open Kindle"></a><a href="https://github.com/awsdocs/aws-iot-docs/tree/master/developerguide/dd-detect-security-use-cases.md" target="_blank" rel="noopener noreferrer" title="Edit this page on GitHub"></a></div>
+                           <div id="breadcrumbs" class="breadcrumb"><a href="http://aws.amazon.com">AWS</a><a href="/index.html">Documentation</a><a href="/iot/index.html">AWS IoT Core</a><a href="what-is-aws-iot.html">Developer Guide</a></div>
+                           <div id="page-toc-src"><a href="#Cloud-side-threats">Cloud-side use cases</a><a href="#Device-side-threats">Device-side use cases</a></div>
+                           <div id="main-content" class="awsui-util-container">
+                              <div id="main-col-body">
+                                 <awsdocs-language-banner data-service="$ctrl.pageService"></awsdocs-language-banner>
+                                 <h1 class="topictitle" id="dd-detect-security-use-cases">Security use cases</h1>
+                                 <div class="awsdocs-page-header-container">
+                                    <awsdocs-page-header></awsdocs-page-header>
+                                    <awsdocs-filter-selector id="awsdocs-filter-selector"></awsdocs-filter-selector>
+                                 </div>
+                                 <p>This section describes the different types of attacks that threaten your device fleet
+                                    and
+                                    the recommended metrics you can use to monitor for these attacks. We recommend using
+                                    metric
+                                    anomalies as a starting point to investigate security issues, but you should not base
+                                    your
+                                    determination of any security threats solely on a metric anomaly. 
+                                 </p>
+                                 <p>To investigate an anomaly alarm, correlate the alarm details with other contextual
+                                    information
+                                    such as device attributes, device metric historical trends, Security Profile metric
+                                    historical trends, custom metrics, and logs to determine if a security threat is
+                                    present.
+                                 </p>
+                                 
+                                 <h2 id="Cloud-side-threats">Cloud-side use cases</h2>
+                                 
+                                 <p>Device Defender can monitor the following use cases on the AWS IoT cloud side.</p>
+                                 
+                                 <div class="variablelist">
+                                     
+                                      
+                                     
+                                     
+                                    
+                                    <dl>
+                                       
+                                       <dt><span class="term"><b>Intellectual property theft:</b></span></dt>
+                                       
+                                       <dd>
+                                          <p>Intellectual property theft involves stealing a person's or companies' intellectual
+                                             properties, including trade secrets, hardware, or software. 
+                                             It often occurs during the manufacturing stage of devices. Intellectual property theft
+                                             can come in the form of piracy, device theft, or device certificate theft. 
+                                             Cloud-based intellectual property theft can occur due to the presence of policies
+                                             that permit unintended access to IoT resources. You
+                                             should review your <a href="https://docs.aws.amazon.com/iot/latest/developerguide/iot-policies.html">IoT policies</a> and turn on <a href="https://docs.aws.amazon.com/iot/latest/developerguide/device-defender-audit-checks.html">Audit overly permissive checks</a> to identify overly permissive policies.
+                                          </p>
+                                          
+                                          <div class="table-container">
+                                             <div class="table-contents">
+                                                <table id="w332aac42c17c17b7b5b1b3b2">
+                                                   <thead>
+                                                      
+                                                      <tr>
+                                                         
+                                                         <th>
+                                                            
+                                                            <p>Metric</p>
+                                                            
+                                                         </th>
+                                                         
+                                                         <th>
+                                                            
+                                                            <p>
+                                                               Rationale
+                                                               
+                                                            </p>
+                                                            
+                                                         </th>
+                                                         
+                                                      </tr>
+                                                      
+                                                   </thead>
+                                                   
+                                                   <tr>
+                                                      
+                                                      <td><a href="https://docs.aws.amazon.com/iot/latest/developerguide/detect-cloud-side-metrics.html#detect-ip-address">Source IP</a>
+                                                         
+                                                      </td>
+                                                      
+                                                      <td>If device is stolen, then its source IP address would fall
+                                                         outside of the normally expected IP address  range for
+                                                         devices circulated in a normal supply chain.
+                                                      </td>
+                                                      
+                                                   </tr>
+                                                   
+                                                   <tr>
+                                                      
+                                                      <td><a href="https://docs.aws.amazon.com/iot/latest/developerguide/detect-cloud-side-metrics.html#detect-messages-received">Number of messages received</a></td>
+                                                      
+                                                      <td rowspan="2">
+                                                         
+                                                         <p>Because an attacker may use a device in cloud-based IP
+                                                            theft, metrics related to message counts or message
+                                                            sizes sent to the device from AWS IoT cloud can spike up,
+                                                            indicating a possible security issue.
+                                                         </p>
+                                                         
+                                                      </td>
+                                                      
+                                                   </tr>
+                                                   
+                                                   <tr>
+                                                      
+                                                      <td><a href="https://docs.aws.amazon.com/iot/latest/developerguide/detect-cloud-side-metrics.html#detect-messages-received">Message size</a>
+                                                         
+                                                      </td>
+                                                      
+                                                   </tr>
+                                                   
+                                                </table>
+                                             </div>
+                                          </div>
+                                          
+                                       </dd>
+                                        
+                                       
+                                       <dt><span class="term"><b>MQTT-based data exfiltration:
+                                                </b></span></dt>
+                                       
+                                       <dd>
+                                          <p>Data exfiltration occurs when a malicious actor carries out an unauthorized data transfer
+                                             from
+                                             an IoT deployment or from a device. The attacker launches this type of
+                                             attacks through MQTT against cloud-side data sources.
+                                          </p>
+                                          
+                                          <div class="table-container">
+                                             <div class="table-contents">
+                                                <table id="w332aac42c17c17b7b5b3b3b2">
+                                                   <thead>
+                                                      
+                                                      <tr>
+                                                         
+                                                         <th>
+                                                            
+                                                            <p>Metric</p>
+                                                            
+                                                         </th>
+                                                         
+                                                         <th>
+                                                            
+                                                            <p>
+                                                               Rationale
+                                                               
+                                                            </p>
+                                                            
+                                                         </th>
+                                                         
+                                                      </tr>
+                                                      
+                                                   </thead>
+                                                   
+                                                   <tr>
+                                                      
+                                                      <td><a href="https://docs.aws.amazon.com/iot/latest/developerguide/detect-cloud-side-metrics.html#detect-ip-address">Source IP</a>
+                                                         
+                                                      </td>
+                                                      
+                                                      <td>If a device is stolen, then its source IP address would fall
+                                                         outside of the normally expected IP address range for
+                                                         devices circulated in a standard supply chain. 
+                                                      </td>
+                                                      
+                                                   </tr>
+                                                   
+                                                   <tr>
+                                                      
+                                                      <td><a href="https://docs.aws.amazon.com/iot/latest/developerguide/detect-cloud-side-metrics.html#detect-messages-received">Number of messages received</a></td>
+                                                      
+                                                      <td rowspan="2">
+                                                         
+                                                         <p>Because an attacker may use a device in a MQTT-based data exfiltration, metrics related
+                                                            to message counts or message sizes sent to the device from AWS IoT cloud can spike
+                                                            up, indicating a possible security issue.
+                                                         </p>
+                                                         
+                                                      </td>
+                                                      
+                                                   </tr>
+                                                   
+                                                   <tr>
+                                                      
+                                                      <td><a href="https://docs.aws.amazon.com/iot/latest/developerguide/detect-cloud-side-metrics.html#detect-messages-received">Message size</a>
+                                                         
+                                                      </td>
+                                                      
+                                                   </tr>
+                                                   
+                                                </table>
+                                             </div>
+                                          </div>
+                                          
+                                       </dd>
+                                        
+                                       
+                                       <dt><span class="term"><b>Impersonation:</b></span></dt>
+                                       
+                                       <dd>
+                                          <p>An impersonation attack is where attackers pose as known or trusted entities in an
+                                             effort to
+                                             access AWS IoT cloud-side services, applications, data, or engage in command and
+                                             control of IoT devices. 
+                                          </p>
+                                          
+                                          <div class="table-container">
+                                             <div class="table-contents">
+                                                <table id="w332aac42c17c17b7b5b5b3b2">
+                                                   <thead>
+                                                      
+                                                      <tr>
+                                                         
+                                                         <th>
+                                                            
+                                                            <p>Metric</p>
+                                                            
+                                                         </th>
+                                                         
+                                                         <th>
+                                                            
+                                                            <p>
+                                                               Rationale
+                                                               
+                                                            </p>
+                                                            
+                                                         </th>
+                                                         
+                                                      </tr>
+                                                      
+                                                   </thead>
+                                                   
+                                                   <tr>
+                                                      
+                                                      <td><a href="https://docs.aws.amazon.com/iot/latest/developerguide/detect-cloud-side-metrics.html#detect-auth-failures">Authorization failures</a>
+                                                         
+                                                      </td>
+                                                      
+                                                      <td rowspan="3">When attackers pose as trusted entities by using
+                                                         stolen identities, connectivity related metrics often spike,
+                                                         as the credentials may no longer be valid or may be used by
+                                                         a trusted device already. Anomalous behaviors in
+                                                         authorization failures, connection attempts, or disconnects
+                                                         point to a potential impersonation scenario.
+                                                      </td>
+                                                      
+                                                   </tr>
+                                                   
+                                                   <tr>
+                                                      
+                                                      <td><a href="https://docs.aws.amazon.com/iot/latest/developerguide/detect-cloud-side-metrics.html#detect-num-connection-attempts">Conneciton attempts</a>
+                                                         
+                                                      </td>
+                                                      
+                                                   </tr>
+                                                   
+                                                   <tr>
+                                                      
+                                                      <td><a href="https://docs.aws.amazon.com/iot/latest/developerguide/detect-cloud-side-metrics.html#detect-num-disconnects">Disconnects</a>
+                                                         
+                                                      </td>
+                                                      
+                                                   </tr>
+                                                   
+                                                </table>
+                                             </div>
+                                          </div>
+                                          
+                                       </dd>
+                                        
+                                       
+                                       <dt><span class="term"><b>Cloud Infrastructure abuse:</b></span></dt>
+                                       
+                                       <dd>
+                                          <p>Abuse to AWS IoT cloud services occurs when publishing or subscribing to topics with
+                                             a high
+                                             message volume or with messages in large sizes.  Overly permissive policies or device
+                                             vulnerability exploit for command and control can also cause cloud infrastructure
+                                             abuse. 
+                                             One of the main objectives of this attack is to increase your AWS bill. You should
+                                             review your <a href="https://docs.aws.amazon.com/iot/latest/developerguide/iot-policies.html">IoT policies</a> and turn on <a href="https://docs.aws.amazon.com/iot/latest/developerguide/device-defender-audit-checks.html">Audit overly permissive checks</a> to identify overly permissive policies.
+                                          </p>
+                                          
+                                          <div class="table-container">
+                                             <div class="table-contents">
+                                                <table id="w332aac42c17c17b7b5b7b3b2">
+                                                   <thead>
+                                                      
+                                                      <tr>
+                                                         
+                                                         <th>
+                                                            
+                                                            <p>Metric</p>
+                                                            
+                                                         </th>
+                                                         
+                                                         <th>
+                                                            
+                                                            <p>
+                                                               Rationale
+                                                               
+                                                            </p>
+                                                            
+                                                         </th>
+                                                         
+                                                      </tr>
+                                                      
+                                                   </thead>
+                                                   
+                                                   <tr>
+                                                      
+                                                      <td><a href="https://docs.aws.amazon.com/iot/latest/developerguide/detect-cloud-side-metrics.html#detect-messages-received">Number of messages received</a></td>
+                                                      
+                                                      <td rowspan="3">The objective of this attack is to increase your
+                                                         AWS bill, metrics that monitor activities like message
+                                                         count, messages received and message size will spike
+                                                         up.
+                                                      </td>
+                                                      
+                                                   </tr>
+                                                   
+                                                   <tr>
+                                                      
+                                                      <td><a href="https://docs.aws.amazon.com/iot/latest/developerguide/detect-cloud-side-metrics.html#detect-messages-sent">Number of messages sent</a></td>
+                                                      
+                                                   </tr>
+                                                   
+                                                   <tr>
+                                                      
+                                                      <td><a href="https://docs.aws.amazon.com/iot/latest/developerguide/detect-cloud-side-metrics.html#detect-messages-received">Message size</a>
+                                                         
+                                                      </td>
+                                                      
+                                                   </tr>
+                                                   
+                                                   <tr>
+                                                      
+                                                      <td><a href="https://docs.aws.amazon.com/iot/latest/developerguide/detect-cloud-side-metrics.html#detect-ip-address">Source IP</a>
+                                                         
+                                                      </td>
+                                                      
+                                                      <td>Suspicious source IP lists may appear, from which attackers generate their messaging
+                                                         volume.
+                                                      </td>
+                                                      
+                                                   </tr>
+                                                   
+                                                </table>
+                                             </div>
+                                          </div>
+                                          
+                                       </dd>
+                                       
+                                    </dl>
+                                 </div>
+                                  
+                                 
+                                 <h2 id="Device-side-threats">Device-side use cases</h2>
+                                 
+                                 <p>Device Defender can monitor the following use cases on your device side.</p>
+                                 
+                                 <div class="variablelist">
+                                      
+                                     
+                                      
+                                     
+                                     
+                                    
+                                    <dl>
+                                       
+                                       <dt><span class="term"><b>Denial-of-service attack:</b></span></dt>
+                                       
+                                       <dd>
+                                          <p>A denial-of-service (DoS) attack is aimed at shutting down a device or network, making
+                                             the
+                                             device or network inaccessible to their intended users. DoS attacks block
+                                             access by flooding the target with traffic, or sending it requests that
+                                             start a system slow-down or cause the system to fail. Your IoT devices can
+                                             be used in DoS attacks.
+                                          </p>
+                                          
+                                          <div class="table-container">
+                                             <div class="table-contents">
+                                                <table id="w332aac42c17c17b9b5b1b3b2">
+                                                   <thead>
+                                                      
+                                                      <tr>
+                                                         
+                                                         <th>
+                                                            
+                                                            <p>Metric</p>
+                                                            
+                                                         </th>
+                                                         
+                                                         <th>
+                                                            
+                                                            <p>
+                                                               Rationale
+                                                               
+                                                            </p>
+                                                            
+                                                         </th>
+                                                         
+                                                      </tr>
+                                                      
+                                                   </thead>
+                                                   
+                                                   <tr>
+                                                      
+                                                      <td><a href="https://docs.aws.amazon.com/iot/latest/developerguide/detect-device-side-metrics.html#detect-all-packets-out">Packets out</a>
+                                                         
+                                                      </td>
+                                                      
+                                                      <td rowspan="2">
+                                                         
+                                                         <p>DoS attacks typically involve higher rates of outbound
+                                                            communication from a given device, and depending on the
+                                                            type of DoS attack, there could be an increase in either
+                                                            or both of the numbers of packets out and bytes
+                                                            out.
+                                                         </p>
+                                                         
+                                                      </td>
+                                                      
+                                                   </tr>
+                                                   
+                                                   <tr>
+                                                      
+                                                      <td><a href="https://docs.aws.amazon.com/iot/latest/developerguide/detect-device-side-metrics.html#detect-all-bytes-out">Bytes out</a></td>
+                                                      
+                                                   </tr>  
+                                                   
+                                                   <tr>
+                                                      
+                                                      <td><a href="https://docs.aws.amazon.com/iot/latest/developerguide/detect-device-side-metrics.html#detect-destination-ip-addresses">Destination IP</a>
+                                                         
+                                                      </td>
+                                                      
+                                                      <td>
+                                                         
+                                                         <p>If you define the IP addresses/CIDR ranges 
+                                                            your devices should communicate with, 
+                                                            then an anomaly in destination IP can indicate unauthroized 
+                                                            IP communication from your devices.
+                                                         </p>
+                                                         
+                                                      </td>
+                                                      
+                                                   </tr> 
+                                                   
+                                                   <tr>
+                                                      
+                                                      <td>
+                                                         
+                                                         <p><a href="https://docs.aws.amazon.com/iot/latest/developerguide/detect-device-side-metrics.html#detect-listening-tcp-ports">Listening TCP ports</a></p>
+                                                         
+                                                      </td>
+                                                      
+                                                      <td rowspan="4">
+                                                         
+                                                         <p>A DoS attack usually requires a larger command and control infrastructure where malware
+                                                            installed on 
+                                                            your devices receives commands and information about who to attack and when to attack.
+                                                            
+                                                            Therefore, in order to receive such information, 
+                                                            the malware would typically listen on ports that aren't normally used by your devices.
+                                                         </p>
+                                                         
+                                                      </td>
+                                                      
+                                                   </tr>
+                                                   
+                                                   <tr>
+                                                      
+                                                      <td><a href="https://docs.aws.amazon.com/iot/latest/developerguide/detect-device-side-metrics.html#detect-num-listening-tcp-ports">Listening TCP port count</a>
+                                                         
+                                                      </td>
+                                                      
+                                                   </tr> 
+                                                   
+                                                   <tr>
+                                                      
+                                                      <td>
+                                                         
+                                                         <p><a href="https://docs.aws.amazon.com/iot/latest/developerguide/detect-device-side-metrics.html#detect-listening-udp-ports">Listening UDP ports</a></p>
+                                                         
+                                                      </td>
+                                                      
+                                                   </tr>
+                                                   
+                                                   <tr>
+                                                      
+                                                      <td><a href="https://docs.aws.amazon.com/iot/latest/developerguide/detect-device-side-metrics.html#detect-num-listening-udp-ports">Listening UDP port count</a>
+                                                         
+                                                      </td>
+                                                      
+                                                   </tr>
+                                                   
+                                                </table>
+                                             </div>
+                                          </div>
+                                          
+                                          
+                                       </dd>
+                                        
+                                       
+                                       <dt><span class="term"><b>Lateral threat escalation:</b></span></dt>
+                                       
+                                       <dd>
+                                          
+                                          <p>Lateral threat escalation usually begins with an attacker gaining access
+                                             to one point of a network, for example a connected device. The attacker then
+                                             tries to increase their level of privileges, or their access to other
+                                             devices through methods such as stolen credentials or vulnerability
+                                             exploits.
+                                          </p>
+                                          
+                                          <div class="table-container">
+                                             <div class="table-contents">
+                                                <table id="w332aac42c17c17b9b5b3b3b3">
+                                                   <thead>
+                                                      
+                                                      <tr>
+                                                         
+                                                         <th>
+                                                            
+                                                            <p>Metric</p>
+                                                            
+                                                         </th>
+                                                         
+                                                         <th>
+                                                            
+                                                            <p>
+                                                               Rationale
+                                                               
+                                                            </p>
+                                                            
+                                                         </th>
+                                                         
+                                                      </tr>
+                                                      
+                                                   </thead>
+                                                   
+                                                   
+                                                   <tr>
+                                                      
+                                                      <td><a href="https://docs.aws.amazon.com/iot/latest/developerguide/detect-device-side-metrics.html#detect-all-packets-out">Packets out</a>
+                                                         
+                                                      </td>
+                                                      
+                                                      <td rowspan="2">
+                                                         
+                                                         <p>In typical situations, the attacker would have to run
+                                                            a scan on the local area network in order to perform
+                                                            reconnaisance and identify the available devices in
+                                                            order to narrow down their attack target selection. This
+                                                            kind of scan could result in a spike of bytes and
+                                                            packets out counts.
+                                                         </p>
+                                                         
+                                                      </td>
+                                                      
+                                                   </tr>
+                                                   
+                                                   <tr>
+                                                      
+                                                      <td><a href="https://docs.aws.amazon.com/iot/latest/developerguide/detect-device-side-metrics.html#detect-all-bytes-out">Bytes out</a></td>
+                                                      
+                                                   </tr>
+                                                   
+                                                   <tr>
+                                                      
+                                                      <td><a href="https://docs.aws.amazon.com/iot/latest/developerguide/detect-device-side-metrics.html#detect-destination-ip-addresses">Destination IP</a>
+                                                         
+                                                      </td>
+                                                      
+                                                      <td>
+                                                         
+                                                         <p>If a device is supposed to communicate with a known
+                                                            set of IP addresses or CIDRs, you can identify if it
+                                                            attempts to communicate with an abnormal IP address,
+                                                            which would often be a private IP address on the local
+                                                            network in a lateral threat escalation use case.
+                                                         </p>
+                                                         
+                                                      </td>
+                                                      
+                                                   </tr> 
+                                                   
+                                                   <tr>
+                                                      
+                                                      <td><a href="https://docs.aws.amazon.com/iot/latest/developerguide/detect-device-side-metrics.html#detect-auth-failures">Authorization failures</a>
+                                                         
+                                                      </td>
+                                                      
+                                                      <td>
+                                                         
+                                                         <p>As the attacker tries to increase their level of priviledges across an IoT network,
+                                                            
+                                                            they may use stolen credentials that have been revoked or have expired, 
+                                                            which would cause increased authorization failures.
+                                                         </p>
+                                                         
+                                                      </td>
+                                                      
+                                                   </tr>
+                                                   
+                                                </table>
+                                             </div>
+                                          </div>
+                                          
+                                       </dd>
+                                        
+                                       
+                                       <dt><span class="term"><b>Data exfiltration or surveillance:</b></span></dt>
+                                       
+                                       <dd>
+                                          
+                                          <p>Data exfiltration occurs when malware or a malicious actor carries out an
+                                             unauthorized data transfer from a device or a network endpoint. Data
+                                             exfiltration normally serves two purposes for the attacker, obtaining data
+                                             or intellectual property, or conducting reconnaissance of a network.
+                                             Surveillance means that malicious code is used to monitor user activities
+                                             for the purpose of stealing credentials and gathering information. The
+                                             metrics below can provide a starting point of investigating either type of
+                                             attacks.
+                                          </p>
+                                          
+                                          <div class="table-container">
+                                             <div class="table-contents">
+                                                <table id="w332aac42c17c17b9b5b5b3b3">
+                                                   <thead>
+                                                      
+                                                      <tr>
+                                                         
+                                                         <th>
+                                                            
+                                                            <p>Metric</p>
+                                                            
+                                                         </th>
+                                                         
+                                                         <th>
+                                                            
+                                                            <p>
+                                                               Rationale
+                                                               
+                                                            </p>
+                                                            
+                                                         </th>
+                                                         
+                                                      </tr>
+                                                      
+                                                   </thead>
+                                                   
+                                                   <tr>
+                                                      
+                                                      <td>
+                                                         <a href="https://docs.aws.amazon.com/iot/latest/developerguide/detect-device-side-metrics.html#detect-all-packets-out">Packets out</a></td>
+                                                      
+                                                      <td rowspan="2">
+                                                         
+                                                         <p>When data exfiltration or surveillance attacks occur,
+                                                            the attacker would often mirror the data being sent from
+                                                            the device rather than simply redirecting the data,
+                                                            which would be identified by the defender when they
+                                                            don't see the intended data coming. Such mirrored data
+                                                            would increase the total amount of data sent from the
+                                                            device significantly, resulting in a spike of packets
+                                                            and bytes out counts.
+                                                         </p>
+                                                         
+                                                      </td>
+                                                      
+                                                   </tr>
+                                                   
+                                                   <tr>
+                                                      
+                                                      <td><a href="https://docs.aws.amazon.com/iot/latest/developerguide/detect-device-side-metrics.html#detect-all-bytes-out">Bytes out</a></td>
+                                                      
+                                                   </tr>
+                                                   
+                                                   <tr>
+                                                      
+                                                      <td><a href="https://docs.aws.amazon.com/iot/latest/developerguide/detect-device-side-metrics.html#detect-destination-ip-addresses">Destination IP</a>
+                                                         
+                                                      </td>
+                                                      
+                                                      <td>
+                                                         
+                                                         <p>When an attacker is using a
+                                                            device in data exfiltration or surveilance attacks, the
+                                                            data would have to be sent to an abnormal IP address
+                                                            controlled by the attacker. Monitoring the destination
+                                                            IP can help identify such an attack.
+                                                         </p>
+                                                         
+                                                      </td>
+                                                      
+                                                   </tr>
+                                                   
+                                                </table>
+                                             </div>
+                                          </div>
+                                          
+                                       </dd>
+                                        
+                                       
+                                       <dt><span class="term"><b>Cryptocurrency mining</b></span></dt>
+                                       
+                                       <dd>
+                                          
+                                          <p>Attackers leverage processing power from devices to mine cryptocurrency.
+                                             Crypto-mining is a computationally intensive process, typically requiring
+                                             network communication with other mining peers and pools.
+                                          </p>
+                                          
+                                          <div class="table-container">
+                                             <div class="table-contents">
+                                                <table id="w332aac42c17c17b9b5b7b3b3">
+                                                   <thead>
+                                                      
+                                                      <tr>
+                                                         
+                                                         <th>
+                                                            
+                                                            <p>Metric</p>
+                                                            
+                                                         </th>
+                                                         
+                                                         <th>
+                                                            
+                                                            <p>
+                                                               Rationale
+                                                               
+                                                            </p>
+                                                            
+                                                         </th>
+                                                         
+                                                      </tr>
+                                                      
+                                                   </thead>
+                                                   
+                                                   <tr>
+                                                      
+                                                      <td><a href="https://docs.aws.amazon.com/iot/latest/developerguide/detect-device-side-metrics.html#detect-destination-ip-addresses">Destination IP</a>
+                                                         
+                                                      </td>
+                                                      
+                                                      <td>
+                                                         
+                                                         <p>Network communication is typically a requirement
+                                                            during cryptomining. Having a tightly controlled list of
+                                                            IP addresses the device should communicate with can help
+                                                            identify unintended communication on a device, like
+                                                            cryptocurrency mining.
+                                                         </p>
+                                                         
+                                                      </td>
+                                                      
+                                                   </tr> 
+                                                   
+                                                   <tr>
+                                                      
+                                                      <td>
+                                                         
+                                                         <p>CPU usage <a href="https://docs.aws.amazon.com/iot/latest/developerguide/detect-device-side-metrics.html#detect-listening-tcp-ports">custom metric</a></p>
+                                                         
+                                                      </td>
+                                                      
+                                                      <td>
+                                                         
+                                                         <p>Cryptocurrency mining requires
+                                                            intensive computation resulting in high utilization of
+                                                            the device CPU. If you choose to collect and monitor
+                                                            this metric, a higher-than-normal CPU usage could be an
+                                                            indicator of crypto-mining
+                                                            activities.
+                                                         </p>
+                                                         
+                                                      </td>
+                                                      
+                                                   </tr> 
+                                                   
+                                                   
+                                                </table>
+                                             </div>
+                                          </div>
+                                          
+                                       </dd>
+                                        
+                                       
+                                       <dt><span class="term"><b>Command and control, malware and ransomware</b></span></dt>
+                                       
+                                       <dd>
+                                          
+                                          <p>Malware or ransomware restricts your control over your devices, and limits
+                                             your device functionality. In the case of a ransomware attack, data access
+                                             would be lost due to encryption the ransomware uses.
+                                          </p>
+                                          
+                                          <div class="table-container">
+                                             <div class="table-contents">
+                                                <table id="w332aac42c17c17b9b5b9b3b3">
+                                                   <thead>
+                                                      
+                                                      <tr>
+                                                         
+                                                         <th>
+                                                            
+                                                            <p>Metric</p>
+                                                            
+                                                         </th>
+                                                         
+                                                         <th>
+                                                            
+                                                            <p>
+                                                               Rationale
+                                                               
+                                                            </p>
+                                                            
+                                                         </th>
+                                                         
+                                                      </tr>
+                                                      
+                                                   </thead>
+                                                   
+                                                   <tr>
+                                                      
+                                                      <td><a href="https://docs.aws.amazon.com/iot/latest/developerguide/detect-device-side-metrics.html#detect-destination-ip-addresses">Destination IP</a>
+                                                         
+                                                      </td>
+                                                      
+                                                      <td>
+                                                         
+                                                         <p>Network or remote attacks represent a large portion of
+                                                            attacks on IoT devices. A tightly controlled list of IP
+                                                            addresses the device should communicate with can help
+                                                            identify abnormal destination IPs resulted from a
+                                                            malware or ransomware attack.
+                                                         </p>
+                                                         
+                                                      </td>
+                                                      
+                                                   </tr> 
+                                                   
+                                                   <tr>
+                                                      
+                                                      <td>
+                                                         
+                                                         <p><a href="https://docs.aws.amazon.com/iot/latest/developerguide/detect-device-side-metrics.html#detect-listening-tcp-ports">Listening TCP ports</a></p>
+                                                         
+                                                      </td>
+                                                      
+                                                      <td rowspan="4">
+                                                         
+                                                         <p>Several malware attacks involve starting a
+                                                            command-and-control server that sends commands to
+                                                            execute on a device. This type of server is critical to
+                                                            a malware or ransomware operation and can be identified
+                                                            by tightly monitoring the open TCP/UDP ports and port
+                                                            counts.
+                                                         </p>
+                                                         
+                                                      </td>
+                                                      
+                                                   </tr>
+                                                   
+                                                   <tr>
+                                                      
+                                                      <td><a href="https://docs.aws.amazon.com/iot/latest/developerguide/detect-device-side-metrics.html#detect-num-listening-tcp-ports">Listening TCP port count</a></td>
+                                                      
+                                                   </tr> 
+                                                   
+                                                   <tr>
+                                                      
+                                                      <td>
+                                                         
+                                                         <p><a href="https://docs.aws.amazon.com/iot/latest/developerguide/detect-device-side-metrics.html#detect-listening-udp-ports">Listening UDP ports</a></p>
+                                                         
+                                                      </td>
+                                                      
+                                                   </tr>
+                                                   
+                                                   <tr>
+                                                      
+                                                      <td><a href="https://docs.aws.amazon.com/iot/latest/developerguide/detect-device-side-metrics.html#detect-num-listening-udp-ports">Listening UDP port count</a></td>
+                                                      
+                                                   </tr>
+                                                   
+                                                </table>
+                                             </div>
+                                          </div>
+                                          
+                                       </dd>
+                                       
+                                    </dl>
+                                 </div>
+                                 
+                                 <awsdocs-copyright class="copyright-print"></awsdocs-copyright>
+                                 <awsdocs-thumb-feedback right-edge="{{$ctrl.thumbFeedbackRightEdge}}"></awsdocs-thumb-feedback>
+                              </div>
+                              <noscript>
+                                 <div>
+                                    <div>
+                                       <div>
+                                          <div id="js_error_message">
+                                             <p><img src="https://d1ge0kk1l5kms0.cloudfront.net/images/G/01/webservices/console/warning.png" alt="Warning" /> <strong>Javascript is disabled or is unavailable in your
+                                                   browser.</strong></p>
+                                             <p>To use the Amazon Web Services Documentation, Javascript must be
+                                                enabled. Please refer to your browser's Help pages for instructions.
+                                             </p>
+                                          </div>
+                                       </div>
+                                    </div>
+                                 </div>
+                              </noscript>
+                              <div id="main-col-footer" class="awsui-util-font-size-0">
+                                 <div id="doc-conventions"><a target="_top" href="/general/latest/gr/docconventions.html">Document Conventions</a></div>
+                                 <div class="prev-next">
+                                    <div id="previous" class="prev-link" accesskey="p" href="./device-defender-detect.html">Detect</div>
+                                    <div id="next" class="next-link" accesskey="n" href="./detect-concepts.html">Concepts</div>
+                                 </div>
+                              </div>
+                              <awsdocs-page-utilities></awsdocs-page-utilities>
+                           </div>
+                           <div id="quick-feedback-yes" style="display: none;">
+                              <div class="title">Did this page help you? - Yes</div>
+                              <div class="content">
+                                 <p>Thanks for letting us know we're doing a good
+                                    job!
+                                 </p>
+                                 <p>If you've got a moment, please tell us what we did right
+                                    so we can do more of it.
+                                 </p>
+                                 <p>
+                                    <awsui-button id="fblink" target="_blank" text="Feedback" click="linkClick($event)" href="https://docs.aws.amazon.com/forms/aws-doc-feedback?hidden_service_name=IoT Docs&amp;topic_url=https://docs.aws.amazon.com/en_us/iot/latest/developerguide/dd-detect-security-use-cases.html"></awsui-button>
+                                 </p>
+                              </div>
+                           </div>
+                           <div id="quick-feedback-no" style="display: none;">
+                              <div class="title">Did this page help you? - No</div>
+                              <div class="content">
+                                 <p>Thanks for letting us know this page needs work. We're
+                                    sorry we let you down.
+                                 </p>
+                                 <p>If you've got a moment, please tell us how we can make
+                                    the documentation better.
+                                 </p>
+                                 <p>
+                                    <awsui-button id="fblink" target="_blank" text="Feedback" click="linkClick($event)" href="https://docs.aws.amazon.com/forms/aws-doc-feedback?hidden_service_name=IoT Docs&amp;topic_url=https://docs.aws.amazon.com/en_us/iot/latest/developerguide/dd-detect-security-use-cases.html"></awsui-button>
+                                 </p>
+                              </div>
+                           </div>
+                        </div>
+                     </body>
+                  </div>
+               </awsdocs-view>
+               <div class="page-loading-indicator" id="page-loading-indicator">
+                  <awsui-spinner size="large"></awsui-spinner>
+               </div>
+            </div>
+            <div id="tools-panel" dom-region="tools">
+               <awsdocs-tools-panel id="awsdocs-tools-panel"></awsdocs-tools-panel>
+            </div>
+         </awsui-app-layout>
+         <awsdocs-cookie-banner class="doc-cookie-banner"></awsdocs-cookie-banner>
+         <!--
+                SiteCatalyst code version: H.25.2.
+                Copyright 1996-2012 Adobe, Inc. All Rights Reserved
+                More info available at http://www.omniture.com
+            --><script language="JavaScript" type="text/javascript">
+var awsdocs = awsdocs || {};
+awsdocs.prop66 = 'AWS IoT Core';
+awsdocs.prop65 =  'Developer Guide';
+            </script><script src="https://a0.awsstatic.com/s_code/js/3.0/awshome_s_code.js" language="JavaScript" type="text/javascript"></script>
+         <!--/DO NOT REMOVE/-->
+         <!--End SiteCatalyst code version: H.25.2.--></div>
+   </body>
+</html>

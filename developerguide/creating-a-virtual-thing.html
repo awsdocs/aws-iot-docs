@@ -1,0 +1,962 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" ng-app="AWSDocsDocPageApp">
+   <head>
+      <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+      <title>Create a virtual device with Amazon EC2 - AWS IoT Core</title>
+      <meta name="viewport" content="width=device-width,initial-scale=1" />
+      <meta name="assets_root" content="assets" />
+      <meta name="target_state" content="creating-a-virtual-thing" />
+      <meta name="default_state" content="creating-a-virtual-thing" />
+      <link rel="icon" type="image/ico" href="/assets/images/favicon.ico" />
+      <link rel="shortcut icon" type="image/ico" href="/assets/images/favicon.ico" />
+      <link rel="canonical" href="https://docs.aws.amazon.com/iot/latest/developerguide/creating-a-virtual-thing.html" />
+      <meta name="description" content="In this tutorial, you'll create an Amazon EC2 instance to serve as your virtual device in the cloud." />
+      <meta name="deployment_region" content="IAD" />
+      <meta name="product" content="AWS IoT Core" />
+      <meta name="guide" content="Developer Guide" />
+      <meta name="locales" content="de_de:Deutsch/en_us:English/es_es:Español/fr_fr:Français/it_it:Italiano/ja_jp:日本語/ko_kr:한국어/pt_br:Português/zh_cn:中文 (简体)/zh_tw:中文 (繁體)" />
+      <meta name="abstract" content="AWS IoT provides secure, bi-directional communication between Internet-connected devices such as sensors, actuators, embedded micro-controllers, or smart appliances and the AWS Cloud. This enables you to collect telemetry data from multiple devices, and store and analyze the data. You can also create applications that enable your users to control these devices from their phones or tablets." />
+      <meta name="guide-locale" content="en_us" />
+      <meta name="tocs" content="toc-contents.json" />
+      <meta name="feedback-item" content="IoT Docs" />
+      <meta name="this_doc_product" content="AWS IoT Core" />
+      <meta name="this_doc_guide" content="Developer Guide" />
+      <link href="assets/css/vendor4.css" rel="stylesheet" />
+      <link href="assets/css/awsdocs-common.css" rel="stylesheet" /><script type="text/javascript" src="assets/js/vendor3.js" defer=""></script><script type="text/javascript" src="assets/js/vendor4.js" defer=""></script><script type="text/javascript" src="assets/js/vendor1.js" defer=""></script><script type="text/javascript" src="assets/js/awsdocs-common.js" defer=""></script><script type="text/javascript" src="assets/js/awsdocs-doc-app.js" defer=""></script></head>
+   <body class="awsdocs awsui">
+      <div class="awsdocs-container">
+         <awsdocs-header></awsdocs-header>
+         <awsui-app-layout id="app-layout" class="awsui-util-no-gutters" ng-controller="ContentController as $ctrl" header-selector="awsdocs-header" navigation-hide="false" navigation-width="$ctrl.navWidth" navigation-open="$ctrl.navOpen" navigation-change="$ctrl.onNavChange($event)" tools-hide="$ctrl.hideTools" tools-width="$ctrl.toolsWidth" tools-open="$ctrl.toolsOpen" tools-change="$ctrl.onToolsChange($event)">
+            <div id="guide-toc" dom-region="navigation">
+               <awsdocs-toc></awsdocs-toc>
+            </div>
+            <div id="main-column" dom-region="content" tabindex="-1">
+               <awsdocs-view class="awsdocs-view">
+                  <div id="awsdocs-content">
+                     <head>
+                        <title>Create a virtual device with Amazon EC2 - AWS IoT Core</title>
+                        <meta name="pdf" content="iot-dg.pdf#creating-a-virtual-thing" />
+                        <meta name="kindle" content="https://www.amazon.com/dp/B07JBRCWWZ" />
+                        <meta name="github" content="https://github.com/awsdocs/aws-iot-docs/tree/master/developerguide/creating-a-virtual-thing.md" />
+                        <meta name="forums" content="http://forums.aws.amazon.com/forum.jspa?forumID=210" />
+                        <meta name="feedback" content="https://docs.aws.amazon.com/forms/aws-doc-feedback?hidden_service_name=IoT%20Docs&amp;topic_url=http://docs.aws.amazon.com/en_us/iot/latest/developerguide/creating-a-virtual-thing.html" />
+                        <meta name="feedback-yes" content="feedbackyes.html?topic_url=http://docs.aws.amazon.com/en_us/iot/latest/developerguide/creating-a-virtual-thing.html" />
+                        <meta name="feedback-no" content="feedbackno.html?topic_url=http://docs.aws.amazon.com/en_us/iot/latest/developerguide/creating-a-virtual-thing.html" />
+                        <meta name="keywords" content="AWS IoT,IoT,Internet of Things" />
+                     </head>
+                     <body>
+                        <div id="main">
+                           <div style="display: none"><a href="iot-dg.pdf#creating-a-virtual-thing" target="_blank" rel="noopener noreferrer" title="Open PDF"></a><a target="_blank" rel="noopener noreferrer" href="https://www.amazon.com/dp/B07JBRCWWZ" title="Open Kindle"></a><a href="https://github.com/awsdocs/aws-iot-docs/tree/master/developerguide/creating-a-virtual-thing.md" target="_blank" rel="noopener noreferrer" title="Edit this page on GitHub"></a></div>
+                           <div id="breadcrumbs" class="breadcrumb"><a href="http://aws.amazon.com">AWS</a><a href="/index.html">Documentation</a><a href="/iot/index.html">AWS IoT Core</a><a href="what-is-aws-iot.html">Developer Guide</a></div>
+                           <div id="page-toc-src"><a href="#set-up-ec2">Set up an Amazon EC2 instance</a><a href="#install-git-node">Install Git, Node.js and configure the
+                                 AWS CLI</a><a href="#ec2-create-certificate">Create AWS IoT resources
+                                 for your virtual device</a><a href="#ec2-sdk">Install the AWS IoT Device SDK for
+                                 JavaScript</a><a href="#ec2-run-app">Run the sample application</a><a href="#ec2-view-msg">View messages from the sample app in the AWS IoT console</a></div>
+                           <div id="main-content" class="awsui-util-container">
+                              <div id="main-col-body">
+                                 <awsdocs-language-banner data-service="$ctrl.pageService"></awsdocs-language-banner>
+                                 <h1 class="topictitle" id="creating-a-virtual-thing">Create a virtual device with
+                                    Amazon EC2
+                                 </h1>
+                                 <div class="awsdocs-page-header-container">
+                                    <awsdocs-page-header></awsdocs-page-header>
+                                    <awsdocs-filter-selector id="awsdocs-filter-selector"></awsdocs-filter-selector>
+                                 </div>
+                                 <p>In this tutorial, you'll create an Amazon EC2 instance to serve as your virtual
+                                    device in the cloud.
+                                 </p>
+                                 <p>To complete this tutorial, you need an AWS account. If you don't have one,
+                                    complete the steps described in <a href="./setting-up.html">Set up your AWS account</a> before you continue. 
+                                 </p>
+                                 <div class="highlights" id="inline-topiclist">
+                                    <p><strong>In this tutorial, you'll:</strong></p>
+                                    <ul>
+                                       <li><a href="#set-up-ec2">Set up an Amazon EC2 instance</a></li>
+                                       <li><a href="#install-git-node">Install Git, Node.js and configure the
+                                             AWS CLI</a></li>
+                                       <li><a href="#ec2-create-certificate">Create AWS IoT resources
+                                             for your virtual device</a></li>
+                                       <li><a href="#ec2-sdk">Install the AWS IoT Device SDK for
+                                             JavaScript</a></li>
+                                       <li><a href="#ec2-run-app">Run the sample application</a></li>
+                                       <li><a href="#ec2-view-msg">View messages from the sample app in the AWS IoT console</a></li>
+                                    </ul>
+                                 </div>
+                                 
+                                 <h2 id="set-up-ec2">Set up an Amazon EC2 instance</h2>
+                                 
+                                 <p>The following steps show you how to create an Amazon EC2 instance that will act
+                                    as your virtual device in place of a physical device.
+                                 </p>
+                                 
+                                 <div class="procedure">
+                                    <p class="title"><b>To launch an instance</b></p>
+                                    <ol>
+                                       <li>
+                                          <p>Open the Amazon EC2 console at
+                                             <a href="https://console.aws.amazon.com/ec2/" rel="noopener noreferrer" target="_blank"><span>https://console.aws.amazon.com/ec2/</span><awsui-icon class="awsdocs-link-icon" name="external"></awsui-icon></a>.
+                                          </p>
+                                       </li>
+                                       <li>
+                                          
+                                          <p>From the console dashboard, choose <b>Launch
+                                                Instance</b>.
+                                          </p>
+                                          
+                                       </li>
+                                       <li>
+                                          
+                                          <p>The <b>Step 1: Choose an Amazon Machine Image
+                                                (AMI)</b> page displays a list of basic configurations,
+                                             called <em>Amazon Machine Images (AMIs)</em>, which
+                                             serve as templates for your instance. <span>Select an
+                                                HVM version of Amazon Linux 2,</span> such as <span><em>Amazon Linux 2 AMI (HVM), SSD Volume
+                                                   Type</em>.</span> Notice that this AMI is marked "Free
+                                             tier eligible."
+                                          </p>
+                                          
+                                       </li>
+                                       <li>
+                                          
+                                          <p>On the <b>Choose an Instance Type</b> page, you can
+                                             select the hardware configuration of your instance. Select the
+                                             <code class="code">t2.micro</code> type, which is selected by default. Notice
+                                             that this instance type is eligible for the free tier.
+                                          </p>
+                                          
+                                       </li>
+                                       <li>
+                                          
+                                          <p>Choose <b>Review and Launch</b> to let the wizard
+                                             complete the other configuration settings for you.
+                                          </p>
+                                          
+                                       </li>
+                                       <li>
+                                          
+                                          <p>On the <b>Review Instance Launch</b> page, choose
+                                             <b>Launch</b>.
+                                          </p>
+                                          
+                                       </li>
+                                       <li>
+                                          
+                                          <p>When prompted for a key pair, select <b>Create a new key
+                                                pair</b>, enter a name for the key pair, and then choose
+                                             <b>Download Key Pair</b>. <em>This is your only chance to save the private key file, so be
+                                                sure to download it.</em> Save the private key file in a
+                                             safe place. You'll need to provide the name of your key pair when
+                                             you launch an instance and the corresponding private key each time
+                                             you connect to the instance.
+                                          </p>
+                                          
+                                          <div class="awsdocs-note awsdocs-warning">
+                                             <div class="awsdocs-note-title">
+                                                <awsui-icon name="status-warning" variant="error"></awsui-icon><span>Warning</span></div>
+                                             <div class="awsdocs-note-text">
+                                                <p>Don't select the <b>Proceed without a key
+                                                      pair</b> option. If you launch your instance without
+                                                   a key pair, then you can't connect to it.
+                                                </p>
+                                             </div>
+                                          </div>
+                                          
+                                          <p>When you are ready, choose <b>Launch Instances</b>.
+                                             
+                                          </p>
+                                          
+                                       </li>
+                                       <li>
+                                          
+                                          <p>A confirmation page lets you know that your instance is launching.
+                                             Choose <b>View Instances</b> to close the confirmation
+                                             page and return to the console.
+                                          </p>
+                                          
+                                       </li>
+                                       <li>
+                                          
+                                          <p>On the <b>Instances</b> screen, you can view the
+                                             status of the launch. It takes a short time for an instance to
+                                             launch. When you launch an instance, its initial state is
+                                             <code class="code">pending</code>. After the instance starts, its state
+                                             changes to <code class="code">running</code> and it receives a public DNS name.
+                                             (If the <b>Public DNS (IPv4)</b> column is hidden,
+                                             choose <b>Show/Hide Columns</b> (the gear-shaped icon)
+                                             in the top right corner of the page and then select <b>Public
+                                                DNS (IPv4)</b>.)
+                                          </p>
+                                          
+                                       </li>
+                                       <li>
+                                          
+                                          <p>It can take a few minutes for the instance to be ready so that you
+                                             can connect to it. Check that your instance has passed its status
+                                             checks; you can view this information in the <b>Status
+                                                Checks</b> column.
+                                          </p>
+                                          
+                                          <p>After your new instance has passed its status checks, continue to
+                                             the next procedure and connect to it.
+                                          </p>
+                                          
+                                       </li>
+                                    </ol>
+                                 </div>
+                                 
+                                 <div class="procedure">
+                                    <p class="title"><b>To connect to your instance</b></p>
+                                    <p>You can connect to an instance using the browser-based client by
+                                       selecting the instance from the Amazon EC2 console and choosing to connect
+                                       using Amazon EC2 Instance Connect. Instance Connect handles the permissions
+                                       and provides a successful connection.
+                                    </p>
+                                    <ol>
+                                       <li>
+                                          <p>Open the Amazon EC2 console at
+                                             <a href="https://console.aws.amazon.com/ec2/" rel="noopener noreferrer" target="_blank"><span>https://console.aws.amazon.com/ec2/</span><awsui-icon class="awsdocs-link-icon" name="external"></awsui-icon></a>.
+                                          </p>
+                                       </li>
+                                       <li>
+                                          
+                                          <p>In the left menu, choose
+                                             <b>Instances</b>.
+                                          </p>
+                                          
+                                       </li>
+                                       <li>
+                                          
+                                          <p>Select the instance and choose
+                                             <b>Connect</b>.
+                                          </p>
+                                          
+                                       </li>
+                                       <li>
+                                          
+                                          <p>Choose <b>Amazon EC2 Instance Connect (browser-based SSH
+                                                connection)</b>, <b>Connect</b>.
+                                          </p>
+                                          
+                                       </li>
+                                    </ol>
+                                 </div>
+                                 
+                                 <p>You should now have an <b>Amazon EC2 Instance Connect</b> window
+                                    that is logged into your new Amazon EC2 instance.
+                                 </p>
+                                  
+                                 
+                                 <h2 id="install-git-node">Install Git, Node.js and configure the
+                                    AWS CLI
+                                 </h2>
+                                 
+                                 <p>In this section, you'll install Git and Node.js, on your Linux
+                                    instance.
+                                 </p>
+                                 
+                                 <div class="procedure">
+                                    <p class="title"><b>To install Git</b></p>
+                                    <ol>
+                                       <li>
+                                          
+                                          <p>In your <b>Amazon EC2 Instance Connect</b> window, update
+                                             your instance by using the following command.
+                                          </p>
+                                          <pre class="programlisting"><div class="code-btn-container"><div class="btn-copy-code" title="Copy"><awsui-icon name="copy"></awsui-icon></div></div><code class="">sudo yum update -y</code></pre>
+                                          </li>
+                                       <li>
+                                          
+                                          <p>In your <b>Amazon EC2 Instance Connect</b> window,
+                                             install Git by using the following command.
+                                          </p>
+                                          <pre class="programlisting"><div class="code-btn-container"><div class="btn-copy-code" title="Copy"><awsui-icon name="copy"></awsui-icon></div></div><code class="">sudo yum install git -y</code></pre>
+                                          </li>
+                                    </ol>
+                                 </div>
+                                 
+                                 <div class="procedure">
+                                    <p class="title"><b>To install Node.js</b></p>
+                                    <ol>
+                                       <li>
+                                          
+                                          <p>In your <b>Amazon EC2 Instance Connect</b> window,
+                                             install node version manager (nvm) by using the following
+                                             command.
+                                          </p>
+                                          <pre class="programlisting"><div class="code-btn-container"><div class="btn-copy-code" title="Copy"><awsui-icon name="copy"></awsui-icon></div></div><code class="">curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/v0.34.0/install.sh | bash</code></pre>
+                                          <p>We will use nvm to install Node.js because nvm can install
+                                             multiple versions of Node.js and allow you to switch between them.
+                                             
+                                          </p>
+                                          
+                                       </li>
+                                       <li>
+                                          
+                                          <p>In your <b>Amazon EC2 Instance Connect</b> window,
+                                             activate nvm by using this command.
+                                          </p>
+                                          <pre class="programlisting"><div class="code-btn-container"><div class="btn-copy-code" title="Copy"><awsui-icon name="copy"></awsui-icon></div></div><code class="">. ~/.nvm/nvm.sh</code></pre>
+                                          </li>
+                                       <li>
+                                          
+                                          <p>In your <b>Amazon EC2 Instance Connect</b> window, use
+                                             nvm to install the latest version of Node.js by using this
+                                             command.
+                                          </p>
+                                          <pre class="programlisting"><div class="code-btn-container"><div class="btn-copy-code" title="Copy"><awsui-icon name="copy"></awsui-icon></div></div><code class="">nvm install node</code></pre>
+                                          <p>Installing Node.js also installs the Node Package Manager (npm) so
+                                             you can install additional modules as needed.
+                                          </p>
+                                          
+                                       </li>
+                                       <li>
+                                          
+                                          <p>In your <b>Amazon EC2 Instance Connect</b> window, test
+                                             that Node.js is installed and running correctly by using this
+                                             command.
+                                          </p>
+                                          <pre class="programlisting"><div class="code-btn-container"><div class="btn-copy-code" title="Copy"><awsui-icon name="copy"></awsui-icon></div></div><code class="">node -v</code></pre>
+                                          <p> This tutorial requires Node v10.0 or later.</p>
+                                          
+                                       </li>
+                                    </ol>
+                                 </div>
+                                 
+                                 <div class="procedure">
+                                    <p class="title"><b>To configure AWS CLI</b></p>
+                                    <p>Your Amazon EC2 instance comes preloaded with the AWS CLI. However, you must
+                                       complete your AWS CLI profile. For more information on how to configure
+                                       your CLI, see <a href="https://docs.aws.amazon.com/cli/latest/userguide/cli-chap-configure.html">Configuring the
+                                          AWS CLI</a>.
+                                    </p>
+                                    <ol>
+                                       <li>
+                                          
+                                          <p>The following example shows sample values. Replace them with your
+                                             own values. You can find these values in your AWS console in your
+                                             account info under <b>My Security
+                                                Credentials</b>.
+                                          </p>
+                                          
+                                          <p>In your <b>Amazon EC2 Instance Connect</b> window, enter
+                                             this command:
+                                          </p>
+                                          <pre class="programlisting"><div class="code-btn-container"><div class="btn-copy-code" title="Copy"><awsui-icon name="copy"></awsui-icon></div></div><code class="bash ">aws configure</code></pre>
+                                          <p>Then enter the values from your account at the prompts
+                                             displayed.
+                                          </p>
+                                          <pre class="programlisting"><div class="code-btn-container"><div class="btn-copy-code" title="Copy"><awsui-icon name="copy"></awsui-icon></div></div><code class="nohighlight">AWS Access Key ID [None]: <code class="replaceable">AKIAIOSFODNN7EXAMPLE</code>
+AWS Secret Access Key [None]: <code class="replaceable">wJalrXUtnFEMI/K7MDENG/bPxRfiCYEXAMPLEKEY</code>
+Default region name [None]: <code class="replaceable">us-west-2</code>
+Default output format [None]: <code class="replaceable">json</code></code></pre>
+                                          </li>
+                                       <li>
+                                          
+                                          <p>You can test your AWS CLI configuration with this command:</p>
+                                          <pre class="programlisting"><div class="code-btn-container"><div class="btn-copy-code" title="Copy"><awsui-icon name="copy"></awsui-icon></div></div><code class="bash ">aws iot describe-endpoint --endpoint-type iot:Data-ATS</code></pre>
+                                          <p>If your AWS CLI is configured correctly, the command should return
+                                             an endpoint address from your AWS account.
+                                          </p>
+                                          
+                                       </li>
+                                    </ol>
+                                 </div>
+                                  
+                                 
+                                 <h2 id="ec2-create-certificate">Create AWS IoT resources
+                                    for your virtual device
+                                 </h2>
+                                 
+                                 <p>This section describes how to use the AWS CLI to create the thing object and
+                                    its certificate files directly on the virtual device. This is done directly
+                                    on the device to avoid the potential complication that might arise from
+                                    copying them to the device from another computer.
+                                 </p>
+                                 
+                                 <div class="procedure">
+                                    <p class="title"><b>To create an AWS IoT thing object in your Linux instance</b></p>
+                                    <p>Devices connected to AWS IoT are represented by <em>thing
+                                          objects</em> in the AWS IoT registry. A <em>thing
+                                          object</em> represents a specific device or logical entity. In
+                                       this case, your <em>thing object</em> will represent your
+                                       virtual device, this Amazon EC2 instance.
+                                    </p>
+                                    <ol>
+                                       <li>
+                                          
+                                          <p>In your <b>Amazon EC2 Instance Connect</b> window, run
+                                             the following command to create your thing object.
+                                          </p>
+                                          <pre class="programlisting"><div class="code-btn-container"><div class="btn-copy-code" title="Copy"><awsui-icon name="copy"></awsui-icon></div></div><code class="">aws iot create-thing --thing-name "MyIotThing"</code></pre>
+                                          </li>
+                                       <li>
+                                          
+                                          <p>The JSON response should look like this:</p>
+                                          <pre class="programlisting"><div class="code-btn-container"><div class="btn-copy-code" title="Copy"><awsui-icon name="copy"></awsui-icon></div></div><code class="nohighlight"><span>{</span>
+    "thingArn": "arn:aws:iot:<code class="replaceable">your-region</code>:<code class="replaceable">your-aws-account</code>:thing/MyIotThing", 
+    "thingName": "MyIotThing",
+    "thingId": "<code class="replaceable">6cf922a8-d8ea-4136-f3401EXAMPLE</code>"
+}</code></pre>
+                                          </li>
+                                    </ol>
+                                 </div>
+                                 
+                                 <div class="procedure">
+                                    <p class="title"><b>To create and attach AWS IoT keys and certificates in your Linux
+                                          instance</b></p>
+                                    <p>The <b><a href="https://awscli.amazonaws.com/v2/documentation/api/latest/reference/iot/create-keys-and-certificate.html" rel="noopener noreferrer" target="_blank"><span>create-keys-and-certificate</span><awsui-icon class="awsdocs-link-icon" name="external"></awsui-icon></a></b> command creates
+                                       client certificates signed by the Amazon Root certificate authority.
+                                       This certificate is used to authenticate the identity of your virtual
+                                       device.
+                                    </p>
+                                    <ol>
+                                       <li>
+                                          
+                                          <p>In your <b>Amazon EC2 Instance Connect</b> window, create
+                                             a directory to store your certificate and key files.
+                                          </p>
+                                          <pre class="programlisting"><div class="code-btn-container"><div class="btn-copy-code" title="Copy"><awsui-icon name="copy"></awsui-icon></div></div><code class="bash ">mkdir ~/certs</code></pre>
+                                          </li>
+                                       <li>
+                                          
+                                          <p>In your <b>Amazon EC2 Instance Connect</b> window,
+                                             download a copy of the Amazon certificate authority (CA) certificate
+                                             by using this command.
+                                          </p>
+                                          <pre class="programlisting"><div class="code-btn-container"><div class="btn-copy-code" title="Copy"><awsui-icon name="copy"></awsui-icon></div></div><code class="bash ">curl -o ~/certs/Amazon-root-CA-1.pem \
+    https://www.amazontrust.com/repository/AmazonRootCA1.pem </code></pre>
+                                          </li>
+                                       <li>
+                                          
+                                          <p>In your <b>Amazon EC2 Instance Connect</b> window, run
+                                             the following command to create your private key, public key, and
+                                             X.509 certificate files. This command also registers and activates
+                                             the certificate with AWS IoT.
+                                          </p>
+                                          <pre class="programlisting"><div class="code-btn-container"><div class="btn-copy-code" title="Copy"><awsui-icon name="copy"></awsui-icon></div></div><code class="">aws iot create-keys-and-certificate \
+    --set-as-active \
+    --certificate-pem-outfile "~/certs/device.pem.crt" \
+    --public-key-outfile "~/certs/public.pem.key" \
+    --private-key-outfile "~/certs/private.pem.key"</code></pre>
+                                          <p>The response looks like the following. Save the
+                                             <code class="code">certificateArn</code> so that you can use it in subsequent
+                                             commands. You'll need it to attach your certificate to your thing
+                                             and to attach the policy to the certificate in a later steps.
+                                          </p>
+                                          <pre class="programlisting"><div class="code-btn-container"><div class="btn-copy-code" title="Copy"><awsui-icon name="copy"></awsui-icon></div></div><code class="nohighlight"><span>{</span>
+    "certificateArn": "<code class="replaceable">arn:aws:iot:us-west-2:123456789012:cert/9894ba17925e663f1d29c23af4582b8e3b7619c31f3fbd93adcb51ae54b83dc2</code>",
+    "certificateId": "<code class="replaceable">9894ba17925e663f1d29c23af4582b8e3b7619c31f3fbd93adcb51ae54b83dc2</code>",
+    "certificatePem": "
+-----BEGIN CERTIFICATE-----<code class="replaceable">
+MIICiTCCEXAMPLE6m7oRw0uXOjANBgkqhkiG9w0BAQUFADCBiDELMAkGA1UEBhMC
+VVMxCzAJBgNVBAgEXAMPLEAwDgYDVQQHEwdTZWF0dGxlMQ8wDQYDVQQKEwZBbWF6
+b24xFDASBgNVBAsTC0lBTSEXAMPLE2xlMRIwEAYDVQQDEwlUZXN0Q2lsYWMxHzAd
+BgkqhkiG9w0BCQEWEG5vb25lQGFtYEXAMPLEb20wHhcNMTEwNDI1MjA0NTIxWhcN
+MTIwNDI0MjA0NTIxWjCBiDELMAkGA1UEBhMCEXAMPLEJBgNVBAgTAldBMRAwDgYD
+VQQHEwdTZWF0dGxlMQ8wDQYDVQQKEwZBbWF6b24xFDAEXAMPLEsTC0lBTSBDb25z
+b2xlMRIwEAYDVQQDEwlUZXN0Q2lsYWMxHzAdBgkqhkiG9w0BCQEXAMPLE25lQGFt
+YXpvbi5jb20wgZ8wDQYJKoZIhvcNAQEBBQADgY0AMIGJAoGBAMaK0dn+aEXAMPLE
+EXAMPLEfEvySWtC2XADZ4nB+BLYgVIk60CpiwsZ3G93vUEIO3IyNoH/f0wYK8m9T
+rDHudUZEXAMPLELG5M43q7Wgc/MbQITxOUSQv7c7ugFFDzQGBzZswY6786m86gpE
+Ibb3OhjZnzcvQAEXAMPLEWIMm2nrAgMBAAEwDQYJKoZIhvcNAQEFBQADgYEAtCu4
+nUhVVxYUntneD9+h8Mg9qEXAMPLEyExzyLwaxlAoo7TJHidbtS4J5iNmZgXL0Fkb
+FFBjvSfpJIlJ00zbhNYS5f6GuoEDEXAMPLEBHjJnyp378OD8uTs7fLvjx79LjSTb
+NYiytVbZPQUQ5Yaxu2jXnimvw3rrszlaEXAMPLE=</code>
+-----END CERTIFICATE-----\n",
+    "keyPair": <span>{</span>
+        "PublicKey": "-----BEGIN PUBLIC KEY-----<code class="replaceable">\nMIIBIjANBgkqhkEXAMPLEQEFAAOCAQ8AMIIBCgKCAQEAEXAMPLE1nnyJwKSMHw4h\nMMEXAMPLEuuN/dMAS3fyce8DW/4+EXAMPLEyjmoF/YVF/gHr99VEEXAMPLE5VF13\n59VK7cEXAMPLE67GK+y+jikqXOgHh/xJTwo+sGpWEXAMPLEDz18xOd2ka4tCzuWEXAMPLEahJbYkCPUBSU8opVkR7qkEXAMPLE1DR6sx2HocliOOLtu6Fkw91swQWEXAMPLE\GB3ZPrNh0PzQYvjUStZeccyNCx2EXAMPLEvp9mQOUXP6plfgxwKRX2fEXAMPLEDa\nhJLXkX3rHU2xbxJSq7D+XEXAMPLEcw+LyFhI5mgFRl88eGdsAEXAMPLElnI9EesG\nFQIDAQAB\n</code>-----END PUBLIC KEY-----\n",
+        "PrivateKey": "-----BEGIN RSA PRIVATE KEY-----<code class="replaceable">\nkey omitted for security reasons\n</code>-----END RSA PRIVATE KEY-----\n"
+    }
+}</code></pre>
+                                          </li>
+                                       <li>
+                                          
+                                          <p>In your <b>Amazon EC2 Instance Connect</b> window, attach
+                                             your thing object to the certificate you just created by using the
+                                             following command and the <code class="replaceable">certificateArn</code>
+                                             in the response from the previous command.
+                                          </p>
+                                          <pre class="programlisting"><div class="code-btn-container"><div class="btn-copy-code" title="Copy"><awsui-icon name="copy"></awsui-icon></div></div><code class="nohighlight">aws iot attach-thing-principal \
+    --thing-name "MyIotThing" \
+    --principal "<code class="replaceable">certificateArn</code>"</code></pre>
+                                          <p>If successful, this command does not display any output.</p>
+                                          
+                                       </li>
+                                    </ol>
+                                 </div>
+                                 
+                                 <div class="procedure">
+                                    <p class="title"><b>To create and attach a policy </b></p>
+                                    <ol>
+                                       <li>
+                                          
+                                          <p>In your <b>Amazon EC2 Instance Connect</b> window, create
+                                             the policy file by copying and pasting this policy document to a
+                                             file named <code class="userinput">~/policy.json</code>.
+                                          </p>
+                                          
+                                          <p>If you don't have a favorite Linux editor, you can open
+                                             <b>nano</b>, by using this command.
+                                          </p>
+                                          <pre class="programlisting"><div class="code-btn-container"><div class="btn-copy-code" title="Copy"><awsui-icon name="copy"></awsui-icon></div></div><code class="bash ">nano ~/policy.json</code></pre>
+                                          <p>And pasting the policy document for <code class="code">policy.json</code> into
+                                             it. Enter ctrl-x to exit the <b>nano</b> editor and save
+                                             the file.
+                                          </p>
+                                          
+                                          <p>Contents of the policy document for
+                                             <code class="code">policy.json</code>.
+                                          </p>
+                                          <pre class="programlisting"><div class="code-btn-container"><div class="btn-copy-code" title="Copy"><awsui-icon name="copy"></awsui-icon></div></div><code class=""><span>{</span>
+    "Version": "2012-10-17",
+    "Statement": [
+        <span>{</span>
+            "Effect": "Allow",
+            "Action": [
+                "iot:Publish",
+                "iot:Subscribe",
+                "iot:Receive",
+                "iot:Connect"
+            ],
+            "Resource": [
+                "*"
+            ]
+        }
+    ]
+}</code></pre>
+                                          </li>
+                                       <li>
+                                          
+                                          <p>In your <b>Amazon EC2 Instance Connect</b> window, create
+                                             your policy by using the following command.
+                                          </p>
+                                          <pre class="programlisting"><div class="code-btn-container"><div class="btn-copy-code" title="Copy"><awsui-icon name="copy"></awsui-icon></div></div><code class="bash ">aws iot create-policy \
+    --policy-name "MyIotThingPolicy" \
+    --policy-document "file://~/policy.json"</code></pre>
+                                          <p>Output:</p>
+                                          <pre class="programlisting"><div class="code-btn-container"><div class="btn-copy-code" title="Copy"><awsui-icon name="copy"></awsui-icon></div></div><code class="json "><span>{</span>
+    "policyName": "MyIotThingPolicy",
+    "policyArn": "arn:aws:iot:<code class="replaceable">your-region</code>:<code class="replaceable">your-aws-account</code>:policy/MyIotThingPolicy",
+    "policyDocument": "<span>{</span>
+        \"Version\": \"2012-10-17\",
+        \"Statement\": [
+            <span>{</span>
+                \"Effect\": \"Allow\",
+                \"Action\": [
+                    \"iot:Publish\",
+                    \"iot:Receive\",
+                    \"iot:Subscribe\",
+                    \"iot:Connect\"
+                ],
+                \"Resource\": [
+                    \"*\"
+                ]
+            }
+        ]
+    }",
+    "policyVersionId": "1"
+}</code></pre>
+                                          </li>
+                                       <li>
+                                          
+                                          <p>In your <b>Amazon EC2 Instance Connect</b> window, attach
+                                             the policy to your virtual device's certificate by using the
+                                             following command.
+                                          </p>
+                                          <pre class="programlisting"><div class="code-btn-container"><div class="btn-copy-code" title="Copy"><awsui-icon name="copy"></awsui-icon></div></div><code class="bash ">aws iot attach-policy \
+    --policy-name "MyIotThingPolicy" \
+    --target "<code class="replaceable">certificateArn</code>"</code></pre>
+                                          <p>If successful, this command does not display any output.</p>
+                                          
+                                       </li>
+                                    </ol>
+                                 </div>
+                                 
+                                 <p>At this point, you have created for your virtual device: </p>
+                                 
+                                 <div class="itemizedlist">
+                                     
+                                     
+                                     
+                                    
+                                    <ul class="itemizedlist" type="disc">
+                                       <li class="listitem">
+                                          
+                                          <p>A thing object to represent your virtual device in AWS IoT.</p>
+                                          
+                                       </li>
+                                       <li class="listitem">
+                                          
+                                          <p>A certificate to authenticate your virtual device.</p>
+                                          
+                                       </li>
+                                       <li class="listitem">
+                                          
+                                          <p>A policy document to authorize your virtual device to Connect to
+                                             AWS IoT, and to Publish, Receive, and Subscribe to messages.
+                                          </p>
+                                          
+                                       </li>
+                                    </ul>
+                                 </div>
+                                  
+                                 
+                                 <h2 id="ec2-sdk">Install the AWS IoT Device SDK for
+                                    JavaScript
+                                 </h2>
+                                 
+                                 <p>In this section, you'll install the AWS IoT Device SDK for JavaScript, which
+                                    contains the code that applications can use to communicate with AWS IoT and
+                                    the sample programs.
+                                 </p>
+                                 
+                                 <div class="procedure">
+                                    <p class="title"><b>To install the AWS IoT Device SDK for JavaScript on your Linux
+                                          instance</b></p>
+                                    <ol>
+                                       <li>
+                                          
+                                          <p>In your <b>Amazon EC2 Instance Connect</b> window, clone
+                                             the AWS IoT Device SDK for JavaScript repository into the
+                                             <code class="code">aws-iot-device-sdk-js-v2</code> directory of your home
+                                             directory by using this command.
+                                          </p>
+                                          <pre class="programlisting"><div class="code-btn-container"><div class="btn-copy-code" title="Copy"><awsui-icon name="copy"></awsui-icon></div></div><code class="bash ">cd ~
+git clone https://github.com/aws/aws-iot-device-sdk-js-v2.git</code></pre>
+                                          </li>
+                                       <li>
+                                          
+                                          <p>Navigate to the <code class="code">aws-iot-device-sdk-js-v2</code> directory
+                                             that you created in the preceding step.
+                                          </p>
+                                          <pre class="programlisting"><div class="code-btn-container"><div class="btn-copy-code" title="Copy"><awsui-icon name="copy"></awsui-icon></div></div><code class="bash ">cd aws-iot-device-sdk-js-v2</code></pre>
+                                          </li>
+                                       <li>
+                                          
+                                          <p>Use npm to install the SDK.</p>
+                                          <pre class="programlisting"><div class="code-btn-container"><div class="btn-copy-code" title="Copy"><awsui-icon name="copy"></awsui-icon></div></div><code class="bash ">npm install</code></pre>
+                                          </li>
+                                    </ol>
+                                 </div>
+                                  
+                                 
+                                 <h2 id="ec2-run-app">Run the sample application</h2>
+                                 
+                                 <p> The commands in the next sections assume that your key and certificate
+                                    files are stored on your virtual device as shown in this table.
+                                 </p>
+                                 
+                                 <div class="table-container">
+                                    <div class="table-contents">
+                                       <table id="w332aab7c15c21b9c17b5">
+                                          <thead>
+                                             <tr>
+                                                <th class="table-header" colspan="100%">
+                                                   <div class="title">Certificate file names</div>
+                                                </th>
+                                             </tr>
+                                             
+                                             <tr>
+                                                
+                                                <th>
+                                                   
+                                                   <p>File</p>
+                                                   
+                                                </th>
+                                                
+                                                <th>
+                                                   
+                                                   <p>File path</p>
+                                                   
+                                                </th>
+                                                
+                                             </tr>
+                                             
+                                          </thead>
+                                          
+                                          <tr>
+                                             
+                                             <td>
+                                                
+                                                <p>Private key</p>
+                                                
+                                             </td>
+                                             
+                                             <td>
+                                                
+                                                <p><code class="code">~/certs/private.pem.key</code></p>
+                                                
+                                             </td>
+                                             
+                                          </tr>
+                                          
+                                          <tr>
+                                             
+                                             <td>
+                                                
+                                                <p>Device certificate</p>
+                                                
+                                             </td>
+                                             
+                                             <td>
+                                                
+                                                <p><code class="code">~/certs/device.pem.crt</code></p>
+                                                
+                                             </td>
+                                             
+                                          </tr>
+                                          
+                                          <tr>
+                                             
+                                             <td>
+                                                
+                                                <p>Root CA certificate</p>
+                                                
+                                             </td>
+                                             
+                                             <td>
+                                                
+                                                <p><code class="code">~/certs/Amazon-root-CA-1.pem</code></p>
+                                                
+                                             </td>
+                                             
+                                          </tr>
+                                          
+                                       </table>
+                                    </div>
+                                 </div>
+                                 
+                                 
+                                 <p>In this section, you'll install and run the <code class="code">pub-sub.js</code> sample
+                                    app found in the <code class="code">aws-iot-device-sdk-js-v2/samples/node</code>
+                                    directory of the AWS IoT Device SDK for JavaScript. This app shows how a
+                                    device, your Amazon EC2 instance, uses the MQTT library to publish and
+                                    subscribe to MQTT messages. The <code class="code">pub-sub.js</code> sample app
+                                    subscribes to a topic, <code class="code">topic_1</code>, publishes 10 messages to that
+                                    topic, and displays the messages as they're received from the message
+                                    broker.
+                                 </p>
+                                 
+                                 <div class="procedure">
+                                    <p class="title"><b>To install and run the sample app</b></p>
+                                    <ol>
+                                       <li>
+                                          
+                                          <p>In your <b>Amazon EC2 Instance Connect</b> window,
+                                             navigate to the
+                                             <code class="code">aws-iot-device-sdk-js-v2/samples/node/pub_sub</code>
+                                             directory that the SDK created and install the sample app by using
+                                             these commands.
+                                          </p>
+                                          <pre class="programlisting"><div class="code-btn-container"><div class="btn-copy-code" title="Copy"><awsui-icon name="copy"></awsui-icon></div></div><code class="">cd ~/aws-iot-device-sdk-js-v2/samples/node/pub_sub
+npm install</code></pre>
+                                          </li>
+                                       <li>
+                                          
+                                          <p>In your <b>Amazon EC2 Instance Connect</b> window, get
+                                             <code class="replaceable">your-iot-endpoint</code> from AWS IoT by using
+                                             this command.
+                                          </p>
+                                          <pre class="programlisting"><div class="code-btn-container"><div class="btn-copy-code" title="Copy"><awsui-icon name="copy"></awsui-icon></div></div><code class="bash ">aws iot describe-endpoint --endpoint-type iot:Data-ATS</code></pre>
+                                          </li>
+                                       <li>
+                                          
+                                          <p>In your <b>Amazon EC2 Instance Connect</b> window, insert
+                                             <code class="replaceable">your-iot-endpoint</code> as indicated and
+                                             run this command.
+                                          </p>
+                                          <pre class="programlisting"><div class="code-btn-container"><div class="btn-copy-code" title="Copy"><awsui-icon name="copy"></awsui-icon></div></div><code class="bash ">node dist/index.js --topic topic_1 --root-ca ~/certs/Amazon-root-CA-1.pem --cert ~/certs/device.pem.crt --key ~/certs/private.pem.key --endpoint <code class="replaceable">your-iot-endpoint</code></code></pre>
+                                          </li>
+                                    </ol>
+                                 </div>
+                                 
+                                 <p>The sample app:</p>
+                                 
+                                 <div class="orderedlist">
+                                     
+                                     
+                                     
+                                     
+                                    
+                                    <ol>
+                                       <li>
+                                          
+                                          <p>Connects to the AWS IoT service for your
+                                             account.
+                                          </p>
+                                          
+                                       </li>
+                                       <li>
+                                          
+                                          <p>Subscribes to the message topic, <b>topic_1</b>, and displays the messages it
+                                             receives on that topic.
+                                          </p>
+                                          
+                                       </li>
+                                       <li>
+                                          
+                                          <p>Publishes 10 messages to the topic, <b>topic_1</b>.
+                                          </p>
+                                          
+                                       </li>
+                                       <li>
+                                          
+                                          <p>Displays output similar to the following:</p>
+                                          <pre class="programlisting"><div class="code-btn-container"><div class="btn-copy-code" title="Copy"><awsui-icon name="copy"></awsui-icon></div></div><code class="json ">Publish received on topic topic_1
+<span>{</span>"message":"Hello world!","sequence":1}
+Publish received on topic topic_1
+<span>{</span>"message":"Hello world!","sequence":2}
+Publish received on topic topic_1
+<span>{</span>"message":"Hello world!","sequence":3}
+Publish received on topic topic_1
+<span>{</span>"message":"Hello world!","sequence":4}
+Publish received on topic topic_1
+<span>{</span>"message":"Hello world!","sequence":5}
+Publish received on topic topic_1
+<span>{</span>"message":"Hello world!","sequence":6}
+Publish received on topic topic_1
+<span>{</span>"message":"Hello world!","sequence":7}
+Publish received on topic topic_1
+<span>{</span>"message":"Hello world!","sequence":8}
+Publish received on topic topic_1
+<span>{</span>"message":"Hello world!","sequence":9}
+Publish received on topic topic_1
+<span>{</span>"message":"Hello world!","sequence":10}</code></pre>
+                                          </li>
+                                    </ol>
+                                 </div>
+                                 
+                                 <p>If you're having trouble running the sample app, review <a href="./gs-device-troubleshoot.html">Troubleshooting problems with the sample app</a>.
+                                 </p> 
+                                 
+                                 <p>You can also add the <code class="code">--verbosity
+                                       debug</code> parameter to the command line so the sample app displays
+                                    detailed messages about what it’s doing. That information might provide you
+                                    the help you need to correct the problem. 
+                                 </p>
+                                  
+                                 
+                                 <h2 id="ec2-view-msg">View messages from the sample app in the AWS IoT console</h2>
+                                 
+                                 <p>You can see the sample app's messages as they pass through the
+                                    message broker by using the <b>MQTT client</b> in the
+                                    <b>AWS IoT console</b>. 
+                                 </p>
+                                 
+                                 <div class="procedure">
+                                    <p class="title"><b>To view the MQTT messages published by the sample app</b></p>
+                                    <ol>
+                                       <li>
+                                          <p>Review <a href="./view-mqtt-messages.html">View MQTT messages with the AWS IoT MQTT
+                                                client</a>. This helps you
+                                             learn how to use the <b>MQTT client</b> in the
+                                             <b>AWS IoT console</b> to view MQTT messages as they
+                                             pass through the message broker.
+                                          </p>
+                                       </li>
+                                       <li>
+                                          <p>Open the <b>MQTT client</b> in the <b>AWS IoT
+                                                console</b>.
+                                          </p>
+                                       </li>
+                                       <li>
+                                          <p>Subscribe to the topic, <b>topic_1</b>.
+                                          </p>
+                                       </li>
+                                       <li>
+                                          
+                                          <p>In your <b>Amazon EC2 Instance Connect</b> window, run
+                                             the sample app again and watch the messages in the <b>MQTT
+                                                client</b> in the <b>AWS IoT
+                                                console</b>.
+                                          </p>
+                                          <pre class="programlisting"><div class="code-btn-container"><div class="btn-copy-code" title="Copy"><awsui-icon name="copy"></awsui-icon></div></div><code class="bash ">cd ~/aws-iot-device-sdk-js-v2/samples/node/pub_sub
+node dist/index.js --topic topic_1 --root-ca ~/certs/Amazon-root-CA-1.pem --cert ~/certs/device.pem.crt --key ~/certs/private.pem.key --endpoint <code class="replaceable">your-iot-endpoint</code></code></pre>
+                                          </li>
+                                    </ol>
+                                 </div>
+                                 
+                                 
+                                 <awsdocs-copyright class="copyright-print"></awsdocs-copyright>
+                                 <awsdocs-thumb-feedback right-edge="{{$ctrl.thumbFeedbackRightEdge}}"></awsdocs-thumb-feedback>
+                              </div>
+                              <noscript>
+                                 <div>
+                                    <div>
+                                       <div>
+                                          <div id="js_error_message">
+                                             <p><img src="https://d1ge0kk1l5kms0.cloudfront.net/images/G/01/webservices/console/warning.png" alt="Warning" /> <strong>Javascript is disabled or is unavailable in your
+                                                   browser.</strong></p>
+                                             <p>To use the Amazon Web Services Documentation, Javascript must be
+                                                enabled. Please refer to your browser's Help pages for instructions.
+                                             </p>
+                                          </div>
+                                       </div>
+                                    </div>
+                                 </div>
+                              </noscript>
+                              <div id="main-col-footer" class="awsui-util-font-size-0">
+                                 <div id="doc-conventions"><a target="_top" href="/general/latest/gr/docconventions.html">Document Conventions</a></div>
+                                 <div class="prev-next">
+                                    <div id="previous" class="prev-link" accesskey="p" href="./configure-device.html">Configure your device</div>
+                                    <div id="next" class="next-link" accesskey="n" href="./using-laptop-as-device.html">Use your Windows or Linux
+                                       PC or Mac as an AWS IoT device
+                                    </div>
+                                 </div>
+                              </div>
+                              <awsdocs-page-utilities></awsdocs-page-utilities>
+                           </div>
+                           <div id="quick-feedback-yes" style="display: none;">
+                              <div class="title">Did this page help you? - Yes</div>
+                              <div class="content">
+                                 <p>Thanks for letting us know we're doing a good
+                                    job!
+                                 </p>
+                                 <p>If you've got a moment, please tell us what we did right
+                                    so we can do more of it.
+                                 </p>
+                                 <p>
+                                    <awsui-button id="fblink" target="_blank" text="Feedback" click="linkClick($event)" href="https://docs.aws.amazon.com/forms/aws-doc-feedback?hidden_service_name=IoT Docs&amp;topic_url=https://docs.aws.amazon.com/en_us/iot/latest/developerguide/creating-a-virtual-thing.html"></awsui-button>
+                                 </p>
+                              </div>
+                           </div>
+                           <div id="quick-feedback-no" style="display: none;">
+                              <div class="title">Did this page help you? - No</div>
+                              <div class="content">
+                                 <p>Thanks for letting us know this page needs work. We're
+                                    sorry we let you down.
+                                 </p>
+                                 <p>If you've got a moment, please tell us how we can make
+                                    the documentation better.
+                                 </p>
+                                 <p>
+                                    <awsui-button id="fblink" target="_blank" text="Feedback" click="linkClick($event)" href="https://docs.aws.amazon.com/forms/aws-doc-feedback?hidden_service_name=IoT Docs&amp;topic_url=https://docs.aws.amazon.com/en_us/iot/latest/developerguide/creating-a-virtual-thing.html"></awsui-button>
+                                 </p>
+                              </div>
+                           </div>
+                        </div>
+                     </body>
+                  </div>
+               </awsdocs-view>
+               <div class="page-loading-indicator" id="page-loading-indicator">
+                  <awsui-spinner size="large"></awsui-spinner>
+               </div>
+            </div>
+            <div id="tools-panel" dom-region="tools">
+               <awsdocs-tools-panel id="awsdocs-tools-panel"></awsdocs-tools-panel>
+            </div>
+         </awsui-app-layout>
+         <awsdocs-cookie-banner class="doc-cookie-banner"></awsdocs-cookie-banner>
+         <!--
+                SiteCatalyst code version: H.25.2.
+                Copyright 1996-2012 Adobe, Inc. All Rights Reserved
+                More info available at http://www.omniture.com
+            --><script language="JavaScript" type="text/javascript">
+var awsdocs = awsdocs || {};
+awsdocs.prop66 = 'AWS IoT Core';
+awsdocs.prop65 =  'Developer Guide';
+            </script><script src="https://a0.awsstatic.com/s_code/js/3.0/awshome_s_code.js" language="JavaScript" type="text/javascript"></script>
+         <!--/DO NOT REMOVE/-->
+         <!--End SiteCatalyst code version: H.25.2.--></div>
+   </body>
+</html>

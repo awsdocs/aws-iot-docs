@@ -1,0 +1,342 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" ng-app="AWSDocsDocPageApp">
+   <head>
+      <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+      <title>View format of uplink messages sent from LoRaWAN devices - AWS IoT Core</title>
+      <meta name="viewport" content="width=device-width,initial-scale=1" />
+      <meta name="assets_root" content="assets" />
+      <meta name="target_state" content="connect-iot-lorawan-uplink-metadata-format" />
+      <meta name="default_state" content="connect-iot-lorawan-uplink-metadata-format" />
+      <link rel="icon" type="image/ico" href="/assets/images/favicon.ico" />
+      <link rel="shortcut icon" type="image/ico" href="/assets/images/favicon.ico" />
+      <link rel="canonical" href="https://docs.aws.amazon.com/iot/latest/developerguide/connect-iot-lorawan-uplink-metadata-format.html" />
+      <meta name="description" content="After you've connected your LoRaWAN device to AWS IoT Core for LoRaWAN, you can observe the format of the uplink message that you'll receive from your wireless device." />
+      <meta name="deployment_region" content="IAD" />
+      <meta name="product" content="AWS IoT Core" />
+      <meta name="guide" content="Developer Guide" />
+      <meta name="locales" content="de_de:Deutsch/en_us:English/es_es:Español/fr_fr:Français/it_it:Italiano/ja_jp:日本語/ko_kr:한국어/pt_br:Português/zh_cn:中文 (简体)/zh_tw:中文 (繁體)" />
+      <meta name="abstract" content="AWS IoT provides secure, bi-directional communication between Internet-connected devices such as sensors, actuators, embedded micro-controllers, or smart appliances and the AWS Cloud. This enables you to collect telemetry data from multiple devices, and store and analyze the data. You can also create applications that enable your users to control these devices from their phones or tablets." />
+      <meta name="guide-locale" content="en_us" />
+      <meta name="tocs" content="toc-contents.json" />
+      <meta name="feedback-item" content="IoT Docs" />
+      <meta name="this_doc_product" content="AWS IoT Core" />
+      <meta name="this_doc_guide" content="Developer Guide" />
+      <link href="assets/css/vendor4.css" rel="stylesheet" />
+      <link href="assets/css/awsdocs-common.css" rel="stylesheet" /><script type="text/javascript" src="assets/js/vendor3.js" defer=""></script><script type="text/javascript" src="assets/js/vendor4.js" defer=""></script><script type="text/javascript" src="assets/js/vendor1.js" defer=""></script><script type="text/javascript" src="assets/js/awsdocs-common.js" defer=""></script><script type="text/javascript" src="assets/js/awsdocs-doc-app.js" defer=""></script></head>
+   <body class="awsdocs awsui">
+      <div class="awsdocs-container">
+         <awsdocs-header></awsdocs-header>
+         <awsui-app-layout id="app-layout" class="awsui-util-no-gutters" ng-controller="ContentController as $ctrl" header-selector="awsdocs-header" navigation-hide="false" navigation-width="$ctrl.navWidth" navigation-open="$ctrl.navOpen" navigation-change="$ctrl.onNavChange($event)" tools-hide="$ctrl.hideTools" tools-width="$ctrl.toolsWidth" tools-open="$ctrl.toolsOpen" tools-change="$ctrl.onToolsChange($event)">
+            <div id="guide-toc" dom-region="navigation">
+               <awsdocs-toc></awsdocs-toc>
+            </div>
+            <div id="main-column" dom-region="content" tabindex="-1">
+               <awsdocs-view class="awsdocs-view">
+                  <div id="awsdocs-content">
+                     <head>
+                        <title>View format of uplink messages sent from LoRaWAN devices - AWS IoT Core</title>
+                        <meta name="pdf" content="iot-dg.pdf#connect-iot-lorawan-uplink-metadata-format" />
+                        <meta name="kindle" content="https://www.amazon.com/dp/B07JBRCWWZ" />
+                        <meta name="github" content="https://github.com/awsdocs/aws-iot-docs/tree/master/developerguide/connect-iot-lorawan-uplink-metadata-format.md" />
+                        <meta name="forums" content="http://forums.aws.amazon.com/forum.jspa?forumID=210" />
+                        <meta name="feedback" content="https://docs.aws.amazon.com/forms/aws-doc-feedback?hidden_service_name=IoT%20Docs&amp;topic_url=http://docs.aws.amazon.com/en_us/iot/latest/developerguide/connect-iot-lorawan-uplink-metadata-format.html" />
+                        <meta name="feedback-yes" content="feedbackyes.html?topic_url=http://docs.aws.amazon.com/en_us/iot/latest/developerguide/connect-iot-lorawan-uplink-metadata-format.html" />
+                        <meta name="feedback-no" content="feedbackno.html?topic_url=http://docs.aws.amazon.com/en_us/iot/latest/developerguide/connect-iot-lorawan-uplink-metadata-format.html" />
+                        <meta name="keywords" content="AWS IoT,IoT,Internet of Things" />
+                     </head>
+                     <body>
+                        <div id="main">
+                           <div style="display: none"><a href="iot-dg.pdf#connect-iot-lorawan-uplink-metadata-format" target="_blank" rel="noopener noreferrer" title="Open PDF"></a><a target="_blank" rel="noopener noreferrer" href="https://www.amazon.com/dp/B07JBRCWWZ" title="Open Kindle"></a><a href="https://github.com/awsdocs/aws-iot-docs/tree/master/developerguide/connect-iot-lorawan-uplink-metadata-format.md" target="_blank" rel="noopener noreferrer" title="Edit this page on GitHub"></a></div>
+                           <div id="breadcrumbs" class="breadcrumb"><a href="http://aws.amazon.com">AWS</a><a href="/index.html">Documentation</a><a href="/iot/index.html">AWS IoT Core</a><a href="what-is-aws-iot.html">Developer Guide</a></div>
+                           <div id="page-toc-src"><a href="#connect-iot-lorawan-uplink-metadata-prerequisites">Before you 
+                                 can observe the uplink messages</a><a href="#connect-iot-lorawan-uplink-metadata-contains">What do the
+                                 uplink messages contain?</a><a href="#connect-iot-lorawan-uplink-metadata-observe">How to observe the
+                                 uplink messages?</a><a href="#connect-iot-lorawan-uplink-metadata-example">Uplink message
+                                 example</a></div>
+                           <div id="main-content" class="awsui-util-container">
+                              <div id="main-col-body">
+                                 <awsdocs-language-banner data-service="$ctrl.pageService"></awsdocs-language-banner>
+                                 <h1 class="topictitle" id="connect-iot-lorawan-uplink-metadata-format">View format of uplink
+                                    messages sent from LoRaWAN devices
+                                 </h1>
+                                 <div class="awsdocs-page-header-container">
+                                    <awsdocs-page-header></awsdocs-page-header>
+                                    <awsdocs-filter-selector id="awsdocs-filter-selector"></awsdocs-filter-selector>
+                                 </div>
+                                 <p>After you've connected your LoRaWAN device to AWS IoT Core for LoRaWAN, you can observe
+                                    the 
+                                    format of the uplink message that you'll receive from your wireless device.
+                                 </p>
+                                 
+                                 <h2 id="connect-iot-lorawan-uplink-metadata-prerequisites">Before you 
+                                    can observe the uplink messages
+                                 </h2>
+                                 
+                                 <p>You must have onboarded your wireless device and connected your device to
+                                    AWS IoT so that it can transmit and receive data. For information about onboarding
+                                    your device to AWS IoT Core for LoRaWAN, see <a href="./connect-iot-lorawan-onboard-end-devices.html">Onboard your devices to
+                                       AWS IoT Core for LoRaWAN</a>.
+                                 </p>
+                                  
+                                 
+                                 <h2 id="connect-iot-lorawan-uplink-metadata-contains">What do the
+                                    uplink messages contain?
+                                 </h2>
+                                 
+                                 <p>LoRaWAN devices connect to AWS IoT Core for LoRaWAN by using LoRaWAN gateways. The
+                                    uplink
+                                    message that you receive from the device will contain the following
+                                    information.
+                                 </p> 
+                                 
+                                 <div class="itemizedlist">
+                                     
+                                     
+                                    
+                                    <ul class="itemizedlist" type="disc">
+                                       <li class="listitem">
+                                          
+                                          <p>Payload data that corresponds to the encrypted payload message that is
+                                             sent from the wireless device.
+                                          </p>
+                                          
+                                       </li>
+                                       <li class="listitem">
+                                          
+                                          <p>Wireless metadata that includes:</p>
+                                          
+                                          <div class="itemizedlist">
+                                              
+                                              
+                                             
+                                             <ul class="itemizedlist" type="disc">
+                                                <li class="listitem">
+                                                   
+                                                   <p>Device information such as DevEui, the data rate, and the
+                                                      frequency channel in which the device is operating.
+                                                   </p>
+                                                   
+                                                </li>
+                                                <li class="listitem">
+                                                   
+                                                   <p>Optional additional parameters and the gateway information for
+                                                      gateways that are connected to the device. The gateway
+                                                      parameters include the gateway's EUI, the SNR, and RSSi.
+                                                   </p>
+                                                   
+                                                </li>
+                                             </ul>
+                                          </div>
+                                          
+                                          <p>By using the wireless metadata, you can obtain useful information
+                                             about the wireless device and the data that is transmitted between your
+                                             device and AWS IoT. For example, you can use the
+                                             <code class="code">AckedMessageId</code> parameter to check whether the last
+                                             confirmed downlink message has been received by the device. Optionally,
+                                             if you choose to include the gateway information, you can identify
+                                             whether you want to switch to a stronger gateway channel that's closer
+                                             to your device.
+                                          </p>                    
+                                          
+                                       </li>
+                                    </ul>
+                                 </div>
+                                  
+                                 
+                                 <h2 id="connect-iot-lorawan-uplink-metadata-observe">How to observe the
+                                    uplink messages?
+                                 </h2>
+                                 
+                                 <p>After you've onboarded your device, you can use the <a href="https://console.aws.amazon.com/iot/home#/test" rel="noopener noreferrer" target="_blank"><span>MQTT test client</span><awsui-icon class="awsdocs-link-icon" name="external"></awsui-icon></a> on the
+                                    <b>Test</b> page of the AWS IoT console to subscribe
+                                    to the topic that you specified when creating your destination. You'll start to see
+                                    messages after your device is connected and starts sending payload data.
+                                 </p>
+                                 
+                                 <p>This diagram identifies the key elements in a LoRaWAN system connected
+                                    to AWS IoT Core for LoRaWAN, which shows the primary data plane and how data flows
+                                    through the system.
+                                 </p>
+                                 
+                                 <div class="mediaobject">
+                                     
+                                    <img src="images/iot-lorawan-data-flow.png" class="aws-docs-img-whiteBg aws-docs-img-padding" alt="&#xA;                        Image showing how AWS IoT Core for LoRaWAN data is passed from a&#xA;                            wireless device to AWS IoT and other services.&#xA;                    " />
+                                     
+                                     
+                                    
+                                 </div>            
+                                 
+                                 <p>When the wireless device starts sending uplink data, AWS IoT Core for LoRaWAN wraps
+                                    the 
+                                    wireless metadata information with the payload and then sends it to your AWS 
+                                    applications.
+                                 </p>
+                                  
+                                 
+                                 <h2 id="connect-iot-lorawan-uplink-metadata-example">Uplink message
+                                    example
+                                 </h2>
+                                 
+                                 <p>The following example shows the format of the uplink message received from
+                                    your device.
+                                 </p>           
+                                 <pre class="programlisting"><div class="code-btn-container"><div class="btn-copy-code" title="Copy"><awsui-icon name="copy"></awsui-icon></div></div><code class="JSON "><span>{</span>
+    "WirelessDeviceId": "5b58245e-146c-4c30-9703-0ca942e3ff35", 
+    "PayloadData": "Cc48AAAAAAAAAAA=",    
+    "WirelessMetadata":
+    <span>{</span>
+        "LoRaWAN":
+        <span>{</span>
+            "ADR": false,
+            "Bandwidth": 125,
+            "ClassB": false,
+            "CodeRate": "4/5",
+            "DataRate": "0",
+            "DevAddr": "00b96cd4",
+            "DevEui": "58a0cb000202c99",            
+            "FOptLen": 2,
+            "FCnt": 1,
+            "Fport": 136,   
+            "Frequency": "868100000",     
+            "Gateways": [
+             <span>{</span>
+                    "GatewayEui": "80029cfffe5cf1cc",      
+                    "Snr": -29,
+                    "Rssi": 9.75
+             }
+             ],  
+            "MIC": "7255cb07",  
+            "MType": "UnconfirmedDataUp",
+            "Major": "LoRaWANR1",
+            "Modulation": "LORA", 
+            "PolarizationInversion": false,    
+            "SpreadingFactor": 12,                         
+            "Timestamp": "2021-05-03T03:24:29Z"
+            
+        }
+    }
+}</code></pre>
+                                 <p>For information about the different parameters in the uplink metadata, see
+                                    <a href="https://docs.aws.amazon.com/iot-wireless/2020-11-22/apireference/API_SendDataToWirelessDevice.html">SendDataToWirelessDevice</a>. Note that the
+                                    <code class="code">SendDataToWirelessDevice</code> API is used for data that is sent from 
+                                    AWS IoT Core for LoRaWAN to your wireless device. You can use the API parameters as
+                                    a reference 
+                                    to learn about the different fields in your uplink message.
+                                 </p>       
+                                  
+                                 
+                                 <h3 id="connect-iot-lorawan-uplink-metadata-example2">Exclude gateway 
+                                    metadata from uplink metadata
+                                 </h3>
+                                 
+                                 <p>If you want to exclude the gateway metadata information from your uplink
+                                    metadata, disable the <b>AddGwMetadata</b> parameter when you
+                                    create the service profile. For information about disabling this parameter,
+                                    see <a href="./connect-iot-lorawan-define-profiles.html#connect-iot-lorawan-service-profiles">Add service profiles</a>.
+                                 </p>
+                                 
+                                 <p>In this case, you won't see the <code class="code">Gateways</code> section in the
+                                    uplink metadata, as illustrated in the following example.
+                                 </p>
+                                 <pre class="programlisting"><div class="code-btn-container"><div class="btn-copy-code" title="Copy"><awsui-icon name="copy"></awsui-icon></div></div><code class="JSON "><span>{</span>  
+    "WirelessDeviceId": "0d9a439b-e77a-4573-a791-49d5c0f4db95",
+    "PayloadData": "AAAAAAAA//8=",
+    "WirelessMetadata": <span>{</span>
+        "LoRaWAN": <span>{</span>
+            "ClassB": false,
+            "CodeRate": "4/5",
+            "DataRate": "1",
+            "DevAddr": "01920f27",
+            "DevEui": "ffffff10000163b0",
+            "FCnt": 1,
+            "FPort": 5,
+            "Timestamp": "2021-04-29T05:19:43.646Z"
+    }
+  }
+}</code></pre> 
+                                  
+                                 <awsdocs-copyright class="copyright-print"></awsdocs-copyright>
+                                 <awsdocs-thumb-feedback right-edge="{{$ctrl.thumbFeedbackRightEdge}}"></awsdocs-thumb-feedback>
+                              </div>
+                              <noscript>
+                                 <div>
+                                    <div>
+                                       <div>
+                                          <div id="js_error_message">
+                                             <p><img src="https://d1ge0kk1l5kms0.cloudfront.net/images/G/01/webservices/console/warning.png" alt="Warning" /> <strong>Javascript is disabled or is unavailable in your
+                                                   browser.</strong></p>
+                                             <p>To use the Amazon Web Services Documentation, Javascript must be
+                                                enabled. Please refer to your browser's Help pages for instructions.
+                                             </p>
+                                          </div>
+                                       </div>
+                                    </div>
+                                 </div>
+                              </noscript>
+                              <div id="main-col-footer" class="awsui-util-font-size-0">
+                                 <div id="doc-conventions"><a target="_top" href="/general/latest/gr/docconventions.html">Document Conventions</a></div>
+                                 <div class="prev-next">
+                                    <div id="previous" class="prev-link" accesskey="p" href="./connect-iot-lorawan-manage-end-devices.html">Managing devices with
+                                       AWS IoT Core for LoRaWAN
+                                    </div>
+                                    <div id="next" class="next-link" accesskey="n" href="./connect-iot-lorawan-logging-monitoring.html">Monitoring and logging for 
+                                       AWS IoT Core for LoRaWAN
+                                    </div>
+                                 </div>
+                              </div>
+                              <awsdocs-page-utilities></awsdocs-page-utilities>
+                           </div>
+                           <div id="quick-feedback-yes" style="display: none;">
+                              <div class="title">Did this page help you? - Yes</div>
+                              <div class="content">
+                                 <p>Thanks for letting us know we're doing a good
+                                    job!
+                                 </p>
+                                 <p>If you've got a moment, please tell us what we did right
+                                    so we can do more of it.
+                                 </p>
+                                 <p>
+                                    <awsui-button id="fblink" target="_blank" text="Feedback" click="linkClick($event)" href="https://docs.aws.amazon.com/forms/aws-doc-feedback?hidden_service_name=IoT Docs&amp;topic_url=https://docs.aws.amazon.com/en_us/iot/latest/developerguide/connect-iot-lorawan-uplink-metadata-format.html"></awsui-button>
+                                 </p>
+                              </div>
+                           </div>
+                           <div id="quick-feedback-no" style="display: none;">
+                              <div class="title">Did this page help you? - No</div>
+                              <div class="content">
+                                 <p>Thanks for letting us know this page needs work. We're
+                                    sorry we let you down.
+                                 </p>
+                                 <p>If you've got a moment, please tell us how we can make
+                                    the documentation better.
+                                 </p>
+                                 <p>
+                                    <awsui-button id="fblink" target="_blank" text="Feedback" click="linkClick($event)" href="https://docs.aws.amazon.com/forms/aws-doc-feedback?hidden_service_name=IoT Docs&amp;topic_url=https://docs.aws.amazon.com/en_us/iot/latest/developerguide/connect-iot-lorawan-uplink-metadata-format.html"></awsui-button>
+                                 </p>
+                              </div>
+                           </div>
+                        </div>
+                     </body>
+                  </div>
+               </awsdocs-view>
+               <div class="page-loading-indicator" id="page-loading-indicator">
+                  <awsui-spinner size="large"></awsui-spinner>
+               </div>
+            </div>
+            <div id="tools-panel" dom-region="tools">
+               <awsdocs-tools-panel id="awsdocs-tools-panel"></awsdocs-tools-panel>
+            </div>
+         </awsui-app-layout>
+         <awsdocs-cookie-banner class="doc-cookie-banner"></awsdocs-cookie-banner>
+         <!--
+                SiteCatalyst code version: H.25.2.
+                Copyright 1996-2012 Adobe, Inc. All Rights Reserved
+                More info available at http://www.omniture.com
+            --><script language="JavaScript" type="text/javascript">
+var awsdocs = awsdocs || {};
+awsdocs.prop66 = 'AWS IoT Core';
+awsdocs.prop65 =  'Developer Guide';
+            </script><script src="https://a0.awsstatic.com/s_code/js/3.0/awshome_s_code.js" language="JavaScript" type="text/javascript"></script>
+         <!--/DO NOT REMOVE/-->
+         <!--End SiteCatalyst code version: H.25.2.--></div>
+   </body>
+</html>

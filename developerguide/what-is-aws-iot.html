@@ -1,0 +1,271 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" ng-app="AWSDocsDocPageApp">
+   <head>
+      <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+      <title>What is AWS IoT? - AWS IoT Core</title>
+      <meta name="viewport" content="width=device-width,initial-scale=1" />
+      <meta name="assets_root" content="assets" />
+      <meta name="target_state" content="what-is-aws-iot" />
+      <meta name="default_state" content="what-is-aws-iot" />
+      <link rel="icon" type="image/ico" href="/assets/images/favicon.ico" />
+      <link rel="shortcut icon" type="image/ico" href="/assets/images/favicon.ico" />
+      <link rel="canonical" href="https://docs.aws.amazon.com/iot/latest/developerguide/what-is-aws-iot.html" />
+      <meta name="description" content="Learn about AWS IoT and its features to manage communications between your devices and the AWS Cloud." />
+      <meta name="deployment_region" content="IAD" />
+      <meta name="product" content="AWS IoT Core" />
+      <meta name="guide" content="Developer Guide" />
+      <meta name="locales" content="de_de:Deutsch/en_us:English/es_es:Español/fr_fr:Français/it_it:Italiano/ja_jp:日本語/ko_kr:한국어/pt_br:Português/zh_cn:中文 (简体)/zh_tw:中文 (繁體)" />
+      <meta name="abstract" content="AWS IoT provides secure, bi-directional communication between Internet-connected devices such as sensors, actuators, embedded micro-controllers, or smart appliances and the AWS Cloud. This enables you to collect telemetry data from multiple devices, and store and analyze the data. You can also create applications that enable your users to control these devices from their phones or tablets." />
+      <meta name="guide-locale" content="en_us" />
+      <meta name="tocs" content="toc-contents.json" />
+      <meta name="feedback-item" content="IoT Docs" />
+      <meta name="this_doc_product" content="AWS IoT Core" />
+      <meta name="this_doc_guide" content="Developer Guide" />
+      <link href="assets/css/vendor4.css" rel="stylesheet" />
+      <link href="assets/css/awsdocs-common.css" rel="stylesheet" /><script type="text/javascript" src="assets/js/vendor3.js" defer=""></script><script type="text/javascript" src="assets/js/vendor4.js" defer=""></script><script type="text/javascript" src="assets/js/vendor1.js" defer=""></script><script type="text/javascript" src="assets/js/awsdocs-common.js" defer=""></script><script type="text/javascript" src="assets/js/awsdocs-doc-app.js" defer=""></script></head>
+   <body class="awsdocs awsui">
+      <div class="awsdocs-container">
+         <awsdocs-header></awsdocs-header>
+         <awsui-app-layout id="app-layout" class="awsui-util-no-gutters" ng-controller="ContentController as $ctrl" header-selector="awsdocs-header" navigation-hide="false" navigation-width="$ctrl.navWidth" navigation-open="$ctrl.navOpen" navigation-change="$ctrl.onNavChange($event)" tools-hide="$ctrl.hideTools" tools-width="$ctrl.toolsWidth" tools-open="$ctrl.toolsOpen" tools-change="$ctrl.onToolsChange($event)">
+            <div id="guide-toc" dom-region="navigation">
+               <awsdocs-toc></awsdocs-toc>
+            </div>
+            <div id="main-column" dom-region="content" tabindex="-1">
+               <awsdocs-view class="awsdocs-view">
+                  <div id="awsdocs-content">
+                     <head>
+                        <title>What is AWS IoT? - AWS IoT Core</title>
+                        <meta name="pdf" content="iot-dg.pdf#what-is-aws-iot" />
+                        <meta name="kindle" content="https://www.amazon.com/dp/B07JBRCWWZ" />
+                        <meta name="github" content="https://github.com/awsdocs/aws-iot-docs/tree/master/developerguide/what-is-aws-iot.md" />
+                        <meta name="forums" content="http://forums.aws.amazon.com/forum.jspa?forumID=210" />
+                        <meta name="feedback" content="https://docs.aws.amazon.com/forms/aws-doc-feedback?hidden_service_name=IoT%20Docs&amp;topic_url=http://docs.aws.amazon.com/en_us/iot/latest/developerguide/what-is-aws-iot.html" />
+                        <meta name="feedback-yes" content="feedbackyes.html?topic_url=http://docs.aws.amazon.com/en_us/iot/latest/developerguide/what-is-aws-iot.html" />
+                        <meta name="feedback-no" content="feedbackno.html?topic_url=http://docs.aws.amazon.com/en_us/iot/latest/developerguide/what-is-aws-iot.html" />
+                        <meta name="keywords" content="AWS IoT,IoT,Internet of Things" />
+                     </head>
+                     <body>
+                        <div id="main">
+                           <div style="display: none"><a href="iot-dg.pdf#what-is-aws-iot" target="_blank" rel="noopener noreferrer" title="Open PDF"></a><a target="_blank" rel="noopener noreferrer" href="https://www.amazon.com/dp/B07JBRCWWZ" title="Open Kindle"></a><a href="https://github.com/awsdocs/aws-iot-docs/tree/master/developerguide/what-is-aws-iot.md" target="_blank" rel="noopener noreferrer" title="Edit this page on GitHub"></a></div>
+                           <div id="breadcrumbs" class="breadcrumb"><a href="http://aws.amazon.com">AWS</a><a href="/index.html">Documentation</a><a href="/iot/index.html">AWS IoT Core</a><a href="what-is-aws-iot.html">Developer Guide</a></div>
+                           <div id="page-toc-src"><a href="#aws-iot-interfaces">How your devices and apps access AWS IoT</a></div>
+                           <awsdocs-doc-page-banner></awsdocs-doc-page-banner>
+                           <div id="main-content" class="awsui-util-container">
+                              <div id="main-col-body">
+                                 <awsdocs-language-banner data-service="$ctrl.pageService"></awsdocs-language-banner>
+                                 <h1 class="topictitle" id="what-is-aws-iot">What is AWS IoT?</h1>
+                                 <div class="awsdocs-page-header-container">
+                                    <awsdocs-page-header></awsdocs-page-header>
+                                    <awsdocs-filter-selector id="awsdocs-filter-selector"></awsdocs-filter-selector>
+                                 </div>
+                                 <p>AWS IoT provides the cloud services that connect your IoT devices to other devices
+                                    and AWS
+                                    cloud services. AWS IoT provides device software that can help you integrate your
+                                    IoT devices
+                                    into AWS IoT-based solutions. If your devices can connect to AWS IoT, AWS IoT can
+                                    connect them to
+                                    the cloud services that AWS provides.
+                                 </p>
+                                 <p>For a hands-on introduction to AWS IoT, visit <a href="./iot-gs.html">Getting started with AWS IoT Core</a>.
+                                 </p>
+                                 <div class="mediaobject">
+                                     
+                                    <img src="images/what-is-aws-iot.png" class="aws-docs-img-whiteBg aws-docs-img-padding" alt="&#xA;            AWS IoT connects IoT devices to AWS IoT services&#xA;        " />
+                                     
+                                     
+                                    
+                                 </div>
+                                 <p>AWS IoT lets you select the most appropriate and up-to-date technologies for your
+                                    solution.
+                                    To help you manage and support your IoT devices in the field, AWS IoT Core supports
+                                    these
+                                    protocols: 
+                                 </p>
+                                 <div class="itemizedlist">
+                                     
+                                     
+                                     
+                                     
+                                    
+                                    <ul class="itemizedlist" type="disc">
+                                       <li class="listitem">
+                                          
+                                          <p><a href="./mqtt.html">MQTT (Message Queuing and Telemetry Transport)</a></p>
+                                          
+                                       </li>
+                                       <li class="listitem">
+                                          
+                                          <p><a href="./mqtt.html">MQTT over WSS (Websockets Secure)</a></p>
+                                          
+                                       </li>
+                                       <li class="listitem">
+                                          
+                                          <p><a href="./http.html">HTTPS (Hypertext Transfer Protocol - Secure)</a> 
+                                          </p>
+                                          
+                                       </li>
+                                       <li class="listitem">
+                                          
+                                          <p><a href="./connect-iot-lorawan.html">LoRaWAN (Long Range Wide Area Network)</a></p>
+                                          
+                                       </li>
+                                    </ul>
+                                 </div>
+                                 <p>The AWS IoT Core message broker supports devices and clients 
+                                    that use MQTT and MQTT over WSS protocols to publish and subscribe to messages. It
+                                    also
+                                    supports devices and clients that use the HTTPS protocol to publish messages.
+                                 </p>
+                                 <p>AWS IoT Core for LoRaWAN helps you connect and manage wireless LoRaWAN (low-power
+                                    long-range Wide
+                                    Area Network) devices. AWS IoT Core for LoRaWAN replaces the need for you to develop
+                                    and operate a
+                                    LoRaWAN Network Server (LNS).
+                                 </p>
+                                 <p>If you don't require AWS IoT features such as device communications, <a href="./iot-rules.html">rules</a>, or <a href="./iot-jobs.html">jobs</a>, see <a href="https://aws.amazon.com/messaging/" rel="noopener noreferrer" target="_blank"><span>AWS Messaging</span><awsui-icon class="awsdocs-link-icon" name="external"></awsui-icon></a> for information about
+                                    other AWS IoT messaging services that might better fit your requirements.
+                                 </p>
+                                 
+                                 <h2 id="aws-iot-interfaces">How your devices and apps access AWS IoT</h2>
+                                 
+                                 <p>AWS IoT provides the following interfaces for <a href="./iot-tutorials.html">AWS IoT Tutorials</a>:
+                                 </p>
+                                 
+                                 <div class="itemizedlist">
+                                     
+                                     
+                                     
+                                     
+                                     
+                                    
+                                    <ul class="itemizedlist" type="disc">
+                                       <li class="listitem">
+                                          
+                                          <p><b>AWS IoT Device SDKs</b>—Build applications on your
+                                             devices that send messages to and receive messages from AWS IoT. For more
+                                             information, see <a href="./iot-sdks.html">AWS IoT Device SDKs, Mobile SDKs, and AWS IoT Device Client</a>.
+                                          </p>
+                                          
+                                       </li>
+                                       <li class="listitem">
+                                          
+                                          <p><b>AWS IoT Core for LoRaWAN</b>—Connect and manage your long range
+                                             WAN (LoRaWAN) devices and gateways by using <a href="./connect-iot-lorawan.html">AWS IoT Core for LoRaWAN</a>.
+                                          </p>
+                                          
+                                       </li>
+                                       <li class="listitem">
+                                          
+                                          <p><b>AWS Command Line Interface (AWS CLI)</b>—Run commands for AWS IoT on
+                                             Windows, macOS, and Linux. These commands allow you to create and manage thing
+                                             objects, certificates, rules, jobs, and policies. To get started, see the
+                                             <a href="https://docs.aws.amazon.com/cli/latest/userguide/">AWS Command Line Interface User Guide</a>. For more information about the commands for AWS IoT, see <a href="https://docs.aws.amazon.com/cli/latest/reference/iot/index.html">iot</a> in the
+                                             <em>AWS CLI Command Reference</em>.
+                                          </p>
+                                          
+                                       </li>
+                                       <li class="listitem">
+                                          
+                                          <p><b>AWS IoT API</b>—Build your IoT applications using HTTP or
+                                             HTTPS requests. These API actions allow you to programmatically create and
+                                             manage thing objects, certificates, rules, and policies. For more information
+                                             about the API actions for AWS IoT, see <a href="https://docs.aws.amazon.com/iot/latest/apireference/API_Operations.html">Actions</a> in the <em>AWS IoT API Reference</em>.
+                                          </p>
+                                          
+                                       </li>
+                                       <li class="listitem">
+                                          
+                                          <p><b>AWS SDKs</b>—Build your IoT applications using
+                                             language-specific APIs. These SDKs wrap the HTTP/HTTPS API and allow you to
+                                             program in any of the supported languages. For more information, see <a href="http://aws.amazon.com/tools/#sdk" rel="noopener noreferrer" target="_blank"><span>AWS SDKs and Tools</span><awsui-icon class="awsdocs-link-icon" name="external"></awsui-icon></a>.
+                                          </p>
+                                          
+                                       </li>
+                                    </ul>
+                                 </div>
+                                 
+                                 <p>You can also access AWS IoT through the <a href="https://console.aws.amazon.com/iot/home" rel="noopener noreferrer" target="_blank"><span>AWS IoT console</span><awsui-icon class="awsdocs-link-icon" name="external"></awsui-icon></a>, which provides a graphical user interface (GUI) through
+                                    which you can configure and manage the thing objects, certificates, rules, jobs,
+                                    policies, and other elements of your IoT solutions.
+                                 </p>
+                                 
+                                 <awsdocs-copyright class="copyright-print"></awsdocs-copyright>
+                                 <awsdocs-thumb-feedback right-edge="{{$ctrl.thumbFeedbackRightEdge}}"></awsdocs-thumb-feedback>
+                              </div>
+                              <noscript>
+                                 <div>
+                                    <div>
+                                       <div>
+                                          <div id="js_error_message">
+                                             <p><img src="https://d1ge0kk1l5kms0.cloudfront.net/images/G/01/webservices/console/warning.png" alt="Warning" /> <strong>Javascript is disabled or is unavailable in your
+                                                   browser.</strong></p>
+                                             <p>To use the Amazon Web Services Documentation, Javascript must be
+                                                enabled. Please refer to your browser's Help pages for instructions.
+                                             </p>
+                                          </div>
+                                       </div>
+                                    </div>
+                                 </div>
+                              </noscript>
+                              <div id="main-col-footer" class="awsui-util-font-size-0">
+                                 <div id="doc-conventions"><a target="_top" href="/general/latest/gr/docconventions.html">Document Conventions</a></div>
+                                 <div class="prev-next">
+                                    <div id="next" class="next-link" accesskey="n" href="./aws-iot-solutions.html">What AWS IoT can do</div>
+                                 </div>
+                              </div>
+                              <awsdocs-page-utilities></awsdocs-page-utilities>
+                           </div>
+                           <div id="quick-feedback-yes" style="display: none;">
+                              <div class="title">Did this page help you? - Yes</div>
+                              <div class="content">
+                                 <p>Thanks for letting us know we're doing a good
+                                    job!
+                                 </p>
+                                 <p>If you've got a moment, please tell us what we did right
+                                    so we can do more of it.
+                                 </p>
+                                 <p>
+                                    <awsui-button id="fblink" target="_blank" text="Feedback" click="linkClick($event)" href="https://docs.aws.amazon.com/forms/aws-doc-feedback?hidden_service_name=IoT Docs&amp;topic_url=https://docs.aws.amazon.com/en_us/iot/latest/developerguide/what-is-aws-iot.html"></awsui-button>
+                                 </p>
+                              </div>
+                           </div>
+                           <div id="quick-feedback-no" style="display: none;">
+                              <div class="title">Did this page help you? - No</div>
+                              <div class="content">
+                                 <p>Thanks for letting us know this page needs work. We're
+                                    sorry we let you down.
+                                 </p>
+                                 <p>If you've got a moment, please tell us how we can make
+                                    the documentation better.
+                                 </p>
+                                 <p>
+                                    <awsui-button id="fblink" target="_blank" text="Feedback" click="linkClick($event)" href="https://docs.aws.amazon.com/forms/aws-doc-feedback?hidden_service_name=IoT Docs&amp;topic_url=https://docs.aws.amazon.com/en_us/iot/latest/developerguide/what-is-aws-iot.html"></awsui-button>
+                                 </p>
+                              </div>
+                           </div>
+                        </div>
+                     </body>
+                  </div>
+               </awsdocs-view>
+               <div class="page-loading-indicator" id="page-loading-indicator">
+                  <awsui-spinner size="large"></awsui-spinner>
+               </div>
+            </div>
+            <div id="tools-panel" dom-region="tools">
+               <awsdocs-tools-panel id="awsdocs-tools-panel"></awsdocs-tools-panel>
+            </div>
+         </awsui-app-layout>
+         <awsdocs-cookie-banner class="doc-cookie-banner"></awsdocs-cookie-banner>
+         <!--
+                SiteCatalyst code version: H.25.2.
+                Copyright 1996-2012 Adobe, Inc. All Rights Reserved
+                More info available at http://www.omniture.com
+            --><script language="JavaScript" type="text/javascript">
+var awsdocs = awsdocs || {};
+awsdocs.prop66 = 'AWS IoT Core';
+awsdocs.prop65 =  'Developer Guide';
+            </script><script src="https://a0.awsstatic.com/s_code/js/3.0/awshome_s_code.js" language="JavaScript" type="text/javascript"></script>
+         <!--/DO NOT REMOVE/-->
+         <!--End SiteCatalyst code version: H.25.2.--></div>
+   </body>
+</html>

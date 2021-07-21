@@ -1,0 +1,277 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" ng-app="AWSDocsDocPageApp">
+   <head>
+      <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+      <title>Device Advisor troubleshooting guide - AWS IoT Core</title>
+      <meta name="viewport" content="width=device-width,initial-scale=1" />
+      <meta name="assets_root" content="assets" />
+      <meta name="target_state" content="device-advisor-troubleshooting" />
+      <meta name="default_state" content="device-advisor-troubleshooting" />
+      <link rel="icon" type="image/ico" href="/assets/images/favicon.ico" />
+      <link rel="shortcut icon" type="image/ico" href="/assets/images/favicon.ico" />
+      <link rel="canonical" href="https://docs.aws.amazon.com/iot/latest/developerguide/device-advisor-troubleshooting.html" />
+      <meta name="description" content="A: No. Currently Device Advisor does not support running multiple test suites since only one Device Advisor endpoint is available per account. However, you can test multiple device types by sequencing the test suites one after the other. A: Yes. Device Advisor denies the TLS connection before and after each test run. We recommend users to implement device retry mechanism in order to have a full-automated testing experience with Device Advisor. If you execute a test suite with more than one test case say - TLS connect, MQTT connect and MQTT publish then we recommend that you have a mechanism built for your device to try connecting to our test end point every 5 seconds for a minute to two. This will enable you to run multiple test cases in sequence in automated manner." />
+      <meta name="deployment_region" content="IAD" />
+      <meta name="product" content="AWS IoT Core" />
+      <meta name="guide" content="Developer Guide" />
+      <meta name="locales" content="de_de:Deutsch/en_us:English/es_es:Español/fr_fr:Français/it_it:Italiano/ja_jp:日本語/ko_kr:한국어/pt_br:Português/zh_cn:中文 (简体)/zh_tw:中文 (繁體)" />
+      <meta name="abstract" content="AWS IoT provides secure, bi-directional communication between Internet-connected devices such as sensors, actuators, embedded micro-controllers, or smart appliances and the AWS Cloud. This enables you to collect telemetry data from multiple devices, and store and analyze the data. You can also create applications that enable your users to control these devices from their phones or tablets." />
+      <meta name="guide-locale" content="en_us" />
+      <meta name="tocs" content="toc-contents.json" />
+      <meta name="feedback-item" content="IoT Docs" />
+      <meta name="this_doc_product" content="AWS IoT Core" />
+      <meta name="this_doc_guide" content="Developer Guide" />
+      <link href="assets/css/vendor4.css" rel="stylesheet" />
+      <link href="assets/css/awsdocs-common.css" rel="stylesheet" /><script type="text/javascript" src="assets/js/vendor3.js" defer=""></script><script type="text/javascript" src="assets/js/vendor4.js" defer=""></script><script type="text/javascript" src="assets/js/vendor1.js" defer=""></script><script type="text/javascript" src="assets/js/awsdocs-common.js" defer=""></script><script type="text/javascript" src="assets/js/awsdocs-doc-app.js" defer=""></script></head>
+   <body class="awsdocs awsui">
+      <div class="awsdocs-container">
+         <awsdocs-header></awsdocs-header>
+         <awsui-app-layout id="app-layout" class="awsui-util-no-gutters" ng-controller="ContentController as $ctrl" header-selector="awsdocs-header" navigation-hide="false" navigation-width="$ctrl.navWidth" navigation-open="$ctrl.navOpen" navigation-change="$ctrl.onNavChange($event)" tools-hide="$ctrl.hideTools" tools-width="$ctrl.toolsWidth" tools-open="$ctrl.toolsOpen" tools-change="$ctrl.onToolsChange($event)">
+            <div id="guide-toc" dom-region="navigation">
+               <awsdocs-toc></awsdocs-toc>
+            </div>
+            <div id="main-column" dom-region="content" tabindex="-1">
+               <awsdocs-view class="awsdocs-view">
+                  <div id="awsdocs-content">
+                     <head>
+                        <title>Device Advisor troubleshooting guide - AWS IoT Core</title>
+                        <meta name="pdf" content="iot-dg.pdf#device-advisor-troubleshooting" />
+                        <meta name="kindle" content="https://www.amazon.com/dp/B07JBRCWWZ" />
+                        <meta name="github" content="https://github.com/awsdocs/aws-iot-docs/tree/master/developerguide/device-advisor-troubleshooting.md" />
+                        <meta name="forums" content="http://forums.aws.amazon.com/forum.jspa?forumID=210" />
+                        <meta name="feedback" content="https://docs.aws.amazon.com/forms/aws-doc-feedback?hidden_service_name=IoT%20Docs&amp;topic_url=http://docs.aws.amazon.com/en_us/iot/latest/developerguide/device-advisor-troubleshooting.html" />
+                        <meta name="feedback-yes" content="feedbackyes.html?topic_url=http://docs.aws.amazon.com/en_us/iot/latest/developerguide/device-advisor-troubleshooting.html" />
+                        <meta name="feedback-no" content="feedbackno.html?topic_url=http://docs.aws.amazon.com/en_us/iot/latest/developerguide/device-advisor-troubleshooting.html" />
+                        <meta name="keywords" content="AWS IoT,IoT,Internet of Things" />
+                     </head>
+                     <body>
+                        <div id="main">
+                           <div style="display: none"><a href="iot-dg.pdf#device-advisor-troubleshooting" target="_blank" rel="noopener noreferrer" title="Open PDF"></a><a target="_blank" rel="noopener noreferrer" href="https://www.amazon.com/dp/B07JBRCWWZ" title="Open Kindle"></a><a href="https://github.com/awsdocs/aws-iot-docs/tree/master/developerguide/device-advisor-troubleshooting.md" target="_blank" rel="noopener noreferrer" title="Edit this page on GitHub"></a></div>
+                           <div id="breadcrumbs" class="breadcrumb"><a href="http://aws.amazon.com">AWS</a><a href="/index.html">Documentation</a><a href="/iot/index.html">AWS IoT Core</a><a href="what-is-aws-iot.html">Developer Guide</a></div>
+                           <div id="main-content" class="awsui-util-container">
+                              <div id="main-col-body">
+                                 <awsdocs-language-banner data-service="$ctrl.pageService"></awsdocs-language-banner>
+                                 <h1 class="topictitle" id="device-advisor-troubleshooting">Device Advisor troubleshooting guide</h1>
+                                 <div class="awsdocs-page-header-container">
+                                    <awsdocs-page-header></awsdocs-page-header>
+                                    <awsdocs-filter-selector id="awsdocs-filter-selector"></awsdocs-filter-selector>
+                                 </div>
+                                 <div class="variablelist">
+                                    
+                                    <p class="title"><b>General</b></p>
+                                     
+                                     
+                                     
+                                     
+                                     
+                                     
+                                      
+                                     
+                                    
+                                    <dl>
+                                       
+                                       <dt><span class="term">Q: Can I run multiple test suites in parallel?</span></dt>
+                                       
+                                       <dd>
+                                          
+                                          <p>A: No. Currently Device Advisor does not support running multiple test suites since
+                                             only
+                                             one Device Advisor endpoint is available per account. However, you can test multiple
+                                             device
+                                             types by sequencing the test suites one after the other.
+                                          </p>
+                                          
+                                       </dd>
+                                        
+                                       
+                                       <dt><span class="term">Q: I saw from my device that the TLS connection got denied by Device Advisor. Is this
+                                             expected?</span></dt>
+                                       
+                                       <dd>
+                                          
+                                          <p>A: Yes. Device Advisor denies the TLS connection before and after each test run. We
+                                             recommend users to implement device retry mechanism in order to have a full-automated
+                                             testing experience with Device Advisor. If you execute a test suite with more than
+                                             one test
+                                             case say - TLS connect, MQTT connect and MQTT publish then we recommend that you have
+                                             a
+                                             mechanism built for your device to try connecting to our test end point every 5 seconds
+                                             for a minute to two. This will enable you to run multiple test cases in sequence in
+                                             automated manner.
+                                          </p>
+                                          
+                                       </dd>
+                                        
+                                       
+                                       <dt><span class="term">Q: Can I get a history of Device Advisor API calls made on my account for security
+                                             analysis and operational troubleshooting purposes? </span></dt>
+                                       
+                                       <dd>
+                                          
+                                          <p>A: Yes. To receive a history of Device Advisor API calls made on your account, you
+                                             simply
+                                             turn on CloudTrail in the AWS IoT Management Console and filter the event source to
+                                             be
+                                             <code class="code">iotdeviceadvisor.amazonaws.com</code>.
+                                          </p>
+                                          
+                                       </dd>
+                                        
+                                       
+                                       <dt><span class="term">Q: How do I view Device Advisor logs in CloudWatch?</span></dt>
+                                       
+                                       <dd>
+                                          
+                                          <p>Logs generated during a test suite run are uploaded to CloudWatch if you add the
+                                             required policy (for example, <b>CloudWatchFullAccess</b>) to your service
+                                             role (see <a href="./device-advisor-setting-up.html">Setting up</a>. A log group
+                                             "aws/iot/deviceadvisor/$testSuiteId" will be created. In this log group, two log streams
+                                             will be created if there is at least  one test case in your test suite.
+                                             One is named "$testRunId" and includes logs of actions taken before and after executing
+                                             the test cases in your test suite, such as setup and cleanup steps. Another is
+                                             "$suiteRunId_$testRunId" which is specific to a test suite run. Events sent from devices
+                                             and AWS IoT Core will be logged to this log stream.
+                                          </p>
+                                          
+                                       </dd>
+                                        
+                                       
+                                       <dt><span class="term">Q: What is the purpose of the device permission role?</span></dt>
+                                       
+                                       <dd>
+                                          
+                                          <p>A: Device Advisor stands between your test device and AWS IoT Core to simulate test
+                                             scenarios.
+                                             It accepts connections and messages from your test devices and forwards them to
+                                             AWS IoT Core by assuming your device permission role and initiating a connection on
+                                             your
+                                             behalf. It’s important to make sure the device role permissions are the same as those
+                                             on
+                                             the certificate you use for running tests. AWS IoT certificate policies are not enforced
+                                             when Device Advisor initiates a connection to AWS IoT Core on your behalf by using
+                                             the device
+                                             permission role. However, the permissions from the device permission role you set
+                                             are
+                                             enforced.
+                                          </p>
+                                          
+                                       </dd>
+                                        
+                                       
+                                       <dt><span class="term">Q: What Regions is Device Advisor supported in?</span></dt>
+                                       
+                                       <dd>
+                                          
+                                          <p>A: Device Advisor is supported in us-east-1, us-west-2, ap-northeast-1, and eu-west-1
+                                             Regions.
+                                          </p>
+                                          
+                                       </dd>
+                                        
+                                       
+                                       <dt><span class="term">Q: What if I see inconsistent results?</span></dt>
+                                       
+                                       <dd>
+                                          
+                                          <p>A: One of the primary causes of inconsistent results is setting a test's
+                                             <code class="code">EXECUTION_TIMEOUT</code> to a value that is too low. For more information about
+                                             recommended and default <code class="code">EXECUTION_TIMEOUT</code> values, see <a href="https://docs.aws.amazon.com/iot/latest/developerguide/device-advisor-tests.htm">Device
+                                                Advisor test cases</a>.
+                                          </p>
+                                          
+                                       </dd>
+                                        
+                                       
+                                       <dt><span class="term">Q: What MQTT protocol does Device Advisor support?</span></dt>
+                                       
+                                       <dd>
+                                          
+                                          <p>A: Device Advisor supports MQTT with X509 client certificates.</p>
+                                          
+                                       </dd>
+                                       
+                                    </dl>
+                                 </div>
+                                 <awsdocs-copyright class="copyright-print"></awsdocs-copyright>
+                                 <awsdocs-thumb-feedback right-edge="{{$ctrl.thumbFeedbackRightEdge}}"></awsdocs-thumb-feedback>
+                              </div>
+                              <noscript>
+                                 <div>
+                                    <div>
+                                       <div>
+                                          <div id="js_error_message">
+                                             <p><img src="https://d1ge0kk1l5kms0.cloudfront.net/images/G/01/webservices/console/warning.png" alt="Warning" /> <strong>Javascript is disabled or is unavailable in your
+                                                   browser.</strong></p>
+                                             <p>To use the Amazon Web Services Documentation, Javascript must be
+                                                enabled. Please refer to your browser's Help pages for instructions.
+                                             </p>
+                                          </div>
+                                       </div>
+                                    </div>
+                                 </div>
+                              </noscript>
+                              <div id="main-col-footer" class="awsui-util-font-size-0">
+                                 <div id="doc-conventions"><a target="_top" href="/general/latest/gr/docconventions.html">Document Conventions</a></div>
+                                 <div class="prev-next">
+                                    <div id="previous" class="prev-link" accesskey="p" href="./device-defender-troubleshoot.html">AWS IoT Device Defender troubleshooting guide</div>
+                                    <div id="next" class="next-link" accesskey="n" href="./ota-troubleshooting-fleet-disconnects.html">Troubleshooting device fleet
+                                       disconnects
+                                    </div>
+                                 </div>
+                              </div>
+                              <awsdocs-page-utilities></awsdocs-page-utilities>
+                           </div>
+                           <div id="quick-feedback-yes" style="display: none;">
+                              <div class="title">Did this page help you? - Yes</div>
+                              <div class="content">
+                                 <p>Thanks for letting us know we're doing a good
+                                    job!
+                                 </p>
+                                 <p>If you've got a moment, please tell us what we did right
+                                    so we can do more of it.
+                                 </p>
+                                 <p>
+                                    <awsui-button id="fblink" target="_blank" text="Feedback" click="linkClick($event)" href="https://docs.aws.amazon.com/forms/aws-doc-feedback?hidden_service_name=IoT Docs&amp;topic_url=https://docs.aws.amazon.com/en_us/iot/latest/developerguide/device-advisor-troubleshooting.html"></awsui-button>
+                                 </p>
+                              </div>
+                           </div>
+                           <div id="quick-feedback-no" style="display: none;">
+                              <div class="title">Did this page help you? - No</div>
+                              <div class="content">
+                                 <p>Thanks for letting us know this page needs work. We're
+                                    sorry we let you down.
+                                 </p>
+                                 <p>If you've got a moment, please tell us how we can make
+                                    the documentation better.
+                                 </p>
+                                 <p>
+                                    <awsui-button id="fblink" target="_blank" text="Feedback" click="linkClick($event)" href="https://docs.aws.amazon.com/forms/aws-doc-feedback?hidden_service_name=IoT Docs&amp;topic_url=https://docs.aws.amazon.com/en_us/iot/latest/developerguide/device-advisor-troubleshooting.html"></awsui-button>
+                                 </p>
+                              </div>
+                           </div>
+                        </div>
+                     </body>
+                  </div>
+               </awsdocs-view>
+               <div class="page-loading-indicator" id="page-loading-indicator">
+                  <awsui-spinner size="large"></awsui-spinner>
+               </div>
+            </div>
+            <div id="tools-panel" dom-region="tools">
+               <awsdocs-tools-panel id="awsdocs-tools-panel"></awsdocs-tools-panel>
+            </div>
+         </awsui-app-layout>
+         <awsdocs-cookie-banner class="doc-cookie-banner"></awsdocs-cookie-banner>
+         <!--
+                SiteCatalyst code version: H.25.2.
+                Copyright 1996-2012 Adobe, Inc. All Rights Reserved
+                More info available at http://www.omniture.com
+            --><script language="JavaScript" type="text/javascript">
+var awsdocs = awsdocs || {};
+awsdocs.prop66 = 'AWS IoT Core';
+awsdocs.prop65 =  'Developer Guide';
+            </script><script src="https://a0.awsstatic.com/s_code/js/3.0/awshome_s_code.js" language="JavaScript" type="text/javascript"></script>
+         <!--/DO NOT REMOVE/-->
+         <!--End SiteCatalyst code version: H.25.2.--></div>
+   </body>
+</html>
