@@ -119,7 +119,7 @@ The *ThingName* that you provide in `x-amzn-iot-thingname` must match the name o
 
    Use the endpoint to make an HTTPS request to the credentials provider to return a security token\. The following example command uses `curl`, but you can use any HTTP client\.
 
-   curl ‐‐cert *your certificate* \-\-key *your device certificate key pair* \-H "x\-amzn\-iot\-thingname: *your thing name*" \-\-cacert AmazonRootCA1\.pem https://*your endpoint* /role\-aliases/*your role alias*/credentials
+   curl --cert *your certificate* \-\-key *your device certificate key pair* \-H "x\-amzn\-iot\-thingname: *your thing name*" \-\-cacert AmazonRootCA1\.pem https://*your endpoint* /role\-aliases/*your role alias*/credentials
 
    This command returns a security token object that contains an `accessKeyId`, a `secretAccessKey`, a `sessionToken`, and an expiration\. The following JSON object is sample output of the `curl` command\.
 
