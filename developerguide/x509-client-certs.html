@@ -1,0 +1,381 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" ng-app="AWSDocsDocPageApp">
+   <head>
+      <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+      <title>X.509 client certificates - AWS IoT Core</title>
+      <meta name="viewport" content="width=device-width,initial-scale=1" />
+      <meta name="assets_root" content="assets" />
+      <meta name="target_state" content="x509-client-certs" />
+      <meta name="default_state" content="x509-client-certs" />
+      <link rel="icon" type="image/ico" href="/assets/images/favicon.ico" />
+      <link rel="shortcut icon" type="image/ico" href="/assets/images/favicon.ico" />
+      <link rel="canonical" href="https://docs.aws.amazon.com/iot/latest/developerguide/x509-client-certs.html" />
+      <meta name="description" content="X.509 certificates provide AWS IoT with the ability to authenticate client and device connections. Client certificates must be registered with AWS IoT before a client can communicate with AWS IoT. A client certificate can be registered in multiple AWS accounts in the same AWS Region to facilitate moving devices between your AWS accounts in the same region. See" />
+      <meta name="deployment_region" content="IAD" />
+      <meta name="product" content="AWS IoT Core" />
+      <meta name="guide" content="Developer Guide" />
+      <meta name="locales" content="de_de:Deutsch/en_us:English/es_es:Español/fr_fr:Français/it_it:Italiano/ja_jp:日本語/ko_kr:한국어/pt_br:Português/zh_cn:中文 (简体)/zh_tw:中文 (繁體)" />
+      <meta name="abstract" content="AWS IoT provides secure, bi-directional communication between Internet-connected devices such as sensors, actuators, embedded micro-controllers, or smart appliances and the AWS Cloud. This enables you to collect telemetry data from multiple devices, and store and analyze the data. You can also create applications that enable your users to control these devices from their phones or tablets." />
+      <meta name="guide-locale" content="en_us" />
+      <meta name="tocs" content="toc-contents.json" />
+      <meta name="feedback-item" content="IoT Docs" />
+      <meta name="this_doc_product" content="AWS IoT Core" />
+      <meta name="this_doc_guide" content="Developer Guide" />
+      <link href="assets/css/vendor4.css" rel="stylesheet" />
+      <link href="assets/css/awsdocs-common.css" rel="stylesheet" /><script type="text/javascript" src="assets/js/vendor3.js" defer=""></script><script type="text/javascript" src="assets/js/vendor4.js" defer=""></script><script type="text/javascript" src="assets/js/vendor1.js" defer=""></script><script type="text/javascript" src="assets/js/awsdocs-common.js" defer=""></script><script type="text/javascript" src="assets/js/awsdocs-doc-app.js" defer=""></script></head>
+   <body class="awsdocs awsui">
+      <div class="awsdocs-container">
+         <awsdocs-header></awsdocs-header>
+         <awsui-app-layout id="app-layout" class="awsui-util-no-gutters" ng-controller="ContentController as $ctrl" header-selector="awsdocs-header" navigation-hide="false" navigation-width="$ctrl.navWidth" navigation-open="$ctrl.navOpen" navigation-change="$ctrl.onNavChange($event)" tools-hide="$ctrl.hideTools" tools-width="$ctrl.toolsWidth" tools-open="$ctrl.toolsOpen" tools-change="$ctrl.onToolsChange($event)">
+            <div id="guide-toc" dom-region="navigation">
+               <awsdocs-toc></awsdocs-toc>
+            </div>
+            <div id="main-column" dom-region="content" tabindex="-1">
+               <awsdocs-view class="awsdocs-view">
+                  <div id="awsdocs-content">
+                     <head>
+                        <title>X.509 client certificates - AWS IoT Core</title>
+                        <meta name="pdf" content="iot-dg.pdf#x509-client-certs" />
+                        <meta name="kindle" content="https://www.amazon.com/dp/B07JBRCWWZ" />
+                        <meta name="github" content="https://github.com/awsdocs/aws-iot-docs/tree/master/developerguide/x509-client-certs.md" />
+                        <meta name="forums" content="http://forums.aws.amazon.com/forum.jspa?forumID=210" />
+                        <meta name="feedback" content="https://docs.aws.amazon.com/forms/aws-doc-feedback?hidden_service_name=IoT%20Docs&amp;topic_url=http://docs.aws.amazon.com/en_us/iot/latest/developerguide/x509-client-certs.html" />
+                        <meta name="feedback-yes" content="feedbackyes.html?topic_url=http://docs.aws.amazon.com/en_us/iot/latest/developerguide/x509-client-certs.html" />
+                        <meta name="feedback-no" content="feedbackno.html?topic_url=http://docs.aws.amazon.com/en_us/iot/latest/developerguide/x509-client-certs.html" />
+                        <meta name="keywords" content="AWS IoT,IoT,Internet of Things" />
+                     </head>
+                     <body>
+                        <div id="main">
+                           <div style="display: none"><a href="iot-dg.pdf#x509-client-certs" target="_blank" rel="noopener noreferrer" title="Open PDF"></a><a target="_blank" rel="noopener noreferrer" href="https://www.amazon.com/dp/B07JBRCWWZ" title="Open Kindle"></a><a href="https://github.com/awsdocs/aws-iot-docs/tree/master/developerguide/x509-client-certs.md" target="_blank" rel="noopener noreferrer" title="Edit this page on GitHub"></a></div>
+                           <div id="breadcrumbs" class="breadcrumb"><a href="http://aws.amazon.com">AWS</a><a href="/index.html">Documentation</a><a href="/iot/index.html">AWS IoT Core</a><a href="what-is-aws-iot.html">Developer Guide</a></div>
+                           <div id="page-toc-src"><a href="#x509-client-cert-basics">Using X.509 client
+                                 certificates</a><a href="#multiple-account-cert">Using X.509 client certificates in multiple
+                                 AWS accounts with multi-account registration</a><a href="#x509-cert-algorithms">Certificate signing algorithms supported
+                                 by AWS IoT</a></div>
+                           <div id="main-content" class="awsui-util-container">
+                              <div id="main-col-body">
+                                 <awsdocs-language-banner data-service="$ctrl.pageService"></awsdocs-language-banner>
+                                 <h1 class="topictitle" id="x509-client-certs">X.509 client certificates</h1>
+                                 <div class="awsdocs-page-header-container">
+                                    <awsdocs-page-header></awsdocs-page-header>
+                                    <awsdocs-filter-selector id="awsdocs-filter-selector"></awsdocs-filter-selector>
+                                 </div>
+                                 <p>X.509 certificates provide AWS IoT with the ability to authenticate client and
+                                    device connections. Client certificates must be registered with AWS IoT before a
+                                    client can communicate with AWS IoT. A client certificate can be registered 
+                                    in multiple AWS accounts in the same AWS Region to facilitate moving devices
+                                    between your AWS accounts in the same region. See
+                                    <a href="#multiple-account-cert">Using X.509 client certificates in multiple
+                                       AWS accounts with multi-account registration</a> for more information.
+                                    
+                                 </p>
+                                 <p>We recommend that each device or client be given a unique certificate to
+                                    enable fine-grained client management actions, including certificate revocation. Devices
+                                    and
+                                    clients must also support rotation and replacement of certificates to help ensure
+                                    smooth operation as certificates expire.
+                                 </p>
+                                 <p>For information about using X.509 certificates to support more than a few devices,
+                                    see <a href="./iot-provision.html">Device provisioning</a> to review the
+                                    different certificate management and provisioning options that AWS IoT
+                                    supports.
+                                 </p>
+                                 <div class="itemizedlist">
+                                    <p class="title"><b>AWS IoT supports these types of X.509 client certificates:</b></p>
+                                     
+                                     
+                                     
+                                    
+                                    <ul class="itemizedlist" type="disc">
+                                       <li class="listitem">
+                                          <p> X.509 certificates generated by AWS IoT</p>
+                                       </li>
+                                       <li class="listitem">
+                                          <p> X.509 certificates signed by a CA registered with AWS IoT.</p>
+                                       </li>
+                                       <li class="listitem">
+                                          <p> X.509 certificates signed by a CA that is not registered with AWS IoT.</p>
+                                       </li>
+                                    </ul>
+                                 </div>
+                                 <p>This section describes how to manage X.509 certificates in AWS IoT. You can use the
+                                    AWS IoT console or AWS CLI to perform these certificate operations:
+                                 </p>
+                                 <div class="itemizedlist">
+                                     
+                                     
+                                     
+                                     
+                                     
+                                    
+                                    <ul class="itemizedlist" type="disc">
+                                       <li class="listitem">
+                                          
+                                          <p><a href="./device-certs-create.html">Create AWS IoT client certificates</a></p>
+                                          
+                                       </li>
+                                       <li class="listitem">
+                                          
+                                          <p><a href="./device-certs-your-own.html">Create your own client
+                                                certificates</a></p>
+                                          
+                                       </li>
+                                       <li class="listitem">
+                                          
+                                          <p><a href="./register-device-cert.html">Register a client certificate</a></p>
+                                          
+                                       </li>
+                                       <li class="listitem">
+                                          
+                                          <p><a href="./activate-or-deactivate-device-cert.html">Activate or deactivate a
+                                                client certificate</a></p>
+                                          
+                                       </li>
+                                       <li class="listitem">
+                                          
+                                          <p><a href="./revoke-ca-cert.html">Revoke a client certificate</a></p>
+                                          
+                                       </li>
+                                    </ul>
+                                 </div>
+                                 <p>For more information about the AWS CLI commands that perform these operations, see
+                                    <a href="https://awscli.amazonaws.com/v2/documentation/api/latest/reference/iot/index.html" rel="noopener noreferrer" target="_blank"><span>AWS IoT CLI
+                                          Reference</span><awsui-icon class="awsdocs-link-icon" name="external"></awsui-icon></a>.
+                                 </p>
+                                 
+                                 <h2 id="x509-client-cert-basics">Using X.509 client
+                                    certificates
+                                 </h2>
+                                 
+                                 <p>X.509 certificates authenticate client and device connections to AWS IoT. X.509
+                                    certificates provide several benefits over other identification and
+                                    authentication mechanisms. X.509 certificates enable asymmetric keys to be used
+                                    with devices. For example, you could burn private keys into secure storage on a
+                                    device so that sensitive cryptographic material never leaves the device. X.509
+                                    certificates provide stronger client authentication over other schemes, such as
+                                    user name and password or bearer tokens, because the private key never leaves
+                                    the device.
+                                 </p>
+                                 
+                                 <p>AWS IoT authenticates client certificates using the TLS protocol's client
+                                    authentication mode. TLS support is available in many programming languages and
+                                    operating systems and is commonly used for encrypting data. In TLS client
+                                    authentication, AWS IoT requests an X.509 client certificate and validates the
+                                    certificate's status and AWS account against a registry of certificates. It
+                                    then challenges the client for proof of ownership of the private key that
+                                    corresponds to the public key contained in the certificate. AWS IoT requires
+                                    clients to send the <a href="https://tools.ietf.org/html/rfc3546#section-3.1" rel="noopener noreferrer" target="_blank"><span>Server Name Indication (SNI) extension</span><awsui-icon class="awsdocs-link-icon" name="external"></awsui-icon></a> to the Transport Layer
+                                    Security (TLS) protocol. For more information on configuring the SNI extension,
+                                    see <a href="./transport-security.html">Transport security in AWS IoT</a>.
+                                 </p>
+                                 
+                                 <p>X.509 certificates can be verified against a trusted certificate authority (CA).
+                                    You can create client certificates that use the Amazon Root CA and you can use
+                                    your own client certificates signed by another CA.  For more information about
+                                    using your own X.509 certificates, see <a href="./device-certs-your-own.html">Create your own client
+                                       certificates</a>.
+                                 </p>
+                                 
+                                 <p>The date and time when certificates signed by a CA certificate expire are set
+                                    when the certificate is created. X.509 certificates generated by AWS IoT expire at
+                                    midnight UTC on December 31, 2049 (2049-12-31T23:59:59Z). For more information
+                                    about using the AWS IoT console to create certificates that use the Amazon Root
+                                    CA, see <a href="./device-certs-create.html">Create AWS IoT client certificates</a>.
+                                 </p>
+                                  
+                                 
+                                 <h2 id="multiple-account-cert">Using X.509 client certificates in multiple
+                                    AWS accounts with multi-account registration
+                                 </h2>
+                                 
+                                 <p> Multi-Account Registration makes it possible to move devices between your
+                                    AWS accounts in the same Region or in different Regions. With this, you can
+                                    register, test, and configure a device in a pre-production account, and then
+                                    register and use the same device and device certificate in a production account.
+                                    You can also <a href="./manual-cert-registration.html#manual-cert-registration-noca-cli">register the client
+                                       certificate on the device (the device certificates) without a CA</a> that
+                                    is registered with AWS IoT. 
+                                 </p>
+                                 
+                                 <div class="awsdocs-note">
+                                    <div class="awsdocs-note-title">
+                                       <awsui-icon name="status-info" variant="link"></awsui-icon><span>Note</span></div>
+                                    <div class="awsdocs-note-text">
+                                       <p>Certificates used for Multi-Account Registration are supported on the
+                                          <code class="code">iot:Data-ATS</code>, <code class="code">iot:Data</code> (legacy), and 
+                                          <code class="code">iot:Jobs</code> endpoint types. Certificates used for 
+                                          Multi-Account Registration cannot be used on the 
+                                          <code class="code">iot:CredentialProvider</code> endpoint type.
+                                          For more information about AWS IoT device endpoints, see
+                                          <a href="./iot-connect-devices.html#iot-connect-device-endpoints">AWS IoT device data and service
+                                             endpoints</a>.
+                                       </p>
+                                    </div>
+                                 </div>
+                                 
+                                 <p>Devices that use Multi-Account Registration must send the <a href="https://tools.ietf.org/html/rfc3546#section-3.1" rel="noopener noreferrer" target="_blank"><span>Server Name Indication
+                                          (SNI) extension</span><awsui-icon class="awsdocs-link-icon" name="external"></awsui-icon></a> to the Transport Layer Security (TLS) protocol and
+                                    provide the complete endpoint address in the <code class="code">host_name</code> field, when
+                                    they connect to AWS IoT. AWS IoT uses the endpoint address in <code class="code">host_name</code>
+                                    to route the connection to the correct AWS IoT account. Existing devices that
+                                    don't send a valid endpoint address in <code class="code">host_name</code> will continue to
+                                    work, but they will not be able to use the features that require this
+                                    information. For more information about the SNI extension and to learn how to
+                                    identify the endpoint address for the <code class="code">host_name</code> field, see <a href="./transport-security.html">Transport security in AWS IoT</a>. 
+                                 </p>
+                                 
+                                 <div class="procedure">
+                                    <p class="title"><b>To use multi-account registration</b></p>
+                                    <ol>
+                                       <li>
+                                          <p>Do not register the CA that signed the device certificates with AWS IoT.</p>
+                                       </li>
+                                       <li>
+                                          <p>Register the device certificates without a CA. See <a href="./manual-cert-registration.html#manual-cert-registration-noca-cli">Register a client
+                                                certificate signed by an unregistered CA (CLI)</a>.
+                                          </p>
+                                       </li>
+                                       <li>
+                                          <p>Use the correct <code class="code">host_name</code> in the SNI extension to TLS when the device connects to AWS IoT.
+                                             See <a href="./transport-security.html">Transport security in AWS IoT</a>.
+                                          </p>
+                                       </li>
+                                    </ol>
+                                 </div>
+                                  
+                                 
+                                 <h2 id="x509-cert-algorithms">Certificate signing algorithms supported
+                                    by AWS IoT
+                                 </h2>
+                                 
+                                 <p>AWS IoT supports the following certificate-signing algorithms:</p>
+                                 
+                                 <div class="itemizedlist">
+                                     
+                                     
+                                     
+                                     
+                                     
+                                     
+                                     
+                                    
+                                    <ul class="itemizedlist" type="disc">
+                                       <li class="listitem">
+                                          
+                                          <p>SHA256WITHRSA</p>
+                                          
+                                       </li>
+                                       <li class="listitem">
+                                          
+                                          <p>SHA384WITHRSA</p>
+                                          
+                                       </li>
+                                       <li class="listitem">
+                                          
+                                          <p>SHA512WITHRSA</p>
+                                          
+                                       </li>
+                                       <li class="listitem">
+                                          
+                                          <p>DSA_WITH_SHA256</p>
+                                          
+                                       </li>
+                                       <li class="listitem">
+                                          
+                                          <p>ECDSA-WITH-SHA256</p>
+                                          
+                                       </li>
+                                       <li class="listitem">
+                                          
+                                          <p>ECDSA-WITH-SHA384</p>
+                                          
+                                       </li>
+                                       <li class="listitem">
+                                          
+                                          <p>ECDSA-WITH-SHA512</p>
+                                          
+                                       </li>
+                                    </ul>
+                                 </div>
+                                 
+                                 <awsdocs-copyright class="copyright-print"></awsdocs-copyright>
+                                 <awsdocs-thumb-feedback right-edge="{{$ctrl.thumbFeedbackRightEdge}}"></awsdocs-thumb-feedback>
+                              </div>
+                              <noscript>
+                                 <div>
+                                    <div>
+                                       <div>
+                                          <div id="js_error_message">
+                                             <p><img src="https://d1ge0kk1l5kms0.cloudfront.net/images/G/01/webservices/console/warning.png" alt="Warning" /> <strong>Javascript is disabled or is unavailable in your
+                                                   browser.</strong></p>
+                                             <p>To use the Amazon Web Services Documentation, Javascript must be
+                                                enabled. Please refer to your browser's Help pages for instructions.
+                                             </p>
+                                          </div>
+                                       </div>
+                                    </div>
+                                 </div>
+                              </noscript>
+                              <div id="main-col-footer" class="awsui-util-font-size-0">
+                                 <div id="doc-conventions"><a target="_top" href="/general/latest/gr/docconventions.html">Document Conventions</a></div>
+                                 <div class="prev-next">
+                                    <div id="previous" class="prev-link" accesskey="p" href="./client-authentication.html">Client authentication</div>
+                                    <div id="next" class="next-link" accesskey="n" href="./device-certs-create.html">Create AWS IoT client certificates</div>
+                                 </div>
+                              </div>
+                              <awsdocs-page-utilities></awsdocs-page-utilities>
+                           </div>
+                           <div id="quick-feedback-yes" style="display: none;">
+                              <div class="title">Did this page help you? - Yes</div>
+                              <div class="content">
+                                 <p>Thanks for letting us know we're doing a good
+                                    job!
+                                 </p>
+                                 <p>If you've got a moment, please tell us what we did right
+                                    so we can do more of it.
+                                 </p>
+                                 <p>
+                                    <awsui-button id="fblink" target="_blank" text="Feedback" click="linkClick($event)" href="https://docs.aws.amazon.com/forms/aws-doc-feedback?hidden_service_name=IoT Docs&amp;topic_url=https://docs.aws.amazon.com/en_us/iot/latest/developerguide/x509-client-certs.html"></awsui-button>
+                                 </p>
+                              </div>
+                           </div>
+                           <div id="quick-feedback-no" style="display: none;">
+                              <div class="title">Did this page help you? - No</div>
+                              <div class="content">
+                                 <p>Thanks for letting us know this page needs work. We're
+                                    sorry we let you down.
+                                 </p>
+                                 <p>If you've got a moment, please tell us how we can make
+                                    the documentation better.
+                                 </p>
+                                 <p>
+                                    <awsui-button id="fblink" target="_blank" text="Feedback" click="linkClick($event)" href="https://docs.aws.amazon.com/forms/aws-doc-feedback?hidden_service_name=IoT Docs&amp;topic_url=https://docs.aws.amazon.com/en_us/iot/latest/developerguide/x509-client-certs.html"></awsui-button>
+                                 </p>
+                              </div>
+                           </div>
+                        </div>
+                     </body>
+                  </div>
+               </awsdocs-view>
+               <div class="page-loading-indicator" id="page-loading-indicator">
+                  <awsui-spinner size="large"></awsui-spinner>
+               </div>
+            </div>
+            <div id="tools-panel" dom-region="tools">
+               <awsdocs-tools-panel id="awsdocs-tools-panel"></awsdocs-tools-panel>
+            </div>
+         </awsui-app-layout>
+         <awsdocs-cookie-banner class="doc-cookie-banner"></awsdocs-cookie-banner>
+         <!--
+                SiteCatalyst code version: H.25.2.
+                Copyright 1996-2012 Adobe, Inc. All Rights Reserved
+                More info available at http://www.omniture.com
+            --><script language="JavaScript" type="text/javascript">
+var awsdocs = awsdocs || {};
+awsdocs.prop66 = 'AWS IoT Core';
+awsdocs.prop65 =  'Developer Guide';
+            </script><script src="https://a0.awsstatic.com/s_code/js/3.0/awshome_s_code.js" language="JavaScript" type="text/javascript"></script>
+         <!--/DO NOT REMOVE/-->
+         <!--End SiteCatalyst code version: H.25.2.--></div>
+   </body>
+</html>

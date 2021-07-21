@@ -1,0 +1,404 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" ng-app="AWSDocsDocPageApp">
+   <head>
+      <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+      <title>Generate the firmware update file and signature - AWS IoT Core</title>
+      <meta name="viewport" content="width=device-width,initial-scale=1" />
+      <meta name="assets_root" content="assets" />
+      <meta name="target_state" content="connect-iot-lorawan-script-fwupdate-sigkey" />
+      <meta name="default_state" content="connect-iot-lorawan-script-fwupdate-sigkey" />
+      <link rel="icon" type="image/ico" href="/assets/images/favicon.ico" />
+      <link rel="shortcut icon" type="image/ico" href="/assets/images/favicon.ico" />
+      <link rel="canonical" href="https://docs.aws.amazon.com/iot/latest/developerguide/connect-iot-lorawan-script-fwupdate-sigkey.html" />
+      <meta name="description" content="The steps in this procedure are optional and depend on the gateway you're using. Gateway manufacturers provide their own firmware update in the form of an update file or a script and Basics Station runs this script in the background. In this case, you'll most likely find the firmware update file in the release notes of the gateway you're using. You can then use that update file or script instead and proceed to" />
+      <meta name="deployment_region" content="IAD" />
+      <meta name="product" content="AWS IoT Core" />
+      <meta name="guide" content="Developer Guide" />
+      <meta name="locales" content="de_de:Deutsch/en_us:English/es_es:Español/fr_fr:Français/it_it:Italiano/ja_jp:日本語/ko_kr:한국어/pt_br:Português/zh_cn:中文 (简体)/zh_tw:中文 (繁體)" />
+      <meta name="abstract" content="AWS IoT provides secure, bi-directional communication between Internet-connected devices such as sensors, actuators, embedded micro-controllers, or smart appliances and the AWS Cloud. This enables you to collect telemetry data from multiple devices, and store and analyze the data. You can also create applications that enable your users to control these devices from their phones or tablets." />
+      <meta name="guide-locale" content="en_us" />
+      <meta name="tocs" content="toc-contents.json" />
+      <meta name="feedback-item" content="IoT Docs" />
+      <meta name="this_doc_product" content="AWS IoT Core" />
+      <meta name="this_doc_guide" content="Developer Guide" />
+      <link href="assets/css/vendor4.css" rel="stylesheet" />
+      <link href="assets/css/awsdocs-common.css" rel="stylesheet" /><script type="text/javascript" src="assets/js/vendor3.js" defer=""></script><script type="text/javascript" src="assets/js/vendor4.js" defer=""></script><script type="text/javascript" src="assets/js/vendor1.js" defer=""></script><script type="text/javascript" src="assets/js/awsdocs-common.js" defer=""></script><script type="text/javascript" src="assets/js/awsdocs-doc-app.js" defer=""></script></head>
+   <body class="awsdocs awsui">
+      <div class="awsdocs-container">
+         <awsdocs-header></awsdocs-header>
+         <awsui-app-layout id="app-layout" class="awsui-util-no-gutters" ng-controller="ContentController as $ctrl" header-selector="awsdocs-header" navigation-hide="false" navigation-width="$ctrl.navWidth" navigation-open="$ctrl.navOpen" navigation-change="$ctrl.onNavChange($event)" tools-hide="$ctrl.hideTools" tools-width="$ctrl.toolsWidth" tools-open="$ctrl.toolsOpen" tools-change="$ctrl.onToolsChange($event)">
+            <div id="guide-toc" dom-region="navigation">
+               <awsdocs-toc></awsdocs-toc>
+            </div>
+            <div id="main-column" dom-region="content" tabindex="-1">
+               <awsdocs-view class="awsdocs-view">
+                  <div id="awsdocs-content">
+                     <head>
+                        <title>Generate the firmware update file and signature - AWS IoT Core</title>
+                        <meta name="pdf" content="iot-dg.pdf#connect-iot-lorawan-script-fwupdate-sigkey" />
+                        <meta name="kindle" content="https://www.amazon.com/dp/B07JBRCWWZ" />
+                        <meta name="github" content="https://github.com/awsdocs/aws-iot-docs/tree/master/developerguide/connect-iot-lorawan-script-fwupdate-sigkey.md" />
+                        <meta name="forums" content="http://forums.aws.amazon.com/forum.jspa?forumID=210" />
+                        <meta name="feedback" content="https://docs.aws.amazon.com/forms/aws-doc-feedback?hidden_service_name=IoT%20Docs&amp;topic_url=http://docs.aws.amazon.com/en_us/iot/latest/developerguide/connect-iot-lorawan-script-fwupdate-sigkey.html" />
+                        <meta name="feedback-yes" content="feedbackyes.html?topic_url=http://docs.aws.amazon.com/en_us/iot/latest/developerguide/connect-iot-lorawan-script-fwupdate-sigkey.html" />
+                        <meta name="feedback-no" content="feedbackno.html?topic_url=http://docs.aws.amazon.com/en_us/iot/latest/developerguide/connect-iot-lorawan-script-fwupdate-sigkey.html" />
+                        <meta name="keywords" content="AWS IoT,IoT,Internet of Things" />
+                     </head>
+                     <body>
+                        <div id="main">
+                           <div style="display: none"><a href="iot-dg.pdf#connect-iot-lorawan-script-fwupdate-sigkey" target="_blank" rel="noopener noreferrer" title="Open PDF"></a><a target="_blank" rel="noopener noreferrer" href="https://www.amazon.com/dp/B07JBRCWWZ" title="Open Kindle"></a><a href="https://github.com/awsdocs/aws-iot-docs/tree/master/developerguide/connect-iot-lorawan-script-fwupdate-sigkey.md" target="_blank" rel="noopener noreferrer" title="Edit this page on GitHub"></a></div>
+                           <div id="breadcrumbs" class="breadcrumb"><a href="http://aws.amazon.com">AWS</a><a href="/index.html">Documentation</a><a href="/iot/index.html">AWS IoT Core</a><a href="what-is-aws-iot.html">Developer Guide</a></div>
+                           <div id="page-toc-src"><a href="#connect-iot-lorawan-firmware-update-script">Generate the
+                                 firmware update file</a><a href="#connect-iot-lorawan-generate-signature-fwupdate">Generate signature
+                                 for the firmware update</a><a href="#connect-iot-lorawan-fwupdate-sigkey-next-steps">Review 
+                                 the next steps</a></div>
+                           <div id="main-content" class="awsui-util-container">
+                              <div id="main-col-body">
+                                 <awsdocs-language-banner data-service="$ctrl.pageService"></awsdocs-language-banner>
+                                 <h1 class="topictitle" id="connect-iot-lorawan-script-fwupdate-sigkey">Generate the
+                                    firmware update file and signature
+                                 </h1>
+                                 <div class="awsdocs-page-header-container">
+                                    <awsdocs-page-header></awsdocs-page-header>
+                                    <awsdocs-filter-selector id="awsdocs-filter-selector"></awsdocs-filter-selector>
+                                 </div>
+                                 <p>The steps in this procedure are optional and depend on the gateway you're
+                                    using. Gateway manufacturers provide their own firmware update in the form of an
+                                    update file or a script and Basics Station runs this script in the background.
+                                    In this case, you'll most likely find the firmware update file in the release
+                                    notes of the gateway you're using. You can then use that update file or script
+                                    instead and proceed to <a href="./connect-iot-lorawan-upload-firmware-s3bucket.html">Upload the
+                                       firmware file to an S3 bucket and add an IAM role</a>.
+                                 </p>
+                                 <p>If you don't have this script, following shows the commands
+                                    to run for generating the firmware update file. The updates can also be signed
+                                    to ensure that the code was not altered or corrupted and devices run code
+                                    published only by trusted authors.
+                                 </p>
+                                 <div class="highlights" id="inline-topiclist">
+                                    <p><strong>In this procedure, you'll:</strong></p>
+                                    <ul>
+                                       <li><a href="#connect-iot-lorawan-firmware-update-script">Generate the
+                                             firmware update file</a></li>
+                                       <li><a href="#connect-iot-lorawan-generate-signature-fwupdate">Generate signature
+                                             for the firmware update</a></li>
+                                       <li><a href="#connect-iot-lorawan-fwupdate-sigkey-next-steps">Review 
+                                             the next steps</a></li>
+                                    </ul>
+                                 </div>
+                                 
+                                 <h2 id="connect-iot-lorawan-firmware-update-script">Generate the
+                                    firmware update file
+                                 </h2>
+                                 
+                                 <p>The LoRa Basics Station software running on the gateway is capable of
+                                    receiving firmware updates in the CUPS response. If you don't have a script 
+                                    provided by the manufacturer, refer to the following firmware update script 
+                                    that is written for the Raspberry Pi based RAKWireless Gateway. We have a 
+                                    base script and the new station binary, version file, and 
+                                    <code class="code">station.conf</code> are attached to it.
+                                 </p>
+                                 
+                                 <div class="awsdocs-note">
+                                    <div class="awsdocs-note-title">
+                                       <awsui-icon name="status-info" variant="link"></awsui-icon><span>Note</span></div>
+                                    <div class="awsdocs-note-text">
+                                       <p>The script is specific to the RAKWireless Gateway, so you'll have to adapt it to your
+                                          application depending on the gateway you're using.
+                                       </p>
+                                    </div>
+                                 </div>
+                                  
+                                 
+                                 <p class="title"><b>Base script</b></p>
+                                 
+                                 <p>Following shows a sample base script for the Raspberry Pi based
+                                    RAKWireless Gateway. You can save the following commands in a file
+                                    <code class="code">base.sh</code> and then run the script in the terminal on the
+                                    Raspberry Pi's web browser.
+                                 </p>
+                                  
+                                 <pre class="programlisting"><div class="code-btn-container"><div class="btn-copy-code" title="Copy"><awsui-icon name="copy"></awsui-icon></div></div><code class="">*#!/bin/bash*
+execution_folder=/home/pi/Documents/basicstation/examples/aws_lorawan
+station_path="$execution_folder/station"
+version_path="$execution_folder/version.txt"
+station_conf_path="$execution_folder/station_conf"
+
+# Function to find the Basics Station binary at the end of this script 
+# and store it in the station path
+function prepare_station()
+<span>{</span>
+ match=$(grep --text --line-number '^STATION:$' $0 | cut -d ':' -f 1) 
+ payload_start=$((match + 1)) 
+ match_end=$(grep --text --line-number '^END_STATION:$' $0 | cut -d ':' -f 1) 
+ payload_end=$((match_end - 1)) 
+ lines=$(($payload_end-$payload_start+1)) 
+ head -n $payload_end $0 | tail -n $lines  &gt; $station_path
+}
+
+# Function to find the version.txt at the end of this script 
+# and store it in the location for version.txt
+function prepare_version()
+<span>{</span>
+  match=$(grep --text --line-number '^VERSION:$' $0 | cut -d ':' -f 1) 
+  payload_start=$((match + 1))        
+  match_end=$(grep --text --line-number '^END_VERSION:$' $0 | cut -d ':' -f 1) 
+  payload_end=$((match_end - 1)) 
+  lines=$(($payload_end-$payload_start+1)) 
+  head -n $payload_end $0 | tail -n $lines  &gt; $version_path
+}
+
+# Function to find the version.txt at the end of this script 
+# and store it in the location for version.txt
+function prepare_station_conf()
+<span>{</span>
+ match=$(grep --text --line-number '^CONF:$' $0 | cut -d ':' -f 1) 
+ payload_start=$((match + 1)) 
+ match_end=$(grep --text --line-number '^END_CONF:$' $0 | cut -d ':' -f 1) 
+ payload_end=$((match_end - 1)) 
+ lines=$(($payload_end-$payload_start+1)) 
+ head -n $payload_end $0 | tail -n $lines  &gt; $station_conf_path
+}
+
+# Stop the currently running Basics station so that it can be overwritten
+# by the new one
+killall station
+
+# Store the different files
+prepare_station
+prepare_versionp
+prepare_station_conf
+
+# Provide execute permission for Basics station binary
+chmod +x $station_path
+
+# Remove update.bin so that it is not read again next time Basics station starts
+rm -f /tmp/update.bin
+
+# Exit so that rest of this script which has binaries attached does not get executed
+exit 0</code></pre>
+                                  
+                                 <p class="title"><b>Add payload script</b></p>
+                                 
+                                 <p>To the base script, we append the Basics Station binary, the
+                                    version.txt that identifies the version to update to, and
+                                    <code class="code">station.conf</code> in a script called
+                                    <code class="code">addpayload.sh</code>. Then, run this script.
+                                 </p>
+                                  
+                                 <pre class="programlisting"><div class="code-btn-container"><div class="btn-copy-code" title="Copy"><awsui-icon name="copy"></awsui-icon></div></div><code class="">*#!/bin/bash
+*
+base.sh &gt; fwstation
+
+# Add station
+echo "STATION:" &gt;&gt; fwstation
+cat $1 &gt;&gt; fwstation
+echo "" &gt;&gt; fwstation
+echo "END_STATION:" &gt;&gt; fwstation
+
+# Add version.txt
+echo "VERSION:" &gt;&gt; fwstation
+cat $2 &gt;&gt; fwstation
+echo "" &gt;&gt; fwstation
+echo "END_VERSION:" &gt;&gt; fwstation
+
+# Add station.conf
+echo "CONF:" &gt;&gt; fwstation
+cat $3 &gt;&gt; fwstation
+echo "END_CONF:" &gt;&gt; fwstation
+
+# executable
+chmod +x fwstation</code></pre>
+                                 <p>After you've run these scripts, you can run the following command in the
+                                    terminal to generate the firmware update file, <code class="code">fwstation</code>.
+                                 </p>
+                                 <pre class="programlisting"><div class="code-btn-container"><div class="btn-copy-code" title="Copy"><awsui-icon name="copy"></awsui-icon></div></div><code class="">$ ./addpayload.sh station version.txt station.conf</code></pre>
+                                  
+                                 <h2 id="connect-iot-lorawan-generate-signature-fwupdate">Generate signature
+                                    for the firmware update
+                                 </h2>
+                                 
+                                 <p>The LoRa Basics Station software provides signed firmware updates 
+                                    with ECDSA signatures. To support signed updates, you'll need:
+                                 </p>
+                                 
+                                 <div class="itemizedlist">
+                                     
+                                     
+                                     
+                                    
+                                    <ul class="itemizedlist" type="disc">
+                                       <li class="listitem">
+                                          
+                                          <p>A signature that must be generated by an ECDSA private
+                                             key and less than 128 bytes. 
+                                          </p>
+                                          
+                                       </li>
+                                       <li class="listitem">
+                                          
+                                          <p>The private key that is used for the signature and 
+                                             must be stored in the gateway with file name of the 
+                                             format <code class="code">sig-%d.key</code>. We recommend using the 
+                                             file name <code class="code">sig-0.key</code>.
+                                          </p>
+                                          
+                                       </li>
+                                       <li class="listitem">
+                                          
+                                          <p>A 32-bit CRC over the private key.</p>
+                                          
+                                       </li>
+                                    </ul>
+                                 </div>
+                                 
+                                 <p>The signature and CRC will be passed to the AWS IoT Core for LoRaWAN APIs. To
+                                    generate the previous files, you can use the following script
+                                    <code class="code">gen.sh</code> that is inspired by the <a href="https://github.com/lorabasics/basicstation/blob/master/examples/cups/prep.sh" rel="noopener noreferrer" target="_blank"><span> basicstation</span><awsui-icon class="awsdocs-link-icon" name="external"></awsui-icon></a> example in the GitHub repository.
+                                 </p>
+                                 <pre class="programlisting"><div class="code-btn-container"><div class="btn-copy-code" title="Copy"><awsui-icon name="copy"></awsui-icon></div></div><code class="">*#!/bin/bash
+
+*function ecdsaKey() <span>{</span>
+    # Key not password protected for simplicity    
+    openssl ecparam -name prime256v1 -genkey | openssl ec -out $1
+}
+
+# Generate ECDSA key
+ecdsaKey sig-0.prime256v1.pem
+
+# Generate public key
+openssl ec -in sig-0.prime256v1.pem -pubout -out sig-0.prime256v1.pub
+
+# Generate signature private key
+openssl ec -in sig-0.prime256v1.pub -inform PEM -outform DER -pubin | tail -c 64 &gt; sig-0.key
+
+# Generate signature
+openssl dgst -sha512 -sign sig-0.prime256v1.pem $1 &gt; sig-0.signature
+
+# Convert signature to base64
+openssl enc -base64 -in sig-0.signature -out sig-0.signature.base64
+
+# Print the crc
+crc_res=$(crc32 sig-0.key)printf "The crc for the private key=%d\n" $((16#$crc_res))
+
+# Remove the generated files which won't be needed later
+rm -rf sig-0.prime256v1.pem sig-0.signature sig-0.prime256v1.pub                            
+                        </code></pre>
+                                 <p>The private key generated by the script should be saved into the gateway.
+                                    The key file is in binary format.
+                                 </p>
+                                 <pre class="programlisting"><div class="code-btn-container"><div class="btn-copy-code" title="Copy"><awsui-icon name="copy"></awsui-icon></div></div><code class="">./gen_sig.sh fwstation 
+read EC key
+writing EC key
+read EC key
+writing EC key
+read EC key
+writing EC key
+The crc for the private key=3434210794
+
+$ cat sig-0.signature.base64 
+MEQCIDPY/p2ssgXIPNCOgZr+NzeTLpX+WfBo5tYWbh5pQWN3AiBROen+XlIdMScv
+AsfVfU/ZScJCalkVNZh4esyS8mNIgA==
+
+$ ls sig-0.key
+sig-0.key
+
+$ scp sig-0.key pi@192.168.1.11:/home/pi/Documents/basicstation/examples/iotwireless 
+</code></pre>
+                                  
+                                 <h2 id="connect-iot-lorawan-fwupdate-sigkey-next-steps">Review 
+                                    the next steps
+                                 </h2>
+                                 
+                                 <p>Now that you have generated the firmware and signature, go to the next
+                                    topic to upload the firmware file, <code class="code">fwstation</code>, to an Amazon S3
+                                    bucket. The bucket is a container that will store the firmware update file
+                                    as an object. You can add an IAM role that will give the CUPS server
+                                    permission to read the firmware update file in the S3 bucket. 
+                                 </p>
+                                 
+                                 <awsdocs-copyright class="copyright-print"></awsdocs-copyright>
+                                 <awsdocs-thumb-feedback right-edge="{{$ctrl.thumbFeedbackRightEdge}}"></awsdocs-thumb-feedback>
+                              </div>
+                              <noscript>
+                                 <div>
+                                    <div>
+                                       <div>
+                                          <div id="js_error_message">
+                                             <p><img src="https://d1ge0kk1l5kms0.cloudfront.net/images/G/01/webservices/console/warning.png" alt="Warning" /> <strong>Javascript is disabled or is unavailable in your
+                                                   browser.</strong></p>
+                                             <p>To use the Amazon Web Services Documentation, Javascript must be
+                                                enabled. Please refer to your browser's Help pages for instructions.
+                                             </p>
+                                          </div>
+                                       </div>
+                                    </div>
+                                 </div>
+                              </noscript>
+                              <div id="main-col-footer" class="awsui-util-font-size-0">
+                                 <div id="doc-conventions"><a target="_top" href="/general/latest/gr/docconventions.html">Document Conventions</a></div>
+                                 <div class="prev-next">
+                                    <div id="previous" class="prev-link" accesskey="p" href="./connect-iot-lorawan-update-firmware.html">Update gateway firmware 
+                                       using CUPS service with AWS IoT Core for LoRaWAN
+                                    </div>
+                                    <div id="next" class="next-link" accesskey="n" href="./connect-iot-lorawan-upload-firmware-s3bucket.html">Upload the
+                                       firmware file to an S3 bucket and add an IAM role
+                                    </div>
+                                 </div>
+                              </div>
+                              <awsdocs-page-utilities></awsdocs-page-utilities>
+                           </div>
+                           <div id="quick-feedback-yes" style="display: none;">
+                              <div class="title">Did this page help you? - Yes</div>
+                              <div class="content">
+                                 <p>Thanks for letting us know we're doing a good
+                                    job!
+                                 </p>
+                                 <p>If you've got a moment, please tell us what we did right
+                                    so we can do more of it.
+                                 </p>
+                                 <p>
+                                    <awsui-button id="fblink" target="_blank" text="Feedback" click="linkClick($event)" href="https://docs.aws.amazon.com/forms/aws-doc-feedback?hidden_service_name=IoT Docs&amp;topic_url=https://docs.aws.amazon.com/en_us/iot/latest/developerguide/connect-iot-lorawan-script-fwupdate-sigkey.html"></awsui-button>
+                                 </p>
+                              </div>
+                           </div>
+                           <div id="quick-feedback-no" style="display: none;">
+                              <div class="title">Did this page help you? - No</div>
+                              <div class="content">
+                                 <p>Thanks for letting us know this page needs work. We're
+                                    sorry we let you down.
+                                 </p>
+                                 <p>If you've got a moment, please tell us how we can make
+                                    the documentation better.
+                                 </p>
+                                 <p>
+                                    <awsui-button id="fblink" target="_blank" text="Feedback" click="linkClick($event)" href="https://docs.aws.amazon.com/forms/aws-doc-feedback?hidden_service_name=IoT Docs&amp;topic_url=https://docs.aws.amazon.com/en_us/iot/latest/developerguide/connect-iot-lorawan-script-fwupdate-sigkey.html"></awsui-button>
+                                 </p>
+                              </div>
+                           </div>
+                        </div>
+                     </body>
+                  </div>
+               </awsdocs-view>
+               <div class="page-loading-indicator" id="page-loading-indicator">
+                  <awsui-spinner size="large"></awsui-spinner>
+               </div>
+            </div>
+            <div id="tools-panel" dom-region="tools">
+               <awsdocs-tools-panel id="awsdocs-tools-panel"></awsdocs-tools-panel>
+            </div>
+         </awsui-app-layout>
+         <awsdocs-cookie-banner class="doc-cookie-banner"></awsdocs-cookie-banner>
+         <!--
+                SiteCatalyst code version: H.25.2.
+                Copyright 1996-2012 Adobe, Inc. All Rights Reserved
+                More info available at http://www.omniture.com
+            --><script language="JavaScript" type="text/javascript">
+var awsdocs = awsdocs || {};
+awsdocs.prop66 = 'AWS IoT Core';
+awsdocs.prop65 =  'Developer Guide';
+            </script><script src="https://a0.awsstatic.com/s_code/js/3.0/awshome_s_code.js" language="JavaScript" type="text/javascript"></script>
+         <!--/DO NOT REMOVE/-->
+         <!--End SiteCatalyst code version: H.25.2.--></div>
+   </body>
+</html>

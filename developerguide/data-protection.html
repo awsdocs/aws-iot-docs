@@ -1,0 +1,252 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" ng-app="AWSDocsDocPageApp">
+   <head>
+      <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+      <title>Data protection in AWS IoT Core - AWS IoT Core</title>
+      <meta name="viewport" content="width=device-width,initial-scale=1" />
+      <meta name="assets_root" content="assets" />
+      <meta name="target_state" content="data-protection" />
+      <meta name="default_state" content="data-protection" />
+      <link rel="icon" type="image/ico" href="/assets/images/favicon.ico" />
+      <link rel="shortcut icon" type="image/ico" href="/assets/images/favicon.ico" />
+      <link rel="canonical" href="https://docs.aws.amazon.com/iot/latest/developerguide/data-protection.html" />
+      <meta name="description" content="Learn how the AWS shared responsibility model applies to data protection in AWS IoT." />
+      <meta name="deployment_region" content="IAD" />
+      <meta name="product" content="AWS IoT Core" />
+      <meta name="guide" content="Developer Guide" />
+      <meta name="locales" content="de_de:Deutsch/en_us:English/es_es:Español/fr_fr:Français/it_it:Italiano/ja_jp:日本語/ko_kr:한국어/pt_br:Português/zh_cn:中文 (简体)/zh_tw:中文 (繁體)" />
+      <meta name="abstract" content="AWS IoT provides secure, bi-directional communication between Internet-connected devices such as sensors, actuators, embedded micro-controllers, or smart appliances and the AWS Cloud. This enables you to collect telemetry data from multiple devices, and store and analyze the data. You can also create applications that enable your users to control these devices from their phones or tablets." />
+      <meta name="guide-locale" content="en_us" />
+      <meta name="tocs" content="toc-contents.json" />
+      <meta name="feedback-item" content="IoT Docs" />
+      <meta name="this_doc_product" content="AWS IoT Core" />
+      <meta name="this_doc_guide" content="Developer Guide" />
+      <link href="assets/css/vendor4.css" rel="stylesheet" />
+      <link href="assets/css/awsdocs-common.css" rel="stylesheet" /><script type="text/javascript" src="assets/js/vendor3.js" defer=""></script><script type="text/javascript" src="assets/js/vendor4.js" defer=""></script><script type="text/javascript" src="assets/js/vendor1.js" defer=""></script><script type="text/javascript" src="assets/js/awsdocs-common.js" defer=""></script><script type="text/javascript" src="assets/js/awsdocs-doc-app.js" defer=""></script></head>
+   <body class="awsdocs awsui">
+      <div class="awsdocs-container">
+         <awsdocs-header></awsdocs-header>
+         <awsui-app-layout id="app-layout" class="awsui-util-no-gutters" ng-controller="ContentController as $ctrl" header-selector="awsdocs-header" navigation-hide="false" navigation-width="$ctrl.navWidth" navigation-open="$ctrl.navOpen" navigation-change="$ctrl.onNavChange($event)" tools-hide="$ctrl.hideTools" tools-width="$ctrl.toolsWidth" tools-open="$ctrl.toolsOpen" tools-change="$ctrl.onToolsChange($event)">
+            <div id="guide-toc" dom-region="navigation">
+               <awsdocs-toc></awsdocs-toc>
+            </div>
+            <div id="main-column" dom-region="content" tabindex="-1">
+               <awsdocs-view class="awsdocs-view">
+                  <div id="awsdocs-content">
+                     <head>
+                        <title>Data protection in AWS IoT Core - AWS IoT Core</title>
+                        <meta name="pdf" content="iot-dg.pdf#data-protection" />
+                        <meta name="kindle" content="https://www.amazon.com/dp/B07JBRCWWZ" />
+                        <meta name="github" content="https://github.com/awsdocs/aws-iot-docs/tree/master/developerguide/data-protection.md" />
+                        <meta name="forums" content="http://forums.aws.amazon.com/forum.jspa?forumID=210" />
+                        <meta name="feedback" content="https://docs.aws.amazon.com/forms/aws-doc-feedback?hidden_service_name=IoT%20Docs&amp;topic_url=http://docs.aws.amazon.com/en_us/iot/latest/developerguide/data-protection.html" />
+                        <meta name="feedback-yes" content="feedbackyes.html?topic_url=http://docs.aws.amazon.com/en_us/iot/latest/developerguide/data-protection.html" />
+                        <meta name="feedback-no" content="feedbackno.html?topic_url=http://docs.aws.amazon.com/en_us/iot/latest/developerguide/data-protection.html" />
+                        <meta name="keywords" content="AWS IoT,IoT,Internet of Things" />
+                     </head>
+                     <body>
+                        <div id="main">
+                           <div style="display: none"><a href="iot-dg.pdf#data-protection" target="_blank" rel="noopener noreferrer" title="Open PDF"></a><a target="_blank" rel="noopener noreferrer" href="https://www.amazon.com/dp/B07JBRCWWZ" title="Open Kindle"></a><a href="https://github.com/awsdocs/aws-iot-docs/tree/master/developerguide/data-protection.md" target="_blank" rel="noopener noreferrer" title="Edit this page on GitHub"></a></div>
+                           <div id="breadcrumbs" class="breadcrumb"><a href="http://aws.amazon.com">AWS</a><a href="/index.html">Documentation</a><a href="/iot/index.html">AWS IoT Core</a><a href="what-is-aws-iot.html">Developer Guide</a></div>
+                           <div id="page-toc-src"><a href="#data-protection-encrypt">Data encryption in AWS IoT</a></div>
+                           <div id="main-content" class="awsui-util-container">
+                              <div id="main-col-body">
+                                 <awsdocs-language-banner data-service="$ctrl.pageService"></awsdocs-language-banner>
+                                 <h1 class="topictitle" id="data-protection">Data protection in AWS IoT Core</h1>
+                                 <div class="awsdocs-page-header-container">
+                                    <awsdocs-page-header></awsdocs-page-header>
+                                    <awsdocs-filter-selector id="awsdocs-filter-selector"></awsdocs-filter-selector>
+                                 </div>
+                                 <p>The AWS <a href="http://aws.amazon.com/compliance/shared-responsibility-model/" rel="noopener noreferrer" target="_blank"><span>shared responsibility model</span><awsui-icon class="awsdocs-link-icon" name="external"></awsui-icon></a>
+                                    applies to data protection in AWS IoT Core. As described in this model, AWS is
+                                    responsible for protecting the global infrastructure that runs all of the AWS Cloud.
+                                    You are
+                                    responsible for maintaining control over your content that is hosted on this infrastructure.
+                                    This content includes the security configuration and management tasks for the AWS
+                                    services
+                                    that you use. For more information about data privacy, see the <a href="http://aws.amazon.com/compliance/data-privacy-faq" rel="noopener noreferrer" target="_blank"><span>Data Privacy FAQ</span><awsui-icon class="awsdocs-link-icon" name="external"></awsui-icon></a>.<span> For information about data protection in Europe, see the <a href="http://aws.amazon.com/blogs/security/the-aws-shared-responsibility-model-and-gdpr/" rel="noopener noreferrer" target="_blank"><span>AWS Shared
+                                             Responsibility Model and GDPR</span><awsui-icon class="awsdocs-link-icon" name="external"></awsui-icon></a> blog post on the <em>AWS Security
+                                          Blog</em>.</span></p>
+                                 <p>For data protection purposes, we recommend that you protect AWS account credentials
+                                    and
+                                    set up individual user accounts with AWS Identity and Access Management (IAM). That
+                                    way each user is given only the
+                                    permissions necessary to fulfill their job duties. We also recommend that you secure
+                                    your data
+                                    in the following ways:
+                                 </p>
+                                 <div class="itemizedlist">
+                                     
+                                     
+                                     
+                                     
+                                     
+                                     
+                                    
+                                    <ul class="itemizedlist" type="disc">
+                                       <li class="listitem">
+                                          
+                                          <p>Use multi-factor authentication (MFA) with each account.</p>
+                                          
+                                       </li>
+                                       <li class="listitem">
+                                          
+                                          <p>Use SSL/TLS to communicate with AWS resources. We recommend TLS 1.2 or later.</p>
+                                          
+                                       </li>
+                                       <li class="listitem">
+                                          
+                                          <p>Set up API and user activity logging with AWS CloudTrail.</p>
+                                          
+                                       </li>
+                                       <li class="listitem">
+                                          
+                                          <p>Use AWS encryption solutions, along with all default security controls within AWS
+                                             services.
+                                          </p>
+                                          
+                                       </li>
+                                       <li class="listitem">
+                                          
+                                          <p>Use advanced managed security services such as Amazon Macie, which assists in discovering
+                                             and securing personal data that is stored in Amazon S3.
+                                          </p>
+                                          
+                                       </li>
+                                       <li class="listitem">
+                                          
+                                          <p>If you require FIPS 140-2 validated cryptographic modules when accessing AWS through
+                                             a command line interface or an API, use a FIPS endpoint. For more information about
+                                             the
+                                             available FIPS endpoints, see <a href="http://aws.amazon.com/compliance/fips/" rel="noopener noreferrer" target="_blank"><span>Federal
+                                                   Information Processing Standard (FIPS) 140-2</span><awsui-icon class="awsdocs-link-icon" name="external"></awsui-icon></a>.
+                                          </p>
+                                          
+                                       </li>
+                                    </ul>
+                                 </div>
+                                 <p>We strongly recommend that you never put confidential or sensitive information, such
+                                    as your
+                                    customers' email addresses, into tags or free-form fields such as a <b>Name</b> field. This includes when you work with AWS IoT or other AWS
+                                    services using the console, API, AWS CLI, or AWS SDKs. Any data that you enter into
+                                    tags or free-form fields used for names may be used for billing or diagnostic logs.
+                                    If you 
+                                    provide a URL to an external server, we strongly recommend that you do not include
+                                    credentials 
+                                    information in the URL to validate your request to that server.
+                                 </p>
+                                 <p>For more information about data protection, see the <a href="http://aws.amazon.com/blogs/security/the-aws-shared-responsibility-model-and-gdpr/" rel="noopener noreferrer" target="_blank"><span>AWS Shared
+                                          Responsibility Model and GDPR</span><awsui-icon class="awsdocs-link-icon" name="external"></awsui-icon></a> blog post on the <em>AWS Security
+                                       Blog</em>.
+                                 </p>
+                                 <p>AWS IoT devices gather data, perform some manipulation on that data, and then send
+                                    that data
+                                    to another web service. You might choose to store some data on your device for a short
+                                    period of
+                                    time. You're responsible for providing any data protection on that data at rest. When
+                                    your
+                                    device sends data to AWS IoT, it does so over a TLS connection as discussed later
+                                    in this section.
+                                    AWS IoT devices can send data to any AWS service. For more information about each
+                                    service's data
+                                    security, see the documentation for that service. AWS IoT can be configured to write
+                                    logs to CloudWatch Logs
+                                    and log AWS IoT API calls to AWS CloudTrail. For more information about data security
+                                    for these
+                                    services, see <a href="https://docs.aws.amazon.com/AmazonCloudWatch/latest/monitoring/auth-and-access-control-cw.html"> Authentication and Access Control for Amazon CloudWatch</a> and <a href="https://docs.aws.amazon.com/awscloudtrail/latest/userguide/encrypting-cloudtrail-log-files-with-aws-kms.html">Encrypting CloudTrail Log Files with AWS KMS-Managed Keys</a>.
+                                 </p>
+                                 
+                                 <h2 id="data-protection-encrypt">Data encryption in AWS IoT</h2>
+                                 
+                                 <p>By default, all AWS IoT data in transit and at rest is encrypted. <a href="./transport-security.html">Data in transit is encrypted
+                                       using TLS</a>, and data at rest is encrypted using AWS owned keys. AWS IoT does not
+                                    currently support customer-managed customer master keys (CMKs) from AWS Key Management
+                                    Service
+                                    (AWS KMS); however, Device Advisor and AWS IoT Wireless use only a KMS AWS Owned Customer
+                                    Master
+                                    Key (AOCMK) to encrypt customer data.
+                                 </p>
+                                 
+                                 <p> </p>
+                                 
+                                 <awsdocs-copyright class="copyright-print"></awsdocs-copyright>
+                                 <awsdocs-thumb-feedback right-edge="{{$ctrl.thumbFeedbackRightEdge}}"></awsdocs-thumb-feedback>
+                              </div>
+                              <noscript>
+                                 <div>
+                                    <div>
+                                       <div>
+                                          <div id="js_error_message">
+                                             <p><img src="https://d1ge0kk1l5kms0.cloudfront.net/images/G/01/webservices/console/warning.png" alt="Warning" /> <strong>Javascript is disabled or is unavailable in your
+                                                   browser.</strong></p>
+                                             <p>To use the Amazon Web Services Documentation, Javascript must be
+                                                enabled. Please refer to your browser's Help pages for instructions.
+                                             </p>
+                                          </div>
+                                       </div>
+                                    </div>
+                                 </div>
+                              </noscript>
+                              <div id="main-col-footer" class="awsui-util-font-size-0">
+                                 <div id="doc-conventions"><a target="_top" href="/general/latest/gr/docconventions.html">Document Conventions</a></div>
+                                 <div class="prev-next">
+                                    <div id="previous" class="prev-link" accesskey="p" href="./cross-account-access.html">Cross account access with IAM</div>
+                                    <div id="next" class="next-link" accesskey="n" href="./transport-security.html">Transport security in AWS IoT</div>
+                                 </div>
+                              </div>
+                              <awsdocs-page-utilities></awsdocs-page-utilities>
+                           </div>
+                           <div id="quick-feedback-yes" style="display: none;">
+                              <div class="title">Did this page help you? - Yes</div>
+                              <div class="content">
+                                 <p>Thanks for letting us know we're doing a good
+                                    job!
+                                 </p>
+                                 <p>If you've got a moment, please tell us what we did right
+                                    so we can do more of it.
+                                 </p>
+                                 <p>
+                                    <awsui-button id="fblink" target="_blank" text="Feedback" click="linkClick($event)" href="https://docs.aws.amazon.com/forms/aws-doc-feedback?hidden_service_name=IoT Docs&amp;topic_url=https://docs.aws.amazon.com/en_us/iot/latest/developerguide/data-protection.html"></awsui-button>
+                                 </p>
+                              </div>
+                           </div>
+                           <div id="quick-feedback-no" style="display: none;">
+                              <div class="title">Did this page help you? - No</div>
+                              <div class="content">
+                                 <p>Thanks for letting us know this page needs work. We're
+                                    sorry we let you down.
+                                 </p>
+                                 <p>If you've got a moment, please tell us how we can make
+                                    the documentation better.
+                                 </p>
+                                 <p>
+                                    <awsui-button id="fblink" target="_blank" text="Feedback" click="linkClick($event)" href="https://docs.aws.amazon.com/forms/aws-doc-feedback?hidden_service_name=IoT Docs&amp;topic_url=https://docs.aws.amazon.com/en_us/iot/latest/developerguide/data-protection.html"></awsui-button>
+                                 </p>
+                              </div>
+                           </div>
+                        </div>
+                     </body>
+                  </div>
+               </awsdocs-view>
+               <div class="page-loading-indicator" id="page-loading-indicator">
+                  <awsui-spinner size="large"></awsui-spinner>
+               </div>
+            </div>
+            <div id="tools-panel" dom-region="tools">
+               <awsdocs-tools-panel id="awsdocs-tools-panel"></awsdocs-tools-panel>
+            </div>
+         </awsui-app-layout>
+         <awsdocs-cookie-banner class="doc-cookie-banner"></awsdocs-cookie-banner>
+         <!--
+                SiteCatalyst code version: H.25.2.
+                Copyright 1996-2012 Adobe, Inc. All Rights Reserved
+                More info available at http://www.omniture.com
+            --><script language="JavaScript" type="text/javascript">
+var awsdocs = awsdocs || {};
+awsdocs.prop66 = 'AWS IoT Core';
+awsdocs.prop65 =  'Developer Guide';
+            </script><script src="https://a0.awsstatic.com/s_code/js/3.0/awshome_s_code.js" language="JavaScript" type="text/javascript"></script>
+         <!--/DO NOT REMOVE/-->
+         <!--End SiteCatalyst code version: H.25.2.--></div>
+   </body>
+</html>

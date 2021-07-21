@@ -1,0 +1,475 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" ng-app="AWSDocsDocPageApp">
+   <head>
+      <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+      <title>Server authentication - AWS IoT Core</title>
+      <meta name="viewport" content="width=device-width,initial-scale=1" />
+      <meta name="assets_root" content="assets" />
+      <meta name="target_state" content="server-authentication" />
+      <meta name="default_state" content="server-authentication" />
+      <link rel="icon" type="image/ico" href="/assets/images/favicon.ico" />
+      <link rel="shortcut icon" type="image/ico" href="/assets/images/favicon.ico" />
+      <link rel="canonical" href="https://docs.aws.amazon.com/iot/latest/developerguide/server-authentication.html" />
+      <meta name="description" content="Learn how to authenticate the server with an X.509 certificate when you connect to AWS IoT Core." />
+      <meta name="deployment_region" content="IAD" />
+      <meta name="product" content="AWS IoT Core" />
+      <meta name="guide" content="Developer Guide" />
+      <meta name="locales" content="de_de:Deutsch/en_us:English/es_es:Español/fr_fr:Français/it_it:Italiano/ja_jp:日本語/ko_kr:한국어/pt_br:Português/zh_cn:中文 (简体)/zh_tw:中文 (繁體)" />
+      <meta name="abstract" content="AWS IoT provides secure, bi-directional communication between Internet-connected devices such as sensors, actuators, embedded micro-controllers, or smart appliances and the AWS Cloud. This enables you to collect telemetry data from multiple devices, and store and analyze the data. You can also create applications that enable your users to control these devices from their phones or tablets." />
+      <meta name="guide-locale" content="en_us" />
+      <meta name="tocs" content="toc-contents.json" />
+      <meta name="feedback-item" content="IoT Docs" />
+      <meta name="this_doc_product" content="AWS IoT Core" />
+      <meta name="this_doc_guide" content="Developer Guide" />
+      <link href="assets/css/vendor4.css" rel="stylesheet" />
+      <link href="assets/css/awsdocs-common.css" rel="stylesheet" /><script type="text/javascript" src="assets/js/vendor3.js" defer=""></script><script type="text/javascript" src="assets/js/vendor4.js" defer=""></script><script type="text/javascript" src="assets/js/vendor1.js" defer=""></script><script type="text/javascript" src="assets/js/awsdocs-common.js" defer=""></script><script type="text/javascript" src="assets/js/awsdocs-doc-app.js" defer=""></script></head>
+   <body class="awsdocs awsui">
+      <div class="awsdocs-container">
+         <awsdocs-header></awsdocs-header>
+         <awsui-app-layout id="app-layout" class="awsui-util-no-gutters" ng-controller="ContentController as $ctrl" header-selector="awsdocs-header" navigation-hide="false" navigation-width="$ctrl.navWidth" navigation-open="$ctrl.navOpen" navigation-change="$ctrl.onNavChange($event)" tools-hide="$ctrl.hideTools" tools-width="$ctrl.toolsWidth" tools-open="$ctrl.toolsOpen" tools-change="$ctrl.onToolsChange($event)">
+            <div id="guide-toc" dom-region="navigation">
+               <awsdocs-toc></awsdocs-toc>
+            </div>
+            <div id="main-column" dom-region="content" tabindex="-1">
+               <awsdocs-view class="awsdocs-view">
+                  <div id="awsdocs-content">
+                     <head>
+                        <title>Server authentication - AWS IoT Core</title>
+                        <meta name="pdf" content="iot-dg.pdf#server-authentication" />
+                        <meta name="kindle" content="https://www.amazon.com/dp/B07JBRCWWZ" />
+                        <meta name="github" content="https://github.com/awsdocs/aws-iot-docs/tree/master/developerguide/server-authentication.md" />
+                        <meta name="forums" content="http://forums.aws.amazon.com/forum.jspa?forumID=210" />
+                        <meta name="feedback" content="https://docs.aws.amazon.com/forms/aws-doc-feedback?hidden_service_name=IoT%20Docs&amp;topic_url=http://docs.aws.amazon.com/en_us/iot/latest/developerguide/server-authentication.html" />
+                        <meta name="feedback-yes" content="feedbackyes.html?topic_url=http://docs.aws.amazon.com/en_us/iot/latest/developerguide/server-authentication.html" />
+                        <meta name="feedback-no" content="feedbackno.html?topic_url=http://docs.aws.amazon.com/en_us/iot/latest/developerguide/server-authentication.html" />
+                        <meta name="keywords" content="AWS IoT,IoT,Internet of Things" />
+                     </head>
+                     <body>
+                        <div id="main">
+                           <div style="display: none"><a href="iot-dg.pdf#server-authentication" target="_blank" rel="noopener noreferrer" title="Open PDF"></a><a target="_blank" rel="noopener noreferrer" href="https://www.amazon.com/dp/B07JBRCWWZ" title="Open Kindle"></a><a href="https://github.com/awsdocs/aws-iot-docs/tree/master/developerguide/server-authentication.md" target="_blank" rel="noopener noreferrer" title="Edit this page on GitHub"></a></div>
+                           <div id="breadcrumbs" class="breadcrumb"><a href="http://aws.amazon.com">AWS</a><a href="/index.html">Documentation</a><a href="/iot/index.html">AWS IoT Core</a><a href="what-is-aws-iot.html">Developer Guide</a></div>
+                           <div id="page-toc-src"><a href="#endpoint-types">Endpoint types</a><a href="#server-authentication-certs">CA certificates for server
+                                 authentication</a><a href="#server-authentication-guidelines">Server authentication
+                                 guidelines</a></div>
+                           <div id="main-content" class="awsui-util-container">
+                              <div id="main-col-body">
+                                 <awsdocs-language-banner data-service="$ctrl.pageService"></awsdocs-language-banner>
+                                 <h1 class="topictitle" id="server-authentication">Server authentication</h1>
+                                 <div class="awsdocs-page-header-container">
+                                    <awsdocs-page-header></awsdocs-page-header>
+                                    <awsdocs-filter-selector id="awsdocs-filter-selector"></awsdocs-filter-selector>
+                                 </div>
+                                 <p>When your device or other client attempts to connect to AWS IoT Core, the AWS IoT
+                                    Core
+                                    server will send an X.509 certificate that your device uses to authenticate the server.
+                                    Authentication takes place at the TLS layer through validation of the <a href="./x509-client-certs.html"> X.509 certificate chain</a> This is the same method
+                                    used by your browser when you visit an HTTPS URL.  If you want to use certificates
+                                    from
+                                    your own certificate authority, see <a href="./manage-your-CA-certs.html">Manage your CA certificates</a>.
+                                 </p>
+                                 <p>When your devices or other clients establish a TLS connection to an AWS IoT Core
+                                    endpoint, AWS IoT Core presents a certificate chain that the devices use to verify
+                                    that
+                                    they're communicating with AWS IoT Core and not another server impersonating AWS IoT
+                                    Core. The
+                                    chain that is presented depends on a combination of the type of endpoint the device
+                                    is
+                                    connecting to and the <a href="./transport-security.html">cipher
+                                       suite</a> that the client and AWS IoT Core negotiated during the TLS handshake.
+                                 </p>
+                                 
+                                 <h2 id="endpoint-types">Endpoint types</h2>
+                                 
+                                 <p>AWS IoT Core supports two different data endpoint types, <code class="code">iot:Data</code> and
+                                    <code class="code">iot:Data-ATS</code>. <code class="code">iot:Data</code> endpoints present a certificate
+                                    signed by the <a href="https://www.websecurity.digicert.com/content/dam/websitesecurity/digitalassets/desktop/pdfs/roots/VeriSign-Class%203-Public-Primary-Certification-Authority-G5.pem" rel="noopener noreferrer" target="_blank"><span>VeriSign Class 3 Public Primary G5 root CA certificate</span><awsui-icon class="awsdocs-link-icon" name="external"></awsui-icon></a>.
+                                    <code class="code">iot:Data-ATS</code> endpoints present a server certificate signed by an
+                                    <a href="https://www.amazontrust.com/repository/" rel="noopener noreferrer" target="_blank"><span>Amazon Trust
+                                          Services</span><awsui-icon class="awsdocs-link-icon" name="external"></awsui-icon></a> CA.
+                                 </p>
+                                 
+                                 <p>Certificates presented by ATS endpoints are cross signed by Starfield. Some TLS
+                                    client implementations require validation of the root of trust and require that the
+                                    Starfield CA certificates are installed in the client's trust stores.
+                                 </p>
+                                 
+                                 <div class="awsdocs-note awsdocs-warning">
+                                    <div class="awsdocs-note-title">
+                                       <awsui-icon name="status-warning" variant="error"></awsui-icon><span>Warning</span></div>
+                                    <div class="awsdocs-note-text">
+                                       <p>Using a method of certificate pinning that hashes the whole certificate
+                                          (including the issuer name, and so on) is not recommended because this will
+                                          cause certificate verification to fail because the ATS certificates we provide
+                                          are cross signed by Starfield and have a different issuer name.
+                                       </p>
+                                    </div>
+                                 </div>
+                                 
+                                 <p>Use <code class="code">iot:Data-ATS</code> endpoints unless your device requires Symantec or
+                                    Verisign CA certificates. Symantec and Verisign certificates have been deprecated
+                                    and are no longer supported by most web browsers.
+                                 </p>
+                                 
+                                 <p>You can use the <code class="code">describe-endpoint</code> command to create your ATS
+                                    endpoint.
+                                 </p>
+                                 <pre class="programlisting"><div class="code-btn-container"><div class="btn-copy-code" title="Copy"><awsui-icon name="copy"></awsui-icon></div></div><code class="nohighlight">aws iot describe-endpoint --endpoint-type iot:Data-ATS</code></pre>
+                                 <p>The <code class="code">describe-endpoint</code> command returns an endpoint in the following
+                                    format.
+                                 </p>
+                                 <pre class="programlisting"><div class="code-btn-container"><div class="btn-copy-code" title="Copy"><awsui-icon name="copy"></awsui-icon></div></div><code class="nohighlight"><code class="replaceable">account-specific-prefix</code>.iot.<code class="replaceable">your-region</code>.amazonaws.com</code></pre>
+                                 
+                                 <p>The first time <code class="code">describe-endpoint</code> is called, an endpoint is created.
+                                    All subsequent calls to <code class="code">describe-endpoint</code> return the same
+                                    endpoint.
+                                 </p>
+                                 
+                                 <p>For backward-compatibility, AWS IoT Core still supports Symantec endpoints. For more
+                                    information, see <a href="https://aws.amazon.com/blogs/iot/aws-iot-core-ats-endpoints" rel="noopener noreferrer" target="_blank"><span>How AWS IoT Core
+                                          is Helping Customers Navigate the Upcoming Distrust of Symantec Certificate
+                                          Authorities</span><awsui-icon class="awsdocs-link-icon" name="external"></awsui-icon></a>. Devices operating on ATS endpoints are fully interoperable
+                                    with devices operating on Symantec endpoints in the same account and do not require
+                                    any re-registration.
+                                 </p>
+                                 
+                                 <div class="awsdocs-note">
+                                    <div class="awsdocs-note-title">
+                                       <awsui-icon name="status-info" variant="link"></awsui-icon><span>Note</span></div>
+                                    <div class="awsdocs-note-text">
+                                       <p>To see your <code class="code">iot:Data-ATS</code> endpoint in the AWS IoT Core console, choose <b>Settings</b>.
+                                          The console displays only the <code class="code">iot:Data-ATS</code> endpoint. By default, the <code class="code">describe-endpoint</code> command
+                                          displays the <code class="code">iot:Data</code> endpoint for backward compatibility. To see the <code class="code">iot:Data-ATS</code> endpoint, specify
+                                          the <code class="code">--endpointType</code> parameter, as in the previous example.
+                                       </p>
+                                    </div>
+                                 </div>
+                                  
+                                 
+                                 <h3 id="java-client">Creating an <code class="code">IotDataPlaneClient</code> with
+                                    the AWS SDK for Java
+                                 </h3>
+                                 
+                                 <p>By default, the <a href="https://github.com/aws/aws-sdk-java-v2" rel="noopener noreferrer" target="_blank"><span>AWS SDK
+                                          for Java - Version 2</span><awsui-icon class="awsdocs-link-icon" name="external"></awsui-icon></a> creates an <code class="code">IotDataPlaneClient</code> by
+                                    using an <code class="code">iot:Data</code> endpoint. To create a client that uses an
+                                    <code class="code">iot:Data-ATS</code> endpoint, you must do the following. 
+                                 </p>
+                                 
+                                 <div class="itemizedlist">
+                                     
+                                     
+                                    
+                                    <ul class="itemizedlist" type="disc">
+                                       <li class="listitem">
+                                          
+                                          <p>Create an <code class="code">iot:Data-ATS</code> endpoint by using the <a href="https://docs.aws.amazon.com/iot/latest/apireference/API_DescribeEndpoint.html">DescribeEndpoint</a> API.
+                                          </p>
+                                          
+                                       </li>
+                                       <li class="listitem">
+                                          
+                                          <p>Specify that endpoint when you create the
+                                             <code class="code">IotDataPlaneClient</code>.
+                                          </p>
+                                          
+                                       </li>
+                                    </ul>
+                                 </div>
+                                 
+                                 <p>The following example performs both of these operations.</p>
+                                 <pre class="programlisting"><div class="code-btn-container"><div class="btn-copy-code" title="Copy"><awsui-icon name="copy"></awsui-icon></div></div><code class="java ">public void setup() throws Exception <span>{</span>
+        IotClient client = IotClient.builder().credentialsProvider(CREDENTIALS_PROVIDER_CHAIN).region(Region.US_EAST_1).build();
+        String endpoint = client.describeEndpoint(r -&gt; r.endpointType("iot:Data-ATS")).endpointAddress();
+        iot = IotDataPlaneClient.builder()
+                                .credentialsProvider(CREDENTIALS_PROVIDER_CHAIN)
+                                .endpointOverride(URI.create("https://" + endpoint))
+                                .region(Region.US_EAST_1)
+                                .build();
+}</code></pre>
+                                  
+                                  
+                                 <h2 id="server-authentication-certs">CA certificates for server
+                                    authentication
+                                 </h2>
+                                 
+                                 <p>Depending on which type of data endpoint you are using and which cipher suite you
+                                    have negotiated, AWS IoT Core server authentication certificates are signed by one
+                                    of the
+                                    following root CA certificates:
+                                 </p>
+                                 
+                                 <p><b>VeriSign Endpoints (legacy)</b></p>
+                                 
+                                 <div class="itemizedlist">
+                                     
+                                    
+                                    <ul class="itemizedlist" type="disc">
+                                       <li class="listitem">
+                                          
+                                          <p>RSA 2048 bit key: <a href="https://www.websecurity.digicert.com/content/dam/websitesecurity/digitalassets/desktop/pdfs/roots/VeriSign-Class%203-Public-Primary-Certification-Authority-G5.pem" rel="noopener noreferrer" target="_blank"><span>VeriSign Class 3 Public Primary G5 root CA certificate</span><awsui-icon class="awsdocs-link-icon" name="external"></awsui-icon></a></p>
+                                          
+                                       </li>
+                                    </ul>
+                                 </div>
+                                 
+                                 <p><b>Amazon Trust Services Endpoints
+                                       (preferred)</b></p>
+                                 
+                                 <div class="awsdocs-note">
+                                    <div class="awsdocs-note-title">
+                                       <awsui-icon name="status-info" variant="link"></awsui-icon><span>Note</span></div>
+                                    <div class="awsdocs-note-text">
+                                       <p>You might need to right click these links and select <b>Save link as...</b> to save these certificates as files.
+                                       </p>
+                                    </div>
+                                 </div>
+                                 
+                                 <div class="itemizedlist">
+                                     
+                                     
+                                     
+                                     
+                                    
+                                    <ul class="itemizedlist" type="disc">
+                                       <li class="listitem">
+                                          
+                                          <p>RSA 2048 bit key: <a href="https://www.amazontrust.com/repository/AmazonRootCA1.pem" rel="noopener noreferrer" target="_blank"><span>Amazon
+                                                   Root CA 1</span><awsui-icon class="awsdocs-link-icon" name="external"></awsui-icon></a>.
+                                          </p>
+                                          
+                                       </li>
+                                       <li class="listitem">
+                                          
+                                          <p>RSA 4096 bit key: Amazon Root CA 2. Reserved for future use.</p>
+                                          
+                                       </li>
+                                       <li class="listitem">
+                                          
+                                          <p>ECC 256 bit key: <a href="https://www.amazontrust.com/repository/AmazonRootCA3.pem" rel="noopener noreferrer" target="_blank"><span>Amazon
+                                                   Root CA 3</span><awsui-icon class="awsdocs-link-icon" name="external"></awsui-icon></a>.
+                                          </p>
+                                          
+                                       </li>
+                                       <li class="listitem">
+                                          
+                                          <p>ECC 384 bit key: Amazon Root CA 4. Reserved for future use.</p>
+                                          
+                                       </li>
+                                    </ul>
+                                 </div>
+                                 
+                                 <p>These certificates are all cross-signed by the <a href="https://www.amazontrust.com/repository/SFSRootCAG2.pem" rel="noopener noreferrer" target="_blank"><span> Starfield Root CA
+                                          Certificate</span><awsui-icon class="awsdocs-link-icon" name="external"></awsui-icon></a>. All new AWS IoT Core regions, beginning with the May 9, 2018
+                                    launch of AWS IoT Core in the Asia Pacific (Mumbai) Region, serve only ATS
+                                    certificates.
+                                 </p>
+                                  
+                                 
+                                 <h2 id="server-authentication-guidelines">Server authentication
+                                    guidelines
+                                 </h2>
+                                 
+                                 <p>There are many variables that can affect a device's ability to validate the
+                                    AWS IoT Core server authentication certificate. For example, devices may be too memory
+                                    constrained to hold all possible root CA certificates, or devices may implement a
+                                    non-standard method of certificate validation. For these reasons we suggest
+                                    following these guidelines:
+                                 </p>
+                                 
+                                 <div class="itemizedlist">
+                                     
+                                     
+                                     
+                                     
+                                     
+                                    
+                                    <ul class="itemizedlist" type="disc">
+                                       <li class="listitem">
+                                          
+                                          <p>We recommend that you use your ATS endpoint and install all supported
+                                             Amazon Root CA certificates.
+                                          </p>
+                                          
+                                       </li>
+                                       <li class="listitem">
+                                          
+                                          <p>If you cannot store all of these certificates on your device and if your
+                                             devices do not use ECC-based validation, you can omit the <a href="https://www.amazontrust.com/repository/AmazonRootCA3.pem" rel="noopener noreferrer" target="_blank"><span>Amazon
+                                                   Root CA 3</span><awsui-icon class="awsdocs-link-icon" name="external"></awsui-icon></a> and <a href="https://www.amazontrust.com/repository/AmazonRootCA4.pem" rel="noopener noreferrer" target="_blank"><span>Amazon
+                                                   Root CA 4</span><awsui-icon class="awsdocs-link-icon" name="external"></awsui-icon></a> ECC certificates. If your devices do not implement
+                                             RSA-based certificate validation, you can omit the <a href="https://www.amazontrust.com/repository/AmazonRootCA1.pem" rel="noopener noreferrer" target="_blank"><span>Amazon
+                                                   Root CA 1</span><awsui-icon class="awsdocs-link-icon" name="external"></awsui-icon></a> and <a href="https://www.amazontrust.com/repository/AmazonRootCA2.pem" rel="noopener noreferrer" target="_blank"><span>Amazon
+                                                   Root CA 2</span><awsui-icon class="awsdocs-link-icon" name="external"></awsui-icon></a> RSA certificates. You might need to right click 
+                                             these links and select <b>Save link as...</b> to save
+                                             these certificates as files.
+                                          </p>
+                                          
+                                       </li>
+                                       <li class="listitem">
+                                          
+                                          <p>If you are experiencing server certificate validation issues when
+                                             connecting to your ATS endpoint, try adding the relevant cross-signed Amazon
+                                             Root CA certificate to your trust store. You might need to right click these
+                                             links and select <b>Save link as...</b> to save these
+                                             certificates as files.
+                                          </p>
+                                          
+                                          <div class="itemizedlist">
+                                              
+                                              
+                                              
+                                              
+                                             
+                                             <ul class="itemizedlist" type="disc">
+                                                <li class="listitem">
+                                                   
+                                                   <p><a href="https://www.amazontrust.com/repository/G2-RootCA1.pem" rel="noopener noreferrer" target="_blank"><span>Cross-signed Amazon Root CA 1</span><awsui-icon class="awsdocs-link-icon" name="external"></awsui-icon></a></p>
+                                                   
+                                                </li>
+                                                <li class="listitem">
+                                                   
+                                                   <p><a href="https://www.amazontrust.com/repository/G2-RootCA2.pem" rel="noopener noreferrer" target="_blank"><span>Cross-signed Amazon Root CA 2</span><awsui-icon class="awsdocs-link-icon" name="external"></awsui-icon></a> - Reserved for future
+                                                      use.
+                                                   </p>
+                                                   
+                                                </li>
+                                                <li class="listitem">
+                                                   
+                                                   <p><a href="https://www.amazontrust.com/repository/G2-RootCA3.pem" rel="noopener noreferrer" target="_blank"><span>Cross-signed Amazon Root CA 3</span><awsui-icon class="awsdocs-link-icon" name="external"></awsui-icon></a></p>
+                                                   
+                                                </li>
+                                                <li class="listitem">
+                                                   
+                                                   <p><a href="https://www.amazontrust.com/repository/G2-RootCA4.pem" rel="noopener noreferrer" target="_blank"><span>Cross-signed Amazon Root CA 4 - Reserved for future
+                                                            use.</span><awsui-icon class="awsdocs-link-icon" name="external"></awsui-icon></a></p>
+                                                   
+                                                </li>
+                                             </ul>
+                                          </div>
+                                          
+                                       </li>
+                                       <li class="listitem">
+                                          
+                                          <p>If you are experiencing server certificate validation issues, your device
+                                             may need to explicitly trust the root CA. Try adding the <a href="https://www.amazontrust.com/repository/SFSRootCAG2.pem" rel="noopener noreferrer" target="_blank"><span>Starfield
+                                                   Root CA Certificate</span><awsui-icon class="awsdocs-link-icon" name="external"></awsui-icon></a> to your trust store.
+                                          </p>
+                                          
+                                       </li>
+                                       <li class="listitem">
+                                          
+                                          <p>If you still experience issues after executing the steps above, please
+                                             contact <a href="https://aws.amazon.com/premiumsupport/plans/developers/" rel="noopener noreferrer" target="_blank"><span>AWS Developer Support</span><awsui-icon class="awsdocs-link-icon" name="external"></awsui-icon></a>. 
+                                          </p>
+                                          
+                                       </li>
+                                    </ul>
+                                 </div>
+                                 
+                                 <div class="awsdocs-note">
+                                    <div class="awsdocs-note-title">
+                                       <awsui-icon name="status-info" variant="link"></awsui-icon><span>Note</span></div>
+                                    <div class="awsdocs-note-text">
+                                       <p>CA certificates have an expiration date after which they cannot be used to
+                                          validate a server's certificate. CA certificates might have to be replaced
+                                          before their expiration date. Make sure that you can update the root CA
+                                          certificates on all of your devices or clients to help ensure ongoing connectivity
+                                          and to
+                                          keep up to date with security best practices.
+                                       </p>
+                                    </div>
+                                 </div>
+                                 
+                                 <div class="awsdocs-note">
+                                    <div class="awsdocs-note-title">
+                                       <awsui-icon name="status-info" variant="link"></awsui-icon><span>Note</span></div>
+                                    <div class="awsdocs-note-text">
+                                       <p>When connecting to AWS IoT Core in your device code, pass the certificate into the
+                                          API you are using to connect. The API you use will vary by SDK. For more
+                                          information, see the <a href="./iot-sdks.html">AWS IoT Core Device
+                                             SDKs</a>.
+                                       </p>
+                                    </div>
+                                 </div>
+                                 
+                                 <awsdocs-copyright class="copyright-print"></awsdocs-copyright>
+                                 <awsdocs-thumb-feedback right-edge="{{$ctrl.thumbFeedbackRightEdge}}"></awsdocs-thumb-feedback>
+                              </div>
+                              <noscript>
+                                 <div>
+                                    <div>
+                                       <div>
+                                          <div id="js_error_message">
+                                             <p><img src="https://d1ge0kk1l5kms0.cloudfront.net/images/G/01/webservices/console/warning.png" alt="Warning" /> <strong>Javascript is disabled or is unavailable in your
+                                                   browser.</strong></p>
+                                             <p>To use the Amazon Web Services Documentation, Javascript must be
+                                                enabled. Please refer to your browser's Help pages for instructions.
+                                             </p>
+                                          </div>
+                                       </div>
+                                    </div>
+                                 </div>
+                              </noscript>
+                              <div id="main-col-footer" class="awsui-util-font-size-0">
+                                 <div id="doc-conventions"><a target="_top" href="/general/latest/gr/docconventions.html">Document Conventions</a></div>
+                                 <div class="prev-next">
+                                    <div id="previous" class="prev-link" accesskey="p" href="./authentication.html">Authentication</div>
+                                    <div id="next" class="next-link" accesskey="n" href="./client-authentication.html">Client authentication</div>
+                                 </div>
+                              </div>
+                              <awsdocs-page-utilities></awsdocs-page-utilities>
+                           </div>
+                           <div id="quick-feedback-yes" style="display: none;">
+                              <div class="title">Did this page help you? - Yes</div>
+                              <div class="content">
+                                 <p>Thanks for letting us know we're doing a good
+                                    job!
+                                 </p>
+                                 <p>If you've got a moment, please tell us what we did right
+                                    so we can do more of it.
+                                 </p>
+                                 <p>
+                                    <awsui-button id="fblink" target="_blank" text="Feedback" click="linkClick($event)" href="https://docs.aws.amazon.com/forms/aws-doc-feedback?hidden_service_name=IoT Docs&amp;topic_url=https://docs.aws.amazon.com/en_us/iot/latest/developerguide/server-authentication.html"></awsui-button>
+                                 </p>
+                              </div>
+                           </div>
+                           <div id="quick-feedback-no" style="display: none;">
+                              <div class="title">Did this page help you? - No</div>
+                              <div class="content">
+                                 <p>Thanks for letting us know this page needs work. We're
+                                    sorry we let you down.
+                                 </p>
+                                 <p>If you've got a moment, please tell us how we can make
+                                    the documentation better.
+                                 </p>
+                                 <p>
+                                    <awsui-button id="fblink" target="_blank" text="Feedback" click="linkClick($event)" href="https://docs.aws.amazon.com/forms/aws-doc-feedback?hidden_service_name=IoT Docs&amp;topic_url=https://docs.aws.amazon.com/en_us/iot/latest/developerguide/server-authentication.html"></awsui-button>
+                                 </p>
+                              </div>
+                           </div>
+                        </div>
+                     </body>
+                  </div>
+               </awsdocs-view>
+               <div class="page-loading-indicator" id="page-loading-indicator">
+                  <awsui-spinner size="large"></awsui-spinner>
+               </div>
+            </div>
+            <div id="tools-panel" dom-region="tools">
+               <awsdocs-tools-panel id="awsdocs-tools-panel"></awsdocs-tools-panel>
+            </div>
+         </awsui-app-layout>
+         <awsdocs-cookie-banner class="doc-cookie-banner"></awsdocs-cookie-banner>
+         <!--
+                SiteCatalyst code version: H.25.2.
+                Copyright 1996-2012 Adobe, Inc. All Rights Reserved
+                More info available at http://www.omniture.com
+            --><script language="JavaScript" type="text/javascript">
+var awsdocs = awsdocs || {};
+awsdocs.prop66 = 'AWS IoT Core';
+awsdocs.prop65 =  'Developer Guide';
+            </script><script src="https://a0.awsstatic.com/s_code/js/3.0/awshome_s_code.js" language="JavaScript" type="text/javascript"></script>
+         <!--/DO NOT REMOVE/-->
+         <!--End SiteCatalyst code version: H.25.2.--></div>
+   </body>
+</html>

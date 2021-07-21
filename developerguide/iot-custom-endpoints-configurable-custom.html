@@ -1,0 +1,489 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" ng-app="AWSDocsDocPageApp">
+   <head>
+      <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+      <title>Creating and configuring custom domains - AWS IoT Core</title>
+      <meta name="viewport" content="width=device-width,initial-scale=1" />
+      <meta name="assets_root" content="assets" />
+      <meta name="target_state" content="iot-custom-endpoints-configurable-custom" />
+      <meta name="default_state" content="iot-custom-endpoints-configurable-custom" />
+      <link rel="icon" type="image/ico" href="/assets/images/favicon.ico" />
+      <link rel="shortcut icon" type="image/ico" href="/assets/images/favicon.ico" />
+      <link rel="canonical" href="https://docs.aws.amazon.com/iot/latest/developerguide/iot-custom-endpoints-configurable-custom.html" />
+      <meta name="description" content="Create and configure custom domains for AWS IoT." />
+      <meta name="deployment_region" content="IAD" />
+      <meta name="product" content="AWS IoT Core" />
+      <meta name="guide" content="Developer Guide" />
+      <meta name="locales" content="de_de:Deutsch/en_us:English/es_es:Español/fr_fr:Français/it_it:Italiano/ja_jp:日本語/ko_kr:한국어/pt_br:Português/zh_cn:中文 (简体)/zh_tw:中文 (繁體)" />
+      <meta name="abstract" content="AWS IoT provides secure, bi-directional communication between Internet-connected devices such as sensors, actuators, embedded micro-controllers, or smart appliances and the AWS Cloud. This enables you to collect telemetry data from multiple devices, and store and analyze the data. You can also create applications that enable your users to control these devices from their phones or tablets." />
+      <meta name="guide-locale" content="en_us" />
+      <meta name="tocs" content="toc-contents.json" />
+      <meta name="feedback-item" content="IoT Docs" />
+      <meta name="this_doc_product" content="AWS IoT Core" />
+      <meta name="this_doc_guide" content="Developer Guide" />
+      <link href="assets/css/vendor4.css" rel="stylesheet" />
+      <link href="assets/css/awsdocs-common.css" rel="stylesheet" /><script type="text/javascript" src="assets/js/vendor3.js" defer=""></script><script type="text/javascript" src="assets/js/vendor4.js" defer=""></script><script type="text/javascript" src="assets/js/vendor1.js" defer=""></script><script type="text/javascript" src="assets/js/awsdocs-common.js" defer=""></script><script type="text/javascript" src="assets/js/awsdocs-doc-app.js" defer=""></script></head>
+   <body class="awsdocs awsui">
+      <div class="awsdocs-container">
+         <awsdocs-header></awsdocs-header>
+         <awsui-app-layout id="app-layout" class="awsui-util-no-gutters" ng-controller="ContentController as $ctrl" header-selector="awsdocs-header" navigation-hide="false" navigation-width="$ctrl.navWidth" navigation-open="$ctrl.navOpen" navigation-change="$ctrl.onNavChange($event)" tools-hide="$ctrl.hideTools" tools-width="$ctrl.toolsWidth" tools-open="$ctrl.toolsOpen" tools-change="$ctrl.onToolsChange($event)">
+            <div id="guide-toc" dom-region="navigation">
+               <awsdocs-toc></awsdocs-toc>
+            </div>
+            <div id="main-column" dom-region="content" tabindex="-1">
+               <awsdocs-view class="awsdocs-view">
+                  <div id="awsdocs-content">
+                     <head>
+                        <title>Creating and configuring custom domains - AWS IoT Core</title>
+                        <meta name="pdf" content="iot-dg.pdf#iot-custom-endpoints-configurable-custom" />
+                        <meta name="kindle" content="https://www.amazon.com/dp/B07JBRCWWZ" />
+                        <meta name="github" content="https://github.com/awsdocs/aws-iot-docs/tree/master/developerguide/iot-custom-endpoints-configurable-custom.md" />
+                        <meta name="forums" content="http://forums.aws.amazon.com/forum.jspa?forumID=210" />
+                        <meta name="feedback" content="https://docs.aws.amazon.com/forms/aws-doc-feedback?hidden_service_name=IoT%20Docs&amp;topic_url=http://docs.aws.amazon.com/en_us/iot/latest/developerguide/iot-custom-endpoints-configurable-custom.html" />
+                        <meta name="feedback-yes" content="feedbackyes.html?topic_url=http://docs.aws.amazon.com/en_us/iot/latest/developerguide/iot-custom-endpoints-configurable-custom.html" />
+                        <meta name="feedback-no" content="feedbackno.html?topic_url=http://docs.aws.amazon.com/en_us/iot/latest/developerguide/iot-custom-endpoints-configurable-custom.html" />
+                        <meta name="keywords" content="AWS IoT,IoT,Internet of Things" />
+                     </head>
+                     <body>
+                        <div id="main">
+                           <div style="display: none"><a href="iot-dg.pdf#iot-custom-endpoints-configurable-custom" target="_blank" rel="noopener noreferrer" title="Open PDF"></a><a target="_blank" rel="noopener noreferrer" href="https://www.amazon.com/dp/B07JBRCWWZ" title="Open Kindle"></a><a href="https://github.com/awsdocs/aws-iot-docs/tree/master/developerguide/iot-custom-endpoints-configurable-custom.md" target="_blank" rel="noopener noreferrer" title="Edit this page on GitHub"></a></div>
+                           <div id="breadcrumbs" class="breadcrumb"><a href="http://aws.amazon.com">AWS</a><a href="/index.html">Documentation</a><a href="/iot/index.html">AWS IoT Core</a><a href="what-is-aws-iot.html">Developer Guide</a></div>
+                           <div id="page-toc-src"><a href="#iot-custom-endpoints-configurable-custom-register-certificate">Registering server certificates in AWS certificate manager</a><a href="#iot-custom-endpoints-configurable-custom-domain-config">Creating a
+                                 domain configuration</a><a href="#iot-custom-endpoints-configurable-custom-dns">Creating DNS
+                                 records</a><a href="#iot-custom-endpoints-configurable-troubleshoot">Troubleshooting</a></div>
+                           <div id="main-content" class="awsui-util-container">
+                              <div id="main-col-body">
+                                 <awsdocs-language-banner data-service="$ctrl.pageService"></awsdocs-language-banner>
+                                 <h1 class="topictitle" id="iot-custom-endpoints-configurable-custom">Creating and configuring
+                                    custom domains
+                                 </h1>
+                                 <div class="awsdocs-page-header-container">
+                                    <awsdocs-page-header></awsdocs-page-header>
+                                    <awsdocs-filter-selector id="awsdocs-filter-selector"></awsdocs-filter-selector>
+                                 </div>
+                                 <p>Domain configurations let you specify a custom fully qualified domain name (FQDN)
+                                    to connect to AWS IoT. Custom domains enable you to manage your own server
+                                    certificates so that you can manage details, such as the root certificate authority
+                                    (CA) used to sign the certificate, the signature algorithm, the certificate chain
+                                    depth, and the lifecycle of the certificate.
+                                 </p>
+                                 <p>The workflow to set up a domain configuration with a custom domain consists of the
+                                    following three stages.
+                                 </p>
+                                 <div class="orderedlist">
+                                     
+                                     
+                                     
+                                    
+                                    <ol>
+                                       <li>
+                                          
+                                          <p><a href="#iot-custom-endpoints-configurable-custom-register-certificate">Registering Server Certificates in AWS Certificate Manager</a></p>
+                                          
+                                       </li>
+                                       <li>
+                                          
+                                          <p><a href="#iot-custom-endpoints-configurable-custom-domain-config">Creating a Domain Configuration</a></p>
+                                          
+                                       </li>
+                                       <li>
+                                          
+                                          <p><a href="#iot-custom-endpoints-configurable-custom-dns">Creating DNS
+                                                Records</a></p>
+                                          
+                                       </li>
+                                    </ol>
+                                 </div>
+                                 
+                                 <h2 id="iot-custom-endpoints-configurable-custom-register-certificate">Registering server certificates in AWS certificate manager</h2>
+                                 
+                                 <p>Before you create a domain configuration with a custom domain, you must
+                                    register your server certificate chain in <a href="https://docs.aws.amazon.com/acm/latest/userguide/acm-overview.html">AWS Certificate Manager (ACM)</a>. You can use
+                                    three types of server certificates.
+                                 </p>
+                                 
+                                 <div class="itemizedlist">
+                                     
+                                     
+                                     
+                                    
+                                    <ul class="itemizedlist" type="disc">
+                                       <li class="listitem">
+                                          
+                                          <p><a href="#iot-custom-endpoints-configurable-custom-register-certificate-acm">ACM Generated Public Certificates</a></p>
+                                          
+                                       </li>
+                                       <li class="listitem">
+                                          
+                                          <p><a href="#iot-custom-endpoints-configurable-custom-register-certificate-pubext">External Certificates Signed by a Public CA</a></p>
+                                          
+                                       </li>
+                                       <li class="listitem">
+                                          
+                                          <p><a href="#iot-custom-endpoints-configurable-custom-register-certificate-privext">External Certificates Signed by a Private CA</a></p>
+                                          
+                                       </li>
+                                    </ul>
+                                 </div>
+                                 
+                                 <div class="awsdocs-note">
+                                    <div class="awsdocs-note-title">
+                                       <awsui-icon name="status-info" variant="link"></awsui-icon><span>Note</span></div>
+                                    <div class="awsdocs-note-text">
+                                       <p>AWS IoT considers a certificate to be signed by a public CA if it's included
+                                          in <a href="https://hg.mozilla.org/mozilla-central/raw-file/tip/security/nss/lib/ckfw/builtins/certdata.txt?raw=1" rel="noopener noreferrer" target="_blank"><span>Mozilla's trusted ca-bundle</span><awsui-icon class="awsdocs-link-icon" name="external"></awsui-icon></a>.
+                                       </p>
+                                    </div>
+                                 </div>
+                                  
+                                 
+                                 <p class="title"><b><a id="certificate-requirements"></a>Certificate requirements</b></p>
+                                 
+                                 <p>See <a href="https://docs.aws.amazon.com/acm/latest/userguide/import-certificate-prerequisites.html">Prerequisites for Importing Certificates</a> for the requirements 
+                                    for importing certificates into ACM. In addition to these requirements, 
+                                    AWS IoT Core adds the following requirements.
+                                 </p>
+                                  
+                                 
+                                 <div class="itemizedlist">
+                                     
+                                     
+                                     
+                                    
+                                    <ul class="itemizedlist" type="disc">
+                                       <li class="listitem">
+                                          <p>The leaf certificate must include contain the <b>Extended Key Usage</b> x509 v3 extension 
+                                             with a value of <b>serverAuth</b>  (TLS Web Server Authentication). 
+                                             If you request the certificate from ACM, this extension is automatically added.
+                                          </p>
+                                       </li>
+                                       <li class="listitem">
+                                          <p>The maximum certificate chain depth is 5 certificates.</p>
+                                       </li>
+                                       <li class="listitem">
+                                          <p>The maximum certificate chain size is 16KB.</p>
+                                       </li>
+                                    </ul>
+                                 </div>
+                                  
+                                 
+                                 <p class="title"><b>Using one certificate for multiple domains</b></p>
+                                 
+                                 <p>If you plan to use one certificate to cover multiple subdomains, use a
+                                    wildcard domain in the common name (CN) or Subject Alternative Names (SAN)
+                                    field. For example, use <code class="userinput">*.iot.example.com</code> to cover
+                                    dev.iot.example.com, qa.iot.example.com, and prod.iot.example.com. Each FQDN
+                                    requires its own domain configuration, but more than one domain
+                                    configuration can use the same wildcard value. Either the CN or the SAN must
+                                    cover the FQDN that you want to use as a custom domain. This coverage can be
+                                    an exact match or a wildcard match. 
+                                 </p>
+                                  
+                                 
+                                 <p>The following sections describe how to get each type of certificate. Every
+                                    certificate resource requires an Amazon Resource Name (ARN) registered with ACM
+                                    that you use when you create your domain configuration.
+                                 </p>
+                                  
+                                 
+                                 <h3 id="iot-custom-endpoints-configurable-custom-register-certificate-acm">ACM-generated public certificates</h3>
+                                 
+                                 <p>You can generate a public certificate for your custom domain by using the
+                                    <a href="https://docs.aws.amazon.com/acm/latest/APIReference/API_RequestCertificate.html">RequestCertificate</a> API. When you generate a certificate in this
+                                    way, ACM validates your ownership of the custom domain. For more
+                                    information, see <a href="https://docs.aws.amazon.com/acm/latest/userguide/gs-acm-request-public.html">Request
+                                       a Public Certificate</a> in the
+                                    <em>AWS Certificate Manager User Guide</em>.
+                                 </p>
+                                  
+                                  
+                                 
+                                 <h3 id="iot-custom-endpoints-configurable-custom-register-certificate-pubext">External certificates signed by a public CA</h3>
+                                 
+                                 <p>If you already have a server certificate that is signed by a public CA (a
+                                    CA that is included in Mozilla's trusted ca-bundle), you can import the
+                                    certificate chain directly into ACM by using the <a href="https://docs.aws.amazon.com/acm/latest/APIReference/API_ImportCertificate.html">ImportCertificate</a>
+                                    API. To learn more about this task and the prerequisites and certificate
+                                    format requirements, see <a href="https://docs.aws.amazon.com/acm/latest/userguide/import-certificate.html">Importing Certificates</a>.
+                                 </p>
+                                  
+                                  
+                                 
+                                 <h3 id="iot-custom-endpoints-configurable-custom-register-certificate-privext">External certificates signed by a private CA</h3>
+                                 
+                                 <p>If you already have a server certificate that is signed by a private CA or
+                                    self-signed, you can use the certificate to create your domain
+                                    configuration, but you also must create an extra public certificate in ACM
+                                    to validate ownership of your domain. To do this, register your server
+                                    certificate chain in ACM using the <a href="https://docs.aws.amazon.com/acm/latest/APIReference/API_ImportCertificate.html">ImportCertificate</a>
+                                    API. To learn more about this task and the prerequisites and certificate
+                                    format requirements, see <a href="https://docs.aws.amazon.com/acm/latest/userguide/import-certificate.html">Importing Certificates</a>. 
+                                 </p>
+                                 
+                                 <p>After you import your certificate to ACM, generate a public certificate
+                                    for your custom domain by using the <a href="https://docs.aws.amazon.com/acm/latest/APIReference/API_RequestCertificate.html">RequestCertificate</a> API. When you generate a certificate in this
+                                    way, ACM validates your ownership of the custom domain. For more
+                                    information, see <a href="https://docs.aws.amazon.com/acm/latest/userguide/gs-acm-request-public.html">Request
+                                       a Public Certificate</a>. When you create your domain configuration,
+                                    use this public certificate as your validation certificate.
+                                 </p>
+                                  
+                                  
+                                 
+                                 <h2 id="iot-custom-endpoints-configurable-custom-domain-config">Creating a
+                                    domain configuration
+                                 </h2>
+                                 
+                                 <p>You create a configurable endpoint on a custom domain by using the <a href="https://docs.aws.amazon.com/iot/latest/apireference/API_CreateDomainConfiguration.html">CreateDomainConfiguration</a> API. A domain configuration for a custom
+                                    domain consists of the following:
+                                 </p>
+                                 
+                                 <div class="itemizedlist">
+                                     
+                                     
+                                     
+                                     
+                                     
+                                     
+                                     
+                                    
+                                    <ul class="itemizedlist" type="disc">
+                                       <li class="listitem">
+                                          
+                                          <p><code class="code">domainConfigurationName</code> – A user-defined name that
+                                             identifies the domain configuration.
+                                          </p>
+                                          
+                                          <div class="awsdocs-note">
+                                             <div class="awsdocs-note-title">
+                                                <awsui-icon name="status-info" variant="link"></awsui-icon><span>Note</span></div>
+                                             <div class="awsdocs-note-text">
+                                                <p>Domain configuration names starting with <code class="code">IoT:</code> are
+                                                   reserved for default endpoints and can't be used. Also, this value
+                                                   must be unique to your Region.
+                                                </p>
+                                             </div>
+                                          </div>
+                                          
+                                       </li>
+                                       <li class="listitem">
+                                          
+                                          <p><code class="code">domainName</code> – The FQDN that your devices use to connect
+                                             to AWS IoT.
+                                          </p>
+                                          
+                                          <div class="awsdocs-note">
+                                             <div class="awsdocs-note-title">
+                                                <awsui-icon name="status-info" variant="link"></awsui-icon><span>Note</span></div>
+                                             <div class="awsdocs-note-text">
+                                                <p>AWS IoT leverages the server name indication (SNI) TLS extension to
+                                                   apply domain configurations. Devices must use this extension when
+                                                   connecting and pass a server name that is identical to the domain
+                                                   name that is specified in the domain configuration.
+                                                </p>
+                                             </div>
+                                          </div>
+                                          
+                                       </li>
+                                       <li class="listitem">
+                                          
+                                          <p><code class="code">serverCertificateArns</code> – The ARN of the server
+                                             certificate chain that you registered with ACM. AWS IoT Core currently 
+                                             supports only one server certificate.
+                                          </p>
+                                          
+                                       </li>
+                                       <li class="listitem">
+                                          
+                                          <p><code class="code">validationCertificateArn</code> – The ARN of the public
+                                             certificate that you generated in ACM to validate ownership of your
+                                             custom domain. This argument isn't required if you use a publicly signed
+                                             or ACM-generated server certificate.
+                                          </p>
+                                          
+                                       </li>
+                                       <li class="listitem">
+                                          
+                                          <p><code class="code">defaultAuthorizerName</code> (optional) – The name of the custom
+                                             authorizer to use on the endpoint.
+                                          </p>
+                                          
+                                       </li>
+                                       <li class="listitem">
+                                          
+                                          <p><code class="code">allowAuthorizerOverride</code> – A Boolean value that
+                                             specifies whether devices can override the default authorizer by
+                                             specifying a different authorizer in the HTTP header of the request.
+                                             This value is required if a value for <code class="code">defaultAuthorizerName</code>
+                                             is specified.
+                                          </p>
+                                          
+                                       </li>
+                                       <li class="listitem">
+                                          
+                                          <p><code class="code">serviceType</code> – AWS IoT currently supports only the <code class="code">DATA</code> service type. When you specify
+                                             <code class="code">DATA</code>, AWS IoT returns an endpoint with an endpoint type of
+                                             <code class="code">iot:Data-ATS</code>.
+                                          </p>
+                                          
+                                       </li>
+                                    </ul>
+                                 </div>
+                                 
+                                 <p>The following AWS CLI command creates a domain configuration for <b>iot.example.com</b>.
+                                 </p>
+                                 <pre class="programlisting"><div class="code-btn-container"><div class="btn-copy-code" title="Copy"><awsui-icon name="copy"></awsui-icon></div></div><code class="nohighlight">aws iot create-domain-configuration --domain-configuration-name "<code class="replaceable">myDomainConfigurationName</code>" --service-type "DATA" 
+--domain-name "iot.example.com" --server-certificate-arns <code class="replaceable">serverCertARN</code> --validation-certificate-arn <code class="replaceable">validationCertArn</code></code></pre>
+                                 <div class="awsdocs-note">
+                                    <div class="awsdocs-note-title">
+                                       <awsui-icon name="status-info" variant="link"></awsui-icon><span>Note</span></div>
+                                    <div class="awsdocs-note-text">
+                                       <p>After you create your domain configuration, it might take up to 60 minutes
+                                          until AWS IoT serves your custom server certificates.
+                                       </p>
+                                    </div>
+                                 </div>
+                                  
+                                 
+                                 <h2 id="iot-custom-endpoints-configurable-custom-dns">Creating DNS
+                                    records
+                                 </h2>
+                                 
+                                 <p>After you register your server certificate chain and create your domain
+                                    configuration, create a DNS record so that your custom domain points to an
+                                    AWS IoT domain. This record must point to an AWS IoT endpoint of type
+                                    <code class="code">iot:Data-ATS</code>. You can get your endpoint by using the
+                                    <a href="https://docs.aws.amazon.com/iot/latest/apireference/API_DescribeEndpoint.html">DescribeEndpoint</a>
+                                    API. 
+                                 </p>
+                                 
+                                 <p>The following AWS CLI command shows how to get your endpoint.</p>
+                                 <pre class="programlisting"><div class="code-btn-container"><div class="btn-copy-code" title="Copy"><awsui-icon name="copy"></awsui-icon></div></div><code class="nohighlight">aws iot describe-endpoint --endpoint-type iot:Data-ATS</code></pre>
+                                 <p>After you get your <code class="code">iot:Data-ATS</code> endpoint, create a 
+                                    <code class="code">CNAME</code> record from your custom domain to this AWS IoT endpoint. If
+                                    you create multiple custom domains in the same account, alias them to this same
+                                    <code class="code">iot:Data-ATS</code> endpoint.
+                                 </p>
+                                  
+                                 
+                                 <h2 id="iot-custom-endpoints-configurable-troubleshoot">Troubleshooting</h2>
+                                 
+                                 <p>If you have trouble connecting devices to a custom domain, make sure that AWS IoT
+                                    Core has accepted and applied your server certificate. 
+                                    You can verify that AWS IoT Core has accepted your certificate  by using either the
+                                    AWS IoT Core console or the AWS CLI.
+                                 </p>
+                                 
+                                 <p>To use the AWS IoT Core console, navigate to the <b>Settings</b> page and select the domain configuration name. 
+                                    In the <b>Server certificate details</b> section, check the status and status details. 
+                                    If the certificate is invalid, replace it in ACM with a certificate that meets the
+                                    <a href="#certificate-requirements">certificate requirements</a> 
+                                    listed in the previous section. If the certificate has the same ARN, AWS IoT Core
+                                    will be pick it up and apply it automatically.
+                                 </p>
+                                 
+                                 <p>To check the certificate status by using the AWS CLI, call the 
+                                    <a href="https://docs.aws.amazon.com/iot/latest/apireference/API_DescribeDomainConfiguration.html">DescribeDomainConfiguration</a> API 
+                                    and specify your domain configuration name.
+                                 </p>
+                                 
+                                 <div class="awsdocs-note">
+                                    <div class="awsdocs-note-title">
+                                       <awsui-icon name="status-info" variant="link"></awsui-icon><span>Note</span></div>
+                                    <div class="awsdocs-note-text">
+                                       <p>If your certificate is invalid, AWS IoT Core will continue to serve the last valid
+                                          certificate.
+                                       </p>
+                                    </div>
+                                 </div>
+                                 
+                                 <p>You can check which certificate is being served on your endpoint by using the following
+                                    openssl command.
+                                 </p>
+                                 
+                                 <p><code class="code">openssl s_client -connect <code class="replaceable">custom-domain-name</code>:8883 -showcerts 
+                                       -servername <code class="replaceable">custom-domain-name</code></code></p>
+                                 
+                                 <awsdocs-copyright class="copyright-print"></awsdocs-copyright>
+                                 <awsdocs-thumb-feedback right-edge="{{$ctrl.thumbFeedbackRightEdge}}"></awsdocs-thumb-feedback>
+                              </div>
+                              <noscript>
+                                 <div>
+                                    <div>
+                                       <div>
+                                          <div id="js_error_message">
+                                             <p><img src="https://d1ge0kk1l5kms0.cloudfront.net/images/G/01/webservices/console/warning.png" alt="Warning" /> <strong>Javascript is disabled or is unavailable in your
+                                                   browser.</strong></p>
+                                             <p>To use the Amazon Web Services Documentation, Javascript must be
+                                                enabled. Please refer to your browser's Help pages for instructions.
+                                             </p>
+                                          </div>
+                                       </div>
+                                    </div>
+                                 </div>
+                              </noscript>
+                              <div id="main-col-footer" class="awsui-util-font-size-0">
+                                 <div id="doc-conventions"><a target="_top" href="/general/latest/gr/docconventions.html">Document Conventions</a></div>
+                                 <div class="prev-next">
+                                    <div id="previous" class="prev-link" accesskey="p" href="./iot-custom-endpoints-configurable-aws.html">Creating and configuring
+                                       AWS-managed domains
+                                    </div>
+                                    <div id="next" class="next-link" accesskey="n" href="./iot-custom-endpoints-managing.html">Managing domain configurations</div>
+                                 </div>
+                              </div>
+                              <awsdocs-page-utilities></awsdocs-page-utilities>
+                           </div>
+                           <div id="quick-feedback-yes" style="display: none;">
+                              <div class="title">Did this page help you? - Yes</div>
+                              <div class="content">
+                                 <p>Thanks for letting us know we're doing a good
+                                    job!
+                                 </p>
+                                 <p>If you've got a moment, please tell us what we did right
+                                    so we can do more of it.
+                                 </p>
+                                 <p>
+                                    <awsui-button id="fblink" target="_blank" text="Feedback" click="linkClick($event)" href="https://docs.aws.amazon.com/forms/aws-doc-feedback?hidden_service_name=IoT Docs&amp;topic_url=https://docs.aws.amazon.com/en_us/iot/latest/developerguide/iot-custom-endpoints-configurable-custom.html"></awsui-button>
+                                 </p>
+                              </div>
+                           </div>
+                           <div id="quick-feedback-no" style="display: none;">
+                              <div class="title">Did this page help you? - No</div>
+                              <div class="content">
+                                 <p>Thanks for letting us know this page needs work. We're
+                                    sorry we let you down.
+                                 </p>
+                                 <p>If you've got a moment, please tell us how we can make
+                                    the documentation better.
+                                 </p>
+                                 <p>
+                                    <awsui-button id="fblink" target="_blank" text="Feedback" click="linkClick($event)" href="https://docs.aws.amazon.com/forms/aws-doc-feedback?hidden_service_name=IoT Docs&amp;topic_url=https://docs.aws.amazon.com/en_us/iot/latest/developerguide/iot-custom-endpoints-configurable-custom.html"></awsui-button>
+                                 </p>
+                              </div>
+                           </div>
+                        </div>
+                     </body>
+                  </div>
+               </awsdocs-view>
+               <div class="page-loading-indicator" id="page-loading-indicator">
+                  <awsui-spinner size="large"></awsui-spinner>
+               </div>
+            </div>
+            <div id="tools-panel" dom-region="tools">
+               <awsdocs-tools-panel id="awsdocs-tools-panel"></awsdocs-tools-panel>
+            </div>
+         </awsui-app-layout>
+         <awsdocs-cookie-banner class="doc-cookie-banner"></awsdocs-cookie-banner>
+         <!--
+                SiteCatalyst code version: H.25.2.
+                Copyright 1996-2012 Adobe, Inc. All Rights Reserved
+                More info available at http://www.omniture.com
+            --><script language="JavaScript" type="text/javascript">
+var awsdocs = awsdocs || {};
+awsdocs.prop66 = 'AWS IoT Core';
+awsdocs.prop65 =  'Developer Guide';
+            </script><script src="https://a0.awsstatic.com/s_code/js/3.0/awshome_s_code.js" language="JavaScript" type="text/javascript"></script>
+         <!--/DO NOT REMOVE/-->
+         <!--End SiteCatalyst code version: H.25.2.--></div>
+   </body>
+</html>

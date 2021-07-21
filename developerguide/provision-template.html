@@ -1,0 +1,1010 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" ng-app="AWSDocsDocPageApp">
+   <head>
+      <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+      <title>Provisioning templates - AWS IoT Core</title>
+      <meta name="viewport" content="width=device-width,initial-scale=1" />
+      <meta name="assets_root" content="assets" />
+      <meta name="target_state" content="provision-template" />
+      <meta name="default_state" content="provision-template" />
+      <link rel="icon" type="image/ico" href="/assets/images/favicon.ico" />
+      <link rel="shortcut icon" type="image/ico" href="/assets/images/favicon.ico" />
+      <link rel="canonical" href="https://docs.aws.amazon.com/iot/latest/developerguide/provision-template.html" />
+      <meta name="description" content="A provisioning template is a JSON document that uses parameters to describe the resources your device must use to interact with AWS IoT. A template contains two sections: Parameters and Resources . There are two types of provisioning templates in AWS IoT. One is used for just-in-time provisioning (JITP) and bulk registration and the second is used for fleet provisioning." />
+      <meta name="deployment_region" content="IAD" />
+      <meta name="product" content="AWS IoT Core" />
+      <meta name="guide" content="Developer Guide" />
+      <meta name="locales" content="de_de:Deutsch/en_us:English/es_es:Español/fr_fr:Français/it_it:Italiano/ja_jp:日本語/ko_kr:한국어/pt_br:Português/zh_cn:中文 (简体)/zh_tw:中文 (繁體)" />
+      <meta name="abstract" content="AWS IoT provides secure, bi-directional communication between Internet-connected devices such as sensors, actuators, embedded micro-controllers, or smart appliances and the AWS Cloud. This enables you to collect telemetry data from multiple devices, and store and analyze the data. You can also create applications that enable your users to control these devices from their phones or tablets." />
+      <meta name="guide-locale" content="en_us" />
+      <meta name="tocs" content="toc-contents.json" />
+      <meta name="feedback-item" content="IoT Docs" />
+      <meta name="this_doc_product" content="AWS IoT Core" />
+      <meta name="this_doc_guide" content="Developer Guide" />
+      <link href="assets/css/vendor4.css" rel="stylesheet" />
+      <link href="assets/css/awsdocs-common.css" rel="stylesheet" /><script type="text/javascript" src="assets/js/vendor3.js" defer=""></script><script type="text/javascript" src="assets/js/vendor4.js" defer=""></script><script type="text/javascript" src="assets/js/vendor1.js" defer=""></script><script type="text/javascript" src="assets/js/awsdocs-common.js" defer=""></script><script type="text/javascript" src="assets/js/awsdocs-doc-app.js" defer=""></script></head>
+   <body class="awsdocs awsui">
+      <div class="awsdocs-container">
+         <awsdocs-header></awsdocs-header>
+         <awsui-app-layout id="app-layout" class="awsui-util-no-gutters" ng-controller="ContentController as $ctrl" header-selector="awsdocs-header" navigation-hide="false" navigation-width="$ctrl.navWidth" navigation-open="$ctrl.navOpen" navigation-change="$ctrl.onNavChange($event)" tools-hide="$ctrl.hideTools" tools-width="$ctrl.toolsWidth" tools-open="$ctrl.toolsOpen" tools-change="$ctrl.onToolsChange($event)">
+            <div id="guide-toc" dom-region="navigation">
+               <awsdocs-toc></awsdocs-toc>
+            </div>
+            <div id="main-column" dom-region="content" tabindex="-1">
+               <awsdocs-view class="awsdocs-view">
+                  <div id="awsdocs-content">
+                     <head>
+                        <title>Provisioning templates - AWS IoT Core</title>
+                        <meta name="pdf" content="iot-dg.pdf#provision-template" />
+                        <meta name="kindle" content="https://www.amazon.com/dp/B07JBRCWWZ" />
+                        <meta name="github" content="https://github.com/awsdocs/aws-iot-docs/tree/master/developerguide/provision-template.md" />
+                        <meta name="forums" content="http://forums.aws.amazon.com/forum.jspa?forumID=210" />
+                        <meta name="feedback" content="https://docs.aws.amazon.com/forms/aws-doc-feedback?hidden_service_name=IoT%20Docs&amp;topic_url=http://docs.aws.amazon.com/en_us/iot/latest/developerguide/provision-template.html" />
+                        <meta name="feedback-yes" content="feedbackyes.html?topic_url=http://docs.aws.amazon.com/en_us/iot/latest/developerguide/provision-template.html" />
+                        <meta name="feedback-no" content="feedbackno.html?topic_url=http://docs.aws.amazon.com/en_us/iot/latest/developerguide/provision-template.html" />
+                        <meta name="keywords" content="AWS IoT,IoT,Internet of Things" />
+                     </head>
+                     <body>
+                        <div id="main">
+                           <div style="display: none"><a href="iot-dg.pdf#provision-template" target="_blank" rel="noopener noreferrer" title="Open PDF"></a><a target="_blank" rel="noopener noreferrer" href="https://www.amazon.com/dp/B07JBRCWWZ" title="Open Kindle"></a><a href="https://github.com/awsdocs/aws-iot-docs/tree/master/developerguide/provision-template.md" target="_blank" rel="noopener noreferrer" title="Edit this page on GitHub"></a></div>
+                           <div id="breadcrumbs" class="breadcrumb"><a href="http://aws.amazon.com">AWS</a><a href="/index.html">Documentation</a><a href="/iot/index.html">AWS IoT Core</a><a href="what-is-aws-iot.html">Developer Guide</a></div>
+                           <div id="page-toc-src"><a href="#parameters-section">Parameters section</a><a href="#resources-section">Resources section</a><a href="#bulk-template-example">Template example for JITP and bulk
+                                 registration</a><a href="#fleet-provision-template">Fleet provisioning</a></div>
+                           <div id="main-content" class="awsui-util-container">
+                              <div id="main-col-body">
+                                 <awsdocs-language-banner data-service="$ctrl.pageService"></awsdocs-language-banner>
+                                 <h1 class="topictitle" id="provision-template">Provisioning templates</h1>
+                                 <div class="awsdocs-page-header-container">
+                                    <awsdocs-page-header></awsdocs-page-header>
+                                    <awsdocs-filter-selector id="awsdocs-filter-selector"></awsdocs-filter-selector>
+                                 </div>
+                                 <p>A provisioning template is a JSON document that uses parameters to describe the
+                                    resources your device must use to interact with AWS IoT. A template contains two sections:
+                                    <code class="code">Parameters</code> and <code class="code">Resources</code>. There are two types of
+                                    provisioning templates in AWS IoT. One is used for just-in-time provisioning (JITP)
+                                    and
+                                    bulk registration and the second is used for fleet provisioning.
+                                 </p>
+                                 
+                                 <h2 id="parameters-section">Parameters section</h2>
+                                 
+                                 <p>The <code class="code">Parameters</code> section declares the parameters used in the
+                                    <code class="code">Resources</code> section. Each parameter declares a name, a type, and an
+                                    optional default value. The default value is used when the dictionary passed in with
+                                    the template does not contain a value for the parameter. The <code class="code">Parameters</code>
+                                    section of a template document looks like the following:
+                                 </p>
+                                 <pre class="programlisting"><div class="code-btn-container"><div class="btn-copy-code" title="Copy"><awsui-icon name="copy"></awsui-icon></div></div><code class="JSON "><span>{</span>
+    "Parameters" : <span>{</span>
+        "ThingName" : <span>{</span>
+            "Type" : "String"
+        },
+        "SerialNumber" : <span>{</span>
+            "Type" : "String"
+        },
+        "Location" : <span>{</span>
+            "Type" : "String",
+            "Default" : "WA"
+        },
+        "CSR" : <span>{</span>
+            "Type" : "String"    
+        }
+    }
+}</code></pre>
+                                 <p>This template snippet declares four parameters: <code class="code">ThingName</code>,
+                                    <code class="code">SerialNumber</code>, <code class="code">Location</code>, and <code class="code">CSR</code>. All of
+                                    these parameters are of type <code class="code">String</code>. The <code class="code">Location</code>
+                                    parameter declares a default value of <code class="code">"WA"</code>.
+                                 </p>
+                                  
+                                 
+                                 <h2 id="resources-section">Resources section</h2>
+                                 
+                                 <p>The <code class="code">Resources</code> section of the template declares the resources required
+                                    for your device to communicate with AWS IoT: a thing, a certificate, and one or more
+                                    IoT policies. Each resource specifies a logical name, a type, and a set of
+                                    properties.
+                                 </p>
+                                 
+                                 <p>A logical name allows you to refer to a resource elsewhere in the template.</p>
+                                 
+                                 <p>The type specifies the kind of resource you are declaring. Valid types are:</p>
+                                 
+                                 <div class="itemizedlist">
+                                     
+                                     
+                                     
+                                    
+                                    <ul class="itemizedlist" type="disc">
+                                       <li class="listitem">
+                                          
+                                          <p><code class="code">AWS::IoT::Thing</code></p>
+                                          
+                                       </li>
+                                       <li class="listitem">
+                                          
+                                          <p><code class="code">AWS::IoT::Certificate</code></p>
+                                          
+                                       </li>
+                                       <li class="listitem">
+                                          
+                                          <p><code class="code">AWS::IoT::Policy</code></p>
+                                          
+                                       </li>
+                                    </ul>
+                                 </div>
+                                 
+                                 <p>The properties you specify depend on the type of resource you are
+                                    declaring.
+                                 </p>
+                                  
+                                 
+                                 <h3 id="thing-resources">Thing resources</h3>
+                                 
+                                 <p>Thing resources are declared using the following properties:</p>
+                                 
+                                 <div class="itemizedlist">
+                                     
+                                     
+                                     
+                                     
+                                    
+                                    <ul class="itemizedlist" type="disc">
+                                       <li class="listitem">
+                                          
+                                          <p><code class="code">ThingName</code>: String.
+                                          </p>
+                                          
+                                       </li>
+                                       <li class="listitem">
+                                          
+                                          <p><code class="code">AttributePayload</code>: Optional. A list of name-value
+                                             pairs.
+                                          </p>
+                                          
+                                       </li>
+                                       <li class="listitem">
+                                          
+                                          <p><code class="code">ThingTypeName</code>: Optional. String for an associated thing
+                                             type for the thing.
+                                          </p>
+                                          
+                                       </li>
+                                       <li class="listitem">
+                                          
+                                          <p><code class="code">ThingGroups</code>: Optional. A list of groups to which the
+                                             thing belongs.
+                                          </p>
+                                          
+                                       </li>
+                                    </ul>
+                                 </div>
+                                  
+                                  
+                                 
+                                 <h3 id="certificate-resources">Certificate resources</h3>
+                                 
+                                 <p>You can specify certificates in one of the following ways:</p>
+                                 
+                                 <div class="itemizedlist">
+                                     
+                                     
+                                     
+                                    
+                                    <ul class="itemizedlist" type="disc">
+                                       <li class="listitem">
+                                          
+                                          <p>A certificate signing request (CSR).</p>
+                                          
+                                       </li>
+                                       <li class="listitem">
+                                          
+                                          <p>A certificate ID of an existing device certificate. (Only certificate
+                                             IDs can be used with a fleet provisioning template.)
+                                          </p>
+                                          
+                                       </li>
+                                       <li class="listitem">
+                                          
+                                          <p>A device certificate created with a CA certificate registered with
+                                             AWS IoT. If you have more than one CA certificate registered with the same
+                                             subject field, you must also pass in the CA certificate used to sign the
+                                             device certificate.
+                                          </p>
+                                          
+                                       </li>
+                                    </ul>
+                                 </div>
+                                 
+                                 <div class="awsdocs-note">
+                                    <div class="awsdocs-note-title">
+                                       <awsui-icon name="status-info" variant="link"></awsui-icon><span>Note</span></div>
+                                    <div class="awsdocs-note-text">
+                                       <p>When you declare a certificate in a template, use only one of these
+                                          methods. For example, if you use a CSR, you cannot also specify a
+                                          certificate ID or a device certificate. For more information, see <a href="./x509-client-certs.html">X.509 client certificates</a>. 
+                                       </p>
+                                    </div>
+                                 </div>
+                                 
+                                 <p>For more information, see <a href="./authentication.html#x509-certificate-overview">X.509 Certificate overview</a>. 
+                                 </p>
+                                 
+                                 <p>Certificate resources are declared using the following properties:</p>
+                                 
+                                 <div class="itemizedlist">
+                                     
+                                     
+                                     
+                                     
+                                     
+                                    
+                                    <ul class="itemizedlist" type="disc">
+                                       <li class="listitem">
+                                          
+                                          <p><code class="code">CertificateSigningRequest</code>: String.
+                                          </p>
+                                          
+                                       </li>
+                                       <li class="listitem">
+                                          
+                                          <p><code class="code">CertificateID</code>: String.
+                                          </p>
+                                          
+                                       </li>
+                                       <li class="listitem">
+                                          
+                                          <p><code class="code">CertificatePem</code>: String.
+                                          </p>
+                                          
+                                       </li>
+                                       <li class="listitem">
+                                          
+                                          <p><code class="code">CACertificatePem</code>: String.
+                                          </p>
+                                          
+                                       </li>
+                                       <li class="listitem">
+                                          
+                                          <p><code class="code">Status</code>: Optional. String that can be <code class="code">ACTIVE</code>
+                                             or <code class="code">INACTIVE</code>. Defaults to ACTIVE.
+                                          </p>
+                                          
+                                       </li>
+                                    </ul>
+                                 </div>
+                                 
+                                 <p>Examples:</p>
+                                 
+                                 <div class="itemizedlist">
+                                     
+                                     
+                                     
+                                    
+                                    <ul class="itemizedlist" type="disc">
+                                       <li class="listitem">
+                                          
+                                          <p>Certificate specified with a CSR:</p>
+                                          <pre class="programlisting"><div class="code-btn-container"><div class="btn-copy-code" title="Copy"><awsui-icon name="copy"></awsui-icon></div></div><code class="JSON "><span>{</span>
+    "certificate" : <span>{</span>
+        "Type" : "AWS::IoT::Certificate",
+        "Properties" : <span>{</span>
+            "CertificateSigningRequest": <span>{</span>"Ref" : "<code class="replaceable">CSR</code>"},
+            "Status" : "ACTIVE"      
+        }
+    }
+}</code></pre>
+                                          </li>
+                                       <li class="listitem">
+                                          
+                                          <p>Certificate specified with an existing certificate ID:</p>
+                                          <pre class="programlisting"><div class="code-btn-container"><div class="btn-copy-code" title="Copy"><awsui-icon name="copy"></awsui-icon></div></div><code class="JSON "><span>{</span>
+    "certificate" : <span>{</span>
+        "Type" : "AWS::IoT::Certificate",
+        "Properties" : <span>{</span>
+            "CertificateId": <span>{</span>"Ref" : "<code class="replaceable">CertificateId</code>"}
+        }
+    }
+}</code></pre>
+                                          </li>
+                                       <li class="listitem">
+                                          
+                                          <p>Certificate specified with an existing certificate .pem and CA
+                                             certificate .pem:
+                                          </p>
+                                          <pre class="programlisting"><div class="code-btn-container"><div class="btn-copy-code" title="Copy"><awsui-icon name="copy"></awsui-icon></div></div><code class="JSON "><span>{</span>
+    "certificate" : <span>{</span>
+        "Type" : "AWS::IoT::Certificate",
+        "Properties" : <span>{</span>
+            "CACertificatePem": <span>{</span>"Ref" : "<code class="replaceable">CACertificatePem</code>"},
+            "CertificatePem": <span>{</span>"Ref" : "<code class="replaceable">CertificatePem</code>"}
+        }
+    }
+}
+</code></pre>
+                                          </li>
+                                    </ul>
+                                 </div>
+                                  
+                                  
+                                 
+                                 <h3 id="policy-resources">Policy resources</h3>
+                                 
+                                 <p>Policy resources are declared using one of the following properties:</p>
+                                 
+                                 <div class="itemizedlist">
+                                     
+                                     
+                                    
+                                    <ul class="itemizedlist" type="disc">
+                                       <li class="listitem">
+                                          
+                                          <p><code class="code">PolicyName</code>: Optional. String. Defaults to a hash of the
+                                             policy document. If you are using an existing AWS IoT policy, for the
+                                             <code class="code">PolicyName</code> property, enter the name of the policy. Do
+                                             not include the <code class="code">PolicyDocument</code> property.
+                                          </p>
+                                          
+                                       </li>
+                                       <li class="listitem">
+                                          
+                                          <p><code class="code">PolicyDocument</code>: Optional. A JSON object specified as an
+                                             escaped string. If <code class="code">PolicyDocument</code> is not provided, the
+                                             policy must already be created.
+                                          </p>
+                                          
+                                       </li>
+                                    </ul>
+                                 </div>
+                                 
+                                 <div class="awsdocs-note">
+                                    <div class="awsdocs-note-title">
+                                       <awsui-icon name="status-info" variant="link"></awsui-icon><span>Note</span></div>
+                                    <div class="awsdocs-note-text">
+                                       <p>If a <code class="code">Policy</code> section is present, <code class="code">PolicyName</code> or
+                                          <code class="code">PolicyDocument</code>, but not both, must be specified.
+                                       </p>
+                                    </div>
+                                 </div>
+                                  
+                                  
+                                 
+                                 <h3 id="override-settings">Override settings</h3>
+                                 
+                                 <p>If a template specifies a resource that already exists, the
+                                    <code class="code">OverrideSettings</code> section allows you to specify the action to
+                                    take:
+                                 </p>
+                                 
+                                 <div class="variablelist">
+                                     
+                                     
+                                     
+                                     
+                                    
+                                    <dl>
+                                       
+                                       <dt><span class="term"><code class="code">DO_NOTHING</code></span></dt>
+                                       
+                                       <dd>
+                                          
+                                          <p>Leave the resource as is.</p>
+                                          
+                                       </dd>
+                                        
+                                       
+                                       <dt><span class="term"><code class="code">REPLACE</code></span></dt>
+                                       
+                                       <dd>
+                                          
+                                          <p>Replace the resource with the resource specified in the
+                                             template.
+                                          </p>
+                                          
+                                       </dd>
+                                        
+                                       
+                                       <dt><span class="term"><code class="code">FAIL</code></span></dt>
+                                       
+                                       <dd>
+                                          
+                                          <p>Cause the request to fail with a
+                                             <code class="code">ResourceConflictsException</code>.
+                                          </p>
+                                          
+                                       </dd>
+                                        
+                                       
+                                       <dt><span class="term"><code class="code">MERGE</code></span></dt>
+                                       
+                                       <dd>
+                                          
+                                          <p>Valid only for the <code class="code">ThingGroups</code> and
+                                             <code class="code">AttributePayload</code> properties of a
+                                             <code class="code">thing</code>. Merge the existing attributes or group
+                                             memberships of the thing with those specified in the
+                                             template.
+                                          </p>
+                                          
+                                       </dd>
+                                       
+                                    </dl>
+                                 </div>
+                                 
+                                 <p>When you declare a thing resource, you can specify
+                                    <code class="code">OverrideSettings</code> for the following properties:
+                                 </p>
+                                 
+                                 <div class="itemizedlist">
+                                     
+                                     
+                                     
+                                    
+                                    <ul class="itemizedlist" type="disc">
+                                       <li class="listitem">
+                                          
+                                          <p><code class="code">ATTRIBUTE_PAYLOAD</code></p>
+                                          
+                                       </li>
+                                       <li class="listitem">
+                                          
+                                          <p><code class="code">THING_TYPE_NAME</code></p>
+                                          
+                                       </li>
+                                       <li class="listitem">
+                                          
+                                          <p><code class="code">THING_GROUPS</code></p>
+                                          
+                                       </li>
+                                    </ul>
+                                 </div>
+                                 
+                                 <p>When you declare a certificate resource, you can specify
+                                    <code class="code">OverrideSettings</code> for the <code class="code">Status</code> property.
+                                 </p>
+                                 
+                                 <p><code class="code">OverrideSettings</code> are not available for policy resources.
+                                 </p>
+                                  
+                                  
+                                 
+                                 <h3 id="resource-example">Resource example</h3>
+                                 
+                                 <p>The following template snippet declares a thing, a certificate, and a
+                                    policy:
+                                 </p>
+                                 <pre class="programlisting"><div class="code-btn-container"><div class="btn-copy-code" title="Copy"><awsui-icon name="copy"></awsui-icon></div></div><code class="JSON "><span>{</span> 
+    "Resources" : <span>{</span>
+        "thing" : <span>{</span>
+            "Type" : "AWS::IoT::Thing",
+            "Properties" : <span>{</span>
+                "ThingName" : <span>{</span>"Ref" : "<code class="replaceable">ThingName</code>"},
+                "AttributePayload" : <span>{</span> "version" : "v1", "serialNumber" :  <span>{</span>"Ref" : "SerialNumber"}}, 
+                "ThingTypeName" :  "lightBulb-versionA",
+                "ThingGroups" : ["v1-lightbulbs", <span>{</span>"Ref" : "Location"}]
+            },
+            "OverrideSettings" : <span>{</span>
+                "AttributePayload" : "MERGE",
+                "ThingTypeName" : "REPLACE",
+                "ThingGroups" : "DO_NOTHING"
+            }
+        },  
+        "certificate" : <span>{</span>
+            "Type" : "AWS::IoT::Certificate",
+            "Properties" : <span>{</span>
+                "CertificateSigningRequest": <span>{</span>"Ref" : "<code class="replaceable">CSR</code>"},
+                "Status" : "ACTIVE"      
+            }
+        },
+        "policy" : <span>{</span>
+            "Type" : "AWS::IoT::Policy",
+            "Properties" : <span>{</span>
+                "PolicyDocument" : "<span>{</span> \"Version\": \"2012-10-17\", \"Statement\": [<span>{</span> \"Effect\": \"Allow\", \"Action\":[\"iot:Publish\"], \"Resource\": [\"arn:aws:iot:us-east-1:123456789012:topic/foo/bar\"] }] }"
+            }
+        }
+    }
+}</code></pre>
+                                 <p>The thing is declared with:</p>
+                                 
+                                 <div class="itemizedlist">
+                                     
+                                     
+                                     
+                                    
+                                    <ul class="itemizedlist" type="disc">
+                                       <li class="listitem">
+                                          
+                                          <p>The logical name <code class="code">"thing"</code>.
+                                          </p>
+                                          
+                                       </li>
+                                       <li class="listitem">
+                                          
+                                          <p>The type <code class="code">AWS::IoT::Thing</code>.
+                                          </p>
+                                          
+                                       </li>
+                                       <li class="listitem">
+                                          
+                                          <p> A set of thing properties.</p>
+                                          
+                                          <p>The thing properties include the thing name, a set of attributes, an
+                                             optional thing type name, and an optional list of thing groups to which
+                                             the thing belongs.
+                                          </p>
+                                          
+                                       </li>
+                                    </ul>
+                                 </div>
+                                 
+                                 <p>Parameters are referenced by
+                                    <code class="code"><span>{</span>"Ref":"<code class="replaceable">parameter-name</code>"}</code>.
+                                    When the template is evaluated, the parameters are replaced with the parameter's
+                                    value from the dictionary passed in with the template.
+                                 </p>
+                                 
+                                 <p>The certificate is declared with:</p>
+                                 
+                                 <div class="itemizedlist">
+                                     
+                                     
+                                     
+                                    
+                                    <ul class="itemizedlist" type="disc">
+                                       <li class="listitem">
+                                          
+                                          <p>The logical name <code class="code">"certificate"</code>.
+                                          </p>
+                                          
+                                       </li>
+                                       <li class="listitem">
+                                          
+                                          <p>The type <code class="code">AWS::IoT::Certificate</code>.
+                                          </p>
+                                          
+                                       </li>
+                                       <li class="listitem">
+                                          
+                                          <p>A set of properties.</p>
+                                          
+                                          <p>The properties include the CSR for the certificate, and setting the
+                                             status to <code class="code">ACTIVE</code>. The CSR text is passed as a parameter in
+                                             the dictionary passed with the template.
+                                          </p>
+                                          
+                                       </li>
+                                    </ul>
+                                 </div>
+                                 
+                                 <p>The policy is declared with:</p>
+                                 
+                                 <div class="itemizedlist">
+                                     
+                                     
+                                     
+                                    
+                                    <ul class="itemizedlist" type="disc">
+                                       <li class="listitem">
+                                          
+                                          <p>The logical name <code class="code">"policy"</code>.
+                                          </p>
+                                          
+                                       </li>
+                                       <li class="listitem">
+                                          
+                                          <p>The type <code class="code">AWS::IoT::Policy</code>.
+                                          </p>
+                                          
+                                       </li>
+                                       <li class="listitem">
+                                          
+                                          <p>Either the name of an existing policy or a policy document.</p>
+                                          
+                                       </li>
+                                    </ul>
+                                 </div>
+                                  
+                                  
+                                 
+                                 <h2 id="bulk-template-example">Template example for JITP and bulk
+                                    registration
+                                 </h2>
+                                 
+                                 <p>The following JSON file is an example of a complete provisioning template that
+                                    specifies the certificate with a CSR:
+                                 </p>
+                                 
+                                 <p>(The <code class="code">PolicyDocument</code> field value must be a JSON object specified as an
+                                    escaped string.)
+                                 </p>
+                                 <pre class="programlisting"><div class="code-btn-container"><div class="btn-copy-code" title="Copy"><awsui-icon name="copy"></awsui-icon></div></div><code class="JSON "><span>{</span>
+    "Parameters" : <span>{</span>
+        "ThingName " : <span>{</span>
+            "Type" : "String"
+        },
+        "SerialNumber" : <span>{</span>
+            "Type" : "String"
+        },
+        "Location" : <span>{</span>
+            "Type" : "String",
+            "Default" : "WA"
+        },
+        "CSR" : <span>{</span>
+            "Type" : "String"    
+        }
+    },
+    "Resources" : <span>{</span>
+        "thing" : <span>{</span>
+            "Type" : "AWS::IoT::Thing",
+            "Properties" : <span>{</span>
+                "ThingName" : <span>{</span>"Ref" : "<code class="replaceable">ThingName</code>"},
+                "AttributePayload" : <span>{</span> "version" : "v1", "serialNumber" :  <span>{</span>"Ref" : "SerialNumber"}}, 
+                "ThingTypeName" :  "lightBulb-versionA",
+                "ThingGroups" : ["v1-lightbulbs", <span>{</span>"Ref" : "Location"}]
+            }
+        },
+        "certificate" : <span>{</span>
+            "Type" : "AWS::IoT::Certificate",
+            "Properties" : <span>{</span>
+                "CertificateSigningRequest": <span>{</span>"Ref" : "<code class="replaceable">CSR</code>"},
+                "Status" : "ACTIVE"      
+            }
+        },
+        "policy" : <span>{</span>
+            "Type" : "AWS::IoT::Policy",
+            "Properties" : <span>{</span>
+                "PolicyDocument" : "<span>{</span> \"Version\": \"2012-10-17\", \"Statement\": [<span>{</span> \"Effect\": \"Allow\", \"Action\":[\"iot:Publish\"], \"Resource\": [\"arn:aws:iot:us-east-1:123456789012:topic/foo/bar\"] }] }"
+            }
+        }
+    }
+}</code></pre>
+                                 <p>The following JSON file is an example of a complete provisioning template that
+                                    specifies an existing certificate with a certificate ID:
+                                 </p>
+                                 <pre class="programlisting"><div class="code-btn-container"><div class="btn-copy-code" title="Copy"><awsui-icon name="copy"></awsui-icon></div></div><code class="JSON "><span>{</span>
+    "Parameters" : <span>{</span>
+        "ThingName " : <span>{</span>
+            "Type" : "String"
+        },
+        "SerialNumber" : <span>{</span>
+            "Type" : "String"
+        },
+        "Location" : <span>{</span>
+            "Type" : "String",
+            "Default" : "WA"
+        },
+        "CertificateId" : <span>{</span>
+            "Type" : "String"    
+        }
+    },
+    "Resources" : <span>{</span>
+        "thing" : <span>{</span>
+            "Type" : "AWS::IoT::Thing",
+            "Properties" : <span>{</span>
+                "ThingName" : <span>{</span>"Ref" : "<code class="replaceable">ThingName</code>"},
+                "AttributePayload" : <span>{</span> "version" : "v1", "serialNumber" :  <span>{</span>"Ref" : "SerialNumber"}}, 
+                "ThingTypeName" :  "lightBulb-versionA",
+                "ThingGroups" : ["v1-lightbulbs", <span>{</span>"Ref" : "Location"}]
+            }
+        },
+        "certificate" : <span>{</span>
+            "Type" : "AWS::IoT::Certificate",
+            "Properties" : <span>{</span>
+                "CertificateId": <span>{</span>"Ref" : "<code class="replaceable">CertificateId</code>"}
+            }
+        },
+        "policy" : <span>{</span>
+            "Type" : "AWS::IoT::Policy",
+            "Properties" : <span>{</span>
+                "PolicyDocument" : "<span>{</span> \"Version\": \"2012-10-17\", \"Statement\": [<span>{</span> \"Effect\": \"Allow\", \"Action\":[\"iot:Publish\"], \"Resource\": [\"arn:aws:iot:us-east-1:123456789012:topic/foo/bar\"] }] }"
+            }
+        }
+    }   
+}
+</code></pre>
+                                  
+                                 <h2 id="fleet-provision-template">Fleet provisioning</h2>
+                                 
+                                 <p>Fleet provisioning templates are used by AWS IoT to set up cloud and device
+                                    configuration. These templates use the same parameters and resources as the JITP and
+                                    bulk registration templates. For more information, see <a href="./provision-template.html">Provisioning templates</a>. Fleet
+                                    provisioning templates can contain a <code class="code">Mapping</code> section and a
+                                    <code class="code">DeviceConfiguration</code> section. You can use intrinsic functions inside
+                                    a fleet provisioning template to generate device specific configuration. Fleet
+                                    provisioning templates are named resources and are identified by ARNs (for example,
+                                    <code class="code">arn:aws:iot:us-west-2:1234568788:provisioningtemplate/<code class="replaceable">templateName</code></code>).
+                                 </p>
+                                  
+                                 
+                                 <h3 id="mappings">Mappings</h3>
+                                 
+                                 <p>The optional <code class="code">Mappings</code> section matches a key to a corresponding
+                                    set of named values. For example, if you want to set values based on an AWS
+                                    Region, you can create a mapping that uses the AWS Region name as a key and
+                                    contains the values you want to specify for each specific Region. You use the
+                                    <code class="code">Fn::FindInMap</code> intrinsic function to retrieve values in a
+                                    map.
+                                 </p>
+                                 
+                                 <p>You cannot include parameters, pseudo parameters, or call intrinsic functions
+                                    in the <code class="code">Mappings</code> section.
+                                 </p>
+                                  
+                                  
+                                 
+                                 <h3 id="device-config">Device configuration</h3>
+                                 
+                                 <p>The device configuration section contains arbitrary data you want to send to
+                                    your devices when provisioning. For example: 
+                                 </p>
+                                 <pre class="programlisting"><div class="code-btn-container"><div class="btn-copy-code" title="Copy"><awsui-icon name="copy"></awsui-icon></div></div><code class="json "><span>{</span>
+    "DeviceConfiguration": <span>{</span>
+        "Foo":"Bar"
+    }
+}</code></pre>
+                                 <p>If you're sending messages to your devices by using the JavaScript Object Notation
+                                    (JSON) payload format, 
+                                    AWS IoT Core formats this data as JSON. If you're using the Concise Binary Object
+                                    Representation (CBOR) 
+                                    payload format, AWS IoT Core formats this data as CBOR. The <code class="code">DeviceConfiguration</code> section doesn't 
+                                    support nested JSON objects.
+                                 </p>
+                                  
+                                  
+                                 
+                                 <h3 id="intrinsic-functions">Intrinsic functions</h3>
+                                 
+                                 <p>Intrinsic functions are used in any section of the provisioning template
+                                    except the <code class="code">Mappings</code> section.
+                                 </p>
+                                 
+                                 <div class="variablelist">
+                                     
+                                     
+                                     
+                                     
+                                     
+                                    
+                                    <dl>
+                                       
+                                       <dt><span class="term"><code class="code">Fn::Join</code></span></dt>
+                                       
+                                       <dd>
+                                          
+                                          <p>Appends a set of values into a single value, separated by the
+                                             specified delimiter. If a delimiter is the empty string, the set of
+                                             values are concatenated with no delimiter.
+                                          </p>
+                                          
+                                       </dd>
+                                        
+                                       
+                                       <dt><span class="term"><code class="code">Fn::Select</code></span></dt>
+                                       
+                                       <dd>
+                                          
+                                          <p>Returns a single object from a list of objects by index.</p>
+                                          
+                                          <div class="awsdocs-note awsdocs-important">
+                                             <div class="awsdocs-note-title">
+                                                <awsui-icon name="status-warning" variant="error"></awsui-icon><span>Important</span></div>
+                                             <div class="awsdocs-note-text">
+                                                <p><code class="code">Fn::Select</code> does not check for <code class="code">null</code>
+                                                   values or if the index is out of bounds of the array. Both
+                                                   conditions result in a provisioning error, so you should ensure
+                                                   you chose a valid index value, and that the list contains
+                                                   non-null values.
+                                                </p>
+                                             </div>
+                                          </div>
+                                          
+                                       </dd>
+                                        
+                                       
+                                       <dt><span class="term"><code class="code">Fn::FindInMap</code></span></dt>
+                                       
+                                       <dd>
+                                          
+                                          <p>Returns the value corresponding to keys in a two-level map that is
+                                             declared in the <code class="code">Mappings</code> section.
+                                          </p>
+                                          
+                                       </dd>
+                                        
+                                       
+                                       <dt><span class="term"><code class="code">Fn::Split</code></span></dt>
+                                       
+                                       <dd>
+                                          
+                                          <p>Splits a string into a list of string values so you can select an
+                                             element from the list of strings. You specify a delimiter that
+                                             determine where the string is split (for example, a comma). After
+                                             you split a string, use <code class="code">Fn::Select</code> to select an
+                                             element.
+                                          </p>
+                                          
+                                          <p>For example, if a comma-delimited string of subnet IDs is imported
+                                             to your stack template, you can split the string at each comma. From
+                                             the list of subnet IDs, use <code class="code">Fn::Select</code> to specify a
+                                             subnet ID for a resource.
+                                          </p>
+                                          
+                                       </dd>
+                                        
+                                       
+                                       <dt><span class="term"><code class="code">Fn::Sub</code></span></dt>
+                                       
+                                       <dd>
+                                          
+                                          <p>Substitutes variables in an input string with values that you
+                                             specify. You can use this function to construct commands or outputs
+                                             that include values that aren't available until you create or update
+                                             a stack.
+                                          </p>
+                                          
+                                       </dd>
+                                       
+                                    </dl>
+                                 </div>
+                                  
+                                  
+                                 
+                                 <h3 id="fleet-provisioning-example">Fleet provisioning template
+                                    example
+                                 </h3>
+                                 <pre class="programlisting"><div class="code-btn-container"><div class="btn-copy-code" title="Copy"><awsui-icon name="copy"></awsui-icon></div></div><code class="json "><span>{</span>
+    "Parameters" : <span>{</span>
+        "ThingName " : <span>{</span>
+            "Type" : "String"
+        },
+        "SerialNumber": <span>{</span>
+            "Type": "String"
+        },
+        "DeviceLocation": <span>{</span>
+            "Type": "String"
+        }
+    },
+    "Mappings": <span>{</span>
+        "LocationTable": <span>{</span>
+            "Seattle": <span>{</span>
+                "LocationUrl": "https://example.aws"
+            }
+        }
+    },
+    "Resources" : <span>{</span>
+        "thing" : <span>{</span>
+            "Type" : "AWS::IoT::Thing",
+            "Properties" : <span>{</span>
+                "AttributePayload" : <span>{</span> 
+                    "version" : "v1",
+                    "serialNumber" : "serialNumber"
+                },
+                "ThingName" : <span>{</span>"Ref" : "<code class="replaceable">ThingName</code>"},
+                "ThingTypeName" : <span>{</span>"Fn::Join":["",["ThingPrefix_",<span>{</span>"Ref":"SerialNumber"}]]},
+                "ThingGroups" : ["v1-lightbulbs", "WA"],
+                "BillingGroup": "LightBulbBillingGroup"
+            },
+            "OverrideSettings" : <span>{</span>
+                "AttributePayload" : "MERGE",
+                "ThingTypeName" : "REPLACE",
+                "ThingGroups" : "DO_NOTHING"
+            }
+        },
+        "certificate" : <span>{</span>
+            "Type" : "AWS::IoT::Certificate",
+            "Properties" : <span>{</span>
+                "CertificateId": <span>{</span>"Ref": "AWS::IoT::Certificate::Id"},
+                "Status" : "Active"
+            }
+        },
+        "policy" : <span>{</span>
+            "Type" : "AWS::IoT::Policy",
+            "Properties" : <span>{</span>
+                "PolicyDocument" : <span>{</span>
+                    "Version": "2012-10-17",
+                    "Statement": [<span>{</span>
+                        "Effect": "Allow",
+                        "Action":["iot:Publish"],
+                        "Resource": ["arn:aws:iot:us-east-1:123456789012:topic/foo/bar"]
+                    }]
+                }
+            }
+        }
+    },
+    "DeviceConfiguration": <span>{</span>
+        "FallbackUrl": "https://www.example.com/test-site",
+        "LocationUrl": <span>{</span>
+            "Fn::FindInMap": ["LocationTable",<span>{</span>"Ref": "DeviceLocation"}, "LocationUrl"]}
+        }
+}</code></pre>
+                                  
+                                 <div class="awsdocs-note">
+                                    <div class="awsdocs-note-title">
+                                       <awsui-icon name="status-info" variant="link"></awsui-icon><span>Note</span></div>
+                                    <div class="awsdocs-note-text">
+                                       <p>An existing provisioning template can be updated to add a <a href="./pre-provisioning-hook.html">pre-provisioning hook</a>.
+                                       </p>
+                                    </div>
+                                 </div>
+                                 
+                                 <awsdocs-copyright class="copyright-print"></awsdocs-copyright>
+                                 <awsdocs-thumb-feedback right-edge="{{$ctrl.thumbFeedbackRightEdge}}"></awsdocs-thumb-feedback>
+                              </div>
+                              <noscript>
+                                 <div>
+                                    <div>
+                                       <div>
+                                          <div id="js_error_message">
+                                             <p><img src="https://d1ge0kk1l5kms0.cloudfront.net/images/G/01/webservices/console/warning.png" alt="Warning" /> <strong>Javascript is disabled or is unavailable in your
+                                                   browser.</strong></p>
+                                             <p>To use the Amazon Web Services Documentation, Javascript must be
+                                                enabled. Please refer to your browser's Help pages for instructions.
+                                             </p>
+                                          </div>
+                                       </div>
+                                    </div>
+                                 </div>
+                              </noscript>
+                              <div id="main-col-footer" class="awsui-util-font-size-0">
+                                 <div id="doc-conventions"><a target="_top" href="/general/latest/gr/docconventions.html">Document Conventions</a></div>
+                                 <div class="prev-next">
+                                    <div id="previous" class="prev-link" accesskey="p" href="./bulk-provisioning.html">Bulk registration</div>
+                                    <div id="next" class="next-link" accesskey="n" href="./pre-provisioning-hook.html">Pre-provisioning hooks</div>
+                                 </div>
+                              </div>
+                              <awsdocs-page-utilities></awsdocs-page-utilities>
+                           </div>
+                           <div id="quick-feedback-yes" style="display: none;">
+                              <div class="title">Did this page help you? - Yes</div>
+                              <div class="content">
+                                 <p>Thanks for letting us know we're doing a good
+                                    job!
+                                 </p>
+                                 <p>If you've got a moment, please tell us what we did right
+                                    so we can do more of it.
+                                 </p>
+                                 <p>
+                                    <awsui-button id="fblink" target="_blank" text="Feedback" click="linkClick($event)" href="https://docs.aws.amazon.com/forms/aws-doc-feedback?hidden_service_name=IoT Docs&amp;topic_url=https://docs.aws.amazon.com/en_us/iot/latest/developerguide/provision-template.html"></awsui-button>
+                                 </p>
+                              </div>
+                           </div>
+                           <div id="quick-feedback-no" style="display: none;">
+                              <div class="title">Did this page help you? - No</div>
+                              <div class="content">
+                                 <p>Thanks for letting us know this page needs work. We're
+                                    sorry we let you down.
+                                 </p>
+                                 <p>If you've got a moment, please tell us how we can make
+                                    the documentation better.
+                                 </p>
+                                 <p>
+                                    <awsui-button id="fblink" target="_blank" text="Feedback" click="linkClick($event)" href="https://docs.aws.amazon.com/forms/aws-doc-feedback?hidden_service_name=IoT Docs&amp;topic_url=https://docs.aws.amazon.com/en_us/iot/latest/developerguide/provision-template.html"></awsui-button>
+                                 </p>
+                              </div>
+                           </div>
+                        </div>
+                     </body>
+                  </div>
+               </awsdocs-view>
+               <div class="page-loading-indicator" id="page-loading-indicator">
+                  <awsui-spinner size="large"></awsui-spinner>
+               </div>
+            </div>
+            <div id="tools-panel" dom-region="tools">
+               <awsdocs-tools-panel id="awsdocs-tools-panel"></awsdocs-tools-panel>
+            </div>
+         </awsui-app-layout>
+         <awsdocs-cookie-banner class="doc-cookie-banner"></awsdocs-cookie-banner>
+         <!--
+                SiteCatalyst code version: H.25.2.
+                Copyright 1996-2012 Adobe, Inc. All Rights Reserved
+                More info available at http://www.omniture.com
+            --><script language="JavaScript" type="text/javascript">
+var awsdocs = awsdocs || {};
+awsdocs.prop66 = 'AWS IoT Core';
+awsdocs.prop65 =  'Developer Guide';
+            </script><script src="https://a0.awsstatic.com/s_code/js/3.0/awshome_s_code.js" language="JavaScript" type="text/javascript"></script>
+         <!--/DO NOT REMOVE/-->
+         <!--End SiteCatalyst code version: H.25.2.--></div>
+   </body>
+</html>

@@ -1,0 +1,2782 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" ng-app="AWSDocsDocPageApp">
+   <head>
+      <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+      <title>Reserved topics - AWS IoT Core</title>
+      <meta name="viewport" content="width=device-width,initial-scale=1" />
+      <meta name="assets_root" content="assets" />
+      <meta name="target_state" content="reserved-topics" />
+      <meta name="default_state" content="reserved-topics" />
+      <link rel="icon" type="image/ico" href="/assets/images/favicon.ico" />
+      <link rel="shortcut icon" type="image/ico" href="/assets/images/favicon.ico" />
+      <link rel="canonical" href="https://docs.aws.amazon.com/iot/latest/developerguide/reserved-topics.html" />
+      <meta name="description" content="Learn about the reserved topics for AWS IoT that you can't use to publish or subscribe." />
+      <meta name="deployment_region" content="IAD" />
+      <meta name="product" content="AWS IoT Core" />
+      <meta name="guide" content="Developer Guide" />
+      <meta name="locales" content="de_de:Deutsch/en_us:English/es_es:Español/fr_fr:Français/it_it:Italiano/ja_jp:日本語/ko_kr:한국어/pt_br:Português/zh_cn:中文 (简体)/zh_tw:中文 (繁體)" />
+      <meta name="abstract" content="AWS IoT provides secure, bi-directional communication between Internet-connected devices such as sensors, actuators, embedded micro-controllers, or smart appliances and the AWS Cloud. This enables you to collect telemetry data from multiple devices, and store and analyze the data. You can also create applications that enable your users to control these devices from their phones or tablets." />
+      <meta name="guide-locale" content="en_us" />
+      <meta name="tocs" content="toc-contents.json" />
+      <meta name="feedback-item" content="IoT Docs" />
+      <meta name="this_doc_product" content="AWS IoT Core" />
+      <meta name="this_doc_guide" content="Developer Guide" />
+      <link href="assets/css/vendor4.css" rel="stylesheet" />
+      <link href="assets/css/awsdocs-common.css" rel="stylesheet" /><script type="text/javascript" src="assets/js/vendor3.js" defer=""></script><script type="text/javascript" src="assets/js/vendor4.js" defer=""></script><script type="text/javascript" src="assets/js/vendor1.js" defer=""></script><script type="text/javascript" src="assets/js/awsdocs-common.js" defer=""></script><script type="text/javascript" src="assets/js/awsdocs-doc-app.js" defer=""></script></head>
+   <body class="awsdocs awsui">
+      <div class="awsdocs-container">
+         <awsdocs-header></awsdocs-header>
+         <awsui-app-layout id="app-layout" class="awsui-util-no-gutters" ng-controller="ContentController as $ctrl" header-selector="awsdocs-header" navigation-hide="false" navigation-width="$ctrl.navWidth" navigation-open="$ctrl.navOpen" navigation-change="$ctrl.onNavChange($event)" tools-hide="$ctrl.hideTools" tools-width="$ctrl.toolsWidth" tools-open="$ctrl.toolsOpen" tools-change="$ctrl.onToolsChange($event)">
+            <div id="guide-toc" dom-region="navigation">
+               <awsdocs-toc></awsdocs-toc>
+            </div>
+            <div id="main-column" dom-region="content" tabindex="-1">
+               <awsdocs-view class="awsdocs-view">
+                  <div id="awsdocs-content">
+                     <head>
+                        <title>Reserved topics - AWS IoT Core</title>
+                        <meta name="pdf" content="iot-dg.pdf#reserved-topics" />
+                        <meta name="kindle" content="https://www.amazon.com/dp/B07JBRCWWZ" />
+                        <meta name="github" content="https://github.com/awsdocs/aws-iot-docs/tree/master/developerguide/reserved-topics.md" />
+                        <meta name="forums" content="http://forums.aws.amazon.com/forum.jspa?forumID=210" />
+                        <meta name="feedback" content="https://docs.aws.amazon.com/forms/aws-doc-feedback?hidden_service_name=IoT%20Docs&amp;topic_url=http://docs.aws.amazon.com/en_us/iot/latest/developerguide/reserved-topics.html" />
+                        <meta name="feedback-yes" content="feedbackyes.html?topic_url=http://docs.aws.amazon.com/en_us/iot/latest/developerguide/reserved-topics.html" />
+                        <meta name="feedback-no" content="feedbackno.html?topic_url=http://docs.aws.amazon.com/en_us/iot/latest/developerguide/reserved-topics.html" />
+                        <meta name="keywords" content="AWS IoT,IoT,Internet of Things" />
+                     </head>
+                     <body>
+                        <div id="main">
+                           <div style="display: none"><a href="iot-dg.pdf#reserved-topics" target="_blank" rel="noopener noreferrer" title="Open PDF"></a><a target="_blank" rel="noopener noreferrer" href="https://www.amazon.com/dp/B07JBRCWWZ" title="Open Kindle"></a><a href="https://github.com/awsdocs/aws-iot-docs/tree/master/developerguide/reserved-topics.md" target="_blank" rel="noopener noreferrer" title="Edit this page on GitHub"></a></div>
+                           <div id="breadcrumbs" class="breadcrumb"><a href="http://aws.amazon.com">AWS</a><a href="/index.html">Documentation</a><a href="/iot/index.html">AWS IoT Core</a><a href="what-is-aws-iot.html">Developer Guide</a></div>
+                           <div id="page-toc-src"><a href="#reserved-topics-other">Asset model topics</a><a href="#reserved-topics-device-defender">Device Defender topics</a><a href="#reserved-topics-event">Event topics</a><a href="#reserved-topics-fleet">Fleet provisioning topics</a><a href="#reserved-topics-job">Job topics</a><a href="#reserved-topics-rule">Rule topics</a><a href="#reserved-topics-secure">Secure tunneling topics</a><a href="#reserved-topics-shadow">Shadow topics</a><a href="#reserved-topics-mqtt-based-file-delivery">MQTT-based file delivery topics</a><a href="#reserved-topicnames-arn">Reserved topic ARN</a></div>
+                           <div id="main-content" class="awsui-util-container">
+                              <div id="main-col-body">
+                                 <awsdocs-language-banner data-service="$ctrl.pageService"></awsdocs-language-banner>
+                                 <h1 class="topictitle" id="reserved-topics">Reserved topics</h1>
+                                 <div class="awsdocs-page-header-container">
+                                    <awsdocs-page-header></awsdocs-page-header>
+                                    <awsdocs-filter-selector id="awsdocs-filter-selector"></awsdocs-filter-selector>
+                                 </div>
+                                 <p>Topics that begin with a dollar sign ($) are reserved for use by AWS IoT. You can
+                                    subscribe and publish to these reserved topics as they allow; however, you can't create
+                                    new topics that begin with a dollar sign. Unsupported publish or subscribe operations
+                                    to
+                                    reserved topics can result in a terminated connection.
+                                 </p>
+                                 
+                                 <h2 id="reserved-topics-other">Asset model topics</h2>
+                                 
+                                 <div class="table-container">
+                                    <div class="table-contents">
+                                       <table id="w332aab9c17c15c15b5b3">
+                                          <thead>
+                                             
+                                             <tr>
+                                                
+                                                <th>Topic</th>
+                                                
+                                                <th>Client operations allowed</th>
+                                                
+                                                <th>Description</th>
+                                                
+                                             </tr>
+                                             
+                                          </thead>
+                                          
+                                          <tr>
+                                             
+                                             <td>
+                                                
+                                                <p>$aws/sitewise/asset-models/<code class="replaceable">assetModelId</code>/assets/<code class="replaceable">assetId</code>/properties/<code class="replaceable">propertyId</code></p>
+                                                
+                                             </td>
+                                             
+                                             <td>
+                                                
+                                                <p>Subscribe</p>
+                                                
+                                             </td>
+                                             
+                                             <td>
+                                                
+                                                <p>AWS IoT SiteWise publishes asset property notifications to this topic.
+                                                   For more information, see <a href="https://docs.aws.amazon.com/iot-sitewise/latest/userguide/interact-with-other-services.html">Interacting with other AWS services</a> in the
+                                                   <em>AWS IoT SiteWise User Guide</em>.
+                                                </p>
+                                                
+                                             </td>
+                                             
+                                          </tr>
+                                          
+                                       </table>
+                                    </div>
+                                 </div>
+                                  
+                                 
+                                 <h2 id="reserved-topics-device-defender">Device Defender topics</h2>
+                                 
+                                 <p>These messages support response buffers in Concise Binary Object
+                                    Representation (CBOR) format and JavaScript Object Notation (JSON), depending on
+                                    the <code class="replaceable">payload-format</code> of the topic.
+                                 </p>
+                                 
+                                 <div class="table-container">
+                                    <div class="table-contents">
+                                       <table id="w332aab9c17c15c15b7b5">
+                                          <thead>
+                                             
+                                             <tr>
+                                                
+                                                <th><code class="replaceable">payload-format</code></th>
+                                                
+                                                <th>Response format data type</th>
+                                                
+                                             </tr>
+                                             
+                                          </thead>
+                                          
+                                          <tr>
+                                             
+                                             <td>cbor</td>
+                                             
+                                             <td>Concise Binary Object Representation (CBOR)</td>
+                                             
+                                          </tr>
+                                          
+                                          <tr>
+                                             
+                                             <td>json</td>
+                                             
+                                             <td>JavaScript Object Notation (JSON)</td>
+                                             
+                                          </tr>
+                                          
+                                       </table>
+                                    </div>
+                                 </div>
+                                 
+                                 <p>For more information, see <a href="./detect-device-side-metrics.html#DetectMetricsMessages">Sending metrics from devices</a>.
+                                 </p>
+                                 
+                                 <div class="table-container">
+                                    <div class="table-contents">
+                                       <table id="w332aab9c17c15c15b7b9">
+                                          <thead>
+                                             
+                                             <tr>
+                                                
+                                                <th>Topic</th>
+                                                
+                                                <th>Allowed operations</th>
+                                                
+                                                <th>Description</th>
+                                                
+                                             </tr>
+                                             
+                                          </thead>
+                                          
+                                          <tr>
+                                             
+                                             <td>
+                                                
+                                                <p>$aws/things/<code class="replaceable">thingName</code>/defender/metrics/<code class="replaceable">payload-format</code></p>
+                                                
+                                             </td>
+                                             
+                                             <td>
+                                                
+                                                <p>Publish</p>
+                                                
+                                             </td>
+                                             
+                                             <td>
+                                                
+                                                <p>Device Defender agents publish metrics to this topic. For
+                                                   more information, see <a href="./detect-device-side-metrics.html#DetectMetricsMessages">Sending metrics from devices</a>.
+                                                   
+                                                </p>
+                                                
+                                             </td>
+                                             
+                                          </tr>
+                                          
+                                          <tr>
+                                             
+                                             <td>
+                                                
+                                                <p>$aws/things/<code class="replaceable">thingName</code>/defender/metrics/<code class="replaceable">payload-format</code>/accepted
+                                                </p>
+                                                
+                                             </td>
+                                             
+                                             <td>
+                                                
+                                                <p>Subscribe</p>
+                                                
+                                             </td>
+                                             
+                                             <td>
+                                                
+                                                <p>AWS IoT publishes to this topic after a Device Defender agent publishes a successful
+                                                   message 
+                                                   to $aws/things/<code class="replaceable">thingName</code>/defender/metrics/<code class="replaceable">payload-format</code>. For
+                                                   more information, see <a href="./detect-device-side-metrics.html#DetectMetricsMessages">Sending metrics from devices</a>.
+                                                   
+                                                </p>
+                                                
+                                             </td>
+                                             
+                                          </tr>
+                                          
+                                          <tr>
+                                             
+                                             <td>
+                                                
+                                                <p>$aws/things/<code class="replaceable">thingName</code>/defender/metrics/<code class="replaceable">payload-format</code>/rejected
+                                                </p>
+                                                
+                                             </td>
+                                             
+                                             <td>
+                                                
+                                                <p>Subscribe</p>
+                                                
+                                             </td>
+                                             
+                                             <td>
+                                                
+                                                <p>AWS IoT publishes to this topic after a Device Defender agent publishes an unsuccessful
+                                                   message 
+                                                   to $aws/things/<code class="replaceable">thingName</code>/defender/metrics/<code class="replaceable">payload-format</code>. For
+                                                   more information, see <a href="./detect-device-side-metrics.html#DetectMetricsMessages">Sending metrics from devices</a>.
+                                                   
+                                                </p>
+                                                
+                                             </td>
+                                             
+                                          </tr>
+                                          
+                                       </table>
+                                    </div>
+                                 </div>
+                                  
+                                 
+                                 <h2 id="reserved-topics-event">Event topics</h2>
+                                 
+                                 <div class="table-container">
+                                    <div class="table-contents">
+                                       <table id="w332aab9c17c15c15b9b3">
+                                          <thead>
+                                             
+                                             <tr>
+                                                
+                                                <th>Topic</th>
+                                                
+                                                <th>Client operations allowed</th>
+                                                
+                                                <th>Description</th>
+                                                
+                                             </tr>
+                                             
+                                          </thead>
+                                          
+                                          <tr>
+                                             
+                                             <td>
+                                                
+                                                <p>$aws/events/certificates/registered/<code class="replaceable">caCertificateId</code></p>
+                                                
+                                             </td>
+                                             
+                                             <td>
+                                                
+                                                <p>Subscribe</p>
+                                                
+                                             </td>
+                                             
+                                             <td>
+                                                
+                                                <p>AWS IoT publishes this message when AWS IoT automatically
+                                                   registers a certificate and when a client presents a
+                                                   certificate with the <code class="code">PENDING_ACTIVATION</code>
+                                                   status. For more information, see <a href="./auto-register-device-cert.html#configure-auto-reg-first-connect">Configure the first
+                                                      connection by a client for automatic registration</a>.
+                                                </p>
+                                                
+                                             </td>
+                                             
+                                          </tr>
+                                          
+                                          <tr>
+                                             
+                                             <td>
+                                                
+                                                <p>$aws/events/job/<code class="replaceable">jobID</code>/canceled
+                                                </p>
+                                                
+                                             </td>
+                                             
+                                             <td>
+                                                
+                                                <p>Subscribe</p>
+                                                
+                                             </td>
+                                             
+                                             <td>AWS IoT publishes this message when a job is canceled. For more
+                                                information, see <a href="./events-jobs.html">Jobs events</a>.
+                                             </td>
+                                             
+                                          </tr>
+                                          
+                                          <tr>
+                                             
+                                             <td>$aws/events/job/<code class="replaceable">jobID</code>/cancellation_in_progress
+                                             </td>
+                                             
+                                             <td>
+                                                
+                                                <p>Subscribe</p>
+                                                
+                                             </td>
+                                             
+                                             <td>AWS IoT publishes this message when a job is being canceled. For
+                                                more information, see <a href="./events-jobs.html">Jobs events</a>.
+                                             </td>
+                                             
+                                          </tr>
+                                          
+                                          <tr>
+                                             
+                                             <td>
+                                                
+                                                <p>$aws/events/job/<code class="replaceable">jobID</code>/completed
+                                                </p>
+                                                
+                                             </td>
+                                             
+                                             <td>
+                                                
+                                                <p>Subscribe</p>
+                                                
+                                             </td>
+                                             
+                                             <td>AWS IoT publishes this message when a job has completed. For more
+                                                information, see <a href="./events-jobs.html">Jobs events</a>.
+                                             </td>
+                                             
+                                          </tr>
+                                          
+                                          <tr>
+                                             
+                                             <td>$aws/events/job/<code class="replaceable">jobID</code>/deleted
+                                             </td>
+                                             
+                                             <td>
+                                                
+                                                <p>Subscribe</p>
+                                                
+                                             </td>
+                                             
+                                             <td>AWS IoT publishes this message when a job is deleted For more
+                                                information, see <a href="./events-jobs.html">Jobs events</a>.
+                                             </td>
+                                             
+                                          </tr>
+                                          
+                                          <tr>
+                                             
+                                             <td>$aws/events/job/<code class="replaceable">jobID</code>/deletion_in_progress
+                                             </td>
+                                             
+                                             <td>
+                                                
+                                                <p>Subscribe</p>
+                                                
+                                             </td>
+                                             
+                                             <td>AWS IoT publishes this message when a job is being deleted. For
+                                                more information, see <a href="./events-jobs.html">Jobs events</a>.
+                                             </td>
+                                             
+                                          </tr>
+                                          
+                                          <tr>
+                                             
+                                             <td>$aws/events/jobExecution/<code class="replaceable">jobID</code>/canceled
+                                             </td>
+                                             
+                                             <td>
+                                                
+                                                <p>Subscribe</p>
+                                                
+                                             </td>
+                                             
+                                             <td>AWS IoT publishes this message when a job execution is canceled.
+                                                For more information, see <a href="./events-jobs.html">Jobs events</a>.
+                                             </td>
+                                             
+                                          </tr>
+                                          
+                                          <tr>
+                                             
+                                             <td>$aws/events/jobExecution/<code class="replaceable">jobID</code>/deleted
+                                             </td>
+                                             
+                                             <td>
+                                                
+                                                <p>Subscribe</p>
+                                                
+                                             </td>
+                                             
+                                             <td>AWS IoT publishes this message when a job execution is deleted. For
+                                                more information, see <a href="./events-jobs.html">Jobs events</a>.
+                                             </td>
+                                             
+                                          </tr>
+                                          
+                                          <tr>
+                                             
+                                             <td>$aws/events/jobExecution/<code class="replaceable">jobID</code>/failed
+                                             </td>
+                                             
+                                             <td>
+                                                
+                                                <p>Subscribe</p>
+                                                
+                                             </td>
+                                             
+                                             <td>AWS IoT publishes this message when a job execution has failed. For
+                                                more information, see <a href="./events-jobs.html">Jobs events</a>.
+                                             </td>
+                                             
+                                          </tr>
+                                          
+                                          <tr>
+                                             
+                                             <td>$aws/events/jobExecution/<code class="replaceable">jobID</code>/rejected
+                                             </td>
+                                             
+                                             <td>
+                                                
+                                                <p>Subscribe</p>
+                                                
+                                             </td>
+                                             
+                                             <td>AWS IoT publishes this message when a job execution was rejected.
+                                                For more information, see <a href="./events-jobs.html">Jobs events</a>.
+                                             </td>
+                                             
+                                          </tr>
+                                          
+                                          <tr>
+                                             
+                                             <td>$aws/events/jobExecution/<code class="replaceable">jobID</code>/removed
+                                             </td>
+                                             
+                                             <td>
+                                                
+                                                <p>Subscribe</p>
+                                                
+                                             </td>
+                                             
+                                             <td>AWS IoT publishes this message when a job execution was removed.
+                                                For more information, see <a href="./events-jobs.html">Jobs events</a>.
+                                             </td>
+                                             
+                                          </tr>
+                                          
+                                          <tr>
+                                             
+                                             <td>$aws/events/jobExecution/<code class="replaceable">jobID</code>/succeeded
+                                             </td>
+                                             
+                                             <td>
+                                                
+                                                <p>Subscribe</p>
+                                                
+                                             </td>
+                                             
+                                             <td>AWS IoT publishes this message when a job execution succeeded. For
+                                                more information, see <a href="./events-jobs.html">Jobs events</a>.
+                                             </td>
+                                             
+                                          </tr>
+                                          
+                                          <tr>
+                                             
+                                             <td>$aws/events/jobExecution/<code class="replaceable">jobID</code>/timed_out
+                                             </td>
+                                             
+                                             <td>
+                                                
+                                                <p>Subscribe</p>
+                                                
+                                             </td>
+                                             
+                                             <td>AWS IoT publishes this message when a job execution timed out. For
+                                                more information, see <a href="./events-jobs.html">Jobs events</a>.
+                                             </td>
+                                             
+                                          </tr>
+                                          
+                                          <tr>
+                                             
+                                             <td>
+                                                
+                                                <p>$aws/events/presence/connected/<code class="replaceable">clientId</code></p>
+                                                
+                                             </td>
+                                             
+                                             <td>
+                                                
+                                                <p>Subscribe</p>
+                                                
+                                             </td>
+                                             
+                                             <td>
+                                                
+                                                <p>AWS IoT publishes to this topic when an MQTT client with the
+                                                   specified client ID connects to AWS IoT. For more information, see
+                                                   <a href="./life-cycle-events.html#connect-disconnect">Connect/Disconnect events</a>.
+                                                </p>
+                                                
+                                             </td>
+                                             
+                                          </tr>
+                                          
+                                          <tr>
+                                             
+                                             <td>
+                                                
+                                                <p>$aws/events/presence/disconnected/<code class="replaceable">clientId</code></p>
+                                                
+                                             </td>
+                                             
+                                             <td>
+                                                
+                                                <p>Subscribe</p>
+                                                
+                                             </td>
+                                             
+                                             <td>
+                                                
+                                                <p>AWS IoT publishes to this topic when an MQTT client with the
+                                                   specified client ID disconnects to AWS IoT. For more information,
+                                                   see <a href="./life-cycle-events.html#connect-disconnect">Connect/Disconnect events</a>. 
+                                                </p>
+                                                
+                                             </td>
+                                             
+                                          </tr>
+                                          
+                                          <tr>
+                                             
+                                             <td>
+                                                
+                                                <p>$aws/events/subscriptions/subscribed/<code class="replaceable">clientId</code></p>
+                                                
+                                             </td>
+                                             
+                                             <td>
+                                                
+                                                <p>Subscribe</p>
+                                                
+                                             </td>
+                                             
+                                             <td>
+                                                
+                                                <p>AWS IoT publishes to this topic when an MQTT client with the
+                                                   specified client ID subscribes to an MQTT topic. For more
+                                                   information, see <a href="./life-cycle-events.html#subscribe-unsubscribe-events">Subscribe/Unsubscribe events</a>.
+                                                </p>
+                                                
+                                             </td>
+                                             
+                                          </tr>
+                                          
+                                          <tr>
+                                             
+                                             <td>
+                                                
+                                                <p>$aws/events/subscriptions/unsubscribed/<code class="replaceable">clientId</code></p>
+                                                
+                                             </td>
+                                             
+                                             <td>
+                                                
+                                                <p>Subscribe</p>
+                                                
+                                             </td>
+                                             
+                                             <td>
+                                                
+                                                <p>AWS IoT publishes to this topic when an MQTT client with the
+                                                   specified client ID unsubscribes to an MQTT topic. For more
+                                                   information, see <a href="./life-cycle-events.html#subscribe-unsubscribe-events">Subscribe/Unsubscribe events</a>.
+                                                </p>
+                                                
+                                             </td>
+                                             
+                                          </tr>
+                                          
+                                          <tr>
+                                             
+                                             <td>
+                                                
+                                                <p>$aws/events/thing/<code class="replaceable">thingName</code>/created
+                                                </p>
+                                                
+                                             </td>
+                                             
+                                             <td>
+                                                
+                                                <p>Subscribe</p>
+                                                
+                                             </td>
+                                             
+                                             <td>
+                                                
+                                                <p>AWS IoT publishes to this topic when the <code class="replaceable">thingName</code> 
+                                                   thing is created. For more information, see <a href="./registry-events.html">Registry events</a>.
+                                                </p>
+                                                
+                                             </td>
+                                             
+                                          </tr>
+                                          
+                                          <tr>
+                                             
+                                             <td>
+                                                
+                                                <p>$aws/events/thing/<code class="replaceable">thingName</code>/updated
+                                                </p>
+                                                
+                                             </td>
+                                             
+                                             <td>
+                                                
+                                                <p>Subscribe</p>
+                                                
+                                             </td>
+                                             
+                                             <td>
+                                                
+                                                <p>AWS IoT publishes to this topic when the <code class="replaceable">thingName</code> 
+                                                   thing is updated. For more information, see <a href="./registry-events.html">Registry events</a>.
+                                                </p>
+                                                
+                                             </td>
+                                             
+                                          </tr>
+                                          
+                                          <tr>
+                                             
+                                             <td>
+                                                
+                                                <p>$aws/events/thing/<code class="replaceable">thingName</code>/deleted
+                                                </p>
+                                                
+                                             </td>
+                                             
+                                             <td>
+                                                
+                                                <p>Subscribe</p>
+                                                
+                                             </td>
+                                             
+                                             <td>
+                                                
+                                                <p>AWS IoT publishes to this topic when the <code class="replaceable">thingName</code> 
+                                                   thing is deleted. For more information, see <a href="./registry-events.html">Registry events</a>.
+                                                </p>
+                                                
+                                             </td>
+                                             
+                                          </tr>
+                                          
+                                          <tr>
+                                             
+                                             <td>
+                                                
+                                                <p>$aws/events/thingGroup/<code class="replaceable">thingGroupName</code>/created
+                                                </p>
+                                                
+                                             </td>
+                                             
+                                             <td>
+                                                
+                                                <p>Subscribe</p>
+                                                
+                                             </td>
+                                             
+                                             <td>
+                                                
+                                                <p>AWS IoT publishes to this topic when thing group, <code class="replaceable">thingGroupName</code>, is
+                                                   created. For more information, see <a href="./registry-events.html">Registry events</a>.
+                                                </p>
+                                                
+                                             </td>
+                                             
+                                          </tr>
+                                          
+                                          <tr>
+                                             
+                                             <td>
+                                                
+                                                <p>$aws/events/thingGroup/<code class="replaceable">thingGroupName</code>/updated
+                                                </p>
+                                                
+                                             </td>
+                                             
+                                             <td>
+                                                
+                                                <p>Subscribe</p>
+                                                
+                                             </td>
+                                             
+                                             <td>
+                                                
+                                                <p>AWS IoT publishes to this topic when thing group, <code class="replaceable">thingGroupName</code>, is
+                                                   updated. For more information, see <a href="./registry-events.html">Registry events</a>.
+                                                </p>
+                                                
+                                             </td>
+                                             
+                                          </tr>
+                                          
+                                          <tr>
+                                             
+                                             <td>
+                                                
+                                                <p>$aws/events/thingGroup/<code class="replaceable">thingGroupName</code>/deleted
+                                                </p>
+                                                
+                                             </td>
+                                             
+                                             <td>
+                                                
+                                                <p>Subscribe</p>
+                                                
+                                             </td>
+                                             
+                                             <td>
+                                                
+                                                <p>AWS IoT publishes to this topic when thing group, <code class="replaceable">thingGroupName</code>, is
+                                                   deleted. For more information, see <a href="./registry-events.html">Registry events</a>.
+                                                </p>
+                                                
+                                             </td>
+                                             
+                                          </tr>
+                                          
+                                          <tr>
+                                             
+                                             <td>
+                                                
+                                                <p>$aws/events/thingType/<code class="replaceable">thingTypeName</code>/created
+                                                </p>
+                                                
+                                             </td>
+                                             
+                                             <td>
+                                                
+                                                <p>Subscribe</p>
+                                                
+                                             </td>
+                                             
+                                             <td>
+                                                
+                                                <p>AWS IoT publishes to this topic when the <code class="replaceable">thingTypeName</code>
+                                                   thing type is created. For more information, see <a href="./registry-events.html">Registry events</a>.
+                                                </p>
+                                                
+                                             </td>
+                                             
+                                          </tr>
+                                          
+                                          <tr>
+                                             
+                                             <td>
+                                                
+                                                <p>$aws/events/thingType/<code class="replaceable">thingTypeName</code>/updated
+                                                </p>
+                                                
+                                             </td>
+                                             
+                                             <td>
+                                                
+                                                <p>Subscribe</p>
+                                                
+                                             </td>
+                                             
+                                             <td>
+                                                
+                                                <p>AWS IoT publishes to this topic when the <code class="replaceable">thingTypeName</code>
+                                                   thing type is updated. For more information, see <a href="./registry-events.html">Registry events</a>.
+                                                </p>
+                                                
+                                             </td>
+                                             
+                                          </tr>
+                                          
+                                          <tr>
+                                             
+                                             <td>
+                                                
+                                                <p>$aws/events/thingType/<code class="replaceable">thingTypeName</code>/deleted
+                                                </p>
+                                                
+                                             </td>
+                                             
+                                             <td>
+                                                
+                                                <p>Subscribe</p>
+                                                
+                                             </td>
+                                             
+                                             <td>
+                                                
+                                                <p>AWS IoT publishes to this topic when the <code class="replaceable">thingTypeName</code>
+                                                   thing type is deleted. For more information, see <a href="./registry-events.html">Registry events</a>.
+                                                </p>
+                                                
+                                             </td>
+                                             
+                                          </tr>
+                                          
+                                          <tr>
+                                             
+                                             <td>
+                                                
+                                                <p>$aws/events/thingTypeAssociation/thing/<code class="replaceable">thingName</code>/<code class="replaceable">thingTypeName</code></p>
+                                                
+                                             </td>
+                                             
+                                             <td>
+                                                
+                                                <p>Subscribe</p>
+                                                
+                                             </td>
+                                             
+                                             <td>
+                                                
+                                                <p>AWS IoT publishes to this topic when thing, <code class="replaceable">thingName</code>, is associated 
+                                                   with or disassociated from thing type, <code class="replaceable">thingTypeName</code>. 
+                                                   For more information, see <a href="./registry-events.html">Registry events</a>.
+                                                </p>
+                                                
+                                             </td>
+                                             
+                                          </tr>
+                                          
+                                          <tr>
+                                             
+                                             <td>
+                                                
+                                                <p>$aws/events/thingGroupMembership/thingGroup/<code class="replaceable">thingGroupName</code>/thing/<code class="replaceable">thingName</code>/added
+                                                </p>
+                                                
+                                             </td>
+                                             
+                                             <td>
+                                                
+                                                <p>Subscribe</p>
+                                                
+                                             </td>
+                                             
+                                             <td>
+                                                
+                                                <p>
+                                                   AWS IoT publishes to this topic when thing, <code class="replaceable">thingName</code>,
+                                                   is added to thing group, <code class="replaceable">thingGroupName</code>.
+                                                   For more information, see <a href="./registry-events.html">Registry events</a>.
+                                                   
+                                                </p>
+                                                
+                                             </td>
+                                             
+                                          </tr>
+                                          
+                                          <tr>
+                                             
+                                             <td>
+                                                
+                                                <p>$aws/events/thingGroupMembership/thingGroup/<code class="replaceable">thingGroupName</code>/thing/<code class="replaceable">thingName</code>/removed
+                                                </p>
+                                                
+                                             </td>
+                                             
+                                             <td>
+                                                
+                                                <p>Subscribe</p>
+                                                
+                                             </td>
+                                             
+                                             <td>
+                                                
+                                                <p>
+                                                   AWS IoT publishes to this topic when thing, <code class="replaceable">thingName</code>,
+                                                   is removed from thing group, <code class="replaceable">thingGroupName</code>.
+                                                   For more information, see <a href="./registry-events.html">Registry events</a>.
+                                                   
+                                                </p>
+                                                
+                                             </td>
+                                             
+                                          </tr>
+                                          
+                                          <tr>
+                                             
+                                             <td>
+                                                
+                                                <p> $aws/events/thingGroupHierarchy/thingGroup/<code class="replaceable">parentThingGroupName</code>/childThingGroup/<code class="replaceable">childThingGroupName</code>/added
+                                                </p>
+                                                
+                                             </td>
+                                             
+                                             <td>
+                                                
+                                                <p>Subscribe</p>
+                                                
+                                             </td>
+                                             
+                                             <td>
+                                                
+                                                <p>
+                                                   AWS IoT publishes to this topic when thing group, <code class="replaceable">childThingGroupName</code>,
+                                                   is added to thing group, <code class="replaceable">parentThingGroupName</code>.
+                                                   For more information, see <a href="./registry-events.html">Registry events</a>.
+                                                   
+                                                </p>
+                                                
+                                             </td>
+                                             
+                                          </tr>
+                                          
+                                          <tr>
+                                             
+                                             <td>
+                                                
+                                                <p> $aws/events/thingGroupHierarchy/thingGroup/<code class="replaceable">parentThingGroupName</code>/childThingGroup/<code class="replaceable">childThingGroupName</code>/removed
+                                                </p>
+                                                
+                                             </td>
+                                             
+                                             <td>
+                                                
+                                                <p>Subscribe</p>
+                                                
+                                             </td>
+                                             
+                                             <td>
+                                                
+                                                <p>
+                                                   AWS IoT publishes to this topic when thing group, <code class="replaceable">childThingGroupName</code>,
+                                                   is removed from thing group, <code class="replaceable">parentThingGroupName</code>.
+                                                   For more information, see <a href="./registry-events.html">Registry events</a>.
+                                                   
+                                                </p>
+                                                
+                                             </td>
+                                             
+                                          </tr>
+                                          
+                                       </table>
+                                    </div>
+                                 </div>
+                                  
+                                 
+                                 <h2 id="reserved-topics-fleet">Fleet provisioning topics</h2>
+                                 
+                                 <p>These messages support response buffers in Concise Binary Object
+                                    Representation (CBOR) format and JavaScript Object Notation (JSON), depending on
+                                    the <code class="replaceable">payload-format</code> of the topic.
+                                 </p>
+                                 
+                                 <div class="table-container">
+                                    <div class="table-contents">
+                                       <table id="w332aab9c17c15c15c11b5">
+                                          <thead>
+                                             
+                                             <tr>
+                                                
+                                                <th><code class="replaceable">payload-format</code></th>
+                                                
+                                                <th>Response format data type</th>
+                                                
+                                             </tr>
+                                             
+                                          </thead>
+                                          
+                                          <tr>
+                                             
+                                             <td>cbor</td>
+                                             
+                                             <td>Concise Binary Object Representation (CBOR)</td>
+                                             
+                                          </tr>
+                                          
+                                          <tr>
+                                             
+                                             <td>json</td>
+                                             
+                                             <td>JavaScript Object Notation (JSON)</td>
+                                             
+                                          </tr>
+                                          
+                                       </table>
+                                    </div>
+                                 </div>
+                                 
+                                 <p>For more information, see <a href="./fleet-provision-api.html">Device provisioning MQTT API</a>.
+                                 </p>
+                                 
+                                 <div class="table-container">
+                                    <div class="table-contents">
+                                       <table id="w332aab9c17c15c15c11b9">
+                                          <thead>
+                                             
+                                             <tr>
+                                                
+                                                <th>Topic</th>
+                                                
+                                                <th>Client operations allowed</th>
+                                                
+                                                <th>Description</th>
+                                                
+                                             </tr>
+                                             
+                                          </thead>
+                                          
+                                          
+                                          <tr>
+                                             
+                                             <td>
+                                                
+                                                <p>$aws/certificates/create/<code class="replaceable">payload-format</code></p>
+                                                
+                                             </td>
+                                             
+                                             <td>
+                                                
+                                                <p>Publish</p>
+                                                
+                                             </td>
+                                             
+                                             <td>
+                                                
+                                                <p>Publish to this topic to create a certificate from a certificate signing request (CSR).</p>
+                                                
+                                             </td>
+                                             
+                                          </tr>
+                                          
+                                          <tr>
+                                             
+                                             <td>
+                                                
+                                                <p>$aws/certificates/create/<code class="replaceable">payload-format</code>/accepted
+                                                </p>
+                                                
+                                             </td>
+                                             
+                                             <td>
+                                                
+                                                <p>Subscribe</p>
+                                                
+                                             </td>
+                                             
+                                             <td>
+                                                
+                                                <p>AWS IoT publishes to this topic after a successful call to
+                                                   $aws/certificates/create/<code class="replaceable">payload-format</code>.
+                                                </p>
+                                                
+                                             </td>
+                                             
+                                          </tr>
+                                          
+                                          <tr>
+                                             
+                                             <td>
+                                                
+                                                <p>$aws/certificates/create/<code class="replaceable">payload-format</code>/rejected
+                                                </p>
+                                                
+                                             </td>
+                                             
+                                             <td>
+                                                
+                                                <p>Subscribe</p>
+                                                
+                                             </td>
+                                             
+                                             <td>
+                                                
+                                                <p>AWS IoT publishes to this topic after an unsuccessful call to
+                                                   $aws/certificates/create/<code class="replaceable">payload-format</code>.
+                                                </p>
+                                                
+                                             </td>
+                                             
+                                          </tr>
+                                          
+                                          <tr>
+                                             
+                                             <td>
+                                                
+                                                <p>$aws/certificates/create-from-csr/<code class="replaceable">payload-format</code></p>
+                                                
+                                             </td>
+                                             
+                                             <td>
+                                                
+                                                <p>Publish</p>
+                                                
+                                             </td>
+                                             
+                                             <td>
+                                                
+                                                <p>Publishes to this topic to create a certificate from a CSR.</p>
+                                                
+                                             </td>
+                                             
+                                          </tr>
+                                          
+                                          <tr>
+                                             
+                                             <td>
+                                                
+                                                <p>$aws/certificates/create-from-csr/<code class="replaceable">payload-format</code>/accepted
+                                                </p>
+                                                
+                                             </td>
+                                             
+                                             <td>
+                                                
+                                                <p>Subscribe</p>
+                                                
+                                             </td>
+                                             
+                                             <td>
+                                                
+                                                <p>AWS IoT publishes to this topic a successful call to
+                                                   $aws/certificates/create-from-csr/<code class="replaceable">payload-format</code>.
+                                                </p>
+                                                
+                                             </td>
+                                             
+                                          </tr>
+                                          
+                                          <tr>
+                                             
+                                             <td>
+                                                
+                                                <p>$aws/certificates/create-from-csr/<code class="replaceable">payload-format</code>/rejected
+                                                </p>
+                                                
+                                             </td>
+                                             
+                                             <td>
+                                                
+                                                <p>Subscribe</p>
+                                                
+                                             </td>
+                                             
+                                             <td>
+                                                
+                                                <p>AWS IoT publishes to this topic an unsuccessful call to
+                                                   $aws/certificates/create-from-csr/<code class="replaceable">payload-format</code>.
+                                                </p>
+                                                
+                                             </td>
+                                             
+                                          </tr>
+                                          
+                                          <tr>
+                                             
+                                             <td>
+                                                
+                                                <p>$aws/events/presence/connected/<code class="replaceable">clientId</code></p>
+                                                
+                                             </td>
+                                             
+                                             <td>
+                                                
+                                                <p>Subscribe</p>
+                                                
+                                             </td>
+                                             
+                                             <td>
+                                                
+                                                <p>AWS IoT publishes to this topic when an MQTT client with the
+                                                   specified client ID connects to AWS IoT. For more information, see
+                                                   <a href="./life-cycle-events.html#connect-disconnect">Connect/Disconnect events</a>.
+                                                </p>
+                                                
+                                             </td>
+                                             
+                                          </tr>
+                                          
+                                          <tr>
+                                             
+                                             <td>
+                                                
+                                                <p>$aws/provisioning-templates/<code class="replaceable">templateName</code>/provision/<code class="replaceable">payload-format</code></p>
+                                                
+                                             </td>
+                                             
+                                             <td>
+                                                
+                                                <p>Publish</p>
+                                                
+                                             </td>
+                                             
+                                             <td>
+                                                
+                                                <p>Publish to this topic to register a thing.</p>
+                                                
+                                             </td>
+                                             
+                                          </tr>
+                                          
+                                          <tr>
+                                             
+                                             <td>
+                                                
+                                                <p>$aws/provisioning-templates/<code class="replaceable">templateName</code>/provision/<code class="replaceable">payload-format</code>/accepted
+                                                </p>
+                                                
+                                             </td>
+                                             
+                                             <td>
+                                                
+                                                <p>Subscribe</p>
+                                                
+                                             </td>
+                                             
+                                             <td>
+                                                
+                                                <p>AWS IoT publishes to this topic after a successful call to
+                                                   $aws/provisioning-templates/<code class="replaceable">templateName</code>/provision/<code class="replaceable">payload-format</code>.
+                                                </p>
+                                                
+                                             </td>
+                                             
+                                          </tr>
+                                          
+                                          <tr>
+                                             
+                                             <td>
+                                                
+                                                <p>$aws/provisioning-templates/<code class="replaceable">templateName</code>/provision/<code class="replaceable">payload-format</code>/rejected
+                                                </p>
+                                                
+                                             </td>
+                                             
+                                             <td>
+                                                
+                                                <p>Subscribe</p>
+                                                
+                                             </td>
+                                             
+                                             <td>
+                                                
+                                                <p>AWS IoT publishes to this topic after an unsuccessful call to
+                                                   $aws/provisioning-templates/<code class="replaceable">templateName</code>/provision/<code class="replaceable">payload-format</code>.
+                                                </p>
+                                                
+                                             </td>
+                                             
+                                          </tr>
+                                          
+                                       </table>
+                                    </div>
+                                 </div>
+                                  
+                                 
+                                 <h2 id="reserved-topics-job">Job topics</h2>
+                                 
+                                 <div class="awsdocs-note">
+                                    <div class="awsdocs-note-title">
+                                       <awsui-icon name="status-info" variant="link"></awsui-icon><span>Note</span></div>
+                                    <div class="awsdocs-note-text">
+                                       <p>The client operations noted as <b>Receive</b> in this table indicate
+                                          topics that AWS IoT publishes directly to the client that requested it, whether
+                                          the client has subscribed to the topic or not. Clients should also expect to
+                                          receive these response messages even if they have not subscribed to them.
+                                       </p>
+                                       <p>These response messages do not pass through the message broker and they cannot
+                                          be subscribed to by other clients or rules. To subscribe to job activity related
+                                          messages, use the <code class="code">notify</code> and <code class="code">notify-next</code>
+                                          topics.
+                                       </p>
+                                       <p>For more information, see <a href="./jobs-mqtt-api.html">Jobs device MQTT and HTTPS APIs</a>.
+                                       </p>
+                                    </div>
+                                 </div>
+                                 
+                                 <div class="table-container">
+                                    <div class="table-contents">
+                                       <table id="w332aab9c17c15c15c13b5">
+                                          <thead>
+                                             
+                                             <tr>
+                                                
+                                                <th>Topic</th>
+                                                
+                                                <th>Client operations allowed</th>
+                                                
+                                                <th>Description</th>
+                                                
+                                             </tr>
+                                             
+                                          </thead>
+                                          
+                                          <tr>
+                                             
+                                             <td>
+                                                
+                                                <p>$aws/things/<code class="replaceable">thingName</code>/jobs/get
+                                                </p>
+                                                
+                                             </td>
+                                             
+                                             <td>
+                                                
+                                                <p>Publish</p>
+                                                
+                                             </td>
+                                             
+                                             <td>
+                                                
+                                                <p>Devices publish a message to this topic to make a
+                                                   <code class="code">GetPendingJobExecutions</code> request. For more
+                                                   information, see <a href="./jobs-mqtt-api.html">Jobs device MQTT and HTTPS APIs</a>.
+                                                </p>
+                                                
+                                             </td>
+                                             
+                                          </tr>
+                                          
+                                          <tr>
+                                             
+                                             <td>
+                                                
+                                                <p>$aws/things/<code class="replaceable">thingName</code>/jobs/get/accepted
+                                                </p>
+                                                
+                                             </td>
+                                             
+                                             <td>
+                                                
+                                                <p>Subscribe, Receive</p>
+                                                
+                                             </td>
+                                             
+                                             <td>
+                                                
+                                                <p>Devices subscribe to this topic to receive successful responses
+                                                   from a <code class="code">GetPendingJobExecutions</code> request. For more
+                                                   information, see <a href="./jobs-mqtt-api.html">Jobs device MQTT and HTTPS APIs</a>. 
+                                                </p>
+                                                
+                                                
+                                             </td>
+                                             
+                                          </tr>
+                                          
+                                          <tr>
+                                             
+                                             <td>
+                                                
+                                                <p>$aws/things/<code class="replaceable">thingName</code>/jobs/get/rejected
+                                                </p>
+                                                
+                                             </td>
+                                             
+                                             <td>
+                                                
+                                                <p>Subscribe, Receive</p>
+                                                
+                                             </td>
+                                             
+                                             <td>
+                                                
+                                                <p>Devices subscribe to this topic when a
+                                                   <code class="code">GetPendingJobExecutions</code> request is rejected.
+                                                   For more information, see <a href="./jobs-mqtt-api.html">Jobs device MQTT and HTTPS APIs</a>.
+                                                </p>
+                                                
+                                             </td>
+                                             
+                                          </tr>
+                                          
+                                          <tr>
+                                             
+                                             <td>
+                                                
+                                                <p>$aws/things/<code class="replaceable">thingName</code>/jobs/start-next
+                                                </p>
+                                                
+                                             </td>
+                                             
+                                             <td>
+                                                
+                                                <p>Publish</p>
+                                                
+                                             </td>
+                                             
+                                             <td>
+                                                
+                                                <p>Devices publish a message to this topic to make a
+                                                   <code class="code">StartNextPendingJobExecution</code> request. For more
+                                                   information, see <a href="./jobs-mqtt-api.html">Jobs device MQTT and HTTPS APIs</a>.
+                                                </p>
+                                                
+                                             </td>
+                                             
+                                          </tr>
+                                          
+                                          <tr>
+                                             
+                                             <td>
+                                                
+                                                <p>$aws/things/<code class="replaceable">thingName</code>/jobs/start-next/accepted
+                                                </p>
+                                                
+                                             </td>
+                                             
+                                             <td>
+                                                
+                                                <p>Subscribe, Receive</p>
+                                                
+                                             </td>
+                                             
+                                             <td>
+                                                
+                                                <p>Devices subscribe to this topic to receive successful responses to
+                                                   a <code class="code">StartNextPendingJobExecution</code> request. For more
+                                                   information, see <a href="./jobs-mqtt-api.html">Jobs device MQTT and HTTPS APIs</a>.
+                                                </p>
+                                                
+                                             </td>
+                                             
+                                          </tr>
+                                          
+                                          <tr>
+                                             
+                                             <td>
+                                                
+                                                <p>$aws/things/<code class="replaceable">thingName</code>/jobs/start-next/rejected
+                                                </p>
+                                                
+                                             </td>
+                                             
+                                             <td>
+                                                
+                                                <p>Subscribe, Receive</p>
+                                                
+                                             </td>
+                                             
+                                             <td>
+                                                
+                                                <p>Devices subscribe to this topic when a
+                                                   <code class="code">StartNextPendingJobExecution</code> request is
+                                                   rejected. For more information, see <a href="./jobs-mqtt-api.html">Jobs device MQTT and HTTPS APIs</a>.
+                                                </p>
+                                                
+                                             </td>
+                                             
+                                          </tr>
+                                          
+                                          <tr>
+                                             
+                                             <td>
+                                                
+                                                <p>$aws/things/<code class="replaceable">thingName</code>/jobs/<code class="replaceable">jobId</code>/get
+                                                </p>
+                                                
+                                             </td>
+                                             
+                                             <td>
+                                                
+                                                <p>Publish</p>
+                                                
+                                             </td>
+                                             
+                                             <td>
+                                                
+                                                <p>Devices publish a message to this topic to make a
+                                                   <code class="code">DescribeJobExecution</code> request. For more
+                                                   information, see <a href="./jobs-mqtt-api.html">Jobs device MQTT and HTTPS APIs</a>.
+                                                </p>
+                                                
+                                             </td>
+                                             
+                                          </tr>
+                                          
+                                          <tr>
+                                             
+                                             <td>
+                                                
+                                                <p>$aws/things/<code class="replaceable">thingName</code>/jobs/<code class="replaceable">jobId</code>/get/accepted
+                                                </p>
+                                                
+                                             </td>
+                                             
+                                             <td>
+                                                
+                                                <p>Subscribe, Receive</p>
+                                                
+                                             </td>
+                                             
+                                             <td>
+                                                
+                                                <p>Devices subscribe to this topic to receive successful responses to
+                                                   a <code class="code">DescribeJobExecution</code> request. For more
+                                                   information, see <a href="./jobs-mqtt-api.html">Jobs device MQTT and HTTPS APIs</a>.
+                                                </p>
+                                                
+                                             </td>
+                                             
+                                          </tr>
+                                          
+                                          <tr>
+                                             
+                                             <td>
+                                                
+                                                <p>$aws/things/<code class="replaceable">thingName</code>/jobs/<code class="replaceable">jobId</code>/get/rejected
+                                                </p>
+                                                
+                                             </td>
+                                             
+                                             <td>
+                                                
+                                                <p>Subscribe, Receive</p>
+                                                
+                                             </td>
+                                             
+                                             <td>
+                                                
+                                                <p>Devices subscribe to this topic when a
+                                                   <code class="code">DescribeJobExecution</code> request is rejected. For
+                                                   more information, see <a href="./jobs-mqtt-api.html">Jobs device MQTT and HTTPS APIs</a>.
+                                                </p>
+                                                
+                                             </td>
+                                             
+                                          </tr>
+                                          
+                                          <tr>
+                                             
+                                             <td>
+                                                
+                                                <p>$aws/things/<code class="replaceable">thingName</code>/jobs/<code class="replaceable">jobId</code>/update
+                                                </p>
+                                                
+                                             </td>
+                                             
+                                             <td>
+                                                
+                                                <p>Publish</p>
+                                                
+                                             </td>
+                                             
+                                             <td>
+                                                
+                                                <p>Devices publish a message to this topic to make an
+                                                   <code class="code">UpdateJobExecution</code> request. For more
+                                                   information, see <a href="./jobs-mqtt-api.html">Jobs device MQTT and HTTPS APIs</a>.
+                                                </p>
+                                                
+                                             </td>
+                                             
+                                          </tr>
+                                          
+                                          <tr>
+                                             
+                                             <td>
+                                                
+                                                <p>$aws/things/<code class="replaceable">thingName</code>/jobs/<code class="replaceable">jobId</code>/update/accepted
+                                                </p>
+                                                
+                                             </td>
+                                             
+                                             <td>
+                                                
+                                                <p>Subscribe, Receive</p>
+                                                
+                                             </td>
+                                             
+                                             <td>
+                                                
+                                                <p>Devices subscribe to this topic to receive successful
+                                                   responses to an <code class="code">UpdateJobExecution</code> request. For
+                                                   more information, see <a href="./jobs-mqtt-api.html">Jobs device MQTT and HTTPS APIs</a>.
+                                                </p>
+                                                
+                                                <div class="awsdocs-note">
+                                                   <div class="awsdocs-note-title">
+                                                      <awsui-icon name="status-info" variant="link"></awsui-icon><span>Note</span></div>
+                                                   <div class="awsdocs-note-text">
+                                                      <p>Only the device that publishes to
+                                                         $aws/things/<code class="replaceable">thingName</code>/jobs/<code class="replaceable">jobId</code>/update
+                                                         receives messages on this topic.
+                                                      </p>
+                                                   </div>
+                                                </div>
+                                                
+                                             </td>
+                                             
+                                          </tr>
+                                          
+                                          <tr>
+                                             
+                                             <td>
+                                                
+                                                <p>$aws/things/<code class="replaceable">thingName</code>/jobs/<code class="replaceable">jobId</code>/update/rejected
+                                                </p>
+                                                
+                                             </td>
+                                             
+                                             <td>
+                                                
+                                                <p>Subscribe, Receive</p>
+                                                
+                                             </td>
+                                             
+                                             <td>
+                                                
+                                                <p>Devices subscribe to this topic when an
+                                                   <code class="code">UpdateJobExecution</code> request is rejected. For
+                                                   more information, see <a href="./jobs-mqtt-api.html">Jobs device MQTT and HTTPS APIs</a>.
+                                                </p>
+                                                
+                                                <div class="awsdocs-note">
+                                                   <div class="awsdocs-note-title">
+                                                      <awsui-icon name="status-info" variant="link"></awsui-icon><span>Note</span></div>
+                                                   <div class="awsdocs-note-text">
+                                                      <p>Only the device that publishes to
+                                                         $aws/things/<code class="replaceable">thingName</code>/jobs/<code class="replaceable">jobId</code>/update
+                                                         receives messages on this topic.
+                                                      </p>
+                                                   </div>
+                                                </div>
+                                                
+                                             </td>
+                                             
+                                          </tr>
+                                          
+                                          <tr>
+                                             
+                                             <td>
+                                                
+                                                <p>$aws/things/<code class="replaceable">thingName</code>/jobs/notify
+                                                </p>
+                                                
+                                             </td>
+                                             
+                                             <td>
+                                                
+                                                <p>Subscribe</p>
+                                                
+                                             </td>
+                                             
+                                             <td>
+                                                
+                                                <p>Devices subscribe to this topic to receive notifications when
+                                                   a job execution is added or removed to the list of pending
+                                                   executions for a thing. For more information, see <a href="./jobs-mqtt-api.html">Jobs device MQTT and HTTPS APIs</a>.
+                                                </p>
+                                                
+                                             </td>
+                                             
+                                          </tr>
+                                          
+                                          <tr>
+                                             
+                                             <td>
+                                                
+                                                <p>$aws/things/<code class="replaceable">thingName</code>/jobs/notify-next
+                                                </p>
+                                                
+                                             </td>
+                                             
+                                             <td>
+                                                
+                                                <p>Subscribe</p>
+                                                
+                                             </td>
+                                             
+                                             <td>
+                                                
+                                                <p>Devices subscribe to this topic to receive notifications when
+                                                   the next pending job execution for the thing is changed. For
+                                                   more information, see <a href="./jobs-mqtt-api.html">Jobs device MQTT and HTTPS APIs</a>.
+                                                </p>
+                                                
+                                             </td>
+                                             
+                                          </tr>
+                                          
+                                          <tr>
+                                             
+                                             <td>
+                                                
+                                                <p>$aws/events/job/<code class="replaceable">jobId</code>/completed
+                                                </p>
+                                                
+                                             </td>
+                                             
+                                             <td>
+                                                
+                                                <p>Subscribe</p>
+                                                
+                                             </td>
+                                             
+                                             <td>
+                                                
+                                                <p>The Jobs service publishes an event on this topic when a job
+                                                   completes. For more information, see <a href="./events-jobs.html">Jobs events</a>.
+                                                </p>
+                                                
+                                             </td>
+                                             
+                                          </tr>
+                                          
+                                          <tr>
+                                             
+                                             <td>
+                                                
+                                                <p>$aws/events/job/<code class="replaceable">jobId</code>/canceled
+                                                </p>
+                                                
+                                             </td>
+                                             
+                                             <td>
+                                                
+                                                <p>Subscribe</p>
+                                                
+                                             </td>
+                                             
+                                             <td>
+                                                
+                                                <p>The Jobs service publishes an event on this topic when a job
+                                                   is canceled. For more information, see <a href="./events-jobs.html">Jobs events</a>.
+                                                </p>
+                                                
+                                             </td>
+                                             
+                                          </tr>
+                                          
+                                          <tr>
+                                             
+                                             <td>
+                                                
+                                                <p>$aws/events/job/<code class="replaceable">jobId</code>/deleted
+                                                   
+                                                </p>
+                                                
+                                             </td>
+                                             
+                                             <td>
+                                                
+                                                <p>Subscribe</p>
+                                                
+                                             </td>
+                                             
+                                             <td>
+                                                
+                                                <p>The Jobs service publishes an event on this topic when a job
+                                                   is deleted. For more information, see <a href="./events-jobs.html">Jobs events</a>.
+                                                </p>
+                                                
+                                             </td>
+                                             
+                                          </tr>
+                                          
+                                          <tr>
+                                             
+                                             <td>
+                                                
+                                                <p>$aws/events/job/<code class="replaceable">jobId</code>/cancellation_in_progress
+                                                   
+                                                </p>
+                                                
+                                             </td>
+                                             
+                                             <td>
+                                                
+                                                <p>Subscribe</p>
+                                                
+                                             </td>
+                                             
+                                             <td>
+                                                
+                                                <p>The Jobs service publishes an event on this topic when a job
+                                                   cancellation begins. For more information, see <a href="./events-jobs.html">Jobs events</a>.
+                                                </p>
+                                                
+                                             </td>
+                                             
+                                          </tr>
+                                          
+                                          <tr>
+                                             
+                                             <td>
+                                                
+                                                <p>$aws/events/job/<code class="replaceable">jobId</code>/deletion_in_progress
+                                                   
+                                                </p>
+                                                
+                                             </td>
+                                             
+                                             <td>
+                                                
+                                                <p>Subscribe</p>
+                                                
+                                             </td>
+                                             
+                                             <td>
+                                                
+                                                <p>The Jobs service publishes an event on this topic when a job
+                                                   deletion begins. For more information, see <a href="./events-jobs.html">Jobs events</a>. 
+                                                </p>
+                                                
+                                             </td>
+                                             
+                                          </tr>
+                                          
+                                          <tr>
+                                             
+                                             <td>
+                                                
+                                                <p>$aws/events/jobExecution/<code class="replaceable">jobId</code>/succeeded
+                                                   
+                                                </p>
+                                                
+                                             </td>
+                                             
+                                             <td>
+                                                
+                                                <p>Subscribe</p>
+                                                
+                                             </td>
+                                             
+                                             <td>
+                                                
+                                                <p>The Jobs service publishes an event on this topic when job
+                                                   execution succeeds. For more information, see <a href="./events-jobs.html">Jobs events</a>. 
+                                                </p>
+                                                
+                                             </td>
+                                             
+                                          </tr>
+                                          
+                                          <tr>
+                                             
+                                             <td>
+                                                
+                                                <p>$aws/events/jobExecution/<code class="replaceable">jobId</code>/failed
+                                                   
+                                                </p>
+                                                
+                                             </td>
+                                             
+                                             <td>
+                                                
+                                                <p>Subscribe</p>
+                                                
+                                             </td>
+                                             
+                                             <td>
+                                                
+                                                <p>The Jobs service publishes an event on this topic when a job
+                                                   execution fails. For more information, see <a href="./events-jobs.html">Jobs events</a>. 
+                                                </p>
+                                                
+                                             </td>
+                                             
+                                          </tr>
+                                          
+                                          <tr>
+                                             
+                                             <td>
+                                                
+                                                <p>$aws/events/jobExecution/<code class="replaceable">jobId</code>/rejected
+                                                   
+                                                </p>
+                                                
+                                             </td>
+                                             
+                                             <td>
+                                                
+                                                <p>Subscribe</p>
+                                                
+                                             </td>
+                                             
+                                             <td>
+                                                
+                                                <p>The Jobs service publishes an event on this topic when a job
+                                                   execution is rejected. For more information, see <a href="./events-jobs.html">Jobs events</a>. 
+                                                </p>
+                                                
+                                             </td>
+                                             
+                                          </tr>
+                                          
+                                          <tr>
+                                             
+                                             <td>
+                                                
+                                                <p>$aws/events/jobExecution/<code class="replaceable">jobId</code>/canceled
+                                                   
+                                                </p>
+                                                
+                                             </td>
+                                             
+                                             <td>
+                                                
+                                                <p>Subscribe</p>
+                                                
+                                             </td>
+                                             
+                                             <td>
+                                                
+                                                <p>The Jobs service publishes an event on this topic when a job
+                                                   execution is canceled. For more information, see <a href="./events-jobs.html">Jobs events</a>. 
+                                                </p>
+                                                
+                                             </td>
+                                             
+                                          </tr>
+                                          
+                                          <tr>
+                                             
+                                             <td>
+                                                
+                                                <p>$aws/events/jobExecution/<code class="replaceable">jobId</code>/timed_out
+                                                   
+                                                </p>
+                                                
+                                             </td>
+                                             
+                                             <td>
+                                                
+                                                <p>Subscribe</p>
+                                                
+                                             </td>
+                                             
+                                             <td>
+                                                
+                                                <p>The Jobs service publishes an event on this topic when a job
+                                                   execution times out. For more information, see <a href="./events-jobs.html">Jobs events</a>. 
+                                                </p>
+                                                
+                                             </td>
+                                             
+                                          </tr>
+                                          
+                                          <tr>
+                                             
+                                             <td>
+                                                
+                                                <p>$aws/events/jobExecution/<code class="replaceable">jobId</code>/removed
+                                                   
+                                                </p>
+                                                
+                                             </td>
+                                             
+                                             <td>
+                                                
+                                                <p>Subscribe</p>
+                                                
+                                             </td>
+                                             
+                                             <td>
+                                                
+                                                <p>The Jobs service publishes an event on this topic when a job
+                                                   execution is removed. For more information, see <a href="./events-jobs.html">Jobs events</a>. 
+                                                </p>
+                                                
+                                             </td>
+                                             
+                                          </tr>
+                                          
+                                          <tr>
+                                             
+                                             <td>
+                                                
+                                                <p>$aws/events/jobExecution/<code class="replaceable">jobId</code>/deleted
+                                                   
+                                                </p>
+                                                
+                                             </td>
+                                             
+                                             <td>
+                                                
+                                                <p>Subscribe</p>
+                                                
+                                             </td>
+                                             
+                                             <td>
+                                                
+                                                <p>The Jobs service publishes an event on this topic when a job
+                                                   execution is deleted. For more information, see <a href="./events-jobs.html">Jobs events</a>. 
+                                                </p>
+                                                
+                                             </td>
+                                             
+                                          </tr>
+                                          
+                                       </table>
+                                    </div>
+                                 </div>
+                                  
+                                 
+                                 <h2 id="reserved-topics-rule">Rule topics</h2>
+                                 
+                                 <div class="table-container">
+                                    <div class="table-contents">
+                                       <table id="w332aab9c17c15c15c15b3">
+                                          <thead>
+                                             
+                                             <tr>
+                                                
+                                                <th>Topic</th>
+                                                
+                                                <th>Client operations allowed</th>
+                                                
+                                                <th>Description</th>
+                                                
+                                             </tr>
+                                             
+                                          </thead>
+                                          
+                                          <tr>
+                                             
+                                             <td>
+                                                
+                                                <p>$aws/rules/<code class="replaceable">ruleName</code></p>
+                                                
+                                             </td>
+                                             
+                                             <td>
+                                                
+                                                <p>Publish</p>
+                                                
+                                             </td>
+                                             
+                                             <td>
+                                                
+                                                <p>A device or an application publishes to this topic to trigger
+                                                   rules directly. For more information, see <a href="./iot-basic-ingest.html">Reducing messaging costs with basic ingest</a>. 
+                                                </p>
+                                                
+                                             </td>
+                                             
+                                          </tr>
+                                          
+                                       </table>
+                                    </div>
+                                 </div>
+                                  
+                                 
+                                 <h2 id="reserved-topics-secure">Secure tunneling topics</h2>
+                                 
+                                 <div class="table-container">
+                                    <div class="table-contents">
+                                       <table id="w332aab9c17c15c15c17b3">
+                                          <thead>
+                                             
+                                             <tr>
+                                                
+                                                <th>Topic</th>
+                                                
+                                                <th>Client operations allowed</th>
+                                                
+                                                <th>Description</th>
+                                                
+                                             </tr>
+                                             
+                                          </thead>
+                                          
+                                          <tr>
+                                             
+                                             <td>
+                                                
+                                                <p>$aws/things/<code class="replaceable">thing-name</code>/tunnels/notify
+                                                </p>
+                                                
+                                             </td>
+                                             
+                                             <td>
+                                                
+                                                <p>Subscribe</p>
+                                                
+                                             </td>
+                                             
+                                             <td>
+                                                
+                                                <p>
+                                                   AWS IoT publishes this message for an IoT agent to start a local proxy on the remote
+                                                   device.
+                                                   For more information, see <a href="./agent-snippet.html">IoT agent snippet</a>. 
+                                                </p>
+                                                
+                                             </td>
+                                             
+                                          </tr>
+                                          
+                                       </table>
+                                    </div>
+                                 </div>
+                                  
+                                 
+                                 <h2 id="reserved-topics-shadow">Shadow topics</h2>
+                                 
+                                 <p>The topics in this section are used by named and unnamed shadows. The topics
+                                    used by each differ only in the topic prefix. This table shows the topic prefix
+                                    used by each shadow type.
+                                 </p>
+                                 
+                                 <div class="table-container">
+                                    <div class="table-contents">
+                                       <table id="w332aab9c17c15c15c19b5">
+                                          <thead>
+                                             
+                                             <tr>
+                                                
+                                                <th><code class="replaceable">ShadowTopicPrefix</code> value
+                                                </th>
+                                                
+                                                <th>Shadow type</th>
+                                                
+                                             </tr>
+                                             
+                                          </thead>
+                                          
+                                          <tr>
+                                             
+                                             <td>$aws/things/<code class="replaceable">thingName</code>/shadow
+                                             </td>
+                                             
+                                             <td>Unnamed (classic) shadow</td>
+                                             
+                                          </tr>
+                                          
+                                          <tr>
+                                             
+                                             <td>$aws/things/<code class="replaceable">thingName</code>/shadow/name/<code class="replaceable">shadowName</code></td>
+                                             
+                                             <td>Named shadow</td>
+                                             
+                                          </tr>
+                                          
+                                       </table>
+                                    </div>
+                                 </div>
+                                 
+                                 <p>To create a complete topic, select the
+                                    <code class="replaceable">ShadowTopicPrefix</code> for the type of shadow to which you
+                                    want to refer, replace <code class="replaceable">thingName</code> and if applicable,
+                                    <code class="replaceable">shadowName</code>, with their corresponding values, and then
+                                    append that with the topic stub as shown in the following table. Remember that
+                                    topics are case sensitive.
+                                 </p>
+                                 
+                                 <div class="table-container">
+                                    <div class="table-contents">
+                                       <table id="w332aab9c17c15c15c19b9">
+                                          <thead>
+                                             
+                                             <tr>
+                                                
+                                                <th>Topic</th>
+                                                
+                                                <th>Client operations allowed</th>
+                                                
+                                                <th>Description</th>
+                                                
+                                             </tr>
+                                             
+                                          </thead>
+                                          
+                                          <tr>
+                                             
+                                             <td>
+                                                
+                                                <p><code class="replaceable">ShadowTopicPrefix</code>/delete
+                                                </p>
+                                                
+                                             </td>
+                                             
+                                             <td>
+                                                
+                                                <p>Publish/Subscribe</p>
+                                                
+                                             </td>
+                                             
+                                             <td>
+                                                
+                                                <p>A device or an application publishes to this topic to delete a
+                                                   shadow. For more information, see <a href="./device-shadow-mqtt.html#delete-pub-sub-topic">/delete</a>.
+                                                </p>
+                                                
+                                             </td>
+                                             
+                                          </tr>
+                                          
+                                          <tr>
+                                             
+                                             <td>
+                                                
+                                                <p><code class="replaceable">ShadowTopicPrefix</code>/delete/accepted
+                                                </p>
+                                                
+                                             </td>
+                                             
+                                             <td>
+                                                
+                                                <p>Subscribe</p>
+                                                
+                                             </td>
+                                             
+                                             <td>
+                                                
+                                                <p>The Device Shadow service sends messages to this topic when a
+                                                   shadow is deleted. For more information, see <a href="./device-shadow-mqtt.html#delete-accepted-pub-sub-topic">/delete/accepted</a>.
+                                                </p>
+                                                
+                                             </td>
+                                             
+                                          </tr>
+                                          
+                                          <tr>
+                                             
+                                             <td>
+                                                
+                                                <p><code class="replaceable">ShadowTopicPrefix</code>/delete/rejected
+                                                </p>
+                                                
+                                             </td>
+                                             
+                                             <td>
+                                                
+                                                <p>Subscribe</p>
+                                                
+                                             </td>
+                                             
+                                             <td>
+                                                
+                                                <p>The Device Shadow service sends messages to this topic when a
+                                                   request to delete a shadow is rejected. For more information,
+                                                   see <a href="./device-shadow-mqtt.html#delete-rejected-pub-sub-topic">/delete/rejected</a>.
+                                                </p>
+                                                
+                                             </td>
+                                             
+                                          </tr>
+                                          
+                                          <tr>
+                                             
+                                             <td>
+                                                
+                                                <p><code class="replaceable">ShadowTopicPrefix</code>/get
+                                                </p>
+                                                
+                                             </td>
+                                             
+                                             <td>
+                                                
+                                                <p>Publish/Subscribe</p>
+                                                
+                                             </td>
+                                             
+                                             <td>
+                                                
+                                                <p>An application or a thing publishes an empty message to this
+                                                   topic to get a shadow. For more information, see <a href="./device-shadow-mqtt.html">Device Shadow MQTT topics</a>.
+                                                </p>
+                                                
+                                             </td>
+                                             
+                                          </tr>
+                                          
+                                          <tr>
+                                             
+                                             <td>
+                                                
+                                                <p><code class="replaceable">ShadowTopicPrefix</code>/get/accepted
+                                                </p>
+                                                
+                                             </td>
+                                             
+                                             <td>
+                                                
+                                                <p>Subscribe</p>
+                                                
+                                             </td>
+                                             
+                                             <td>
+                                                
+                                                <p>The Device Shadow service sends messages to this topic when a
+                                                   request for a shadow is made successfully. For more information,
+                                                   see <a href="./device-shadow-mqtt.html#get-accepted-pub-sub-topic">/get/accepted</a>.
+                                                </p>
+                                                
+                                             </td>
+                                             
+                                          </tr>
+                                          
+                                          <tr>
+                                             
+                                             <td>
+                                                
+                                                <p><code class="replaceable">ShadowTopicPrefix</code>/get/rejected
+                                                </p>
+                                                
+                                             </td>
+                                             
+                                             <td>
+                                                
+                                                <p>Subscribe</p>
+                                                
+                                             </td>
+                                             
+                                             <td>
+                                                
+                                                <p>The Device Shadow service sends messages to this topic when a
+                                                   request for a shadow is rejected. For more information, see
+                                                   <a href="./device-shadow-mqtt.html#get-rejected-pub-sub-topic">/get/rejected</a>.
+                                                </p>
+                                                
+                                             </td>
+                                             
+                                          </tr>
+                                          
+                                          <tr>
+                                             
+                                             <td>
+                                                
+                                                <p><code class="replaceable">ShadowTopicPrefix</code>/update
+                                                </p>
+                                                
+                                             </td>
+                                             
+                                             <td>
+                                                
+                                                <p>Publish/Subscribe</p>
+                                                
+                                             </td>
+                                             
+                                             <td>
+                                                
+                                                <p>A thing or application publishes to this topic to update a
+                                                   shadow. For more information, see <a href="./device-shadow-mqtt.html#update-pub-sub-topic">/update</a>.
+                                                </p>
+                                                
+                                             </td>
+                                             
+                                          </tr>
+                                          
+                                          <tr>
+                                             
+                                             <td>
+                                                
+                                                <p><code class="replaceable">ShadowTopicPrefix</code>/update/accepted
+                                                </p>
+                                                
+                                             </td>
+                                             
+                                             <td>
+                                                
+                                                <p>Subscribe</p>
+                                                
+                                             </td>
+                                             
+                                             <td>
+                                                
+                                                <p>The Device Shadow service sends messages to this topic when an
+                                                   update is successfully made to a shadow. For more information,
+                                                   see <a href="./device-shadow-mqtt.html#update-accepted-pub-sub-topic">/update/accepted</a>.
+                                                </p>
+                                                
+                                             </td>
+                                             
+                                          </tr>
+                                          
+                                          <tr>
+                                             
+                                             <td>
+                                                
+                                                <p><code class="replaceable">ShadowTopicPrefix</code>/update/rejected
+                                                </p>
+                                                
+                                             </td>
+                                             
+                                             <td>
+                                                
+                                                <p>Subscribe</p>
+                                                
+                                             </td>
+                                             
+                                             <td>
+                                                
+                                                <p>The Device Shadow service sends messages to this topic when an
+                                                   update to a shadow is rejected. For more information, see <a href="./device-shadow-mqtt.html#update-rejected-pub-sub-topic">/update/rejected</a>.
+                                                </p>
+                                                
+                                             </td>
+                                             
+                                          </tr>
+                                          
+                                          <tr>
+                                             
+                                             <td>
+                                                
+                                                <p><code class="replaceable">ShadowTopicPrefix</code>/update/delta
+                                                </p>
+                                                
+                                             </td>
+                                             
+                                             <td>
+                                                
+                                                <p>Subscribe</p>
+                                                
+                                             </td>
+                                             
+                                             <td>
+                                                
+                                                <p>The Device Shadow service sends messages to this topic when a
+                                                   difference is detected between the reported and desired sections
+                                                   of a shadow. For more information, see <a href="./device-shadow-mqtt.html#update-delta-pub-sub-topic">/update/delta</a>.
+                                                   
+                                                </p>
+                                                
+                                             </td>
+                                             
+                                          </tr>
+                                          
+                                          <tr>
+                                             
+                                             <td>
+                                                
+                                                <p><code class="replaceable">ShadowTopicPrefix</code>/update/documents
+                                                </p>
+                                                
+                                             </td>
+                                             
+                                             <td>
+                                                
+                                                <p>Subscribe</p>
+                                                
+                                             </td>
+                                             
+                                             <td>
+                                                
+                                                <p>AWS IoT publishes a state document to this topic whenever an
+                                                   update to the shadow is successfully performed. For more
+                                                   information, see <a href="./device-shadow-mqtt.html#update-documents-pub-sub-topic">/update/documents</a>. 
+                                                </p>
+                                                
+                                             </td>
+                                             
+                                          </tr>
+                                          
+                                       </table>
+                                    </div>
+                                 </div>
+                                  
+                                 
+                                 <h2 id="reserved-topics-mqtt-based-file-delivery">MQTT-based file delivery topics</h2>
+                                 
+                                 <p>These messages support response buffers in Concise Binary Object Representation (CBOR)
+                                    format and 
+                                    JavaScript Object Notation (JSON), depending on the <code class="replaceable">payload-format</code> of the 
+                                    topic.
+                                 </p>
+                                 
+                                 <div class="table-container">
+                                    <div class="table-contents">
+                                       <table id="w332aab9c17c15c15c21b5">
+                                          <thead>
+                                             
+                                             <tr>
+                                                
+                                                <th><code class="replaceable">payload-format</code></th>
+                                                
+                                                <th>Response format data type</th>
+                                                
+                                             </tr>
+                                             
+                                          </thead>
+                                          
+                                          <tr>
+                                             
+                                             <td>cbor</td>
+                                             
+                                             <td>Concise Binary Object Representation (CBOR)</td>
+                                             
+                                          </tr>
+                                          
+                                          <tr>
+                                             
+                                             <td>json</td>
+                                             
+                                             <td>JavaScript Object Notation (JSON)</td>
+                                             
+                                          </tr>
+                                          
+                                       </table>
+                                    </div>
+                                 </div>
+                                 
+                                 <div class="table-container">
+                                    <div class="table-contents">
+                                       <table id="w332aab9c17c15c15c21b7">
+                                          <thead>
+                                             
+                                             <tr>
+                                                
+                                                <th>Topic</th>
+                                                
+                                                <th>Client operations allowed</th>
+                                                
+                                                <th>Description</th>
+                                                
+                                             </tr>
+                                             
+                                          </thead>
+                                          
+                                          <tr>
+                                             
+                                             <td>
+                                                
+                                                <p>$aws/things/<code class="replaceable">ThingName</code>/streams/<code class="replaceable">StreamId</code>/data/<code class="replaceable">payload-format</code></p>
+                                                
+                                             </td>
+                                             
+                                             <td>
+                                                
+                                                <p>Subscribe</p>
+                                                
+                                             </td>
+                                             
+                                             <td>
+                                                
+                                                <p>AWS MQTT-based file delivery publishes to this topic if the "GetStream" request from
+                                                   a device is accepted. The payload contains the stream data. For more information,
+                                                   see 
+                                                   <a href="./mqtt-based-file-delivery-in-devices.html">Using AWS IoT MQTT-based file delivery in devices</a>.
+                                                   
+                                                </p>
+                                                
+                                             </td>
+                                             
+                                          </tr>
+                                          
+                                          <tr>
+                                             
+                                             <td>
+                                                
+                                                <p>$aws/things/<code class="replaceable">ThingName</code>/streams/<code class="replaceable">StreamId</code>/get/<code class="replaceable">payload-format</code></p>
+                                                
+                                             </td>
+                                             
+                                             <td>
+                                                
+                                                <p>Publish</p>
+                                                
+                                             </td>
+                                             
+                                             <td>
+                                                
+                                                <p>A device publishes to this topic to perform a "GetStream" request. For more information,
+                                                   see 
+                                                   <a href="./mqtt-based-file-delivery-in-devices.html">Using AWS IoT MQTT-based file delivery in devices</a>.
+                                                   
+                                                </p>
+                                                
+                                             </td>
+                                             
+                                          </tr>
+                                          
+                                          <tr>
+                                             
+                                             <td>
+                                                
+                                                <p>$aws/things/<code class="replaceable">ThingName</code>/streams/<code class="replaceable">StreamId</code>/description/<code class="replaceable">payload-format</code></p>
+                                                
+                                             </td>
+                                             
+                                             <td>
+                                                
+                                                <p>Subscribe</p>
+                                                
+                                             </td>
+                                             
+                                             <td>
+                                                
+                                                <p>AWS MQTT-based file delivery publishes to this topic if the "DescribeStream" request
+                                                   from
+                                                   a device is accepted. The payload contains the stream description. For more information,
+                                                   see 
+                                                   <a href="./mqtt-based-file-delivery-in-devices.html">Using AWS IoT MQTT-based file delivery in devices</a>.
+                                                   
+                                                </p>
+                                                
+                                             </td>
+                                             
+                                          </tr>
+                                          
+                                          <tr>
+                                             
+                                             <td>
+                                                
+                                                <p>$aws/things/<code class="replaceable">ThingName</code>/streams/<code class="replaceable">StreamId</code>/describe/<code class="replaceable">payload-format</code></p>
+                                                
+                                             </td>
+                                             
+                                             <td>
+                                                
+                                                <p>Publish</p>
+                                                
+                                             </td>
+                                             
+                                             <td>
+                                                
+                                                <p>A device publishes to this topic to perform a "DescribeStream" request. For more information,
+                                                   see 
+                                                   <a href="./mqtt-based-file-delivery-in-devices.html">Using AWS IoT MQTT-based file delivery in devices</a>.
+                                                   
+                                                </p>
+                                                
+                                             </td>
+                                             
+                                          </tr>
+                                          
+                                          <tr>
+                                             
+                                             <td>
+                                                
+                                                <p>$aws/things/<code class="replaceable">ThingName</code>/streams/<code class="replaceable">StreamId</code>/rejected/<code class="replaceable">payload-format</code></p>
+                                                
+                                             </td>
+                                             
+                                             <td>
+                                                
+                                                <p>Subscribe</p>
+                                                
+                                             </td>
+                                             
+                                             <td>
+                                                
+                                                <p>AWS MQTT-based file delivery publishes to this topic if a "DescribeStream" or "GetStream"
+                                                   
+                                                   request from a device is rejected. For more information, see 
+                                                   <a href="./mqtt-based-file-delivery-in-devices.html">Using AWS IoT MQTT-based file delivery in devices</a>.
+                                                   
+                                                </p>
+                                                
+                                             </td>
+                                             
+                                          </tr>
+                                          
+                                       </table>
+                                    </div>
+                                 </div>
+                                 
+                                  
+                                 
+                                 <h2 id="reserved-topicnames-arn">Reserved topic ARN</h2>
+                                 
+                                 <p>All reserved topic ARNs (Amazon Resource Names) have the following form:</p>
+                                 <pre class="programlisting"><div class="code-btn-container"><div class="btn-copy-code" title="Copy"><awsui-icon name="copy"></awsui-icon></div></div><code class="nohighlight">arn:aws:iot:<code class="replaceable">aws-region</code>:<code class="replaceable">AWS-account-ID</code>:topic/<code class="replaceable">Topic</code></code></pre>
+                                 <p>For example,
+                                    <code class="code">arn:aws:iot:us-west-2:123EXAMPLE456:topic/$aws/things/thingName/jobs/get/accepted</code>
+                                    is an ARN for the reserved topic <code class="code">$aws/things/thingName/jobs/get/accepted</code>.
+                                 </p>
+                                 
+                                 <awsdocs-copyright class="copyright-print"></awsdocs-copyright>
+                                 <awsdocs-thumb-feedback right-edge="{{$ctrl.thumbFeedbackRightEdge}}"></awsdocs-thumb-feedback>
+                              </div>
+                              <noscript>
+                                 <div>
+                                    <div>
+                                       <div>
+                                          <div id="js_error_message">
+                                             <p><img src="https://d1ge0kk1l5kms0.cloudfront.net/images/G/01/webservices/console/warning.png" alt="Warning" /> <strong>Javascript is disabled or is unavailable in your
+                                                   browser.</strong></p>
+                                             <p>To use the Amazon Web Services Documentation, Javascript must be
+                                                enabled. Please refer to your browser's Help pages for instructions.
+                                             </p>
+                                          </div>
+                                       </div>
+                                    </div>
+                                 </div>
+                              </noscript>
+                              <div id="main-col-footer" class="awsui-util-font-size-0">
+                                 <div id="doc-conventions"><a target="_top" href="/general/latest/gr/docconventions.html">Document Conventions</a></div>
+                                 <div class="prev-next">
+                                    <div id="previous" class="prev-link" accesskey="p" href="./topicdata.html">MQTT message payload</div>
+                                    <div id="next" class="next-link" accesskey="n" href="./iot-custom-endpoints-configurable.html">Configurable endpoints</div>
+                                 </div>
+                              </div>
+                              <awsdocs-page-utilities></awsdocs-page-utilities>
+                           </div>
+                           <div id="quick-feedback-yes" style="display: none;">
+                              <div class="title">Did this page help you? - Yes</div>
+                              <div class="content">
+                                 <p>Thanks for letting us know we're doing a good
+                                    job!
+                                 </p>
+                                 <p>If you've got a moment, please tell us what we did right
+                                    so we can do more of it.
+                                 </p>
+                                 <p>
+                                    <awsui-button id="fblink" target="_blank" text="Feedback" click="linkClick($event)" href="https://docs.aws.amazon.com/forms/aws-doc-feedback?hidden_service_name=IoT Docs&amp;topic_url=https://docs.aws.amazon.com/en_us/iot/latest/developerguide/reserved-topics.html"></awsui-button>
+                                 </p>
+                              </div>
+                           </div>
+                           <div id="quick-feedback-no" style="display: none;">
+                              <div class="title">Did this page help you? - No</div>
+                              <div class="content">
+                                 <p>Thanks for letting us know this page needs work. We're
+                                    sorry we let you down.
+                                 </p>
+                                 <p>If you've got a moment, please tell us how we can make
+                                    the documentation better.
+                                 </p>
+                                 <p>
+                                    <awsui-button id="fblink" target="_blank" text="Feedback" click="linkClick($event)" href="https://docs.aws.amazon.com/forms/aws-doc-feedback?hidden_service_name=IoT Docs&amp;topic_url=https://docs.aws.amazon.com/en_us/iot/latest/developerguide/reserved-topics.html"></awsui-button>
+                                 </p>
+                              </div>
+                           </div>
+                        </div>
+                     </body>
+                  </div>
+               </awsdocs-view>
+               <div class="page-loading-indicator" id="page-loading-indicator">
+                  <awsui-spinner size="large"></awsui-spinner>
+               </div>
+            </div>
+            <div id="tools-panel" dom-region="tools">
+               <awsdocs-tools-panel id="awsdocs-tools-panel"></awsdocs-tools-panel>
+            </div>
+         </awsui-app-layout>
+         <awsdocs-cookie-banner class="doc-cookie-banner"></awsdocs-cookie-banner>
+         <!--
+                SiteCatalyst code version: H.25.2.
+                Copyright 1996-2012 Adobe, Inc. All Rights Reserved
+                More info available at http://www.omniture.com
+            --><script language="JavaScript" type="text/javascript">
+var awsdocs = awsdocs || {};
+awsdocs.prop66 = 'AWS IoT Core';
+awsdocs.prop65 =  'Developer Guide';
+            </script><script src="https://a0.awsstatic.com/s_code/js/3.0/awshome_s_code.js" language="JavaScript" type="text/javascript"></script>
+         <!--/DO NOT REMOVE/-->
+         <!--End SiteCatalyst code version: H.25.2.--></div>
+   </body>
+</html>

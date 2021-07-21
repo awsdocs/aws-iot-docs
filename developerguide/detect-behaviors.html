@@ -1,0 +1,389 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" ng-app="AWSDocsDocPageApp">
+   <head>
+      <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+      <title>Behaviors - AWS IoT Core</title>
+      <meta name="viewport" content="width=device-width,initial-scale=1" />
+      <meta name="assets_root" content="assets" />
+      <meta name="target_state" content="detect-behaviors" />
+      <meta name="default_state" content="detect-behaviors" />
+      <link rel="icon" type="image/ico" href="/assets/images/favicon.ico" />
+      <link rel="shortcut icon" type="image/ico" href="/assets/images/favicon.ico" />
+      <link rel="canonical" href="https://docs.aws.amazon.com/iot/latest/developerguide/detect-behaviors.html" />
+      <meta name="description" content="A Security Profile contains a set of behaviors. Each behavior contains a metric that specifies the normal behavior for a group of devices or for all devices in your account. Behaviors fall into two categories: Rules Detect behaviors and ML Detect behaviors. With Rules Detect behaviors, you define how your devices should behave whereas ML Detect uses ML models built on historical device data to evaluate how your devices should behave." />
+      <meta name="deployment_region" content="IAD" />
+      <meta name="product" content="AWS IoT Core" />
+      <meta name="guide" content="Developer Guide" />
+      <meta name="locales" content="de_de:Deutsch/en_us:English/es_es:Español/fr_fr:Français/it_it:Italiano/ja_jp:日本語/ko_kr:한국어/pt_br:Português/zh_cn:中文 (简体)/zh_tw:中文 (繁體)" />
+      <meta name="abstract" content="AWS IoT provides secure, bi-directional communication between Internet-connected devices such as sensors, actuators, embedded micro-controllers, or smart appliances and the AWS Cloud. This enables you to collect telemetry data from multiple devices, and store and analyze the data. You can also create applications that enable your users to control these devices from their phones or tablets." />
+      <meta name="guide-locale" content="en_us" />
+      <meta name="tocs" content="toc-contents.json" />
+      <meta name="feedback-item" content="IoT Docs" />
+      <meta name="this_doc_product" content="AWS IoT Core" />
+      <meta name="this_doc_guide" content="Developer Guide" />
+      <link href="assets/css/vendor4.css" rel="stylesheet" />
+      <link href="assets/css/awsdocs-common.css" rel="stylesheet" /><script type="text/javascript" src="assets/js/vendor3.js" defer=""></script><script type="text/javascript" src="assets/js/vendor4.js" defer=""></script><script type="text/javascript" src="assets/js/vendor1.js" defer=""></script><script type="text/javascript" src="assets/js/awsdocs-common.js" defer=""></script><script type="text/javascript" src="assets/js/awsdocs-doc-app.js" defer=""></script></head>
+   <body class="awsdocs awsui">
+      <div class="awsdocs-container">
+         <awsdocs-header></awsdocs-header>
+         <awsui-app-layout id="app-layout" class="awsui-util-no-gutters" ng-controller="ContentController as $ctrl" header-selector="awsdocs-header" navigation-hide="false" navigation-width="$ctrl.navWidth" navigation-open="$ctrl.navOpen" navigation-change="$ctrl.onNavChange($event)" tools-hide="$ctrl.hideTools" tools-width="$ctrl.toolsWidth" tools-open="$ctrl.toolsOpen" tools-change="$ctrl.onToolsChange($event)">
+            <div id="guide-toc" dom-region="navigation">
+               <awsdocs-toc></awsdocs-toc>
+            </div>
+            <div id="main-column" dom-region="content" tabindex="-1">
+               <awsdocs-view class="awsdocs-view">
+                  <div id="awsdocs-content">
+                     <head>
+                        <title>Behaviors - AWS IoT Core</title>
+                        <meta name="pdf" content="iot-dg.pdf#detect-behaviors" />
+                        <meta name="kindle" content="https://www.amazon.com/dp/B07JBRCWWZ" />
+                        <meta name="github" content="https://github.com/awsdocs/aws-iot-docs/tree/master/developerguide/detect-behaviors.md" />
+                        <meta name="forums" content="http://forums.aws.amazon.com/forum.jspa?forumID=210" />
+                        <meta name="feedback" content="https://docs.aws.amazon.com/forms/aws-doc-feedback?hidden_service_name=IoT%20Docs&amp;topic_url=http://docs.aws.amazon.com/en_us/iot/latest/developerguide/detect-behaviors.html" />
+                        <meta name="feedback-yes" content="feedbackyes.html?topic_url=http://docs.aws.amazon.com/en_us/iot/latest/developerguide/detect-behaviors.html" />
+                        <meta name="feedback-no" content="feedbackno.html?topic_url=http://docs.aws.amazon.com/en_us/iot/latest/developerguide/detect-behaviors.html" />
+                        <meta name="keywords" content="AWS IoT,IoT,Internet of Things" />
+                     </head>
+                     <body>
+                        <div id="main">
+                           <div style="display: none"><a href="iot-dg.pdf#detect-behaviors" target="_blank" rel="noopener noreferrer" title="Open PDF"></a><a target="_blank" rel="noopener noreferrer" href="https://www.amazon.com/dp/B07JBRCWWZ" title="Open Kindle"></a><a href="https://github.com/awsdocs/aws-iot-docs/tree/master/developerguide/detect-behaviors.md" target="_blank" rel="noopener noreferrer" title="Edit this page on GitHub"></a></div>
+                           <div id="breadcrumbs" class="breadcrumb"><a href="http://aws.amazon.com">AWS</a><a href="/index.html">Documentation</a><a href="/iot/index.html">AWS IoT Core</a><a href="what-is-aws-iot.html">Developer Guide</a></div>
+                           <div id="main-content" class="awsui-util-container">
+                              <div id="main-col-body">
+                                 <awsdocs-language-banner data-service="$ctrl.pageService"></awsdocs-language-banner>
+                                 <h1 class="topictitle" id="detect-behaviors">Behaviors</h1>
+                                 <div class="awsdocs-page-header-container">
+                                    <awsdocs-page-header></awsdocs-page-header>
+                                    <awsdocs-filter-selector id="awsdocs-filter-selector"></awsdocs-filter-selector>
+                                 </div>
+                                 <p>A Security Profile contains a set of behaviors. Each behavior contains a metric that
+                                    specifies the normal behavior for a group of devices or for all devices in your account.
+                                    Behaviors fall into two categories: Rules Detect behaviors and ML Detect behaviors.
+                                    With
+                                    Rules Detect behaviors, you define how your devices should behave whereas ML Detect
+                                    uses
+                                    ML models built on historical device data to evaluate how your devices should behave.
+                                 </p>
+                                 <p>A Security Profile can be one of two threshold types: <b>ML</b> or <b>Rule-based</b>. 
+                                    ML Security Profiles automatically detect device-level operational and security anomalies
+                                    across your fleet by learning from past data. 
+                                    Rule-based Security Profiles require that you manually set static rules to monitor
+                                    your device behaviors.
+                                 </p>
+                                 <p>The following describes some of the fields that are used in the definition of a
+                                    <code class="code">behavior</code>:
+                                 </p>
+                                 <div class="variablelist">
+                                    
+                                    <p class="title"><b>Common to Rules Detect and ML Detect</b></p>
+                                     
+                                     
+                                     
+                                     
+                                     
+                                     
+                                    
+                                    <dl>
+                                       
+                                       <dt><b><span class="term"><code class="code">name</code></span></b></dt>
+                                       
+                                       <dd>
+                                          
+                                          <p>The name for the behavior.</p>
+                                          
+                                       </dd>
+                                       
+                                       
+                                       <dt><b><span class="term"><code class="code">metric</code></span></b></dt>
+                                       
+                                       <dd>
+                                          
+                                          <p>The name of the metric used (that is, what is measured by the
+                                             behavior).
+                                          </p>
+                                          
+                                       </dd>
+                                       
+                                       
+                                       <dt><b><span class="term"><code class="code">consecutiveDatapointsToAlarm</code></span></b></dt>
+                                       
+                                       <dd>
+                                          
+                                          <p>If a device is in violation of the behavior for the specified number of
+                                             consecutive data points, an alarm occurs. If not specified, the default is 1.
+                                          </p>
+                                          
+                                       </dd>
+                                       
+                                       
+                                       <dt><b><span class="term"><code class="code">consecutiveDatapointsToClear</code></span></b></dt>
+                                       
+                                       <dd>
+                                          
+                                          <p>If an alarm has occurred and the offending device is no longer in violation of
+                                             the behavior for the specified number of consecutive data points, the alarm is
+                                             cleared. If not specified, the default is 1.
+                                          </p>
+                                          
+                                       </dd>
+                                       
+                                       
+                                       <dt><b><span class="term"><code class="code">threshold type</code></span></b></dt>
+                                       
+                                       <dd>
+                                          
+                                          <p>A Security Profile can be one of two threshold types: ML or Rules based. ML
+                                             Security Profiles automatically detect device-level operational and security
+                                             anomalies across your fleet by learning from past data. Rule-based Security
+                                             Profiles require that you manually set static rules to monitor your device
+                                             behaviors.
+                                          </p>
+                                          
+                                       </dd>
+                                       
+                                       
+                                       <dt><b><span class="term"><code class="code">alarm suppressions</code></span></b></dt>
+                                       
+                                       <dd>
+                                          
+                                          <p>Manage Detect alarm SNS notifications by setting behavior notification to
+                                             <code class="code">on</code> or <code class="code">suppressed</code>. Suppressing alarms doesn't stop
+                                             Detect from performing device behavior evaluations; Detect continues to flag
+                                             anomalous behaviors as violation alarms. However, suppressed alarms aren't
+                                             forwarded for SNS notification. They can be accessed only through the AWS IoT
+                                             console or API.
+                                          </p>
+                                          
+                                       </dd>
+                                       
+                                    </dl>
+                                 </div>
+                                 <div class="variablelist">
+                                    
+                                    <p class="title"><b>Rules Detect</b></p>
+                                     
+                                     
+                                    
+                                    <dl>
+                                       
+                                       <dt><span class="term"><code class="code">dimension</code></span></dt>
+                                       
+                                       <dd>
+                                          
+                                          <p>You can define a dimension to adjust the scope of a behavior. For example, you
+                                             can define a topic filter dimension that applies a behavior to MQTT topics that
+                                             match a pattern. To define a dimension for use in a Security Profile, see <a href="https://docs.aws.amazon.com/iot/latest/apireference/API_CreateDimension.html">CreateDimension</a>. Applies to Rules Detect
+                                             only.
+                                          </p>
+                                          
+                                       </dd>
+                                        
+                                       
+                                       <dt><span class="term"><code class="code">criteria</code></span></dt>
+                                       
+                                       <dd>
+                                          
+                                          <p>The criteria that determine if a device is behaving normally in regard to the
+                                             <code class="code">metric</code>. 
+                                          </p>
+                                          
+                                          <div class="variablelist">
+                                              
+                                              
+                                              
+                                              
+                                             
+                                             <dl>
+                                                
+                                                <dt><span class="term"><code class="code">comparisonOperator</code></span></dt>
+                                                
+                                                <dd>
+                                                   
+                                                   <p>The operator that relates the thing measured (<code class="code">metric</code>)
+                                                      to the criteria (<code class="code">value</code> or
+                                                      <code class="code">statisticalThreshold</code>).
+                                                   </p>
+                                                   
+                                                   <p>Possible values are: "less-than", "less-than-equals",
+                                                      "greater-than", "greater-than-equals", "in-cidr-set",
+                                                      "not-in-cidr-set", "in-port-set", and "not-in-port-set". Not all
+                                                      operators are valid for every metric. Operators for CIDR sets and
+                                                      ports are only for use with metrics involving such entities.
+                                                   </p>
+                                                   
+                                                </dd>
+                                                 
+                                                
+                                                <dt><span class="term"><code class="code">value</code></span></dt>
+                                                
+                                                <dd>
+                                                   
+                                                   <p>The value to be compared with the <code class="code">metric</code>. Depending
+                                                      on the type of metric, this should contain a <code class="code">count</code> (a
+                                                      value), <code class="code">cidrs</code> (a list of CIDRs), or <code class="code">ports</code>
+                                                      (a list of ports).
+                                                   </p>
+                                                   
+                                                </dd>
+                                                 
+                                                
+                                                <dt><span class="term"><code class="code">statisticalThreshold</code></span></dt>
+                                                
+                                                <dd>
+                                                   
+                                                   <p>The statistical threshold by which a behavior violation is
+                                                      determined. This field contains a <code class="code">statistic</code> field that
+                                                      has the following possible values: "p0", "p0.1", "p0.01", "p1",
+                                                      "p10", "p50", "p90", "p99", "p99.9", "p99.99", or "p100".
+                                                   </p>
+                                                   
+                                                   <p>This <code class="code">statistic</code> indicates a percentile. It resolves to
+                                                      a value by which compliance with the behavior is determined. Metrics
+                                                      are collected one or more times over the specified duration
+                                                      (<code class="code">durationSeconds</code>) from all reporting devices
+                                                      associated with this Security Profile, and percentiles are
+                                                      calculated based on that data. After that, measurements are
+                                                      collected for a device and accumulated over the same duration. If
+                                                      the resulting value for the device falls above or below
+                                                      (<code class="code">comparisonOperator</code>) the value associated with the
+                                                      percentile specified, then the device is considered to be in
+                                                      compliance with the behavior. Otherwise, the device is in violation
+                                                      of the behavior.
+                                                   </p>
+                                                   
+                                                   <p>A <a href="https://en.wikipedia.org/wiki/Percentile" rel="noopener noreferrer" target="_blank"><span>percentile</span><awsui-icon class="awsdocs-link-icon" name="external"></awsui-icon></a> indicates the percentage of all the
+                                                      measurements considered that fall below the associated value. For
+                                                      example, if the value associated with "p90" (the 90th percentile) is
+                                                      123, then 90% of all measurements were below 123.
+                                                   </p>
+                                                   
+                                                </dd>
+                                                 
+                                                
+                                                <dt><span class="term"><code class="code">durationSeconds</code></span></dt>
+                                                
+                                                <dd>
+                                                   
+                                                   <p>Use this to specify the period of time over which the behavior is
+                                                      evaluated, for those criteria that have a time dimension (for
+                                                      example, <code class="code">NUM_MESSAGES_SENT</code>). For a
+                                                      <code class="code">statisticalThreshhold</code> metric comparison, this is
+                                                      the time period during which measurements are collected for all
+                                                      devices to determine the <code class="code">statisticalThreshold</code> values,
+                                                      and then for each device to determine how its behavior ranks in
+                                                      comparison.
+                                                   </p>
+                                                   
+                                                </dd>
+                                                
+                                             </dl>
+                                          </div>
+                                          
+                                       </dd>
+                                       
+                                    </dl>
+                                 </div>
+                                 <div class="variablelist">
+                                    
+                                    <p class="title"><b>ML Detect</b></p>
+                                     
+                                    
+                                    <dl>
+                                       
+                                       <dt><span class="term"><code class="code">ML Detect confidence</code></span></dt>
+                                       
+                                       <dd>
+                                          
+                                          <p>ML Detect supports three confidence levels: <code class="code">High</code>,
+                                             <code class="code">Medium</code>, and <code class="code">Low</code>. <code class="code">High</code> confidence
+                                             means low sensitivity in anomalous behavior evaluation and frequently a lower
+                                             number of alarms, <code class="code">Medium</code> confidence means medium sensitivity, and
+                                             <code class="code">Low</code> confidence means high sensitivity and frequently a higher
+                                             number of alarms.
+                                          </p>
+                                          
+                                       </dd>
+                                       
+                                    </dl>
+                                 </div>
+                                 <awsdocs-copyright class="copyright-print"></awsdocs-copyright>
+                                 <awsdocs-thumb-feedback right-edge="{{$ctrl.thumbFeedbackRightEdge}}"></awsdocs-thumb-feedback>
+                              </div>
+                              <noscript>
+                                 <div>
+                                    <div>
+                                       <div>
+                                          <div id="js_error_message">
+                                             <p><img src="https://d1ge0kk1l5kms0.cloudfront.net/images/G/01/webservices/console/warning.png" alt="Warning" /> <strong>Javascript is disabled or is unavailable in your
+                                                   browser.</strong></p>
+                                             <p>To use the Amazon Web Services Documentation, Javascript must be
+                                                enabled. Please refer to your browser's Help pages for instructions.
+                                             </p>
+                                          </div>
+                                       </div>
+                                    </div>
+                                 </div>
+                              </noscript>
+                              <div id="main-col-footer" class="awsui-util-font-size-0">
+                                 <div id="doc-conventions"><a target="_top" href="/general/latest/gr/docconventions.html">Document Conventions</a></div>
+                                 <div class="prev-next">
+                                    <div id="previous" class="prev-link" accesskey="p" href="./detect-concepts.html">Concepts</div>
+                                    <div id="next" class="next-link" accesskey="n" href="./dd-detect-ml.html">ML Detect</div>
+                                 </div>
+                              </div>
+                              <awsdocs-page-utilities></awsdocs-page-utilities>
+                           </div>
+                           <div id="quick-feedback-yes" style="display: none;">
+                              <div class="title">Did this page help you? - Yes</div>
+                              <div class="content">
+                                 <p>Thanks for letting us know we're doing a good
+                                    job!
+                                 </p>
+                                 <p>If you've got a moment, please tell us what we did right
+                                    so we can do more of it.
+                                 </p>
+                                 <p>
+                                    <awsui-button id="fblink" target="_blank" text="Feedback" click="linkClick($event)" href="https://docs.aws.amazon.com/forms/aws-doc-feedback?hidden_service_name=IoT Docs&amp;topic_url=https://docs.aws.amazon.com/en_us/iot/latest/developerguide/detect-behaviors.html"></awsui-button>
+                                 </p>
+                              </div>
+                           </div>
+                           <div id="quick-feedback-no" style="display: none;">
+                              <div class="title">Did this page help you? - No</div>
+                              <div class="content">
+                                 <p>Thanks for letting us know this page needs work. We're
+                                    sorry we let you down.
+                                 </p>
+                                 <p>If you've got a moment, please tell us how we can make
+                                    the documentation better.
+                                 </p>
+                                 <p>
+                                    <awsui-button id="fblink" target="_blank" text="Feedback" click="linkClick($event)" href="https://docs.aws.amazon.com/forms/aws-doc-feedback?hidden_service_name=IoT Docs&amp;topic_url=https://docs.aws.amazon.com/en_us/iot/latest/developerguide/detect-behaviors.html"></awsui-button>
+                                 </p>
+                              </div>
+                           </div>
+                        </div>
+                     </body>
+                  </div>
+               </awsdocs-view>
+               <div class="page-loading-indicator" id="page-loading-indicator">
+                  <awsui-spinner size="large"></awsui-spinner>
+               </div>
+            </div>
+            <div id="tools-panel" dom-region="tools">
+               <awsdocs-tools-panel id="awsdocs-tools-panel"></awsdocs-tools-panel>
+            </div>
+         </awsui-app-layout>
+         <awsdocs-cookie-banner class="doc-cookie-banner"></awsdocs-cookie-banner>
+         <!--
+                SiteCatalyst code version: H.25.2.
+                Copyright 1996-2012 Adobe, Inc. All Rights Reserved
+                More info available at http://www.omniture.com
+            --><script language="JavaScript" type="text/javascript">
+var awsdocs = awsdocs || {};
+awsdocs.prop66 = 'AWS IoT Core';
+awsdocs.prop65 =  'Developer Guide';
+            </script><script src="https://a0.awsstatic.com/s_code/js/3.0/awshome_s_code.js" language="JavaScript" type="text/javascript"></script>
+         <!--/DO NOT REMOVE/-->
+         <!--End SiteCatalyst code version: H.25.2.--></div>
+   </body>
+</html>

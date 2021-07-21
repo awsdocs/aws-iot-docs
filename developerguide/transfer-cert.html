@@ -1,0 +1,581 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" ng-app="AWSDocsDocPageApp">
+   <head>
+      <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+      <title>Transfer a certificate to another account - AWS IoT Core</title>
+      <meta name="viewport" content="width=device-width,initial-scale=1" />
+      <meta name="assets_root" content="assets" />
+      <meta name="target_state" content="transfer-cert" />
+      <meta name="default_state" content="transfer-cert" />
+      <link rel="icon" type="image/ico" href="/assets/images/favicon.ico" />
+      <link rel="shortcut icon" type="image/ico" href="/assets/images/favicon.ico" />
+      <link rel="canonical" href="https://docs.aws.amazon.com/iot/latest/developerguide/transfer-cert.html" />
+      <meta name="description" content="X.509 certificates that belong to one AWS account can be transferred to another AWS account." />
+      <meta name="deployment_region" content="IAD" />
+      <meta name="product" content="AWS IoT Core" />
+      <meta name="guide" content="Developer Guide" />
+      <meta name="locales" content="de_de:Deutsch/en_us:English/es_es:Español/fr_fr:Français/it_it:Italiano/ja_jp:日本語/ko_kr:한국어/pt_br:Português/zh_cn:中文 (简体)/zh_tw:中文 (繁體)" />
+      <meta name="abstract" content="AWS IoT provides secure, bi-directional communication between Internet-connected devices such as sensors, actuators, embedded micro-controllers, or smart appliances and the AWS Cloud. This enables you to collect telemetry data from multiple devices, and store and analyze the data. You can also create applications that enable your users to control these devices from their phones or tablets." />
+      <meta name="guide-locale" content="en_us" />
+      <meta name="tocs" content="toc-contents.json" />
+      <meta name="feedback-item" content="IoT Docs" />
+      <meta name="this_doc_product" content="AWS IoT Core" />
+      <meta name="this_doc_guide" content="Developer Guide" />
+      <link href="assets/css/vendor4.css" rel="stylesheet" />
+      <link href="assets/css/awsdocs-common.css" rel="stylesheet" /><script type="text/javascript" src="assets/js/vendor3.js" defer=""></script><script type="text/javascript" src="assets/js/vendor4.js" defer=""></script><script type="text/javascript" src="assets/js/vendor1.js" defer=""></script><script type="text/javascript" src="assets/js/awsdocs-common.js" defer=""></script><script type="text/javascript" src="assets/js/awsdocs-doc-app.js" defer=""></script></head>
+   <body class="awsdocs awsui">
+      <div class="awsdocs-container">
+         <awsdocs-header></awsdocs-header>
+         <awsui-app-layout id="app-layout" class="awsui-util-no-gutters" ng-controller="ContentController as $ctrl" header-selector="awsdocs-header" navigation-hide="false" navigation-width="$ctrl.navWidth" navigation-open="$ctrl.navOpen" navigation-change="$ctrl.onNavChange($event)" tools-hide="$ctrl.hideTools" tools-width="$ctrl.toolsWidth" tools-open="$ctrl.toolsOpen" tools-change="$ctrl.onToolsChange($event)">
+            <div id="guide-toc" dom-region="navigation">
+               <awsdocs-toc></awsdocs-toc>
+            </div>
+            <div id="main-column" dom-region="content" tabindex="-1">
+               <awsdocs-view class="awsdocs-view">
+                  <div id="awsdocs-content">
+                     <head>
+                        <title>Transfer a certificate to another account - AWS IoT Core</title>
+                        <meta name="pdf" content="iot-dg.pdf#transfer-cert" />
+                        <meta name="kindle" content="https://www.amazon.com/dp/B07JBRCWWZ" />
+                        <meta name="github" content="https://github.com/awsdocs/aws-iot-docs/tree/master/developerguide/transfer-cert.md" />
+                        <meta name="forums" content="http://forums.aws.amazon.com/forum.jspa?forumID=210" />
+                        <meta name="feedback" content="https://docs.aws.amazon.com/forms/aws-doc-feedback?hidden_service_name=IoT%20Docs&amp;topic_url=http://docs.aws.amazon.com/en_us/iot/latest/developerguide/transfer-cert.html" />
+                        <meta name="feedback-yes" content="feedbackyes.html?topic_url=http://docs.aws.amazon.com/en_us/iot/latest/developerguide/transfer-cert.html" />
+                        <meta name="feedback-no" content="feedbackno.html?topic_url=http://docs.aws.amazon.com/en_us/iot/latest/developerguide/transfer-cert.html" />
+                        <meta name="keywords" content="AWS IoT,IoT,Internet of Things" />
+                     </head>
+                     <body>
+                        <div id="main">
+                           <div style="display: none"><a href="iot-dg.pdf#transfer-cert" target="_blank" rel="noopener noreferrer" title="Open PDF"></a><a target="_blank" rel="noopener noreferrer" href="https://www.amazon.com/dp/B07JBRCWWZ" title="Open Kindle"></a><a href="https://github.com/awsdocs/aws-iot-docs/tree/master/developerguide/transfer-cert.md" target="_blank" rel="noopener noreferrer" title="Edit this page on GitHub"></a></div>
+                           <div id="breadcrumbs" class="breadcrumb"><a href="http://aws.amazon.com">AWS</a><a href="/index.html">Documentation</a><a href="/iot/index.html">AWS IoT Core</a><a href="what-is-aws-iot.html">Developer Guide</a></div>
+                           <div id="page-toc-src"><a href="#transfer-cert-init">Begin a certificate transfer</a><a href="#transfer-cert-accept">Accept or reject a certificate transfer</a><a href="#transfer-cert-cancel">Cancel a certificate transfer</a></div>
+                           <div id="main-content" class="awsui-util-container">
+                              <div id="main-col-body">
+                                 <awsdocs-language-banner data-service="$ctrl.pageService"></awsdocs-language-banner>
+                                 <h1 class="topictitle" id="transfer-cert">Transfer a certificate to another account</h1>
+                                 <div class="awsdocs-page-header-container">
+                                    <awsdocs-page-header></awsdocs-page-header>
+                                    <awsdocs-filter-selector id="awsdocs-filter-selector"></awsdocs-filter-selector>
+                                 </div>
+                                 <p>X.509 certificates that belong to one AWS account can be transferred to
+                                    another AWS account.
+                                 </p>
+                                 <div class="procedure">
+                                    <p class="title"><b>To transfer an X.509 certificate from one AWS account to another</b></p>
+                                    <ol>
+                                       <li>
+                                          
+                                          <p><a href="#transfer-cert-init">Begin a certificate transfer</a></p>
+                                          
+                                          <p>The certificate must be deactivated and detached from all policies and
+                                             things before initiating the transfer.
+                                          </p>
+                                          
+                                       </li>
+                                       <li>
+                                          
+                                          <p><a href="#transfer-cert-accept">Accept or reject a certificate transfer</a></p>
+                                          
+                                          <p>The receiving account must explicitly accept or reject the transferred
+                                             certificate. After the receiving account accepts the
+                                             certificate, the certificate must be activated before use.
+                                          </p>
+                                          
+                                       </li>
+                                       <li>
+                                          
+                                          <p><a href="#transfer-cert-cancel">Cancel a certificate transfer</a></p>
+                                          
+                                          <p>The originating account can cancel a transfer, if the certificate has
+                                             not been accepted.
+                                          </p>
+                                          
+                                       </li>
+                                    </ol>
+                                 </div>
+                                 
+                                 <h2 id="transfer-cert-init">Begin a certificate transfer</h2>
+                                 
+                                 <p>You can begin to transfer a certificate to another AWS account by using
+                                    the <a href="https://console.aws.amazon.com/iot/home" rel="noopener noreferrer" target="_blank"><span>AWS IoT
+                                          console</span><awsui-icon class="awsdocs-link-icon" name="external"></awsui-icon></a> or the AWS CLI.
+                                 </p>
+                                  
+                                 
+                                 <h3 id="transfer-cert-init-console">Begin a certificate transfer (console)</h3>
+                                 
+                                 <p>To complete this procedure, you'll need the ID of the certificate that
+                                    you want to transfer.
+                                 </p>
+                                 
+                                 <p>Do this procedure from the account with the certificate to
+                                    transfer.
+                                 </p>
+                                 
+                                 <div class="procedure">
+                                    <p class="title"><b>To begin to transfer a certificate to another AWS account</b></p>
+                                    <ol>
+                                       <li>
+                                          
+                                          <p>Sign in to the AWS Management Console and open the <a href="https://console.aws.amazon.com/iot/home" rel="noopener noreferrer" target="_blank"><span>AWS IoT
+                                                   console</span><awsui-icon class="awsdocs-link-icon" name="external"></awsui-icon></a>.
+                                          </p>
+                                          
+                                       </li>
+                                       <li>
+                                          
+                                          <p>In the left navigation pane, choose
+                                             <b>Secure</b>, choose
+                                             <b>Certificates</b>.
+                                          </p>
+                                          
+                                          <p>Choose the certificate with an <b>Active</b> or
+                                             <b>Inactive</b> status that you want to
+                                             transfer and open its details page.
+                                          </p>
+                                          
+                                       </li>
+                                       <li>
+                                          
+                                          <p>On the certificate's <b>Details</b> page, in the
+                                             <b>Actions</b> menu, if the
+                                             <b>Deactivate</b> option is available, choose
+                                             the <b>Deactivate</b> option to deactivate the
+                                             certificate.
+                                          </p>
+                                       </li>
+                                       <li>
+                                          
+                                          <p>On the certificate's <b>Details</b> page, in the left menu, choose 
+                                             <b>Policies</b>.
+                                          </p>
+                                          
+                                       </li>
+                                       <li>
+                                          
+                                          <p>On the certificate's <b>Policies</b> page, if there are
+                                             any policies attached to the certificate, detach each one by opening the 
+                                             policy's options menu and choosing <b>Detach</b>.
+                                          </p>
+                                          
+                                          <p>The certificate must not have any attached policies before you
+                                             continue.
+                                          </p>
+                                          
+                                       </li>
+                                       <li>
+                                          
+                                          <p>On the certificate's <b>Policies</b> page, in the left menu, choose 
+                                             <b>Things</b>.
+                                          </p>                                    
+                                          
+                                       </li>
+                                       <li>
+                                          
+                                          <p>On the certificate's <b>Things</b> page, if there are
+                                             any things attached to the certificate, detach each one by opening the 
+                                             thing's options menu and choosing <b>Detach</b>.
+                                          </p>
+                                          
+                                          <p>The certificate must not have any attached things before you
+                                             continue.
+                                          </p>
+                                          
+                                       </li>
+                                       <li>
+                                          
+                                          <p>On the certificate's <b>Things</b> page, in the left menu, choose 
+                                             <b>Details</b>.
+                                          </p>                                    
+                                          
+                                       </li>
+                                       <li>
+                                          
+                                          <p>On the certificate's <b>Details</b> page, in the
+                                             <b>Actions</b> menu, choose <b>Start
+                                                transfer</b> to open the <b>Start
+                                                transfer</b> dialog box.
+                                          </p>
+                                       </li>
+                                       <li>
+                                          
+                                          <p>In the <b>Start transfer</b> dialog box,
+                                             enter the AWS account number of the account to receive the certificate
+                                             and an optional short message.
+                                          </p>
+                                          
+                                       </li>
+                                       <li>
+                                          
+                                          <p>Choose <b>Start transfer</b> to transfer the 
+                                             certificate.
+                                          </p>
+                                          
+                                       </li>
+                                    </ol>
+                                 </div>
+                                 
+                                 <p>The console should display a message that indicates the success or
+                                    failure of the transfer. If the transfer was started, the certificate's
+                                    status is updated to <b>Transferred</b>.
+                                 </p>
+                                  
+                                  
+                                 
+                                 <h3 id="transfer-cert-init-cli">Begin a certificate transfer (CLI)</h3>
+                                 
+                                 <p>To complete this procedure, you'll need the
+                                    <code class="replaceable">certificateId</code> and the
+                                    <code class="replaceable">certificateArn</code> of the certificate that
+                                    you want to transfer.
+                                 </p>
+                                 
+                                 <p>Do this procedure from the account with the certificate to
+                                    transfer.
+                                 </p>
+                                 
+                                 <div class="procedure">
+                                    <p class="title"><b>To begin to transfer a certificate to another AWS
+                                          account</b></p>
+                                    <ol>
+                                       <li>
+                                          
+                                          <p>Use the <a href="https://awscli.amazonaws.com/v2/documentation/api/latest/reference/iot/update-certificate.html" rel="noopener noreferrer" target="_blank"><span><b>update-certificate</b></span><awsui-icon class="awsdocs-link-icon" name="external"></awsui-icon></a> command
+                                             to deactivate the certificate.
+                                          </p>
+                                          <pre class="programlisting"><div class="code-btn-container"><div class="btn-copy-code" title="Copy"><awsui-icon name="copy"></awsui-icon></div></div><code class="nohighlight">aws iot update-certificate --certificate-id <code class="replaceable">certificateId</code> --new-status INACTIVE</code></pre>
+                                          </li>
+                                       <li>
+                                          
+                                          <p>Detach all policies.</p>
+                                          
+                                          <div class="orderedlist">
+                                              
+                                              
+                                             
+                                             <ol>
+                                                <li>
+                                                   <p>Use the <a href="https://awscli.amazonaws.com/v2/documentation/api/latest/reference/iot/list-attached-policies.html" rel="noopener noreferrer" target="_blank"><span><b>list-attached-policies</b></span><awsui-icon class="awsdocs-link-icon" name="external"></awsui-icon></a>
+                                                      command to list the policies attached to the
+                                                      certificate.
+                                                   </p>
+                                                   <pre class="programlisting"><div class="code-btn-container"><div class="btn-copy-code" title="Copy"><awsui-icon name="copy"></awsui-icon></div></div><code class="nohighlight">aws iot list-attached-policies --target <code class="replaceable">certificateArn</code></code></pre></li>
+                                                <li>
+                                                   <p>For each attached policy, use the <a href="https://awscli.amazonaws.com/v2/documentation/api/latest/reference/iot/detach-policy.html" rel="noopener noreferrer" target="_blank"><span><b>detach-policy</b></span><awsui-icon class="awsdocs-link-icon" name="external"></awsui-icon></a> command
+                                                      to detach the policy.
+                                                   </p>
+                                                   <pre class="programlisting"><div class="code-btn-container"><div class="btn-copy-code" title="Copy"><awsui-icon name="copy"></awsui-icon></div></div><code class="nohighlight">aws iot detach-policy --target <code class="replaceable">certificateArn</code> --policy-name <code class="replaceable">policy-name</code></code></pre></li>
+                                             </ol>
+                                          </div>
+                                          
+                                       </li>
+                                       <li>
+                                          
+                                          <p>Detach all things.</p>
+                                          
+                                          <div class="orderedlist">
+                                              
+                                              
+                                             
+                                             <ol>
+                                                <li>
+                                                   
+                                                   <p>Use the <a href="https://awscli.amazonaws.com/v2/documentation/api/latest/reference/iot/list-principal-things.html" rel="noopener noreferrer" target="_blank"><span><b>list-principal-things</b></span><awsui-icon class="awsdocs-link-icon" name="external"></awsui-icon></a> command to list the things
+                                                      attached to the certificate.
+                                                   </p>
+                                                   <pre class="programlisting"><div class="code-btn-container"><div class="btn-copy-code" title="Copy"><awsui-icon name="copy"></awsui-icon></div></div><code class="nohighlight">aws iot list-principal-things --principal <code class="replaceable">certificateArn</code></code></pre>
+                                                   </li>
+                                                <li>
+                                                   
+                                                   <p>For each attached thing, use the <a href="https://awscli.amazonaws.com/v2/documentation/api/latest/reference/iot/detach-thing-principal.html" rel="noopener noreferrer" target="_blank"><span><b>detach-thing-principal</b></span><awsui-icon class="awsdocs-link-icon" name="external"></awsui-icon></a>
+                                                      command to detach the thing.
+                                                   </p>
+                                                   <pre class="programlisting"><div class="code-btn-container"><div class="btn-copy-code" title="Copy"><awsui-icon name="copy"></awsui-icon></div></div><code class="nohighlight">aws iot detach-thing-principal --principal <code class="replaceable">certificateArn</code> --thing-name <code class="replaceable">thing-name</code></code></pre>
+                                                   </li>
+                                             </ol>
+                                          </div>
+                                          
+                                       </li>
+                                       <li>
+                                          
+                                          <p>Use the <a href="https://awscli.amazonaws.com/v2/documentation/api/latest/reference/iot/transfer-certificate.html" rel="noopener noreferrer" target="_blank"><span><b>transfer-certificate</b></span><awsui-icon class="awsdocs-link-icon" name="external"></awsui-icon></a> command
+                                             to start the certificate transfer.
+                                          </p>
+                                          <pre class="programlisting"><div class="code-btn-container"><div class="btn-copy-code" title="Copy"><awsui-icon name="copy"></awsui-icon></div></div><code class="nohighlight">aws iot transfer-certificate --certificate-id <code class="replaceable">certificateId</code> --target-aws-account <code class="replaceable">account-id</code></code></pre>
+                                          </li>
+                                    </ol>
+                                 </div>
+                                  
+                                  
+                                 
+                                 <h2 id="transfer-cert-accept">Accept or reject a certificate transfer</h2>
+                                 
+                                 <p>You can accept or reject a certificate transferred to you AWS account
+                                    from another AWS account by using the <a href="https://console.aws.amazon.com/iot/home" rel="noopener noreferrer" target="_blank"><span>AWS IoT console</span><awsui-icon class="awsdocs-link-icon" name="external"></awsui-icon></a> or
+                                    the AWS CLI.
+                                 </p>
+                                  
+                                 
+                                 <h3 id="transfer-cert-accept-console">Accept or reject a certificate transfer (console)</h3>
+                                 
+                                 <p>To complete this procedure, you'll need the ID of the certificate that
+                                    was transferred to your account.
+                                 </p>
+                                 
+                                 <p>Do this procedure from the account receiving the certificate that was
+                                    transferred.
+                                 </p>
+                                 
+                                 <div class="procedure">
+                                    <p class="title"><b>To accept or reject a certificate that was transferred to your
+                                          AWS account</b></p>
+                                    <ol>
+                                       <li>
+                                          
+                                          <p>Sign in to the AWS Management Console and open the <a href="https://console.aws.amazon.com/iot/home" rel="noopener noreferrer" target="_blank"><span>AWS IoT
+                                                   console</span><awsui-icon class="awsdocs-link-icon" name="external"></awsui-icon></a>.
+                                          </p>
+                                          
+                                       </li>
+                                       <li>
+                                          
+                                          <p>In the left navigation pane, choose
+                                             <b>Secure</b>, choose
+                                             <b>Certificates</b>.
+                                          </p>
+                                          
+                                          <p>Choose the certificate with a status of <b>Pending
+                                                transfer</b> that you want to accept or reject and
+                                             open its details page.
+                                          </p>
+                                          
+                                       </li>
+                                       <li>
+                                          
+                                          <p>On the certificate's <b>Details</b> page, in the
+                                             <b>Actions</b> menu,
+                                          </p>
+                                          
+                                          <div class="itemizedlist">
+                                              
+                                              
+                                             
+                                             <ul class="itemizedlist" type="disc">
+                                                <li class="listitem">
+                                                   <p>To accept the certificate, choose
+                                                      <b>Accept transfer</b>.
+                                                   </p>
+                                                </li>
+                                                <li class="listitem">
+                                                   <p>To not accept the certificate, choose
+                                                      <b>Reject transfer</b>.
+                                                   </p>
+                                                </li>
+                                             </ul>
+                                          </div>
+                                          
+                                       </li>
+                                    </ol>
+                                 </div>
+                                  
+                                  
+                                 
+                                 <h3 id="transfer-cert-accept-cli">Accept or reject a certificate transfer (CLI)</h3>
+                                 
+                                 <p>To complete this procedure, you'll need the
+                                    <code class="replaceable">certificateId</code> of the certificate transfer
+                                    that you want to accept or reject.
+                                 </p>
+                                 
+                                 <p>Do this procedure from the account receiving the certificate that was
+                                    transferred.
+                                 </p>
+                                 
+                                 <div class="procedure">
+                                    <p class="title"><b>To accept or reject a certificate that was transferred to your
+                                          AWS account</b></p>
+                                    <ol>
+                                       <li>
+                                          
+                                          <p>Use the <a href="https://awscli.amazonaws.com/v2/documentation/api/latest/reference/iot/accept-certificate-transfer.html" rel="noopener noreferrer" target="_blank"><span><b>accept-certificate-transfer</b></span><awsui-icon class="awsdocs-link-icon" name="external"></awsui-icon></a>
+                                             command to accept the certificate.
+                                          </p>
+                                          <pre class="programlisting"><div class="code-btn-container"><div class="btn-copy-code" title="Copy"><awsui-icon name="copy"></awsui-icon></div></div><code class="nohighlight">aws iot accept-certificate-transfer --certificate-id <code class="replaceable">certificateId</code></code></pre>
+                                          </li>
+                                       <li>
+                                          
+                                          <p>Use the <a href="https://awscli.amazonaws.com/v2/documentation/api/latest/reference/iot/reject-certificate-transfer.html" rel="noopener noreferrer" target="_blank"><span><b>reject-certificate-transfer</b></span><awsui-icon class="awsdocs-link-icon" name="external"></awsui-icon></a>
+                                             command to reject the certificate.
+                                          </p>
+                                          <pre class="programlisting"><div class="code-btn-container"><div class="btn-copy-code" title="Copy"><awsui-icon name="copy"></awsui-icon></div></div><code class="nohighlight">aws iot reject-certificate-transfer --certificate-id <code class="replaceable">certificateId</code></code></pre>
+                                          </li>
+                                    </ol>
+                                 </div>
+                                  
+                                  
+                                 
+                                 <h2 id="transfer-cert-cancel">Cancel a certificate transfer</h2>
+                                 
+                                 <p>You can cancel a certificate transfer before it has been accepted by using
+                                    the <a href="https://console.aws.amazon.com/iot/home" rel="noopener noreferrer" target="_blank"><span>AWS IoT
+                                          console</span><awsui-icon class="awsdocs-link-icon" name="external"></awsui-icon></a> or the AWS CLI.
+                                 </p>
+                                  
+                                 
+                                 <h3 id="transfer-cert-cancel-console">Cancel a certificate transfer (console)</h3>
+                                 
+                                 <p>To complete this procedure, you'll need the ID of the certificate
+                                    transfer that you want to cancel.
+                                 </p>
+                                 
+                                 <p>Do this procedure from the account that initiated the certificate
+                                    transfer.
+                                 </p>
+                                 
+                                 <div class="procedure">
+                                    <p class="title"><b>To cancel a certificate transfer</b></p>
+                                    <ol>
+                                       <li>
+                                          
+                                          <p>Sign in to the AWS Management Console and open the <a href="https://console.aws.amazon.com/iot/home" rel="noopener noreferrer" target="_blank"><span>AWS IoT
+                                                   console</span><awsui-icon class="awsdocs-link-icon" name="external"></awsui-icon></a>.
+                                          </p>
+                                          
+                                       </li>
+                                       <li>
+                                          
+                                          <p>In the left navigation pane, choose
+                                             <b>Secure</b>, choose
+                                             <b>Certificates</b>.
+                                          </p>
+                                          
+                                          <p>Choose the certificate with <b>Transferred</b> status 
+                                             whose transfer you want to cancel and open its options menu.
+                                          </p>
+                                          
+                                       </li>
+                                       <li>
+                                          
+                                          <p>On the certificate's options menu, choose the <b>Revoke
+                                                transfer</b> option to cancel the certificate
+                                             transfer.
+                                          </p>
+                                          
+                                          <div class="awsdocs-note awsdocs-important">
+                                             <div class="awsdocs-note-title">
+                                                <awsui-icon name="status-warning" variant="error"></awsui-icon><span>Important</span></div>
+                                             <div class="awsdocs-note-text">
+                                                <p>Be careful not to mistake the <b>Revoke
+                                                      transfer</b> option with the
+                                                   <b>Revoke</b> option.
+                                                </p>
+                                                <p>The <b>Revoke transfer</b> option cancels
+                                                   the certificate transfer, while the
+                                                   <b>Revoke</b> option makes the certificate
+                                                   irreversibly unusable by AWS IoT. 
+                                                </p>
+                                             </div>
+                                          </div>
+                                          
+                                       </li>
+                                    </ol>
+                                 </div>
+                                  
+                                  
+                                 
+                                 <h3 id="transfer-cert-cancel-cli">Cancel a certificate transfer (CLI)</h3>
+                                 
+                                 <p>To complete this procedure, you'll need the
+                                    <code class="replaceable">certificateId</code> of the certificate transfer
+                                    that you want to cancel.
+                                 </p>
+                                 
+                                 <p>Do this procedure from the account that initiated the certificate
+                                    transfer.
+                                 </p>
+                                 
+                                 <p>Use the <a href="https://awscli.amazonaws.com/v2/documentation/api/latest/reference/iot/cancel-certificate-transfer.html" rel="noopener noreferrer" target="_blank"><span><b>cancel-certificate-transfer</b></span><awsui-icon class="awsdocs-link-icon" name="external"></awsui-icon></a> command to cancel the certificate transfer.
+                                 </p>
+                                 <pre class="programlisting"><div class="code-btn-container"><div class="btn-copy-code" title="Copy"><awsui-icon name="copy"></awsui-icon></div></div><code class="nohighlight">aws iot cancel-certificate-transfer --certificate-id <code class="replaceable">certificateId</code></code></pre>
+                                  
+                                 <awsdocs-copyright class="copyright-print"></awsdocs-copyright>
+                                 <awsdocs-thumb-feedback right-edge="{{$ctrl.thumbFeedbackRightEdge}}"></awsdocs-thumb-feedback>
+                              </div>
+                              <noscript>
+                                 <div>
+                                    <div>
+                                       <div>
+                                          <div id="js_error_message">
+                                             <p><img src="https://d1ge0kk1l5kms0.cloudfront.net/images/G/01/webservices/console/warning.png" alt="Warning" /> <strong>Javascript is disabled or is unavailable in your
+                                                   browser.</strong></p>
+                                             <p>To use the Amazon Web Services Documentation, Javascript must be
+                                                enabled. Please refer to your browser's Help pages for instructions.
+                                             </p>
+                                          </div>
+                                       </div>
+                                    </div>
+                                 </div>
+                              </noscript>
+                              <div id="main-col-footer" class="awsui-util-font-size-0">
+                                 <div id="doc-conventions"><a target="_top" href="/general/latest/gr/docconventions.html">Document Conventions</a></div>
+                                 <div class="prev-next">
+                                    <div id="previous" class="prev-link" accesskey="p" href="./revoke-ca-cert.html">Revoke a client certificate</div>
+                                    <div id="next" class="next-link" accesskey="n" href="./iam-users-groups-roles.html">IAM users, groups, and roles</div>
+                                 </div>
+                              </div>
+                              <awsdocs-page-utilities></awsdocs-page-utilities>
+                           </div>
+                           <div id="quick-feedback-yes" style="display: none;">
+                              <div class="title">Did this page help you? - Yes</div>
+                              <div class="content">
+                                 <p>Thanks for letting us know we're doing a good
+                                    job!
+                                 </p>
+                                 <p>If you've got a moment, please tell us what we did right
+                                    so we can do more of it.
+                                 </p>
+                                 <p>
+                                    <awsui-button id="fblink" target="_blank" text="Feedback" click="linkClick($event)" href="https://docs.aws.amazon.com/forms/aws-doc-feedback?hidden_service_name=IoT Docs&amp;topic_url=https://docs.aws.amazon.com/en_us/iot/latest/developerguide/transfer-cert.html"></awsui-button>
+                                 </p>
+                              </div>
+                           </div>
+                           <div id="quick-feedback-no" style="display: none;">
+                              <div class="title">Did this page help you? - No</div>
+                              <div class="content">
+                                 <p>Thanks for letting us know this page needs work. We're
+                                    sorry we let you down.
+                                 </p>
+                                 <p>If you've got a moment, please tell us how we can make
+                                    the documentation better.
+                                 </p>
+                                 <p>
+                                    <awsui-button id="fblink" target="_blank" text="Feedback" click="linkClick($event)" href="https://docs.aws.amazon.com/forms/aws-doc-feedback?hidden_service_name=IoT Docs&amp;topic_url=https://docs.aws.amazon.com/en_us/iot/latest/developerguide/transfer-cert.html"></awsui-button>
+                                 </p>
+                              </div>
+                           </div>
+                        </div>
+                     </body>
+                  </div>
+               </awsdocs-view>
+               <div class="page-loading-indicator" id="page-loading-indicator">
+                  <awsui-spinner size="large"></awsui-spinner>
+               </div>
+            </div>
+            <div id="tools-panel" dom-region="tools">
+               <awsdocs-tools-panel id="awsdocs-tools-panel"></awsdocs-tools-panel>
+            </div>
+         </awsui-app-layout>
+         <awsdocs-cookie-banner class="doc-cookie-banner"></awsdocs-cookie-banner>
+         <!--
+                SiteCatalyst code version: H.25.2.
+                Copyright 1996-2012 Adobe, Inc. All Rights Reserved
+                More info available at http://www.omniture.com
+            --><script language="JavaScript" type="text/javascript">
+var awsdocs = awsdocs || {};
+awsdocs.prop66 = 'AWS IoT Core';
+awsdocs.prop65 =  'Developer Guide';
+            </script><script src="https://a0.awsstatic.com/s_code/js/3.0/awshome_s_code.js" language="JavaScript" type="text/javascript"></script>
+         <!--/DO NOT REMOVE/-->
+         <!--End SiteCatalyst code version: H.25.2.--></div>
+   </body>
+</html>

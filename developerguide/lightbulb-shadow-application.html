@@ -1,0 +1,898 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" ng-app="AWSDocsDocPageApp">
+   <head>
+      <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+      <title>Install the Device SDK and run the shadow.py sample application for Device Shadows - AWS IoT Core</title>
+      <meta name="viewport" content="width=device-width,initial-scale=1" />
+      <meta name="assets_root" content="assets" />
+      <meta name="target_state" content="lightbulb-shadow-application" />
+      <meta name="default_state" content="lightbulb-shadow-application" />
+      <link rel="icon" type="image/ico" href="/assets/images/favicon.ico" />
+      <link rel="shortcut icon" type="image/ico" href="/assets/images/favicon.ico" />
+      <link rel="canonical" href="https://docs.aws.amazon.com/iot/latest/developerguide/lightbulb-shadow-application.html" />
+      <meta name="description" content="This section shows how you can install the required software and the AWS IoT Device SDK for Python and run the shadow.py sample application to edit the Shadow document and control the shadow's state." />
+      <meta name="deployment_region" content="IAD" />
+      <meta name="product" content="AWS IoT Core" />
+      <meta name="guide" content="Developer Guide" />
+      <meta name="locales" content="de_de:Deutsch/en_us:English/es_es:Español/fr_fr:Français/it_it:Italiano/ja_jp:日本語/ko_kr:한국어/pt_br:Português/zh_cn:中文 (简体)/zh_tw:中文 (繁體)" />
+      <meta name="abstract" content="AWS IoT provides secure, bi-directional communication between Internet-connected devices such as sensors, actuators, embedded micro-controllers, or smart appliances and the AWS Cloud. This enables you to collect telemetry data from multiple devices, and store and analyze the data. You can also create applications that enable your users to control these devices from their phones or tablets." />
+      <meta name="guide-locale" content="en_us" />
+      <meta name="tocs" content="toc-contents.json" />
+      <meta name="feedback-item" content="IoT Docs" />
+      <meta name="this_doc_product" content="AWS IoT Core" />
+      <meta name="this_doc_guide" content="Developer Guide" />
+      <link href="assets/css/vendor4.css" rel="stylesheet" />
+      <link href="assets/css/awsdocs-common.css" rel="stylesheet" /><script type="text/javascript" src="assets/js/vendor3.js" defer=""></script><script type="text/javascript" src="assets/js/vendor4.js" defer=""></script><script type="text/javascript" src="assets/js/vendor1.js" defer=""></script><script type="text/javascript" src="assets/js/awsdocs-common.js" defer=""></script><script type="text/javascript" src="assets/js/awsdocs-doc-app.js" defer=""></script></head>
+   <body class="awsdocs awsui">
+      <div class="awsdocs-container">
+         <awsdocs-header></awsdocs-header>
+         <awsui-app-layout id="app-layout" class="awsui-util-no-gutters" ng-controller="ContentController as $ctrl" header-selector="awsdocs-header" navigation-hide="false" navigation-width="$ctrl.navWidth" navigation-open="$ctrl.navOpen" navigation-change="$ctrl.onNavChange($event)" tools-hide="$ctrl.hideTools" tools-width="$ctrl.toolsWidth" tools-open="$ctrl.toolsOpen" tools-change="$ctrl.onToolsChange($event)">
+            <div id="guide-toc" dom-region="navigation">
+               <awsdocs-toc></awsdocs-toc>
+            </div>
+            <div id="main-column" dom-region="content" tabindex="-1">
+               <awsdocs-view class="awsdocs-view">
+                  <div id="awsdocs-content">
+                     <head>
+                        <title>Install the Device SDK and run the shadow.py sample application for Device Shadows - AWS IoT Core</title>
+                        <meta name="pdf" content="iot-dg.pdf#lightbulb-shadow-application" />
+                        <meta name="kindle" content="https://www.amazon.com/dp/B07JBRCWWZ" />
+                        <meta name="github" content="https://github.com/awsdocs/aws-iot-docs/tree/master/developerguide/lightbulb-shadow-application.md" />
+                        <meta name="forums" content="http://forums.aws.amazon.com/forum.jspa?forumID=210" />
+                        <meta name="feedback" content="https://docs.aws.amazon.com/forms/aws-doc-feedback?hidden_service_name=IoT%20Docs&amp;topic_url=http://docs.aws.amazon.com/en_us/iot/latest/developerguide/lightbulb-shadow-application.html" />
+                        <meta name="feedback-yes" content="feedbackyes.html?topic_url=http://docs.aws.amazon.com/en_us/iot/latest/developerguide/lightbulb-shadow-application.html" />
+                        <meta name="feedback-no" content="feedbackno.html?topic_url=http://docs.aws.amazon.com/en_us/iot/latest/developerguide/lightbulb-shadow-application.html" />
+                        <meta name="keywords" content="AWS IoT,IoT,Internet of Things" />
+                     </head>
+                     <body>
+                        <div id="main">
+                           <div style="display: none"><a href="iot-dg.pdf#lightbulb-shadow-application" target="_blank" rel="noopener noreferrer" title="Open PDF"></a><a target="_blank" rel="noopener noreferrer" href="https://www.amazon.com/dp/B07JBRCWWZ" title="Open Kindle"></a><a href="https://github.com/awsdocs/aws-iot-docs/tree/master/developerguide/lightbulb-shadow-application.md" target="_blank" rel="noopener noreferrer" title="Edit this page on GitHub"></a></div>
+                           <div id="breadcrumbs" class="breadcrumb"><a href="http://aws.amazon.com">AWS</a><a href="/index.html">Documentation</a><a href="/iot/index.html">AWS IoT Core</a><a href="what-is-aws-iot.html">Developer Guide</a></div>
+                           <div id="page-toc-src"><a href="#run-sample-application-shadows">Run the shadow.py sample app</a><a href="#review-shadow-sample-code">Review the shadow.py Device SDK sample
+                                 app</a><a href="#shadow-sample-app-troubleshoot">Troubleshoot problems with the
+                                 shadow.py sample app</a><a href="#sample-app-shadow-review">Review the results and next steps</a></div>
+                           <div id="main-content" class="awsui-util-container">
+                              <div id="main-col-body">
+                                 <awsdocs-language-banner data-service="$ctrl.pageService"></awsdocs-language-banner>
+                                 <h1 class="topictitle" id="lightbulb-shadow-application">Install the Device SDK and run the
+                                    <code class="code">shadow.py</code> sample application for Device Shadows
+                                 </h1>
+                                 <div class="awsdocs-page-header-container">
+                                    <awsdocs-page-header></awsdocs-page-header>
+                                    <awsdocs-filter-selector id="awsdocs-filter-selector"></awsdocs-filter-selector>
+                                 </div>
+                                 <p>This section shows how you can install the required software and the AWS IoT Device
+                                    SDK
+                                    for Python and run the <code class="code">shadow.py</code> sample application to edit the Shadow document and control the
+                                    shadow's state. 
+                                 </p>
+                                 <div class="itemizedlist">
+                                    
+                                    <p class="title"><b>In this tutorial, you'll learn how to:</b></p>
+                                     
+                                     
+                                     
+                                    
+                                    <ul class="itemizedlist" type="disc">
+                                       <li class="listitem">
+                                          
+                                          <p>Use the installed software and AWS IoT Device SDK for Python to run the sample
+                                             app.
+                                          </p>
+                                          
+                                       </li>
+                                       <li class="listitem">
+                                          
+                                          <p>Learn how entering a value using the sample app publishes the desired value in the
+                                             AWS IoT console.
+                                          </p>
+                                          
+                                       </li>
+                                       <li class="listitem">
+                                          
+                                          <p>Review the <code class="code">shadow.py</code> sample app and how it uses the MQTT protocol to
+                                             update the shadow's state.
+                                          </p>
+                                          
+                                       </li>
+                                    </ul>
+                                 </div>
+                                 
+                                 <p class="title"><b>Before you run this tutorial:</b></p>
+                                 
+                                 <p>You must have set up your AWS account, configured your Raspberry Pi device, and
+                                    created an AWS IoT thing and policy that gives the device permissions to publish and
+                                    subscribe to the MQTT reserved topics of the Device Shadow service. For
+                                    more information, see <a href="./create-resources-shadow.html">Create AWS IoT resources and connect Raspberry Pi to
+                                       run shadow application</a>.
+                                 </p>
+                                 
+                                 <p>You must have also installed Git, Python, and the AWS IoT Device SDK for Python. This
+                                    tutorial builds on the concepts presented in the tutorial <a href="./connecting-to-existing-device.html">Connect a Raspberry
+                                       Pi or another device</a>.
+                                    If you haven't tried that tutorial, we recommend that you follow the steps described
+                                    in that
+                                    tutorial to install the certificate files and Device SDK and then come back to this
+                                    tutorial
+                                    to run the <code class="code">shadow.py</code> sample app.
+                                 </p>
+                                 <div class="highlights" id="inline-topiclist">
+                                    <p><strong>In this tutorial, you'll:</strong></p>
+                                    <ul>
+                                       <li><a href="#run-sample-application-shadows">Run the shadow.py sample app</a></li>
+                                       <li><a href="#review-shadow-sample-code">Review the shadow.py Device SDK sample
+                                             app</a></li>
+                                       <li><a href="#shadow-sample-app-troubleshoot">Troubleshoot problems with the
+                                             shadow.py sample app</a></li>
+                                       <li><a href="#sample-app-shadow-review">Review the results and next steps</a></li>
+                                    </ul>
+                                 </div>
+                                 <p>This tutorial takes about 20 minutes to complete.</p>
+                                 
+                                 <h2 id="run-sample-application-shadows">Run the shadow.py sample app</h2>
+                                 
+                                 <p>Before you run the <code class="code">shadow.py</code> sample app, you'll need the following
+                                    information in addition to the names and location of the certificate files that you
+                                    installed.
+                                 </p>
+                                 
+                                 <div class="table-container">
+                                    <div class="table-contents">
+                                       <table id="w332aac11c11c47c25c15b5">
+                                          <thead>
+                                             <tr>
+                                                <th class="table-header" colspan="100%">
+                                                   <div class="title">Application parameter values</div>
+                                                </th>
+                                             </tr>
+                                             
+                                             <tr>
+                                                
+                                                <th>
+                                                   
+                                                   <p>Parameter</p>
+                                                   
+                                                </th>
+                                                
+                                                <th>
+                                                   
+                                                   <p>Where to find the value</p>
+                                                   
+                                                </th>
+                                                
+                                             </tr>
+                                             
+                                          </thead>
+                                          
+                                          <tr>
+                                             
+                                             <td><code class="replaceable">your-iot-thing-name</code></td>
+                                             
+                                             <td>
+                                                
+                                                <p>Name of the AWS IoT thing that you created earlier in <a href="./create-resources-shadow.html#create-thing-shadow">Create a thing resource and attach the policy to the
+                                                      thing</a>.
+                                                </p>
+                                                
+                                                <p>To find this value, in the <a href="https://console.aws.amazon.com/iot/home" rel="noopener noreferrer" target="_blank"><span>AWS IoT console</span><awsui-icon class="awsdocs-link-icon" name="external"></awsui-icon></a>, choose <b>Manage</b>, and then choose
+                                                   <b>Things</b>.
+                                                </p>
+                                                
+                                             </td>
+                                             
+                                          </tr>
+                                          
+                                          <tr>
+                                             
+                                             <td><code class="replaceable">your-iot-endpoint</code></td>
+                                             
+                                             <td>
+                                                
+                                                <p> The <code class="replaceable">your-iot-endpoint</code> value has a format of:
+                                                   <code class="code"><code class="replaceable">endpoint_id</code>-ats.iot.<code class="replaceable">region</code>.amazonaws.com</code>,
+                                                   for example, <code class="code">a3qj468EXAMPLE-ats.iot.us-west-2.amazonaws.com</code>. To
+                                                   find this value:
+                                                </p>
+                                                
+                                                <div class="orderedlist">
+                                                    
+                                                    
+                                                   
+                                                   <ol>
+                                                      <li>
+                                                         
+                                                         <p>In the <a href="https://console.aws.amazon.com/iot/home" rel="noopener noreferrer" target="_blank"><span>AWS IoT console</span><awsui-icon class="awsdocs-link-icon" name="external"></awsui-icon></a>,
+                                                            choose <b>Manage</b>, and then choose
+                                                            <b>Things</b>.
+                                                         </p>
+                                                         
+                                                      </li>
+                                                      <li>                      
+                                                         
+                                                         <p>Choose the IoT thing you created for your device,
+                                                            <b>My_light_bulb</b>, that you used earlier, and then choose
+                                                            <b>Interact</b>. On the thing details page, your endpoint is
+                                                            displayed in the <b> HTTPS</b> section.
+                                                         </p>
+                                                         
+                                                      </li>
+                                                   </ol>
+                                                </div>                 
+                                                
+                                             </td>
+                                             
+                                          </tr>
+                                          
+                                       </table>
+                                    </div>
+                                 </div>
+                                 
+                                 <div class="procedure">
+                                    <p class="title"><b>Install and run the sample app</b></p>
+                                    <ol>
+                                       <li>
+                                          
+                                          <p>Navigate to the sample app directory.</p>
+                                          <pre class="programlisting"><div class="code-btn-container"><div class="btn-copy-code" title="Copy"><awsui-icon name="copy"></awsui-icon></div></div><code class="bash ">cd ~/aws-iot-device-sdk-python-v2/samples</code></pre>
+                                          </li>
+                                       <li>
+                                          
+                                          <p>In the command line window, replace <code class="replaceable">your-iot-endpoint</code>
+                                             and <code class="replaceable">your-iot-thing-name</code> as indicated and run this
+                                             command.
+                                          </p>
+                                          <pre class="programlisting"><div class="code-btn-container"><div class="btn-copy-code" title="Copy"><awsui-icon name="copy"></awsui-icon></div></div><code class="bash ">python3 shadow.py --root-ca ~/certs/Amazon-root-CA-1.pem --cert ~/certs/device.pem.crt --key ~/certs/private.pem.key --endpoint <code class="replaceable">your-iot-endpoint</code> --thing-name <code class="replaceable">your-iot-thing-name</code></code></pre>
+                                          </li>
+                                       <li>
+                                          
+                                          <p>Observe that the sample app:</p>
+                                          
+                                          <div class="orderedlist">
+                                              
+                                              
+                                              
+                                              
+                                             
+                                             <ol>
+                                                <li>
+                                                   
+                                                   <p>Connects to the AWS IoT service for your account.</p>
+                                                   
+                                                </li>
+                                                <li>
+                                                   
+                                                   <p>Subscribes to <code class="code">Delta</code> events and <code class="code">Update</code> and
+                                                      <code class="code">Get</code> responses.
+                                                   </p>
+                                                   
+                                                </li>
+                                                <li>
+                                                   
+                                                   <p>Prompts you to enter a desired value in the terminal.</p>
+                                                   
+                                                </li>
+                                                <li>
+                                                   
+                                                   <p>Displays output similar to the following:</p>
+                                                   
+                                                </li>
+                                             </ol>
+                                          </div>
+                                          <pre class="programlisting"><div class="code-btn-container"><div class="btn-copy-code" title="Copy"><awsui-icon name="copy"></awsui-icon></div></div><code class="">Connecting to a3qEXAMPLEffp-ats.iot.us-west-2.amazonaws.com with client ID 'test-0c8ae2ff-cc87-49d2-a82a-ae7ba1d0ca5a'...
+Connected!
+Subscribing to Delta events...
+Subscribing to Update responses...
+Subscribing to Get responses...
+Requesting current shadow state...
+Launching thread to read user input...
+Finished getting initial shadow state.
+  Shadow contains reported value 'off'.
+Enter desired value:</code></pre>
+                                          </li>
+                                    </ol>
+                                 </div>
+                                 
+                                 <div class="awsdocs-note">
+                                    <div class="awsdocs-note-title">
+                                       <awsui-icon name="status-info" variant="link"></awsui-icon><span>Note</span></div>
+                                    <div class="awsdocs-note-text">
+                                       <p>If you're having trouble running the <code class="code">shadow.py</code> sample app, review <a href="#shadow-sample-app-troubleshoot">Troubleshoot problems with the
+                                             shadow.py sample app</a>. To get additional information that might
+                                          help you correct the problem, add the <code class="code">--verbosity debug</code> parameter to the
+                                          command line so the sample app displays detailed messages about what it’s doing.
+                                       </p>
+                                    </div>
+                                 </div>
+                                  
+                                 
+                                 <p class="title"><b>Enter values and observe the updates in Shadow document</b></p>
+                                 
+                                 <p>You can enter values in the terminal to specify the <code class="code">desired</code> value,
+                                    which also updates the <code class="code">reported</code> value. Say you enter the color
+                                    <code class="code">yellow</code> in the terminal. The <code class="code">reported</code> value is also updated
+                                    to the color <code class="code">yellow</code>. The following shows the messages displayed in the
+                                    terminal:
+                                 </p>
+                                  
+                                 <pre class="programlisting"><div class="code-btn-container"><div class="btn-copy-code" title="Copy"><awsui-icon name="copy"></awsui-icon></div></div><code class="bash ">Enter desired value:
+yellow
+Changed local shadow value to 'yellow'.
+Updating reported shadow value to 'yellow'...
+Update request published.
+Finished updating reported shadow value to 'yellow'.</code></pre>
+                                 <p>When you publish this update request, AWS IoT creates a default, classic shadow for
+                                    the
+                                    thing resource. You can observe the update request that you published to the
+                                    <code class="code">reported</code> and <code class="code">desired</code> values in the AWS IoT console by looking at
+                                    the Shadow document for the thing resource that you created (for example,
+                                    <code class="code">My_light_bulb</code>). To see the update in the Shadow document:
+                                 </p>
+                                 
+                                 <div class="orderedlist">
+                                     
+                                     
+                                    
+                                    <ol>
+                                       <li>
+                                          
+                                          <p>In the AWS IoT console, choose <b>Manage</b> and then choose
+                                             <b>Things</b>.
+                                          </p>
+                                          
+                                       </li>
+                                       <li>
+                                          
+                                          <p>In the list of things displayed, select the thing that you created, choose
+                                             <b>Shadows</b>, and then choose <b>Classic
+                                                Shadow</b>.
+                                          </p>
+                                          
+                                       </li>
+                                    </ol>
+                                 </div>
+                                 
+                                 <p>The Shadow document should look similar to the following, showing the
+                                    <code class="code">reported</code> and <code class="code">desired</code> values set to the color
+                                    <code class="code">yellow</code>. You see these values in the <b>Shadow state</b>
+                                    section of the document.
+                                 </p>
+                                 <pre class="programlisting"><div class="code-btn-container"><div class="btn-copy-code" title="Copy"><awsui-icon name="copy"></awsui-icon></div></div><code class="JSON "><span>{</span>
+  "desired": <span>{</span>
+    "welcome": "aws-iot",
+    "color": "yellow"
+  },
+  "reported": <span>{</span>
+    "welcome": "aws-iot",
+    "color": "yellow"
+  }
+}</code></pre>
+                                 <p>You also see a <b>Metadata</b> section that contains the timestamp
+                                    information and version number of the request.
+                                 </p>
+                                 
+                                 <p>You can use the state document version to ensure you are updating the most recent
+                                    version of a device's Shadow document. If you send another update request, the version
+                                    number increments by 1. When you supply a version with an update request, the service
+                                    rejects the request with an HTTP 409 conflict response code if the current version
+                                    of the
+                                    state document doesn't match the version supplied. 
+                                 </p>
+                                 <pre class="programlisting"><div class="code-btn-container"><div class="btn-copy-code" title="Copy"><awsui-icon name="copy"></awsui-icon></div></div><code class="JSON "><span>{</span>
+  "metadata": <span>{</span>
+    "desired": <span>{</span>
+      "welcome": <span>{</span>
+        "timestamp": 1620156892
+      },
+      "color": <span>{</span>
+        "timestamp": 1620156893
+      }
+    },
+    "reported": <span>{</span>
+      "welcome": <span>{</span>
+        "timestamp": 1620156892
+      },
+      "color": <span>{</span>
+        "timestamp": 1620156893
+      }
+    }
+  },
+  "version": 10
+}        </code></pre>
+                                 <p>To learn more about the Shadow document and observe changes to the state information,
+                                    proceed to the next tutorial <a href="./interact-lights-device-shadows.html">Interact with Device Shadow using the
+                                       shadow.py sample app and MQTT test client</a> as described in the <a href="#sample-app-shadow-review">Review the results and next steps</a> section of
+                                    this tutorial. Optionally, you can also learn about the <code class="code">shadow.py</code> sample code
+                                    and how it uses the MQTT protocol in the following section.
+                                 </p>
+                                  
+                                 
+                                 <h2 id="review-shadow-sample-code">Review the shadow.py Device SDK sample
+                                    app
+                                 </h2>
+                                 
+                                 <p>This section reviews the <code class="code">shadow.py</code> sample app from the <b>AWS IoT Device SDK v2 for Python</b> used in this tutorial. Here, we'll
+                                    review how it connects to AWS IoT Core by using the MQTT and MQTT over WSS protocol.
+                                    The
+                                    <a href="https://github.com/awslabs/aws-crt-python#aws-crt-python" rel="noopener noreferrer" target="_blank"><span>AWS common
+                                          runtime (AWS-CRT)</span><awsui-icon class="awsdocs-link-icon" name="external"></awsui-icon></a> library provides the low-level communication protocol
+                                    support and is included with the AWS IoT Device SDK v2 for Python.
+                                 </p>
+                                 
+                                 <p>While this tutorial uses MQTT and MQTT over WSS, AWS IoT supports devices that publish
+                                    HTTPS requests. For an example of a Python program that sends an HTTP message from
+                                    a
+                                    device, see the <a href="./http.html#codeexample">HTTPS code example</a> using Python’s
+                                    <code class="code">requests</code> library. 
+                                 </p>
+                                 
+                                 <p>For information about how you can make an informed decision about which protocol to
+                                    use for your device communications, review the <a href="./protocols.html#protocol-selection">Choosing a protocol for your device
+                                       communication</a>.
+                                 </p>
+                                  
+                                 
+                                 <p class="title"><b>MQTT</b></p>
+                                 
+                                 <p>The <code class="code">shadow.py</code> sample calls <code class="code">mtls_from_path</code> (shown here) in
+                                    the <a href="https://github.com/awslabs/aws-crt-python/blob/89207bcf1387177034e02fe29e8e469ca45e39b7/awscrt/awsiot_mqtt_connection_builder.py" rel="noopener noreferrer" target="_blank"><span><code class="code">mqtt_connection_builder</code></span><awsui-icon class="awsdocs-link-icon" name="external"></awsui-icon></a> to establish a connection with
+                                    AWS IoT Core by using the MQTT protocol. <code class="code">mtls_from_path</code> uses X.509
+                                    certificates and TLS v1.2 to authenticate the device. The AWS-CRT library handles
+                                    the
+                                    lower-level details of that connection.
+                                 </p>
+                                  
+                                 <pre class="programlisting"><div class="code-btn-container"><div class="btn-copy-code" title="Copy"><awsui-icon name="copy"></awsui-icon></div></div><code class="python ">mqtt_connection = mqtt_connection_builder.mtls_from_path(
+    endpoint=args.endpoint,
+    cert_filepath=args.cert,
+    pri_key_filepath=args.key,
+    ca_filepath=args.root_ca,
+    client_bootstrap=client_bootstrap,
+    on_connection_interrupted=on_connection_interrupted,
+    on_connection_resumed=on_connection_resumed,
+    client_id=args.client_id,
+    clean_session=False,
+    keep_alive_secs=6
+)</code></pre>
+                                 <div class="itemizedlist">
+                                     
+                                     
+                                     
+                                     
+                                     
+                                    
+                                    <ul class="itemizedlist" type="disc">
+                                       <li class="listitem">
+                                          
+                                          <p><code class="code">endpoint</code> is your AWS IoT endpoint that you passed in from the command
+                                             line and <code class="code">client_id</code> is the ID that uniquely identifies this device in the
+                                             AWS Region.
+                                          </p>
+                                          
+                                       </li>
+                                       <li class="listitem">
+                                          
+                                          <p><code class="code">cert_filepath</code>, <code class="code">pri_key_filepath</code>, and
+                                             <code class="code">ca_filepath</code> are the paths to the device's certificate and private key
+                                             files, and the root CA file. 
+                                          </p>
+                                          
+                                       </li>
+                                       <li class="listitem">
+                                          
+                                          <p><code class="code">client_bootstrap</code> is the common runtime object that handles socket
+                                             communication activities, and is instantiated prior to the call to
+                                             <code class="code">mqtt_connection_builder.mtls_from_path</code>.
+                                          </p>
+                                          
+                                       </li>
+                                       <li class="listitem">
+                                          
+                                          <p><code class="code">on_connection_interrupted</code> and <code class="code">on_connection_resumed</code> are
+                                             callback functions to call when the device’s connection is interrupted and
+                                             resumed.
+                                          </p>
+                                          
+                                       </li>
+                                       <li class="listitem">
+                                          
+                                          <p><code class="code">clean_session</code> is whether to start a new, persistent session, or if
+                                             one is present, reconnect to an existing one. <code class="code">keep_alive_secs</code> is the keep
+                                             alive value, in seconds, to send in the <code class="code">CONNECT</code> request. A ping will
+                                             automatically be sent at this interval. The server assumes the connection is lost
+                                             if
+                                             it doesn't receive a ping after 1.5 times this value.
+                                          </p>
+                                          
+                                       </li>
+                                    </ul>
+                                 </div>
+                                 
+                                 <p>The <code class="code">shadow.py</code> sample also calls
+                                    <code class="code">websockets_with_default_aws_signing</code> in the <a href="https://github.com/awslabs/aws-crt-python/blob/89207bcf1387177034e02fe29e8e469ca45e39b7/awscrt/awsiot_mqtt_connection_builder.py" rel="noopener noreferrer" target="_blank"><span><code class="code">mqtt_connection_builder</code></span><awsui-icon class="awsdocs-link-icon" name="external"></awsui-icon></a> to establish a connection with AWS IoT Core
+                                    using MQTT protocol over WSS. MQTT over WSS also uses the same parameters as MQTT
+                                    and
+                                    takes these additional parameters:
+                                 </p>
+                                 
+                                 <div class="itemizedlist">
+                                     
+                                     
+                                    
+                                    <ul class="itemizedlist" type="disc">
+                                       <li class="listitem">
+                                          
+                                          <p><code class="code">region</code> is the AWS signing Region used by Signature V4
+                                             authentication, and <code class="code">credentials_provider</code> is the AWS credentials
+                                             provided to use for authentication. The Region is passed from the command line, and
+                                             the <code class="code">credentials_provider</code> object is instantiated just prior to the call to
+                                             <code class="code">mqtt_connection_builder.websockets_with_default_aws_signing</code>.
+                                          </p>
+                                          
+                                       </li>
+                                       <li class="listitem">
+                                          
+                                          <p><code class="code">websocket_proxy_options</code> is the HTTP proxy options, if using a proxy
+                                             host. In the <code class="code">shadow.py</code> sample app, this value is instantiated just prior
+                                             to the call to
+                                             <code class="code">mqtt_connection_builder.websockets_with_default_aws_signing</code>.
+                                          </p>
+                                          
+                                       </li>
+                                    </ul>
+                                 </div>
+                                  
+                                 
+                                 <p class="title"><b>Subscribe to Shadow topics and events</b></p>
+                                 
+                                 <p>The <code class="code">shadow.py</code> sample attemps to establish a connection and waits to be
+                                    fully connected. If it's not connected, commands are queued up. Once connected, the
+                                    sample subscribes to delta events and update and get messages, and publishes messages
+                                    with a Quality of Service (QoS) level of 1 (<code class="code">mqtt.QoS.AT_LEAST_ONCE</code>). 
+                                 </p>
+                                  
+                                 
+                                 <p>When a device subscribes to a message with QoS level 1, the message broker saves the
+                                    messages that the device is subscribed to until they can be sent to the device. The
+                                    message broker resends the messages until it receives a <code class="code">PUBACK</code> response from
+                                    the device. 
+                                 </p>
+                                 
+                                 <p>For more information about the MQTT protocol, see <a href="./sdk-tutorials.html#sdk-tutorials-mqtt-review">Review the MQTT protocol</a> and
+                                    <a href="./mqtt.html">MQTT</a>.
+                                 </p>
+                                 
+                                 <p>For more information about how MQTT, MQTT over WSS, persistent sessions, and QoS
+                                    levels that are used in this tutorial, see <a href="./sdk-tutorials.html#sdk-tutorials-explore-sample">Review the pubsub.py Device SDK sample
+                                       app</a>.
+                                 </p>
+                                  
+                                 
+                                 <h2 id="shadow-sample-app-troubleshoot">Troubleshoot problems with the
+                                    <code class="code">shadow.py</code> sample app
+                                 </h2>
+                                 
+                                 <p>When you run the <code class="code">shadow.py</code> sample app, you should see some messages
+                                    displayed in the terminal and a prompt to enter a <code class="code">desired</code> value. If the
+                                    program throws an error, then to debug the error, you can start by checking whether
+                                    you
+                                    ran the correct command for your system.
+                                 </p>
+                                 
+                                 <p>In some cases, the error message might indicate connection issues and look
+                                    similar to: <code class="code">Host name was invalid for dns resolution</code> or <code class="code">Connection was
+                                       closed unexpectedly</code>. In such cases, here are some things you can check:
+                                 </p>
+                                 
+                                 <div class="itemizedlist">
+                                     
+                                     
+                                     
+                                     
+                                    
+                                    <ul class="itemizedlist" type="disc">
+                                       <li class="listitem">
+                                           
+                                          
+                                          <p class="title"><b>Check the endpoint address in the command</b></p>
+                                          
+                                          <p>Review the <code class="code">endpoint</code> argument in the command you entered to run the
+                                             sample app, (for example,
+                                             <code class="code">a3qEXAMPLEffp-ats.iot.us-west-2.amazonaws.com</code>) and check this value in
+                                             the <b>AWS IoT console</b>.
+                                          </p>
+                                           
+                                          
+                                          <p>To check whether you used the correct value:</p>
+                                          
+                                          <div class="orderedlist">
+                                              
+                                              
+                                             
+                                             <ol>
+                                                <li>
+                                                   
+                                                   <p>In the <b>AWS IoT console</b>, choose <b>Manage</b>
+                                                      and then choose <b>Things</b>.
+                                                   </p>
+                                                   
+                                                </li>
+                                                <li>
+                                                   
+                                                   <p>Choose the thing you created for your sample app (for example,
+                                                      <b>My_light_bulb</b>) and then choose <b>Interact</b>.
+                                                   </p>
+                                                   
+                                                </li>
+                                             </ol>
+                                          </div>
+                                          
+                                          <p>On the thing details page, your endpoint is displayed in the <b>HTTPS</b>
+                                             section. You should also see a message that says: <code class="code">This thing already appears to
+                                                be connected.</code></p>
+                                          
+                                       </li>
+                                       <li class="listitem">
+                                           
+                                          
+                                          <p class="title"><b>Check certificate activation</b></p>
+                                          
+                                          <p>Certificates authenticate your device with AWS IoT Core.</p>
+                                           
+                                          
+                                          <p>To check whether your certificate is active:</p>
+                                          
+                                          <div class="orderedlist">
+                                              
+                                              
+                                              
+                                             
+                                             <ol>
+                                                <li>
+                                                   
+                                                   <p>In the <b>AWS IoT console</b>, choose <b>Manage</b>
+                                                      and then choose <b>Things</b>.
+                                                   </p>
+                                                   
+                                                </li>
+                                                <li>
+                                                   
+                                                   <p>Choose the thing you created for your sample app (for example,
+                                                      <b>My_light_bulb</b>) and then choose <b>Security</b>.
+                                                   </p>
+                                                   
+                                                </li>
+                                                <li>
+                                                   
+                                                   <p>Select the certificate and then, from the certificate's details page, choose
+                                                      Select the certificate and then, from the certificate's details page, choose
+                                                      <b>Actions</b>.
+                                                   </p>
+                                                   
+                                                </li>
+                                             </ol>
+                                          </div>
+                                          
+                                          <p>If in the dropdown list
+                                             <b>Activate</b> isn't available and you can only choose
+                                             <b>Deactivate</b>, your certificate is active. If not, choose
+                                             <b>Activate</b> and rerun the sample program.
+                                          </p>
+                                          
+                                          <p>If the program still doesn't run, check the certificate file names in the
+                                             <code class="code">certs</code> folder.
+                                          </p>
+                                          
+                                       </li>
+                                       <li class="listitem">
+                                           
+                                          
+                                          <p class="title"><b>Check the policy attached to the thing resource</b></p>
+                                          
+                                          <p>While certificates authenticate your device, AWS IoT policies permit the device to
+                                             perform AWS IoT operations, such as subscribing or publishing to MQTT reserved
+                                             topics.
+                                          </p>
+                                           
+                                          
+                                          <p>To check whether the correct policy is attached:</p>
+                                          
+                                          <div class="orderedlist">
+                                              
+                                              
+                                             
+                                             <ol>
+                                                <li>
+                                                   
+                                                   <p>Find the certificate as described
+                                                      previously, and then choose <b>Policies</b>.
+                                                   </p>
+                                                   
+                                                </li>
+                                                <li>
+                                                   
+                                                   <p>Choose the policy displayed
+                                                      and check whether it describes the <code class="code">connect</code>, <code class="code">subscribe</code>,
+                                                      <code class="code">receive</code>, and <code class="code">publish</code> actions that give the device
+                                                      permission to publish and subscribe to the MQTT reserved topics.
+                                                   </p>
+                                                   
+                                                   <p>For a sample policy,
+                                                      see <a href="./create-resources-shadow.html#create-policy-shadow">Create an AWS IoT policy for thing shadow</a>.
+                                                   </p>
+                                                   
+                                                </li>
+                                             </ol>
+                                          </div>
+                                          
+                                          <p>If you see error messages that indicate trouble connecting to AWS IoT, it could be
+                                             because of the permissions you're using for the policy. If that's the case, we recommend
+                                             that you start
+                                             with a policy that provides full access to AWS IoT resources and then rerun the sample
+                                             program. You can either edit the current policy, or choose the current policy, choose
+                                             <b>Detach</b>, and then create another policy that provides full
+                                             access and attach it to your thing resource. You can later restrict the policy to
+                                             only
+                                             the actions and policies you need to run the program.
+                                          </p>
+                                          <pre class="programlisting"><div class="code-btn-container"><div class="btn-copy-code" title="Copy"><awsui-icon name="copy"></awsui-icon></div></div><code class="JSON "><span>{</span>
+    "Version": "2012-10-17",
+    "Statement": [
+        <span>{</span>
+            "Effect": "Allow",
+            "Action": [
+                "iot:*"
+            ],
+            "Resource": "*"
+        }
+    ]
+}         </code></pre>
+                                          </li>
+                                       <li class="listitem">
+                                           
+                                          
+                                          <p class="title"><b>Check your Device SDK installation</b></p>
+                                          
+                                          <p>If the program still doesn't run, you can reinstall the Device SDK to make sure
+                                             that your SDK installation is complete and correct.
+                                          </p>
+                                           
+                                          
+                                       </li>
+                                    </ul>
+                                 </div>
+                                  
+                                 
+                                 <h2 id="sample-app-shadow-review">Review the results and next steps</h2>
+                                 
+                                 <div class="itemizedlist">
+                                    
+                                    <p class="title"><b>In this tutorial, you learned how to:</b></p>
+                                     
+                                     
+                                     
+                                    
+                                    <ul class="itemizedlist" type="disc">
+                                       <li class="listitem">
+                                          
+                                          <p>Install the required software, tools, and the AWS IoT Device SDK for Python.</p>
+                                          
+                                       </li>
+                                       <li class="listitem">
+                                          
+                                          <p>Understand how the sample app, <code class="code">shadow.py</code>, uses the MQTT protocol for
+                                             retrieving and updating the shadow's current state.
+                                          </p>
+                                          
+                                       </li>
+                                       <li class="listitem">
+                                          
+                                          <p>Run the sample app for Device Shadows and observe the update to the Shadow
+                                             document in the AWS IoT console. You also learnt to troubleshoot any issues and fix
+                                             errors when running the program.
+                                          </p>
+                                          
+                                       </li>
+                                    </ul>
+                                 </div>
+                                  
+                                 
+                                 <p class="title"><b>Next steps</b></p>
+                                 
+                                 <p>You can now run the <code class="code">shadow.py</code> sample application and use Device Shadows
+                                    to control the state. You can observe the updates to the Shadow document in the AWS
+                                    IoT
+                                    Console and observe delta events that the sample app responds to. Using the MQTT test
+                                    client, you can subscribe to the reserved shadow topics and observe messages received
+                                    by
+                                    the topics when running the sample program. For more information about how to run
+                                    this
+                                    tutorial, see <a href="./interact-lights-device-shadows.html">Interact with Device Shadow using the
+                                       shadow.py sample app and MQTT test client</a>.
+                                 </p>
+                                  
+                                 
+                                 <awsdocs-copyright class="copyright-print"></awsdocs-copyright>
+                                 <awsdocs-thumb-feedback right-edge="{{$ctrl.thumbFeedbackRightEdge}}"></awsdocs-thumb-feedback>
+                              </div>
+                              <noscript>
+                                 <div>
+                                    <div>
+                                       <div>
+                                          <div id="js_error_message">
+                                             <p><img src="https://d1ge0kk1l5kms0.cloudfront.net/images/G/01/webservices/console/warning.png" alt="Warning" /> <strong>Javascript is disabled or is unavailable in your
+                                                   browser.</strong></p>
+                                             <p>To use the Amazon Web Services Documentation, Javascript must be
+                                                enabled. Please refer to your browser's Help pages for instructions.
+                                             </p>
+                                          </div>
+                                       </div>
+                                    </div>
+                                 </div>
+                              </noscript>
+                              <div id="main-col-footer" class="awsui-util-font-size-0">
+                                 <div id="doc-conventions"><a target="_top" href="/general/latest/gr/docconventions.html">Document Conventions</a></div>
+                                 <div class="prev-next">
+                                    <div id="previous" class="prev-link" accesskey="p" href="./create-resources-shadow.html">Create AWS IoT resources and connect Raspberry Pi to
+                                       run shadow application
+                                    </div>
+                                    <div id="next" class="next-link" accesskey="n" href="./interact-lights-device-shadows.html">Interact with Device Shadow using the
+                                       shadow.py sample app and MQTT test client
+                                    </div>
+                                 </div>
+                              </div>
+                              <awsdocs-page-utilities></awsdocs-page-utilities>
+                           </div>
+                           <div id="quick-feedback-yes" style="display: none;">
+                              <div class="title">Did this page help you? - Yes</div>
+                              <div class="content">
+                                 <p>Thanks for letting us know we're doing a good
+                                    job!
+                                 </p>
+                                 <p>If you've got a moment, please tell us what we did right
+                                    so we can do more of it.
+                                 </p>
+                                 <p>
+                                    <awsui-button id="fblink" target="_blank" text="Feedback" click="linkClick($event)" href="https://docs.aws.amazon.com/forms/aws-doc-feedback?hidden_service_name=IoT Docs&amp;topic_url=https://docs.aws.amazon.com/en_us/iot/latest/developerguide/lightbulb-shadow-application.html"></awsui-button>
+                                 </p>
+                              </div>
+                           </div>
+                           <div id="quick-feedback-no" style="display: none;">
+                              <div class="title">Did this page help you? - No</div>
+                              <div class="content">
+                                 <p>Thanks for letting us know this page needs work. We're
+                                    sorry we let you down.
+                                 </p>
+                                 <p>If you've got a moment, please tell us how we can make
+                                    the documentation better.
+                                 </p>
+                                 <p>
+                                    <awsui-button id="fblink" target="_blank" text="Feedback" click="linkClick($event)" href="https://docs.aws.amazon.com/forms/aws-doc-feedback?hidden_service_name=IoT Docs&amp;topic_url=https://docs.aws.amazon.com/en_us/iot/latest/developerguide/lightbulb-shadow-application.html"></awsui-button>
+                                 </p>
+                              </div>
+                           </div>
+                        </div>
+                     </body>
+                  </div>
+               </awsdocs-view>
+               <div class="page-loading-indicator" id="page-loading-indicator">
+                  <awsui-spinner size="large"></awsui-spinner>
+               </div>
+            </div>
+            <div id="tools-panel" dom-region="tools">
+               <awsdocs-tools-panel id="awsdocs-tools-panel"></awsdocs-tools-panel>
+            </div>
+         </awsui-app-layout>
+         <awsdocs-cookie-banner class="doc-cookie-banner"></awsdocs-cookie-banner>
+         <!--
+                SiteCatalyst code version: H.25.2.
+                Copyright 1996-2012 Adobe, Inc. All Rights Reserved
+                More info available at http://www.omniture.com
+            --><script language="JavaScript" type="text/javascript">
+var awsdocs = awsdocs || {};
+awsdocs.prop66 = 'AWS IoT Core';
+awsdocs.prop65 =  'Developer Guide';
+            </script><script src="https://a0.awsstatic.com/s_code/js/3.0/awshome_s_code.js" language="JavaScript" type="text/javascript"></script>
+         <!--/DO NOT REMOVE/-->
+         <!--End SiteCatalyst code version: H.25.2.--></div>
+   </body>
+</html>

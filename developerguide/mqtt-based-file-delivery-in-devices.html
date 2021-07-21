@@ -1,0 +1,1035 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" ng-app="AWSDocsDocPageApp">
+   <head>
+      <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+      <title>Using AWS IoT MQTT-based file delivery in devices - AWS IoT Core</title>
+      <meta name="viewport" content="width=device-width,initial-scale=1" />
+      <meta name="assets_root" content="assets" />
+      <meta name="target_state" content="mqtt-based-file-delivery-in-devices" />
+      <meta name="default_state" content="mqtt-based-file-delivery-in-devices" />
+      <link rel="icon" type="image/ico" href="/assets/images/favicon.ico" />
+      <link rel="shortcut icon" type="image/ico" href="/assets/images/favicon.ico" />
+      <link rel="canonical" href="https://docs.aws.amazon.com/iot/latest/developerguide/mqtt-based-file-delivery-in-devices.html" />
+      <meta name="description" content="To initiate the data transfer process, a device must receive an initial data set , which includes a stream ID at minimum. You can use an to schedule data transfer tasks for your devices by including the initial data set in the job document. When a device receives the initial data set, it should then start the interaction with AWS IoT MQTT-based file delivery. To exchange data with AWS IoT MQTT-based file delivery, a device should:" />
+      <meta name="deployment_region" content="IAD" />
+      <meta name="product" content="AWS IoT Core" />
+      <meta name="guide" content="Developer Guide" />
+      <meta name="locales" content="de_de:Deutsch/en_us:English/es_es:Español/fr_fr:Français/it_it:Italiano/ja_jp:日本語/ko_kr:한국어/pt_br:Português/zh_cn:中文 (简体)/zh_tw:中文 (繁體)" />
+      <meta name="abstract" content="AWS IoT provides secure, bi-directional communication between Internet-connected devices such as sensors, actuators, embedded micro-controllers, or smart appliances and the AWS Cloud. This enables you to collect telemetry data from multiple devices, and store and analyze the data. You can also create applications that enable your users to control these devices from their phones or tablets." />
+      <meta name="guide-locale" content="en_us" />
+      <meta name="tocs" content="toc-contents.json" />
+      <meta name="feedback-item" content="IoT Docs" />
+      <meta name="this_doc_product" content="AWS IoT Core" />
+      <meta name="this_doc_guide" content="Developer Guide" />
+      <link href="assets/css/vendor4.css" rel="stylesheet" />
+      <link href="assets/css/awsdocs-common.css" rel="stylesheet" /><script type="text/javascript" src="assets/js/vendor3.js" defer=""></script><script type="text/javascript" src="assets/js/vendor4.js" defer=""></script><script type="text/javascript" src="assets/js/vendor1.js" defer=""></script><script type="text/javascript" src="assets/js/awsdocs-common.js" defer=""></script><script type="text/javascript" src="assets/js/awsdocs-doc-app.js" defer=""></script></head>
+   <body class="awsdocs awsui">
+      <div class="awsdocs-container">
+         <awsdocs-header></awsdocs-header>
+         <awsui-app-layout id="app-layout" class="awsui-util-no-gutters" ng-controller="ContentController as $ctrl" header-selector="awsdocs-header" navigation-hide="false" navigation-width="$ctrl.navWidth" navigation-open="$ctrl.navOpen" navigation-change="$ctrl.onNavChange($event)" tools-hide="$ctrl.hideTools" tools-width="$ctrl.toolsWidth" tools-open="$ctrl.toolsOpen" tools-change="$ctrl.onToolsChange($event)">
+            <div id="guide-toc" dom-region="navigation">
+               <awsdocs-toc></awsdocs-toc>
+            </div>
+            <div id="main-column" dom-region="content" tabindex="-1">
+               <awsdocs-view class="awsdocs-view">
+                  <div id="awsdocs-content">
+                     <head>
+                        <title>Using AWS IoT MQTT-based file delivery in devices - AWS IoT Core</title>
+                        <meta name="pdf" content="iot-dg.pdf#mqtt-based-file-delivery-in-devices" />
+                        <meta name="kindle" content="https://www.amazon.com/dp/B07JBRCWWZ" />
+                        <meta name="github" content="https://github.com/awsdocs/aws-iot-docs/tree/master/developerguide/mqtt-based-file-delivery-in-devices.md" />
+                        <meta name="forums" content="http://forums.aws.amazon.com/forum.jspa?forumID=210" />
+                        <meta name="feedback" content="https://docs.aws.amazon.com/forms/aws-doc-feedback?hidden_service_name=IoT%20Docs&amp;topic_url=http://docs.aws.amazon.com/en_us/iot/latest/developerguide/mqtt-based-file-delivery-in-devices.html" />
+                        <meta name="feedback-yes" content="feedbackyes.html?topic_url=http://docs.aws.amazon.com/en_us/iot/latest/developerguide/mqtt-based-file-delivery-in-devices.html" />
+                        <meta name="feedback-no" content="feedbackno.html?topic_url=http://docs.aws.amazon.com/en_us/iot/latest/developerguide/mqtt-based-file-delivery-in-devices.html" />
+                        <meta name="keywords" content="AWS IoT,IoT,Internet of Things" />
+                     </head>
+                     <body>
+                        <div id="main">
+                           <div style="display: none"><a href="iot-dg.pdf#mqtt-based-file-delivery-in-devices" target="_blank" rel="noopener noreferrer" title="Open PDF"></a><a target="_blank" rel="noopener noreferrer" href="https://www.amazon.com/dp/B07JBRCWWZ" title="Open Kindle"></a><a href="https://github.com/awsdocs/aws-iot-docs/tree/master/developerguide/mqtt-based-file-delivery-in-devices.md" target="_blank" rel="noopener noreferrer" title="Edit this page on GitHub"></a></div>
+                           <div id="breadcrumbs" class="breadcrumb"><a href="http://aws.amazon.com">AWS</a><a href="/index.html">Documentation</a><a href="/iot/index.html">AWS IoT Core</a><a href="what-is-aws-iot.html">Developer Guide</a></div>
+                           <div id="page-toc-src"><a href="#mqtt-based-file-delivery-describe-stream">Use DescribeStream to get stream data</a><a href="#mqtt-based-file-delivery-get-getstream">Get data blocks from a stream file</a><a href="#mqtt-based-file-delivery-errors">Handling errors from AWS IoT MQTT-based file delivery</a></div>
+                           <div id="main-content" class="awsui-util-container">
+                              <div id="main-col-body">
+                                 <awsdocs-language-banner data-service="$ctrl.pageService"></awsdocs-language-banner>
+                                 <h1 class="topictitle" id="mqtt-based-file-delivery-in-devices">Using AWS IoT MQTT-based file delivery in devices</h1>
+                                 <div class="awsdocs-page-header-container">
+                                    <awsdocs-page-header></awsdocs-page-header>
+                                    <awsdocs-filter-selector id="awsdocs-filter-selector"></awsdocs-filter-selector>
+                                 </div>
+                                 <p>To initiate the data transfer process, a device must receive an <b>initial data set</b>, 
+                                    which includes a stream ID at minimum. You can use an <a href="./iot-jobs.html">Jobs</a> to
+                                    schedule data transfer tasks for your devices by including the initial data set in
+                                    the job document. When a device 
+                                    receives the initial data set, it should then start the interaction with AWS IoT MQTT-based
+                                    file delivery. To exchange 
+                                    data with AWS IoT MQTT-based file delivery, a device should:
+                                 </p>
+                                 <div class="itemizedlist">
+                                     
+                                     
+                                    
+                                    <ul class="itemizedlist" type="disc">
+                                       <li class="listitem">
+                                          
+                                          <p>Use the MQTT protocol to subscribe to the <a href="./reserved-topics.html#reserved-topics-mqtt-based-file-delivery">MQTT-based file delivery topics</a>.
+                                          </p>
+                                          
+                                       </li>
+                                       <li class="listitem">
+                                          
+                                          <p>Send requests and then wait to receive the responses using MQTT messages.</p>
+                                          
+                                       </li>
+                                    </ul>
+                                 </div>
+                                 <p>You can optionally include a stream file ID and a stream version in the initial data
+                                    set. Sending a stream file ID to a device can simplify the programming of the device's
+                                    firmware/software, because it eliminates the need to make a <code class="code">DescribeStream</code>
+                                    request from the device to get this ID. The device can specify the stream version
+                                    in a
+                                    <code class="code">GetStream</code> request to enforce a consistency check in case the stream has
+                                    been updated unexpectedly.
+                                 </p>
+                                 
+                                 <h2 id="mqtt-based-file-delivery-describe-stream">Use DescribeStream to get stream data</h2>
+                                 
+                                 <p>AWS IoT MQTT-based file delivery provides the <code class="code">DescribeStream</code> API to send stream data to a 
+                                    device. The stream data returned by this API includes the stream ID, stream version,
+                                    stream description and 
+                                    a list of stream files, each of which has a file ID and the file size in bytes. With
+                                    this information, a device
+                                    can select arbitrary files to initiate the data transfer process.
+                                 </p>
+                                 
+                                 <div class="awsdocs-note">
+                                    <div class="awsdocs-note-title">
+                                       <awsui-icon name="status-info" variant="link"></awsui-icon><span>Note</span></div>
+                                    <div class="awsdocs-note-text">
+                                       <p>You don't need to use the <code class="code">DescribeStream</code> API if your device receives all required stream 
+                                          file IDs in the initial data set.
+                                       </p>
+                                    </div>
+                                 </div>
+                                 
+                                 <p>Follow these steps to make a <code class="code">DescribeStream</code> request.
+                                 </p>
+                                 
+                                 <div class="procedure">
+                                    <ol>
+                                       <li>
+                                          
+                                          <p>Subscribe to the "accepted" topic filter
+                                             <code class="code">$aws/things/<code class="replaceable">ThingName</code>/streams/<code class="replaceable">StreamId</code>/description/json</code>.
+                                             
+                                          </p>
+                                          
+                                       </li>
+                                       <li>
+                                          
+                                          <p>Subscribe to the "rejected" topic filter
+                                             <code class="code">$aws/things/<code class="replaceable">ThingName</code>/streams/<code class="replaceable">StreamId</code>/rejected/json</code>.
+                                             
+                                          </p>
+                                          
+                                       </li>
+                                       <li>
+                                          
+                                          <p>Publish a <code class="code">DescribeStream</code> request by sending a message to
+                                             <code class="code">$aws/things/<code class="replaceable">ThingName</code>/streams/<code class="replaceable">StreamId</code>/describe/json</code>.
+                                             
+                                          </p>
+                                          
+                                       </li>
+                                       <li>
+                                          
+                                          <p>If the request was accepted, your device receives a <code class="code">DescribeStream</code> response on the
+                                             "accepted" topic filter.
+                                          </p>
+                                          
+                                       </li>
+                                       <li>
+                                          
+                                          <p>If the request was rejected, your device receives the error response on the "rejected"
+                                             topic filter.
+                                          </p>
+                                          
+                                       </li>
+                                    </ol>
+                                 </div>
+                                 
+                                 <div class="awsdocs-note">
+                                    <div class="awsdocs-note-title">
+                                       <awsui-icon name="status-info" variant="link"></awsui-icon><span>Note</span></div>
+                                    <div class="awsdocs-note-text">
+                                       <p>If you replace <code class="code">json</code> with <code class="code">cbor</code>
+                                          in the topics and topic filters shown, your device receives
+                                          messages in the CBOR format, which is more compact than JSON.
+                                       </p>
+                                    </div>
+                                 </div>
+                                  
+                                 
+                                 <h3 id="mqtt-based-file-delivery-describe-stream-request">DescribeStream request</h3>
+                                 
+                                 <p>A typical <code class="code">DescribeStream</code> request in JSON looks like
+                                    the following example.
+                                 </p>
+                                 <pre class="programlisting"><div class="code-btn-container"><div class="btn-copy-code" title="Copy"><awsui-icon name="copy"></awsui-icon></div></div><code class="JSON "><span>{</span>
+    "c": "ec944cfb-1e3c-49ac-97de-9dc4aaad0039"
+}</code></pre>
+                                 <div class="itemizedlist">
+                                     
+                                    
+                                    <ul class="itemizedlist" type="disc">
+                                       <li class="listitem">
+                                          
+                                          <p>(Optional) "<code class="code">c</code>" is the client token field.
+                                          </p>
+                                          
+                                          <p>The client token can't be longer than 64 bytes. A client token that is longer than
+                                             64 bytes 
+                                             causes an error response and an <code class="code">InvalidRequest</code> error message.
+                                          </p>
+                                          
+                                       </li>
+                                    </ul>
+                                 </div>
+                                  
+                                  
+                                 
+                                 <h3 id="mqtt-based-file-delivery-describe-stream-response">DescribeStream response</h3>
+                                 
+                                 <p>A <code class="code">DescribeStream</code> response in JSON looks like the following example.
+                                 </p>
+                                 <pre class="programlisting"><div class="code-btn-container"><div class="btn-copy-code" title="Copy"><awsui-icon name="copy"></awsui-icon></div></div><code class="JSON "><span>{</span>
+    "c": "ec944cfb-1e3c-49ac-97de-9dc4aaad0039",
+    "s": 1,
+    "d": "This is the description of stream ABC.",
+    "r": [
+        <span>{</span>
+            "f": 0,
+            "z": 131072
+        },
+        <span>{</span>
+            "f": 1,
+            "z": 51200
+        }
+    ]
+}</code></pre>
+                                 <div class="itemizedlist">
+                                     
+                                     
+                                     
+                                     
+                                    
+                                    <ul class="itemizedlist" type="disc">
+                                       <li class="listitem">
+                                          
+                                          <p>"<code class="code">c</code>" is the client token field. This is returned if it was given in the 
+                                             <code class="code">DescribeStream</code> request. Use the client token to associate the response with its 
+                                             request.
+                                          </p>
+                                          
+                                       </li>
+                                       <li class="listitem">
+                                          
+                                          <p>"<code class="code">s</code>" is the stream version as an integer. You can use this version to perform 
+                                             a consistency check with your <code class="code">GetStream</code> requests.
+                                          </p>
+                                          
+                                       </li>
+                                       <li class="listitem">
+                                          
+                                          <p>"<code class="code">r</code>" contains a list of the files in the stream.
+                                          </p>
+                                          
+                                          <div class="itemizedlist">
+                                              
+                                              
+                                             
+                                             <ul class="itemizedlist" type="disc">
+                                                <li class="listitem">
+                                                   
+                                                   <p>"<code class="code">f</code>" is the stream file ID as an integer.
+                                                   </p>
+                                                   
+                                                </li>
+                                                <li class="listitem">
+                                                   
+                                                   <p>"<code class="code">z</code>" is the stream file size in number of bytes.
+                                                   </p>
+                                                   
+                                                </li>
+                                             </ul>
+                                          </div>
+                                          
+                                       </li>
+                                       <li class="listitem">
+                                          
+                                          <p>"<code class="code">d</code>" contains the description of the stream.
+                                          </p>
+                                          
+                                       </li>
+                                    </ul>
+                                 </div>
+                                  
+                                  
+                                 
+                                 <h2 id="mqtt-based-file-delivery-get-getstream">Get data blocks from a stream file</h2>
+                                 
+                                 <p>You can use the <code class="code">GetStream</code> API so that a device can receive stream files in small data blocks, 
+                                    so it can be used by those devices that have constraints on processing large block
+                                    sizes. To receive an 
+                                    entire data file, a device might need to send or receive multiple requests and responses
+                                    until all data
+                                    blocks are received and processed.
+                                 </p>
+                                  
+                                 
+                                 <h3 id="mqtt-based-file-delivery-getstream-request">GetStream request</h3>
+                                 
+                                 <p>Follow these steps to make a <code class="code">GetStream</code> request.
+                                 </p>
+                                 
+                                 <div class="procedure">
+                                    <ol>
+                                       <li>
+                                          
+                                          <p>Subscribe to the "accepted" topic filter
+                                             <code class="code">$aws/things/<code class="replaceable">ThingName</code>/streams/<code class="replaceable">StreamId</code>/data/json</code>.
+                                             
+                                          </p>
+                                          
+                                       </li>
+                                       <li>
+                                          
+                                          <p>Subscribe to the "rejected" topic filter
+                                             <code class="code">$aws/things/<code class="replaceable">ThingName</code>/streams/<code class="replaceable">StreamId</code>/rejected/json</code>.
+                                             
+                                          </p>
+                                          
+                                       </li>
+                                       <li>
+                                          
+                                          <p>Publish a <code class="code">GetStream</code> request to the topic
+                                             <code class="code">$aws/things/<code class="replaceable">ThingName</code>/streams/<code class="replaceable">StreamId</code>/get/json</code>.
+                                             
+                                          </p>
+                                          
+                                       </li>
+                                       <li>
+                                          
+                                          <p>If the request was accepted, your device will receive one or more <code class="code">GetStream</code> 
+                                             responses on the "accepted" topic filter. Each response message contains basic information
+                                             and a 
+                                             data payload for a single block.
+                                          </p>
+                                          
+                                       </li>
+                                       <li>
+                                          
+                                          <p>Repeat steps 3 and 4 to receive all data blocks. You must repeat these steps if the
+                                             amount of 
+                                             data requested is larger than 128 KB. You must program your device to use multiple
+                                             
+                                             <code class="code">GetStream</code> requests to receive all of the data requested.
+                                          </p>
+                                          
+                                       </li>
+                                       <li>
+                                          
+                                          <p>If the request was rejected, your device will receive the error
+                                             response on the "rejected" topic filter.
+                                          </p>
+                                          
+                                       </li>
+                                    </ol>
+                                 </div>
+                                 
+                                 <div class="awsdocs-note">
+                                    <div class="awsdocs-note-title">
+                                       <awsui-icon name="status-info" variant="link"></awsui-icon><span>Note</span></div>
+                                    <div class="awsdocs-note-text">
+                                       <div class="itemizedlist">
+                                           
+                                           
+                                           
+                                           
+                                          
+                                          <ul class="itemizedlist" type="disc">
+                                             <li class="listitem">
+                                                
+                                                <p>If you replace "json" with "cbor" in the topics and topic filters shown, your device
+                                                   will 
+                                                   receive messages in the CBOR format, which is more compact than JSON.
+                                                </p>
+                                                
+                                             </li>
+                                             <li class="listitem">
+                                                
+                                                <p>AWS IoT MQTT-based file delivery limits the size of a block to 128 KB. If you make
+                                                   a request for 
+                                                   a block that is more than 128 KB, the request will fail.
+                                                </p>
+                                                
+                                             </li>
+                                             <li class="listitem">
+                                                
+                                                <p>You can make a request for multiple blocks whose total size is greater than 128 KB
+                                                   (for 
+                                                   example, if you make a request for 5 blocks of 32 KB each for a total of 160 KB of
+                                                   data). In 
+                                                   this case, the request doesn't fail, but your device must make multiple requests in
+                                                   order to
+                                                   receive all of the data requested. The service will send additional blocks as your
+                                                   device 
+                                                   makes additional requests. We recommend that you continue with a new request only
+                                                   after the 
+                                                   previous response has been correctly received and processed.
+                                                </p>
+                                                
+                                             </li>
+                                             <li class="listitem">
+                                                
+                                                <p>Regardless of the total size of data requested, you should program your device to
+                                                   initiate 
+                                                   retries when blocks are not received, or not received correctly.
+                                                </p>
+                                                
+                                             </li>
+                                          </ul>
+                                       </div>
+                                    </div>
+                                 </div>
+                                 
+                                 <p>A typical <code class="code">GetStream</code> request in JSON looks like the following example.
+                                 </p>
+                                 <pre class="programlisting"><div class="code-btn-container"><div class="btn-copy-code" title="Copy"><awsui-icon name="copy"></awsui-icon></div></div><code class="JSON "><span>{</span>
+    "c": "1bb8aaa1-5c18-4d21-80c2-0b44fee10380",
+    "s": 1,
+    "f": 0,
+    "l": 4098,
+    "o": 2,
+    "n": 100,
+    "b": "..."
+}</code></pre>
+                                 <div class="itemizedlist">
+                                     
+                                     
+                                     
+                                     
+                                     
+                                     
+                                     
+                                    
+                                    <ul class="itemizedlist" type="disc">
+                                       <li class="listitem">
+                                          
+                                          <p>[optional] "<code class="code">c</code>" is the client token field.
+                                          </p>
+                                          
+                                          <p>The client token can be no longer than 64 bytes. A client token that is longer than
+                                             64 bytes 
+                                             causes an error response and an <code class="code">InvalidRequest</code> error message.
+                                          </p>
+                                          
+                                       </li>
+                                       <li class="listitem">
+                                          
+                                          <p>[optional] "<code class="code">s</code>" is the stream version field (an integer).
+                                          </p>
+                                          
+                                          <p>MQTT-based file delivery applies a consistency check based on this requested version
+                                             and the latest 
+                                             stream version in the cloud. If the stream version sent from a device in a <code class="code">GetStream</code> 
+                                             request doesn't match the latest stream version in the cloud, the service sends an
+                                             error response 
+                                             and a <code class="code">VersionMismatch</code> error message. Typically, a device receives the expected 
+                                             (latest) stream version in the initial data set or in the response to 
+                                             <code class="code">DescribeStream</code>.
+                                          </p>
+                                          
+                                       </li>
+                                       <li class="listitem">
+                                          
+                                          <p>"<code class="code">f</code>" is the stream file ID (an integer in the range 0 to 255).
+                                          </p>
+                                          
+                                          <p>The stream file ID is required when you create or update a stream using the AWS CLI
+                                             or SDK. 
+                                             If a device requests a stream file with an ID that doesn't exist, the service sends
+                                             an error 
+                                             response and a <code class="code">ResourceNotFound</code> error message.
+                                          </p>
+                                          
+                                       </li>
+                                       <li class="listitem">
+                                          
+                                          <p>"<code class="code">l</code>" is the data block size in bytes (an integer in the range 256 to 131,072).
+                                          </p>
+                                          
+                                          <p>Refer to <a href="#mqtt-based-file-delivery-build-a-bitmap">Build a bitmap for a GetStream request</a> for instructions on how to use the bitmap fields to 
+                                             specify what portion of the stream file will be returned in the <code class="code">GetStream</code> response. 
+                                             If a device specifies a block size that is out of range, the service sends an error
+                                             response and 
+                                             a <code class="code">BlockSizeOutOfBounds</code> error message.
+                                          </p>
+                                          
+                                       </li>
+                                       <li class="listitem">
+                                          
+                                          <p>[optional] "<code class="code">o</code>" is the offset of the block in the stream file (an integer in the 
+                                             range 0 to 98,304). 
+                                          </p>
+                                          
+                                          <p>Refer to <a href="#mqtt-based-file-delivery-build-a-bitmap">Build a bitmap for a GetStream request</a> for instructions on how to use the bitmap fields to 
+                                             specify what portion of the stream file will be returned in the <code class="code">GetStream</code> response. 
+                                             The maximum value of 98,304 is based on a 24 MB stream file size limit and 256 bytes
+                                             for the
+                                             minimum block size. The default is 0 if not specified.
+                                          </p>
+                                          
+                                       </li>
+                                       <li class="listitem">
+                                          
+                                          <p>[optional] "<code class="code">n</code>" is the number of blocks requested (an integer in the range 0 to 
+                                             98,304).  
+                                          </p>
+                                          
+                                          <p>The "n" field specifies either (1) the number of blocks requested, or (2) when the
+                                             bitmap field 
+                                             ("b") is used, a limit on the number of blocks that will be returned by the bitmap
+                                             request. This 
+                                             second use is optional. If not defined, it defaults to 
+                                             131072/<code class="replaceable">DataBlockSize</code>.
+                                          </p>
+                                          
+                                       </li>
+                                       <li class="listitem">
+                                          
+                                          <p>[optional] "<code class="code">b</code>" is a bitmap that represents the blocks being requested.
+                                          </p>
+                                          
+                                          <p>Using a bitmap, your device can request non-consecutive blocks, which makes handling
+                                             retries 
+                                             following an error more convenient. Refer to <a href="#mqtt-based-file-delivery-build-a-bitmap">Build a bitmap for a GetStream request</a> for instructions on how to use the bitmap fields to 
+                                             specify which portion of the stream file will be returned in the <code class="code">GetStream</code> response. 
+                                             For this field, convert the bitmap to a string representing the bitmap's value in
+                                             hexadecimal 
+                                             notation. The bitmap must be less than 12,288 bytes.
+                                          </p>
+                                          
+                                       </li>
+                                    </ul>
+                                 </div>
+                                  
+                                  
+                                 
+                                 <h3 id="mqtt-based-file-delivery-getstream-response">GetStream response</h3>
+                                 
+                                 <p>A <code class="code">GetStream</code> response in JSON looks like this example for each data block that is
+                                    requested.
+                                 </p>
+                                 <pre class="programlisting"><div class="code-btn-container"><div class="btn-copy-code" title="Copy"><awsui-icon name="copy"></awsui-icon></div></div><code class="JSON "><span>{</span>
+    "c": "1bb8aaa1-5c18-4d21-80c2-0b44fee10380",
+    "f": 0,
+    "l": 4098,
+    "i": 2,
+    "p": "..."
+}</code></pre>
+                                 <div class="itemizedlist">
+                                     
+                                     
+                                     
+                                     
+                                     
+                                    
+                                    <ul class="itemizedlist" type="disc">
+                                       <li class="listitem">
+                                          
+                                          <p>"<code class="code">c</code>" is the client token field. This
+                                             is returned if it was given in the <code class="code">GetStream</code> request. Use
+                                             the client token to associate the response with its request.
+                                          </p>
+                                          
+                                       </li>
+                                       <li class="listitem">
+                                          
+                                          <p>"<code class="code">f</code>" is the ID of the stream file to
+                                             which the current data block payload belongs.
+                                          </p>
+                                          
+                                       </li>
+                                       <li class="listitem">
+                                          
+                                          <p>"<code class="code">l</code>" is the size of the data block payload in bytes.
+                                          </p>
+                                          
+                                       </li>
+                                       <li class="listitem">
+                                          
+                                          <p>"<code class="code">i</code>" is the ID of the data block
+                                             contained in the payload. Data blocks are numbered starting from 0.
+                                          </p>
+                                          
+                                       </li>
+                                       <li class="listitem">
+                                          
+                                          <p>"<code class="code">p</code>" contains the data block payload.
+                                             This field is a string which represents the value of the data block in
+                                             hexadecimal notation.
+                                          </p>
+                                          
+                                       </li>
+                                    </ul>
+                                 </div>
+                                  
+                                  
+                                 
+                                 <h3 id="mqtt-based-file-delivery-build-a-bitmap">Build a bitmap for a GetStream request</h3>
+                                 
+                                 <p>You can use the bitmap field (<code class="code">b</code>)
+                                    in a <code class="code">GetStream</code> request to get non-consecutive blocks from a stream file. This helps devices 
+                                    with limited RAM capacity deal with network delivery issues. A device can request
+                                    only those blocks that 
+                                    were not received or not received correctly. The bitmap determines which blocks of
+                                    the stream file will 
+                                    be returned. For each bit which is set to 1 in the bitmap, a corresponding block of
+                                    the stream file will 
+                                    be returned.
+                                 </p>
+                                 
+                                 <p>Here's an example of how to specify a bitmap and its supporting fields in a <code class="code">GetStream</code> 
+                                    request. For example, you want to receive a stream file in chunks of 256 bytes (the
+                                    block size).
+                                    Think of each block of 256 bytes as having a number that specifies its position in
+                                    the file, starting from 
+                                    0. So block 0 is the first block of 256 bytes in the file, block 1 is the second,
+                                    and so on. You want to 
+                                    request blocks 20, 21, 24 and 43 from the file.
+                                 </p>
+                                 
+                                 <div class="variablelist">
+                                     
+                                     
+                                     
+                                    
+                                    <dl>
+                                       
+                                       <dt><b><span class="term">Block offset</span></b></dt>
+                                       
+                                       <dd>
+                                          
+                                          <p>Because the first block is number 20, specify the offset (field <code class="code">o</code>)
+                                             as 20 to save space in the bitmap.
+                                          </p>
+                                          
+                                       </dd>
+                                       
+                                       
+                                       <dt><b><span class="term">Number of blocks</span></b></dt>
+                                       
+                                       <dd>
+                                          
+                                          <p>To ensure that your device doesn't receive more blocks than it can handle with limited
+                                             memory
+                                             resources, you can specify the maximum number of blocks that should be returned in
+                                             each message 
+                                             sent by MQTT-based file delivery. Note that this value is disregarded if the bitmap
+                                             itself 
+                                             specifies less than this number of blocks, or if it would make the total size of the
+                                             response 
+                                             messages sent by MQTT-based file delivery greater than the service limit of 128 KB
+                                             per 
+                                             <code class="code">GetStream</code> request.
+                                          </p>
+                                          
+                                       </dd>
+                                       
+                                       
+                                       <dt><b><span class="term">Block bitmap</span></b></dt>
+                                       
+                                       <dd>
+                                          
+                                          <p>The bitmap itself is an array of unsigned bytes expressed in hexadecimal notation,
+                                             and 
+                                             included in the <code class="code">GetStream</code> request as a string representation of the number. But 
+                                             to construct this string, let's start by thinking of the bitmap as a long sequence
+                                             of bits 
+                                             (a binary number). If a bit in this sequence is set to 1, the corresponding block
+                                             from the 
+                                             stream file will be sent back to the device. For our example, we want to receive blocks
+                                             20, 21,
+                                             24, and 43, so we must set bits 20, 21, 24, and 43 in our bitmap. We can use the block
+                                             offset 
+                                             to save space, so after we subtract the offset from each block number, we want to
+                                             set bits 
+                                             0, 1, 4, and 23, like the following example.
+                                          </p>
+                                          <pre class="programlisting"><div class="code-btn-container"><div class="btn-copy-code" title="Copy"><awsui-icon name="copy"></awsui-icon></div></div><code class="nohighlight"> 1 1 0 0 1 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 1 </code></pre>
+                                          <p>Taking one byte (8 bits) at a time, this is conventionally written as: "0b00010011",
+                                             
+                                             "0b00000000", and "0b10000000". Bit 0 shows up in our binary representation at the
+                                             end of the 
+                                             first byte, and bit 23 at the beginning of the last. This can be confusing unless
+                                             you know
+                                             the conventions. The first byte contains bits 7-0 (in that order), the second byte
+                                             contains bits 15-8, the third byte contains bits 23-16, and so on. In hexadecimal
+                                             notation, 
+                                             this converts to "0x130080".
+                                          </p>
+                                          
+                                          <div class="awsdocs-note awsdocs-tip">
+                                             <div class="awsdocs-note-title">
+                                                <awsui-icon name="status-info" variant="link"></awsui-icon><span>Tip</span></div>
+                                             <div class="awsdocs-note-text">
+                                                <p>You can convert the standard binary to hexadecimal notation. Take four binary digits
+                                                   
+                                                   at a time and convert these to their hexadecimal equivalent. For example, "0001" becomes
+                                                   
+                                                   "1", "0011" becomes "3" and so on.
+                                                </p>
+                                             </div>
+                                          </div>
+                                          
+                                          <div class="mediaobject">
+                                              
+                                             <img src="images/blockBitmap.png" class="aws-docs-img-whiteBg aws-docs-img-padding" style="max-width:100%" />
+                                              
+                                             
+                                          </div>
+                                          
+                                          <p>Putting this all together, the JSON for our <code class="code">GetStream</code> request
+                                             looks like the following.
+                                          </p>
+                                          <pre class="programlisting"><div class="code-btn-container"><div class="btn-copy-code" title="Copy"><awsui-icon name="copy"></awsui-icon></div></div><code class="JSON "><span>{</span>
+    "c" : "1",       // client token
+    "s" : 1,         // expected stream version
+    "l" : 256,       // block size
+    "f" : 1,         // source file index id
+    "o" : 20,        // block offset
+    "n" : 32,        // number of blocks
+    "b" : "0x130080" // A missing blockId bitmap starting from the offset
+}</code></pre>
+                                          
+                                          </dd>
+                                       
+                                    </dl>
+                                 </div>
+                                  
+                                  
+                                 
+                                 <h2 id="mqtt-based-file-delivery-errors">Handling errors from AWS IoT MQTT-based file delivery</h2>
+                                 
+                                 <p>An error response that is sent to a device for both <code class="code">DescribeStream</code>
+                                    and <code class="code">GetStream</code> APIs
+                                    contains
+                                    a client token, an error code and an error message. A typical error response looks
+                                    like the
+                                    following
+                                    example.
+                                 </p>
+                                 <pre class="programlisting"><div class="code-btn-container"><div class="btn-copy-code" title="Copy"><awsui-icon name="copy"></awsui-icon></div></div><code class="JSON "><span>{</span>
+    "o": "BlockSizeOutOfBounds", 
+    "m": "The block size is out of bounds", 
+    "c": "1bb8aaa1-5c18-4d21-80c2-0b44fee10380" 
+}</code></pre>
+                                 <div class="itemizedlist">
+                                     
+                                     
+                                     
+                                    
+                                    <ul class="itemizedlist" type="disc">
+                                       <li class="listitem">
+                                          
+                                          <p>"<code class="code">o</code>" is the error code that indicates the reason an error occurred. 
+                                             Refer to the error codes later in this section for more details.
+                                          </p>
+                                          
+                                       </li>
+                                       <li class="listitem">
+                                          
+                                          <p>"<code class="code">m</code>" is the error message that contains details of the error.
+                                          </p>
+                                          
+                                       </li>
+                                       <li class="listitem">
+                                          
+                                          <p>"<code class="code">c</code>" is the client token field. This may be returned if it was given in the 
+                                             <code class="code">DescribeStream</code> request. You can use the client token to associate the response with 
+                                             its request.
+                                          </p>
+                                          
+                                          <p>The client token field is not always included in an error response. When the client
+                                             token given 
+                                             in the request isn't valid or is malformed, it's not returned in the error response.
+                                          </p>
+                                          
+                                       </li>
+                                    </ul>
+                                 </div>
+                                 
+                                 <div class="awsdocs-note">
+                                    <div class="awsdocs-note-title">
+                                       <awsui-icon name="status-info" variant="link"></awsui-icon><span>Note</span></div>
+                                    <div class="awsdocs-note-text">
+                                       <p>For backward compatibility, fields in the error response may be in non-abbreviated
+                                          form. For example, 
+                                          the error code might be designated by either "code" or "o" fields and the client token
+                                          field may be
+                                          designated by either "clientToken" or "c" fields.  We recommend that you use the abbreviation
+                                          form shown
+                                          above.
+                                       </p>
+                                    </div>
+                                 </div>
+                                 
+                                 <div class="variablelist">
+                                     
+                                     
+                                     
+                                     
+                                     
+                                     
+                                     
+                                     
+                                     
+                                     
+                                     
+                                     
+                                     
+                                    
+                                    <dl>
+                                       
+                                       <dt><b><span class="term">InvalidTopic</span></b></dt>
+                                       
+                                       <dd>
+                                          
+                                          <p>The MQTT topic of the stream message is invalid.</p>
+                                          
+                                       </dd>
+                                       
+                                       
+                                       <dt><b><span class="term">InvalidJson</span></b></dt>
+                                       
+                                       <dd>
+                                          
+                                          <p>The Stream request is not a valid JSON document.</p>
+                                          
+                                       </dd>
+                                       
+                                       
+                                       <dt><b><span class="term">InvalidCbor</span></b></dt>
+                                       
+                                       <dd>
+                                          
+                                          <p>The Stream request is not valid CBOR document.</p>
+                                          
+                                       </dd>
+                                       
+                                       
+                                       <dt><b><span class="term">InvalidRequest</span></b></dt>
+                                       
+                                       <dd>
+                                          
+                                          <p>The request is generally identified as malformed. For more information, see
+                                             the error message.
+                                          </p>
+                                          
+                                       </dd>
+                                       
+                                       
+                                       <dt><b><span class="term">Unauthorized</span></b></dt>
+                                       
+                                       <dd>
+                                          
+                                          <p>The request is not authorized to access the stream data files in the
+                                             storage medium, such as
+                                             Amazon S3.
+                                             For
+                                             more information, see
+                                             the
+                                             error
+                                             message.
+                                          </p>
+                                          
+                                       </dd>
+                                       
+                                       
+                                       <dt><b><span class="term">BlockSizeOutOfBounds</span></b></dt>
+                                       
+                                       <dd>
+                                          
+                                          <p>The block size is out of bounds. Refer to the "<b>MQTT-based File Delivery</b>" 
+                                             section in <a href="https://docs.aws.amazon.com/general/latest/gr/iot-core.html#limits_iot">AWS IoT Core 
+                                                Service Quotas</a>.
+                                          </p>
+                                          
+                                       </dd>
+                                       
+                                       
+                                       <dt><b><span class="term">OffsetOutOfBounds</span></b></dt>
+                                       
+                                       <dd>
+                                          
+                                          <p>The offset is out of bounds. Refer to the "<b>MQTT-based File Delivery</b>" 
+                                             section in <a href="https://docs.aws.amazon.com/general/latest/gr/iot-core.html#limits_iot">AWS IoT Core 
+                                                Service Quotas</a>.
+                                          </p>
+                                          
+                                       </dd>
+                                       
+                                       
+                                       <dt><b><span class="term">BlockCountLimitExceeded</span></b></dt>
+                                       
+                                       <dd>
+                                          
+                                          <p>The number of request block(s) is out of bounds. Refer to the "<b>MQTT-based File 
+                                                Delivery</b>" section in <a href="https://docs.aws.amazon.com/general/latest/gr/iot-core.html#limits_iot">AWS IoT Core Service 
+                                                Quotas</a>.
+                                          </p>
+                                          
+                                       </dd>
+                                       
+                                       
+                                       <dt><b><span class="term">BlockBitmapLimitExceeded</span></b></dt>
+                                       
+                                       <dd>
+                                          
+                                          <p>The size of the request bitmap is out of bounds. Refer to the
+                                             "<b>MQTT-based File Delivery</b>" section in <a href="https://docs.aws.amazon.com/general/latest/gr/iot-core.html#limits_iot">AWS IoT Core
+                                                Service Quotas</a>.
+                                          </p>
+                                          
+                                       </dd>
+                                       
+                                       
+                                       <dt><b><span class="term">ResourceNotFound</span></b></dt>
+                                       
+                                       <dd>
+                                          
+                                          <p>The requested stream, files, file versions or blocks were not found.
+                                             Refer to the error message for more details.
+                                          </p>
+                                          
+                                       </dd>
+                                       
+                                       
+                                       <dt><b><span class="term">VersionMismatch</span></b></dt>
+                                       
+                                       <dd>
+                                          
+                                          <p>The stream version in the request doesn't match with the stream version in the MQTT-based
+                                             
+                                             file delivery feature. This indicates that the stream data had been modified since
+                                             the stream 
+                                             version was initially received by the device.
+                                          </p>
+                                          
+                                       </dd>
+                                       
+                                       
+                                       <dt><b><span class="term">ETagMismatch</span></b></dt>
+                                       
+                                       <dd>
+                                          
+                                          <p>The S3 ETag in the stream doesn't
+                                             match with the ETag of the latest S3 object version.
+                                          </p>
+                                          
+                                       </dd>
+                                       
+                                       
+                                       <dt><b><span class="term">InternalError</span></b></dt>
+                                       
+                                       <dd>
+                                          
+                                          <p>An internal error occurred in MQTT-based file delivery.</p>
+                                          
+                                       </dd>
+                                       
+                                    </dl>
+                                 </div>
+                                 
+                                 <awsdocs-copyright class="copyright-print"></awsdocs-copyright>
+                                 <awsdocs-thumb-feedback right-edge="{{$ctrl.thumbFeedbackRightEdge}}"></awsdocs-thumb-feedback>
+                              </div>
+                              <noscript>
+                                 <div>
+                                    <div>
+                                       <div>
+                                          <div id="js_error_message">
+                                             <p><img src="https://d1ge0kk1l5kms0.cloudfront.net/images/G/01/webservices/console/warning.png" alt="Warning" /> <strong>Javascript is disabled or is unavailable in your
+                                                   browser.</strong></p>
+                                             <p>To use the Amazon Web Services Documentation, Javascript must be
+                                                enabled. Please refer to your browser's Help pages for instructions.
+                                             </p>
+                                          </div>
+                                       </div>
+                                    </div>
+                                 </div>
+                              </noscript>
+                              <div id="main-col-footer" class="awsui-util-font-size-0">
+                                 <div id="doc-conventions"><a target="_top" href="/general/latest/gr/docconventions.html">Document Conventions</a></div>
+                                 <div class="prev-next">
+                                    <div id="previous" class="prev-link" accesskey="p" href="./mqtt-based-file-delivery-managing.html">Managing a stream in the AWS Cloud</div>
+                                    <div id="next" class="next-link" accesskey="n" href="./mqtt-based-file-delivery-example.html">An example use case in FreeRTOS OTA</div>
+                                 </div>
+                              </div>
+                              <awsdocs-page-utilities></awsdocs-page-utilities>
+                           </div>
+                           <div id="quick-feedback-yes" style="display: none;">
+                              <div class="title">Did this page help you? - Yes</div>
+                              <div class="content">
+                                 <p>Thanks for letting us know we're doing a good
+                                    job!
+                                 </p>
+                                 <p>If you've got a moment, please tell us what we did right
+                                    so we can do more of it.
+                                 </p>
+                                 <p>
+                                    <awsui-button id="fblink" target="_blank" text="Feedback" click="linkClick($event)" href="https://docs.aws.amazon.com/forms/aws-doc-feedback?hidden_service_name=IoT Docs&amp;topic_url=https://docs.aws.amazon.com/en_us/iot/latest/developerguide/mqtt-based-file-delivery-in-devices.html"></awsui-button>
+                                 </p>
+                              </div>
+                           </div>
+                           <div id="quick-feedback-no" style="display: none;">
+                              <div class="title">Did this page help you? - No</div>
+                              <div class="content">
+                                 <p>Thanks for letting us know this page needs work. We're
+                                    sorry we let you down.
+                                 </p>
+                                 <p>If you've got a moment, please tell us how we can make
+                                    the documentation better.
+                                 </p>
+                                 <p>
+                                    <awsui-button id="fblink" target="_blank" text="Feedback" click="linkClick($event)" href="https://docs.aws.amazon.com/forms/aws-doc-feedback?hidden_service_name=IoT Docs&amp;topic_url=https://docs.aws.amazon.com/en_us/iot/latest/developerguide/mqtt-based-file-delivery-in-devices.html"></awsui-button>
+                                 </p>
+                              </div>
+                           </div>
+                        </div>
+                     </body>
+                  </div>
+               </awsdocs-view>
+               <div class="page-loading-indicator" id="page-loading-indicator">
+                  <awsui-spinner size="large"></awsui-spinner>
+               </div>
+            </div>
+            <div id="tools-panel" dom-region="tools">
+               <awsdocs-tools-panel id="awsdocs-tools-panel"></awsdocs-tools-panel>
+            </div>
+         </awsui-app-layout>
+         <awsdocs-cookie-banner class="doc-cookie-banner"></awsdocs-cookie-banner>
+         <!--
+                SiteCatalyst code version: H.25.2.
+                Copyright 1996-2012 Adobe, Inc. All Rights Reserved
+                More info available at http://www.omniture.com
+            --><script language="JavaScript" type="text/javascript">
+var awsdocs = awsdocs || {};
+awsdocs.prop66 = 'AWS IoT Core';
+awsdocs.prop65 =  'Developer Guide';
+            </script><script src="https://a0.awsstatic.com/s_code/js/3.0/awshome_s_code.js" language="JavaScript" type="text/javascript"></script>
+         <!--/DO NOT REMOVE/-->
+         <!--End SiteCatalyst code version: H.25.2.--></div>
+   </body>
+</html>

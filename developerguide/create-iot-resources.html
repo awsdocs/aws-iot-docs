@@ -1,0 +1,577 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" ng-app="AWSDocsDocPageApp">
+   <head>
+      <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+      <title>Create AWS IoT resources - AWS IoT Core</title>
+      <meta name="viewport" content="width=device-width,initial-scale=1" />
+      <meta name="assets_root" content="assets" />
+      <meta name="target_state" content="create-iot-resources" />
+      <meta name="default_state" content="create-iot-resources" />
+      <link rel="icon" type="image/ico" href="/assets/images/favicon.ico" />
+      <link rel="shortcut icon" type="image/ico" href="/assets/images/favicon.ico" />
+      <link rel="canonical" href="https://docs.aws.amazon.com/iot/latest/developerguide/create-iot-resources.html" />
+      <meta name="description" content="In this tutorial, you'll create the AWS IoT resources that a device requires to connect to AWS IoT and exchange messages." />
+      <meta name="deployment_region" content="IAD" />
+      <meta name="product" content="AWS IoT Core" />
+      <meta name="guide" content="Developer Guide" />
+      <meta name="locales" content="de_de:Deutsch/en_us:English/es_es:Español/fr_fr:Français/it_it:Italiano/ja_jp:日本語/ko_kr:한국어/pt_br:Português/zh_cn:中文 (简体)/zh_tw:中文 (繁體)" />
+      <meta name="abstract" content="AWS IoT provides secure, bi-directional communication between Internet-connected devices such as sensors, actuators, embedded micro-controllers, or smart appliances and the AWS Cloud. This enables you to collect telemetry data from multiple devices, and store and analyze the data. You can also create applications that enable your users to control these devices from their phones or tablets." />
+      <meta name="guide-locale" content="en_us" />
+      <meta name="tocs" content="toc-contents.json" />
+      <meta name="feedback-item" content="IoT Docs" />
+      <meta name="this_doc_product" content="AWS IoT Core" />
+      <meta name="this_doc_guide" content="Developer Guide" />
+      <link href="assets/css/vendor4.css" rel="stylesheet" />
+      <link href="assets/css/awsdocs-common.css" rel="stylesheet" /><script type="text/javascript" src="assets/js/vendor3.js" defer=""></script><script type="text/javascript" src="assets/js/vendor4.js" defer=""></script><script type="text/javascript" src="assets/js/vendor1.js" defer=""></script><script type="text/javascript" src="assets/js/awsdocs-common.js" defer=""></script><script type="text/javascript" src="assets/js/awsdocs-doc-app.js" defer=""></script></head>
+   <body class="awsdocs awsui">
+      <div class="awsdocs-container">
+         <awsdocs-header></awsdocs-header>
+         <awsui-app-layout id="app-layout" class="awsui-util-no-gutters" ng-controller="ContentController as $ctrl" header-selector="awsdocs-header" navigation-hide="false" navigation-width="$ctrl.navWidth" navigation-open="$ctrl.navOpen" navigation-change="$ctrl.onNavChange($event)" tools-hide="$ctrl.hideTools" tools-width="$ctrl.toolsWidth" tools-open="$ctrl.toolsOpen" tools-change="$ctrl.onToolsChange($event)">
+            <div id="guide-toc" dom-region="navigation">
+               <awsdocs-toc></awsdocs-toc>
+            </div>
+            <div id="main-column" dom-region="content" tabindex="-1">
+               <awsdocs-view class="awsdocs-view">
+                  <div id="awsdocs-content">
+                     <head>
+                        <title>Create AWS IoT resources - AWS IoT Core</title>
+                        <meta name="pdf" content="iot-dg.pdf#create-iot-resources" />
+                        <meta name="kindle" content="https://www.amazon.com/dp/B07JBRCWWZ" />
+                        <meta name="github" content="https://github.com/awsdocs/aws-iot-docs/tree/master/developerguide/create-iot-resources.md" />
+                        <meta name="forums" content="http://forums.aws.amazon.com/forum.jspa?forumID=210" />
+                        <meta name="feedback" content="https://docs.aws.amazon.com/forms/aws-doc-feedback?hidden_service_name=IoT%20Docs&amp;topic_url=http://docs.aws.amazon.com/en_us/iot/latest/developerguide/create-iot-resources.html" />
+                        <meta name="feedback-yes" content="feedbackyes.html?topic_url=http://docs.aws.amazon.com/en_us/iot/latest/developerguide/create-iot-resources.html" />
+                        <meta name="feedback-no" content="feedbackno.html?topic_url=http://docs.aws.amazon.com/en_us/iot/latest/developerguide/create-iot-resources.html" />
+                        <meta name="keywords" content="AWS IoT,IoT,Internet of Things" />
+                     </head>
+                     <body>
+                        <div id="main">
+                           <div style="display: none"><a href="iot-dg.pdf#create-iot-resources" target="_blank" rel="noopener noreferrer" title="Open PDF"></a><a target="_blank" rel="noopener noreferrer" href="https://www.amazon.com/dp/B07JBRCWWZ" title="Open Kindle"></a><a href="https://github.com/awsdocs/aws-iot-docs/tree/master/developerguide/create-iot-resources.md" target="_blank" rel="noopener noreferrer" title="Edit this page on GitHub"></a></div>
+                           <div id="breadcrumbs" class="breadcrumb"><a href="http://aws.amazon.com">AWS</a><a href="/index.html">Documentation</a><a href="/iot/index.html">AWS IoT Core</a><a href="what-is-aws-iot.html">Developer Guide</a></div>
+                           <div id="page-toc-src"><a href="#create-iot-policy">Create an AWS IoT policy</a><a href="#create-aws-thing">Create a thing object</a></div>
+                           <div id="main-content" class="awsui-util-container">
+                              <div id="main-col-body">
+                                 <awsdocs-language-banner data-service="$ctrl.pageService"></awsdocs-language-banner>
+                                 <h1 class="topictitle" id="create-iot-resources">Create AWS IoT resources</h1>
+                                 <div class="awsdocs-page-header-container">
+                                    <awsdocs-page-header></awsdocs-page-header>
+                                    <awsdocs-filter-selector id="awsdocs-filter-selector"></awsdocs-filter-selector>
+                                 </div>
+                                 <p>In this tutorial, you'll create the AWS IoT resources that a device requires to
+                                    connect to AWS IoT and exchange messages. 
+                                 </p>
+                                 <div class="mediaobject">
+                                     
+                                    <img src="images/iot-gs-create-resources.png" class="aws-docs-img-whiteBg aws-docs-img-padding" alt="&#xA;                    Create AWS IoT resources&#xA;                " />
+                                     
+                                     
+                                    
+                                 </div>
+                                 <div class="orderedlist">
+                                     
+                                     
+                                    
+                                    <ol>
+                                       <li>
+                                          
+                                          <p>Create an AWS IoT policy document, which will authorize your device to
+                                             interact with AWS IoT services.
+                                          </p>
+                                          
+                                       </li>
+                                       <li>
+                                          
+                                          <p>Create a thing object in AWS IoT and its X.509 device certificate, and then
+                                             attach the policy document. The thing object is the virtual representation
+                                             of your device in the AWS IoT registry. The certificate authenticates your
+                                             device to AWS IoT Core, and the policy document authorizes your device to
+                                             interact with AWS IoT.
+                                          </p>
+                                          
+                                          <div class="awsdocs-note">
+                                             <div class="awsdocs-note-title">
+                                                <awsui-icon name="status-info" variant="link"></awsui-icon><span>Note</span></div>
+                                             <div class="awsdocs-note-text">
+                                                <p>If you are planning to  <a href="./creating-a-virtual-thing.html">Create a virtual device with
+                                                      Amazon EC2</a>,
+                                                   you can skip this page and continue to <a href="./configure-device.html">Configure your device</a>. You will create these resources when you create your virtual
+                                                   thing.
+                                                </p>
+                                             </div>
+                                          </div>
+                                          
+                                       </li>
+                                    </ol>
+                                 </div>
+                                 <p>This tutorial uses the AWS IoT console to create the AWS IoT resources. If your device
+                                    supports a web browser, it might be easier to run this procedure on the device's web
+                                    browser because you will be able to download the certificate files directly to your
+                                    device. If you run this procedure on another computer, you will need to copy the
+                                    certificate files to your device before they can be used by the sample app.
+                                 </p>
+                                 
+                                 <h2 id="create-iot-policy">Create an AWS IoT policy</h2>
+                                 
+                                 <p>X.509 certificates are used to authenticate your device with AWS IoT Core. AWS IoT
+                                    policies are attached to the certificate that authenticates the device to
+                                    determine the AWS IoT operations, such as subscribing or publishing to MQTT topics
+                                    that the device is permitted to perform. Your device presents its certificate
+                                    when it connects and sends messages to AWS IoT Core.
+                                 </p>
+                                 
+                                 <p>In this procedure, you will create a policy that allows your device to perform
+                                    the AWS IoT operations necessary to run the example program. You must create the
+                                    AWS IoT policy first, so that you can attach it to the device certificate that you
+                                    will create later.
+                                 </p>
+                                 
+                                 <div class="procedure">
+                                    <p class="title"><b>To create an AWS IoT policy</b></p>
+                                    <ol>
+                                       <li>
+                                          
+                                          <p>In the left menu, choose <b>Secure</b>, and
+                                             then choose <b>Policies</b>. On the <b>You don't
+                                                have a policy yet</b> page, choose <b>Create a
+                                                policy</b>.
+                                          </p>
+                                          
+                                          <p>If your account has existing policies, choose
+                                             <b>Create</b>.
+                                          </p>
+                                          
+                                       </li>
+                                       <li>
+                                          
+                                          <p>On the <b>Create a policy</b> page:
+                                          </p>
+                                          
+                                          <div class="orderedlist">
+                                              
+                                              
+                                              
+                                              
+                                             
+                                             <ol>
+                                                <li>
+                                                   
+                                                   <p>In the <b>Name</b> field, enter a name for the
+                                                      policy (for example, <code class="userinput">My_Iot_Policy</code>). Do
+                                                      not use personally identifiable information in your policy
+                                                      names.
+                                                   </p>
+                                                   
+                                                </li>
+                                                <li>
+                                                   
+                                                   <p>In the <b>Action</b> field, enter
+                                                      <code class="userinput">iot:Connect,iot:Receive,iot:Publish,iot:Subscribe</code>.
+                                                      These are the actions that the device will need permission to
+                                                      perform when it runs the example program from the Device
+                                                      SDK.
+                                                   </p>
+                                                   
+                                                   <p>For more information about IoT policies, see <a href="./iot-policies.html">AWS IoT Core policies</a>.
+                                                   </p>
+                                                   
+                                                </li>
+                                                <li>
+                                                   
+                                                   <p>In the <b>Resource ARN</b> field, enter
+                                                      <code class="userinput">*</code>. This selects any client
+                                                      (device).
+                                                   </p>
+                                                   
+                                                   <div class="awsdocs-note">
+                                                      <div class="awsdocs-note-title">
+                                                         <awsui-icon name="status-info" variant="link"></awsui-icon><span>Note</span></div>
+                                                      <div class="awsdocs-note-text">
+                                                         <p>In this quick start, the wildcard (*) character is used
+                                                            for simplicity. For higher security, you should restrict
+                                                            which clients (devices) can connect and publish messages by
+                                                            specifying a client ARN (Amazon resource name)  instead of
+                                                            the wildcard character as the resource. Client ARNs follow
+                                                            this format:
+                                                         </p>
+                                                         <p>
+                                                            <code class="code">arn:aws:iot:<code class="replaceable">your-region</code>:<code class="replaceable">your-aws-account</code>:client/<code class="replaceable">my-client-id</code></code>
+                                                            
+                                                         </p>
+                                                         <p>However, you must first create the resource (client
+                                                            device, thing shadow, etc.) before you can assign its ARN to
+                                                            a policy.
+                                                         </p>
+                                                      </div>
+                                                   </div>
+                                                   
+                                                </li>
+                                                <li>
+                                                   
+                                                   <p>Choose the <b>Allow</b> check box.
+                                                   </p>
+                                                   
+                                                   <p>These values allows all clients that have this policy attached
+                                                      to their certificate to perform the actions listed in the
+                                                      <b>Action</b> field.
+                                                   </p>
+                                                   
+                                                </li>
+                                             </ol>
+                                          </div>
+                                          
+                                          <div class="mediaobject">
+                                              
+                                             <img src="images/gs-create-policy.png" class="aws-docs-img-whiteBg aws-docs-img-padding" alt="&#xA;                                Create policy&#xA;                            " />
+                                              
+                                              
+                                             
+                                          </div>
+                                          
+                                       </li>
+                                       <li>
+                                          
+                                          <p>After you have entered the information for your policy, choose
+                                             <b>Create</b>.
+                                          </p>
+                                          
+                                       </li>
+                                    </ol>
+                                 </div>
+                                 
+                                 <p>For more information, see <a href="./iam-policies.html">IAM policies</a>. 
+                                 </p>
+                                  
+                                 
+                                 <h2 id="create-aws-thing">Create a thing object</h2>
+                                 
+                                 <p>Devices connected to AWS IoT are represented by <em>thing
+                                       objects</em> in the AWS IoT registry. A <em>thing
+                                       object</em> represents a specific device or logical entity. It can be
+                                    a physical device or sensor (for example, a light bulb or a light switch on the
+                                    wall). It can also be a logical entity, like an instance of an application or
+                                    physical entity that doesn't connect to AWS IoT, but is related to other devices
+                                    that do (for example, a car that has engine sensors or a control panel).
+                                 </p>
+                                 
+                                 <div class="procedure">
+                                    <p class="title"><b>To create a thing in the AWS IoT console</b></p>
+                                    <ol>
+                                       <li>
+                                          
+                                          <p>In the <a href="https://console.aws.amazon.com/iot/home" rel="noopener noreferrer" target="_blank"><span>AWS IoT
+                                                   console</span><awsui-icon class="awsdocs-link-icon" name="external"></awsui-icon></a>, in the left menu, choose
+                                             <b>Manage</b>, then choose
+                                             <b>Things</b>.
+                                          </p>
+                                          
+                                       </li>
+                                       <li>
+                                          
+                                          <p>On the <b>Things</b> page, choose <b>Create
+                                                things</b>.
+                                          </p>
+                                          
+                                       </li>
+                                       <li>
+                                          
+                                          <p>On the <b>Create things</b> page, choose
+                                             <b>Create a single thing</b>, then choose
+                                             <b>Next</b>.
+                                          </p>
+                                          
+                                       </li>
+                                       <li>
+                                          
+                                          <p>On the <b>Specify thing properties</b> page, for
+                                             <b>Thing name</b>, enter a name for your thing, such
+                                             as <code class="userinput">MyIotThing</code>.
+                                          </p>
+                                          
+                                          <p>When naming things, choose the name carefully, because you can't
+                                             change a thing name after you create it.
+                                          </p>
+                                          
+                                          <p>To change a thing's name, you must create a new thing, give it the new
+                                             name, and then delete the old thing.
+                                          </p>
+                                          
+                                          <div class="awsdocs-note">
+                                             <div class="awsdocs-note-title">
+                                                <awsui-icon name="status-info" variant="link"></awsui-icon><span>Note</span></div>
+                                             <div class="awsdocs-note-text">
+                                                <p>Do not use personally identifiable information in your thing name.
+                                                   The thing name can appear in unencrypted communications and
+                                                   reports.
+                                                </p>
+                                             </div>
+                                          </div>
+                                          
+                                       </li>
+                                       <li>
+                                          
+                                          <p>Keep the rest of the fields on this page empty. Choose
+                                             <b>Next</b>.
+                                          </p>
+                                          
+                                       </li>
+                                       <li>
+                                          
+                                          <p>On the <b>Configure device certificate - <em>optional</em></b> page, choose
+                                             <b>Auto-generate a new certificate
+                                                (recommended)</b>. Choose <b>Next</b>.
+                                          </p>         
+                                          
+                                       </li>
+                                       <li>
+                                          
+                                          <p>On the <b>Attach policies to certificate - <em>optional</em></b> page, select the
+                                             policy you created in the previous section. In that section, the policy
+                                             was named, <code class="userinput">My_Iot_Policy</code>. Choose
+                                             <b>Create thing</b>.
+                                          </p>
+                                          
+                                       </li>
+                                       <li>
+                                          
+                                          <p>On the <b>Download certificates and keys</b>
+                                             page:
+                                          </p>
+                                          
+                                          <div class="orderedlist">
+                                              
+                                              
+                                              
+                                             
+                                             <ol>
+                                                <li>
+                                                   
+                                                   <p>Download each of the certificate and key files and save them
+                                                      for later. You'll need to install these files on your
+                                                      device.
+                                                   </p>
+                                                   
+                                                   <p>When you save your certificate files, give them the names in
+                                                      the following table. These are the file names used in later
+                                                      examples.
+                                                   </p>
+                                                   
+                                                   <div class="table-container">
+                                                      <div class="table-contents">
+                                                         <table id="w332aab7c15c19c13b5c16b3b1b5">
+                                                            <thead>
+                                                               <tr>
+                                                                  <th class="table-header" colspan="100%">
+                                                                     <div class="title">Certificate file names</div>
+                                                                  </th>
+                                                               </tr>
+                                                               
+                                                               <tr>
+                                                                  
+                                                                  <th>
+                                                                     
+                                                                     <p>File</p>
+                                                                     
+                                                                  </th>
+                                                                  
+                                                                  <th>
+                                                                     
+                                                                     <p>File path</p>
+                                                                     
+                                                                  </th>
+                                                                  
+                                                               </tr>
+                                                               
+                                                            </thead>
+                                                            
+                                                            <tr>
+                                                               
+                                                               <td>
+                                                                  
+                                                                  <p>Private key</p>
+                                                                  
+                                                               </td>
+                                                               
+                                                               <td>
+                                                                  
+                                                                  <p><code class="code">private.pem.key</code></p>
+                                                                  
+                                                               </td>
+                                                               
+                                                            </tr>
+                                                            
+                                                            <tr>
+                                                               
+                                                               <td>Public key</td>
+                                                               
+                                                               <td><em>(not used in these
+                                                                     examples)</em></td>
+                                                               
+                                                            </tr>
+                                                            
+                                                            <tr>
+                                                               
+                                                               <td>
+                                                                  
+                                                                  <p>Device certificate</p>
+                                                                  
+                                                               </td>
+                                                               
+                                                               <td>
+                                                                  
+                                                                  <p><code class="code">device.pem.crt</code></p>
+                                                                  
+                                                               </td>
+                                                               
+                                                            </tr>
+                                                            
+                                                            <tr>
+                                                               
+                                                               <td>
+                                                                  
+                                                                  <p>Root CA certificate</p>
+                                                                  
+                                                               </td>
+                                                               
+                                                               <td>
+                                                                  
+                                                                  <p><code class="code">Amazon-root-CA-1.pem</code></p>
+                                                                  
+                                                               </td>
+                                                               
+                                                            </tr>
+                                                            
+                                                         </table>
+                                                      </div>
+                                                   </div>
+                                                   
+                                                </li>
+                                                <li>
+                                                   
+                                                   <p>Download the root CA file for these files by choosing the
+                                                      <b>Download</b> link of the root CA
+                                                      certificate file that corresponds to the type of data endpoint
+                                                      and cipher suite you're using. In this tutorial, choose
+                                                      <b>Download</b> to the right of <b>RSA
+                                                         2048 bit key: Amazon Root CA 1</b> and download the
+                                                      <b>RSA 2048 bit key: Amazon Root CA 1</b>
+                                                      certificate file. 
+                                                   </p>
+                                                   
+                                                   <div class="awsdocs-note awsdocs-important">
+                                                      <div class="awsdocs-note-title">
+                                                         <awsui-icon name="status-warning" variant="error"></awsui-icon><span>Important</span></div>
+                                                      <div class="awsdocs-note-text">
+                                                         <p>You must save the certificate files before you leave this
+                                                            page. After you leave this page in the console, you will no
+                                                            longer have access to the certificate files.
+                                                         </p>
+                                                         <p>If you forgot to download the certificate files that you
+                                                            created in this step, you must exit this console screen, go
+                                                            to the list of things in the console, delete the thing
+                                                            object you created, and then restart this procedure from the
+                                                            beginning.
+                                                         </p>
+                                                      </div>
+                                                   </div>
+                                                   
+                                                </li>
+                                                <li>
+                                                   
+                                                   <p> Choose <b>Done</b>. 
+                                                   </p>
+                                                   
+                                                </li>
+                                             </ol>
+                                          </div>
+                                          
+                                       </li>
+                                    </ol>
+                                 </div>
+                                 
+                                 <p>After you complete this procedure, you should see the new thing object in your
+                                    list of things.
+                                 </p>
+                                 
+                                 <awsdocs-copyright class="copyright-print"></awsdocs-copyright>
+                                 <awsdocs-thumb-feedback right-edge="{{$ctrl.thumbFeedbackRightEdge}}"></awsdocs-thumb-feedback>
+                              </div>
+                              <noscript>
+                                 <div>
+                                    <div>
+                                       <div>
+                                          <div id="js_error_message">
+                                             <p><img src="https://d1ge0kk1l5kms0.cloudfront.net/images/G/01/webservices/console/warning.png" alt="Warning" /> <strong>Javascript is disabled or is unavailable in your
+                                                   browser.</strong></p>
+                                             <p>To use the Amazon Web Services Documentation, Javascript must be
+                                                enabled. Please refer to your browser's Help pages for instructions.
+                                             </p>
+                                          </div>
+                                       </div>
+                                    </div>
+                                 </div>
+                              </noscript>
+                              <div id="main-col-footer" class="awsui-util-font-size-0">
+                                 <div id="doc-conventions"><a target="_top" href="/general/latest/gr/docconventions.html">Document Conventions</a></div>
+                                 <div class="prev-next">
+                                    <div id="previous" class="prev-link" accesskey="p" href="./iot-gs-first-thing.html">Explore AWS IoT Core services in hands-on
+                                       tutorial
+                                    </div>
+                                    <div id="next" class="next-link" accesskey="n" href="./configure-device.html">Configure your device</div>
+                                 </div>
+                              </div>
+                              <awsdocs-page-utilities></awsdocs-page-utilities>
+                           </div>
+                           <div id="quick-feedback-yes" style="display: none;">
+                              <div class="title">Did this page help you? - Yes</div>
+                              <div class="content">
+                                 <p>Thanks for letting us know we're doing a good
+                                    job!
+                                 </p>
+                                 <p>If you've got a moment, please tell us what we did right
+                                    so we can do more of it.
+                                 </p>
+                                 <p>
+                                    <awsui-button id="fblink" target="_blank" text="Feedback" click="linkClick($event)" href="https://docs.aws.amazon.com/forms/aws-doc-feedback?hidden_service_name=IoT Docs&amp;topic_url=https://docs.aws.amazon.com/en_us/iot/latest/developerguide/create-iot-resources.html"></awsui-button>
+                                 </p>
+                              </div>
+                           </div>
+                           <div id="quick-feedback-no" style="display: none;">
+                              <div class="title">Did this page help you? - No</div>
+                              <div class="content">
+                                 <p>Thanks for letting us know this page needs work. We're
+                                    sorry we let you down.
+                                 </p>
+                                 <p>If you've got a moment, please tell us how we can make
+                                    the documentation better.
+                                 </p>
+                                 <p>
+                                    <awsui-button id="fblink" target="_blank" text="Feedback" click="linkClick($event)" href="https://docs.aws.amazon.com/forms/aws-doc-feedback?hidden_service_name=IoT Docs&amp;topic_url=https://docs.aws.amazon.com/en_us/iot/latest/developerguide/create-iot-resources.html"></awsui-button>
+                                 </p>
+                              </div>
+                           </div>
+                        </div>
+                     </body>
+                  </div>
+               </awsdocs-view>
+               <div class="page-loading-indicator" id="page-loading-indicator">
+                  <awsui-spinner size="large"></awsui-spinner>
+               </div>
+            </div>
+            <div id="tools-panel" dom-region="tools">
+               <awsdocs-tools-panel id="awsdocs-tools-panel"></awsdocs-tools-panel>
+            </div>
+         </awsui-app-layout>
+         <awsdocs-cookie-banner class="doc-cookie-banner"></awsdocs-cookie-banner>
+         <!--
+                SiteCatalyst code version: H.25.2.
+                Copyright 1996-2012 Adobe, Inc. All Rights Reserved
+                More info available at http://www.omniture.com
+            --><script language="JavaScript" type="text/javascript">
+var awsdocs = awsdocs || {};
+awsdocs.prop66 = 'AWS IoT Core';
+awsdocs.prop65 =  'Developer Guide';
+            </script><script src="https://a0.awsstatic.com/s_code/js/3.0/awshome_s_code.js" language="JavaScript" type="text/javascript"></script>
+         <!--/DO NOT REMOVE/-->
+         <!--End SiteCatalyst code version: H.25.2.--></div>
+   </body>
+</html>

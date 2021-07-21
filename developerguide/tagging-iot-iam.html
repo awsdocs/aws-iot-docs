@@ -1,0 +1,281 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" ng-app="AWSDocsDocPageApp">
+   <head>
+      <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+      <title>Using tags with IAM policies - AWS IoT Core</title>
+      <meta name="viewport" content="width=device-width,initial-scale=1" />
+      <meta name="assets_root" content="assets" />
+      <meta name="target_state" content="tagging-iot-iam" />
+      <meta name="default_state" content="tagging-iot-iam" />
+      <link rel="icon" type="image/ico" href="/assets/images/favicon.ico" />
+      <link rel="shortcut icon" type="image/ico" href="/assets/images/favicon.ico" />
+      <link rel="canonical" href="https://docs.aws.amazon.com/iot/latest/developerguide/tagging-iot-iam.html" />
+      <meta name="description" content="You can apply tag-based resource-level permissions in the IAM policies you use for AWS IoT API actions. This gives you better control over what resources a user can create, modify, or use. You use the Condition element (also called the Condition" />
+      <meta name="deployment_region" content="IAD" />
+      <meta name="product" content="AWS IoT Core" />
+      <meta name="guide" content="Developer Guide" />
+      <meta name="locales" content="de_de:Deutsch/en_us:English/es_es:Español/fr_fr:Français/it_it:Italiano/ja_jp:日本語/ko_kr:한국어/pt_br:Português/zh_cn:中文 (简体)/zh_tw:中文 (繁體)" />
+      <meta name="abstract" content="AWS IoT provides secure, bi-directional communication between Internet-connected devices such as sensors, actuators, embedded micro-controllers, or smart appliances and the AWS Cloud. This enables you to collect telemetry data from multiple devices, and store and analyze the data. You can also create applications that enable your users to control these devices from their phones or tablets." />
+      <meta name="guide-locale" content="en_us" />
+      <meta name="tocs" content="toc-contents.json" />
+      <meta name="feedback-item" content="IoT Docs" />
+      <meta name="this_doc_product" content="AWS IoT Core" />
+      <meta name="this_doc_guide" content="Developer Guide" />
+      <link href="assets/css/vendor4.css" rel="stylesheet" />
+      <link href="assets/css/awsdocs-common.css" rel="stylesheet" /><script type="text/javascript" src="assets/js/vendor3.js" defer=""></script><script type="text/javascript" src="assets/js/vendor4.js" defer=""></script><script type="text/javascript" src="assets/js/vendor1.js" defer=""></script><script type="text/javascript" src="assets/js/awsdocs-common.js" defer=""></script><script type="text/javascript" src="assets/js/awsdocs-doc-app.js" defer=""></script></head>
+   <body class="awsdocs awsui">
+      <div class="awsdocs-container">
+         <awsdocs-header></awsdocs-header>
+         <awsui-app-layout id="app-layout" class="awsui-util-no-gutters" ng-controller="ContentController as $ctrl" header-selector="awsdocs-header" navigation-hide="false" navigation-width="$ctrl.navWidth" navigation-open="$ctrl.navOpen" navigation-change="$ctrl.onNavChange($event)" tools-hide="$ctrl.hideTools" tools-width="$ctrl.toolsWidth" tools-open="$ctrl.toolsOpen" tools-change="$ctrl.onToolsChange($event)">
+            <div id="guide-toc" dom-region="navigation">
+               <awsdocs-toc></awsdocs-toc>
+            </div>
+            <div id="main-column" dom-region="content" tabindex="-1">
+               <awsdocs-view class="awsdocs-view">
+                  <div id="awsdocs-content">
+                     <head>
+                        <title>Using tags with IAM policies - AWS IoT Core</title>
+                        <meta name="pdf" content="iot-dg.pdf#tagging-iot-iam" />
+                        <meta name="kindle" content="https://www.amazon.com/dp/B07JBRCWWZ" />
+                        <meta name="github" content="https://github.com/awsdocs/aws-iot-docs/tree/master/developerguide/tagging-iot-iam.md" />
+                        <meta name="forums" content="http://forums.aws.amazon.com/forum.jspa?forumID=210" />
+                        <meta name="feedback" content="https://docs.aws.amazon.com/forms/aws-doc-feedback?hidden_service_name=IoT%20Docs&amp;topic_url=http://docs.aws.amazon.com/en_us/iot/latest/developerguide/tagging-iot-iam.html" />
+                        <meta name="feedback-yes" content="feedbackyes.html?topic_url=http://docs.aws.amazon.com/en_us/iot/latest/developerguide/tagging-iot-iam.html" />
+                        <meta name="feedback-no" content="feedbackno.html?topic_url=http://docs.aws.amazon.com/en_us/iot/latest/developerguide/tagging-iot-iam.html" />
+                        <meta name="keywords" content="AWS IoT,IoT,Internet of Things" />
+                     </head>
+                     <body>
+                        <div id="main">
+                           <div style="display: none"><a href="iot-dg.pdf#tagging-iot-iam" target="_blank" rel="noopener noreferrer" title="Open PDF"></a><a target="_blank" rel="noopener noreferrer" href="https://www.amazon.com/dp/B07JBRCWWZ" title="Open Kindle"></a><a href="https://github.com/awsdocs/aws-iot-docs/tree/master/developerguide/tagging-iot-iam.md" target="_blank" rel="noopener noreferrer" title="Edit this page on GitHub"></a></div>
+                           <div id="breadcrumbs" class="breadcrumb"><a href="http://aws.amazon.com">AWS</a><a href="/index.html">Documentation</a><a href="/iot/index.html">AWS IoT Core</a><a href="what-is-aws-iot.html">Developer Guide</a></div>
+                           <div id="main-content" class="awsui-util-container">
+                              <div id="main-col-body">
+                                 <awsdocs-language-banner data-service="$ctrl.pageService"></awsdocs-language-banner>
+                                 <h1 class="topictitle" id="tagging-iot-iam">Using tags with IAM policies</h1>
+                                 <div class="awsdocs-page-header-container">
+                                    <awsdocs-page-header></awsdocs-page-header>
+                                    <awsdocs-filter-selector id="awsdocs-filter-selector"></awsdocs-filter-selector>
+                                 </div>
+                                 <p>You can apply tag-based resource-level permissions in the IAM policies you use for
+                                    AWS IoT
+                                    API actions. This gives you better control over what resources a user can create,
+                                    modify, or use. You use the
+                                    <code class="code">Condition</code> element (also called the <code class="code">Condition</code> block) with the following condition
+                                    context keys and values in an IAM policy to control user access (permissions) based
+                                    on a resource's tags: 
+                                 </p>
+                                 <div class="itemizedlist">
+                                     
+                                    
+                                     
+                                    
+                                     
+                                    
+                                    <ul class="itemizedlist" type="disc">
+                                       <li class="listitem">
+                                          
+                                          <p>Use <code class="code">aws:ResourceTag/<code class="replaceable">tag-key</code>:
+                                                <code class="replaceable">tag-value</code></code> to allow or deny user actions on resources
+                                             with specific tags.
+                                          </p>
+                                          
+                                       </li>
+                                       <li class="listitem">
+                                          
+                                          <p>Use <code class="code">aws:RequestTag/<code class="replaceable">tag-key</code>:
+                                                <code class="replaceable">tag-value</code></code> to require that a specific tag be used (or
+                                             not used) when making an API request to create or modify a resource that allows
+                                             tags.
+                                          </p>
+                                          
+                                       </li>
+                                       <li class="listitem">
+                                          
+                                          <p>Use <code class="code">aws:TagKeys: [<code class="replaceable">tag-key</code>, ...]</code> to require
+                                             that a specific set of tag keys be used (or not used) when making an API request to
+                                             create
+                                             or modify a resource that allows tags.
+                                          </p>
+                                          
+                                       </li>
+                                    </ul>
+                                 </div>
+                                 <div class="awsdocs-note">
+                                    <div class="awsdocs-note-title">
+                                       <awsui-icon name="status-info" variant="link"></awsui-icon><span>Note</span></div>
+                                    <div class="awsdocs-note-text">
+                                       <p>The condition context keys and values in an IAM policy apply only to those AWS IoT
+                                          actions where 
+                                          an identifier for a resource capable of being tagged is a required parameter. For
+                                          example, the use
+                                          of <a href="https://docs.aws.amazon.com/iot/latest/apireference/API_DescribeEndpoint">DescribeEndpoint</a> is not allowed or denied 
+                                          on the basis of condition context keys and values because no taggable resource (thing
+                                          groups, thing 
+                                          types, topic rules, jobs, or security profile) is referenced in this request.
+                                       </p>
+                                    </div>
+                                 </div>
+                                 <p>For more information about using tags,
+                                    see <a href="https://docs.aws.amazon.com/IAM/latest/UserGuide/access_tags.html">Controlling Access Using
+                                       Tags</a> in the <em>AWS Identity and Access Management User
+                                       Guide</em>.
+                                    The <a href="https://docs.aws.amazon.com/IAM/latest/UserGuide/reference_policies.html">IAM JSON Policy Reference</a>
+                                    section of that guide has detailed syntax, descriptions, and examples of the elements,
+                                    variables, and evaluation
+                                    logic of JSON policies in IAM.
+                                 </p>
+                                 <p>The following example policy applies two tag-based restrictions. An IAM user restricted
+                                    by
+                                    this policy:
+                                 </p>
+                                 <div class="itemizedlist">
+                                     
+                                    
+                                     
+                                    
+                                    <ul class="itemizedlist" type="disc">
+                                       <li class="listitem">
+                                          
+                                          <p>Can't give a resource the tag "env=prod" (in the example, see the line
+                                             <code class="code">"aws:RequestTag/env" : "prod"</code></p>
+                                          
+                                       </li>
+                                       <li class="listitem">
+                                          
+                                          <p>Can't modify or access a resource that has an existing tag "env=prod" (in the example,
+                                             see the line <code class="code">"aws:ResourceTag/env" : "prod"</code>).
+                                          </p>
+                                          
+                                       </li>
+                                    </ul>
+                                 </div><pre class="programlisting"><div class="code-btn-container"><div class="btn-copy-code" title="Copy"><awsui-icon name="copy"></awsui-icon></div></div><code class="JSON "><span>{</span>
+    "Version" : "2012-10-17",
+    "Statement" : [
+        <span>{</span>
+          "Effect" : "Deny",
+          "Action" : "iot:*",
+          "Resource" : "*",
+          "Condition" : <span>{</span>
+            "StringEquals" : <span>{</span>
+              "aws:RequestTag/env" : "prod"
+            }
+          }
+        },
+        <span>{</span>
+          "Effect" : "Deny",
+          "Action" : "iot:*",
+          "Resource" : "*",
+          "Condition" : <span>{</span>
+            "StringEquals" : <span>{</span>
+              "aws:ResourceTag/env" : "prod"
+            }
+          }
+        },
+        <span>{</span>
+          "Effect": "Allow",
+          "Action": [
+            "iot:*"
+          ],
+          "Resource": "*"
+        }
+    ]
+}</code></pre><p>You can also specify multiple tag values for a given tag key by enclosing them in
+                                    a list,
+                                    like this: 
+                                 </p><pre class="programlisting"><div class="code-btn-container"><div class="btn-copy-code" title="Copy"><awsui-icon name="copy"></awsui-icon></div></div><code class="JSON ">
+            "StringEquals" : <span>{</span>
+              "aws:ResourceTag/env" : ["dev", "test"]
+            }</code></pre><div class="awsdocs-note">
+                                    <div class="awsdocs-note-title">
+                                       <awsui-icon name="status-info" variant="link"></awsui-icon><span>Note</span></div>
+                                    <div class="awsdocs-note-text">
+                                       <p>If you allow or deny users access to resources based on tags, you must consider
+                                          explicitly denying users the ability to add those tags to or remove them from the
+                                          same
+                                          resources. Otherwise, it's possible for a user to circumvent your restrictions and
+                                          gain
+                                          access to a resource by modifying its tags.
+                                       </p>
+                                    </div>
+                                 </div>
+                                 <awsdocs-copyright class="copyright-print"></awsdocs-copyright>
+                                 <awsdocs-thumb-feedback right-edge="{{$ctrl.thumbFeedbackRightEdge}}"></awsdocs-thumb-feedback>
+                              </div>
+                              <noscript>
+                                 <div>
+                                    <div>
+                                       <div>
+                                          <div id="js_error_message">
+                                             <p><img src="https://d1ge0kk1l5kms0.cloudfront.net/images/G/01/webservices/console/warning.png" alt="Warning" /> <strong>Javascript is disabled or is unavailable in your
+                                                   browser.</strong></p>
+                                             <p>To use the Amazon Web Services Documentation, Javascript must be
+                                                enabled. Please refer to your browser's Help pages for instructions.
+                                             </p>
+                                          </div>
+                                       </div>
+                                    </div>
+                                 </div>
+                              </noscript>
+                              <div id="main-col-footer" class="awsui-util-font-size-0">
+                                 <div id="doc-conventions"><a target="_top" href="/general/latest/gr/docconventions.html">Document Conventions</a></div>
+                                 <div class="prev-next">
+                                    <div id="previous" class="prev-link" accesskey="p" href="./tagging-iot.html">Tagging your AWS IoT resources</div>
+                                    <div id="next" class="next-link" accesskey="n" href="./tagging-iot-billing-groups.html">Billing groups</div>
+                                 </div>
+                              </div>
+                              <awsdocs-page-utilities></awsdocs-page-utilities>
+                           </div>
+                           <div id="quick-feedback-yes" style="display: none;">
+                              <div class="title">Did this page help you? - Yes</div>
+                              <div class="content">
+                                 <p>Thanks for letting us know we're doing a good
+                                    job!
+                                 </p>
+                                 <p>If you've got a moment, please tell us what we did right
+                                    so we can do more of it.
+                                 </p>
+                                 <p>
+                                    <awsui-button id="fblink" target="_blank" text="Feedback" click="linkClick($event)" href="https://docs.aws.amazon.com/forms/aws-doc-feedback?hidden_service_name=IoT Docs&amp;topic_url=https://docs.aws.amazon.com/en_us/iot/latest/developerguide/tagging-iot-iam.html"></awsui-button>
+                                 </p>
+                              </div>
+                           </div>
+                           <div id="quick-feedback-no" style="display: none;">
+                              <div class="title">Did this page help you? - No</div>
+                              <div class="content">
+                                 <p>Thanks for letting us know this page needs work. We're
+                                    sorry we let you down.
+                                 </p>
+                                 <p>If you've got a moment, please tell us how we can make
+                                    the documentation better.
+                                 </p>
+                                 <p>
+                                    <awsui-button id="fblink" target="_blank" text="Feedback" click="linkClick($event)" href="https://docs.aws.amazon.com/forms/aws-doc-feedback?hidden_service_name=IoT Docs&amp;topic_url=https://docs.aws.amazon.com/en_us/iot/latest/developerguide/tagging-iot-iam.html"></awsui-button>
+                                 </p>
+                              </div>
+                           </div>
+                        </div>
+                     </body>
+                  </div>
+               </awsdocs-view>
+               <div class="page-loading-indicator" id="page-loading-indicator">
+                  <awsui-spinner size="large"></awsui-spinner>
+               </div>
+            </div>
+            <div id="tools-panel" dom-region="tools">
+               <awsdocs-tools-panel id="awsdocs-tools-panel"></awsdocs-tools-panel>
+            </div>
+         </awsui-app-layout>
+         <awsdocs-cookie-banner class="doc-cookie-banner"></awsdocs-cookie-banner>
+         <!--
+                SiteCatalyst code version: H.25.2.
+                Copyright 1996-2012 Adobe, Inc. All Rights Reserved
+                More info available at http://www.omniture.com
+            --><script language="JavaScript" type="text/javascript">
+var awsdocs = awsdocs || {};
+awsdocs.prop66 = 'AWS IoT Core';
+awsdocs.prop65 =  'Developer Guide';
+            </script><script src="https://a0.awsstatic.com/s_code/js/3.0/awshome_s_code.js" language="JavaScript" type="text/javascript"></script>
+         <!--/DO NOT REMOVE/-->
+         <!--End SiteCatalyst code version: H.25.2.--></div>
+   </body>
+</html>

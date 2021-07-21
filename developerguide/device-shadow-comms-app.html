@@ -1,0 +1,340 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" ng-app="AWSDocsDocPageApp">
+   <head>
+      <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+      <title>Using shadows in apps and services - AWS IoT Core</title>
+      <meta name="viewport" content="width=device-width,initial-scale=1" />
+      <meta name="assets_root" content="assets" />
+      <meta name="target_state" content="device-shadow-comms-app" />
+      <meta name="default_state" content="device-shadow-comms-app" />
+      <link rel="icon" type="image/ico" href="/assets/images/favicon.ico" />
+      <link rel="shortcut icon" type="image/ico" href="/assets/images/favicon.ico" />
+      <link rel="canonical" href="https://docs.aws.amazon.com/iot/latest/developerguide/device-shadow-comms-app.html" />
+      <meta name="description" content="This section describes how an app or service interacts with the AWS IoT Device Shadow service. This example assumes the app or service is interacting only with the shadow and, through the shadow, the device. This example doesn't include any management actions, such as creating or deleting shadows." />
+      <meta name="deployment_region" content="IAD" />
+      <meta name="product" content="AWS IoT Core" />
+      <meta name="guide" content="Developer Guide" />
+      <meta name="locales" content="de_de:Deutsch/en_us:English/es_es:Español/fr_fr:Français/it_it:Italiano/ja_jp:日本語/ko_kr:한국어/pt_br:Português/zh_cn:中文 (简体)/zh_tw:中文 (繁體)" />
+      <meta name="abstract" content="AWS IoT provides secure, bi-directional communication between Internet-connected devices such as sensors, actuators, embedded micro-controllers, or smart appliances and the AWS Cloud. This enables you to collect telemetry data from multiple devices, and store and analyze the data. You can also create applications that enable your users to control these devices from their phones or tablets." />
+      <meta name="guide-locale" content="en_us" />
+      <meta name="tocs" content="toc-contents.json" />
+      <meta name="feedback-item" content="IoT Docs" />
+      <meta name="this_doc_product" content="AWS IoT Core" />
+      <meta name="this_doc_guide" content="Developer Guide" />
+      <link href="assets/css/vendor4.css" rel="stylesheet" />
+      <link href="assets/css/awsdocs-common.css" rel="stylesheet" /><script type="text/javascript" src="assets/js/vendor3.js" defer=""></script><script type="text/javascript" src="assets/js/vendor4.js" defer=""></script><script type="text/javascript" src="assets/js/vendor1.js" defer=""></script><script type="text/javascript" src="assets/js/awsdocs-common.js" defer=""></script><script type="text/javascript" src="assets/js/awsdocs-doc-app.js" defer=""></script></head>
+   <body class="awsdocs awsui">
+      <div class="awsdocs-container">
+         <awsdocs-header></awsdocs-header>
+         <awsui-app-layout id="app-layout" class="awsui-util-no-gutters" ng-controller="ContentController as $ctrl" header-selector="awsdocs-header" navigation-hide="false" navigation-width="$ctrl.navWidth" navigation-open="$ctrl.navOpen" navigation-change="$ctrl.onNavChange($event)" tools-hide="$ctrl.hideTools" tools-width="$ctrl.toolsWidth" tools-open="$ctrl.toolsOpen" tools-change="$ctrl.onToolsChange($event)">
+            <div id="guide-toc" dom-region="navigation">
+               <awsdocs-toc></awsdocs-toc>
+            </div>
+            <div id="main-column" dom-region="content" tabindex="-1">
+               <awsdocs-view class="awsdocs-view">
+                  <div id="awsdocs-content">
+                     <head>
+                        <title>Using shadows in apps and services - AWS IoT Core</title>
+                        <meta name="pdf" content="iot-dg.pdf#device-shadow-comms-app" />
+                        <meta name="kindle" content="https://www.amazon.com/dp/B07JBRCWWZ" />
+                        <meta name="github" content="https://github.com/awsdocs/aws-iot-docs/tree/master/developerguide/device-shadow-comms-app.md" />
+                        <meta name="forums" content="http://forums.aws.amazon.com/forum.jspa?forumID=210" />
+                        <meta name="feedback" content="https://docs.aws.amazon.com/forms/aws-doc-feedback?hidden_service_name=IoT%20Docs&amp;topic_url=http://docs.aws.amazon.com/en_us/iot/latest/developerguide/device-shadow-comms-app.html" />
+                        <meta name="feedback-yes" content="feedbackyes.html?topic_url=http://docs.aws.amazon.com/en_us/iot/latest/developerguide/device-shadow-comms-app.html" />
+                        <meta name="feedback-no" content="feedbackno.html?topic_url=http://docs.aws.amazon.com/en_us/iot/latest/developerguide/device-shadow-comms-app.html" />
+                        <meta name="keywords" content="AWS IoT,IoT,Internet of Things" />
+                     </head>
+                     <body>
+                        <div id="main">
+                           <div style="display: none"><a href="iot-dg.pdf#device-shadow-comms-app" target="_blank" rel="noopener noreferrer" title="Open PDF"></a><a target="_blank" rel="noopener noreferrer" href="https://www.amazon.com/dp/B07JBRCWWZ" title="Open Kindle"></a><a href="https://github.com/awsdocs/aws-iot-docs/tree/master/developerguide/device-shadow-comms-app.md" target="_blank" rel="noopener noreferrer" title="Edit this page on GitHub"></a></div>
+                           <div id="breadcrumbs" class="breadcrumb"><a href="http://aws.amazon.com">AWS</a><a href="/index.html">Documentation</a><a href="/iot/index.html">AWS IoT Core</a><a href="what-is-aws-iot.html">Developer Guide</a></div>
+                           <div id="page-toc-src"><a href="#device-shadow-comms-app-first-connect">Initializing the app or
+                                 service on connection to AWS IoT</a><a href="#device-shadow-comms-app-while-connected">Processing state changes
+                                 while the app or service is connected to AWS IoT</a><a href="#thing-connection">Detecting a device is connected</a></div>
+                           <div id="main-content" class="awsui-util-container">
+                              <div id="main-col-body">
+                                 <awsdocs-language-banner data-service="$ctrl.pageService"></awsdocs-language-banner>
+                                 <h1 class="topictitle" id="device-shadow-comms-app">Using shadows in apps and services</h1>
+                                 <div class="awsdocs-page-header-container">
+                                    <awsdocs-page-header></awsdocs-page-header>
+                                    <awsdocs-filter-selector id="awsdocs-filter-selector"></awsdocs-filter-selector>
+                                 </div>
+                                 <p>This section describes how an app or service interacts with the AWS IoT Device Shadow
+                                    service. This example assumes the app or service is interacting only with the shadow
+                                    and, through the shadow, the device. This example doesn't include any management
+                                    actions, such as creating or deleting shadows. 
+                                 </p>
+                                 <p>This example uses the AWS IoT Device Shadow service's REST API to interact with shadows.
+                                    Unlike the example used in <a href="./device-shadow-comms-device.html">Using shadows in devices</a>, which uses a publish/subscribe
+                                    communications model, this example uses the request/response communications model
+                                    of the
+                                    REST API. This means the app or service must make a request before it can receive
+                                    a
+                                    response from AWS IoT. A disadvantage of this model, however, is that it does not
+                                    support
+                                    notifications. If your app or service requires timely notifications of device state
+                                    changes, consider the MQTT or MQTT over WSS protocols, which support the
+                                    publish/subscribe communication model, as described in <a href="./device-shadow-comms-device.html">Using shadows in devices</a>.
+                                 </p>
+                                 <div class="awsdocs-note awsdocs-important">
+                                    <div class="awsdocs-note-title">
+                                       <awsui-icon name="status-warning" variant="error"></awsui-icon><span>Important</span></div>
+                                    <div class="awsdocs-note-text">
+                                       <p>Make sure that your app's or service's use of the shadows is consistent with and supported
+                                          by
+                                          the corresponding implementations in your devices. Consider, for example, how
+                                          shadows are created, updated, and deleted, and how updates are handled in the device
+                                          and the apps or services that access the shadow. Your design should clearly specify
+                                          how the device's state is updated and reported, and how your apps and services
+                                          interact with the device and its shadows.
+                                       </p>
+                                    </div>
+                                 </div>
+                                 <p>The REST API's URL for a named shadows is:</p><pre class="programlisting"><div class="code-btn-container"><div class="btn-copy-code" title="Copy"><awsui-icon name="copy"></awsui-icon></div></div><code class="nohighlight">https://<code class="replaceable">endpoint</code>:8443/things/<code class="replaceable">thingName</code>/shadow?name=<code class="replaceable">shadowName</code></code></pre><p>and for an unnamed shadow:</p><pre class="programlisting"><div class="code-btn-container"><div class="btn-copy-code" title="Copy"><awsui-icon name="copy"></awsui-icon></div></div><code class="nohighlight">https://<code class="replaceable">endpoint</code>:8443/things/<code class="replaceable">thingName</code>/shadow</code></pre><p>where:</p>
+                                 <div class="variablelist">
+                                     
+                                     
+                                     
+                                    
+                                    <dl>
+                                       
+                                       <dt><span class="term">endpoint</span></dt>
+                                       
+                                       <dd>
+                                          
+                                          <p>The endpoint returned by the CLI command:</p>
+                                          <pre class="programlisting"><div class="code-btn-container"><div class="btn-copy-code" title="Copy"><awsui-icon name="copy"></awsui-icon></div></div><code class="bash ">aws iot describe-endpoint --endpoint-type IOT:Data-ATS</code></pre>
+                                          </dd>
+                                        
+                                       
+                                       <dt><span class="term">thingName</span></dt>
+                                       
+                                       <dd>
+                                          <p>The name of the thing object to which the shadow belongs</p>
+                                       </dd>
+                                        
+                                       
+                                       <dt><span class="term">shadowName</span></dt>
+                                       
+                                       <dd>
+                                          <p>The name of the named shadow. This parameter is not used with unnamed shadows.</p>
+                                       </dd>
+                                       
+                                    </dl>
+                                 </div>
+                                 
+                                 <h2 id="device-shadow-comms-app-first-connect">Initializing the app or
+                                    service on connection to AWS IoT
+                                 </h2>         
+                                 
+                                 <p>When the app first connects to AWS IoT, it should send an HTTP GET request to the
+                                    URLs of the shadows it uses to get the current state of the shadows it's using. This
+                                    allows it to sync the app or service to the shadow.
+                                 </p>
+                                  
+                                 
+                                 <h2 id="device-shadow-comms-app-while-connected">Processing state changes
+                                    while the app or service is connected to AWS IoT
+                                 </h2>           
+                                 
+                                 <p>While the app or service is connected to AWS IoT, it can query the current state
+                                    periodically by sending an HTTP GET request on the URLs of the shadows it
+                                    uses.
+                                 </p>
+                                 
+                                 <p>When an end user interacts with the app or service to change the state of the
+                                    device, the app or service can send an HTTP POST request to the URLs of the shadows
+                                    it uses to update the <code class="code">desired</code> state of the shadow. This request returns
+                                    the change that was accepted, but you might have to poll the shadow by making HTTP
+                                    GET requests until the device has updated the shadow with its new state.
+                                 </p>
+                                  
+                                 
+                                 <h2 id="thing-connection">Detecting a device is connected</h2>
+                                 
+                                 
+                                 <p>To determine if a device is currently connected, include a <code class="code">connected</code>
+                                    property in the shadow document and use an MQTT Last Will and Testament (LWT) message
+                                    to
+                                    set the <code class="code">connected</code> property to <code class="code">false</code> if a device is
+                                    disconnected due to an error.
+                                 </p>
+                                 
+                                 <div class="awsdocs-note">
+                                    <div class="awsdocs-note-title">
+                                       <awsui-icon name="status-info" variant="link"></awsui-icon><span>Note</span></div>
+                                    <div class="awsdocs-note-text">
+                                       <p>MQTT LWT messages sent to AWS IoT reserved topics (topics that begin with $) are
+                                          ignored by the AWS IoT Device Shadow service. However, they are processed by
+                                          subscribed clients and by the AWS IoT rules engine, so you will need to create an
+                                          LWT message that is sent to a non-reserved topic and a rule that republishes the
+                                          MQTT LWT message as a shadow update message to the shadow's reserved update
+                                          topic, <code class="code"><code class="replaceable">ShadowTopicPrefix</code>/update</code>. 
+                                       </p>
+                                    </div>
+                                 </div>
+                                 
+                                 <div class="procedure">
+                                    <p class="title"><b>To send the Device Shadow service an LWT message</b></p>
+                                    <ol>
+                                       <li>
+                                          
+                                          <p>Create a rule that republishes the MQTT LWT message on the
+                                             reserved topic. The following example is a rule that
+                                             listens for a messages on the <code class="code">my/things/myLightBulb/update</code> topic
+                                             and republishes it to <code class="code">$aws/things/myLightBulb/shadow/update</code>.
+                                          </p>
+                                          <pre class="programlisting"><div class="code-btn-container"><div class="btn-copy-code" title="Copy"><awsui-icon name="copy"></awsui-icon></div></div><code class="JSON "><span>{</span>
+    "rule": <span>{</span>
+    "ruleDisabled": false,
+    "sql": "SELECT * FROM 'my/things/myLightBulb/update'",
+    "description": "Turn my/things/ into $aws/things/",
+    "actions": [<span>{</span>
+        "republish": <span>{</span>
+            "topic": "$$aws/things/myLightBulb/shadow/update",
+            "roleArn": "arn:aws:iam:123456789012:role/aws_iot_republish"
+        }
+    }]
+    }
+}</code></pre>
+                                          </li>
+                                       <li>
+                                          
+                                          <p>When the device connects to AWS IoT, it registers an LWT message 
+                                             to a non-reserved topic for the republish rule to recognize. 
+                                             In this example, that topic is <code class="code">my/things/myLightBulb/update</code>
+                                             and it sets the connected property to <code class="code">false</code>.
+                                          </p>
+                                          <pre class="programlisting"><div class="code-btn-container"><div class="btn-copy-code" title="Copy"><awsui-icon name="copy"></awsui-icon></div></div><code class="JSON "><span>{</span>
+    "state": <span>{</span>        
+        "reported": <span>{</span>
+            "connected":"false"
+        }
+    }
+}</code></pre>
+                                          </li>
+                                       <li>
+                                          
+                                          <p>After connecting, the device publishes a message on its shadow update topic,
+                                             <code class="code">$aws/things/myLightBulb/shadow/update</code>, to report its current 
+                                             state, which includes setting its <code class="code">connected</code> property 
+                                             to <code class="code">true</code>.
+                                          </p>
+                                          <pre class="programlisting"><div class="code-btn-container"><div class="btn-copy-code" title="Copy"><awsui-icon name="copy"></awsui-icon></div></div><code class="JSON "><span>{</span>
+     "state": <span>{</span>        
+        "reported": <span>{</span>
+            "connected":"true"
+        }
+    }
+}</code></pre>
+                                          </li>
+                                       <li>
+                                          
+                                          <p>Before the device disconnects gracefully, it publishes a message on its
+                                             shadow update topic, <code class="code">$aws/things/myLightBulb/shadow/update</code>, to
+                                             report its latest state, which include setting its <code class="code">connected</code>
+                                             property to <code class="code">false</code>.
+                                          </p>
+                                          <pre class="programlisting"><div class="code-btn-container"><div class="btn-copy-code" title="Copy"><awsui-icon name="copy"></awsui-icon></div></div><code class="JSON "><span>{</span>
+    "state": <span>{</span>        
+        "reported": <span>{</span>
+            "connected":"false"
+        }
+    }
+}</code></pre>
+                                          </li>
+                                       <li>
+                                          
+                                          <p>If the device disconnects due to an error, the AWS IoT message broker
+                                             publishes the device's LWT message on behalf of the device. The republish
+                                             rule detects this message and publishes the shadow update message to update
+                                             the <code class="code">connected</code> property of the device shadow.
+                                          </p>
+                                          
+                                       </li>
+                                    </ol>
+                                 </div>
+                                 
+                                 <awsdocs-copyright class="copyright-print"></awsdocs-copyright>
+                                 <awsdocs-thumb-feedback right-edge="{{$ctrl.thumbFeedbackRightEdge}}"></awsdocs-thumb-feedback>
+                              </div>
+                              <noscript>
+                                 <div>
+                                    <div>
+                                       <div>
+                                          <div id="js_error_message">
+                                             <p><img src="https://d1ge0kk1l5kms0.cloudfront.net/images/G/01/webservices/console/warning.png" alt="Warning" /> <strong>Javascript is disabled or is unavailable in your
+                                                   browser.</strong></p>
+                                             <p>To use the Amazon Web Services Documentation, Javascript must be
+                                                enabled. Please refer to your browser's Help pages for instructions.
+                                             </p>
+                                          </div>
+                                       </div>
+                                    </div>
+                                 </div>
+                              </noscript>
+                              <div id="main-col-footer" class="awsui-util-font-size-0">
+                                 <div id="doc-conventions"><a target="_top" href="/general/latest/gr/docconventions.html">Document Conventions</a></div>
+                                 <div class="prev-next">
+                                    <div id="previous" class="prev-link" accesskey="p" href="./device-shadow-comms-device.html">Using shadows in devices</div>
+                                    <div id="next" class="next-link" accesskey="n" href="./using-device-shadows.html">Simulating Device Shadow service
+                                       communications
+                                    </div>
+                                 </div>
+                              </div>
+                              <awsdocs-page-utilities></awsdocs-page-utilities>
+                           </div>
+                           <div id="quick-feedback-yes" style="display: none;">
+                              <div class="title">Did this page help you? - Yes</div>
+                              <div class="content">
+                                 <p>Thanks for letting us know we're doing a good
+                                    job!
+                                 </p>
+                                 <p>If you've got a moment, please tell us what we did right
+                                    so we can do more of it.
+                                 </p>
+                                 <p>
+                                    <awsui-button id="fblink" target="_blank" text="Feedback" click="linkClick($event)" href="https://docs.aws.amazon.com/forms/aws-doc-feedback?hidden_service_name=IoT Docs&amp;topic_url=https://docs.aws.amazon.com/en_us/iot/latest/developerguide/device-shadow-comms-app.html"></awsui-button>
+                                 </p>
+                              </div>
+                           </div>
+                           <div id="quick-feedback-no" style="display: none;">
+                              <div class="title">Did this page help you? - No</div>
+                              <div class="content">
+                                 <p>Thanks for letting us know this page needs work. We're
+                                    sorry we let you down.
+                                 </p>
+                                 <p>If you've got a moment, please tell us how we can make
+                                    the documentation better.
+                                 </p>
+                                 <p>
+                                    <awsui-button id="fblink" target="_blank" text="Feedback" click="linkClick($event)" href="https://docs.aws.amazon.com/forms/aws-doc-feedback?hidden_service_name=IoT Docs&amp;topic_url=https://docs.aws.amazon.com/en_us/iot/latest/developerguide/device-shadow-comms-app.html"></awsui-button>
+                                 </p>
+                              </div>
+                           </div>
+                        </div>
+                     </body>
+                  </div>
+               </awsdocs-view>
+               <div class="page-loading-indicator" id="page-loading-indicator">
+                  <awsui-spinner size="large"></awsui-spinner>
+               </div>
+            </div>
+            <div id="tools-panel" dom-region="tools">
+               <awsdocs-tools-panel id="awsdocs-tools-panel"></awsdocs-tools-panel>
+            </div>
+         </awsui-app-layout>
+         <awsdocs-cookie-banner class="doc-cookie-banner"></awsdocs-cookie-banner>
+         <!--
+                SiteCatalyst code version: H.25.2.
+                Copyright 1996-2012 Adobe, Inc. All Rights Reserved
+                More info available at http://www.omniture.com
+            --><script language="JavaScript" type="text/javascript">
+var awsdocs = awsdocs || {};
+awsdocs.prop66 = 'AWS IoT Core';
+awsdocs.prop65 =  'Developer Guide';
+            </script><script src="https://a0.awsstatic.com/s_code/js/3.0/awshome_s_code.js" language="JavaScript" type="text/javascript"></script>
+         <!--/DO NOT REMOVE/-->
+         <!--End SiteCatalyst code version: H.25.2.--></div>
+   </body>
+</html>

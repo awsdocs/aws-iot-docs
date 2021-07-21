@@ -1,0 +1,321 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" ng-app="AWSDocsDocPageApp">
+   <head>
+      <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+      <title>Substitution templates - AWS IoT Core</title>
+      <meta name="viewport" content="width=device-width,initial-scale=1" />
+      <meta name="assets_root" content="assets" />
+      <meta name="target_state" content="iot-substitution-templates" />
+      <meta name="default_state" content="iot-substitution-templates" />
+      <link rel="icon" type="image/ico" href="/assets/images/favicon.ico" />
+      <link rel="shortcut icon" type="image/ico" href="/assets/images/favicon.ico" />
+      <link rel="canonical" href="https://docs.aws.amazon.com/iot/latest/developerguide/iot-substitution-templates.html" />
+      <meta name="description" content="Use a substitution template to augment the JSON data returned when a rule triggers and AWS IoT performs an action." />
+      <meta name="deployment_region" content="IAD" />
+      <meta name="product" content="AWS IoT Core" />
+      <meta name="guide" content="Developer Guide" />
+      <meta name="locales" content="de_de:Deutsch/en_us:English/es_es:Español/fr_fr:Français/it_it:Italiano/ja_jp:日本語/ko_kr:한국어/pt_br:Português/zh_cn:中文 (简体)/zh_tw:中文 (繁體)" />
+      <meta name="abstract" content="AWS IoT provides secure, bi-directional communication between Internet-connected devices such as sensors, actuators, embedded micro-controllers, or smart appliances and the AWS Cloud. This enables you to collect telemetry data from multiple devices, and store and analyze the data. You can also create applications that enable your users to control these devices from their phones or tablets." />
+      <meta name="guide-locale" content="en_us" />
+      <meta name="tocs" content="toc-contents.json" />
+      <meta name="feedback-item" content="IoT Docs" />
+      <meta name="this_doc_product" content="AWS IoT Core" />
+      <meta name="this_doc_guide" content="Developer Guide" />
+      <link href="assets/css/vendor4.css" rel="stylesheet" />
+      <link href="assets/css/awsdocs-common.css" rel="stylesheet" /><script type="text/javascript" src="assets/js/vendor3.js" defer=""></script><script type="text/javascript" src="assets/js/vendor4.js" defer=""></script><script type="text/javascript" src="assets/js/vendor1.js" defer=""></script><script type="text/javascript" src="assets/js/awsdocs-common.js" defer=""></script><script type="text/javascript" src="assets/js/awsdocs-doc-app.js" defer=""></script></head>
+   <body class="awsdocs awsui">
+      <div class="awsdocs-container">
+         <awsdocs-header></awsdocs-header>
+         <awsui-app-layout id="app-layout" class="awsui-util-no-gutters" ng-controller="ContentController as $ctrl" header-selector="awsdocs-header" navigation-hide="false" navigation-width="$ctrl.navWidth" navigation-open="$ctrl.navOpen" navigation-change="$ctrl.onNavChange($event)" tools-hide="$ctrl.hideTools" tools-width="$ctrl.toolsWidth" tools-open="$ctrl.toolsOpen" tools-change="$ctrl.onToolsChange($event)">
+            <div id="guide-toc" dom-region="navigation">
+               <awsdocs-toc></awsdocs-toc>
+            </div>
+            <div id="main-column" dom-region="content" tabindex="-1">
+               <awsdocs-view class="awsdocs-view">
+                  <div id="awsdocs-content">
+                     <head>
+                        <title>Substitution templates - AWS IoT Core</title>
+                        <meta name="pdf" content="iot-dg.pdf#iot-substitution-templates" />
+                        <meta name="kindle" content="https://www.amazon.com/dp/B07JBRCWWZ" />
+                        <meta name="github" content="https://github.com/awsdocs/aws-iot-docs/tree/master/developerguide/iot-substitution-templates.md" />
+                        <meta name="forums" content="http://forums.aws.amazon.com/forum.jspa?forumID=210" />
+                        <meta name="feedback" content="https://docs.aws.amazon.com/forms/aws-doc-feedback?hidden_service_name=IoT%20Docs&amp;topic_url=http://docs.aws.amazon.com/en_us/iot/latest/developerguide/iot-substitution-templates.html" />
+                        <meta name="feedback-yes" content="feedbackyes.html?topic_url=http://docs.aws.amazon.com/en_us/iot/latest/developerguide/iot-substitution-templates.html" />
+                        <meta name="feedback-no" content="feedbackno.html?topic_url=http://docs.aws.amazon.com/en_us/iot/latest/developerguide/iot-substitution-templates.html" />
+                        <meta name="keywords" content="AWS IoT,IoT,Internet of Things" />
+                     </head>
+                     <body>
+                        <div id="main">
+                           <div style="display: none"><a href="iot-dg.pdf#iot-substitution-templates" target="_blank" rel="noopener noreferrer" title="Open PDF"></a><a target="_blank" rel="noopener noreferrer" href="https://www.amazon.com/dp/B07JBRCWWZ" title="Open Kindle"></a><a href="https://github.com/awsdocs/aws-iot-docs/tree/master/developerguide/iot-substitution-templates.md" target="_blank" rel="noopener noreferrer" title="Edit this page on GitHub"></a></div>
+                           <div id="breadcrumbs" class="breadcrumb"><a href="http://aws.amazon.com">AWS</a><a href="/index.html">Documentation</a><a href="/iot/index.html">AWS IoT Core</a><a href="what-is-aws-iot.html">Developer Guide</a></div>
+                           <div id="main-content" class="awsui-util-container">
+                              <div id="main-col-body">
+                                 <awsdocs-language-banner data-service="$ctrl.pageService"></awsdocs-language-banner>
+                                 <h1 class="topictitle" id="iot-substitution-templates">Substitution templates</h1>
+                                 <div class="awsdocs-page-header-container">
+                                    <awsdocs-page-header></awsdocs-page-header>
+                                    <awsdocs-filter-selector id="awsdocs-filter-selector"></awsdocs-filter-selector>
+                                 </div>
+                                 <p>You can use a substitution template to augment the JSON data returned when a rule
+                                    is
+                                    triggered and AWS IoT performs an action. The syntax for a substitution template is
+                                    <code class="code">$<span>{</span></code><em>expression</em><code class="code">}</code>, where
+                                    <em>expression</em> can be any expression supported by AWS IoT in SELECT
+                                    clauses, WHERE clauses, and <a href="./iot-rule-actions.html">AWS IoT rule actions</a>. This expression can be plugged into an action
+                                    field on a rule, allowing you to dynamically configure an action. In effect, this
+                                    feature substitutes a piece of information in an action. This includes functions,
+                                    operators, and information present in the original message payload.
+                                 </p>
+                                 <div class="awsdocs-note awsdocs-important">
+                                    <div class="awsdocs-note-title">
+                                       <awsui-icon name="status-warning" variant="error"></awsui-icon><span>Important</span></div>
+                                    <div class="awsdocs-note-text">
+                                       <p>Because an expression in a substitution template is evaluated separately from the
+                                          "SELECT ..." statement, you cannot reference an alias created using the AS clause.
+                                          You can reference only information present in the original payload, 
+                                          <a href="./iot-sql-functions.html">functions</a>, and 
+                                          <a href="./iot-sql-operators.html">operators</a>.
+                                       </p>
+                                    </div>
+                                 </div>
+                                 <p>For more information about supported expressions, see <a href="./iot-sql-reference.html">AWS IoT SQL reference</a>.
+                                 </p>
+                                 <p>The following rule actions support substitution templates. Each action supports
+                                    different fields that can be substituted.
+                                 </p>
+                                 <div class="itemizedlist">
+                                     
+                                     
+                                     
+                                     
+                                     
+                                     
+                                     
+                                     
+                                     
+                                     
+                                     
+                                     
+                                     
+                                     
+                                     
+                                     
+                                     
+                                     
+                                     
+                                     
+                                    
+                                    <ul class="itemizedlist" type="disc">
+                                       <li class="listitem">
+                                          
+                                          <p><a href="./apache-kafka-rule-action.html">Apache Kafka</a></p>
+                                          
+                                       </li>
+                                       <li class="listitem">
+                                          
+                                          <p><a href="./cloudwatch-alarms-rule-action.html">CloudWatch alarms</a></p>
+                                          
+                                       </li>
+                                       <li class="listitem">
+                                          
+                                          <p><a href="./cloudwatch-logs-rule-action.html">CloudWatch Logs</a></p>
+                                          
+                                       </li>
+                                       <li class="listitem">
+                                          
+                                          <p><a href="./cloudwatch-metrics-rule-action.html">CloudWatch metrics</a></p>
+                                          
+                                       </li>
+                                       <li class="listitem">
+                                          
+                                          <p><a href="./dynamodb-rule-action.html">DynamoDB</a></p>
+                                          
+                                       </li>
+                                       <li class="listitem">
+                                          
+                                          <p><a href="./dynamodb-v2-rule-action.html">DynamoDBv2</a></p>
+                                          
+                                       </li>
+                                       <li class="listitem">
+                                          
+                                          <p><a href="./elasticsearch-rule-action.html">Elasticsearch</a></p>
+                                          
+                                       </li>
+                                       <li class="listitem">
+                                          
+                                          <p><a href="./https-rule-action.html">HTTPS</a></p>
+                                          
+                                       </li>
+                                       <li class="listitem">
+                                          
+                                          <p><a href="./iotanalytics-rule-action.html">IoT Analytics</a></p>
+                                          
+                                       </li>
+                                       <li class="listitem">
+                                          
+                                          <p><a href="./iotevents-rule-action.html">IoT Events</a></p>
+                                          
+                                       </li>
+                                       <li class="listitem">
+                                          
+                                          <p><a href="./iotsitewise-rule-action.html">IoT SiteWise</a></p>
+                                          
+                                       </li>
+                                       <li class="listitem">
+                                          
+                                          <p><a href="./kinesis-rule-action.html">Kinesis Data Streams</a></p>
+                                          
+                                       </li>
+                                       <li class="listitem">
+                                          
+                                          <p><a href="./kinesis-firehose-rule-action.html">Kinesis Data Firehose</a></p>
+                                          
+                                       </li>
+                                       <li class="listitem">
+                                          
+                                          <p><a href="./lambda-rule-action.html">Lambda</a></p>
+                                          
+                                       </li>
+                                       <li class="listitem">
+                                          
+                                          <p><a href="./republish-rule-action.html">Republish</a></p>
+                                          
+                                       </li>
+                                       <li class="listitem">
+                                          
+                                          <p><a href="./s3-rule-action.html">S3</a></p>
+                                          
+                                       </li>
+                                       <li class="listitem">
+                                          
+                                          <p><a href="./sns-rule-action.html">SNS</a></p>
+                                          
+                                       </li>
+                                       <li class="listitem">
+                                          
+                                          <p><a href="./sqs-rule-action.html">SQS</a></p>
+                                          
+                                       </li>
+                                       <li class="listitem">
+                                          
+                                          <p><a href="./stepfunctions-rule-action.html">Step Functions</a></p>
+                                          
+                                       </li>
+                                       <li class="listitem">
+                                          
+                                          <p><a href="./timestream-rule-action.html">Timestream</a></p>
+                                          
+                                       </li>
+                                    </ul>
+                                 </div>
+                                 <p>Substitution templates appear in the action parameters within a rule: </p><pre class="programlisting"><div class="code-btn-container"><div class="btn-copy-code" title="Copy"><awsui-icon name="copy"></awsui-icon></div></div><code class="JSON "><span>{</span>
+    "sql": "SELECT *, timestamp() AS timestamp FROM 'my/iot/topic'",
+    "ruleDisabled": false,
+    "actions": [<span>{</span>
+        "republish": <span>{</span>
+            "topic": "$<span>{</span>topic()}/republish",
+            "roleArn": "arn:aws:iam::123456789012:role/my-iot-role"
+        }
+    }]
+}</code></pre><p>If this rule is triggered by the following JSON published to
+                                    <code class="code">my/iot/topic</code>:
+                                 </p><pre class="programlisting"><div class="code-btn-container"><div class="btn-copy-code" title="Copy"><awsui-icon name="copy"></awsui-icon></div></div><code class="JSON "><span>{</span>
+    "deviceid": "iot123",
+    "temp": 54.98,
+    "humidity": 32.43,
+    "coords": <span>{</span>
+        "latitude": 47.615694,
+        "longitude": -122.3359976
+    }
+}</code></pre><p>Then this rule publishes the following JSON to <code class="code">my/iot/topic/republish</code>,
+                                    which AWS IoT substitutes from <code class="code">$<span>{</span>topic()}/republish</code>:
+                                 </p><pre class="programlisting"><div class="code-btn-container"><div class="btn-copy-code" title="Copy"><awsui-icon name="copy"></awsui-icon></div></div><code class="JSON "><span>{</span>
+    "deviceid": "iot123",
+    "temp": 54.98,
+    "humidity": 32.43,
+    "coords": <span>{</span>
+        "latitude": 47.615694,
+        "longitude": -122.3359976
+    },
+    "timestamp": 1579637878451
+}</code></pre><awsdocs-copyright class="copyright-print"></awsdocs-copyright>
+                                 <awsdocs-thumb-feedback right-edge="{{$ctrl.thumbFeedbackRightEdge}}"></awsdocs-thumb-feedback>
+                              </div>
+                              <noscript>
+                                 <div>
+                                    <div>
+                                       <div>
+                                          <div id="js_error_message">
+                                             <p><img src="https://d1ge0kk1l5kms0.cloudfront.net/images/G/01/webservices/console/warning.png" alt="Warning" /> <strong>Javascript is disabled or is unavailable in your
+                                                   browser.</strong></p>
+                                             <p>To use the Amazon Web Services Documentation, Javascript must be
+                                                enabled. Please refer to your browser's Help pages for instructions.
+                                             </p>
+                                          </div>
+                                       </div>
+                                    </div>
+                                 </div>
+                              </noscript>
+                              <div id="main-col-footer" class="awsui-util-font-size-0">
+                                 <div id="doc-conventions"><a target="_top" href="/general/latest/gr/docconventions.html">Document Conventions</a></div>
+                                 <div class="prev-next">
+                                    <div id="previous" class="prev-link" accesskey="p" href="./iot-sql-json.html">JSON extensions</div>
+                                    <div id="next" class="next-link" accesskey="n" href="./iot-sql-nested-queries.html">Nested object queries</div>
+                                 </div>
+                              </div>
+                              <awsdocs-page-utilities></awsdocs-page-utilities>
+                           </div>
+                           <div id="quick-feedback-yes" style="display: none;">
+                              <div class="title">Did this page help you? - Yes</div>
+                              <div class="content">
+                                 <p>Thanks for letting us know we're doing a good
+                                    job!
+                                 </p>
+                                 <p>If you've got a moment, please tell us what we did right
+                                    so we can do more of it.
+                                 </p>
+                                 <p>
+                                    <awsui-button id="fblink" target="_blank" text="Feedback" click="linkClick($event)" href="https://docs.aws.amazon.com/forms/aws-doc-feedback?hidden_service_name=IoT Docs&amp;topic_url=https://docs.aws.amazon.com/en_us/iot/latest/developerguide/iot-substitution-templates.html"></awsui-button>
+                                 </p>
+                              </div>
+                           </div>
+                           <div id="quick-feedback-no" style="display: none;">
+                              <div class="title">Did this page help you? - No</div>
+                              <div class="content">
+                                 <p>Thanks for letting us know this page needs work. We're
+                                    sorry we let you down.
+                                 </p>
+                                 <p>If you've got a moment, please tell us how we can make
+                                    the documentation better.
+                                 </p>
+                                 <p>
+                                    <awsui-button id="fblink" target="_blank" text="Feedback" click="linkClick($event)" href="https://docs.aws.amazon.com/forms/aws-doc-feedback?hidden_service_name=IoT Docs&amp;topic_url=https://docs.aws.amazon.com/en_us/iot/latest/developerguide/iot-substitution-templates.html"></awsui-button>
+                                 </p>
+                              </div>
+                           </div>
+                        </div>
+                     </body>
+                  </div>
+               </awsdocs-view>
+               <div class="page-loading-indicator" id="page-loading-indicator">
+                  <awsui-spinner size="large"></awsui-spinner>
+               </div>
+            </div>
+            <div id="tools-panel" dom-region="tools">
+               <awsdocs-tools-panel id="awsdocs-tools-panel"></awsdocs-tools-panel>
+            </div>
+         </awsui-app-layout>
+         <awsdocs-cookie-banner class="doc-cookie-banner"></awsdocs-cookie-banner>
+         <!--
+                SiteCatalyst code version: H.25.2.
+                Copyright 1996-2012 Adobe, Inc. All Rights Reserved
+                More info available at http://www.omniture.com
+            --><script language="JavaScript" type="text/javascript">
+var awsdocs = awsdocs || {};
+awsdocs.prop66 = 'AWS IoT Core';
+awsdocs.prop65 =  'Developer Guide';
+            </script><script src="https://a0.awsstatic.com/s_code/js/3.0/awshome_s_code.js" language="JavaScript" type="text/javascript"></script>
+         <!--/DO NOT REMOVE/-->
+         <!--End SiteCatalyst code version: H.25.2.--></div>
+   </body>
+</html>

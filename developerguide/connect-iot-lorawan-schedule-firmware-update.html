@@ -1,0 +1,485 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" ng-app="AWSDocsDocPageApp">
+   <head>
+      <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+      <title>Schedule and run the firmware update by using a task definition - AWS IoT Core</title>
+      <meta name="viewport" content="width=device-width,initial-scale=1" />
+      <meta name="assets_root" content="assets" />
+      <meta name="target_state" content="connect-iot-lorawan-schedule-firmware-update" />
+      <meta name="default_state" content="connect-iot-lorawan-schedule-firmware-update" />
+      <link rel="icon" type="image/ico" href="/assets/images/favicon.ico" />
+      <link rel="shortcut icon" type="image/ico" href="/assets/images/favicon.ico" />
+      <link rel="canonical" href="https://docs.aws.amazon.com/iot/latest/developerguide/connect-iot-lorawan-schedule-firmware-update.html" />
+      <meta name="description" content="You can use a task definition to include details about the firmware update and define the update. AWS IoT Core for LoRaWAN provides a firmware update based on information from the following three fields associated with the gateway." />
+      <meta name="deployment_region" content="IAD" />
+      <meta name="product" content="AWS IoT Core" />
+      <meta name="guide" content="Developer Guide" />
+      <meta name="locales" content="de_de:Deutsch/en_us:English/es_es:Español/fr_fr:Français/it_it:Italiano/ja_jp:日本語/ko_kr:한국어/pt_br:Português/zh_cn:中文 (简体)/zh_tw:中文 (繁體)" />
+      <meta name="abstract" content="AWS IoT provides secure, bi-directional communication between Internet-connected devices such as sensors, actuators, embedded micro-controllers, or smart appliances and the AWS Cloud. This enables you to collect telemetry data from multiple devices, and store and analyze the data. You can also create applications that enable your users to control these devices from their phones or tablets." />
+      <meta name="guide-locale" content="en_us" />
+      <meta name="tocs" content="toc-contents.json" />
+      <meta name="feedback-item" content="IoT Docs" />
+      <meta name="this_doc_product" content="AWS IoT Core" />
+      <meta name="this_doc_guide" content="Developer Guide" />
+      <link href="assets/css/vendor4.css" rel="stylesheet" />
+      <link href="assets/css/awsdocs-common.css" rel="stylesheet" /><script type="text/javascript" src="assets/js/vendor3.js" defer=""></script><script type="text/javascript" src="assets/js/vendor4.js" defer=""></script><script type="text/javascript" src="assets/js/vendor1.js" defer=""></script><script type="text/javascript" src="assets/js/awsdocs-common.js" defer=""></script><script type="text/javascript" src="assets/js/awsdocs-doc-app.js" defer=""></script></head>
+   <body class="awsdocs awsui">
+      <div class="awsdocs-container">
+         <awsdocs-header></awsdocs-header>
+         <awsui-app-layout id="app-layout" class="awsui-util-no-gutters" ng-controller="ContentController as $ctrl" header-selector="awsdocs-header" navigation-hide="false" navigation-width="$ctrl.navWidth" navigation-open="$ctrl.navOpen" navigation-change="$ctrl.onNavChange($event)" tools-hide="$ctrl.hideTools" tools-width="$ctrl.toolsWidth" tools-open="$ctrl.toolsOpen" tools-change="$ctrl.onToolsChange($event)">
+            <div id="guide-toc" dom-region="navigation">
+               <awsdocs-toc></awsdocs-toc>
+            </div>
+            <div id="main-column" dom-region="content" tabindex="-1">
+               <awsdocs-view class="awsdocs-view">
+                  <div id="awsdocs-content">
+                     <head>
+                        <title>Schedule and run the firmware update by using a task definition - AWS IoT Core</title>
+                        <meta name="pdf" content="iot-dg.pdf#connect-iot-lorawan-schedule-firmware-update" />
+                        <meta name="kindle" content="https://www.amazon.com/dp/B07JBRCWWZ" />
+                        <meta name="github" content="https://github.com/awsdocs/aws-iot-docs/tree/master/developerguide/connect-iot-lorawan-schedule-firmware-update.md" />
+                        <meta name="forums" content="http://forums.aws.amazon.com/forum.jspa?forumID=210" />
+                        <meta name="feedback" content="https://docs.aws.amazon.com/forms/aws-doc-feedback?hidden_service_name=IoT%20Docs&amp;topic_url=http://docs.aws.amazon.com/en_us/iot/latest/developerguide/connect-iot-lorawan-schedule-firmware-update.html" />
+                        <meta name="feedback-yes" content="feedbackyes.html?topic_url=http://docs.aws.amazon.com/en_us/iot/latest/developerguide/connect-iot-lorawan-schedule-firmware-update.html" />
+                        <meta name="feedback-no" content="feedbackno.html?topic_url=http://docs.aws.amazon.com/en_us/iot/latest/developerguide/connect-iot-lorawan-schedule-firmware-update.html" />
+                        <meta name="keywords" content="AWS IoT,IoT,Internet of Things" />
+                     </head>
+                     <body>
+                        <div id="main">
+                           <div style="display: none"><a href="iot-dg.pdf#connect-iot-lorawan-schedule-firmware-update" target="_blank" rel="noopener noreferrer" title="Open PDF"></a><a target="_blank" rel="noopener noreferrer" href="https://www.amazon.com/dp/B07JBRCWWZ" title="Open Kindle"></a><a href="https://github.com/awsdocs/aws-iot-docs/tree/master/developerguide/connect-iot-lorawan-schedule-firmware-update.md" target="_blank" rel="noopener noreferrer" title="Edit this page on GitHub"></a></div>
+                           <div id="breadcrumbs" class="breadcrumb"><a href="http://aws.amazon.com">AWS</a><a href="/index.html">Documentation</a><a href="/iot/index.html">AWS IoT Core</a><a href="what-is-aws-iot.html">Developer Guide</a></div>
+                           <div id="page-toc-src"><a href="#connect-iot-lorawan-gateway-current-version">Get the
+                                 current version running on your gateway</a><a href="#connect-iot-lorawan-create-task-definition">Create a
+                                 wireless gateway task definition</a><a href="#connect-iot-lorawan-run-fwupdate-task">Run the firmware update task and track 
+                                 progress</a></div>
+                           <div id="main-content" class="awsui-util-container">
+                              <div id="main-col-body">
+                                 <awsdocs-language-banner data-service="$ctrl.pageService"></awsdocs-language-banner>
+                                 <h1 class="topictitle" id="connect-iot-lorawan-schedule-firmware-update">Schedule and
+                                    run the firmware update by using a task definition
+                                 </h1>
+                                 <div class="awsdocs-page-header-container">
+                                    <awsdocs-page-header></awsdocs-page-header>
+                                    <awsdocs-filter-selector id="awsdocs-filter-selector"></awsdocs-filter-selector>
+                                 </div>
+                                 <p>You can use a task definition to include details about the firmware update
+                                    and define the update. AWS IoT Core for LoRaWAN provides a firmware update based on
+                                    information 
+                                    from the following three fields associated with the gateway.
+                                 </p>
+                                 <div class="itemizedlist">
+                                     
+                                     
+                                     
+                                    
+                                    <ul class="itemizedlist" type="disc">
+                                       <li class="listitem">
+                                           
+                                          
+                                          <p class="title"><b>Station</b></p>
+                                          
+                                          <p>The version and build time of the Basics Station software. To
+                                             identify this information, you can also generate it by using the
+                                             Basics Station software that is being run by your gateway (for
+                                             example, <code class="code">2.0.5(rpi/std) 2021-03-09 03:45:09</code>).
+                                          </p>
+                                           
+                                          
+                                       </li>
+                                       <li class="listitem">
+                                           
+                                          
+                                          <p class="title"><b>PackageVersion</b></p>
+                                          
+                                          <p>The firmware version, specified by the file
+                                             <code class="code">version.txt</code> in the gateway. While this information
+                                             might not be present in the gateway, we recommend it as a way to
+                                             define your firmware version (for example,
+                                             <code class="code">1.0.0</code>).
+                                          </p>
+                                           
+                                          
+                                       </li>
+                                       <li class="listitem">
+                                           
+                                          
+                                          <p class="title"><b>Model</b></p>
+                                          
+                                          <p>The platform or model that is being used by the gateway (for
+                                             example, Linux).
+                                          </p>
+                                           
+                                          
+                                       </li>
+                                    </ul>
+                                 </div>
+                                 <p>This procedure takes 20 minutes to complete.</p>
+                                 <div class="highlights" id="inline-topiclist">
+                                    <p><strong>To complete this procedure:</strong></p>
+                                    <ul>
+                                       <li><a href="#connect-iot-lorawan-gateway-current-version">Get the
+                                             current version running on your gateway</a></li>
+                                       <li><a href="#connect-iot-lorawan-create-task-definition">Create a
+                                             wireless gateway task definition</a></li>
+                                       <li><a href="#connect-iot-lorawan-run-fwupdate-task">Run the firmware update task and track 
+                                             progress</a></li>
+                                    </ul>
+                                 </div>
+                                 
+                                 <h2 id="connect-iot-lorawan-gateway-current-version">Get the
+                                    current version running on your gateway
+                                 </h2>
+                                 
+                                 <p>To determine your gateway's eligibility for a firmware update, the
+                                    CUPS server checks all three fields, <code class="code">Station</code>,
+                                    <code class="code">PackageVersion</code>, and <code class="code">Model</code>, for a match when
+                                    the gateway presents them during a CUPS request. When you use a task
+                                    definition, these fields are stored as part of the
+                                    <code class="code">CurrentVersion</code> field.
+                                 </p>
+                                 
+                                 <p>You can use the AWS IoT Core for LoRaWAN API or AWS CLI to get the
+                                    <code class="code">CurrentVersion</code> for your gateway. Following commands show
+                                    how to get this information using the CLI.
+                                 </p>
+                                 
+                                 <div class="orderedlist">
+                                     
+                                     
+                                    
+                                    <ol>
+                                       <li>
+                                          
+                                          <p>If you've already provisioned a gateway, you can get information
+                                             about the gateway using the
+                                             <a href="cli/latest/reference/iotwireless/get-wireless-gateway.html" rel="noopener noreferrer" target="_blank">get-wireless-gateway</a> command.
+                                          </p>
+                                          <pre class="programlisting"><div class="code-btn-container"><div class="btn-copy-code" title="Copy"><awsui-icon name="copy"></awsui-icon></div></div><code class="JSON ">aws iotwireless get-wireless-gateway \ 
+    --identifier 5a11b0a85a11b0a8 \ 
+        --identifier-type GatewayEui</code></pre>
+                                          <p>Following shows a sample output for the command.</p>
+                                          <pre class="programlisting"><div class="code-btn-container"><div class="btn-copy-code" title="Copy"><awsui-icon name="copy"></awsui-icon></div></div><code class=""><span>{</span>
+    "Name": "Raspberry pi",
+    "Id": "1352172b-0602-4b40-896f-54da9ed16b57",
+    "Description": "Raspberry pi",
+    "LoRaWAN": <span>{</span>
+        "GatewayEui": "5a11b0a85a11b0a8",
+        "RfRegion": "US915"
+    },
+    "Arn": "arn:aws:iotwireless:us-east-1:231894231068:WirelessGateway/1352172b-0602-4b40-896f-54da9ed16b57"
+}</code></pre>
+                                          </li>
+                                       <li>
+                                          
+                                          <p>Using the wireless gateway ID reported by the <code class="code">get-wireless-gateway</code> 
+                                             command, you can use the
+                                             <a href="cli/latest/reference/iotwireless/get-wireless-gateway-firmware-information.html" rel="noopener noreferrer" target="_blank">get-wireless-gateway-firmware-information</a> command to get the <code class="code">CurrentVersion</code>.
+                                             
+                                          </p>
+                                          <pre class="programlisting"><div class="code-btn-container"><div class="btn-copy-code" title="Copy"><awsui-icon name="copy"></awsui-icon></div></div><code class="JSON ">aws iotwireless get-wireless-gateway-firmware-information \
+    --id "3039b406-5cc9-4307-925b-9948c63da25b"</code></pre>
+                                          <p>Following shows a sample output for the command, with
+                                             information from all three fields displayed by the
+                                             <code class="code">CurrentVersion</code>.
+                                          </p>
+                                          <pre class="programlisting"><div class="code-btn-container"><div class="btn-copy-code" title="Copy"><awsui-icon name="copy"></awsui-icon></div></div><code class=""><span>{</span>
+    "LoRaWAN": <span>{</span>
+        "CurrentVersion": <span>{</span>
+            "PackageVersion": "1.0.0",
+            "Model": "rpi",
+            "Station": "2.0.5(rpi/std) 2021-03-09 03:45:09"
+        }
+    }
+}</code></pre>
+                                          </li>
+                                    </ol>
+                                 </div>
+                                  
+                                 
+                                 <h2 id="connect-iot-lorawan-create-task-definition">Create a
+                                    wireless gateway task definition
+                                 </h2>
+                                 
+                                 <p>When you create the task definition, we recommend that you specify
+                                    automatic creation of tasks by using the AutoCreateTasks parameter.
+                                    <code class="code">AutoCreateTasks</code> applies to any gateway that has a match for
+                                    all three parameters mentioned previously. If this parameter is disabled,
+                                    the parameters have to be manually assigned to the gateway.
+                                 </p>
+                                 
+                                 <p>You can create the wireless gateway task definition by using the
+                                    AWS IoT Core for LoRaWAN API or AWS CLI. Following commands show how to create the
+                                    task
+                                    definition using the CLI.
+                                 </p>
+                                 
+                                 <div class="orderedlist">
+                                     
+                                     
+                                    
+                                    <ol>
+                                       <li>
+                                          
+                                          <p>Create a file, <code class="code">input.json</code>, that'll contain the 
+                                             information to pass to the <code class="code">CreateWirelessGatewayTaskDefinition</code> 
+                                             API. In the <code class="code">input.json</code> file, provide the following 
+                                             information that you obtained earlier:
+                                          </p>
+                                          
+                                          <div class="itemizedlist">
+                                              
+                                              
+                                              
+                                              
+                                             
+                                             <ul class="itemizedlist" type="disc">
+                                                <li class="listitem">
+                                                    
+                                                   
+                                                   <p class="title"><b>UpdateDataSource</b></p>
+                                                   
+                                                   <p>Provide the link to your object containing the firmware 
+                                                      update file that you uploaded to the S3 bucket. (for example, 
+                                                      <code class="code">s3://iotwirelessfwupdate/fwstation</code>.
+                                                   </p>
+                                                    
+                                                   
+                                                </li>
+                                                <li class="listitem">
+                                                    
+                                                   
+                                                   <p class="title"><b>UpdateDataRole</b></p>
+                                                   
+                                                   <p>Provide the link to the Role ARN for the IAM role that you
+                                                      created, which provides permissions to read the S3 bucket. 
+                                                      (for example, <code class="code">arn:aws:iam::123456789012:role/IoTWirelessFwUpdateRole</code>.
+                                                   </p>
+                                                    
+                                                   
+                                                </li>
+                                                <li class="listitem">
+                                                    
+                                                   
+                                                   <p class="title"><b>SigKeyCRC and UpdateSignature</b></p>
+                                                   
+                                                   <p>This information might be provided by your gateway manufacturer, 
+                                                      but if you followed the procedure described in <a href="./connect-iot-lorawan-script-fwupdate-sigkey.html">Generate the
+                                                         firmware update file and signature</a>, you'll 
+                                                      find this information when generating the signature.
+                                                   </p>
+                                                    
+                                                   
+                                                </li>
+                                                <li class="listitem">
+                                                    
+                                                   
+                                                   <p class="title"><b>CurrentVersion</b></p>
+                                                   
+                                                   <p>Provide the <code class="code">CurrentVersion</code> output
+                                                      that you obtained previously by running the
+                                                      <code class="code">get-wireless-gateway-firmware-information
+                                                         </code> command.
+                                                   </p>
+                                                    
+                                                   <pre class="programlisting"><div class="code-btn-container"><div class="btn-copy-code" title="Copy"><awsui-icon name="copy"></awsui-icon></div></div><code class="JSON ">cat input.json</code></pre>
+                                                   <p>Following shows the contents of the <code class="code">input.json</code> 
+                                                      file.
+                                                   </p>
+                                                   <pre class="programlisting"><div class="code-btn-container"><div class="btn-copy-code" title="Copy"><awsui-icon name="copy"></awsui-icon></div></div><code class=""><span>{</span>
+    "AutoCreateTasks": true,
+    "Name": "FirmwareUpdate",
+    "Update":
+    <span>{</span>
+        "UpdateDataSource" : "s3://iotwirelessfwupdate/fwstation",
+        "UpdateDataRole" : "arn:aws:iam::123456789012:role/IoTWirelessFwUpdateRole",
+        "LoRaWAN" :
+        <span>{</span>
+            "SigKeyCrc": 3434210794,
+            "UpdateSignature": "MEQCIDPY/p2ssgXIPNCOgZr+NzeTLpX+WfBo5tYWbh5pQWN3AiBROen+XlIdMScvAsfVfU/ZScJCalkVNZh4esyS8mNIgA==",
+            "CurrentVersion" :
+            <span>{</span>
+            "PackageVersion": "1.0.0",
+            "Model": "rpi",
+            "Station": "2.0.5(rpi/std) 2021-03-09 03:45:09"
+            }
+        }
+    }
+}</code></pre>
+                                                   </li>
+                                             </ul>
+                                          </div>
+                                          
+                                       </li>
+                                       <li>
+                                          
+                                          <p>Pass the <code class="code">input.json</code> file to the <a href="cli/latest/reference/iotwireless/get-wireless-gateway-task-definition.html" rel="noopener noreferrer" target="_blank">create-wireless-gateway-task-definition</a> command to create the task definition.
+                                             
+                                          </p>
+                                          <pre class="programlisting"><div class="code-btn-container"><div class="btn-copy-code" title="Copy"><awsui-icon name="copy"></awsui-icon></div></div><code class="JSON ">aws iotwireless create-wireless-gateway-task-definition \ 
+    --cli-input-json file://input.json</code></pre>
+                                          <p>Following shows the output of the command.</p>
+                                          <pre class="programlisting"><div class="code-btn-container"><div class="btn-copy-code" title="Copy"><awsui-icon name="copy"></awsui-icon></div></div><code class=""><span>{</span>
+    "Id": "4ac46ff4-efc5-44fd-9def-e8517077bb12",
+    "Arn": "arn:aws:iotwireless:us-east-1:231894231068:WirelessGatewayTaskDefinition/4ac46ff4-efc5-44fd-9def-e8517077bb12"
+}</code></pre>
+                                          </li>
+                                    </ol>
+                                 </div>
+                                  
+                                 
+                                 <h2 id="connect-iot-lorawan-run-fwupdate-task">Run the firmware update task and track 
+                                    progress
+                                 </h2>
+                                 
+                                 <p>The gateway is ready to receive the firmware update and, once powered on, it connects
+                                    to
+                                    the CUPS server. When the CUPS server finds a match in the version of the gateway,
+                                    it schedules
+                                    a firmware update.
+                                 </p>
+                                 
+                                 <p>A task is a task definition in process. As you specified automatic
+                                    task creation by setting <code class="code">AutoCreateTasks</code> to <code class="code">True</code>,
+                                    the firmware update task starts as soon as a matching gateway is
+                                    found.
+                                 </p>
+                                 
+                                 <p>You can track the progress of the task by using the <code class="code">GetWirelessGatewayTask</code> 
+                                    API. When you run the <a href="cli/latest/reference/iotwireless/get-wireless-gateway-task.html" rel="noopener noreferrer" target="_blank">get-wireless-gateway-task</a> command the first time, it will show the task
+                                    status as <code class="code">IN_PROGRESS</code>.
+                                 </p>
+                                 <pre class="programlisting"><div class="code-btn-container"><div class="btn-copy-code" title="Copy"><awsui-icon name="copy"></awsui-icon></div></div><code class="JSON ">aws iotwireless get-wireless-gateway-task \ 
+    --id 1352172b-0602-4b40-896f-54da9ed16b57</code></pre>
+                                 <p>Following shows the output of the command.</p>
+                                 <pre class="programlisting"><div class="code-btn-container"><div class="btn-copy-code" title="Copy"><awsui-icon name="copy"></awsui-icon></div></div><code class=""><span>{</span>
+    "WirelessGatewayId": "1352172b-0602-4b40-896f-54da9ed16b57",
+    "WirelessGatewayTaskDefinitionId": "ec11f9e7-b037-4fcc-aa60-a43b839f5de3",
+    "LastUplinkReceivedAt": "2021-03-12T09:56:12.047Z",
+    "TaskCreatedAt": "2021-03-12T09:56:12.047Z",
+    "Status": "IN_PROGRESS"
+}</code></pre>
+                                 <p>When you run the command the next time, if the firmware update takes effect, 
+                                    it will show the updated fields, <code class="code">Package</code>, <code class="code">Version</code>, 
+                                    and <code class="code">Model</code> and the task status changes to <code class="code">COMPLETED</code>.
+                                 </p>
+                                 <pre class="programlisting"><div class="code-btn-container"><div class="btn-copy-code" title="Copy"><awsui-icon name="copy"></awsui-icon></div></div><code class="JSON ">aws iotwireless get-wireless-gateway-task \ 
+    --id 1352172b-0602-4b40-896f-54da9ed16b57</code></pre>
+                                 <p>Following shows the output of the command.</p>
+                                 <pre class="programlisting"><div class="code-btn-container"><div class="btn-copy-code" title="Copy"><awsui-icon name="copy"></awsui-icon></div></div><code class=""><span>{</span>
+    "WirelessGatewayId": "1352172b-0602-4b40-896f-54da9ed16b57",
+    "WirelessGatewayTaskDefinitionId": "ec11f9e7-b037-4fcc-aa60-a43b839f5de3",
+    "LastUplinkReceivedAt": "2021-03-12T09:56:12.047Z",
+    "TaskCreatedAt": "2021-03-12T09:56:12.047Z",
+    "Status": "COMPLETED"
+}</code></pre>
+                                 <p>In this example, we showed you the firmware update using the Raspberry Pi
+                                    based RAKWireless gateway. The firmware update script stops the running BasicStation
+                                    
+                                    to store the updated <code class="code">Package</code>, <code class="code">Version</code>, 
+                                    and <code class="code">Model</code> fields so BasicStation will have to be restarted.
+                                 </p>
+                                 <pre class="programlisting"><div class="code-btn-container"><div class="btn-copy-code" title="Copy"><awsui-icon name="copy"></awsui-icon></div></div><code class="">2021-03-12 09:56:13.108 [CUP:INFO] CUPS provided update.bin
+2021-03-12 09:56:13.108 [CUP:INFO] CUPS provided signature len=70 keycrc=37316C36
+2021-03-12 09:56:13.148 [CUP:INFO] ECDSA key#0 -&gt; VERIFIED
+2021-03-12 09:56:13.148 [CUP:INFO] Running update.bin as background process
+2021-03-12 09:56:13.149 [SYS:VERB] /tmp/update.bin: Forked, waiting...
+2021-03-12 09:56:13.151 [SYS:INFO] Process /tmp/update.bin (pid=6873) completed
+2021-03-12 09:56:13.152 [CUP:INFO] Interaction with CUPS done - next regular check in 10s</code></pre>
+                                 <p>If the firmware update fails, you see a status of <code class="code">FIRST_RETRY</code> from 
+                                    the CUPS server, and the gateway sends the same request. If the CUPS server is unable
+                                    to 
+                                    connect to the gateway after a <code class="code">SECOND_RETRY</code>, it will show a status of 
+                                    <code class="code">FAILED</code>.
+                                 </p>
+                                 
+                                 <p>After the previous task was <code class="code">COMPLETED</code> or
+                                    <code class="code">FAILED</code>, delete the old task by using the <a href="cli/latest/reference/iotwireless/delete-wireless-gateway-task.html" rel="noopener noreferrer" target="_blank">delete-wireless-gateway-task</a> command before starting a new
+                                    one.
+                                 </p>
+                                 <pre class="programlisting"><div class="code-btn-container"><div class="btn-copy-code" title="Copy"><awsui-icon name="copy"></awsui-icon></div></div><code class="JSON ">aws iotwireless delete-wireless-gateway-task \ 
+    --id 1352172b-0602-4b40-896f-54da9ed16b57</code></pre>
+                                 <awsdocs-copyright class="copyright-print"></awsdocs-copyright>
+                                 <awsdocs-thumb-feedback right-edge="{{$ctrl.thumbFeedbackRightEdge}}"></awsdocs-thumb-feedback>
+                              </div>
+                              <noscript>
+                                 <div>
+                                    <div>
+                                       <div>
+                                          <div id="js_error_message">
+                                             <p><img src="https://d1ge0kk1l5kms0.cloudfront.net/images/G/01/webservices/console/warning.png" alt="Warning" /> <strong>Javascript is disabled or is unavailable in your
+                                                   browser.</strong></p>
+                                             <p>To use the Amazon Web Services Documentation, Javascript must be
+                                                enabled. Please refer to your browser's Help pages for instructions.
+                                             </p>
+                                          </div>
+                                       </div>
+                                    </div>
+                                 </div>
+                              </noscript>
+                              <div id="main-col-footer" class="awsui-util-font-size-0">
+                                 <div id="doc-conventions"><a target="_top" href="/general/latest/gr/docconventions.html">Document Conventions</a></div>
+                                 <div class="prev-next">
+                                    <div id="previous" class="prev-link" accesskey="p" href="./connect-iot-lorawan-upload-firmware-s3bucket.html">Upload the
+                                       firmware file to an S3 bucket and add an IAM role
+                                    </div>
+                                    <div id="next" class="next-link" accesskey="n" href="./connect-iot-lorawan-manage-end-devices.html">Managing devices with
+                                       AWS IoT Core for LoRaWAN
+                                    </div>
+                                 </div>
+                              </div>
+                              <awsdocs-page-utilities></awsdocs-page-utilities>
+                           </div>
+                           <div id="quick-feedback-yes" style="display: none;">
+                              <div class="title">Did this page help you? - Yes</div>
+                              <div class="content">
+                                 <p>Thanks for letting us know we're doing a good
+                                    job!
+                                 </p>
+                                 <p>If you've got a moment, please tell us what we did right
+                                    so we can do more of it.
+                                 </p>
+                                 <p>
+                                    <awsui-button id="fblink" target="_blank" text="Feedback" click="linkClick($event)" href="https://docs.aws.amazon.com/forms/aws-doc-feedback?hidden_service_name=IoT Docs&amp;topic_url=https://docs.aws.amazon.com/en_us/iot/latest/developerguide/connect-iot-lorawan-schedule-firmware-update.html"></awsui-button>
+                                 </p>
+                              </div>
+                           </div>
+                           <div id="quick-feedback-no" style="display: none;">
+                              <div class="title">Did this page help you? - No</div>
+                              <div class="content">
+                                 <p>Thanks for letting us know this page needs work. We're
+                                    sorry we let you down.
+                                 </p>
+                                 <p>If you've got a moment, please tell us how we can make
+                                    the documentation better.
+                                 </p>
+                                 <p>
+                                    <awsui-button id="fblink" target="_blank" text="Feedback" click="linkClick($event)" href="https://docs.aws.amazon.com/forms/aws-doc-feedback?hidden_service_name=IoT Docs&amp;topic_url=https://docs.aws.amazon.com/en_us/iot/latest/developerguide/connect-iot-lorawan-schedule-firmware-update.html"></awsui-button>
+                                 </p>
+                              </div>
+                           </div>
+                        </div>
+                     </body>
+                  </div>
+               </awsdocs-view>
+               <div class="page-loading-indicator" id="page-loading-indicator">
+                  <awsui-spinner size="large"></awsui-spinner>
+               </div>
+            </div>
+            <div id="tools-panel" dom-region="tools">
+               <awsdocs-tools-panel id="awsdocs-tools-panel"></awsdocs-tools-panel>
+            </div>
+         </awsui-app-layout>
+         <awsdocs-cookie-banner class="doc-cookie-banner"></awsdocs-cookie-banner>
+         <!--
+                SiteCatalyst code version: H.25.2.
+                Copyright 1996-2012 Adobe, Inc. All Rights Reserved
+                More info available at http://www.omniture.com
+            --><script language="JavaScript" type="text/javascript">
+var awsdocs = awsdocs || {};
+awsdocs.prop66 = 'AWS IoT Core';
+awsdocs.prop65 =  'Developer Guide';
+            </script><script src="https://a0.awsstatic.com/s_code/js/3.0/awshome_s_code.js" language="JavaScript" type="text/javascript"></script>
+         <!--/DO NOT REMOVE/-->
+         <!--End SiteCatalyst code version: H.25.2.--></div>
+   </body>
+</html>

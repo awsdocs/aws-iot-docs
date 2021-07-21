@@ -1,0 +1,1218 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" ng-app="AWSDocsDocPageApp">
+   <head>
+      <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+      <title>Connecting to AWS IoT Core service endpoints - AWS IoT Core</title>
+      <meta name="viewport" content="width=device-width,initial-scale=1" />
+      <meta name="assets_root" content="assets" />
+      <meta name="target_state" content="iot-connect-service" />
+      <meta name="default_state" content="iot-connect-service" />
+      <link rel="icon" type="image/ico" href="/assets/images/favicon.ico" />
+      <link rel="shortcut icon" type="image/ico" href="/assets/images/favicon.ico" />
+      <link rel="canonical" href="https://docs.aws.amazon.com/iot/latest/developerguide/iot-connect-service.html" />
+      <meta name="description" content="You can access the features that the AWS IoT Core services provide by using the AWS CLI, the AWS SDK for your preferred language, or by calling the REST API directly. We recommend using the AWS CLI or an AWS SDK to interact with AWS IoT Core because they incorporate the best practices for calling AWS services. Calling the REST APIs directly is an option, but you must provide" />
+      <meta name="deployment_region" content="IAD" />
+      <meta name="product" content="AWS IoT Core" />
+      <meta name="guide" content="Developer Guide" />
+      <meta name="locales" content="de_de:Deutsch/en_us:English/es_es:Español/fr_fr:Français/it_it:Italiano/ja_jp:日本語/ko_kr:한국어/pt_br:Português/zh_cn:中文 (简体)/zh_tw:中文 (繁體)" />
+      <meta name="abstract" content="AWS IoT provides secure, bi-directional communication between Internet-connected devices such as sensors, actuators, embedded micro-controllers, or smart appliances and the AWS Cloud. This enables you to collect telemetry data from multiple devices, and store and analyze the data. You can also create applications that enable your users to control these devices from their phones or tablets." />
+      <meta name="guide-locale" content="en_us" />
+      <meta name="tocs" content="toc-contents.json" />
+      <meta name="feedback-item" content="IoT Docs" />
+      <meta name="this_doc_product" content="AWS IoT Core" />
+      <meta name="this_doc_guide" content="Developer Guide" />
+      <link href="assets/css/vendor4.css" rel="stylesheet" />
+      <link href="assets/css/awsdocs-common.css" rel="stylesheet" /><script type="text/javascript" src="assets/js/vendor3.js" defer=""></script><script type="text/javascript" src="assets/js/vendor4.js" defer=""></script><script type="text/javascript" src="assets/js/vendor1.js" defer=""></script><script type="text/javascript" src="assets/js/awsdocs-common.js" defer=""></script><script type="text/javascript" src="assets/js/awsdocs-doc-app.js" defer=""></script></head>
+   <body class="awsdocs awsui">
+      <div class="awsdocs-container">
+         <awsdocs-header></awsdocs-header>
+         <awsui-app-layout id="app-layout" class="awsui-util-no-gutters" ng-controller="ContentController as $ctrl" header-selector="awsdocs-header" navigation-hide="false" navigation-width="$ctrl.navWidth" navigation-open="$ctrl.navOpen" navigation-change="$ctrl.onNavChange($event)" tools-hide="$ctrl.hideTools" tools-width="$ctrl.toolsWidth" tools-open="$ctrl.toolsOpen" tools-change="$ctrl.onToolsChange($event)">
+            <div id="guide-toc" dom-region="navigation">
+               <awsdocs-toc></awsdocs-toc>
+            </div>
+            <div id="main-column" dom-region="content" tabindex="-1">
+               <awsdocs-view class="awsdocs-view">
+                  <div id="awsdocs-content">
+                     <head>
+                        <title>Connecting to AWS IoT Core service endpoints - AWS IoT Core</title>
+                        <meta name="pdf" content="iot-dg.pdf#iot-connect-service" />
+                        <meta name="kindle" content="https://www.amazon.com/dp/B07JBRCWWZ" />
+                        <meta name="github" content="https://github.com/awsdocs/aws-iot-docs/tree/master/developerguide/iot-connect-service.md" />
+                        <meta name="forums" content="http://forums.aws.amazon.com/forum.jspa?forumID=210" />
+                        <meta name="feedback" content="https://docs.aws.amazon.com/forms/aws-doc-feedback?hidden_service_name=IoT%20Docs&amp;topic_url=http://docs.aws.amazon.com/en_us/iot/latest/developerguide/iot-connect-service.html" />
+                        <meta name="feedback-yes" content="feedbackyes.html?topic_url=http://docs.aws.amazon.com/en_us/iot/latest/developerguide/iot-connect-service.html" />
+                        <meta name="feedback-no" content="feedbackno.html?topic_url=http://docs.aws.amazon.com/en_us/iot/latest/developerguide/iot-connect-service.html" />
+                        <meta name="keywords" content="AWS IoT,IoT,Internet of Things" />
+                     </head>
+                     <body>
+                        <div id="main">
+                           <div style="display: none"><a href="iot-dg.pdf#iot-connect-service" target="_blank" rel="noopener noreferrer" title="Open PDF"></a><a target="_blank" rel="noopener noreferrer" href="https://www.amazon.com/dp/B07JBRCWWZ" title="Open Kindle"></a><a href="https://github.com/awsdocs/aws-iot-docs/tree/master/developerguide/iot-connect-service.md" target="_blank" rel="noopener noreferrer" title="Edit this page on GitHub"></a></div>
+                           <div id="breadcrumbs" class="breadcrumb"><a href="http://aws.amazon.com">AWS</a><a href="/index.html">Documentation</a><a href="/iot/index.html">AWS IoT Core</a><a href="what-is-aws-iot.html">Developer Guide</a></div>
+                           <div id="page-toc-src"><a href="#iot-connect-cli">AWS CLI for AWS IoT Core</a><a href="#iot-service-sdks">AWS SDKs</a><a href="#iot-connect-mobile-sdks">AWS Mobile SDKs</a><a href="#iot-connect-rest">REST APIs of the AWS IoT Core services </a></div>
+                           <div id="main-content" class="awsui-util-container">
+                              <div id="main-col-body">
+                                 <awsdocs-language-banner data-service="$ctrl.pageService"></awsdocs-language-banner>
+                                 <h1 class="topictitle" id="iot-connect-service">Connecting to AWS IoT Core service endpoints</h1>
+                                 <div class="awsdocs-page-header-container">
+                                    <awsdocs-page-header></awsdocs-page-header>
+                                    <awsdocs-filter-selector id="awsdocs-filter-selector"></awsdocs-filter-selector>
+                                 </div>
+                                 <p>You can access the features that the AWS IoT Core services provide by using the AWS
+                                    CLI,
+                                    the AWS SDK for your preferred language, or by calling the REST API directly. We
+                                    recommend using the AWS CLI or an AWS SDK to interact with AWS IoT Core because they
+                                    incorporate the best practices for calling AWS services. Calling the REST APIs
+                                    directly is an option, but you must provide <a href="https://docs.aws.amazon.com/general/latest/gr/signing_aws_api_requests.html">the necessary security credentials</a> that enable access to the API.
+                                 </p>
+                                 <div class="awsdocs-note">
+                                    <div class="awsdocs-note-title">
+                                       <awsui-icon name="status-info" variant="link"></awsui-icon><span>Note</span></div>
+                                    <div class="awsdocs-note-text">
+                                       <p>IoT devices should use <a href="./iot-connect-devices.html#iot-connect-device-sdks">AWS IoT Device SDKs</a>. The
+                                          Device SDKs are optimized for use on devices, support MQTT communication with AWS
+                                          IoT,
+                                          and support the AWS IoT APIs most used by devices. For more information about the
+                                          Device SDKs and the features they provide, see <a href="./iot-connect-devices.html#iot-connect-device-sdks">AWS IoT Device SDKs</a>.
+                                       </p>
+                                       <p>Mobile devices should use <a href="#iot-connect-mobile-sdks">AWS Mobile SDKs</a>. The Mobile SDKs provide support for AWS IoT
+                                          APIs, MQTT device communications, and the APIs of other AWS services on mobile
+                                          devices. For more information about the Mobile SDKs and the features they provide,
+                                          see <a href="#iot-connect-mobile-sdks">AWS Mobile SDKs</a>.
+                                       </p>
+                                    </div>
+                                 </div>
+                                 <p>The following sections describe the tools and SDKs that you can use to develop and
+                                    interact with AWS IoT and other AWS services. For the complete list of AWS tools and
+                                    development kits that are available to build and manage apps on AWS, see <a href="https://aws.amazon.com/tools/" rel="noopener noreferrer" target="_blank"><span>Tools to Build on AWS</span><awsui-icon class="awsdocs-link-icon" name="external"></awsui-icon></a>.
+                                 </p>
+                                 <p></p>
+                                 
+                                 <h2 id="iot-connect-cli">AWS CLI for AWS IoT Core</h2>
+                                 
+                                 <p>The AWS CLI provides command-line access to AWS APIs.</p>
+                                 
+                                 <div class="itemizedlist">
+                                     
+                                     
+                                     
+                                    
+                                    <ul class="itemizedlist" type="disc">
+                                       <li class="listitem">
+                                           
+                                          
+                                          <p class="title"><b>Installation</b></p>
+                                          
+                                          <p>For information about how to install the AWS CLI, see <a href="https://docs.aws.amazon.com/cli/latest/userguide/cli-chap-install.html">Installing the AWS CLI</a>.
+                                          </p>
+                                           
+                                          
+                                       </li>
+                                       <li class="listitem">
+                                           
+                                          
+                                          <p class="title"><b>Authentication</b></p>
+                                          
+                                          <p>The AWS CLI uses credentials from your AWS account.</p>
+                                           
+                                          
+                                       </li>
+                                       <li class="listitem">
+                                           
+                                          
+                                          <p class="title"><b>Reference</b></p>
+                                          
+                                          <p>For information about the AWS CLI commands for these AWS IoT Core services,
+                                             see:
+                                          </p>
+                                           
+                                          
+                                          <div class="itemizedlist">
+                                              
+                                              
+                                              
+                                              
+                                             
+                                             <ul class="itemizedlist" type="disc">
+                                                <li class="listitem">
+                                                   
+                                                   <p><a href="https://awscli.amazonaws.com/v2/documentation/api/latest/reference/iot/index.html" rel="noopener noreferrer" target="_blank"><span>AWS CLI Command Reference for IoT</span><awsui-icon class="awsdocs-link-icon" name="external"></awsui-icon></a></p>
+                                                   
+                                                </li>
+                                                <li class="listitem">
+                                                   
+                                                   <p><a href="https://awscli.amazonaws.com/v2/documentation/api/latest/reference/iot-data/index.html" rel="noopener noreferrer" target="_blank"><span>AWS CLI Command Reference for IoT data</span><awsui-icon class="awsdocs-link-icon" name="external"></awsui-icon></a></p>
+                                                   
+                                                </li>
+                                                <li class="listitem">
+                                                   
+                                                   <p><a href="https://awscli.amazonaws.com/v2/documentation/api/latest/reference/iot-jobs-data/index.html" rel="noopener noreferrer" target="_blank"><span>AWS CLI Command Reference for IoT jobs data</span><awsui-icon class="awsdocs-link-icon" name="external"></awsui-icon></a></p>
+                                                   
+                                                </li>
+                                                <li class="listitem">
+                                                   
+                                                   <p><a href="https://awscli.amazonaws.com/v2/documentation/api/latest/reference/iotsecuretunneling/index.html" rel="noopener noreferrer" target="_blank"><span>AWS CLI Command Reference for IoT secure tunneling</span><awsui-icon class="awsdocs-link-icon" name="external"></awsui-icon></a></p>
+                                                   
+                                                </li>
+                                             </ul>
+                                          </div>
+                                          
+                                       </li>
+                                    </ul>
+                                 </div>
+                                 
+                                 <p>For tools to manage AWS services and resources in the PowerShell scripting
+                                    environment, see <a href="https://aws.amazon.com/powershell/" rel="noopener noreferrer" target="_blank"><span>AWS Tools for
+                                          PowerShell</span><awsui-icon class="awsdocs-link-icon" name="external"></awsui-icon></a>.
+                                 </p>
+                                  
+                                 
+                                 <h2 id="iot-service-sdks">AWS SDKs</h2>
+                                 
+                                 <p>With AWS SDKs, your apps and compatible devices can call AWS IoT APIs and the APIs
+                                    of other AWS services. This section provides links to the AWS SDKs and to the
+                                    API reference documentation for the APIs of the AWS IoT Core services. 
+                                 </p>
+                                 
+                                 <div class="itemizedlist">
+                                    
+                                    <p class="title"><b>The AWS SDKs support these AWS IoT Core APIs</b></p>
+                                     
+                                     
+                                     
+                                     
+                                     
+                                    
+                                    <ul class="itemizedlist" type="disc">
+                                       <li class="listitem">
+                                          
+                                          <p><a href="https://docs.aws.amazon.com//iot/latest/apireference/welcome.html">AWS IoT</a></p>
+                                          
+                                       </li>
+                                       <li class="listitem">
+                                          
+                                          <p><a href="https://docs.aws.amazon.com//iot/latest/apireference/welcome.html">AWS IoT Data Plane</a></p>
+                                          
+                                       </li>
+                                       <li class="listitem">
+                                          
+                                          <p><a href="https://docs.aws.amazon.com//iot/latest/apireference/welcome.html">AWS IoT Jobs Data Plane</a></p>
+                                          
+                                       </li>
+                                       <li class="listitem">
+                                          
+                                          <p><a href="https://docs.aws.amazon.com//iot/latest/apireference/welcome.html">AWS IoT Secure Tunneling</a></p>
+                                          
+                                       </li>
+                                       <li class="listitem">
+                                          
+                                          <p><a href="https://docs.aws.amazon.com/iot-wireless/2020-11-22/apireference/welcome.html">AWS IoT Wireless</a></p>
+                                          
+                                       </li>
+                                    </ul>
+                                 </div>
+                                 
+                                 <awsdocs-tabs>
+                                    <dl style="display: none">
+                                       
+                                       <dt>C++</dt>
+                                       <dd tab-id="c++">
+                                          
+                                          <div class="orderedlist">
+                                             
+                                             <p class="title"><b>To install the <a href="https://aws.amazon.com/sdk-for-cpp/" rel="noopener noreferrer" target="_blank"><span>AWS SDK for C++</span><awsui-icon class="awsdocs-link-icon" name="external"></awsui-icon></a> and use it to connect to AWS IoT:</b></p>
+                                              
+                                              
+                                             
+                                             <ol>
+                                                <li>
+                                                   
+                                                   <p>Follow the instructions in <a href="https://docs.aws.amazon.com/sdk-for-cpp/v1/developer-guide/getting-started.html">Getting Started Using the AWS SDK for C++</a></p>
+                                                   
+                                                   <p>These instructions describe how to:</p>
+                                                   
+                                                   <div class="itemizedlist">
+                                                       
+                                                       
+                                                       
+                                                       
+                                                      
+                                                      <ul class="itemizedlist" type="disc">
+                                                         <li class="listitem">
+                                                            <p>Install and build the SDK from source files</p>
+                                                         </li>
+                                                         <li class="listitem">
+                                                            <p>Provide credentials to use the SDK with your AWS account</p>
+                                                         </li>
+                                                         <li class="listitem">
+                                                            <p>Initialize and shutdown the SDK in your app or service</p>
+                                                         </li>
+                                                         <li class="listitem">
+                                                            <p>Create a CMake project to build your app or service</p>
+                                                         </li>
+                                                      </ul>
+                                                   </div>
+                                                   
+                                                </li>
+                                                <li>
+                                                   
+                                                   <p>Create and run a sample app. For sample apps that use the AWS SDK for C++, see
+                                                      <a href="https://docs.aws.amazon.com/sdk-for-cpp/v1/developer-guide/programming-services.html">AWS SDK for C++ Code Examples</a>.
+                                                   </p>
+                                                   
+                                                </li>
+                                             </ol>
+                                          </div>
+                                          
+                                          <div class="itemizedlist">
+                                             
+                                             <p class="title"><b>Documentation for the AWS IoT Core services that the AWS SDK for C++ supports</b></p>
+                                              
+                                              
+                                              
+                                              
+                                             
+                                             <ul class="itemizedlist" type="disc">
+                                                <li class="listitem">
+                                                   
+                                                   <p><a href="http://sdk.amazonaws.com/cpp/api/LATEST/class_aws_1_1_io_t_1_1_io_t_client.html" rel="noopener noreferrer" target="_blank"><span>Aws::IoT::IoTClient reference documentation</span><awsui-icon class="awsdocs-link-icon" name="external"></awsui-icon></a></p>
+                                                   
+                                                </li>
+                                                <li class="listitem">
+                                                   
+                                                   <p><a href="http://sdk.amazonaws.com/cpp/api/LATEST/class_aws_1_1_io_t_data_plane_1_1_io_t_data_plane_client.html" rel="noopener noreferrer" target="_blank"><span>Aws::IoTDataPlane::IoTDataPlaneClient reference
+                                                            documentation</span><awsui-icon class="awsdocs-link-icon" name="external"></awsui-icon></a></p>
+                                                   
+                                                </li>
+                                                <li class="listitem">
+                                                   
+                                                   <p><a href="http://sdk.amazonaws.com/cpp/api/LATEST/class_aws_1_1_io_t_jobs_data_plane_1_1_io_t_jobs_data_plane_client.html" rel="noopener noreferrer" target="_blank"><span>Aws::IoTJobsDataPlane::IoTJobsDataPlaneClient reference
+                                                            documentation</span><awsui-icon class="awsdocs-link-icon" name="external"></awsui-icon></a></p>
+                                                   
+                                                </li>
+                                                <li class="listitem">
+                                                   
+                                                   <p><a href="http://sdk.amazonaws.com/cpp/api/LATEST/class_aws_1_1_io_t_secure_tunneling_1_1_io_t_secure_tunneling_client.html" rel="noopener noreferrer" target="_blank"><span>Aws::IoTSecureTunneling::IoTSecureTunnelingClient reference
+                                                            documentation</span><awsui-icon class="awsdocs-link-icon" name="external"></awsui-icon></a></p>
+                                                   
+                                                </li>
+                                             </ul>
+                                          </div>
+                                          
+                                       </dd>
+                                       
+                                       <dt>Go</dt>
+                                       <dd tab-id="go">
+                                          
+                                          <div class="orderedlist">
+                                             
+                                             <p class="title"><b>To install the <a href="https://aws.amazon.com/sdk-for-go/" rel="noopener noreferrer" target="_blank"><span>AWS SDK for Go</span><awsui-icon class="awsdocs-link-icon" name="external"></awsui-icon></a> and use it to connect to AWS IoT:</b></p>
+                                              
+                                              
+                                             
+                                             <ol>
+                                                <li>
+                                                   
+                                                   <p>Follow the instructions in <a href="https://docs.aws.amazon.com/sdk-for-go/v1/developer-guide/setting-up.html">Getting Started with the AWS SDK for Go</a></p>
+                                                   
+                                                   <p>These instructions describe how to:</p>
+                                                   
+                                                   <div class="itemizedlist">
+                                                       
+                                                       
+                                                       
+                                                      
+                                                      <ul class="itemizedlist" type="disc">
+                                                         <li class="listitem">
+                                                            <p>Install the AWS SDK for Go</p>
+                                                         </li>
+                                                         <li class="listitem">
+                                                            <p>Get access keys for the SDK to access your AWS account</p>
+                                                         </li>
+                                                         <li class="listitem">
+                                                            <p>Import packages into the source code of our apps or services</p>
+                                                         </li>
+                                                      </ul>
+                                                   </div>
+                                                   
+                                                </li>
+                                                <li> 
+                                                   
+                                                   <p>Create and run a sample app. For sample apps that use the AWS SDK for Go, see
+                                                      <a href="https://docs.aws.amazon.com/sdk-for-go/v1/developer-guide/common-examples.html">AWS SDK for Go Code Examples</a>.
+                                                   </p>
+                                                   
+                                                </li>
+                                             </ol>
+                                          </div>
+                                          
+                                          <div class="itemizedlist">
+                                             
+                                             <p class="title"><b>Documentation for the AWS IoT Core services that the AWS SDK for Go supports</b></p>
+                                              
+                                              
+                                              
+                                              
+                                             
+                                             <ul class="itemizedlist" type="disc">
+                                                <li class="listitem">
+                                                   
+                                                   <p><a href="https://docs.aws.amazon.com/sdk-for-go/api/service/iot/">IoT reference documentation</a></p>
+                                                   
+                                                </li>
+                                                <li class="listitem">
+                                                   
+                                                   <p><a href="https://docs.aws.amazon.com/sdk-for-go/api/service/iotdataplane/">IoTDataPlane reference documentation</a></p>
+                                                   
+                                                </li>
+                                                <li class="listitem">
+                                                   
+                                                   <p><a href="https://docs.aws.amazon.com/sdk-for-go/api/service/iotjobsdataplane/">IoTJobsDataPlane reference documentation</a></p>
+                                                   
+                                                </li>
+                                                <li class="listitem">
+                                                   
+                                                   <p><a href="https://docs.aws.amazon.com/sdk-for-go/api/service/iotsecuretunneling/">IoTSecureTunneling reference documentation</a></p>
+                                                   
+                                                </li>
+                                             </ul>
+                                          </div>
+                                          
+                                       </dd>
+                                       
+                                       <dt>Java</dt>
+                                       <dd tab-id="java">
+                                          
+                                          <div class="orderedlist">
+                                             
+                                             <p class="title"><b>To install the <a href="https://aws.amazon.com/sdk-for-java/" rel="noopener noreferrer" target="_blank"><span>AWS SDK for Java</span><awsui-icon class="awsdocs-link-icon" name="external"></awsui-icon></a> and use it to connect to
+                                                   AWS IoT:</b></p>
+                                              
+                                              
+                                              
+                                             
+                                             <ol>
+                                                <li>
+                                                   
+                                                   <p>Follow the instructions in <a href="https://docs.aws.amazon.com/sdk-for-java/v2/developer-guide/getting-started.html">Getting Started with AWS SDK for Java 2.x</a></p>
+                                                   
+                                                   <p>These instructions describe how to:</p>
+                                                   
+                                                   <div class="itemizedlist">
+                                                       
+                                                       
+                                                       
+                                                       
+                                                       
+                                                      
+                                                      <ul class="itemizedlist" type="disc">
+                                                         <li class="listitem">
+                                                            
+                                                            <p>Sign up for AWS and Create an IAM
+                                                               User
+                                                            </p>
+                                                            
+                                                         </li>
+                                                         <li class="listitem">
+                                                            
+                                                            <p>Download the SDK
+                                                               
+                                                            </p>
+                                                            
+                                                         </li>
+                                                         <li class="listitem">
+                                                            
+                                                            <p>Set up AWS Credentials and Region
+                                                               
+                                                            </p>
+                                                            
+                                                         </li>
+                                                         <li class="listitem">
+                                                            
+                                                            <p>Use the SDK with Apache Maven
+                                                               
+                                                            </p>
+                                                            
+                                                         </li>
+                                                         <li class="listitem">
+                                                            
+                                                            <p>Use the SDK with Gradle
+                                                               
+                                                            </p>
+                                                            
+                                                         </li>
+                                                      </ul>
+                                                   </div>
+                                                   
+                                                </li>
+                                                <li>
+                                                   
+                                                   <p>Create and run a sample app using one of the <a href="https://docs.aws.amazon.com/sdk-for-java/v2/developer-guide/advanced-topics.html">AWS SDK for Java 2.x Code Examples</a>.
+                                                   </p>
+                                                   
+                                                </li>
+                                                <li>
+                                                   
+                                                   <p>Review the <a href="https://sdk.amazonaws.com/java/api/latest/" rel="noopener noreferrer" target="_blank"><span>SDK API
+                                                            reference documentation</span><awsui-icon class="awsdocs-link-icon" name="external"></awsui-icon></a></p>
+                                                   
+                                                </li>
+                                             </ol>
+                                          </div>
+                                          
+                                          <div class="itemizedlist">
+                                             
+                                             <p class="title"><b>Documentation for the AWS IoT Core services that the AWS SDK for Java supports</b></p>
+                                              
+                                              
+                                              
+                                              
+                                             
+                                             <ul class="itemizedlist" type="disc">
+                                                <li class="listitem">
+                                                   
+                                                   <p><a href="https://sdk.amazonaws.com/java/api/latest/software/amazon/awssdk/services/iot/IotClient.html" rel="noopener noreferrer" target="_blank"><span>IotClient reference documentation</span><awsui-icon class="awsdocs-link-icon" name="external"></awsui-icon></a></p>
+                                                   
+                                                </li>
+                                                <li class="listitem">
+                                                   
+                                                   <p><a href="https://sdk.amazonaws.com/java/api/latest/software/amazon/awssdk/services/iotdataplane/IotDataPlaneClient.html" rel="noopener noreferrer" target="_blank"><span>IotDataPlaneClient reference documentation</span><awsui-icon class="awsdocs-link-icon" name="external"></awsui-icon></a></p>
+                                                   
+                                                </li>
+                                                <li class="listitem">
+                                                   
+                                                   <p><a href="https://sdk.amazonaws.com/java/api/latest/software/amazon/awssdk/services/iotjobsdataplane/IotJobsDataPlaneClient.html" rel="noopener noreferrer" target="_blank"><span>IotJobsDataPlaneClient reference documentation</span><awsui-icon class="awsdocs-link-icon" name="external"></awsui-icon></a></p>
+                                                   
+                                                </li>
+                                                <li class="listitem">
+                                                   
+                                                   <p><a href="https://sdk.amazonaws.com/java/api/latest/software/amazon/awssdk/services/iotsecuretunneling/IoTSecureTunnelingClient.html" rel="noopener noreferrer" target="_blank"><span>IoTSecureTunnelingClient reference documentation</span><awsui-icon class="awsdocs-link-icon" name="external"></awsui-icon></a></p>
+                                                   
+                                                </li>
+                                             </ul>
+                                          </div>
+                                          
+                                       </dd>
+                                       
+                                       <dt>JavaScript</dt>
+                                       <dd tab-id="javascript">
+                                          
+                                          <div class="orderedlist">
+                                             
+                                             <p class="title"><b>To install the <a href="" rel="noopener noreferrer" target="_blank">AWS SDK for JavaScript</a> and use it
+                                                   to connect to AWS IoT:</b></p>
+                                              
+                                              
+                                             
+                                             <ol>
+                                                <li>
+                                                   
+                                                   <p>Follow the instructions in <a href="https://docs.aws.amazon.com/sdk-for-javascript/v2/developer-guide/setting-up.html">Setting Up the AWS SDK for JavaScript</a>. These
+                                                      instructions apply to using the AWS SDK for JavaScript in the
+                                                      browser and with Node.JS. Make sure you follow the directions
+                                                      that apply to your installation. 
+                                                   </p>
+                                                   
+                                                   <p>These instructions describe how to:</p>
+                                                   
+                                                   <div class="itemizedlist">
+                                                       
+                                                       
+                                                       
+                                                      
+                                                      <ul class="itemizedlist" type="disc">
+                                                         <li class="listitem">
+                                                            <p>Check for the prerequisites</p>
+                                                         </li>
+                                                         <li class="listitem">
+                                                            <p>Install the SDK for JavaScript</p>
+                                                         </li>
+                                                         <li class="listitem">
+                                                            <p>Load the SDK for JavaScript</p>
+                                                         </li>
+                                                      </ul>
+                                                   </div>
+                                                   
+                                                </li>
+                                                <li>
+                                                   <p>Create and run a sample app to get started with the SDK as the getting started option
+                                                      for your
+                                                      environment describes.
+                                                   </p>
+                                                   
+                                                   <div class="itemizedlist">
+                                                       
+                                                       
+                                                      
+                                                      <ul class="itemizedlist" type="disc">
+                                                         <li class="listitem">
+                                                            <p>Get started with the <a href="https://docs.aws.amazon.com/sdk-for-javascript/v2/developer-guide/getting-started-browser.html">AWS SDK for
+                                                                  JavaScript in the Browser</a>, or
+                                                            </p>
+                                                         </li>
+                                                         <li class="listitem">
+                                                            <p>Get started with the <a href="https://docs.aws.amazon.com/sdk-for-javascript/v2/developer-guide/getting-started-nodejs.html">AWS SDK for
+                                                                  JavaScript in Node.js</a></p>
+                                                         </li>
+                                                      </ul>
+                                                   </div>
+                                                   
+                                                </li>
+                                             </ol>
+                                          </div>
+                                          
+                                          <div class="itemizedlist">
+                                             
+                                             <p class="title"><b>Documentation for the AWS IoT Core services that the AWS SDK for JavaScript supports</b></p>
+                                              
+                                              
+                                              
+                                              
+                                             
+                                             <ul class="itemizedlist" type="disc">
+                                                <li class="listitem">
+                                                   
+                                                   <p><a href="https://docs.aws.amazon.com/AWSJavaScriptSDK/latest/AWS/Iot.html"><code class="code">AWS.Iot reference documentation</code></a></p>
+                                                   
+                                                </li>
+                                                <li class="listitem">
+                                                   
+                                                   <p><a href="https://docs.aws.amazon.com/AWSJavaScriptSDK/latest/AWS/IotData.html"><code class="code">AWS.IotData reference documentation</code></a></p>
+                                                   
+                                                </li>
+                                                <li class="listitem">
+                                                   
+                                                   <p><a href="https://docs.aws.amazon.com/AWSJavaScriptSDK/latest/AWS/IoTJobsDataPlane.html"><code class="code">AWS.IotJobsDataPlane reference documentation</code></a></p>
+                                                   
+                                                </li>
+                                                <li class="listitem">
+                                                   
+                                                   <p><a href="https://docs.aws.amazon.com/AWSJavaScriptSDK/latest/AWS/IoTSecureTunneling.html"><code class="code">AWS.IotSecureTunneling reference documentation</code></a></p>
+                                                   
+                                                </li>
+                                             </ul>
+                                          </div>
+                                          
+                                       </dd>
+                                       
+                                       <dt>.NET</dt>
+                                       <dd tab-id=".net">
+                                          
+                                          <div class="orderedlist">
+                                             
+                                             <p class="title"><b>To install the <a href="https://aws.amazon.com/sdk-for-net/" rel="noopener noreferrer" target="_blank"><span>AWS SDK for .NET</span><awsui-icon class="awsdocs-link-icon" name="external"></awsui-icon></a> and use it to connect to
+                                                   AWS IoT:</b></p>
+                                              
+                                              
+                                              
+                                              
+                                             
+                                             <ol>
+                                                <li>
+                                                   
+                                                   <p>Follow the instructions in <a href="https://docs.aws.amazon.com/sdk-for-net/latest/developer-guide/net-dg-setup.html">Setting up your AWS SDK for .NET environment</a></p>
+                                                   
+                                                </li>
+                                                <li>
+                                                   <p>Follow the instructions in <a href="https://docs.aws.amazon.com/sdk-for-net/latest/developer-guide/net-dg-config.html">Setting up your AWS SDK for .NET project</a></p>
+                                                   
+                                                   <p>These instructions describe how to:</p>
+                                                   
+                                                   <div class="itemizedlist">
+                                                       
+                                                       
+                                                       
+                                                      
+                                                      <ul class="itemizedlist" type="disc">
+                                                         <li class="listitem">
+                                                            <p>Start a new project</p>
+                                                         </li>
+                                                         <li class="listitem">
+                                                            <p>Obtain and configure AWS credentials</p>
+                                                         </li>
+                                                         <li class="listitem">
+                                                            <p>Install AWS SDK packages</p>
+                                                         </li>
+                                                      </ul>
+                                                   </div>
+                                                   
+                                                </li>
+                                                <li>
+                                                   <p>Create and run one of the sample programs in <a href="https://docs.aws.amazon.com/sdk-for-net/latest/developer-guide/tutorials-examples.html">Working with AWS services in the AWS SDK for
+                                                         .NET</a></p>
+                                                </li>
+                                                <li>
+                                                   
+                                                   <p>Review the <a href="https://docs.aws.amazon.com/sdkfornet/v3/apidocs/index.html">SDK API reference documentation</a></p>
+                                                   
+                                                </li>
+                                             </ol>
+                                          </div>
+                                          
+                                          <div class="itemizedlist">
+                                             
+                                             <p class="title"><b>Documentation for the AWS IoT Core services that the AWS SDK for .NET supports</b></p>
+                                              
+                                              
+                                              
+                                              
+                                             
+                                             <ul class="itemizedlist" type="disc">
+                                                <li class="listitem">
+                                                   
+                                                   <p><a href="https://docs.aws.amazon.com/sdkfornet/v3/apidocs/items/IoT/NIoTModel.html">Amazon.IoT.Model reference documentation</a></p>
+                                                   
+                                                </li>
+                                                <li class="listitem">
+                                                   
+                                                   <p><a href="https://docs.aws.amazon.com/sdkfornet/v3/apidocs/items/IotData/NIotDataModel.html">Amazon.IotData.Model reference documentation</a></p>
+                                                   
+                                                </li>
+                                                <li class="listitem">
+                                                   
+                                                   <p><a href="https://docs.aws.amazon.com/sdkfornet/v3/apidocs/items/IoTJobsDataPlane/NIoTJobsDataPlaneModel.html">Amazon.IoTJobsDataPlane.Model reference
+                                                         documentation</a></p>
+                                                   
+                                                </li>
+                                                <li class="listitem">
+                                                   
+                                                   <p><a href="https://docs.aws.amazon.com/sdkfornet/v3/apidocs/items/IoTSecureTunneling/NIoTSecureTunnelingModel.html">Amazon.IoTSecureTunneling.Model reference
+                                                         documentation</a></p>
+                                                   
+                                                </li>
+                                             </ul>
+                                          </div>
+                                          
+                                       </dd>
+                                       
+                                       <dt>PHP</dt>
+                                       <dd tab-id="php">
+                                          
+                                          <div class="orderedlist">
+                                             
+                                             <p class="title"><b>To install the <a href="https://aws.amazon.com/sdk-for-php/" rel="noopener noreferrer" target="_blank"><span>AWS SDK for PHP</span><awsui-icon class="awsdocs-link-icon" name="external"></awsui-icon></a> and use it to connect to AWS IoT:</b></p>
+                                              
+                                              
+                                             
+                                             <ol>
+                                                <li>
+                                                   
+                                                   <p>Follow the instructions in <a href="https://docs.aws.amazon.com/sdk-for-php/v3/developer-guide/getting-started_index.html">Getting Started with the AWS SDK for PHP Version
+                                                         3</a></p>
+                                                   
+                                                   <p>These instructions describe how to:</p>
+                                                   
+                                                   <div class="itemizedlist">
+                                                       
+                                                       
+                                                       
+                                                      
+                                                      <ul class="itemizedlist" type="disc">
+                                                         <li class="listitem">
+                                                            <p>Check for the prerequisites</p>
+                                                         </li>
+                                                         <li class="listitem">
+                                                            <p>Install the SDK</p>
+                                                         </li>
+                                                         <li class="listitem">
+                                                            <p>Apply the SDK to a PHP script</p>
+                                                         </li>
+                                                      </ul>
+                                                   </div>
+                                                   
+                                                </li>
+                                                <li>
+                                                   <p>Create and run a sample app using one of the <a href="https://docs.aws.amazon.com/sdk-for-php/v3/developer-guide/examples_index.html">AWS SDK for PHP Version 3 Code Examples</a></p>
+                                                </li>
+                                             </ol>
+                                          </div>
+                                          
+                                          <div class="itemizedlist">
+                                             
+                                             <p class="title"><b>Documentation for the AWS IoT Core services that the AWS SDK for PHP supports</b></p>
+                                              
+                                              
+                                              
+                                              
+                                             
+                                             <ul class="itemizedlist" type="disc">
+                                                <li class="listitem">
+                                                   
+                                                   <p><a href="https://docs.aws.amazon.com/aws-sdk-php/v3/api/class-Aws.Iot.IotClient.html">IoTClient reference documentation</a></p>
+                                                   
+                                                </li>
+                                                <li class="listitem">
+                                                   
+                                                   <p><a href="https://docs.aws.amazon.com/aws-sdk-php/v3/api/class-Aws.IotDataPlane.IotDataPlaneClient.html">IoTDataPlaneClient reference documentation</a></p>
+                                                   
+                                                </li>
+                                                <li class="listitem">
+                                                   
+                                                   <p><a href="https://docs.aws.amazon.com/aws-sdk-php/v3/api/class-Aws.IoTJobsDataPlane.IoTJobsDataPlaneClient.html">IoTJobsDataPlaneClient reference documentation</a></p>
+                                                   
+                                                </li>
+                                                <li class="listitem">
+                                                   
+                                                   <p><a href="https://docs.aws.amazon.com/aws-sdk-php/v3/api/class-Aws.IoTSecureTunneling.IoTSecureTunnelingClient.html">IoTSecureTunnelingClient reference documentation</a></p>
+                                                   
+                                                </li>
+                                             </ul>
+                                          </div>
+                                          
+                                       </dd>
+                                       
+                                       <dt>Python</dt>
+                                       <dd tab-id="python">
+                                          
+                                          <div class="orderedlist">
+                                             
+                                             <p class="title"><b>To install the <a href="https://aws.amazon.com/sdk-for-python/" rel="noopener noreferrer" target="_blank"><span>AWS SDK for Python (Boto3)</span><awsui-icon class="awsdocs-link-icon" name="external"></awsui-icon></a> and use it to connect to AWS IoT:</b></p>
+                                              
+                                              
+                                             
+                                             <ol>
+                                                <li>
+                                                   
+                                                   <p>Follow the instructions in the <a href="https://boto3.amazonaws.com/v1/documentation/api/latest/guide/quickstart.html" rel="noopener noreferrer" target="_blank"><span>AWS SDK for Python (Boto3) Quickstart</span><awsui-icon class="awsdocs-link-icon" name="external"></awsui-icon></a></p>
+                                                   
+                                                   <p>These instructions describe how to:</p>
+                                                   
+                                                   <div class="itemizedlist">
+                                                       
+                                                       
+                                                       
+                                                      
+                                                      <ul class="itemizedlist" type="disc">
+                                                         <li class="listitem">
+                                                            <p>Install the SDK</p>
+                                                         </li>
+                                                         <li class="listitem">
+                                                            <p>Configure the SDK</p>
+                                                         </li>
+                                                         <li class="listitem">
+                                                            <p>Use the SDK in your code</p>
+                                                         </li>
+                                                      </ul>
+                                                   </div>
+                                                   
+                                                </li>
+                                                <li>
+                                                   
+                                                   <p>Create and run a sample program that uses the AWS SDK for Python (Boto3)</p>
+                                                   
+                                                   <p>This program displays the account's currently configured
+                                                      logging options. After you install the SDK and configure it for
+                                                      your account, you should be able to run this program.
+                                                   </p>
+                                                   <pre class="programlisting"><div class="code-btn-container"><div class="btn-copy-code" title="Copy"><awsui-icon name="copy"></awsui-icon></div></div><code class="python ">import boto3
+import json
+
+# initialize client
+iot = boto3.client('iot')
+
+# get current logging levels, format them as JSON, and write them to stdout
+response = iot.get_v2_logging_options()
+print(json.dumps(response, indent=4))
+</code></pre>
+                                                   <p> For more information about the function used in 
+                                                      this example, see <a href="./configure-logging.html">Configure AWS IoT logging</a>.
+                                                   </p>
+                                                   
+                                                </li>
+                                             </ol>
+                                          </div>
+                                          
+                                          <div class="itemizedlist">
+                                             
+                                             <p class="title"><b>Documentation for the AWS IoT Core services that the AWS SDK for Python (Boto3) supports</b></p>
+                                              
+                                              
+                                              
+                                              
+                                             
+                                             <ul class="itemizedlist" type="disc">
+                                                <li class="listitem">
+                                                   
+                                                   <p><a href="https://boto3.amazonaws.com/v1/documentation/api/latest/reference/services/iot.html" rel="noopener noreferrer" target="_blank"><span>IoT reference documentation</span><awsui-icon class="awsdocs-link-icon" name="external"></awsui-icon></a></p>
+                                                   
+                                                </li>
+                                                <li class="listitem">
+                                                   
+                                                   <p><a href="https://boto3.amazonaws.com/v1/documentation/api/latest/reference/services/iot-data.html" rel="noopener noreferrer" target="_blank"><span>IoTDataPlane reference documentation</span><awsui-icon class="awsdocs-link-icon" name="external"></awsui-icon></a></p>
+                                                   
+                                                </li>
+                                                <li class="listitem">
+                                                   
+                                                   <p><a href="https://boto3.amazonaws.com/v1/documentation/api/latest/reference/services/iot-jobs-data.html" rel="noopener noreferrer" target="_blank"><span>IoTJobsDataPlane reference documentation</span><awsui-icon class="awsdocs-link-icon" name="external"></awsui-icon></a></p>
+                                                   
+                                                </li>
+                                                <li class="listitem">
+                                                   
+                                                   <p><a href="https://boto3.amazonaws.com/v1/documentation/api/latest/reference/services/iotsecuretunneling.html" rel="noopener noreferrer" target="_blank"><span>IoTSecureTunneling reference documentation</span><awsui-icon class="awsdocs-link-icon" name="external"></awsui-icon></a></p>
+                                                   
+                                                </li>
+                                             </ul>
+                                          </div>
+                                          
+                                       </dd>
+                                       
+                                       <dt>Ruby</dt>
+                                       <dd tab-id="ruby">
+                                          
+                                          <div class="itemizedlist">
+                                             
+                                             <p class="title"><b>To install the <a href="https://aws.amazon.com/sdk-for-ruby/" rel="noopener noreferrer" target="_blank"><span>AWS SDK for Ruby</span><awsui-icon class="awsdocs-link-icon" name="external"></awsui-icon></a> and use it to connect to
+                                                   AWS IoT:</b></p>
+                                              
+                                              
+                                             
+                                             <ul class="itemizedlist" type="disc">
+                                                <li class="listitem">
+                                                   
+                                                   <p>Follow the instructions in <a href="https://docs.aws.amazon.com/sdk-for-ruby/v3/developer-guide/getting-started.html">Getting Started with the AWS SDK for Ruby</a></p>
+                                                   
+                                                   <p>These instructions describe how to:</p>
+                                                   
+                                                   <div class="itemizedlist">
+                                                       
+                                                       
+                                                      
+                                                      <ul class="itemizedlist" type="disc">
+                                                         <li class="listitem">
+                                                            <p>Install the SDK</p>
+                                                         </li>
+                                                         <li class="listitem">
+                                                            <p>Configure the SDK</p>
+                                                         </li>
+                                                      </ul>
+                                                   </div>
+                                                   
+                                                </li>
+                                                <li class="listitem">
+                                                   
+                                                   <p>Create and run the <a href="https://docs.aws.amazon.com/sdk-for-ruby/v3/developer-guide/hello.html">Hello World Tutorial</a></p>
+                                                   
+                                                </li>
+                                             </ul>
+                                          </div>
+                                          
+                                          <div class="itemizedlist">
+                                             
+                                             <p class="title"><b>Documentation for the AWS IoT Core services that the AWS SDK for
+                                                   Ruby supports</b></p>
+                                              
+                                              
+                                              
+                                              
+                                             
+                                             <ul class="itemizedlist" type="disc">
+                                                <li class="listitem">
+                                                   
+                                                   <p><a href="https://docs.aws.amazon.com/sdk-for-ruby/v3/api/Aws/IoT/Client.html">Aws::IoT::Client reference documentation</a></p>
+                                                   
+                                                </li>
+                                                <li class="listitem">
+                                                   
+                                                   <p><a href="https://docs.aws.amazon.com/sdk-for-ruby/v3/api/Aws/IoTDataPlane/Client.html">Aws::IoTDataPlane::Client reference
+                                                         documentation</a></p>
+                                                   
+                                                </li>
+                                                <li class="listitem">
+                                                   
+                                                   <p><a href="https://docs.aws.amazon.com/sdk-for-ruby/v3/api/Aws/IoTJobsDataPlane/Client.html">Aws::IoTJobsDataPlane::Client reference
+                                                         documentation</a></p>
+                                                   
+                                                </li>
+                                                <li class="listitem">
+                                                   
+                                                   <p><a href="https://docs.aws.amazon.com/sdk-for-ruby/v3/api/Aws/IoTSecureTunneling/Client.html">Aws::IoTSecureTunneling::Client reference
+                                                         documentation</a></p>
+                                                   
+                                                </li>
+                                             </ul>
+                                          </div>
+                                          
+                                       </dd>
+                                       
+                                    </dl>
+                                 </awsdocs-tabs>
+                                  
+                                 
+                                 <h2 id="iot-connect-mobile-sdks">AWS Mobile SDKs</h2>
+                                 
+                                 <p>The AWS Mobile SDKs provide mobile app developers platform-specific support for
+                                    the APIs of the AWS IoT Core services, IoT device communication using MQTT, and the
+                                    APIs of other AWS services. 
+                                 </p>
+                                 
+                                 <awsdocs-tabs>
+                                    <dl style="display: none">
+                                       
+                                       <dt>Android</dt>
+                                       <dd tab-id="android">
+                                          
+                                          <p><b>AWS Mobile SDK for Android</b></p>
+                                          
+                                          <p>The AWS Mobile SDK for Android contains a library, samples, and documentation
+                                             for developers to build connected mobile applications using AWS. This
+                                             SDK also includes support for MQTT device communications and calling the
+                                             APIs of the AWS IoT Core services. For more information, see the
+                                             following:
+                                          </p>
+                                          
+                                          <div class="itemizedlist">
+                                              
+                                              
+                                              
+                                              
+                                              
+                                             
+                                             <ul class="itemizedlist" type="disc">
+                                                <li class="listitem">
+                                                   
+                                                   <p><a href="https://github.com/aws/aws-sdk-android" rel="noopener noreferrer" target="_blank"><span>AWS Mobile
+                                                            SDK for Android on GitHub</span><awsui-icon class="awsdocs-link-icon" name="external"></awsui-icon></a></p>
+                                                   
+                                                </li>
+                                                <li class="listitem">
+                                                   
+                                                   <p><a href="https://github.com/aws-amplify/aws-sdk-android/blob/main/README.md#aws-sdk-for-android" rel="noopener noreferrer" target="_blank"><span>AWS Mobile SDK for Android Readme</span><awsui-icon class="awsdocs-link-icon" name="external"></awsui-icon></a></p>
+                                                   
+                                                </li>
+                                                <li class="listitem">
+                                                   
+                                                   <p><a href="https://github.com/awslabs/aws-sdk-android-samples#aws-sdk-for-android-samples" rel="noopener noreferrer" target="_blank"><span>AWS
+                                                            Mobile SDK for Android Samples</span><awsui-icon class="awsdocs-link-icon" name="external"></awsui-icon></a></p>
+                                                   
+                                                </li>
+                                                <li class="listitem">
+                                                   
+                                                   <p><a href="https://aws-amplify.github.io/aws-sdk-android/docs/reference/" rel="noopener noreferrer" target="_blank"><span>AWS SDK for Android API reference</span><awsui-icon class="awsdocs-link-icon" name="external"></awsui-icon></a></p>
+                                                   
+                                                </li>
+                                                <li class="listitem">
+                                                   
+                                                   <p><a href="https://aws-amplify.github.io/aws-sdk-android/docs/reference/com/amazonaws/services/iot/AWSIotClient.html" rel="noopener noreferrer" target="_blank"><span>AWSIoTClient Class reference documentation</span><awsui-icon class="awsdocs-link-icon" name="external"></awsui-icon></a></p>
+                                                   
+                                                </li>
+                                             </ul>
+                                          </div>
+                                          
+                                       </dd>
+                                       
+                                       <dt>iOS</dt>
+                                       <dd tab-id="ios">
+                                          
+                                          <p><b>AWS Mobile SDK for iOS</b></p>
+                                          
+                                          <p>The AWS Mobile SDK for iOS is an open-source software development kit,
+                                             distributed under an Apache Open Source license. The SDK for iOS
+                                             provides a library, code samples, and documentation to help developers
+                                             build connected mobile applications using AWS. This SDK also includes
+                                             support for MQTT device communications and calling the APIs of the
+                                             AWS IoT Core services. For more information, see the following:
+                                          </p>
+                                          
+                                          <div class="itemizedlist">
+                                              
+                                              
+                                              
+                                              
+                                             
+                                             <ul class="itemizedlist" type="disc">
+                                                <li class="listitem">
+                                                   
+                                                   <p><a href="https://github.com/aws/aws-sdk-ios" rel="noopener noreferrer" target="_blank"><span>AWS Mobile SDK for iOS on GitHub</span><awsui-icon class="awsdocs-link-icon" name="external"></awsui-icon></a></p>
+                                                   
+                                                </li>
+                                                <li class="listitem">
+                                                   
+                                                   <p><a href="https://github.com/aws-amplify/aws-sdk-ios/blob/main/README.md#aws-sdk-for-ios" rel="noopener noreferrer" target="_blank"><span>AWS SDK for iOS Readme</span><awsui-icon class="awsdocs-link-icon" name="external"></awsui-icon></a></p>
+                                                   
+                                                </li>
+                                                <li class="listitem">
+                                                   
+                                                   <p><a href="https://github.com/awslabs/aws-sdk-ios-samples#the-aws-sdk-for-ios-samples" rel="noopener noreferrer" target="_blank"><span>AWS SDK for iOS Samples</span><awsui-icon class="awsdocs-link-icon" name="external"></awsui-icon></a></p>
+                                                   
+                                                </li>
+                                                <li class="listitem">
+                                                   
+                                                   <p><a href="https://aws-amplify.github.io/aws-sdk-ios/docs/reference/AWSIoT/index.html" rel="noopener noreferrer" target="_blank"><span>AWS IoT Class reference docs in the AWS SDK for
+                                                            iOS</span><awsui-icon class="awsdocs-link-icon" name="external"></awsui-icon></a></p>
+                                                   
+                                                </li>
+                                             </ul>
+                                          </div>
+                                          
+                                       </dd>
+                                       
+                                    </dl>
+                                 </awsdocs-tabs>
+                                  
+                                 
+                                 <h2 id="iot-connect-rest">REST APIs of the AWS IoT Core services </h2>
+                                 
+                                 <p>The REST APIs of the AWS IoT Core services  can be called directly by using HTTP
+                                    requests.
+                                 </p>
+                                 
+                                 <div class="itemizedlist">
+                                     
+                                     
+                                     
+                                    
+                                    <ul class="itemizedlist" type="disc">
+                                       <li class="listitem">
+                                           
+                                          
+                                          <p class="title"><b>Endpoint URL</b></p>
+                                          
+                                          <p>The service endpoints that expose the REST APIs of the AWS IoT Core
+                                             services vary by Region and are listed in <a href="https://docs.aws.amazon.com/general/latest/gr/iot-core.html">AWS IoT Core Endpoints and Quotas</a>. You must use the endpoint
+                                             for the Region that has the AWS IoT resources that you want to access,
+                                             because AWS IoT resources are Region specific.
+                                          </p>
+                                           
+                                          
+                                       </li>
+                                       <li class="listitem">
+                                           
+                                          
+                                          <p class="title"><b>Authentication</b></p>
+                                          
+                                          <p>The REST APIs of the AWS IoT Core services use AWS IAM credentials for
+                                             authentication. For more information, see <a href="https://docs.aws.amazon.com/general/latest/gr/signing_aws_api_requests.html">Signing AWS API requests</a> in the AWS General
+                                             Reference.
+                                          </p>
+                                           
+                                          
+                                       </li>
+                                       <li class="listitem">
+                                           
+                                          
+                                          <p class="title"><b>API reference</b></p>
+                                          
+                                          <p>For information about the specific functions provided by the REST APIs
+                                             of the AWS IoT Core services, see:
+                                          </p>
+                                           
+                                          
+                                          <div class="itemizedlist">
+                                              
+                                              
+                                              
+                                              
+                                             
+                                             <ul class="itemizedlist" type="disc">
+                                                <li class="listitem">
+                                                   
+                                                   <p><a href="https://docs.aws.amazon.com/iot/latest/apireference/API_Operations_AWS_IoT.html">API reference for IoT</a>.
+                                                   </p>
+                                                   
+                                                </li>
+                                                <li class="listitem">
+                                                   
+                                                   <p><a href="https://docs.aws.amazon.com/iot/latest/apireference/API_Operations_AWS_IoT_Data_Plane.html">API reference for IoT data</a>.
+                                                   </p>
+                                                   
+                                                </li>
+                                                <li class="listitem">
+                                                   
+                                                   <p><a href="https://docs.aws.amazon.com/iot/latest/apireference/API_Operations_AWS_IoT_Jobs_Data_Plane.html">API reference for IoT jobs data</a>.
+                                                   </p>
+                                                   
+                                                </li>
+                                                <li class="listitem">
+                                                   
+                                                   <p><a href="https://docs.aws.amazon.com/iot/latest/apireference/API_Operations_AWS_IoT_Secure_Tunneling.html">API reference for IoT secure tunneling</a>.
+                                                   </p>
+                                                   
+                                                   
+                                                </li>
+                                             </ul>
+                                          </div>
+                                          
+                                       </li>
+                                    </ul>
+                                 </div>
+                                 
+                                 <awsdocs-copyright class="copyright-print"></awsdocs-copyright>
+                                 <awsdocs-thumb-feedback right-edge="{{$ctrl.thumbFeedbackRightEdge}}"></awsdocs-thumb-feedback>
+                              </div>
+                              <noscript>
+                                 <div>
+                                    <div>
+                                       <div>
+                                          <div id="js_error_message">
+                                             <p><img src="https://d1ge0kk1l5kms0.cloudfront.net/images/G/01/webservices/console/warning.png" alt="Warning" /> <strong>Javascript is disabled or is unavailable in your
+                                                   browser.</strong></p>
+                                             <p>To use the Amazon Web Services Documentation, Javascript must be
+                                                enabled. Please refer to your browser's Help pages for instructions.
+                                             </p>
+                                          </div>
+                                       </div>
+                                    </div>
+                                 </div>
+                              </noscript>
+                              <div id="main-col-footer" class="awsui-util-font-size-0">
+                                 <div id="doc-conventions"><a target="_top" href="/general/latest/gr/docconventions.html">Document Conventions</a></div>
+                                 <div class="prev-next">
+                                    <div id="previous" class="prev-link" accesskey="p" href="./connect-to-iot.html">Connecting to AWS IoT Core</div>
+                                    <div id="next" class="next-link" accesskey="n" href="./iot-connect-devices.html">Connecting devices to AWS IoT</div>
+                                 </div>
+                              </div>
+                              <awsdocs-page-utilities></awsdocs-page-utilities>
+                           </div>
+                           <div id="quick-feedback-yes" style="display: none;">
+                              <div class="title">Did this page help you? - Yes</div>
+                              <div class="content">
+                                 <p>Thanks for letting us know we're doing a good
+                                    job!
+                                 </p>
+                                 <p>If you've got a moment, please tell us what we did right
+                                    so we can do more of it.
+                                 </p>
+                                 <p>
+                                    <awsui-button id="fblink" target="_blank" text="Feedback" click="linkClick($event)" href="https://docs.aws.amazon.com/forms/aws-doc-feedback?hidden_service_name=IoT Docs&amp;topic_url=https://docs.aws.amazon.com/en_us/iot/latest/developerguide/iot-connect-service.html"></awsui-button>
+                                 </p>
+                              </div>
+                           </div>
+                           <div id="quick-feedback-no" style="display: none;">
+                              <div class="title">Did this page help you? - No</div>
+                              <div class="content">
+                                 <p>Thanks for letting us know this page needs work. We're
+                                    sorry we let you down.
+                                 </p>
+                                 <p>If you've got a moment, please tell us how we can make
+                                    the documentation better.
+                                 </p>
+                                 <p>
+                                    <awsui-button id="fblink" target="_blank" text="Feedback" click="linkClick($event)" href="https://docs.aws.amazon.com/forms/aws-doc-feedback?hidden_service_name=IoT Docs&amp;topic_url=https://docs.aws.amazon.com/en_us/iot/latest/developerguide/iot-connect-service.html"></awsui-button>
+                                 </p>
+                              </div>
+                           </div>
+                        </div>
+                     </body>
+                  </div>
+               </awsdocs-view>
+               <div class="page-loading-indicator" id="page-loading-indicator">
+                  <awsui-spinner size="large"></awsui-spinner>
+               </div>
+            </div>
+            <div id="tools-panel" dom-region="tools">
+               <awsdocs-tools-panel id="awsdocs-tools-panel"></awsdocs-tools-panel>
+            </div>
+         </awsui-app-layout>
+         <awsdocs-cookie-banner class="doc-cookie-banner"></awsdocs-cookie-banner>
+         <!--
+                SiteCatalyst code version: H.25.2.
+                Copyright 1996-2012 Adobe, Inc. All Rights Reserved
+                More info available at http://www.omniture.com
+            --><script language="JavaScript" type="text/javascript">
+var awsdocs = awsdocs || {};
+awsdocs.prop66 = 'AWS IoT Core';
+awsdocs.prop65 =  'Developer Guide';
+            </script><script src="https://a0.awsstatic.com/s_code/js/3.0/awshome_s_code.js" language="JavaScript" type="text/javascript"></script>
+         <!--/DO NOT REMOVE/-->
+         <!--End SiteCatalyst code version: H.25.2.--></div>
+   </body>
+</html>

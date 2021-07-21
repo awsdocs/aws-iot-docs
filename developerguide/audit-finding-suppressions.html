@@ -1,0 +1,694 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" ng-app="AWSDocsDocPageApp">
+   <head>
+      <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+      <title>Audit finding suppressions - AWS IoT Core</title>
+      <meta name="viewport" content="width=device-width,initial-scale=1" />
+      <meta name="assets_root" content="assets" />
+      <meta name="target_state" content="audit-finding-suppressions" />
+      <meta name="default_state" content="audit-finding-suppressions" />
+      <link rel="icon" type="image/ico" href="/assets/images/favicon.ico" />
+      <link rel="shortcut icon" type="image/ico" href="/assets/images/favicon.ico" />
+      <link rel="canonical" href="https://docs.aws.amazon.com/iot/latest/developerguide/audit-finding-suppressions.html" />
+      <meta name="description" content="Learn about AWS IoT Device Defender audit finding suppressions." />
+      <meta name="deployment_region" content="IAD" />
+      <meta name="product" content="AWS IoT Core" />
+      <meta name="guide" content="Developer Guide" />
+      <meta name="locales" content="de_de:Deutsch/en_us:English/es_es:Español/fr_fr:Français/it_it:Italiano/ja_jp:日本語/ko_kr:한국어/pt_br:Português/zh_cn:中文 (简体)/zh_tw:中文 (繁體)" />
+      <meta name="abstract" content="AWS IoT provides secure, bi-directional communication between Internet-connected devices such as sensors, actuators, embedded micro-controllers, or smart appliances and the AWS Cloud. This enables you to collect telemetry data from multiple devices, and store and analyze the data. You can also create applications that enable your users to control these devices from their phones or tablets." />
+      <meta name="guide-locale" content="en_us" />
+      <meta name="tocs" content="toc-contents.json" />
+      <meta name="feedback-item" content="IoT Docs" />
+      <meta name="this_doc_product" content="AWS IoT Core" />
+      <meta name="this_doc_guide" content="Developer Guide" />
+      <link href="assets/css/vendor4.css" rel="stylesheet" />
+      <link href="assets/css/awsdocs-common.css" rel="stylesheet" /><script type="text/javascript" src="assets/js/vendor3.js" defer=""></script><script type="text/javascript" src="assets/js/vendor4.js" defer=""></script><script type="text/javascript" src="assets/js/vendor1.js" defer=""></script><script type="text/javascript" src="assets/js/awsdocs-common.js" defer=""></script><script type="text/javascript" src="assets/js/awsdocs-doc-app.js" defer=""></script></head>
+   <body class="awsdocs awsui">
+      <div class="awsdocs-container">
+         <awsdocs-header></awsdocs-header>
+         <awsui-app-layout id="app-layout" class="awsui-util-no-gutters" ng-controller="ContentController as $ctrl" header-selector="awsdocs-header" navigation-hide="false" navigation-width="$ctrl.navWidth" navigation-open="$ctrl.navOpen" navigation-change="$ctrl.onNavChange($event)" tools-hide="$ctrl.hideTools" tools-width="$ctrl.toolsWidth" tools-open="$ctrl.toolsOpen" tools-change="$ctrl.onToolsChange($event)">
+            <div id="guide-toc" dom-region="navigation">
+               <awsdocs-toc></awsdocs-toc>
+            </div>
+            <div id="main-column" dom-region="content" tabindex="-1">
+               <awsdocs-view class="awsdocs-view">
+                  <div id="awsdocs-content">
+                     <head>
+                        <title>Audit finding suppressions - AWS IoT Core</title>
+                        <meta name="pdf" content="iot-dg.pdf#audit-finding-suppressions" />
+                        <meta name="kindle" content="https://www.amazon.com/dp/B07JBRCWWZ" />
+                        <meta name="github" content="https://github.com/awsdocs/aws-iot-docs/tree/master/developerguide/audit-finding-suppressions.md" />
+                        <meta name="forums" content="http://forums.aws.amazon.com/forum.jspa?forumID=210" />
+                        <meta name="feedback" content="https://docs.aws.amazon.com/forms/aws-doc-feedback?hidden_service_name=IoT%20Docs&amp;topic_url=http://docs.aws.amazon.com/en_us/iot/latest/developerguide/audit-finding-suppressions.html" />
+                        <meta name="feedback-yes" content="feedbackyes.html?topic_url=http://docs.aws.amazon.com/en_us/iot/latest/developerguide/audit-finding-suppressions.html" />
+                        <meta name="feedback-no" content="feedbackno.html?topic_url=http://docs.aws.amazon.com/en_us/iot/latest/developerguide/audit-finding-suppressions.html" />
+                        <meta name="keywords" content="AWS IoT,IoT,Internet of Things" />
+                     </head>
+                     <body>
+                        <div id="main">
+                           <div style="display: none"><a href="iot-dg.pdf#audit-finding-suppressions" target="_blank" rel="noopener noreferrer" title="Open PDF"></a><a target="_blank" rel="noopener noreferrer" href="https://www.amazon.com/dp/B07JBRCWWZ" title="Open Kindle"></a><a href="https://github.com/awsdocs/aws-iot-docs/tree/master/developerguide/audit-finding-suppressions.md" target="_blank" rel="noopener noreferrer" title="Edit this page on GitHub"></a></div>
+                           <div id="breadcrumbs" class="breadcrumb"><a href="http://aws.amazon.com">AWS</a><a href="/index.html">Documentation</a><a href="/iot/index.html">AWS IoT Core</a><a href="what-is-aws-iot.html">Developer Guide</a></div>
+                           <div id="page-toc-src"><a href="#how-suppressions-work">How audit finding suppressions work</a><a href="#audit-finding-suppressions-console">How to use audit finding suppressions in the
+                                 console</a><a href="#audit-finding-suppressions-cli">How to use audit finding suppressions in the CLI</a><a href="#audit-finding-suppressions-apis">Audit finding suppressions APIs</a></div>
+                           <div id="main-content" class="awsui-util-container">
+                              <div id="main-col-body">
+                                 <awsdocs-language-banner data-service="$ctrl.pageService"></awsdocs-language-banner>
+                                 <h1 class="topictitle" id="audit-finding-suppressions">Audit finding suppressions</h1>
+                                 <div class="awsdocs-page-header-container">
+                                    <awsdocs-page-header></awsdocs-page-header>
+                                    <awsdocs-filter-selector id="awsdocs-filter-selector"></awsdocs-filter-selector>
+                                 </div>
+                                 <p>When you run an audit, it reports findings for all non-compliant resources. This means
+                                    your audit reports include findings for resources where you're working toward mitigating
+                                    issues and also for resources that are known to be non-compliant, such as test or
+                                    broken
+                                    devices. The audit continues to report findings for resources that remain non-compliant
+                                    in
+                                    successive audit runs, which may add unwanted information to your reports. Audit finding
+                                    suppressions enable you to suppress or filter out findings for a defined period of
+                                    time
+                                    until the resource is fixed, or indefinitely for a resource associated with a test
+                                    or broken
+                                    device.
+                                 </p>
+                                 <div class="awsdocs-note">
+                                    <div class="awsdocs-note-title">
+                                       <awsui-icon name="status-info" variant="link"></awsui-icon><span>Note</span></div>
+                                    <div class="awsdocs-note-text">
+                                       <p>Mitigation actions won't be available for suppressed audit findings. For more
+                                          information about mitigation actions, see <a href="./dd-mitigation-actions.html">Mitigation actions</a>.
+                                       </p>
+                                    </div>
+                                 </div>
+                                 <p>For information about audit finding suppression quotas, see <a href="https://docs.aws.amazon.com/general/latest/gr/iot_device_defender.html">AWS IoT Device Defender endpoints and
+                                       quotas</a>.
+                                 </p>
+                                 
+                                 <h2 id="how-suppressions-work">How audit finding suppressions work</h2>
+                                 
+                                 <p>When you create an audit finding suppression for a non-compliant resource, your audit
+                                    reports and notifications behave differently.
+                                 </p>
+                                 
+                                 <p>Your audit reports will include a new section that lists all the suppressed findings
+                                    associated with the report. Suppressed findings won't be considered when we evaluate
+                                    whether an audit check is compliant or not. A suppressed resource count is also returned
+                                    for each audit check when you use the <a href="https://docs.aws.amazon.com/cli/latest/reference/iot/describe-audit-task.html">describe-audit-task</a>
+                                    command in the command line interface (CLI).
+                                 </p>
+                                 
+                                 <p>For audit notifications, suppressed findings aren't considered when we evaluate
+                                    whether an audit check is compliant or not. A suppressed resource count is also included
+                                    in each audit check notification AWS IoT Device Defender publishes to Amazon CloudWatch
+                                    and Amazon Simple
+                                    Notification Service (Amazon SNS).
+                                 </p>
+                                  
+                                 
+                                 <h2 id="audit-finding-suppressions-console">How to use audit finding suppressions in the
+                                    console
+                                 </h2>
+                                 
+                                 <div class="procedure">
+                                    <p class="title"><b>To suppress a finding from an audit report</b></p>
+                                    <p>The following procedure shows you how to create an audit finding suppression in
+                                       the AWS IoT console.
+                                    </p>
+                                    <ol>
+                                       <li>
+                                          
+                                          <p>In the <a href="https://console.aws.amazon.com/iot" rel="noopener noreferrer" target="_blank"><span>AWS IoT console</span><awsui-icon class="awsdocs-link-icon" name="external"></awsui-icon></a>,
+                                             in the navigation pane, expand <b>Defend</b>, and then choose
+                                             <b>Audit</b>, <b>Results</b>.
+                                          </p>
+                                          
+                                       </li>
+                                       <li>
+                                          
+                                          <p>Select an audit report you'd like to review.</p>
+                                          
+                                          <div class="mediaobject">
+                                              
+                                             <img src="images/audit-results.png" class="aws-docs-img-whiteBg aws-docs-img-padding" />
+                                              
+                                             
+                                          </div>
+                                          
+                                       </li>
+                                       <li>
+                                          
+                                          <p>In the <b>Non-compliant checks</b> section, under
+                                             <b>Check name</b>, choose the audit check that you're
+                                             interested in.
+                                          </p>
+                                          
+                                          <div class="mediaobject">
+                                              
+                                             <img src="images/audit-results-details.png" class="aws-docs-img-whiteBg aws-docs-img-padding" />
+                                              
+                                             
+                                          </div>
+                                          
+                                       </li>
+                                       <li>
+                                          
+                                          <p>On the audit check details screen, if there are findings you don't want to
+                                             see, select the option button next to the finding. Next, choose
+                                             <b>Actions</b>, and then choose the amount of time you'd like
+                                             your audit finding suppression to persist.
+                                          </p>
+                                          
+                                          <div class="awsdocs-note">
+                                             <div class="awsdocs-note-title">
+                                                <awsui-icon name="status-info" variant="link"></awsui-icon><span>Note</span></div>
+                                             <div class="awsdocs-note-text">
+                                                <p>In the console, you can select <em>1 week</em>, <em>1
+                                                      month</em>, <em>3 months</em>, <em>6
+                                                      months</em>, or <em>Indefinitely</em> as expiration
+                                                   dates for your audit finding suppression. If you want to set a specific
+                                                   expiration date, you can do so only in the CLI or API. Audit finding
+                                                   suppressions can also be canceled anytime regardless of expiration
+                                                   date.
+                                                </p>
+                                             </div>
+                                          </div>
+                                          
+                                          <div class="mediaobject">
+                                              
+                                             <img src="images/non-compliant-check.png" class="aws-docs-img-whiteBg aws-docs-img-padding" />
+                                              
+                                             
+                                          </div>
+                                          
+                                       </li>
+                                       <li>
+                                          
+                                          <p>Confirm the suppression details, and then choose <b>Enable
+                                                suppression</b>.
+                                          </p>
+                                          
+                                          <div class="mediaobject">
+                                              
+                                             <img src="images/confirm-suppression.png" class="aws-docs-img-whiteBg aws-docs-img-padding" />
+                                              
+                                             
+                                          </div>
+                                          
+                                       </li>
+                                       <li>
+                                          
+                                          <p>After you've created the audit finding suppression, a banner appears
+                                             confirming your audit finding suppression was created.
+                                          </p>
+                                          
+                                          <div class="mediaobject">
+                                              
+                                             <img src="images/suppression-created-successfully.png" class="aws-docs-img-whiteBg aws-docs-img-padding" />
+                                              
+                                             
+                                          </div>
+                                          
+                                       </li>
+                                    </ol>
+                                 </div>
+                                 
+                                 <div class="procedure">
+                                    <p class="title"><b>To view your suppressed findings in an audit report</b></p>
+                                    <ol>
+                                       <li>
+                                          
+                                          <p>In the <a href="https://console.aws.amazon.com/iot" rel="noopener noreferrer" target="_blank"><span>AWS IoT console</span><awsui-icon class="awsdocs-link-icon" name="external"></awsui-icon></a>,
+                                             in the navigation pane, expand <b>Defend</b>, and then choose
+                                             <b>Audit</b>, <b>Results</b>.
+                                          </p>
+                                          
+                                       </li>
+                                       <li>
+                                          
+                                          <p>Select an audit report you'd like to review.</p>
+                                          
+                                       </li>
+                                       <li>
+                                          
+                                          <p>In the <b>Suppressed findings</b> section, view which audit
+                                             findings have been suppressed for your chosen audit report.
+                                          </p>
+                                          
+                                          <div class="mediaobject">
+                                              
+                                             <img src="images/audit-report-findings.png" class="aws-docs-img-whiteBg aws-docs-img-padding" />
+                                              
+                                             
+                                          </div>
+                                          
+                                       </li>
+                                    </ol>
+                                 </div>
+                                 
+                                 <div class="procedure">
+                                    <p class="title"><b>To list your audit finding suppressions</b></p>
+                                    <ul>
+                                       <li>
+                                          
+                                          <p>In the <a href="https://console.aws.amazon.com/iot" rel="noopener noreferrer" target="_blank"><span>AWS IoT console</span><awsui-icon class="awsdocs-link-icon" name="external"></awsui-icon></a>,
+                                             in the navigation pane, expand <b>Defend</b>, and then choose
+                                             <b>Audit</b>, <b>Finding
+                                                suppressions</b>.
+                                          </p>
+                                          
+                                          <div class="mediaobject">
+                                              
+                                             <img src="images/list-suppressions.png" class="aws-docs-img-whiteBg aws-docs-img-padding" />
+                                              
+                                             
+                                          </div>
+                                          
+                                       </li>
+                                    </ul>
+                                 </div>
+                                 
+                                 <div class="procedure">
+                                    <p class="title"><b>To edit your audit finding suppression</b></p>
+                                    <ol>
+                                       <li>
+                                          
+                                          <p>In the <a href="https://console.aws.amazon.com/iot" rel="noopener noreferrer" target="_blank"><span>AWS IoT console</span><awsui-icon class="awsdocs-link-icon" name="external"></awsui-icon></a>,
+                                             in the navigation pane, expand <b>Defend</b>, and then choose
+                                             <b>Audit</b>, <b>Finding
+                                                suppressions</b>.
+                                          </p>
+                                          
+                                       </li>
+                                       <li>
+                                          
+                                          <p>Select the option button next to the audit finding suppression you'd like to
+                                             edit. Next, choose <b>Actions</b>,
+                                             <b>Edit</b>.
+                                          </p>
+                                          
+                                       </li>
+                                       <li>
+                                          
+                                          <p>On the <b>Edit audit finding suppression</b> window, you can
+                                             change the <b>Suppression duration</b> or <b>Description
+                                                (optional)</b>.
+                                          </p>
+                                          
+                                          <div class="mediaobject">
+                                              
+                                             <img src="images/edit-suppression.png" class="aws-docs-img-whiteBg aws-docs-img-padding" />
+                                              
+                                             
+                                          </div>
+                                          
+                                       </li>
+                                       <li>
+                                          
+                                          <p>After you've made your changes, choose <b>Save</b>. The
+                                             <b>Finding suppressions</b> window opens.
+                                          </p>
+                                          
+                                       </li>
+                                    </ol>
+                                 </div>
+                                 
+                                 <div class="procedure">
+                                    <p class="title"><b>To delete an audit finding suppression</b></p>
+                                    <ol>
+                                       <li>
+                                          
+                                          <p>In the <a href="https://console.aws.amazon.com/iot" rel="noopener noreferrer" target="_blank"><span>AWS IoT console</span><awsui-icon class="awsdocs-link-icon" name="external"></awsui-icon></a>,
+                                             in the navigation pane, expand <b>Defend</b>, and then choose
+                                             <b>Audit</b>, <b>Finding
+                                                suppressions</b>.
+                                          </p>
+                                          
+                                       </li>
+                                       <li>
+                                          
+                                          <p>Select the option button next to the audit finding suppression you'd like to
+                                             delete, and then choose <b>Actions</b>,
+                                             <b>Delete</b>.
+                                          </p>
+                                          
+                                       </li>
+                                       <li>
+                                          
+                                          <p>On the <b>Delete audit finding suppression</b> window, enter
+                                             <code class="code">delete</code> in the text box to confirm your deletion, and then
+                                             choose <b>Delete</b>. The <b>Finding
+                                                suppressions</b> window opens.
+                                          </p>
+                                          
+                                          <div class="mediaobject">
+                                              
+                                             <img src="images/delete-suppression.png" class="aws-docs-img-whiteBg aws-docs-img-padding" />
+                                              
+                                             
+                                          </div>
+                                          
+                                       </li>
+                                    </ol>
+                                 </div>
+                                  
+                                 
+                                 <h2 id="audit-finding-suppressions-cli">How to use audit finding suppressions in the CLI</h2>
+                                 
+                                 <p>You can use the following CLI commands to create and manage audit finding
+                                    suppressions.
+                                 </p>
+                                 
+                                 <div class="itemizedlist">
+                                     
+                                     
+                                     
+                                     
+                                     
+                                    
+                                    <ul class="itemizedlist" type="disc">
+                                       <li class="listitem">
+                                          
+                                          <p><a href="https://docs.aws.amazon.com/cli/latest/reference/iot/create-audit-suppression.html">create-audit-suppression</a></p>
+                                          
+                                       </li>
+                                       <li class="listitem">
+                                          
+                                          <p><a href="https://docs.aws.amazon.com/cli/latest/reference/iot/describe-audit-suppression.html">describe-audit-suppression</a></p>
+                                          
+                                       </li>
+                                       <li class="listitem">
+                                          
+                                          <p><a href="https://docs.aws.amazon.com/cli/latest/reference/iot/update-audit-suppression.html">update-audit-suppression</a></p>
+                                          
+                                       </li>
+                                       <li class="listitem">
+                                          
+                                          <p><a href="https://docs.aws.amazon.com/cli/latest/reference/iot/delete-audit-suppression.html">delete-audit-suppression</a></p>
+                                          
+                                       </li>
+                                       <li class="listitem">
+                                          
+                                          <p><a href="https://docs.aws.amazon.com/cli/latest/reference/iot/list-audit-suppressions.html">list-audit-suppressions</a></p>
+                                          
+                                       </li>
+                                    </ul>
+                                 </div>
+                                 
+                                 <p>The <code class="code">resource-identifier</code> you input depends on the <code class="code">check-name</code>
+                                    you're suppressing findings for. The following table details which checks require
+                                    which
+                                    <code class="code">resource-identifier</code> for creating and editing suppressions.
+                                 </p>
+                                 
+                                 <div class="awsdocs-note">
+                                    <div class="awsdocs-note-title">
+                                       <awsui-icon name="status-info" variant="link"></awsui-icon><span>Note</span></div>
+                                    <div class="awsdocs-note-text">
+                                       <p>The suppression commands do not indicate turning off an audit. Audits will still
+                                          run on your AWS IoT devices. Suppressions are only applicable to the audit
+                                          findings.
+                                       </p>
+                                    </div>
+                                 </div>
+                                 
+                                 <div class="table-container">
+                                    <div class="table-contents">
+                                       <table id="w332aac42c15c21c13c11">
+                                          <thead>
+                                             
+                                             <tr>
+                                                
+                                                <th><code class="code">check-name</code></th>
+                                                
+                                                <th><code class="code">resource-identifier</code></th>
+                                                
+                                             </tr>
+                                             
+                                          </thead>
+                                          
+                                          <tr>
+                                             
+                                             <td><code class="code">AUTHENTICATE_COGNITO_ROLE_OVERLY_PERMISSIVE_CHECK</code></td>
+                                             
+                                             <td><code class="code">cognitoIdentityPoolId</code></td>
+                                             
+                                          </tr>
+                                          
+                                          <tr>
+                                             
+                                             <td><code class="code">CA_CERT_APPROACHING_EXPIRATION_CHECK</code></td>
+                                             
+                                             <td><code class="code">caCertificateId</code></td>
+                                             
+                                          </tr>
+                                          
+                                          <tr>
+                                             
+                                             <td><code class="code">CA_CERTIFICATE_KEY_QUALITY_CHECK</code></td>
+                                             
+                                             <td><code class="code">caCertificateId</code></td>
+                                             
+                                          </tr>
+                                          
+                                          <tr>
+                                             
+                                             <td><code class="code">CONFLICTING_CLIENT_IDS_CHECK</code></td>
+                                             
+                                             <td><code class="code">clientId</code></td>
+                                             
+                                          </tr>
+                                          
+                                          <tr>
+                                             
+                                             <td><code class="code">DEVICE_CERT_APPROACHING_EXPIRATION_CHECK</code></td>
+                                             
+                                             <td><code class="code">deviceCertificateId</code></td>
+                                             
+                                          </tr>
+                                          
+                                          <tr>
+                                             
+                                             <td><code class="code">DEVICE_CERTIFICATE_KEY_QUALITY_CHECK</code></td>
+                                             
+                                             <td><code class="code">deviceCertificateId</code></td>
+                                             
+                                          </tr>
+                                          
+                                          <tr>
+                                             
+                                             <td><code class="code">DEVICE_CERTIFICATE_SHARED_CHECK</code></td>
+                                             
+                                             <td><code class="code">deviceCertificateId</code></td>
+                                             
+                                          </tr>
+                                          
+                                          <tr>
+                                             
+                                             <td><code class="code">IOT_POLICY_OVERLY_PERMISSIVE_CHECK</code></td>
+                                             
+                                             <td><code class="code">policyVersionIdentifier</code></td>
+                                             
+                                          </tr>
+                                          
+                                          <tr>
+                                             
+                                             <td><code class="code">IOT_ROLE_ALIAS_ALLOWS_ACCESS_TO_UNUSED_SERVICES_CHECK</code></td>
+                                             
+                                             <td><code class="code">roleAliasArn</code></td>
+                                             
+                                          </tr>
+                                          
+                                          <tr>
+                                             
+                                             <td><code class="code">IOT_ROLE_ALIAS_OVERLY_PERMISSIVE_CHECK</code></td>
+                                             
+                                             <td><code class="code">roleAliasArn</code></td>
+                                             
+                                          </tr>
+                                          
+                                          <tr>
+                                             
+                                             <td><code class="code">LOGGING_DISABLED_CHECK</code></td>
+                                             
+                                             <td><code class="code">account</code></td>
+                                             
+                                          </tr>
+                                          
+                                          <tr>
+                                             
+                                             <td><code class="code">REVOKED_CA_CERT_CHECK</code></td>
+                                             
+                                             <td><code class="code">caCertificateId</code></td>
+                                             
+                                          </tr>
+                                          
+                                          <tr>
+                                             
+                                             <td><code class="code">REVOKED_DEVICE_CERT_CHECK</code></td>
+                                             
+                                             <td><code class="code">deviceCertificateId</code></td>
+                                             
+                                          </tr>
+                                          
+                                          <tr>
+                                             
+                                             <td><code class="code">UNAUTHENTICATED_COGNITO_ROLE_OVERLY_PERMISSIVE_CHECK</code></td>
+                                             
+                                             <td><code class="code">cognitoIdentityPoolId</code></td>
+                                             
+                                          </tr>
+                                          
+                                       </table>
+                                    </div>
+                                 </div>
+                                 
+                                 <div class="procedure">
+                                    <p class="title"><b>To create and apply an audit finding suppression</b></p>
+                                    <p>The following procedure shows you how to create an audit finding suppression in
+                                       the AWS CLI.
+                                    </p>
+                                    <ul>
+                                       <li>
+                                          
+                                          <p>Use the <code class="code">create-audit-suppression</code> command to create an audit
+                                             finding suppression. The following example creates an audit finding suppression
+                                             for AWS account <code class="replaceable">123456789012</code> on the basis of the
+                                             check <b>Logging disabled</b>.
+                                          </p>
+                                          <pre class="programlisting"><div class="code-btn-container"><div class="btn-copy-code" title="Copy"><awsui-icon name="copy"></awsui-icon></div></div><code class="nohighlight">aws iot create-audit-suppression \
+    --check-name <code class="replaceable">LOGGING_DISABLED_CHECK</code> \
+    --resource-identifier account=<code class="replaceable">123456789012</code> \
+    --client-request-token <code class="replaceable">28ac32c3-384c-487a-a368-c7bbd481f554</code> \
+    --suppress-indefinitely \
+    --description "<code class="replaceable">Suppresses logging disabled check because I don't want to enable logging for now.</code>"</code></pre>
+                                          <p>There is no output for this command.</p>
+                                          
+                                       </li>
+                                    </ul>
+                                 </div>
+                                  
+                                 
+                                 <h2 id="audit-finding-suppressions-apis">Audit finding suppressions APIs</h2>
+                                 
+                                 <p>The following APIs can be used to create and manage audit finding suppressions.</p>
+                                 
+                                 <div class="itemizedlist">
+                                     
+                                     
+                                     
+                                     
+                                     
+                                    
+                                    <ul class="itemizedlist" type="disc">
+                                       <li class="listitem">
+                                          
+                                          <p><a href="https://docs.aws.amazon.com/iot/latest/apireference/API_CreateAuditSuppression.html">CreateAuditSuppression</a></p>
+                                          
+                                       </li>
+                                       <li class="listitem">
+                                          
+                                          <p><a href="https://docs.aws.amazon.com/iot/latest/apireference/API_DescribeAuditSuppression.html">DescribeAuditSuppression</a></p>
+                                          
+                                       </li>
+                                       <li class="listitem">
+                                          
+                                          <p><a href="https://docs.aws.amazon.com/iot/latest/apireference/API_UpdateAuditSuppression.html">UpdateAuditSuppression</a></p>
+                                          
+                                       </li>
+                                       <li class="listitem">
+                                          
+                                          <p><a href="https://docs.aws.amazon.com/iot/latest/apireference/API_DeleteAuditSuppression.html">DeleteAuditSuppression</a></p>
+                                          
+                                       </li>
+                                       <li class="listitem">
+                                          
+                                          <p><a href="https://docs.aws.amazon.com/iot/latest/apireference/API_ListAuditSuppressions.html">ListAuditSuppressions</a></p>
+                                          
+                                       </li>
+                                    </ul>
+                                 </div>
+                                 
+                                 <p>To filter <em>for</em> specific audit findings, you can use the <a href="https://docs.aws.amazon.com/iot/latest/apireference/API_ListAuditFindings.html">ListAuditFindings</a> API.
+                                 </p>
+                                 
+                                 <awsdocs-copyright class="copyright-print"></awsdocs-copyright>
+                                 <awsdocs-thumb-feedback right-edge="{{$ctrl.thumbFeedbackRightEdge}}"></awsdocs-thumb-feedback>
+                              </div>
+                              <noscript>
+                                 <div>
+                                    <div>
+                                       <div>
+                                          <div id="js_error_message">
+                                             <p><img src="https://d1ge0kk1l5kms0.cloudfront.net/images/G/01/webservices/console/warning.png" alt="Warning" /> <strong>Javascript is disabled or is unavailable in your
+                                                   browser.</strong></p>
+                                             <p>To use the Amazon Web Services Documentation, Javascript must be
+                                                enabled. Please refer to your browser's Help pages for instructions.
+                                             </p>
+                                          </div>
+                                       </div>
+                                    </div>
+                                 </div>
+                              </noscript>
+                              <div id="main-col-footer" class="awsui-util-font-size-0">
+                                 <div id="doc-conventions"><a target="_top" href="/general/latest/gr/docconventions.html">Document Conventions</a></div>
+                                 <div class="prev-next">
+                                    <div id="previous" class="prev-link" accesskey="p" href="./AuditCommands.html">Audit commands</div>
+                                    <div id="next" class="next-link" accesskey="n" href="./device-defender-detect.html">Detect</div>
+                                 </div>
+                              </div>
+                              <awsdocs-page-utilities></awsdocs-page-utilities>
+                           </div>
+                           <div id="quick-feedback-yes" style="display: none;">
+                              <div class="title">Did this page help you? - Yes</div>
+                              <div class="content">
+                                 <p>Thanks for letting us know we're doing a good
+                                    job!
+                                 </p>
+                                 <p>If you've got a moment, please tell us what we did right
+                                    so we can do more of it.
+                                 </p>
+                                 <p>
+                                    <awsui-button id="fblink" target="_blank" text="Feedback" click="linkClick($event)" href="https://docs.aws.amazon.com/forms/aws-doc-feedback?hidden_service_name=IoT Docs&amp;topic_url=https://docs.aws.amazon.com/en_us/iot/latest/developerguide/audit-finding-suppressions.html"></awsui-button>
+                                 </p>
+                              </div>
+                           </div>
+                           <div id="quick-feedback-no" style="display: none;">
+                              <div class="title">Did this page help you? - No</div>
+                              <div class="content">
+                                 <p>Thanks for letting us know this page needs work. We're
+                                    sorry we let you down.
+                                 </p>
+                                 <p>If you've got a moment, please tell us how we can make
+                                    the documentation better.
+                                 </p>
+                                 <p>
+                                    <awsui-button id="fblink" target="_blank" text="Feedback" click="linkClick($event)" href="https://docs.aws.amazon.com/forms/aws-doc-feedback?hidden_service_name=IoT Docs&amp;topic_url=https://docs.aws.amazon.com/en_us/iot/latest/developerguide/audit-finding-suppressions.html"></awsui-button>
+                                 </p>
+                              </div>
+                           </div>
+                        </div>
+                     </body>
+                  </div>
+               </awsdocs-view>
+               <div class="page-loading-indicator" id="page-loading-indicator">
+                  <awsui-spinner size="large"></awsui-spinner>
+               </div>
+            </div>
+            <div id="tools-panel" dom-region="tools">
+               <awsdocs-tools-panel id="awsdocs-tools-panel"></awsdocs-tools-panel>
+            </div>
+         </awsui-app-layout>
+         <awsdocs-cookie-banner class="doc-cookie-banner"></awsdocs-cookie-banner>
+         <!--
+                SiteCatalyst code version: H.25.2.
+                Copyright 1996-2012 Adobe, Inc. All Rights Reserved
+                More info available at http://www.omniture.com
+            --><script language="JavaScript" type="text/javascript">
+var awsdocs = awsdocs || {};
+awsdocs.prop66 = 'AWS IoT Core';
+awsdocs.prop65 =  'Developer Guide';
+            </script><script src="https://a0.awsstatic.com/s_code/js/3.0/awshome_s_code.js" language="JavaScript" type="text/javascript"></script>
+         <!--/DO NOT REMOVE/-->
+         <!--End SiteCatalyst code version: H.25.2.--></div>
+   </body>
+</html>

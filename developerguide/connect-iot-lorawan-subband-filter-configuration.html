@@ -1,0 +1,363 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" ng-app="AWSDocsDocPageApp">
+   <head>
+      <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+      <title>Configure your gateway's subbands and filtering capabilities - AWS IoT Core</title>
+      <meta name="viewport" content="width=device-width,initial-scale=1" />
+      <meta name="assets_root" content="assets" />
+      <meta name="target_state" content="connect-iot-lorawan-subband-filter-configuration" />
+      <meta name="default_state" content="connect-iot-lorawan-subband-filter-configuration" />
+      <link rel="icon" type="image/ico" href="/assets/images/favicon.ico" />
+      <link rel="shortcut icon" type="image/ico" href="/assets/images/favicon.ico" />
+      <link rel="canonical" href="https://docs.aws.amazon.com/iot/latest/developerguide/connect-iot-lorawan-subband-filter-configuration.html" />
+      <meta name="description" content="LoRaWAN gateways run a LoRa Basics Station software that enables the gateways to connect to AWS IoT Core for LoRaWAN. To connect to AWS IoT Core for LoRaWAN, your LoRa gateway first queries the CUPS server for the LNS endpoint, and then establishes a WebSockets data connection with that endpoint. After the connection is established, uplink and downlink frames can be exchanged through that connection." />
+      <meta name="deployment_region" content="IAD" />
+      <meta name="product" content="AWS IoT Core" />
+      <meta name="guide" content="Developer Guide" />
+      <meta name="locales" content="de_de:Deutsch/en_us:English/es_es:Español/fr_fr:Français/it_it:Italiano/ja_jp:日本語/ko_kr:한국어/pt_br:Português/zh_cn:中文 (简体)/zh_tw:中文 (繁體)" />
+      <meta name="abstract" content="AWS IoT provides secure, bi-directional communication between Internet-connected devices such as sensors, actuators, embedded micro-controllers, or smart appliances and the AWS Cloud. This enables you to collect telemetry data from multiple devices, and store and analyze the data. You can also create applications that enable your users to control these devices from their phones or tablets." />
+      <meta name="guide-locale" content="en_us" />
+      <meta name="tocs" content="toc-contents.json" />
+      <meta name="feedback-item" content="IoT Docs" />
+      <meta name="this_doc_product" content="AWS IoT Core" />
+      <meta name="this_doc_guide" content="Developer Guide" />
+      <link href="assets/css/vendor4.css" rel="stylesheet" />
+      <link href="assets/css/awsdocs-common.css" rel="stylesheet" /><script type="text/javascript" src="assets/js/vendor3.js" defer=""></script><script type="text/javascript" src="assets/js/vendor4.js" defer=""></script><script type="text/javascript" src="assets/js/vendor1.js" defer=""></script><script type="text/javascript" src="assets/js/awsdocs-common.js" defer=""></script><script type="text/javascript" src="assets/js/awsdocs-doc-app.js" defer=""></script></head>
+   <body class="awsdocs awsui">
+      <div class="awsdocs-container">
+         <awsdocs-header></awsdocs-header>
+         <awsui-app-layout id="app-layout" class="awsui-util-no-gutters" ng-controller="ContentController as $ctrl" header-selector="awsdocs-header" navigation-hide="false" navigation-width="$ctrl.navWidth" navigation-open="$ctrl.navOpen" navigation-change="$ctrl.onNavChange($event)" tools-hide="$ctrl.hideTools" tools-width="$ctrl.toolsWidth" tools-open="$ctrl.toolsOpen" tools-change="$ctrl.onToolsChange($event)">
+            <div id="guide-toc" dom-region="navigation">
+               <awsdocs-toc></awsdocs-toc>
+            </div>
+            <div id="main-column" dom-region="content" tabindex="-1">
+               <awsdocs-view class="awsdocs-view">
+                  <div id="awsdocs-content">
+                     <head>
+                        <title>Configure your gateway's subbands and filtering capabilities - AWS IoT Core</title>
+                        <meta name="pdf" content="iot-dg.pdf#connect-iot-lorawan-subband-filter-configuration" />
+                        <meta name="kindle" content="https://www.amazon.com/dp/B07JBRCWWZ" />
+                        <meta name="github" content="https://github.com/awsdocs/aws-iot-docs/tree/master/developerguide/connect-iot-lorawan-subband-filter-configuration.md" />
+                        <meta name="forums" content="http://forums.aws.amazon.com/forum.jspa?forumID=210" />
+                        <meta name="feedback" content="https://docs.aws.amazon.com/forms/aws-doc-feedback?hidden_service_name=IoT%20Docs&amp;topic_url=http://docs.aws.amazon.com/en_us/iot/latest/developerguide/connect-iot-lorawan-subband-filter-configuration.html" />
+                        <meta name="feedback-yes" content="feedbackyes.html?topic_url=http://docs.aws.amazon.com/en_us/iot/latest/developerguide/connect-iot-lorawan-subband-filter-configuration.html" />
+                        <meta name="feedback-no" content="feedbackno.html?topic_url=http://docs.aws.amazon.com/en_us/iot/latest/developerguide/connect-iot-lorawan-subband-filter-configuration.html" />
+                        <meta name="keywords" content="AWS IoT,IoT,Internet of Things" />
+                     </head>
+                     <body>
+                        <div id="main">
+                           <div style="display: none"><a href="iot-dg.pdf#connect-iot-lorawan-subband-filter-configuration" target="_blank" rel="noopener noreferrer" title="Open PDF"></a><a target="_blank" rel="noopener noreferrer" href="https://www.amazon.com/dp/B07JBRCWWZ" title="Open Kindle"></a><a href="https://github.com/awsdocs/aws-iot-docs/tree/master/developerguide/connect-iot-lorawan-subband-filter-configuration.md" target="_blank" rel="noopener noreferrer" title="Edit this page on GitHub"></a></div>
+                           <div id="breadcrumbs" class="breadcrumb"><a href="http://aws.amazon.com">AWS</a><a href="/index.html">Documentation</a><a href="/iot/index.html">AWS IoT Core</a><a href="what-is-aws-iot.html">Developer Guide</a></div>
+                           <div id="page-toc-src"><a href="#connect-iot-lorawan-frequency-channels-subbands">Filtering
+                                 of LoRa data frames received by gateway</a><a href="#connect-iot-lorawan-frequency-channels-subbands">Frequency channels
+                                 and subbands</a><a href="#connect-iot-lorawan-configure-gateway-channels-console">Configure your gateway to use filtering and subbands using the
+                                 console</a><a href="#connect-iot-lorawan-configure-gateway-channels-api">Configure your gateway to use filtering and subbands using the API</a></div>
+                           <div id="main-content" class="awsui-util-container">
+                              <div id="main-col-body">
+                                 <awsdocs-language-banner data-service="$ctrl.pageService"></awsdocs-language-banner>
+                                 <h1 class="topictitle" id="connect-iot-lorawan-subband-filter-configuration">Configure
+                                    your gateway's subbands and filtering capabilities
+                                 </h1>
+                                 <div class="awsdocs-page-header-container">
+                                    <awsdocs-page-header></awsdocs-page-header>
+                                    <awsdocs-filter-selector id="awsdocs-filter-selector"></awsdocs-filter-selector>
+                                 </div>
+                                 <p>LoRaWAN gateways run a <a href="https://doc.sm.tc/station" rel="noopener noreferrer" target="_blank"><span>LoRa Basics
+                                          Station</span><awsui-icon class="awsdocs-link-icon" name="external"></awsui-icon></a> software that enables the gateways to connect to AWS IoT Core for LoRaWAN.
+                                    To connect to AWS IoT Core for LoRaWAN, your LoRa gateway first queries the CUPS server
+                                    for the
+                                    LNS endpoint, and then establishes a WebSockets data connection with that endpoint.
+                                    After the connection is established, uplink and downlink frames can be exchanged
+                                    through that connection.
+                                 </p>
+                                 
+                                 <h2 id="connect-iot-lorawan-frequency-channels-subbands">Filtering
+                                    of LoRa data frames received by gateway
+                                 </h2>
+                                 
+                                 <p>After your LoRaWAN gateway establishes a connection to the endpoint,
+                                    AWS IoT Core for LoRaWAN responds with a <code class="code">router_config</code> message that specifies
+                                    a set of parameters for the LoRa gateway's configuration, including filtering
+                                    parameters <code class="code">NetID</code> and <code class="code">JoinEui</code>. For more information
+                                    about <code class="code">router_config</code> and how a connection is established with the
+                                    LoRaWAN Network Server (LNS), see <a href="https://doc.sm.tc/station/tcproto.html" rel="noopener noreferrer" target="_blank"><span>LNS protocol</span><awsui-icon class="awsdocs-link-icon" name="external"></awsui-icon></a>.
+                                 </p>
+                                 <pre class="programlisting"><div class="code-btn-container"><div class="btn-copy-code" title="Copy"><awsui-icon name="copy"></awsui-icon></div></div><code class=""><span>{</span>
+"msgtype"    : "router_config"
+"NetID"      : [ INT, .. ]
+"JoinEui"    : [ [INT,INT], .. ] // ranges: beg,end inclusive
+"region"     : STRING             // e.g. "EU863", "US902", ..
+"hwspec"     : STRING
+"freq_range" : [ INT, INT ]       // min, max (hz)
+"DRs"        : [ [INT,INT,INT], .. ]   // sf,bw,dnonly
+"sx1301_conf": [ SX1301CONF, .. ]
+"nocca"      : BOOL
+"nodc"       : BOOL
+"nodwell"    : BOOL
+}</code></pre>
+                                 <p>The gateways carry LoRaWAN device data to and from LNS usually over
+                                    high-bandwidth networks like Wi-Fi, Ethernet, or Cellular. The gateways usually
+                                    pick up all messages and pass through the traffic that comes to it to
+                                    AWS IoT Core for LoRaWAN. However, you can configure the gateways to filter some of
+                                    the
+                                    device data traffic, which helps conserve bandwidth usage and reduces the
+                                    traffic flow between the gateway and LNS.
+                                 </p>
+                                 
+                                 <p>To configure your LoRa gateway to filter the data frames, you can use the
+                                    parameters <code class="code">NetID</code> and <code class="code">JoinEui</code> in the
+                                    <code class="code">router_config</code> message. <code class="code">NetID</code> is a list of NetID
+                                    values that are accepted. Any LoRa data frame carrying a data frame other than
+                                    those listed will be dropped. <code class="code">JoinEui</code> is a list of pairs of integer
+                                    values encoding ranges of JoinEUI values. Join request frames will be dropped by
+                                    the gateway unless the field <code class="code">JoinEui</code> in the message is within the
+                                    range [BegEui,EndEui].
+                                 </p>
+                                  
+                                 
+                                 <h2 id="connect-iot-lorawan-frequency-channels-subbands">Frequency channels
+                                    and subbands
+                                 </h2>
+                                 
+                                 <p>For US915 and AU915 RF regions, wireless devices have choices of 64 125KHz
+                                    and 8 500KHz uplink channels to access the LoRaWAN networks using the LoRa
+                                    gateways. The uplink frequency channels are divided into 8 subbands, each with 8
+                                    125KHz channels and one 500KHz channel. For each regular gateway in AU915
+                                    region, one or more subbands will be supported.
+                                 </p>
+                                 
+                                 <p>Some wireless devices can't hop between subbands and use the frequency
+                                    channels in only one subband when connected to AWS IoT Core for LoRaWAN. For the uplink
+                                    packets from those devices to be transmitted, configure the LoRa gateways to use
+                                    that particular subband. For gateways in other RF regions, such as EU868, this
+                                    configuration is not required.
+                                 </p>
+                                  
+                                 
+                                 <h2 id="connect-iot-lorawan-configure-gateway-channels-console">Configure your gateway to use filtering and subbands using the
+                                    console
+                                 </h2>
+                                 
+                                 <p>You can configure your gateway to use a particular subband and also enable
+                                    the capability to filter the LoRa data frames. To specify these parameters using
+                                    the console:
+                                 </p>
+                                 
+                                 <div class="orderedlist">
+                                     
+                                     
+                                     
+                                                             
+                                    
+                                    <ol>
+                                       <li>
+                                          
+                                          <p>Navigate to the <a href="https://console.aws.amazon.com/iot/home#/wireless/gateways" rel="noopener noreferrer" target="_blank"><span>AWS IoT Core for LoRaWAN</span><awsui-icon class="awsdocs-link-icon" name="external"></awsui-icon></a>
+                                             <b>Gateways</b> page of the AWS IoT console and
+                                             choose <b>Add gateway</b>.
+                                          </p>
+                                          
+                                       </li>
+                                       <li>
+                                          
+                                          <p>Specify the gateway details such as the <b>Gateway's Eui</b>, 
+                                             <b>Frequency band (RFRegion)</b> and an optional <b>Name</b>
+                                             and <b>Description</b>, and choose whether to associate an AWS IoT
+                                             thing to your gateway. For more information about how to add a
+                                             gateway, see <a href="./connect-iot-lorawan-onboard-gateway-add.html#connect-iot-lorawan-onboard-gateway-console">Add a gateway
+                                                using the console</a>.
+                                          </p>
+                                          
+                                       </li>
+                                       <li>
+                                          
+                                          <p>In the <b>LoRaWAN configuration</b> section, you can
+                                             specify the subbands and filtering information.
+                                          </p>
+                                          
+                                          <div class="itemizedlist">
+                                              
+                                              
+                                              
+                                             
+                                             <ul class="itemizedlist" type="disc">
+                                                <li class="listitem">
+                                                   
+                                                   <p><code class="code">SubBands</code>: To add a subband, choose <b>Add
+                                                         SubBand</b> and specify a list of integer values
+                                                      that indicate which subbands are supported by the gateway. The
+                                                      <code class="code">SubBands</code> parameter can only be configured in
+                                                      the <code class="code">RfRegion</code> US915 and AU915 and must have values
+                                                      in the range <code class="code">[1,8]</code> within one of these supported
+                                                      regions.
+                                                   </p>
+                                                   
+                                                </li>
+                                                <li class="listitem">
+                                                   
+                                                   <p><code class="code">NetIdFilters</code>: To filter uplink frames, choose
+                                                      <b>Add NetId</b> and specify a list of
+                                                      string values that the gateway uses. The NetID of the incoming
+                                                      uplink frame from the wireless device must match at least one of
+                                                      the listed values, otherwise the frame is dropped.
+                                                   </p>
+                                                   
+                                                </li>
+                                                <li class="listitem">
+                                                   
+                                                   <p><code class="code">JoinEuiFilters</code>: Choose <b>Add JoinEui
+                                                         range</b> and specify a list of pairs of string
+                                                      values that a gateway uses to filter LoRa frames. The JoinEUI
+                                                      value specified as part of the join request from the wireless
+                                                      device must be within the range of at least one of the
+                                                      JoinEuiRange values, each listed as a pair of [BegEui, EndEui],
+                                                      otherwise the frame is dropped.
+                                                   </p>
+                                                   
+                                                </li>
+                                             </ul>
+                                          </div>
+                                          
+                                       </li>
+                                       <li>
+                                          
+                                          <p>You can then continue to configure your gateway by following the
+                                             instructions described in <a href="./connect-iot-lorawan-onboard-gateway-add.html#connect-iot-lorawan-onboard-gateway-console">Add a gateway
+                                                using the console</a>.
+                                          </p>
+                                          
+                                       </li>
+                                    </ol>
+                                 </div>
+                                 
+                                 <p>After you've added a gateway, in the <a href="https://console.aws.amazon.com/iot/home#/wireless/gateways" rel="noopener noreferrer" target="_blank"><span>AWS IoT Core for LoRaWAN</span><awsui-icon class="awsdocs-link-icon" name="external"></awsui-icon></a>
+                                    <b>Gateways</b> page of the AWS IoT console, if you select the
+                                    gateway that you've added, you can see the <code class="code">SubBands</code> and filters
+                                    <code class="code">NetIdFilters</code> and <code class="code">JoinEuiFilters</code> in the
+                                    <b>LoRaWAN specific details</b> section of the Gateway details
+                                    page.
+                                 </p>
+                                  
+                                 
+                                 <h2 id="connect-iot-lorawan-configure-gateway-channels-api">Configure your gateway to use filtering and subbands using the API</h2>
+                                 
+                                 <p>You can use the <a href="https://docs.aws.amazon.com/iot-wireless/2020-11-22/apireference/API_CreateWirelessGateway.html">CreateWirelessGateway</a> API that you use to create a gateway to
+                                    configure the subbands you want to use and enable the filtering capability.
+                                    Using the <code class="code">CreateWirelessGateway</code> API, you can specify the subbands
+                                    and filters as part of the gateway configuration information that you provide
+                                    using the <code class="code">LoRaWAN</code> field. The following shows the request token that
+                                    includes this information.
+                                 </p>  
+                                 <pre class="programlisting"><div class="code-btn-container"><div class="btn-copy-code" title="Copy"><awsui-icon name="copy"></awsui-icon></div></div><code class="JSON ">POST /wireless-gateways HTTP/1.1
+Content-type: application/json
+
+<span>{</span>
+"Arn": "arn:aws:iotwireless:us-east-1:400232685877aa:WirelessGateway/
+       a11e3d21-e44c-471c-afca-6716c228336a",
+"Description": "Using my first LoRaWAN gateway",
+   "LoRaWAN": <span>{</span> 
+      "GatewayEui": "a1b2c3d4567890ab",
+      "JoinEuiFilters": [
+        ["0000000000000001", "00000000000000ff"],
+        ["000000000000ff00", "000000000000ffff"]
+      ],
+      "NetIdFilters": ["000000", "000001"],
+      "RfRegion": "US915",
+      "SubBands": [2]
+   },
+   "Name": "myFirstLoRaWANGateway"  
+   "ThingArn": null,
+   "ThingName": null
+}</code></pre>
+                                 <p>You can also use the <a href="https://docs.aws.amazon.com/iot-wireless/2020-11-22/apireference/API_UpdateWirelessGateway.html">UpdateWirelessGateway</a> API to update the filters but not the
+                                    subbands. If the <code class="code">JoinEuiFilters</code> and <code class="code">NetIdfilters</code>
+                                    values are null, it means there is no update for the fields. If the values
+                                    aren't null and empty lists are included, then the update is applied. To get the
+                                    values of the fields that you specified, use the <a href="https://docs.aws.amazon.com/iot-wireless/2020-11-22/apireference/API_GetWirelessGateway.html">GetWirelessGateway</a> API.
+                                 </p>               
+                                 
+                                 <awsdocs-copyright class="copyright-print"></awsdocs-copyright>
+                                 <awsdocs-thumb-feedback right-edge="{{$ctrl.thumbFeedbackRightEdge}}"></awsdocs-thumb-feedback>
+                              </div>
+                              <noscript>
+                                 <div>
+                                    <div>
+                                       <div>
+                                          <div id="js_error_message">
+                                             <p><img src="https://d1ge0kk1l5kms0.cloudfront.net/images/G/01/webservices/console/warning.png" alt="Warning" /> <strong>Javascript is disabled or is unavailable in your
+                                                   browser.</strong></p>
+                                             <p>To use the Amazon Web Services Documentation, Javascript must be
+                                                enabled. Please refer to your browser's Help pages for instructions.
+                                             </p>
+                                          </div>
+                                       </div>
+                                    </div>
+                                 </div>
+                              </noscript>
+                              <div id="main-col-footer" class="awsui-util-font-size-0">
+                                 <div id="doc-conventions"><a target="_top" href="/general/latest/gr/docconventions.html">Document Conventions</a></div>
+                                 <div class="prev-next">
+                                    <div id="previous" class="prev-link" accesskey="p" href="./connect-iot-lorawan-manage-gateways.html">Managing gateways with
+                                       AWS IoT Core for LoRaWAN
+                                    </div>
+                                    <div id="next" class="next-link" accesskey="n" href="./connect-iot-lorawan-update-firmware.html">Update gateway firmware 
+                                       using CUPS service with AWS IoT Core for LoRaWAN
+                                    </div>
+                                 </div>
+                              </div>
+                              <awsdocs-page-utilities></awsdocs-page-utilities>
+                           </div>
+                           <div id="quick-feedback-yes" style="display: none;">
+                              <div class="title">Did this page help you? - Yes</div>
+                              <div class="content">
+                                 <p>Thanks for letting us know we're doing a good
+                                    job!
+                                 </p>
+                                 <p>If you've got a moment, please tell us what we did right
+                                    so we can do more of it.
+                                 </p>
+                                 <p>
+                                    <awsui-button id="fblink" target="_blank" text="Feedback" click="linkClick($event)" href="https://docs.aws.amazon.com/forms/aws-doc-feedback?hidden_service_name=IoT Docs&amp;topic_url=https://docs.aws.amazon.com/en_us/iot/latest/developerguide/connect-iot-lorawan-subband-filter-configuration.html"></awsui-button>
+                                 </p>
+                              </div>
+                           </div>
+                           <div id="quick-feedback-no" style="display: none;">
+                              <div class="title">Did this page help you? - No</div>
+                              <div class="content">
+                                 <p>Thanks for letting us know this page needs work. We're
+                                    sorry we let you down.
+                                 </p>
+                                 <p>If you've got a moment, please tell us how we can make
+                                    the documentation better.
+                                 </p>
+                                 <p>
+                                    <awsui-button id="fblink" target="_blank" text="Feedback" click="linkClick($event)" href="https://docs.aws.amazon.com/forms/aws-doc-feedback?hidden_service_name=IoT Docs&amp;topic_url=https://docs.aws.amazon.com/en_us/iot/latest/developerguide/connect-iot-lorawan-subband-filter-configuration.html"></awsui-button>
+                                 </p>
+                              </div>
+                           </div>
+                        </div>
+                     </body>
+                  </div>
+               </awsdocs-view>
+               <div class="page-loading-indicator" id="page-loading-indicator">
+                  <awsui-spinner size="large"></awsui-spinner>
+               </div>
+            </div>
+            <div id="tools-panel" dom-region="tools">
+               <awsdocs-tools-panel id="awsdocs-tools-panel"></awsdocs-tools-panel>
+            </div>
+         </awsui-app-layout>
+         <awsdocs-cookie-banner class="doc-cookie-banner"></awsdocs-cookie-banner>
+         <!--
+                SiteCatalyst code version: H.25.2.
+                Copyright 1996-2012 Adobe, Inc. All Rights Reserved
+                More info available at http://www.omniture.com
+            --><script language="JavaScript" type="text/javascript">
+var awsdocs = awsdocs || {};
+awsdocs.prop66 = 'AWS IoT Core';
+awsdocs.prop65 =  'Developer Guide';
+            </script><script src="https://a0.awsstatic.com/s_code/js/3.0/awshome_s_code.js" language="JavaScript" type="text/javascript"></script>
+         <!--/DO NOT REMOVE/-->
+         <!--End SiteCatalyst code version: H.25.2.--></div>
+   </body>
+</html>

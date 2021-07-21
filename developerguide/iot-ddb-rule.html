@@ -1,0 +1,998 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" ng-app="AWSDocsDocPageApp">
+   <head>
+      <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+      <title>Store device data in a DynamoDB table - AWS IoT Core</title>
+      <meta name="viewport" content="width=device-width,initial-scale=1" />
+      <meta name="assets_root" content="assets" />
+      <meta name="target_state" content="iot-ddb-rule" />
+      <meta name="default_state" content="iot-ddb-rule" />
+      <link rel="icon" type="image/ico" href="/assets/images/favicon.ico" />
+      <link rel="shortcut icon" type="image/ico" href="/assets/images/favicon.ico" />
+      <link rel="canonical" href="https://docs.aws.amazon.com/iot/latest/developerguide/iot-ddb-rule.html" />
+      <meta name="description" content="This tutorial demonstrates how to create an AWS IoT rule that sends message data to a DynamoDB table." />
+      <meta name="deployment_region" content="IAD" />
+      <meta name="product" content="AWS IoT Core" />
+      <meta name="guide" content="Developer Guide" />
+      <meta name="locales" content="de_de:Deutsch/en_us:English/es_es:Español/fr_fr:Français/it_it:Italiano/ja_jp:日本語/ko_kr:한국어/pt_br:Português/zh_cn:中文 (简体)/zh_tw:中文 (繁體)" />
+      <meta name="abstract" content="AWS IoT provides secure, bi-directional communication between Internet-connected devices such as sensors, actuators, embedded micro-controllers, or smart appliances and the AWS Cloud. This enables you to collect telemetry data from multiple devices, and store and analyze the data. You can also create applications that enable your users to control these devices from their phones or tablets." />
+      <meta name="guide-locale" content="en_us" />
+      <meta name="tocs" content="toc-contents.json" />
+      <meta name="feedback-item" content="IoT Docs" />
+      <meta name="this_doc_product" content="AWS IoT Core" />
+      <meta name="this_doc_guide" content="Developer Guide" />
+      <link href="assets/css/vendor4.css" rel="stylesheet" />
+      <link href="assets/css/awsdocs-common.css" rel="stylesheet" /><script type="text/javascript" src="assets/js/vendor3.js" defer=""></script><script type="text/javascript" src="assets/js/vendor4.js" defer=""></script><script type="text/javascript" src="assets/js/vendor1.js" defer=""></script><script type="text/javascript" src="assets/js/awsdocs-common.js" defer=""></script><script type="text/javascript" src="assets/js/awsdocs-doc-app.js" defer=""></script></head>
+   <body class="awsdocs awsui">
+      <div class="awsdocs-container">
+         <awsdocs-header></awsdocs-header>
+         <awsui-app-layout id="app-layout" class="awsui-util-no-gutters" ng-controller="ContentController as $ctrl" header-selector="awsdocs-header" navigation-hide="false" navigation-width="$ctrl.navWidth" navigation-open="$ctrl.navOpen" navigation-change="$ctrl.onNavChange($event)" tools-hide="$ctrl.hideTools" tools-width="$ctrl.toolsWidth" tools-open="$ctrl.toolsOpen" tools-change="$ctrl.onToolsChange($event)">
+            <div id="guide-toc" dom-region="navigation">
+               <awsdocs-toc></awsdocs-toc>
+            </div>
+            <div id="main-column" dom-region="content" tabindex="-1">
+               <awsdocs-view class="awsdocs-view">
+                  <div id="awsdocs-content">
+                     <head>
+                        <title>Store device data in a DynamoDB table - AWS IoT Core</title>
+                        <meta name="pdf" content="iot-dg.pdf#iot-ddb-rule" />
+                        <meta name="kindle" content="https://www.amazon.com/dp/B07JBRCWWZ" />
+                        <meta name="github" content="https://github.com/awsdocs/aws-iot-docs/tree/master/developerguide/iot-ddb-rule.md" />
+                        <meta name="forums" content="http://forums.aws.amazon.com/forum.jspa?forumID=210" />
+                        <meta name="feedback" content="https://docs.aws.amazon.com/forms/aws-doc-feedback?hidden_service_name=IoT%20Docs&amp;topic_url=http://docs.aws.amazon.com/en_us/iot/latest/developerguide/iot-ddb-rule.html" />
+                        <meta name="feedback-yes" content="feedbackyes.html?topic_url=http://docs.aws.amazon.com/en_us/iot/latest/developerguide/iot-ddb-rule.html" />
+                        <meta name="feedback-no" content="feedbackno.html?topic_url=http://docs.aws.amazon.com/en_us/iot/latest/developerguide/iot-ddb-rule.html" />
+                        <meta name="keywords" content="AWS IoT,IoT,Internet of Things" />
+                     </head>
+                     <body>
+                        <div id="main">
+                           <div style="display: none"><a href="iot-dg.pdf#iot-ddb-rule" target="_blank" rel="noopener noreferrer" title="Open PDF"></a><a target="_blank" rel="noopener noreferrer" href="https://www.amazon.com/dp/B07JBRCWWZ" title="Open Kindle"></a><a href="https://github.com/awsdocs/aws-iot-docs/tree/master/developerguide/iot-ddb-rule.md" target="_blank" rel="noopener noreferrer" title="Edit this page on GitHub"></a></div>
+                           <div id="breadcrumbs" class="breadcrumb"><a href="http://aws.amazon.com">AWS</a><a href="/index.html">Documentation</a><a href="/iot/index.html">AWS IoT Core</a><a href="what-is-aws-iot.html">Developer Guide</a></div>
+                           <div id="page-toc-src"><a href="#iot-ddb-rule-ddb-table">Create the DynamoDB table for this tutorial</a><a href="#iot-ddb-rule-topic-rule">Create an AWS IoT rule to send data to the DynamoDB
+                                 table</a><a href="#iot-ddb-rule-test">Test the AWS IoT rule and DynamoDB table</a><a href="#iot-ddb-rule-review">Review the results and next steps</a></div>
+                           <div id="main-content" class="awsui-util-container">
+                              <div id="main-col-body">
+                                 <awsdocs-language-banner data-service="$ctrl.pageService"></awsdocs-language-banner>
+                                 <h1 class="topictitle" id="iot-ddb-rule">Store device data in a DynamoDB table</h1>
+                                 <div class="awsdocs-page-header-container">
+                                    <awsdocs-page-header></awsdocs-page-header>
+                                    <awsdocs-filter-selector id="awsdocs-filter-selector"></awsdocs-filter-selector>
+                                 </div>
+                                 <p>This tutorial demonstrates how to create an AWS IoT rule that sends message data to
+                                    a DynamoDB
+                                    table.
+                                 </p>
+                                 <p>In this tutorial, you create a rule that sends message data from an imaginary weather
+                                    sensor device to a DynamoDB table. The rule formats the data from many weather sensors
+                                    such that
+                                    they can be added to a single database table.
+                                 </p>
+                                 <div class="itemizedlist">
+                                    
+                                    <p class="title"><b>What you'll learn in this tutorial</b></p>
+                                     
+                                     
+                                     
+                                     
+                                     
+                                    
+                                    <ul class="itemizedlist" type="disc">
+                                       <li class="listitem">
+                                          
+                                          <p>How to create a DynamoDB table</p>
+                                          
+                                       </li>
+                                       <li class="listitem">
+                                          
+                                          <p>How to send message data to a DynamoDB table from an AWS IoT rule</p>
+                                          
+                                       </li>
+                                       <li class="listitem">
+                                          
+                                          <p>How to use substitution templates in an AWS IoT rule</p>
+                                          
+                                       </li>
+                                       <li class="listitem">
+                                          
+                                          <p>How to use simple SQL queries and functions in a rule query statement</p>
+                                          
+                                       </li>
+                                       <li class="listitem">
+                                          
+                                          <p>How to use the MQTT client to test an AWS IoT rule</p>
+                                          
+                                       </li>
+                                    </ul>
+                                 </div>
+                                 <p>This tutorial takes about 30 minutes to complete.</p>
+                                 <div class="highlights" id="inline-topiclist">
+                                    <p><strong>In this tutorial, you'll:</strong></p>
+                                    <ul>
+                                       <li><a href="#iot-ddb-rule-ddb-table">Create the DynamoDB table for this tutorial</a></li>
+                                       <li><a href="#iot-ddb-rule-topic-rule">Create an AWS IoT rule to send data to the DynamoDB
+                                             table</a></li>
+                                       <li><a href="#iot-ddb-rule-test">Test the AWS IoT rule and DynamoDB table</a></li>
+                                       <li><a href="#iot-ddb-rule-review">Review the results and next steps</a></li>
+                                    </ul>
+                                 </div>
+                                 <div class="itemizedlist">
+                                    
+                                    <p class="title"><b>Before you start this tutorial, make sure that you have:</b></p>
+                                     
+                                     
+                                     
+                                    
+                                    <ul class="itemizedlist" type="disc">
+                                       <li class="listitem">
+                                           
+                                          
+                                          <p class="title"><b><a href="./setting-up.html">Set up your AWS account</a></b></p>
+                                          
+                                          <p>You'll need your AWS account and AWS IoT console to complete this tutorial.</p>
+                                           
+                                          
+                                       </li>
+                                       <li class="listitem">
+                                           
+                                          
+                                          <p class="title"><b>Reviewed <a href="./view-mqtt-messages.html">View MQTT messages with the AWS IoT MQTT
+                                                   client</a></b></p>
+                                          
+                                          <p>Be sure you can use the MQTT client to subscribe and publish to a topic. You'll use
+                                             the MQTT client to test your new rule in this procedure.
+                                          </p>
+                                           
+                                          
+                                       </li>
+                                       <li class="listitem">
+                                           
+                                          
+                                          <p class="title"><b>Reviewed the <a href="https://docs.aws.amazon.com/amazondynamodb/latest/developerguide/Introduction.html">Amazon DynamoDB</a> overview</b></p>
+                                          
+                                          <p>If you've not used DynamoDB before, review <a href="https://docs.aws.amazon.com/amazondynamodb/latest/developerguide/GettingStartedDynamoDB.html">Getting Started with DynamoDB</a> to become familiar with the
+                                             basic concepts and operations of DynamoDB.
+                                          </p>
+                                           
+                                          
+                                       </li>
+                                    </ul>
+                                 </div>
+                                 
+                                 <h2 id="iot-ddb-rule-ddb-table">Create the DynamoDB table for this tutorial</h2>
+                                 
+                                 <p>In this tutorial, you'll create a DynamoDB table with these attributes to record the
+                                    data
+                                    from the imaginary weather sensor devices: 
+                                 </p>
+                                 
+                                 <div class="itemizedlist">
+                                     
+                                     
+                                     
+                                    
+                                    <ul class="itemizedlist" type="disc">
+                                       <li class="listitem">
+                                          
+                                          <p><code class="code">sample_time</code> is a primary key and describes the time the sample was
+                                             recorded.
+                                          </p>
+                                          
+                                       </li>
+                                       <li class="listitem">
+                                          
+                                          <p><code class="code">device_id</code> is a sort key and describes the device that provided the
+                                             sample 
+                                          </p>
+                                          
+                                       </li>
+                                       <li class="listitem">
+                                          
+                                          <p><code class="code">device_data</code> is the data received from the device and formatted by the
+                                             rule query statement
+                                          </p>
+                                          
+                                       </li>
+                                    </ul>
+                                 </div>
+                                 
+                                 <div class="procedure">
+                                    <p class="title"><b>To create the DynamoDB table for this tutorial</b></p>
+                                    <ol>
+                                       <li>
+                                          
+                                          <p>Open the <a href="https://console.aws.amazon.com/dynamodb/home" rel="noopener noreferrer" target="_blank"><span>DynamoDB console</span><awsui-icon class="awsdocs-link-icon" name="external"></awsui-icon></a>, and then
+                                             choose <b>Create table</b>.
+                                          </p>
+                                          
+                                       </li>
+                                       <li>
+                                          
+                                          <p>In <b>Create DynamoDB table</b>:
+                                          </p>
+                                          
+                                          <ol>
+                                             <li>
+                                                
+                                                <p> In <b>Table name</b>, enter the table name:
+                                                   <code class="userinput">wx_data</code>.
+                                                </p>
+                                                
+                                             </li>
+                                             <li>
+                                                
+                                                <p>In <b>Primary key</b>, in <b>Partition key</b>,
+                                                   enter <code class="userinput">sample_time</code>, and in the option list next to the field,
+                                                   choose <code class="userinput">Number</code>.
+                                                </p>
+                                                
+                                             </li>
+                                             <li>
+                                                
+                                                <p>Check <b>Add sort key</b>.
+                                                </p>
+                                                
+                                             </li>
+                                             <li>
+                                                
+                                                <p>In the field that appears below <b>Add sort key</b>, enter
+                                                   <code class="userinput">device_id</code>, and in the option list next to the field, choose
+                                                   <code class="userinput">Number</code>.
+                                                </p>
+                                                
+                                             </li>
+                                             <li>
+                                                
+                                                <p>At the bottom of the page, choose <b>Create</b>.
+                                                </p>
+                                                
+                                             </li>
+                                          </ol>
+                                          
+                                       </li>
+                                    </ol>
+                                 </div>
+                                 
+                                 <p>You'll define <code class="code">device_data</code> later, when you configure the DynamoDB rule
+                                    action.
+                                 </p>
+                                  
+                                 
+                                 <h2 id="iot-ddb-rule-topic-rule">Create an AWS IoT rule to send data to the DynamoDB
+                                    table
+                                 </h2>
+                                 
+                                 <p>In this step, you'll use the rule query statement to format the data from the imaginary
+                                    weather sensor devices to write to the database table.
+                                 </p>
+                                 
+                                 <p>A sample message payload received from a weather sensor devices looks like this:</p>
+                                 <pre class="programlisting"><div class="code-btn-container"><div class="btn-copy-code" title="Copy"><awsui-icon name="copy"></awsui-icon></div></div><code class="json "><span>{</span>
+  "temperature": 28,
+  "humidity": 80,
+  "barometer": 1013,
+  "wind": <span>{</span>
+    "velocity": 22,
+    "bearing": 255
+  }
+}</code></pre>
+                                 <p>For the database entry, you'll use the rule query statement to flatten the structure
+                                    of
+                                    the message payload to look like this:
+                                 </p>
+                                 <pre class="programlisting"><div class="code-btn-container"><div class="btn-copy-code" title="Copy"><awsui-icon name="copy"></awsui-icon></div></div><code class="json "><span>{</span>
+  "temperature": 28,
+  "humidity": 80,
+  "barometer": 1013,
+  "wind_velocity": 22,
+  "wind_bearing": 255
+}</code></pre>
+                                 <p>In this rule, you'll also use a couple of <a href="./iot-substitution-templates.html">Substitution templates</a>. Substitution templates are expressions that
+                                    let you insert dynamic values from functions and message data.
+                                 </p>
+                                 
+                                 <div class="procedure">
+                                    <p class="title"><b>To create the AWS IoT rule to send data to the DynamoDB table</b></p>
+                                    <ol>
+                                       <li>
+                                          
+                                          <p>Open <a href="https://console.aws.amazon.com/iot/home#/rulehub" rel="noopener noreferrer" target="_blank"><span>the <b>Rules</b>
+                                                   hub of the AWS IoT console</span><awsui-icon class="awsdocs-link-icon" name="external"></awsui-icon></a>.
+                                          </p>
+                                          
+                                       </li>
+                                       <li>
+                                          
+                                          <p>To start creating your new rule in <b>Rules</b>, choose
+                                             <b>Create</b>.
+                                          </p>
+                                          
+                                       </li>
+                                       <li>
+                                          
+                                          <p>In the top part of <b>Create a rule</b>:
+                                          </p>
+                                          
+                                          <ol>
+                                             <li>
+                                                
+                                                <p>In <b>Name</b>, enter the rule's name,
+                                                   <code class="userinput">wx_data_ddb</code>.
+                                                </p>
+                                                
+                                                <p>Remember that a rule name must be unique within your AWS account and Region, and
+                                                   it can't have any spaces. We've used an underscore character in this name to
+                                                   separate the two words in the rule's name.
+                                                </p>
+                                                
+                                             </li>
+                                             <li>
+                                                
+                                                <p>In <b>Description</b>, describe the rule. 
+                                                </p>
+                                                
+                                                <p>A meaningful description makes it easier to remember what this rule does and why
+                                                   you created it. The description can be as long as needed, so be as detailed as
+                                                   possible. 
+                                                </p>
+                                                
+                                             </li>
+                                          </ol>
+                                          
+                                       </li>
+                                       <li>
+                                          
+                                          <p>In <b>Rule query statement</b> of <b>Create a
+                                                rule</b>:
+                                          </p>
+                                          
+                                          <ol>
+                                             <li>
+                                                
+                                                <p>In <b>Using SQL version</b>, select
+                                                   <code class="userinput">2016-03-23</code>. 
+                                                </p>
+                                                
+                                             </li>
+                                             <li>
+                                                
+                                                <p>In the <b>Rule query statement</b> edit box, enter the statement: 
+                                                </p>
+                                                <pre class="programlisting"><div class="code-btn-container"><div class="btn-copy-code" title="Copy"><awsui-icon name="copy"></awsui-icon></div></div><code class="">SELECT temperature, humidity, barometer,
+  wind.velocity as wind_velocity,
+  wind.bearing as wind_bearing,
+FROM 'device/+/data'</code></pre>
+                                                <p>This statement:</p>
+                                                
+                                                <div class="itemizedlist">
+                                                    
+                                                    
+                                                    
+                                                   
+                                                   <ul class="itemizedlist" type="disc">
+                                                      <li class="listitem">
+                                                         
+                                                         <p>Listens for MQTT messages with a topic that matches the
+                                                            <code class="code">device/+/data</code> topic filter.
+                                                         </p>
+                                                         
+                                                      </li>
+                                                      <li class="listitem">
+                                                         
+                                                         <p>Formats the elements of the <code class="code">wind</code> attribute as individual
+                                                            attributes.
+                                                         </p>
+                                                         
+                                                      </li>
+                                                      <li class="listitem">
+                                                         
+                                                         <p>Passes the <code class="code">temperature</code>, <code class="code">humidity</code>, and
+                                                            <code class="code">barometer</code> attributes unchanged.
+                                                         </p>
+                                                         
+                                                      </li>
+                                                   </ul>
+                                                </div>
+                                                
+                                             </li>
+                                          </ol>
+                                          
+                                       </li>
+                                       <li>
+                                          
+                                          <p>In <b>Set one or more actions</b>:
+                                          </p>
+                                          
+                                          <ol>
+                                             <li>
+                                                
+                                                <p>To open up the list of rule actions for this rule, choose <b>Add
+                                                      action</b>.
+                                                </p>
+                                                
+                                             </li>
+                                             <li>
+                                                
+                                                <p>In <b>Select an action</b>, choose <b>Insert a message into
+                                                      a DynamoDB table</b>.
+                                                </p>
+                                                
+                                             </li>
+                                             <li>
+                                                
+                                                <p>To open the selected action's configuration page, at the bottom of the action
+                                                   list, choose <b>Configure action</b>.
+                                                </p>
+                                                
+                                             </li>
+                                          </ol>
+                                          
+                                       </li>
+                                       <li>
+                                          
+                                          <p>In <b>Configure action</b>:
+                                          </p>
+                                          
+                                          <ol>
+                                             <li>
+                                                
+                                                <p>In <b>Table name</b>, choose the name of the DynamoDB table you
+                                                   created in a previous step: <code class="userinput">wx_data</code>.
+                                                </p>
+                                                
+                                                <p>The <b>Partition key</b>, <b>Partition key type</b>,
+                                                   <b>Sort key</b>, and <b>Sort key type</b> fields are
+                                                   filled with the values from your DynamoDB table.
+                                                </p>
+                                                
+                                             </li>
+                                             <li>
+                                                
+                                                <p>In <b>Partition key value</b>. enter
+                                                   <code class="userinput">$<span>{</span>timestamp()}</code>.
+                                                </p>
+                                                
+                                                <p>This is the first of the <a href="./iot-substitution-templates.html">Substitution templates</a> you'll use in this rule. Instead of
+                                                   using a value from the message payload, it will use the value returned from the
+                                                   <a href="./iot-sql-functions.html#iot-function-timestamp">timestamp</a> function.
+                                                </p>
+                                                
+                                             </li>
+                                             <li>
+                                                
+                                                <p>In Sort key value, enter <code class="userinput">$<span>{</span>cast(topic(2) AS DECIMAL)}</code>. 
+                                                </p>
+                                                
+                                                <p>This is the second one of the <a href="./iot-substitution-templates.html">Substitution templates</a> you'll use in this rule. It inserts
+                                                   the value of the second element in <a href="./iot-sql-functions.html#iot-function-topic">topic</a>
+                                                   name, which is the device's ID, after it <a href="./iot-sql-functions.html#iot-sql-function-cast">casts</a> it to a DECIMAL value to match the numeric format of the key.
+                                                </p>
+                                                
+                                             </li>
+                                             <li>
+                                                
+                                                <p>In <b>Write message data to this column</b>, enter
+                                                   <code class="userinput">device_data</code>.
+                                                </p>
+                                                
+                                                <p>This will create the <code class="code">device_data</code> column in the DynamoDB table.
+                                                </p>
+                                                
+                                             </li>
+                                             <li>
+                                                
+                                                <p>Leave <b>Operation</b> blank.
+                                                </p>
+                                                
+                                             </li>
+                                             <li>
+                                                
+                                                <p>In <b>Choose or create a role to grant AWS IoT access to perform this
+                                                      action</b>, choose <b>Create Role</b>.
+                                                </p>
+                                                
+                                             </li>
+                                             <li>
+                                                
+                                                <p>In <b>Create a new role</b>, enter
+                                                   <code class="userinput">wx_ddb_role</code>, and choose <b>Create
+                                                      role</b>.
+                                                </p>
+                                                
+                                             </li>
+                                             <li>
+                                                
+                                                <p>At the bottom of <b>Configure action</b>, choose <b>Add
+                                                      action</b>.
+                                                </p>
+                                                
+                                             </li>
+                                             <li>
+                                                
+                                                <p>To create the rule, at the bottom of <b>Create a rule</b>, choose
+                                                   <b>Create rule</b>.
+                                                </p>
+                                                
+                                             </li>
+                                          </ol>
+                                          
+                                       </li>
+                                    </ol>
+                                 </div>
+                                  
+                                 
+                                 <h2 id="iot-ddb-rule-test">Test the AWS IoT rule and DynamoDB table</h2>
+                                 
+                                 <p>To test the new rule, you'll use the MQTT client to publish and subscribe to the MQTT
+                                    messages used in this test.
+                                 </p>
+                                 
+                                 <p>Open the <a href="https://console.aws.amazon.com/iot/home#/test" rel="noopener noreferrer" target="_blank"><span>MQTT client in the AWS IoT
+                                          console</span><awsui-icon class="awsdocs-link-icon" name="external"></awsui-icon></a> in a new window. This will let you edit the rule without losing the
+                                    configuration of your MQTT client. The MQTT client does not retain any subscriptions
+                                    or
+                                    message logs if you leave it to go to another page in the console. You'll also want
+                                    a
+                                    separate console window open to the <a href="https://console.aws.amazon.com/dynamodb/home#tables:" rel="noopener noreferrer" target="_blank"><span>DynamoDB
+                                          Tables hub in the AWS IoT console</span><awsui-icon class="awsdocs-link-icon" name="external"></awsui-icon></a> to view the new entries that your rule
+                                    sends.
+                                 </p>
+                                 
+                                 <div class="procedure">
+                                    <p class="title"><b>To use the MQTT client to test your rule</b></p>
+                                    <ol>
+                                       <li>
+                                          
+                                          <p>In the <a href="https://console.aws.amazon.com/iot/home#/test" rel="noopener noreferrer" target="_blank"><span>MQTT client in the AWS IoT
+                                                   console</span><awsui-icon class="awsdocs-link-icon" name="external"></awsui-icon></a>, subscribe to the input topic, <code class="code">device/+/data</code>.
+                                          </p>
+                                          
+                                          <ol>
+                                             <li>
+                                                
+                                                <p>In the MQTT client, choose
+                                                   <b>Subscribe to a topic</b>.
+                                                </p>
+                                                
+                                             </li>
+                                             <li>
+                                                
+                                                <p>For <b>Topic filter</b>, enter the topic of the input topic
+                                                   filter, <code class="userinput">device/+/data</code>.
+                                                </p>
+                                                
+                                             </li>
+                                             <li>
+                                                
+                                                <p>Choose <b>Subscribe</b>.
+                                                </p>
+                                                
+                                             </li>
+                                          </ol>
+                                          
+                                       </li>
+                                       <li>
+                                          
+                                          <p>Now, publish a message to the input topic with a specific device ID,
+                                             <code class="userinput">device/22/data</code>. You can't publish to MQTT topics that contain
+                                             wildcard characters.
+                                          </p>
+                                          
+                                          <ol>
+                                             <li>
+                                                
+                                                <p>In the MQTT client, choose <b>Publish to a topic</b>.
+                                                </p>
+                                                
+                                             </li>
+                                             <li>
+                                                
+                                                <p>For <b>Topic name</b>, enter the input topic name,
+                                                   <code class="userinput">device/22/data</code>.
+                                                </p>
+                                                
+                                             </li>
+                                             <li>
+                                                
+                                                <p>For <b>Message payload</b>, enter the following
+                                                   sample data.
+                                                </p>
+                                                <pre class="programlisting"><div class="code-btn-container"><div class="btn-copy-code" title="Copy"><awsui-icon name="copy"></awsui-icon></div></div><code class="json "><span>{</span>
+  "temperature": 28,
+  "humidity": 80,
+  "barometer": 1013,
+  "wind": <span>{</span>
+    "velocity": 22,
+    "bearing": 255
+  }
+}</code></pre>
+                                                </li>
+                                             <li>
+                                                
+                                                <p>To publish the MQTT message, choose <b>Publish</b>.
+                                                </p>
+                                                
+                                             </li>
+                                             <li>
+                                                
+                                                <p>Now, in the MQTT client, choose <b>Subscribe to a topic</b>. In the <b>Subscribe</b>
+                                                   column, choose the <code class="userinput">device/+/data</code> subscription. Confirm that the sample data from the previous step appears there.
+                                                </p>
+                                                
+                                             </li>
+                                          </ol>
+                                          
+                                       </li>
+                                       <li>
+                                          
+                                          <p>Check to see the row in the DynamoDB table that your rule created.</p>
+                                          
+                                          <ol>
+                                             <li>
+                                                
+                                                <p>In the <a href="https://console.aws.amazon.com/dynamodb/home#tables:" rel="noopener noreferrer" target="_blank"><span>DynamoDB Tables hub in
+                                                         the AWS IoT console</span><awsui-icon class="awsdocs-link-icon" name="external"></awsui-icon></a>, choose <b>wx_data</b>, and then choose
+                                                   the <b>Items</b> tab.
+                                                </p>
+                                                
+                                                <p>If you're already on the <b>Items</b> tab, you might need to
+                                                   refresh the display by choosing the refresh icon in the upper-right corner of the
+                                                   table's header.
+                                                </p>
+                                                
+                                             </li>
+                                             <li>
+                                                
+                                                <p>Notice that the <b>sample_time</b> values in the table are links
+                                                   and open one. If you just sent your first message, it will be the only one in the
+                                                   list.
+                                                </p>
+                                                
+                                                <p>This link displays all the data in that row of the table.</p>
+                                                
+                                             </li>
+                                             <li>
+                                                
+                                                <p>Expand the <b>device_data</b> entry to see the data that resulted
+                                                   from the rule query statement.
+                                                </p>
+                                                
+                                             </li>
+                                             <li>
+                                                
+                                                <p>Explore the different representations of the data that are available in this
+                                                   display. You can also edit the data in this display.
+                                                </p>
+                                                
+                                             </li>
+                                             <li>
+                                                
+                                                <p>After you have finished reviewing this row of data, to save any changes you
+                                                   made, choose <b>Save</b>, or to exit without saving any changes,
+                                                   choose <b>Cancel</b>.
+                                                </p>
+                                                
+                                             </li>
+                                          </ol>
+                                          
+                                       </li>
+                                    </ol>
+                                 </div>
+                                 
+                                 <p>If you don't see the correct behavior, check the troubleshooting tips.</p>
+                                  
+                                 
+                                 <h3 id="iot-ddb-rule-trouble">Troubleshooting your DynamoDB rule</h3>
+                                 
+                                 <p>Here are some things to check in case you're not seeing the results you expect.</p>
+                                 
+                                 <div class="itemizedlist">
+                                     
+                                     
+                                     
+                                    
+                                    <ul class="itemizedlist" type="disc">
+                                       <li class="listitem">
+                                           
+                                          
+                                          <p class="title"><b>You got an error banner</b></p>
+                                          
+                                          <p>If an error appeared when you published the input message, correct that error
+                                             first. The following steps might help you correct that error.
+                                          </p>
+                                           
+                                          
+                                       </li>
+                                       <li class="listitem">
+                                           
+                                          
+                                          <p class="title"><b>You don't see the input message in the MQTT client</b></p>
+                                          
+                                          <p>Every time you publish your input message to the <code class="code">device/22/data</code>
+                                             topic, that message should appear in the MQTT client if you subscribed to the
+                                             <code class="code">device/+/data</code> topic filter as described in the procedure.
+                                          </p>
+                                           
+                                          
+                                          <div class="itemizedlist">
+                                             
+                                             <p class="title"><b>Things to check</b></p>
+                                              
+                                              
+                                             
+                                             <ul class="itemizedlist" type="disc">
+                                                <li class="listitem">
+                                                    
+                                                   
+                                                   <p class="title"><b>Check the topic filter you subscribed to</b></p>
+                                                   
+                                                   <p>If you subscribed to the input message topic as described in the procedure,
+                                                      you should see a copy of the input message every time you publish it.
+                                                   </p>
+                                                    
+                                                   
+                                                   <p>If you don't see the message, check the topic name you subscribed to and
+                                                      compare it to the topic to which you published. Topic names are case sensitive and
+                                                      the topic to which you subscribed must be identical to the topic to which you
+                                                      published the message payload.
+                                                   </p>
+                                                   
+                                                </li>
+                                                <li class="listitem">
+                                                    
+                                                   
+                                                   <p class="title"><b>Check the message publish function</b></p>
+                                                   
+                                                   <p>In the MQTT client, under <b>Subscriptions</b>, choose
+                                                      <b>device/+/data</b>, check the topic of the publish message, and
+                                                      then choose <b>Publish to topic</b>. You should see the message
+                                                      payload from the edit box below the topic appear in the message list. 
+                                                   </p>
+                                                    
+                                                   
+                                                </li>
+                                             </ul>
+                                          </div>
+                                          
+                                       </li>
+                                       <li class="listitem">
+                                           
+                                          
+                                          <p class="title"><b>You don't see your data in the DynamoDB table</b></p>
+                                          
+                                          <p>The first thing to do is to manually refresh the display by choosing the refresh
+                                             icon in the upper-right corner of the  table's header. If that doesn't display the
+                                             data you're looking for, check the following.
+                                          </p>
+                                           
+                                          
+                                          <div class="itemizedlist">
+                                             
+                                             <p class="title"><b>Things to check</b></p>
+                                              
+                                              
+                                              
+                                              
+                                              
+                                             
+                                             <ul class="itemizedlist" type="disc">
+                                                <li class="listitem">
+                                                    
+                                                   
+                                                   <p class="title"><b>Check the AWS Region of your MQTT client and the rule that you
+                                                         created</b></p>
+                                                   
+                                                   <p>The console in which you're running the MQTT client must be in the same AWS
+                                                      Region as the rule you created. 
+                                                   </p>
+                                                    
+                                                   
+                                                </li>
+                                                <li class="listitem">
+                                                    
+                                                   
+                                                   <p class="title"><b>Check the input message topic in the rule query statement</b></p>
+                                                   
+                                                   <p>For the rule to work, it must receive a message with the topic name that
+                                                      matches the topic filter in the FROM clause of the rule query statement.
+                                                   </p>
+                                                    
+                                                   
+                                                   <p>Check the spelling of the topic filter in the rule query statement with that
+                                                      of the topic in the MQTT client. Topic names are case sensitive and the message's
+                                                      topic must match the topic filter in the rule query statement.
+                                                   </p>
+                                                   
+                                                </li>
+                                                <li class="listitem">
+                                                    
+                                                   
+                                                   <p class="title"><b>Check the contents of the input message payload</b></p>
+                                                   
+                                                   <p>For the rule to work, it must find the data field in the message payload
+                                                      that is declared in the SELECT statement.
+                                                   </p>
+                                                    
+                                                   
+                                                   <p>Check the spelling of the <code class="code">temperature</code> field in the rule query
+                                                      statement with that of the message payload in the MQTT client. Field names are
+                                                      case sensitive and the <code class="code">temperature</code> field in the rule query statement
+                                                      must be identical to the <code class="code">temperature</code> field in the message
+                                                      payload.
+                                                   </p>
+                                                   
+                                                   <p>Make sure that the JSON document in the message payload is correctly
+                                                      formatted. If the JSON has any errors, such as a missing comma, the rule will not
+                                                      be able to read it. 
+                                                   </p>
+                                                   
+                                                </li>
+                                                <li class="listitem">
+                                                    
+                                                   
+                                                   <p class="title"><b>Check the key and field names used in the rule action</b></p>
+                                                   
+                                                   <p>The field names used in the topic rule must match those found in the JSON
+                                                      message payload of the published message.
+                                                   </p>
+                                                    
+                                                   
+                                                   <p>Open the rule you created in the console and check the field names in the rule
+                                                      action configuration with those used in the MQTT client.
+                                                   </p>
+                                                   
+                                                </li>
+                                                <li class="listitem">
+                                                    
+                                                   
+                                                   <p class="title"><b>Check the role being used by the rule</b></p>
+                                                   
+                                                   <p>The rule action must have permission to receive the original topic and
+                                                      publish the new topic. 
+                                                   </p>
+                                                    
+                                                   
+                                                   <p>The policies that authorize the rule to receive message data and update the
+                                                      DynamoDB table are specific to the topics used. If you change the topic or DynamoDB
+                                                      table name used by the rule, you must update the rule action's role to update its
+                                                      policy to match.
+                                                   </p>
+                                                   
+                                                   <p>If you suspect this is the problem, edit the rule action and create a new
+                                                      role. New roles created by the rule action receive the authorizations necessary to
+                                                      perform these actions.
+                                                   </p>
+                                                   
+                                                </li>
+                                             </ul>
+                                          </div>
+                                          
+                                       </li>
+                                    </ul>
+                                 </div>
+                                  
+                                  
+                                 
+                                 <h2 id="iot-ddb-rule-review">Review the results and next steps</h2>
+                                 
+                                 <p>After you send a few messages to the DynamoDB table with this rule, try experimenting
+                                    with
+                                    it to see how changing some aspects from the tutorial affect the data written to the
+                                    table.
+                                    Here are some ideas to get you started.
+                                 </p>
+                                 
+                                 <div class="itemizedlist">
+                                     
+                                     
+                                     
+                                    
+                                    <ul class="itemizedlist" type="disc">
+                                       <li class="listitem">
+                                          
+                                          <p>Change the <code class="replaceable">device_id</code> in the input message's topic and
+                                             observe the effect on the data. You could use this to simulate receiving data from
+                                             multiple weather sensors.
+                                          </p>
+                                          
+                                       </li>
+                                       <li class="listitem">
+                                          
+                                          <p>Change the fields selected in the rule query statement and observe the effect on the
+                                             data. You could use this to filter the data stored in the table.
+                                          </p>
+                                          
+                                       </li>
+                                       <li class="listitem">
+                                          
+                                          <p>Add a republish rule action to send an MQTT message for each row added to the table.
+                                             You could use this for debugging.
+                                          </p>
+                                          
+                                       </li>
+                                    </ul>
+                                 </div>
+                                 
+                                 <p>After you have completed this tutorial, check out the next one!</p>
+                                 
+                                 
+                                 <awsdocs-copyright class="copyright-print"></awsdocs-copyright>
+                                 <awsdocs-thumb-feedback right-edge="{{$ctrl.thumbFeedbackRightEdge}}"></awsdocs-thumb-feedback>
+                              </div>
+                              <noscript>
+                                 <div>
+                                    <div>
+                                       <div>
+                                          <div id="js_error_message">
+                                             <p><img src="https://d1ge0kk1l5kms0.cloudfront.net/images/G/01/webservices/console/warning.png" alt="Warning" /> <strong>Javascript is disabled or is unavailable in your
+                                                   browser.</strong></p>
+                                             <p>To use the Amazon Web Services Documentation, Javascript must be
+                                                enabled. Please refer to your browser's Help pages for instructions.
+                                             </p>
+                                          </div>
+                                       </div>
+                                    </div>
+                                 </div>
+                              </noscript>
+                              <div id="main-col-footer" class="awsui-util-font-size-0">
+                                 <div id="doc-conventions"><a target="_top" href="/general/latest/gr/docconventions.html">Document Conventions</a></div>
+                                 <div class="prev-next">
+                                    <div id="previous" class="prev-link" accesskey="p" href="./iot-sns-rule.html">Send an Amazon SNS notification</div>
+                                    <div id="next" class="next-link" accesskey="n" href="./iot-lambda-rule.html">Format a notification by using an AWS Lambda function</div>
+                                 </div>
+                              </div>
+                              <awsdocs-page-utilities></awsdocs-page-utilities>
+                           </div>
+                           <div id="quick-feedback-yes" style="display: none;">
+                              <div class="title">Did this page help you? - Yes</div>
+                              <div class="content">
+                                 <p>Thanks for letting us know we're doing a good
+                                    job!
+                                 </p>
+                                 <p>If you've got a moment, please tell us what we did right
+                                    so we can do more of it.
+                                 </p>
+                                 <p>
+                                    <awsui-button id="fblink" target="_blank" text="Feedback" click="linkClick($event)" href="https://docs.aws.amazon.com/forms/aws-doc-feedback?hidden_service_name=IoT Docs&amp;topic_url=https://docs.aws.amazon.com/en_us/iot/latest/developerguide/iot-ddb-rule.html"></awsui-button>
+                                 </p>
+                              </div>
+                           </div>
+                           <div id="quick-feedback-no" style="display: none;">
+                              <div class="title">Did this page help you? - No</div>
+                              <div class="content">
+                                 <p>Thanks for letting us know this page needs work. We're
+                                    sorry we let you down.
+                                 </p>
+                                 <p>If you've got a moment, please tell us how we can make
+                                    the documentation better.
+                                 </p>
+                                 <p>
+                                    <awsui-button id="fblink" target="_blank" text="Feedback" click="linkClick($event)" href="https://docs.aws.amazon.com/forms/aws-doc-feedback?hidden_service_name=IoT Docs&amp;topic_url=https://docs.aws.amazon.com/en_us/iot/latest/developerguide/iot-ddb-rule.html"></awsui-button>
+                                 </p>
+                              </div>
+                           </div>
+                        </div>
+                     </body>
+                  </div>
+               </awsdocs-view>
+               <div class="page-loading-indicator" id="page-loading-indicator">
+                  <awsui-spinner size="large"></awsui-spinner>
+               </div>
+            </div>
+            <div id="tools-panel" dom-region="tools">
+               <awsdocs-tools-panel id="awsdocs-tools-panel"></awsdocs-tools-panel>
+            </div>
+         </awsui-app-layout>
+         <awsdocs-cookie-banner class="doc-cookie-banner"></awsdocs-cookie-banner>
+         <!--
+                SiteCatalyst code version: H.25.2.
+                Copyright 1996-2012 Adobe, Inc. All Rights Reserved
+                More info available at http://www.omniture.com
+            --><script language="JavaScript" type="text/javascript">
+var awsdocs = awsdocs || {};
+awsdocs.prop66 = 'AWS IoT Core';
+awsdocs.prop65 =  'Developer Guide';
+            </script><script src="https://a0.awsstatic.com/s_code/js/3.0/awshome_s_code.js" language="JavaScript" type="text/javascript"></script>
+         <!--/DO NOT REMOVE/-->
+         <!--End SiteCatalyst code version: H.25.2.--></div>
+   </body>
+</html>

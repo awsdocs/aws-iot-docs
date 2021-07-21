@@ -1,0 +1,230 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" ng-app="AWSDocsDocPageApp">
+   <head>
+      <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+      <title>Creating alarms - Fleet Hub for AWS IoT Device Management</title>
+      <meta name="viewport" content="width=device-width,initial-scale=1" />
+      <meta name="assets_root" content="assets" />
+      <meta name="target_state" content="aws-iot-monitor-user-alarms-create" />
+      <meta name="default_state" content="aws-iot-monitor-user-alarms-create" />
+      <link rel="icon" type="image/ico" href="/assets/images/favicon.ico" />
+      <link rel="shortcut icon" type="image/ico" href="/assets/images/favicon.ico" />
+      <link rel="canonical" href="https://docs.aws.amazon.com/iot/latest/fleethubuserguide/aws-iot-monitor-user-alarms-create.html" />
+      <meta name="description" content="Learn how to create Fleet Hub for AWS IoT Device Management alarms." />
+      <meta name="deployment_region" content="IAD" />
+      <meta name="product" content="Fleet Hub for AWS IoT Device Management" />
+      <meta name="guide" content="Fleet Hub for AWS IoT Device Management Guide" />
+      <meta name="locales" content="de_de:Deutsch/en_us:English/es_es:Español/fr_fr:Français/it_it:Italiano/ja_jp:日本語/ko_kr:한국어/pt_br:Português/zh_cn:中文 (简体)/zh_tw:中文 (繁體)" />
+      <meta name="abstract" content="Fleet Hub for AWS IoT Device Management enables you to build standalone web applications for monitoring the health of your device fleets. You can make these applications available to technicians in your organization, even if they don't have AWS accounts. Use Fleet Hub for AWS IoT Device Management to manage common fleet-wide tasks such as restarting devices, updating firmware, rotating expired certificates, and investigating and remediating operational and security issues." />
+      <meta name="guide-locale" content="en_us" />
+      <meta name="tocs" content="toc-contents.json" />
+      <meta name="feedback-item" content="IoT Docs" />
+      <meta name="this_doc_product" content="Fleet Hub for AWS IoT Device Management" />
+      <meta name="this_doc_guide" content="Fleet Hub for AWS IoT Device Management Guide" />
+      <link href="assets/css/vendor4.css" rel="stylesheet" />
+      <link href="assets/css/awsdocs-common.css" rel="stylesheet" /><script type="text/javascript" src="assets/js/vendor3.js" defer=""></script><script type="text/javascript" src="assets/js/vendor4.js" defer=""></script><script type="text/javascript" src="assets/js/vendor1.js" defer=""></script><script type="text/javascript" src="assets/js/awsdocs-common.js" defer=""></script><script type="text/javascript" src="assets/js/awsdocs-doc-app.js" defer=""></script></head>
+   <body class="awsdocs awsui">
+      <div class="awsdocs-container">
+         <awsdocs-header></awsdocs-header>
+         <awsui-app-layout id="app-layout" class="awsui-util-no-gutters" ng-controller="ContentController as $ctrl" header-selector="awsdocs-header" navigation-hide="false" navigation-width="$ctrl.navWidth" navigation-open="$ctrl.navOpen" navigation-change="$ctrl.onNavChange($event)" tools-hide="$ctrl.hideTools" tools-width="$ctrl.toolsWidth" tools-open="$ctrl.toolsOpen" tools-change="$ctrl.onToolsChange($event)">
+            <div id="guide-toc" dom-region="navigation">
+               <awsdocs-toc></awsdocs-toc>
+            </div>
+            <div id="main-column" dom-region="content" tabindex="-1">
+               <awsdocs-view class="awsdocs-view">
+                  <div id="awsdocs-content">
+                     <head>
+                        <title>Creating alarms - Fleet Hub for AWS IoT Device Management</title>
+                        <meta name="pdf" content="iotfleethub-ug.pdf#aws-iot-monitor-user-alarms-create" />
+                        <meta name="github" content="https://github.com/awsdocs/aws-iot-docs/tree/master/iotfleethubguide/aws-iot-monitor-user-alarms-create.md" />
+                        <meta name="forums" content="http://forums.aws.amazon.com/forum.jspa?forumID=210" />
+                        <meta name="feedback" content="https://docs.aws.amazon.com/forms/aws-doc-feedback?hidden_service_name=IoT%20Docs&amp;topic_url=http://docs.aws.amazon.com/en_us/iot/latest/fleethubuserguide/aws-iot-monitor-user-alarms-create.html" />
+                        <meta name="feedback-yes" content="feedbackyes.html?topic_url=http://docs.aws.amazon.com/en_us/iot/latest/fleethubuserguide/aws-iot-monitor-user-alarms-create.html" />
+                        <meta name="feedback-no" content="feedbackno.html?topic_url=http://docs.aws.amazon.com/en_us/iot/latest/fleethubuserguide/aws-iot-monitor-user-alarms-create.html" />
+                        <meta name="keywords" content="AWS IoT,Spyglass,Monitoring" />
+                     </head>
+                     <body>
+                        <div id="main">
+                           <div style="display: none"><a href="iotfleethub-ug.pdf#aws-iot-monitor-user-alarms-create" target="_blank" rel="noopener noreferrer" title="Open PDF"></a><a href="https://github.com/awsdocs/aws-iot-docs/tree/master/iotfleethubguide/aws-iot-monitor-user-alarms-create.md" target="_blank" rel="noopener noreferrer" title="Edit this page on GitHub"></a></div>
+                           <div id="breadcrumbs" class="breadcrumb"><a href="http://aws.amazon.com">AWS</a><a href="/index.html">Documentation</a><a href="/iot/index.html">AWS IoT Core</a><a href="what-is-aws-iot-monitor.html">Fleet Hub for AWS IoT Device Management Guide</a></div>
+                           <div id="main-content" class="awsui-util-container">
+                              <div id="main-col-body">
+                                 <awsdocs-language-banner data-service="$ctrl.pageService"></awsdocs-language-banner>
+                                 <h1 class="topictitle" id="aws-iot-monitor-user-alarms-create">Creating alarms</h1>
+                                 <div class="awsdocs-page-header-container">
+                                    <awsdocs-page-header></awsdocs-page-header>
+                                    <awsdocs-filter-selector id="awsdocs-filter-selector"></awsdocs-filter-selector>
+                                 </div>
+                                 <p>This topic walks you through the steps required to create a Fleet Hub for AWS IoT
+                                    Device Management alarm. It assumes
+                                    that your administrator has created an aggregation field out of a device shadow field
+                                    named <b>shadow.reported.batterylevel</b>. This custom field
+                                    indicates the battery level of a device. You need to ask your administrator to create
+                                    searchable custom fields in the AWS IoT fleet indexing service.
+                                 </p>
+                                 <p>The alarm that you create sends an Amazon Simple Notification Service (Amazon SNS)
+                                    message to a list of people in your organization whenever the average battery level
+                                    
+                                    of devices in your fleet falls below 50% during a period of 1 minute.
+                                 </p>
+                                 <div class="procedure">
+                                    <p class="title"><b>Create a Fleet Hub query</b></p>
+                                    <ol>
+                                       <li>
+                                          <p>Navigate to your Fleet Hub application.</p>
+                                       </li>
+                                       <li>
+                                          <p>If you want to target a specific set of devices, create a query. For instructions
+                                             on how to
+                                             create a simple query, see <a href="./aws-iot-monitor-user-queries-creating.html">Creating queries with filters</a>. If you don't create a query, your alarm applies to all of the devices in
+                                             your fleet.
+                                          </p>
+                                       </li>
+                                       <li>
+                                          <p>On the default dashboard page, choose <b>Create alarm</b>.
+                                          </p>
+                                       </li>
+                                       <li>
+                                          <p>On the <b>Build aggregation metric</b> page, verify that your query appears
+                                             under <b>Target query</b>. In the <b>Configure fleet metric
+                                                aggregation</b> section, for <b>Choose field</b>,
+                                             choose <b>shadow.reported.batterylevel</b>. This menu contains the
+                                             AWS-managed fields and the custom fields that your administrator has created
+                                             in the AWS IoT fleet indexing service.
+                                          </p>
+                                       </li>
+                                       <li>
+                                          <p>For <b>Choose aggregation type</b>, choose <b>Average</b>. This
+                                             choice bases the alarm on the average battery level value in your device
+                                             fleet.
+                                          </p>
+                                          
+                                       </li>
+                                       <li>
+                                          <p>For <b>Choose period</b>, choose <b>1 minute</b>. This triggers
+                                             the alarm when your device fleet remains in the specified alarming state for one
+                                             minute.
+                                          </p>
+                                          
+                                          <p>Choose <b>Next</b>.
+                                          </p>
+                                       </li>
+                                       <li>
+                                          <p>On the <b>Set threshold</b> page, in the <b>Trigger the alarm whenever...</b> section, choose <b>Lower/Equal</b>. 
+                                             This triggers the alarm when the average battery level value falls below a value that
+                                             you specify.
+                                          </p>
+                                          
+                                       </li>
+                                       <li>
+                                          <p>In the <b>Than</b> text box, enter 50.
+                                          </p>
+                                          
+                                          <p>Choose <b>Next</b>.
+                                          </p>
+                                       </li>
+                                       <li>
+                                          <p>On the <b>Notify user</b> page, in the <b>Notify -- optional</b> section, 
+                                             enter a name for the email list that contains the users in your organization who receive
+                                             notifications when the alarm 
+                                             is active. Enter a comma-separated list of email addresses to populate this list.
+                                          </p>
+                                       </li>
+                                       <li>
+                                          <p>In the <b>Alarm details</b> section, enter a name for your alarm, and optionally enter a description 
+                                             for your alarm. Choose <b>Next</b>.
+                                          </p>
+                                       </li>
+                                       <li>
+                                          <p>On the <b>Review</b> page, verify the information that you entered on the previous pages. Choose <b>Submit</b>. You return to 
+                                             the default dashboard.
+                                          </p>
+                                       </li>
+                                       <li>
+                                          <p>On the default dashboard, in the left navigation panel, choose <b>Fleet Hub
+                                                alarms</b>. Verify that you see the alarm that you created.
+                                          </p>
+                                       </li>
+                                    </ol>
+                                 </div>
+                                 <awsdocs-copyright class="copyright-print"></awsdocs-copyright>
+                                 <awsdocs-thumb-feedback right-edge="{{$ctrl.thumbFeedbackRightEdge}}"></awsdocs-thumb-feedback>
+                              </div>
+                              <noscript>
+                                 <div>
+                                    <div>
+                                       <div>
+                                          <div id="js_error_message">
+                                             <p><img src="https://d1ge0kk1l5kms0.cloudfront.net/images/G/01/webservices/console/warning.png" alt="Warning" /> <strong>Javascript is disabled or is unavailable in your
+                                                   browser.</strong></p>
+                                             <p>To use the Amazon Web Services Documentation, Javascript must be
+                                                enabled. Please refer to your browser's Help pages for instructions.
+                                             </p>
+                                          </div>
+                                       </div>
+                                    </div>
+                                 </div>
+                              </noscript>
+                              <div id="main-col-footer" class="awsui-util-font-size-0">
+                                 <div id="doc-conventions"><a target="_top" href="/general/latest/gr/docconventions.html">Document Conventions</a></div>
+                                 <div class="prev-next">
+                                    <div id="previous" class="prev-link" accesskey="p" href="./aws-iot-monitor-user-alarms.html">Alarms</div>
+                                    <div id="next" class="next-link" accesskey="n" href="./aws-iot-monitor-user-troubleshoot.html">Troubleshooting</div>
+                                 </div>
+                              </div>
+                              <awsdocs-page-utilities></awsdocs-page-utilities>
+                           </div>
+                           <div id="quick-feedback-yes" style="display: none;">
+                              <div class="title">Did this page help you? - Yes</div>
+                              <div class="content">
+                                 <p>Thanks for letting us know we're doing a good
+                                    job!
+                                 </p>
+                                 <p>If you've got a moment, please tell us what we did right
+                                    so we can do more of it.
+                                 </p>
+                                 <p>
+                                    <awsui-button id="fblink" target="_blank" text="Feedback" click="linkClick($event)" href="https://docs.aws.amazon.com/forms/aws-doc-feedback?hidden_service_name=IoT Docs&amp;topic_url=https://docs.aws.amazon.com/en_us/iot/latest/fleethubuserguide/aws-iot-monitor-user-alarms-create.html"></awsui-button>
+                                 </p>
+                              </div>
+                           </div>
+                           <div id="quick-feedback-no" style="display: none;">
+                              <div class="title">Did this page help you? - No</div>
+                              <div class="content">
+                                 <p>Thanks for letting us know this page needs work. We're
+                                    sorry we let you down.
+                                 </p>
+                                 <p>If you've got a moment, please tell us how we can make
+                                    the documentation better.
+                                 </p>
+                                 <p>
+                                    <awsui-button id="fblink" target="_blank" text="Feedback" click="linkClick($event)" href="https://docs.aws.amazon.com/forms/aws-doc-feedback?hidden_service_name=IoT Docs&amp;topic_url=https://docs.aws.amazon.com/en_us/iot/latest/fleethubuserguide/aws-iot-monitor-user-alarms-create.html"></awsui-button>
+                                 </p>
+                              </div>
+                           </div>
+                        </div>
+                     </body>
+                  </div>
+               </awsdocs-view>
+               <div class="page-loading-indicator" id="page-loading-indicator">
+                  <awsui-spinner size="large"></awsui-spinner>
+               </div>
+            </div>
+            <div id="tools-panel" dom-region="tools">
+               <awsdocs-tools-panel id="awsdocs-tools-panel"></awsdocs-tools-panel>
+            </div>
+         </awsui-app-layout>
+         <awsdocs-cookie-banner class="doc-cookie-banner"></awsdocs-cookie-banner>
+         <!--
+                SiteCatalyst code version: H.25.2.
+                Copyright 1996-2012 Adobe, Inc. All Rights Reserved
+                More info available at http://www.omniture.com
+            --><script language="JavaScript" type="text/javascript">
+var awsdocs = awsdocs || {};
+awsdocs.prop66 = 'Fleet Hub for AWS IoT Device Management';
+awsdocs.prop65 =  'Fleet Hub for AWS IoT Device Management Guide';
+            </script><script src="https://a0.awsstatic.com/s_code/js/3.0/awshome_s_code.js" language="JavaScript" type="text/javascript"></script>
+         <!--/DO NOT REMOVE/-->
+         <!--End SiteCatalyst code version: H.25.2.--></div>
+   </body>
+</html>

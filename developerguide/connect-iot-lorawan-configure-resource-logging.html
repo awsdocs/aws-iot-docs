@@ -1,0 +1,1005 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" ng-app="AWSDocsDocPageApp">
+   <head>
+      <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+      <title>Configure logging for AWS IoT Core for LoRaWAN resources - AWS IoT Core</title>
+      <meta name="viewport" content="width=device-width,initial-scale=1" />
+      <meta name="assets_root" content="assets" />
+      <meta name="target_state" content="connect-iot-lorawan-configure-resource-logging" />
+      <meta name="default_state" content="connect-iot-lorawan-configure-resource-logging" />
+      <link rel="icon" type="image/ico" href="/assets/images/favicon.ico" />
+      <link rel="shortcut icon" type="image/ico" href="/assets/images/favicon.ico" />
+      <link rel="canonical" href="https://docs.aws.amazon.com/iot/latest/developerguide/connect-iot-lorawan-configure-resource-logging.html" />
+      <meta name="description" content="To configure logging for AWS IoT Core for LoRaWAN resources, you can use either the API or the CLI. When starting to monitor AWS IoT Core for LoRaWAN resources, you can use the default configuration. To do this, you can skip this topic and proceed to" />
+      <meta name="deployment_region" content="IAD" />
+      <meta name="product" content="AWS IoT Core" />
+      <meta name="guide" content="Developer Guide" />
+      <meta name="locales" content="de_de:Deutsch/en_us:English/es_es:Español/fr_fr:Français/it_it:Italiano/ja_jp:日本語/ko_kr:한국어/pt_br:Português/zh_cn:中文 (简体)/zh_tw:中文 (繁體)" />
+      <meta name="abstract" content="AWS IoT provides secure, bi-directional communication between Internet-connected devices such as sensors, actuators, embedded micro-controllers, or smart appliances and the AWS Cloud. This enables you to collect telemetry data from multiple devices, and store and analyze the data. You can also create applications that enable your users to control these devices from their phones or tablets." />
+      <meta name="guide-locale" content="en_us" />
+      <meta name="tocs" content="toc-contents.json" />
+      <meta name="feedback-item" content="IoT Docs" />
+      <meta name="this_doc_product" content="AWS IoT Core" />
+      <meta name="this_doc_guide" content="Developer Guide" />
+      <link href="assets/css/vendor4.css" rel="stylesheet" />
+      <link href="assets/css/awsdocs-common.css" rel="stylesheet" /><script type="text/javascript" src="assets/js/vendor3.js" defer=""></script><script type="text/javascript" src="assets/js/vendor4.js" defer=""></script><script type="text/javascript" src="assets/js/vendor1.js" defer=""></script><script type="text/javascript" src="assets/js/awsdocs-common.js" defer=""></script><script type="text/javascript" src="assets/js/awsdocs-doc-app.js" defer=""></script></head>
+   <body class="awsdocs awsui">
+      <div class="awsdocs-container">
+         <awsdocs-header></awsdocs-header>
+         <awsui-app-layout id="app-layout" class="awsui-util-no-gutters" ng-controller="ContentController as $ctrl" header-selector="awsdocs-header" navigation-hide="false" navigation-width="$ctrl.navWidth" navigation-open="$ctrl.navOpen" navigation-change="$ctrl.onNavChange($event)" tools-hide="$ctrl.hideTools" tools-width="$ctrl.toolsWidth" tools-open="$ctrl.toolsOpen" tools-change="$ctrl.onToolsChange($event)">
+            <div id="guide-toc" dom-region="navigation">
+               <awsdocs-toc></awsdocs-toc>
+            </div>
+            <div id="main-column" dom-region="content" tabindex="-1">
+               <awsdocs-view class="awsdocs-view">
+                  <div id="awsdocs-content">
+                     <head>
+                        <title>Configure logging for AWS IoT Core for LoRaWAN resources - AWS IoT Core</title>
+                        <meta name="pdf" content="iot-dg.pdf#connect-iot-lorawan-configure-resource-logging" />
+                        <meta name="kindle" content="https://www.amazon.com/dp/B07JBRCWWZ" />
+                        <meta name="github" content="https://github.com/awsdocs/aws-iot-docs/tree/master/developerguide/connect-iot-lorawan-configure-resource-logging.md" />
+                        <meta name="forums" content="http://forums.aws.amazon.com/forum.jspa?forumID=210" />
+                        <meta name="feedback" content="https://docs.aws.amazon.com/forms/aws-doc-feedback?hidden_service_name=IoT%20Docs&amp;topic_url=http://docs.aws.amazon.com/en_us/iot/latest/developerguide/connect-iot-lorawan-configure-resource-logging.html" />
+                        <meta name="feedback-yes" content="feedbackyes.html?topic_url=http://docs.aws.amazon.com/en_us/iot/latest/developerguide/connect-iot-lorawan-configure-resource-logging.html" />
+                        <meta name="feedback-no" content="feedbackno.html?topic_url=http://docs.aws.amazon.com/en_us/iot/latest/developerguide/connect-iot-lorawan-configure-resource-logging.html" />
+                        <meta name="keywords" content="AWS IoT,IoT,Internet of Things" />
+                     </head>
+                     <body>
+                        <div id="main">
+                           <div style="display: none"><a href="iot-dg.pdf#connect-iot-lorawan-configure-resource-logging" target="_blank" rel="noopener noreferrer" title="Open PDF"></a><a target="_blank" rel="noopener noreferrer" href="https://www.amazon.com/dp/B07JBRCWWZ" title="Open Kindle"></a><a href="https://github.com/awsdocs/aws-iot-docs/tree/master/developerguide/connect-iot-lorawan-configure-resource-logging.md" target="_blank" rel="noopener noreferrer" title="Edit this page on GitHub"></a></div>
+                           <div id="breadcrumbs" class="breadcrumb"><a href="http://aws.amazon.com">AWS</a><a href="/index.html">Documentation</a><a href="/iot/index.html">AWS IoT Core</a><a href="what-is-aws-iot.html">Developer Guide</a></div>
+                           <div id="page-toc-src"><a href="#connect-iot-lorawan-log-levels-resources">AWS IoT Core for LoRaWAN resources and 
+                                 log levels</a><a href="#connect-iot-lorawan-logging-api-roles">AWS IoT Wireless logging API</a><a href="#connect-iot-lorawan-configure-logging-api">Configure log levels
+                                 of resources using the CLI</a><a href="#connect-iot-lorawan-configure-logging-next-steps">Next Steps</a></div>
+                           <div id="main-content" class="awsui-util-container">
+                              <div id="main-col-body">
+                                 <awsdocs-language-banner data-service="$ctrl.pageService"></awsdocs-language-banner>
+                                 <h1 class="topictitle" id="connect-iot-lorawan-configure-resource-logging">Configure logging for 
+                                    AWS IoT Core for LoRaWAN resources
+                                 </h1>
+                                 <div class="awsdocs-page-header-container">
+                                    <awsdocs-page-header></awsdocs-page-header>
+                                    <awsdocs-filter-selector id="awsdocs-filter-selector"></awsdocs-filter-selector>
+                                 </div>
+                                 <p>To configure logging for AWS IoT Core for LoRaWAN resources, you can use either the
+                                    API
+                                    or the CLI. When starting to monitor AWS IoT Core for LoRaWAN resources, you can use
+                                    the default configuration. To do this, you can skip this topic and proceed to
+                                    <a href="./connect-iot-lorawan-cloud-watch-logs.html">Monitor AWS IoT Core for LoRaWAN using CloudWatch Logs</a> to monitor your
+                                    logs.
+                                 </p>
+                                 <p>After you start monitoring the logs, you can use the CLI to change the log levels
+                                    to a more verbose option, such as providing <code class="code">INFO</code> and
+                                    <code class="code">ERROR</code> information and enabling logging for more
+                                    resources.
+                                 </p>
+                                 
+                                 <h2 id="connect-iot-lorawan-log-levels-resources">AWS IoT Core for LoRaWAN resources and 
+                                    log levels
+                                 </h2>
+                                 
+                                 <p>Before you use the API or CLI, use the following table to learn about the
+                                    different log levels and the resources that you can configure logging for.
+                                    The table shows parameters that you see in the CloudWatch logs when you monitor
+                                    the resources. How you configure the logging for your resources will
+                                    determine the logs you see in the console.
+                                 </p>
+                                 
+                                 <p>For information about what a sample CloudWatch logs looks like and how you can
+                                    use these parameters to log useful information about the AWS IoT Core for LoRaWAN
+                                    resources, see <a href="./connect-iot-lorawan-cwl-format.html">View CloudWatch AWS IoT Core for LoRaWAN
+                                       log entries</a>.
+                                 </p>
+                                 
+                                 <div class="table-container">
+                                    <div class="table-contents">
+                                       <table id="w332aac50c18c13c15b7b7">
+                                          <thead>
+                                             <tr>
+                                                <th class="table-header" colspan="100%">
+                                                   <div class="title">Log levels and resources</div>
+                                                </th>
+                                             </tr>
+                                             
+                                             <tr>
+                                                
+                                                <th>Name</th>
+                                                
+                                                <th>Possible values</th>
+                                                
+                                                <th>Description</th>
+                                                
+                                             </tr>
+                                             
+                                          </thead>
+                                          
+                                          <tr>
+                                             
+                                             <td><code class="code">logLevel</code></td>
+                                             
+                                             <td>
+                                                
+                                                <p><code class="code">INFO</code>, <code class="code">ERROR</code>, or
+                                                   <code class="code">DISABLED</code></p>
+                                                
+                                             </td>
+                                             
+                                             <td>
+                                                
+                                                <div class="itemizedlist">
+                                                    
+                                                    
+                                                    
+                                                   
+                                                   <ul class="itemizedlist" type="disc">
+                                                      <li class="listitem">
+                                                         
+                                                         <p><code class="code">ERROR</code>: Displays any error that
+                                                            causes an operation to fail. Logs include only
+                                                            <code class="code">ERROR</code> information.
+                                                         </p>
+                                                         
+                                                      </li>
+                                                      <li class="listitem">
+                                                         
+                                                         <p><code class="code">INFO</code>: Provides high-level
+                                                            information about the flow of things. Logs include
+                                                            <code class="code">INFO</code> and <code class="code">ERROR</code>
+                                                            information.
+                                                         </p>
+                                                         
+                                                      </li>
+                                                      <li class="listitem">
+                                                         
+                                                         <p><code class="code">DISABLED</code>: Disables all
+                                                            logging.
+                                                         </p>
+                                                         
+                                                      </li>
+                                                   </ul>
+                                                </div>
+                                                
+                                             </td>
+                                             
+                                          </tr>
+                                          
+                                          <tr>
+                                             
+                                             <td><code class="code">resource</code></td>
+                                             
+                                             <td>
+                                                
+                                                <p><code class="code">WirelessGateway</code> or
+                                                   <code class="code">WirelessDevice</code></p>
+                                                
+                                             </td>
+                                             
+                                             <td>
+                                                
+                                                <p>The type of the resource, which can be
+                                                   <code class="code">WirelessGateway</code> or
+                                                   <code class="code">WirelessDevice</code>.
+                                                </p>
+                                                
+                                             </td>
+                                             
+                                          </tr>
+                                          
+                                          <tr>
+                                             
+                                             <td><code class="code">wirelessGatewayType</code></td>
+                                             
+                                             <td><code class="code">LoRaWAN</code></td>
+                                             
+                                             <td>The type of the wireless gateway, when
+                                                <code class="code">resource</code> is <code class="code">WirelessGateway</code>,
+                                                which is always LoRaWAN.
+                                             </td>
+                                             
+                                          </tr>
+                                          
+                                          <tr>
+                                             
+                                             <td><code class="code">wirelessDeviceType</code></td>
+                                             
+                                             <td><code class="code">LoRaWAN</code> or <code class="code">Sidewalk</code></td>
+                                             
+                                             <td>The type of the wireless device, when
+                                                <code class="code">resource</code> is <code class="code">WirelessDevice</code>,
+                                                which can be <code class="code">LoRaWAN</code> or
+                                                <code class="code">Sidewalk</code>.
+                                             </td>
+                                             
+                                          </tr>
+                                          
+                                          <tr>
+                                             
+                                             <td><code class="code">wirelessGatewayId</code></td>
+                                             
+                                             <td>-</td>
+                                             
+                                             <td>The identifier of the wireless gateway, when
+                                                <code class="code">resource</code> is
+                                                <code class="code">WirelessGateway</code>.
+                                             </td>
+                                             
+                                          </tr>
+                                          
+                                          <tr>
+                                             
+                                             <td><code class="code">wirelessDeviceId</code></td>
+                                             
+                                             <td>-</td>
+                                             
+                                             <td>The identifier of the wireless device, when
+                                                <code class="code">resource</code> is
+                                                <code class="code">WirelessDevice</code>.
+                                             </td>
+                                             
+                                          </tr>
+                                          
+                                          <tr>
+                                             
+                                             <td><code class="code">event</code></td>
+                                             
+                                             <td><code class="code">Join</code>, <code class="code">Rejoin</code>,
+                                                <code class="code">Registration</code>, <code class="code">Uplink_data</code>,
+                                                <code class="code">Downlink_data</code>, <code class="code">CUPS_Request</code>,
+                                                and <code class="code">Certificate</code></td>
+                                             
+                                             <td>The type of event being logged, which depends on whether
+                                                the resource that you're logging is a wireless device or a
+                                                wireless gateway. For more information, see 
+                                                <a href="./connect-iot-lorawan-cwl-format.html">View CloudWatch AWS IoT Core for LoRaWAN
+                                                   log entries</a>.
+                                             </td>
+                                             
+                                          </tr>
+                                          
+                                       </table>
+                                    </div>
+                                 </div>
+                                  
+                                 
+                                 <h2 id="connect-iot-lorawan-logging-api-roles">AWS IoT Wireless logging API</h2>
+                                 
+                                 <p>You can use the following API actions to configure logging
+                                    of resources. The table also shows a sample IAM policy that you must create
+                                    for using the API actions. The following section describes how you can use
+                                    the APIs to configure log levels of your resources.
+                                 </p>                
+                                 
+                                 <div class="table-container">
+                                    <div class="table-contents">
+                                       <table id="w332aac50c18c13c15b9b5">
+                                          <thead>
+                                             <tr>
+                                                <th class="table-header" colspan="100%">
+                                                   <div class="title">Logging API actions</div>
+                                                </th>
+                                             </tr>
+                                             
+                                             <tr>
+                                                
+                                                <th>API name</th>
+                                                
+                                                <th>Description</th>
+                                                
+                                                <th>Sample IAM policy</th>
+                                                
+                                             </tr>
+                                             
+                                          </thead>
+                                          
+                                          <tr>
+                                             
+                                             <td>
+                                                
+                                                <p><a href="https://docs.aws.amazon.com/iot-wireless/2020-11-22/apireference/API_GetLogLevelsByResourceTypes.html">GetLogLevelsByResourceTypes</a></p>
+                                                
+                                             </td>
+                                             
+                                             <td>
+                                                
+                                                <p>Returns current default log levels, or log levels by
+                                                   resource types, which can include log options for
+                                                   wireless devices or wireless gateways.
+                                                </p>
+                                                
+                                             </td>
+                                             
+                                             <td><pre class="programlisting"><div class="code-btn-container"><div class="btn-copy-code" title="Copy"><awsui-icon name="copy"></awsui-icon></div></div><code class="JSON "><span>{</span>    
+    "Version": "2012-10-17",    
+    "Statement": [        
+        <span>{</span>            
+            "Effect": "Allow",            
+            "Action": [                
+                 "iotwireless:GetLogLevelsByResourceTypes"            
+            ],            
+            "Resource": [                
+                "*"            
+            ]        
+        }
+    ]
+}</code></pre>
+                                                </td>
+                                             
+                                          </tr>
+                                          
+                                          <tr>
+                                             
+                                             <td>
+                                                
+                                                <p><a href="https://docs.aws.amazon.com/iot-wireless/2020-11-22/apireference/API_GetResourceLogLevel.html">GetResourceLogLevel</a></p>
+                                                
+                                             </td>
+                                             
+                                             <td>
+                                                <p>Returns the log-level override for a given resource identifier and resource type.
+                                                   The resource
+                                                   can be a wireless device or a wireless gateway.
+                                                </p>
+                                                
+                                             </td>
+                                             
+                                             <td><pre class="programlisting"><div class="code-btn-container"><div class="btn-copy-code" title="Copy"><awsui-icon name="copy"></awsui-icon></div></div><code class="JSON "><span>{</span>    
+    "Version": "2012-10-17",    
+    "Statement": [        
+        <span>{</span>            
+            "Effect": "Allow",            
+            "Action": [                
+                 "iotwireless:GetResourceLogLevel"            
+            ],            
+            "Resource": [                
+                 "arn:aws:iotwireless:us-east-1:123456789012:WirelessDevice/012bc537-ab12-cd3a-d00e-1f0e20c1204a",           
+            ]        
+        }
+    ]
+}</code></pre></td>
+                                             
+                                          </tr>
+                                          
+                                          <tr>
+                                             
+                                             <td>
+                                                
+                                                <p><a href="https://docs.aws.amazon.com/iot-wireless/2020-11-22/apireference/API_PutResourceLogLevel.html">PutResourceLogLevel</a></p>
+                                                
+                                             </td>
+                                             
+                                             <td>
+                                                <p>Sets the log-level override for a given resource identifier and resource type. The
+                                                   resource
+                                                   can be a wireless gateway or a wireless device.
+                                                </p>
+                                                
+                                                <div class="awsdocs-note">
+                                                   <div class="awsdocs-note-title">
+                                                      <awsui-icon name="status-info" variant="link"></awsui-icon><span>Note</span></div>
+                                                   <div class="awsdocs-note-text">
+                                                      <p>This API has a limit of 200 log-level overrides per account.</p>
+                                                   </div>
+                                                </div>
+                                                
+                                             </td>
+                                             
+                                             <td><pre class="programlisting"><div class="code-btn-container"><div class="btn-copy-code" title="Copy"><awsui-icon name="copy"></awsui-icon></div></div><code class="JSON "><span>{</span>    
+    "Version": "2012-10-17",    
+    "Statement": [        
+        <span>{</span>            
+            "Effect": "Allow",            
+            "Action": [                
+                 "iotwireless:PutResourceLogLevel"            
+            ],            
+            "Resource": [                
+                "arn:aws:iotwireless:us-east-1:123456789012:WirelessDevice/012bc537-ab12-cd3a-d00e-1f0e20c1204a",            
+            ]        
+        }
+    ]
+}</code></pre></td>
+                                             
+                                          </tr>
+                                          
+                                          <tr>
+                                             
+                                             <td>
+                                                
+                                                <p><a href="https://docs.aws.amazon.com/iot-wireless/2020-11-22/apireference/API_ResetAllResourceLogLevels.html">ResetAllResourceLogLevels</a></p>
+                                                
+                                             </td>
+                                             
+                                             <td>
+                                                
+                                                <p>Removes the log-level overrides for all resources,
+                                                   which includes both wireless gateways and wireless
+                                                   devices.
+                                                </p>
+                                                
+                                                <div class="awsdocs-note">
+                                                   <div class="awsdocs-note-title">
+                                                      <awsui-icon name="status-info" variant="link"></awsui-icon><span>Note</span></div>
+                                                   <div class="awsdocs-note-text">
+                                                      <p>This API doesn't affect the log levels that are
+                                                         set using the
+                                                         <code class="code">UpdateLogLevelsByResourceTypes</code>
+                                                         API.
+                                                      </p>
+                                                   </div>
+                                                </div>
+                                                
+                                             </td>
+                                             
+                                             <td><pre class="programlisting"><div class="code-btn-container"><div class="btn-copy-code" title="Copy"><awsui-icon name="copy"></awsui-icon></div></div><code class="JSON "><span>{</span>    
+    "Version": "2012-10-17",    
+    "Statement": [        
+        <span>{</span>            
+            "Effect": "Allow",            
+            "Action": [                
+                 "iotwireless:ResetAllResourceLogLevels"            
+            ],            
+            "Resource": [                
+                "arn:aws:iotwireless:us-east-1:123456789012:WirelessDevice/*", 
+                "arn:aws:iotwireless:us-east-1:123456789012:WirelessGateway/*
+            ]        
+        }
+    ]
+}</code></pre></td>
+                                             
+                                          </tr>
+                                          
+                                          <tr>
+                                             
+                                             <td>
+                                                
+                                                <p><a href="https://docs.aws.amazon.com/iot-wireless/2020-11-22/apireference/API_ResetResourceLogLevel.html">ResetResourceLogLevel</a></p>
+                                                
+                                             </td>
+                                             
+                                             <td>
+                                                
+                                                <p>Removes the log-level override for a given resource
+                                                   identifier and resource type. The resource can be a
+                                                   wireless gateway or a wireless device.
+                                                </p>
+                                                
+                                             </td>
+                                             
+                                             <td><pre class="programlisting"><div class="code-btn-container"><div class="btn-copy-code" title="Copy"><awsui-icon name="copy"></awsui-icon></div></div><code class="JSON "><span>{</span>    
+    "Version": "2012-10-17",    
+    "Statement": [        
+        <span>{</span>            
+            "Effect": "Allow",            
+            "Action": [                
+                 "iotwireless:ResetResourceLogLevel"            
+            ],            
+            "Resource": [                
+                "arn:aws:iotwireless:us-east-1:123456789012:WirelessDevice/012bc537-ab12-cd3a-d00e-1f0e20c1204a",            
+            ]        
+        }
+    ]
+}</code></pre></td>
+                                             
+                                          </tr>
+                                          
+                                          <tr>
+                                             
+                                             <td>
+                                                
+                                                <p><a href="https://docs.aws.amazon.com/iot-wireless/2020-11-22/apireference/API_UpdateLogLevelsByResourceTypes.html">UpdateLogLevelsByResourceTypes</a></p>
+                                                
+                                             </td>
+                                             
+                                             <td>
+                                                
+                                                <p>Set default log level, or log levels by resource
+                                                   types. You can use this API for log options for wireless
+                                                   devices or wireless gateways, and control the log
+                                                   messages that'll be displayed in CloudWatch.
+                                                </p>
+                                                
+                                                <div class="awsdocs-note">
+                                                   <div class="awsdocs-note-title">
+                                                      <awsui-icon name="status-info" variant="link"></awsui-icon><span>Note</span></div>
+                                                   <div class="awsdocs-note-text">
+                                                      <p>Events are optional and the event type is tied to 
+                                                         the resource type. For more information, see <a href="./connect-iot-lorawan-cwl-format.html#connect-iot-lorawan-cwl-format-events-resources">Events and resource types</a>.
+                                                      </p>
+                                                   </div>
+                                                </div>
+                                                
+                                             </td>
+                                             
+                                             <td><pre class="programlisting"><div class="code-btn-container"><div class="btn-copy-code" title="Copy"><awsui-icon name="copy"></awsui-icon></div></div><code class="JSON "><span>{</span>    
+    "Version": "2012-10-17",    
+    "Statement": [        
+        <span>{</span>            
+            "Effect": "Allow",            
+            "Action": [                
+                 "iotwireless:UpdateLogLevelsByResourceTypes"            
+            ],            
+            "Resource": [                
+                "*"            
+            ]        
+        }
+    ]
+}</code></pre></td>
+                                             
+                                          </tr>
+                                          
+                                       </table>
+                                    </div>
+                                 </div>                
+                                  
+                                 
+                                 <h2 id="connect-iot-lorawan-configure-logging-api">Configure log levels
+                                    of resources using the CLI
+                                 </h2>
+                                 
+                                 <p>This section describes how to configure log levels for AWS IoT Core for LoRaWAN
+                                    resources by using the API or AWS CLI.
+                                 </p>              
+                                 
+                                 <div class="itemizedlist">
+                                    
+                                    <p class="title"><b>Before you use the CLI:</b></p>
+                                     
+                                     
+                                    
+                                    <ul class="itemizedlist" type="disc">
+                                       <li class="listitem">
+                                          
+                                          <p>Make sure you created the IAM policy for the API for which you want to
+                                             run the CLI command, as described previously.
+                                          </p>
+                                          
+                                       </li>
+                                       <li class="listitem">
+                                          
+                                          <p>You need the Amazon Resource Name (ARN) of the role you want to
+                                             use. If you need to create a role to use for logging, see <a href="./connect-iot-lorawan-create-logging-role-policy.html">Create
+                                                logging role and policy for AWS IoT Core for LoRaWAN</a>.
+                                          </p>
+                                          
+                                       </li>
+                                    </ul>
+                                 </div> 
+                                  
+                                 
+                                 <p class="title"><b>Why use the AWS CLI</b></p>
+                                 
+                                 <p>By default, if you create the IAM role, <code class="code">IoTWirelessLogsRole</code>,
+                                    as described in <a href="./connect-iot-lorawan-create-logging-role-policy.html">Create
+                                       logging role and policy for AWS IoT Core for LoRaWAN</a>, you'll
+                                    see CloudWatch logs in the AWS Management Console that have a default log level of
+                                    <code class="code">ERROR</code>. To change the default log level for all your
+                                    resources or for specific resources, use the AWS IoT Wireless 
+                                    logging API or CLI.
+                                 </p>
+                                  
+                                  
+                                 
+                                 <p class="title"><b>How to use the AWS CLI</b></p>
+                                 
+                                 <p>The API actions can be categorized into the following types depending on
+                                    whether you want to configure log levels for all resources or for
+                                    specific resources:
+                                 </p>
+                                                  
+                                 
+                                 <div class="itemizedlist">
+                                     
+                                     
+                                     
+                                    
+                                    <ul class="itemizedlist" type="disc">
+                                       <li class="listitem">
+                                          
+                                          <p>API actions <code class="code">GetLogLevelsByResourceTypes</code> and
+                                             <code class="code">UpdateLogLevelsByResourceTypes</code> can retrieve and
+                                             update the log levels for all resources in your account that are of
+                                             a specific type, such as a wireless gateway, or a LoRaWAN or
+                                             Sidewalk device.
+                                          </p>
+                                          
+                                       </li>
+                                       <li class="listitem">
+                                          
+                                          <p>API actions <code class="code">GetResourceLogLevel</code>,
+                                             <code class="code">PutResourceLogLevel</code>, and
+                                             <code class="code">ResetResourceLogLevel</code> can retrieve, update, and
+                                             reset log levels of individual resources that you specify using a
+                                             resource identifier.
+                                          </p>
+                                          
+                                       </li>
+                                       <li class="listitem">
+                                          
+                                          <p>API action <code class="code">ResetAllResourceLogLevels</code> resets the
+                                             log-level override to <code class="code">null</code> for all resources for which
+                                             you specified a log-level override using the
+                                             <code class="code">PutResourceLogLevel</code> API.
+                                          </p>
+                                          
+                                       </li>
+                                    </ul>
+                                 </div>
+                                 
+                                 <div class="procedure">
+                                    <p class="title"><b>To use the CLI to configure resource-specific logging for AWS IoT</b></p>
+                                    <div class="awsdocs-note">
+                                       <div class="awsdocs-note-title">
+                                          <awsui-icon name="status-info" variant="link"></awsui-icon><span>Note</span></div>
+                                       <div class="awsdocs-note-text">
+                                          <p>You can also perform this procedure with the API by using the
+                                             methods in the AWS API that correspond to the CLI commands shown
+                                             here. 
+                                          </p>
+                                       </div>
+                                    </div>
+                                    <ol>
+                                       <li>
+                                          
+                                          <p>By default, all resources have log level set to <code class="code">ERROR</code>. To
+                                             set the default log levels, or log levels by resource types for all
+                                             resources in your account, use the <a href="https://awscli.amazonaws.com/v2/documentation/api/latest/reference/iotwireless/update-log-levels-by-resource-types.html" rel="noopener noreferrer" target="_blank"><span><b>update-log-levels-by-resource-types</b></span><awsui-icon class="awsdocs-link-icon" name="external"></awsui-icon></a>
+                                             command. The following example shows how you can create a JSON file,
+                                             <code class="code">Input.json</code>, and provide it as an input to the CLI
+                                             command. You can use this command to selectively disable logging or
+                                             override the default log level for specific types of resources and
+                                             events.
+                                          </p>
+                                          <pre class="programlisting"><div class="code-btn-container"><div class="btn-copy-code" title="Copy"><awsui-icon name="copy"></awsui-icon></div></div><code class="JSON "><span>{</span>
+    "DefaultLogLevel": "INFO",
+    "WirelessDeviceLogOptions": 
+     [
+        <span>{</span>
+         "Type": "Sidewalk",
+         "LogLevel": "INFO",
+         "Events": 
+          [
+            <span>{</span>
+              "Event": "Registration",
+              "LogLevel": "DISABLED"
+            }
+          ]
+        }, 
+        <span>{</span>
+         "Type": "LoRaWAN",
+         "LogLevel": "INFO",
+         "Events": 
+          [
+            <span>{</span>
+             "Event": "Join",
+             "LogLevel": "DISABLED"
+            }, 
+            <span>{</span>
+             "Event": "Rejoin",
+             "LogLevel": "ERROR"
+            }
+          ]
+        }
+      ]
+     "WirelessGatewayLogOptions": 
+      [
+        <span>{</span>
+         "Type": "LoRaWAN",
+         "LogLevel": "INFO",
+         "Events": 
+          [
+            <span>{</span>
+             "Event": "CUPS_Request",
+             "LogLevel": "DISABLED"
+            }, 
+            <span>{</span>
+              "Event": "Certificate",
+              "LogLevel": "ERROR"
+            }
+          ]
+        }
+      ]
+}</code></pre>
+                                          <p>where:</p>
+                                          
+                                          <div class="variablelist">
+                                              
+                                              
+                                              
+                                                                         
+                                             
+                                             <dl>
+                                                
+                                                <dt><span class="term"><b>WirelessDeviceLogOptions</b></span></dt>
+                                                
+                                                <dd>
+                                                   
+                                                   <p>The list of log options for a wireless device. Each log
+                                                      option includes the wireless device type (Sidewalk or
+                                                      LoRaWAN), and a list of wireless device event log
+                                                      options. Each wireless device event log option can
+                                                      optionally include the event type and its log
+                                                      level.
+                                                   </p>
+                                                   
+                                                </dd>
+                                                 
+                                                
+                                                <dt><span class="term"><b>WirelessGatewayLogOptions</b></span></dt>
+                                                
+                                                <dd>
+                                                   
+                                                   <p>The list of log options for a wireless gateway. Each log
+                                                      option includes the wireless gateway type (LoRaWAN), and
+                                                      a list of wireless gateway event log options. Each
+                                                      wireless gateway event log option can optionally include
+                                                      the event type and its log level.
+                                                   </p>
+                                                   
+                                                </dd>
+                                                 
+                                                
+                                                <dt><span class="term"><b>DefaultLogLevel</b></span></dt>
+                                                
+                                                <dd>
+                                                   
+                                                   <p>The log level to use for all your resources. Valid values
+                                                      are: <code class="code">ERROR</code>, <code class="code">INFO</code>, and
+                                                      <code class="code">DISABLED</code>. The default value is
+                                                      <code class="code">INFO</code>.
+                                                   </p>
+                                                   
+                                                </dd>
+                                                 
+                                                
+                                                <dt><span class="term"><b>LogLevel</b></span></dt>
+                                                
+                                                <dd>
+                                                   
+                                                   <p>The log level you want to use for individual resource
+                                                      types and events. These log levels override the default
+                                                      log level, such as the log level <code class="code">INFO</code> for
+                                                      the LoRaWAN gateway, and log levels
+                                                      <code class="code">DISABLED</code> and <code class="code">ERROR</code> for the
+                                                      two event types.
+                                                   </p>
+                                                   
+                                                </dd>
+                                                
+                                             </dl>
+                                          </div>
+                                          
+                                          <p>Run the following command to provide the <code class="code">Input.json</code> file
+                                             as input to the command. This command doesn't produce any
+                                             output.
+                                          </p>
+                                          <pre class="programlisting"><div class="code-btn-container"><div class="btn-copy-code" title="Copy"><awsui-icon name="copy"></awsui-icon></div></div><code class="nohighlight">aws iotwireless update-log-levels-by-resource-types \ 
+    --cli-input-json Input.json</code></pre>
+                                          <p>If you want to remove the log options for both wireless devices
+                                             and wireless gateways, run the following command.
+                                          </p>      
+                                          <pre class="programlisting"><div class="code-btn-container"><div class="btn-copy-code" title="Copy"><awsui-icon name="copy"></awsui-icon></div></div><code class="JSON "><span>{</span>
+    "DefaultLogLevel":"DISABLED",
+    "WirelessDeviceLogOptions": [],
+    "WireslessGatewayLogOptions":[]
+}</code></pre>
+                                          </li>
+                                       <li>
+                                          
+                                          <p>The <b>update-log-levels-by-resource-types</b> command
+                                             doesn't return any output. Use the <a href="https://awscli.amazonaws.com/v2/documentation/api/latest/reference/iotwireless/get-log-levels-by-resource-types.html" rel="noopener noreferrer" target="_blank"><span><b>get-log-levels-by-resource-types</b></span><awsui-icon class="awsdocs-link-icon" name="external"></awsui-icon></a>
+                                             command to retrieve resource-specific logging information. The
+                                             command returns the default log level, and the wireless device and
+                                             wireless gateway log options.
+                                          </p>
+                                          
+                                          <div class="awsdocs-note">
+                                             <div class="awsdocs-note-title">
+                                                <awsui-icon name="status-info" variant="link"></awsui-icon><span>Note</span></div>
+                                             <div class="awsdocs-note-text">
+                                                <p>The <b>get-log-levels-by-resource-types</b> command
+                                                   can't directly retrieve the log levels in the CloudWatch console. You
+                                                   can use the <b>get-log-levels-by-resource-types</b>
+                                                   command to get the latest log-level information that you've
+                                                   specified for your resources using the
+                                                   <b>update-log-levels-by-resource-types</b>
+                                                   command.
+                                                </p>
+                                             </div>
+                                          </div>                        
+                                          <pre class="programlisting"><div class="code-btn-container"><div class="btn-copy-code" title="Copy"><awsui-icon name="copy"></awsui-icon></div></div><code class="nohighlight">aws iotwireless get-log-levels-by-resource-types </code></pre>
+                                          <p>When you run the following command, it returns the latest logging
+                                             information you specified with
+                                             <b>update-log-levels-by-resource-types</b>. For
+                                             example, if you remove the wireless device log options, then running
+                                             the <b>get-log-levels-by-resource-types</b> will return
+                                             this value as <code class="code">null</code>. 
+                                          </p>
+                                          <pre class="programlisting"><div class="code-btn-container"><div class="btn-copy-code" title="Copy"><awsui-icon name="copy"></awsui-icon></div></div><code class="JSON "><span>{</span>
+    "DefaultLogLevel": "INFO",
+    "WirelessDeviceLogOptions": null,
+     "WirelessGatewayLogOptions": 
+      [
+        <span>{</span>
+         "Type": "LoRaWAN",
+         "LogLevel": "INFO",
+         "Events": 
+          [
+            <span>{</span>
+             "Event": "CUPS_Request",
+             "LogLevel": "DISABLED"
+            }, 
+            <span>{</span>
+              "Event": "Certificate",
+              "LogLevel": "ERROR"
+            }
+          ]
+        }
+      ]
+}</code></pre>
+                                          </li>
+                                       <li>
+                                          
+                                          <p>To control log levels for individual wireless gateways or wireless
+                                             device resources, use the following CLI commands:
+                                          </p>
+                                          
+                                          <div class="itemizedlist">
+                                              
+                                              
+                                              
+                                             
+                                             <ul class="itemizedlist" type="disc">
+                                                <li class="listitem">
+                                                   
+                                                   <p><a href="https://awscli.amazonaws.com/v2/documentation/api/latest/reference/iotwireless/put-resource-log-level.html" rel="noopener noreferrer" target="_blank"><span><b>put-resource-log-level</b></span><awsui-icon class="awsdocs-link-icon" name="external"></awsui-icon></a></p>
+                                                   
+                                                </li>
+                                                <li class="listitem">
+                                                   
+                                                   <p><a href="https://awscli.amazonaws.com/v2/documentation/api/latest/reference/iotwireless/get-resource-log-level.html" rel="noopener noreferrer" target="_blank"><span><b>get-resource-log-level</b></span><awsui-icon class="awsdocs-link-icon" name="external"></awsui-icon></a></p>
+                                                   
+                                                </li>
+                                                <li class="listitem">
+                                                   
+                                                   <p><a href="https://awscli.amazonaws.com/v2/documentation/api/latest/reference/iotwireless/reset-resource-log-level.html" rel="noopener noreferrer" target="_blank"><span><b>reset-resource-log-level</b></span><awsui-icon class="awsdocs-link-icon" name="external"></awsui-icon></a></p>
+                                                   
+                                                </li>
+                                             </ul>
+                                          </div> 
+                                          
+                                          <p>For an example for when to use these CLIs, say that you have a large
+                                             number of wireless devices or gateways in your account that are
+                                             being logged. If you want to troubleshoot errors for only some of
+                                             your wireless devices, you can disable logging for all wireless
+                                             devices by setting the <code class="code">DefaultLogLevel</code> to
+                                             <code class="code">DISABLED</code>, and use the
+                                             <b>put-resource-log-level</b> to set the
+                                             <code class="code">LogLevel</code> to <code class="code">ERROR</code> for only those
+                                             devices in your account.
+                                          </p>
+                                          <pre class="programlisting"><div class="code-btn-container"><div class="btn-copy-code" title="Copy"><awsui-icon name="copy"></awsui-icon></div></div><code class="nohighlight">aws iotwireless put-resource-log-level \ 
+    --resource-identifier 
+    --resource-type WirelessDevice
+    --log-level ERROR</code></pre>
+                                          <p>In this example, the command sets the log level to <code class="code">ERROR</code>
+                                             only for the specified wireless device resource and the logs for all
+                                             other resources are disabled. This command doesn't produce any
+                                             output. To retrieve this information and verify that the log levels
+                                             were set, use the <b>get-resource-log-level</b>
+                                             command.
+                                          </p>                                  
+                                          
+                                       </li>
+                                       <li>
+                                          
+                                          <p>In the previous step, after you've debugged the issue and resolved the
+                                             error, you can run the <b>reset-resource-log-level</b>
+                                             command to reset the log level for that resource to
+                                             <code class="code">null</code>. If you used the
+                                             <code class="code">put-resource-log-level</code> command to set the log-level
+                                             override for more than one wireless device or gateway resource, such
+                                             as for troubleshooting errors for multiple devices, you can reset
+                                             the log-level overrides back to <code class="code">null</code> for all those
+                                             resources using the <a href="https://awscli.amazonaws.com/v2/documentation/api/latest/reference/iotwireless/reset-all-resource-log-levels.html" rel="noopener noreferrer" target="_blank"><span><b>reset-all-resource-log-levels</b></span><awsui-icon class="awsdocs-link-icon" name="external"></awsui-icon></a>
+                                             command.
+                                          </p>
+                                          <pre class="programlisting"><div class="code-btn-container"><div class="btn-copy-code" title="Copy"><awsui-icon name="copy"></awsui-icon></div></div><code class="nohighlight">aws iotwireless reset-all-resource-log-levels</code></pre>
+                                          <p>This command doesn't produce any output. To retrieve the logging
+                                             information for the resources, run the
+                                             <b>get-resource-log-level</b> command.
+                                          </p>                                 
+                                          
+                                       </li>
+                                    </ol>
+                                 </div>                         
+                                  
+                                 
+                                 <h2 id="connect-iot-lorawan-configure-logging-next-steps">Next Steps</h2>
+                                 
+                                 <p>You've learned how to create the logging role and use the AWS IoT Wireless
+                                    API to configure logging for your AWS IoT Core for LoRaWANresources. Next, to
+                                    learn about monitoring your log entries, go to <a href="./connect-iot-lorawan-cloud-watch-logs.html">Monitor AWS IoT Core for LoRaWAN using CloudWatch Logs</a>.
+                                 </p>       
+                                 
+                                 <awsdocs-copyright class="copyright-print"></awsdocs-copyright>
+                                 <awsdocs-thumb-feedback right-edge="{{$ctrl.thumbFeedbackRightEdge}}"></awsdocs-thumb-feedback>
+                              </div>
+                              <noscript>
+                                 <div>
+                                    <div>
+                                       <div>
+                                          <div id="js_error_message">
+                                             <p><img src="https://d1ge0kk1l5kms0.cloudfront.net/images/G/01/webservices/console/warning.png" alt="Warning" /> <strong>Javascript is disabled or is unavailable in your
+                                                   browser.</strong></p>
+                                             <p>To use the Amazon Web Services Documentation, Javascript must be
+                                                enabled. Please refer to your browser's Help pages for instructions.
+                                             </p>
+                                          </div>
+                                       </div>
+                                    </div>
+                                 </div>
+                              </noscript>
+                              <div id="main-col-footer" class="awsui-util-font-size-0">
+                                 <div id="doc-conventions"><a target="_top" href="/general/latest/gr/docconventions.html">Document Conventions</a></div>
+                                 <div class="prev-next">
+                                    <div id="previous" class="prev-link" accesskey="p" href="./connect-iot-lorawan-create-logging-role-policy.html">Create
+                                       logging role and policy for AWS IoT Core for LoRaWAN
+                                    </div>
+                                    <div id="next" class="next-link" accesskey="n" href="./connect-iot-lorawan-cloud-watch-logs.html">Monitor AWS IoT Core for LoRaWAN using CloudWatch Logs</div>
+                                 </div>
+                              </div>
+                              <awsdocs-page-utilities></awsdocs-page-utilities>
+                           </div>
+                           <div id="quick-feedback-yes" style="display: none;">
+                              <div class="title">Did this page help you? - Yes</div>
+                              <div class="content">
+                                 <p>Thanks for letting us know we're doing a good
+                                    job!
+                                 </p>
+                                 <p>If you've got a moment, please tell us what we did right
+                                    so we can do more of it.
+                                 </p>
+                                 <p>
+                                    <awsui-button id="fblink" target="_blank" text="Feedback" click="linkClick($event)" href="https://docs.aws.amazon.com/forms/aws-doc-feedback?hidden_service_name=IoT Docs&amp;topic_url=https://docs.aws.amazon.com/en_us/iot/latest/developerguide/connect-iot-lorawan-configure-resource-logging.html"></awsui-button>
+                                 </p>
+                              </div>
+                           </div>
+                           <div id="quick-feedback-no" style="display: none;">
+                              <div class="title">Did this page help you? - No</div>
+                              <div class="content">
+                                 <p>Thanks for letting us know this page needs work. We're
+                                    sorry we let you down.
+                                 </p>
+                                 <p>If you've got a moment, please tell us how we can make
+                                    the documentation better.
+                                 </p>
+                                 <p>
+                                    <awsui-button id="fblink" target="_blank" text="Feedback" click="linkClick($event)" href="https://docs.aws.amazon.com/forms/aws-doc-feedback?hidden_service_name=IoT Docs&amp;topic_url=https://docs.aws.amazon.com/en_us/iot/latest/developerguide/connect-iot-lorawan-configure-resource-logging.html"></awsui-button>
+                                 </p>
+                              </div>
+                           </div>
+                        </div>
+                     </body>
+                  </div>
+               </awsdocs-view>
+               <div class="page-loading-indicator" id="page-loading-indicator">
+                  <awsui-spinner size="large"></awsui-spinner>
+               </div>
+            </div>
+            <div id="tools-panel" dom-region="tools">
+               <awsdocs-tools-panel id="awsdocs-tools-panel"></awsdocs-tools-panel>
+            </div>
+         </awsui-app-layout>
+         <awsdocs-cookie-banner class="doc-cookie-banner"></awsdocs-cookie-banner>
+         <!--
+                SiteCatalyst code version: H.25.2.
+                Copyright 1996-2012 Adobe, Inc. All Rights Reserved
+                More info available at http://www.omniture.com
+            --><script language="JavaScript" type="text/javascript">
+var awsdocs = awsdocs || {};
+awsdocs.prop66 = 'AWS IoT Core';
+awsdocs.prop65 =  'Developer Guide';
+            </script><script src="https://a0.awsstatic.com/s_code/js/3.0/awshome_s_code.js" language="JavaScript" type="text/javascript"></script>
+         <!--/DO NOT REMOVE/-->
+         <!--End SiteCatalyst code version: H.25.2.--></div>
+   </body>
+</html>

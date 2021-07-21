@@ -1,0 +1,373 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" ng-app="AWSDocsDocPageApp">
+   <head>
+      <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+      <title>How to manage things with the registry - AWS IoT Core</title>
+      <meta name="viewport" content="width=device-width,initial-scale=1" />
+      <meta name="assets_root" content="assets" />
+      <meta name="target_state" content="thing-registry" />
+      <meta name="default_state" content="thing-registry" />
+      <link rel="icon" type="image/ico" href="/assets/images/favicon.ico" />
+      <link rel="shortcut icon" type="image/ico" href="/assets/images/favicon.ico" />
+      <link rel="canonical" href="https://docs.aws.amazon.com/iot/latest/developerguide/thing-registry.html" />
+      <meta name="description" content="You use the AWS IoT console, AWS IoT API, or the AWS CLI to interact with the registry. The following sections show how to use the CLI to work with the registry." />
+      <meta name="deployment_region" content="IAD" />
+      <meta name="product" content="AWS IoT Core" />
+      <meta name="guide" content="Developer Guide" />
+      <meta name="locales" content="de_de:Deutsch/en_us:English/es_es:Español/fr_fr:Français/it_it:Italiano/ja_jp:日本語/ko_kr:한국어/pt_br:Português/zh_cn:中文 (简体)/zh_tw:中文 (繁體)" />
+      <meta name="abstract" content="AWS IoT provides secure, bi-directional communication between Internet-connected devices such as sensors, actuators, embedded micro-controllers, or smart appliances and the AWS Cloud. This enables you to collect telemetry data from multiple devices, and store and analyze the data. You can also create applications that enable your users to control these devices from their phones or tablets." />
+      <meta name="guide-locale" content="en_us" />
+      <meta name="tocs" content="toc-contents.json" />
+      <meta name="feedback-item" content="IoT Docs" />
+      <meta name="this_doc_product" content="AWS IoT Core" />
+      <meta name="this_doc_guide" content="Developer Guide" />
+      <link href="assets/css/vendor4.css" rel="stylesheet" />
+      <link href="assets/css/awsdocs-common.css" rel="stylesheet" /><script type="text/javascript" src="assets/js/vendor3.js" defer=""></script><script type="text/javascript" src="assets/js/vendor4.js" defer=""></script><script type="text/javascript" src="assets/js/vendor1.js" defer=""></script><script type="text/javascript" src="assets/js/awsdocs-common.js" defer=""></script><script type="text/javascript" src="assets/js/awsdocs-doc-app.js" defer=""></script></head>
+   <body class="awsdocs awsui">
+      <div class="awsdocs-container">
+         <awsdocs-header></awsdocs-header>
+         <awsui-app-layout id="app-layout" class="awsui-util-no-gutters" ng-controller="ContentController as $ctrl" header-selector="awsdocs-header" navigation-hide="false" navigation-width="$ctrl.navWidth" navigation-open="$ctrl.navOpen" navigation-change="$ctrl.onNavChange($event)" tools-hide="$ctrl.hideTools" tools-width="$ctrl.toolsWidth" tools-open="$ctrl.toolsOpen" tools-change="$ctrl.onToolsChange($event)">
+            <div id="guide-toc" dom-region="navigation">
+               <awsdocs-toc></awsdocs-toc>
+            </div>
+            <div id="main-column" dom-region="content" tabindex="-1">
+               <awsdocs-view class="awsdocs-view">
+                  <div id="awsdocs-content">
+                     <head>
+                        <title>How to manage things with the registry - AWS IoT Core</title>
+                        <meta name="pdf" content="iot-dg.pdf#thing-registry" />
+                        <meta name="kindle" content="https://www.amazon.com/dp/B07JBRCWWZ" />
+                        <meta name="github" content="https://github.com/awsdocs/aws-iot-docs/tree/master/developerguide/thing-registry.md" />
+                        <meta name="forums" content="http://forums.aws.amazon.com/forum.jspa?forumID=210" />
+                        <meta name="feedback" content="https://docs.aws.amazon.com/forms/aws-doc-feedback?hidden_service_name=IoT%20Docs&amp;topic_url=http://docs.aws.amazon.com/en_us/iot/latest/developerguide/thing-registry.html" />
+                        <meta name="feedback-yes" content="feedbackyes.html?topic_url=http://docs.aws.amazon.com/en_us/iot/latest/developerguide/thing-registry.html" />
+                        <meta name="feedback-no" content="feedbackno.html?topic_url=http://docs.aws.amazon.com/en_us/iot/latest/developerguide/thing-registry.html" />
+                        <meta name="keywords" content="AWS IoT,IoT,Internet of Things" />
+                     </head>
+                     <body>
+                        <div id="main">
+                           <div style="display: none"><a href="iot-dg.pdf#thing-registry" target="_blank" rel="noopener noreferrer" title="Open PDF"></a><a target="_blank" rel="noopener noreferrer" href="https://www.amazon.com/dp/B07JBRCWWZ" title="Open Kindle"></a><a href="https://github.com/awsdocs/aws-iot-docs/tree/master/developerguide/thing-registry.md" target="_blank" rel="noopener noreferrer" title="Edit this page on GitHub"></a></div>
+                           <div id="breadcrumbs" class="breadcrumb"><a href="http://aws.amazon.com">AWS</a><a href="/index.html">Documentation</a><a href="/iot/index.html">AWS IoT Core</a><a href="what-is-aws-iot.html">Developer Guide</a></div>
+                           <div id="page-toc-src"><a href="#create-thing">Create a thing</a><a href="#list-things">List things</a><a href="#search-things">Describe things</a><a href="#update-thing">Update a thing</a><a href="#delete-thing">Delete a thing</a><a href="#attach-thing-principal">Attach a principal to a thing</a><a href="#detach-thing-principal">Detach a principal from a thing</a></div>
+                           <div id="main-content" class="awsui-util-container">
+                              <div id="main-col-body">
+                                 <awsdocs-language-banner data-service="$ctrl.pageService"></awsdocs-language-banner>
+                                 <h1 class="topictitle" id="thing-registry">How to manage things with the registry</h1>
+                                 <div class="awsdocs-page-header-container">
+                                    <awsdocs-page-header></awsdocs-page-header>
+                                    <awsdocs-filter-selector id="awsdocs-filter-selector"></awsdocs-filter-selector>
+                                 </div>
+                                 <p>You use the AWS IoT console, AWS IoT API, or the AWS CLI to interact with the registry.
+                                    The following
+                                    sections show how to use the CLI to work with the registry.
+                                 </p>
+                                 <div class="itemizedlist">
+                                    
+                                    <p class="title"><b>When naming your thing objects:</b></p>
+                                     
+                                     
+                                    
+                                    <ul class="itemizedlist" type="disc">
+                                       <li class="listitem">
+                                          
+                                          <p>You should not use personally identifiable information in your thing name. The
+                                             thing name can appear in unencrypted communications and reports. 
+                                          </p>
+                                          
+                                       </li>
+                                       <li class="listitem">
+                                          <p>
+                                             You should not use a colon character ( : ) in a thing name. The colon character
+                                             is used as a delimiter by other AWS IoT services and this can cause them to parse
+                                             strings with thing names incorrectly.
+                                             
+                                          </p>
+                                       </li>
+                                    </ul>
+                                 </div>
+                                 
+                                 <h2 id="create-thing">Create a thing</h2>
+                                 
+                                 <p>The following command shows how to use the AWS IoT <b>CreateThing</b>
+                                    command from the CLI to create a thing. You can't change a thing's name after you
+                                    create it. To change a thing's name, you must create a new thing, give it the new
+                                    name, and then delete the old thing.
+                                 </p>
+                                 <pre class="programlisting"><div class="code-btn-container"><div class="btn-copy-code" title="Copy"><awsui-icon name="copy"></awsui-icon></div></div><code class="nohighlight">$ aws iot create-thing --thing-name "MyLightBulb" --attribute-payload "<span>{</span>\"attributes\": <span>{</span>\"wattage\":\"75\", \"model\":\"123\"}}"</code></pre>
+                                 <p>The <b>CreateThing</b> command displays the name and Amazon Resource
+                                    Name (ARN) of your new thing:
+                                 </p>
+                                 <pre class="programlisting"><div class="code-btn-container"><div class="btn-copy-code" title="Copy"><awsui-icon name="copy"></awsui-icon></div></div><code class="JSON "><span>{</span>
+    "thingArn": "arn:aws:iot:us-east-1:123456789012:thing/MyLightBulb",
+    "thingName": "MyLightBulb",
+    "thingId": "12345678abcdefgh12345678ijklmnop12345678"
+}</code></pre>
+                                 <div class="awsdocs-note">
+                                    <div class="awsdocs-note-title">
+                                       <awsui-icon name="status-info" variant="link"></awsui-icon><span>Note</span></div>
+                                    <div class="awsdocs-note-text">
+                                       <p>We do not recommend using personally identifiable information in your thing
+                                          names.
+                                       </p>
+                                    </div>
+                                 </div>
+                                  
+                                 
+                                 <h2 id="list-things">List things</h2>
+                                 
+                                 
+                                 <p>You can use the <b>ListThings</b> command to list all things in your
+                                    account:
+                                 </p>
+                                 
+                                 <pre class="programlisting"><div class="code-btn-container"><div class="btn-copy-code" title="Copy"><awsui-icon name="copy"></awsui-icon></div></div><code class="nohighlight">$ aws iot list-things</code></pre>
+                                 <pre class="programlisting"><div class="code-btn-container"><div class="btn-copy-code" title="Copy"><awsui-icon name="copy"></awsui-icon></div></div><code class="JSON "><span>{</span>
+    "things": [
+       <span>{</span>
+            "attributes": <span>{</span>
+                "model": "123",
+                "wattage": "75"
+            },
+            "version": 1,
+            "thingName": "MyLightBulb"
+        },
+        <span>{</span>
+            "attributes": <span>{</span>
+                "numOfStates":"3"
+             },
+            "version": 11,
+            "thingName": "MyWallSwitch"
+        }
+    ]
+}</code></pre>
+                                 <p>You can use the <b>ListThings</b> command to search for all things of
+                                    a specific thing type:
+                                 </p>
+                                 <pre class="programlisting"><div class="code-btn-container"><div class="btn-copy-code" title="Copy"><awsui-icon name="copy"></awsui-icon></div></div><code class="nohighlight">$  aws iot list-things --thing-type-name "LightBulb"</code></pre>
+                                 <pre class="programlisting"><div class="code-btn-container"><div class="btn-copy-code" title="Copy"><awsui-icon name="copy"></awsui-icon></div></div><code class="JSON "><span>{</span>
+    "things": [
+        <span>{</span>
+            "thingTypeName": "LightBulb",
+            "attributes": <span>{</span>
+                "model": "123",
+                "wattage": "75"
+            },
+            "version": 1,
+            "thingName": "MyRGBLight"
+        },
+        <span>{</span>
+            "thingTypeName": "LightBulb",
+            "attributes": <span>{</span>
+                "model": "123",
+                "wattage": "75"
+            },
+            "version": 1,
+            "thingName": "MySecondLightBulb"
+        }
+    ]
+}</code></pre>
+                                 <p>You can use the <b>ListThings</b> command to search for all things
+                                    that have an attribute with a specific value. This command searches only searchable
+                                    attributes.
+                                 </p>
+                                 <pre class="programlisting"><div class="code-btn-container"><div class="btn-copy-code" title="Copy"><awsui-icon name="copy"></awsui-icon></div></div><code class="nohighlight">$  aws iot list-things --attribute-name "wattage" --attribute-value "75"</code></pre>
+                                 <pre class="programlisting"><div class="code-btn-container"><div class="btn-copy-code" title="Copy"><awsui-icon name="copy"></awsui-icon></div></div><code class="JSON ">
+<span>{</span>
+    "things": [
+        <span>{</span>
+            "thingTypeName": "StopLight",
+            "attributes": <span>{</span>
+                "model": "123",
+                "wattage": "75"
+            },
+            "version": 3,
+            "thingName": "MyLightBulb"
+        },
+        <span>{</span>
+            "thingTypeName": "LightBulb",
+            "attributes": <span>{</span>
+                "model": "123",
+                "wattage": "75"
+            },
+            "version": 1,
+            "thingName": "MyRGBLight"
+        },
+        <span>{</span>
+            "thingTypeName": "LightBulb",
+            "attributes": <span>{</span>
+                "model": "123",
+                "wattage": "75"
+            },
+            "version": 1,
+            "thingName": "MySecondLightBulb"
+        }
+    ]
+}</code></pre>
+                                 <p>If <a href="./iot-indexing.html">fleet indexing</a> is enabled, you can use the
+                                    <a href="https://awscli.amazonaws.com/v2/documentation/api/latest/reference/iot/search-index.html" rel="noopener noreferrer" target="_blank"><span><b>search-index</b></span><awsui-icon class="awsdocs-link-icon" name="external"></awsui-icon></a> command to search on searchable and
+                                    non-searchable thing attributes, device shadow values, and connectivity values. For
+                                    more information about what you can query by using the
+                                    <b>search-index</b> command, see <a href="./example-queries.html">Example thing queries</a> and the CLI reference on the <a href="https://awscli.amazonaws.com/v2/documentation/api/latest/reference/iot/search-index.html" rel="noopener noreferrer" target="_blank"><span><b>search-index</b></span><awsui-icon class="awsdocs-link-icon" name="external"></awsui-icon></a> command.
+                                 </p>
+                                  
+                                 
+                                 <h2 id="search-things">Describe things</h2>
+                                 
+                                 
+                                 <p>You can use the <b>DescribeThing</b> command to display more detailed
+                                    information about a thing:
+                                 </p>
+                                 
+                                 <pre class="programlisting"><div class="code-btn-container"><div class="btn-copy-code" title="Copy"><awsui-icon name="copy"></awsui-icon></div></div><code class="JSON ">$ aws iot describe-thing --thing-name "MyLightBulb"
+<span>{</span>
+    "version": 3,
+    "thingName": "MyLightBulb",
+    "thingArn": "arn:aws:iot:us-east-1:123456789012:thing/MyLightBulb",
+    "thingId": "12345678abcdefgh12345678ijklmnop12345678",
+    "defaultClientId": "MyLightBulb",
+    "thingTypeName": "StopLight",
+    "attributes": <span>{</span>
+        "model": "123",
+        "wattage": "75"
+    }
+}</code></pre>
+                                  
+                                 <h2 id="update-thing">Update a thing</h2>
+                                 
+                                 <p>You can use the <b>UpdateThing</b> command to update a thing. Note
+                                    that this command updates only the thing's attributes. You can't change a thing's
+                                    name. To change a thing's name, you must create a new thing, give it the new name,
+                                    and then delete the old thing.
+                                 </p>
+                                 <pre class="programlisting"><div class="code-btn-container"><div class="btn-copy-code" title="Copy"><awsui-icon name="copy"></awsui-icon></div></div><code class="nohighlight">$ aws iot update-thing --thing-name "MyLightBulb" --attribute-payload "<span>{</span>\"attributes\": <span>{</span>\"wattage\":\"150\", \"model\":\"456\"}}"</code></pre>
+                                 <p>The <b>UpdateThing</b> command does not produce output. You can use
+                                    the <b>DescribeThing</b> command to see the result:
+                                 </p>
+                                 <pre class="programlisting"><div class="code-btn-container"><div class="btn-copy-code" title="Copy"><awsui-icon name="copy"></awsui-icon></div></div><code class="nohighlight">$ aws iot describe-thing --thing-name "MyLightBulb"
+<span>{</span>
+    "attributes": <span>{</span>
+        "model": "456",
+        "wattage": "150"
+    },
+    "version": 2,
+    "thingName": "MyLightBulb"
+}</code></pre>
+                                  
+                                 <h2 id="delete-thing">Delete a thing</h2>
+                                 
+                                 
+                                 <p>You can use the <b>DeleteThing</b> command to delete a thing:
+                                 </p>
+                                 <pre class="programlisting"><div class="code-btn-container"><div class="btn-copy-code" title="Copy"><awsui-icon name="copy"></awsui-icon></div></div><code class="nohighlight">$ aws iot delete-thing --thing-name "MyThing"</code></pre>
+                                 <p>This command returns successfully with no error if the deletion is successful or
+                                    you specify a thing that doesn't exist.
+                                 </p>
+                                  
+                                 
+                                 <h2 id="attach-thing-principal">Attach a principal to a thing</h2>
+                                 
+                                 
+                                 <p>A physical device must have an X.509 certificate to communicate with AWS IoT. You
+                                    can associate the certificate on your device with the thing in the registry that
+                                    represents your device. To attach a certificate to your thing, use the
+                                    <b>AttachThingPrincipal</b> command:
+                                 </p>
+                                 <pre class="programlisting"><div class="code-btn-container"><div class="btn-copy-code" title="Copy"><awsui-icon name="copy"></awsui-icon></div></div><code class="nohighlight">$ aws iot attach-thing-principal --thing-name "MyLightBulb" --principal "arn:aws:iot:us-east-1:123456789012:cert/a0c01f5835079de0a7514643d68ef8414ab739a1e94ee4162977b02b12842847"</code></pre>
+                                 <p>The <b>AttachThingPrincipal</b> command does not produce any
+                                    output.
+                                 </p>
+                                  
+                                 
+                                 <h2 id="detach-thing-principal">Detach a principal from a thing</h2>
+                                 
+                                 
+                                 <p>You can use the <b>DetachThingPrincipal</b> command to detach a
+                                    certificate from a thing:
+                                 </p>
+                                 
+                                 <pre class="programlisting"><div class="code-btn-container"><div class="btn-copy-code" title="Copy"><awsui-icon name="copy"></awsui-icon></div></div><code class="nohighlight">$ aws iot detach-thing-principal --thing-name "MyLightBulb" --principal "arn:aws:iot:us-east-1:123456789012:cert/a0c01f5835079de0a7514643d68ef8414ab739a1e94ee4162977b02b12842847"</code></pre>
+                                 <p>The <b>DetachThingPrincipal</b> command does not produce any
+                                    output.
+                                 </p>
+                                 
+                                 <awsdocs-copyright class="copyright-print"></awsdocs-copyright>
+                                 <awsdocs-thumb-feedback right-edge="{{$ctrl.thumbFeedbackRightEdge}}"></awsdocs-thumb-feedback>
+                              </div>
+                              <noscript>
+                                 <div>
+                                    <div>
+                                       <div>
+                                          <div id="js_error_message">
+                                             <p><img src="https://d1ge0kk1l5kms0.cloudfront.net/images/G/01/webservices/console/warning.png" alt="Warning" /> <strong>Javascript is disabled or is unavailable in your
+                                                   browser.</strong></p>
+                                             <p>To use the Amazon Web Services Documentation, Javascript must be
+                                                enabled. Please refer to your browser's Help pages for instructions.
+                                             </p>
+                                          </div>
+                                       </div>
+                                    </div>
+                                 </div>
+                              </noscript>
+                              <div id="main-col-footer" class="awsui-util-font-size-0">
+                                 <div id="doc-conventions"><a target="_top" href="/general/latest/gr/docconventions.html">Document Conventions</a></div>
+                                 <div class="prev-next">
+                                    <div id="previous" class="prev-link" accesskey="p" href="./iot-thing-management.html">Managing devices with AWS IoT</div>
+                                    <div id="next" class="next-link" accesskey="n" href="./thing-types.html">Thing types</div>
+                                 </div>
+                              </div>
+                              <awsdocs-page-utilities></awsdocs-page-utilities>
+                           </div>
+                           <div id="quick-feedback-yes" style="display: none;">
+                              <div class="title">Did this page help you? - Yes</div>
+                              <div class="content">
+                                 <p>Thanks for letting us know we're doing a good
+                                    job!
+                                 </p>
+                                 <p>If you've got a moment, please tell us what we did right
+                                    so we can do more of it.
+                                 </p>
+                                 <p>
+                                    <awsui-button id="fblink" target="_blank" text="Feedback" click="linkClick($event)" href="https://docs.aws.amazon.com/forms/aws-doc-feedback?hidden_service_name=IoT Docs&amp;topic_url=https://docs.aws.amazon.com/en_us/iot/latest/developerguide/thing-registry.html"></awsui-button>
+                                 </p>
+                              </div>
+                           </div>
+                           <div id="quick-feedback-no" style="display: none;">
+                              <div class="title">Did this page help you? - No</div>
+                              <div class="content">
+                                 <p>Thanks for letting us know this page needs work. We're
+                                    sorry we let you down.
+                                 </p>
+                                 <p>If you've got a moment, please tell us how we can make
+                                    the documentation better.
+                                 </p>
+                                 <p>
+                                    <awsui-button id="fblink" target="_blank" text="Feedback" click="linkClick($event)" href="https://docs.aws.amazon.com/forms/aws-doc-feedback?hidden_service_name=IoT Docs&amp;topic_url=https://docs.aws.amazon.com/en_us/iot/latest/developerguide/thing-registry.html"></awsui-button>
+                                 </p>
+                              </div>
+                           </div>
+                        </div>
+                     </body>
+                  </div>
+               </awsdocs-view>
+               <div class="page-loading-indicator" id="page-loading-indicator">
+                  <awsui-spinner size="large"></awsui-spinner>
+               </div>
+            </div>
+            <div id="tools-panel" dom-region="tools">
+               <awsdocs-tools-panel id="awsdocs-tools-panel"></awsdocs-tools-panel>
+            </div>
+         </awsui-app-layout>
+         <awsdocs-cookie-banner class="doc-cookie-banner"></awsdocs-cookie-banner>
+         <!--
+                SiteCatalyst code version: H.25.2.
+                Copyright 1996-2012 Adobe, Inc. All Rights Reserved
+                More info available at http://www.omniture.com
+            --><script language="JavaScript" type="text/javascript">
+var awsdocs = awsdocs || {};
+awsdocs.prop66 = 'AWS IoT Core';
+awsdocs.prop65 =  'Developer Guide';
+            </script><script src="https://a0.awsstatic.com/s_code/js/3.0/awshome_s_code.js" language="JavaScript" type="text/javascript"></script>
+         <!--/DO NOT REMOVE/-->
+         <!--End SiteCatalyst code version: H.25.2.--></div>
+   </body>
+</html>

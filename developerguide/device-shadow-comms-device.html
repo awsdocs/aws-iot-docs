@@ -1,0 +1,609 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" ng-app="AWSDocsDocPageApp">
+   <head>
+      <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+      <title>Using shadows in devices - AWS IoT Core</title>
+      <meta name="viewport" content="width=device-width,initial-scale=1" />
+      <meta name="assets_root" content="assets" />
+      <meta name="target_state" content="device-shadow-comms-device" />
+      <meta name="default_state" content="device-shadow-comms-device" />
+      <link rel="icon" type="image/ico" href="/assets/images/favicon.ico" />
+      <link rel="shortcut icon" type="image/ico" href="/assets/images/favicon.ico" />
+      <link rel="canonical" href="https://docs.aws.amazon.com/iot/latest/developerguide/device-shadow-comms-device.html" />
+      <meta name="description" content="This section describes device communications with shadows using MQTT messages, the preferred method for devices to communicate with the AWS IoT Device Shadow service." />
+      <meta name="deployment_region" content="IAD" />
+      <meta name="product" content="AWS IoT Core" />
+      <meta name="guide" content="Developer Guide" />
+      <meta name="locales" content="de_de:Deutsch/en_us:English/es_es:Español/fr_fr:Français/it_it:Italiano/ja_jp:日本語/ko_kr:한국어/pt_br:Português/zh_cn:中文 (简体)/zh_tw:中文 (繁體)" />
+      <meta name="abstract" content="AWS IoT provides secure, bi-directional communication between Internet-connected devices such as sensors, actuators, embedded micro-controllers, or smart appliances and the AWS Cloud. This enables you to collect telemetry data from multiple devices, and store and analyze the data. You can also create applications that enable your users to control these devices from their phones or tablets." />
+      <meta name="guide-locale" content="en_us" />
+      <meta name="tocs" content="toc-contents.json" />
+      <meta name="feedback-item" content="IoT Docs" />
+      <meta name="this_doc_product" content="AWS IoT Core" />
+      <meta name="this_doc_guide" content="Developer Guide" />
+      <link href="assets/css/vendor4.css" rel="stylesheet" />
+      <link href="assets/css/awsdocs-common.css" rel="stylesheet" /><script type="text/javascript" src="assets/js/vendor3.js" defer=""></script><script type="text/javascript" src="assets/js/vendor4.js" defer=""></script><script type="text/javascript" src="assets/js/vendor1.js" defer=""></script><script type="text/javascript" src="assets/js/awsdocs-common.js" defer=""></script><script type="text/javascript" src="assets/js/awsdocs-doc-app.js" defer=""></script></head>
+   <body class="awsdocs awsui">
+      <div class="awsdocs-container">
+         <awsdocs-header></awsdocs-header>
+         <awsui-app-layout id="app-layout" class="awsui-util-no-gutters" ng-controller="ContentController as $ctrl" header-selector="awsdocs-header" navigation-hide="false" navigation-width="$ctrl.navWidth" navigation-open="$ctrl.navOpen" navigation-change="$ctrl.onNavChange($event)" tools-hide="$ctrl.hideTools" tools-width="$ctrl.toolsWidth" tools-open="$ctrl.toolsOpen" tools-change="$ctrl.onToolsChange($event)">
+            <div id="guide-toc" dom-region="navigation">
+               <awsdocs-toc></awsdocs-toc>
+            </div>
+            <div id="main-column" dom-region="content" tabindex="-1">
+               <awsdocs-view class="awsdocs-view">
+                  <div id="awsdocs-content">
+                     <head>
+                        <title>Using shadows in devices - AWS IoT Core</title>
+                        <meta name="pdf" content="iot-dg.pdf#device-shadow-comms-device" />
+                        <meta name="kindle" content="https://www.amazon.com/dp/B07JBRCWWZ" />
+                        <meta name="github" content="https://github.com/awsdocs/aws-iot-docs/tree/master/developerguide/device-shadow-comms-device.md" />
+                        <meta name="forums" content="http://forums.aws.amazon.com/forum.jspa?forumID=210" />
+                        <meta name="feedback" content="https://docs.aws.amazon.com/forms/aws-doc-feedback?hidden_service_name=IoT%20Docs&amp;topic_url=http://docs.aws.amazon.com/en_us/iot/latest/developerguide/device-shadow-comms-device.html" />
+                        <meta name="feedback-yes" content="feedbackyes.html?topic_url=http://docs.aws.amazon.com/en_us/iot/latest/developerguide/device-shadow-comms-device.html" />
+                        <meta name="feedback-no" content="feedbackno.html?topic_url=http://docs.aws.amazon.com/en_us/iot/latest/developerguide/device-shadow-comms-device.html" />
+                        <meta name="keywords" content="AWS IoT,IoT,Internet of Things" />
+                     </head>
+                     <body>
+                        <div id="main">
+                           <div style="display: none"><a href="iot-dg.pdf#device-shadow-comms-device" target="_blank" rel="noopener noreferrer" title="Open PDF"></a><a target="_blank" rel="noopener noreferrer" href="https://www.amazon.com/dp/B07JBRCWWZ" title="Open Kindle"></a><a href="https://github.com/awsdocs/aws-iot-docs/tree/master/developerguide/device-shadow-comms-device.md" target="_blank" rel="noopener noreferrer" title="Edit this page on GitHub"></a></div>
+                           <div id="breadcrumbs" class="breadcrumb"><a href="http://aws.amazon.com">AWS</a><a href="/index.html">Documentation</a><a href="/iot/index.html">AWS IoT Core</a><a href="what-is-aws-iot.html">Developer Guide</a></div>
+                           <div id="page-toc-src"><a href="#device-shadow-comms-device-first-connect">Initializing the device on
+                                 first connection to AWS IoT</a><a href="#device-shadow-comms-device-while-connected">Processing messages while
+                                 the device is connected to AWS IoT</a><a href="#device-shadow-comms-device-reconnect">Processing messages when the
+                                 device reconnects to AWS IoT</a></div>
+                           <div id="main-content" class="awsui-util-container">
+                              <div id="main-col-body">
+                                 <awsdocs-language-banner data-service="$ctrl.pageService"></awsdocs-language-banner>
+                                 <h1 class="topictitle" id="device-shadow-comms-device">Using shadows in devices</h1>
+                                 <div class="awsdocs-page-header-container">
+                                    <awsdocs-page-header></awsdocs-page-header>
+                                    <awsdocs-filter-selector id="awsdocs-filter-selector"></awsdocs-filter-selector>
+                                 </div>
+                                 <p>This section describes device communications with  shadows using MQTT messages, the
+                                    preferred method for devices to communicate with the AWS IoT Device Shadow service.
+                                 </p>
+                                 <p>Shadow communications emulate a request/response model using the publish/subscribe
+                                    communication model of MQTT. Every shadow action consists of a request topic, a
+                                    successful response topic (<code class="code">accepted</code>), and an error response topic
+                                    (<code class="code">rejected</code>). 
+                                 </p>
+                                 <p>If you want apps and services to be able to determine whether a device is connected,
+                                    see <a href="./device-shadow-comms-app.html#thing-connection">Detecting a device is connected</a>.
+                                 </p>
+                                 <div class="awsdocs-note awsdocs-important">
+                                    <div class="awsdocs-note-title">
+                                       <awsui-icon name="status-warning" variant="error"></awsui-icon><span>Important</span></div>
+                                    <div class="awsdocs-note-text">
+                                       <p>Because MQTT uses a publish/subscribe communication model, you should subscribe to
+                                          the response topics <em>before</em> you publish a request
+                                          topic. If you don't, you might not receive the response to the request that you
+                                          publish. 
+                                       </p>
+                                       <p>If you use an <a href="./iot-sdks.html">AWS IoT Device SDK</a> to call the
+                                          Device Shadow service APIs, this is handled for you.
+                                       </p>
+                                    </div>
+                                 </div>
+                                 <p>The examples in this section use an abbreviated form of the topic where the
+                                    <code class="replaceable">ShadowTopicPrefix</code> can refer to either a named or an
+                                    unnamed shadow, as described in this table.
+                                 </p>
+                                 <p>Shadows can be named or unnamed (classic). The topics used by each differ only in
+                                    the
+                                    topic prefix. This table shows the topic prefix used by each shadow type.
+                                 </p>
+                                 <div class="table-container">
+                                    <div class="table-contents">
+                                       <table id="w332aac29c11c15">
+                                          <thead>
+                                             
+                                             <tr>
+                                                
+                                                <th><code class="replaceable">ShadowTopicPrefix</code> value
+                                                </th>
+                                                
+                                                <th>Shadow type</th>
+                                                
+                                             </tr>
+                                             
+                                          </thead>
+                                          
+                                          <tr>
+                                             
+                                             <td><code class="code">$aws/things/<code class="replaceable">thingName</code>/shadow</code></td>
+                                             
+                                             <td>Unnamed (classic) shadow</td>
+                                             
+                                          </tr>
+                                          
+                                          <tr>
+                                             
+                                             <td><code class="code">$aws/things/<code class="replaceable">thingName</code>/shadow/name/<code class="replaceable">shadowName</code></code></td>
+                                             
+                                             <td>Named shadow</td>
+                                             
+                                          </tr>
+                                          
+                                       </table>
+                                    </div>
+                                 </div>
+                                 <div class="awsdocs-note awsdocs-important">
+                                    <div class="awsdocs-note-title">
+                                       <awsui-icon name="status-warning" variant="error"></awsui-icon><span>Important</span></div>
+                                    <div class="awsdocs-note-text">
+                                       <p>Make sure that your app's or service's use of the shadows is consistent and supported
+                                          by the
+                                          corresponding implementations in your devices. For example, consider  how shadows
+                                          are created, updated, and deleted. Also consider how updates are handled in the
+                                          device and the apps or services that access the device through a shadow. Your design
+                                          should be clear about how the device's state is updated and reported and how your
+                                          apps and services interact with the device and its shadows.
+                                       </p>
+                                    </div>
+                                 </div>
+                                 <p>To create a complete topic, select the
+                                    <code class="code"><code class="replaceable">ShadowTopicPrefix</code></code> for the type of shadow
+                                    to which you want to refer, replace <code class="code"><code class="replaceable">thingName</code></code>,
+                                    and <code class="code"><code class="replaceable">shadowName</code></code> if applicable, with their
+                                    corresponding values, and then append that with the topic stub as shown in the following
+                                    table. Remember that topics are case sensitive.
+                                 </p>
+                                 <p>See <a href="./reserved-topics.html#reserved-topics-shadow">Shadow topics</a>
+                                    for more information about the reserved topics for shadows.
+                                 </p>
+                                 
+                                 <h2 id="device-shadow-comms-device-first-connect">Initializing the device on
+                                    first connection to AWS IoT
+                                 </h2>           
+                                 
+                                 <p>After a device registers with AWS IoT, it should subscribe to these MQTT messages
+                                    for the shadows that it supports.
+                                 </p>
+                                 
+                                 <div class="table-container">
+                                    <div class="table-contents">
+                                       <table id="w332aac29c11c23b5">
+                                          <thead>
+                                             
+                                             <tr>
+                                                
+                                                <th>Topic</th>
+                                                
+                                                <th>Meaning</th>
+                                                
+                                                <th>Action a device should take when this topic is received</th>
+                                                
+                                             </tr>
+                                             
+                                          </thead>
+                                          
+                                          <tr>
+                                             
+                                             <td>
+                                                
+                                                <p><code class="code"><code class="replaceable">ShadowTopicPrefix</code>/delete/accepted</code></p>
+                                                
+                                             </td>
+                                             
+                                             <td>
+                                                
+                                                <p>The <code class="code">delete</code> request was accepted and  AWS IoT deleted
+                                                   the shadow. 
+                                                </p>
+                                                
+                                             </td>
+                                             
+                                             <td>
+                                                
+                                                <p>The actions necessary to accommodate the deleted shadow, such as stop publishing updates.</p>
+                                                
+                                             </td>
+                                             
+                                          </tr>
+                                          
+                                          <tr>
+                                             
+                                             <td>
+                                                
+                                                <p><code class="code"><code class="replaceable">ShadowTopicPrefix</code>/delete/rejected</code></p>
+                                                
+                                             </td>
+                                             
+                                             <td>
+                                                
+                                                <p>The <code class="code">delete</code> request was rejected by AWS IoT and the 
+                                                   shadow was not deleted. The message body contains the error information.
+                                                   
+                                                </p>
+                                                
+                                             </td>
+                                             
+                                             <td>
+                                                
+                                                <p>Respond to the error message in the message body.</p>
+                                                
+                                             </td>
+                                             
+                                          </tr>
+                                          
+                                          <tr>
+                                             
+                                             <td>
+                                                
+                                                <p><code class="code"><code class="replaceable">ShadowTopicPrefix</code>/get/accepted</code></p>
+                                                
+                                             </td>
+                                             
+                                             <td>
+                                                
+                                                <p>The <code class="code">get</code> request was accepted by AWS IoT, and the
+                                                   message body contains the current shadow document. 
+                                                </p>
+                                                
+                                             </td>
+                                             
+                                             <td>
+                                                
+                                                <p>The actions necessary to process the state document in the
+                                                   message body.
+                                                </p>
+                                                
+                                             </td>
+                                             
+                                          </tr>
+                                          
+                                          <tr>
+                                             
+                                             <td>
+                                                
+                                                <p><code class="code"><code class="replaceable">ShadowTopicPrefix</code>/get/rejected</code></p>
+                                                
+                                             </td>
+                                             
+                                             <td>
+                                                
+                                                <p>The <code class="code">get</code> request was rejected by AWS IoT, and the
+                                                   message body contains the error information. 
+                                                </p>
+                                                
+                                             </td>
+                                             
+                                             <td>
+                                                <p>Respond to the error message in the message body.</p>
+                                             </td>
+                                             
+                                          </tr>
+                                          
+                                          <tr>
+                                             
+                                             <td>
+                                                
+                                                <p><code class="code"><code class="replaceable">ShadowTopicPrefix</code>/update/accepted</code></p>
+                                                
+                                             </td>
+                                             
+                                             <td>
+                                                
+                                                <p>The <code class="code">update</code> request was accepted by AWS IoT, and the
+                                                   message body contains the current shadow document. 
+                                                </p>
+                                                
+                                             </td>
+                                             
+                                             <td>
+                                                
+                                                <p>Confirm the updated data in the message body matches the device
+                                                   state.
+                                                </p>
+                                                
+                                             </td>
+                                             
+                                          </tr>
+                                          
+                                          <tr>
+                                             
+                                             <td>
+                                                
+                                                <p><code class="code"><code class="replaceable">ShadowTopicPrefix</code>/update/rejected</code></p>
+                                                
+                                             </td>
+                                             
+                                             <td>
+                                                
+                                                <p>The <code class="code">update</code> request was rejected by AWS IoT, and the
+                                                   message body contains the error information. 
+                                                </p>
+                                                
+                                             </td>
+                                             
+                                             <td>
+                                                <p>Respond to the error message in the message body.</p>
+                                             </td>
+                                             
+                                          </tr>
+                                          
+                                          <tr>
+                                             
+                                             <td>
+                                                
+                                                <p><code class="code"><code class="replaceable">ShadowTopicPrefix</code>/update/delta</code></p>
+                                                
+                                             </td>
+                                             
+                                             <td>
+                                                
+                                                <p>The shadow document was updated by a request to AWS IoT, and the
+                                                   message body contains the changes requested. 
+                                                </p>
+                                                
+                                             </td>
+                                             
+                                             <td>
+                                                
+                                                <p>Update the device's state to match the desired state in the
+                                                   message body.
+                                                </p>
+                                                
+                                             </td>
+                                             
+                                          </tr>
+                                          
+                                          <tr>
+                                             
+                                             <td>
+                                                
+                                                <p><code class="code"><code class="replaceable">ShadowTopicPrefix</code>/update/documents</code></p>
+                                                
+                                             </td>
+                                             
+                                             <td>
+                                                
+                                                <p>An update to the shadow was recently completed, and the message
+                                                   body contains the current shadow document. 
+                                                </p>
+                                                
+                                             </td>
+                                             
+                                             <td>
+                                                
+                                                <p>Confirm the updated state in the message body matches the device's
+                                                   state.
+                                                </p>
+                                                
+                                             </td>
+                                             
+                                          </tr>
+                                          
+                                       </table>
+                                    </div>
+                                 </div>
+                                 
+                                 <p>After subscribing to the messages in the preceding table for each shadow, the
+                                    device should test to see if the shadows that it supports have already been created
+                                    by publishing a <code class="code">/get</code> topic to each shadow. If a
+                                    <code class="code">/get/accepted</code> message is received, the message body contains the
+                                    shadow document, which the device can use to initialize its state. If a
+                                    <code class="code">/get/rejected</code> message is received, the shadow should be created by
+                                    publishing an <code class="code">/update</code> message with the current device state.
+                                 </p>
+                                  
+                                 
+                                 <h2 id="device-shadow-comms-device-while-connected">Processing messages while
+                                    the device is connected to AWS IoT
+                                 </h2>
+                                 
+                                 <p>While a device is connected to AWS IoT, it can receive <b>/update/delta</b> messages and should keep the device state matched to
+                                    the changes in its shadows by:
+                                 </p>
+                                 
+                                 <div class="orderedlist">
+                                     
+                                     
+                                    
+                                    <ol>
+                                       <li>
+                                          
+                                          <p>Reading all <b>/update/delta</b> messages
+                                             received and synchronizing the device state to match.
+                                          </p>
+                                          
+                                       </li>
+                                       <li>
+                                          
+                                          <p>Publishing an <b>/update</b> message with a
+                                             <code class="code">reported</code> message body that has the device’s current state,
+                                             whenever the device's state changes.
+                                          </p>
+                                          
+                                       </li>
+                                    </ol>
+                                 </div>
+                                 
+                                 <p>While a device is connected, it should publish these messages when
+                                    indicated.
+                                 </p>
+                                 
+                                 <div class="table-container">
+                                    <div class="table-contents">
+                                       <table id="w332aac29c11c25b9">
+                                          <thead>
+                                             
+                                             <tr>
+                                                
+                                                <th>Indication</th>
+                                                
+                                                <th>Topic</th>
+                                                
+                                                <th>Payload</th>
+                                                
+                                             </tr>
+                                             
+                                          </thead>
+                                          
+                                          <tr>
+                                             
+                                             
+                                             <td>
+                                                <p>The device's state has changed.</p>
+                                             </td>
+                                             
+                                             <td>
+                                                
+                                                <p><code class="code"><code class="replaceable">ShadowTopicPrefix</code>/update</code></p>
+                                                
+                                             </td>
+                                             
+                                             <td>
+                                                <p>A shadow document with the <code class="code">reported</code> property.
+                                                </p>
+                                             </td>
+                                             
+                                          </tr>
+                                          
+                                          <tr>
+                                             
+                                             <td>The device might not be synchronized with the shadow.</td>
+                                             
+                                             <td>
+                                                <p><code class="code"><code class="replaceable">ShadowTopicPrefix</code>/get</code></p>
+                                             </td>
+                                             
+                                             <td>(empty)</td>
+                                             
+                                          </tr>
+                                          
+                                          <tr>
+                                             
+                                             <td>
+                                                <p>An action on the device indicates that a shadow will no longer be supported by the
+                                                   device,
+                                                   such as when the device is being removed or replaced
+                                                </p>
+                                             </td>
+                                             
+                                             <td>
+                                                <p><code class="code"><code class="replaceable">ShadowTopicPrefix</code>/delete</code></p>
+                                             </td>
+                                             
+                                             <td>(empty)</td>
+                                             
+                                          </tr>
+                                          
+                                       </table>
+                                    </div>
+                                 </div>
+                                  
+                                 
+                                 <h2 id="device-shadow-comms-device-reconnect">Processing messages when the
+                                    device reconnects to AWS IoT
+                                 </h2>
+                                 
+                                 <p>When a device with one or more shadows connects to AWS IoT, it should synchronize
+                                    its state with that of all the shadows that it supports by:
+                                 </p>
+                                 
+                                 <div class="orderedlist">
+                                     
+                                     
+                                    
+                                    <ol>
+                                       <li>
+                                          
+                                          <p>Reading all <b>/update/delta</b> messages
+                                             received and synchronizing the device state to match.
+                                          </p>
+                                          
+                                       </li>
+                                       <li>
+                                          
+                                          <p>Publishing an <b>/update</b> message with a
+                                             <code class="code">reported</code> message body that has the device’s current
+                                             state.
+                                          </p>
+                                          
+                                       </li>
+                                    </ol>
+                                 </div>
+                                 
+                                 <awsdocs-copyright class="copyright-print"></awsdocs-copyright>
+                                 <awsdocs-thumb-feedback right-edge="{{$ctrl.thumbFeedbackRightEdge}}"></awsdocs-thumb-feedback>
+                              </div>
+                              <noscript>
+                                 <div>
+                                    <div>
+                                       <div>
+                                          <div id="js_error_message">
+                                             <p><img src="https://d1ge0kk1l5kms0.cloudfront.net/images/G/01/webservices/console/warning.png" alt="Warning" /> <strong>Javascript is disabled or is unavailable in your
+                                                   browser.</strong></p>
+                                             <p>To use the Amazon Web Services Documentation, Javascript must be
+                                                enabled. Please refer to your browser's Help pages for instructions.
+                                             </p>
+                                          </div>
+                                       </div>
+                                    </div>
+                                 </div>
+                              </noscript>
+                              <div id="main-col-footer" class="awsui-util-font-size-0">
+                                 <div id="doc-conventions"><a target="_top" href="/general/latest/gr/docconventions.html">Document Conventions</a></div>
+                                 <div class="prev-next">
+                                    <div id="previous" class="prev-link" accesskey="p" href="./iot-device-shadows.html">Device Shadow service</div>
+                                    <div id="next" class="next-link" accesskey="n" href="./device-shadow-comms-app.html">Using shadows in apps and services</div>
+                                 </div>
+                              </div>
+                              <awsdocs-page-utilities></awsdocs-page-utilities>
+                           </div>
+                           <div id="quick-feedback-yes" style="display: none;">
+                              <div class="title">Did this page help you? - Yes</div>
+                              <div class="content">
+                                 <p>Thanks for letting us know we're doing a good
+                                    job!
+                                 </p>
+                                 <p>If you've got a moment, please tell us what we did right
+                                    so we can do more of it.
+                                 </p>
+                                 <p>
+                                    <awsui-button id="fblink" target="_blank" text="Feedback" click="linkClick($event)" href="https://docs.aws.amazon.com/forms/aws-doc-feedback?hidden_service_name=IoT Docs&amp;topic_url=https://docs.aws.amazon.com/en_us/iot/latest/developerguide/device-shadow-comms-device.html"></awsui-button>
+                                 </p>
+                              </div>
+                           </div>
+                           <div id="quick-feedback-no" style="display: none;">
+                              <div class="title">Did this page help you? - No</div>
+                              <div class="content">
+                                 <p>Thanks for letting us know this page needs work. We're
+                                    sorry we let you down.
+                                 </p>
+                                 <p>If you've got a moment, please tell us how we can make
+                                    the documentation better.
+                                 </p>
+                                 <p>
+                                    <awsui-button id="fblink" target="_blank" text="Feedback" click="linkClick($event)" href="https://docs.aws.amazon.com/forms/aws-doc-feedback?hidden_service_name=IoT Docs&amp;topic_url=https://docs.aws.amazon.com/en_us/iot/latest/developerguide/device-shadow-comms-device.html"></awsui-button>
+                                 </p>
+                              </div>
+                           </div>
+                        </div>
+                     </body>
+                  </div>
+               </awsdocs-view>
+               <div class="page-loading-indicator" id="page-loading-indicator">
+                  <awsui-spinner size="large"></awsui-spinner>
+               </div>
+            </div>
+            <div id="tools-panel" dom-region="tools">
+               <awsdocs-tools-panel id="awsdocs-tools-panel"></awsdocs-tools-panel>
+            </div>
+         </awsui-app-layout>
+         <awsdocs-cookie-banner class="doc-cookie-banner"></awsdocs-cookie-banner>
+         <!--
+                SiteCatalyst code version: H.25.2.
+                Copyright 1996-2012 Adobe, Inc. All Rights Reserved
+                More info available at http://www.omniture.com
+            --><script language="JavaScript" type="text/javascript">
+var awsdocs = awsdocs || {};
+awsdocs.prop66 = 'AWS IoT Core';
+awsdocs.prop65 =  'Developer Guide';
+            </script><script src="https://a0.awsstatic.com/s_code/js/3.0/awshome_s_code.js" language="JavaScript" type="text/javascript"></script>
+         <!--/DO NOT REMOVE/-->
+         <!--End SiteCatalyst code version: H.25.2.--></div>
+   </body>
+</html>

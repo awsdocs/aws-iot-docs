@@ -1,0 +1,531 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" ng-app="AWSDocsDocPageApp">
+   <head>
+      <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+      <title>Security best practices in AWS IoT Core - AWS IoT Core</title>
+      <meta name="viewport" content="width=device-width,initial-scale=1" />
+      <meta name="assets_root" content="assets" />
+      <meta name="target_state" content="security-best-practices" />
+      <meta name="default_state" content="security-best-practices" />
+      <link rel="icon" type="image/ico" href="/assets/images/favicon.ico" />
+      <link rel="shortcut icon" type="image/ico" href="/assets/images/favicon.ico" />
+      <link rel="canonical" href="https://docs.aws.amazon.com/iot/latest/developerguide/security-best-practices.html" />
+      <meta name="description" content="This section contains information about security best practices for AWS IoT Core. For more information, see Ten security golden rules for IoT solutions ." />
+      <meta name="deployment_region" content="IAD" />
+      <meta name="product" content="AWS IoT Core" />
+      <meta name="guide" content="Developer Guide" />
+      <meta name="locales" content="de_de:Deutsch/en_us:English/es_es:Español/fr_fr:Français/it_it:Italiano/ja_jp:日本語/ko_kr:한국어/pt_br:Português/zh_cn:中文 (简体)/zh_tw:中文 (繁體)" />
+      <meta name="abstract" content="AWS IoT provides secure, bi-directional communication between Internet-connected devices such as sensors, actuators, embedded micro-controllers, or smart appliances and the AWS Cloud. This enables you to collect telemetry data from multiple devices, and store and analyze the data. You can also create applications that enable your users to control these devices from their phones or tablets." />
+      <meta name="guide-locale" content="en_us" />
+      <meta name="tocs" content="toc-contents.json" />
+      <meta name="feedback-item" content="IoT Docs" />
+      <meta name="this_doc_product" content="AWS IoT Core" />
+      <meta name="this_doc_guide" content="Developer Guide" />
+      <link href="assets/css/vendor4.css" rel="stylesheet" />
+      <link href="assets/css/awsdocs-common.css" rel="stylesheet" /><script type="text/javascript" src="assets/js/vendor3.js" defer=""></script><script type="text/javascript" src="assets/js/vendor4.js" defer=""></script><script type="text/javascript" src="assets/js/vendor1.js" defer=""></script><script type="text/javascript" src="assets/js/awsdocs-common.js" defer=""></script><script type="text/javascript" src="assets/js/awsdocs-doc-app.js" defer=""></script></head>
+   <body class="awsdocs awsui">
+      <div class="awsdocs-container">
+         <awsdocs-header></awsdocs-header>
+         <awsui-app-layout id="app-layout" class="awsui-util-no-gutters" ng-controller="ContentController as $ctrl" header-selector="awsdocs-header" navigation-hide="false" navigation-width="$ctrl.navWidth" navigation-open="$ctrl.navOpen" navigation-change="$ctrl.onNavChange($event)" tools-hide="$ctrl.hideTools" tools-width="$ctrl.toolsWidth" tools-open="$ctrl.toolsOpen" tools-change="$ctrl.onToolsChange($event)">
+            <div id="guide-toc" dom-region="navigation">
+               <awsdocs-toc></awsdocs-toc>
+            </div>
+            <div id="main-column" dom-region="content" tabindex="-1">
+               <awsdocs-view class="awsdocs-view">
+                  <div id="awsdocs-content">
+                     <head>
+                        <title>Security best practices in AWS IoT Core - AWS IoT Core</title>
+                        <meta name="pdf" content="iot-dg.pdf#security-best-practices" />
+                        <meta name="kindle" content="https://www.amazon.com/dp/B07JBRCWWZ" />
+                        <meta name="github" content="https://github.com/awsdocs/aws-iot-docs/tree/master/developerguide/security-best-practices.md" />
+                        <meta name="forums" content="http://forums.aws.amazon.com/forum.jspa?forumID=210" />
+                        <meta name="feedback" content="https://docs.aws.amazon.com/forms/aws-doc-feedback?hidden_service_name=IoT%20Docs&amp;topic_url=http://docs.aws.amazon.com/en_us/iot/latest/developerguide/security-best-practices.html" />
+                        <meta name="feedback-yes" content="feedbackyes.html?topic_url=http://docs.aws.amazon.com/en_us/iot/latest/developerguide/security-best-practices.html" />
+                        <meta name="feedback-no" content="feedbackno.html?topic_url=http://docs.aws.amazon.com/en_us/iot/latest/developerguide/security-best-practices.html" />
+                        <meta name="keywords" content="AWS IoT,IoT,Internet of Things" />
+                     </head>
+                     <body>
+                        <div id="main">
+                           <div style="display: none"><a href="iot-dg.pdf#security-best-practices" target="_blank" rel="noopener noreferrer" title="Open PDF"></a><a target="_blank" rel="noopener noreferrer" href="https://www.amazon.com/dp/B07JBRCWWZ" title="Open Kindle"></a><a href="https://github.com/awsdocs/aws-iot-docs/tree/master/developerguide/security-best-practices.md" target="_blank" rel="noopener noreferrer" title="Edit this page on GitHub"></a></div>
+                           <div id="breadcrumbs" class="breadcrumb"><a href="http://aws.amazon.com">AWS</a><a href="/index.html">Documentation</a><a href="/iot/index.html">AWS IoT Core</a><a href="what-is-aws-iot.html">Developer Guide</a></div>
+                           <div id="page-toc-src"><a href="#secure-mqtt">Protecting MQTT connections in AWS IoT</a><a href="#device-clock">Keep your device's clock in sync</a><a href="#validate-server-cert">Validate the server certificate</a><a href="#cert-per-device">Use a single identity per device</a><a href="#use-second-region">Use a second AWS Region as backup</a><a href="#use-jitp">Use just in time provisioning</a><a href="#device-advisor-perms">Permissions to run AWS IoT Device Advisor
+                                 tests</a></div>
+                           <div id="main-content" class="awsui-util-container">
+                              <div id="main-col-body">
+                                 <awsdocs-language-banner data-service="$ctrl.pageService"></awsdocs-language-banner>
+                                 <h1 class="topictitle" id="security-best-practices">Security best practices in AWS IoT Core</h1>
+                                 <div class="awsdocs-page-header-container">
+                                    <awsdocs-page-header></awsdocs-page-header>
+                                    <awsdocs-filter-selector id="awsdocs-filter-selector"></awsdocs-filter-selector>
+                                 </div>
+                                 <p>This section contains information about security best practices for AWS IoT Core.
+                                    For more
+                                    information, see <a href="https://aws.amazon.com/blogs/iot/ten-security-golden-rules-for-iot-solutions/" rel="noopener noreferrer" target="_blank"><span> Ten
+                                          security golden rules for IoT solutions</span><awsui-icon class="awsdocs-link-icon" name="external"></awsui-icon></a>.
+                                 </p>
+                                 
+                                 <h2 id="secure-mqtt">Protecting MQTT connections in AWS IoT</h2>
+                                 
+                                 <p><a href="https://aws.amazon.com/iot-core/" rel="noopener noreferrer" target="_blank"><span>AWS IoT Core</span><awsui-icon class="awsdocs-link-icon" name="external"></awsui-icon></a> is a managed cloud
+                                    service that makes it possible for connected devices to interact with cloud applications
+                                    and other devices easily and securely. AWS IoT Core supports HTTP, <a href="https://en.wikipedia.org/wiki/WebSocket" rel="noopener noreferrer" target="_blank"><span>WebSocket</span><awsui-icon class="awsdocs-link-icon" name="external"></awsui-icon></a>, and <a href="https://en.wikipedia.org/wiki/MQTT" rel="noopener noreferrer" target="_blank"><span>MQTT</span><awsui-icon class="awsdocs-link-icon" name="external"></awsui-icon></a>, a lightweight communication
+                                    protocol specifically designed to tolerate intermittent connections. If you are
+                                    connecting to AWS IoT using MQTT, each of your connections must be
+                                    associated with an identifier known as a client ID. MQTT client IDs uniquely identify
+                                    MQTT connections. If a new connection is established using a client ID that is already
+                                    claimed for another connection, the AWS IoT message broker drops the old connection
+                                    to
+                                    allow the new connection. Client IDs must be unique within each AWS account and each
+                                    AWS Region. This means that you don't need to enforce global uniqueness of client
+                                    IDs
+                                    outside of your AWS account or across Regions within your AWS account.
+                                 </p>
+                                 
+                                 <p>The impact and severity of dropping MQTT connections on your device fleet depends
+                                    on
+                                    many factors. These include:
+                                 </p>
+                                 
+                                 <div class="itemizedlist">
+                                     
+                                     
+                                     
+                                     
+                                    
+                                    <ul class="itemizedlist" type="disc">
+                                       <li class="listitem">
+                                          
+                                          <p>Your use case (for example, the data your devices send to AWS IoT, how much
+                                             data, and the frequency that the data is sent).
+                                          </p>
+                                          
+                                       </li>
+                                       <li class="listitem">
+                                          
+                                          <p>Your MQTT client configuration (for example, auto reconnect settings,
+                                             associated back-off timings, and use of <a href="./mqtt.html#mqtt-persistent-sessions">MQTT persistent
+                                                sessions</a>).
+                                          </p>
+                                          
+                                       </li>
+                                       <li class="listitem">
+                                          
+                                          <p>Device resource constraints.</p>
+                                          
+                                       </li>
+                                       <li class="listitem">
+                                          
+                                          <p>The root cause of the disconnections, its aggressiveness, and
+                                             persistence.
+                                          </p>
+                                          
+                                       </li>
+                                    </ul>
+                                 </div>
+                                 
+                                 <p>To avoid client ID conflicts and their potential negative impacts, make sure that
+                                    each
+                                    device or mobile application has an AWS IoT or IAM policy that restricts which client
+                                    IDs can be used for MQTT connections to the AWS IoT message broker. For example, you
+                                    can
+                                    use an IAM policy to prevent a device from unintentionally closing another device's
+                                    connection by using a client ID that is already in use. For more information, see
+                                    <a href="./iot-authorization.html">Authorization</a>.
+                                 </p>
+                                 
+                                 <p>All devices in your fleet must have credentials with privileges that authorize
+                                    intended actions only, which include (but not limited to) AWS IoT MQTT actions such
+                                    as
+                                    publishing messages or subscribing to topics with specific scope and context. The
+                                    specific permission policies can vary for your use cases. Identify the permission
+                                    policies that best meet your business and security requirements.
+                                 </p>
+                                 
+                                 <p>To simplify creation and management of permission policies, you can use <a href="./iot-policy-variables.html">AWS IoT Core policy variables</a> and <a href="https://docs.aws.amazon.com/IAM/latest/UserGuide/reference_policies_variables.html">IAM policy variables</a>. Policy variables can be placed in a policy and when
+                                    the policy is evaluated, the variables are replaced by values that come from the
+                                    device's request. Using policy variables, you can create a single policy for granting
+                                    permissions to multiple devices. You can identify the relevant policy variables for
+                                    your
+                                    use case based on your AWS IoT account configuration, authentication mechanism, and
+                                    network protocol used in connecting to AWS IoT message broker. However, to write the
+                                    best
+                                    permission policies, consider the specifics of your use case and your <a href="https://en.wikipedia.org/wiki/Threat_model" rel="noopener noreferrer" target="_blank"><span>threat model</span><awsui-icon class="awsdocs-link-icon" name="external"></awsui-icon></a>.
+                                 </p>
+                                 
+                                 <p>For example, if you registered your devices in the AWS IoT registry, you can use <a href="./thing-policy-variables.html">thing policy variables</a> in
+                                    AWS IoT policies to grant or deny permissions based on thing properties like thing
+                                    names,
+                                    thing types, and thing attribute values. The thing name is obtained from the client
+                                    ID
+                                    in the MQTT connect message sent when a thing connects to AWS IoT. The thing policy
+                                    variables are replaced when a thing connects to AWS IoT over MQTT using TLS mutual
+                                    authentication or MQTT over the WebSocket protocol using authenticated <a href="https://docs.aws.amazon.com/cognito/latest/developerguide/cognito-identities.html">Amazon Cognito identities</a>. You can use the
+                                    <a href="https://docs.aws.amazon.com/iot/latest/apireference/API_AttachThingPrincipal.html">AttachThingPrincipal</a> API to attach certificates and
+                                    authenticated Amazon Cognito identities to a thing. <code class="code">iot:Connection.Thing.ThingName</code>
+                                    is a useful thing policy variable to enforce client ID restrictions. The following
+                                    example AWS IoT policy requires a registered thing's name to be used as the client
+                                    ID for
+                                    MQTT connections to the AWS IoT message broker:
+                                 </p>
+                                 <pre class="programlisting"><div class="code-btn-container"><div class="btn-copy-code" title="Copy"><awsui-icon name="copy"></awsui-icon></div></div><code class="json "><span>{</span>
+    "Version":"2012-10-17",
+    "Statement":[
+    <span>{</span>
+        "Effect":"Allow",
+        "Action":"iot:Connect",
+        "Resource":[
+            "arn:aws:iot:us-east-1:123456789012:client/$<span>{</span>iot:Connection.Thing.ThingName}"
+        ]
+    }
+    ]
+}</code></pre>
+                                 <p>If you want to identify ongoing client ID conflicts, you can enable and use <a href="./cloud-watch-logs.html">CloudWatch Logs for AWS IoT</a>. For every MQTT
+                                    connection that the AWS IoT message broker disconnects due to client ID conflicts,
+                                    a log
+                                    record similar to the following is generated:
+                                 </p>
+                                 <pre class="programlisting"><div class="code-btn-container"><div class="btn-copy-code" title="Copy"><awsui-icon name="copy"></awsui-icon></div></div><code class="json "><span>{</span>
+    "timestamp": "2019-04-28 22:05:30.105",
+    "logLevel": "ERROR",
+    "traceId": "02a04a93-0b3a-b608-a27c-1ae8ebdb032a",
+    "accountId": "123456789012",
+    "status": "Failure",
+    "eventType": "Disconnect",
+    "protocol": "MQTT",
+    "clientId": "clientId01",
+    "principalId": "1670fcf6de55adc1930169142405c4a2493d9eb5487127cd0091ca0193a3d3f6",
+    "sourceIp": "203.0.113.1",
+    "sourcePort": 21335,
+    "reason": "DUPLICATE_CLIENT_ID",
+    "details": "A new connection was established with the same client ID"
+}</code></pre>
+                                 <p>You can use a <a href="https://docs.aws.amazon.com/AmazonCloudWatch/latest/logs/MonitoringLogData.html">CloudWatch Logs filter</a>
+                                    such as <code class="code"><span>{</span>$.reason= "DUPLICATE_CLIENT_ID" }</code> to search for instances of
+                                    client ID conflicts or to set up <a href="https://docs.aws.amazon.com/AmazonCloudWatch/latest/logs/MonitoringPolicyExamples.html">CloudWatch metric filters</a> and
+                                    corresponding CloudWatch alarms for continuous monitoring and reporting.
+                                 </p>
+                                 
+                                 <p>You can use <a href="https://aws.amazon.com/iot-device-defender/" rel="noopener noreferrer" target="_blank"><span>AWS IoT Device
+                                          Defender</span><awsui-icon class="awsdocs-link-icon" name="external"></awsui-icon></a> to identify overly permissive AWS IoT and IAM policies. AWS IoT
+                                    Device Defender also provides an audit check that notifies you if multiple devices
+                                    in
+                                    your fleet are connecting to the AWS IoT message broker using the same client ID.
+                                 </p>
+                                 
+                                 <p>You can use AWS IoT Device Advisor to validate that your devices can reliably connect
+                                    to AWS IoT Core and follow security best practices.
+                                 </p>
+                                  
+                                 
+                                 <h3 id="mqtt-security-see-also">See also</h3>
+                                 
+                                 <p></p>
+                                 
+                                 <div class="itemizedlist">
+                                     
+                                     
+                                     
+                                     
+                                     
+                                     
+                                     
+                                    
+                                    <ul class="itemizedlist" type="disc">
+                                       <li class="listitem">
+                                          
+                                          <p><a href="https://aws.amazon.com/iot-core/" rel="noopener noreferrer" target="_blank"><span>AWS IoT Core</span><awsui-icon class="awsdocs-link-icon" name="external"></awsui-icon></a></p>
+                                          
+                                       </li>
+                                       <li class="listitem">
+                                          
+                                          <p><a href="./authentication.html">AWS IoT's Security
+                                                Features</a></p>
+                                          
+                                       </li>
+                                       <li class="listitem">
+                                          
+                                          <p><a href="./iot-policy-variables.html">AWS IoT Core policy variables</a></p>
+                                          
+                                       </li>
+                                       <li class="listitem">
+                                          
+                                          <p><a href="https://docs.aws.amazon.com/service-authorization/latest/reference/reference_policies_variables.html">IAM Policy
+                                                Variables</a></p>
+                                          
+                                       </li>
+                                       <li class="listitem">
+                                          
+                                          <p><a href="https://docs.aws.amazon.com/cognito/latest/developerguide/cognito-identities.html">Amazon Cognito Identity</a></p>
+                                          
+                                       </li>
+                                       <li class="listitem">
+                                          
+                                          <p><a href="https://aws.amazon.com/iot-device-defender/" rel="noopener noreferrer" target="_blank"><span>AWS IoT Device
+                                                   Defender</span><awsui-icon class="awsdocs-link-icon" name="external"></awsui-icon></a></p>
+                                          
+                                       </li>
+                                       <li class="listitem">
+                                          
+                                          <p><a href="./cloud-watch-logs.html">CloudWatch Logs for
+                                                AWS IoT</a></p>
+                                          
+                                       </li>
+                                    </ul>
+                                 </div>
+                                  
+                                  
+                                 
+                                 <h2 id="device-clock">Keep your device's clock in sync</h2>
+                                 
+                                 <p>It's important to have an accurate time on your device. X.509 certificates have an
+                                    expiry date and time. The clock on your device is used to verify that a server certificate
+                                    is still valid. If you're building commercial IoT devices, remember that your products
+                                    may
+                                    be stored for extended periods before being sold. Real-time clocks can drift during
+                                    this 
+                                    time and batteries can get discharged, so setting time in the factory is not sufficient.
+                                 </p> 
+                                 
+                                 <p>For most systems, this means that the device's software must include a network time
+                                    protocol (NTP) client. The device should wait until it synchronizes with an NTP server
+                                    before it tries to connect to AWS IoT Core. If this isn't possible, the system should
+                                    provide a way for a user to set the device's time so that subsequent connections
+                                    succeed.
+                                 </p>
+                                 
+                                 <p>After the device synchronizes with an NTP server, it can open a connection with
+                                    AWS IoT Core. How much clock skew that is allowed depends on what you're trying to
+                                    do with
+                                    the connection. 
+                                 </p>
+                                  
+                                 
+                                 <h2 id="validate-server-cert">Validate the server certificate</h2>
+                                 
+                                 <p>The first thing a device does to interact with AWS IoT is to open a secure connection.
+                                    When you connect your device to AWS IoT, ensure that you're talking to AWS IoT and
+                                    not
+                                    another server impersonating AWS IoT. Each of the AWS IoT servers is provisioned with
+                                    a
+                                    certificate issued for the <code class="code">iot.amazonaws.com</code> domain. This certificate was
+                                    issued to AWS IoT by a trusted certificate authority that verified our identity and
+                                    ownership of the domain.
+                                 </p>
+                                 
+                                 
+                                 <p>One of the first things AWS IoT Core does when a device connects is send the device
+                                    a server
+                                    certificate. Devices can verify that they were expecting to connect to <code class="code">iot.amazonaws.com</code>
+                                    and that the server on the end of that connection possesses a certificate from a trusted
+                                    authority 
+                                    for that domain.
+                                 </p>
+                                 
+                                 
+                                 <p>TLS certificates are in X.509 format and include a variety of information such as
+                                    the
+                                    organization's name, location, domain name, and a validity period. The validity period
+                                    is specified as a pair of time values
+                                    called <code class="code">notBefore</code> and <code class="code">notAfter</code>. Services like AWS IoT Core use
+                                    limited validity periods (for example, one year) for their server certificates and
+                                    begin
+                                    serving new ones before the old ones expire.
+                                 </p>
+                                  
+                                 
+                                 <h2 id="cert-per-device">Use a single identity per device</h2>
+                                 
+                                 <p>Use a single identity per client. Devices generally use X.509 client certificates.
+                                    Web and mobile 
+                                    applications use Amazon Cognito Identity. This enables you to apply fine-grained permissions
+                                    to your devices.
+                                 </p>
+                                 
+                                 
+                                 <p>For example, you have an application that consists of a mobile phone device that
+                                    receives status updates from two different smart home objects – a light bulb and
+                                    a thermostat. The light bulb sends the status of its battery level, and a thermostat
+                                    sends messages that report the temperature.
+                                 </p>
+                                 
+                                 
+                                 <p>AWS IoT authenticates devices individually and treats each connection individually.
+                                    You
+                                    can apply fine-grained access controls using authorization policies. You can define
+                                    a
+                                    policy for the thermostat that allows it to publish to a topic space. You can define
+                                    a
+                                    separate policy for the light bulb that allows it to publish to a different topic
+                                    space.
+                                    Finally, you can define a policy for the mobile app that only allows it to connect
+                                    and
+                                    subscribe to the topics for the thermostat and the light bulb to receive messages
+                                    from
+                                    these devices.
+                                 </p>
+                                 
+                                 
+                                 <p>Apply the principle of least privilege and scope down the permissions per device as
+                                    much as possible. All devices or users should have an AWS IoT policy in AWS IoT that
+                                    only
+                                    allows it to connect with a known client ID, and to publish and subscribe to an
+                                    identified and fixed set of topics.
+                                 </p>
+                                  
+                                 
+                                 <h2 id="use-second-region">Use a second AWS Region as backup</h2>
+                                 
+                                 <p>Consider storing a copy of your data in a second AWS Region as a backup. For more
+                                    information, see <a href="https://aws.amazon.com/solutions/implementations/disaster-recovery-for-aws-iot/" rel="noopener noreferrer" target="_blank"><span> Disaster Recovery for AWS IoT</span><awsui-icon class="awsdocs-link-icon" name="external"></awsui-icon></a>.
+                                 </p>
+                                  
+                                 
+                                 <h2 id="use-jitp">Use just in time provisioning</h2>
+                                 
+                                 <p>Manually creating and provisioning each device can be time consuming. AWS IoT provides
+                                    a way to define a
+                                    template to provision devices when they first connect to AWS IoT. For more information,
+                                    see 
+                                    <a href="./jit-provisioning.html">Just-in-time provisioning</a>.
+                                 </p>
+                                  
+                                 
+                                 <h2 id="device-advisor-perms">Permissions to run AWS IoT Device Advisor
+                                    tests
+                                 </h2>
+                                 
+                                 <p>The policy template below shows the minimum permissions and IAM entity required to
+                                    run
+                                    AWS IoT Device Advisor test cases. You will need to replace
+                                    <code class="replaceable">your-device-role-arn</code> with the device role ARN you create
+                                    under the <a href="https://docs.aws.amazon.com/iot/latest/developerguide/device-advisor-workflow.html#device-advisor-workflow-prereqs">prerequisites</a>.
+                                 </p>
+                                 <pre class="programlisting"><div class="code-btn-container"><div class="btn-copy-code" title="Copy"><awsui-icon name="copy"></awsui-icon></div></div><code class="nohighlight"><span>{</span>
+    "Version": "2012-10-17",
+    "Statement": [
+        <span>{</span>
+            "Sid": "VisualEditor0",
+            "Effect": "Allow",
+            "Action": "iam:PassRole",
+            "Resource": "<code class="replaceable">your-device-role-arn</code>",
+            "Condition": <span>{</span>
+                "StringEquals": <span>{</span>
+                    "iam:PassedToService": "iotdeviceadvisor.amazonaws.com"
+                }
+            }
+        },
+        <span>{</span>
+            "Sid": "VisualEditor1",
+            "Effect": "Allow",
+            "Action": [
+                "iot:Connect",
+                "logs:DescribeLogStreams",
+                "iot:DescribeThing",
+                "iot:DescribeCertificate",
+                "logs:CreateLogGroup",
+                "logs:PutLogEvents",
+                "iot:DescribeEndpoint",
+                "execute-api:Invoke*",
+                "logs:CreateLogStream",
+                "iot:ListPrincipalPolicies",
+                "iot:ListThingPrincipals",
+                "iot:ListThings",
+                "iot:Publish",
+                "iot:CreateJob",
+                "iot:DescribeJob",
+                "iot:ListCertificates",
+                "iot:ListAttachedPolicies",
+                "iot:UpdateThingShadow",
+                "iot:GetPolicy"
+            ],
+            "Resource": "*"
+        },
+        <span>{</span>
+            "Sid": "VisualEditor2",
+            "Effect": "Allow",
+            "Action": "iotdeviceadvisor:*",
+            "Resource": "*"
+        }
+    ]
+}</code></pre>
+                                 <awsdocs-copyright class="copyright-print"></awsdocs-copyright>
+                                 <awsdocs-thumb-feedback right-edge="{{$ctrl.thumbFeedbackRightEdge}}"></awsdocs-thumb-feedback>
+                              </div>
+                              <noscript>
+                                 <div>
+                                    <div>
+                                       <div>
+                                          <div id="js_error_message">
+                                             <p><img src="https://d1ge0kk1l5kms0.cloudfront.net/images/G/01/webservices/console/warning.png" alt="Warning" /> <strong>Javascript is disabled or is unavailable in your
+                                                   browser.</strong></p>
+                                             <p>To use the Amazon Web Services Documentation, Javascript must be
+                                                enabled. Please refer to your browser's Help pages for instructions.
+                                             </p>
+                                          </div>
+                                       </div>
+                                    </div>
+                                 </div>
+                              </noscript>
+                              <div id="main-col-footer" class="awsui-util-font-size-0">
+                                 <div id="doc-conventions"><a target="_top" href="/general/latest/gr/docconventions.html">Document Conventions</a></div>
+                                 <div class="prev-next">
+                                    <div id="previous" class="prev-link" accesskey="p" href="./vulnerability-analysis-and-management.html">Vulnerability analysis</div>
+                                    <div id="next" class="next-link" accesskey="n" href="./monitoring_overview.html">Monitoring AWS IoT</div>
+                                 </div>
+                              </div>
+                              <awsdocs-page-utilities></awsdocs-page-utilities>
+                           </div>
+                           <div id="quick-feedback-yes" style="display: none;">
+                              <div class="title">Did this page help you? - Yes</div>
+                              <div class="content">
+                                 <p>Thanks for letting us know we're doing a good
+                                    job!
+                                 </p>
+                                 <p>If you've got a moment, please tell us what we did right
+                                    so we can do more of it.
+                                 </p>
+                                 <p>
+                                    <awsui-button id="fblink" target="_blank" text="Feedback" click="linkClick($event)" href="https://docs.aws.amazon.com/forms/aws-doc-feedback?hidden_service_name=IoT Docs&amp;topic_url=https://docs.aws.amazon.com/en_us/iot/latest/developerguide/security-best-practices.html"></awsui-button>
+                                 </p>
+                              </div>
+                           </div>
+                           <div id="quick-feedback-no" style="display: none;">
+                              <div class="title">Did this page help you? - No</div>
+                              <div class="content">
+                                 <p>Thanks for letting us know this page needs work. We're
+                                    sorry we let you down.
+                                 </p>
+                                 <p>If you've got a moment, please tell us how we can make
+                                    the documentation better.
+                                 </p>
+                                 <p>
+                                    <awsui-button id="fblink" target="_blank" text="Feedback" click="linkClick($event)" href="https://docs.aws.amazon.com/forms/aws-doc-feedback?hidden_service_name=IoT Docs&amp;topic_url=https://docs.aws.amazon.com/en_us/iot/latest/developerguide/security-best-practices.html"></awsui-button>
+                                 </p>
+                              </div>
+                           </div>
+                        </div>
+                     </body>
+                  </div>
+               </awsdocs-view>
+               <div class="page-loading-indicator" id="page-loading-indicator">
+                  <awsui-spinner size="large"></awsui-spinner>
+               </div>
+            </div>
+            <div id="tools-panel" dom-region="tools">
+               <awsdocs-tools-panel id="awsdocs-tools-panel"></awsdocs-tools-panel>
+            </div>
+         </awsui-app-layout>
+         <awsdocs-cookie-banner class="doc-cookie-banner"></awsdocs-cookie-banner>
+         <!--
+                SiteCatalyst code version: H.25.2.
+                Copyright 1996-2012 Adobe, Inc. All Rights Reserved
+                More info available at http://www.omniture.com
+            --><script language="JavaScript" type="text/javascript">
+var awsdocs = awsdocs || {};
+awsdocs.prop66 = 'AWS IoT Core';
+awsdocs.prop65 =  'Developer Guide';
+            </script><script src="https://a0.awsstatic.com/s_code/js/3.0/awshome_s_code.js" language="JavaScript" type="text/javascript"></script>
+         <!--/DO NOT REMOVE/-->
+         <!--End SiteCatalyst code version: H.25.2.--></div>
+   </body>
+</html>

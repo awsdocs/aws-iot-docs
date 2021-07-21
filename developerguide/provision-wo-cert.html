@@ -1,0 +1,693 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" ng-app="AWSDocsDocPageApp">
+   <head>
+      <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+      <title>Provisioning devices that don't have device certificates using fleet provisioning - AWS IoT Core</title>
+      <meta name="viewport" content="width=device-width,initial-scale=1" />
+      <meta name="assets_root" content="assets" />
+      <meta name="target_state" content="provision-wo-cert" />
+      <meta name="default_state" content="provision-wo-cert" />
+      <link rel="icon" type="image/ico" href="/assets/images/favicon.ico" />
+      <link rel="shortcut icon" type="image/ico" href="/assets/images/favicon.ico" />
+      <link rel="canonical" href="https://docs.aws.amazon.com/iot/latest/developerguide/provision-wo-cert.html" />
+      <meta name="description" content="By using AWS IoT fleet provisioning, AWS IoT can generate and securely deliver device certificates and private keys to your devices when they connect to AWS IoT for the first time. AWS IoT provides client certificates that are signed by the Amazon Root certificate authority (CA)." />
+      <meta name="deployment_region" content="IAD" />
+      <meta name="product" content="AWS IoT Core" />
+      <meta name="guide" content="Developer Guide" />
+      <meta name="locales" content="de_de:Deutsch/en_us:English/es_es:Español/fr_fr:Français/it_it:Italiano/ja_jp:日本語/ko_kr:한국어/pt_br:Português/zh_cn:中文 (简体)/zh_tw:中文 (繁體)" />
+      <meta name="abstract" content="AWS IoT provides secure, bi-directional communication between Internet-connected devices such as sensors, actuators, embedded micro-controllers, or smart appliances and the AWS Cloud. This enables you to collect telemetry data from multiple devices, and store and analyze the data. You can also create applications that enable your users to control these devices from their phones or tablets." />
+      <meta name="guide-locale" content="en_us" />
+      <meta name="tocs" content="toc-contents.json" />
+      <meta name="feedback-item" content="IoT Docs" />
+      <meta name="this_doc_product" content="AWS IoT Core" />
+      <meta name="this_doc_guide" content="Developer Guide" />
+      <link href="assets/css/vendor4.css" rel="stylesheet" />
+      <link href="assets/css/awsdocs-common.css" rel="stylesheet" /><script type="text/javascript" src="assets/js/vendor3.js" defer=""></script><script type="text/javascript" src="assets/js/vendor4.js" defer=""></script><script type="text/javascript" src="assets/js/vendor1.js" defer=""></script><script type="text/javascript" src="assets/js/awsdocs-common.js" defer=""></script><script type="text/javascript" src="assets/js/awsdocs-doc-app.js" defer=""></script></head>
+   <body class="awsdocs awsui">
+      <div class="awsdocs-container">
+         <awsdocs-header></awsdocs-header>
+         <awsui-app-layout id="app-layout" class="awsui-util-no-gutters" ng-controller="ContentController as $ctrl" header-selector="awsdocs-header" navigation-hide="false" navigation-width="$ctrl.navWidth" navigation-open="$ctrl.navOpen" navigation-change="$ctrl.onNavChange($event)" tools-hide="$ctrl.hideTools" tools-width="$ctrl.toolsWidth" tools-open="$ctrl.toolsOpen" tools-change="$ctrl.onToolsChange($event)">
+            <div id="guide-toc" dom-region="navigation">
+               <awsdocs-toc></awsdocs-toc>
+            </div>
+            <div id="main-column" dom-region="content" tabindex="-1">
+               <awsdocs-view class="awsdocs-view">
+                  <div id="awsdocs-content">
+                     <head>
+                        <title>Provisioning devices that don't have device certificates using fleet provisioning - AWS IoT Core</title>
+                        <meta name="pdf" content="iot-dg.pdf#provision-wo-cert" />
+                        <meta name="kindle" content="https://www.amazon.com/dp/B07JBRCWWZ" />
+                        <meta name="github" content="https://github.com/awsdocs/aws-iot-docs/tree/master/developerguide/provision-wo-cert.md" />
+                        <meta name="forums" content="http://forums.aws.amazon.com/forum.jspa?forumID=210" />
+                        <meta name="feedback" content="https://docs.aws.amazon.com/forms/aws-doc-feedback?hidden_service_name=IoT%20Docs&amp;topic_url=http://docs.aws.amazon.com/en_us/iot/latest/developerguide/provision-wo-cert.html" />
+                        <meta name="feedback-yes" content="feedbackyes.html?topic_url=http://docs.aws.amazon.com/en_us/iot/latest/developerguide/provision-wo-cert.html" />
+                        <meta name="feedback-no" content="feedbackno.html?topic_url=http://docs.aws.amazon.com/en_us/iot/latest/developerguide/provision-wo-cert.html" />
+                        <meta name="keywords" content="AWS IoT,IoT,Internet of Things" />
+                     </head>
+                     <body>
+                        <div id="main">
+                           <div style="display: none"><a href="iot-dg.pdf#provision-wo-cert" target="_blank" rel="noopener noreferrer" title="Open PDF"></a><a target="_blank" rel="noopener noreferrer" href="https://www.amazon.com/dp/B07JBRCWWZ" title="Open Kindle"></a><a href="https://github.com/awsdocs/aws-iot-docs/tree/master/developerguide/provision-wo-cert.md" target="_blank" rel="noopener noreferrer" title="Edit this page on GitHub"></a></div>
+                           <div id="breadcrumbs" class="breadcrumb"><a href="http://aws.amazon.com">AWS</a><a href="/index.html">Documentation</a><a href="/iot/index.html">AWS IoT Core</a><a href="what-is-aws-iot.html">Developer Guide</a></div>
+                           <div id="page-toc-src"><a href="#claim-based">Provisioning by claim</a><a href="#trusted-user">Provisioning by trusted user</a><a href="#hooks-cli-instruc">Using pre-provisioning hooks with the AWS
+                                 CLI</a></div>
+                           <div id="main-content" class="awsui-util-container">
+                              <div id="main-col-body">
+                                 <awsdocs-language-banner data-service="$ctrl.pageService"></awsdocs-language-banner>
+                                 <h1 class="topictitle" id="provision-wo-cert">Provisioning devices that don't have device
+                                    certificates using fleet provisioning
+                                 </h1>
+                                 <div class="awsdocs-page-header-container">
+                                    <awsdocs-page-header></awsdocs-page-header>
+                                    <awsdocs-filter-selector id="awsdocs-filter-selector"></awsdocs-filter-selector>
+                                 </div>
+                                 <p>By using AWS IoT fleet provisioning, AWS IoT can generate and securely deliver device
+                                    certificates and private keys to your devices when they connect to AWS IoT for the
+                                    first
+                                    time. AWS IoT provides client certificates that are signed by the Amazon Root certificate
+                                    authority (CA).
+                                 </p>
+                                 <p>There are two ways to use fleet provisioning:</p>
+                                 <div class="itemizedlist">
+                                     
+                                     
+                                    
+                                    <ul class="itemizedlist" type="disc">
+                                       <li class="listitem">
+                                          
+                                          <p>By claim</p>
+                                          
+                                       </li>
+                                       <li class="listitem">
+                                          
+                                          <p>By trusted user</p>
+                                          
+                                       </li>
+                                    </ul>
+                                 </div>
+                                 
+                                 <h2 id="claim-based">Provisioning by claim</h2>
+                                 
+                                 <p>Devices can be manufactured with a provisioning claim certificate and private key
+                                    (which are special purpose credentials) embedded in them. If these certificates are
+                                    registered with AWS IoT, the service can exchange them for unique device certificates
+                                    that the device can use for regular operations. This process includes the following
+                                    steps:
+                                 </p>
+                                 
+                                 <div class="procedure">
+                                    <p class="title"><b>Before you deliver the device</b></p>
+                                    <ol>
+                                       <li>
+                                          
+                                          <p>Call <a href="https://docs.aws.amazon.com/iot/latest/apireference/API_CreateProvisioningTemplate.html"><code class="code">CreateProvisioningTemplate</code></a> to create a
+                                             provisioning template. This API returns a template ARN. For more
+                                             information, see <a href="./fleet-provision-api.html">Device provisioning MQTT API</a>.
+                                          </p>
+                                          
+                                          <p>You can also create a fleet provisioning template in the AWS IoT console. </p>
+                                          
+                                          <ol>
+                                             <li>
+                                                
+                                                <p>From the navigation pane, choose <b>Onboard</b>,
+                                                   then choose <b>Fleet provisioning
+                                                      templates</b>.
+                                                </p>
+                                                
+                                             </li>
+                                             <li>
+                                                
+                                                <p>Choose <b>Create</b> and follow the prompts.
+                                                </p>
+                                                
+                                             </li>
+                                          </ol>
+                                          
+                                       </li>
+                                       <li>
+                                          
+                                          <p>Create certificates and associated private keys to be used as provisioning
+                                             claim certificates.
+                                          </p>
+                                          
+                                       </li>
+                                       <li>
+                                          
+                                          <p>Register these certificates with AWS IoT and associate an IoT policy that
+                                             restricts the use of the certificates. The following example IoT policy
+                                             restricts the use of the certificate associated with this policy to
+                                             provisioning devices.
+                                          </p>
+                                          <pre class="programlisting"><div class="code-btn-container"><div class="btn-copy-code" title="Copy"><awsui-icon name="copy"></awsui-icon></div></div><code class="json "><span>{</span>
+    "Version": "2012-10-17",
+    "Statement": [
+        <span>{</span>
+            "Effect": "Allow",
+            "Action": ["iot:Connect"],
+            "Resource": "*"
+        },
+        <span>{</span>
+            "Effect": "Allow",
+            "Action": ["iot:Publish","iot:Receive"],
+            "Resource": [
+                "arn:aws:iot:<code class="replaceable">aws-region</code>:<code class="replaceable">aws-account-id</code>:topic/$aws/certificates/create/*",
+                "arn:aws:iot:<code class="replaceable">aws-region</code>:<code class="replaceable">aws-account-id</code>:topic/$aws/provisioning-templates/<code class="replaceable">templateName</code>/provision/*"
+            ]
+        },
+        <span>{</span>
+            "Effect": "Allow",
+            "Action": "iot:Subscribe",
+            "Resource": [
+                "arn:aws:iot:<code class="replaceable">aws-region</code>:<code class="replaceable">aws-account-id</code>:topicfilter/$aws/certificates/create/*",
+                "arn:aws:iot:<code class="replaceable">aws-region</code>:<code class="replaceable">aws-account-id</code>:topicfilter/$aws/provisioning-templates/<code class="replaceable">templateName</code>/provision/*"
+            ]
+        }
+    ]
+}</code></pre>
+                                          </li>
+                                       <li>
+                                          
+                                          <p>Give the AWS IoT service permission to create or update IoT resources such
+                                             as things and certificates in your account when provisioning devices. Do
+                                             this by attaching the <code class="code">AWSIoTThingsRegistration</code> managed policy
+                                             to an IAM role (called the provisioning role) that trusts the AWS IoT service
+                                             principal.
+                                          </p>
+                                          
+                                       </li>
+                                       <li>
+                                          
+                                          <p>Manufacture the device with the provisioning claim certificate securely
+                                             embedded in it.
+                                          </p>
+                                          
+                                       </li>
+                                    </ol>
+                                 </div>
+                                 
+                                 <p>The device is now ready to be delivered to where it will be installed for
+                                    use.
+                                 </p>
+                                 
+                                 <div class="awsdocs-note awsdocs-important">
+                                    <div class="awsdocs-note-title">
+                                       <awsui-icon name="status-warning" variant="error"></awsui-icon><span>Important</span></div>
+                                    <div class="awsdocs-note-text">
+                                       <p>Provisioning claim private keys should be secured at all times, including on
+                                          the device. We recommend that you use AWS IoT CloudWatch metrics and logs to monitor
+                                          for
+                                          indications of misuse. If you detect misuse, disable the provisioning claim
+                                          certificate so it cannot be used for device provisioning.
+                                       </p>
+                                    </div>
+                                 </div>
+                                 
+                                 <div class="procedure">
+                                    <p class="title"><b>To initialize the device for use</b></p>
+                                    <ol>
+                                       <li>
+                                          
+                                          <p>The device uses the <a href="./iot-sdks.html">AWS IoT Device SDKs, Mobile SDKs, and AWS IoT Device Client</a> to
+                                             connect to and authenticate with AWS IoT using the provisioning claim
+                                             certificate that is installed on the device.
+                                          </p>
+                                          
+                                          <div class="awsdocs-note">
+                                             <div class="awsdocs-note-title">
+                                                <awsui-icon name="status-info" variant="link"></awsui-icon><span>Note</span></div>
+                                             <div class="awsdocs-note-text">
+                                                <p>For security, the <code class="code">certificateOwnershipToken</code> returned by
+                                                   <a href="./fleet-provision-api.html#create-cert-csr">CreateCertificateFromCsr</a> and <a href="./fleet-provision-api.html#create-keys-cert">CreateKeysAndCertificate</a> expires after one
+                                                   hour. <a href="./fleet-provision-api.html#register-thing">RegisterThing</a>
+                                                   must be called before the <code class="code">certificateOwnershipToken</code>
+                                                   expires. If the token expires, the device can call <a href="./fleet-provision-api.html#create-cert-csr">CreateCertificateFromCsr</a> or <a href="./fleet-provision-api.html#create-keys-cert">CreateKeysAndCertificate</a> again to generate a
+                                                   new certificate.
+                                                </p>
+                                             </div>
+                                          </div>
+                                          
+                                       </li>
+                                       <li>
+                                          
+                                          <p>The device obtains a permanent certificate and private key by using one of
+                                             these options. The device will use the certificate and key for all future
+                                             authentication with AWS IoT.
+                                          </p>
+                                          
+                                          <ol>
+                                             <li>
+                                                
+                                                <p>Call <a href="./fleet-provision-api.html#create-keys-cert">
+                                                      CreateKeysAndCertificate</a> to create a new
+                                                   certificate and private key using the AWS certificate
+                                                   authority.
+                                                </p>
+                                                
+                                                <p>Or</p>
+                                                
+                                             </li>
+                                             <li>
+                                                
+                                                <p>Call <a href="./fleet-provision-api.html#create-cert-csr">
+                                                      CreateCertificateFromCsr</a> to generate a
+                                                   certificate from a certificate signing request that keeps its
+                                                   private key secure.
+                                                </p>
+                                                
+                                             </li>
+                                          </ol>
+                                          
+                                       </li>
+                                       <li>
+                                          
+                                          <p>From the device, call <a href="./fleet-provision-api.html#register-thing">RegisterThing</a> to register the device with AWS IoT
+                                             and create cloud resources.
+                                          </p>
+                                          
+                                          <p>The Fleet Provisioning service creates cloud resources such as things,
+                                             thing groups, and attributes, as defined in the provisioning
+                                             template.
+                                          </p>
+                                          
+                                       </li>
+                                       <li>
+                                          
+                                          <p>After saving the permanent certificate on the device, the device must
+                                             disconnect from the session that it initiated with the provisioning claim
+                                             certificate and reconnect using the permanent certificate. 
+                                          </p>
+                                          
+                                       </li>
+                                    </ol>
+                                 </div>
+                                 
+                                 <p>The device is now ready to communicate normally with AWS IoT.</p>
+                                  
+                                 
+                                 <h2 id="trusted-user">Provisioning by trusted user</h2>
+                                 
+                                 <p>In many cases, a device connects to AWS IoT for the first time when a trusted user,
+                                    such as an end user or installation technician, uses a mobile app to configure the
+                                    device in its deployed location.
+                                 </p>
+                                 
+                                 <div class="awsdocs-note awsdocs-important">
+                                    <div class="awsdocs-note-title">
+                                       <awsui-icon name="status-warning" variant="error"></awsui-icon><span>Important</span></div>
+                                    <div class="awsdocs-note-text">
+                                       <p>You must manage the trusted user's access and permission to perform this
+                                          procedure. One way to do this is to provide and maintain an account for the
+                                          trusted user that authenticates them and grants them access to the AWS IoT
+                                          features and APIs required to perform this procedure. 
+                                       </p>
+                                    </div>
+                                 </div>
+                                 
+                                 <div class="procedure">
+                                    <p class="title"><b>Before you deliver the device</b></p>
+                                    <ol>
+                                       <li>
+                                          
+                                          <p>Call <a href="https://docs.aws.amazon.com/iot/latest/apireference/API_CreateProvisioningTemplate.html">
+                                                <code class="code">CreateProvisioningTemplate</code></a> to create a provisioning
+                                             template and return its <code class="replaceable">templateArn</code> and
+                                             <code class="replaceable">templateName</code>.
+                                          </p>
+                                          
+                                       </li>
+                                       <li>
+                                          
+                                          <p>Create an IAM role that is used by a trusted user to initiate the
+                                             provisioning process. The provisioning template allows only that user to
+                                             provision a device. For example:
+                                          </p>
+                                          <pre class="programlisting"><div class="code-btn-container"><div class="btn-copy-code" title="Copy"><awsui-icon name="copy"></awsui-icon></div></div><code class="json "><span>{</span>
+    "Effect": "Allow",
+    "Action": [
+        "iot:CreateProvisioningClaim",
+    ],
+    "Resource": [
+        "arn:aws:<code class="replaceable">aws-region</code>:<code class="replaceable">aws-account-id</code>:provisioningtemplate/<code class="replaceable">templateName</code>"
+    ]
+}</code></pre>
+                                          </li>
+                                       <li>
+                                          
+                                          <p>Give the AWS IoT service permission to create or update IoT resources, such
+                                             as things and certificates in your account when provisioning devices. You do
+                                             this by attaching the <code class="code">AWSIoTThingsRegistration</code> managed policy
+                                             to an IAM role (called the <em>provisioning
+                                                role</em>) that trusts the AWS IoT service principal.
+                                          </p>
+                                          
+                                       </li>
+                                       <li>
+                                          
+                                          <p>Provide the means to identify your trusted users, such as by providing
+                                             them with an account that can authenticate them and authorize their
+                                             interactions with the AWS APIs necessary to register their devices.
+                                          </p>
+                                          
+                                       </li>
+                                    </ol>
+                                 </div>
+                                 
+                                 <div class="procedure">
+                                    <p class="title"><b>To initialize the device for use</b></p>
+                                    <ol>
+                                       <li>
+                                          
+                                          <p>A trusted user signs in to your provisioning mobile app or web
+                                             service.
+                                          </p>
+                                          
+                                       </li>
+                                       <li>
+                                          
+                                          <p>The mobile app or web application uses the IAM role and calls <a href="https://docs.aws.amazon.com/iot/latest/apireference/API_CreateProvisioningClaim.html">
+                                                <code class="code">CreateProvisioningClaim</code></a> to obtain a temporary
+                                             provisioning claim certificate from AWS IoT.
+                                          </p>
+                                          
+                                          <div class="awsdocs-note">
+                                             <div class="awsdocs-note-title">
+                                                <awsui-icon name="status-info" variant="link"></awsui-icon><span>Note</span></div>
+                                             <div class="awsdocs-note-text">
+                                                <p>For security, the temporary provisioning claim certificate that
+                                                   <code class="code">CreateProvisioningClaim</code> returns expires after five
+                                                   minutes. The following steps must successfully return a valid
+                                                   certificate before the temporary provisioning claim certificate expires.
+                                                   Temporary provisioning claim certificates do not appear in your
+                                                   account's list of certificates.
+                                                </p>
+                                             </div>
+                                          </div>
+                                          
+                                       </li>
+                                       <li>
+                                          
+                                          <p>The mobile app or web application supplies the temporary provisioning
+                                             claim certificate to the device along with any required configuration
+                                             information, such as Wi-Fi credentials.
+                                          </p>
+                                          
+                                       </li>
+                                       <li>
+                                          
+                                          <p>The device uses the temporary provisioning claim certificate to connect to
+                                             AWS IoT using the <a href="./iot-sdks.html">AWS IoT Device SDKs, Mobile SDKs, and AWS IoT Device Client</a>.
+                                          </p>
+                                          
+                                       </li>
+                                       <li>
+                                          
+                                          <p>The device obtains a permanent certificate and private key by using one of
+                                             these options. The device will use the certificate and key for all future
+                                             authentication with AWS IoT.
+                                          </p>
+                                          
+                                          <ol>
+                                             <li>
+                                                
+                                                <p>Call <a href="./fleet-provision-api.html#create-keys-cert">
+                                                      CreateKeysAndCertificate</a> to create a new
+                                                   certificate and private key using the AWS certificate
+                                                   authority.
+                                                </p>
+                                                
+                                                <p>Or</p>
+                                                
+                                             </li>
+                                             <li>
+                                                
+                                                <p>Call <a href="./fleet-provision-api.html#create-cert-csr">
+                                                      CreateCertificateFromCsr</a> to generate a
+                                                   certificate from a certificate signing request that keeps its
+                                                   private key secure.
+                                                </p>
+                                                
+                                             </li>
+                                          </ol>
+                                          
+                                       </li>
+                                       <li>
+                                          
+                                          <p>The device calls <a href="./fleet-provision-api.html#register-thing">RegisterThing</a> to register the device with AWS IoT and
+                                             create cloud resources. 
+                                          </p>
+                                          
+                                          <div class="awsdocs-note">
+                                             <div class="awsdocs-note-title">
+                                                <awsui-icon name="status-info" variant="link"></awsui-icon><span>Note</span></div>
+                                             <div class="awsdocs-note-text">
+                                                <p>Remember <code class="code">RegisterThing</code> must return a valid
+                                                   certificate within five minutes of connecting to AWS IoT
+                                                   with the temporary provisioning claim certificate.
+                                                </p>
+                                             </div>
+                                          </div>
+                                          
+                                          <p>The Fleet Provisioning service creates cloud resources such as IoT things,
+                                             thing groups, and attributes, as defined in the provisioning
+                                             template.
+                                          </p>
+                                          
+                                       </li>
+                                       <li>
+                                          
+                                          <p>After saving the permanent certificate on the device, the device must
+                                             disconnect from the session that it initiated with the temporary
+                                             provisioning claim certificate and reconnect using the permanent
+                                             certificate. 
+                                          </p>
+                                          
+                                       </li>
+                                    </ol>
+                                 </div>
+                                 
+                                 <p>The device is now ready to communicate normally with AWS IoT.</p>
+                                  
+                                 
+                                 <h2 id="hooks-cli-instruc">Using pre-provisioning hooks with the AWS
+                                    CLI
+                                 </h2>
+                                 
+                                 <p>The following procedure creates a provisioning template with pre-provisioning
+                                    hooks. The Lambda function used here is an example that can be modified. 
+                                 </p>
+                                 
+                                 <div class="procedure">
+                                    <p class="title"><b>To create and apply a pre-provisioning hook to a provisioning
+                                          template</b></p>
+                                    <ol>
+                                       <li>
+                                          
+                                          <p>Create a Lambda function that has a defined input and output. Lambda
+                                             functions are highly customizable the <code class="code">allowProvisioning</code> and
+                                             <code class="code">parameterOverrides</code> are required for creating
+                                             pre-provisioning hooks. For more information about creating Lambda functions,
+                                             see <a href="https://docs.aws.amazon.com/lambda/latest/dg/gettingstarted-awscli.html">Using AWS Lambda with
+                                                the AWS Command Line Interface</a>.
+                                          </p>
+                                          
+                                          <p>The following is an example of a Lambda function output:</p>
+                                          <pre class="programlisting"><div class="code-btn-container"><div class="btn-copy-code" title="Copy"><awsui-icon name="copy"></awsui-icon></div></div><code class="json "><span>{</span>
+  "allowProvisioning": True,
+  "parameterOverrides": <span>{</span>
+    "<code class="replaceable">incomingKey0</code>": "<code class="replaceable">incomingValue0</code>",
+    "<code class="replaceable">incomingKey1</code>": "<code class="replaceable">incomingValue1</code>"
+  }
+}</code></pre>
+                                          </li>
+                                       <li>
+                                          
+                                          <p>AWS IoT uses resource-based policies to call Lambda, so you must give AWS IoT
+                                             permission to call your Lambda function.
+                                          </p>
+                                          
+                                          <p>The following is an example using <a href="https://docs.aws.amazon.com/cli/latest/reference/lambda/add-permission.html">add-permission</a>
+                                             give IoT permission to your Lambda.
+                                          </p>
+                                          <pre class="programlisting"><div class="code-btn-container"><div class="btn-copy-code" title="Copy"><awsui-icon name="copy"></awsui-icon></div></div><code class="bash ">aws lambda add-permission \
+    --function-name <code class="replaceable">myLambdaFunction</code> \
+    --statement-id iot-permission \
+    --action lambda:InvokeFunction \
+    --principal iot.amazonaws.com</code></pre>
+                                          </li>
+                                       <li>
+                                          
+                                          <p>Add a pre-provisioning hook to a template using either the <a href="https://docs.aws.amazon.com/cli/latest/reference/iot/create-provisioning-template.html">create-provisioning-template</a> or <a href="https://docs.aws.amazon.com/cli/latest/reference/iot/update-provisioning-template.html">update-provisioning-template</a> command.
+                                          </p>
+                                          
+                                          <p>The following CLI example uses the <a href="https://docs.aws.amazon.com/cli/latest/reference/iot/create-provisioning-template.html">create-provisioning-template</a> to create a provisioning template
+                                             that has pre-provisioning hooks:
+                                          </p>
+                                          <pre class="programlisting"><div class="code-btn-container"><div class="btn-copy-code" title="Copy"><awsui-icon name="copy"></awsui-icon></div></div><code class="bash ">aws iot create-provisioning template \
+    --template-name <code class="replaceable">myTemplate</code> \
+    --provisioning-role-arn <code class="replaceable">arn:aws:iam:us-east-1:1234564789012:role/myRole</code> \
+    --template-body <code class="replaceable">file://template.json</code> \
+    --pre-provisioning-hook <code class="replaceable">file://hooks.json</code></code></pre>
+                                          <p>The output of this command looks like the following:</p>
+                                          <pre class="programlisting"><div class="code-btn-container"><div class="btn-copy-code" title="Copy"><awsui-icon name="copy"></awsui-icon></div></div><code class="json "><span>{</span>
+    "templateArn": "<code class="replaceable">arn:aws:iot:us-east-1:1234564789012:provisioningtemplate/myTemplate</code>",
+    "defaultVersionId": 1,
+    "templateName": <code class="replaceable">myTemplate</code>
+}</code></pre>
+                                          <p>You can also load a parameter from a file instead of typing it all as a
+                                             command line parameter value to save time. For more information, see <a href="https://docs.aws.amazon.com/cli/latest/userguide/cli-usage-parameters-file.html">Loading AWS CLI
+                                                Parameters from a File</a>. The following shows the
+                                             <code class="code">template</code> parameter in expanded JSON format:
+                                          </p>
+                                          <pre class="programlisting"><div class="code-btn-container"><div class="btn-copy-code" title="Copy"><awsui-icon name="copy"></awsui-icon></div></div><code class="json "><span>{</span>
+    "Parameters" : <span>{</span>
+        "DeviceLocation": <span>{</span>
+            "Type": "String"
+        }
+    },
+    "Mappings": <span>{</span>
+        "LocationTable": <span>{</span>
+            "Seattle": <span>{</span>
+                "LocationUrl": "https://example.aws"
+            }
+        }
+    },
+    "Resources" : <span>{</span>
+        "thing" : <span>{</span>
+            "Type" : "AWS::IoT::Thing",
+            "Properties" : <span>{</span>
+                "AttributePayload" : <span>{</span>
+                    "version" : "v1",
+                    "serialNumber" : "serialNumber"
+                },
+                "ThingName" : <span>{</span>"Fn::Join":["",["ThingPrefix_",<span>{</span>"Ref":"SerialNumber"}]]},
+                "ThingTypeName" : <span>{</span>"Fn::Join":["",["ThingTypePrefix_",<span>{</span>"Ref":"SerialNumber"}]]},
+                "ThingGroups" : ["widgets", "WA"],
+                "BillingGroup": "BillingGroup"
+            },
+            "OverrideSettings" : <span>{</span>
+                "AttributePayload" : "MERGE",
+                "ThingTypeName" : "REPLACE",
+                "ThingGroups" : "DO_NOTHING"
+            }
+        },
+        "certificate" : <span>{</span>
+            "Type" : "AWS::IoT::Certificate",
+            "Properties" : <span>{</span>
+                "CertificateId": <span>{</span>"Ref": "AWS::IoT::Certificate::Id"},
+                "Status" : "Active"
+            }
+        },
+        "policy" : <span>{</span>
+            "Type" : "AWS::IoT::Policy",
+            "Properties" : <span>{</span>
+                "PolicyDocument" : <span>{</span>
+                    "Version": "2012-10-17",
+                    "Statement": [<span>{</span>
+                        "Effect": "Allow",
+                        "Action":["iot:Publish"],
+                        "Resource": ["arn:aws:iot:us-east-1:504350838278:topic/foo/bar"]
+                    }]
+                }
+            }
+        }
+    },
+    "DeviceConfiguration": <span>{</span>
+        "FallbackUrl": "https://www.example.com/test-site",
+        "LocationUrl": <span>{</span>
+            "Fn::FindInMap": ["LocationTable",<span>{</span>"Ref": "DeviceLocation"}, "LocationUrl"]}
+    }
+}</code></pre>
+                                          <p>The following shows the <code class="code">pre-provisioning-hook</code> parameter in
+                                             expanded JSON format:
+                                          </p>
+                                          <pre class="programlisting"><div class="code-btn-container"><div class="btn-copy-code" title="Copy"><awsui-icon name="copy"></awsui-icon></div></div><code class="json "><span>{</span>
+     "targetArn" : "<code class="replaceable">arn:aws:lambda:us-east-1:765219403047:function:pre_provisioning_test</code>",
+     "payloadVersion" : "<code class="replaceable">2020-04-01</code>"
+}</code></pre>
+                                          </li>
+                                    </ol>
+                                 </div>
+                                 
+                                 <awsdocs-copyright class="copyright-print"></awsdocs-copyright>
+                                 <awsdocs-thumb-feedback right-edge="{{$ctrl.thumbFeedbackRightEdge}}"></awsdocs-thumb-feedback>
+                              </div>
+                              <noscript>
+                                 <div>
+                                    <div>
+                                       <div>
+                                          <div id="js_error_message">
+                                             <p><img src="https://d1ge0kk1l5kms0.cloudfront.net/images/G/01/webservices/console/warning.png" alt="Warning" /> <strong>Javascript is disabled or is unavailable in your
+                                                   browser.</strong></p>
+                                             <p>To use the Amazon Web Services Documentation, Javascript must be
+                                                enabled. Please refer to your browser's Help pages for instructions.
+                                             </p>
+                                          </div>
+                                       </div>
+                                    </div>
+                                 </div>
+                              </noscript>
+                              <div id="main-col-footer" class="awsui-util-font-size-0">
+                                 <div id="doc-conventions"><a target="_top" href="/general/latest/gr/docconventions.html">Document Conventions</a></div>
+                                 <div class="prev-next">
+                                    <div id="previous" class="prev-link" accesskey="p" href="./iot-provision.html">Device provisioning</div>
+                                    <div id="next" class="next-link" accesskey="n" href="./provision-w-cert.html">Provisioning devices that have device
+                                       certificates
+                                    </div>
+                                 </div>
+                              </div>
+                              <awsdocs-page-utilities></awsdocs-page-utilities>
+                           </div>
+                           <div id="quick-feedback-yes" style="display: none;">
+                              <div class="title">Did this page help you? - Yes</div>
+                              <div class="content">
+                                 <p>Thanks for letting us know we're doing a good
+                                    job!
+                                 </p>
+                                 <p>If you've got a moment, please tell us what we did right
+                                    so we can do more of it.
+                                 </p>
+                                 <p>
+                                    <awsui-button id="fblink" target="_blank" text="Feedback" click="linkClick($event)" href="https://docs.aws.amazon.com/forms/aws-doc-feedback?hidden_service_name=IoT Docs&amp;topic_url=https://docs.aws.amazon.com/en_us/iot/latest/developerguide/provision-wo-cert.html"></awsui-button>
+                                 </p>
+                              </div>
+                           </div>
+                           <div id="quick-feedback-no" style="display: none;">
+                              <div class="title">Did this page help you? - No</div>
+                              <div class="content">
+                                 <p>Thanks for letting us know this page needs work. We're
+                                    sorry we let you down.
+                                 </p>
+                                 <p>If you've got a moment, please tell us how we can make
+                                    the documentation better.
+                                 </p>
+                                 <p>
+                                    <awsui-button id="fblink" target="_blank" text="Feedback" click="linkClick($event)" href="https://docs.aws.amazon.com/forms/aws-doc-feedback?hidden_service_name=IoT Docs&amp;topic_url=https://docs.aws.amazon.com/en_us/iot/latest/developerguide/provision-wo-cert.html"></awsui-button>
+                                 </p>
+                              </div>
+                           </div>
+                        </div>
+                     </body>
+                  </div>
+               </awsdocs-view>
+               <div class="page-loading-indicator" id="page-loading-indicator">
+                  <awsui-spinner size="large"></awsui-spinner>
+               </div>
+            </div>
+            <div id="tools-panel" dom-region="tools">
+               <awsdocs-tools-panel id="awsdocs-tools-panel"></awsdocs-tools-panel>
+            </div>
+         </awsui-app-layout>
+         <awsdocs-cookie-banner class="doc-cookie-banner"></awsdocs-cookie-banner>
+         <!--
+                SiteCatalyst code version: H.25.2.
+                Copyright 1996-2012 Adobe, Inc. All Rights Reserved
+                More info available at http://www.omniture.com
+            --><script language="JavaScript" type="text/javascript">
+var awsdocs = awsdocs || {};
+awsdocs.prop66 = 'AWS IoT Core';
+awsdocs.prop65 =  'Developer Guide';
+            </script><script src="https://a0.awsstatic.com/s_code/js/3.0/awshome_s_code.js" language="JavaScript" type="text/javascript"></script>
+         <!--/DO NOT REMOVE/-->
+         <!--End SiteCatalyst code version: H.25.2.--></div>
+   </body>
+</html>

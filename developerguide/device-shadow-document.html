@@ -1,0 +1,975 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" ng-app="AWSDocsDocPageApp">
+   <head>
+      <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+      <title>Device Shadow service documents - AWS IoT Core</title>
+      <meta name="viewport" content="width=device-width,initial-scale=1" />
+      <meta name="assets_root" content="assets" />
+      <meta name="target_state" content="device-shadow-document" />
+      <meta name="default_state" content="device-shadow-document" />
+      <link rel="icon" type="image/ico" href="/assets/images/favicon.ico" />
+      <link rel="shortcut icon" type="image/ico" href="/assets/images/favicon.ico" />
+      <link rel="canonical" href="https://docs.aws.amazon.com/iot/latest/developerguide/device-shadow-document.html" />
+      <meta name="description" content="Describes the state documents used by the Device Shadow service in AWS IoT." />
+      <meta name="deployment_region" content="IAD" />
+      <meta name="product" content="AWS IoT Core" />
+      <meta name="guide" content="Developer Guide" />
+      <meta name="locales" content="de_de:Deutsch/en_us:English/es_es:Español/fr_fr:Français/it_it:Italiano/ja_jp:日本語/ko_kr:한국어/pt_br:Português/zh_cn:中文 (简体)/zh_tw:中文 (繁體)" />
+      <meta name="abstract" content="AWS IoT provides secure, bi-directional communication between Internet-connected devices such as sensors, actuators, embedded micro-controllers, or smart appliances and the AWS Cloud. This enables you to collect telemetry data from multiple devices, and store and analyze the data. You can also create applications that enable your users to control these devices from their phones or tablets." />
+      <meta name="guide-locale" content="en_us" />
+      <meta name="tocs" content="toc-contents.json" />
+      <meta name="feedback-item" content="IoT Docs" />
+      <meta name="this_doc_product" content="AWS IoT Core" />
+      <meta name="this_doc_guide" content="Developer Guide" />
+      <link href="assets/css/vendor4.css" rel="stylesheet" />
+      <link href="assets/css/awsdocs-common.css" rel="stylesheet" /><script type="text/javascript" src="assets/js/vendor3.js" defer=""></script><script type="text/javascript" src="assets/js/vendor4.js" defer=""></script><script type="text/javascript" src="assets/js/vendor1.js" defer=""></script><script type="text/javascript" src="assets/js/awsdocs-common.js" defer=""></script><script type="text/javascript" src="assets/js/awsdocs-doc-app.js" defer=""></script></head>
+   <body class="awsdocs awsui">
+      <div class="awsdocs-container">
+         <awsdocs-header></awsdocs-header>
+         <awsui-app-layout id="app-layout" class="awsui-util-no-gutters" ng-controller="ContentController as $ctrl" header-selector="awsdocs-header" navigation-hide="false" navigation-width="$ctrl.navWidth" navigation-open="$ctrl.navOpen" navigation-change="$ctrl.onNavChange($event)" tools-hide="$ctrl.hideTools" tools-width="$ctrl.toolsWidth" tools-open="$ctrl.toolsOpen" tools-change="$ctrl.onToolsChange($event)">
+            <div id="guide-toc" dom-region="navigation">
+               <awsdocs-toc></awsdocs-toc>
+            </div>
+            <div id="main-column" dom-region="content" tabindex="-1">
+               <awsdocs-view class="awsdocs-view">
+                  <div id="awsdocs-content">
+                     <head>
+                        <title>Device Shadow service documents - AWS IoT Core</title>
+                        <meta name="pdf" content="iot-dg.pdf#device-shadow-document" />
+                        <meta name="kindle" content="https://www.amazon.com/dp/B07JBRCWWZ" />
+                        <meta name="github" content="https://github.com/awsdocs/aws-iot-docs/tree/master/developerguide/device-shadow-document.md" />
+                        <meta name="forums" content="http://forums.aws.amazon.com/forum.jspa?forumID=210" />
+                        <meta name="feedback" content="https://docs.aws.amazon.com/forms/aws-doc-feedback?hidden_service_name=IoT%20Docs&amp;topic_url=http://docs.aws.amazon.com/en_us/iot/latest/developerguide/device-shadow-document.html" />
+                        <meta name="feedback-yes" content="feedbackyes.html?topic_url=http://docs.aws.amazon.com/en_us/iot/latest/developerguide/device-shadow-document.html" />
+                        <meta name="feedback-no" content="feedbackno.html?topic_url=http://docs.aws.amazon.com/en_us/iot/latest/developerguide/device-shadow-document.html" />
+                        <meta name="keywords" content="AWS IoT,IoT,Internet of Things" />
+                     </head>
+                     <body>
+                        <div id="main">
+                           <div style="display: none"><a href="iot-dg.pdf#device-shadow-document" target="_blank" rel="noopener noreferrer" title="Open PDF"></a><a target="_blank" rel="noopener noreferrer" href="https://www.amazon.com/dp/B07JBRCWWZ" title="Open Kindle"></a><a href="https://github.com/awsdocs/aws-iot-docs/tree/master/developerguide/device-shadow-document.md" target="_blank" rel="noopener noreferrer" title="Edit this page on GitHub"></a></div>
+                           <div id="breadcrumbs" class="breadcrumb"><a href="http://aws.amazon.com">AWS</a><a href="/index.html">Documentation</a><a href="/iot/index.html">AWS IoT Core</a><a href="what-is-aws-iot.html">Developer Guide</a></div>
+                           <div id="page-toc-src"><a href="#device-shadow-document-syntax">Shadow document examples</a><a href="#document-structure">Document properties</a><a href="#delta-state">Delta state</a><a href="#versioning">Versioning shadow documents</a><a href="#client-token">Client tokens in shadow documents</a><a href="#device-shadow-empty-fields">Empty shadow document
+                                 properties</a><a href="#device-shadow-arrays">Array values in shadow documents</a></div>
+                           <div id="main-content" class="awsui-util-container">
+                              <div id="main-col-body">
+                                 <awsdocs-language-banner data-service="$ctrl.pageService"></awsdocs-language-banner>
+                                 <h1 class="topictitle" id="device-shadow-document">Device Shadow service documents</h1>
+                                 <div class="awsdocs-page-header-container">
+                                    <awsdocs-page-header></awsdocs-page-header>
+                                    <awsdocs-filter-selector id="awsdocs-filter-selector"></awsdocs-filter-selector>
+                                 </div>
+                                 <p>The Device Shadow service respects all rules of the JSON specification. Values,
+                                    objects, and arrays are stored in the device's shadow document.
+                                 </p>
+                                 <div class="highlights" id="inline-topiclist">
+                                    <p><strong>Contents</strong></p>
+                                    <ul>
+                                       <li><a href="#device-shadow-document-syntax">Shadow document examples</a></li>
+                                       <li><a href="#document-structure">Document properties</a></li>
+                                       <li><a href="#delta-state">Delta state</a></li>
+                                       <li><a href="#versioning">Versioning shadow documents</a></li>
+                                       <li><a href="#client-token">Client tokens in shadow documents</a></li>
+                                       <li><a href="#device-shadow-empty-fields">Empty shadow document
+                                             properties</a></li>
+                                       <li><a href="#device-shadow-arrays">Array values in shadow documents</a></li>
+                                    </ul>
+                                 </div>
+                                 
+                                 <h2 id="device-shadow-document-syntax">Shadow document examples</h2>
+                                 <a id="device-shadow-example"></a>
+                                 
+                                 
+                                 
+                                 <p>The Device Shadow service uses these documents in UPDATE, GET, and DELETE
+                                    operations using the <a href="./device-shadow-rest-api.html">REST API</a> or <a href="./device-shadow-mqtt.html">MQTT Pub/Sub Messages</a>.
+                                 </p>
+                                 
+                                 <div class="highlights" id="inline-topiclist">
+                                    <p><strong>Examples</strong></p>
+                                    <ul>
+                                       <li><a href="#device-shadow-example-request-json">Request state
+                                             document</a></li>
+                                       <li><a href="#device-shadow-example-response-json">Response state
+                                             documents</a></li>
+                                       <li><a href="#device-shadow-example-error-json">Error response
+                                             document</a></li>
+                                       <li><a href="#device-shadow-list-json">Shadow name list response
+                                             document</a></li>
+                                    </ul>
+                                 </div>
+                                  
+                                 
+                                 <h3 id="device-shadow-example-request-json">Request state
+                                    document
+                                 </h3>
+                                 
+                                 
+                                 <p>A request state document has the following format:</p>
+                                 <pre class="programlisting"><div class="code-btn-container"><div class="btn-copy-code" title="Copy"><awsui-icon name="copy"></awsui-icon></div></div><code class="JSON "><span>{</span>
+    "state": <span>{</span>
+        "desired": <span>{</span>
+            "<code class="replaceable">attribute1</code>": <code class="replaceable">integer2</code>,
+            "<code class="replaceable">attribute2</code>": "<code class="replaceable">string2</code>",
+            ...
+            "<code class="replaceable">attributeN</code>": <code class="replaceable">boolean2</code>
+        },
+        "reported": <span>{</span>
+            "<code class="replaceable">attribute1</code>": <code class="replaceable">integer1</code>,
+            "<code class="replaceable">attribute2</code>": "<code class="replaceable">string1</code>",
+            ...
+            "<code class="replaceable">attributeN</code>": <code class="replaceable">boolean1</code>
+        }
+    },
+    "clientToken": "<code class="replaceable">token</code>",
+    "version": <code class="replaceable">version</code>
+}</code></pre>
+                                 <div class="itemizedlist">
+                                     
+                                     
+                                     
+                                    
+                                    <ul class="itemizedlist" type="disc">
+                                       <li class="listitem">
+                                          
+                                          <p><code class="code">state</code> — Updates affect only the fields specified.
+                                             Typically, you'll use either the <code class="code">desired</code> or the
+                                             <code class="code">reported</code> property, but not both in the same request.
+                                          </p>
+                                          
+                                          <div class="itemizedlist">
+                                              
+                                              
+                                             
+                                             <ul class="itemizedlist" type="disc">
+                                                <li class="listitem">
+                                                   <p><code class="code">desired</code> — The state properties and values requested to be updated in the
+                                                      device.
+                                                   </p>
+                                                </li>
+                                                <li class="listitem">
+                                                   <p><code class="code">reported</code> — The state properties and values reported by the device.
+                                                   </p>
+                                                </li>
+                                             </ul>
+                                          </div>
+                                          
+                                       </li>
+                                       <li class="listitem">
+                                          
+                                          <p><code class="code">clientToken</code> — If used, you can match the request and
+                                             corresponding response by the client token.
+                                          </p>
+                                          
+                                       </li>
+                                       <li class="listitem">
+                                          
+                                          <p><code class="code">version</code> — If used, the Device Shadow service processes
+                                             the update only if the specified version matches the latest version it
+                                             has.
+                                          </p>
+                                          
+                                       </li>
+                                    </ul>
+                                 </div>
+                                  
+                                  
+                                 
+                                 <h3 id="device-shadow-example-response-json">Response state
+                                    documents
+                                 </h3>
+                                 
+                                 <p>Response state documents have the following format depending on the response type.</p>
+                                  
+                                 
+                                 <h4 id="device-shadow-example-response-json-accepted">/accepted response state
+                                    document
+                                 </h4>
+                                 
+                                 <pre class="programlisting"><div class="code-btn-container"><div class="btn-copy-code" title="Copy"><awsui-icon name="copy"></awsui-icon></div></div><code class="JSON "><span>{</span>
+    "state": <span>{</span>
+        "desired": <span>{</span>
+            "<code class="replaceable">attribute1</code>": <code class="replaceable">integer2</code>,
+            "<code class="replaceable">attribute2</code>": "<code class="replaceable">string2</code>",
+            ...
+            "<code class="replaceable">attributeN</code>": <code class="replaceable">boolean2</code>
+        }
+    },
+    "metadata": <span>{</span>
+        "desired": <span>{</span>
+            "<code class="replaceable">attribute1</code>": <span>{</span>
+                "timestamp": <code class="replaceable">timestamp</code>
+            },
+            "<code class="replaceable">attribute2</code>": <span>{</span>
+                "timestamp": <code class="replaceable">timestamp</code>
+            },
+            ...
+            "<code class="replaceable">attributeN</code>": <span>{</span>
+                "timestamp": <code class="replaceable">timestamp</code>
+            }
+        }
+    },
+    "timestamp": <code class="replaceable">timestamp</code>,
+    "clientToken": "<code class="replaceable">token</code>",
+    "version": <code class="replaceable">version</code>
+}</code></pre>
+                                  
+                                  
+                                 <h4 id="device-shadow-example-response-json-delta">/delta response state
+                                    document
+                                 </h4>
+                                 
+                                 <pre class="programlisting"><div class="code-btn-container"><div class="btn-copy-code" title="Copy"><awsui-icon name="copy"></awsui-icon></div></div><code class="JSON "><span>{</span>
+    "state": <span>{</span>
+        "<code class="replaceable">attribute1</code>": <code class="replaceable">integer2</code>,
+        "<code class="replaceable">attribute2</code>": "<code class="replaceable">string2</code>",
+        ...
+        "<code class="replaceable">attributeN</code>": <code class="replaceable">boolean2</code>
+        }
+    },
+    "metadata": <span>{</span>
+        "<code class="replaceable">attribute1</code>": <span>{</span>
+            "timestamp": <code class="replaceable">timestamp</code>
+        },
+        "<code class="replaceable">attribute2</code>": <span>{</span>
+            "timestamp": <code class="replaceable">timestamp</code>
+        },
+        ...
+        "<code class="replaceable">attributeN</code>": <span>{</span>
+            "timestamp": <code class="replaceable">timestamp</code>
+        }
+    },
+    "timestamp": <code class="replaceable">timestamp</code>,
+    "clientToken": "<code class="replaceable">token</code>",
+    "version": <code class="replaceable">version</code>
+}</code></pre>
+                                  
+                                  
+                                 <h4 id="device-shadow-example-response-json-documents">/documents response state
+                                    document
+                                 </h4>
+                                 
+                                 <pre class="programlisting"><div class="code-btn-container"><div class="btn-copy-code" title="Copy"><awsui-icon name="copy"></awsui-icon></div></div><code class="JSON "><span>{</span>
+  "previous" : <span>{</span>
+    "state": <span>{</span>
+        "desired": <span>{</span>
+            "<code class="replaceable">attribute1</code>": <code class="replaceable">integer2</code>,
+            "<code class="replaceable">attribute2</code>": "<code class="replaceable">string2</code>",
+            ...
+            "<code class="replaceable">attributeN</code>": <code class="replaceable">boolean2</code>
+        },
+        "reported": <span>{</span>
+            "<code class="replaceable">attribute1</code>": <code class="replaceable">integer1</code>,
+            "<code class="replaceable">attribute2</code>": "<code class="replaceable">string1</code>",
+            ...
+            "<code class="replaceable">attributeN</code>": <code class="replaceable">boolean1</code>
+        }
+    },
+    "metadata": <span>{</span>
+        "desired": <span>{</span>
+            "<code class="replaceable">attribute1</code>": <span>{</span>
+                "timestamp": <code class="replaceable">timestamp</code>
+            },
+            "<code class="replaceable">attribute2</code>": <span>{</span>
+                "timestamp": <code class="replaceable">timestamp</code>
+            },
+            ...
+            "<code class="replaceable">attributeN</code>": <span>{</span>
+                "timestamp": <code class="replaceable">timestamp</code>
+            }
+        },
+        "reported": <span>{</span>
+            "<code class="replaceable">attribute1</code>": <span>{</span>
+                "timestamp": <code class="replaceable">timestamp</code>
+            },
+            "<code class="replaceable">attribute2</code>": <span>{</span>
+                "timestamp": <code class="replaceable">timestamp</code>
+            },
+            ...
+            "<code class="replaceable">attributeN</code>": <span>{</span>
+                "timestamp": <code class="replaceable">timestamp</code>
+            }
+        }
+    },
+    "version": <code class="replaceable">version</code>-1
+  },
+  "current": <span>{</span>
+    "state": <span>{</span>
+        "desired": <span>{</span>
+            "<code class="replaceable">attribute1</code>": <code class="replaceable">integer2</code>,
+            "<code class="replaceable">attribute2</code>": "<code class="replaceable">string2</code>",
+            ...
+            "<code class="replaceable">attributeN</code>": <code class="replaceable">boolean2</code>
+        },
+        "reported": <span>{</span>
+            "<code class="replaceable">attribute1</code>": <code class="replaceable">integer2</code>,
+            "<code class="replaceable">attribute2</code>": "<code class="replaceable">string2</code>",
+            ...
+            "<code class="replaceable">attributeN</code>": <code class="replaceable">boolean2</code>
+        }
+    },
+    "metadata": <span>{</span>
+        "desired": <span>{</span>
+            "<code class="replaceable">attribute1</code>": <span>{</span>
+                "timestamp": <code class="replaceable">timestamp</code>
+            },
+            "<code class="replaceable">attribute2</code>": <span>{</span>
+                "timestamp": <code class="replaceable">timestamp</code>
+            },
+            ...
+            "<code class="replaceable">attributeN</code>": <span>{</span>
+                "timestamp": <code class="replaceable">timestamp</code>
+            }
+        },
+        "reported": <span>{</span>
+            "<code class="replaceable">attribute1</code>": <span>{</span>
+                "timestamp": <code class="replaceable">timestamp</code>
+            },
+            "<code class="replaceable">attribute2</code>": <span>{</span>
+                "timestamp": <code class="replaceable">timestamp</code>
+            },
+            ...
+            "<code class="replaceable">attributeN</code>": <span>{</span>
+                "timestamp": <code class="replaceable">timestamp</code>
+            }
+        }
+    },
+    "version": <code class="replaceable">version</code>
+  },
+  "timestamp": <code class="replaceable">timestamp</code>,
+  "clientToken": "<code class="replaceable">token</code>"
+}</code></pre>
+                                  
+                                  
+                                 <h4 id="device-shadow-example-response-json-properties">Response state
+                                    document properties
+                                 </h4>
+                                 
+                                 
+                                 <div class="itemizedlist">
+                                     
+                                     
+                                     
+                                     
+                                     
+                                     
+                                     
+                                    
+                                    <ul class="itemizedlist" type="disc">
+                                       <li class="listitem">
+                                          <p><code class="code">previous</code> — After a successful update, contains the <code class="code">state</code> 
+                                             of the object before the update.
+                                          </p>
+                                       </li>
+                                       <li class="listitem">
+                                          <p><code class="code">current</code> — After a successful update, contains the <code class="code">state</code> 
+                                             of the object after the update.
+                                          </p>
+                                       </li>
+                                       <li class="listitem">
+                                          
+                                          <p><code class="code">state</code></p>
+                                          
+                                          <div class="itemizedlist">
+                                              
+                                              
+                                              
+                                             
+                                             <ul class="itemizedlist" type="disc">
+                                                <li class="listitem">
+                                                   
+                                                   <p><code class="code">reported</code> — Present only if a thing
+                                                      reported any data in the <code class="code">reported</code> section and
+                                                      contains only fields that were in the request state
+                                                      document.
+                                                   </p>
+                                                   
+                                                </li>
+                                                <li class="listitem">
+                                                   
+                                                   <p><code class="code">desired</code> — Present only if a device
+                                                      reported any data in the <code class="code">desired</code> section and
+                                                      contains only fields that were in the request state
+                                                      document.
+                                                   </p>
+                                                   
+                                                </li>
+                                                <li class="listitem">
+                                                   
+                                                   <p><code class="code">delta</code> — Present only if the
+                                                      <code class="code">desired</code> data differs from the shadow's
+                                                      current <code class="code">reported</code> data.
+                                                   </p>
+                                                   
+                                                </li>
+                                             </ul>
+                                          </div>
+                                          
+                                       </li>
+                                       <li class="listitem">
+                                          
+                                          <p><code class="code">metadata</code> — Contains the timestamps for each attribute
+                                             in the <code class="code">desired</code> and <code class="code">reported</code> sections so that you
+                                             can determine when the state was updated.
+                                          </p>
+                                          
+                                       </li>
+                                       <li class="listitem">
+                                          
+                                          <p><code class="code">timestamp</code> — The Epoch date and time the response was
+                                             generated by AWS IoT.
+                                          </p>
+                                          
+                                       </li>
+                                       <li class="listitem">
+                                          
+                                          <p><code class="code">clientToken</code> — Present only if a client token was used
+                                             when publishing valid JSON to the <code class="code">/update</code> topic.
+                                          </p>
+                                          
+                                       </li>
+                                       <li class="listitem">
+                                          
+                                          <p><code class="code">version</code> — The current version of the document for the
+                                             device's shadow shared in AWS IoT. It is increased by one over the previous
+                                             version of the document.
+                                          </p>
+                                          
+                                       </li>
+                                    </ul>
+                                 </div>
+                                  
+                                  
+                                  
+                                 
+                                 <h3 id="device-shadow-example-error-json">Error response
+                                    document
+                                 </h3>
+                                 
+                                 
+                                 <p>An error response document has the following format:</p>
+                                 <pre class="programlisting"><div class="code-btn-container"><div class="btn-copy-code" title="Copy"><awsui-icon name="copy"></awsui-icon></div></div><code class="JSON "><span>{</span>
+    "code": <code class="replaceable">error-code</code>,
+    "message": "<code class="replaceable">error-message</code>",
+    "timestamp": <code class="replaceable">timestamp</code>,
+    "clientToken": "<code class="replaceable">token</code>"
+}</code></pre>
+                                 <div class="itemizedlist">
+                                     
+                                     
+                                     
+                                     
+                                    
+                                    <ul class="itemizedlist" type="disc">
+                                       <li class="listitem">
+                                          
+                                          <p><code class="code">code</code> — An HTTP response code that indicates the type of
+                                             error.
+                                          </p>
+                                          
+                                       </li>
+                                       <li class="listitem">
+                                          
+                                          <p><code class="code">message</code> — A text message that provides additional
+                                             information.
+                                          </p>
+                                          
+                                       </li>
+                                       <li class="listitem">
+                                          
+                                          <p><code class="code">timestamp</code> — The date and time the response was
+                                             generated by AWS IoT. This property is not present in all error response
+                                             documents.
+                                          </p>
+                                          
+                                       </li>
+                                       <li class="listitem">
+                                          
+                                          <p><code class="code">clientToken</code> — Present only if a client token was
+                                             used in the published message.
+                                          </p>
+                                          
+                                       </li>
+                                    </ul>
+                                 </div>
+                                 
+                                 <p>For more information, see <a href="./device-shadow-error-messages.html">Device Shadow error messages</a>.
+                                 </p>
+                                  
+                                  
+                                 
+                                 <h3 id="device-shadow-list-json">Shadow name list response
+                                    document
+                                 </h3>
+                                 
+                                 
+                                 <p>A shadow name list response document has the following format:</p>
+                                 <pre class="programlisting"><div class="code-btn-container"><div class="btn-copy-code" title="Copy"><awsui-icon name="copy"></awsui-icon></div></div><code class="JSON "><span>{</span>
+    "results": [
+        "<code class="replaceable">shadowName-1</code>",
+        "<code class="replaceable">shadowName-2</code>",
+        "<code class="replaceable">shadowName-3</code>",
+        "<code class="replaceable">shadowName-n</code>"
+    ],
+    "nextToken": "<code class="replaceable">nextToken</code>",
+    "timestamp": <code class="replaceable">timestamp</code>
+}</code></pre>
+                                 <div class="itemizedlist">
+                                     
+                                     
+                                     
+                                    
+                                    <ul class="itemizedlist" type="disc">
+                                       <li class="listitem">
+                                          
+                                          <p><code class="code">results</code> — The array of shadow names.
+                                          </p>
+                                          
+                                       </li>
+                                       <li class="listitem">
+                                          
+                                          <p><code class="code">nextToken</code> — The token value to use in paged
+                                             requests to get the next page in the sequence. This property is not
+                                             present when there are no more shadow names to return. 
+                                          </p>
+                                          
+                                       </li>
+                                       <li class="listitem">
+                                          
+                                          <p><code class="code">timestamp</code> — The date and time the response was
+                                             generated by AWS IoT.
+                                          </p>
+                                          
+                                       </li>
+                                    </ul>
+                                 </div>
+                                  
+                                  
+                                 
+                                 <h2 id="document-structure">Document properties</h2>
+                                 
+                                 
+                                 <p>A device's shadow document has the following properties:</p>
+                                 
+                                 <div class="variablelist">
+                                     
+                                     
+                                     
+                                     
+                                     
+                                    
+                                    <dl>
+                                       
+                                       <dt><a id="state"></a><span class="term"><code class="code">state</code></span></dt>
+                                       
+                                       <dd>
+                                          
+                                          <div class="variablelist">
+                                              
+                                              
+                                             
+                                             <dl>
+                                                
+                                                <dt><a id="desired"></a><span class="term"><code class="code">desired</code></span></dt>
+                                                
+                                                <dd>
+                                                   
+                                                   <p>The desired state of the device. Apps can write to this
+                                                      portion of the document to update the state of a device
+                                                      directly without having to connect to it.
+                                                   </p>
+                                                   
+                                                </dd>
+                                                 
+                                                
+                                                <dt><a id="reported"></a><span class="term"><code class="code">reported</code></span></dt>
+                                                
+                                                <dd>
+                                                   
+                                                   <p>The reported state of the device. Devices write to this
+                                                      portion of the document to report their new state. Apps read
+                                                      this portion of the document to determine the device's
+                                                      last-reported state.
+                                                   </p>
+                                                   
+                                                </dd>
+                                                
+                                             </dl>
+                                          </div>
+                                          
+                                       </dd>
+                                        
+                                       
+                                       <dt><a id="metadata"></a><span class="term"><code class="code">metadata</code></span></dt>
+                                       
+                                       <dd>
+                                          
+                                          <p>Information about the data stored in the <code class="code">state</code> section of
+                                             the document. This includes timestamps, in Epoch time, for each
+                                             attribute in the <code class="code">state</code> section, which enables you to
+                                             determine when they were updated.
+                                          </p>
+                                          
+                                          <div class="awsdocs-note">
+                                             <div class="awsdocs-note-title">
+                                                <awsui-icon name="status-info" variant="link"></awsui-icon><span>Note</span></div>
+                                             <div class="awsdocs-note-text">
+                                                <p>Metadata do not contribute to the document size for service limits
+                                                   or pricing. For more information, see <a href="https://docs.aws.amazon.com/general/latest/gr/aws_service_limits.html#limits_iot">AWS IoT Service
+                                                      Limits</a>.
+                                                </p>
+                                             </div>
+                                          </div>
+                                          
+                                       </dd>
+                                        
+                                       
+                                       <dt><a id="timestamp"></a><span class="term"><code class="code">timestamp</code></span></dt>
+                                       
+                                       <dd>
+                                          
+                                          <p>Indicates when the message was sent by AWS IoT. By using the timestamp
+                                             in the message and the timestamps for individual attributes in the
+                                             <code class="code">desired</code> or <code class="code">reported</code> section, a device can
+                                             determine a property's age, even if the device doesn't have an internal
+                                             clock.
+                                          </p>
+                                          
+                                       </dd>
+                                        
+                                       
+                                       <dt><a id="clientToken"></a><span class="term"><code class="code">clientToken</code></span></dt>
+                                       
+                                       <dd>
+                                          
+                                          <p>A string unique to the device that enables you to associate responses
+                                             with requests in an MQTT environment.
+                                          </p>
+                                          
+                                       </dd>
+                                        
+                                       
+                                       <dt><a id="version"></a><span class="term"><code class="code">version</code></span></dt>
+                                       
+                                       <dd>
+                                          
+                                          <p>The document version. Every time the document is updated, this version
+                                             number is incremented. Used to ensure the version of the document being
+                                             updated is the most recent.
+                                          </p>
+                                          
+                                       </dd>
+                                       
+                                    </dl>
+                                 </div>
+                                 
+                                 <p>For more information, see <a href="#device-shadow-document-syntax">Shadow document examples</a>.
+                                 </p>
+                                  
+                                 
+                                 <h2 id="delta-state">Delta state</h2>
+                                 <a id="observing-state-changes"></a>
+                                 
+                                 <p>Delta state is a virtual type of state that contains the difference between the
+                                    <code class="code">desired</code> and <code class="code">reported</code> states. Fields in the
+                                    <code class="code">desired</code> section that are not in the <code class="code">reported</code> section
+                                    are included in the delta. Fields that are in the <code class="code">reported</code> section and
+                                    not in the <code class="code">desired</code> section are not included in the delta. The delta
+                                    contains metadata, and its values are equal to the metadata in the
+                                    <code class="code">desired</code> field. For example:
+                                 </p>
+                                 <pre class="programlisting"><div class="code-btn-container"><div class="btn-copy-code" title="Copy"><awsui-icon name="copy"></awsui-icon></div></div><code class="JSON "><span>{</span>
+  "state": <span>{</span>
+    "desired": <span>{</span>
+      "color": "RED",
+      "state": "STOP"
+    },
+    "reported": <span>{</span>
+      "color": "GREEN",
+      "engine": "ON"
+    },
+    "delta": <span>{</span>
+      "color": "RED",
+      "state": "STOP"
+    }
+  },
+  "metadata": <span>{</span>
+    "desired": <span>{</span>
+      "color": <span>{</span>
+        "timestamp": 12345
+      },
+      "state": <span>{</span>
+        "timestamp": 12345
+      }
+      },
+      "reported": <span>{</span>
+        "color": <span>{</span>
+          "timestamp": 12345
+        },
+        "engine": <span>{</span>
+          "timestamp": 12345
+        }
+      },
+      "delta": <span>{</span>
+        "color": <span>{</span>
+          "timestamp": 12345
+        },
+        "state": <span>{</span>
+          "timestamp": 12345
+        }
+      }
+    },
+    "version": 17,
+    "timestamp": 123456789
+  }
+}</code></pre>
+                                 <p>When nested objects differ, the delta contains the path all the way to the
+                                    root.
+                                 </p>
+                                 <pre class="programlisting"><div class="code-btn-container"><div class="btn-copy-code" title="Copy"><awsui-icon name="copy"></awsui-icon></div></div><code class="JSON "><span>{</span>
+  "state": <span>{</span>
+    "desired": <span>{</span>
+      "lights": <span>{</span>
+        "color": <span>{</span>
+          "r": 255,
+          "g": 255,
+          "b": 255
+        }
+      }
+    },
+    "reported": <span>{</span>
+      "lights": <span>{</span>
+        "color": <span>{</span>
+          "r": 255,
+          "g": 0,
+          "b": 255
+        }
+      }
+    },
+    "delta": <span>{</span>
+      "lights": <span>{</span>
+        "color": <span>{</span>
+          "g": 255
+        }
+      }
+    }
+  },
+  "version": 18,
+  "timestamp": 123456789
+}</code></pre>
+                                 <p>The Device Shadow service calculates the delta by iterating through each field in
+                                    the <code class="code">desired</code> state and comparing it to the <code class="code">reported</code>
+                                    state.
+                                 </p>
+                                 
+                                 <p>Arrays are treated like values. If an array in the <code class="code">desired</code> section
+                                    doesn't match the array in the <code class="code">reported</code> section, then the entire
+                                    desired array is copied into the delta.
+                                 </p>
+                                 
+                                  
+                                 
+                                 <h2 id="versioning">Versioning shadow documents</h2>
+                                 
+                                 
+                                 <p>The Device Shadow service supports versioning on every update message, both
+                                    request and response. This means that with every update of a shadow, the version of
+                                    the JSON document is incremented. This ensures two things:
+                                 </p>
+                                 
+                                 <div class="itemizedlist">
+                                     
+                                     
+                                    
+                                    <ul class="itemizedlist" type="disc">
+                                       <li class="listitem">
+                                          
+                                          <p>A client can receive an error if it attempts to overwrite a shadow using
+                                             an older version number. The client is informed it must resync before it can
+                                             update a device's shadow.
+                                          </p>
+                                          
+                                       </li>
+                                       <li class="listitem">
+                                          
+                                          <p>A client can decide not to act on a received message if the message has a
+                                             lower version than the version stored by the client. 
+                                          </p>
+                                          
+                                       </li>
+                                    </ul>
+                                 </div>
+                                 
+                                 <p>A client can bypass version matching by not including a version in the shadow
+                                    document.
+                                 </p>
+                                  
+                                 
+                                 <h2 id="client-token">Client tokens in shadow documents</h2>
+                                 
+                                 
+                                 <p>You can use a client token with MQTT-based messaging to verify the same client
+                                    token is contained in a request and request response. This ensures the response and
+                                    request are associated.
+                                 </p>
+                                 
+                                 <div class="awsdocs-note">
+                                    <div class="awsdocs-note-title">
+                                       <awsui-icon name="status-info" variant="link"></awsui-icon><span>Note</span></div>
+                                    <div class="awsdocs-note-text">
+                                       <p>The client token can be no longer than 64 bytes. A client token that is longer
+                                          than 64 bytes causes a 400 (Bad Request) response and an <em>Invalid
+                                             clientToken</em> error message.
+                                       </p>
+                                    </div>
+                                 </div>
+                                  
+                                 
+                                 <h2 id="device-shadow-empty-fields">Empty shadow document
+                                    properties
+                                 </h2>
+                                 
+                                 
+                                 <p>The <code class="code">reported</code> and <code class="code">desired</code> properties in a shadow document
+                                    can be empty or omitted when they don't apply to the current shadow state. For
+                                    example, a shadow document contains a <code class="code">desired</code> property only if it has a
+                                    desired state. The following is a valid example of a state document with no
+                                    <code class="code">desired</code> property:
+                                 </p>
+                                 <pre class="programlisting"><div class="code-btn-container"><div class="btn-copy-code" title="Copy"><awsui-icon name="copy"></awsui-icon></div></div><code class="JSON "><span>{</span>
+    "reported" : <span>{</span> "temp": 55 }
+}</code></pre>
+                                 <p>The <code class="code">reported</code> property can also be empty, such as if the shadow has
+                                    not been updated by the device:
+                                 </p>
+                                 <pre class="programlisting"><div class="code-btn-container"><div class="btn-copy-code" title="Copy"><awsui-icon name="copy"></awsui-icon></div></div><code class="JSON "><span>{</span>
+    "desired" : <span>{</span> "color" : "RED" }
+}</code></pre>
+                                 <p>If an update causes the <code class="code">desired</code> or <code class="code">reported</code> properties
+                                    to become null, it is removed from the document. The following shows how to remove
+                                    the <code class="code">desired</code> property by setting it to <code class="code">null</code>. You might do
+                                    this when a device updates its state, for example.
+                                 </p>
+                                 <pre class="programlisting"><div class="code-btn-container"><div class="btn-copy-code" title="Copy"><awsui-icon name="copy"></awsui-icon></div></div><code class="JSON "><span>{</span> 
+    "state": <span>{</span>
+        "reported": <span>{</span>
+            "color": "red" 
+        }, 
+        "desired": null 
+    } 
+}</code></pre>
+                                 <p>A shadow document can also have neither <code class="code">desired</code> or
+                                    <code class="code">reported</code> properties, making the shadow document empty. This is an
+                                    example of an empty, yet valid shadow document.
+                                 </p>
+                                 <pre class="programlisting"><div class="code-btn-container"><div class="btn-copy-code" title="Copy"><awsui-icon name="copy"></awsui-icon></div></div><code class="JSON "><span>{</span>
+}</code></pre>
+                                  
+                                 <h2 id="device-shadow-arrays">Array values in shadow documents</h2>
+                                 
+                                 
+                                 <p>Shadows support arrays, but treat them as normal values in that an update to an
+                                    array replaces the whole array. It is not possible to update part of an
+                                    array.
+                                 </p>
+                                 
+                                 <p>Initial state:</p>
+                                 <pre class="programlisting"><div class="code-btn-container"><div class="btn-copy-code" title="Copy"><awsui-icon name="copy"></awsui-icon></div></div><code class="JSON "><span>{</span>
+    "desired" : <span>{</span> "colors" : ["RED", "GREEN", "BLUE" ] }
+}</code></pre>
+                                 <p>Update:</p>
+                                 <pre class="programlisting"><div class="code-btn-container"><div class="btn-copy-code" title="Copy"><awsui-icon name="copy"></awsui-icon></div></div><code class="JSON "><span>{</span>
+    "desired" : <span>{</span> "colors" : ["RED"] }
+}</code></pre>
+                                 <p>Final state:</p>
+                                 <pre class="programlisting"><div class="code-btn-container"><div class="btn-copy-code" title="Copy"><awsui-icon name="copy"></awsui-icon></div></div><code class="JSON "><span>{</span>
+    "desired" : <span>{</span> "colors" : ["RED"] }
+}</code></pre>
+                                 <p>Arrays can't have null values. For example, the following array is not valid and
+                                    will be rejected.
+                                 </p>
+                                 <pre class="programlisting"><div class="code-btn-container"><div class="btn-copy-code" title="Copy"><awsui-icon name="copy"></awsui-icon></div></div><code class="JSON "><span>{</span>
+    "desired" : <span>{</span> 
+        "colors" : [ null, "RED", "GREEN" ]
+    }
+}</code></pre>
+                                 <awsdocs-copyright class="copyright-print"></awsdocs-copyright>
+                                 <awsdocs-thumb-feedback right-edge="{{$ctrl.thumbFeedbackRightEdge}}"></awsdocs-thumb-feedback>
+                              </div>
+                              <noscript>
+                                 <div>
+                                    <div>
+                                       <div>
+                                          <div id="js_error_message">
+                                             <p><img src="https://d1ge0kk1l5kms0.cloudfront.net/images/G/01/webservices/console/warning.png" alt="Warning" /> <strong>Javascript is disabled or is unavailable in your
+                                                   browser.</strong></p>
+                                             <p>To use the Amazon Web Services Documentation, Javascript must be
+                                                enabled. Please refer to your browser's Help pages for instructions.
+                                             </p>
+                                          </div>
+                                       </div>
+                                    </div>
+                                 </div>
+                              </noscript>
+                              <div id="main-col-footer" class="awsui-util-font-size-0">
+                                 <div id="doc-conventions"><a target="_top" href="/general/latest/gr/docconventions.html">Document Conventions</a></div>
+                                 <div class="prev-next">
+                                    <div id="previous" class="prev-link" accesskey="p" href="./device-shadow-mqtt.html">Device Shadow MQTT topics</div>
+                                    <div id="next" class="next-link" accesskey="n" href="./device-shadow-error-messages.html">Device Shadow error messages</div>
+                                 </div>
+                              </div>
+                              <awsdocs-page-utilities></awsdocs-page-utilities>
+                           </div>
+                           <div id="quick-feedback-yes" style="display: none;">
+                              <div class="title">Did this page help you? - Yes</div>
+                              <div class="content">
+                                 <p>Thanks for letting us know we're doing a good
+                                    job!
+                                 </p>
+                                 <p>If you've got a moment, please tell us what we did right
+                                    so we can do more of it.
+                                 </p>
+                                 <p>
+                                    <awsui-button id="fblink" target="_blank" text="Feedback" click="linkClick($event)" href="https://docs.aws.amazon.com/forms/aws-doc-feedback?hidden_service_name=IoT Docs&amp;topic_url=https://docs.aws.amazon.com/en_us/iot/latest/developerguide/device-shadow-document.html"></awsui-button>
+                                 </p>
+                              </div>
+                           </div>
+                           <div id="quick-feedback-no" style="display: none;">
+                              <div class="title">Did this page help you? - No</div>
+                              <div class="content">
+                                 <p>Thanks for letting us know this page needs work. We're
+                                    sorry we let you down.
+                                 </p>
+                                 <p>If you've got a moment, please tell us how we can make
+                                    the documentation better.
+                                 </p>
+                                 <p>
+                                    <awsui-button id="fblink" target="_blank" text="Feedback" click="linkClick($event)" href="https://docs.aws.amazon.com/forms/aws-doc-feedback?hidden_service_name=IoT Docs&amp;topic_url=https://docs.aws.amazon.com/en_us/iot/latest/developerguide/device-shadow-document.html"></awsui-button>
+                                 </p>
+                              </div>
+                           </div>
+                        </div>
+                     </body>
+                  </div>
+               </awsdocs-view>
+               <div class="page-loading-indicator" id="page-loading-indicator">
+                  <awsui-spinner size="large"></awsui-spinner>
+               </div>
+            </div>
+            <div id="tools-panel" dom-region="tools">
+               <awsdocs-tools-panel id="awsdocs-tools-panel"></awsdocs-tools-panel>
+            </div>
+         </awsui-app-layout>
+         <awsdocs-cookie-banner class="doc-cookie-banner"></awsdocs-cookie-banner>
+         <!--
+                SiteCatalyst code version: H.25.2.
+                Copyright 1996-2012 Adobe, Inc. All Rights Reserved
+                More info available at http://www.omniture.com
+            --><script language="JavaScript" type="text/javascript">
+var awsdocs = awsdocs || {};
+awsdocs.prop66 = 'AWS IoT Core';
+awsdocs.prop65 =  'Developer Guide';
+            </script><script src="https://a0.awsstatic.com/s_code/js/3.0/awshome_s_code.js" language="JavaScript" type="text/javascript"></script>
+         <!--/DO NOT REMOVE/-->
+         <!--End SiteCatalyst code version: H.25.2.--></div>
+   </body>
+</html>

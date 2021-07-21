@@ -1,0 +1,321 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" ng-app="AWSDocsDocPageApp">
+   <head>
+      <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+      <title>Try the AWS IoT Core interactive demo - AWS IoT Core</title>
+      <meta name="viewport" content="width=device-width,initial-scale=1" />
+      <meta name="assets_root" content="assets" />
+      <meta name="target_state" content="interactive-demo" />
+      <meta name="default_state" content="interactive-demo" />
+      <link rel="icon" type="image/ico" href="/assets/images/favicon.ico" />
+      <link rel="shortcut icon" type="image/ico" href="/assets/images/favicon.ico" />
+      <link rel="canonical" href="https://docs.aws.amazon.com/iot/latest/developerguide/interactive-demo.html" />
+      <meta name="description" content="The interactive demo shows the components of a simple IoT solution built on AWS IoT and how they interact with AWS IoT Core services. It does not create any AWS IoT resources nor does it require that you download any software or do any coding." />
+      <meta name="deployment_region" content="IAD" />
+      <meta name="product" content="AWS IoT Core" />
+      <meta name="guide" content="Developer Guide" />
+      <meta name="locales" content="de_de:Deutsch/en_us:English/es_es:Español/fr_fr:Français/it_it:Italiano/ja_jp:日本語/ko_kr:한국어/pt_br:Português/zh_cn:中文 (简体)/zh_tw:中文 (繁體)" />
+      <meta name="abstract" content="AWS IoT provides secure, bi-directional communication between Internet-connected devices such as sensors, actuators, embedded micro-controllers, or smart appliances and the AWS Cloud. This enables you to collect telemetry data from multiple devices, and store and analyze the data. You can also create applications that enable your users to control these devices from their phones or tablets." />
+      <meta name="guide-locale" content="en_us" />
+      <meta name="tocs" content="toc-contents.json" />
+      <meta name="feedback-item" content="IoT Docs" />
+      <meta name="this_doc_product" content="AWS IoT Core" />
+      <meta name="this_doc_guide" content="Developer Guide" />
+      <link href="assets/css/vendor4.css" rel="stylesheet" />
+      <link href="assets/css/awsdocs-common.css" rel="stylesheet" /><script type="text/javascript" src="assets/js/vendor3.js" defer=""></script><script type="text/javascript" src="assets/js/vendor4.js" defer=""></script><script type="text/javascript" src="assets/js/vendor1.js" defer=""></script><script type="text/javascript" src="assets/js/awsdocs-common.js" defer=""></script><script type="text/javascript" src="assets/js/awsdocs-doc-app.js" defer=""></script></head>
+   <body class="awsdocs awsui">
+      <div class="awsdocs-container">
+         <awsdocs-header></awsdocs-header>
+         <awsui-app-layout id="app-layout" class="awsui-util-no-gutters" ng-controller="ContentController as $ctrl" header-selector="awsdocs-header" navigation-hide="false" navigation-width="$ctrl.navWidth" navigation-open="$ctrl.navOpen" navigation-change="$ctrl.onNavChange($event)" tools-hide="$ctrl.hideTools" tools-width="$ctrl.toolsWidth" tools-open="$ctrl.toolsOpen" tools-change="$ctrl.onToolsChange($event)">
+            <div id="guide-toc" dom-region="navigation">
+               <awsdocs-toc></awsdocs-toc>
+            </div>
+            <div id="main-column" dom-region="content" tabindex="-1">
+               <awsdocs-view class="awsdocs-view">
+                  <div id="awsdocs-content">
+                     <head>
+                        <title>Try the AWS IoT Core interactive demo - AWS IoT Core</title>
+                        <meta name="pdf" content="iot-dg.pdf#interactive-demo" />
+                        <meta name="kindle" content="https://www.amazon.com/dp/B07JBRCWWZ" />
+                        <meta name="github" content="https://github.com/awsdocs/aws-iot-docs/tree/master/developerguide/interactive-demo.md" />
+                        <meta name="forums" content="http://forums.aws.amazon.com/forum.jspa?forumID=210" />
+                        <meta name="feedback" content="https://docs.aws.amazon.com/forms/aws-doc-feedback?hidden_service_name=IoT%20Docs&amp;topic_url=http://docs.aws.amazon.com/en_us/iot/latest/developerguide/interactive-demo.html" />
+                        <meta name="feedback-yes" content="feedbackyes.html?topic_url=http://docs.aws.amazon.com/en_us/iot/latest/developerguide/interactive-demo.html" />
+                        <meta name="feedback-no" content="feedbackno.html?topic_url=http://docs.aws.amazon.com/en_us/iot/latest/developerguide/interactive-demo.html" />
+                        <meta name="keywords" content="AWS IoT,IoT,Internet of Things" />
+                     </head>
+                     <body>
+                        <div id="main">
+                           <div style="display: none"><a href="iot-dg.pdf#interactive-demo" target="_blank" rel="noopener noreferrer" title="Open PDF"></a><a target="_blank" rel="noopener noreferrer" href="https://www.amazon.com/dp/B07JBRCWWZ" title="Open Kindle"></a><a href="https://github.com/awsdocs/aws-iot-docs/tree/master/developerguide/interactive-demo.md" target="_blank" rel="noopener noreferrer" title="Edit this page on GitHub"></a></div>
+                           <div id="breadcrumbs" class="breadcrumb"><a href="http://aws.amazon.com">AWS</a><a href="/index.html">Documentation</a><a href="/iot/index.html">AWS IoT Core</a><a href="what-is-aws-iot.html">Developer Guide</a></div>
+                           <div id="main-content" class="awsui-util-container">
+                              <div id="main-col-body">
+                                 <awsdocs-language-banner data-service="$ctrl.pageService"></awsdocs-language-banner>
+                                 <h1 class="topictitle" id="interactive-demo">Try the AWS IoT Core interactive demo</h1>
+                                 <div class="awsdocs-page-header-container">
+                                    <awsdocs-page-header></awsdocs-page-header>
+                                    <awsdocs-filter-selector id="awsdocs-filter-selector"></awsdocs-filter-selector>
+                                 </div>
+                                 <p>The interactive demo shows the components of a simple IoT solution built on AWS IoT
+                                    and
+                                    how they interact with AWS IoT Core services. It does not create any AWS IoT resources
+                                    nor
+                                    does it require that you download any software or do any coding.
+                                 </p>
+                                 <p>You can expect to spend about 10 minutes with this demo. The tile in the console says
+                                    that it takes 5 minutes, and you can probably do it in 5 minutes, but 10 minutes will
+                                    give you time to explore each of the different steps more thoroughly.
+                                 </p>
+                                 <div class="procedure">
+                                    <p class="title"><b>To run the AWS IoT Core interactive demo</b></p>
+                                    <ol>
+                                       <li>
+                                          
+                                          <p>Open your <a href="https://console.aws.amazon.com/iot/home" rel="noopener noreferrer" target="_blank"><span>AWS IoT console</span><awsui-icon class="awsdocs-link-icon" name="external"></awsui-icon></a>
+                                             and from the left menu, choose <b>Learn</b>.
+                                          </p>
+                                          
+                                          <div class="mediaobject">
+                                              
+                                             <img src="images/aws-iot-home.png" class="aws-docs-img-whiteBg aws-docs-img-padding" alt="&#xA;                        AWS IoT console home page&#xA;                    " />
+                                              
+                                              
+                                             
+                                          </div>
+                                          
+                                       </li>
+                                       <li>
+                                          
+                                          <p>On the <b>See how AWS IoT works</b> tile, choose <b>Start
+                                                the tutorial</b>.
+                                          </p>
+                                          
+                                          <div class="mediaobject">
+                                              
+                                             <img src="images/aws-iot-learn-home-demo.png" class="aws-docs-img-whiteBg aws-docs-img-padding" alt="&#xA;                        AWS IoT console Learn home page&#xA;                    " />
+                                              
+                                              
+                                             
+                                          </div>
+                                          
+                                       </li>
+                                       <li>
+                                          
+                                          <p>On the <b>AWS IoT Interactive Tutorial</b> page, review the
+                                             tutorial overview to get an idea of what you'll learn.
+                                          </p>
+                                          
+                                          <p>Choose <b>Start tutorial</b> when you're ready to
+                                             continue.
+                                          </p>
+                                          
+                                       </li>
+                                       <li>
+                                          
+                                          <p class="title"><b>Interactive demo step 1</b></p>
+                                          
+                                          <p>Read the instructions in the right panel, which describe the IoT system
+                                             components.
+                                          </p>
+                                          
+                                          <p>Choose the different buttons on the control unit and watch the effect on the
+                                             connected light bulb.
+                                          </p>
+                                          
+                                          <div class="mediaobject">
+                                              
+                                             <img src="images/aws-iot-learn-demo-step-1.png" class="aws-docs-img-whiteBg aws-docs-img-padding" alt="&#xA;                        AWS IoT interactive demo - Step 1&#xA;                    " />
+                                              
+                                              
+                                             
+                                          </div>
+                                          
+                                          <p>Choose <b>Next</b> to continue.
+                                          </p>
+                                          
+                                       </li>
+                                       <li>
+                                          
+                                          <p class="title"><b>Interactive demo step 2</b></p>
+                                          
+                                          <p>Read the instructions in the right panel, which describe the new
+                                             components.
+                                          </p>
+                                          
+                                          <p>Choose the different buttons on the control unit and watch the effect on the
+                                             connected light bulb.
+                                          </p>
+                                          
+                                          <p>Move the <b>Rule enable toggle switch</b> to disable the rule
+                                             and choose different buttons on the control unit to see how the bulb behaves
+                                             differently.
+                                          </p>
+                                          
+                                          <div class="mediaobject">
+                                              
+                                             <img src="images/aws-iot-learn-demo-step-2.png" class="aws-docs-img-whiteBg aws-docs-img-padding" alt="&#xA;                        AWS IoT interactive demo - Step2&#xA;                    " />
+                                              
+                                              
+                                             
+                                          </div>
+                                          
+                                          <p>Choose <b>Next</b> to continue.
+                                          </p>
+                                          
+                                       </li>
+                                       <li>
+                                          
+                                          <p class="title"><b>Interactive demo step 3</b></p>
+                                          
+                                          <p>This step adds another rule. Read the instructions in the right panel to
+                                             understand the new rule, and then try the interactions described in the right
+                                             panel.
+                                          </p>
+                                          
+                                          <p>Choose <b>Next</b> to continue.
+                                          </p>
+                                          
+                                       </li>
+                                       <li>
+                                          
+                                          <p class="title"><b>Interactive demo step 4</b></p>
+                                          
+                                          <p>This step adds a device shadow to AWS IoT and a power toggle to the connected
+                                             bulb.
+                                          </p>
+                                          
+                                          <p>Read the instructions in the right panel to understand how the new components
+                                             will affect the system operation and then try the interactions described in the
+                                             right panel.
+                                          </p>
+                                          
+                                          <p>Choose <b>Next</b> to continue.
+                                          </p>
+                                          
+                                       </li>
+                                       <li>
+                                          
+                                          <p class="title"><b>Interactive demo step 5</b></p>
+                                          
+                                          <p>This step adds a mobile device with an app at the bottom of the screen, which
+                                             interacts with the IoT solution.
+                                          </p>
+                                          
+                                          <p>Read the instructions in the right panel to understand how the new components
+                                             work and then try the interactions described in the right panel.
+                                          </p>
+                                          
+                                          <div class="mediaobject">
+                                              
+                                             <img src="images/aws-iot-learn-demo-step-5.png" class="aws-docs-img-whiteBg aws-docs-img-padding" alt="&#xA;                        AWS IoT interactive demo - Step 5&#xA;                    " />
+                                              
+                                              
+                                             
+                                          </div>
+                                          
+                                          <p>Choose <b>Next</b> to continue.
+                                          </p>
+                                          
+                                       </li>
+                                       <li>
+                                          
+                                          <p class="title"><b>Interactive demo step 6</b></p>
+                                          
+                                          <p>This is the final step of the demo where you can review and explore how this
+                                             IoT solution works.
+                                          </p>
+                                          
+                                          <p>Choose <b>Get started</b> to continue.
+                                          </p>
+                                          
+                                       </li>
+                                       <li>
+                                          
+                                          <p>On the <b>Register a thing</b> page, choose
+                                             <b>Cancel</b> to exit the demo.
+                                          </p>
+                                          
+                                       </li>
+                                    </ol>
+                                 </div>
+                                 <awsdocs-copyright class="copyright-print"></awsdocs-copyright>
+                                 <awsdocs-thumb-feedback right-edge="{{$ctrl.thumbFeedbackRightEdge}}"></awsdocs-thumb-feedback>
+                              </div>
+                              <noscript>
+                                 <div>
+                                    <div>
+                                       <div>
+                                          <div id="js_error_message">
+                                             <p><img src="https://d1ge0kk1l5kms0.cloudfront.net/images/G/01/webservices/console/warning.png" alt="Warning" /> <strong>Javascript is disabled or is unavailable in your
+                                                   browser.</strong></p>
+                                             <p>To use the Amazon Web Services Documentation, Javascript must be
+                                                enabled. Please refer to your browser's Help pages for instructions.
+                                             </p>
+                                          </div>
+                                       </div>
+                                    </div>
+                                 </div>
+                              </noscript>
+                              <div id="main-col-footer" class="awsui-util-font-size-0">
+                                 <div id="doc-conventions"><a target="_top" href="/general/latest/gr/docconventions.html">Document Conventions</a></div>
+                                 <div class="prev-next">
+                                    <div id="previous" class="prev-link" accesskey="p" href="./setting-up.html">Set up your AWS account</div>
+                                    <div id="next" class="next-link" accesskey="n" href="./iot-quick-start.html">Try the AWS IoT quick connect</div>
+                                 </div>
+                              </div>
+                              <awsdocs-page-utilities></awsdocs-page-utilities>
+                           </div>
+                           <div id="quick-feedback-yes" style="display: none;">
+                              <div class="title">Did this page help you? - Yes</div>
+                              <div class="content">
+                                 <p>Thanks for letting us know we're doing a good
+                                    job!
+                                 </p>
+                                 <p>If you've got a moment, please tell us what we did right
+                                    so we can do more of it.
+                                 </p>
+                                 <p>
+                                    <awsui-button id="fblink" target="_blank" text="Feedback" click="linkClick($event)" href="https://docs.aws.amazon.com/forms/aws-doc-feedback?hidden_service_name=IoT Docs&amp;topic_url=https://docs.aws.amazon.com/en_us/iot/latest/developerguide/interactive-demo.html"></awsui-button>
+                                 </p>
+                              </div>
+                           </div>
+                           <div id="quick-feedback-no" style="display: none;">
+                              <div class="title">Did this page help you? - No</div>
+                              <div class="content">
+                                 <p>Thanks for letting us know this page needs work. We're
+                                    sorry we let you down.
+                                 </p>
+                                 <p>If you've got a moment, please tell us how we can make
+                                    the documentation better.
+                                 </p>
+                                 <p>
+                                    <awsui-button id="fblink" target="_blank" text="Feedback" click="linkClick($event)" href="https://docs.aws.amazon.com/forms/aws-doc-feedback?hidden_service_name=IoT Docs&amp;topic_url=https://docs.aws.amazon.com/en_us/iot/latest/developerguide/interactive-demo.html"></awsui-button>
+                                 </p>
+                              </div>
+                           </div>
+                        </div>
+                     </body>
+                  </div>
+               </awsdocs-view>
+               <div class="page-loading-indicator" id="page-loading-indicator">
+                  <awsui-spinner size="large"></awsui-spinner>
+               </div>
+            </div>
+            <div id="tools-panel" dom-region="tools">
+               <awsdocs-tools-panel id="awsdocs-tools-panel"></awsdocs-tools-panel>
+            </div>
+         </awsui-app-layout>
+         <awsdocs-cookie-banner class="doc-cookie-banner"></awsdocs-cookie-banner>
+         <!--
+                SiteCatalyst code version: H.25.2.
+                Copyright 1996-2012 Adobe, Inc. All Rights Reserved
+                More info available at http://www.omniture.com
+            --><script language="JavaScript" type="text/javascript">
+var awsdocs = awsdocs || {};
+awsdocs.prop66 = 'AWS IoT Core';
+awsdocs.prop65 =  'Developer Guide';
+            </script><script src="https://a0.awsstatic.com/s_code/js/3.0/awshome_s_code.js" language="JavaScript" type="text/javascript"></script>
+         <!--/DO NOT REMOVE/-->
+         <!--End SiteCatalyst code version: H.25.2.--></div>
+   </body>
+</html>

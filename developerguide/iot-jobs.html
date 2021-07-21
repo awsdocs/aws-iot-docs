@@ -1,0 +1,417 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" ng-app="AWSDocsDocPageApp">
+   <head>
+      <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+      <title>Jobs - AWS IoT Core</title>
+      <meta name="viewport" content="width=device-width,initial-scale=1" />
+      <meta name="assets_root" content="assets" />
+      <meta name="target_state" content="iot-jobs" />
+      <meta name="default_state" content="iot-jobs" />
+      <link rel="icon" type="image/ico" href="/assets/images/favicon.ico" />
+      <link rel="shortcut icon" type="image/ico" href="/assets/images/favicon.ico" />
+      <link rel="canonical" href="https://docs.aws.amazon.com/iot/latest/developerguide/iot-jobs.html" />
+      <meta name="description" content="Use AWS IoT jobs to define remote operations for your devices." />
+      <meta name="deployment_region" content="IAD" />
+      <meta name="product" content="AWS IoT Core" />
+      <meta name="guide" content="Developer Guide" />
+      <meta name="locales" content="de_de:Deutsch/en_us:English/es_es:Español/fr_fr:Français/it_it:Italiano/ja_jp:日本語/ko_kr:한국어/pt_br:Português/zh_cn:中文 (简体)/zh_tw:中文 (繁體)" />
+      <meta name="abstract" content="AWS IoT provides secure, bi-directional communication between Internet-connected devices such as sensors, actuators, embedded micro-controllers, or smart appliances and the AWS Cloud. This enables you to collect telemetry data from multiple devices, and store and analyze the data. You can also create applications that enable your users to control these devices from their phones or tablets." />
+      <meta name="guide-locale" content="en_us" />
+      <meta name="tocs" content="toc-contents.json" />
+      <meta name="feedback-item" content="IoT Docs" />
+      <meta name="this_doc_product" content="AWS IoT Core" />
+      <meta name="this_doc_guide" content="Developer Guide" />
+      <link href="assets/css/vendor4.css" rel="stylesheet" />
+      <link href="assets/css/awsdocs-common.css" rel="stylesheet" /><script type="text/javascript" src="assets/js/vendor3.js" defer=""></script><script type="text/javascript" src="assets/js/vendor4.js" defer=""></script><script type="text/javascript" src="assets/js/vendor1.js" defer=""></script><script type="text/javascript" src="assets/js/awsdocs-common.js" defer=""></script><script type="text/javascript" src="assets/js/awsdocs-doc-app.js" defer=""></script></head>
+   <body class="awsdocs awsui">
+      <div class="awsdocs-container">
+         <awsdocs-header></awsdocs-header>
+         <awsui-app-layout id="app-layout" class="awsui-util-no-gutters" ng-controller="ContentController as $ctrl" header-selector="awsdocs-header" navigation-hide="false" navigation-width="$ctrl.navWidth" navigation-open="$ctrl.navOpen" navigation-change="$ctrl.onNavChange($event)" tools-hide="$ctrl.hideTools" tools-width="$ctrl.toolsWidth" tools-open="$ctrl.toolsOpen" tools-change="$ctrl.onToolsChange($event)">
+            <div id="guide-toc" dom-region="navigation">
+               <awsdocs-toc></awsdocs-toc>
+            </div>
+            <div id="main-column" dom-region="content" tabindex="-1">
+               <awsdocs-view class="awsdocs-view">
+                  <div id="awsdocs-content">
+                     <head>
+                        <title>Jobs - AWS IoT Core</title>
+                        <meta name="pdf" content="iot-dg.pdf#iot-jobs" />
+                        <meta name="kindle" content="https://www.amazon.com/dp/B07JBRCWWZ" />
+                        <meta name="github" content="https://github.com/awsdocs/aws-iot-docs/tree/master/developerguide/iot-jobs.md" />
+                        <meta name="forums" content="http://forums.aws.amazon.com/forum.jspa?forumID=210" />
+                        <meta name="feedback" content="https://docs.aws.amazon.com/forms/aws-doc-feedback?hidden_service_name=IoT%20Docs&amp;topic_url=http://docs.aws.amazon.com/en_us/iot/latest/developerguide/iot-jobs.html" />
+                        <meta name="feedback-yes" content="feedbackyes.html?topic_url=http://docs.aws.amazon.com/en_us/iot/latest/developerguide/iot-jobs.html" />
+                        <meta name="feedback-no" content="feedbackno.html?topic_url=http://docs.aws.amazon.com/en_us/iot/latest/developerguide/iot-jobs.html" />
+                        <meta name="keywords" content="AWS IoT,IoT,Internet of Things" />
+                     </head>
+                     <body>
+                        <div id="main">
+                           <div style="display: none"><a href="iot-dg.pdf#iot-jobs" target="_blank" rel="noopener noreferrer" title="Open PDF"></a><a target="_blank" rel="noopener noreferrer" href="https://www.amazon.com/dp/B07JBRCWWZ" title="Open Kindle"></a><a href="https://github.com/awsdocs/aws-iot-docs/tree/master/developerguide/iot-jobs.md" target="_blank" rel="noopener noreferrer" title="Edit this page on GitHub"></a></div>
+                           <div id="breadcrumbs" class="breadcrumb"><a href="http://aws.amazon.com">AWS</a><a href="/index.html">Documentation</a><a href="/iot/index.html">AWS IoT Core</a><a href="what-is-aws-iot.html">Developer Guide</a></div>
+                           <div id="page-toc-src"><a href="#key-concepts-jobs">Jobs key concepts</a></div>
+                           <div id="main-content" class="awsui-util-container">
+                              <div id="main-col-body">
+                                 <awsdocs-language-banner data-service="$ctrl.pageService"></awsdocs-language-banner>
+                                 <h1 class="topictitle" id="iot-jobs">Jobs</h1>
+                                 <div class="awsdocs-page-header-container">
+                                    <awsdocs-page-header></awsdocs-page-header>
+                                    <awsdocs-filter-selector id="awsdocs-filter-selector"></awsdocs-filter-selector>
+                                 </div>
+                                 <p>AWS IoT jobs can be used to define a set of remote operations that are sent to and
+                                    executed
+                                    on one or more devices connected to AWS IoT.
+                                 </p>
+                                 <div class="awsdocs-note awsdocs-tip">
+                                    <div class="awsdocs-note-title">
+                                       <awsui-icon name="status-info" variant="link"></awsui-icon><span>Tip</span></div>
+                                    <div class="awsdocs-note-text">
+                                       <p>For job document examples, see the <a href="https://www.npmjs.com/package/aws-iot-device-sdk#jobs-agentjs" rel="noopener noreferrer" target="_blank"><span>jobs-agent.js</span><awsui-icon class="awsdocs-link-icon" name="external"></awsui-icon></a> example in the AWS IoT SDK for JavaScript.
+                                       </p>
+                                    </div>
+                                 </div>
+                                 
+                                 <h2 id="key-concepts-jobs">Jobs key concepts</h2>
+                                 
+                                 <div class="variablelist">
+                                     
+                                     
+                                     
+                                     
+                                     
+                                     
+                                     
+                                     
+                                     
+                                     
+                                    
+                                    <dl>
+                                       
+                                       <dt><span class="term">job</span></dt>
+                                       
+                                       <dd>
+                                          
+                                          <p>A job is a remote operation that is sent to and executed on one or more
+                                             devices connected to AWS IoT. For example, you can define a job that instructs
+                                             a set of devices to download and install application or firmware updates,
+                                             reboot, rotate certificates, or perform remote troubleshooting
+                                             operations.
+                                          </p>
+                                          
+                                       </dd>
+                                        
+                                       
+                                       <dt><span class="term">job document</span></dt>
+                                       
+                                       <dd>
+                                          
+                                          <p>To create a job, you must first create a job document that is a
+                                             description of the remote operations to be performed by the devices.
+                                          </p>
+                                          
+                                          <p>Job documents are UTF-8 encoded JSON documents and should contain
+                                             information that your devices need to perform a job. A job document contains
+                                             one or more URLs where the device can download an update or some other data.
+                                             The job document can be stored in an Amazon S3 bucket, or be included inline with
+                                             the command that creates the job.
+                                          </p>
+                                          
+                                       </dd>
+                                        
+                                       
+                                       <dt><span class="term">target</span></dt>
+                                       
+                                       <dd>
+                                          
+                                          <p>When you create a job, you specify a list of targets that are the devices
+                                             that should perform the operations. The targets can be things or <a href="./thing-groups.html">thing groups</a> or both. The AWS IoT Jobs
+                                             service sends a message to each target to inform it that a job is
+                                             available.
+                                          </p>
+                                          
+                                       </dd>
+                                        
+                                       
+                                       <dt><span class="term">job execution</span></dt>
+                                       
+                                       <dd>
+                                          
+                                          <p>A job execution is an instance of a job on a target device. The target
+                                             starts an execution of a job by downloading the job document. It then
+                                             performs the operations specified in the document, and reports its progress
+                                             to AWS IoT. An execution number is a unique identifier of a job execution on a
+                                             specific target. The Jobs service provides commands to track the progress of
+                                             a job execution on a target and the progress of a job across all
+                                             targets.
+                                          </p>
+                                          
+                                       </dd>
+                                        
+                                       
+                                       <dt><span class="term">snapshot job</span></dt>
+                                       
+                                       <dd>
+                                          
+                                          <p>By default, a job is sent to all targets that you specify when you create
+                                             the job. After those targets complete the job (or report that they are
+                                             unable to do so), the job is complete.
+                                          </p>
+                                          
+                                       </dd>
+                                        
+                                       
+                                       <dt><span class="term">continuous job</span></dt>
+                                       
+                                       <dd>
+                                          
+                                          <p>A continuous job is sent to all targets that you specify when you create
+                                             the job. It continues to run and is sent to any new devices (things) that
+                                             are added to the target group. For example, a continuous job can be used to
+                                             onboard or upgrade devices as they are added to a group. You can make a job
+                                             continuous by setting an optional parameter when you create the job.
+                                          </p>
+                                          
+                                       </dd>
+                                        
+                                       
+                                       <dt><span class="term"><a id="rollouts"></a>rollouts</span></dt>
+                                       
+                                       <dd>
+                                          
+                                          <p>You can specify how quickly targets are notified of a pending job
+                                             execution. This allows you to create a staged rollout to better manage
+                                             updates, reboots, and other operations.
+                                          </p>
+                                          
+                                          <p>The following field can be added to the <code class="code">CreateJob</code> request to
+                                             specify the maximum number of job targets to inform per minute. This example
+                                             sets a static rollout rate.
+                                          </p>
+                                          <pre class="programlisting"><div class="code-btn-container"><div class="btn-copy-code" title="Copy"><awsui-icon name="copy"></awsui-icon></div></div><code class="JSON ">
+    "jobExecutionRolloutConfig": <span>{</span>
+        "maximumPerMinute": "integer"
+    } </code></pre>
+                                          <p>You can also set a variable rollout rate with the
+                                             <code class="code">exponentialRate</code> field. The following example creates a
+                                             rollout that has an exponential rate.
+                                          </p>
+                                          <pre class="programlisting"><div class="code-btn-container"><div class="btn-copy-code" title="Copy"><awsui-icon name="copy"></awsui-icon></div></div><code class="JSON ">
+  "jobExecutionsRolloutConfig": <span>{</span> 
+      "exponentialRate": <span>{</span> 
+         "baseRatePerMinute": integer,
+         "incrementFactor": integer,
+         "rateIncreaseCriteria": <span>{</span> 
+            "numberOfNotifiedThings": integer, // Set one or the other
+            "numberOfSucceededThings": integer // of these two values.
+         },
+         "maximumPerMinute": integer
+    }
+}
+                    </code></pre>
+                                          <p>For more information about configuring job rollouts, see <a href="job-rollout-abort.html" rel="noopener noreferrer" target="_blank">Job Rollout and Abort
+                                                Configuration</a>.
+                                          </p>
+                                          
+                                       </dd>
+                                        
+                                       
+                                       <dt><span class="term">abort</span></dt>
+                                       
+                                       <dd>
+                                          
+                                          <p>You can create a set of conditions to abort rollouts when criteria that
+                                             you specify have been met. For more information, see <a href="job-rollout-abort.html" rel="noopener noreferrer" target="_blank">Job Rollout and Abort
+                                                Configuration</a>.
+                                          </p>
+                                          
+                                       </dd>
+                                        
+                                       
+                                       <dt><span class="term"><a id="presigned"></a>presigned URLs</span></dt>
+                                       
+                                       <dd>
+                                          
+                                          <p>To allow a device secure, time-limited access to data beyond that included
+                                             in the job document itself, you can use presigned Amazon S3 URLs. You can place
+                                             your data in an Amazon S3 bucket and add a placeholder link to the data in the
+                                             job document. When the Jobs service receives a request for the job document,
+                                             it parses the job document looking for placeholder links and it replaces
+                                             them with presigned Amazon S3 URLs. 
+                                          </p>
+                                          
+                                          <p>The placeholder link is of the following form:</p>
+                                          <pre class="programlisting"><div class="code-btn-container"><div class="btn-copy-code" title="Copy"><awsui-icon name="copy"></awsui-icon></div></div><code class="nohighlight">$<span>{</span>aws:iot:s3-presigned-url:https://s3.amazonaws.com/<code class="replaceable">bucket</code>/<code class="replaceable">key</code>}</code></pre>
+                                          <p>where <code class="replaceable">bucket</code> is your bucket name and
+                                             <code class="replaceable">key</code> is the object in the bucket to which you
+                                             are linking.
+                                          </p>
+                                          
+                                          <p>In the Beijing and Ningxia Regions, presigned URLs work only if the resource owner
+                                             has an ICP license. For more information, 
+                                             see <a href="https://docs.amazonaws.cn/en_us/aws/latest/userguide/s3.html" rel="noopener noreferrer" target="_blank"><span>Amazon Simple Storage Service</span><awsui-icon class="awsdocs-link-icon" name="external"></awsui-icon></a> 
+                                             in the <em>Getting Started with AWS Services in China</em> documentation.
+                                          </p>
+                                          
+                                       </dd>
+                                        
+                                       
+                                       <dt><span class="term"><a id="timeout"></a>timeouts</span></dt>
+                                       
+                                       <dd>
+                                          
+                                          <p>Job timeouts make it possible to be notified whenever a job execution gets
+                                             stuck in the <code class="code">IN_PROGRESS</code> state for an unexpectedly long period
+                                             of time. There are two types of timers: in-progress timers and step
+                                             timers.
+                                          </p>
+                                          
+                                          <p>When you create a job, you can set a value for the
+                                             <code class="code">inProgressTimeoutInMinutes</code> property of the optional <a href="https://docs.aws.amazon.com/iot/latest/apireference/API_TimeoutConfig.html">TimeoutConfig</a> object. The in-progress timer can't be updated
+                                             and applies to all job executions for the job. Whenever a job execution
+                                             remains in the <code class="code">IN_PROGRESS</code> status for longer than this
+                                             interval, the job execution fails and switches to the terminal
+                                             <code class="code">TIMED_OUT</code> status. AWS IoT also publishes an MQTT
+                                             notification.
+                                          </p>
+                                          
+                                          <p>You can also set a step timer for a job execution by setting a value for
+                                             <code class="code">stepTimeoutInMinutes</code> when you call <a href="https://docs.aws.amazon.com/iot/latest/apireference/API_iot-jobs-data_UpdateJobExecution.html">UpdateJobExecution</a>. The step timer applies only to the job
+                                             execution that you update. You can set a new value for this timer each time
+                                             you update a job execution. You can also create a step timer when you call
+                                             <a href="https://docs.aws.amazon.com/iot/latest/apireference/API_iot-jobs-data_StartNextPendingJobExecution.html">StartNextPendingJobExecution</a>. If the job execution remains in
+                                             the <code class="code">IN_PROGRESS</code> status for longer than the step timer interval,
+                                             it fails and switches to the terminal <code class="code">TIMED_OUT</code> status. The
+                                             step timer has no effect on the in-progress timer that you set when you
+                                             create a job.
+                                          </p>
+                                          
+                                          <p>The following diagram and description illustrate the ways in which
+                                             in-progress timeouts and step timeouts interact with each other.
+                                          </p>
+                                          
+                                          <div class="mediaobject">
+                                              
+                                             <img src="images/timeout-diagram.png" class="aws-docs-img-whiteBg aws-docs-img-padding" style="max-width:100%" />
+                                              
+                                             
+                                          </div>
+                                          
+                                          <p><b>Job Creation:</b>
+                                             <code class="code">CreateJob</code> sets an in-progress timer that expires in twenty
+                                             minutes. This timer applies to all job executions and can't be
+                                             updated.
+                                          </p>
+                                          
+                                          <p><b>12:00 PM:</b> The job execution starts and
+                                             switches to <code class="code">IN_PROGRESS</code> status. The in-progress timer starts to
+                                             run.
+                                          </p>
+                                          
+                                          <p><b>12:05 PM:</b>
+                                             <code class="code">UpdateJobExecution</code> creates a step timer with a value of 7
+                                             minutes. If a new step timer isn't created, the job execution times out at
+                                             12:12 PM.
+                                          </p>
+                                          
+                                          <p><b>12:10 PM:</b>
+                                             <code class="code">UpdateJobExecution</code> creates a new step timer with a value of 5
+                                             minutes. The previous step timer is discarded. If a new step timer isn't
+                                             created, the job execution times out at 12:15 PM.
+                                          </p>
+                                          
+                                          <p><b>12:13 PM:</b>
+                                             <code class="code">UpdateJobExecution</code> creates a new step timer with a value of 9
+                                             minutes. The job execution times out at 12:20 because the in-progress timer
+                                             expires at 12:20. The step timer can't exceed the absolute bound created by
+                                             the in-progress timer.
+                                          </p>
+                                          
+                                          <p><code class="code">UpdateJobExecution</code> can also discard a step timer that has
+                                             already been created by creating a new step timer with a value of -1.
+                                          </p>
+                                          
+                                       </dd>
+                                       
+                                    </dl>
+                                 </div>
+                                 
+                                 <awsdocs-copyright class="copyright-print"></awsdocs-copyright>
+                                 <awsdocs-thumb-feedback right-edge="{{$ctrl.thumbFeedbackRightEdge}}"></awsdocs-thumb-feedback>
+                              </div>
+                              <noscript>
+                                 <div>
+                                    <div>
+                                       <div>
+                                          <div id="js_error_message">
+                                             <p><img src="https://d1ge0kk1l5kms0.cloudfront.net/images/G/01/webservices/console/warning.png" alt="Warning" /> <strong>Javascript is disabled or is unavailable in your
+                                                   browser.</strong></p>
+                                             <p>To use the Amazon Web Services Documentation, Javascript must be
+                                                enabled. Please refer to your browser's Help pages for instructions.
+                                             </p>
+                                          </div>
+                                       </div>
+                                    </div>
+                                 </div>
+                              </noscript>
+                              <div id="main-col-footer" class="awsui-util-font-size-0">
+                                 <div id="doc-conventions"><a target="_top" href="/general/latest/gr/docconventions.html">Document Conventions</a></div>
+                                 <div class="prev-next">
+                                    <div id="previous" class="prev-link" accesskey="p" href="./device-shadow-error-messages.html">Device Shadow error messages</div>
+                                    <div id="next" class="next-link" accesskey="n" href="./create-manage-jobs.html">Managing jobs </div>
+                                 </div>
+                              </div>
+                              <awsdocs-page-utilities></awsdocs-page-utilities>
+                           </div>
+                           <div id="quick-feedback-yes" style="display: none;">
+                              <div class="title">Did this page help you? - Yes</div>
+                              <div class="content">
+                                 <p>Thanks for letting us know we're doing a good
+                                    job!
+                                 </p>
+                                 <p>If you've got a moment, please tell us what we did right
+                                    so we can do more of it.
+                                 </p>
+                                 <p>
+                                    <awsui-button id="fblink" target="_blank" text="Feedback" click="linkClick($event)" href="https://docs.aws.amazon.com/forms/aws-doc-feedback?hidden_service_name=IoT Docs&amp;topic_url=https://docs.aws.amazon.com/en_us/iot/latest/developerguide/iot-jobs.html"></awsui-button>
+                                 </p>
+                              </div>
+                           </div>
+                           <div id="quick-feedback-no" style="display: none;">
+                              <div class="title">Did this page help you? - No</div>
+                              <div class="content">
+                                 <p>Thanks for letting us know this page needs work. We're
+                                    sorry we let you down.
+                                 </p>
+                                 <p>If you've got a moment, please tell us how we can make
+                                    the documentation better.
+                                 </p>
+                                 <p>
+                                    <awsui-button id="fblink" target="_blank" text="Feedback" click="linkClick($event)" href="https://docs.aws.amazon.com/forms/aws-doc-feedback?hidden_service_name=IoT Docs&amp;topic_url=https://docs.aws.amazon.com/en_us/iot/latest/developerguide/iot-jobs.html"></awsui-button>
+                                 </p>
+                              </div>
+                           </div>
+                        </div>
+                     </body>
+                  </div>
+               </awsdocs-view>
+               <div class="page-loading-indicator" id="page-loading-indicator">
+                  <awsui-spinner size="large"></awsui-spinner>
+               </div>
+            </div>
+            <div id="tools-panel" dom-region="tools">
+               <awsdocs-tools-panel id="awsdocs-tools-panel"></awsdocs-tools-panel>
+            </div>
+         </awsui-app-layout>
+         <awsdocs-cookie-banner class="doc-cookie-banner"></awsdocs-cookie-banner>
+         <!--
+                SiteCatalyst code version: H.25.2.
+                Copyright 1996-2012 Adobe, Inc. All Rights Reserved
+                More info available at http://www.omniture.com
+            --><script language="JavaScript" type="text/javascript">
+var awsdocs = awsdocs || {};
+awsdocs.prop66 = 'AWS IoT Core';
+awsdocs.prop65 =  'Developer Guide';
+            </script><script src="https://a0.awsstatic.com/s_code/js/3.0/awshome_s_code.js" language="JavaScript" type="text/javascript"></script>
+         <!--/DO NOT REMOVE/-->
+         <!--End SiteCatalyst code version: H.25.2.--></div>
+   </body>
+</html>

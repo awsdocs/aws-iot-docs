@@ -1,0 +1,411 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" ng-app="AWSDocsDocPageApp">
+   <head>
+      <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+      <title>Troubleshooting your authorizers - AWS IoT Core</title>
+      <meta name="viewport" content="width=device-width,initial-scale=1" />
+      <meta name="assets_root" content="assets" />
+      <meta name="target_state" content="custom-auth-troubleshooting" />
+      <meta name="default_state" content="custom-auth-troubleshooting" />
+      <link rel="icon" type="image/ico" href="/assets/images/favicon.ico" />
+      <link rel="shortcut icon" type="image/ico" href="/assets/images/favicon.ico" />
+      <link rel="canonical" href="https://docs.aws.amazon.com/iot/latest/developerguide/custom-auth-troubleshooting.html" />
+      <meta name="description" content="This topic walks through common issues that can cause problems in custom authentication workflows and steps for resolving them. To troubleshoot issues most effectively, enable CloudWatch logs for AWS IoT Core and set the log level to DEBUG . You can enable CloudWatch logs in the AWS IoT Core console (" />
+      <meta name="deployment_region" content="IAD" />
+      <meta name="product" content="AWS IoT Core" />
+      <meta name="guide" content="Developer Guide" />
+      <meta name="locales" content="de_de:Deutsch/en_us:English/es_es:Español/fr_fr:Français/it_it:Italiano/ja_jp:日本語/ko_kr:한국어/pt_br:Português/zh_cn:中文 (简体)/zh_tw:中文 (繁體)" />
+      <meta name="abstract" content="AWS IoT provides secure, bi-directional communication between Internet-connected devices such as sensors, actuators, embedded micro-controllers, or smart appliances and the AWS Cloud. This enables you to collect telemetry data from multiple devices, and store and analyze the data. You can also create applications that enable your users to control these devices from their phones or tablets." />
+      <meta name="guide-locale" content="en_us" />
+      <meta name="tocs" content="toc-contents.json" />
+      <meta name="feedback-item" content="IoT Docs" />
+      <meta name="this_doc_product" content="AWS IoT Core" />
+      <meta name="this_doc_guide" content="Developer Guide" />
+      <link href="assets/css/vendor4.css" rel="stylesheet" />
+      <link href="assets/css/awsdocs-common.css" rel="stylesheet" /><script type="text/javascript" src="assets/js/vendor3.js" defer=""></script><script type="text/javascript" src="assets/js/vendor4.js" defer=""></script><script type="text/javascript" src="assets/js/vendor1.js" defer=""></script><script type="text/javascript" src="assets/js/awsdocs-common.js" defer=""></script><script type="text/javascript" src="assets/js/awsdocs-doc-app.js" defer=""></script></head>
+   <body class="awsdocs awsui">
+      <div class="awsdocs-container">
+         <awsdocs-header></awsdocs-header>
+         <awsui-app-layout id="app-layout" class="awsui-util-no-gutters" ng-controller="ContentController as $ctrl" header-selector="awsdocs-header" navigation-hide="false" navigation-width="$ctrl.navWidth" navigation-open="$ctrl.navOpen" navigation-change="$ctrl.onNavChange($event)" tools-hide="$ctrl.hideTools" tools-width="$ctrl.toolsWidth" tools-open="$ctrl.toolsOpen" tools-change="$ctrl.onToolsChange($event)">
+            <div id="guide-toc" dom-region="navigation">
+               <awsdocs-toc></awsdocs-toc>
+            </div>
+            <div id="main-column" dom-region="content" tabindex="-1">
+               <awsdocs-view class="awsdocs-view">
+                  <div id="awsdocs-content">
+                     <head>
+                        <title>Troubleshooting your authorizers - AWS IoT Core</title>
+                        <meta name="pdf" content="iot-dg.pdf#custom-auth-troubleshooting" />
+                        <meta name="kindle" content="https://www.amazon.com/dp/B07JBRCWWZ" />
+                        <meta name="github" content="https://github.com/awsdocs/aws-iot-docs/tree/master/developerguide/custom-auth-troubleshooting.md" />
+                        <meta name="forums" content="http://forums.aws.amazon.com/forum.jspa?forumID=210" />
+                        <meta name="feedback" content="https://docs.aws.amazon.com/forms/aws-doc-feedback?hidden_service_name=IoT%20Docs&amp;topic_url=http://docs.aws.amazon.com/en_us/iot/latest/developerguide/custom-auth-troubleshooting.html" />
+                        <meta name="feedback-yes" content="feedbackyes.html?topic_url=http://docs.aws.amazon.com/en_us/iot/latest/developerguide/custom-auth-troubleshooting.html" />
+                        <meta name="feedback-no" content="feedbackno.html?topic_url=http://docs.aws.amazon.com/en_us/iot/latest/developerguide/custom-auth-troubleshooting.html" />
+                        <meta name="keywords" content="AWS IoT,IoT,Internet of Things" />
+                     </head>
+                     <body>
+                        <div id="main">
+                           <div style="display: none"><a href="iot-dg.pdf#custom-auth-troubleshooting" target="_blank" rel="noopener noreferrer" title="Open PDF"></a><a target="_blank" rel="noopener noreferrer" href="https://www.amazon.com/dp/B07JBRCWWZ" title="Open Kindle"></a><a href="https://github.com/awsdocs/aws-iot-docs/tree/master/developerguide/custom-auth-troubleshooting.md" target="_blank" rel="noopener noreferrer" title="Edit this page on GitHub"></a></div>
+                           <div id="breadcrumbs" class="breadcrumb"><a href="http://aws.amazon.com">AWS</a><a href="/index.html">Documentation</a><a href="/iot/index.html">AWS IoT Core</a><a href="what-is-aws-iot.html">Developer Guide</a></div>
+                           <div id="page-toc-src"><a href="#custom-auth-troubleshooting-lambda">Check for issues in your authorizer’s Lambda function</a><a href="#custom-auth-troubleshooting-investigate">Investigating device issues</a></div>
+                           <div id="main-content" class="awsui-util-container">
+                              <div id="main-col-body">
+                                 <awsdocs-language-banner data-service="$ctrl.pageService"></awsdocs-language-banner>
+                                 <h1 class="topictitle" id="custom-auth-troubleshooting">Troubleshooting your authorizers</h1>
+                                 <div class="awsdocs-page-header-container">
+                                    <awsdocs-page-header></awsdocs-page-header>
+                                    <awsdocs-filter-selector id="awsdocs-filter-selector"></awsdocs-filter-selector>
+                                 </div>
+                                 <p>
+                                    This topic walks through common issues that can cause problems in custom authentication
+                                    workflows and steps for resolving them. 
+                                    To troubleshoot issues most effectively, enable CloudWatch  logs for AWS IoT Core
+                                    and set the log level to <b>DEBUG</b>. You can enable CloudWatch logs in the 
+                                    AWS IoT Core console (<a href="https://console.aws.amazon.com/iot/" rel="noopener noreferrer" target="_blank"><span>https://console.aws.amazon.com/iot/</span><awsui-icon class="awsdocs-link-icon" name="external"></awsui-icon></a>). For more information about enabling and configuring logs for AWS IoT Core, see
+                                    <a href="./configure-logging.html">Configure AWS IoT logging</a>.
+                                    
+                                 </p>
+                                 <div class="awsdocs-note">
+                                    <div class="awsdocs-note-title">
+                                       <awsui-icon name="status-info" variant="link"></awsui-icon><span>Note</span></div>
+                                    <div class="awsdocs-note-text">
+                                       <p>If you leave the log level at <b>DEBUG</b> for long periods of time,
+                                          CloudWatch might store large amounts of logging data. This can increase your CloudWatch
+                                          charges. Consider using resource-based logging to increase the verbosity for
+                                          only devices in a particular thing group. For more information about
+                                          resource-based logging, see <a href="./configure-logging.html">Configure AWS IoT logging</a>. Also, when
+                                          you're done troubleshooting, reduce the log level to a less verbose
+                                          level.
+                                       </p>
+                                    </div>
+                                 </div>
+                                 <p>Before you start troubleshooting, review <a href="./custom-authorizer.html">Understanding the custom authentication workflow</a> for a
+                                    high-level view of the custom authentication process. This helps you understand
+                                    where to look for the source of a problem.
+                                 </p>
+                                 <p>This topic discusses the following two areas for you to investigate.</p>
+                                 <div class="itemizedlist">
+                                     
+                                     
+                                    
+                                    <ul class="itemizedlist" type="disc">
+                                       <li class="listitem">
+                                          <p>Issues related to your authorizer's Lambda function.</p>
+                                       </li>
+                                       <li class="listitem">
+                                          <p>Issues related to your device.</p>
+                                       </li>
+                                    </ul>
+                                 </div>
+                                 
+                                 <h2 id="custom-auth-troubleshooting-lambda">Check for issues in your authorizer’s Lambda function</h2>
+                                 
+                                 <p>Perform the following steps to make sure that your devices’ connection attempts are
+                                    invoking your Lambda function.
+                                 </p>
+                                 
+                                 <div class="procedure">
+                                    <ol>
+                                       <li>
+                                          <p>Verify which Lambda function is associated with your authorizer.</p>
+                                          
+                                          <p>You can do this by calling the <a href="https://docs.aws.amazon.com/iot/latest/apireference/API_DescribeAuthorizer.html">DescribeAuthorizer</a> API or 
+                                             by clicking on the desired authorizer in the <b>Secure</b> section of the AWS IoT Core console.
+                                          </p>
+                                       </li>
+                                       <li>
+                                          <p>Check the invocation metrics for the Lambda function. Perform the following steps
+                                             to do this.
+                                          </p>
+                                          
+                                          <ol>
+                                             <li>
+                                                <p>Open the AWS Lambda console (<a href="https://console.aws.amazon.com/lambda/" rel="noopener noreferrer" target="_blank"><span>https://console.aws.amazon.com/lambda/</span><awsui-icon class="awsdocs-link-icon" name="external"></awsui-icon></a>) and select the function that is associated with your authorizer.
+                                                </p>
+                                             </li>
+                                             <li>
+                                                <p>Choose the <b>Monitor</b> tab and view metrics for the time frame that is relevant to your problem.
+                                                </p>
+                                             </li>
+                                          </ol>
+                                          
+                                       </li>
+                                       <li>
+                                          <p>If you see no invocations, verify that AWS IoT Core has permission to invoke your
+                                             Lambda function. If you see invocations, skip to the next step. 
+                                             Perform the following steps to verify that your Lambda function has the required permissions.
+                                          </p>
+                                          
+                                          <ol>
+                                             <li>
+                                                <p>Choose the <b>Permissions</b> tab for your 
+                                                   function in the AWS Lambda console.
+                                                </p>
+                                             </li>
+                                             <li>
+                                                <p>Find the <b>Resource-based Policy</b> section at the bottom of the page. If your Lambda function has the required 
+                                                   permissions, the policy looks like the following example.
+                                                </p>
+                                                <pre class="programlisting"><div class="code-btn-container"><div class="btn-copy-code" title="Copy"><awsui-icon name="copy"></awsui-icon></div></div><code class="json ">
+<span>{</span>
+  "Version": "2012-10-17",
+  "Id": "default",
+  "Statement": [
+    <span>{</span>
+      "Sid": "Id-123",
+      "Effect": "Allow",
+      "Principal": <span>{</span>
+        "Service": "iot.amazonaws.com"
+      },
+      "Action": "lambda:InvokeFunction",
+      "Resource": "arn:aws:lambda:<code class="replaceable">Region</code>:<code class="replaceable">AccountID</code>:function:<code class="replaceable">FunctionName</code>",
+      "Condition": <span>{</span>
+        "ArnLike": <span>{</span>
+          "AWS:SourceArn": "arn:aws:iot:<code class="replaceable">Region</code>:<code class="replaceable">AccountID</code>:authorizer/<code class="replaceable">AuthorizerName</code>"
+        }
+      }
+    }
+  ]
+}
+                        </code></pre></li>
+                                             <li>
+                                                <p>This policy grants the <code class="code">InvokeFunction</code> permission on your function to the AWS IoT Core principal. If you don't see it, you'll
+                                                   have 
+                                                   to add it by using the <a href="https://docs.aws.amazon.com/lambda/latest/dg/API_AddPermission.html">AddPermission</a> API. The following example shows you how to do this 
+                                                   by using the AWS CLI.
+                                                </p>
+                                                <pre class="programlisting"><div class="code-btn-container"><div class="btn-copy-code" title="Copy"><awsui-icon name="copy"></awsui-icon></div></div><code class="nohighlight">
+  aws lambda add-permission --function-name <code class="replaceable">FunctionName</code> --principal iot.amazonaws.com --source-arn <code class="replaceable">AuthorizerARn</code> --statement-id Id-123 --action "lambda:InvokeFunction"
+                            </code></pre>
+                                                </li>
+                                          </ol>
+                                          
+                                       </li>
+                                       <li>
+                                          <p>If you see invocations, verify that there are no errors. An error might indicate that
+                                             the Lambda function isn't properly handling the 
+                                             connection event that AWS IoT Core sends to it.
+                                          </p>
+                                          
+                                          <p>For information about handling the event in your Lambda function, see <a href="./config-custom-auth.html#custom-auth-lambda">Defining your Lambda function</a>.  You can use the 
+                                             test feature in the AWS Lambda console (<a href="https://console.aws.amazon.com/lambda/" rel="noopener noreferrer" target="_blank"><span>https://console.aws.amazon.com/lambda/</span><awsui-icon class="awsdocs-link-icon" name="external"></awsui-icon></a>) to hard-code test values in the function to make sure 
+                                             that the function is handling events correctly.
+                                          </p>
+                                          
+                                       </li>
+                                       <li>
+                                          <p>If you see invocations with no errors, but your devices are not able to connect (or
+                                             publish,
+                                             subscribe, and receive messages), the issue might be that the policy
+                                             that your Lambda function returns doesn't give permissions for the
+                                             actions that your devices are trying to take. Perform the following
+                                             steps to determine whether anything is wrong with the policy that the
+                                             function returns.
+                                          </p>
+                                          
+                                          <ol>
+                                             <li>
+                                                <p>Use an Amazon CloudWatch Logs Insights query to scan logs over a short period of time
+                                                   to check for
+                                                   failures. The following example query sorts events by timestamp
+                                                   and looks for failures.
+                                                </p>
+                                                <pre class="programlisting"><div class="code-btn-container"><div class="btn-copy-code" title="Copy"><awsui-icon name="copy"></awsui-icon></div></div><code class="nohighlight">
+display clientId, eventType, status, @timestamp | sort @timestamp desc | filter status = "Failure"    
+</code></pre>
+                                                </li>
+                                             <li>
+                                                <p>Update your Lambda function to log the data that it's returning to AWS IoT Core and
+                                                   the event that
+                                                   triggers the function. You can use these logs to inspect the
+                                                   policy that the function creates.
+                                                </p>
+                                             </li>
+                                          </ol>
+                                          
+                                       </li>
+                                    </ol>
+                                 </div>
+                                  
+                                 
+                                 <h2 id="custom-auth-troubleshooting-investigate">Investigating device issues</h2>
+                                 
+                                 <p>If you find no issues with invoking your Lambda function or with the policy
+                                    that the function returns, look for problems with your devices' connection
+                                    attempts. Malformed connection requests can cause AWS IoT Core not to trigger your
+                                    authorizer. Connection problems can occur at both the TLS and application
+                                    layers.
+                                 </p>
+                                 
+                                 <p><b>Possible TLS layer issues:</b></p>
+                                 
+                                 <div class="itemizedlist">
+                                     
+                                     
+                                     
+                                    
+                                    <ul class="itemizedlist" type="disc">
+                                       <li class="listitem">
+                                          <p>Customers must pass either a hostname header (HTTP, MQTT over WebSockets) or the Server
+                                             Name
+                                             Indication TLS extension (HTTP, MQTT over WebSockets, MQTT) in all
+                                             custom authentication requests. In both cases, the value passed must
+                                             match one of your account’s AWS IoT Core data endpoints. These are the
+                                             endpoints that are returned when you perform the following CLI
+                                             commands.
+                                          </p>
+                                          
+                                          <div class="itemizedlist">
+                                              
+                                              
+                                             
+                                             <ul class="itemizedlist" type="disc">
+                                                <li class="listitem">
+                                                   <p><code class="code">aws iot describe-endpoint —endpoint type iot:data-ats</code></p>
+                                                </li>
+                                                <li class="listitem">
+                                                   <p><code class="code">aws iot describe-endpoint —endpoint type</code> (for legacy VeriSign endpoints)
+                                                   </p>
+                                                </li>
+                                             </ul>
+                                          </div>
+                                          
+                                       </li>
+                                       <li class="listitem">
+                                          <p>Devices that use custom authentication for MQTT connections must also pass the Application
+                                             Layer Protocol Negotiation (ALPN) TLS extension with a value of
+                                             <code class="code">mqtt</code>.
+                                          </p>
+                                       </li>
+                                       <li class="listitem">
+                                          <p>Custom authentication is currently available only on port 443.</p>
+                                       </li>
+                                    </ul>
+                                 </div>
+                                 
+                                 <p><b>Possible application layer issues:</b></p>
+                                 
+                                 <div class="itemizedlist">
+                                     
+                                     
+                                    
+                                    <ul class="itemizedlist" type="disc">
+                                       <li class="listitem">
+                                          <p>If signing is enabled (the <code class="code">signingDisabled</code> field is false in your authorizer), look for the following signature issues.
+                                          </p>
+                                          
+                                          <div class="itemizedlist">
+                                              
+                                              
+                                              
+                                             
+                                             <ul class="itemizedlist" type="disc">
+                                                <li class="listitem">
+                                                   <p>Make sure that you're passing the token signature in either the <code class="code">x-amz-customauthorizer-signature</code>header or in 
+                                                      a query string parameter.
+                                                   </p>
+                                                </li>
+                                                <li class="listitem">
+                                                   <p>Make sure that the service isn't signing a value other than the token.</p>
+                                                </li>
+                                                <li class="listitem">
+                                                   <p>Make sure that you pass the token in the header or query parameter that you specified
+                                                      in 
+                                                      the <code class="code">token-key-name</code> field in your authorizer.
+                                                   </p>
+                                                </li>
+                                             </ul>
+                                          </div>
+                                          
+                                       </li>
+                                       <li class="listitem">
+                                          <p>Make sure that the authorizer name you pass in the <code class="code">x-amz-customauthorizer-name</code>
+                                             header or query string parameter is valid or that you have a default
+                                             authorizer defined for your account.
+                                          </p>
+                                       </li>
+                                    </ul>
+                                 </div>
+                                 
+                                 <awsdocs-copyright class="copyright-print"></awsdocs-copyright>
+                                 <awsdocs-thumb-feedback right-edge="{{$ctrl.thumbFeedbackRightEdge}}"></awsdocs-thumb-feedback>
+                              </div>
+                              <noscript>
+                                 <div>
+                                    <div>
+                                       <div>
+                                          <div id="js_error_message">
+                                             <p><img src="https://d1ge0kk1l5kms0.cloudfront.net/images/G/01/webservices/console/warning.png" alt="Warning" /> <strong>Javascript is disabled or is unavailable in your
+                                                   browser.</strong></p>
+                                             <p>To use the Amazon Web Services Documentation, Javascript must be
+                                                enabled. Please refer to your browser's Help pages for instructions.
+                                             </p>
+                                          </div>
+                                       </div>
+                                    </div>
+                                 </div>
+                              </noscript>
+                              <div id="main-col-footer" class="awsui-util-font-size-0">
+                                 <div id="doc-conventions"><a target="_top" href="/general/latest/gr/docconventions.html">Document Conventions</a></div>
+                                 <div class="prev-next">
+                                    <div id="previous" class="prev-link" accesskey="p" href="./custom-auth.html">Connecting to AWS IoT Core by using custom authentication</div>
+                                    <div id="next" class="next-link" accesskey="n" href="./iot-authorization.html">Authorization</div>
+                                 </div>
+                              </div>
+                              <awsdocs-page-utilities></awsdocs-page-utilities>
+                           </div>
+                           <div id="quick-feedback-yes" style="display: none;">
+                              <div class="title">Did this page help you? - Yes</div>
+                              <div class="content">
+                                 <p>Thanks for letting us know we're doing a good
+                                    job!
+                                 </p>
+                                 <p>If you've got a moment, please tell us what we did right
+                                    so we can do more of it.
+                                 </p>
+                                 <p>
+                                    <awsui-button id="fblink" target="_blank" text="Feedback" click="linkClick($event)" href="https://docs.aws.amazon.com/forms/aws-doc-feedback?hidden_service_name=IoT Docs&amp;topic_url=https://docs.aws.amazon.com/en_us/iot/latest/developerguide/custom-auth-troubleshooting.html"></awsui-button>
+                                 </p>
+                              </div>
+                           </div>
+                           <div id="quick-feedback-no" style="display: none;">
+                              <div class="title">Did this page help you? - No</div>
+                              <div class="content">
+                                 <p>Thanks for letting us know this page needs work. We're
+                                    sorry we let you down.
+                                 </p>
+                                 <p>If you've got a moment, please tell us how we can make
+                                    the documentation better.
+                                 </p>
+                                 <p>
+                                    <awsui-button id="fblink" target="_blank" text="Feedback" click="linkClick($event)" href="https://docs.aws.amazon.com/forms/aws-doc-feedback?hidden_service_name=IoT Docs&amp;topic_url=https://docs.aws.amazon.com/en_us/iot/latest/developerguide/custom-auth-troubleshooting.html"></awsui-button>
+                                 </p>
+                              </div>
+                           </div>
+                        </div>
+                     </body>
+                  </div>
+               </awsdocs-view>
+               <div class="page-loading-indicator" id="page-loading-indicator">
+                  <awsui-spinner size="large"></awsui-spinner>
+               </div>
+            </div>
+            <div id="tools-panel" dom-region="tools">
+               <awsdocs-tools-panel id="awsdocs-tools-panel"></awsdocs-tools-panel>
+            </div>
+         </awsui-app-layout>
+         <awsdocs-cookie-banner class="doc-cookie-banner"></awsdocs-cookie-banner>
+         <!--
+                SiteCatalyst code version: H.25.2.
+                Copyright 1996-2012 Adobe, Inc. All Rights Reserved
+                More info available at http://www.omniture.com
+            --><script language="JavaScript" type="text/javascript">
+var awsdocs = awsdocs || {};
+awsdocs.prop66 = 'AWS IoT Core';
+awsdocs.prop65 =  'Developer Guide';
+            </script><script src="https://a0.awsstatic.com/s_code/js/3.0/awshome_s_code.js" language="JavaScript" type="text/javascript"></script>
+         <!--/DO NOT REMOVE/-->
+         <!--End SiteCatalyst code version: H.25.2.--></div>
+   </body>
+</html>

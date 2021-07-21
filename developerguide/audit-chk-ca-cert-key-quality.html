@@ -1,0 +1,307 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" ng-app="AWSDocsDocPageApp">
+   <head>
+      <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+      <title>CA certificate key quality - AWS IoT Core</title>
+      <meta name="viewport" content="width=device-width,initial-scale=1" />
+      <meta name="assets_root" content="assets" />
+      <meta name="target_state" content="audit-chk-ca-cert-key-quality" />
+      <meta name="default_state" content="audit-chk-ca-cert-key-quality" />
+      <link rel="icon" type="image/ico" href="/assets/images/favicon.ico" />
+      <link rel="shortcut icon" type="image/ico" href="/assets/images/favicon.ico" />
+      <link rel="canonical" href="https://docs.aws.amazon.com/iot/latest/developerguide/audit-chk-ca-cert-key-quality.html" />
+      <meta name="description" content="Use this check for CA certificates for AWS IoT Device Defender." />
+      <meta name="deployment_region" content="IAD" />
+      <meta name="product" content="AWS IoT Core" />
+      <meta name="guide" content="Developer Guide" />
+      <meta name="locales" content="de_de:Deutsch/en_us:English/es_es:Español/fr_fr:Français/it_it:Italiano/ja_jp:日本語/ko_kr:한국어/pt_br:Português/zh_cn:中文 (简体)/zh_tw:中文 (繁體)" />
+      <meta name="abstract" content="AWS IoT provides secure, bi-directional communication between Internet-connected devices such as sensors, actuators, embedded micro-controllers, or smart appliances and the AWS Cloud. This enables you to collect telemetry data from multiple devices, and store and analyze the data. You can also create applications that enable your users to control these devices from their phones or tablets." />
+      <meta name="guide-locale" content="en_us" />
+      <meta name="tocs" content="toc-contents.json" />
+      <meta name="feedback-item" content="IoT Docs" />
+      <meta name="this_doc_product" content="AWS IoT Core" />
+      <meta name="this_doc_guide" content="Developer Guide" />
+      <link href="assets/css/vendor4.css" rel="stylesheet" />
+      <link href="assets/css/awsdocs-common.css" rel="stylesheet" /><script type="text/javascript" src="assets/js/vendor3.js" defer=""></script><script type="text/javascript" src="assets/js/vendor4.js" defer=""></script><script type="text/javascript" src="assets/js/vendor1.js" defer=""></script><script type="text/javascript" src="assets/js/awsdocs-common.js" defer=""></script><script type="text/javascript" src="assets/js/awsdocs-doc-app.js" defer=""></script></head>
+   <body class="awsdocs awsui">
+      <div class="awsdocs-container">
+         <awsdocs-header></awsdocs-header>
+         <awsui-app-layout id="app-layout" class="awsui-util-no-gutters" ng-controller="ContentController as $ctrl" header-selector="awsdocs-header" navigation-hide="false" navigation-width="$ctrl.navWidth" navigation-open="$ctrl.navOpen" navigation-change="$ctrl.onNavChange($event)" tools-hide="$ctrl.hideTools" tools-width="$ctrl.toolsWidth" tools-open="$ctrl.toolsOpen" tools-change="$ctrl.onToolsChange($event)">
+            <div id="guide-toc" dom-region="navigation">
+               <awsdocs-toc></awsdocs-toc>
+            </div>
+            <div id="main-column" dom-region="content" tabindex="-1">
+               <awsdocs-view class="awsdocs-view">
+                  <div id="awsdocs-content">
+                     <head>
+                        <title>CA certificate key quality - AWS IoT Core</title>
+                        <meta name="pdf" content="iot-dg.pdf#audit-chk-ca-cert-key-quality" />
+                        <meta name="kindle" content="https://www.amazon.com/dp/B07JBRCWWZ" />
+                        <meta name="github" content="https://github.com/awsdocs/aws-iot-docs/tree/master/developerguide/audit-chk-ca-cert-key-quality.md" />
+                        <meta name="forums" content="http://forums.aws.amazon.com/forum.jspa?forumID=210" />
+                        <meta name="feedback" content="https://docs.aws.amazon.com/forms/aws-doc-feedback?hidden_service_name=IoT%20Docs&amp;topic_url=http://docs.aws.amazon.com/en_us/iot/latest/developerguide/audit-chk-ca-cert-key-quality.html" />
+                        <meta name="feedback-yes" content="feedbackyes.html?topic_url=http://docs.aws.amazon.com/en_us/iot/latest/developerguide/audit-chk-ca-cert-key-quality.html" />
+                        <meta name="feedback-no" content="feedbackno.html?topic_url=http://docs.aws.amazon.com/en_us/iot/latest/developerguide/audit-chk-ca-cert-key-quality.html" />
+                        <meta name="keywords" content="AWS IoT,IoT,Internet of Things" />
+                     </head>
+                     <body>
+                        <div id="main">
+                           <div style="display: none"><a href="iot-dg.pdf#audit-chk-ca-cert-key-quality" target="_blank" rel="noopener noreferrer" title="Open PDF"></a><a target="_blank" rel="noopener noreferrer" href="https://www.amazon.com/dp/B07JBRCWWZ" title="Open Kindle"></a><a href="https://github.com/awsdocs/aws-iot-docs/tree/master/developerguide/audit-chk-ca-cert-key-quality.md" target="_blank" rel="noopener noreferrer" title="Edit this page on GitHub"></a></div>
+                           <div id="breadcrumbs" class="breadcrumb"><a href="http://aws.amazon.com">AWS</a><a href="/index.html">Documentation</a><a href="/iot/index.html">AWS IoT Core</a><a href="what-is-aws-iot.html">Developer Guide</a></div>
+                           <div id="page-toc-src"><a href="#audit-chk-ca-cert-key-quality-details">Details</a><a href="#audit-chk-ca-cert-key-quality-why-it-matters">Why it
+                                 matters</a><a href="#audit-chk-ca-cert-key-quality-how-to-fix">How to fix it</a></div>
+                           <div id="main-content" class="awsui-util-container">
+                              <div id="main-col-body">
+                                 <awsdocs-language-banner data-service="$ctrl.pageService"></awsdocs-language-banner>
+                                 <h1 class="topictitle" id="audit-chk-ca-cert-key-quality">CA certificate key quality</h1>
+                                 <div class="awsdocs-page-header-container">
+                                    <awsdocs-page-header></awsdocs-page-header>
+                                    <awsdocs-filter-selector id="awsdocs-filter-selector"></awsdocs-filter-selector>
+                                 </div>
+                                 <p>AWS IoT customers often rely on TLS mutual authentication using X.509 certificates
+                                    for
+                                    authenticating to AWS IoT message broker. These certificates and their certificate
+                                    authority certificates must be registered in their AWS IoT account before they are
+                                    used.
+                                    AWS IoT performs basic sanity checks on these certificates when they are registered,
+                                    including:
+                                 </p>
+                                 <div class="itemizedlist">
+                                     
+                                     
+                                     
+                                    
+                                    <ul class="itemizedlist" type="disc">
+                                       <li class="listitem">
+                                          
+                                          <p>The certificates are in a valid format.</p>
+                                          
+                                       </li>
+                                       <li class="listitem">
+                                          
+                                          <p>The certificates are within their validity period (in other words, not
+                                             expired).
+                                          </p>
+                                          
+                                       </li>
+                                       <li class="listitem">
+                                          
+                                          <p>Their cryptographic key sizes meet a minimum required size (for RSA keys, they
+                                             must be 2048 bits or larger).
+                                          </p>
+                                          
+                                       </li>
+                                    </ul>
+                                 </div>
+                                 <p>This audit check provides the following additional tests of the quality of your
+                                    cryptographic key:
+                                 </p>
+                                 <div class="itemizedlist">
+                                     
+                                     
+                                    
+                                    <ul class="itemizedlist" type="disc">
+                                       <li class="listitem">
+                                          
+                                          <p>CVE-2008-0166 – Check whether the key was generated using OpenSSL
+                                             0.9.8c-1 up to versions before 0.9.8g-9 on a Debian-based operating system.
+                                             Those versions of OpenSSL use a random number generator that generates
+                                             predictable numbers, making it easier for remote attackers to conduct brute
+                                             force guessing attacks against cryptographic keys.
+                                          </p>
+                                          
+                                       </li>
+                                       <li class="listitem">
+                                          
+                                          <p>CVE-2017-15361 – Check whether the key was generated by the Infineon
+                                             RSA library 1.02.013 in Infineon Trusted Platform Module (TPM) firmware, such as
+                                             versions before 0000000000000422 – 4.34, before 000000000000062b –
+                                             6.43, and before 0000000000008521 – 133.33. That library mishandles RSA
+                                             key generation, making it easier for attackers to defeat some cryptographic
+                                             protection mechanisms through targeted attacks. Examples of affected
+                                             technologies include BitLocker with TPM 1.2, YubiKey 4 (before 4.3.5) PGP key
+                                             generation, and the Cached User Data encryption feature in Chrome OS.
+                                          </p>
+                                          
+                                       </li>
+                                    </ul>
+                                 </div>
+                                 <p>AWS IoT Device Defender reports certificates as noncompliant if they fail these tests.</p>
+                                 <p>This check appears as <code class="code">CA_CERTIFICATE_KEY_QUALITY_CHECK</code> in the CLI and
+                                    API.
+                                 </p>
+                                 <p>Severity: <b>Critical</b></p>
+                                 
+                                 <h2 id="audit-chk-ca-cert-key-quality-details">Details</h2>
+                                 
+                                 <p>This check applies to CA certificates that are ACTIVE or PENDING_TRANSFER.</p>
+                                 
+                                 <p>The following reason codes are returned when this check finds a noncompliant
+                                    certificate:
+                                 </p>
+                                 
+                                 <div class="itemizedlist">
+                                     
+                                     
+                                    
+                                    <ul class="itemizedlist" type="disc">
+                                       <li class="listitem">
+                                          
+                                          <p>CERTIFICATE_KEY_VULNERABILITY_CVE-2017-15361</p>
+                                          
+                                       </li>
+                                       <li class="listitem">
+                                          
+                                          <p>CERTIFICATE_KEY_VULNERABILITY_CVE-2008-0166</p>
+                                          
+                                       </li>
+                                    </ul>
+                                 </div>
+                                  
+                                 
+                                 <h2 id="audit-chk-ca-cert-key-quality-why-it-matters">Why it
+                                    matters
+                                 </h2>
+                                 
+                                 <p>Newly added devices signed using this CA certificate might pose a security
+                                    threat.
+                                 </p>
+                                  
+                                 
+                                 <h2 id="audit-chk-ca-cert-key-quality-how-to-fix">How to fix it</h2>
+                                 
+                                 <div class="orderedlist">
+                                     
+                                     
+                                    
+                                    <ol>
+                                       <li>
+                                          
+                                          <p>Use <a href="https://docs.aws.amazon.com/iot/latest/apireference/API_UpdateCACertificate.html">UpdateCACertificate</a> to mark the CA certificate as INACTIVE in
+                                             AWS IoT. You can also use mitigation actions to:
+                                          </p>
+                                          
+                                          <div class="itemizedlist">
+                                              
+                                              
+                                             
+                                             <ul class="itemizedlist" type="disc">
+                                                <li class="listitem">
+                                                   
+                                                   <p>Apply the <code class="code">UPDATE_CA_CERTIFICATE</code> mitigation action on
+                                                      your audit findings to make this change. 
+                                                   </p>
+                                                   
+                                                </li>
+                                                <li class="listitem">
+                                                   
+                                                   <p>Apply the <code class="code">PUBLISH_FINDINGS_TO_SNS</code> mitigation action
+                                                      if you want to implement a custom response in response to the Amazon SNS
+                                                      message. 
+                                                   </p>
+                                                   
+                                                </li>
+                                             </ul>
+                                          </div>
+                                          
+                                          <p>For more information, see <a href="./dd-mitigation-actions.html">Mitigation actions</a>.
+                                          </p>
+                                          
+                                       </li>
+                                       <li>
+                                          
+                                          <p>Review the device certificate registration activity for the time after the
+                                             CA certificate was revoked and consider revoking any device certificates
+                                             that might have been issued with it during this time. (Use <a href="https://docs.aws.amazon.com/iot/latest/apireference/API_ListCertificatesByCA.html">ListCertificatesByCA</a> to list the device certificates signed by
+                                             the CA certificate and <a href="https://docs.aws.amazon.com/iot/latest/apireference/API_UpdateCertificate.html">UpdateCertificate</a> to revoke a device certificate.)
+                                          </p>
+                                          
+                                       </li>
+                                    </ol>
+                                 </div>
+                                 
+                                 <awsdocs-copyright class="copyright-print"></awsdocs-copyright>
+                                 <awsdocs-thumb-feedback right-edge="{{$ctrl.thumbFeedbackRightEdge}}"></awsdocs-thumb-feedback>
+                              </div>
+                              <noscript>
+                                 <div>
+                                    <div>
+                                       <div>
+                                          <div id="js_error_message">
+                                             <p><img src="https://d1ge0kk1l5kms0.cloudfront.net/images/G/01/webservices/console/warning.png" alt="Warning" /> <strong>Javascript is disabled or is unavailable in your
+                                                   browser.</strong></p>
+                                             <p>To use the Amazon Web Services Documentation, Javascript must be
+                                                enabled. Please refer to your browser's Help pages for instructions.
+                                             </p>
+                                          </div>
+                                       </div>
+                                    </div>
+                                 </div>
+                              </noscript>
+                              <div id="main-col-footer" class="awsui-util-font-size-0">
+                                 <div id="doc-conventions"><a target="_top" href="/general/latest/gr/docconventions.html">Document Conventions</a></div>
+                                 <div class="prev-next">
+                                    <div id="previous" class="prev-link" accesskey="p" href="./audit-chk-device-cert-key-quality.html">Device certificate key
+                                       quality
+                                    </div>
+                                    <div id="next" class="next-link" accesskey="n" href="./audit-chk-unauth-cognito-role-permissive.html">Unauthenticated Cognito role
+                                       overly permissive
+                                    </div>
+                                 </div>
+                              </div>
+                              <awsdocs-page-utilities></awsdocs-page-utilities>
+                           </div>
+                           <div id="quick-feedback-yes" style="display: none;">
+                              <div class="title">Did this page help you? - Yes</div>
+                              <div class="content">
+                                 <p>Thanks for letting us know we're doing a good
+                                    job!
+                                 </p>
+                                 <p>If you've got a moment, please tell us what we did right
+                                    so we can do more of it.
+                                 </p>
+                                 <p>
+                                    <awsui-button id="fblink" target="_blank" text="Feedback" click="linkClick($event)" href="https://docs.aws.amazon.com/forms/aws-doc-feedback?hidden_service_name=IoT Docs&amp;topic_url=https://docs.aws.amazon.com/en_us/iot/latest/developerguide/audit-chk-ca-cert-key-quality.html"></awsui-button>
+                                 </p>
+                              </div>
+                           </div>
+                           <div id="quick-feedback-no" style="display: none;">
+                              <div class="title">Did this page help you? - No</div>
+                              <div class="content">
+                                 <p>Thanks for letting us know this page needs work. We're
+                                    sorry we let you down.
+                                 </p>
+                                 <p>If you've got a moment, please tell us how we can make
+                                    the documentation better.
+                                 </p>
+                                 <p>
+                                    <awsui-button id="fblink" target="_blank" text="Feedback" click="linkClick($event)" href="https://docs.aws.amazon.com/forms/aws-doc-feedback?hidden_service_name=IoT Docs&amp;topic_url=https://docs.aws.amazon.com/en_us/iot/latest/developerguide/audit-chk-ca-cert-key-quality.html"></awsui-button>
+                                 </p>
+                              </div>
+                           </div>
+                        </div>
+                     </body>
+                  </div>
+               </awsdocs-view>
+               <div class="page-loading-indicator" id="page-loading-indicator">
+                  <awsui-spinner size="large"></awsui-spinner>
+               </div>
+            </div>
+            <div id="tools-panel" dom-region="tools">
+               <awsdocs-tools-panel id="awsdocs-tools-panel"></awsdocs-tools-panel>
+            </div>
+         </awsui-app-layout>
+         <awsdocs-cookie-banner class="doc-cookie-banner"></awsdocs-cookie-banner>
+         <!--
+                SiteCatalyst code version: H.25.2.
+                Copyright 1996-2012 Adobe, Inc. All Rights Reserved
+                More info available at http://www.omniture.com
+            --><script language="JavaScript" type="text/javascript">
+var awsdocs = awsdocs || {};
+awsdocs.prop66 = 'AWS IoT Core';
+awsdocs.prop65 =  'Developer Guide';
+            </script><script src="https://a0.awsstatic.com/s_code/js/3.0/awshome_s_code.js" language="JavaScript" type="text/javascript"></script>
+         <!--/DO NOT REMOVE/-->
+         <!--End SiteCatalyst code version: H.25.2.--></div>
+   </body>
+</html>

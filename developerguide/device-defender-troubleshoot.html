@@ -1,0 +1,514 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" ng-app="AWSDocsDocPageApp">
+   <head>
+      <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+      <title>AWS IoT Device Defender troubleshooting guide - AWS IoT Core</title>
+      <meta name="viewport" content="width=device-width,initial-scale=1" />
+      <meta name="assets_root" content="assets" />
+      <meta name="target_state" content="device-defender-troubleshoot" />
+      <meta name="default_state" content="device-defender-troubleshoot" />
+      <link rel="icon" type="image/ico" href="/assets/images/favicon.ico" />
+      <link rel="shortcut icon" type="image/ico" href="/assets/images/favicon.ico" />
+      <link rel="canonical" href="https://docs.aws.amazon.com/iot/latest/developerguide/device-defender-troubleshoot.html" />
+      <meta name="description" content="A: If you want to use device-reported metrics, you must first deploy an agent on your AWS IoT connected devices or device gateways. Devices must provide a consistent client identifier or thing name. A: When a check is enabled, data collection starts immediately. However, if your account has a large amount of data to collect (certificates, things, policies, and so on), the results of the check might not be available for some time after you have enabled it." />
+      <meta name="deployment_region" content="IAD" />
+      <meta name="product" content="AWS IoT Core" />
+      <meta name="guide" content="Developer Guide" />
+      <meta name="locales" content="de_de:Deutsch/en_us:English/es_es:Español/fr_fr:Français/it_it:Italiano/ja_jp:日本語/ko_kr:한국어/pt_br:Português/zh_cn:中文 (简体)/zh_tw:中文 (繁體)" />
+      <meta name="abstract" content="AWS IoT provides secure, bi-directional communication between Internet-connected devices such as sensors, actuators, embedded micro-controllers, or smart appliances and the AWS Cloud. This enables you to collect telemetry data from multiple devices, and store and analyze the data. You can also create applications that enable your users to control these devices from their phones or tablets." />
+      <meta name="guide-locale" content="en_us" />
+      <meta name="tocs" content="toc-contents.json" />
+      <meta name="feedback-item" content="IoT Docs" />
+      <meta name="this_doc_product" content="AWS IoT Core" />
+      <meta name="this_doc_guide" content="Developer Guide" />
+      <link href="assets/css/vendor4.css" rel="stylesheet" />
+      <link href="assets/css/awsdocs-common.css" rel="stylesheet" /><script type="text/javascript" src="assets/js/vendor3.js" defer=""></script><script type="text/javascript" src="assets/js/vendor4.js" defer=""></script><script type="text/javascript" src="assets/js/vendor1.js" defer=""></script><script type="text/javascript" src="assets/js/awsdocs-common.js" defer=""></script><script type="text/javascript" src="assets/js/awsdocs-doc-app.js" defer=""></script></head>
+   <body class="awsdocs awsui">
+      <div class="awsdocs-container">
+         <awsdocs-header></awsdocs-header>
+         <awsui-app-layout id="app-layout" class="awsui-util-no-gutters" ng-controller="ContentController as $ctrl" header-selector="awsdocs-header" navigation-hide="false" navigation-width="$ctrl.navWidth" navigation-open="$ctrl.navOpen" navigation-change="$ctrl.onNavChange($event)" tools-hide="$ctrl.hideTools" tools-width="$ctrl.toolsWidth" tools-open="$ctrl.toolsOpen" tools-change="$ctrl.onToolsChange($event)">
+            <div id="guide-toc" dom-region="navigation">
+               <awsdocs-toc></awsdocs-toc>
+            </div>
+            <div id="main-column" dom-region="content" tabindex="-1">
+               <awsdocs-view class="awsdocs-view">
+                  <div id="awsdocs-content">
+                     <head>
+                        <title>AWS IoT Device Defender troubleshooting guide - AWS IoT Core</title>
+                        <meta name="pdf" content="iot-dg.pdf#device-defender-troubleshoot" />
+                        <meta name="kindle" content="https://www.amazon.com/dp/B07JBRCWWZ" />
+                        <meta name="github" content="https://github.com/awsdocs/aws-iot-docs/tree/master/developerguide/device-defender-troubleshoot.md" />
+                        <meta name="forums" content="http://forums.aws.amazon.com/forum.jspa?forumID=210" />
+                        <meta name="feedback" content="https://docs.aws.amazon.com/forms/aws-doc-feedback?hidden_service_name=IoT%20Docs&amp;topic_url=http://docs.aws.amazon.com/en_us/iot/latest/developerguide/device-defender-troubleshoot.html" />
+                        <meta name="feedback-yes" content="feedbackyes.html?topic_url=http://docs.aws.amazon.com/en_us/iot/latest/developerguide/device-defender-troubleshoot.html" />
+                        <meta name="feedback-no" content="feedbackno.html?topic_url=http://docs.aws.amazon.com/en_us/iot/latest/developerguide/device-defender-troubleshoot.html" />
+                        <meta name="keywords" content="AWS IoT,IoT,Internet of Things" />
+                     </head>
+                     <body>
+                        <div id="main">
+                           <div style="display: none"><a href="iot-dg.pdf#device-defender-troubleshoot" target="_blank" rel="noopener noreferrer" title="Open PDF"></a><a target="_blank" rel="noopener noreferrer" href="https://www.amazon.com/dp/B07JBRCWWZ" title="Open Kindle"></a><a href="https://github.com/awsdocs/aws-iot-docs/tree/master/developerguide/device-defender-troubleshoot.md" target="_blank" rel="noopener noreferrer" title="Edit this page on GitHub"></a></div>
+                           <div id="breadcrumbs" class="breadcrumb"><a href="http://aws.amazon.com">AWS</a><a href="/index.html">Documentation</a><a href="/iot/index.html">AWS IoT Core</a><a href="what-is-aws-iot.html">Developer Guide</a></div>
+                           <div id="main-content" class="awsui-util-container">
+                              <div id="main-col-body">
+                                 <awsdocs-language-banner data-service="$ctrl.pageService"></awsdocs-language-banner>
+                                 <h1 class="topictitle" id="device-defender-troubleshoot">AWS IoT Device Defender troubleshooting guide</h1>
+                                 <div class="awsdocs-page-header-container">
+                                    <awsdocs-page-header></awsdocs-page-header>
+                                    <awsdocs-filter-selector id="awsdocs-filter-selector"></awsdocs-filter-selector>
+                                 </div>
+                                 <div class="variablelist">
+                                    
+                                    <p class="title"><b>General</b></p>
+                                     
+                                    
+                                    <dl>
+                                       
+                                       <dt><span class="term">Q: Are there any prerequisites for using AWS IoT Device Defender? </span></dt>
+                                       
+                                       <dd>
+                                          
+                                          <p>A: If you want to use device-reported metrics, you must first deploy an agent on
+                                             your AWS IoT connected devices or device gateways. Devices must provide a consistent
+                                             client identifier or thing name.
+                                          </p>
+                                          
+                                       </dd>
+                                       
+                                    </dl>
+                                 </div>
+                                 <div class="variablelist">
+                                    
+                                    <p class="title"><b>Audit</b></p>
+                                     
+                                    
+                                    <dl>
+                                       
+                                       <dt><span class="term">Q: I enabled a check and my audit has been showing "In-Progress" for a long time.
+                                             Is
+                                             something wrong? When can I expect results? </span></dt>
+                                       
+                                       <dd>
+                                          
+                                          <p>A: When a check is enabled, data collection starts immediately. However, if your
+                                             account has a large amount of data to collect (certificates, things, policies, and
+                                             so
+                                             on), the results of the check might not be available for some time after you have
+                                             enabled it. 
+                                          </p>
+                                          
+                                       </dd>
+                                       
+                                    </dl>
+                                 </div>
+                                 <div class="variablelist">
+                                    
+                                    <p class="title"><b>Detect</b></p>
+                                     
+                                     
+                                     
+                                     
+                                    
+                                    <dl>
+                                       
+                                       <dt><span class="term">Q: How do I know the thresholds to set in an AWS IoT Device Defender security profile
+                                             behavior? </span></dt>
+                                       
+                                       <dd>
+                                          
+                                          <p>A: Start by creating a security profile behavior with low thresholds and attach it
+                                             to a thing group that contains a representative set of devices. You can use AWS IoT
+                                             Device Defender to
+                                             view the current metrics, and then fine-tune the device behavior thresholds to match
+                                             your use case. 
+                                          </p>
+                                          
+                                       </dd>
+                                        
+                                       
+                                       <dt><span class="term">Q: I created a behavior, but it is not triggering a violation when I expect it to.
+                                             How
+                                             should I fix it? </span></dt>
+                                       
+                                       <dd>
+                                          
+                                          <p>A: When you define a behavior, you are specifying how you expect your device to
+                                             behave normally. For example, if you have a security camera that only connects to
+                                             one
+                                             central server on TCP port 8888, you don't expect it to make any other connections.
+                                             To
+                                             be alerted if the camera makes a connection on another port, you define a behavior
+                                             like
+                                             this: 
+                                          </p>
+                                          <pre class="programlisting"><div class="code-btn-container"><div class="btn-copy-code" title="Copy"><awsui-icon name="copy"></awsui-icon></div></div><code class="JSON "><span>{</span>
+  "name": "Listening TCP Ports",
+  "metric": "aws:listening-tcp-ports",
+  "criteria": <span>{</span>
+    "comparisonOperator": "in-port-set",
+    "value": <span>{</span>
+      "ports": [ 8888 ]
+    }
+  }
+}</code></pre>
+                                          <p>If the camera makes a TCP connection on TCP port 443, the device behavior would be
+                                             violated and an alert would be triggered. 
+                                          </p>
+                                          
+                                       </dd>
+                                        
+                                       
+                                       <dt><span class="term">Q: One or more of my behaviors are in violation. How do I clear the violation? </span></dt>
+                                       
+                                       <dd>
+                                          
+                                          <p>A: Alarms clear after the device returns to expected behavior, as defined in the
+                                             behavior profiles. Behavior profiles are evaluated upon receipt of metrics data for
+                                             your
+                                             device. If the device doesn't publish any metrics for more than two days, the violation
+                                             event is set to <code class="code">alarm-invalidated</code> automatically.
+                                          </p>
+                                          
+                                       </dd>
+                                        
+                                       
+                                       <dt><span class="term">Q: I deleted a behavior that was in violation, but how do I stop the alerts? </span></dt>
+                                       
+                                       <dd>
+                                          
+                                          <p>A: Deleting a behavior stops all future violations and alerts for that behavior.
+                                             Earlier alerts must be drained from your notification mechanism. When you delete a
+                                             behavior, the record of violations of that behavior is retained for the same time
+                                             period
+                                             as all other violations in your account. 
+                                          </p>
+                                          
+                                       </dd>
+                                       
+                                    </dl>
+                                 </div>
+                                 <div class="variablelist">
+                                    
+                                    <p class="title"><b>Device Metrics</b></p>
+                                     
+                                     
+                                    
+                                     
+                                     
+                                     
+                                     
+                                     
+                                     
+                                     
+                                     
+                                     
+                                    
+                                    <dl>
+                                       
+                                       <dt><span class="term">Q: I'm submitting metrics reports that I know violate my behaviors, but no violations
+                                             are being triggered. What's wrong? </span></dt>
+                                       
+                                       <dd>
+                                          
+                                          <p>A: Check that your metrics reports are being accepted by subscribing to the
+                                             following MQTT topics:
+                                          </p>
+                                          <pre class="programlisting"><div class="code-btn-container"><div class="btn-copy-code" title="Copy"><awsui-icon name="copy"></awsui-icon></div></div><code class="nohighlight">$aws/things/THING_NAME/defender/metrics/FORMAT/rejected
+$aws/things/THING_NAME/defender/metrics/FORMAT/accepted</code></pre>
+                                          <p>where <code class="code">THING_NAME</code> is the name of the thing reporting the metric and
+                                             <code class="code">FORMAT</code> is either "json" or "cbor", depending on the format of the metrics
+                                             report submitted by the thing.
+                                          </p>
+                                          
+                                          <p>After you have subscribed, you should receive messages on these topics for each
+                                             metric report submitted. A <code class="code">rejected</code> message indicates that there was a
+                                             problem parsing the metric report. An error message is included in the message payload
+                                             to help you correct any errors in your metric report. An <code class="code">accepted</code> message
+                                             indicates the metric report was parsed properly. 
+                                          </p>
+                                          
+                                       </dd>
+                                        
+                                       
+                                       <dt><span class="term">Q: What happens if I send an empty metric in my metric report?</span></dt>
+                                       
+                                       <dd>
+                                          
+                                          <p>A: An empty list of ports or IP addresses is always considered in conformity with
+                                             the corresponding behavior. If the corresponding behavior was in violation, the
+                                             violation is cleared. 
+                                          </p>
+                                          
+                                       </dd>
+                                        
+                                       
+                                       <dt><span class="term">Q: Why do my device metric reports contain messages for devices that aren't in the
+                                             AWS IoT registry?</span></dt>
+                                       
+                                       <dd>
+                                          
+                                          <p>If you have one or more security profiles attached to all things or to all
+                                             unregistered things, AWS IoT Device Defender includes metrics from unregistered things.
+                                             If you want to
+                                             exclude metrics from unregistered things, you can attach the profiles to all registered
+                                             devices instead of all devices.
+                                          </p>
+                                          
+                                       </dd>
+                                        
+                                       
+                                       <dt><span class="term">Q: I'm not seeing messages from one or more unregistered devices even though I applied
+                                             a security profile to all unregistered devices or all devices. How can I fix it?</span></dt>
+                                       
+                                       <dd>
+                                          
+                                          <p>Verify that you are sending a well-formed metrics report using one of the supported
+                                             formats, For information, see <a href="./detect-device-side-metrics.html#DetectMetricsMessagesSpec">Device metrics document specification</a>. Verify that the unregistered devices are
+                                             using a consistent client identifier or thing name. Messages reported by devices are
+                                             rejected if the thing name contains control characters or if the thing name is longer
+                                             than 128 bytes of UTF-8 encoded characters.
+                                          </p>
+                                          
+                                       </dd>
+                                        
+                                       
+                                       <dt><span class="term">Q: What happens if an unregistered device is added to the registry or a registered
+                                             device becomes unregistered?</span></dt>
+                                       
+                                       <dd>
+                                          
+                                          <p>A: If a device is added to or removed from the registry:</p>
+                                          
+                                          <div class="itemizedlist">
+                                             
+                                              
+                                             
+                                             <ul class="itemizedlist" type="disc">
+                                                <li class="listitem">
+                                                   
+                                                   <p>You see two separate violations for the device (one under its registered thing
+                                                      name, one under its unregistered identity) if it continues to publish metrics for
+                                                      violations. Active violations for the old identity stop appearing after two days,
+                                                      but are available in violations history for up to 14 days.
+                                                   </p>
+                                                   
+                                                </li>
+                                             </ul>
+                                          </div>
+                                          
+                                       </dd>
+                                        
+                                       
+                                       <dt><span class="term">Q: Which value should I supply in the report ID field of my device metrics report?
+                                             </span></dt>
+                                       
+                                       <dd>
+                                          
+                                          <p>A: Use a unique value for each metric report, expressed as a positive integer. A
+                                             common practice is to use a <a href="https://en.wikipedia.org/wiki/Unix_time" rel="noopener noreferrer" target="_blank"><span>Unix
+                                                   epoch timestamp</span><awsui-icon class="awsdocs-link-icon" name="external"></awsui-icon></a>. 
+                                          </p>
+                                          
+                                       </dd>
+                                        
+                                       
+                                       <dt><span class="term">Q: Should I create a dedicated MQTT connection for AWS IoT Device Defender metrics?
+                                             </span></dt>
+                                       
+                                       <dd>
+                                          
+                                          <p>A: A separate MQTT connection is not required. </p>
+                                          
+                                       </dd>
+                                        
+                                       
+                                       <dt><span class="term">Q: Which client ID should I use when connecting to publish device metrics? </span></dt>
+                                       
+                                       <dd>
+                                          
+                                          <p>For devices (things) that are in the AWS IoT registry, use the registered thing name.
+                                             For devices that are not in the AWS IoT registry, use a consistent identifier when
+                                             you
+                                             connect to AWS IoT. This practice helps match the violations to the thing name.
+                                          </p>
+                                          
+                                       </dd>
+                                        
+                                       
+                                       <dt><span class="term">Q: Can I publish metrics for a device with a different client ID? </span></dt>
+                                       
+                                       <dd>
+                                          
+                                          <p>It is possible to publish metrics on behalf of another thing. You can do this by
+                                             publishing the metrics to the AWS IoT Device Defender reserved topic for that device.
+                                             For example,
+                                             <code class="code">Thing-1</code> would like to publish metrics for itself and also on behalf of
+                                             <code class="code">Thing-2</code>. <code class="code">Thing-1</code> collects its own metrics and publishes them
+                                             on the MQTT topic:
+                                          </p>
+                                          <pre class="programlisting"><div class="code-btn-container"><div class="btn-copy-code" title="Copy"><awsui-icon name="copy"></awsui-icon></div></div><code class="nohighlight">$aws/things/Thing-1/defender/metrics/json</code></pre>
+                                          <p><code class="code">Thing-1</code> then obtains metrics from <code class="code">Thing-2</code> and publishes
+                                             those metrics on the MQTT topic:
+                                          </p>
+                                          <pre class="programlisting"><div class="code-btn-container"><div class="btn-copy-code" title="Copy"><awsui-icon name="copy"></awsui-icon></div></div><code class="nohighlight">$aws/things/Thing-2/defender/metrics/json</code></pre>
+                                          </dd>
+                                        
+                                       
+                                       <dt><span class="term">Q: How many security profiles and behaviors can I have in my account? </span></dt>
+                                       
+                                       <dd>
+                                          
+                                          <p>A: See <a href="https://docs.aws.amazon.com/general/latest/gr/iot_device_defender.html">AWS IoT Device Defender Endpoints and Quotas</a>. 
+                                          </p>
+                                          
+                                       </dd>
+                                        
+                                       
+                                       <dt><span class="term">Q: What does a prototypical target role for an alert target look like? </span></dt>
+                                       
+                                       <dd>
+                                          
+                                          <p>A: A role that allows AWS IoT Device Defender to publish alerts on an alert target
+                                             (SNS topic)
+                                             requires two things: 
+                                          </p>
+                                          
+                                          <div class="itemizedlist">
+                                              
+                                              
+                                              
+                                             
+                                             <ul class="itemizedlist" type="disc">
+                                                <li class="listitem">
+                                                   
+                                                   <p>A trust relationship that specifies iot.amazonaws.com as the trusted entity.
+                                                      
+                                                   </p>
+                                                   
+                                                </li>
+                                                <li class="listitem">
+                                                   
+                                                   <p>An attached policy that grants AWS IoT permission to publish on a specified SNS
+                                                      topic. For example:
+                                                   </p>
+                                                   <pre class="programlisting"><div class="code-btn-container"><div class="btn-copy-code" title="Copy"><awsui-icon name="copy"></awsui-icon></div></div><code class="JSON "><span>{</span>
+    "Version": "2012-10-17",
+    "Statement": [
+        <span>{</span>
+            "Effect": "Allow",
+            "Action": "sns:Publish",
+            "Resource": "&lt;sns-topic-arn&gt;"
+        }
+    ]
+}</code></pre>
+                                                   </li>
+                                                <li class="listitem">
+                                                   
+                                                   <p>If the SNS topic used for publishing alerts is an encrypted topic, then along
+                                                      with the permission to publish to SNS topic, AWS IoT needs to be granted two more
+                                                      permissions. For example:
+                                                   </p>
+                                                   <pre class="programlisting"><div class="code-btn-container"><div class="btn-copy-code" title="Copy"><awsui-icon name="copy"></awsui-icon></div></div><code class=""><span>{</span>
+    "Version": "2012-10-17",
+    "Statement": [
+       <span>{</span>
+           "Effect": "Allow",
+           "Action": [
+               "sns:Publish",
+               "kms:Decrypt",
+               "kms:GenerateDataKey"
+           ],
+           "Resource": "&lt;sns-topic-arn&gt;"
+       }
+    ]
+}</code></pre>
+                                                   </li>
+                                             </ul>
+                                          </div>
+                                          
+                                       </dd>
+                                       
+                                    </dl>
+                                 </div>
+                                 <awsdocs-copyright class="copyright-print"></awsdocs-copyright>
+                                 <awsdocs-thumb-feedback right-edge="{{$ctrl.thumbFeedbackRightEdge}}"></awsdocs-thumb-feedback>
+                              </div>
+                              <noscript>
+                                 <div>
+                                    <div>
+                                       <div>
+                                          <div id="js_error_message">
+                                             <p><img src="https://d1ge0kk1l5kms0.cloudfront.net/images/G/01/webservices/console/warning.png" alt="Warning" /> <strong>Javascript is disabled or is unavailable in your
+                                                   browser.</strong></p>
+                                             <p>To use the Amazon Web Services Documentation, Javascript must be
+                                                enabled. Please refer to your browser's Help pages for instructions.
+                                             </p>
+                                          </div>
+                                       </div>
+                                    </div>
+                                 </div>
+                              </noscript>
+                              <div id="main-col-footer" class="awsui-util-font-size-0">
+                                 <div id="doc-conventions"><a target="_top" href="/general/latest/gr/docconventions.html">Document Conventions</a></div>
+                                 <div class="prev-next">
+                                    <div id="previous" class="prev-link" accesskey="p" href="./ota-troubleshooting-stream-limit.html">Troubleshooting "Stream limit exceeded for your AWS 
+                                       account"
+                                    </div>
+                                    <div id="next" class="next-link" accesskey="n" href="./device-advisor-troubleshooting.html">Device Advisor troubleshooting guide</div>
+                                 </div>
+                              </div>
+                              <awsdocs-page-utilities></awsdocs-page-utilities>
+                           </div>
+                           <div id="quick-feedback-yes" style="display: none;">
+                              <div class="title">Did this page help you? - Yes</div>
+                              <div class="content">
+                                 <p>Thanks for letting us know we're doing a good
+                                    job!
+                                 </p>
+                                 <p>If you've got a moment, please tell us what we did right
+                                    so we can do more of it.
+                                 </p>
+                                 <p>
+                                    <awsui-button id="fblink" target="_blank" text="Feedback" click="linkClick($event)" href="https://docs.aws.amazon.com/forms/aws-doc-feedback?hidden_service_name=IoT Docs&amp;topic_url=https://docs.aws.amazon.com/en_us/iot/latest/developerguide/device-defender-troubleshoot.html"></awsui-button>
+                                 </p>
+                              </div>
+                           </div>
+                           <div id="quick-feedback-no" style="display: none;">
+                              <div class="title">Did this page help you? - No</div>
+                              <div class="content">
+                                 <p>Thanks for letting us know this page needs work. We're
+                                    sorry we let you down.
+                                 </p>
+                                 <p>If you've got a moment, please tell us how we can make
+                                    the documentation better.
+                                 </p>
+                                 <p>
+                                    <awsui-button id="fblink" target="_blank" text="Feedback" click="linkClick($event)" href="https://docs.aws.amazon.com/forms/aws-doc-feedback?hidden_service_name=IoT Docs&amp;topic_url=https://docs.aws.amazon.com/en_us/iot/latest/developerguide/device-defender-troubleshoot.html"></awsui-button>
+                                 </p>
+                              </div>
+                           </div>
+                        </div>
+                     </body>
+                  </div>
+               </awsdocs-view>
+               <div class="page-loading-indicator" id="page-loading-indicator">
+                  <awsui-spinner size="large"></awsui-spinner>
+               </div>
+            </div>
+            <div id="tools-panel" dom-region="tools">
+               <awsdocs-tools-panel id="awsdocs-tools-panel"></awsdocs-tools-panel>
+            </div>
+         </awsui-app-layout>
+         <awsdocs-cookie-banner class="doc-cookie-banner"></awsdocs-cookie-banner>
+         <!--
+                SiteCatalyst code version: H.25.2.
+                Copyright 1996-2012 Adobe, Inc. All Rights Reserved
+                More info available at http://www.omniture.com
+            --><script language="JavaScript" type="text/javascript">
+var awsdocs = awsdocs || {};
+awsdocs.prop66 = 'AWS IoT Core';
+awsdocs.prop65 =  'Developer Guide';
+            </script><script src="https://a0.awsstatic.com/s_code/js/3.0/awshome_s_code.js" language="JavaScript" type="text/javascript"></script>
+         <!--/DO NOT REMOVE/-->
+         <!--End SiteCatalyst code version: H.25.2.--></div>
+   </body>
+</html>

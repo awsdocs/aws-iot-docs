@@ -1,0 +1,421 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" ng-app="AWSDocsDocPageApp">
+   <head>
+      <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+      <title>Open a tunnel and start SSH session to remote device - AWS IoT Core</title>
+      <meta name="viewport" content="width=device-width,initial-scale=1" />
+      <meta name="assets_root" content="assets" />
+      <meta name="target_state" content="secure-tunneling-tutorial-open-tunnel" />
+      <meta name="default_state" content="secure-tunneling-tutorial-open-tunnel" />
+      <link rel="icon" type="image/ico" href="/assets/images/favicon.ico" />
+      <link rel="shortcut icon" type="image/ico" href="/assets/images/favicon.ico" />
+      <link rel="canonical" href="https://docs.aws.amazon.com/iot/latest/developerguide/secure-tunneling-tutorial-open-tunnel.html" />
+      <meta name="description" content="AWS IoT Secure Tunneling tutorial that show how to open a tunnel and start an SSH session." />
+      <meta name="deployment_region" content="IAD" />
+      <meta name="product" content="AWS IoT Core" />
+      <meta name="guide" content="Developer Guide" />
+      <meta name="locales" content="de_de:Deutsch/en_us:English/es_es:Español/fr_fr:Français/it_it:Italiano/ja_jp:日本語/ko_kr:한국어/pt_br:Português/zh_cn:中文 (简体)/zh_tw:中文 (繁體)" />
+      <meta name="abstract" content="AWS IoT provides secure, bi-directional communication between Internet-connected devices such as sensors, actuators, embedded micro-controllers, or smart appliances and the AWS Cloud. This enables you to collect telemetry data from multiple devices, and store and analyze the data. You can also create applications that enable your users to control these devices from their phones or tablets." />
+      <meta name="guide-locale" content="en_us" />
+      <meta name="tocs" content="toc-contents.json" />
+      <meta name="feedback-item" content="IoT Docs" />
+      <meta name="this_doc_product" content="AWS IoT Core" />
+      <meta name="this_doc_guide" content="Developer Guide" />
+      <link href="assets/css/vendor4.css" rel="stylesheet" />
+      <link href="assets/css/awsdocs-common.css" rel="stylesheet" /><script type="text/javascript" src="assets/js/vendor3.js" defer=""></script><script type="text/javascript" src="assets/js/vendor4.js" defer=""></script><script type="text/javascript" src="assets/js/vendor1.js" defer=""></script><script type="text/javascript" src="assets/js/awsdocs-common.js" defer=""></script><script type="text/javascript" src="assets/js/awsdocs-doc-app.js" defer=""></script></head>
+   <body class="awsdocs awsui">
+      <div class="awsdocs-container">
+         <awsdocs-header></awsdocs-header>
+         <awsui-app-layout id="app-layout" class="awsui-util-no-gutters" ng-controller="ContentController as $ctrl" header-selector="awsdocs-header" navigation-hide="false" navigation-width="$ctrl.navWidth" navigation-open="$ctrl.navOpen" navigation-change="$ctrl.onNavChange($event)" tools-hide="$ctrl.hideTools" tools-width="$ctrl.toolsWidth" tools-open="$ctrl.toolsOpen" tools-change="$ctrl.onToolsChange($event)">
+            <div id="guide-toc" dom-region="navigation">
+               <awsdocs-toc></awsdocs-toc>
+            </div>
+            <div id="main-column" dom-region="content" tabindex="-1">
+               <awsdocs-view class="awsdocs-view">
+                  <div id="awsdocs-content">
+                     <head>
+                        <title>Open a tunnel and start SSH session to remote device - AWS IoT Core</title>
+                        <meta name="pdf" content="iot-dg.pdf#secure-tunneling-tutorial-open-tunnel" />
+                        <meta name="kindle" content="https://www.amazon.com/dp/B07JBRCWWZ" />
+                        <meta name="github" content="https://github.com/awsdocs/aws-iot-docs/tree/master/developerguide/secure-tunneling-tutorial-open-tunnel.md" />
+                        <meta name="forums" content="http://forums.aws.amazon.com/forum.jspa?forumID=210" />
+                        <meta name="feedback" content="https://docs.aws.amazon.com/forms/aws-doc-feedback?hidden_service_name=IoT%20Docs&amp;topic_url=http://docs.aws.amazon.com/en_us/iot/latest/developerguide/secure-tunneling-tutorial-open-tunnel.html" />
+                        <meta name="feedback-yes" content="feedbackyes.html?topic_url=http://docs.aws.amazon.com/en_us/iot/latest/developerguide/secure-tunneling-tutorial-open-tunnel.html" />
+                        <meta name="feedback-no" content="feedbackno.html?topic_url=http://docs.aws.amazon.com/en_us/iot/latest/developerguide/secure-tunneling-tutorial-open-tunnel.html" />
+                        <meta name="keywords" content="AWS IoT,IoT,Internet of Things" />
+                     </head>
+                     <body>
+                        <div id="main">
+                           <div style="display: none"><a href="iot-dg.pdf#secure-tunneling-tutorial-open-tunnel" target="_blank" rel="noopener noreferrer" title="Open PDF"></a><a target="_blank" rel="noopener noreferrer" href="https://www.amazon.com/dp/B07JBRCWWZ" title="Open Kindle"></a><a href="https://github.com/awsdocs/aws-iot-docs/tree/master/developerguide/secure-tunneling-tutorial-open-tunnel.md" target="_blank" rel="noopener noreferrer" title="Edit this page on GitHub"></a></div>
+                           <div id="breadcrumbs" class="breadcrumb"><a href="http://aws.amazon.com">AWS</a><a href="/index.html">Documentation</a><a href="/iot/index.html">AWS IoT Core</a><a href="what-is-aws-iot.html">Developer Guide</a></div>
+                           <div id="page-toc-src"><a href="#tunneling-tutorial-prerequisites">Prerequisites</a><a href="#open-tunnel">Open a tunnel</a><a href="#start-local-proxy">Start the local proxy</a><a href="#start-ssh-session">Start an SSH session</a><a href="#close-tunnel">Closing the tunnel</a></div>
+                           <div id="main-content" class="awsui-util-container">
+                              <div id="main-col-body">
+                                 <awsdocs-language-banner data-service="$ctrl.pageService"></awsdocs-language-banner>
+                                 <h1 class="topictitle" id="secure-tunneling-tutorial-open-tunnel">Open a tunnel and start 
+                                    SSH session to remote device
+                                 </h1>
+                                 <div class="awsdocs-page-header-container">
+                                    <awsdocs-page-header></awsdocs-page-header>
+                                    <awsdocs-filter-selector id="awsdocs-filter-selector"></awsdocs-filter-selector>
+                                 </div>
+                                 <p>In this tutorial, you open a tunnel and use it to start an SSH session to a remote
+                                    device.
+                                    The remote device is behind firewalls that block all inbound traffic, making direct
+                                    SSH into
+                                    the device impossible. Before you begin, make sure that you understand how to <a href="https://docs.aws.amazon.com/iot/latest/developerguide/register-device.html">register a device in the AWS IoT registry</a>
+                                    and <a href="https://docs.aws.amazon.com/iot/latest/developerguide/sdk-tutorials.html">connect a device to the AWS IoT device
+                                       gateway</a>.
+                                 </p>
+                                 
+                                 <h2 id="tunneling-tutorial-prerequisites">Prerequisites</h2>
+                                 
+                                 <div class="itemizedlist">
+                                     
+                                     
+                                     
+                                     
+                                     
+                                    
+                                    <ul class="itemizedlist" type="disc">
+                                       <li class="listitem">
+                                          
+                                          <p>The firewalls the remote device is behind must allow outbound traffic on port
+                                             443.
+                                          </p>
+                                          
+                                       </li>
+                                       <li class="listitem">
+                                          
+                                          <p>You have created an IoT thing named <code class="code">RemoteDeviceA</code> in the AWS IoT
+                                             registry.
+                                          </p>
+                                          
+                                       </li>
+                                       <li class="listitem">
+                                          
+                                          <p>You have an IoT device agent running on the remote device that connects to the
+                                             AWS IoT device gateway and is configured with an MQTT topic subscription. This
+                                             tutorial includes a snippet that shows you how to implement an agent. For more
+                                             information, see <a href="./agent-snippet.html">IoT agent snippet</a>.
+                                          </p>
+                                          
+                                       </li>
+                                       <li class="listitem">
+                                          
+                                          <p>You must have an SSH daemon running on the remote device.</p>
+                                          
+                                       </li>
+                                       <li class="listitem">
+                                          
+                                          <p>You have downloaded the local proxy source code from <a href="https://github.com/aws-samples/aws-iot-securetunneling-localproxy" rel="noopener noreferrer" target="_blank"><span>GitHub</span><awsui-icon class="awsdocs-link-icon" name="external"></awsui-icon></a> and built it for the platform of your choice. We'll refer to
+                                             the built local proxy executable file as <code class="code">localproxy</code> in this
+                                             tutorial.
+                                          </p>
+                                          
+                                       </li>
+                                    </ul>
+                                 </div>
+                                  
+                                 
+                                 <h2 id="open-tunnel">Open a tunnel</h2>
+                                 
+                                 <p>If you configure the destination when calling <code class="code">OpenTunnel</code>, the Secure
+                                    Tunneling service delivers the destination client access token to the remote device
+                                    over
+                                    MQTT and the reserved MQTT topic
+                                    (<code class="code">$aws/things/RemoteDeviceA/tunnels/notify</code>). For more information, see <a href="./reserved-topics.html">Reserved topics</a>. Upon receipt of the
+                                    MQTT message, the IoT agent on the remote device starts the local proxy in destination
+                                    mode. You can omit the destination configuration if you want to deliver the destination
+                                    client access token to the remote device through another method. For more information,
+                                    see <a href="./configure-remote-device.html">Configuring a remote device</a>.
+                                 </p>
+                                 
+                                 <div class="procedure">
+                                    <p class="title"><b>To open a tunnel in the console</b></p>
+                                    <ol>
+                                       <li>
+                                          
+                                          <p>In the <a href="https://console.aws.amazon.com/iot/" rel="noopener noreferrer" target="_blank"><span>AWS IoT console</span><awsui-icon class="awsdocs-link-icon" name="external"></awsui-icon></a>,
+                                             navigate to <b>Manage</b> and <b>Tunnels</b>.
+                                          </p>
+                                          
+                                          <div class="mediaobject">
+                                              
+                                             <img src="images/tunnels-page.png" class="aws-docs-img-whiteBg aws-docs-img-padding" />
+                                              
+                                             
+                                          </div>
+                                          
+                                       </li>
+                                       <li>
+                                          
+                                          <p>Select <b>Open New</b>.
+                                          </p>
+                                          
+                                       </li>
+                                       <li>
+                                          
+                                          <p>On the <b>Open a new secure tunnel</b> screen, enter the
+                                             following:
+                                          </p>
+                                          
+                                          <div class="orderedlist">
+                                              
+                                              
+                                              
+                                              
+                                              
+                                             
+                                             <ol style="list-style-type:lower-alpha ! important;">
+                                                <li>
+                                                   
+                                                   <p>Description: a description for your tunnel.</p>
+                                                   
+                                                </li>
+                                                <li>
+                                                   
+                                                   <p>Thing Name: the thing you want to open a tunnel for.</p>
+                                                   
+                                                </li>
+                                                <li>
+                                                   
+                                                   <p>Service: a service to be used on the thing (e.g. ssh, ftp etc).</p>
+                                                   
+                                                </li>
+                                                <li>
+                                                   
+                                                   <p>Tunnel timeout configuration: specify a timeout duration for your
+                                                      tunnel.
+                                                   </p>
+                                                   
+                                                </li>
+                                                <li>
+                                                   
+                                                   <p>Resource Tags: apply tags to your resources to help organize and
+                                                      identify them. Consists of a case-sensitive key-value pair.
+                                                   </p>
+                                                   
+                                                </li>
+                                             </ol>
+                                          </div>
+                                          
+                                          <div class="mediaobject">
+                                              
+                                             <img src="images/open-tunnel.png" class="aws-docs-img-whiteBg aws-docs-img-padding" />
+                                              
+                                             
+                                          </div>
+                                          
+                                       </li>
+                                       <li>
+                                          
+                                          <p>Download the client access tokens for the source and destination.</p>
+                                          
+                                          <div class="mediaobject">
+                                              
+                                             <img src="images/tunnel-success.png" class="aws-docs-img-whiteBg aws-docs-img-padding" />
+                                              
+                                             
+                                          </div>
+                                          
+                                       </li>
+                                       <li>
+                                          
+                                          <p>Select <b>Done</b>.
+                                          </p>
+                                          
+                                       </li>
+                                    </ol>
+                                 </div>
+                                  
+                                 
+                                 <h2 id="start-local-proxy">Start the local proxy</h2>
+                                 
+                                 <p>Open a terminal on your laptop, copy the source client access token, and use it to
+                                    start the local proxy in source mode. In the following command, the local proxy is
+                                    configured to listen for new connections on port 5555.
+                                 </p>
+                                 
+                                 <p><b>./localproxy -r us-east-1 -s 5555 -t
+                                       <code class="replaceable">source-client-access-token</code></b></p>
+                                 
+                                 <div class="awsdocs-note">
+                                    <div class="awsdocs-note-title">
+                                       <awsui-icon name="status-info" variant="link"></awsui-icon><span>Note</span></div>
+                                    <div class="awsdocs-note-text">
+                                       <p>The AWS Region in this command must be the same AWS Region where the tunnel was
+                                          created.
+                                       </p>
+                                    </div>
+                                 </div>
+                                 
+                                 <div class="variablelist">
+                                     
+                                     
+                                     
+                                    
+                                    <dl>
+                                       
+                                       <dt><span class="term">-r</span></dt>
+                                       
+                                       <dd>
+                                          
+                                          <p>Specifies the AWS Region where your tunnel is created.</p>
+                                          
+                                       </dd>
+                                        
+                                       
+                                       <dt><span class="term">-s</span></dt>
+                                       
+                                       <dd>
+                                          
+                                          <p>Specifies the port to which the proxy should connect.</p>
+                                          
+                                       </dd>
+                                        
+                                       
+                                       <dt><span class="term">-t</span></dt>
+                                       
+                                       <dd>
+                                          
+                                          <p>Specifies the client token text.</p>
+                                          
+                                       </dd>
+                                       
+                                    </dl>
+                                 </div>
+                                 
+                                 <div class="awsdocs-note">
+                                    <div class="awsdocs-note-title">
+                                       <awsui-icon name="status-info" variant="link"></awsui-icon><span>Note</span></div>
+                                    <div class="awsdocs-note-text">
+                                       <p>If you receive the following error, set up the CA path. For information, see
+                                          <a href="https://github.com/aws-samples/aws-iot-securetunneling-localproxy" rel="noopener noreferrer" target="_blank"><span>GitHub</span><awsui-icon class="awsdocs-link-icon" name="external"></awsui-icon></a>.
+                                       </p>
+                                       <p><code class="code">Could not perform SSL handshake with proxy server: certificate verify
+                                             failed</code></p>
+                                    </div>
+                                 </div>
+                                  
+                                 
+                                 <h2 id="start-ssh-session">Start an SSH session</h2>
+                                 
+                                 <p>Open another terminal and use the following command to start a new SSH session by
+                                    connecting to the local proxy on port 5555.
+                                 </p>
+                                 
+                                 <p><b>ssh <code class="replaceable">username</code>@localhost -p
+                                       5555</b></p>
+                                 
+                                 <p>You might be prompted for a password for the SSH session. When you are done with the
+                                    SSH session, type <code class="userinput">exit</code> to close the session.
+                                 </p>
+                                  
+                                 
+                                 <h2 id="close-tunnel">Closing the tunnel</h2>
+                                 
+                                 <div class="orderedlist">
+                                     
+                                     
+                                    
+                                    <ol>
+                                       <li>
+                                          
+                                          <p>Open the <a href="https://console.aws.amazon.com/iot/" rel="noopener noreferrer" target="_blank"><span>AWS IoT
+                                                   console</span><awsui-icon class="awsdocs-link-icon" name="external"></awsui-icon></a>.
+                                          </p>
+                                          
+                                       </li>
+                                       <li>
+                                          
+                                          <p> Choose the tunnel and from <b>Actions</b>, choose
+                                             <b>Close</b>. Closing the tunnel causes both local proxy
+                                             instances to close.
+                                          </p>
+                                          
+                                       </li>
+                                    </ol>
+                                 </div>
+                                 
+                                 <awsdocs-copyright class="copyright-print"></awsdocs-copyright>
+                                 <awsdocs-thumb-feedback right-edge="{{$ctrl.thumbFeedbackRightEdge}}"></awsdocs-thumb-feedback>
+                              </div>
+                              <noscript>
+                                 <div>
+                                    <div>
+                                       <div>
+                                          <div id="js_error_message">
+                                             <p><img src="https://d1ge0kk1l5kms0.cloudfront.net/images/G/01/webservices/console/warning.png" alt="Warning" /> <strong>Javascript is disabled or is unavailable in your
+                                                   browser.</strong></p>
+                                             <p>To use the Amazon Web Services Documentation, Javascript must be
+                                                enabled. Please refer to your browser's Help pages for instructions.
+                                             </p>
+                                          </div>
+                                       </div>
+                                    </div>
+                                 </div>
+                              </noscript>
+                              <div id="main-col-footer" class="awsui-util-font-size-0">
+                                 <div id="doc-conventions"><a target="_top" href="/general/latest/gr/docconventions.html">Document Conventions</a></div>
+                                 <div class="prev-next">
+                                    <div id="previous" class="prev-link" accesskey="p" href="./secure-tunneling-demo.html">AWS IoT Secure Tunneling demo</div>
+                                    <div id="next" class="next-link" accesskey="n" href="./local-proxy.html">Local proxy</div>
+                                 </div>
+                              </div>
+                              <awsdocs-page-utilities></awsdocs-page-utilities>
+                           </div>
+                           <div id="quick-feedback-yes" style="display: none;">
+                              <div class="title">Did this page help you? - Yes</div>
+                              <div class="content">
+                                 <p>Thanks for letting us know we're doing a good
+                                    job!
+                                 </p>
+                                 <p>If you've got a moment, please tell us what we did right
+                                    so we can do more of it.
+                                 </p>
+                                 <p>
+                                    <awsui-button id="fblink" target="_blank" text="Feedback" click="linkClick($event)" href="https://docs.aws.amazon.com/forms/aws-doc-feedback?hidden_service_name=IoT Docs&amp;topic_url=https://docs.aws.amazon.com/en_us/iot/latest/developerguide/secure-tunneling-tutorial-open-tunnel.html"></awsui-button>
+                                 </p>
+                              </div>
+                           </div>
+                           <div id="quick-feedback-no" style="display: none;">
+                              <div class="title">Did this page help you? - No</div>
+                              <div class="content">
+                                 <p>Thanks for letting us know this page needs work. We're
+                                    sorry we let you down.
+                                 </p>
+                                 <p>If you've got a moment, please tell us how we can make
+                                    the documentation better.
+                                 </p>
+                                 <p>
+                                    <awsui-button id="fblink" target="_blank" text="Feedback" click="linkClick($event)" href="https://docs.aws.amazon.com/forms/aws-doc-feedback?hidden_service_name=IoT Docs&amp;topic_url=https://docs.aws.amazon.com/en_us/iot/latest/developerguide/secure-tunneling-tutorial-open-tunnel.html"></awsui-button>
+                                 </p>
+                              </div>
+                           </div>
+                        </div>
+                     </body>
+                  </div>
+               </awsdocs-view>
+               <div class="page-loading-indicator" id="page-loading-indicator">
+                  <awsui-spinner size="large"></awsui-spinner>
+               </div>
+            </div>
+            <div id="tools-panel" dom-region="tools">
+               <awsdocs-tools-panel id="awsdocs-tools-panel"></awsdocs-tools-panel>
+            </div>
+         </awsui-app-layout>
+         <awsdocs-cookie-banner class="doc-cookie-banner"></awsdocs-cookie-banner>
+         <!--
+                SiteCatalyst code version: H.25.2.
+                Copyright 1996-2012 Adobe, Inc. All Rights Reserved
+                More info available at http://www.omniture.com
+            --><script language="JavaScript" type="text/javascript">
+var awsdocs = awsdocs || {};
+awsdocs.prop66 = 'AWS IoT Core';
+awsdocs.prop65 =  'Developer Guide';
+            </script><script src="https://a0.awsstatic.com/s_code/js/3.0/awshome_s_code.js" language="JavaScript" type="text/javascript"></script>
+         <!--/DO NOT REMOVE/-->
+         <!--End SiteCatalyst code version: H.25.2.--></div>
+   </body>
+</html>

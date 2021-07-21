@@ -1,0 +1,1221 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" ng-app="AWSDocsDocPageApp">
+   <head>
+      <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+      <title>Publish/Subscribe policy examples - AWS IoT Core</title>
+      <meta name="viewport" content="width=device-width,initial-scale=1" />
+      <meta name="assets_root" content="assets" />
+      <meta name="target_state" content="pub-sub-policy" />
+      <meta name="default_state" content="pub-sub-policy" />
+      <link rel="icon" type="image/ico" href="/assets/images/favicon.ico" />
+      <link rel="shortcut icon" type="image/ico" href="/assets/images/favicon.ico" />
+      <link rel="canonical" href="https://docs.aws.amazon.com/iot/latest/developerguide/pub-sub-policy.html" />
+      <meta name="description" content="The policy you use depends on how you're connecting to AWS IoT Core. You can connect to AWS IoT Core by using an MQTT client, HTTP, or WebSocket. When you connect with an MQTT client, you're authenticating with an X.509 certificate. When you connect over HTTP or the WebSocket protocol, you're authenticating with Signature Version 4 and Amazon Cognito." />
+      <meta name="deployment_region" content="IAD" />
+      <meta name="product" content="AWS IoT Core" />
+      <meta name="guide" content="Developer Guide" />
+      <meta name="locales" content="de_de:Deutsch/en_us:English/es_es:Español/fr_fr:Français/it_it:Italiano/ja_jp:日本語/ko_kr:한국어/pt_br:Português/zh_cn:中文 (简体)/zh_tw:中文 (繁體)" />
+      <meta name="abstract" content="AWS IoT provides secure, bi-directional communication between Internet-connected devices such as sensors, actuators, embedded micro-controllers, or smart appliances and the AWS Cloud. This enables you to collect telemetry data from multiple devices, and store and analyze the data. You can also create applications that enable your users to control these devices from their phones or tablets." />
+      <meta name="guide-locale" content="en_us" />
+      <meta name="tocs" content="toc-contents.json" />
+      <meta name="feedback-item" content="IoT Docs" />
+      <meta name="this_doc_product" content="AWS IoT Core" />
+      <meta name="this_doc_guide" content="Developer Guide" />
+      <link href="assets/css/vendor4.css" rel="stylesheet" />
+      <link href="assets/css/awsdocs-common.css" rel="stylesheet" /><script type="text/javascript" src="assets/js/vendor3.js" defer=""></script><script type="text/javascript" src="assets/js/vendor4.js" defer=""></script><script type="text/javascript" src="assets/js/vendor1.js" defer=""></script><script type="text/javascript" src="assets/js/awsdocs-common.js" defer=""></script><script type="text/javascript" src="assets/js/awsdocs-doc-app.js" defer=""></script></head>
+   <body class="awsdocs awsui">
+      <div class="awsdocs-container">
+         <awsdocs-header></awsdocs-header>
+         <awsui-app-layout id="app-layout" class="awsui-util-no-gutters" ng-controller="ContentController as $ctrl" header-selector="awsdocs-header" navigation-hide="false" navigation-width="$ctrl.navWidth" navigation-open="$ctrl.navOpen" navigation-change="$ctrl.onNavChange($event)" tools-hide="$ctrl.hideTools" tools-width="$ctrl.toolsWidth" tools-open="$ctrl.toolsOpen" tools-change="$ctrl.onToolsChange($event)">
+            <div id="guide-toc" dom-region="navigation">
+               <awsdocs-toc></awsdocs-toc>
+            </div>
+            <div id="main-column" dom-region="content" tabindex="-1">
+               <awsdocs-view class="awsdocs-view">
+                  <div id="awsdocs-content">
+                     <head>
+                        <title>Publish/Subscribe policy examples - AWS IoT Core</title>
+                        <meta name="pdf" content="iot-dg.pdf#pub-sub-policy" />
+                        <meta name="kindle" content="https://www.amazon.com/dp/B07JBRCWWZ" />
+                        <meta name="github" content="https://github.com/awsdocs/aws-iot-docs/tree/master/developerguide/pub-sub-policy.md" />
+                        <meta name="forums" content="http://forums.aws.amazon.com/forum.jspa?forumID=210" />
+                        <meta name="feedback" content="https://docs.aws.amazon.com/forms/aws-doc-feedback?hidden_service_name=IoT%20Docs&amp;topic_url=http://docs.aws.amazon.com/en_us/iot/latest/developerguide/pub-sub-policy.html" />
+                        <meta name="feedback-yes" content="feedbackyes.html?topic_url=http://docs.aws.amazon.com/en_us/iot/latest/developerguide/pub-sub-policy.html" />
+                        <meta name="feedback-no" content="feedbackno.html?topic_url=http://docs.aws.amazon.com/en_us/iot/latest/developerguide/pub-sub-policy.html" />
+                        <meta name="keywords" content="AWS IoT,IoT,Internet of Things" />
+                     </head>
+                     <body>
+                        <div id="main">
+                           <div style="display: none"><a href="iot-dg.pdf#pub-sub-policy" target="_blank" rel="noopener noreferrer" title="Open PDF"></a><a target="_blank" rel="noopener noreferrer" href="https://www.amazon.com/dp/B07JBRCWWZ" title="Open Kindle"></a><a href="https://github.com/awsdocs/aws-iot-docs/tree/master/developerguide/pub-sub-policy.md" target="_blank" rel="noopener noreferrer" title="Edit this page on GitHub"></a></div>
+                           <div id="breadcrumbs" class="breadcrumb"><a href="http://aws.amazon.com">AWS</a><a href="/index.html">Documentation</a><a href="/iot/index.html">AWS IoT Core</a><a href="what-is-aws-iot.html">Developer Guide</a></div>
+                           <div id="page-toc-src"><a href="#pub-sub-policy-cert">Policies for MQTT clients</a><a href="#pub-sub-policy-cognito">Policies for HTTP and WebSocket
+                                 clients</a><a href="#receive-policy">Receive policy examples</a></div>
+                           <div id="main-content" class="awsui-util-container">
+                              <div id="main-col-body">
+                                 <awsdocs-language-banner data-service="$ctrl.pageService"></awsdocs-language-banner>
+                                 <h1 class="topictitle" id="pub-sub-policy">Publish/Subscribe policy examples</h1>
+                                 <div class="awsdocs-page-header-container">
+                                    <awsdocs-page-header></awsdocs-page-header>
+                                    <awsdocs-filter-selector id="awsdocs-filter-selector"></awsdocs-filter-selector>
+                                 </div>
+                                 <p>The policy you use depends on how you're connecting to AWS IoT Core. You can
+                                    connect to AWS IoT Core by using an MQTT client, HTTP, or WebSocket. When you
+                                    connect with an MQTT client, you're authenticating with an X.509 certificate.
+                                    When you connect over HTTP or the WebSocket protocol, you're authenticating with
+                                    Signature Version 4 and Amazon Cognito.
+                                 </p>
+                                 
+                                 <h2 id="pub-sub-policy-cert">Policies for MQTT clients</h2>
+                                 
+                                 <p>MQTT and AWS IoT Core policies have different wildcard characters and
+                                    they should be used with careful consideration. In MQTT, the wildcard
+                                    characters <code class="code">+</code> and <code class="code">#</code> are used in <a href="https://docs.aws.amazon.com/iot/latest/developerguide/topics.html#topicfilters">MQTT topic
+                                       filters</a> to subscribe to multiple topic names. AWS IoT Core
+                                    policies follow the same conventions as <a href="https://docs.aws.amazon.com/IAM/latest/UserGuide/reference_policies_grammar.html#policies-grammar-json">IAM policies</a> and use <code class="code">*</code> as a wildcard
+                                    character, and the MQTT wildcard characters <code class="code">+</code> and
+                                    <code class="code">#</code> are treated as literal strings. Therefore, to specify
+                                    wildcard characters in topic names and topic filters in AWS IoT Core
+                                    policies for MQTT clients, you must use <code class="code">*</code>.
+                                 </p>
+                                 
+                                 <p>The table below shows the different wildcard characters used in MQTT and AWS IoT Core
+                                    policies for MQTT clients.
+                                 </p>
+                                 
+                                 <div class="table-container">
+                                    <div class="table-contents">
+                                       <table id="w332aac19c17c29c21c13b5b7">
+                                          <thead>
+                                             
+                                             <tr>
+                                                
+                                                <th>Wildcard character</th>
+                                                
+                                                <th>Is MQTT wildcard character</th>
+                                                
+                                                <th>Example in MQTT</th>
+                                                
+                                                <th>Is AWS IoT Core policy wildcard character</th>
+                                                
+                                                <th>Example in AWS IoT Core policies for MQTT clients</th>
+                                                
+                                             </tr>
+                                             
+                                          </thead>
+                                          
+                                          <tr>
+                                             
+                                             <td><code class="code">#</code></td>
+                                             
+                                             <td>Yes</td>
+                                             
+                                             <td><code class="code">some/#</code></td>
+                                             
+                                             <td>No</td>
+                                             
+                                             <td>N/A</td>
+                                             
+                                          </tr>
+                                          
+                                          <tr>
+                                             
+                                             <td><code class="code">+</code></td>
+                                             
+                                             <td>Yes</td>
+                                             
+                                             <td><code class="code">some/+/topic</code></td>
+                                             
+                                             <td>No</td>
+                                             
+                                             <td>N/A</td>
+                                             
+                                          </tr>
+                                          
+                                          <tr>
+                                             
+                                             <td><code class="code">*</code></td>
+                                             
+                                             <td>No</td>
+                                             
+                                             <td>N/A</td>
+                                             
+                                             <td>Yes</td>
+                                             
+                                             <td><code class="code">topicfilter/some/*/topic</code>                        
+                                                
+                                             </td>
+                                             
+                                          </tr>
+                                          
+                                       </table>
+                                    </div>
+                                 </div>
+                                 
+                                 <p>To describe multiple topic names in the <code class="code">resource</code> attribute of
+                                    a policy, use the <code class="code">*</code> wildcard character. The following policy
+                                    enables a device to publish to all subtopics that start with the same thing
+                                    name.
+                                 </p>
+                                 
+                                 <awsdocs-tabs>
+                                    <dl style="display: none">
+                                       
+                                       <dt>Registered devices (5)</dt>
+                                       <dd tab-id="registered-devices-(5)">
+                                          
+                                          <p>For devices registered as things in the AWS IoT Core registry, the
+                                             following policy grants permission to connect to AWS IoT Core using a
+                                             client ID that matches the thing name and to publish to any
+                                             topic prefixed by the thing name:
+                                          </p>
+                                          <pre class="programlisting"><div class="code-btn-container"><div class="btn-copy-code" title="Copy"><awsui-icon name="copy"></awsui-icon></div></div><code class="JSON "><span>{</span>
+    "Version": "2012-10-17",
+    "Statement": [
+        <span>{</span>
+            "Effect": "Allow",
+            "Action": [
+                "iot:Connect"
+            ],
+            "Resource": [
+                "arn:aws:iot:us-east-1:123456789012:client/$<span>{</span>iot:Connection.Thing.ThingName}"
+            ]
+        },
+        <span>{</span>
+            "Effect": "Allow",
+            "Action": [
+                "iot:Publish"
+            ],
+            "Resource": [
+                "arn:aws:iot:us-east-1:123456789012:topic/$<span>{</span>iot:Connection.Thing.ThingName}/*"
+            ]
+        }
+    ]
+}</code></pre>
+                                          </dd>
+                                       
+                                       <dt>Unregistered devices (5)</dt>
+                                       <dd tab-id="unregistered-devices-(5)">
+                                          
+                                          <p>For devices not registered as things in the AWS IoT Core registry,
+                                             the following policy grants permission to connect to AWS IoT Core using
+                                             client ID <code class="code">client1</code>, <code class="code">client2</code>, or
+                                             <code class="code">client3</code> and to publish to any topic prefixed by
+                                             the client ID:
+                                          </p>
+                                          <pre class="programlisting"><div class="code-btn-container"><div class="btn-copy-code" title="Copy"><awsui-icon name="copy"></awsui-icon></div></div><code class="JSON "><span>{</span>
+    "Version": "2012-10-17",
+    "Statement": [
+        <span>{</span>
+            "Effect": "Allow",
+            "Action": [
+                "iot:Connect"
+            ],
+            "Resource": [
+                "arn:aws:iot:us-east-1:123456789012:client/client1",
+                "arn:aws:iot:us-east-1:123456789012:client/client2",
+                "arn:aws:iot:us-east-1:123456789012:client/client3"
+            ]
+        },
+        <span>{</span>
+            "Effect": "Allow",
+            "Action": [
+                "iot:Publish"
+            ],
+            "Resource": [
+                "arn:aws:iot:us-east-1:123456789012:topic/$<span>{</span>iot:ClientId}/*"
+            ]
+        }
+    ]
+}</code></pre>
+                                          </dd>
+                                       
+                                    </dl>
+                                 </awsdocs-tabs>
+                                 
+                                 
+                                 <p>You can also use the * wildcard character at the end of a topic filter.
+                                    Using wildcard characters might lead to granting unintended privileges, so
+                                    they should only be used after careful consideration. One situation in which
+                                    they might be useful is when devices must subscribe to messages with many
+                                    different topics (for example, if a device must subscribe to reports from
+                                    temperature sensors in multiple locations). 
+                                 </p>
+                                 
+                                 <awsdocs-tabs>
+                                    <dl style="display: none">
+                                       
+                                       <dt>Registered devices (6)</dt>
+                                       <dd tab-id="registered-devices-(6)">
+                                          
+                                          <p>For devices registered as things in the AWS IoT Core registry, the
+                                             following policy grants permission to connect to AWS IoT Core using the
+                                             device's thing name as the client ID, and to subscribe to a
+                                             topic prefixed by the thing name, followed by <code class="code">room</code>,
+                                             followed by any string. (It is expected that these topics are,
+                                             for example, <code class="code">thing1/room1</code>,
+                                             <code class="code">thing1/room2</code>, and so on):
+                                          </p>
+                                          <pre class="programlisting"><div class="code-btn-container"><div class="btn-copy-code" title="Copy"><awsui-icon name="copy"></awsui-icon></div></div><code class="JSON "><span>{</span>
+    "Version": "2012-10-17",
+    "Statement": [
+        <span>{</span>
+            "Effect": "Allow",
+            "Action": [
+                "iot:Connect"
+            ],
+            "Resource": [
+                "arn:aws:iot:us-east-1:123456789012:client/$<span>{</span>iot:Connection.Thing.ThingName}"
+            ]
+        },
+        <span>{</span>
+            "Effect": "Allow",
+            "Action": [
+                "iot:Subscribe"
+            ],
+            "Resource": [
+                "arn:aws:iot:us-east-1:123456789012:topicfilter/$<span>{</span>iot:Connection.Thing.ThingName}/room*"
+            ]
+        },
+        <span>{</span>
+            "Effect": "Allow",
+            "Action": [
+                "iot:Receive"
+            ],
+            "Resource": [
+                "arn:aws:iot:us-east-1:123456789012:topic/$<span>{</span>iot:Connection.Thing.ThingName}/room*"
+            ]
+        }
+    ]
+}</code></pre>
+                                          </dd>
+                                       
+                                       <dt>Unregistered devices (6)</dt>
+                                       <dd tab-id="unregistered-devices-(6)">
+                                          
+                                          <p>For devices not registered as things in the AWS IoT Core registry,
+                                             the following policy grants permission to connect to AWS IoT Core using
+                                             client IDs <code class="code">client1</code>, <code class="code">client2</code>,
+                                             <code class="code">client3</code>, and to subscribe to a topic prefixed
+                                             by the client ID, followed by <code class="code">room</code>, followed by any
+                                             string. (It is expected that these topics are, for example,
+                                             <code class="code">client1/room1</code>, <code class="code">client1/room2</code>, and
+                                             so on):
+                                          </p>
+                                          <pre class="programlisting"><div class="code-btn-container"><div class="btn-copy-code" title="Copy"><awsui-icon name="copy"></awsui-icon></div></div><code class="JSON "><span>{</span>
+    "Version": "2012-10-17",
+    "Statement": [
+        <span>{</span>
+            "Effect": "Allow",
+            "Action": [
+                "iot:Connect"
+            ],
+            "Resource": [
+                "arn:aws:iot:us-east-1:123456789012:client/client1",
+                "arn:aws:iot:us-east-1:123456789012:client/client2",
+                "arn:aws:iot:us-east-1:123456789012:client/client3"
+            ]
+        },
+        <span>{</span>
+            "Effect": "Allow",
+            "Action": [
+                "iot:Subscribe"
+            ],
+            "Resource": [
+                "arn:aws:iot:us-east-1:123456789012:topicfilter/$<span>{</span>iot:ClientId}/room*"
+            ]
+        },
+        <span>{</span>
+            "Effect": "Allow",
+            "Action": [
+                "iot:Receive"
+            ],
+            "Resource": [
+                "arn:aws:iot:us-east-1:123456789012:topic/$<span>{</span>iot:ClientId}/room*"
+            ]
+        }
+    ]
+}</code></pre>
+                                          </dd>
+                                       
+                                    </dl>
+                                 </awsdocs-tabs>
+                                 
+                                 <p>When you specify topic filters in AWS IoT Core policies for MQTT clients,
+                                    MQTT wildcard characters <code class="code">+</code> and <code class="code">#</code> are treated as
+                                    literal strings. Their use might result in unexpected behavior.
+                                 </p>
+                                 
+                                 <awsdocs-tabs>
+                                    <dl style="display: none">
+                                       
+                                       <dt>Registered devices (4)</dt>
+                                       <dd tab-id="registered-devices-(4)">
+                                          
+                                          <p>For devices registered as things in the AWS IoT Core registry,
+                                             the following policy grants permission to connect to AWS IoT Core
+                                             with the client ID that matches the thing name, and to subscribe
+                                             to the topic filter <code class="code">some/+/topic</code> only. Note in
+                                             <code class="code">topicfilter/some/+/topic</code> of the resource ARN, +
+                                             is treated as a literal string in AWS IoT Core policies for MQTT
+                                             clients, meaning that only the string <code class="code">some/+/topic</code>
+                                             matches the topic filter.
+                                          </p>
+                                          <pre class="programlisting"><div class="code-btn-container"><div class="btn-copy-code" title="Copy"><awsui-icon name="copy"></awsui-icon></div></div><code class="JSON "><span>{</span>
+    "Version": "2012-10-17",
+    "Statement": [
+        <span>{</span>
+            "Effect": "Allow",
+            "Action": [
+                "iot:Connect"
+            ],
+            "Resource": [
+                "arn:aws:iot:us-east-1:123456789012:client/$<span>{</span>iot:Connection.Thing.ThingName}"
+            ]
+        },
+        <span>{</span>
+            "Effect": "Allow",
+            "Action": [
+                "iot:Subscribe"
+            ],
+            "Resource": [
+                "arn:aws:iot:us-east-1:123456789012:topicfilter/some/+/topic"
+            ]
+        }
+    ]
+}</code></pre>
+                                          <p>For devices registered as things in the AWS IoT Core registry,
+                                             the following policy grants permission to connect to AWS IoT Core
+                                             with the client ID that matches the thing name, and to subscribe
+                                             to the topic filter <code class="code">some/*/topic</code>. Note in
+                                             <code class="code">topicfilter/some/*/topic</code> of the resource ARN, *
+                                             is treated as a wildcard character in AWS IoT Core policies for
+                                             MQTT clients, meaning that any string in the level that contains
+                                             the character matches the topic filter. (It is expected that
+                                             these topics are, for example, <code class="code">some/string1/topic</code>,
+                                             <code class="code">some/string2/topic</code>, and so on)
+                                          </p>
+                                          <pre class="programlisting"><div class="code-btn-container"><div class="btn-copy-code" title="Copy"><awsui-icon name="copy"></awsui-icon></div></div><code class="JSON "><span>{</span>
+    "Version": "2012-10-17",
+    "Statement": [
+        <span>{</span>
+            "Effect": "Allow",
+            "Action": [
+                "iot:Connect"
+            ],
+            "Resource": [
+                "arn:aws:iot:us-east-1:123456789012:client/$<span>{</span>iot:Connection.Thing.ThingName}"
+            ]
+        },
+        <span>{</span>
+            "Effect": "Allow",
+            "Action": [
+                "iot:Subscribe"
+            ],
+            "Resource": [
+                "arn:aws:iot:us-east-1:123456789012:topicfilter/some/*/topic"
+            ]
+        }
+    ]
+}</code></pre>
+                                          </dd>
+                                       
+                                       <dt>Unregistered devices (4)</dt>
+                                       <dd tab-id="unregistered-devices-(4)">
+                                          
+                                          <p>For devices not registered as things in the AWS IoT Core
+                                             registry, the following policy grants permission to connect to
+                                             AWS IoT Core with client ID <code class="code">client1</code> and subscribe to
+                                             the topic filter <code class="code">some/+/topic</code> only. Note in
+                                             <code class="code">topicfilter/some/+/topic</code> of the resource ARN, +
+                                             is treated as a literal string in AWS IoT Core policies for MQTT
+                                             clients, meaning that only the string <code class="code">some/+/topic</code>
+                                             matches the topic filter.
+                                          </p>
+                                          <pre class="programlisting"><div class="code-btn-container"><div class="btn-copy-code" title="Copy"><awsui-icon name="copy"></awsui-icon></div></div><code class="JSON "><span>{</span>
+    "Version": "2012-10-17",
+    "Statement": [
+      <span>{</span>
+        "Effect": "Allow",
+        "Action": [
+          "iot:Connect"
+        ],
+        "Resource": [
+          "arn:aws:iot:us-east-1:123456789012:client/client1"
+        ]
+      },
+      <span>{</span>
+        "Effect": "Allow",
+        "Action": [
+          "iot:Subscribe"
+        ],
+        "Resource": [
+          "arn:aws:iot:us-east-1:123456789012:topicfilter/some/+/topic"
+        ]
+      }
+    ]
+}</code></pre>
+                                          <p>For devices not registered as things in the AWS IoT Core
+                                             registry, the following policy grants permission to connect to
+                                             AWS IoT Core with client ID <code class="code">client1</code> and subscribe to
+                                             the topic filter <code class="code">some/+/topic</code>. Note in
+                                             <code class="code">topicfilter/some/*/topic</code> of the resource ARN, *
+                                             is treated as a wildcard character in AWS IoT Core policies for
+                                             MQTT clients, meaning that any string in the level that contains
+                                             the character matches the topic filter. (It is expected that
+                                             these topics are, for example, <code class="code">some/string1/topic</code>,
+                                             <code class="code">some/string2/topic</code>, and so on)
+                                          </p>
+                                          <pre class="programlisting"><div class="code-btn-container"><div class="btn-copy-code" title="Copy"><awsui-icon name="copy"></awsui-icon></div></div><code class="JSON "><span>{</span>
+    "Version": "2012-10-17",
+    "Statement": [
+      <span>{</span>
+        "Effect": "Allow",
+        "Action": [
+          "iot:Connect"
+        ],
+        "Resource": [
+          "arn:aws:iot:us-east-1:123456789012:client/client1"
+        ]
+      },
+      <span>{</span>
+        "Effect": "Allow",
+        "Action": [
+          "iot:Subscribe"
+        ],
+        "Resource": [
+          "arn:aws:iot:us-east-1:123456789012:topicfilter/some/*/topic"
+        ]
+      }
+    ]
+}</code></pre>
+                                          </dd>
+                                       
+                                    </dl>
+                                 </awsdocs-tabs>
+                                 
+                                 <div class="awsdocs-note">
+                                    <div class="awsdocs-note-title">
+                                       <awsui-icon name="status-info" variant="link"></awsui-icon><span>Note</span></div>
+                                    <div class="awsdocs-note-text">
+                                       <p>The MQTT wildcards <code class="code">+</code> and <code class="code">#</code> are treated as
+                                          literal strings in an AWS IoT Core policy for MQTT clients. To specify
+                                          wildcard characters in topic names and topic filters in AWS IoT Core
+                                          policies for MQTT clients, you must use <code class="code">*</code>. 
+                                       </p>
+                                    </div>
+                                 </div>
+                                 
+                                 <awsdocs-tabs>
+                                    <dl style="display: none">
+                                       
+                                       <dt>Registered devices (7)</dt>
+                                       <dd tab-id="registered-devices-(7)">
+                                          
+                                          <p>For devices registered as things in the AWS IoT Core registry, the
+                                             following policy grants permission to connect to AWS IoT Core using the
+                                             device's thing name as the client ID, and to subscribe to the
+                                             topics <code class="code">my/topic</code> and
+                                             <code class="code">my/othertopic</code>:
+                                          </p>
+                                          <pre class="programlisting"><div class="code-btn-container"><div class="btn-copy-code" title="Copy"><awsui-icon name="copy"></awsui-icon></div></div><code class="JSON "><span>{</span>
+    "Version": "2012-10-17",
+    "Statement": [
+        <span>{</span>
+            "Effect": "Allow",
+            "Action": [
+                "iot:Connect"
+            ],
+            "Resource": [
+                "arn:aws:iot:us-east-1:123456789012:client/$<span>{</span>iot:Connection.Thing.ThingName}"
+            ]
+        },
+        <span>{</span>
+            "Effect": "Allow",
+            "Action": [
+                "iot:Subscribe"
+            ],
+            "Resource": [
+                "arn:aws:iot:us-east-1:123456789012:topicfilter/my/topic",
+                "arn:aws:iot:us-east-1:123456789012:topicfilter/my/othertopic"
+            ]
+        }
+    ]
+}</code></pre>
+                                          </dd>
+                                       
+                                       <dt>Unregistered devices (7)</dt>
+                                       <dd tab-id="unregistered-devices-(7)">
+                                          
+                                          <p>For devices not registered as things in the AWS IoT Core registry,
+                                             the following policy grants permission to connect to AWS IoT Core using
+                                             client ID <code class="code">client1</code>, and to subscribe to the topics
+                                             <code class="code">my/topic</code> and <code class="code">my/othertopic</code>:
+                                          </p>
+                                          <pre class="programlisting"><div class="code-btn-container"><div class="btn-copy-code" title="Copy"><awsui-icon name="copy"></awsui-icon></div></div><code class="JSON "><span>{</span>
+    "Version": "2012-10-17",
+    "Statement": [
+        <span>{</span>
+            "Effect": "Allow",
+            "Action": [
+                "iot:Connect"
+            ],
+            "Resource": [
+                "arn:aws:iot:us-east-1:123456789012:client/client1"
+            ]
+        },
+        <span>{</span>
+            "Effect": "Allow",
+            "Action": [
+                "iot:Subscribe"
+            ],
+            "Resource": [
+                "arn:aws:iot:us-east-1:123456789012:topicfilter/my/topic",
+                "arn:aws:iot:us-east-1:123456789012:topicfilter/my/othertopic"
+            ]
+        }
+    ]
+}</code></pre>
+                                          </dd>
+                                       
+                                    </dl>
+                                 </awsdocs-tabs>
+                                 
+                                 <awsdocs-tabs>
+                                    <dl style="display: none">
+                                       
+                                       <dt>Registered devices (8)</dt>
+                                       <dd tab-id="registered-devices-(8)">
+                                          
+                                          <p>For devices registered as things in the AWS IoT Core registry, the
+                                             following policy grants permission to connect to AWS IoT Core using the
+                                             device's thing name as the client ID and to subscribe to a topic
+                                             unique to that thing name/client ID:
+                                          </p>
+                                          <pre class="programlisting"><div class="code-btn-container"><div class="btn-copy-code" title="Copy"><awsui-icon name="copy"></awsui-icon></div></div><code class="JSON "><span>{</span>
+    "Version": "2012-10-17",
+    "Statement": [
+        <span>{</span>
+            "Effect": "Allow",
+            "Action": [
+                "iot:Connect"
+            ],
+            "Resource": [
+                "arn:aws:iot:us-east-1:123456789012:client/$<span>{</span>iot:Connection.Thing.ThingName}"
+            ]
+        },
+        <span>{</span>
+            "Effect": "Allow",
+            "Action": [
+                "iot:Publish"
+            ],
+            "Resource": [
+                "arn:aws:iot:us-east-1:123456789012:topic/my/topic/$<span>{</span>iot:Thing.ThingName}"
+            ]
+        }
+    ]
+}</code></pre>
+                                          </dd>
+                                       
+                                       <dt>Unregistered devices (8)</dt>
+                                       <dd tab-id="unregistered-devices-(8)">
+                                          
+                                          <p>For devices not registered as things in the AWS IoT Core registry,
+                                             the following policy grants permission to connect to AWS IoT Core using
+                                             client ID <code class="code">client1</code>, and to publish to a topic unique
+                                             to that client ID:
+                                          </p>
+                                          <pre class="programlisting"><div class="code-btn-container"><div class="btn-copy-code" title="Copy"><awsui-icon name="copy"></awsui-icon></div></div><code class="JSON "><span>{</span>
+    "Version": "2012-10-17",
+    "Statement": [
+        <span>{</span>
+            "Effect": "Allow",
+            "Action": [
+                "iot:Connect"
+            ],
+            "Resource": [
+                "arn:aws:iot:us-east-1:123456789012:client/client1"
+            ]
+        },
+        <span>{</span>
+            "Effect": "Allow",
+            "Action": [
+                "iot:Publish"
+            ],
+            "Resource": [
+                "arn:aws:iot:us-east-1:123456789012:topic/my/topic/$<span>{</span>iot:ClientId}"
+            ]
+        }
+    ]
+}</code></pre>
+                                          </dd>
+                                       
+                                    </dl>
+                                 </awsdocs-tabs>
+                                 
+                                 <awsdocs-tabs>
+                                    <dl style="display: none">
+                                       
+                                       <dt>Registered devices (9)</dt>
+                                       <dd tab-id="registered-devices-(9)">
+                                          
+                                          <p>For devices registered as things in the AWS IoT Core registry, the
+                                             following policy grants permission to connect to AWS IoT Core using the
+                                             device's thing name as the client ID and to publish to any topic
+                                             prefixed by that thing name or client except for one topic
+                                             ending with <code class="code">bar</code>:
+                                          </p>
+                                          <pre class="programlisting"><div class="code-btn-container"><div class="btn-copy-code" title="Copy"><awsui-icon name="copy"></awsui-icon></div></div><code class="JSON "><span>{</span>
+    "Version": "2012-10-17",
+    "Statement": [
+        <span>{</span>
+            "Effect": "Allow",
+            "Action": [
+                "iot:Connect"
+            ],
+            "Resource": [
+                "arn:aws:iot:us-east-1:123456789012:client/$<span>{</span>iot:Connection.Thing.ThingName}"
+            ]
+        },
+        <span>{</span>
+            "Effect": "Allow",
+            "Action": [
+                "iot:Publish"
+            ],
+            "Resource": [
+                "arn:aws:iot:us-east-1:123456789012:topic/$<span>{</span>iot:Thing.ThingName}/*"
+            ]
+        },
+        <span>{</span>
+            "Effect": "Deny",
+            "Action": [
+                "iot:Publish"
+            ],
+            "Resource": [
+                "arn:aws:iot:us-east-1:123456789012:topic/$<span>{</span>iot:Thing.ThingName}/bar"
+            ]
+        }
+    ]
+}</code></pre>
+                                          </dd>
+                                       
+                                       <dt>Unregistered devices (9)</dt>
+                                       <dd tab-id="unregistered-devices-(9)">
+                                          
+                                          <p>For devices not registered as things in the AWS IoT Core registry,
+                                             the following policy grants permission to connect to AWS IoT Core using
+                                             client IDs <code class="code">client1</code> and <code class="code">client1</code> and to
+                                             publish to any topic prefixed by the client ID used to connect,
+                                             except for one topic ending with <code class="code">bar</code>:
+                                          </p>
+                                          <pre class="programlisting"><div class="code-btn-container"><div class="btn-copy-code" title="Copy"><awsui-icon name="copy"></awsui-icon></div></div><code class="JSON "><span>{</span>
+    "Version": "2012-10-17",
+    "Statement": [
+        <span>{</span>
+            "Effect": "Allow",
+            "Action": [
+                "iot:Connect"
+            ],
+            "Resource": [
+                "arn:aws:iot:us-east-1:123456789012:client/client1",
+                "arn:aws:iot:us-east-1:123456789012:client/client2"
+            ]
+        },
+        <span>{</span>
+            "Effect": "Allow",
+            "Action": [
+                "iot:Publish"
+            ],
+            "Resource": [
+                "arn:aws:iot:us-east-1:123456789012:topic/$<span>{</span>iot:ClientId}/*"
+            ]
+        },
+        <span>{</span>
+            "Effect": "Deny",
+            "Action": [
+                "iot:Publish"
+            ],
+            "Resource": [
+                "arn:aws:iot:us-east-1:123456789012:topic/$<span>{</span>iot:ClientId}/bar"
+            ]
+        }
+    ]
+}</code></pre>
+                                          </dd>
+                                       
+                                    </dl>
+                                 </awsdocs-tabs>
+                                 
+                                 <awsdocs-tabs>
+                                    <dl style="display: none">
+                                       
+                                       <dt>Registered devices (10)</dt>
+                                       <dd tab-id="registered-devices-(10)">
+                                          
+                                          <p>For devices registered as things in the AWS IoT Core registry, the
+                                             following policy grants permission to connect to AWS IoT Core using the
+                                             device's thing name as the client ID. The device can subscribe
+                                             to the topic <code class="code">my/topic</code>, but cannot publish to the
+                                             <code class="code"><code class="replaceable">thing-name</code>
+                                                /bar</code> where
+                                             <code class="replaceable">thing-name</code> is the name of
+                                             the IoT thing connecting to AWS IoT Core:
+                                          </p>
+                                          <pre class="programlisting"><div class="code-btn-container"><div class="btn-copy-code" title="Copy"><awsui-icon name="copy"></awsui-icon></div></div><code class="JSON "><span>{</span>
+    "Version": "2012-10-17",
+    "Statement": [
+        <span>{</span>
+            "Effect": "Allow",
+            "Action": [
+                "iot:Connect"
+            ],
+            "Resource": [
+                "arn:aws:iot:us-east-1:123456789012:client/$<span>{</span>iot:Connection.Thing.ThingName}"
+            ]
+        },
+        <span>{</span>
+            "Effect": "Allow",
+            "Action": [
+                "iot:Subscribe"
+            ],
+            "Resource": [
+                "arn:aws:iot:us-east-1:123456789012:topicfilter/my/topic"
+            ]
+        },
+        <span>{</span>
+            "Effect": "Deny",
+            "Action": [
+                "iot:Publish"
+            ],
+            "Resource": [
+                "arn:aws:iot:us-east-1:123456789012:topic/$<span>{</span>iot:Thing.ThingName}/bar"
+            ]
+        }
+    ]
+}</code></pre>
+                                          </dd>
+                                       
+                                       <dt>Unregistered devices (10)</dt>
+                                       <dd tab-id="unregistered-devices-(10)">
+                                          
+                                          <p>For devices not registered as things in the AWS IoT Core registry,
+                                             the following policy grants permission to connect to AWS IoT Core using
+                                             client ID <code class="code">client1</code> and to subscribe to the topic
+                                             <code class="code">my/topic</code>:
+                                          </p>
+                                          <pre class="programlisting"><div class="code-btn-container"><div class="btn-copy-code" title="Copy"><awsui-icon name="copy"></awsui-icon></div></div><code class="JSON "><span>{</span>
+    "Version": "2012-10-17",
+    "Statement": [
+        <span>{</span>
+            "Effect": "Allow",
+            "Action": [
+                "iot:Connect"
+            ],
+            "Resource": [
+                "arn:aws:iot:us-east-1:123456789012:client/client1"
+            ]
+        },
+        <span>{</span>
+            "Effect": "Allow",
+            "Action": [
+                "iot:Subscribe"
+            ],
+            "Resource": [
+                "arn:aws:iot:us-east-1:123456789012:topicfilter/my/topic"
+            ]
+        }
+    ]
+}</code></pre>
+                                          </dd>
+                                       
+                                    </dl>
+                                 </awsdocs-tabs>
+                                 
+                                 <p>Thing policy variables are also replaced when a certificate or
+                                    authenticated Amazon Cognito Identity is attached to a thing. The following policy
+                                    grants
+                                    permission to connect to AWS IoT Core with client ID <code class="code">client1</code> and to
+                                    publish and receive topic <code class="code">iotmonitor/provisioning/987654321098</code>.
+                                    It also allows the certificate holder to subscribe to this topic. 
+                                 </p>
+                                 <pre class="programlisting"><div class="code-btn-container"><div class="btn-copy-code" title="Copy"><awsui-icon name="copy"></awsui-icon></div></div><code class="JSON "><span>{</span>
+    "Version": "2012-10-17",
+    "Statement": [
+        <span>{</span>
+            "Effect": "Allow",
+            "Action": [
+                "iot:Connect"
+            ],
+            "Resource": [
+                "arn:aws:iot:us-east-1:123456789012:client/client1"
+            ]
+        },
+        <span>{</span>
+            "Effect": "Allow",
+            "Action": [
+                "iot:Publish",
+                "iot:Receive"
+            ],
+            "Resource": [
+                "arn:aws:iot:us-east-1:123456789012:topic/iotmonitor/provisioning/987654321098"
+            ]
+        },
+        <span>{</span>
+            "Effect": "Allow",
+            "Action": [
+                "iot:Subscribe"
+            ],
+            "Resource": [
+                "arn:aws:iot:us-east-1:123456789012:topicfilter/iotmonitor/provisioning/987654321098"
+            ]
+        }
+    ]
+}</code></pre>
+                                 
+                                  
+                                 <h2 id="pub-sub-policy-cognito">Policies for HTTP and WebSocket
+                                    clients
+                                 </h2>
+                                 
+                                 <p>Amazon Cognito identities can be authenticated or unauthenticated.  Authenticated
+                                    identities 
+                                    belong to users who are authenticated by any supported identity provider. Unauthenticated
+                                    
+                                    identities typically belong to guest users who do not authenticate with an identity
+                                    provider. Amazon Cognito provides a unique identifier and AWS credentials to support
+                                    unauthenticated
+                                    identities.
+                                    
+                                 </p>
+                                 
+                                 <p>For the following operations, AWS IoT Core uses AWS IoT Core policies attached to
+                                    Amazon Cognito
+                                    identities (through the <code class="code">AttachPolicy</code> API) to scope down the
+                                    permissions attached to the Amazon Cognito Identity pool with authenticated identities.
+                                 </p>
+                                 
+                                 <div class="itemizedlist">
+                                     
+                                     
+                                     
+                                     
+                                     
+                                     
+                                     
+                                    
+                                    <ul class="itemizedlist" type="disc">
+                                       <li class="listitem">
+                                          
+                                          <p><code class="code">iot:Connect</code></p>
+                                          
+                                       </li>
+                                       <li class="listitem">
+                                          
+                                          <p><code class="code">iot:Publish</code></p>
+                                          
+                                       </li>
+                                       <li class="listitem">
+                                          
+                                          <p><code class="code">iot:Subscribe</code></p>
+                                          
+                                       </li>
+                                       <li class="listitem">
+                                          
+                                          <p><code class="code">iot:Receive</code></p>
+                                          
+                                       </li>
+                                       <li class="listitem">
+                                          
+                                          <p><code class="code">iot:GetThingShadow</code></p>
+                                          
+                                       </li>
+                                       <li class="listitem">
+                                          
+                                          <p><code class="code">iot:UpdateThingShadow</code></p>
+                                          
+                                       </li>
+                                       <li class="listitem">
+                                          
+                                          <p><code class="code">iot:DeleteThingShadow</code></p>
+                                          
+                                       </li>
+                                    </ul>
+                                 </div>
+                                 
+                                 
+                                 <p>That
+                                    means an Amazon Cognito Identity needs permission from the IAM role policy attached
+                                    to the
+                                    pool and the AWS IoT Core policy attached to the Amazon Cognito Identity through the
+                                    AWS IoT Core
+                                    <code class="code">AttachPolicy</code> API.
+                                 </p>
+                                 
+                                 <p>Authenticated and unauthenticated users are different identity types. If you don't
+                                    attach an AWS IoT policy to the Amazon Cognito Identity, 
+                                    an authenticated user fails authorization in AWS IoT and doesn't have access to AWS
+                                    IoT resources and actions.
+                                 </p>
+                                 
+                                 <div class="awsdocs-note">
+                                    <div class="awsdocs-note-title">
+                                       <awsui-icon name="status-info" variant="link"></awsui-icon><span>Note</span></div>
+                                    <div class="awsdocs-note-text">
+                                       <p>For other AWS IoT Core operations or for unauthenticated identities, AWS IoT Core
+                                          does not scope down the permissions attached to the Amazon Cognito identity pool
+                                          role. For both authenticated and unauthenticated identities, this is the
+                                          most permissive policy that we recommend you attach to the Amazon Cognito pool
+                                          role.
+                                       </p>
+                                    </div>
+                                 </div>
+                                 
+                                 
+                                 <p><b>HTTP</b></p>
+                                 
+                                 <p>To allow unauthenticated Amazon Cognito identities to publish messages over HTTP on
+                                    a topic specific to the Amazon Cognito Identity, attach the following IAM policy to
+                                    the Amazon Cognito Identity
+                                    pool role:
+                                 </p>
+                                 <pre class="programlisting"><div class="code-btn-container"><div class="btn-copy-code" title="Copy"><awsui-icon name="copy"></awsui-icon></div></div><code class="JSON "><span>{</span>
+    "Version": "2012-10-17",
+    "Statement": [
+        <span>{</span>
+            "Effect": "Allow",
+            "Action": [
+                "iot:Publish",
+            ],
+            "Resource": ["arn:aws:iot:us-east-1:123456789012:topic/$<span>{</span>cognito-identity.amazonaws.com:sub}"]
+        }
+    ]
+}</code></pre>
+                                 <p>To allow authenticated users, attach the preceding policy to the Amazon Cognito Identity
+                                    pool role and to the Amazon Cognito Identity using the AWS IoT Core <a href="https://docs.aws.amazon.com/iot/latest/apireference/API_AttachPolicy.html">AttachPolicy</a> API.
+                                 </p>
+                                 
+                                 <div class="awsdocs-note">
+                                    <div class="awsdocs-note-title">
+                                       <awsui-icon name="status-info" variant="link"></awsui-icon><span>Note</span></div>
+                                    <div class="awsdocs-note-text">
+                                       <p>When authorizing Amazon Cognito identities, AWS IoT Core considers both policies and
+                                          grants the least privileges specified. An action is allowed only if both
+                                          policies allow the requested action. If either policy disallows an
+                                          action, that action is unauthorized.
+                                       </p>
+                                    </div>
+                                 </div>
+                                 
+                                 <p><b>MQTT</b></p>
+                                 
+                                 <p>To allow unauthenticated Amazon Cognito identities to publish MQTT messages over
+                                    WebSocket on a topic specific to the Amazon Cognito Identity in your account, attach
+                                    the
+                                    following IAM policy to the Amazon Cognito Identity pool role:
+                                 </p>
+                                 <pre class="programlisting"><div class="code-btn-container"><div class="btn-copy-code" title="Copy"><awsui-icon name="copy"></awsui-icon></div></div><code class="JSON "><span>{</span>
+    "Version": "2012-10-17",
+    "Statement": [
+        <span>{</span>
+            "Effect": "Allow",
+            "Action": [
+                "iot:Publish",
+            ],
+            "Resource": ["arn:aws:iot:us-east-1:123456789012:topic/$<span>{</span>cognito-identity.amazonaws.com:sub}"]
+        },
+        <span>{</span>
+            "Effect": "Allow",
+            "Action": [
+                "iot:Connect",
+            ],
+            "Resource": ["arn:aws:iot:us-east-1:123456789012:client/$<span>{</span>cognito-identity.amazonaws.com:sub}"]
+        }
+    ]
+}</code></pre>
+                                 <p>To allow authenticated users, attach the preceding policy to the Amazon Cognito Identity
+                                    pool role and to the Amazon Cognito Identity using the AWS IoT Core <a href="https://docs.aws.amazon.com/iot/latest/apireference/API_AttachPolicy.html">AttachPolicy</a> API.
+                                 </p>
+                                 
+                                 <div class="awsdocs-note">
+                                    <div class="awsdocs-note-title">
+                                       <awsui-icon name="status-info" variant="link"></awsui-icon><span>Note</span></div>
+                                    <div class="awsdocs-note-text">
+                                       <p>When authorizing Amazon Cognito identities, AWS IoT Core considers both and grants
+                                          the least privileges specified. An action is allowed only if both
+                                          policies allow the requested action. If either policy disallows an
+                                          action, that action is unauthorized.
+                                       </p>
+                                    </div>
+                                 </div>
+                                 
+                                  
+                                 
+                                 <h2 id="receive-policy">Receive policy examples</h2>
+                                 
+                                 <awsdocs-tabs>
+                                    <dl style="display: none">
+                                       
+                                       <dt>Registered devices (11)</dt>
+                                       <dd tab-id="registered-devices-(11)">
+                                          
+                                          <p>For devices registered in AWS IoT Core registry, the following policy
+                                             grants permission to connect to AWS IoT Core with a client ID that
+                                             matches the thing name and to subscribe to and receive messages
+                                             on the <code class="code">my/topic</code> topic:
+                                          </p>
+                                          <pre class="programlisting"><div class="code-btn-container"><div class="btn-copy-code" title="Copy"><awsui-icon name="copy"></awsui-icon></div></div><code class="JSON "><span>{</span>
+    "Version": "2012-10-17",
+    "Statement": [
+        <span>{</span>
+            "Effect": "Allow",
+            "Action": [
+                "iot:Connect"
+            ],
+            "Resource": ["arn:aws:iot:us-east-1:123456789012:client/$<span>{</span>iot:Connection.Thing.ThingName}"]
+        },
+        <span>{</span>
+            "Effect": "Allow",
+            "Action": [
+                "iot:Subscribe"
+            ],
+            "Resource": [
+                "arn:aws:iot:us-east-1:123456789012:topicfilter/my/topic"
+            ]
+        },
+        <span>{</span>
+            "Effect": "Allow",
+            "Action": [
+                "iot:Receive"
+            ],
+            "Resource": [
+                "arn:aws:iot:us-east-1:123456789012:topic/my/topic"
+            ]
+        }
+    ]
+}</code></pre>
+                                          </dd>
+                                       
+                                       <dt>Unregistered devices (11)</dt>
+                                       <dd tab-id="unregistered-devices-(11)">
+                                          
+                                          <p>For devices not registered in AWS IoT Core registry, the following
+                                             policy grants permission to connect to AWS IoT Core with client ID
+                                             <code class="code">client1</code> and to subscribe to and receive
+                                             messages on one topic:
+                                          </p>
+                                          <pre class="programlisting"><div class="code-btn-container"><div class="btn-copy-code" title="Copy"><awsui-icon name="copy"></awsui-icon></div></div><code class="JSON "><span>{</span>
+    "Version": "2012-10-17",
+    "Statement": [
+        <span>{</span>
+            "Effect": "Allow",
+            "Action": [
+                "iot:Connect"
+            ],
+            "Resource": ["arn:aws:iot:us-east-1:123456789012:client/client1"]
+        },
+        <span>{</span>
+            "Effect": "Allow",
+            "Action": [
+                "iot:Subscribe"
+            ],
+            "Resource": [
+                "arn:aws:iot:us-east-1:123456789012:topicfilter/my/topic"
+            ]
+        },
+        <span>{</span>
+            "Effect": "Allow",
+            "Action": [
+                "iot:Receive"
+            ],
+            "Resource": [
+                "arn:aws:iot:us-east-1:123456789012:topic/my/topic"
+            ]
+        }
+    ]
+}</code></pre>
+                                          </dd>
+                                       
+                                    </dl>
+                                 </awsdocs-tabs>
+                                 
+                                 
+                                 <awsdocs-copyright class="copyright-print"></awsdocs-copyright>
+                                 <awsdocs-thumb-feedback right-edge="{{$ctrl.thumbFeedbackRightEdge}}"></awsdocs-thumb-feedback>
+                              </div>
+                              <noscript>
+                                 <div>
+                                    <div>
+                                       <div>
+                                          <div id="js_error_message">
+                                             <p><img src="https://d1ge0kk1l5kms0.cloudfront.net/images/G/01/webservices/console/warning.png" alt="Warning" /> <strong>Javascript is disabled or is unavailable in your
+                                                   browser.</strong></p>
+                                             <p>To use the Amazon Web Services Documentation, Javascript must be
+                                                enabled. Please refer to your browser's Help pages for instructions.
+                                             </p>
+                                          </div>
+                                       </div>
+                                    </div>
+                                 </div>
+                              </noscript>
+                              <div id="main-col-footer" class="awsui-util-font-size-0">
+                                 <div id="doc-conventions"><a target="_top" href="/general/latest/gr/docconventions.html">Document Conventions</a></div>
+                                 <div class="prev-next">
+                                    <div id="previous" class="prev-link" accesskey="p" href="./connect-policy.html">Connect policy examples</div>
+                                    <div id="next" class="next-link" accesskey="n" href="./connect-and-pub.html">Connect and publish policy examples</div>
+                                 </div>
+                              </div>
+                              <awsdocs-page-utilities></awsdocs-page-utilities>
+                           </div>
+                           <div id="quick-feedback-yes" style="display: none;">
+                              <div class="title">Did this page help you? - Yes</div>
+                              <div class="content">
+                                 <p>Thanks for letting us know we're doing a good
+                                    job!
+                                 </p>
+                                 <p>If you've got a moment, please tell us what we did right
+                                    so we can do more of it.
+                                 </p>
+                                 <p>
+                                    <awsui-button id="fblink" target="_blank" text="Feedback" click="linkClick($event)" href="https://docs.aws.amazon.com/forms/aws-doc-feedback?hidden_service_name=IoT Docs&amp;topic_url=https://docs.aws.amazon.com/en_us/iot/latest/developerguide/pub-sub-policy.html"></awsui-button>
+                                 </p>
+                              </div>
+                           </div>
+                           <div id="quick-feedback-no" style="display: none;">
+                              <div class="title">Did this page help you? - No</div>
+                              <div class="content">
+                                 <p>Thanks for letting us know this page needs work. We're
+                                    sorry we let you down.
+                                 </p>
+                                 <p>If you've got a moment, please tell us how we can make
+                                    the documentation better.
+                                 </p>
+                                 <p>
+                                    <awsui-button id="fblink" target="_blank" text="Feedback" click="linkClick($event)" href="https://docs.aws.amazon.com/forms/aws-doc-feedback?hidden_service_name=IoT Docs&amp;topic_url=https://docs.aws.amazon.com/en_us/iot/latest/developerguide/pub-sub-policy.html"></awsui-button>
+                                 </p>
+                              </div>
+                           </div>
+                        </div>
+                     </body>
+                  </div>
+               </awsdocs-view>
+               <div class="page-loading-indicator" id="page-loading-indicator">
+                  <awsui-spinner size="large"></awsui-spinner>
+               </div>
+            </div>
+            <div id="tools-panel" dom-region="tools">
+               <awsdocs-tools-panel id="awsdocs-tools-panel"></awsdocs-tools-panel>
+            </div>
+         </awsui-app-layout>
+         <awsdocs-cookie-banner class="doc-cookie-banner"></awsdocs-cookie-banner>
+         <!--
+                SiteCatalyst code version: H.25.2.
+                Copyright 1996-2012 Adobe, Inc. All Rights Reserved
+                More info available at http://www.omniture.com
+            --><script language="JavaScript" type="text/javascript">
+var awsdocs = awsdocs || {};
+awsdocs.prop66 = 'AWS IoT Core';
+awsdocs.prop65 =  'Developer Guide';
+            </script><script src="https://a0.awsstatic.com/s_code/js/3.0/awshome_s_code.js" language="JavaScript" type="text/javascript"></script>
+         <!--/DO NOT REMOVE/-->
+         <!--End SiteCatalyst code version: H.25.2.--></div>
+   </body>
+</html>

@@ -1,0 +1,375 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" ng-app="AWSDocsDocPageApp">
+   <head>
+      <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+      <title>Set up your AWS account - AWS IoT Core</title>
+      <meta name="viewport" content="width=device-width,initial-scale=1" />
+      <meta name="assets_root" content="assets" />
+      <meta name="target_state" content="setting-up" />
+      <meta name="default_state" content="setting-up" />
+      <link rel="icon" type="image/ico" href="/assets/images/favicon.ico" />
+      <link rel="shortcut icon" type="image/ico" href="/assets/images/favicon.ico" />
+      <link rel="canonical" href="https://docs.aws.amazon.com/iot/latest/developerguide/setting-up.html" />
+      <meta name="description" content="Before you use AWS IoT Core for the first time, complete the following tasks:" />
+      <meta name="deployment_region" content="IAD" />
+      <meta name="product" content="AWS IoT Core" />
+      <meta name="guide" content="Developer Guide" />
+      <meta name="locales" content="de_de:Deutsch/en_us:English/es_es:Español/fr_fr:Français/it_it:Italiano/ja_jp:日本語/ko_kr:한국어/pt_br:Português/zh_cn:中文 (简体)/zh_tw:中文 (繁體)" />
+      <meta name="abstract" content="AWS IoT provides secure, bi-directional communication between Internet-connected devices such as sensors, actuators, embedded micro-controllers, or smart appliances and the AWS Cloud. This enables you to collect telemetry data from multiple devices, and store and analyze the data. You can also create applications that enable your users to control these devices from their phones or tablets." />
+      <meta name="guide-locale" content="en_us" />
+      <meta name="tocs" content="toc-contents.json" />
+      <meta name="feedback-item" content="IoT Docs" />
+      <meta name="this_doc_product" content="AWS IoT Core" />
+      <meta name="this_doc_guide" content="Developer Guide" />
+      <link href="assets/css/vendor4.css" rel="stylesheet" />
+      <link href="assets/css/awsdocs-common.css" rel="stylesheet" /><script type="text/javascript" src="assets/js/vendor3.js" defer=""></script><script type="text/javascript" src="assets/js/vendor4.js" defer=""></script><script type="text/javascript" src="assets/js/vendor1.js" defer=""></script><script type="text/javascript" src="assets/js/awsdocs-common.js" defer=""></script><script type="text/javascript" src="assets/js/awsdocs-doc-app.js" defer=""></script></head>
+   <body class="awsdocs awsui">
+      <div class="awsdocs-container">
+         <awsdocs-header></awsdocs-header>
+         <awsui-app-layout id="app-layout" class="awsui-util-no-gutters" ng-controller="ContentController as $ctrl" header-selector="awsdocs-header" navigation-hide="false" navigation-width="$ctrl.navWidth" navigation-open="$ctrl.navOpen" navigation-change="$ctrl.onNavChange($event)" tools-hide="$ctrl.hideTools" tools-width="$ctrl.toolsWidth" tools-open="$ctrl.toolsOpen" tools-change="$ctrl.onToolsChange($event)">
+            <div id="guide-toc" dom-region="navigation">
+               <awsdocs-toc></awsdocs-toc>
+            </div>
+            <div id="main-column" dom-region="content" tabindex="-1">
+               <awsdocs-view class="awsdocs-view">
+                  <div id="awsdocs-content">
+                     <head>
+                        <title>Set up your AWS account - AWS IoT Core</title>
+                        <meta name="pdf" content="iot-dg.pdf#setting-up" />
+                        <meta name="kindle" content="https://www.amazon.com/dp/B07JBRCWWZ" />
+                        <meta name="github" content="https://github.com/awsdocs/aws-iot-docs/tree/master/developerguide/setting-up.md" />
+                        <meta name="forums" content="http://forums.aws.amazon.com/forum.jspa?forumID=210" />
+                        <meta name="feedback" content="https://docs.aws.amazon.com/forms/aws-doc-feedback?hidden_service_name=IoT%20Docs&amp;topic_url=http://docs.aws.amazon.com/en_us/iot/latest/developerguide/setting-up.html" />
+                        <meta name="feedback-yes" content="feedbackyes.html?topic_url=http://docs.aws.amazon.com/en_us/iot/latest/developerguide/setting-up.html" />
+                        <meta name="feedback-no" content="feedbackno.html?topic_url=http://docs.aws.amazon.com/en_us/iot/latest/developerguide/setting-up.html" />
+                        <meta name="keywords" content="AWS IoT,IoT,Internet of Things" />
+                     </head>
+                     <body>
+                        <div id="main">
+                           <div style="display: none"><a href="iot-dg.pdf#setting-up" target="_blank" rel="noopener noreferrer" title="Open PDF"></a><a target="_blank" rel="noopener noreferrer" href="https://www.amazon.com/dp/B07JBRCWWZ" title="Open Kindle"></a><a href="https://github.com/awsdocs/aws-iot-docs/tree/master/developerguide/setting-up.md" target="_blank" rel="noopener noreferrer" title="Edit this page on GitHub"></a></div>
+                           <div id="breadcrumbs" class="breadcrumb"><a href="http://aws.amazon.com">AWS</a><a href="/index.html">Documentation</a><a href="/iot/index.html">AWS IoT Core</a><a href="what-is-aws-iot.html">Developer Guide</a></div>
+                           <div id="page-toc-src"><a href="#aws-registration">Sign up for an AWS account</a><a href="#create-iam-user">Create a user and grant permissions</a><a href="#iot-console-signin">Open the AWS IoT console</a></div>
+                           <div id="main-content" class="awsui-util-container">
+                              <div id="main-col-body">
+                                 <awsdocs-language-banner data-service="$ctrl.pageService"></awsdocs-language-banner>
+                                 <h1 class="topictitle" id="setting-up">Set up your AWS account</h1>
+                                 <div class="awsdocs-page-header-container">
+                                    <awsdocs-page-header></awsdocs-page-header>
+                                    <awsdocs-filter-selector id="awsdocs-filter-selector"></awsdocs-filter-selector>
+                                 </div>
+                                 <p>Before you use AWS IoT Core for the first time, complete the following tasks:</p>
+                                 <div class="itemizedlist">
+                                     
+                                     
+                                     
+                                    
+                                    <ul class="itemizedlist" type="disc">
+                                       <li class="listitem">
+                                          
+                                          <p><a href="#aws-registration">Sign up for an AWS account</a></p>
+                                          
+                                       </li>
+                                       <li class="listitem">
+                                          
+                                          <p><a href="#create-iam-user">Create a user and grant permissions</a></p>
+                                          
+                                       </li>
+                                       <li class="listitem">
+                                          
+                                          <p><a href="#iot-console-signin">Open the AWS IoT console</a></p>
+                                          
+                                       </li>
+                                    </ul>
+                                 </div>
+                                 <p>If you already have an AWS account and an IAM user for yourself, you can use them
+                                    and skip ahead to <a href="#iot-console-signin">Open the AWS IoT console</a>.
+                                 </p>
+                                 
+                                 <h2 id="aws-registration">Sign up for an AWS account</h2>
+                                 
+                                 <p>When you sign up for AWS, your account is automatically signed up for all
+                                    services in AWS. If you have an AWS account already, skip this procedure. If you
+                                    don't have an AWS account, use the following procedure to create one.
+                                 </p>
+                                 
+                                 <p>You can expect to spend about 5 minutes setting up your AWS account.</p>
+                                 
+                                 
+                                 
+                                 <p>If you do not have an AWS account, complete the following steps to create one.</p>
+                                 
+                                 <div class="procedure">
+                                    <p class="title"><b>To sign up for an AWS account</b></p>
+                                    <ol>
+                                       <li>
+                                          <p>Open <a href="https://portal.aws.amazon.com/billing/signup" rel="noopener noreferrer" target="_blank"><span>https://portal.aws.amazon.com/billing/signup</span><awsui-icon class="awsdocs-link-icon" name="external"></awsui-icon></a>.
+                                          </p>
+                                          
+                                       </li>
+                                       <li>
+                                          <p>Follow the online instructions.</p>
+                                          
+                                          <p>Part of the sign-up procedure involves receiving a phone call and entering 
+                                             a verification code on the phone keypad.
+                                          </p>
+                                          
+                                       </li>
+                                    </ol>
+                                 </div>
+                                 
+                                 
+                                 <div class="awsdocs-note">
+                                    <div class="awsdocs-note-title">
+                                       <awsui-icon name="status-info" variant="link"></awsui-icon><span>Note</span></div>
+                                    <div class="awsdocs-note-text">
+                                       <p>Save your AWS account number, because you need it for the next task.</p>
+                                    </div>
+                                 </div>
+                                  
+                                 
+                                 <h2 id="create-iam-user">Create a user and grant permissions</h2>
+                                 
+                                 <p>This procedure describes how to create an IAM user for yourself and add that
+                                    user to a group that has administrative permissions from an attached managed policy.
+                                    IAM is the AWS service that manages users of and access to AWS resources. You
+                                    must do this so that you can create the AWS IoT resources in your account and grant
+                                    them permission to do what they need to do.
+                                 </p>
+                                 
+                                 
+                                 
+                                 <div class="procedure">
+                                    <p class="title"><b>To create an administrator user for yourself and add the user to an administrators
+                                          group (console)</b></p>
+                                    <ol>
+                                       <li>
+                                          
+                                          
+                                          <p>Sign in to the <a href="https://console.aws.amazon.com/iam/" rel="noopener noreferrer" target="_blank"><span>IAM console</span><awsui-icon class="awsdocs-link-icon" name="external"></awsui-icon></a> as the account owner by choosing <b>Root user</b> and entering your AWS account email address. On the next page, enter your password.
+                                          </p>
+                                          
+                                          
+                                          <div class="awsdocs-note">
+                                             <div class="awsdocs-note-title">
+                                                <awsui-icon name="status-info" variant="link"></awsui-icon><span>Note</span></div>
+                                             <div class="awsdocs-note-text">
+                                                <p>We strongly recommend that you adhere to the best practice of using the 
+                                                   <code class="userinput">Administrator</code> IAM user that follows and securely lock away 
+                                                   the root user credentials. Sign in as the root user only to perform a few 
+                                                   <a href="https://docs.aws.amazon.com/general/latest/gr/aws_tasks-that-require-root.html">account and service 
+                                                      management tasks</a>.
+                                                </p>
+                                             </div>
+                                          </div>
+                                          
+                                       </li>
+                                       <li>
+                                          
+                                          <p>In the navigation pane, choose <b>Users</b> and then choose
+                                             <b>Add user</b>.
+                                          </p>
+                                          
+                                       </li>
+                                       <li>
+                                          
+                                          <p>For <b>User name</b>, enter 
+                                             <code class="userinput">Administrator</code>.
+                                          </p>
+                                          
+                                       </li>
+                                       <li>
+                                          
+                                          <p>Select the check box next to <b>AWS Management Console access</b>. Then select
+                                             <b>Custom password</b>, and then enter your new password in the text box.
+                                          </p>
+                                          
+                                       </li>
+                                       <li>
+                                          
+                                          <p>(Optional) By default, AWS requires the new user to create a new password when first
+                                             signing in. You
+                                             can clear the check box next to <b>User must create a new password at
+                                                next sign-in</b> to allow the new user to reset their password after they sign
+                                             in.
+                                          </p>
+                                          
+                                       </li>
+                                       <li>
+                                          
+                                          <p>Choose <b>Next: Permissions</b>.
+                                          </p>
+                                          
+                                       </li>
+                                       <li>
+                                          
+                                          <p>Under <b>Set permissions</b>, choose <b>Add user to
+                                                group</b>.
+                                          </p>
+                                          
+                                       </li>
+                                       <li>
+                                          
+                                          <p>Choose <b>Create group</b>.
+                                          </p>
+                                          
+                                       </li>
+                                       <li>
+                                          
+                                          <p>In the <b>Create group</b> dialog box, for <b>Group name</b> enter <code class="userinput">Administrators</code>.
+                                          </p>
+                                          
+                                       </li>
+                                       <li>
+                                          
+                                          <p>Choose <b>Filter policies</b>, and then select <b>AWS managed - job
+                                                function</b> to filter the table contents.
+                                          </p>
+                                          
+                                       </li>
+                                       <li>
+                                          
+                                          <p>In the policy list, select the check box for <b>AdministratorAccess</b>. Then choose <b>Create group</b>.
+                                          </p>
+                                          
+                                          <div class="awsdocs-note">
+                                             <div class="awsdocs-note-title">
+                                                <awsui-icon name="status-info" variant="link"></awsui-icon><span>Note</span></div>
+                                             <div class="awsdocs-note-text">
+                                                <p>You must activate IAM user and role access to Billing before you can use the
+                                                   <code class="code">AdministratorAccess</code> permissions to access the AWS Billing and Cost Management console. To do
+                                                   this, follow the instructions in <a href="https://docs.aws.amazon.com/IAM/latest/UserGuide/tutorial_billing.html">step 1 of the tutorial
+                                                      about delegating access to the billing console</a>.
+                                                </p>
+                                             </div>
+                                          </div>
+                                          
+                                       </li>
+                                       <li>
+                                          
+                                          <p>Back in the list of groups, select the check box for your new group. Choose
+                                             <b>Refresh</b> if necessary to see the group in the list.
+                                          </p>
+                                          
+                                       </li>
+                                       <li>
+                                          
+                                          <p>Choose <b>Next: Tags</b>.
+                                          </p>
+                                          
+                                       </li>
+                                       <li>
+                                          
+                                          <p>(Optional) Add metadata to the user by attaching tags as key-value pairs. For more
+                                             information about using tags in IAM, see <a href="https://docs.aws.amazon.com/IAM/latest/UserGuide/id_tags.html">Tagging IAM entities</a> 
+                                             in the <em>IAM User Guide</em>.
+                                          </p>
+                                          
+                                       </li>
+                                       <li>
+                                          
+                                          <p>Choose <b>Next: Review</b> to see the list of group memberships to be
+                                             added to the new user. When you are ready to proceed, choose <b>Create
+                                                user</b>.
+                                          </p>
+                                          
+                                       </li>
+                                    </ol>
+                                 </div>
+                                 
+                                 <p>You can use this same process to create more groups and users and to give your users
+                                    access to your AWS account resources. To learn about using policies that restrict
+                                    user
+                                    permissions to specific AWS resources, see <a href="https://docs.aws.amazon.com/IAM/latest/UserGuide/access.html">Access management</a> and 
+                                    <a href="https://docs.aws.amazon.com/IAM/latest/UserGuide/access_policies_examples.html">Example policies</a>.
+                                 </p>
+                                 
+                                  
+                                 
+                                 <h2 id="iot-console-signin">Open the AWS IoT console</h2>
+                                 
+                                 <p>Most of the console-oriented topics in this section start from the <a href="https://console.aws.amazon.com/iot/home" rel="noopener noreferrer" target="_blank"><span>AWS IoT console</span><awsui-icon class="awsdocs-link-icon" name="external"></awsui-icon></a>. If you aren't
+                                    already signed in to your AWS account, sign in, then open the <a href="https://console.aws.amazon.com/iot/home" rel="noopener noreferrer" target="_blank"><span>AWS IoT console</span><awsui-icon class="awsdocs-link-icon" name="external"></awsui-icon></a> and continue to
+                                    the next section to continue getting started with AWS IoT.
+                                 </p>
+                                 
+                                 <awsdocs-copyright class="copyright-print"></awsdocs-copyright>
+                                 <awsdocs-thumb-feedback right-edge="{{$ctrl.thumbFeedbackRightEdge}}"></awsdocs-thumb-feedback>
+                              </div>
+                              <noscript>
+                                 <div>
+                                    <div>
+                                       <div>
+                                          <div id="js_error_message">
+                                             <p><img src="https://d1ge0kk1l5kms0.cloudfront.net/images/G/01/webservices/console/warning.png" alt="Warning" /> <strong>Javascript is disabled or is unavailable in your
+                                                   browser.</strong></p>
+                                             <p>To use the Amazon Web Services Documentation, Javascript must be
+                                                enabled. Please refer to your browser's Help pages for instructions.
+                                             </p>
+                                          </div>
+                                       </div>
+                                    </div>
+                                 </div>
+                              </noscript>
+                              <div id="main-col-footer" class="awsui-util-font-size-0">
+                                 <div id="doc-conventions"><a target="_top" href="/general/latest/gr/docconventions.html">Document Conventions</a></div>
+                                 <div class="prev-next">
+                                    <div id="previous" class="prev-link" accesskey="p" href="./iot-gs.html">Getting started with AWS IoT Core</div>
+                                    <div id="next" class="next-link" accesskey="n" href="./interactive-demo.html">Try the AWS IoT Core interactive demo</div>
+                                 </div>
+                              </div>
+                              <awsdocs-page-utilities></awsdocs-page-utilities>
+                           </div>
+                           <div id="quick-feedback-yes" style="display: none;">
+                              <div class="title">Did this page help you? - Yes</div>
+                              <div class="content">
+                                 <p>Thanks for letting us know we're doing a good
+                                    job!
+                                 </p>
+                                 <p>If you've got a moment, please tell us what we did right
+                                    so we can do more of it.
+                                 </p>
+                                 <p>
+                                    <awsui-button id="fblink" target="_blank" text="Feedback" click="linkClick($event)" href="https://docs.aws.amazon.com/forms/aws-doc-feedback?hidden_service_name=IoT Docs&amp;topic_url=https://docs.aws.amazon.com/en_us/iot/latest/developerguide/setting-up.html"></awsui-button>
+                                 </p>
+                              </div>
+                           </div>
+                           <div id="quick-feedback-no" style="display: none;">
+                              <div class="title">Did this page help you? - No</div>
+                              <div class="content">
+                                 <p>Thanks for letting us know this page needs work. We're
+                                    sorry we let you down.
+                                 </p>
+                                 <p>If you've got a moment, please tell us how we can make
+                                    the documentation better.
+                                 </p>
+                                 <p>
+                                    <awsui-button id="fblink" target="_blank" text="Feedback" click="linkClick($event)" href="https://docs.aws.amazon.com/forms/aws-doc-feedback?hidden_service_name=IoT Docs&amp;topic_url=https://docs.aws.amazon.com/en_us/iot/latest/developerguide/setting-up.html"></awsui-button>
+                                 </p>
+                              </div>
+                           </div>
+                        </div>
+                     </body>
+                  </div>
+               </awsdocs-view>
+               <div class="page-loading-indicator" id="page-loading-indicator">
+                  <awsui-spinner size="large"></awsui-spinner>
+               </div>
+            </div>
+            <div id="tools-panel" dom-region="tools">
+               <awsdocs-tools-panel id="awsdocs-tools-panel"></awsdocs-tools-panel>
+            </div>
+         </awsui-app-layout>
+         <awsdocs-cookie-banner class="doc-cookie-banner"></awsdocs-cookie-banner>
+         <!--
+                SiteCatalyst code version: H.25.2.
+                Copyright 1996-2012 Adobe, Inc. All Rights Reserved
+                More info available at http://www.omniture.com
+            --><script language="JavaScript" type="text/javascript">
+var awsdocs = awsdocs || {};
+awsdocs.prop66 = 'AWS IoT Core';
+awsdocs.prop65 =  'Developer Guide';
+            </script><script src="https://a0.awsstatic.com/s_code/js/3.0/awshome_s_code.js" language="JavaScript" type="text/javascript"></script>
+         <!--/DO NOT REMOVE/-->
+         <!--End SiteCatalyst code version: H.25.2.--></div>
+   </body>
+</html>

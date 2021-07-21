@@ -1,0 +1,314 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" ng-app="AWSDocsDocPageApp">
+   <head>
+      <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+      <title>Connecting gateways and devices to AWS IoT Core for LoRaWAN - AWS IoT Core</title>
+      <meta name="viewport" content="width=device-width,initial-scale=1" />
+      <meta name="assets_root" content="assets" />
+      <meta name="target_state" content="connect-iot-lorawan-getting-started" />
+      <meta name="default_state" content="connect-iot-lorawan-getting-started" />
+      <link rel="icon" type="image/ico" href="/assets/images/favicon.ico" />
+      <link rel="shortcut icon" type="image/ico" href="/assets/images/favicon.ico" />
+      <link rel="canonical" href="https://docs.aws.amazon.com/iot/latest/developerguide/connect-iot-lorawan-getting-started.html" />
+      <meta name="description" content="AWS IoT Core for LoRaWAN helps you connect and manage wireless LoRaWAN (low-power long-range Wide Area Network) devices and replaces the need for you to develop and operate a LNS. Long range WAN (LoRaWAN) devices and gateways can connect to AWS IoT Core by using AWS IoT Core for LoRaWAN." />
+      <meta name="deployment_region" content="IAD" />
+      <meta name="product" content="AWS IoT Core" />
+      <meta name="guide" content="Developer Guide" />
+      <meta name="locales" content="de_de:Deutsch/en_us:English/es_es:Español/fr_fr:Français/it_it:Italiano/ja_jp:日本語/ko_kr:한국어/pt_br:Português/zh_cn:中文 (简体)/zh_tw:中文 (繁體)" />
+      <meta name="abstract" content="AWS IoT provides secure, bi-directional communication between Internet-connected devices such as sensors, actuators, embedded micro-controllers, or smart appliances and the AWS Cloud. This enables you to collect telemetry data from multiple devices, and store and analyze the data. You can also create applications that enable your users to control these devices from their phones or tablets." />
+      <meta name="guide-locale" content="en_us" />
+      <meta name="tocs" content="toc-contents.json" />
+      <meta name="feedback-item" content="IoT Docs" />
+      <meta name="this_doc_product" content="AWS IoT Core" />
+      <meta name="this_doc_guide" content="Developer Guide" />
+      <link href="assets/css/vendor4.css" rel="stylesheet" />
+      <link href="assets/css/awsdocs-common.css" rel="stylesheet" /><script type="text/javascript" src="assets/js/vendor3.js" defer=""></script><script type="text/javascript" src="assets/js/vendor4.js" defer=""></script><script type="text/javascript" src="assets/js/vendor1.js" defer=""></script><script type="text/javascript" src="assets/js/awsdocs-common.js" defer=""></script><script type="text/javascript" src="assets/js/awsdocs-doc-app.js" defer=""></script></head>
+   <body class="awsdocs awsui">
+      <div class="awsdocs-container">
+         <awsdocs-header></awsdocs-header>
+         <awsui-app-layout id="app-layout" class="awsui-util-no-gutters" ng-controller="ContentController as $ctrl" header-selector="awsdocs-header" navigation-hide="false" navigation-width="$ctrl.navWidth" navigation-open="$ctrl.navOpen" navigation-change="$ctrl.onNavChange($event)" tools-hide="$ctrl.hideTools" tools-width="$ctrl.toolsWidth" tools-open="$ctrl.toolsOpen" tools-change="$ctrl.onToolsChange($event)">
+            <div id="guide-toc" dom-region="navigation">
+               <awsdocs-toc></awsdocs-toc>
+            </div>
+            <div id="main-column" dom-region="content" tabindex="-1">
+               <awsdocs-view class="awsdocs-view">
+                  <div id="awsdocs-content">
+                     <head>
+                        <title>Connecting gateways and devices to AWS IoT Core for LoRaWAN - AWS IoT Core</title>
+                        <meta name="pdf" content="iot-dg.pdf#connect-iot-lorawan-getting-started" />
+                        <meta name="kindle" content="https://www.amazon.com/dp/B07JBRCWWZ" />
+                        <meta name="github" content="https://github.com/awsdocs/aws-iot-docs/tree/master/developerguide/connect-iot-lorawan-getting-started.md" />
+                        <meta name="forums" content="http://forums.aws.amazon.com/forum.jspa?forumID=210" />
+                        <meta name="feedback" content="https://docs.aws.amazon.com/forms/aws-doc-feedback?hidden_service_name=IoT%20Docs&amp;topic_url=http://docs.aws.amazon.com/en_us/iot/latest/developerguide/connect-iot-lorawan-getting-started.html" />
+                        <meta name="feedback-yes" content="feedbackyes.html?topic_url=http://docs.aws.amazon.com/en_us/iot/latest/developerguide/connect-iot-lorawan-getting-started.html" />
+                        <meta name="feedback-no" content="feedbackno.html?topic_url=http://docs.aws.amazon.com/en_us/iot/latest/developerguide/connect-iot-lorawan-getting-started.html" />
+                        <meta name="keywords" content="AWS IoT,IoT,Internet of Things" />
+                     </head>
+                     <body>
+                        <div id="main">
+                           <div style="display: none"><a href="iot-dg.pdf#connect-iot-lorawan-getting-started" target="_blank" rel="noopener noreferrer" title="Open PDF"></a><a target="_blank" rel="noopener noreferrer" href="https://www.amazon.com/dp/B07JBRCWWZ" title="Open Kindle"></a><a href="https://github.com/awsdocs/aws-iot-docs/tree/master/developerguide/connect-iot-lorawan-getting-started.md" target="_blank" rel="noopener noreferrer" title="Edit this page on GitHub"></a></div>
+                           <div id="breadcrumbs" class="breadcrumb"><a href="http://aws.amazon.com">AWS</a><a href="/index.html">Documentation</a><a href="/iot/index.html">AWS IoT Core</a><a href="what-is-aws-iot.html">Developer Guide</a></div>
+                           <div id="page-toc-src"><a href="#connect-iot-lorawan-get-started-resources">To get started using AWS IoT Core for LoRaWAN</a><a href="#connect-iot-lorawan-naming-convention">Naming conventions for your 
+                                 devices, gateways, profiles, and destinations</a><a href="#connect-iot-lorawan-service-device-data">Mapping of 
+                                 device data to service data</a><a href="#connect-iot-lorawan-console">Using the console to onboard your device
+                                 and gateway to AWS IoT Core for LoRaWAN</a></div>
+                           <div id="main-content" class="awsui-util-container">
+                              <div id="main-col-body">
+                                 <awsdocs-language-banner data-service="$ctrl.pageService"></awsdocs-language-banner>
+                                 <h1 class="topictitle" id="connect-iot-lorawan-getting-started">Connecting gateways and devices to
+                                    AWS IoT Core for LoRaWAN
+                                 </h1>
+                                 <div class="awsdocs-page-header-container">
+                                    <awsdocs-page-header></awsdocs-page-header>
+                                    <awsdocs-filter-selector id="awsdocs-filter-selector"></awsdocs-filter-selector>
+                                 </div>
+                                 <p>AWS IoT Core for LoRaWAN helps you connect and manage wireless LoRaWAN (low-power
+                                    long-range Wide
+                                    Area Network) devices and replaces the need for you to develop and operate a LNS.
+                                    Long
+                                    range WAN (LoRaWAN) devices and gateways can connect to AWS IoT Core by using
+                                    AWS IoT Core for LoRaWAN.
+                                 </p>
+                                 
+                                 <h2 id="connect-iot-lorawan-get-started-resources">To get started using AWS IoT Core for LoRaWAN</h2>
+                                 
+                                 <div class="itemizedlist">        
+                                     
+                                     
+                                                 
+                                    
+                                    <ul class="itemizedlist" type="disc">
+                                       <li class="listitem">
+                                           
+                                          
+                                          <p class="title"><b>Select the wireless devices and LoRaWAN gateways that you'll need</b></p>
+                                          
+                                          <p>The <a href="https://devices.amazonaws.com/search?page=1&amp;sv=iotclorawan" rel="noopener noreferrer" target="_blank"><span>AWS
+                                                   Partner Device Catalog</span><awsui-icon class="awsdocs-link-icon" name="external"></awsui-icon></a> contains gateways and developer kits that are
+                                             qualified for use with AWS IoT Core for LoRaWAN. For more information, see 
+                                             <a href="./connect-iot-lorawan-manage-gateways.html#connect-iot-lorawan-qualified-gateways">Using qualified gateways from 
+                                                the AWS Partner Device Catalog</a>.
+                                             
+                                          </p>
+                                           
+                                          
+                                       </li>
+                                       <li class="listitem">
+                                           
+                                          
+                                          <p class="title"><b>Add your wireless devices and LoRaWAN gateways to AWS IoT Core for LoRaWAN</b></p>
+                                          
+                                          <p><a href="./connect-iot-lorawan-getting-started.html">Connecting gateways and devices to
+                                                AWS IoT Core for LoRaWAN</a> gives you
+                                             information about how to describe your resources and add your wireless
+                                             devices and LoRaWAN gateways to AWS IoT Core for LoRaWAN. You'll also learn how to
+                                             configure the other AWS IoT Core for LoRaWAN resources that you'll need to manage
+                                             these devices and send their data to AWS services.
+                                          </p>
+                                           
+                                          
+                                       </li>
+                                       <li class="listitem">
+                                           
+                                          
+                                          <p class="title"><b>Complete your AWS IoT Core for LoRaWAN solution</b></p>
+                                          
+                                          <p>Start with <a href="https://github.com/aws-samples/aws-iot-core-lorawan" rel="noopener noreferrer" target="_blank"><span>our sample AWS IoT Core for LoRaWAN solution</span><awsui-icon class="awsdocs-link-icon" name="external"></awsui-icon></a> and make it yours.
+                                          </p>
+                                           
+                                          
+                                       </li>
+                                    </ul>
+                                 </div>  
+                                  
+                                 
+                                 <h2 id="connect-iot-lorawan-naming-convention">Naming conventions for your 
+                                    devices, gateways, profiles, and destinations
+                                 </h2>            
+                                 
+                                 <p>Before you get started with AWS IoT Core for LoRaWAN and creating the resources, 
+                                    consider the naming convention of your devices, gateways, and destination.
+                                 </p>
+                                 
+                                 <p>AWS IoT Core for LoRaWAN assigns unique IDs to the resources you create for wireless
+                                    devices, gateways, and profiles; however, you can also give your resources
+                                    more descriptive names to make it easier to identify them. Before you add
+                                    devices, gateways, profiles, and destinations to AWS IoT Core for LoRaWAN, consider
+                                    how
+                                    you'll name them to make them easier to manage.
+                                 </p>
+                                 
+                                 <p>You can also add tags to the resources you create. Before you add your LoRaWAN
+                                    devices, consider how you might use tags to identify and manage your
+                                    AWS IoT Core for LoRaWAN resources. Tags can be modified after you add them. 
+                                 </p>
+                                 
+                                 <p>For more information about naming and tagging, see <a href="./connect-iot-lorawan-describe-resource.html">Describe your AWS IoT Core for LoRaWAN
+                                       resources</a>.
+                                 </p>
+                                  
+                                 
+                                 <h2 id="connect-iot-lorawan-service-device-data">Mapping of 
+                                    device data to service data
+                                 </h2>
+                                 
+                                 <p>The data from LoRaWAN wireless devices is often encoded to optimize
+                                    bandwidth. These encoded messages arrive at AWS IoT Core for LoRaWAN in a format that
+                                    might not be easily used by other AWS services. AWS IoT Core for LoRaWAN uses AWS
+                                    IoT
+                                    rules that can use AWS Lambda functions to process and decode the device
+                                    messages to a format that other AWS services can use.
+                                 </p>
+                                 
+                                 <p>To transform device data and send it to other AWS services, you need to
+                                    know:
+                                 </p>
+                                 
+                                 <div class="itemizedlist">
+                                     
+                                     
+                                     
+                                    
+                                    <ul class="itemizedlist" type="disc">
+                                       <li class="listitem">
+                                          
+                                          <p>The format and contents of the data that the wireless devices
+                                             send.
+                                          </p>
+                                          
+                                       </li>
+                                       <li class="listitem">
+                                          
+                                          <p>The service to which you want to send the data.</p>
+                                          
+                                       </li>
+                                       <li class="listitem">
+                                          
+                                          <p>The format that service requires.</p>
+                                          
+                                       </li>
+                                    </ul>
+                                 </div>
+                                 
+                                 <p>Using that information, you can create the AWS IoT rule that performs the
+                                    conversion and sends the converted data to the AWS services that will use
+                                    it.
+                                 </p>
+                                  
+                                 
+                                 <h2 id="connect-iot-lorawan-console">Using the console to onboard your device
+                                    and gateway to AWS IoT Core for LoRaWAN
+                                 </h2>    
+                                 
+                                 <p>You can use the console interface or the API to add your LoRaWAN gateway and devices.
+                                    If you're using AWS IoT Core for LoRaWAN for the first time, we recommend that you
+                                    use the console. 
+                                    The console interface is most practical when managing a few AWS IoT Core for LoRaWAN
+                                    resources at
+                                    a time. When managing large numbers of AWS IoT Core for LoRaWAN resources, consider
+                                    creating more
+                                    automated solutions by using the AWS IoT Wireless API.
+                                 </p>
+                                 
+                                 <p>Much of the data that you enter when configuring AWS IoT Core for LoRaWAN resources
+                                    is
+                                    provided by the devices' vendors and is specific to the LoRaWAN specifications they
+                                    support. The following topics describe how you can describe your AWS IoT Core for
+                                    LoRaWAN
+                                    resources and use the console or the API to add your gateways and devices.
+                                 </p>
+                                 
+                                 <div class="highlights">
+                                    <p><strong>Topics</strong></p>
+                                    <ul>
+                                       <li><a href="./connect-iot-lorawan-describe-resource.html">Describe your AWS IoT Core for LoRaWAN
+                                             resources</a></li>
+                                       <li><a href="./connect-iot-lorawan-onboard-gateways.html">Onboard your gateways to
+                                             AWS IoT Core for LoRaWAN</a></li>
+                                       <li><a href="./connect-iot-lorawan-onboard-end-devices.html">Onboard your devices to
+                                             AWS IoT Core for LoRaWAN</a></li>
+                                    </ul>
+                                 </div>
+                                 <awsdocs-copyright class="copyright-print"></awsdocs-copyright>
+                                 <awsdocs-thumb-feedback right-edge="{{$ctrl.thumbFeedbackRightEdge}}"></awsdocs-thumb-feedback>
+                              </div>
+                              <noscript>
+                                 <div>
+                                    <div>
+                                       <div>
+                                          <div id="js_error_message">
+                                             <p><img src="https://d1ge0kk1l5kms0.cloudfront.net/images/G/01/webservices/console/warning.png" alt="Warning" /> <strong>Javascript is disabled or is unavailable in your
+                                                   browser.</strong></p>
+                                             <p>To use the Amazon Web Services Documentation, Javascript must be
+                                                enabled. Please refer to your browser's Help pages for instructions.
+                                             </p>
+                                          </div>
+                                       </div>
+                                    </div>
+                                 </div>
+                              </noscript>
+                              <div id="main-col-footer" class="awsui-util-font-size-0">
+                                 <div id="doc-conventions"><a target="_top" href="/general/latest/gr/docconventions.html">Document Conventions</a></div>
+                                 <div class="prev-next">
+                                    <div id="previous" class="prev-link" accesskey="p" href="./connect-iot-lorawan.html">AWS IoT Core for LoRaWAN</div>
+                                    <div id="next" class="next-link" accesskey="n" href="./connect-iot-lorawan-describe-resource.html">Describe your AWS IoT Core for LoRaWAN
+                                       resources
+                                    </div>
+                                 </div>
+                              </div>
+                              <awsdocs-page-utilities></awsdocs-page-utilities>
+                           </div>
+                           <div id="quick-feedback-yes" style="display: none;">
+                              <div class="title">Did this page help you? - Yes</div>
+                              <div class="content">
+                                 <p>Thanks for letting us know we're doing a good
+                                    job!
+                                 </p>
+                                 <p>If you've got a moment, please tell us what we did right
+                                    so we can do more of it.
+                                 </p>
+                                 <p>
+                                    <awsui-button id="fblink" target="_blank" text="Feedback" click="linkClick($event)" href="https://docs.aws.amazon.com/forms/aws-doc-feedback?hidden_service_name=IoT Docs&amp;topic_url=https://docs.aws.amazon.com/en_us/iot/latest/developerguide/connect-iot-lorawan-getting-started.html"></awsui-button>
+                                 </p>
+                              </div>
+                           </div>
+                           <div id="quick-feedback-no" style="display: none;">
+                              <div class="title">Did this page help you? - No</div>
+                              <div class="content">
+                                 <p>Thanks for letting us know this page needs work. We're
+                                    sorry we let you down.
+                                 </p>
+                                 <p>If you've got a moment, please tell us how we can make
+                                    the documentation better.
+                                 </p>
+                                 <p>
+                                    <awsui-button id="fblink" target="_blank" text="Feedback" click="linkClick($event)" href="https://docs.aws.amazon.com/forms/aws-doc-feedback?hidden_service_name=IoT Docs&amp;topic_url=https://docs.aws.amazon.com/en_us/iot/latest/developerguide/connect-iot-lorawan-getting-started.html"></awsui-button>
+                                 </p>
+                              </div>
+                           </div>
+                        </div>
+                     </body>
+                  </div>
+               </awsdocs-view>
+               <div class="page-loading-indicator" id="page-loading-indicator">
+                  <awsui-spinner size="large"></awsui-spinner>
+               </div>
+            </div>
+            <div id="tools-panel" dom-region="tools">
+               <awsdocs-tools-panel id="awsdocs-tools-panel"></awsdocs-tools-panel>
+            </div>
+         </awsui-app-layout>
+         <awsdocs-cookie-banner class="doc-cookie-banner"></awsdocs-cookie-banner>
+         <!--
+                SiteCatalyst code version: H.25.2.
+                Copyright 1996-2012 Adobe, Inc. All Rights Reserved
+                More info available at http://www.omniture.com
+            --><script language="JavaScript" type="text/javascript">
+var awsdocs = awsdocs || {};
+awsdocs.prop66 = 'AWS IoT Core';
+awsdocs.prop65 =  'Developer Guide';
+            </script><script src="https://a0.awsstatic.com/s_code/js/3.0/awshome_s_code.js" language="JavaScript" type="text/javascript"></script>
+         <!--/DO NOT REMOVE/-->
+         <!--End SiteCatalyst code version: H.25.2.--></div>
+   </body>
+</html>

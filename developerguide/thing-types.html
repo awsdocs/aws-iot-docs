@@ -1,0 +1,363 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" ng-app="AWSDocsDocPageApp">
+   <head>
+      <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+      <title>Thing types - AWS IoT Core</title>
+      <meta name="viewport" content="width=device-width,initial-scale=1" />
+      <meta name="assets_root" content="assets" />
+      <meta name="target_state" content="thing-types" />
+      <meta name="default_state" content="thing-types" />
+      <link rel="icon" type="image/ico" href="/assets/images/favicon.ico" />
+      <link rel="shortcut icon" type="image/ico" href="/assets/images/favicon.ico" />
+      <link rel="canonical" href="https://docs.aws.amazon.com/iot/latest/developerguide/thing-types.html" />
+      <meta name="description" content="Thing types allow you to store description and configuration information that is common to all things associated with the same thing type. This simplifies the management of things in the registry. For example, you can define a LightBulb thing type. All things associated with the LightBulb thing type share a set of attributes: serial number, manufacturer, and wattage. When you create a thing of type LightBulb (or change the type of an existing thing to LightBulb) you can specify values for each of the attributes defined in the LightBulb thing type." />
+      <meta name="deployment_region" content="IAD" />
+      <meta name="product" content="AWS IoT Core" />
+      <meta name="guide" content="Developer Guide" />
+      <meta name="locales" content="de_de:Deutsch/en_us:English/es_es:Español/fr_fr:Français/it_it:Italiano/ja_jp:日本語/ko_kr:한국어/pt_br:Português/zh_cn:中文 (简体)/zh_tw:中文 (繁體)" />
+      <meta name="abstract" content="AWS IoT provides secure, bi-directional communication between Internet-connected devices such as sensors, actuators, embedded micro-controllers, or smart appliances and the AWS Cloud. This enables you to collect telemetry data from multiple devices, and store and analyze the data. You can also create applications that enable your users to control these devices from their phones or tablets." />
+      <meta name="guide-locale" content="en_us" />
+      <meta name="tocs" content="toc-contents.json" />
+      <meta name="feedback-item" content="IoT Docs" />
+      <meta name="this_doc_product" content="AWS IoT Core" />
+      <meta name="this_doc_guide" content="Developer Guide" />
+      <link href="assets/css/vendor4.css" rel="stylesheet" />
+      <link href="assets/css/awsdocs-common.css" rel="stylesheet" /><script type="text/javascript" src="assets/js/vendor3.js" defer=""></script><script type="text/javascript" src="assets/js/vendor4.js" defer=""></script><script type="text/javascript" src="assets/js/vendor1.js" defer=""></script><script type="text/javascript" src="assets/js/awsdocs-common.js" defer=""></script><script type="text/javascript" src="assets/js/awsdocs-doc-app.js" defer=""></script></head>
+   <body class="awsdocs awsui">
+      <div class="awsdocs-container">
+         <awsdocs-header></awsdocs-header>
+         <awsui-app-layout id="app-layout" class="awsui-util-no-gutters" ng-controller="ContentController as $ctrl" header-selector="awsdocs-header" navigation-hide="false" navigation-width="$ctrl.navWidth" navigation-open="$ctrl.navOpen" navigation-change="$ctrl.onNavChange($event)" tools-hide="$ctrl.hideTools" tools-width="$ctrl.toolsWidth" tools-open="$ctrl.toolsOpen" tools-change="$ctrl.onToolsChange($event)">
+            <div id="guide-toc" dom-region="navigation">
+               <awsdocs-toc></awsdocs-toc>
+            </div>
+            <div id="main-column" dom-region="content" tabindex="-1">
+               <awsdocs-view class="awsdocs-view">
+                  <div id="awsdocs-content">
+                     <head>
+                        <title>Thing types - AWS IoT Core</title>
+                        <meta name="pdf" content="iot-dg.pdf#thing-types" />
+                        <meta name="kindle" content="https://www.amazon.com/dp/B07JBRCWWZ" />
+                        <meta name="github" content="https://github.com/awsdocs/aws-iot-docs/tree/master/developerguide/thing-types.md" />
+                        <meta name="forums" content="http://forums.aws.amazon.com/forum.jspa?forumID=210" />
+                        <meta name="feedback" content="https://docs.aws.amazon.com/forms/aws-doc-feedback?hidden_service_name=IoT%20Docs&amp;topic_url=http://docs.aws.amazon.com/en_us/iot/latest/developerguide/thing-types.html" />
+                        <meta name="feedback-yes" content="feedbackyes.html?topic_url=http://docs.aws.amazon.com/en_us/iot/latest/developerguide/thing-types.html" />
+                        <meta name="feedback-no" content="feedbackno.html?topic_url=http://docs.aws.amazon.com/en_us/iot/latest/developerguide/thing-types.html" />
+                        <meta name="keywords" content="AWS IoT,IoT,Internet of Things" />
+                     </head>
+                     <body>
+                        <div id="main">
+                           <div style="display: none"><a href="iot-dg.pdf#thing-types" target="_blank" rel="noopener noreferrer" title="Open PDF"></a><a target="_blank" rel="noopener noreferrer" href="https://www.amazon.com/dp/B07JBRCWWZ" title="Open Kindle"></a><a href="https://github.com/awsdocs/aws-iot-docs/tree/master/developerguide/thing-types.md" target="_blank" rel="noopener noreferrer" title="Edit this page on GitHub"></a></div>
+                           <div id="breadcrumbs" class="breadcrumb"><a href="http://aws.amazon.com">AWS</a><a href="/index.html">Documentation</a><a href="/iot/index.html">AWS IoT Core</a><a href="what-is-aws-iot.html">Developer Guide</a></div>
+                           <div id="page-toc-src"><a href="#create-thing-type">Create a thing type</a><a href="#list-thing-types">List thing types</a><a href="#describe-thing-type">Describe a thing type</a><a href="#associate-thing-type">Associate a thing type with a thing</a><a href="#deprecate-thing-type">Deprecate a thing type</a><a href="#delete-thing-types">Delete a thing type</a></div>
+                           <div id="main-content" class="awsui-util-container">
+                              <div id="main-col-body">
+                                 <awsdocs-language-banner data-service="$ctrl.pageService"></awsdocs-language-banner>
+                                 <h1 class="topictitle" id="thing-types">Thing types</h1>
+                                 <div class="awsdocs-page-header-container">
+                                    <awsdocs-page-header></awsdocs-page-header>
+                                    <awsdocs-filter-selector id="awsdocs-filter-selector"></awsdocs-filter-selector>
+                                 </div>
+                                 <p>Thing types allow you to store description and configuration information that is
+                                    common to all things associated with the same thing type. This simplifies the management
+                                    of things in the registry. For example, you can define a LightBulb thing type. All
+                                    things associated with the LightBulb thing type share a set of attributes: serial
+                                    number, manufacturer, and wattage. When you create a thing of type LightBulb (or change
+                                    the type of an existing thing to LightBulb) you can specify values for each of the
+                                    attributes defined in the LightBulb thing type. 
+                                 </p>
+                                 <p>Although thing types are optional, their use makes it easier to discover things.</p>
+                                 <div class="itemizedlist">
+                                     
+                                     
+                                     
+                                     
+                                    
+                                    <ul class="itemizedlist" type="disc">
+                                       <li class="listitem">
+                                          
+                                          <p>Things with a thing type can have up to 50 attributes.</p>
+                                          
+                                       </li>
+                                       <li class="listitem">
+                                          
+                                          <p>Things without a thing type can have up to three attributes.</p>
+                                          
+                                       </li>
+                                       <li class="listitem">
+                                          
+                                          <p>A thing can be associated with only one thing type.</p>
+                                          
+                                       </li>
+                                       <li class="listitem">
+                                          
+                                          <p>There is no limit on the number of thing types you can create in your
+                                             account.
+                                          </p>
+                                          
+                                       </li>
+                                    </ul>
+                                 </div>
+                                 <p>Thing types are immutable. You cannot change a thing type name after it has been
+                                    created. You can deprecate a thing type at any time to prevent new things from being
+                                    associated with it. You can also delete thing types that have no things associated
+                                    with
+                                    them. 
+                                 </p>
+                                 
+                                 <h2 id="create-thing-type">Create a thing type</h2>
+                                 
+                                 
+                                 <p>You can use the <b>CreateThingType</b> command to create a thing
+                                    type:
+                                 </p>
+                                 <pre class="programlisting"><div class="code-btn-container"><div class="btn-copy-code" title="Copy"><awsui-icon name="copy"></awsui-icon></div></div><code class="nohighlight">$ aws iot create-thing-type 
+
+                --thing-type-name "LightBulb" --thing-type-properties "thingTypeDescription=light bulb type, searchableAttributes=wattage,model"</code></pre>
+                                 <p>The <b>CreateThingType</b> command returns a response that contains
+                                    the thing type and its ARN:
+                                 </p>
+                                 <pre class="programlisting"><div class="code-btn-container"><div class="btn-copy-code" title="Copy"><awsui-icon name="copy"></awsui-icon></div></div><code class="JSON "><span>{</span>
+    "thingTypeName": "LightBulb",
+    "thingTypeId": "df9c2d8c-894d-46a9-8192-9068d01b2886",
+    "thingTypeArn": "arn:aws:iot:us-west-2:123456789012:thingtype/LightBulb"
+}</code></pre>
+                                  
+                                 <h2 id="list-thing-types">List thing types</h2>
+                                 
+                                 
+                                 <p>You can use the <b>ListThingTypes</b> command to list thing
+                                    types:
+                                 </p>
+                                 
+                                 <pre class="programlisting"><div class="code-btn-container"><div class="btn-copy-code" title="Copy"><awsui-icon name="copy"></awsui-icon></div></div><code class="nohighlight">$ aws iot list-thing-types</code></pre>
+                                 <p>The <b>ListThingTypes</b> command returns a list of the thing types
+                                    defined in your AWS account:
+                                 </p>
+                                 <pre class="programlisting"><div class="code-btn-container"><div class="btn-copy-code" title="Copy"><awsui-icon name="copy"></awsui-icon></div></div><code class="JSON "><span>{</span>
+    "thingTypes": [
+        <span>{</span>
+            "thingTypeName": "LightBulb",
+            "thingTypeProperties": <span>{</span>
+                "searchableAttributes": [
+                    "wattage",
+                    "model"
+                ],
+                "thingTypeDescription": "light bulb type"
+            },
+            "thingTypeMetadata": <span>{</span>
+                "deprecated": false,
+                "creationDate": 1468423800950
+            }
+        }
+    ]
+}</code></pre>
+                                  
+                                 <h2 id="describe-thing-type">Describe a thing type</h2>
+                                 
+                                 
+                                 <p>You can use the <b>DescribeThingType</b> command to get information
+                                    about a thing type:
+                                 </p>
+                                 
+                                 <pre class="programlisting"><div class="code-btn-container"><div class="btn-copy-code" title="Copy"><awsui-icon name="copy"></awsui-icon></div></div><code class="nohighlight">$ aws iot describe-thing-type --thing-type-name "LightBulb"</code></pre>
+                                 <p>The <b>DescribeThingType</b> command returns information about the
+                                    specified type:
+                                 </p>
+                                 <pre class="programlisting"><div class="code-btn-container"><div class="btn-copy-code" title="Copy"><awsui-icon name="copy"></awsui-icon></div></div><code class="JSON "><span>{</span>
+    "thingTypeProperties": <span>{</span>
+        "searchableAttributes": [
+            "model", 
+            "wattage"
+        ], 
+        "thingTypeDescription": "light bulb type"
+    }, 
+    "thingTypeId": "df9c2d8c-894d-46a9-8192-9068d01b2886", 
+    "thingTypeArn": "arn:aws:iot:us-west-2:123456789012:thingtype/LightBulb", 
+    "thingTypeName": "LightBulb", 
+    "thingTypeMetadata": <span>{</span>
+        "deprecated": false, 
+        "creationDate": 1544466338.399
+    }
+}
+</code></pre>
+                                  
+                                 <h2 id="associate-thing-type">Associate a thing type with a thing</h2>
+                                 
+                                 
+                                 <p>You can use the <b>CreateThing</b> command to specify a thing type
+                                    when you create a thing:
+                                 </p>
+                                 
+                                 <pre class="programlisting"><div class="code-btn-container"><div class="btn-copy-code" title="Copy"><awsui-icon name="copy"></awsui-icon></div></div><code class="nohighlight">$ aws iot create-thing --thing-name "MyLightBulb" --thing-type-name "LightBulb" --attribute-payload "<span>{</span>\"attributes\": <span>{</span>\"wattage\":\"75\", \"model\":\"123\"}}"
+</code></pre>
+                                 <p>You can use the <b>UpdateThing</b> command at any time to change the
+                                    thing type associated with a thing:
+                                 </p>
+                                 <pre class="programlisting"><div class="code-btn-container"><div class="btn-copy-code" title="Copy"><awsui-icon name="copy"></awsui-icon></div></div><code class="nohighlight">$ aws iot update-thing --thing-name "MyLightBulb"
+                --thing-type-name "LightBulb" --attribute-payload  "<span>{</span>\"attributes\": <span>{</span>\"wattage\":\"75\", \"model\":\"123\"}}"</code></pre>
+                                 <p>You can also use the <b>UpdateThing</b> command to disassociate a
+                                    thing from a thing type.
+                                 </p>
+                                  
+                                 
+                                 <h2 id="deprecate-thing-type">Deprecate a thing type</h2>
+                                 
+                                 
+                                 <p>Thing types are immutable. They cannot be changed after they are defined. You can,
+                                    however, deprecate a thing type to prevent users from associating any new things
+                                    with it. All existing things associated with the thing type are unchanged.
+                                 </p>
+                                 
+                                 <p>To deprecate a thing type, use the <b>DeprecateThingType</b>
+                                    command:
+                                 </p>
+                                 
+                                 <pre class="programlisting"><div class="code-btn-container"><div class="btn-copy-code" title="Copy"><awsui-icon name="copy"></awsui-icon></div></div><code class="nohighlight">$ aws iot deprecate-thing-type --thing-type-name "myThingType"</code></pre>
+                                 <p>You can use the <b>DescribeThingType</b> command to see the
+                                    result:
+                                 </p>
+                                 <pre class="programlisting"><div class="code-btn-container"><div class="btn-copy-code" title="Copy"><awsui-icon name="copy"></awsui-icon></div></div><code class="nohighlight">$ aws iot describe-thing-type --thing-type-name "StopLight":</code></pre>
+                                 <pre class="programlisting"><div class="code-btn-container"><div class="btn-copy-code" title="Copy"><awsui-icon name="copy"></awsui-icon></div></div><code class="JSON "><span>{</span>
+    "thingTypeName": "StopLight",
+    "thingTypeProperties": <span>{</span>
+        "searchableAttributes": [
+            "wattage",
+            "numOfLights",
+            "model"
+        ],
+        "thingTypeDescription": "traffic light type",
+    },
+    "thingTypeMetadata": <span>{</span>
+        "deprecated": true,
+        "creationDate": 1468425854308,
+        "deprecationDate": 1468446026349
+    }
+}
+</code></pre>
+                                 <p>Deprecating a thing type is a reversible operation. You can undo a deprecation by
+                                    using the <code class="code">--undo-deprecate</code> flag with the
+                                    <b>DeprecateThingType</b> CLI command:
+                                 </p>
+                                 <pre class="programlisting"><div class="code-btn-container"><div class="btn-copy-code" title="Copy"><awsui-icon name="copy"></awsui-icon></div></div><code class="nohighlight">$ aws iot deprecate-thing-type --thing-type-name "myThingType" --undo-deprecate</code></pre>
+                                 <p>You can use the <b>DescribeThingType</b> CLI command to see the
+                                    result:
+                                 </p>
+                                 <pre class="programlisting"><div class="code-btn-container"><div class="btn-copy-code" title="Copy"><awsui-icon name="copy"></awsui-icon></div></div><code class="nohighlight">$ aws iot describe-thing-type --thing-type-name "StopLight":</code></pre>
+                                 <pre class="programlisting"><div class="code-btn-container"><div class="btn-copy-code" title="Copy"><awsui-icon name="copy"></awsui-icon></div></div><code class="JSON "><span>{</span>
+    "thingTypeName": "StopLight",
+    "thingTypeArn": "arn:aws:iot:us-east-1:123456789012:thingtype/StopLight",
+    "thingTypeId": "12345678abcdefgh12345678ijklmnop12345678"
+    "thingTypeProperties": <span>{</span>
+        "searchableAttributes": [
+            "wattage",
+            "numOfLights",
+            "model"
+        ],
+        "thingTypeDescription": "traffic light type"
+    },
+    "thingTypeMetadata": <span>{</span>
+        "deprecated": false,
+        "creationDate": 1468425854308,
+    }
+}
+</code></pre>
+                                  
+                                 <h2 id="delete-thing-types">Delete a thing type</h2>
+                                 
+                                 
+                                 <p>You can delete thing types only after they have been deprecated. To delete a thing
+                                    type, use the <b>DeleteThingType</b> command:
+                                 </p>
+                                 
+                                 <pre class="programlisting"><div class="code-btn-container"><div class="btn-copy-code" title="Copy"><awsui-icon name="copy"></awsui-icon></div></div><code class="nohighlight">$ aws iot delete-thing-type --thing-type-name "StopLight"</code></pre>
+                                 <div class="awsdocs-note">
+                                    <div class="awsdocs-note-title">
+                                       <awsui-icon name="status-info" variant="link"></awsui-icon><span>Note</span></div>
+                                    <div class="awsdocs-note-text">
+                                       <p>You must wait five minutes after you deprecate a thing type before you can
+                                          delete it.
+                                       </p>
+                                    </div>
+                                 </div>
+                                 
+                                 <awsdocs-copyright class="copyright-print"></awsdocs-copyright>
+                                 <awsdocs-thumb-feedback right-edge="{{$ctrl.thumbFeedbackRightEdge}}"></awsdocs-thumb-feedback>
+                              </div>
+                              <noscript>
+                                 <div>
+                                    <div>
+                                       <div>
+                                          <div id="js_error_message">
+                                             <p><img src="https://d1ge0kk1l5kms0.cloudfront.net/images/G/01/webservices/console/warning.png" alt="Warning" /> <strong>Javascript is disabled or is unavailable in your
+                                                   browser.</strong></p>
+                                             <p>To use the Amazon Web Services Documentation, Javascript must be
+                                                enabled. Please refer to your browser's Help pages for instructions.
+                                             </p>
+                                          </div>
+                                       </div>
+                                    </div>
+                                 </div>
+                              </noscript>
+                              <div id="main-col-footer" class="awsui-util-font-size-0">
+                                 <div id="doc-conventions"><a target="_top" href="/general/latest/gr/docconventions.html">Document Conventions</a></div>
+                                 <div class="prev-next">
+                                    <div id="previous" class="prev-link" accesskey="p" href="./thing-registry.html">How to manage things with the registry</div>
+                                    <div id="next" class="next-link" accesskey="n" href="./thing-groups.html">Static thing groups</div>
+                                 </div>
+                              </div>
+                              <awsdocs-page-utilities></awsdocs-page-utilities>
+                           </div>
+                           <div id="quick-feedback-yes" style="display: none;">
+                              <div class="title">Did this page help you? - Yes</div>
+                              <div class="content">
+                                 <p>Thanks for letting us know we're doing a good
+                                    job!
+                                 </p>
+                                 <p>If you've got a moment, please tell us what we did right
+                                    so we can do more of it.
+                                 </p>
+                                 <p>
+                                    <awsui-button id="fblink" target="_blank" text="Feedback" click="linkClick($event)" href="https://docs.aws.amazon.com/forms/aws-doc-feedback?hidden_service_name=IoT Docs&amp;topic_url=https://docs.aws.amazon.com/en_us/iot/latest/developerguide/thing-types.html"></awsui-button>
+                                 </p>
+                              </div>
+                           </div>
+                           <div id="quick-feedback-no" style="display: none;">
+                              <div class="title">Did this page help you? - No</div>
+                              <div class="content">
+                                 <p>Thanks for letting us know this page needs work. We're
+                                    sorry we let you down.
+                                 </p>
+                                 <p>If you've got a moment, please tell us how we can make
+                                    the documentation better.
+                                 </p>
+                                 <p>
+                                    <awsui-button id="fblink" target="_blank" text="Feedback" click="linkClick($event)" href="https://docs.aws.amazon.com/forms/aws-doc-feedback?hidden_service_name=IoT Docs&amp;topic_url=https://docs.aws.amazon.com/en_us/iot/latest/developerguide/thing-types.html"></awsui-button>
+                                 </p>
+                              </div>
+                           </div>
+                        </div>
+                     </body>
+                  </div>
+               </awsdocs-view>
+               <div class="page-loading-indicator" id="page-loading-indicator">
+                  <awsui-spinner size="large"></awsui-spinner>
+               </div>
+            </div>
+            <div id="tools-panel" dom-region="tools">
+               <awsdocs-tools-panel id="awsdocs-tools-panel"></awsdocs-tools-panel>
+            </div>
+         </awsui-app-layout>
+         <awsdocs-cookie-banner class="doc-cookie-banner"></awsdocs-cookie-banner>
+         <!--
+                SiteCatalyst code version: H.25.2.
+                Copyright 1996-2012 Adobe, Inc. All Rights Reserved
+                More info available at http://www.omniture.com
+            --><script language="JavaScript" type="text/javascript">
+var awsdocs = awsdocs || {};
+awsdocs.prop66 = 'AWS IoT Core';
+awsdocs.prop65 =  'Developer Guide';
+            </script><script src="https://a0.awsstatic.com/s_code/js/3.0/awshome_s_code.js" language="JavaScript" type="text/javascript"></script>
+         <!--/DO NOT REMOVE/-->
+         <!--End SiteCatalyst code version: H.25.2.--></div>
+   </body>
+</html>

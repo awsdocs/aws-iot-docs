@@ -1,0 +1,898 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" ng-app="AWSDocsDocPageApp">
+   <head>
+      <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+      <title>Device provisioning MQTT API - AWS IoT Core</title>
+      <meta name="viewport" content="width=device-width,initial-scale=1" />
+      <meta name="assets_root" content="assets" />
+      <meta name="target_state" content="fleet-provision-api" />
+      <meta name="default_state" content="fleet-provision-api" />
+      <link rel="icon" type="image/ico" href="/assets/images/favicon.ico" />
+      <link rel="shortcut icon" type="image/ico" href="/assets/images/favicon.ico" />
+      <link rel="canonical" href="https://docs.aws.amazon.com/iot/latest/developerguide/fleet-provision-api.html" />
+      <meta name="description" content="The Fleet Provisioning service supports these MQTT APIs:" />
+      <meta name="deployment_region" content="IAD" />
+      <meta name="product" content="AWS IoT Core" />
+      <meta name="guide" content="Developer Guide" />
+      <meta name="locales" content="de_de:Deutsch/en_us:English/es_es:Español/fr_fr:Français/it_it:Italiano/ja_jp:日本語/ko_kr:한국어/pt_br:Português/zh_cn:中文 (简体)/zh_tw:中文 (繁體)" />
+      <meta name="abstract" content="AWS IoT provides secure, bi-directional communication between Internet-connected devices such as sensors, actuators, embedded micro-controllers, or smart appliances and the AWS Cloud. This enables you to collect telemetry data from multiple devices, and store and analyze the data. You can also create applications that enable your users to control these devices from their phones or tablets." />
+      <meta name="guide-locale" content="en_us" />
+      <meta name="tocs" content="toc-contents.json" />
+      <meta name="feedback-item" content="IoT Docs" />
+      <meta name="this_doc_product" content="AWS IoT Core" />
+      <meta name="this_doc_guide" content="Developer Guide" />
+      <link href="assets/css/vendor4.css" rel="stylesheet" />
+      <link href="assets/css/awsdocs-common.css" rel="stylesheet" /><script type="text/javascript" src="assets/js/vendor3.js" defer=""></script><script type="text/javascript" src="assets/js/vendor4.js" defer=""></script><script type="text/javascript" src="assets/js/vendor1.js" defer=""></script><script type="text/javascript" src="assets/js/awsdocs-common.js" defer=""></script><script type="text/javascript" src="assets/js/awsdocs-doc-app.js" defer=""></script></head>
+   <body class="awsdocs awsui">
+      <div class="awsdocs-container">
+         <awsdocs-header></awsdocs-header>
+         <awsui-app-layout id="app-layout" class="awsui-util-no-gutters" ng-controller="ContentController as $ctrl" header-selector="awsdocs-header" navigation-hide="false" navigation-width="$ctrl.navWidth" navigation-open="$ctrl.navOpen" navigation-change="$ctrl.onNavChange($event)" tools-hide="$ctrl.hideTools" tools-width="$ctrl.toolsWidth" tools-open="$ctrl.toolsOpen" tools-change="$ctrl.onToolsChange($event)">
+            <div id="guide-toc" dom-region="navigation">
+               <awsdocs-toc></awsdocs-toc>
+            </div>
+            <div id="main-column" dom-region="content" tabindex="-1">
+               <awsdocs-view class="awsdocs-view">
+                  <div id="awsdocs-content">
+                     <head>
+                        <title>Device provisioning MQTT API - AWS IoT Core</title>
+                        <meta name="pdf" content="iot-dg.pdf#fleet-provision-api" />
+                        <meta name="kindle" content="https://www.amazon.com/dp/B07JBRCWWZ" />
+                        <meta name="github" content="https://github.com/awsdocs/aws-iot-docs/tree/master/developerguide/fleet-provision-api.md" />
+                        <meta name="forums" content="http://forums.aws.amazon.com/forum.jspa?forumID=210" />
+                        <meta name="feedback" content="https://docs.aws.amazon.com/forms/aws-doc-feedback?hidden_service_name=IoT%20Docs&amp;topic_url=http://docs.aws.amazon.com/en_us/iot/latest/developerguide/fleet-provision-api.html" />
+                        <meta name="feedback-yes" content="feedbackyes.html?topic_url=http://docs.aws.amazon.com/en_us/iot/latest/developerguide/fleet-provision-api.html" />
+                        <meta name="feedback-no" content="feedbackno.html?topic_url=http://docs.aws.amazon.com/en_us/iot/latest/developerguide/fleet-provision-api.html" />
+                        <meta name="keywords" content="AWS IoT,IoT,Internet of Things" />
+                     </head>
+                     <body>
+                        <div id="main">
+                           <div style="display: none"><a href="iot-dg.pdf#fleet-provision-api" target="_blank" rel="noopener noreferrer" title="Open PDF"></a><a target="_blank" rel="noopener noreferrer" href="https://www.amazon.com/dp/B07JBRCWWZ" title="Open Kindle"></a><a href="https://github.com/awsdocs/aws-iot-docs/tree/master/developerguide/fleet-provision-api.md" target="_blank" rel="noopener noreferrer" title="Edit this page on GitHub"></a></div>
+                           <div id="breadcrumbs" class="breadcrumb"><a href="http://aws.amazon.com">AWS</a><a href="/index.html">Documentation</a><a href="/iot/index.html">AWS IoT Core</a><a href="what-is-aws-iot.html">Developer Guide</a></div>
+                           <div id="page-toc-src"><a href="#create-cert-csr">CreateCertificateFromCsr</a><a href="#create-keys-cert">CreateKeysAndCertificate</a><a href="#register-thing">RegisterThing</a></div>
+                           <div id="main-content" class="awsui-util-container">
+                              <div id="main-col-body">
+                                 <awsdocs-language-banner data-service="$ctrl.pageService"></awsdocs-language-banner>
+                                 <h1 class="topictitle" id="fleet-provision-api">Device provisioning MQTT API</h1>
+                                 <div class="awsdocs-page-header-container">
+                                    <awsdocs-page-header></awsdocs-page-header>
+                                    <awsdocs-filter-selector id="awsdocs-filter-selector"></awsdocs-filter-selector>
+                                 </div><a id="provision-mqtt-api"></a><p>The Fleet Provisioning service supports these MQTT APIs:</p>
+                                 <div class="itemizedlist">
+                                     
+                                     
+                                     
+                                    
+                                    <ul class="itemizedlist" type="disc">
+                                       <li class="listitem">
+                                          
+                                          <p><code class="code"><a href="#create-cert-csr">CreateCertificateFromCsr</a></code></p>
+                                          
+                                       </li>
+                                       <li class="listitem">
+                                          
+                                          <p><code class="code"><a href="#create-keys-cert">CreateKeysAndCertificate</a></code></p>
+                                          
+                                       </li>
+                                       <li class="listitem">
+                                          
+                                          <p><code class="code"><a href="#register-thing">RegisterThing</a></code></p>
+                                          
+                                       </li>
+                                    </ul>
+                                 </div>
+                                 <p>This API supports response buffers in Concise Binary Object Representation (CBOR)
+                                    format and JavaScript Object Notation (JSON), depending on the
+                                    <code class="replaceable">payload-format</code> of the topic. For the sake of clarity,
+                                    however, the response and request examples in this section are shown in JSON
+                                    format.
+                                 </p>
+                                 <div class="table-container">
+                                    <div class="table-contents">
+                                       <table id="w332aac36c19c11">
+                                          <thead>
+                                             
+                                             <tr>
+                                                
+                                                <th><code class="replaceable">payload-format</code></th>
+                                                
+                                                <th>Response format data type</th>
+                                                
+                                             </tr>
+                                             
+                                          </thead>
+                                          
+                                          <tr>
+                                             
+                                             <td>cbor</td>
+                                             
+                                             <td>Concise Binary Object Representation (CBOR)</td>
+                                             
+                                          </tr>
+                                          
+                                          <tr>
+                                             
+                                             <td>json</td>
+                                             
+                                             <td>JavaScript Object Notation (JSON)</td>
+                                             
+                                          </tr>
+                                          
+                                       </table>
+                                    </div>
+                                 </div>
+                                 <div class="awsdocs-note awsdocs-important">
+                                    <div class="awsdocs-note-title">
+                                       <awsui-icon name="status-warning" variant="error"></awsui-icon><span>Important</span></div>
+                                    <div class="awsdocs-note-text">
+                                       <p>Before publishing a request message topic, subscribe to the response topics to
+                                          receive the response. The messages used by this API use MQTT's publish/subscribe
+                                          protocol to provide a request and response interaction. 
+                                       </p>
+                                       <p>If you do not subscribe to the response topics <em>before</em> you
+                                          publish a request, you might not receive the results of that request.
+                                       </p>
+                                    </div>
+                                 </div>
+                                 
+                                 <h2 id="create-cert-csr">CreateCertificateFromCsr</h2>
+                                 
+                                 <p>Creates a certificate from a certificate signing request (CSR). AWS IoT provides client
+                                    certificates that 
+                                    are signed by the Amazon Root certificate authority (CA). The new
+                                    certificate has a <code class="code">PENDING_ACTIVATION</code> status. When you call
+                                    <code class="code">RegisterThing</code> to provision a thing with this certificate, the
+                                    certificate status changes to <code class="code">ACTIVE</code> or <code class="code">INACTIVE</code> as
+                                    described in the template.
+                                 </p>
+                                 
+                                 <div class="awsdocs-note">
+                                    <div class="awsdocs-note-title">
+                                       <awsui-icon name="status-info" variant="link"></awsui-icon><span>Note</span></div>
+                                    <div class="awsdocs-note-text">
+                                       <p>For security, the <code class="code">certificateOwnershipToken</code> returned by CreateCertificateFromCsr
+                                          expires after one hour. <a href="#register-thing">RegisterThing</a> must be called before the
+                                          <code class="code">certificateOwnershipToken</code> expires. If the token expires, the
+                                          device can call CreateCertificateFromCsr to generate a new
+                                          certificate.
+                                       </p>
+                                    </div>
+                                 </div>
+                                  
+                                 
+                                 <h3 id="create-cert-csr-request">CreateCertificateFromCsr
+                                    request
+                                 </h3>
+                                 
+                                 <p>Publish a message with the
+                                    <code class="code">$aws/certificates/create-from-csr/<code class="replaceable">payload-format</code></code>
+                                    topic.
+                                 </p>
+                                 
+                                 <div class="variablelist">
+                                     
+                                    
+                                    <dl>
+                                       
+                                       <dt><span class="term"><code class="code">payload-format</code></span></dt>
+                                       
+                                       <dd>
+                                          
+                                          <p>The message payload format as <code class="code">cbor</code> or
+                                             <code class="code">json</code>.
+                                          </p>
+                                          
+                                       </dd>
+                                       
+                                    </dl>
+                                 </div>
+                                  
+                                 
+                                 <h4 id="create-cert-csr-request-payload">CreateCertificateFromCsr
+                                    request payload
+                                 </h4>
+                                 <pre class="programlisting"><div class="code-btn-container"><div class="btn-copy-code" title="Copy"><awsui-icon name="copy"></awsui-icon></div></div><code class="json "><span>{</span>
+    "certificateSigningRequest": "string"
+}</code></pre>
+                                 <div class="variablelist">
+                                     
+                                    
+                                    <dl>
+                                       
+                                       <dt><span class="term"><code class="code">certificateSigningRequest</code></span></dt>
+                                       
+                                       <dd>
+                                          
+                                          <p>The CSR, in PEM format.</p>
+                                          
+                                       </dd>
+                                       
+                                    </dl>
+                                 </div>
+                                  
+                                  
+                                  
+                                 
+                                 <h3 id="create-cert-csr-response">CreateCertificateFromCsr
+                                    response
+                                 </h3>
+                                 
+                                 <p>Subscribe to
+                                    <code class="code">$aws/certificates/create-from-csr/<code class="replaceable">payload-format</code>/accepted</code>.
+                                 </p>
+                                 
+                                 <div class="variablelist">
+                                     
+                                    
+                                    <dl>
+                                       
+                                       <dt><span class="term"><code class="code">payload-format</code></span></dt>
+                                       
+                                       <dd>
+                                          
+                                          <p>The message payload format as <code class="code">cbor</code> or
+                                             <code class="code">json</code>.
+                                          </p>
+                                          
+                                       </dd>
+                                       
+                                    </dl>
+                                 </div>
+                                  
+                                 
+                                 <h4 id="create-cert-csr-response-payload">CreateCertificateFromCsr response
+                                    payload
+                                 </h4>
+                                 <pre class="programlisting"><div class="code-btn-container"><div class="btn-copy-code" title="Copy"><awsui-icon name="copy"></awsui-icon></div></div><code class="json "><span>{</span>
+    "certificateOwnershipToken": "string",
+    "certificateId": "string",
+    "certificatePem": "string"
+}</code></pre>
+                                 <div class="variablelist">
+                                     
+                                     
+                                     
+                                    
+                                    <dl>
+                                       
+                                       <dt><span class="term"><code class="code">certificateOwnershipToken</code></span></dt>
+                                       
+                                       <dd>
+                                          
+                                          <p>The token to prove ownership of the certificate during
+                                             provisioning. 
+                                          </p>
+                                          
+                                       </dd>
+                                        
+                                       
+                                       <dt><span class="term"><code class="code">certificateId</code></span></dt>
+                                       
+                                       <dd>
+                                          
+                                          <p>The ID of the certificate. Certificate management operations
+                                             only take a certificateId. 
+                                          </p>
+                                          
+                                       </dd>
+                                        
+                                       
+                                       <dt><span class="term"><code class="code">certificatePem</code></span></dt>
+                                       
+                                       <dd>
+                                          
+                                          <p>The certificate data, in PEM format.</p>
+                                          
+                                       </dd>
+                                       
+                                    </dl>
+                                 </div>
+                                  
+                                  
+                                  
+                                 
+                                 <h3 id="create-cert-csr-error">CreateCertificateFromCsr error</h3>
+                                 
+                                 <p>To receive error responses, subscribe to
+                                    <code class="code">$aws/certificates/create-from-csr/<code class="replaceable">payload-format</code>/rejected</code>.
+                                 </p>
+                                 
+                                 <div class="variablelist">
+                                     
+                                    
+                                    <dl>
+                                       
+                                       <dt><span class="term"><code class="code">payload-format</code></span></dt>
+                                       
+                                       <dd>
+                                          
+                                          <p>The message payload format as <code class="code">cbor</code> or
+                                             <code class="code">json</code>.
+                                          </p>
+                                          
+                                       </dd>
+                                       
+                                    </dl>
+                                 </div>
+                                  
+                                 
+                                 <h4 id="create-cert-csr-error-payload">CreateCertificateFromCsr error
+                                    payload
+                                 </h4>
+                                 <pre class="programlisting"><div class="code-btn-container"><div class="btn-copy-code" title="Copy"><awsui-icon name="copy"></awsui-icon></div></div><code class="json "><span>{</span>
+    "statusCode": int,
+    "errorCode": "string",
+    "errorMessage": "string"
+}</code></pre>
+                                 <div class="variablelist">
+                                     
+                                     
+                                     
+                                    
+                                    <dl>
+                                       
+                                       <dt><span class="term"><code class="code">statusCode</code></span></dt>
+                                       
+                                       <dd>
+                                          
+                                          <p>The status code.</p>
+                                          
+                                       </dd>
+                                        
+                                       
+                                       <dt><span class="term"><code class="code">errorCode</code></span></dt>
+                                       
+                                       <dd>
+                                          
+                                          <p>The error code.</p>
+                                          
+                                       </dd>
+                                        
+                                       
+                                       <dt><span class="term"><code class="code">errorMessage</code></span></dt>
+                                       
+                                       <dd>
+                                          
+                                          <p>The error message.</p>
+                                          
+                                       </dd>
+                                       
+                                    </dl>
+                                 </div>
+                                  
+                                  
+                                  
+                                 
+                                 <h2 id="create-keys-cert">CreateKeysAndCertificate</h2>
+                                 
+                                 <p>Creates new keys and a certificate. AWS IoT provides client certificates that 
+                                    are signed by the Amazon Root certificate authority (CA). The new certificate has
+                                    a
+                                    <code class="code">PENDING_ACTIVATION</code> status. When you call <code class="code">RegisterThing</code>
+                                    to provision a thing with this certificate, the certificate status changes to
+                                    <code class="code">ACTIVE</code> or <code class="code">INACTIVE</code> as described in the
+                                    template.
+                                 </p>
+                                 
+                                 <div class="awsdocs-note">
+                                    <div class="awsdocs-note-title">
+                                       <awsui-icon name="status-info" variant="link"></awsui-icon><span>Note</span></div>
+                                    <div class="awsdocs-note-text">
+                                       <p>For security, the <code class="code">certificateOwnershipToken</code> returned by CreateKeysAndCertificate
+                                          expires after one hour. <a href="#register-thing">RegisterThing</a> must be called before the
+                                          <code class="code">certificateOwnershipToken</code> expires. If the token expires, the
+                                          device can call CreateKeysAndCertificate to generate a new
+                                          certificate.
+                                       </p>
+                                    </div>
+                                 </div>
+                                  
+                                 
+                                 <h3 id="create-keys-cert-request">CreateKeysAndCertificate
+                                    request
+                                 </h3>
+                                 
+                                 <p>Publish a message on
+                                    <code class="code">$aws/certificates/create/<code class="replaceable">payload-format</code></code>
+                                    with an empty message payload.
+                                 </p>
+                                 
+                                 <div class="variablelist">
+                                     
+                                    
+                                    <dl>
+                                       
+                                       <dt><span class="term"><code class="code">payload-format</code></span></dt>
+                                       
+                                       <dd>
+                                          
+                                          <p>The message payload format as <code class="code">cbor</code> or
+                                             <code class="code">json</code>.
+                                          </p>
+                                          
+                                       </dd>
+                                       
+                                    </dl>
+                                 </div>
+                                  
+                                  
+                                 
+                                 <h3 id="create-keys-cert-response">CreateKeysAndCertificate
+                                    response
+                                 </h3>
+                                 
+                                 <p>Subscribe to
+                                    <code class="code">$aws/certificates/create/<code class="replaceable">payload-format</code>/accepted</code>.
+                                 </p>
+                                 
+                                 <div class="variablelist">
+                                     
+                                    
+                                    <dl>
+                                       
+                                       <dt><span class="term"><code class="code">payload-format</code></span></dt>
+                                       
+                                       <dd>
+                                          
+                                          <p>The message payload format as <code class="code">cbor</code> or
+                                             <code class="code">json</code>.
+                                          </p>
+                                          
+                                       </dd>
+                                       
+                                    </dl>
+                                 </div>
+                                  
+                                 
+                                 <h4 id="create-keys-cert-response-payload">CreateKeysAndCertificate
+                                    response
+                                 </h4>
+                                 <pre class="programlisting"><div class="code-btn-container"><div class="btn-copy-code" title="Copy"><awsui-icon name="copy"></awsui-icon></div></div><code class="json "><span>{</span>
+    "certificateId": "string",
+    "certificatePem": "string",
+    "privateKey": "string",
+    "certificateOwnershipToken": "string"
+}</code></pre>
+                                 <div class="variablelist">
+                                     
+                                     
+                                     
+                                     
+                                    
+                                    <dl>
+                                       
+                                       <dt><span class="term"><code class="code">certificateId</code></span></dt>
+                                       
+                                       <dd>
+                                          
+                                          <p>The certificate ID.</p>
+                                          
+                                       </dd>
+                                        
+                                       
+                                       <dt><span class="term"><code class="code">certificatePem</code></span></dt>
+                                       
+                                       <dd>
+                                          
+                                          <p>The certificate data, in PEM format.</p>
+                                          
+                                       </dd>
+                                        
+                                       
+                                       <dt><span class="term"><code class="code">privateKey</code></span></dt>
+                                       
+                                       <dd>
+                                          
+                                          <p>The private key.</p>
+                                          
+                                       </dd>
+                                        
+                                       
+                                       <dt><span class="term"><code class="code">certificateOwnershipToken</code></span></dt>
+                                       
+                                       <dd>
+                                          
+                                          <p>The token to prove ownership of the certificate during
+                                             provisioning.
+                                          </p>
+                                          
+                                       </dd>
+                                       
+                                    </dl>
+                                 </div>
+                                  
+                                  
+                                  
+                                 
+                                 <h3 id="create-keys-cert-error">CreateKeysAndCertificate error</h3>
+                                 
+                                 <p>To receive error responses, subscribe to
+                                    <code class="code">$aws/certificates/create/<code class="replaceable">payload-format</code>/rejected</code>.
+                                 </p>
+                                 
+                                 <div class="variablelist">
+                                     
+                                    
+                                    <dl>
+                                       
+                                       <dt><span class="term"><code class="code">payload-format</code></span></dt>
+                                       
+                                       <dd>
+                                          
+                                          <p>The message payload format as <code class="code">cbor</code> or
+                                             <code class="code">json</code>.
+                                          </p>
+                                          
+                                       </dd>
+                                       
+                                    </dl>
+                                 </div>
+                                  
+                                 
+                                 <h4 id="create-keys-cert-error-payload">CreateKeysAndCertificate
+                                    error payload
+                                 </h4>
+                                 <pre class="programlisting"><div class="code-btn-container"><div class="btn-copy-code" title="Copy"><awsui-icon name="copy"></awsui-icon></div></div><code class="json "><span>{</span>
+    "statusCode": int,
+    "errorCode": "string",
+    "errorMessage": "string"
+}</code></pre>
+                                 <div class="variablelist">
+                                     
+                                     
+                                     
+                                    
+                                    <dl>
+                                       
+                                       <dt><span class="term"><code class="code">statusCode</code></span></dt>
+                                       
+                                       <dd>
+                                          
+                                          <p>The status code.</p>
+                                          
+                                       </dd>
+                                        
+                                       
+                                       <dt><span class="term"><code class="code">errorCode</code></span></dt>
+                                       
+                                       <dd>
+                                          
+                                          <p>The error code.</p>
+                                          
+                                       </dd>
+                                        
+                                       
+                                       <dt><span class="term"><code class="code">errorMessage</code></span></dt>
+                                       
+                                       <dd>
+                                          
+                                          <p>The error message.</p>
+                                          
+                                       </dd>
+                                       
+                                    </dl>
+                                 </div>
+                                  
+                                  
+                                  
+                                 
+                                 <h2 id="register-thing">RegisterThing</h2>
+                                 
+                                 <p>Provisions a thing using a pre-defined template.</p>
+                                  
+                                 
+                                 <h3 id="register-thing-request">RegisterThing request</h3>
+                                 
+                                 <p>Publish a message on
+                                    <code class="code">$aws/provisioning-templates/<code class="replaceable">templateName</code>/provision/<code class="replaceable">payload-format</code></code>.
+                                 </p>
+                                 
+                                 <div class="variablelist">
+                                     
+                                     
+                                    
+                                    <dl>
+                                       
+                                       <dt><span class="term"><code class="code">payload-format</code></span></dt>
+                                       
+                                       <dd>
+                                          
+                                          <p>The message payload format as <code class="code">cbor</code> or
+                                             <code class="code">json</code>.
+                                          </p>
+                                          
+                                       </dd>
+                                        
+                                       
+                                       <dt><span class="term"><code class="code">templateName</code></span></dt>
+                                       
+                                       <dd>
+                                          
+                                          <p>The provisioning template name.</p>
+                                          
+                                       </dd>
+                                       
+                                    </dl>
+                                 </div>
+                                  
+                                 
+                                 <h4 id="register-thing-request-payload">RegisterThing request
+                                    payload
+                                 </h4>
+                                 <pre class="programlisting"><div class="code-btn-container"><div class="btn-copy-code" title="Copy"><awsui-icon name="copy"></awsui-icon></div></div><code class="json "><span>{</span>
+    "certificateOwnershipToken": "string",
+    "parameters": <span>{</span>
+        "string": "string",
+        ...
+    }
+}</code></pre>
+                                 <div class="variablelist">
+                                     
+                                     
+                                    
+                                    <dl>
+                                       
+                                       <dt><span class="term"><code class="code">certificateOwnershipToken</code></span></dt>
+                                       
+                                       <dd>
+                                          
+                                          <p>The token to prove ownership of the certificate. The token is
+                                             generated by AWS IoT when you create a certificate over
+                                             MQTT.
+                                          </p>
+                                          
+                                       </dd>
+                                        
+                                       
+                                       <dt><span class="term"><code class="code">parameters</code></span></dt>
+                                       
+                                       <dd>
+                                          
+                                          <p>Optional. Key-value pairs from the device that are used by the
+                                             <a href="./pre-provisioning-hook.html">pre-provisioning
+                                                hooks</a> to evaluate the registration request.
+                                          </p>
+                                          
+                                       </dd>
+                                       
+                                    </dl>
+                                 </div>
+                                  
+                                  
+                                  
+                                 
+                                 <h3 id="register-thing-response">RegisterThing response</h3>
+                                 
+                                 <p>Subscribe to
+                                    <code class="code">$aws/provisioning-templates/<code class="replaceable">templateName</code>/provision/<code class="replaceable">payload-format</code>/accepted</code>.
+                                 </p>
+                                 
+                                 <div class="variablelist">
+                                     
+                                     
+                                    
+                                    <dl>
+                                       
+                                       <dt><span class="term"><code class="code">payload-format</code></span></dt>
+                                       
+                                       <dd>
+                                          
+                                          <p>The message payload format as <code class="code">cbor</code> or
+                                             <code class="code">json</code>.
+                                          </p>
+                                          
+                                       </dd>
+                                        
+                                       
+                                       <dt><span class="term"><code class="code">templateName</code></span></dt>
+                                       
+                                       <dd>
+                                          
+                                          <p>The provisioning template name.</p>
+                                          
+                                       </dd>
+                                       
+                                    </dl>
+                                 </div>
+                                  
+                                 
+                                 <h4 id="register-thing-response-payload">RegisterThing response
+                                    payload
+                                 </h4>
+                                 <pre class="programlisting"><div class="code-btn-container"><div class="btn-copy-code" title="Copy"><awsui-icon name="copy"></awsui-icon></div></div><code class="json "><span>{</span>
+    "deviceConfiguration": <span>{</span>
+        "string": "string",
+        ...
+    },
+    "thingName": "string"
+}</code></pre>
+                                 <div class="variablelist">
+                                     
+                                     
+                                    
+                                    <dl>
+                                       
+                                       <dt><span class="term"><code class="code">deviceConfiguration</code></span></dt>
+                                       
+                                       <dd>
+                                          
+                                          <p>The device configuration defined in the template.</p>
+                                          
+                                       </dd>
+                                        
+                                       
+                                       <dt><span class="term"><code class="code">thingName</code></span></dt>
+                                       
+                                       <dd>
+                                          
+                                          <p>The name of the IoT thing created during provisioning.</p>
+                                          
+                                       </dd>
+                                       
+                                    </dl>
+                                 </div>
+                                  
+                                  
+                                  
+                                 
+                                 <h3 id="register-thing-error">RegisterThing error response</h3>
+                                 
+                                 <p>To receive error responses, subscribe to
+                                    <code class="code">$aws/provisioning-templates/<code class="replaceable">templateName</code>/provision/<code class="replaceable">payload-format</code>/rejected</code>.
+                                 </p>
+                                 
+                                 <div class="variablelist">
+                                     
+                                     
+                                    
+                                    <dl>
+                                       
+                                       <dt><span class="term"><code class="code">payload-format</code></span></dt>
+                                       
+                                       <dd>
+                                          
+                                          <p>The message payload format as <code class="code">cbor</code> or
+                                             <code class="code">json</code>.
+                                          </p>
+                                          
+                                       </dd>
+                                        
+                                       
+                                       <dt><span class="term"><code class="code">templateName</code></span></dt>
+                                       
+                                       <dd>
+                                          
+                                          <p>The provisioning template name.</p>
+                                          
+                                       </dd>
+                                       
+                                    </dl>
+                                 </div>
+                                  
+                                 
+                                 <h4 id="register-thing-error-payload">RegisterThing error response
+                                    payload
+                                 </h4>
+                                 <pre class="programlisting"><div class="code-btn-container"><div class="btn-copy-code" title="Copy"><awsui-icon name="copy"></awsui-icon></div></div><code class="json "><span>{</span>
+    "statusCode": int,
+    "errorCode": "string",
+    "errorMessage": "string"
+}</code></pre>
+                                 <div class="variablelist">
+                                     
+                                     
+                                     
+                                    
+                                    <dl>
+                                       
+                                       <dt><span class="term"><code class="code">statusCode</code></span></dt>
+                                       
+                                       <dd>
+                                          
+                                          <p>The status code.</p>
+                                          
+                                       </dd>
+                                        
+                                       
+                                       <dt><span class="term"><code class="code">errorCode</code></span></dt>
+                                       
+                                       <dd>
+                                          
+                                          <p>The error code.</p>
+                                          
+                                       </dd>
+                                        
+                                       
+                                       <dt><span class="term"><code class="code">errorMessage</code></span></dt>
+                                       
+                                       <dd>
+                                          
+                                          <p>The error message.</p>
+                                          
+                                       </dd>
+                                       
+                                    </dl>
+                                 </div>
+                                  
+                                  
+                                 
+                                 <awsdocs-copyright class="copyright-print"></awsdocs-copyright>
+                                 <awsdocs-thumb-feedback right-edge="{{$ctrl.thumbFeedbackRightEdge}}"></awsdocs-thumb-feedback>
+                              </div>
+                              <noscript>
+                                 <div>
+                                    <div>
+                                       <div>
+                                          <div id="js_error_message">
+                                             <p><img src="https://d1ge0kk1l5kms0.cloudfront.net/images/G/01/webservices/console/warning.png" alt="Warning" /> <strong>Javascript is disabled or is unavailable in your
+                                                   browser.</strong></p>
+                                             <p>To use the Amazon Web Services Documentation, Javascript must be
+                                                enabled. Please refer to your browser's Help pages for instructions.
+                                             </p>
+                                          </div>
+                                       </div>
+                                    </div>
+                                 </div>
+                              </noscript>
+                              <div id="main-col-footer" class="awsui-util-font-size-0">
+                                 <div id="doc-conventions"><a target="_top" href="/general/latest/gr/docconventions.html">Document Conventions</a></div>
+                                 <div class="prev-next">
+                                    <div id="previous" class="prev-link" accesskey="p" href="./pre-provisioning-hook.html">Pre-provisioning hooks</div>
+                                    <div id="next" class="next-link" accesskey="n" href="./iot-indexing.html">Fleet indexing service</div>
+                                 </div>
+                              </div>
+                              <awsdocs-page-utilities></awsdocs-page-utilities>
+                           </div>
+                           <div id="quick-feedback-yes" style="display: none;">
+                              <div class="title">Did this page help you? - Yes</div>
+                              <div class="content">
+                                 <p>Thanks for letting us know we're doing a good
+                                    job!
+                                 </p>
+                                 <p>If you've got a moment, please tell us what we did right
+                                    so we can do more of it.
+                                 </p>
+                                 <p>
+                                    <awsui-button id="fblink" target="_blank" text="Feedback" click="linkClick($event)" href="https://docs.aws.amazon.com/forms/aws-doc-feedback?hidden_service_name=IoT Docs&amp;topic_url=https://docs.aws.amazon.com/en_us/iot/latest/developerguide/fleet-provision-api.html"></awsui-button>
+                                 </p>
+                              </div>
+                           </div>
+                           <div id="quick-feedback-no" style="display: none;">
+                              <div class="title">Did this page help you? - No</div>
+                              <div class="content">
+                                 <p>Thanks for letting us know this page needs work. We're
+                                    sorry we let you down.
+                                 </p>
+                                 <p>If you've got a moment, please tell us how we can make
+                                    the documentation better.
+                                 </p>
+                                 <p>
+                                    <awsui-button id="fblink" target="_blank" text="Feedback" click="linkClick($event)" href="https://docs.aws.amazon.com/forms/aws-doc-feedback?hidden_service_name=IoT Docs&amp;topic_url=https://docs.aws.amazon.com/en_us/iot/latest/developerguide/fleet-provision-api.html"></awsui-button>
+                                 </p>
+                              </div>
+                           </div>
+                        </div>
+                     </body>
+                  </div>
+               </awsdocs-view>
+               <div class="page-loading-indicator" id="page-loading-indicator">
+                  <awsui-spinner size="large"></awsui-spinner>
+               </div>
+            </div>
+            <div id="tools-panel" dom-region="tools">
+               <awsdocs-tools-panel id="awsdocs-tools-panel"></awsdocs-tools-panel>
+            </div>
+         </awsui-app-layout>
+         <awsdocs-cookie-banner class="doc-cookie-banner"></awsdocs-cookie-banner>
+         <!--
+                SiteCatalyst code version: H.25.2.
+                Copyright 1996-2012 Adobe, Inc. All Rights Reserved
+                More info available at http://www.omniture.com
+            --><script language="JavaScript" type="text/javascript">
+var awsdocs = awsdocs || {};
+awsdocs.prop66 = 'AWS IoT Core';
+awsdocs.prop65 =  'Developer Guide';
+            </script><script src="https://a0.awsstatic.com/s_code/js/3.0/awshome_s_code.js" language="JavaScript" type="text/javascript"></script>
+         <!--/DO NOT REMOVE/-->
+         <!--End SiteCatalyst code version: H.25.2.--></div>
+   </body>
+</html>

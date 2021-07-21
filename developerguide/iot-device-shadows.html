@@ -1,0 +1,461 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" ng-app="AWSDocsDocPageApp">
+   <head>
+      <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+      <title>AWS IoT Device Shadow service - AWS IoT Core</title>
+      <meta name="viewport" content="width=device-width,initial-scale=1" />
+      <meta name="assets_root" content="assets" />
+      <meta name="target_state" content="iot-device-shadows" />
+      <meta name="default_state" content="iot-device-shadows" />
+      <link rel="icon" type="image/ico" href="/assets/images/favicon.ico" />
+      <link rel="shortcut icon" type="image/ico" href="/assets/images/favicon.ico" />
+      <link rel="canonical" href="https://docs.aws.amazon.com/iot/latest/developerguide/iot-device-shadows.html" />
+      <meta name="description" content="Learn about shadows in AWS IoT, the JSON documents used to store and retrieve state information, and the Device Shadow service where these documents are stored." />
+      <meta name="deployment_region" content="IAD" />
+      <meta name="product" content="AWS IoT Core" />
+      <meta name="guide" content="Developer Guide" />
+      <meta name="locales" content="de_de:Deutsch/en_us:English/es_es:Español/fr_fr:Français/it_it:Italiano/ja_jp:日本語/ko_kr:한국어/pt_br:Português/zh_cn:中文 (简体)/zh_tw:中文 (繁體)" />
+      <meta name="abstract" content="AWS IoT provides secure, bi-directional communication between Internet-connected devices such as sensors, actuators, embedded micro-controllers, or smart appliances and the AWS Cloud. This enables you to collect telemetry data from multiple devices, and store and analyze the data. You can also create applications that enable your users to control these devices from their phones or tablets." />
+      <meta name="guide-locale" content="en_us" />
+      <meta name="tocs" content="toc-contents.json" />
+      <meta name="feedback-item" content="IoT Docs" />
+      <meta name="this_doc_product" content="AWS IoT Core" />
+      <meta name="this_doc_guide" content="Developer Guide" />
+      <link href="assets/css/vendor4.css" rel="stylesheet" />
+      <link href="assets/css/awsdocs-common.css" rel="stylesheet" /><script type="text/javascript" src="assets/js/vendor3.js" defer=""></script><script type="text/javascript" src="assets/js/vendor4.js" defer=""></script><script type="text/javascript" src="assets/js/vendor1.js" defer=""></script><script type="text/javascript" src="assets/js/awsdocs-common.js" defer=""></script><script type="text/javascript" src="assets/js/awsdocs-doc-app.js" defer=""></script></head>
+   <body class="awsdocs awsui">
+      <div class="awsdocs-container">
+         <awsdocs-header></awsdocs-header>
+         <awsui-app-layout id="app-layout" class="awsui-util-no-gutters" ng-controller="ContentController as $ctrl" header-selector="awsdocs-header" navigation-hide="false" navigation-width="$ctrl.navWidth" navigation-open="$ctrl.navOpen" navigation-change="$ctrl.onNavChange($event)" tools-hide="$ctrl.hideTools" tools-width="$ctrl.toolsWidth" tools-open="$ctrl.toolsOpen" tools-change="$ctrl.onToolsChange($event)">
+            <div id="guide-toc" dom-region="navigation">
+               <awsdocs-toc></awsdocs-toc>
+            </div>
+            <div id="main-column" dom-region="content" tabindex="-1">
+               <awsdocs-view class="awsdocs-view">
+                  <div id="awsdocs-content">
+                     <head>
+                        <title>AWS IoT Device Shadow service - AWS IoT Core</title>
+                        <meta name="pdf" content="iot-dg.pdf#iot-device-shadows" />
+                        <meta name="kindle" content="https://www.amazon.com/dp/B07JBRCWWZ" />
+                        <meta name="github" content="https://github.com/awsdocs/aws-iot-docs/tree/master/developerguide/iot-device-shadows.md" />
+                        <meta name="forums" content="http://forums.aws.amazon.com/forum.jspa?forumID=210" />
+                        <meta name="feedback" content="https://docs.aws.amazon.com/forms/aws-doc-feedback?hidden_service_name=IoT%20Docs&amp;topic_url=http://docs.aws.amazon.com/en_us/iot/latest/developerguide/iot-device-shadows.html" />
+                        <meta name="feedback-yes" content="feedbackyes.html?topic_url=http://docs.aws.amazon.com/en_us/iot/latest/developerguide/iot-device-shadows.html" />
+                        <meta name="feedback-no" content="feedbackno.html?topic_url=http://docs.aws.amazon.com/en_us/iot/latest/developerguide/iot-device-shadows.html" />
+                        <meta name="keywords" content="AWS IoT,IoT,Internet of Things" />
+                     </head>
+                     <body>
+                        <div id="main">
+                           <div style="display: none"><a href="iot-dg.pdf#iot-device-shadows" target="_blank" rel="noopener noreferrer" title="Open PDF"></a><a target="_blank" rel="noopener noreferrer" href="https://www.amazon.com/dp/B07JBRCWWZ" title="Open Kindle"></a><a href="https://github.com/awsdocs/aws-iot-docs/tree/master/developerguide/iot-device-shadows.md" target="_blank" rel="noopener noreferrer" title="Edit this page on GitHub"></a></div>
+                           <div id="breadcrumbs" class="breadcrumb"><a href="http://aws.amazon.com">AWS</a><a href="/index.html">Documentation</a><a href="/iot/index.html">AWS IoT Core</a><a href="what-is-aws-iot.html">Developer Guide</a></div>
+                           <div id="page-toc-src"><a href="#device-shadow-using">Using shadows</a></div>
+                           <div id="main-content" class="awsui-util-container">
+                              <div id="main-col-body">
+                                 <awsdocs-language-banner data-service="$ctrl.pageService"></awsdocs-language-banner>
+                                 <h1 class="topictitle" id="iot-device-shadows">AWS IoT Device Shadow service</h1>
+                                 <div class="awsdocs-page-header-container">
+                                    <awsdocs-page-header></awsdocs-page-header>
+                                    <awsdocs-filter-selector id="awsdocs-filter-selector"></awsdocs-filter-selector>
+                                 </div>
+                                 <p> The AWS IoT Device Shadow service adds shadows to AWS IoT thing objects. Shadows
+                                    can make a
+                                    device’s state available to apps and other services whether the device is connected
+                                    to AWS IoT
+                                    or not. AWS IoT thing objects can have multiple named shadows so that your IoT solution
+                                    has
+                                    more options for connecting your devices to other apps and services. 
+                                 </p>
+                                 <p>AWS IoT thing objects do not have any named shadows until they are created explicitly;
+                                    however, an unnamed, classic shadow is created for a thing when the thing is created.
+                                    Shadows can be created, updated, and deleted by using the AWS IoT console. Devices,
+                                    other web
+                                    clients, and services can create, update, and delete shadows by using MQTT and the
+                                    <a href="./reserved-topics.html#reserved-topics-shadow">reserved MQTT topics</a>, HTTP using the <a href="./device-shadow-rest-api.html">Device Shadow REST API</a>, and the <a href="https://awscli.amazonaws.com/v2/documentation/api/latest/reference/iot-data/index.html" rel="noopener noreferrer" target="_blank"><span>AWS CLI for AWS IoT</span><awsui-icon class="awsdocs-link-icon" name="external"></awsui-icon></a>.
+                                    Because shadows are stored by AWS in the cloud, they can collect and report device
+                                    state
+                                    data from apps and other cloud services whether the device is connected or not. 
+                                 </p>
+                                 <div class="highlights">
+                                    <p><strong>Topics</strong></p>
+                                    <ul>
+                                       <li><a href="#device-shadow-using">Using shadows</a></li>
+                                       <li><a href="./device-shadow-comms-device.html">Using shadows in devices</a></li>
+                                       <li><a href="./device-shadow-comms-app.html">Using shadows in apps and services</a></li>
+                                       <li><a href="./using-device-shadows.html">Simulating Device Shadow service
+                                             communications</a></li>
+                                       <li><a href="./device-shadow-data-flow.html">Interacting with shadows</a></li>
+                                       <li><a href="./device-shadow-rest-api.html">Device Shadow REST API</a></li>
+                                       <li><a href="./device-shadow-mqtt.html">Device Shadow MQTT topics</a></li>
+                                       <li><a href="./device-shadow-document.html">Device Shadow service documents</a></li>
+                                       <li><a href="./device-shadow-error-messages.html">Device Shadow error messages</a></li>
+                                    </ul>
+                                 </div>
+                                 
+                                 <h2 id="device-shadow-using">Using shadows</h2>
+                                 
+                                 <p>Shadows provide a reliable data store for devices, apps, and other cloud services
+                                    to
+                                    share data. They enable devices, apps, and other cloud services to connect and
+                                    disconnect without losing a device's state. 
+                                 </p>
+                                 
+                                 <p>While devices, apps, and other cloud services are connected to AWS IoT, they can access
+                                    and control the current state of a device through its shadows. For example, an app
+                                    can
+                                    request a change in a device's state by updating a shadow. AWS IoT publishes a message
+                                    that indicates the change to the device. The device receives this message, updates
+                                    its
+                                    state to match, and publishes a message with its updated state. The Device Shadow
+                                    service reflects this updated state in the corresponding shadow. The app can subscribe
+                                    to the shadow's update or it can query the shadow for its current state. 
+                                 </p>
+                                 
+                                 <p>When a device goes offline, an app can still communicate with AWS IoT and the device's
+                                    shadows. When the device reconnects, it receives the current state of its shadows
+                                    so
+                                    that it can update its state to match that of its shadows, and then publish a message
+                                    with its updated state. Likewise, when an app goes offline and the device state changes
+                                    while it's offline, the device keeps the shadow updated so the app can query the shadows
+                                    for its current state when it reconnects.
+                                 </p>
+                                  
+                                 
+                                 <h3 id="iot-device-shadow-named">Choosing to use named or unnamed shadows</h3>
+                                 
+                                 <p>The Device Shadow service supports named and unnamed, classic shadows, as have
+                                    been used in the past. A thing object can have multiple named shadows, and no more
+                                    than one unnamed, classic shadow. A thing object can have both named and unnamed
+                                    shadows at the same time; however, the API used to access each is slightly
+                                    different, so it might be more efficient to decide which type of shadow would work
+                                    best for your solution and use that type only. For more information about the API
+                                    to
+                                    access the shadows, see <a href="./reserved-topics.html#reserved-topics-shadow">Shadow topics</a>. 
+                                 </p>
+                                 
+                                 <p>With named shadows, you can create different views of a thing object’s state. For
+                                    example, you could divide a thing object with many properties into shadows with
+                                    logical groups of properties, each identified by its shadow name. You could also
+                                    limit access to properties by grouping them into different shadows and using
+                                    policies to control access. Named shadows, however, do not support <a href="./iot-indexing.html">fleet indexing</a>.
+                                 </p>
+                                 
+                                 <p>The classic, unnamed shadows are simpler, but somewhat more limited than the named
+                                    shadows. Each AWS IoT thing object can have only one unnamed shadow. If you expect
+                                    your IoT solution to have a limited need for shadow data, this might be how you want
+                                    to get started using shadows. However, if you think you might want to add additional
+                                    shadows in the future, consider using named shadows from the start.
+                                 </p>
+                                  
+                                  
+                                 
+                                 <h3 id="device-shadow-using-access">Accessing shadows</h3>
+                                 
+                                 <p>Every shadow has a reserved <a href="./reserved-topics.html#reserved-topics-shadow">MQTT
+                                       topic</a> and <a href="./device-shadow-rest-api.html">HTTP URL</a> that
+                                    supports the <code class="code">get</code>, <code class="code">update</code>, and <code class="code">delete</code> actions
+                                    on the shadow.
+                                 </p>
+                                 
+                                 <p>Shadows use <a href="./device-shadow-document.html">JSON shadow documents</a> to
+                                    store and retrieve data. A shadow’s document contains a state property that
+                                    describes these aspects of the device’s state:
+                                 </p>
+                                 
+                                 <div class="itemizedlist">
+                                     
+                                     
+                                     
+                                    
+                                    <ul class="itemizedlist" type="disc">
+                                       <li class="listitem">
+                                          
+                                          <p><code class="code">desired</code></p>
+                                          
+                                          <p>Apps specify the desired states of device properties by
+                                             updating the <code class="code">desired</code> object.
+                                          </p>
+                                          
+                                       </li>
+                                       <li class="listitem">
+                                          
+                                          <p><code class="code">reported</code></p>
+                                          
+                                          <p>Devices report their current state in 
+                                             the <code class="code">reported</code> object.
+                                          </p>
+                                          
+                                       </li>
+                                       <li class="listitem">
+                                          
+                                          <p><code class="code">delta</code></p>
+                                          
+                                          <p>AWS IoT reports differences between the desired and
+                                             the reported state in the <code class="code">delta</code> object.
+                                          </p>
+                                          
+                                       </li>
+                                    </ul>
+                                 </div>
+                                 
+                                 <p>The data stored in a shadow is determined by the state property of the update
+                                    action's message body. Subsequent update actions can modify the values of an
+                                    existing data object, and also add and delete keys and other elements in the
+                                    shadow’s state object. For more information about accessing shadows, see <a href="./device-shadow-comms-device.html">Using shadows in devices</a> and <a href="./device-shadow-comms-app.html">Using shadows in apps and services</a>.
+                                 </p>
+                                 
+                                 <div class="awsdocs-note awsdocs-important">
+                                    <div class="awsdocs-note-title">
+                                       <awsui-icon name="status-warning" variant="error"></awsui-icon><span>Important</span></div>
+                                    <div class="awsdocs-note-text">
+                                       <p>Permission to make update requests should be limited to trusted apps and
+                                          devices. This prevents the shadow's state property from being changed
+                                          unexpectedly; otherwise, the devices and apps that use the shadow should be
+                                          designed to expect the keys in the state property to change.
+                                       </p>
+                                    </div>
+                                 </div>
+                                  
+                                  
+                                 
+                                 <h3 id="device-shadow-implementing">Using shadows in devices, apps, and
+                                    other cloud services
+                                 </h3>
+                                 
+                                 <p>Using shadows in devices, apps, and other cloud services requires consistency and
+                                    coordination between all of these. The AWS IoT Device Shadow service stores the shadow
+                                    state, sends messages when the shadow state changes, and responds to messages that
+                                    change its state. The devices, apps, and other cloud services in your IoT solution
+                                    must manage their state and keep it consistent with the device shadow's
+                                    state.
+                                 </p>
+                                 
+                                 <p>The shadow state data is dynamic and can be altered by the devices, apps, and
+                                    other cloud services with permission to access the shadow. For this reason, it is
+                                    important to consider how each device, app, and other cloud service will interact
+                                    with the shadow. For example:
+                                 </p>
+                                 
+                                 <div class="itemizedlist">
+                                     
+                                     
+                                    
+                                    <ul class="itemizedlist" type="disc">
+                                       <li class="listitem">
+                                          
+                                          <p><em>Devices</em> should write only to the
+                                             <code class="code">reported</code> property of the shadow state when communicating
+                                             state data to the shadow.
+                                          </p>
+                                          
+                                       </li>
+                                       <li class="listitem">
+                                          <p><em>Apps and other cloud services</em> should write only to the
+                                             <code class="code">desired</code> property when communicating state change requests
+                                             to the device through the shadow.
+                                          </p>
+                                          
+                                       </li>
+                                    </ul>
+                                 </div>
+                                 
+                                 <div class="awsdocs-note awsdocs-important">
+                                    <div class="awsdocs-note-title">
+                                       <awsui-icon name="status-warning" variant="error"></awsui-icon><span>Important</span></div>
+                                    <div class="awsdocs-note-text">
+                                       <p>The data contained in a shadow data object is independent from that of other
+                                          shadows and other thing object properties, such as a thing’s attributes and the
+                                          content of MQTT messages that a thing object's device might publish. A device
+                                          can, however, report the same data in different MQTT topics and shadows if
+                                          necessary.
+                                       </p>
+                                       <p>A device that supports multiple shadows must maintain the
+                                          consistency of the data that it reports in the different shadows.
+                                       </p>
+                                    </div>
+                                 </div>
+                                  
+                                  
+                                 
+                                 <h3 id="message-ordering">Message order</h3>
+                                 
+                                 
+                                 <p>There is no guarantee that messages from the AWS IoT service will arrive at the
+                                    device in any specific order. The following scenario shows what happens in this
+                                    case.
+                                 </p>
+                                 
+                                 <p>Initial state document:</p>
+                                 <pre class="programlisting"><div class="code-btn-container"><div class="btn-copy-code" title="Copy"><awsui-icon name="copy"></awsui-icon></div></div><code class="JSON "><span>{</span>
+  "state": <span>{</span>
+    "reported": <span>{</span>
+      "color": "blue"
+    }
+  },
+  "version": 9,
+  "timestamp": 123456776
+}</code></pre>
+                                 <p>Update 1:</p>
+                                 <pre class="programlisting"><div class="code-btn-container"><div class="btn-copy-code" title="Copy"><awsui-icon name="copy"></awsui-icon></div></div><code class="JSON "><span>{</span>
+  "state": <span>{</span>
+    "desired": <span>{</span>
+      "color": "RED"
+    }
+  },
+  "version": 10,
+  "timestamp": 123456777
+}</code></pre>
+                                 <p>Update 2:</p>
+                                 <pre class="programlisting"><div class="code-btn-container"><div class="btn-copy-code" title="Copy"><awsui-icon name="copy"></awsui-icon></div></div><code class="JSON "><span>{</span>
+  "state": <span>{</span>
+    "desired": <span>{</span>
+      "color": "GREEN"
+    }
+  },
+  "version": 11,
+  "timestamp": 123456778
+}</code></pre>
+                                 <p>Final state document:</p>
+                                 <pre class="programlisting"><div class="code-btn-container"><div class="btn-copy-code" title="Copy"><awsui-icon name="copy"></awsui-icon></div></div><code class="JSON "><span>{</span>
+  "state": <span>{</span>
+    "reported": <span>{</span>
+      "color": "GREEN"
+    }
+  },
+  "version": 12,
+  "timestamp": 123456779
+}</code></pre>
+                                 <p>This results in two delta messages:</p>
+                                 <pre class="programlisting"><div class="code-btn-container"><div class="btn-copy-code" title="Copy"><awsui-icon name="copy"></awsui-icon></div></div><code class="JSON "><span>{</span>
+  "state": <span>{</span>
+    "color": "RED"
+  },
+  "version": 11,
+  "timestamp": 123456778
+}</code></pre>
+                                 <pre class="programlisting"><div class="code-btn-container"><div class="btn-copy-code" title="Copy"><awsui-icon name="copy"></awsui-icon></div></div><code class="JSON "><span>{</span>
+  "state": <span>{</span>
+    "color": "GREEN"
+  },
+  "version": 12,
+  "timestamp": 123456779
+}</code></pre>
+                                 <p>The device might receive these messages out of order. Because the state in these
+                                    messages is cumulative, a device can safely discard any messages that contain a
+                                    version number older than the one it is tracking. If the device receives the delta
+                                    for version 12 before version 11, it can safely discard the version 11
+                                    message.
+                                 </p>
+                                  
+                                  
+                                 
+                                 <h3 id="device-shadow-trim-messages">Trim shadow messages</h3>
+                                 
+                                 
+                                 <p>To reduce the size of shadow messages sent to your device, define a rule that
+                                    selects only the fields your device needs then republishes the message on an MQTT
+                                    topic to which your device is listening.
+                                 </p>
+                                 
+                                 <p>The rule is specified in JSON and should look like the following: </p>
+                                 <pre class="programlisting"><div class="code-btn-container"><div class="btn-copy-code" title="Copy"><awsui-icon name="copy"></awsui-icon></div></div><code class="JSON "><span>{</span>
+  "sql": "SELECT state, version FROM '$aws/things/+/shadow/update/delta'",
+  "ruleDisabled": false,
+  "actions": [
+    <span>{</span>
+      "republish": <span>{</span>
+        "topic": "$<span>{</span>topic(3)}/delta",
+        "roleArn": "arn:aws:iam:123456789012:role/my-iot-role"
+      }
+    }
+  ]
+}</code></pre>
+                                 <p>The SELECT statement determines which fields from the message will be republished
+                                    to the specified topic. A "+" wild card is used to match all shadow names. The rule
+                                    specifies that all matching messages should be republished to the specified topic.
+                                    In this case, the <code class="code">"topic()"</code> function is used to specify the topic on
+                                    which to republish. <code class="code">topic(3)</code> evaluates to the thing name in the
+                                    original topic. For more information about creating rules, see <a href="./iot-rules.html">Rules for AWS IoT</a>.
+                                 </p>
+                                  
+                                 
+                                 <awsdocs-copyright class="copyright-print"></awsdocs-copyright>
+                                 <awsdocs-thumb-feedback right-edge="{{$ctrl.thumbFeedbackRightEdge}}"></awsdocs-thumb-feedback>
+                              </div>
+                              <noscript>
+                                 <div>
+                                    <div>
+                                       <div>
+                                          <div id="js_error_message">
+                                             <p><img src="https://d1ge0kk1l5kms0.cloudfront.net/images/G/01/webservices/console/warning.png" alt="Warning" /> <strong>Javascript is disabled or is unavailable in your
+                                                   browser.</strong></p>
+                                             <p>To use the Amazon Web Services Documentation, Javascript must be
+                                                enabled. Please refer to your browser's Help pages for instructions.
+                                             </p>
+                                          </div>
+                                       </div>
+                                    </div>
+                                 </div>
+                              </noscript>
+                              <div id="main-col-footer" class="awsui-util-font-size-0">
+                                 <div id="doc-conventions"><a target="_top" href="/general/latest/gr/docconventions.html">Document Conventions</a></div>
+                                 <div class="prev-next">
+                                    <div id="previous" class="prev-link" accesskey="p" href="./iot-rule-sql-version.html">SQL versions</div>
+                                    <div id="next" class="next-link" accesskey="n" href="./device-shadow-comms-device.html">Using shadows in devices</div>
+                                 </div>
+                              </div>
+                              <awsdocs-page-utilities></awsdocs-page-utilities>
+                           </div>
+                           <div id="quick-feedback-yes" style="display: none;">
+                              <div class="title">Did this page help you? - Yes</div>
+                              <div class="content">
+                                 <p>Thanks for letting us know we're doing a good
+                                    job!
+                                 </p>
+                                 <p>If you've got a moment, please tell us what we did right
+                                    so we can do more of it.
+                                 </p>
+                                 <p>
+                                    <awsui-button id="fblink" target="_blank" text="Feedback" click="linkClick($event)" href="https://docs.aws.amazon.com/forms/aws-doc-feedback?hidden_service_name=IoT Docs&amp;topic_url=https://docs.aws.amazon.com/en_us/iot/latest/developerguide/iot-device-shadows.html"></awsui-button>
+                                 </p>
+                              </div>
+                           </div>
+                           <div id="quick-feedback-no" style="display: none;">
+                              <div class="title">Did this page help you? - No</div>
+                              <div class="content">
+                                 <p>Thanks for letting us know this page needs work. We're
+                                    sorry we let you down.
+                                 </p>
+                                 <p>If you've got a moment, please tell us how we can make
+                                    the documentation better.
+                                 </p>
+                                 <p>
+                                    <awsui-button id="fblink" target="_blank" text="Feedback" click="linkClick($event)" href="https://docs.aws.amazon.com/forms/aws-doc-feedback?hidden_service_name=IoT Docs&amp;topic_url=https://docs.aws.amazon.com/en_us/iot/latest/developerguide/iot-device-shadows.html"></awsui-button>
+                                 </p>
+                              </div>
+                           </div>
+                        </div>
+                     </body>
+                  </div>
+               </awsdocs-view>
+               <div class="page-loading-indicator" id="page-loading-indicator">
+                  <awsui-spinner size="large"></awsui-spinner>
+               </div>
+            </div>
+            <div id="tools-panel" dom-region="tools">
+               <awsdocs-tools-panel id="awsdocs-tools-panel"></awsdocs-tools-panel>
+            </div>
+         </awsui-app-layout>
+         <awsdocs-cookie-banner class="doc-cookie-banner"></awsdocs-cookie-banner>
+         <!--
+                SiteCatalyst code version: H.25.2.
+                Copyright 1996-2012 Adobe, Inc. All Rights Reserved
+                More info available at http://www.omniture.com
+            --><script language="JavaScript" type="text/javascript">
+var awsdocs = awsdocs || {};
+awsdocs.prop66 = 'AWS IoT Core';
+awsdocs.prop65 =  'Developer Guide';
+            </script><script src="https://a0.awsstatic.com/s_code/js/3.0/awshome_s_code.js" language="JavaScript" type="text/javascript"></script>
+         <!--/DO NOT REMOVE/-->
+         <!--End SiteCatalyst code version: H.25.2.--></div>
+   </body>
+</html>
