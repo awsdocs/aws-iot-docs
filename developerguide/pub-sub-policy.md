@@ -1,10 +1,21 @@
 # Publish/Subscribe policy examples<a name="pub-sub-policy"></a>
 
-The policy you use depends on how you are connecting to AWS IoT Core\. You can connect to AWS IoT Core using an MQTT client, HTTP, or WebSocket\. When you connect with an MQTT client, you are authenticating with an X\.509 certificate\. When you connect over HTTP or the WebSocket protocol, you are authenticating with Signature Version 4 and Amazon Cognito\.
+The policy you use depends on how you're connecting to AWS IoT Core\. You can connect to AWS IoT Core by using an MQTT client, HTTP, or WebSocket\. When you connect with an MQTT client, you're authenticating with an X\.509 certificate\. When you connect over HTTP or the WebSocket protocol, you're authenticating with Signature Version 4 and Amazon Cognito\.
 
 ## Policies for MQTT clients<a name="pub-sub-policy-cert"></a>
 
-To specify wildcards in topic names, use \* in the `resource` attribute of the policy when the device publishes and subscribes to multiple topics\. The following policy enables a device to publish to all subtopics that start with the same thing name\.
+MQTT and AWS IoT Core policies have different wildcard characters and they should be used with careful consideration\. In MQTT, the wildcard characters `+` and `#` are used in [MQTT topic filters](https://docs.aws.amazon.com/iot/latest/developerguide/topics.html#topicfilters) to subscribe to multiple topic names\. AWS IoT Core policies follow the same conventions as [IAM policies](https://docs.aws.amazon.com/IAM/latest/UserGuide/reference_policies_grammar.html#policies-grammar-json) and use `*` as a wildcard character, and the MQTT wildcard characters `+` and `#` are treated as literal strings\. Therefore, to specify wildcard characters in topic names and topic filters in AWS IoT Core policies for MQTT clients, you must use `*`\.
+
+The table below shows the different wildcard characters used in MQTT and AWS IoT Core policies for MQTT clients\.
+
+
+| Wildcard character | Is MQTT wildcard character | Example in MQTT | Is AWS IoT Core policy wildcard character | Example in AWS IoT Core policies for MQTT clients | 
+| --- | --- | --- | --- | --- | 
+| \# | Yes | some/\# | No | N/A | 
+| \+ | Yes | some/\+/topic | No | N/A | 
+| \* | No | N/A | Yes | topicfilter/some/\*/topic  | 
+
+To describe multiple topic names in the `resource` attribute of a policy, use the `*` wildcard character\. The following policy enables a device to publish to all subtopics that start with the same thing name\.
 
 ------
 #### [ Registered devices \(5\) ]
@@ -72,7 +83,7 @@ For devices not registered as things in the AWS IoT Core registry, the following
 
 ------
 
-You can also use the \* wildcard at the end of a topic filter\. Using wildcard characters might lead to granting unintended privileges, so they should only be used after careful consideration\. One situation in which they might be useful is when devices must subscribe to messages with many different topics \(for example, if a device must subscribe to reports from temperature sensors in multiple locations\)\. 
+You can also use the \* wildcard character at the end of a topic filter\. Using wildcard characters might lead to granting unintended privileges, so they should only be used after careful consideration\. One situation in which they might be useful is when devices must subscribe to messages with many different topics \(for example, if a device must subscribe to reports from temperature sensors in multiple locations\)\. 
 
 ------
 #### [ Registered devices \(6\) ]
@@ -158,12 +169,12 @@ For devices not registered as things in the AWS IoT Core registry, the following
 
 ------
 
-When you specify topic filters in AWS IoT Core policies for MQTT clients, MQTT wildcard characters "\+" and "\#" are treated as literal characters\. Their use might result in unexpected behavior\.
+When you specify topic filters in AWS IoT Core policies for MQTT clients, MQTT wildcard characters `+` and `#` are treated as literal strings\. Their use might result in unexpected behavior\.
 
 ------
 #### [ Registered devices \(4\) ]
 
-For devices registered as things in the AWS IoT Core registry, the following policy grants permission to connect to AWS IoT Core with the client ID that matches the thing name, and to subscribe to the topic filter `some/+/topic` only:
+For devices registered as things in the AWS IoT Core registry, the following policy grants permission to connect to AWS IoT Core with the client ID that matches the thing name, and to subscribe to the topic filter `some/+/topic` only\. Note in `topicfilter/some/+/topic` of the resource ARN, \+ is treated as a literal string in AWS IoT Core policies for MQTT clients, meaning that only the string `some/+/topic` matches the topic filter\.
 
 ```
 {
@@ -191,10 +202,38 @@ For devices registered as things in the AWS IoT Core registry, the following pol
 }
 ```
 
+For devices registered as things in the AWS IoT Core registry, the following policy grants permission to connect to AWS IoT Core with the client ID that matches the thing name, and to subscribe to the topic filter `some/*/topic`\. Note in `topicfilter/some/*/topic` of the resource ARN, \* is treated as a wildcard character in AWS IoT Core policies for MQTT clients, meaning that any string in the level that contains the character matches the topic filter\. \(It is expected that these topics are, for example, `some/string1/topic`, `some/string2/topic`, and so on\)
+
+```
+{
+    "Version": "2012-10-17",
+    "Statement": [
+        {
+            "Effect": "Allow",
+            "Action": [
+                "iot:Connect"
+            ],
+            "Resource": [
+                "arn:aws:iot:us-east-1:123456789012:client/${iot:Connection.Thing.ThingName}"
+            ]
+        },
+        {
+            "Effect": "Allow",
+            "Action": [
+                "iot:Subscribe"
+            ],
+            "Resource": [
+                "arn:aws:iot:us-east-1:123456789012:topicfilter/some/*/topic"
+            ]
+        }
+    ]
+}
+```
+
 ------
 #### [ Unregistered devices \(4\) ]
 
-For devices not registered as things in the AWS IoT Core registry, the following policy grants permission to connect to AWS IoT Core with client ID `client1` and subscribe to the topic filter `some/+/topic` only:
+For devices not registered as things in the AWS IoT Core registry, the following policy grants permission to connect to AWS IoT Core with client ID `client1` and subscribe to the topic filter `some/+/topic` only\. Note in `topicfilter/some/+/topic` of the resource ARN, \+ is treated as a literal string in AWS IoT Core policies for MQTT clients, meaning that only the string `some/+/topic` matches the topic filter\.
 
 ```
 {
@@ -222,10 +261,38 @@ For devices not registered as things in the AWS IoT Core registry, the following
 }
 ```
 
+For devices not registered as things in the AWS IoT Core registry, the following policy grants permission to connect to AWS IoT Core with client ID `client1` and subscribe to the topic filter `some/+/topic`\. Note in `topicfilter/some/*/topic` of the resource ARN, \* is treated as a wildcard character in AWS IoT Core policies for MQTT clients, meaning that any string in the level that contains the character matches the topic filter\. \(It is expected that these topics are, for example, `some/string1/topic`, `some/string2/topic`, and so on\)
+
+```
+{
+    "Version": "2012-10-17",
+    "Statement": [
+      {
+        "Effect": "Allow",
+        "Action": [
+          "iot:Connect"
+        ],
+        "Resource": [
+          "arn:aws:iot:us-east-1:123456789012:client/client1"
+        ]
+      },
+      {
+        "Effect": "Allow",
+        "Action": [
+          "iot:Subscribe"
+        ],
+        "Resource": [
+          "arn:aws:iot:us-east-1:123456789012:topicfilter/some/*/topic"
+        ]
+      }
+    ]
+}
+```
+
 ------
 
 **Note**  
-In a policy, the MQTT wildcard character \+ is treated as a literal, not a wildcard\. Attempts to subscribe to topic filters that match the pattern `some/+/topic` fail and cause the client to disconnect\.
+The MQTT wildcards `+` and `#` are treated as literal strings in an AWS IoT Core policy for MQTT clients\. To specify wildcard characters in topic names and topic filters in AWS IoT Core policies for MQTT clients, you must use `*`\. 
 
 ------
 #### [ Registered devices \(7\) ]

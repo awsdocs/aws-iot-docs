@@ -122,7 +122,7 @@ The rule's rule query statement takes the `temperature` value from the message p
 
    1. In **Name**, enter **temp\_limit\_notify**\.
 
-      Remember that a rule name must be unique within your AWS Account and Region, and it can't have any spaces\. We've used an underscore character in this name to separate the words in the rule's name\. 
+      Remember that a rule name must be unique within your AWS account and Region, and it can't have any spaces\. We've used an underscore character in this name to separate the words in the rule's name\. 
 
    1. In **Description**, describe the rule\.
 

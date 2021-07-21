@@ -5,10 +5,10 @@ The AWS IoT message broker and Device Shadow service encrypt all communication w
 For MQTT, TLS encrypts the connection between the device and the broker\. TLS client authentication is used by AWS IoT to identify devices\. For HTTP, TLS encrypts the connection between the device and the broker\. Authentication is delegated to AWS Signature Version 4\.
 
 AWS IoT requires devices to send the [Server Name Indication \(SNI\) extension](https://tools.ietf.org/html/rfc3546#section-3.1) to the Transport Layer Security \(TLS\) protocol and provide the complete endpoint address in the `host_name` field\. The `host_name` field must contain the endpoint you are calling, and it must be:
-+ The `endpointAddress` returned by aws iot [describe\-endpoint](https://awscli.amazonaws.com/v2/documentation/api/latest/reference/iot/describe-endpoint.html) \-\-endpoint\-type iot:Data\-ATS
++ The `endpointAddress` returned by `aws iot [describe\-endpoint](https://awscli.amazonaws.com/v2/documentation/api/latest/reference/iot/describe-endpoint.html) --endpoint-type iot:Data-ATS`
 
   or
-+ The `domainName` returned by aws iot [describe\-domain\-configuration](https://awscli.amazonaws.com/v2/documentation/api/latest/reference/iot/describe-domain-configuration.html) –\-domain\-configuration\-name "*domain\_configuration\_name*"
++ The `domainName` returned by `aws iot [describe\-domain\-configuration](https://awscli.amazonaws.com/v2/documentation/api/latest/reference/iot/describe-domain-configuration.html) –-domain-configuration-name "domain_configuration_name"`
 
 Connections attempted by devices without the correct `host_name` value will be refused and logged in CloudWatch\.
 

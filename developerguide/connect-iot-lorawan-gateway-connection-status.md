@@ -8,6 +8,7 @@ After you've added your gateway, connect to the configuration interface of your 
 
 After adding the gateway's information to AWS IoT Core for LoRaWAN, add some AWS IoT Core for LoRaWAN information to the gateway device\. The documentation provided by the gateway's vendor should describe the process for uploading the certificate files to the gateway and configuring the gateway device to communicate with AWS IoT Core for LoRaWAN\.
 
+<<<<<<< HEAD
 You'll need the following information that you obtained when adding your gateway to connect it to AWS IoT Core for LoRaWAN\.
 + Gateway device certificate and private key files
 + Trust certificate files `lns.trust` and `cups.trust`
@@ -16,6 +17,32 @@ You'll need the following information that you obtained when adding your gateway
 For details about how to obtain this information, see [Add a gateway to AWS IoT Core for LoRaWAN](connect-iot-lorawan-onboard-gateway-add.md)\.
 
 For instructions on how to configure your LoRaWAN gateway, refer to the [ configure gateway device](https://iotwireless.workshop.aws/en/200_gateway/400_configuregateway.html) section of the AWS IoT Core for LoRaWAN workshop\.
+=======
+**Gateways qualified for use with AWS IoT Core for LoRaWAN**  
+For instructions on how to configure your LoRaWAN gateway, refer to the [ configure gateway device](https://iotwireless.workshop.aws/en/200_gateway/400_configuregateway.html) section of the AWS IoT Core for LoRaWAN workshop\. Here, you'll find information about instructions for connecting gateways that are qualified for use with AWS IoT Core for LoRaWAN\.
+
+**Gateways that support CUPS protocol**  
+The following instructions show how you can connect your gateways that support the CUPS protocol\.
+
+1. Upload the following files that you obtained when adding your gateway\.
+   + Gateway device certificate and private key files\.
+   + Trust certificate file for CUPS endpoint, `cups.trust`\.
+
+1. Specify the CUPS endpoint URL that you obtained previously\. The endpoint will be of the format `prefix.cups.lorawan.region.amazonaws.com:443`\.
+
+For details about how to obtain this information, see [Add a gateway to AWS IoT Core for LoRaWAN](connect-iot-lorawan-onboard-gateway-add.md)\.
+
+**Gateways that support LNS protocol**  
+The following instructions show how you can connect your gateways that support the LNS protocol\.
+
+1. Upload the following files that you obtained when adding your gateway\.
+   + Gateway device certificate and private key files\.
+   + Trust certificate file for LNS endpoint, `lns.trust`\.
+
+1. Specify the LNS endpoint URL that you obtained previously\. The endpoint will be of the format `prefix.lns.lorawan.region.amazonaws.com:443`\.
+
+For details about how to obtain this information, see [Add a gateway to AWS IoT Core for LoRaWAN](connect-iot-lorawan-onboard-gateway-add.md)\.
+>>>>>>> gausekha-repo-refresh
 
 After that you've connected your gateway to AWS IoT Core for LoRaWAN, you can check the status of your connection and get information about when the last uplink was received by using the console or the API\.
 

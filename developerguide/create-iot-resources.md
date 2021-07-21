@@ -49,19 +49,17 @@ For more information, see [IAM policies](iam-policies.md)\.
 
 ## Create a thing object<a name="create-aws-thing"></a>
 
-Devices connected to AWS IoT are represented by *thing objects* in the AWS IoT registry\. A *thing object* represents a specific device or logical entity\. It can be a physical device or sensor \(for example, a light bulb or a light switch on the wall\)\. It can also be a logical entity, like an instance of an application or physical entity that does not connect to AWS IoT, but is related to other devices that do \(for example, a car that has engine sensors or a control panel\)\.
+Devices connected to AWS IoT are represented by *thing objects* in the AWS IoT registry\. A *thing object* represents a specific device or logical entity\. It can be a physical device or sensor \(for example, a light bulb or a light switch on the wall\)\. It can also be a logical entity, like an instance of an application or physical entity that doesn't connect to AWS IoT, but is related to other devices that do \(for example, a car that has engine sensors or a control panel\)\.
 
 **To create a thing in the AWS IoT console**
 
-1. In the [AWS IoT console](https://console.aws.amazon.com/iot/home), on the **Welcome to the AWS IoT console** page, in the left menu, choose **Manage**\.
+1. In the [AWS IoT console](https://console.aws.amazon.com/iot/home), in the left menu, choose **Manage**, then choose **Things**\.
 
-1. On **You don't have any things yet**, choose **Register a thing**\.
+1. On the **Things** page, choose **Create things**\.
 
-   If your account already has some things, choose **Create**\.
+1. On the **Create things** page, choose **Create a single thing**, then choose **Next**\.
 
-1. On **Creating AWS IoT things**, choose **Create a single thing**\.
-
-1. On the **Add your device to the thing registry** page, in the **Name** field, enter a name for your thing, such as **MyIotThing**\.
+1. On the **Specify thing properties** page, for **Thing name**, enter a name for your thing, such as **MyIotThing**\.
 
    When naming things, choose the name carefully, because you can't change a thing name after you create it\.
 
@@ -69,31 +67,25 @@ Devices connected to AWS IoT are represented by *thing objects* in the AWS IoT r
 **Note**  
 Do not use personally identifiable information in your thing name\. The thing name can appear in unencrypted communications and reports\.
 
-   Leave the rest of the fields on this page empty, for now\.
+1. Keep the rest of the fields on this page empty\. Choose **Next**\.
 
-   Choose **Next**\.
+1. On the **Configure device certificate \- *optional*** page, choose **Auto\-generate a new certificate \(recommended\)**\. Choose **Next**\.
 
-1.  On **Add a certificate for your thing**, choose **Create certificate**\. 
+1. On the **Attach policies to certificate \- *optional*** page, select the policy you created in the previous section\. In that section, the policy was named, **My\_Iot\_Policy**\. Choose **Create thing**\.
 
-1. On the **Certificate created\!** page:
+1. On the **Download certificates and keys** page:
 
-   1. Download each of the certificate and key files and save them for later\. You will need to install these files on your device\.
+   1. Download each of the certificate and key files and save them for later\. You'll need to install these files on your device\.
 
       When you save your certificate files, give them the names in the following table\. These are the file names used in later examples\.  
 **Certificate file names**    
 [\[See the AWS documentation website for more details\]](http://docs.aws.amazon.com/iot/latest/developerguide/create-iot-resources.html)
 
-   1. Download the root CA file for these files by choosing the **A root CA for AWS IoT Download** link and downloading the **RSA 2048 bit key: Amazon Root CA 1** certificate file\. 
+   1. Download the root CA file for these files by choosing the **Download** link of the root CA certificate file that corresponds to the type of data endpoint and cipher suite you're using\. In this tutorial, choose **Download** to the right of **RSA 2048 bit key: Amazon Root CA 1** and download the **RSA 2048 bit key: Amazon Root CA 1** certificate file\. 
 **Important**  
 You must save the certificate files before you leave this page\. After you leave this page in the console, you will no longer have access to the certificate files\.  
 If you forgot to download the certificate files that you created in this step, you must exit this console screen, go to the list of things in the console, delete the thing object you created, and then restart this procedure from the beginning\.
 
-   1.  Choose **Activate**, to enable the certificate for connections to AWS IoT\. 
-
-   1.  Choose **Attach a policy**, to attach the policy you created in the previous section to this certificate\. 
-
-   1. On **Add a policy for your thing**, select the policy you created in the previous section\. In that section, the policy was named, **My\_Iot\_Policy**\.
-
-   1.  Choose **Register Thing**\. 
+   1.  Choose **Done**\. 
 
 After you complete this procedure, you should see the new thing object in your list of things\.

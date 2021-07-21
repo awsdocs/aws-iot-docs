@@ -8,6 +8,7 @@ Because an expression in a substitution template is evaluated separately from th
 For more information about supported expressions, see [AWS IoT SQL reference](iot-sql-reference.md)\.
 
 The following rule actions support substitution templates\. Each action supports different fields that can be substituted\.
++ [Apache Kafka](apache-kafka-rule-action.md)
 + [CloudWatch alarms](cloudwatch-alarms-rule-action.md)
 + [CloudWatch Logs](cloudwatch-logs-rule-action.md)
 + [CloudWatch metrics](cloudwatch-metrics-rule-action.md)

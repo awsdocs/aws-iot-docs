@@ -21,6 +21,9 @@ If you do not subscribe to the response topics *before* you publish a request, y
 
 Creates a certificate from a certificate signing request \(CSR\)\. AWS IoT provides client certificates that are signed by the Amazon Root certificate authority \(CA\)\. The new certificate has a `PENDING_ACTIVATION` status\. When you call `RegisterThing` to provision a thing with this certificate, the certificate status changes to `ACTIVE` or `INACTIVE` as described in the template\.
 
+**Note**  
+For security, the `certificateOwnershipToken` returned by [`CreateCertificateFromCsr`](#create-cert-csr) expires after one hour\. [`RegisterThing`](#register-thing) must be called before the `certificateOwnershipToken` expires\. If the token expires, the device can call [`CreateCertificateFromCsr`](#create-cert-csr) to generate a new certificate\.
+
 ### CreateCertificateFromCsr request<a name="create-cert-csr-request"></a>
 
 Publish a message with the `$aws/certificates/create-from-csr/payload-format` topic\.
@@ -94,6 +97,9 @@ The error message\.
 ## CreateKeysAndCertificate<a name="create-keys-cert"></a>
 
 Creates new keys and a certificate\. AWS IoT provides client certificates that are signed by the Amazon Root certificate authority \(CA\)\. The new certificate has a `PENDING_ACTIVATION` status\. When you call `RegisterThing` to provision a thing with this certificate, the certificate status changes to `ACTIVE` or `INACTIVE` as described in the template\.
+
+**Note**  
+For security, the `certificateOwnershipToken` returned by [`CreateKeysAndCertificate`](#create-keys-cert) expires after one hour\. [`RegisterThing`](#register-thing) must be called before the `certificateOwnershipToken` expires\. If the token expires, the device can call [`CreateKeysAndCertificate`](#create-keys-cert) to generate a new certificate\.
 
 ### CreateKeysAndCertificate request<a name="create-keys-cert-request"></a>
 

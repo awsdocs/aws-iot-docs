@@ -14,75 +14,25 @@ When considering how to configure your AWS IoT logging, the default logging conf
 Before you enable AWS IoT logging, make sure you understand the CloudWatch Logs access permissions\. Users with access to CloudWatch Logs can see debugging information from your devices\. For more information, see [Authentication and Access Control for Amazon CloudWatch Logs](https://docs.aws.amazon.com/AmazonCloudWatch/latest/monitoring/auth-and-access-control-cw.html)\.  
 If you expect high traffic patterns in AWS IoT Core due to load testing, consider turning off IoT logging to prevent throttling\. If high traffic is detected, our service may disable logging in your account\.
 
+Following shows how to create a logging role and policy for AWS IoT Core resources\. For information about how you can create an IAM logging role and policy for AWS IoT Core for LoRaWAN, see [Create logging role and policy for AWS IoT Core for LoRaWAN](connect-iot-lorawan-create-logging-role-policy.md)\.
+
 ### Create a logging role<a name="create-logging-role"></a>
 
-Use the [IAM console](https://console.aws.amazon.com/iam/) to create a logging role\.
+To create a logging role, open the [Roles hub of the IAM console](https://console.aws.amazon.com/iam/home#/roles) and choose **Create role**\.
 
-**To create a logging role for AWS IoT Core using the [IAM console](https://console.aws.amazon.com/iam/home#/roles)**
+1. Under **Select type of trusted entity**, choose **AWS Service**, **IoT**\.
 
-1. Open the [Roles hub of the IAM console](https://console.aws.amazon.com/iam/home#/roles), and then choose **Create role**\.
+1. Under **Select your use case**, choose **IoT**, and then choose **Next: Permissions**\.
 
-1. To create a logging role for AWS IoT Core:
+1. On the page that displays the policies that are automatically attached to the service role, choose **Next: Tags**, and then choose **Next: Review**\.
 
-   1. Under **Select type of trusted entity**, choose **AWS Service**, **IoT**\.
+1. Enter a **Role name** and **Role description** for the role, and then choose **Create role**\.
 
-   1. Under **Select your use case**, choose **IoT**, and then choose **Next: Permissions**\.
-
-   1. On the page that displays the policies that are automatically attached to the service role\.
-
-   1. Choose **Next: Tags**, and then choose **Next: Review**\.
-
-   1. Enter a **Role name** and **Role description** for the role, and then choose **Create role**\.
-
-   1. In the list of **Roles**, find the role you created, open it, and copy the **Role ARN** \(*logging\-role\-arn*\) to use when you [Configure default logging in the AWS IoT \(console\)](#configure-logging-console)\.
-
-1. To create a logging role for AWS IoT Core for LoRaWAN:
-
-   1. Under **Select type of trusted entity**, choose **Another AWS account**\.
-
-   1. In **Account ID**, enter your AWS account ID, and then choose **Next: Permissions**\.
-
-   1. In the search box, enter **AWSIoTWirelessLogging**\.
-
-   1. Select the box next to the policy named **AWSIoTWirelessLogging**, and then choose **Next: Tags**\.
-
-   1. Choose **Next: Review**\.
-
-   1. In **Role name**, enter **IoTWirelessLogsRole**, and then choose **Create role**\.
-
-   1.  In the confirmation message, choose **IoTWirelessLogsRole**\. 
-
-   1.  In the role's **Summary** page, choose the **Trust relationships** tab, and choose **Edit trust relationship**\. 
-
-   1.  Edit the `Principal` entry so that it contains
-
-      ```
-      "Service": "iotwireless.amazonaws.com"
-      ```
-
-      as this example shows:
-
-      ```
-      {
-        "Version": "2012-10-17",
-        "Statement": [
-          {
-            "Effect": "Allow",
-            "Principal": {
-              "Service": "iotwireless.amazonaws.com"
-            },
-            "Action": "sts:AssumeRole",
-            "Condition": {}
-          }
-        ]
-      }
-      ```
-
-   1. Choose **Update Trust Policy**\. Logging for AWS IoT Core for LoRaWAN is now configured\.
+1. In the list of **Roles**, find the role you created, open it, and copy the **Role ARN** \(*logging\-role\-arn*\) to use when you [Configure default logging in the AWS IoT \(console\)](#configure-logging-console)\.
 
 ### Logging role policy<a name="logging-role-policy"></a>
 
-The following policy documents provide the role policy and trust policy that allow AWS IoT, and optionally, AWS IoT Core for LoRaWAN, to submit log entries to CloudWatch on your behalf\. 
+The following policy documents provide the role policy and trust policy that allow AWS IoT to submit log entries to CloudWatch on your behalf\. If you also allowed AWS IoT Core for LoRaWAN to submit log entries, you'll see a policy document created for you that logs both activities\. For information about how to create an IAM logging role and policy for AWS IoT Core for LoRaWAN, see [Create logging role and policy for AWS IoT Core for LoRaWAN](connect-iot-lorawan-create-logging-role-policy.md)\. 
 
 **Note**  
 These documents were created for you when you created the logging role\.
@@ -110,27 +60,6 @@ Role policy:
     }
 ```
 
-Role policy for logging only AWS IoT Core for LoRaWAN activity:
-
-```
-{
-    "Version": "2012-10-17",
-    "Statement": [
-        {
-            "Effect": "Allow",
-            "Action": [
-                "logs:CreateLogGroup",
-                "logs:CreateLogStream",
-                "logs:DescribeLogGroups",
-                "logs:DescribeLogStreams",
-                "logs:PutLogEvents"
-            ],
-            "Resource": "arn:aws:logs:*:*:log-group:/aws/iotwireless*"
-        }
-    ]
-}
-```
-
 Trust policy to log only AWS IoT Core activity:
 
 ```
@@ -142,27 +71,6 @@ Trust policy to log only AWS IoT Core activity:
           "Effect": "Allow",
           "Principal": {
             "Service": "iot.amazonaws.com"
-          },
-          "Action": "sts:AssumeRole"
-        }
-      ]
-    }
-```
-
-Trust policy to log AWS IoT Core and AWS IoT Core for LoRaWAN activity:
-
-```
-{
-     "Version": "2012-10-17",
-      "Statement": [
-        {
-          "Sid": "",
-          "Effect": "Allow",
-          "Principal": {
-            "Service": [
-            "iot.amazonaws.com",
-            "iotwireless.amazonaws.com"
-            ]
           },
           "Action": "sts:AssumeRole"
         }

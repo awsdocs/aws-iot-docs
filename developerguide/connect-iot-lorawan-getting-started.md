@@ -39,9 +39,15 @@ Using that information, you can create the AWS IoT rule that performs the conver
 
 ## Using the console to onboard your device and gateway to AWS IoT Core for LoRaWAN<a name="connect-iot-lorawan-console"></a>
 
+<<<<<<< HEAD
 You can use the console interface or the API to add your LoRaWAN gateway and devices\. If you're using AWS IoT Core for LoRaWAN for the first time, we recommend that you use the console\. The console interface is most practical when managing a few AWS IoT Core for LoRaWAN resources at a time\. When managing large numbers of AWS IoT Core for LoRaWAN resources, consider creating more automated solutions by [using the AWS IoT Wireless API](connect-iot-lorawan-developer.md)\.
 
 Much of the data that you enter when configuring AWS IoT Core for LoRaWAN resources is provided by the devices' vendors and is specific to the LoRaWAN specifications they support\. The following topics describe how you can describe your AWS IoT Core for LoRaWAN resources and use the console to add your gateways and devices\.
+=======
+You can use the console interface or the API to add your LoRaWAN gateway and devices\. If you're using AWS IoT Core for LoRaWAN for the first time, we recommend that you use the console\. The console interface is most practical when managing a few AWS IoT Core for LoRaWAN resources at a time\. When managing large numbers of AWS IoT Core for LoRaWAN resources, consider creating more automated solutions by using the AWS IoT Wireless API\.
+
+Much of the data that you enter when configuring AWS IoT Core for LoRaWAN resources is provided by the devices' vendors and is specific to the LoRaWAN specifications they support\. The following topics describe how you can describe your AWS IoT Core for LoRaWAN resources and use the console or the API to add your gateways and devices\.
+>>>>>>> gausekha-repo-refresh
 
 **Topics**
 + [To get started using AWS IoT Core for LoRaWAN](#connect-iot-lorawan-get-started-resources)
@@ -50,4 +56,8 @@ Much of the data that you enter when configuring AWS IoT Core for LoRaWAN resour
 + [Using the console to onboard your device and gateway to AWS IoT Core for LoRaWAN](#connect-iot-lorawan-console)
 + [Describe your AWS IoT Core for LoRaWAN resources](connect-iot-lorawan-describe-resource.md)
 + [Onboard your gateways to AWS IoT Core for LoRaWAN](connect-iot-lorawan-onboard-gateways.md)
+<<<<<<< HEAD
 + [Onboard your devices to AWS IoT Core for LoRaWAN](connect-iot-lorawan-end-devices.md)
+=======
++ [Onboard your devices to AWS IoT Core for LoRaWAN](connect-iot-lorawan-onboard-end-devices.md)
+>>>>>>> gausekha-repo-refresh

@@ -13,9 +13,15 @@ We're in the process of updating the user interface of the AWS IoT console to a 
 |  **Activity**  |  Not available  |  Available  |    | 
 |  **Onboard** \- Get started  |  Available  |  Not available yet  |    | 
 |  **Onboard** \- Fleet provisioning templates  |  Available  |  Not available yet  |    | 
+<<<<<<< HEAD
 |  **Manage** \- Things  |  Available  |  Not available yet  |    | 
 |  **Manage** \- Types  |  Available  |  Available  |    | 
 |  **Manage** \- Thing groups  |  Available  |  Not available yet  |    | 
+=======
+|  **Manage** \- Things  |  Available  |  Available  |    | 
+|  **Manage** \- Types  |  Available  |  Available  |    | 
+|  **Manage** \- Thing groups  |  Available  |  Available  |    | 
+>>>>>>> gausekha-repo-refresh
 |  **Manage** \- Billing groups  |  Available  |  Available  |    | 
 |  **Manage** \- Jobs  |  Available  |  Available  |    | 
 |  **Manage** \- Job templates  |  Available  |  Available  |  The save a job as a job template and create a job with a job template features are not available in the original experience\.  | 
@@ -47,7 +53,7 @@ We're in the process of updating the user interface of the AWS IoT console to a 
 |  **Test** \- Device Advisor  |  Available  |  Not available yet  |  Not available in all AWS Regions  | 
 |  **Test** \- MQTT test client  |  Available  |  Available  |    | 
 |  **Software**  |  Available  |  Not available yet  |    | 
-|  **Settings**  |  Available  |  Not available yet  |    | 
+|  **Settings**  |  Available  |  Available  |    | 
 |  **Learn**  |  Available  |  Not available yet  |    | 
 
 ## Legend<a name="whats-new-in-console-legend"></a>

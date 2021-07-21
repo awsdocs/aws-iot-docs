@@ -115,7 +115,7 @@ Example: `atan2(1, 0)` = 1\.5707963267948966
 | Argument | Description | 
 | --- | --- | 
 | functionArn |  The ARN of the Lambda function to call\. The Lambda function must return JSON data\.  | 
-| inputJson |  The JSON input passed to the Lambda function\.  | 
+| inputJson |  The JSON input passed to the Lambda function\. To pass nested object queries and literals, you must use SQL version 2016\-03\-23\.  | 
 
 You must grant AWS IoT `lambda:InvokeFunction` permissions to invoke the specified Lambda function\. The following example shows how to grant the `lambda:InvokeFunction` permission using the AWS CLI:
 

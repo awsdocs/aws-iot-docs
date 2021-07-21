@@ -26,7 +26,10 @@ The type of aggregation field can affect the statistics returned\.
 
 If you aggregate on a string field, calling `GetStatistics` returns a count of devices that have attributes that match the query\. For example:
 
-aws iot get\-statistics \-\-aggregation\-field 'attributes\.stringAttribute' \-\-query\-string '\*'
+```
+aws iot get-statistics --aggregation-field 'attributes.stringAttribute'
+            --query-string '*'
+```
 
 This command returns the number of devices that contain an attribute named `stringAttribute`:
 
@@ -83,7 +86,10 @@ The standard deviation of the numerical values that match the query\. The standa
 
 The following example shows how to call get\-statistics with a numerical custom field\.
 
-aws iot get\-statistics \-\-aggregation\-field 'attributes\.numericAttribute2' \-\-query\-string '\*'
+```
+aws iot get-statistics --aggregation-field 'attributes.numericAttribute2'
+            --query-string '*'
+```
 
 ```
 {
@@ -106,7 +112,10 @@ For numerical aggregation fields, if the field values exceed the maximum double 
 
 The [GetCardinality](https://docs.aws.amazon.com/iot/latest/apireference/API_GetCardinality.html) API and the get\-cardinality CLI command return the approximate count of unique values that match the query\. For example, you might want to find the number of devices with battery levels at less than 50 percent:
 
-aws iot get\-cardinality \-\-index\-name AWS\_Things \-\-query\-string "batterylevel > 50" \-\-aggregation\-field "shadow\.reported\.batterylevel"\.
+```
+aws iot get-cardinality --index-name AWS_Things --query-string "batterylevel
+          > 50" --aggregation-field "shadow.reported.batterylevel"
+```
 
 This command returns the number of things with battery levels at more than 50 percent:
 
@@ -118,7 +127,10 @@ This command returns the number of things with battery levels at more than 50 pe
 
 `cardinality` is always returned by get\-cardinality even if there are no matching fields\. For example:
 
-aws iot get\-cardinality \-\-query\-string "thingName:Non\-existent\*" \-\-aggregation\-field "attributes\.customField\_STR"
+```
+aws iot get-cardinality --query-string "thingName:Non-existent*"
+          --aggregation-field "attributes.customField_STR"
+```
 
 ```
 {
@@ -146,7 +158,10 @@ The [GetPercentiles](https://docs.aws.amazon.com/iot/latest/apireference/API_Get
 
 The following example shows how to call the get\-percentiles CLI command\.
 
-aws iot get\-percentiles \-\-query\-string "thingName:\*" \-\-aggregation\-field "attributes\.customField\_NUM" \-\-percents 10 20 30 40 50 60 70 80 90 99
+```
+aws iot get-percentiles --query-string "thingName:*" --aggregation-field
+          "attributes.customField_NUM" --percents 10 20 30 40 50 60 70 80 90 99
+```
 
 ```
 {
@@ -197,7 +212,10 @@ aws iot get\-percentiles \-\-query\-string "thingName:\*" \-\-aggregation\-field
 
 The following command shows the output returned from get\-percentiles when there are no matching documents\.
 
-aws iot get\-percentiles \-\-query\-string "thingName:Non\-existent\*" \-\-aggregation\-field "attributes\.customField\_NUM"
+```
+aws iot get-percentiles --query-string "thingName:Non-existent*"
+          --aggregation-field "attributes.customField_NUM"
+```
 
 ```
 {

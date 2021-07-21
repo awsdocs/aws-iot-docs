@@ -51,7 +51,11 @@ After you've added a gateway, in the [AWS IoT Core for LoRaWAN](https://console.
 
 ## Configure your gateway to use filtering and subbands using the API<a name="connect-iot-lorawan-configure-gateway-channels-api"></a>
 
+<<<<<<< HEAD
 You can use the [CreateWirelessGateway](https://docs.aws.amazon.com/iot-wireless/2020-11-22/apireference/API_CreateWirelessGateway.html) API that you use to create a gateway to configure the subbands you want to use and enable the filtering capability\. Using the `CreateWirelessGateway` API, you can specify the subbands and filters as part of the gateway configuration information that you provide using the `LoRaWAN` field\. Following shows the request token that includes this information:
+=======
+You can use the [CreateWirelessGateway](https://docs.aws.amazon.com/iot-wireless/2020-11-22/apireference/API_CreateWirelessGateway.html) API that you use to create a gateway to configure the subbands you want to use and enable the filtering capability\. Using the `CreateWirelessGateway` API, you can specify the subbands and filters as part of the gateway configuration information that you provide using the `LoRaWAN` field\. The following shows the request token that includes this information\.
+>>>>>>> gausekha-repo-refresh
 
 ```
 POST /wireless-gateways HTTP/1.1
@@ -77,4 +81,8 @@ Content-type: application/json
 }
 ```
 
+<<<<<<< HEAD
 You can also use the [UpdateWirelessGateway](https://docs.aws.amazon.com/iot-wireless/2020-11-22/apireference/API_UpdateWirelessGateway.html) API to update the filters but not the subbands\. If the `JoinEuiFilters` and `NetIdfilters` values are null, it means there is no update for the fields\. If the values are not null and empty lists are included, then the update will be applied\. To get the values of the fields that you specified, use the [GetWirelessGateway](https://docs.aws.amazon.com/iot-wireless/2020-11-22/apireference/API_GetWirelessGateway.html) API\.
+=======
+You can also use the [UpdateWirelessGateway](https://docs.aws.amazon.com/iot-wireless/2020-11-22/apireference/API_UpdateWirelessGateway.html) API to update the filters but not the subbands\. If the `JoinEuiFilters` and `NetIdfilters` values are null, it means there is no update for the fields\. If the values aren't null and empty lists are included, then the update is applied\. To get the values of the fields that you specified, use the [GetWirelessGateway](https://docs.aws.amazon.com/iot-wireless/2020-11-22/apireference/API_GetWirelessGateway.html) API\.
+>>>>>>> gausekha-repo-refresh

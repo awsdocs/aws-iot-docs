@@ -347,10 +347,14 @@ Validates if a device can publish its state after it connects to AWS IoT Core
 ]
 ```
 The `REPORTED_STATE` can be provided for additional validation on your device's exact shadow state, after it connects\. By default, this test case validates your device publishing state\.  
+<<<<<<< HEAD
 If `SHADOW_NAME` is not provided, then the test case looks for messages published to topic prefixes of the Unnamed \(classic\) shadow type by default\. Provide a shadow name if your device uses the named shadow type\. See [Using shadows in devices](https://docs.aws.amazon.com/https://docs.aws.amazon.com/iot/latest/developerguide/device-shadow-comms-device.html) for more information\.Update
+=======
+If `SHADOW_NAME` is not provided, then the test case looks for messages published to topic prefixes of the Unnamed \(classic\) shadow type by default\. Provide a shadow name if your device uses the named shadow type\. See [Using shadows in devices](https://docs.aws.amazon.com/iot/latest/developerguide/device-shadow-comms-device.html) for more information\.Update
+>>>>>>> gausekha-repo-refresh
 
 ***"Device updates reported state to desired state \(Happy case\)"***  
-Validates if your device reads all update messages received and synchronizes the device's state to match the desired state properties\. Your device should publish its latest reported state after synchronizing\.   
+Validates if your device reads all update messages received and synchronizes the device's state to match the desired state properties\. Your device should publish its latest reported state after synchronizing\. If your device already has an existing shadow before running the test, make sure the desired state configured for the test case and the existing reported state do not already match\. You can identify Shadow update messages sent by Device Advisor by looking at the ClientToken field in the Shadow document as it will be `DeviceAdvisorShadowTestCaseSetup`\.   
 *API test case definition:*  
 `EXECUTION_TIMEOUT` has a default value of 5 minutes\. We recommend a timeout value of 2 minutes\. 
 
@@ -374,7 +378,11 @@ Validates if your device reads all update messages received and synchronizes the
 ]
 ```
 The `DESIRED_STATE` should have at least one attribute and associated value\.  
+<<<<<<< HEAD
 If `SHADOW_NAME` is not provided, then the test case looks for messages published to topic prefixes of the Unnamed \(classic\) shadow type by default\. Provide a shadow name if your device uses the named shadow type\. See [Using shadows in devices](https://docs.aws.amazon.com/https://docs.aws.amazon.com/iot/latest/developerguide/device-shadow-comms-device.html) for more information\.
+=======
+If `SHADOW_NAME` is not provided, then the test case looks for messages published to topic prefixes of the Unnamed \(classic\) shadow type by default\. Provide a shadow name if your device uses the named shadow type\. See [Using shadows in devices](https://docs.aws.amazon.com/iot/latest/developerguide/device-shadow-comms-device.html) for more information\.
+>>>>>>> gausekha-repo-refresh
 
 ## Job Execution<a name="device-advisor-test-job-execution"></a>
 

@@ -98,6 +98,10 @@ AWS IoT authenticates devices individually and treats each connection individual
 
 Apply the principle of least privilege and scope down the permissions per device as much as possible\. All devices or users should have an AWS IoT policy in AWS IoT that only allows it to connect with a known client ID, and to publish and subscribe to an identified and fixed set of topics\.
 
+## Use a second AWS Region as backup<a name="use-second-region"></a>
+
+Consider storing a copy of your data in a second AWS Region as a backup\. For more information, see [ Disaster Recovery for AWS IoT](https://aws.amazon.com/solutions/implementations/disaster-recovery-for-aws-iot/)\.
+
 ## Use just in time provisioning<a name="use-jitp"></a>
 
 Manually creating and provisioning each device can be time consuming\. AWS IoT provides a way to define a template to provision devices when they first connect to AWS IoT\. For more information, see [Just\-in\-time provisioning](jit-provisioning.md)\.

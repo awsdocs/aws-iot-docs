@@ -2,9 +2,13 @@
 
 Gateways act as a bridge and carry LoRaWAN device data to and from a Network Server, usually over high\-bandwidth networks like Wi\-Fi, Ethernet, or Cellular\. LoRaWAN gateways connect wireless devices to AWS IoT Core for LoRaWAN\.
 
+<<<<<<< HEAD
 The data from wireless devices must be processed by an AWS IoT rule before it can be used by AWS IoT and other services\. Adding a gateway to AWS IoT Core for LoRaWAN lets AWS IoT communicate with and manage the gateway\. Adding devices to AWS IoT Core for LoRaWAN lets AWS IoT process the messages received from the devices for use by AWS IoT and other services\. 
 
 Following are some important considerations when using your gateways with AWS IoT Core for LoRaWAN\. For information about how to add your gateway to AWS IoT Core for LoRaWAN, see [Onboard your gateways to AWS IoT Core for LoRaWAN](connect-iot-lorawan-onboard-gateways.md)\.
+=======
+Following are some important considerations when using your gateways with AWS IoT Core for LoRaWAN\. For information about how to add your gateway to AWS IoT Core for LoRaWAN, see [Onboard your gateways to AWS IoT Core for LoRaWAN](connect-iot-lorawan-onboard-gateways.md)\. 
+>>>>>>> gausekha-repo-refresh
 
 ## LoRa Basics Station software requirement<a name="connect-iot-lorawan-lora-basics-station"></a>
 
@@ -21,7 +25,11 @@ If you have a gateway that is not listed in the Partner Catalog as a qualified g
 
 LoRa Basics Station software contains two sub protocols for connecting gateways to network servers, LoRaWAN Network Server \(LNS\) and Configuration and Update Server \(CUPS\) protocols\.
 
+<<<<<<< HEAD
 The LNS protocol establishes a data connection between a LoRa Basics Station compatible gateway and a network server\. LoRa uplink and downlink messages are exchanged through this data connection over secure WebSockets\. 
+=======
+The LNS protocol establishes a data connection between a LoRa Basics Station compatible gateway and a network server\. LoRa uplink and downlink messages are exchanged through this data connection over secure WebSockets\.
+>>>>>>> gausekha-repo-refresh
 
 The CUPS protocol enables credentials management, and remote configuration and firmware update of gateways\. AWS IoT Core for LoRaWAN provides both LNS and CUPS endpoints for LoRaWAN data ingestion and remote gateway management respectively\.
 

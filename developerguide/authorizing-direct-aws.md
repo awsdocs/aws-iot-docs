@@ -105,7 +105,9 @@ The *ThingName* that you provide in `x-amzn-iot-thingname` must match the name o
 
    Run the following command in the AWS CLI to obtain the credentials provider endpoint for your AWS account\. For more information about this API, see [DescribeEndpoint](https://docs.aws.amazon.com/iot/latest/apireference/API_DescribeEndpoint.html)\.
 
-   aws iot describe\-endpoint \-\-endpoint\-type iot:CredentialProvider
+   ```
+   aws iot describe-endpoint --endpoint-type iot:CredentialProvider
+   ```
 
    The following JSON object is sample output of the describe\-endpoint command\. It contains the `endpointAddress` that you use to request a security token\.
 

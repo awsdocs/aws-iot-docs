@@ -22,7 +22,11 @@ To create an S3 bucket, open the [Amazon S3 console](https://console.aws.amazon.
 
 1. Enter a unique and meaningful name for the **Bucket name**, \(for example, `iotwirelessfwupdate`\)\. For recommended naming convention for your bucket, see [https://docs.aws.amazon.com/AmazonS3/latest/userguide/bucketnamingrules.html](https://docs.aws.amazon.com/AmazonS3/latest/userguide/bucketnamingrules.html)\.
 
+<<<<<<< HEAD
 1. Make sure you selected the AWS region selected as the one you used to create your LoRaWAN gateway and device, and the **Block all public access** setting is selected so that your bucket uses the default permissions\.
+=======
+1. Make sure you selected the AWS Region selected as the one you used to create your LoRaWAN gateway and device, and the **Block all public access** setting is selected so that your bucket uses the default permissions\.
+>>>>>>> gausekha-repo-refresh
 
 1. Choose **Enable** for **Bucket versioning** which will help you keep multiple versions of the firmware update file in the same bucket\.
 

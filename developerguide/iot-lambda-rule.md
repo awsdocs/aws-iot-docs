@@ -215,7 +215,7 @@ This contains all the information the Lambda function needs to format and send t
 
    1. In **Name**, enter the rule's name, **wx\_friendly\_text**\.
 
-      Remember that a rule name must be unique within your AWS Account and Region, and it can't have any spaces\. We've used an underscore character in this name to separate the two words in the rule's name\.
+      Remember that a rule name must be unique within your AWS account and Region, and it can't have any spaces\. We've used an underscore character in this name to separate the two words in the rule's name\.
 
    1.  In **Description**, describe the rule\. 
 

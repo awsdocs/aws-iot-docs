@@ -8,10 +8,10 @@ A successful connection to AWS IoT requires:
 ## Connection<a name="troubleshooting-connect"></a>
 
 How do I find the correct endpoint?  
-+ The `endpointAddress` returned by aws iot [describe\-endpoint](https://awscli.amazonaws.com/v2/documentation/api/latest/reference/iot/describe-endpoint.html) \-\-endpoint\-type iot:Data\-ATS
++ The `endpointAddress` returned by `aws iot [describe\-endpoint](https://awscli.amazonaws.com/v2/documentation/api/latest/reference/iot/describe-endpoint.html) --endpoint-type iot:Data-ATS`
 
   or
-+ The `domainName` returned by aws iot [describe\-domain\-configuration](https://awscli.amazonaws.com/v2/documentation/api/latest/reference/iot/describe-domain-configuration.html) –\-domain\-configuration\-name "*domain\_configuration\_name*"
++ The `domainName` returned by `aws iot [describe\-domain\-configuration](https://awscli.amazonaws.com/v2/documentation/api/latest/reference/iot/describe-domain-configuration.html) –-domain-configuration-name "domain_configuration_name"`
 
 How do I find the correct Server Name Indication \(SNI\) value?  
 The correct SNI value is the `endpointAddress` returned by the [describe\-endpoint](https://awscli.amazonaws.com/v2/documentation/api/latest/reference/iot/describe-endpoint.html) or [describe\-domain\-configuration](https://awscli.amazonaws.com/v2/documentation/api/latest/reference/iot/describe-domain-configuration.html) commands\. It's the same address as the endpoint in the previous step\.
@@ -36,7 +36,7 @@ How can I validate a correctly configured certificate?
 Use the OpenSSL `s_client` command to test a connection to the AWS IoT endpoint:  
 
 ```
- openssl s_client -connect custom_endpoint.iot.aws-region.amazonaws.com:8443 -CAfile CA.pem -cert cert.pem -key privateKey.pem 
+openssl s_client -connect custom_endpoint.iot.aws-region.amazonaws.com:8443 -CAfile CA.pem -cert cert.pem -key privateKey.pem
 ```
 For more information about using `openssl s_client`, see [OpenSSL s\_client documentation](https://www.openssl.org/docs/man1.0.2/man1/openssl-s_client.html)\.
 
@@ -44,7 +44,7 @@ How do I check the status of a certificate?
 + 
 
 **List the certificates**  
-If you don't know the certificate ID, you can see the status of all your certificates by using the aws iot [list\-certificates](https://awscli.amazonaws.com/v2/documentation/api/latest/reference/iot/list-certificates.html) command\.
+If you don't know the certificate ID, you can see the status of all your certificates by using the `aws iot [list\-certificates](https://awscli.amazonaws.com/v2/documentation/api/latest/reference/iot/list-certificates.html)` command\.
 + 
 
 **Show a certificate's details**  

@@ -126,7 +126,7 @@ def customShadowCallback_Delete(payload, responseStatus, token):
 def parseArgs():
 
     parser = argparse.ArgumentParser()
-    parser.add_argument("-e", "--endpoint", action="store", required=True, dest="host", help="Your AWS IoT custom endpoint")
+    parser.add_argument("-e", "--endpoint", action="store", required=True, dest="host", help="Your device data endpoint")
     parser.add_argument("-r", "--rootCA", action="store", required=True, dest="rootCAPath", help="Root CA file path")
     parser.add_argument("-c", "--cert", action="store", dest="certificatePath", help="Certificate file path")
     parser.add_argument("-k", "--key", action="store", dest="privateKeyPath", help="Private key file path")

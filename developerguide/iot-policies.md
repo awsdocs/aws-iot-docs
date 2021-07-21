@@ -2,7 +2,7 @@
 
 AWS IoT Core policies are JSON documents\. They follow the same conventions as IAM policies\. AWS IoT Core supports named policies so many identities can reference the same policy document\. Named policies are versioned so they can be easily rolled back\.
 
-AWS IoT Core policies allow you to control access to the AWS IoT Core data plane\. The AWS IoT Core data plane consists of operations that allow you to connect to the AWS IoT Core message broker, send and receive MQTT messages, and get or update a device's shadow\.
+AWS IoT Core policies allow you to control access to the AWS IoT Core data plane\. The AWS IoT Core data plane consists of operations that allow you to connect to the AWS IoT Core message broker, send and receive MQTT messages, and get or update a thing's Device Shadow\.
 
 An AWS IoT Core policy is a JSON document that contains one or more policy statements\. Each statement contains:
 + `Effect`, which specifies whether the action is allowed or denied\.

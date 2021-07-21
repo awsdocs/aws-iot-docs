@@ -4,12 +4,33 @@ AWS IoT Core for LoRaWAN destinations describe the AWS IoT rule that processes a
 
 Because most LoRaWAN devices don't send data to AWS IoT Core for LoRaWAN in a format that can be used by AWS services, an AWS IoT rule must process it first\. The AWS IoT rule contains the SQL statement that interprets the device's data and the topic rule actions that send the result of the SQL statement to the services that will use it\.
 
+<<<<<<< HEAD
 Enter a **Destination name**\. To process a device's data, an AWS IoT Core for LoRaWAN destination contains the following elements\.
+=======
+## Add a destination using the console<a name="connect-iot-lorawan-create-destination-console"></a>
+
+If you're adding a wireless device using the console as described in [Add your wireless device specification to AWS IoT Core for LoRaWAN using the console](connect-iot-lorawan-end-devices-add.md#connect-iot-lorawan-end-device-spec-console), after you've already added the wireless device specification and profiles to AWS IoT Core for LoRaWAN as described previously, you can go ahead and add a destination\.
+
+Alternatively, you can also add an AWS IoT Core for LoRaWAN destination from the [ Destinations](https://console.aws.amazon.com/iot/home#/wireless/destinations) page of the AWS IoT console\.
+
+To process a device's data, specify the following fields when creating an AWS IoT Core for LoRaWAN destination, and then choose **Add destination**\.
++ 
+
+**Destination details**  
+Enter a **Destination name** and an optional description for your destination\.
++ 
+
+**Rule name**  
+The AWS IoT rule that is configured to process the device's data\. Your destination will need a rule to process the messages it receives\. Enter a rule name and then choose **Copy** to copy the rule name that you'll enter when creating the AWS IoT rule\. You can either choose **Create rule** to create the rule now or navigate to the [ Rules](https://console.aws.amazon.com/iot/home#/create/rule) Hub of the AWS IoT console and create a rule with that name\.
+
+  For more information about AWS IoT rules for destinations, see [Create rules to process LoRaWAN device messages](connect-iot-lorawan-destination-rules.md)\.
+>>>>>>> gausekha-repo-refresh
 + 
 
 **Rule name**  
 The AWS IoT rule that is configured to process the device's data\. Your destination will need a rule to process the messages it receives\. Enter a rule name and then 2choose **Copy** to copy the rule name that you'll enter when creating the AWS IoT rule\. You can either choose **Create rule** to create the rule now or navigate to the [ Rules](https://console.aws.amazon.com/iot/home#/create/rule) Hub of the AWS IoT console and create a rule with that name\.
 
+<<<<<<< HEAD
   For more information about AWS IoT rules for destinations, see [Create rules to process LoRaWAN device messages](connect-iot-lorawan-destination-rules.md)\.
 + 
 
@@ -17,6 +38,37 @@ The AWS IoT rule that is configured to process the device's data\. Your destinat
 The IAM role that gives the device's data permission to access the rule named in **Rule name**\. For more information about the details that a definition requires in the role, see [Create an IAM roles for your destinations](#connect-iot-lorawan-create-destinations-roles)
 
   For more information about IAM roles, see [Using IAM roles](https://docs.aws.amazon.com/IAM/latest/UserGuide/id_roles_use.html)\.
+=======
+  For more information about IAM roles, see [Using IAM roles](https://docs.aws.amazon.com/IAM/latest/UserGuide/id_roles_use.html)\.
+
+## Add a destination by using the API<a name="connect-iot-lorawan-create-destination-api"></a>
+
+The following lists describe the API actions that perform the tasks associated with adding, updating, or deleting a destination\.
+
+**AWS IoT Wireless API actions for service profiles**
++ [CreateDestination](https://docs.aws.amazon.com/iot-wireless/2020-11-22/apireference/API_CreateDestination.html)
++ [GetDestination](https://docs.aws.amazon.com/iot-wireless/2020-11-22/apireference/API_GetDestination.html)
++ [ListDestinations](https://docs.aws.amazon.com/iot-wireless/2020-11-22/apireference/API_ListDestinations.html)
++ [ UpdateDestination](https://docs.aws.amazon.com/iot-wireless/2020-11-22/apireference/API_UpdateDestination.html)
++ [DeleteDestination](https://docs.aws.amazon.com/iot-wireless/2020-11-22/apireference/API_DeleteDestination.html)
+
+For the complete list of the actions and data types available to create and manage AWS IoT Core for LoRaWAN resources, see the [AWS IoT Wireless API reference](https://docs.aws.amazon.com/iot-wireless/2020-11-22/apireference/welcome.html)\.
+
+**How to use the AWS CLI to add a destination**  
+You can use the AWS CLI to add a destination by using the [create\-destination](cli/latest/reference/iotwireless/create-destination.html) command\. The following example creates a destination\.
+
+```
+aws iotwireless create-destination \
+    --name IoTWirelessDestination \
+    --expression-type RuleName \
+    --expression IoTWirelessRule \
+    --role-arn arn:aws:iam::123456789012:role/IoTWirelessDestinationRole
+```
+
+Running this command creates a destination with the specified destination name, rule name, and role name\. For information about rule and role names for destinations, see [Create rules to process LoRaWAN device messages](connect-iot-lorawan-destination-rules.md) and [Create an IAM roles for your destinations](#connect-iot-lorawan-create-destinations-roles)\.
+
+For information about the CLIs that you can use, see [AWS CLI reference](https://docs.aws.amazon.com/cli/latest/reference/iotwireless/index.html)\. 
+>>>>>>> gausekha-repo-refresh
 
 ## Create an IAM roles for your destinations<a name="connect-iot-lorawan-create-destinations-roles"></a>
 

@@ -36,7 +36,7 @@ Supports [substitution templates](iot-substitution-templates.md): No
 
 ## Examples<a name="elasticsearch-rule-action-examples"></a>
 
-The following JSON example defines an Elasticsearch action in an AWS IoT rule\.
+The following JSON example defines an Elasticsearch action in an AWS IoT rule and how you can specify the fields for the `elasticsearch` action\. For more information, see [ElasticsearchAction](https://docs.aws.amazon.com/iot/latest/apireference/API_ElasticsearchAction.html)\.
 
 ```
 {

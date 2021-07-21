@@ -69,13 +69,16 @@ destinationArn
 The Amazon Resource Name \(ARN\) of the VPC destination\. For information about creating a VPC destination, see [VPC](vpc-rule-action.md)\.
 
 topic  
-The Kafka topic for messages to be sent to the Kafka broker\.
+The Kafka topic for messages to be sent to the Kafka broker\.  
+You can substitute this field using a substitution template\. For more information, see [Substitution templates](iot-substitution-templates.md)\. 
 
 key \(optional\)  
-The Kafka message key\.
+The Kafka message key\.  
+You can substitute this field using a substitution template\. For more information, see [Substitution templates](iot-substitution-templates.md)\. 
 
 partition \(optional\)  
-The Kafka message partition\.
+The Kafka message partition\.  
+You can substitute this field using a substitution template\. For more information, see [Substitution templates](iot-substitution-templates.md)\. 
 
 clientProperties  
 An object that defines the properties of the Apache Kafka producer client\.    

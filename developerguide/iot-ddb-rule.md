@@ -100,7 +100,7 @@ In this rule, you'll also use a couple of [Substitution templates](iot-substitut
 
    1. In **Name**, enter the rule's name, **wx\_data\_ddb**\.
 
-      Remember that a rule name must be unique within your AWS Account and Region, and it can't have any spaces\. We've used an underscore character in this name to separate the two words in the rule's name\.
+      Remember that a rule name must be unique within your AWS account and Region, and it can't have any spaces\. We've used an underscore character in this name to separate the two words in the rule's name\.
 
    1. In **Description**, describe the rule\. 
 
@@ -170,25 +170,19 @@ Open the [MQTT client in the AWS IoT console](https://console.aws.amazon.com/iot
 
 1. In the [MQTT client in the AWS IoT console](https://console.aws.amazon.com/iot/home#/test), subscribe to the input topic, `device/+/data`\.
 
-   1. In the MQTT client, under **Subscriptions**, choose **Subscribe to a topic**\.
+   1. In the MQTT client, choose **Subscribe to a topic**\.
 
-   1. In **Subscription topic**, enter the topic of the input topic filter, **device/\+/data**\.
+   1. For **Topic filter**, enter the topic of the input topic filter, **device/\+/data**\.
 
-   1. Keep the rest of the fields at their default settings\.
+   1. Choose **Subscribe**\.
 
-   1. Choose **Subscribe to topic**\.
+1. Now, publish a message to the input topic with a specific device ID, **device/22/data**\. You can't publish to MQTT topics that contain wildcard characters\.
 
-      In the **Subscriptions** column, under **Publish to a topic**, **device/\+/data** appears\. 
+   1. In the MQTT client, choose **Publish to a topic**\.
 
-   You should see the message that you sent in the **device/\+/data** subscription\.
+   1. For **Topic name**, enter the input topic name, **device/22/data**\.
 
-1. Publish a message to the input topic with a specific device ID, **device/22/data**\. You can't publish to MQTT topics that contain wildcard characters\.
-
-   1. In the MQTT client, under **Subscriptions**, choose **Publish to topic**\.
-
-   1. In the **Publish** field, enter the input topic name, **device/22/data**\.
-
-   1. Copy the sample data shown here and, in the edit box below the topic name, paste the sample data\.
+   1. For **Message payload**, enter the following sample data\.
 
       ```
       {
@@ -202,7 +196,9 @@ Open the [MQTT client in the AWS IoT console](https://console.aws.amazon.com/iot
       }
       ```
 
-   1. To publish the MQTT message, choose **Publish to topic**\.
+   1. To publish the MQTT message, choose **Publish**\.
+
+   1. Now, in the MQTT client, choose **Subscribe to a topic**\. In the **Subscribe** column, choose the **device/\+/data** subscription\. Confirm that the sample data from the previous step appears there\.
 
 1. Check to see the row in the DynamoDB table that your rule created\.
 

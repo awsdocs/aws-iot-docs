@@ -14,7 +14,10 @@ https://IoT_data_endpoint/topics/url_encoded_topic_name?qos=1"
 ```
 +  *IoT\_data\_endpoint* is the [AWS IoT device data endpoint](iot-connect-devices.md#iot-connect-device-endpoints)\. You can find the endpoint in the AWS IoT console on the thing's details page or on the client by using the AWS CLI command: 
 
-  aws iot describe\-endpoint \-\-endpoint\-type iot:Data\-ATS
+  ```
+  aws iot describe-endpoint --endpoint-type
+                                      iot:Data-ATS
+  ```
 
    The endpoint should look something like this: `a3qjEXAMPLEffp-ats.iot.us-west-2.amazonaws.com` 
 + *url\_encoded\_topic\_name* is the full [topic name](topics.md#topicnames) of the message being sent\.

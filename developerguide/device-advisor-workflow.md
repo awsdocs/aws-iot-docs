@@ -186,7 +186,7 @@ StopSuiteRun.builder()
 
 ## Get a qualification report for a successful qualification test suite run<a name="device-advisor-workflow-qualification-report"></a>
 
-If you successfully run a qualification test suite and all test cases have passed, you can retrieve a qualification report using the GetSuiteRunReport API\. This qualification report can be used to qualify your device with the AWS IoT Core qualification program\. To determine whether your test suite is a qualification test suite, you can check whether the `intendedForQualification` parameter is set to `true`\. After you call the GetSuiteRunReport API, the download URL returned is available for you to download for 90 seconds\. If more than 90 seconds elapse from the previous time you called the GetSuiteRunReport API, call the API again to retrieve a valid URL\.
+If you run a qualification test suite that completes, you can retrieve a qualification report by using the GetSuiteRunReport API\. You can use this qualification report to qualify your device with the AWS IoT Core qualification program\. To determine whether your test suite is a qualification test suite, check whether the `intendedForQualification` parameter is set to `true`\. After you call the GetSuiteRunReport API, the download URL returned is available for you to download for 90 seconds\. If more than 90 seconds elapse from the previous time you called the GetSuiteRunReport API, call the API again to retrieve a valid URL\. 
 
 SDK example:
 

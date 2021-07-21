@@ -66,11 +66,34 @@ You need to add an IAM role that allows the Configuration and Update Server \(CU
 
    Click **Submit** to complete the gateway creation\.
 
+<<<<<<< HEAD
 ## Add a gateway using the CLI<a name="connect-iot-lorawan-onboard-gateway-cli"></a>
 
 If you're adding a gateway for the first time using the CLI, you must add the **IoTWirelessGatewayCertManager** IAM role so that the gateway can connect with AWS IoT Core for LoRaWAN\. For information about how to create the role, see the following section [Add an IAM role to allow the Configuration and Update Server \(CUPS\) to manage gateway credentials](connect-iot-lorawan-rfregion-permissions.md#connect-iot-lorawan-onboard-permissions)\.
 
 You can also use the AWS CLI to create a wireless gateway by using the [create\-wireless\-gateway](cli/latest/reference/iotwireless/create-wireless-gateway.html) command\. The following example creates a wireless LoRaWAN device gateway\. You can also provide an input\.json file that will contain additional details such as the gateway certificate and provisioning credentials\.
+=======
+## Add a gateway by using the API<a name="connect-iot-lorawan-onboard-gateway-api"></a>
+
+If you're adding a gateway for the first time by using the API or CLI, you must add the **IoTWirelessGatewayCertManager** IAM role so that the gateway can connect with AWS IoT Core for LoRaWAN\. For information about how to create the role, see the following section [Add an IAM role to allow the Configuration and Update Server \(CUPS\) to manage gateway credentials](connect-iot-lorawan-rfregion-permissions.md#connect-iot-lorawan-onboard-permissions)\.
+
+The following lists describe the API actions that perform the tasks associated with adding, updating, or deleting a LoRaWAN gateway\.
+
+**AWS IoT Wireless API actions for AWS IoT Core for LoRaWAN gateways**
++ [CreateWirelessGateway](https://docs.aws.amazon.com/iot-wireless/2020-11-22/apireference/API_CreateWirelessGateway.html)
++ [GetWirelessGateway](https://docs.aws.amazon.com/iot-wireless/2020-11-22/apireference/API_GetWirelessGateway.html)
++ [ListWirelessGateways](https://docs.aws.amazon.com/iot-wireless/2020-11-22/apireference/API_ListWirelessGateways.html)
++ [ UpdateWirelessGateway ](https://docs.aws.amazon.com/iot-wireless/2020-11-22/apireference/API_UpdateWirelessGateway.html)
++ [DeleteWirelessGateway](https://docs.aws.amazon.com/iot-wireless/2020-11-22/apireference/API_DeleteWirelessGateway.html)
+
+For the complete list of the actions and data types available to create and manage AWS IoT Core for LoRaWAN resources, see the [AWS IoT Wireless API reference](https://docs.aws.amazon.com/iot-wireless/2020-11-22/apireference/welcome.html)\.
+
+**How to use the AWS CLI to add a gateway**  
+You can use the AWS CLI to create a wireless gateway by using the [create\-wireless\-gateway](cli/latest/reference/iotwireless/create-wireless-gateway.html) command\. The following example creates a wireless LoRaWAN device gateway\. You can also provide an `input.json` file that will contain additional details such as the gateway certificate and provisioning credentials\.
+
+**Note**  
+You can also perform this procedure with the API by using the methods in the AWS API that correspond to the CLI commands shown here\. 
+>>>>>>> gausekha-repo-refresh
 
 ```
 aws iotwireless create-wireless-gateway \
@@ -80,4 +103,8 @@ aws iotwireless create-wireless-gateway \
     --cli-input-json input.json
 ```
 
+<<<<<<< HEAD
 You can add more gateways by using the `create-wireless-gateway` command and also use other CLI commands to get information about the gateway\. For example, you can use commands such as `get-wireless-gateway`, `list-wireless-gateways`, and `delete-wireless-gateways` to get information about a gateway, list the gateways you've added, and delete a gateway that you're not using\. For information about the CLIs that you can use, see [AWS CLI reference](https://docs.aws.amazon.com/cli/latest/reference/iotwireless/index.html) 
+=======
+For information about the CLIs that you can use, see [AWS CLI reference](https://docs.aws.amazon.com/cli/latest/reference/iotwireless/index.html) 
+>>>>>>> gausekha-repo-refresh

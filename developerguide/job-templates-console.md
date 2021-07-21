@@ -81,4 +81,8 @@ You can also create jobs from job templates with Fleet Hub web applications\. Fo
 
 1. Choose **Delete**\.
 
+<<<<<<< HEAD
 1. When prompted, enter the name of the job template\. Choose **Delete**\. The job template no longer appears on the **Job templates** page\.
+=======
+1. The job template no longer appears on the **Job templates** page\.
+>>>>>>> gausekha-repo-refresh

@@ -144,7 +144,7 @@ Duration: a non\-negative integer\. Valid values are 300, 600, 900, 1800, or 360
 }
 ```
 
-## Messages received \(num\-messages\-received\)<a name="detect-messages-received"></a>
+## Messages received \(aws:num\-messages\-received\)<a name="detect-messages-received"></a>
 
 The number of messages received by a device during a given time period\.
 

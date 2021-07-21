@@ -78,11 +78,11 @@ This section reviews the `pubsub.py` sample app from the **AWS IoT Device SDK v2
 
 ### Communication protocols<a name="sdk-tutorials-explore-protocols"></a>
 
-The `pubsub.py` sample demonstrates an MQTT connection using the MQTT and MQTT over WSS protocols\. The [AWS common runtime \(AWS\-CRT\)](https://github.com/awslabs/aws-crt-python#aws-crt-python) library provides the low\-level communication protocol support and is included with the AWS IoT Device SDK v2 for Python\.
+The `pubsub.py` sample demonstrates an MQTT connection using the MQTT and MQTT over WSS protocols\. The [AWS common runtime \(AWS CRT\)](https://github.com/awslabs/aws-crt-python#aws-crt-python) library provides the low\-level communication protocol support and is included with the AWS IoT Device SDK v2 for Python\.
 
 #### MQTT<a name="sdk-tutorials-explore-mqtt"></a>
 
-The `pubsub.py` sample calls `mtls_from_path` \(shown here\) in the [https://github.com/awslabs/aws-crt-python/blob/89207bcf1387177034e02fe29e8e469ca45e39b7/awscrt/awsiot_mqtt_connection_builder.py](https://github.com/awslabs/aws-crt-python/blob/89207bcf1387177034e02fe29e8e469ca45e39b7/awscrt/awsiot_mqtt_connection_builder.py) to establish a connection with AWS IoT Core by using the MQTT protocol\. `mtls_from_path` uses X\.509 certificates and TLS v1\.2 to authenticate the device\. The AWS\-CRT library handles the lower\-level details of that connection\.
+The `pubsub.py` sample calls `mtls_from_path` \(shown here\) in the [https://github.com/awslabs/aws-crt-python/blob/89207bcf1387177034e02fe29e8e469ca45e39b7/awscrt/awsiot_mqtt_connection_builder.py](https://github.com/awslabs/aws-crt-python/blob/89207bcf1387177034e02fe29e8e469ca45e39b7/awscrt/awsiot_mqtt_connection_builder.py) to establish a connection with AWS IoT Core by using the MQTT protocol\. `mtls_from_path` uses X\.509 certificates and TLS v1\.2 to authenticate the device\. The AWS CRT library handles the lower\-level details of that connection\.
 
 ```
 mqtt_connection = mqtt_connection_builder.mtls_from_path(
@@ -207,7 +207,7 @@ Without a persistent session, the device will not receive messages that are sent
 
 When the device publishes and subscribes to messages, the preferred Quality of Service \(QoS\) can be set\. AWS IoT supports QoS levels 0 and 1 for publish and subscribe operations\. For more information about QoS levels in AWS IoT, see [MQTT Quality of Service \(QoS\) options](mqtt.md#mqtt-qos)\.
 
-The AWS\-CRT runtime for Python defines these constants for the QoS levels that it supports:
+The AWS CRT runtime for Python defines these constants for the QoS levels that it supports:
 
 
 **Python Quality of Service levels**  
@@ -314,7 +314,7 @@ If a device's session no longer exists when it reconnects, it must resubscribe t
 
 ## Connect your device and communicate with AWS IoT Core<a name="sdk-tutorials-experiment"></a>
 
-This section presents some exercises to help you explore different aspects of connecting your device to AWS IoT Core\. For these exercises, you’ll use the [MQTT test client](https://console.aws.amazon.com/iot/home#/test) in the AWS IoT console to see what your device publishes and to publish messages to your device\. These exercises use the [https://github.com/aws/aws-iot-device-sdk-python-v2/blob/master/samples/pubsub.py](https://github.com/aws/aws-iot-device-sdk-python-v2/blob/master/samples/pubsub.py) sample from the [AWS IoT Device SDK v2 for Python](https://github.com/aws/aws-iot-device-sdk-python-v2/tree/master/samples#sample-apps-for-the-aws-iot-device-sdk-v2-for-python) and build on your experience with the Getting started tutorials\. 
+This section presents some exercises to help you explore different aspects of connecting your device to AWS IoT Core\. For these exercises, you’ll use the [MQTT test client](https://console.aws.amazon.com/iot/home#/test) in the AWS IoT console to see what your device publishes and to publish messages to your device\. These exercises use the [https://github.com/aws/aws-iot-device-sdk-python-v2/blob/master/samples/pubsub.py](https://github.com/aws/aws-iot-device-sdk-python-v2/blob/master/samples/pubsub.py) sample from the [AWS IoT Device SDK v2 for Python](https://github.com/aws/aws-iot-device-sdk-python-v2/tree/master/samples#sample-apps-for-the-aws-iot-device-sdk-v2-for-python) and build on your experience with [Getting started with AWS IoT Core](iot-gs.md) tutorials\. 
 
 **Topics**
 + [Subscribe to wild card topic filters](#sdk-tutorials-experiment-wild)
@@ -324,7 +324,7 @@ This section presents some exercises to help you explore different aspects of co
 For these exercises, you'll start from the `pubsub.py` sample program\.
 
 **Note**  
-These exercises assume that you completed the Getting started tutorials and use the terminal window for your device from that tutorial\.
+These exercises assume that you completed the [Getting started with AWS IoT Core](iot-gs.md) tutorials and use the terminal window for your device from that tutorial\.
 
 ### Subscribe to wild card topic filters<a name="sdk-tutorials-experiment-wild"></a>
 
@@ -334,7 +334,7 @@ In this exercise, you’ll modify the command line used to call `pubsub.py` to s
 
 For this exercise, imagine that your device contains a temperature control and a light control\. It uses these topic names to identify the messages about them\.
 
-1. Before starting the exercise, try running this command from the Getting started tutorials on your device to make sure everything is ready for the exercise\.
+1. Before starting the exercise, try running this command from the [Getting started with AWS IoT Core](iot-gs.md) tutorials on your device to make sure everything is ready for the exercise\.
 
    ```
    cd ~/aws-iot-device-sdk-python-v2/samples

@@ -15,7 +15,11 @@ LoRa Alliance publishes LoRaWAN specifications and regional parameter documents 
 
 This procedure describes how to add an IAM role that will allow the Configuration and Update Server \(CUPS\) to manage gateway credentials\. Make sure you perform this procedure before a LoRaWAN gateway tries to connect with AWS IoT Core for LoRaWAN; however, you need to do this only once\.
 
+<<<<<<< HEAD
 **To add the IAM role to allow the Configuration and Update Server \(CUPS\) to manage gateway credentials:**
+=======
+**Add the IAM role to allow the Configuration and Update Server \(CUPS\) to manage gateway credentials**
+>>>>>>> gausekha-repo-refresh
 
 1. Open the [ Roles hub of the IAM console](https://console.aws.amazon.com/iam/home#/roles) and choose **Create role**\.
 

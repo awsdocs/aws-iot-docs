@@ -11,8 +11,8 @@ The condition context keys and values in an IAM policy apply only to those AWS I
 For more information about using tags, see [Controlling Access Using Tags](https://docs.aws.amazon.com/IAM/latest/UserGuide/access_tags.html) in the *AWS Identity and Access Management User Guide*\. The [IAM JSON Policy Reference](https://docs.aws.amazon.com/IAM/latest/UserGuide/reference_policies.html) section of that guide has detailed syntax, descriptions, and examples of the elements, variables, and evaluation logic of JSON policies in IAM\.
 
 The following example policy applies two tag\-based restrictions\. An IAM user restricted by this policy:
-+ Cannot give a resource the tag "env=prod" \(in the example, see the line `"aws:RequestTag/env" : "prod"`
-+ Cannot modify or access a resource that has an existing tag "env=prod" \(in the example, see the line `"aws:ResourceTag/env" : "prod"`\)\.
++ Can't give a resource the tag "env=prod" \(in the example, see the line `"aws:RequestTag/env" : "prod"`
++ Can't modify or access a resource that has an existing tag "env=prod" \(in the example, see the line `"aws:ResourceTag/env" : "prod"`\)\.
 
 ```
 {

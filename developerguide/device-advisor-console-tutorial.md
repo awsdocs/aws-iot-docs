@@ -19,7 +19,7 @@ To complete this tutorial, you need to complete the steps outlined in [Setting u
 1. In the [AWS IoT console](https://console.aws.amazon.com/iot), in the navigation pane, expand **Test**, **Device Advisor** and then choose **Test suites**\.  
 ![\[Image NOT FOUND\]](http://docs.aws.amazon.com/iot/latest/developerguide/images/da-testsuite.png)
 
-1. Select **Create Test Suite**\. Choose between Use the AWS Qualification test suite and Create a new test suite\.  
+1. Select **Create Test Suite**\. Choose between Use the AWS Qualification test suite and Create a new test suite\. Select the device role that was created as part of [Setting up](https://docs.aws.amazon.com/iot/latest/developerguide/device-advisor-setting-up.html)\.  
 ![\[Image NOT FOUND\]](http://docs.aws.amazon.com/iot/latest/developerguide/images/da-create-test-suite.png)
 
    Choose Use the AWS Qualification test suite if you'd like to qualify and list your device to the AWS Partner Device Catalog\. By choosing this option, test cases required for qualification of your device to the AWS IoT Core qualification program are pre\-selected\. Test groups and test cases can't be added or removed\. However, you'll still need to configure the test suite properties\.  
@@ -32,10 +32,13 @@ To complete this tutorial, you need to complete the steps outlined in [Setting u
 
    Under **Test suite properties**, fill out the following\.
    + **Test suite name**: You can create the suite with a custom name\.
+<<<<<<< HEAD
    + **Device role ARN**: Provide the device role ARN that was created as part of the [prerequisites](device-advisor-setting-up.md)\.
+=======
+>>>>>>> gausekha-repo-refresh
    + **Timeout** \(optional\): The timeout in seconds for each test case in the current test suite\. If you don't specify a timeout value, the default value is used\.
    + **Tags** \(optional\): Add tags to the test suite that you're going to create\.  
-![\[Image NOT FOUND\]](http://docs.aws.amazon.com/iot/latest/developerguide/images/da-test-suite-properties-panel.png)
+![\[Image NOT FOUND\]](http://docs.aws.amazon.com/iot/latest/developerguide/images/da-test-suite-properties-1.png)
 
    When you've finished, choose **Update properties**\.
 
@@ -115,6 +118,6 @@ To add more test groups to the test suite, choose **Add test group**\. Follow th
 
 ## Download an AWS IoT qualification report<a name="device-advisor-console-qualification-report"></a>
 
-If you chose the **Use the AWS IoT Qualification test suite** option while creating a test suite and were able to successfully run a qualification test suite, you can download a qualification report by choosing **Download qualification report** in the test run summary page\.
+If you chose the **Use the AWS IoT Qualification test suite** option while creating a test suite and were able to run a qualification test suite, you can download a qualification report by choosing **Download qualification report** in the test run summary page\.
 
 ![\[Image NOT FOUND\]](http://docs.aws.amazon.com/iot/latest/developerguide/images/da-qualification-report.png)

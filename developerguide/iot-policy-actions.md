@@ -14,16 +14,19 @@ Represents the permission to receive a message from AWS IoT Core\. The `iot:Rece
 
 iot:Subscribe  
 Represents the permission to subscribe to a topic filter\. This permission is checked every time a SUBSCRIBE request is sent to the broker\. This can be used to allow clients to subscribe to topics that match specific topic patterns\.  
-To grant `iot:Subscribe` permission, you must also grant `iot:Connect` permission\.Shadow Policy Actions
+To grant `iot:Subscribe` permission, you must also grant `iot:Connect` permission\.Device Shadow Policy Actions
 
 iot:DeleteThingShadow  
-Represents the permission to delete a device's shadow\. The `iot:DeleteThingShadow` permission is checked every time a request is made to delete the shadow's contents\.
+Represents the permission to delete a thing's Device Shadow\. The `iot:DeleteThingShadow` permission is checked every time a request is made to delete a thing's Device Shadow contents\.
 
 iot:GetThingShadow  
-Represents the permission to retrieve a device's shadow\. The `iot:GetThingShadow` permission is checked every time a request is made to retrieve the shadow's contents\.
+Represents the permission to retrieve a thing's Device Shadow\. The `iot:GetThingShadow` permission is checked every time a request is made to retrieve a thing's Device Shadow contents\.
+
+iot:ListNamedShadowsForThing  
+Represents the permission to list a thing's named Shadows\. The `iot:ListNamedShadowsForThing` permission is checked every time a request is made to list a thing's named Shadows\.
 
 iot:UpdateThingShadow  
-Represents the permission to update a device's shadow\. The `iot:UpdateThingShadow` permission is checked every time a request is made to update the shadow's contents\.
+Represents the permission to update a device's shadow\. The `iot:UpdateThingShadow` permission is checked every time a request is made to update a thing's Device Shadow contents\.
 
 **Note**  
 The job execution policy actions apply only for the HTTP TLS endpoint\. If you use the MQTT endpoint, you must use MQTT policy actions defined in this topic\.Job Executions AWS IoT Core Policy Actions

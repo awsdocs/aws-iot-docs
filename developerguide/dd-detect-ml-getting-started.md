@@ -2,7 +2,7 @@
 
 In this Getting Started guide, you create an ML Detect Security Profile that uses machine learning \(ML\) to create models of expected behavior based on historical metric data from your devices\. While ML Detect is creating the ML model, you can monitor its progress\. After the ML model is built, you can view and investigate alarms on an ongoing basis and mitigate identified issues\.
 
-For more information about ML Detect and its API and CLI commands, see [ML Detect reference](dd-detect-ml.md)\.
+For more information about ML Detect and its API and CLI commands, see [ML Detect](dd-detect-ml.md)\.
 
 **Topics**
 + [Prerequisites](#ml-detect-prereqs)

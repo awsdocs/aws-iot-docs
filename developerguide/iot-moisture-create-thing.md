@@ -16,7 +16,7 @@ Create a thing in the AWS IoT registry to represent your Raspberry Pi\.
 **Important**  
 This is the only time you can download your certificate and private key\.
 
-1. Choose **Activate**\.
+1. To activate the certificate, choose **Activate**\. The certificate must be active for a device to connect to AWS IoT\.
 
 1. Choose **Attach a policy**\.
 

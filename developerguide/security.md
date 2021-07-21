@@ -17,6 +17,7 @@ This documentation helps you understand how to apply the shared responsibility m
 + [Logging and Monitoring](security-logging.md)
 + [Compliance validation for AWS IoT Core](compliance.md)
 + [Resilience in AWS IoT Core](disaster-recovery-resiliency.md)
++ [Using AWS IoT Core with Interface VPC endpoints](IoTCore-VPC.md)
 + [Infrastructure security in AWS IoT](infrastructure-security.md)
 + [Vulnerability analysis and management in AWS IoT Core](vulnerability-analysis-and-management.md)
 + [Security best practices in AWS IoT Core](security-best-practices.md)

@@ -31,4 +31,12 @@ Content-type: application/json
       ],
   “WirelessDeviceId”: “30cbdcf3-86de-4291-bfab-5bfa2b12bad5"
 }
+<<<<<<< HEAD
 ```
+=======
+```
+
+## Next steps<a name="connect-iot-lorawan-device-connection-next-steps"></a>
+
+Now that you have connected your device and verified the connection status, you can observe the format of the uplink metadata recieved from the device by using the [ MQTT test client](https://console.aws.amazon.com/iot/home#/test) on the **Test** page of the AWS IoT console\. For more information, see [View format of uplink messages sent from LoRaWAN devices](connect-iot-lorawan-uplink-metadata-format.md)\.
+>>>>>>> gausekha-repo-refresh

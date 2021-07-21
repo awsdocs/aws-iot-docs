@@ -28,19 +28,20 @@ The following table lists the IAM IoT actions, the associated AWS IoT API, and t
 
 | Policy actions | AWS IoT API | Resources | 
 | --- | --- | --- | 
-| iot:AcceptCertificateTransfer | AcceptCertificateTransfer |  arn:aws:iot:*region*:*account\-id*:cert/*cert\-id*  The AWS account specified in the ARN must be the account to which the certificate is being transferred\.   | 
-| iot:AddThingToThingGroup | AddThingToThingGroup |  arn:aws:iot:*region*:*account\-id*:thinggroup/*thing\-group\-name* arn:aws:iot:*region*:*account\-id*:thing/*thing\-name*  | 
+| iot:AcceptCertificateTransfer | AcceptCertificateTransfer |  `arn:aws:iot:region:account-id:cert/cert-id`  The AWS account specified in the ARN must be the account to which the certificate is being transferred\.   | 
+| iot:AddThingToThingGroup | AddThingToThingGroup |  `arn:aws:iot:region:account-id:thinggroup/thing-group-name` `arn:aws:iot:region:account-id:thing/thing-name`  | 
 | iot:AssociateTargetsWithJob | AssociateTargetsWithJob | none  | 
-| iot:AttachPolicy | AttachPolicy |  arn:aws:iot:*region*:*account\-id*:thinggroup/*thing\-group\-name* or arn:aws:iot:*region*:*account\-id*:cert/*cert\-id*  | 
-| iot:AttachPrincipalPolicy | AttachPrincipalPolicy |  arn:aws:iot:*region*:*account\-id*:cert/*cert\-id*  | 
-| iot:AttachSecurityProfile | AttachSecurityProfile |  arn:aws:iot:*region*:*account\-id*:securityprofile/*security\-profile\-name* arn:aws:iot:*region*:*account\-id*:dimension/*dimension\-name*  | 
-| iot:AttachThingPrincipal | AttachThingPrincipal |  arn:aws:iot:*region*:*account\-id*:cert/*cert\-id*  | 
-| iot:CancelCertificateTransfer | CancelCertificateTransfer |  arn:aws:iot:*region*:*account\-id*:cert/*cert\-id*  The AWS account specified in the ARN must be the account to which the certificate is being transferred\.   | 
-| iot:CancelJob | CancelJob |  arn:aws:iot:*region*:*account\-id*:job/*job\-id*  | 
-| iot:CancelJobExecution | CancelJobExecution |  arn:aws:iot:*region*:*account\-id*:job/*job\-id* arn:aws:iot:*region*:*account\-id*:thing/*thing\-name*  | 
+| iot:AttachPolicy | AttachPolicy |  `arn:aws:iot:region:account-id:thinggroup/thing-group-name` or `arn:aws:iot:region:account-id:cert/cert-id`  | 
+| iot:AttachPrincipalPolicy | AttachPrincipalPolicy |  `arn:aws:iot:region:account-id:cert/cert-id`  | 
+| iot:AttachSecurityProfile | AttachSecurityProfile |  `arn:aws:iot:region:account-id:securityprofile/security-profile-name` `arn:aws:iot:region:account-id:dimension/dimension-name`  | 
+| iot:AttachThingPrincipal | AttachThingPrincipal |  `arn:aws:iot:region:account-id:cert/cert-id`  | 
+| iot:CancelCertificateTransfer | CancelCertificateTransfer |  `arn:aws:iot:region:account-id:cert/cert-id`  The AWS account specified in the ARN must be the account to which the certificate is being transferred\.   | 
+| iot:CancelJob | CancelJob |  `arn:aws:iot:region:account-id:job/job-id`  | 
+| iot:CancelJobExecution | CancelJobExecution |  `arn:aws:iot:region:account-id:job/job-id` `arn:aws:iot:region:account-id:thing/thing-name`  | 
 | iot:ClearDefaultAuthorizer | ClearDefaultAuthorizer | None | 
-| iot:CreateAuthorizer | CreateAuthorizer |  arn:aws:iot:*region*:*account\-id*:authorizer/*authorizer\-function\-name*  | 
+| iot:CreateAuthorizer | CreateAuthorizer |  `arn:aws:iot:region:account-id:authorizer/authorizer-function-name`  | 
 | iot:CreateCertificateFromCsr | CreateCertificateFromCsr | \* | 
+<<<<<<< HEAD
 | iot:CreateDimension | CreateDimension | arn:aws:iot:region:account\-id:dimension/dimension\-name | 
 | iot:CreateJob | CreateJob |  arn:aws:iot:*region*:*account\-id*:job/*job\-id* arn:aws:iot:*region*:*account\-id*:thinggroup/*thing\-group\-name* arn:aws:iot:*region*:*account\-id*:thing/*thing\-name* arn:aws:iot:*region*:*account\-id*:jobtemplate/*job\-template\-id*  | 
 | iot:CreateJobTemplate | CreateJobTemplate |  arn:aws:iot:*region*:*account\-id*:job/*job\-id* arn:aws:iot:*region*:*account\-id*:jobtemplate/*job\-template\-id*  | 
@@ -62,45 +63,75 @@ The following table lists the IAM IoT actions, the associated AWS IoT API, and t
 | iot:DeleteJobExecution | DeleteJobExecution |  arn:aws:iot:*region*:*account\-id*:job/*job\-id* arn:aws:iot:*region*:*account\-id*:thing/*thing\-name*  | 
 | iot:DeletePolicy | DeletePolicy |  arn:aws:iot:*region*:*account\-id*:policy/*policy\-name*  | 
 | iot:DeletePolicyVersion | DeletePolicyVersion |  arn:aws:iot:*region*:*account\-id*:policy/*policy\-name*  | 
+=======
+| iot:CreateDimension | CreateDimension | `arn:aws:iot:region:account-id:dimension/dimension-name` | 
+| iot:CreateJob | CreateJob |  `arn:aws:iot:region:account-id:job/job-id` `arn:aws:iot:region:account-id:thinggroup/thing-group-name` `arn:aws:iot:region:account-id:thing/thing-name` `arn:aws:iot:region:account-id:jobtemplate/job-template-id`  | 
+| iot:CreateJobTemplate | CreateJobTemplate |  `arn:aws:iot:region:account-id:job/job-id` `arn:aws:iot:region:account-id:jobtemplate/job-template-id`  | 
+| iot:CreateKeysAndCertificate | CreateKeysAndCertificate | \* | 
+| iot:CreatePolicy | CreatePolicy | \* | 
+| iot:CreatePolicyVersion | CreatePolicyVersion |  `arn:aws:iot:region:account-id:policy/policy-name`  This must be an AWS IoT policy, not an IAM policy\.   | 
+| iot:CreateRoleAlias | CreateRoleAlias |  \(parameter: roleAlias\) `arn:aws:iot:region:account-id:rolealias/role-alias-name`  | 
+| iot:CreateSecurityProfile | CreateSecurityProfile |  `arn:aws:iot:region:account-id:securityprofile/security-profile-name` `arn:aws:iot:region:account-id:dimension/dimension-name`  | 
+| iot:CreateThing | CreateThing |  `arn:aws:iot:region:account-id:thing/thing-name`  | 
+| iot:CreateThingGroup | CreateThingGroup |  `arn:aws:iot:region:account-id:thinggroup/thing-group-name` for group being created and for parent group, if used  | 
+| iot:CreateThingType | CreateThingType |  `arn:aws:iot:region:account-id:thingtype/thing-type-name`  | 
+| iot:CreateTopicRule | CreateTopicRule |  `arn:aws:iot:region:account-id:rule/rule-name`  | 
+| iot:DeleteAuthorizer | DeleteAuthorizer |  `arn:aws:iot:region:account-id:authorizer/authorizer-name`  | 
+| iot:DeleteCACertificate | DeleteCACertificate |  `arn:aws:iot:region:account-id:cacert/cert-id`  | 
+| iot:DeleteCertificate | DeleteCertificate |  `arn:aws:iot:region:account-id:cert/cert-id`  | 
+| iot:DeleteDimension | DeleteDimension |  `arn:aws:iot:region:account-id:dimension/dimension-name`  | 
+| iot:DeleteJob | DeleteJob |  `arn:aws:iot:region:account-id:job/job-id`  | 
+| iot:DeleteJobTemplate | DeleteJobTemplate |  `arn:aws:iot:region:account-id:job/job-template-id`  | 
+| iot:DeleteJobExecution | DeleteJobExecution |  `arn:aws:iot:region:account-id:job/job-id` `arn:aws:iot:region:account-id:thing/thing-name`  | 
+| iot:DeletePolicy | DeletePolicy |  `arn:aws:iot:region:account-id:policy/policy-name`  | 
+| iot:DeletePolicyVersion | DeletePolicyVersion |  `arn:aws:iot:region:account-id:policy/policy-name`  | 
+>>>>>>> gausekha-repo-refresh
 | iot:DeleteRegistrationCode | DeleteRegistrationCode | \* | 
-| iot:DeleteRoleAlias | DeleteRoleAlias |  arn:aws:iot:*region*:*account\-id*:rolealias/*role\-alias\-name*  | 
-| iot:DeleteSecurityProfile | DeleteSecurityProfile |  arn:aws:iot:*region*:*account\-id*:securityprofile/*security\-profile\-name* arn:aws:iot:*region*:*account\-id*:dimension/*dimension\-name*  | 
-| iot:DeleteThing | DeleteThing |  arn:aws:iot:*region*:*account\-id*:thing/*thing\-name*  | 
-| iot:DeleteThingGroup | DeleteThingGroup |  arn:aws:iot:*region*:*account\-id*:thinggroup/*thing\-group\-name*  | 
-| iot:DeleteThingType | DeleteThingType |  arn:aws:iot:*region*:*account\-id*:thingtype/*thing\-type\-name*  | 
-| iot:DeleteTopicRule | DeleteTopicRule |  arn:aws:iot:*region*:*account\-id*:rule/*rule\-name*  | 
-| iot:DeleteV2LoggingLevel | DeleteV2LoggingLevel |  arn:aws:iot:*region*:*account\-id*:thinggroup/*thing\-group\-name*  | 
-| iot:DeprecateThingType | DeprecateThingType |  arn:aws:iot:*region*:*account\-id*:thingtype/*thing\-type\-name*  | 
-| iot:DescribeAuthorizer | DescribeAuthorizer |  arn:aws:iot:*region*:*account\-id*:authorizer/*authorizer\-function\-name* \(parameter: authorizerName\) none  | 
-| iot:DescribeCACertificate | DescribeCACertificate |  arn:aws:iot:*region*:*account\-id*:cacert/*cert\-id*  | 
-| iot:DescribeCertificate | DescribeCertificate |  arn:aws:iot:*region*:*account\-id*:cert/*cert\-id*  | 
+| iot:DeleteRoleAlias | DeleteRoleAlias |  `arn:aws:iot:region:account-id:rolealias/role-alias-name`  | 
+| iot:DeleteSecurityProfile | DeleteSecurityProfile |  `arn:aws:iot:region:account-id:securityprofile/security-profile-name` `arn:aws:iot:region:account-id:dimension/dimension-name`  | 
+| iot:DeleteThing | DeleteThing |  `arn:aws:iot:region:account-id:thing/thing-name`  | 
+| iot:DeleteThingGroup | DeleteThingGroup |  `arn:aws:iot:region:account-id:thinggroup/thing-group-name`  | 
+| iot:DeleteThingType | DeleteThingType |  `arn:aws:iot:region:account-id:thingtype/thing-type-name`  | 
+| iot:DeleteTopicRule | DeleteTopicRule |  `arn:aws:iot:region:account-id:rule/rule-name`  | 
+| iot:DeleteV2LoggingLevel | DeleteV2LoggingLevel |  `arn:aws:iot:region:account-id:thinggroup/thing-group-name`  | 
+| iot:DeprecateThingType | DeprecateThingType |  `arn:aws:iot:region:account-id:thingtype/thing-type-name`  | 
+| iot:DescribeAuthorizer | DescribeAuthorizer |  `arn:aws:iot:region:account-id:authorizer/authorizer-function-name` \(parameter: authorizerName\) none  | 
+| iot:DescribeCACertificate | DescribeCACertificate |  `arn:aws:iot:region:account-id:cacert/cert-id`  | 
+| iot:DescribeCertificate | DescribeCertificate |  `arn:aws:iot:region:account-id:cert/cert-id`  | 
 | iot:DescribeDefaultAuthorizer | DescribeDefaultAuthorizer | None  | 
 | iot:DescribeEndpoint | DescribeEndpoint | \* | 
 | iot:DescribeEventConfigurations | DescribeEventConfigurations | none  | 
-| iot:DescribeIndex | DescribeIndex |  arn:aws:iot:*region*:*account\-id*:index/*index\-name*  | 
-| iot:DescribeJob | DescribeJob |  arn:aws:iot:*region*:*account\-id*:job/*job\-id*  | 
+| iot:DescribeIndex | DescribeIndex |  `arn:aws:iot:region:account-id:index/index-name`  | 
+| iot:DescribeJob | DescribeJob |  `arn:aws:iot:region:account-id:job/job-id`  | 
 | iot:DescribeJobExecution | DescribeJobExecution | None | 
+<<<<<<< HEAD
 | iot:DescribeJobTemplate | DescribeJobTemplate |  arn:aws:iot:*region*:*account\-id*:job/*job\-template\-id*  | 
 | iot:DescribeRoleAlias | DescribeRoleAlias |  arn:aws:iot:*region*:*account\-id*:rolealias/*role\-alias\-name*  | 
 | iot:DescribeThing | DescribeThing |  arn:aws:iot:*region*:*account\-id*:thing/*thing\-name*  | 
 | iot:DescribeThingGroup | DescribeThingGroup |  arn:aws:iot:*region*:*account\-id*:thinggroup/*thing\-group\-name*  | 
+=======
+| iot:DescribeJobTemplate | DescribeJobTemplate |  `arn:aws:iot:region:account-id:job/job-template-id`  | 
+| iot:DescribeRoleAlias | DescribeRoleAlias |  `arn:aws:iot:region:account-id:rolealias/role-alias-name`  | 
+| iot:DescribeThing | DescribeThing |  `arn:aws:iot:region:account-id:thing/thing-name`  | 
+| iot:DescribeThingGroup | DescribeThingGroup |  `arn:aws:iot:region:account-id:thinggroup/thing-group-name`  | 
+>>>>>>> gausekha-repo-refresh
 | iot:DescribeThingRegistrationTask | DescribeThingRegistrationTask | None | 
-| iot:DescribeThingType | DescribeThingType |  arn:aws:iot:*region*:*account\-id*:thingtype/*thing\-type\-name*  | 
-| iot:DetachPolicy | DetachPolicy |  arn:aws:iot:*region*:*account\-id*:cert/*cert\-id* or arn:aws:iot:*region*:*account\-id*:thinggroup/*thing\-group\-name*  | 
-| iot:DetachPrincipalPolicy | DetachPrincipalPolicy |  arn:aws:iot:*region*:*account\-id*:cert/*cert\-id*  | 
-| iot:DetachSecurityProfile | DetachSecurityProfile |  arn:aws:iot:*region*:*account\-id*:securityprofile/*security\-profile\-name* arn:aws:iot:*region*:*account\-id*:dimension/*dimension\-name*  | 
-| iot:DetachThingPrincipal | DetachThingPrincipal |  arn:aws:iot:*region*:*account\-id*:cert/*cert\-id*  | 
-| iot:DisableTopicRule | DisableTopicRule |  arn:aws:iot:*region*:*account\-id*:rule/*rule\-name*  | 
-| iot:EnableTopicRule | EnableTopicRule |  arn:aws:iot:*region*:*account\-id*:rule/*rule\-name*  | 
-| iot:GetEffectivePolicies | GetEffectivePolicies |  arn:aws:iot:*region*:*account\-id*:cert/*cert\-id*  | 
+| iot:DescribeThingType | DescribeThingType |  `arn:aws:iot:region:account-id:thingtype/thing-type-name`  | 
+| iot:DetachPolicy | DetachPolicy |  `arn:aws:iot:region:account-id:cert/cert-id` or `arn:aws:iot:region:account-id:thinggroup/thing-group-name`  | 
+| iot:DetachPrincipalPolicy | DetachPrincipalPolicy |  `arn:aws:iot:region:account-id:cert/cert-id`  | 
+| iot:DetachSecurityProfile | DetachSecurityProfile |  `arn:aws:iot:region:account-id:securityprofile/security-profile-name` `arn:aws:iot:region:account-id:dimension/dimension-name`  | 
+| iot:DetachThingPrincipal | DetachThingPrincipal |  `arn:aws:iot:region:account-id:cert/cert-id`  | 
+| iot:DisableTopicRule | DisableTopicRule |  `arn:aws:iot:region:account-id:rule/rule-name`  | 
+| iot:EnableTopicRule | EnableTopicRule |  `arn:aws:iot:region:account-id:rule/rule-name`  | 
+| iot:GetEffectivePolicies | GetEffectivePolicies |  `arn:aws:iot:region:account-id:cert/cert-id`  | 
 | iot:GetIndexingConfiguration | GetIndexingConfiguration | None | 
-| iot:GetJobDocument | GetJobDocument |  arn:aws:iot:*region*:*account\-id*:job/*job\-id*  | 
+| iot:GetJobDocument | GetJobDocument |  `arn:aws:iot:region:account-id:job/job-id`  | 
 | iot:GetLoggingOptions | GetLoggingOptions | \* | 
-| iot:GetPolicy | GetPolicy |  arn:aws:iot:*region*:*account\-id*:policy/*policy\-name*  | 
-| iot:GetPolicyVersion | GetPolicyVersion |  arn:aws:iot:*region*:*account\-id*:policy/*policy\-name*  | 
+| iot:GetPolicy | GetPolicy |  `arn:aws:iot:region:account-id:policy/policy-name`  | 
+| iot:GetPolicyVersion | GetPolicyVersion |  `arn:aws:iot:region:account-id:policy/policy-name`  | 
 | iot:GetRegistrationCode | GetRegistrationCode | \* | 
-| iot:GetTopicRule | GetTopicRule |  arn:aws:iot:*region*:*account\-id*:rule/*rule\-name*  | 
-| iot:ListAttachedPolicies | ListAttachedPolicies |  arn:aws:iot:*region*:*account\-id*:thinggroup/*thing\-group\-name* or arn:aws:iot:*region*:*account\-id*:cert/*cert\-id*  | 
+| iot:GetTopicRule | GetTopicRule |  `arn:aws:iot:region:account-id:rule/rule-name`  | 
+| iot:ListAttachedPolicies | ListAttachedPolicies |  `arn:aws:iot:region:account-id:thinggroup/thing-group-name` or `arn:aws:iot:region:account-id:cert/cert-id`  | 
 | iot:ListAuthorizers | ListAuthorizers | None | 
 | iot:ListCACertificates | ListCACertificates | \* | 
 | iot:ListCertificates | ListCertificates | \* | 
@@ -108,54 +139,58 @@ The following table lists the IAM IoT actions, the associated AWS IoT API, and t
 | iot:ListIndices | ListIndices | None | 
 | iot:ListJobExecutionsForJob | ListJobExecutionsForJob | None | 
 | iot:ListJobExecutionsForThing | ListJobExecutionsForThing | None | 
+<<<<<<< HEAD
 | iot:ListJobs | ListJobs |  arn:aws:iot:*region*:*account\-id*:thinggroup/*thing\-group\-name* if thingGroupName parameter used  | 
+=======
+| iot:ListJobs | ListJobs |  `arn:aws:iot:region:account-id:thinggroup/thing-group-name` if thingGroupName parameter used  | 
+>>>>>>> gausekha-repo-refresh
 | iot:ListJobTemplates | ListJobs | None | 
 | iot:ListOutgoingCertificates | ListOutgoingCertificates | \* | 
 | iot:ListPolicies | ListPolicies | \* | 
-| iot:ListPolicyPrincipals | ListPolicyPrincipals |  arn:aws:iot:*region*:*account\-id*:policy/*policy\-name*  | 
-| iot:ListPolicyVersions | ListPolicyVersions |  arn:aws:iot:*region*:*account\-id*:policy/*policy\-name*  | 
-| iot:ListPrincipalPolicies | ListPrincipalPolicies |  arn:aws:iot:*region*:*account\-id*:cert/*cert\-id*  | 
-| iot:ListPrincipalThings | ListPrincipalThings |  arn:aws:iot:*region*:*account\-id*:cert/*cert\-id*  | 
+| iot:ListPolicyPrincipals | ListPolicyPrincipals |  `arn:aws:iot:region:account-id:policy/policy-name`  | 
+| iot:ListPolicyVersions | ListPolicyVersions |  `arn:aws:iot:region:account-id:policy/policy-name`  | 
+| iot:ListPrincipalPolicies | ListPrincipalPolicies |  `arn:aws:iot:region:account-id:cert/cert-id`  | 
+| iot:ListPrincipalThings | ListPrincipalThings |  `arn:aws:iot:region:account-id:cert/cert-id`  | 
 | iot:ListRoleAliases | ListRoleAliases | None | 
-| iot:ListTargetsForPolicy | ListTargetsForPolicy |  arn:aws:iot:*region*:*account\-id*:policy/*policy\-name*  | 
+| iot:ListTargetsForPolicy | ListTargetsForPolicy |  `arn:aws:iot:region:account-id:policy/policy-name`  | 
 | iot:ListThingGroups | ListThingGroups | None | 
-| iot:ListThingGroupsForThing | ListThingGroupsForThing |  arn:aws:iot:*region*:*account\-id*:thing/*thing\-name*  | 
-| iot:ListThingPrincipals | ListThingPrincipals |  arn:aws:iot:*region*:*account\-id*:thing/*thing\-name*  | 
+| iot:ListThingGroupsForThing | ListThingGroupsForThing |  `arn:aws:iot:region:account-id:thing/thing-name`  | 
+| iot:ListThingPrincipals | ListThingPrincipals |  `arn:aws:iot:region:account-id:thing/thing-name`  | 
 | iot:ListThingRegistrationTaskReports | ListThingRegistrationTaskReports | None | 
 | iot:ListThingRegistrationTasks | ListThingRegistrationTasks | None | 
 | iot:ListThingTypes | ListThingTypes | \* | 
 | iot:ListThings | ListThings | \* | 
-| iot:ListThingsInThingGroup | ListThingsInThingGroup |  arn:aws:iot:*region*:*account\-id*:thinggroup/*thing\-group\-name*  | 
+| iot:ListThingsInThingGroup | ListThingsInThingGroup |  `arn:aws:iot:region:account-id:thinggroup/thing-group-name`  | 
 | iot:ListTopicRules | ListTopicRules | \* | 
 | iot:ListV2LoggingLevels | ListV2LoggingLevels | None | 
 | iot:RegisterCACertificate | RegisterCACertificate | \* | 
 | iot:RegisterCertificate | RegisterCertificate | \* | 
 | iot:RegisterThing | RegisterThing | None | 
-| iot:RejectCertificateTransfer | RejectCertificateTransfer |  arn:aws:iot:*region*:*account\-id*:cert/*cert\-id*  | 
-| iot:RemoveThingFromThingGroup | RemoveThingFromThingGroup |  arn:aws:iot:*region*:*account\-id*:thinggroup/*thing\-group\-name* arn:aws:iot:*region*:*account\-id*:thing/*thing\-name*  | 
-| iot:ReplaceTopicRule | ReplaceTopicRule |  arn:aws:iot:*region*:*account\-id*:rule/*rule\-name*  | 
-| iot:SearchIndex | SearchIndex |  arn:aws:iot:*region*:*account\-id*:index/*index\-id*  | 
-| iot:SetDefaultAuthorizer | SetDefaultAuthorizer |  arn:aws:iot:*region*:*account\-id*:authorizer/*authorizer\-function\-name*  | 
-| iot:SetDefaultPolicyVersion | SetDefaultPolicyVersion |  arn:aws:iot:*region*:*account\-id*:policy/*policy\-name*  | 
-| iot:SetLoggingOptions | SetLoggingOptions |  arn:aws:iot:*region*:*account\-id*:role/*role\-name*  | 
-| iot:SetV2LoggingLevel | SetV2LoggingLevel |  arn:aws:iot:*region*:*account\-id*:thinggroup/*thing\-group\-name*  | 
-| iot:SetV2LoggingOptions | SetV2LoggingOptions |  arn:aws:iot:*region*:*account\-id*:role/*role\-name*  | 
+| iot:RejectCertificateTransfer | RejectCertificateTransfer |  `arn:aws:iot:region:account-id:cert/cert-id`  | 
+| iot:RemoveThingFromThingGroup | RemoveThingFromThingGroup |  `arn:aws:iot:region:account-id:thinggroup/thing-group-name` `arn:aws:iot:region:account-id:thing/thing-name`  | 
+| iot:ReplaceTopicRule | ReplaceTopicRule |  `arn:aws:iot:region:account-id:rule/rule-name`  | 
+| iot:SearchIndex | SearchIndex |  `arn:aws:iot:region:account-id:index/index-id`  | 
+| iot:SetDefaultAuthorizer | SetDefaultAuthorizer |  `arn:aws:iot:region:account-id:authorizer/authorizer-function-name`  | 
+| iot:SetDefaultPolicyVersion | SetDefaultPolicyVersion |  `arn:aws:iot:region:account-id:policy/policy-name`  | 
+| iot:SetLoggingOptions | SetLoggingOptions |  `arn:aws:iot:region:account-id:role/role-name`  | 
+| iot:SetV2LoggingLevel | SetV2LoggingLevel |  `arn:aws:iot:region:account-id:thinggroup/thing-group-name`  | 
+| iot:SetV2LoggingOptions | SetV2LoggingOptions |  `arn:aws:iot:region:account-id:role/role-name`  | 
 | iot:StartThingRegistrationTask | StartThingRegistrationTask | None | 
 | iot:StopThingRegistrationTask | StopThingRegistrationTask | None | 
-| iot:TestAuthorization | TestAuthorization |  arn:aws:iot:*region*:*account\-id*:cert/*cert\-id*  | 
+| iot:TestAuthorization | TestAuthorization |  `arn:aws:iot:region:account-id:cert/cert-id`  | 
 | iot:TestInvokeAuthorizer | TestInvokeAuthorizer | None | 
-| iot:TransferCertificate | TransferCertificate |  arn:aws:iot:*region*:*account\-id*:cert/*cert\-id*  | 
-| iot:UpdateAuthorizer | UpdateAuthorizer |  arn:aws:iot:*region*:*account\-id*:authorizerfunction/*authorizer\-function\-name*  | 
-| iot:UpdateCACertificate | UpdateCACertificate |  arn:aws:iot:*region*:*account\-id*:cacert/*cert\-id*  | 
-| iot:UpdateCertificate | UpdateCertificate |  arn:aws:iot:*region*:*account\-id*:cert/*cert\-id*  | 
-| iot:UpdateDimension | UpdateDimension |  arn:aws:iot:*region*:*account\-id*:dimension/*dimension\-name*  | 
+| iot:TransferCertificate | TransferCertificate |  `arn:aws:iot:region:account-id:cert/cert-id`  | 
+| iot:UpdateAuthorizer | UpdateAuthorizer |  `arn:aws:iot:region:account-id:authorizerfunction/authorizer-function-name`  | 
+| iot:UpdateCACertificate | UpdateCACertificate |  `arn:aws:iot:region:account-id:cacert/cert-id`  | 
+| iot:UpdateCertificate | UpdateCertificate |  `arn:aws:iot:region:account-id:cert/cert-id`  | 
+| iot:UpdateDimension | UpdateDimension |  `arn:aws:iot:region:account-id:dimension/dimension-name`  | 
 | iot:UpdateEventConfigurations | UpdateEventConfigurations | None | 
 | iot:UpdateIndexingConfiguration | UpdateIndexingConfiguration | None | 
-| iot:UpdateRoleAlias | UpdateRoleAlias |  arn:aws:iot:*region*:*account\-id*:rolealias/*role\-alias\-name*  | 
-| iot:UpdateSecurityProfile | UpdateSecurityProfile |  arn:aws:iot:*region*:*account\-id*:securityprofile/*security\-profile\-name* arn:aws:iot:*region*:*account\-id*:dimension/*dimension\-name*  | 
-| iot:UpdateThing | UpdateThing |  arn:aws:iot:*region*:*account\-id*:thing/*thing\-name*  | 
-| iot:UpdateThingGroup | UpdateThingGroup |  arn:aws:iot:*region*:*account\-id*:thinggroup/*thing\-group\-name*  | 
-| iot:UpdateThingGroupsForThing | UpdateThingGroupsForThing |  arn:aws:iot:*region*:*account\-id*:thing/*thing\-name*  | 
+| iot:UpdateRoleAlias | UpdateRoleAlias |  `arn:aws:iot:region:account-id:rolealias/role-alias-name`  | 
+| iot:UpdateSecurityProfile | UpdateSecurityProfile |  `arn:aws:iot:region:account-id:securityprofile/security-profile-name` `arn:aws:iot:region:account-id:dimension/dimension-name`  | 
+| iot:UpdateThing | UpdateThing |  `arn:aws:iot:region:account-id:thing/thing-name`  | 
+| iot:UpdateThingGroup | UpdateThingGroup |  `arn:aws:iot:region:account-id:thinggroup/thing-group-name`  | 
+| iot:UpdateThingGroupsForThing | UpdateThingGroupsForThing |  `arn:aws:iot:region:account-id:thing/thing-name`  | 
 
 Policy actions in AWS IoT use the following prefix before the action: `iot:`\. For example, to grant someone permission to list all IoT things registered in their AWS account with the `ListThings` API, you include the `iot:ListThings` action in their policy\. Policy statements must include either an `Action` or `NotAction` element\. AWS IoT defines its own set of actions that describe tasks that you can perform with this service\.
 
@@ -185,6 +220,7 @@ The following table lists the IAM IoT Device Advisor actions, the associated AWS
 | Policy actions | AWS IoT API | Resources | 
 | --- | --- | --- | 
 | iotdeviceadvisor:CreateSuiteDefinition | CreateSuiteDefinition |  None  | 
+<<<<<<< HEAD
 | iotdeviceadvisor:DeleteSuiteDefinition | DeleteSuiteDefinition |  arn:aws:iotdeviceadvisor:*region*:*account\-id*:suitedefinition/*suite\-definition\-id*  | 
 | iotdeviceadvisor:GetSuiteDefinition | GetSuiteDefinition |  arn:aws:iotdeviceadvisor:*region*:*account\-id*:suitedefinition/*suite\-definition\-id*  | 
 | iotdeviceadvisor:GetSuiteRun | GetSuiteRun |  arn:aws:iotdeviceadvisor:*region*:*account\-id*:suitedefinition/*suite\-run\-id*  | 
@@ -197,6 +233,20 @@ The following table lists the IAM IoT Device Advisor actions, the associated AWS
 | iotdeviceadvisor:UntagResource | UntagResource |  arn:aws:iotdeviceadvisor:*region*:*account\-id*:suitedefinition/*suite\-definition\-id* arn:aws:iotdeviceadvisor:*region*:*account\-id*:suiterun/suite\-definition\-id/*suite\-run\-id*  | 
 | iotdeviceadvisor:UpdateSuiteDefinition | UpdateSuiteDefinition |  arn:aws:iotdeviceadvisor:*region*:*account\-id*:suitedefinition/*suite\-definition\-id*  | 
 | iotdeviceadvisor:StopSuiteRun | StopSuiteRun |  arn:aws:iotdeviceadvisor:*region*:*account\-id*:suiterun/suite\-definition\-id/*suite\-run\-id*  | 
+=======
+| iotdeviceadvisor:DeleteSuiteDefinition | DeleteSuiteDefinition |  `arn:aws:iotdeviceadvisor:region:account-id:suitedefinition/suite-definition-id`  | 
+| iotdeviceadvisor:GetSuiteDefinition | GetSuiteDefinition |  `arn:aws:iotdeviceadvisor:region:account-id:suitedefinition/suite-definition-id`  | 
+| iotdeviceadvisor:GetSuiteRun | GetSuiteRun |  `arn:aws:iotdeviceadvisor:region:account-id:suitedefinition/suite-run-id`  | 
+| iotdeviceadvisor:GetSuiteRunReport | GetSuiteRunReport |  `arn:aws:iotdeviceadvisor:region:account-id:suiterun/suite-definition-id/suite-run-id`  | 
+| iotdeviceadvisor:ListSuiteDefinitions | ListSuiteDefinitions | None | 
+| iotdeviceadvisor:ListSuiteRuns | ListSuiteRuns |  `arn:aws:iotdeviceadvisor:region:account-id:suitedefinition/suite-definition-id`  | 
+| iotdeviceadvisor:ListTagsForResource | ListTagsForResource |  `arn:aws:iotdeviceadvisor:region:account-id:suitedefinition/suite-definition-id` `arn:aws:iotdeviceadvisor:region:account-id:suiterun/suite-definition-id/suite-run-id`  | 
+| iotdeviceadvisor:StartSuiteRun | StartSuiteRun |  `arn:aws:iotdeviceadvisor:region:account-id:suitedefinition/suite-definition-id`  | 
+| iotdeviceadvisor:TagResource | TagResource |  `arn:aws:iotdeviceadvisor:region:account-id:suitedefinition/suite-definition-id` `arn:aws:iotdeviceadvisor:region:account-id:suiterun/suite-definition-id/suite-run-id`  | 
+| iotdeviceadvisor:UntagResource | UntagResource |  `arn:aws:iotdeviceadvisor:region:account-id:suitedefinition/suite-definition-id` `arn:aws:iotdeviceadvisor:region:account-id:suiterun/suite-definition-id/suite-run-id`  | 
+| iotdeviceadvisor:UpdateSuiteDefinition | UpdateSuiteDefinition |  `arn:aws:iotdeviceadvisor:region:account-id:suitedefinition/suite-definition-id`  | 
+| iotdeviceadvisor:StopSuiteRun | StopSuiteRun |  `arn:aws:iotdeviceadvisor:region:account-id:suiterun/suite-definition-id/suite-run-id`  | 
+>>>>>>> gausekha-repo-refresh
 
 Policy actions in AWS IoT Device Advisor use the following prefix before the action: `iotdeviceadvisor:`\. For example, to grant someone permission to list all suite definitions registered in their AWS account with the ListSuiteDefinitions API, you include the `iotdeviceadvisor:ListSuiteDefinitions` action in their policy\.
 
@@ -217,18 +267,19 @@ For actions that don't support resource\-level permissions, such as listing oper
 
 | Policy actions | AWS IoT API | Resources | 
 | --- | --- | --- | 
-| iot:AcceptCertificateTransfer | AcceptCertificateTransfer |  arn:aws:iot:*region*:*account\-id*:cert/*cert\-id*  The AWS account specified in the ARN must be the account to which the certificate is being transferred\.   | 
-| iot:AddThingToThingGroup | AddThingToThingGroup |  arn:aws:iot:*region*:*account\-id*:thinggroup/*thing\-group\-name* arn:aws:iot:*region*:*account\-id*:thing/*thing\-name*  | 
+| iot:AcceptCertificateTransfer | AcceptCertificateTransfer |  `arn:aws:iot:region:account-id:cert/cert-id`  The AWS account specified in the ARN must be the account to which the certificate is being transferred\.   | 
+| iot:AddThingToThingGroup | AddThingToThingGroup |  `arn:aws:iot:region:account-id:thinggroup/thing-group-name` `arn:aws:iot:region:account-id:thing/thing-name`  | 
 | iot:AssociateTargetsWithJob | AssociateTargetsWithJob | None  | 
-| iot:AttachPolicy | AttachPolicy | arn:aws:iot:*region*:*account\-id*:thinggroup/*thing\-group\-name* or arn:aws:iot:*region*:*account\-id*:cert/*cert\-id*  | 
-| iot:AttachPrincipalPolicy | AttachPrincipalPolicy |  arn:aws:iot:*region*:*account\-id*:cert/*cert\-id*  | 
-| iot:AttachThingPrincipal | AttachThingPrincipal |  arn:aws:iot:*region*:*account\-id*:cert/*cert\-id*  | 
-| iot:CancelCertificateTransfer | CancelCertificateTransfer |  arn:aws:iot:*region*:*account\-id*:cert/*cert\-id*  The AWS account specified in the ARN must be the account to which the certificate is being transferred\.   | 
-| iot:CancelJob | CancelJob |  arn:aws:iot:*region*:*account\-id*:job/*job\-id*  | 
-| iot:CancelJobExecution | CancelJobExecution |  arn:aws:iot:*region*:*account\-id*:job/*job\-id* arn:aws:iot:*region*:*account\-id*:thing/*thing\-name*  | 
+| iot:AttachPolicy | AttachPolicy | `arn:aws:iot:region:account-id:thinggroup/thing-group-name` or `arn:aws:iot:region:account-id:cert/cert-id`  | 
+| iot:AttachPrincipalPolicy | AttachPrincipalPolicy |  `arn:aws:iot:region:account-id:cert/cert-id`  | 
+| iot:AttachThingPrincipal | AttachThingPrincipal |  `arn:aws:iot:region:account-id:cert/cert-id`  | 
+| iot:CancelCertificateTransfer | CancelCertificateTransfer |  `arn:aws:iot:region:account-id:cert/cert-id`  The AWS account specified in the ARN must be the account to which the certificate is being transferred\.   | 
+| iot:CancelJob | CancelJob |  `arn:aws:iot:region:account-id:job/job-id`  | 
+| iot:CancelJobExecution | CancelJobExecution |  `arn:aws:iot:region:account-id:job/job-id` `arn:aws:iot:region:account-id:thing/thing-name`  | 
 | iot:ClearDefaultAuthorizer | ClearDefaultAuthorizer | None | 
-| iot:CreateAuthorizer | CreateAuthorizer |  arn:aws:iot:*region*:*account\-id*:authorizer/*authorizer\-function\-name*  | 
+| iot:CreateAuthorizer | CreateAuthorizer |  `arn:aws:iot:region:account-id:authorizer/authorizer-function-name`  | 
 | iot:CreateCertificateFromCsr | CreateCertificateFromCsr | \* | 
+<<<<<<< HEAD
 | iot:CreateJob | CreateJob |  arn:aws:iot:*region*:*account\-id*:job/*job\-id* arn:aws:iot:*region*:*account\-id*:thinggroup/*thing\-group\-name* arn:aws:iot:*region*:*account\-id*:thing/*thing\-name* arn:aws:iot:*region*:*account\-id*:jobtemplate/*job\-template\-id*  | 
 | iot:CreateJobTemplate | CreateJobTemplate |  arn:aws:iot:*region*:*account\-id*:job/*job\-id* arn:aws:iot:*region*:*account\-id*:jobtemplate/*job\-template\-id*  | 
 | iot:CreateKeysAndCertificate | CreateKeysAndCertificate | \* | 
@@ -247,43 +298,70 @@ For actions that don't support resource\-level permissions, such as listing oper
 | iot:DeleteJobTemplate | DeleteJobTemplate |  arn:aws:iot:*region*:*account\-id*:jobtemplate/*job\-template\-id*  | 
 | iot:DeletePolicy | DeletePolicy |  arn:aws:iot:*region*:*account\-id*:policy/*policy\-name*  | 
 | iot:DeletePolicyVersion | DeletePolicyVersion |  arn:aws:iot:*region*:*account\-id*:policy/*policy\-name*  | 
+=======
+| iot:CreateJob | CreateJob |  `arn:aws:iot:region:account-id:job/job-id` `arn:aws:iot:region:account-id:thinggroup/thing-group-name` `arn:aws:iot:region:account-id:thing/thing-name` `arn:aws:iot:region:account-id:jobtemplate/job-template-id`  | 
+| iot:CreateJobTemplate | CreateJobTemplate |  `arn:aws:iot:region:account-id:job/job-id` `arn:aws:iot:region:account-id:jobtemplate/job-template-id`  | 
+| iot:CreateKeysAndCertificate | CreateKeysAndCertificate | \* | 
+| iot:CreatePolicy | CreatePolicy | \* | 
+| CreatePolicyVersion | iot:CreatePolicyVersion |  `arn:aws:iot:region:account-id:policy/policy-name`  This must be an AWS IoT policy, not an IAM policy\.   | 
+| iot:CreateRoleAlias | CreateRoleAlias |  \(parameter: roleAlias\) `arn:aws:iot:region:account-id:rolealias/role-alias-name`  | 
+| iot:CreateThing | CreateThing |  `arn:aws:iot:region:account-id:thing/thing-name`  | 
+| iot:CreateThingGroup | CreateThingGroup |  `arn:aws:iot:region:account-id:thinggroup/thing-group-name` for group being created and for parent group, if used  | 
+| iot:CreateThingType | CreateThingType |  `arn:aws:iot:region:account-id:thingtype/thing-type-name`  | 
+| iot:CreateTopicRule | CreateTopicRule |  `arn:aws:iot:region:account-id:rule/rule-name`  | 
+| iot:DeleteAuthorizer | DeleteAuthorizer |  `arn:aws:iot:region:account-id:authorizer/authorizer-name`  | 
+| iot:DeleteCACertificate | DeleteCACertificate |  `arn:aws:iot:region:account-id:cacert/cert-id`  | 
+| iot:DeleteCertificate | DeleteCertificate |  `arn:aws:iot:region:account-id:cert/cert-id`  | 
+| iot:DeleteJob | DeleteJob |  `arn:aws:iot:region:account-id:job/job-id`  | 
+| iot:DeleteJobExecution | DeleteJobExecution |  `arn:aws:iot:region:account-id:job/job-id` `arn:aws:iot:region:account-id:thing/thing-name`  | 
+| iot:DeleteJobTemplate | DeleteJobTemplate |  `arn:aws:iot:region:account-id:jobtemplate/job-template-id`  | 
+| iot:DeletePolicy | DeletePolicy |  `arn:aws:iot:region:account-id:policy/policy-name`  | 
+| iot:DeletePolicyVersion | DeletePolicyVersion |  `arn:aws:iot:region:account-id:policy/policy-name`  | 
+>>>>>>> gausekha-repo-refresh
 | iot:DeleteRegistrationCode | DeleteRegistrationCode | \* | 
-| iot:DeleteRoleAlias | DeleteRoleAlias |  arn:aws:iot:*region*:*account\-id*:rolealias/*role\-alias\-name*  | 
-| iot:DeleteThing | DeleteThing |  arn:aws:iot:*region*:*account\-id*:thing/*thing\-name*  | 
-| iot:DeleteThingGroup | DeleteThingGroup |  arn:aws:iot:*region*:*account\-id*:thinggroup/*thing\-group\-name*  | 
-| iot:DeleteThingType | DeleteThingType |  arn:aws:iot:*region*:*account\-id*:thingtype/*thing\-type\-name*  | 
-| iot:DeleteTopicRule | DeleteTopicRule |  arn:aws:iot:*region*:*account\-id*:rule/*rule\-name*  | 
-| iot:DeleteV2LoggingLevel | DeleteV2LoggingLevel |  arn:aws:iot:*region*:*account\-id*:thinggroup/*thing\-group\-name*  | 
-| iot:DeprecateThingType | DeprecateThingType |  arn:aws:iot:*region*:*account\-id*:thingtype/*thing\-type\-name*  | 
-| iot:DescribeAuthorizer | DescribeAuthorizer |  arn:aws:iot:*region*:*account\-id*:authorizer/*authorizer\-function\-name* \(parameter: authorizerName\) none  | 
-| iot:DescribeCACertificate | DescribeCACertificate |  arn:aws:iot:*region*:*account\-id*:cacert/*cert\-id*  | 
-| iot:DescribeCertificate | DescribeCertificate |  arn:aws:iot:*region*:*account\-id*:cert/*cert\-id*  | 
+| iot:DeleteRoleAlias | DeleteRoleAlias |  `arn:aws:iot:region:account-id:rolealias/role-alias-name`  | 
+| iot:DeleteThing | DeleteThing |  `arn:aws:iot:region:account-id:thing/thing-name`  | 
+| iot:DeleteThingGroup | DeleteThingGroup |  `arn:aws:iot:region:account-id:thinggroup/thing-group-name`  | 
+| iot:DeleteThingType | DeleteThingType |  `arn:aws:iot:region:account-id:thingtype/thing-type-name`  | 
+| iot:DeleteTopicRule | DeleteTopicRule |  `arn:aws:iot:region:account-id:rule/rule-name`  | 
+| iot:DeleteV2LoggingLevel | DeleteV2LoggingLevel |  `arn:aws:iot:region:account-id:thinggroup/thing-group-name`  | 
+| iot:DeprecateThingType | DeprecateThingType |  `arn:aws:iot:region:account-id:thingtype/thing-type-name`  | 
+| iot:DescribeAuthorizer | DescribeAuthorizer |  `arn:aws:iot:region:account-id:authorizer/authorizer-function-name` \(parameter: authorizerName\) none  | 
+| iot:DescribeCACertificate | DescribeCACertificate |  `arn:aws:iot:region:account-id:cacert/cert-id`  | 
+| iot:DescribeCertificate | DescribeCertificate |  `arn:aws:iot:region:account-id:cert/cert-id`  | 
 | iot:DescribeDefaultAuthorizer | DescribeDefaultAuthorizer | None  | 
 | iot:DescribeEndpoint | DescribeEndpoint | \* | 
 | iot:DescribeEventConfigurations | DescribeEventConfigurations | none  | 
-| iot:DescribeIndex | DescribeIndex |  arn:aws:iot:*region*:*account\-id*:index/*index\-name*  | 
-| iot:DescribeJob | DescribeJob |  arn:aws:iot:*region*:*account\-id*:job/*job\-id*  | 
+| iot:DescribeIndex | DescribeIndex |  `arn:aws:iot:region:account-id:index/index-name`  | 
+| iot:DescribeJob | DescribeJob |  `arn:aws:iot:region:account-id:job/job-id`  | 
 | iot:DescribeJobExecution | DescribeJobExecution | None | 
+<<<<<<< HEAD
 | iot:DescribeJobTemplate | DescribeJobTemplate |  arn:aws:iot:*region*:*account\-id*:jobtemplate/*job\-template\-id*  | 
 | iot:DescribeRoleAlias | DescribeRoleAlias |  arn:aws:iot:*region*:*account\-id*:rolealias/*role\-alias\-name*  | 
 | iot:DescribeThing | DescribeThing |  arn:aws:iot:*region*:*account\-id*:thing/*thing\-name*  | 
 | iot:DescribeThingGroup | DescribeThingGroup |  arn:aws:iot:*region*:*account\-id*:thinggroup/*thing\-group\-name*  | 
+=======
+| iot:DescribeJobTemplate | DescribeJobTemplate |  `arn:aws:iot:region:account-id:jobtemplate/job-template-id`  | 
+| iot:DescribeRoleAlias | DescribeRoleAlias |  `arn:aws:iot:region:account-id:rolealias/role-alias-name`  | 
+| iot:DescribeThing | DescribeThing |  `arn:aws:iot:region:account-id:thing/thing-name`  | 
+| iot:DescribeThingGroup | DescribeThingGroup |  `arn:aws:iot:region:account-id:thinggroup/thing-group-name`  | 
+>>>>>>> gausekha-repo-refresh
 | iot:DescribeThingRegistrationTask | DescribeThingRegistrationTask | None | 
-| iot:DescribeThingType | DescribeThingType |  arn:aws:iot:*region*:*account\-id*:thingtype/*thing\-type\-name*  | 
-| iot:DetachPolicy | DetachPolicy |  arn:aws:iot:*region*:*account\-id*:cert/*cert\-id* or arn:aws:iot:*region*:*account\-id*:thinggroup/*thing\-group\-name*  | 
-| iot:DetachPrincipalPolicy | DetachPrincipalPolicy |  arn:aws:iot:*region*:*account\-id*:cert/*cert\-id*  | 
-| iot:DetachThingPrincipal | DetachThingPrincipal |  arn:aws:iot:*region*:*account\-id*:cert/*cert\-id*  | 
-| iot:DisableTopicRule | DisableTopicRule |  arn:aws:iot:*region*:*account\-id*:rule/*rule\-name*  | 
-| iot:EnableTopicRule | EnableTopicRule |  arn:aws:iot:*region*:*account\-id*:rule/*rule\-name*  | 
-| iot:GetEffectivePolicies | GetEffectivePolicies |  arn:aws:iot:*region*:*account\-id*:cert/*cert\-id*  | 
+| iot:DescribeThingType | DescribeThingType |  `arn:aws:iot:region:account-id:thingtype/thing-type-name`  | 
+| iot:DetachPolicy | DetachPolicy |  `arn:aws:iot:region:account-id:cert/cert-id` or `arn:aws:iot:region:account-id:thinggroup/thing-group-name`  | 
+| iot:DetachPrincipalPolicy | DetachPrincipalPolicy |  `arn:aws:iot:region:account-id:cert/cert-id`  | 
+| iot:DetachThingPrincipal | DetachThingPrincipal |  `arn:aws:iot:region:account-id:cert/cert-id`  | 
+| iot:DisableTopicRule | DisableTopicRule |  `arn:aws:iot:region:account-id:rule/rule-name`  | 
+| iot:EnableTopicRule | EnableTopicRule |  `arn:aws:iot:region:account-id:rule/rule-name`  | 
+| iot:GetEffectivePolicies | GetEffectivePolicies |  `arn:aws:iot:region:account-id:cert/cert-id`  | 
 | iot:GetIndexingConfiguration | GetIndexingConfiguration | None | 
-| iot:GetJobDocument | GetJobDocument |  arn:aws:iot:*region*:*account\-id*:job/*job\-id*  | 
+| iot:GetJobDocument | GetJobDocument |  `arn:aws:iot:region:account-id:job/job-id`  | 
 | iot:GetLoggingOptions | GetLoggingOptions | \* | 
-| iot:GetPolicy | GetPolicy |  arn:aws:iot:*region*:*account\-id*:policy/*policy\-name*  | 
-| iot:GetPolicyVersion | GetPolicyVersion |  arn:aws:iot:*region*:*account\-id*:policy/*policy\-name*  | 
+| iot:GetPolicy | GetPolicy |  `arn:aws:iot:region:account-id:policy/policy-name`  | 
+| iot:GetPolicyVersion | GetPolicyVersion |  `arn:aws:iot:region:account-id:policy/policy-name`  | 
 | iot:GetRegistrationCode | GetRegistrationCode | \* | 
-| iot:GetTopicRule | GetTopicRule |  arn:aws:iot:*region*:*account\-id*:rule/*rule\-name*  | 
-| iot:ListAttachedPolicies | ListAttachedPolicies |  arn:aws:iot:*region*:*account\-id*:thinggroup/*thing\-group\-name* or arn:aws:iot:*region*:*account\-id*:cert/*cert\-id*  | 
+| iot:GetTopicRule | GetTopicRule |  `arn:aws:iot:region:account-id:rule/rule-name`  | 
+| iot:ListAttachedPolicies | ListAttachedPolicies |  `arn:aws:iot:region:account-id:thinggroup/thing-group-name` or `arn:aws:iot:region:account-id:cert/cert-id`  | 
 | iot:ListAuthorizers | ListAuthorizers | None | 
 | iot:ListCACertificates | ListCACertificates | \* | 
 | iot:ListCertificates | ListCertificates | \* | 
@@ -291,52 +369,56 @@ For actions that don't support resource\-level permissions, such as listing oper
 | iot:ListIndices | ListIndices | None | 
 | iot:ListJobExecutionsForJob | ListJobExecutionsForJob | None | 
 | iot:ListJobExecutionsForThing | ListJobExecutionsForThing | None | 
+<<<<<<< HEAD
 | iot:ListJobs | ListJobs |  arn:aws:iot:*region*:*account\-id*:thinggroup/*thing\-group\-name* if thingGroupName parameter used  | 
+=======
+| iot:ListJobs | ListJobs |  `arn:aws:iot:region:account-id:thinggroup/thing-group-name` if thingGroupName parameter used  | 
+>>>>>>> gausekha-repo-refresh
 | iot:ListJobTemplates | ListJobTemplates | None | 
 | iot:ListOutgoingCertificates | ListOutgoingCertificates | \* | 
 | iot:ListPolicies | ListPolicies | \* | 
-| iot:ListPolicyPrincipals | ListPolicyPrincipals |  arn:aws:iot:*region*:*account\-id*:policy/*policy\-name*  | 
-| iot:ListPolicyVersions | ListPolicyVersions |  arn:aws:iot:*region*:*account\-id*:policy/*policy\-name*  | 
-| iot:ListPrincipalPolicies | ListPrincipalPolicies |  arn:aws:iot:*region*:*account\-id*:cert/*cert\-id*  | 
-| iot:ListPrincipalThings | ListPrincipalThings |  arn:aws:iot:*region*:*account\-id*:cert/*cert\-id*  | 
+| iot:ListPolicyPrincipals | ListPolicyPrincipals |  `arn:aws:iot:region:account-id:policy/policy-name`  | 
+| iot:ListPolicyVersions | ListPolicyVersions |  `arn:aws:iot:region:account-id:policy/policy-name`  | 
+| iot:ListPrincipalPolicies | ListPrincipalPolicies |  `arn:aws:iot:region:account-id:cert/cert-id`  | 
+| iot:ListPrincipalThings | ListPrincipalThings |  `arn:aws:iot:region:account-id:cert/cert-id`  | 
 | iot:ListRoleAliases | ListRoleAliases | None | 
-| iot:ListTargetsForPolicy | ListTargetsForPolicy |  arn:aws:iot:*region*:*account\-id*:policy/*policy\-name*  | 
+| iot:ListTargetsForPolicy | ListTargetsForPolicy |  `arn:aws:iot:region:account-id:policy/policy-name`  | 
 | iot:ListThingGroups | ListThingGroups | None | 
-| iot:ListThingGroupsForThing | ListThingGroupsForThing |  arn:aws:iot:*region*:*account\-id*:thing/*thing\-name*  | 
-| iot:ListThingPrincipals | ListThingPrincipals |  arn:aws:iot:*region*:*account\-id*:thing/*thing\-name*  | 
+| iot:ListThingGroupsForThing | ListThingGroupsForThing |  `arn:aws:iot:region:account-id:thing/thing-name`  | 
+| iot:ListThingPrincipals | ListThingPrincipals |  `arn:aws:iot:region:account-id:thing/thing-name`  | 
 | iot:ListThingRegistrationTaskReports | ListThingRegistrationTaskReports | None | 
 | iot:ListThingRegistrationTasks | ListThingRegistrationTasks | None | 
 | iot:ListThingTypes | ListThingTypes | \* | 
 | iot:ListThings | ListThings | \* | 
-| iot:ListThingsInThingGroup | ListThingsInThingGroup |  arn:aws:iot:*region*:*account\-id*:thinggroup/*thing\-group\-name*  | 
+| iot:ListThingsInThingGroup | ListThingsInThingGroup |  `arn:aws:iot:region:account-id:thinggroup/thing-group-name`  | 
 | iot:ListTopicRules | ListTopicRules | \* | 
 | iot:ListV2LoggingLevels | ListV2LoggingLevels | None | 
 | iot:RegisterCACertificate | RegisterCACertificate | \* | 
 | iot:RegisterCertificate | RegisterCertificate | \* | 
 | iot:RegisterThing | RegisterThing | None | 
-| iot:RejectCertificateTransfer | RejectCertificateTransfer |  arn:aws:iot:*region*:*account\-id*:cert/*cert\-id*  | 
-| iot:RemoveThingFromThingGroup | RemoveThingFromThingGroup |  arn:aws:iot:*region*:*account\-id*:thinggroup/*thing\-group\-name* arn:aws:iot:*region*:*account\-id*:thing/*thing\-name*  | 
-| iot:ReplaceTopicRule | ReplaceTopicRule |  arn:aws:iot:*region*:*account\-id*:rule/*rule\-name*  | 
-| iot:SearchIndex | SearchIndex |  arn:aws:iot:*region*:*account\-id*:index/*index\-id*  | 
-| iot:SetDefaultAuthorizer | SetDefaultAuthorizer |  arn:aws:iot:*region*:*account\-id*:authorizer/*authorizer\-function\-name*  | 
-| iot:SetDefaultPolicyVersion | SetDefaultPolicyVersion |  arn:aws:iot:*region*:*account\-id*:policy/*policy\-name*  | 
-| iot:SetLoggingOptions | SetLoggingOptions |  arn:aws:iot:*region*:*account\-id*:role/*role\-name*  | 
-| iot:SetV2LoggingLevel | SetV2LoggingLevel |  arn:aws:iot:*region*:*account\-id*:thinggroup/*thing\-group\-name*  | 
-| iot:SetV2LoggingOptions | SetV2LoggingOptions |  arn:aws:iot:*region*:*account\-id*:role/*role\-name*  | 
+| iot:RejectCertificateTransfer | RejectCertificateTransfer |  `arn:aws:iot:region:account-id:cert/cert-id`  | 
+| iot:RemoveThingFromThingGroup | RemoveThingFromThingGroup |  `arn:aws:iot:region:account-id:thinggroup/thing-group-name` `arn:aws:iot:region:account-id:thing/thing-name`  | 
+| iot:ReplaceTopicRule | ReplaceTopicRule |  `arn:aws:iot:region:account-id:rule/rule-name`  | 
+| iot:SearchIndex | SearchIndex |  `arn:aws:iot:region:account-id:index/index-id`  | 
+| iot:SetDefaultAuthorizer | SetDefaultAuthorizer |  `arn:aws:iot:region:account-id:authorizer/authorizer-function-name`  | 
+| iot:SetDefaultPolicyVersion | SetDefaultPolicyVersion |  `arn:aws:iot:region:account-id:policy/policy-name`  | 
+| iot:SetLoggingOptions | SetLoggingOptions |  `arn:aws:iot:region:account-id:role/role-name`  | 
+| iot:SetV2LoggingLevel | SetV2LoggingLevel |  `arn:aws:iot:region:account-id:thinggroup/thing-group-name`  | 
+| iot:SetV2LoggingOptions | SetV2LoggingOptions |  `arn:aws:iot:region:account-id:role/role-name`  | 
 | iot:StartThingRegistrationTask | StartThingRegistrationTask | None | 
 | iot:StopThingRegistrationTask | StopThingRegistrationTask | None | 
-| iot:TestAuthorization | TestAuthorization |  arn:aws:iot:*region*:*account\-id*:cert/*cert\-id*  | 
+| iot:TestAuthorization | TestAuthorization |  `arn:aws:iot:region:account-id:cert/cert-id`  | 
 | iot:TestInvokeAuthorizer | TestInvokeAuthorizer | None | 
-| iot:TransferCertificate | TransferCertificate |  arn:aws:iot:*region*:*account\-id*:cert/*cert\-id*  | 
-| iot:UpdateAuthorizer | UpdateAuthorizer |  arn:aws:iot:*region*:*account\-id*:authorizerfunction/*authorizer\-function\-name*  | 
-| iot:UpdateCACertificate | UpdateCACertificate |  arn:aws:iot:*region*:*account\-id*:cacert/*cert\-id*  | 
-| iot:UpdateCertificate | UpdateCertificate |  arn:aws:iot:*region*:*account\-id*:cert/*cert\-id*  | 
+| iot:TransferCertificate | TransferCertificate |  `arn:aws:iot:region:account-id:cert/cert-id`  | 
+| iot:UpdateAuthorizer | UpdateAuthorizer |  `arn:aws:iot:region:account-id:authorizerfunction/authorizer-function-name`  | 
+| iot:UpdateCACertificate | UpdateCACertificate |  `arn:aws:iot:region:account-id:cacert/cert-id`  | 
+| iot:UpdateCertificate | UpdateCertificate |  `arn:aws:iot:region:account-id:cert/cert-id`  | 
 | iot:UpdateEventConfigurations | UpdateEventConfigurations | None | 
 | iot:UpdateIndexingConfiguration | UpdateIndexingConfiguration | None | 
-| iot:UpdateRoleAlias | UpdateRoleAlias |  arn:aws:iot:*region*:*account\-id*:rolealias/*role\-alias\-name*  | 
-| iot:UpdateThing | UpdateThing |  arn:aws:iot:*region*:*account\-id*:thing/*thing\-name*  | 
-| iot:UpdateThingGroup | UpdateThingGroup |  arn:aws:iot:*region*:*account\-id*:thinggroup/*thing\-group\-name*  | 
-| iot:UpdateThingGroupsForThing | UpdateThingGroupsForThing |  arn:aws:iot:*region*:*account\-id*:thing/*thing\-name*  | 
+| iot:UpdateRoleAlias | UpdateRoleAlias |  `arn:aws:iot:region:account-id:rolealias/role-alias-name`  | 
+| iot:UpdateThing | UpdateThing |  `arn:aws:iot:region:account-id:thing/thing-name`  | 
+| iot:UpdateThingGroup | UpdateThingGroup |  `arn:aws:iot:region:account-id:thinggroup/thing-group-name`  | 
+| iot:UpdateThingGroupsForThing | UpdateThingGroupsForThing |  `arn:aws:iot:region:account-id:thing/thing-name`  | 
 
 For more information about the format of ARNs, see [Amazon Resource Names \(ARNs\) and AWS Service Namespaces](https://docs.aws.amazon.com/general/latest/gr/aws-arns-and-namespaces.html)\.
 
@@ -353,10 +435,10 @@ To see a list of AWS IoT resource types and their ARNs, see [Resources Defined b
 To define resource\-level restrictions for AWS IoT Device Advisor IAM policies, use the following resource ARN formats for suite definitions and suite runs\.
 
 Suite definition resource ARN format  
-arn:aws:iotdeviceadvisor:*region*:*account\-id*:suitedefinition/*suite\-definition\-id*
+`arn:aws:iotdeviceadvisor:region:account-id:suitedefinition/suite-definition-id`
 
 Suite run resource ARN format  
-arn:aws:iotdeviceadvisor:*region*:*account\-id*:suiterun/*suite\-definition\-id*/*suite\-run\-id*
+`arn:aws:iotdeviceadvisor:region:account-id:suiterun/suite-definition-id/suite-run-id`
 
 ### Condition keys<a name="security_iam_service-with-iam-id-based-policies-conditionkeys"></a>
 
