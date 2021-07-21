@@ -31,6 +31,7 @@ Before AWS IoT can perform these actions, you must grant it permission to access
 + [Deleting a rule](iot-delete-rule.md)
 + [AWS IoT rule actions](iot-rule-actions.md)
 + [Troubleshooting a rule](#iot-troubleshoot-rule)
++ [Accessing cross\-account resources using AWS IoT rules](accessing-cross-account-resources-using-rules.md)
 + [Error handling \(error action\)](rule-error-handling.md)
 + [Working with topic rule destinations](rule-destination.md)
 + [Reducing messaging costs with basic ingest](iot-basic-ingest.md)

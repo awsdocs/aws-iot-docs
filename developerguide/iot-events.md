@@ -29,14 +29,18 @@ The following is an example of the policy required for receiving lifecycle event
 
 You control which event types are published by calling the [UpdateEventConfigurations](https://docs.aws.amazon.com/iot/latest/apireference/API_UpdateEventConfigurations.html) API or by using the update\-event\-configurations CLI command\. For example:
 
-aws iot update\-event\-configurations \-\-event\-configurations "\{\\"THING\\":\{\\"Enabled\\": true\}\}"
+```
+aws iot update-event-configurations --event-configurations "{\"THING\":{\"Enabled\": true}}"
+```
 
 **Note**  
 All quotation marks \("\) are escaped with a backslash \(\\\)\.
 
 You can get the current event configuration by calling the [DescribeEventConfigurations](https://docs.aws.amazon.com/iot/latest/apireference/API_DescribeEventConfigurations.html) API or by using the describe\-event\-configurations CLI command\. For example:\.
 
-aws iot describe\-event\-configurations
+```
+aws iot describe-event-configurations
+```
 
 The output of the describe\-event\-configurations command looks like the following:
 

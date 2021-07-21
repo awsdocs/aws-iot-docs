@@ -1,4 +1,4 @@
-# ML Detect reference<a name="dd-detect-ml"></a>
+# ML Detect<a name="dd-detect-ml"></a>
 
 With machine learning Detect \(ML Detect\), you create Security Profiles that use machine learning to learn expected device behaviors by automatically creating models based on historical device data, and assign these profiles to a group of devices or all the devices in your fleet\. AWS IoT Device Defender then identifies anomalies and triggers alarms using the ML models\.
 
@@ -68,7 +68,7 @@ You can use the following cloud\-side metrics with ML Detect:
 + [Disconnects \(aws:num\-disconnects\)](detect-cloud-side-metrics.md#detect-num-disconnects)
 + [Message size \(aws:message\-byte\-size\)](detect-cloud-side-metrics.md#detect-message-size)
 + [Messages sent \(aws:num\-messages\-sent\)](detect-cloud-side-metrics.md#detect-messages-sent)
-+ [Messages received \(num\-messages\-received\)](detect-cloud-side-metrics.md#detect-messages-received)
++ [Messages received \(aws:num\-messages\-received\)](detect-cloud-side-metrics.md#detect-messages-received)
 
 You can use the following device\-side metrics with ML Detect:
 + [Bytes out \(`aws:all-bytes-out`\)](detect-device-side-metrics.md#detect-all-bytes-out)

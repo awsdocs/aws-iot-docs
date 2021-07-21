@@ -12,13 +12,14 @@ You can search for and filter resources based on the tags you add or apply\. You
 
 For ease of use, the Tag Editor in the AWS Management Console provides a central, unified way to create and manage your tags\. For more information, see [Working with Tag Editor](https://docs.aws.amazon.com/awsconsolehelpdocs/latest/gsg/tag-editor.html) in [ Working with the AWS Management Console](http://docs.aws.amazon.com/awsconsolehelpdocs/latest/gsg/getting-started.html)\.
 
-You can also work with tags using the AWS CLI and the AWS IoT API\. You can associate tags with thing groups, thing types, topic rules, jobs, security profiles, and billing groups when you create them by using the `Tags` field in the following commands: 
+You can also work with tags using the AWS CLI and the AWS IoT API\. You can associate tags with thing groups, thing types, topic rules, jobs, security profiles, policies, and billing groups when you create them by using the `Tags` field in the following commands: 
 + [CreateBillingGroup](https://docs.aws.amazon.com/iot/latest/apireference/API_CreateBillingGroup)
 + [CreateDestination](https://docs.aws.amazon.com/iot-wireless/2020-11-22/apireference/API_CreateDestination.html)
 + [CreateDeviceProfile](https://docs.aws.amazon.com/iot-wireless/2020-11-22/apireference/API_CreateDeviceProfile.html)
 + [CreateDynamicThingGroup](https://docs.aws.amazon.com/iot/latest/apireference/API_CreateDynamicThingGroup)
 + [CreateJob](https://docs.aws.amazon.com/iot/latest/apireference/API_CreateJob)
 + [CreateOTAUpdate](https://docs.aws.amazon.com/iot/latest/apireference/API_CreateOTAUpdate)
++ [CreatePolicy](https://docs.aws.amazon.com/iot/latest/apireference/API_CreatePolicy.html)
 + [CreateScheduledAudit](https://docs.aws.amazon.com/iot/latest/apireference/API_CreateScheduledAudit)
 + [CreateSecurityProfile](https://docs.aws.amazon.com/iot/latest/apireference/API_CreateSecurityProfile)
 + [CreateServiceProfile](https://docs.aws.amazon.com/iot-wireless/2020-11-22/apireference/API_CreateServiceProfile.html)
@@ -43,5 +44,5 @@ The following basic restrictions apply to tags:
 + Maximum key length — 127 Unicode characters in UTF\-8
 + Maximum value length — 255 Unicode characters in UTF\-8
 + Tag keys and values are case sensitive\.
-+ Do not use the "aws:" prefix in your tag names or values\. It's reserved for AWS use\. You can't edit or delete tag names or values with this prefix\. Tags with this prefix don't count against your tags per resource limit\.
++ Do not use the `aws:` prefix in your tag names or values\. It's reserved for AWS use\. You can't edit or delete tag names or values with this prefix\. Tags with this prefix don't count against your tags per resource limit\.
 + If your tagging schema is used across multiple services and resources, remember that other services might have restrictions on allowed characters\. Allowed characters include letters, spaces, and numbers representable in UTF\-8, and the following special characters: \+ \- = \. \_ : / @\. 

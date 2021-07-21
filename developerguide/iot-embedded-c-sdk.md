@@ -41,7 +41,13 @@ Device and root CA certificates are subject to expiration or revocation\. If the
 
 1. You must configure the sample with your personal AWS IoT Core endpoint, private key, certificate, and root CA certificate\. Navigate to the `aws-iot-device-sdk-embedded-c/demos/mqtt/mqtt_demo_mutual_auth` directory\.
 
-   If you have the AWS CLI installed, you can use the aws iot describe\-endpoint \-\-endpoint\-type iot:Data\-ATS command to find your personal endpoint URL\. If you don't have the AWS CLI installed, open your [AWS IoT console](https://console.aws.amazon.com/iot/home)\. From the navigation pane, choose **Manage**, and then choose **Things**\. Choose the IoT thing for your device, and then choose **Interact**\. Your endpoint is displayed in the ** HTTPS** section of the thing details page\.
+   If you have the AWS CLI installed, you can use this command to find your account's endpoint URL\.
+
+   ```
+   aws iot describe-endpoint --endpoint-type iot:Data-ATS
+   ```
+
+   If you don't have the AWS CLI installed, open your [AWS IoT console](https://console.aws.amazon.com/iot/home)\. From the navigation pane, choose **Manage**, and then choose **Things**\. Choose the IoT thing for your device, and then choose **Interact**\. Your endpoint is displayed in the ** HTTPS** section of the thing details page\.
 
 1. Open the `demo_config.h` file and update the values for the following:  
 AWS\_IOT\_ENDPOINT  

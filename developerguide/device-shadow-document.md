@@ -314,6 +314,7 @@ Delta state is a virtual type of state that contains the difference between the 
       },
       "state": {
         "timestamp": 12345
+      }
       },
       "reported": {
         "color": {

@@ -125,10 +125,10 @@ With AWS SDKs, your apps and compatible devices can call AWS IoT APIs and the AP
    + Get started with the [AWS SDK for JavaScript in Node\.js](https://docs.aws.amazon.com/sdk-for-javascript/v2/developer-guide/getting-started-nodejs.html)
 
 **Documentation for the AWS IoT Core services that the AWS SDK for JavaScript supports**
-+ [AWS\.Iot reference documentation](https://docs.aws.amazon.com/AWSJavaScriptSDK/latest/AWS/Iot.html)
-+ [AWS\.IotData reference documentation](https://docs.aws.amazon.com/AWSJavaScriptSDK/latest/AWS/IotData.html)
-+ [AWS\.IotJobsDataPlane reference documentation](https://docs.aws.amazon.com/AWSJavaScriptSDK/latest/AWS/IoTJobsDataPlane.html)
-+ [AWS\.IotSecureTunneling reference documentation](https://docs.aws.amazon.com/AWSJavaScriptSDK/latest/AWS/IoTSecureTunneling.html)
++ [https://docs.aws.amazon.com/AWSJavaScriptSDK/latest/AWS/Iot.html](https://docs.aws.amazon.com/AWSJavaScriptSDK/latest/AWS/Iot.html)
++ [https://docs.aws.amazon.com/AWSJavaScriptSDK/latest/AWS/IotData.html](https://docs.aws.amazon.com/AWSJavaScriptSDK/latest/AWS/IotData.html)
++ [https://docs.aws.amazon.com/AWSJavaScriptSDK/latest/AWS/IoTJobsDataPlane.html](https://docs.aws.amazon.com/AWSJavaScriptSDK/latest/AWS/IoTJobsDataPlane.html)
++ [https://docs.aws.amazon.com/AWSJavaScriptSDK/latest/AWS/IoTSecureTunneling.html](https://docs.aws.amazon.com/AWSJavaScriptSDK/latest/AWS/IoTSecureTunneling.html)
 
 ------
 #### [ \.NET ]

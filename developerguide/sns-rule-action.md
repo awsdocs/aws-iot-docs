@@ -4,6 +4,9 @@ The SNS \(`sns`\) action sends the data from an MQTT message as an Amazon Simple
 
 You can follow a tutorial that shows you how to create and test a rule with an SNS action\. For more information, see [Send an Amazon SNS notification](iot-sns-rule.md)\.
 
+**Note**  
+The SNS action doesn't support [Amazon SNS FIFO \(First\-In\-First\-Out\) topics](https://docs.aws.amazon.com/sns/latest/dg/sns-fifo-topics.html)\. Because the rules engine is a fully distributed service, there is no guarantee of message order when the SNS action is invoked\.
+
 ## Requirements<a name="sns-rule-action-requirements"></a>
 
 This rule action has the following requirements:

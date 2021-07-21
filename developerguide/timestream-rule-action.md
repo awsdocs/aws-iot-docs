@@ -114,7 +114,7 @@ Using the Timestream topic rule action defined in the previous example with the 
   "boolean_value": true,
   "integer_value": 123456789012,
   "double_value": 123.456789012,
-  "string_value": "AWS IoT is super!",
+  "string_value": "String value",
   "boolean_value_as_string": "true",
   "integer_value_as_string": "123456789012",
   "double_value_as_string": "123.456789012",
@@ -137,7 +137,7 @@ The following table displays the database columns and records that using the spe
 | My Static Metadata | iotconsole\-159EXAMPLE738\-0 | integer\_value\_as\_string | \- | 123456789012 | \- | \- | 2020\-08\-26 22:42:16\.423000000 | 
 | My Static Metadata | iotconsole\-159EXAMPLE738\-0 | boolean\_value | \- | \- | \- | TRUE | 2020\-08\-26 22:42:16\.423000000 | 
 | My Static Metadata | iotconsole\-159EXAMPLE738\-0 | integer\_value | 123456789012 | \- | \- | \- | 2020\-08\-26 22:42:16\.423000000 | 
-| My Static Metadata | iotconsole\-159EXAMPLE738\-0 | string\_value | \- | AWS IoT is super\! | \- | \- | 2020\-08\-26 22:42:16\.423000000 | 
+| My Static Metadata | iotconsole\-159EXAMPLE738\-0 | string\_value | \- | String value | \- | \- | 2020\-08\-26 22:42:16\.423000000 | 
 | My Static Metadata | iotconsole\-159EXAMPLE738\-0 | array\_of\_integers | \- | \[23,36,56,72\] | \- | \- | 2020\-08\-26 22:42:16\.423000000 | 
 | My Static Metadata | iotconsole\-159EXAMPLE738\-0 | array of strings | \- | \["red","green","blue"\] | \- | \- | 2020\-08\-26 22:42:16\.423000000 | 
 | My Static Metadata | iotconsole\-159EXAMPLE738\-0 | boolean\_value\_as\_string | \- | TRUE | \- | \- | 2020\-08\-26 22:42:16\.423000000 | 

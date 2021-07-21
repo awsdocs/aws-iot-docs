@@ -1,19 +1,11 @@
 # Device Advisor test cases<a name="device-advisor-tests"></a>
 
-
-|  | 
-| --- |
-| Device Advisor is in preview and is subject to change\. | 
-
-Device Advisor provides prebuilt tests in two categories\.
-+ Reliable connectivity
-
-  Device connects and stays connected with AWS IoT Core\.
-+ Secure connectivity
-
-  Validate that your devices follow recommended security best practices\.
-
-`EXECUTION_TIMEOUT` is in milliseconds\.
+Device Advisor provides prebuilt tests in five categories\.
++ **TLS**
++ **Permissions and policies**
++ **MQTT**
++ **Shadow**
++ **Job Execution**
 
 **Note**  
 Your device needs to pass the following tests for qualification and to be able to list your device in the AWS Partner Device Catalog:  
@@ -29,9 +21,9 @@ Your device needs to pass the following tests for qualification and to be able t
 You use these tests to determine if the transport layer security protocol \(TLS\) between your devices and AWS IoT is secure\.Cipher suites
 
 **"TLS Connect"**  
-Validates if the client device can complete TLS handshake to AWS IoT\. This test doesn't validate the MQTT implementation of the client device\.  
+Validates if the device under test can complete TLS handshake to AWS IoT\. This test doesn't validate the MQTT implementation of the client device\.  
 *API test case definition:*  
-`EXECUTION_TIMEOUT` has a default value of 5 minutes\.
+`EXECUTION_TIMEOUT` has a default value of 5 minutes\. We recommended timeout value of 2 minutes\. 
 
 ```
 "tests":[
@@ -39,7 +31,7 @@ Validates if the client device can complete TLS handshake to AWS IoT\. This test
       "name":"my_tls_connect_test"
       "configuration": {
          // optional:
-         "EXECUTION_TIMEOUT":"300000",
+         "EXECUTION_TIMEOUT":"300",  //in seconds
       },
       "test":{
          "id":"TLS_Connect",
@@ -49,15 +41,14 @@ Validates if the client device can complete TLS handshake to AWS IoT\. This test
 ]
 ```
 Test case outputs:  
-Pass: The client device completed TLS handshake with AWS IoT\.  
-Pass with warnings: The client device completed TLS handshake with AWS IoT, but there were TLS warning messages from the device or AWS IoT\.  
-Fail: The client device failed to complete TLS handshake with AWS IoT due to handshake error\.
+Pass: The device under test completed TLS handshake with AWS IoT\.  
+Pass with warnings: The device under test completed TLS handshake with AWS IoT, but there were TLS warning messages from the device or AWS IoT\.  
+Fail: The device under test failed to complete TLS handshake with AWS IoT due to handshake error\.
 
 **"TLS Device Support for AWS IoT recommended Cipher Suites"**  
-Validates that the cipher suites in the TLS Client Hello message from the client device contains [AWS IoT recommended cipher suites](transport-security.md)\. It provides additional insights into cipher suites supported by the device\.  
+Validates that the cipher suites in the TLS Client Hello message from the device under test contains [AWS IoT recommended cipher suites](transport-security.md)\. It provides additional insights into cipher suites supported by the device\.  
 *API test case definition:*  
-`EXECUTION_TIMEOUT` \(optional\) is in milliseconds\.  
-`EXECUTION_TIMEOUT` has a default value of 5 minutes\.
+`EXECUTION_TIMEOUT` has a default value of 5 minutes\. We recommend a timeout value of 2 minutes\.
 
 ```
 "tests":[
@@ -65,7 +56,7 @@ Validates that the cipher suites in the TLS Client Hello message from the client
       "name":"my_tls_support_aws_iot_cipher_suites_test"
       "configuration": {
          // optional:
-         "EXECUTION_TIMEOUT":"300000",
+         "EXECUTION_TIMEOUT":"300",  // in seconds
       },
       "test":{
          "id":"TLS_Support_AWS_IoT_Cipher_Suites",
@@ -75,14 +66,14 @@ Validates that the cipher suites in the TLS Client Hello message from the client
 ]
 ```
 Test case outputs:  
-Pass: The client device cipher suites contain at least one AWS IoT recommended cipher suite and don't contain any unsupported cipher suites\.  
+Pass: The device under test cipher suites contain at least one AWS IoT recommended cipher suite and don't contain any unsupported cipher suites\.  
 Pass with warnings: The device cipher suites contain at least one AWS IoT cipher suite but 1\) don't contain any of the recommended cipher suites, or 2\) contain cipher suites not supported by AWS IoT\. We suggest verifying that unsupported cipher suites are safe\.   
-Fail: The client device cipher suites don't contain any of the AWS IoT supported cipher suites\.Bad server certificate
+Fail: The device under test cipher suites don't contain any of the AWS IoT supported cipher suites\.Bad server certificate
 
 **"Not Signed By Recognized CA"**  
-Validates that the client device closes the connection if it's presented with a server certificate that doesn't have a valid signature from the ATS CA\. A device should only connect to an endpoint that presents a valid certificate\.  
+Validates that the device under test closes the connection if it's presented with a server certificate that doesn't have a valid signature from the ATS CA\. A device should only connect to an endpoint that presents a valid certificate\.  
 *API test case definition:*  
-`EXECUTION_TIMEOUT` has a default value of 5 minutes\.
+`EXECUTION_TIMEOUT` has a default value of 5 minutes\. We recommend a timeout value of 2 minutes\. 
 
 ```
 "tests":[
@@ -90,7 +81,7 @@ Validates that the client device closes the connection if it's presented with a 
       "name":"my_tls_unsecure_server_cert_test"
       "configuration": {
          // optional:
-         "EXECUTION_TIMEOUT":"300000",
+         "EXECUTION_TIMEOUT":"300",  //in seconds
       },
       "test":{
          "id":"TLS_Unsecure_Server_Cert",
@@ -100,13 +91,13 @@ Validates that the client device closes the connection if it's presented with a 
 ]
 ```
 Test case outputs:  
-Pass: The client device closed the connection\.  
-Fail: The client device completed TLS handshake with AWS IoT\.
+Pass: The device under test closed the connection\.  
+Fail: The device under test completed TLS handshake with AWS IoT\.
 
 **"Incorrect Subject Common Name \(CN\) / Subject Alternative Name \(SAN\)"**  
-Validates that the client device closes the connection if it's presented with a server certificate for a domain name that is different than the one requested\.  
+Validates that the device under test closes the connection if it's presented with a server certificate for a domain name that is different than the one requested\.  
 *API test case definition:*  
-`EXECUTION_TIMEOUT` has a default value of 5 minutes\.
+`EXECUTION_TIMEOUT` has a default value of 5 minutes\. We recommend a timeout value of 2 minutes\. 
 
 ```
 "tests":[
@@ -114,7 +105,7 @@ Validates that the client device closes the connection if it's presented with a 
       "name":"my_tls_incorrect_subject_name_cert_test"
       "configuration": {
          // optional:
-         "EXECUTION_TIMEOUT":"300000",
+         "EXECUTION_TIMEOUT":"300",   // in seconds
       },
       "test":{
          "id":"TLS_Incorrect_Subject_Name_Server_Cert",
@@ -124,15 +115,40 @@ Validates that the client device closes the connection if it's presented with a 
 ]
 ```
 Test case outputs:  
-Pass: The client device closed the connection\.  
-Fail: The client device completed TLS handshake with AWS IoT\.
+Pass: The device under test closed the connection\.  
+Fail: The device under test completed TLS handshake with AWS IoT\.
+
+## Permissions and policies<a name="device-advisor-tests-permissions-policies"></a>
+
+You use these tests to determine if the policies attached to your devices’ certificates follow the best practice\.
+
+**"Device certificate attached policies don’t contain wildcards"**  
+ Validates if the permission policies associated with a device follow best practices and do not grant the device more permissions than needed\.  
+*API test case definition:*  
+`EXECUTION_TIMEOUT` has a default value of 1 minute\. It is recommended to set timeout for at least 30 seconds\.
+
+```
+"tests":[
+   {
+        "name":"my_security_device_policies"
+        "configuration": {
+            // optional:
+            "EXECUTION_TIMEOUT":"60"    // in seconds
+        } 
+        "test": {
+            "id": "Security_Device_Policies",
+            "version": "0.0.0"
+        }
+    }
+]
+```
 
 ## MQTT<a name="device-advisor-tests-mqtt"></a>CONNECT, DISCONNECT, and RECONNECT
 
 **"Device send CONNECT to AWS IoT Core \(Happy case\)"**  
-Validates that the client device sends a CONNECT request\.   
+Validates that the device under test sends a CONNECT request\.   
 *API test case definition:*  
-`EXECUTION_TIMEOUT` has a default value of 5 minutes\.
+`EXECUTION_TIMEOUT` has a default value of 5 minutes\. We recommend a timeout value of 2 minutes\. 
 
 ```
 "tests":[
@@ -140,7 +156,7 @@ Validates that the client device sends a CONNECT request\.
       "name":"my_mqtt_connect_test"
       "configuration": {
          // optional:
-         "EXECUTION_TIMEOUT":"300000",
+         "EXECUTION_TIMEOUT":"300",   // in seconds
       },
       "test":{
          "id":"MQTT_Connect",
@@ -150,10 +166,55 @@ Validates that the client device sends a CONNECT request\.
 ]
 ```
 
-**"Device re\-connect with exponential backoff \- No CONNACK response"**  
-Validates that the client device uses the proper exponential backoff when reconnecting with the server for at least five times\. The server logs the timestamp of the client device's CONNECT request, performs packet validation, pauses without sending a CONNACK to the client device, and waits for the client device to resend the request\. The collected timestamps are used to validate that exponential backoff is used by the client device\.   
+**"Device re\-connect with jitter backoff \- No CONNACK response"**  
+Validates that the device under test uses the proper jitter backoff when reconnecting with the broker for at least five times\. The broker logs the timestamp of the device under test's CONNECT request, performs packet validation, pauses without sending a CONNACK to the device under test, and waits for the device under test to resend the request\. The sixth connection attempt is allowed to pass through and CONNACK is allowed to flow back to the device under test\.  
+The above process is performed again\. In total, this test case requires the device to connect at least 12 times in total\. The collected timestamps are used to validate that jitter backoff is used by the device under test\. If the device under test has strictly exponential backoff delay, this test case will pass with warnings\.   
 *API test case definition:*  
-`EXECUTION_TIMEOUT` has a default value of 10 minutes\.
+`EXECUTION_TIMEOUT` has a default value of 10 minutes\. We recommend a timeout value of 4 minutes\. 
+
+```
+"tests":[
+   {
+      "name":"my_mqtt_jitter_backoff_retries_test"
+      "configuration": {
+         // optional:
+         "EXECUTION_TIMEOUT":"300",    // in seconds
+      },
+      "test":{
+         "id":"MQTT_Connect_Jitter_Backoff_Retries",
+         "version":"0.0.0"
+      }
+   }
+]
+```
+
+**"Device can return PUBACK to an arbitrary topic for QoS1"**  
+This test case will check if device\(client\) can return PUBACK message if it received publish message from broker after subscribing to a topic with QoS1\.  
+*API test case definition:*  
+`EXECUTION_TIMEOUT` has a default value of 5 minutes\. We recommend a timeout value of 2 minutes\. 
+
+```
+"tests":[
+   {
+        "name":"my_mqtt_client_puback_qos1"
+        "configuration": {
+            // optional:
+            "TRIGGER_TOPIC": "myTopic",
+            "EXECUTION_TIMEOUT":"300", // in seconds
+            "PAYLOAD_FOR_PUBLISH_VALIDATION":"custom payload"
+        } 
+        "test": {
+            "id": "MQTT_Client_Puback_Qos1",
+            "version": "0.0.0"
+        }
+    }
+]
+```
+
+**"Device re\-connect with exponential backoff \- No CONNACK response"**  
+Validates that the device under test uses the proper exponential backoff when reconnecting with the broker for at least five times\. The broker logs the timestamp of the device under test's CONNECT request, performs packet validation, pauses without sending a CONNACK to the client device, and waits for the device under test to resend the request\. The collected timestamps are used to validate that exponential backoff is used by the device under test\.   
+*API test case definition:*  
+`EXECUTION_TIMEOUT` has a default value of 10 minutes\. We recommend a timeout value of 4 minutes\. 
 
 ```
 "tests":[
@@ -161,7 +222,7 @@ Validates that the client device uses the proper exponential backoff when reconn
       "name":"my_mqtt_exponential_backoff_retries_test"
       "configuration": {
          // optional:
-         "EXECUTION_TIMEOUT":"600000",
+         "EXECUTION_TIMEOUT":"600",  // in seconds
       },
       "test":{
          "id":"MQTT_Connect_Exponential_Backoff_Retries",
@@ -172,18 +233,18 @@ Validates that the client device uses the proper exponential backoff when reconn
 ```Publish
 
 **"QoS0 \(Happy Case\)"**  
-Validates that the client device publishes a message with QoS0\. You can also validate the topic of the message by specifying this topic value in the test settings\.  
+Validates that the device under test publishes a message with QoS0\. You can also validate the topic of the message by specifying this topic value in the test settings\.  
 *API test case definition:*  
-`EXECUTION_TIMEOUT` has a default value of 5 minutes\.
+`EXECUTION_TIMEOUT` has a default value of 5 minutes\. We recommend a timeout value of 2 minutes\. 
 
 ```
 "tests":[
    {
       "name":"my_mqtt_publish_test":{
          // optional:
-         "EXECUTION_TIMEOUT":"300000",
-         "TOPIC_FOR_PUBLISH_VALIDATION": "String",
-         "PAYLOAD_FOR_PUBLISH_VALIDATION": "String",
+         "EXECUTION_TIMEOUT":"300",  // in seconds
+         "TOPIC_FOR_PUBLISH_VALIDATION": "my_TOPIC_FOR_PUBLISH_VALIDATION",
+         "PAYLOAD_FOR_PUBLISH_VALIDATION": "my_PAYLOAD_FOR_PUBLISH_VALIDATION",
       },
       "test":{
          "id":"MQTT_Publish",
@@ -194,18 +255,18 @@ Validates that the client device publishes a message with QoS0\. You can also va
 ```
 
 **"QoS1 publish retry \- No PUBACK"**  
-Validates that the client device republishes a message sent with QoS1, if the server doesn't send PUBACK\. You can also validate the topic of the message by specifying this topic in the test settings\. The client device must not disconnect before republishing the message\. This test also validates that the republished message has the same packet identifier as the original\.  
+Validates that the device under test republishes a message sent with QoS1, if the broker doesn't send PUBACK\. You can also validate the topic of the message by specifying this topic in the test settings\. The client device must not disconnect before republishing the message\. This test also validates that the republished message has the same packet identifier as the original\.  
 *API test case definition:*  
-`EXECUTION_TIMEOUT` has a default value of 5 minutes\.
+`EXECUTION_TIMEOUT` has a default value of 5 minutes\. It is recommended for at least 4 minutes\.
 
 ```
 "tests":[
    {
       "name":"my_mqtt_publish_retry_test":{
          // optional:
-         "EXECUTION_TIMEOUT":"300000",
-         "TOPIC_FOR_PUBLISH_VALIDATION": "String",
-         "PAYLOAD_FOR_PUBLISH_VALIDATION": "String",
+         "EXECUTION_TIMEOUT":"300",  // in seconds
+         "TOPIC_FOR_PUBLISH_VALIDATION": "my_TOPIC_FOR_PUBLISH_VALIDATION",
+         "PAYLOAD_FOR_PUBLISH_VALIDATION": "my_PAYLOAD_FOR_PUBLISH_VALIDATION",
       },
       "test":{
          "id":"MQTT_Publish_Retry_No_Puback",
@@ -216,17 +277,17 @@ Validates that the client device republishes a message sent with QoS1, if the se
 ```Subscribe
 
 **"Can Subscribe \(Happy Case\)"**  
-Validates that the client device subscribes to MQTT topics\. You can also validate the topic that the client device subscribes to by specifying this topic in the test settings\.   
+Validates that the device under test subscribes to MQTT topics\. You can also validate the topic that the device under test subscribes to by specifying this topic in the test settings\.   
 *API test case definition:*  
-`EXECUTION_TIMEOUT` has a default value of 5 minutes\.
+`EXECUTION_TIMEOUT` has a default value of 5 minutes\. We recommend a timeout value of 2 minutes\. 
 
 ```
 "tests":[
    {
       "name":"my_mqtt_subscribe_test":{
          // optional:
-         "EXECUTION_TIMEOUT":"300000",
-         "TOPIC_FOR_PUBLISH_VALIDATION":["String","String"]
+         "EXECUTION_TIMEOUT":"300",  // in seconds
+         "TOPIC_LIST_FOR_SUBSCRIPTION_VALIDATION_ID":["my_TOPIC_FOR_PUBLISH_VALIDATION_a","my_TOPIC_FOR_PUBLISH_VALIDATION_b"]
       },
       "test":{
          "id":"MQTT_Subscribe",
@@ -237,17 +298,17 @@ Validates that the client device subscribes to MQTT topics\. You can also valida
 ```
 
 **"Subscribe Retry \- No SUBACK"**  
-Validates that the client device retries a failed subscription to MQTT topics\. The server then waits and doesn't send a SUBACK\. If the client device doesn't retry the subscription, the test fails\. You can also validate the topic that the client device subscribes to by specifying this topic in the test settings\.   
+Validates that the device under test retries a failed subscription to MQTT topics\. The server then waits and doesn't send a SUBACK\. If the client device doesn't retry the subscription, the test fails\. You can also validate the topic that the device under test subscribes to by specifying this topic in the test settings\.   
 *API test case definition:*  
-`EXECUTION_TIMEOUT` has a default value of 5 minutes\.
+`EXECUTION_TIMEOUT` has a default value of 5 minutes\. We recommend a timeout value of 4 minutes\. 
 
 ```
 "tests":[
    {
       "name":"my_mqtt_subscribe_retry_test":{
-         "EXECUTION_TIMEOUT":"300000",
+         "EXECUTION_TIMEOUT":"300",  // in seconds
          // optional:
-         "TOPIC_FOR_PUBLISH_VALIDATION":["String","String"]
+         "TOPIC_LIST_FOR_SUBSCRIPTION_VALIDATION_ID":["myTOPIC_FOR_PUBLISH_VALIDATION_a","my_TOPIC_FOR_PUBLISH_VALIDATION_b"]
       },
       "test":{
          "id":"MQTT_Subscribe_Retry_No_Suback",
@@ -257,43 +318,14 @@ Validates that the client device retries a failed subscription to MQTT topics\. 
 ]
 ```
 
-## Permissions and policies<a name="device-advisor-tests-permissions-policies"></a>
-
-You use these tests to determine if the policies attached to your devices’ certificates follow the best practice\.
-
-**"Device certificate attached policies don’t contain wildcards"**  
- Validates if the permission policies associated with a device follow best practices and do not grant the device more permissions than needed\.  
-*API test case definition:*  
-`EXECUTION_TIMEOUT` has a default value of 1 minute\.
-
-```
-"tests":[
-   {
-        "name":"my_security_device_policies"
-        "configuration": {
-            // optional:
-            "EXECUTION_TIMEOUT":"60000"
-        } 
-        "test": {
-            "id": "Security_Device_Policies",
-            "version": "0.0.0"
-        }
-    }
-]
-```
-These test cases are currently not available through the AWS IoT console\. Please use the AWS IoT CLI or the AWS IoT IoT Core Device Advisor SDK to configure this test case\.
-
 ## Shadow<a name="device-advisor-tests-shadow"></a>
 
-Use these test to verify your devices use AWS IoT Device Shadow service correctly\. See [AWS IoT Device Shadow service](iot-device-shadows.md) for more information\. If these test cases are configured in your test suite, then providing a thing is required when starting the suite run\.
-
-**Note**  
-These test cases are currently not available through the AWS console\. To configure this test case, you can use the AWS CLI or the AWS IoT Core Device Advisor SDK\.Publish
+Use these test to verify your devices under test use AWS IoT Device Shadow service correctly\. See [AWS IoT Device Shadow service](iot-device-shadows.md) for more information\. If these test cases are configured in your test suite, then providing a thing is required when starting the suite run\.Publish
 
 ***"Device publishes state after it connects \(Happy case\)"***  
 Validates if a device can publish its state after it connects to AWS IoT Core  
 *API test case definition:*  
-`EXECUTION_TIMEOUT` has a default value of 5 minute\.
+`EXECUTION_TIMEOUT` has a default value of 5 minutes\. We recommend a timeout value of 2 minutes\. 
 
 ```
 "tests":[
@@ -301,7 +333,7 @@ Validates if a device can publish its state after it connects to AWS IoT Core
       "name":"my_shadow_publish_reported_state",
       "configuration": {
          // optional:
-         "EXECUTION_TIMEOUT":"300000",
+         "EXECUTION_TIMEOUT":"300", // in seconds
          "SHADOW_NAME": "SHADOW_NAME",
          "REPORTED_STATE": {
             "STATE_ATTRIBUTE": "STATE_VALUE"
@@ -315,12 +347,12 @@ Validates if a device can publish its state after it connects to AWS IoT Core
 ]
 ```
 The `REPORTED_STATE` can be provided for additional validation on your device's exact shadow state, after it connects\. By default, this test case validates your device publishing state\.  
-If `SHADOW_NAME` is not provided, then the test case looks for messages published to topic prefixes of the Unnamed \(classic\) shadow type by default\. Provide a shadow name if your device uses the named shadow type\. For more information, see [Using shadows in devices](device-shadow-comms-device.md)\.Update
+If `SHADOW_NAME` is not provided, then the test case looks for messages published to topic prefixes of the Unnamed \(classic\) shadow type by default\. Provide a shadow name if your device uses the named shadow type\. See [Using shadows in devices](https://docs.aws.amazon.com/iot/latest/developerguide/device-shadow-comms-device.html) for more information\.Update
 
 ***"Device updates reported state to desired state \(Happy case\)"***  
-Validates if your device reads all update messages received and synchronizes the device's state to match the desired state properties\. Your device should publish its latest reported state after synchronizing\.   
+Validates if your device reads all update messages received and synchronizes the device's state to match the desired state properties\. Your device should publish its latest reported state after synchronizing\. If your device already has an existing shadow before running the test, make sure the desired state configured for the test case and the existing reported state do not already match\. You can identify Shadow update messages sent by Device Advisor by looking at the ClientToken field in the Shadow document as it will be `DeviceAdvisorShadowTestCaseSetup`\.   
 *API test case definition:*  
-`EXECUTION_TIMEOUT` has a default value of 5 minutes\.
+`EXECUTION_TIMEOUT` has a default value of 5 minutes\. We recommend a timeout value of 2 minutes\. 
 
 ```
 "tests":[
@@ -331,7 +363,7 @@ Validates if your device reads all update messages received and synchronizes the
             "STATE_ATTRIBUTE": "STATE_VALUE"
          },
          // optional:
-         "EXECUTION_TIMEOUT":"300000",
+         "EXECUTION_TIMEOUT":"300", // in seconds
          "SHADOW_NAME": "SHADOW_NAME"
       },
       "test":{
@@ -342,4 +374,39 @@ Validates if your device reads all update messages received and synchronizes the
 ]
 ```
 The `DESIRED_STATE` should have at least one attribute and associated value\.  
-If `SHADOW_NAME`is not provided, then the test case looks for messages published to topic prefixes of the Unnamed \(classic\) shadow type by default\. Provide a shadow name if your device uses the named shadow type\. See [Using shadows in devices](device-shadow-comms-device.md) for more information\.
+If `SHADOW_NAME` is not provided, then the test case looks for messages published to topic prefixes of the Unnamed \(classic\) shadow type by default\. Provide a shadow name if your device uses the named shadow type\. See [Using shadows in devices](https://docs.aws.amazon.com/iot/latest/developerguide/device-shadow-comms-device.html) for more information\.
+
+## Job Execution<a name="device-advisor-test-job-execution"></a>
+
+**"Device can complete a job execution"**  
+This test case helps you validate if your device is able to receive updates using AWS IoT Jobs, and publish the status of successful update\. For more information on AWS IoT Jobs, see [ Jobs](https://docs.aws.amazon.com/iot/latest/developerguide/iot-jobs.html)\.  
+*API test case definition:*  
+`EXECUTION_TIMEOUT` has a default value of 5 minutes\. We recommend a timeout value of 2 minutes\. 
+
+```
+"tests":[
+   {
+        "name":"my_job_execution",
+        "configuration": {
+            // Document is a JSON formatted string
+            "JOB_DOCUMENT": "{
+                "operation":"reboot",
+                "files" : {
+                   "fileName" : "install.py",
+                   "url" : "${aws:iot:s3-presigned-url:https://s3.amazonaws.com/bucket/key}"
+            }",
+            
+            // Document_SOURCE is an S3 link to the job document
+            // Document and document are optional but can't be both null.
+            "JOB_DOCUMENT_SOURCE": "https://s3.amazonaws.com/bucket/key",
+            // optional:
+            "EXECUTION_TIMEOUT": "300"  // in seconds
+        },
+        "test": {
+            "id": "Job_Execution",
+            "version": "0.0.0"
+        }
+    }
+]
+```
+For more information on creating and using job documents see [job document](https://docs.aws.amazon.com/iot/latest/developerguide/iot-jobs.html)\. 

@@ -25,7 +25,7 @@ You can follow the steps in [Create an AWS IoT policy](https://docs.aws.amazon.c
             "Resource": [ 
                 "arn:partition:iot:region:accountID:client/${iot:Connection.Thing.ThingName}"
             ]
-        }
+        },
         {
             "Effect": "Allow",
             "Action": [ "iot:Receive", "iot:Publish" ],

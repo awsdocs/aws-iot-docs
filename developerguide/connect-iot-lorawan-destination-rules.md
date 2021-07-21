@@ -73,4 +73,4 @@ For information about using binary message payloads in a rule, see [Working with
 
 For more information about the data security and encryption used to protect the message payload on its journey, see [Data protection in AWS IoT Core](data-protection.md)\.
 
-For a reference architecture that shows a binary decoding and implementation example for IoT rules, see [AWS IoT Core for LoRaWAN Solution Samples on GitHub](https://github.com/aws-samples/aws-iot-core-lorawan/tree/main/transform_binary_payload)
+For a reference architecture that shows a binary decoding and implementation example for IoT rules, see [AWS IoT Core for LoRaWAN Solution Samples on GitHub](https://github.com/aws-samples/aws-iot-core-lorawan/tree/main/transform_binary_payload)\.

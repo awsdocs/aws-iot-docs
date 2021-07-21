@@ -12,7 +12,7 @@ Devices can be manufactured with a provisioning claim certificate and private ke
 
 **Before you deliver the device**
 
-1. Call [ `CreateProvisioningTemplate`](https://docs.aws.amazon.com/iot/latest/apireference/API_CreateProvisioningTemplate.html) to create a provisioning template\. This API returns a template ARN\. For more information, see [Device provisioning MQTT API](fleet-provision-api.md)\.
+1. Call [https://docs.aws.amazon.com/iot/latest/apireference/API_CreateProvisioningTemplate.html](https://docs.aws.amazon.com/iot/latest/apireference/API_CreateProvisioningTemplate.html) to create a provisioning template\. This API returns a template ARN\. For more information, see [Device provisioning MQTT API](fleet-provision-api.md)\.
 
    You can also create a fleet provisioning template in the AWS IoT console\. 
 
@@ -65,6 +65,8 @@ Provisioning claim private keys should be secured at all times, including on the
 **To initialize the device for use**
 
 1. The device uses the [AWS IoT Device SDKs, Mobile SDKs, and AWS IoT Device Client](iot-sdks.md) to connect to and authenticate with AWS IoT using the provisioning claim certificate that is installed on the device\.
+**Note**  
+For security, the `certificateOwnershipToken` returned by [`CreateCertificateFromCsr`](fleet-provision-api.md#create-cert-csr) and [`CreateKeysAndCertificate`](fleet-provision-api.md#create-keys-cert) expires after one hour\. [`RegisterThing`](fleet-provision-api.md#register-thing) must be called before the `certificateOwnershipToken` expires\. If the token expires, the device can call [`CreateCertificateFromCsr`](fleet-provision-api.md#create-cert-csr) or [`CreateKeysAndCertificate`](fleet-provision-api.md#create-keys-cert) again to generate a new certificate\.
 
 1. The device obtains a permanent certificate and private key by using one of these options\. The device will use the certificate and key for all future authentication with AWS IoT\.
 
@@ -117,13 +119,11 @@ You must manage the trusted user's access and permission to perform this procedu
 
 1. The mobile app or web application uses the IAM role and calls [ `CreateProvisioningClaim`](https://docs.aws.amazon.com/iot/latest/apireference/API_CreateProvisioningClaim.html) to obtain a temporary provisioning claim certificate from AWS IoT\.
 **Note**  
-For security, the temporary provisioning claim certificate returned by `CreateProvisioningClaim` is valid for only five minutes\. The following steps must successfully return a valid certificate before the temporary provisioning claim certificate expires\. Temporary provisioning claim certificates do not appear in your account's list of certificates\.
+For security, the temporary provisioning claim certificate that `CreateProvisioningClaim` returns expires after five minutes\. The following steps must successfully return a valid certificate before the temporary provisioning claim certificate expires\. Temporary provisioning claim certificates do not appear in your account's list of certificates\.
 
 1. The mobile app or web application supplies the temporary provisioning claim certificate to the device along with any required configuration information, such as Wi\-Fi credentials\.
 
 1. The device uses the temporary provisioning claim certificate to connect to AWS IoT using the [AWS IoT Device SDKs, Mobile SDKs, and AWS IoT Device Client](iot-sdks.md)\.
-**Note**  
-The device must perform the following steps such that it calls [`RegisterThing`](fleet-provision-api.md#register-thing) within five minutes of connecting to AWS IoT with the temporary provisioning claim certificate\.
 
 1. The device obtains a permanent certificate and private key by using one of these options\. The device will use the certificate and key for all future authentication with AWS IoT\.
 
@@ -133,7 +133,9 @@ The device must perform the following steps such that it calls [`RegisterThing`]
 
    1. Call [ `CreateCertificateFromCsr`](fleet-provision-api.md#create-cert-csr) to generate a certificate from a certificate signing request that keeps its private key secure\.
 
-1. The device calls [`RegisterThing`](fleet-provision-api.md#register-thing) to register the device with AWS IoT and create cloud resources\. Remember that this must occur within five minutes of connecting to AWS IoT with the temporary provisioning claim certificate\.
+1. The device calls [`RegisterThing`](fleet-provision-api.md#register-thing) to register the device with AWS IoT and create cloud resources\. 
+**Note**  
+Remember `RegisterThing` must return a valid certificate within five minutes of connecting to AWS IoT with the temporary provisioning claim certificate\.
 
    The Fleet Provisioning service creates cloud resources such as IoT things, thing groups, and attributes, as defined in the provisioning template\.
 

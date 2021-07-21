@@ -39,7 +39,7 @@ For more information, see [Security best practices in IAM](https://docs.aws.amaz
 + 
 
 **Installed the AWS CLI**  
-For information about how to install the AWS CLI, see [Installing the AWS CLI](https://docs.aws.amazon.com/cli/latest/userguide/cli-chap-install.html)\. This tutorial requires AWS CLI version aws\-cli/2\.1\.3 Python/3\.7\.4 Darwin/18\.7\.0 exe/x86\_64 or later\.
+For information about how to install the AWS CLI, see [Installing the AWS CLI](https://docs.aws.amazon.com/cli/latest/userguide/cli-chap-install.html)\. This tutorial requires AWS CLI version `aws-cli/2.1.3 Python/3.7.4 Darwin/18.7.0 exe/x86_64` or later\.
 + 
 
 **OpenSSL tools**  
@@ -417,8 +417,6 @@ Note that when invoking the authorizer from the command line, `protocolData` is 
 
 ## Test publishing MQTT message using Postman<a name="custom-auth-tutorial-postman"></a>
 
-TODO: Add content for custom\-auth\-tutorial\-postman here\.
-
 1. To get your device data endpoint from the command line, call [describe\-endpoint](https://awscli.amazonaws.com/v2/documentation/api/latest/reference/iot/describe-endpoint.html) as shown here
 
    ```
@@ -519,8 +517,8 @@ In the previous step, you sent simulated device messages to AWS IoT by using Pos
 
    If you don't see your messages in the **MQTT test client**, here are some things to check:
    + Make sure your Postman request returned successfully\. If AWS IoT rejects the connection and returns an error, the message in the request doesn't get passed to the message broker\.
-   + Make sure the AWS Account and AWS Region used to open the AWS IoT console are the same as you're using in the Postman URL\.
-   + Make sure you've entered the topic correctly in the **MQTT test client**\. The topic filter is case\-sensitive\. If in doubt, you can also subscribe to the **\#** topic, which subscribes to all MQTT messages that pass through the message broker the AWS Account and AWS Region used to open the AWS IoT console\.
+   + Make sure the AWS account and AWS Region used to open the AWS IoT console are the same as you're using in the Postman URL\.
+   + Make sure you've entered the topic correctly in the **MQTT test client**\. The topic filter is case\-sensitive\. If in doubt, you can also subscribe to the **\#** topic, which subscribes to all MQTT messages that pass through the message broker the AWS account and AWS Region used to open the AWS IoT console\.
 
 ## Review the results and next steps<a name="custom-auth-tutorial-review"></a>
 

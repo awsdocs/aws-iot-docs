@@ -1,9 +1,9 @@
 # Amazon Sidewalk Integration for AWS IoT Core<a name="iot-sidewalk"></a>
 
-[Amazon Sidewalk](https://www.amazon.com/Amazon-Sidewalk/b?ie=UTF8&node=21328123011) is a shared network that improves connectivity options to help devices work together better\. Amazon Sidewalk supports a wide range of customer devices such as those that locate pets or valuables, those that provide smart home security and lighting control, and those that provide remote diagnostics for appliances and tools\. Amazon Sidewalk Integration for AWS IoT Core makes it possible for device manufacturers to add their Sidewalk device fleet to the AWS Cloud\.
+[Amazon Sidewalk](https://www.amazon.com/Amazon-Sidewalk/b?ie=UTF8&node=21328123011) is a shared network that helps devices like Amazon Echo, Ring security cams, outdoor lights, motion sensors, and Tile trackers work better at home and beyond the front door\. When enabled, Amazon Sidewalk can support other Sidewalk devices in your community, and open the door to innovations such as locating items connected to Amazon Sidewalk\.
 
 **Getting started with Amazon Sidewalk Integration for AWS IoT Core**  
- If you are a device manufacturer, here's how you can add your Sidewalk\-enabled devices to AWS IoT Core\.
+With Amazon Sidewalk Integration for AWS IoT Core, you can add your Sidewalk device fleet to the AWS Cloud\. Use the following steps to get started\.
 
 1. 
 
@@ -31,25 +31,14 @@ In the [AWS IoT console](https://console.aws.amazon.com/iot/home#/wireless/profi
 1. 
 
 **Complete the Amazon Sidewalk device configuration in the AWS IoT console**  
-Create the AWS IoT Core for LoRaWAN destinations and rules your device needs to route and format data for AWS services\.
+Create the destinations and rules your Sidewalk device needs to route and format the data for AWS services\.
 
-After your Amazon Sidewalk devices are authenticated, their messages are sent to AWS IoT Core\. You can start developing your business applications on the AWS Cloud that use the data from your Amazon Sidewalk devices\. 
+After your Amazon Sidewalk devices are authenticated, their messages are sent to AWS IoT Core\. You can start developing your business applications on the AWS Cloud that uses the data from your Amazon Sidewalk devices\.
 
-**Learn more**  
-These resources can help you integrate your Amazon Sidewalk devices with AWS IoT solutions\.
-+ 
+The following topics show how you can add Sidewalk devices and connect them to AWS IoT\. Before adding your devices, make sure that your AWS account has the required IAM permissions to perform the following procedures\.
 
-**Amazon Sidewalk Quick Start Guide**  
-The *Amazon Sidewalk Quick Start Guide* describes how to set up your hardware, design your product, connect to AWS IoT Core, and other steps necessary to create and test your device\. 
-+ 
-
-**[AWS IoT Wireless API actions for Amazon Sidewalk Integration for AWS IoT Core](iot-sidewalk-wireless-api.md)**  
-Lists the AWS IoT Wireless API actions that support the Amazon Sidewalk Integration for AWS IoT Core, with links to their API reference topics\.
-+ 
-
-**[Sidewalk Developer Service \(SDS\) console](http://developer.amazon.com/acs-devices/console/Sidewalk)**  
-Add and manage your devices that support Amazon Sidewalk\.
-+ 
-
-**[AWS IoT console](https://console.aws.amazon.com/iot/home#/wireless/landing)**  
-Manage your Sidewalk devices and other AWS IoT resources\.
+**Topics**
++ [Add your Sidewalk account credentials](iot-sidewalk-add-credentials.md)
++ [Add a destination for your Sidewalk device](iot-sidewalk-add-destination.md)
++ [Create rules to process Sidewalk device messages](iot-sidewalk-create-rules.md)
++ [Connect your Sidewalk device and view uplink metadata format](iot-sidewalk-connect-uplink-metadata.md)

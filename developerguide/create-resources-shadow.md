@@ -17,7 +17,7 @@ To run the `shadow.py` sample application for Device Shadows, you'll need a Rasp
 
 **Before you start this tutorial, make sure that you have:**
 + An AWS account\. If you don't have one, complete the steps described in [Set up your AWS account](setting-up.md) before you continue\. You'll need your AWS account and AWS IoT console to complete this tutorial\. 
-+ The Raspberry Pi and its necessary accessories\. You'll need: 
++ The Raspberry Pi and its necessary accessories\. You'll need:
   + A [Raspberry Pi 3 Model B](https://www.raspberrypi.org/products/) or more recent model\. This tutorial might work on earlier versions of the Raspberry Pi, but we haven't tested it\.
   + [Raspberry Pi OS \(32\-bit\)](https://www.raspberrypi.org/downloads/raspberry-pi-os/) or later\. We recommend using the latest version of the Raspberry Pi OS\. Earlier versions of the OS might work, but we haven't tested it\.
   + An Ethernet or Wi\-Fi connection\.

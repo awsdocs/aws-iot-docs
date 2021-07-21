@@ -59,12 +59,6 @@ In the AWS IoT console, the Shadow document reflects the updated value to `green
 **Note**  
 Deleting a shadow doesn't reset the version number to 0\. You'll see that the shadow version is incremented by 1 when you publish an update request or create another shadow with the same name\.
 
-
-
-
-
-
-
 **Edit the Shadow document to observe delta events**  
 The `shadow.py` sample app is also subscribed to `delta` events, and responds when there is a change to the `desired` value\. For example, you can change the `desired` value to the color `red`\. To do this, in the AWS IoT console, edit the Shadow document by clicking **Edit** and then set the `desired` value to `red` in the JSON, while keeping the `reported` value to `green`\. Before you save the changes, keep the terminal on the Raspberry Pi open as you'll see messages displayed in the terminal when the change occurs\.
 

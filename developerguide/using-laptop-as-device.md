@@ -215,7 +215,7 @@ Before running the script, make sure your thing's policy provides permissions fo
 1. In your command line window, replace *your\-iot\-endpoint* as indicated and run this command\. 
 
    ```
-   python pubsub.py --endpoint your-iot-endpoint --root-ca ~/certs/Amazon-root-CA-1.pem --cert ~/certs/device.pem.crt --key ~/certs/private.pem.key
+   python3 pubsub.py --endpoint your-iot-endpoint --root-ca ~/certs/Amazon-root-CA-1.pem --cert ~/certs/device.pem.crt --key ~/certs/private.pem.key
    ```
 
 ------
@@ -232,7 +232,7 @@ Before running the script, make sure your thing's policy provides permissions fo
 1. In your command line window, replace *your\-iot\-endpoint* as indicated and run this command\.
 
    ```
-   python pubsub.py --endpoint your-iot-endpoint --root-ca %USERPROFILE%\certs\Amazon-root-CA-1.pem --cert %USERPROFILE%\certs\device.pem.crt --key %USERPROFILE%\certs\private.pem.key
+   python3 pubsub.py --endpoint your-iot-endpoint --root-ca %USERPROFILE%\certs\Amazon-root-CA-1.pem --cert %USERPROFILE%\certs\device.pem.crt --key %USERPROFILE%\certs\private.pem.key
    ```
 
 ------

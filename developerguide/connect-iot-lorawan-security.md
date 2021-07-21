@@ -4,11 +4,13 @@ Two methods secure the data from your AWS IoT Core for LoRaWAN devices:
 + 
 
 **The security that wireless devices use to communicate with the gateways\.**  
-The LoRaWAN devices follow the security practices described in [LoRaWAN ™ SECURITY: A White Paper Prepared for the LoRa Alliance™ by Gemalto, Actility, and Semtech](https://lora-alliance.org/sites/default/files/2019-05/lorawan_security_whitepaper.pdf)\. 
+The LoRaWAN devices follow the security practices described in [LoRaWAN ™ SECURITY: A White Paper Prepared for the LoRa Alliance™ by Gemalto, Actility, and Semtech](https://lora-alliance.org/sites/default/files/2019-05/lorawan_security_whitepaper.pdf) to communicate with the gateways\. 
 + 
 
 **The security that AWS IoT Core uses to connect gateways to AWS IoT Core for LoRaWAN and send the data to other AWS services\.**  
 AWS IoT Core security is described in [Data protection in AWS IoT Core](data-protection.md)\.
+
+## How data is secured throughout the system<a name="connect-iot-lorawan-security-data-how"></a>
 
 This diagram identifies the key elements in a LoRaWAN system connected to AWS IoT Core for LoRaWAN to identify how data is secured throughout\.
 
@@ -24,7 +26,7 @@ This diagram identifies the key elements in a LoRaWAN system connected to AWS Io
 
 ## LoRaWAN device and gateway transport security<a name="connect-iot-lorawan-security-devices"></a>
 
-LoRaWAN devices and AWS IoT Core for LoRaWAN store pre\-shared root keys\. Session keys are derived by both LoRaWAN devices and AWS IoT Core for LoRaWAN following the protocols\. The symmetric session keys are used for encryption and decryption in a standard AES\-128 CTR mode\. A 4\-byte message integrity code \(MIC\) is also used to check the data integrity following a standard AES\-128 CMAC algorithm\. The session keys can be updated by using the Join/Rejoin process\. 
+LoRaWAN devices and AWS IoT Core for LoRaWAN store pre\-shared root keys\. Session keys are derived by both LoRaWAN devices and AWS IoT Core for LoRaWAN following the protocols\. The symmetric session keys are used for encryption and decryption in a standard AES\-128 CTR mode\. A 4\-byte message integrity code \(MIC\) is also used to check the data integrity following a standard AES\-128 CMAC algorithm\. The session keys can be updated by using the Join/Rejoin process\.
 
  The security practice for LoRa gateways is described in the LoRaWAN specifications\. LoRa gateways connect to AWS IoT Core for LoRaWAN through a web socket using a [ `Basics Station`](https://lora-developers.semtech.com/resources/tools/lora-basics/lora-basics-for-gateways/)\. AWS IoT Core for LoRaWAN supports only `Basics Station` version 2\.0\.4 and later\.
 

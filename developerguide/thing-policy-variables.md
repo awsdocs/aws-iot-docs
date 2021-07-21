@@ -12,7 +12,7 @@ The following thing policy variables are available:
   This resolves to the name of the thing in the AWS IoT Core registry for which the policy is being evaluated\. AWS IoT Core uses the certificate the device presents when it authenticates to determine which thing to use to verify the connection\. This policy variable is only available when a device connects over MQTT or MQTT over the WebSocket protocol\.
 + `iot:Connection.Thing.ThingTypeName`
 
-  This resolves to the thing type associated with the thing for which the policy is being evaluated\. The thing name is set to the client ID of the MQTT/WebSocket connection\. The thing type name is obtained by a call to the `DescribeThing` API\. This policy variable is available only when connecting over MQTT or MQTT over the WebSocket protocol\.
+  This resolves to the thing type associated with the thing for which the policy is being evaluated\. The thing name is set to the client ID of the MQTT/WebSocket connection\. This policy variable is available only when connecting over MQTT or MQTT over the WebSocket protocol\.
 + `iot:Connection.Thing.Attributes[attributeName]`
 
   This resolves to the value of the specified attribute associated with the thing for which the policy is being evaluated\. A thing can have up to 50 attributes\. Each attribute is available as a policy variable: `iot:Connection.Thing.Attributes[attributeName]` where *attributeName* is the name of the attribute\. The thing name is set to the client ID of the MQTT/WebSocket connection\. This policy variable is only available when connecting over MQTT or MQTT over the WebSocket protocol\.

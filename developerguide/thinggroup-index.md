@@ -8,7 +8,9 @@ You can use the `thing-group-indexing-configuration` setting in the [UpdateIndex
 
 Use the get\-indexing\-configuration CLI command to retrieve the current thing and thing group indexing configurations\.
 
-aws iot get\-indexing\-configuration
+```
+aws iot get-indexing-configuration
+```
 
 ```
 {

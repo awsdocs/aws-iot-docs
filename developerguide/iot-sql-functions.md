@@ -115,7 +115,7 @@ Example: `atan2(1, 0)` = 1\.5707963267948966
 | Argument | Description | 
 | --- | --- | 
 | functionArn |  The ARN of the Lambda function to call\. The Lambda function must return JSON data\.  | 
-| inputJson |  The JSON input passed to the Lambda function\.  | 
+| inputJson |  The JSON input passed to the Lambda function\. To pass nested object queries and literals, you must use SQL version 2016\-03\-23\.  | 
 
 You must grant AWS IoT `lambda:InvokeFunction` permissions to invoke the specified Lambda function\. The following example shows how to grant the `lambda:InvokeFunction` permission using the AWS CLI:
 
@@ -1555,14 +1555,121 @@ Each object in this Array corresponds to an object in the function's response\. 
 **Note**  
 The array returned by this function is limited to 128 KiB\.
 
-Example:
+### Transform function example 1<a name="iot-func-transform-example1"></a>
+
+This example shows how the transform\(\) function produces a single array of objects from a data object and an array\.
 
 In this example, the following message is published to the MQTT topic `A/B`\.
 
 ```
 {
-  "foo": "example",
-  "bar": {
+    "attributes": {
+        "data1": 1,
+        "data2": 2
+    },
+    "values": [
+        {
+            "a": 3
+        },
+        {
+            "b": 4
+        },
+        {
+            "c": 5
+        }
+    ]
+}
+```
+
+This SQL statement for a topic rule action uses the transform\(\) function with a `String` value of `enrichArray`\. In this example, `Object` is the `attributes` property from the message payload and `Array` is the `values` array, which contains three objects\.
+
+```
+select value transform("enrichArray", attributes, values) from 'A/B'
+```
+
+Upon receiving the message payload, the SQL statement evaluates to the following response\.
+
+```
+[
+  {
+    "a": 3,
+    "data1": 1,
+    "data2": 2
+  },
+  {
+    "b": 4,
+    "data1": 1,
+    "data2": 2
+  },
+  {
+    "c": 5,
+    "data1": 1,
+    "data2": 2
+  }
+]
+```
+
+### Transform function example 2<a name="iot-func-transform-example2"></a>
+
+This example shows how the transform\(\) function can use literal values to include and rename individual attributes from the message payload\.
+
+In this example, the following message is published to the MQTT topic `A/B`\. This is the same message that was used in [Transform function example 1](#iot-func-transform-example1)\.
+
+```
+{
+    "attributes": {
+        "data1": 1,
+        "data2": 2
+    },
+    "values": [
+        {
+            "a": 3
+        },
+        {
+            "b": 4
+        },
+        {
+            "c": 5
+        }
+    ]
+}
+```
+
+This SQL statement for a topic rule action uses the transform\(\) function with a `String` value of `enrichArray`\. The `Object` in the transform\(\) function has a single attribute named `key` with the value of `attributes.data1` in the message payload and `Array` is the `values` array, which contains the same three objects used in the previous example\.
+
+```
+select value transform("enrichArray", {"key": attributes.data1}, values) from 'A/B'
+```
+
+Upon receiving the message payload, this SQL statement evaluates to the following response\. Notice how the `data1` property is named `key` in the response\.
+
+```
+[
+  {
+    "a": 3,
+    "key": 1
+  },
+  {
+    "b": 4,
+    "key": 1
+  },
+  {
+    "c": 5,
+    "key": 1
+  }
+]
+```
+
+### Transform function example 3<a name="iot-func-transform-example3"></a>
+
+This example shows how the transform\(\) function can be used in nested SELECT clauses to select multiple attributes and create new objects for subsequent processing\.
+
+In this example, the following message is published to the MQTT topic `A/B`\.
+
+```
+{
+  "data1": "example",
+  "data2": {
     "a": "first attribute",
     "b": "second attribute",
     "c": [
@@ -1585,41 +1692,10 @@ In this example, the following message is published to the MQTT topic `A/B`\.
 }
 ```
 
-This SQL statement for a topic rule action uses the transform\(\)\. In this example, the `Object` for this transform function is the `foo` attribute from the message payload and the `Array` is the two objects of the `bar.c` array\.
+The `Object` for this transform function is the object returned by the SELECT statement, which contains the `a` and `b` elements of the message's `data2` object\. The `Array` parameter consists of the two objects from the `data2.c` array in the original message\.
 
 ```
-select transform('enrichArray', foo, bar.c) as example from 'A/B'
-```
-
-With the preceding message, the SQL statement evaluates to the following response\.
-
-```
-{
-  "example": [
-    {
-      "x": {
-        "someInt": 5,
-        "someString": "hello"
-      },
-      "y": true,
-      "foo": "example"
-    },
-    {
-      "x": {
-        "someInt": 10,
-        "someString": "world"
-      },
-      "y": false,
-      "foo": "example"
-    }
-  ]
-}
-```
-
-Nested SELECT clauses can also use this function to select multiple attributes\. In this example, the `Object` for this transform function is the object returned by the SELECT statement, which contains the `a` and `b` elements of the message's `bar` object\. The `Array` parameter consists of the two objects from the `bar.c` array in the original message\.
-
-```
-select value transform('enrichArray', (select a, b from bar), (select value c from bar)) from 'A/B'
+select value transform('enrichArray', (select a, b from data2), (select value c from data2)) from 'A/B'
 ```
 
 With the preceding message, the SQL statement evaluates to the following response\.

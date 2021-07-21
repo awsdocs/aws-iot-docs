@@ -4,7 +4,7 @@
 
 ## Enabling thing indexing<a name="enable-index"></a>
 
-You use the update\-indexing\-configuration CLI command or the [UpdateIndexingConfiguration](https://docs.aws.amazon.com/iot/latest/apireference/API_UpdateIndexingConfiguration.html) API to create the `AWS_Things` index and control its configuration\. The `--thing-indexing-configuration` \(`thingIndexingConfiguration`\) parameter allows you to control what kind of data \(for example, registry, shadow, and device connectivity data\) is indexed\. 
+You use the [update\-indexing\-configuration](https://docs.aws.amazon.com/cli/latest/reference/iot/update-indexing-configuration.html) CLI command or the [UpdateIndexingConfiguration](https://docs.aws.amazon.com/iot/latest/apireference/API_UpdateIndexingConfiguration.html) API to create the `AWS_Things` index and control its configuration\. The `--thing-indexing-configuration` \(`thingIndexingConfiguration`\) parameter allows you to control what kind of data \(for example, registry, shadow, and device connectivity data\) is indexed\. 
 
 The `--thing-indexing-configuration` parameter takes a string with the following structure:
 
@@ -38,7 +38,7 @@ Thing connectivity data is not indexed\.
 STATUS  
 Thing connectivity data is indexed\.
 
-The `customFields` attribute is a list of field and data type pairs\. Aggregation queries can be performed over these fields based on the data type\. The indexing mode you choose \(REGISTRY or REGISTRY\_AND\_SHADOW\) effects what fields can be specified in `customFields`\. For example, if you specify the `REGISTRY` indexing mode, you cannot specify a field from a thing shadow\. Custom fields must be specified in `customFields` to be indexed\.
+The `customFields` attribute is a list of field and data type pairs\. Aggregation queries can be performed over these fields based on the data type\. The indexing mode you choose \(REGISTRY or REGISTRY\_AND\_SHADOW\) affects what fields can be specified in `customFields`\. For example, if you specify the `REGISTRY` indexing mode, you cannot specify a field from a thing shadow\. Custom fields must be specified in `customFields` to be indexed\.
 
 If there is a type inconsistency between a custom field in your configuration and the value being indexed, the Fleet Indexing service ignores the inconsistent value for aggregation queries\. CloudWatch logs are helpful when troubleshooting aggregation query problems\. For more information, see [Troubleshooting aggregation queries for the fleet indexing service](aggregation-troubleshooting.md)\. 
 
@@ -68,7 +68,8 @@ Managed fields contain data associated with IoT things, thing groups, and device
   "managedFields" : [
     {name:connectivity.timestamp, type:Number},
     {name:connectivity.version, type:Number},
-    {name:connectivity.connected, type:Boolean}
+    {name:connectivity.connected, type:Boolean},
+    {name:connectivity.disconnectReason, type:String}
   ]
   ```
 + Managed fields for thing groups
@@ -87,7 +88,11 @@ Managed fields cannot be changed or appear in `customFields`\.
 
 The following is an example of how to use update\-indexing\-configuration to configure indexing:
 
-aws iot update\-indexing\-configuration \-\-thing\-indexing\-configuration 'thingIndexingMode=REGISTRY\_AND\_SHADOW,customFields=\[\{name=attributes\.version,type=Number\},\{name=attributes\.color, type=String\},\{name=shadow\.desired\.power, type=Boolean\}\}\]
+```
+aws iot update-indexing-configuration --thing-indexing-configuration
+          'thingIndexingMode=REGISTRY_AND_SHADOW,customFields=[{name=attributes.version,type=Number},{name=attributes.color,
+          type=String},{name=shadow.desired.power, type=Boolean}}]
+```
 
 This command enables indexing for registry and shadow data\. Aggregation queries work with the managed fields and the provided `customFields` based on the data type\.
 
@@ -95,7 +100,9 @@ You can use the get\-indexing\-configuration CLI command or the [GetIndexingConf
 
 The following command shows how to use the get\-indexing\-configuration CLI command to retrieve the current thing indexing configuration where five custom fields \(three registry custom fields and two shadow custom fields\) are defined\.
 
-aws iot get\-indexing\-configuration
+```
+aws iot get-indexing-configuration
+```
 
 ```
 {
@@ -139,6 +146,10 @@ aws iot get\-indexing\-configuration
             {
                 "name": "connectivity.version",
                 "type": "Number"
+            },
+            {
+                "name": "connectivity.disconnectReason",
+                "type": "String"
             },
             {
                 "name": "registry.thingTypeName",
@@ -193,13 +204,22 @@ You can use the AWS IoT update\-indexing\-configuration CLI command to update yo
 
 Short syntax:
 
-aws iot update\-indexing\-configuration \-\-thing\-indexing\-configuration "thingIndexingMode=REGISTRY\_AND\_SHADOW,thingConnectivityIndexingMode=STATUS,customFields=\[\{name=attributes\.version,type=Number\},\{name=attributes\.color,type=String\},\{name=shadow\.desired\.power,type=Boolean\}\]"
+```
+aws iot update-indexing-configuration --thing-indexing-configuration
+          "thingIndexingMode=REGISTRY_AND_SHADOW,thingConnectivityIndexingMode=STATUS,customFields=[{name=attributes.version,type=Number},{name=attributes.color,type=String},{name=shadow.desired.power,type=Boolean}]"
+```
 
 
 
 JSON syntax:
 
-aws iot update\-indexing\-configuration \-\-cli\-input\-json \\ '\{ "thingIndexingConfiguration": \{ "thingIndexingMode": "REGISTRY\_AND\_SHADOW", "thingConnectivityIndexingMode": "STATUS", "customFields": \[ \{ "name": "shadow\.desired\.power", "type": "Boolean" \}, \{ "name": "attributes\.color", "type": "String" \}, \{ "name": "attributes\.version", "type": "Number" \} \] \} \}'
+```
+aws iot update-indexing-configuration --cli-input-json \ '{
+          "thingIndexingConfiguration": { "thingIndexingMode": "REGISTRY_AND_SHADOW",
+          "thingConnectivityIndexingMode": "STATUS", "customFields": [ { "name":
+          "shadow.desired.power", "type": "Boolean" }, { "name": "attributes.color", "type":
+          "String" }, { "name": "attributes.version", "type": "Number" } ] } }'
+```
 
 
 
@@ -255,6 +275,10 @@ The output of these commands is:
             },
             {
                 "type": "String",
+                "name": "connectivity.disconnectReason"
+            },
+            {
+                "type": "String",
                 "name": "registry.thingGroupNames"
             },
             {
@@ -275,7 +299,10 @@ The output of these commands is:
 
 In the following example, a new custom field is added to the configuration:
 
-aws iot update\-indexing\-configuration \-\-thing\-indexing\-configuration 'thingIndexingMode=REGISTRY\_AND\_SHADOW,customFields=\[\{name=attributes\.version,type=Number\},\{name=attributes\.color,type=String\},\{name=shadow\.desired\.power,type=Boolean\},\{name=shadow\.desired\.intensity,type=Number\}\]'
+```
+aws iot update-indexing-configuration --thing-indexing-configuration
+          'thingIndexingMode=REGISTRY_AND_SHADOW,customFields=[{name=attributes.version,type=Number},{name=attributes.color,type=String},{name=shadow.desired.power,type=Boolean},{name=shadow.desired.intensity,type=Number}]'
+```
 
 This command added `shadow.desired.intensity` to the indexing configuration\.
 
@@ -307,7 +334,10 @@ Changing the configuration of your index causes the index to be rebuilt\. During
 
 Use the search\-index CLI command to query data in the index\.
 
-aws iot search\-index \-\-index\-name "AWS\_Things" \-\-query\-string "thingName:mything\*"
+```
+aws iot search-index --index-name "AWS_Things" --query-string
+          "thingName:mything*"
+```
 
 ```
 {  

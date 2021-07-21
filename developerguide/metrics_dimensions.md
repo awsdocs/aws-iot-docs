@@ -21,6 +21,7 @@ Metrics are grouped first by the service namespace, and then by the various dime
 
 **Topics**
 + [AWS IoT metrics](#iot-metrics)
++ [AWS IoT Core credential provider metrics](#credential-provider-metrics)
 + [Rule metrics](#rulemetrics)
 + [Rule action metrics](#rule-action-metrics)
 + [HTTP action specific metrics](#http-action-metrics)
@@ -40,7 +41,13 @@ Metrics are grouped first by the service namespace, and then by the various dime
 |  `AddThingToDynamicThingGroupsFailed`  |  The number of failure events associated with adding a thing to a dynamic thing group\. The `DynamicThingGroupName` dimension contains the name of the dynamic groups that failed to add things\.  | 
 |  `NumLogBatchesFailedToPublishThrottled`  |  The singular batch of log events that has failed to publish due to throttling errors\.  | 
 |  `NumLogEventsFailedToPublishThrottled`  |  The number of log events within the batch that have failed to publish due to throttling errors\.  | 
-|  `RulesExecuted`  |  The number of AWS IoT rules executed\.  | 
+
+## AWS IoT Core credential provider metrics<a name="credential-provider-metrics"></a>
+
+
+| Metric | Description | 
+| --- | --- | 
+|  `CredentialExchangeSuccess`  |  The number of successful `AssumeRoleWithCertificate` requests to AWS IoT Core credentials provider\.  | 
 
 ## Rule metrics<a name="rulemetrics"></a>
 
@@ -50,6 +57,7 @@ Metrics are grouped first by the service namespace, and then by the various dime
 |  `ParseError`  |  The number of JSON parse errors that occurred in messages published on a topic on which a rule is listening\. The `RuleName` dimension contains the name of the rule\.  | 
 |  `RuleMessageThrottled`  |  The number of messages throttled by the rules engine because of malicious behavior or because the number of messages exceeds the rules engine's throttle limit\. The `RuleName` dimension contains the name of the rule to be triggered\.  | 
 |  `RuleNotFound`  |  The rule to be triggered could not be found\. The `RuleName` dimension contains the name of the rule\.  | 
+|  `RulesExecuted`  |  The number of AWS IoT rules executed\.  | 
 |  `TopicMatch`  |  The number of incoming messages published on a topic on which a rule is listening\. The `RuleName` dimension contains the name of the rule\.  | 
 
 ## Rule action metrics<a name="rule-action-metrics"></a>
@@ -57,7 +65,7 @@ Metrics are grouped first by the service namespace, and then by the various dime
 
 | Metric | Description | 
 | --- | --- | 
-|  `Failure`  |  The number of failed rule action invocations\. The `RuleName` dimension contains the name of the rule that specifies the action\. The `RuleName` dimension contains the name of the rule that specifies the action\. The `ActionType` dimension contains the type of action that was invoked\.  | 
+|  `Failure`  |  The number of failed rule action invocations\. The `RuleName` dimension contains the name of the rule that specifies the action\. The `ActionType` dimension contains the type of action that was invoked\.  | 
 |  `Success`  |  The number of successful rule action invocations\. The `RuleName` dimension contains the name of the rule that specifies the action\. The `ActionType` dimension contains the type of action that was invoked\.  | 
 
 ## HTTP action specific metrics<a name="http-action-metrics"></a>
@@ -73,6 +81,9 @@ Metrics are grouped first by the service namespace, and then by the various dime
 |  `HttpUnknownHost`  |  Generated if the URL is valid, but the service does not exist or is unreachable\.  | 
 
 ## Message broker metrics<a name="message-broker-metrics"></a>
+
+**Note**  
+The message broker metrics are displayed in the CloudWatch console under **Protocol Metrics**\.
 
 
 | Metric | Description | 
@@ -103,20 +114,18 @@ Metrics are grouped first by the service namespace, and then by the various dime
 |  `Unsubscribe.Success`  |  The number of unsubscribe requests that were successfully processed by the message broker\. The `Protocol` dimension contains the protocol used to send the `UNSUBSCRIBE` message\.  | 
 |  `Unsubscribe.Throttle`  |  The number of unsubscribe requests that were rejected because the client exceeded the allowed unsubscribe request rate\. The `Protocol` dimension contains the protocol used to send the `UNSUBSCRIBE` message\.   | 
 
-**Note**  
-The message broker metrics are displayed in the AWS IoT console under **Protocol Metrics**\.
-
 ## Device shadow metrics<a name="shadow-metrics"></a>
+
+**Note**  
+The device shadow metrics are displayed in the CloudWatch console under **Protocol Metrics**\.
 
 
 | Metric | Description | 
 | --- | --- | 
 |  `DeleteThingShadow.Accepted`  |  The number of `DeleteThingShadow` requests processed successfully\. The `Protocol` dimension contains the protocol used to make the request\.  | 
 |  `GetThingShadow.Accepted`  |  The number of `GetThingShadow` requests processed successfully\. The `Protocol` dimension contains the protocol used to make the request\.  | 
+|  `ListThingShadow.Accepted`  |  The number of `ListThingShadow` requests processed successfully\. The `Protocol` dimension contains the protocol used to make the request\.  | 
 |  `UpdateThingShadow.Accepted`  |  The number of `UpdateThingShadow` requests processed successfully\. The `Protocol` dimension contains the protocol used to make the request\.  | 
-
-**Note**  
-The device shadow metrics are displayed in the AWS IoT console under **Protocol Metrics**\.
 
 ## Jobs metrics<a name="jobs-metrics"></a>
 
@@ -164,9 +173,10 @@ The device shadow metrics are displayed in the AWS IoT console under **Protocol 
 
 | Metric | Description | 
 | --- | --- | 
-|  `ApproximateNumberOfThingsRegistered`  |  The count of devices that have been registered by Fleet Provisioning\. While the count is generally accurate, the distributed architecture of AWS IoT Core makes it difficult to maintain a precise count of registered things\.  | 
-|  `CreateKeysAndCertificateFailed`  |  The number of failures that occurred calling the `CreateKeysAndCertificate` MQTT API\.  | 
-|  `RegisterThingFailed`  |  The number of failures that occurred when calling the MQTT `RegisterThing` API\.  | 
+|  `ApproximateNumberOfThingsRegistered`  |  The count of things that have been registered by Fleet Provisioning\. While the count is generally accurate, the distributed architecture of AWS IoT Core makes it difficult to maintain a precise count of registered things\.  The statistic to use for this metric is: [\[See the AWS documentation website for more details\]](http://docs.aws.amazon.com/iot/latest/developerguide/metrics_dimensions.html)  Dimensions: [ClaimCertificateId](#aws-iot-metricdimensions)  | 
+|  `CreateKeysAndCertificateFailed`  |  The number of failures that occurred by calls to the `CreateKeysAndCertificate` MQTT API\. The metric is emitted in both Success \(value = 0\) and Failure \(value = 1\) cases\. This metric can be used to track the number of certificates created and registered during the CloudWatch\-supported aggregation windows, such as 5 min\. or 1 hour\. The statistics available for this metric are: [\[See the AWS documentation website for more details\]](http://docs.aws.amazon.com/iot/latest/developerguide/metrics_dimensions.html)  | 
+|  `CreateCertificateFromCsrFailed`  |  The number of failures that occurred by calls to the `CreateCertificateFromCsr` MQTT API\. The metric is emitted in both Success \(value = 0\) and Failure \(value = 1\) cases\. This metric can be used to track the number of things registered during the CloudWatch\-supported aggregation windows, such as 5 min\. or 1 hour\.  The statistics available for this metric are: [\[See the AWS documentation website for more details\]](http://docs.aws.amazon.com/iot/latest/developerguide/metrics_dimensions.html)  | 
+|  `RegisterThingFailed`  |  The number of failures that occurred by calls to the `RegisterThing` MQTT API\. The metric is emitted in both Success \(value = 0\) and Failure \(value = 1\) cases\. This metric can be used to track the number of things registered during the CloudWatch\-supported aggregation windows, such as 5 min\. or 1 hour\. For the total number of things registered , see the `ApproximateNumberOfThingsRegistered` metric\. The statistics available for this metric are: [\[See the AWS documentation website for more details\]](http://docs.aws.amazon.com/iot/latest/developerguide/metrics_dimensions.html) Dimensions: [TemplateName](#aws-iot-metricdimensions)  | 
 
 
 **Just\-in\-time provisioning metrics**  

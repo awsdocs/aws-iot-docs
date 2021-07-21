@@ -1,18 +1,13 @@
 # Getting started with Device Advisor in the console<a name="da-console-guide"></a>
 
-
-|  | 
-| --- |
-| Device Advisor is in preview and is subject to change\. | 
-
 This tutorial helps you quickly get started with Device Advisor in the console\. Device Advisor offers features such as required tests and signed qualification reports to qualify and list devices in the [AWS Partner Device Catalog](https://devices.amazonaws.com/) as per the [AWS IoT Core qualification program](https://aws.amazon.com/partners/dqp/)\.
 
 For more information about using Device Advisor, see [Device Advisor workflow](device-advisor-workflow.md) and [Device Advisor detailed console workflow](device-advisor-console-tutorial.md)\.
 
-**Note**  
-Only the us\-east\-1 Region is supported for preview\.
-
 To complete this tutorial, follow the steps outlined in [Setting up](device-advisor-setting-up.md)\.
+
+**Note**  
+Device Advisor is supported in us\-east\-1, us\-west\-2, ap\-northeast\-1, and eu\-west\-1 regions\.
 
 **Getting started**
 
@@ -23,6 +18,9 @@ To complete this tutorial, follow the steps outlined in [Setting up](device-advi
 ![\[Image NOT FOUND\]](http://docs.aws.amazon.com/iot/latest/developerguide/images/da-console-gs1.png)
 
    After you've reviewed the informaton, choose **Next**\.
+
+1.  In **Step 1**, select the device role that was created as part of [Setting up](https://docs.aws.amazon.com/iot/latest/developerguide/device-advisor-setting-up.html)\.   
+![\[Image NOT FOUND\]](http://docs.aws.amazon.com/iot/latest/developerguide/images/da-select-decive-role.png)
 
 1. In **Step 1**, you selected an AWS IoT thing or certificate to test using Device Advisor\. If you don't have any existing things or certificates, see [Setting up](device-advisor-setting-up.md)\.
 
@@ -36,8 +34,7 @@ To complete this tutorial, follow the steps outlined in [Setting up](device-advi
 
    You can configure the suite\-level properties here\.
    + **Test suite name**: You can create the suite with a custom name\.
-   + **Device role ARN**: Provide the device role ARN that was created as part of [Setting up](device-advisor-setting-up.md)\.
-   + **Timeout** \(optional\): The timeout in milliseconds for each test case in the current test suite\. If you don't specify a timeout value, the default value is used\.
+   + **Timeout** \(optional\): The timeout in seconds for each test case in the current test suite\. If you don't specify a timeout value, the default value is used\.
    + **Tags** \(optional\): Add tags to the test suite that you're going to create\.  
 ![\[Image NOT FOUND\]](http://docs.aws.amazon.com/iot/latest/developerguide/images/da-test-suite-properties-1.png)
 
@@ -45,14 +42,14 @@ To complete this tutorial, follow the steps outlined in [Setting up](device-advi
 
 1. \(Optional\) You can update the test suite group configuration by choosing **Edit** next to the test group name\.
    + **Name**: You can update the group with a custom name\.
-   + **Timeout** \(optional\): The timeout in milliseconds for each test case in the current test suite\. If you don't specify a timeout value, the default value is used\.  
+   + **Timeout** \(optional\): The timeout in seconds for each test case in the current test suite\. If you don't specify a timeout value, the default value is used\.  
 ![\[Image NOT FOUND\]](http://docs.aws.amazon.com/iot/latest/developerguide/images/da-console-test-suite-config.png)
 
    Choose **Done**\.
 
 1. \(Optional\) You can update the test case configuration by choosing **Edit** next to the test case name\.
    + **Name**: You can update the test case with a custom name\.
-   + **Timeout** \(optional\): The timeout in milliseconds for the selected test case\. If you don't specify a timeout value, the default value is used\.  
+   + **Timeout** \(optional\): The timeout in seconds for the selected test case\. If you don't specify a timeout value, the default value is used\.  
 ![\[Image NOT FOUND\]](http://docs.aws.amazon.com/iot/latest/developerguide/images/da-console-test-case-config.png)
 
    Choose **Done**\.
@@ -66,9 +63,9 @@ To complete this tutorial, follow the steps outlined in [Setting up](device-advi
 
    After you've configured your test suite, choose **Next**\.
 
-1. **Step 3** provides you with an overview of the selected test device and test suite that you've configured\. If you want to make changes, choose **Edit**\.
+1. **Step 4** provides you with an overview of the selected test device role, test device and test suite that you've configured\. If you want to make changes, choose **Edit**\.
 **Note**  
-You must connect your selected test device to the Device Advisor test endpoint before starting the suite run\. We recommend that you have a mechanism built for your device to try connecting to our test endpoint every 5 seconds for one to two minutes\.
+For a smoother experience, you can connect your selected test device to the Device Advisor test endpoint before starting the suite run\. We recommend that you have a mechanism built for your device to try connecting to our test endpoint every 5 seconds for one to two minutes\.
 
    To create the test suite and run the tests against your device, choose **Run**\.  
 ![\[Image NOT FOUND\]](http://docs.aws.amazon.com/iot/latest/developerguide/images/da-run-tests.png)
