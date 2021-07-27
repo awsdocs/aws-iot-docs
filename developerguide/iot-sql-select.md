@@ -68,6 +68,6 @@ You can use functions \(see [Functions](iot-sql-functions.md)\) to transform the
 
 ```
 Incoming payload published on topic 'topic/subtopic': {"color":"red", "temperature":50}
-SQL: SELECT (temperature – 32) * 5 / 9 AS celsius, upper(color) as my_color FROM 'topic/subtopic'
+SQL: SELECT (temperature - 32) * 5 / 9 AS celsius, upper(color) as my_color FROM 'topic/subtopic'
 Outgoing payload: {"celsius":10,"my_color":"RED"}
 ```
