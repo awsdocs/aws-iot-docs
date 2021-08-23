@@ -1,4 +1,4 @@
-# Authorizing direct calls to AWS services<a name="authorizing-direct-aws"></a>
+# Authorizing direct calls to AWS services using AWS IoT Core credential provider<a name="authorizing-direct-aws"></a>
 
 Devices can use X\.509 certificates to connect to AWS IoT Core using TLS mutual authentication protocols\. Other AWS services do not support certificate\-based authentication, but they can be called using AWS credentials in [AWS Signature Version 4 format](https://docs.aws.amazon.com/general/latest/gr/signature-version-4.html)\. The [Signature Version 4 algorithm](https://docs.aws.amazon.com/AmazonS3/latest/API/sig-v4-authenticating-requests.html) normally requires the caller to have an access key ID and a secret access key\. AWS IoT Core has a credentials provider that allows you to use the built\-in [X\.509 certificate](x509-client-certs.html) as the unique device identity to authenticate AWS requests\. This eliminates the need to store an access key ID and a secret access key on your device\.
 
@@ -74,8 +74,8 @@ Required\. An arbitrary string that identifies the role alias\. It serves as the
 `roleArn`  
 Required\. The ARN of the role to which the role alias refers\.  
 `credentialDurationInSeconds`  
-Optional\. How long \(in seconds\) the credential is valid\. The minimum value is 900 seconds \(15 minutes\)\. The maximum value is 3,600 seconds \(60 minutes\)\. The default value is 3,600 seconds\.   
-Although the credential lifetime specified in the IAM role can be longer, when AWS IoT Core Credential Provider issues the credential, its maximum lifetime is 3,600 seconds \(60 minutes\)\.
+Optional\. How long \(in seconds\) the credential is valid\. The minimum value is 900 seconds \(15 minutes\)\. The maximum value is 43,200 seconds \(12 hours\)\. The default value is 3,600 seconds \(1 hour\)\.   
+The AWS IoT Core Credential Provider can issue a credential with a maximum lifetime is 43,200 seconds \(12 hours\)\. Having the credential be valid for up to 12 hours can help reduce the number of calls to the credential provider by caching the credential longer\.
 
    For more information about this API, see [CreateRoleAlias](https://docs.aws.amazon.com/iot/latest/apireference/API_CreateRoleAlias.html)\. 
 
@@ -119,7 +119,11 @@ The *ThingName* that you provide in `x-amzn-iot-thingname` must match the name o
 
    Use the endpoint to make an HTTPS request to the credentials provider to return a security token\. The following example command uses `curl`, but you can use any HTTP client\.
 
-   curl \-\-cert *your certificate* \-\-key *your device certificate key pair* \-H "x\-amzn\-iot\-thingname: *your thing name*" \-\-cacert AmazonRootCA1\.pem https://*your endpoint* /role\-aliases/*your role alias*/credentials
+   ```
+   curl \-\-cert your certificate --key your device certificate key pair 
+   -H "x-amzn-iot-thingname: your thing name" --cacert AmazonRootCA1.pem 
+   https://your endpoint /role-aliases/your role alias/credentials
+   ```
 
    This command returns a security token object that contains an `accessKeyId`, a `secretAccessKey`, a `sessionToken`, and an expiration\. The following JSON object is sample output of the `curl` command\.
 
