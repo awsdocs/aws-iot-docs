@@ -3,17 +3,27 @@
 The following policy actions are defined by AWS IoT Core:MQTT Policy Actions
 
 iot:Connect  
-Represents the permission to connect to the AWS IoT Core message broker\. The `iot:Connect` permission is checked every time a `CONNECT` request is sent to the broker\. The message broker does not allow two clients with the same client ID to stay connected at the same time\. After the second client connects, the broker closes the existing connection\. The `iot:Connect` permission can be used to ensure only authorized clients using a specific client ID can connect\.
+Represents the permission to connect to the AWS IoT Core message broker\. The `iot:Connect` permission is checked every time a `CONNECT` request is sent to the broker\. The message broker doesn't allow two clients with the same client ID to stay connected at the same time\. After the second client connects, the broker closes the existing connection\. Use the `iot:Connect` permission to ensure only authorized clients using a specific client ID can connect\.
+
+iot:GetRetainedMessage  
+Represents the permission to get the contents of a single retained message\. Retained messages are the messages that were published with the RETAIN flag set and stored by AWS IoT Core\. For permission to get a list of all the account's retained messages, see [iot:ListRetainedMessages](#action_listretainedmessages)\.
+
+iot:ListRetainedMessages  
+Represents the permission to retrieve summary information about the account's retained messages, but not the contents of the messages\. Retained messages are the messages that were published with the RETAIN flag set and stored by AWS IoT Core\. The resource ARN specified for this action must be `*`\. For permission to get the contents of a single retained message, see [iot:GetRetainedMessage](#action_getretainpublish)\.
 
 iot:Publish  
-Represents the permission to publish on an MQTT topic\. This permission is checked every time a PUBLISH request is sent to the broker\. This can be used to allow clients to publish to specific topic patterns\.  
+Represents the permission to publish an MQTT topic\. This permission is checked every time a PUBLISH request is sent to the broker\. You can use this to allow clients to publish to specific topic patterns\.  
 To grant `iot:Publish` permission, you must also grant `iot:Connect` permission\.
 
 iot:Receive  
-Represents the permission to receive a message from AWS IoT Core\. The `iot:Receive` permission is checked every time a message is delivered to a client\. Because this permission is checked on every delivery, it can be used to revoke permissions to clients that are currently subscribed to a topic\.
+Represents the permission to receive a message from AWS IoT Core\. The `iot:Receive` permission is confirmed every time a message is delivered to a client\. Because this permission is checked on every delivery, you can use it to revoke permissions to clients that are currently subscribed to a topic\.
+
+iot:RetainPublish  
+Represents the permission to publish an MQTT message with the RETAIN flag set\.  
+To grant `iot:RetainPublish` permission, you must also grant `iot:Publish` permission\.
 
 iot:Subscribe  
-Represents the permission to subscribe to a topic filter\. This permission is checked every time a SUBSCRIBE request is sent to the broker\. This can be used to allow clients to subscribe to topics that match specific topic patterns\.  
+Represents the permission to subscribe to a topic filter\. This permission is checked every time a SUBSCRIBE request is sent to the broker\. Use it to allow clients to subscribe to topics that match specific topic patterns\.  
 To grant `iot:Subscribe` permission, you must also grant `iot:Connect` permission\.Device Shadow Policy Actions
 
 iot:DeleteThingShadow  

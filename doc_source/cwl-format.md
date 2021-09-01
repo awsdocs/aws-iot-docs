@@ -18,6 +18,8 @@ The AWS IoT message broker generates log entries for the following events:
 **Topics**
 + [Connect log entry](#log-mb-connect)
 + [Disconnect log entry](#log-mb-disconnect)
++ [GetRetainedMessage log entry](#log-mb-get-retain)
++ [ListRetainedMessage log entry](#log-mb-list-retain)
 + [Publish\-In log entry](#log-mb-publish-in)
 + [Publish\-Out log entry](#log-mb-publish-out)
 + [Subscribe log entry](#log-mb-subscribe)
@@ -103,6 +105,64 @@ The port where the request originated\.
 
 disconnectReason  
 The reason why the client is disconnecting\.
+
+### GetRetainedMessage log entry<a name="log-mb-get-retain"></a>
+
+The AWS IoT message broker generates a log entry with an `eventType` of `GetRetainedMessage` when [https://docs.aws.amazon.com/iot/latest/developerguide/API_iotdata_GetRetainedMessage.html](https://docs.aws.amazon.com/iot/latest/developerguide/API_iotdata_GetRetainedMessage.html) is called\.
+
+#### GetRetainedMessage log entry example<a name="log-mb-get-retain-example"></a>
+
+```
+{
+    "timestamp": "2017-08-07 18:47:56.664", 
+    "logLevel": "INFO", 
+    "traceId": "1a60d02e-15b9-605b-7096-a9f584a6ad3f", 
+    "accountId": "123456789012", 
+    "status": "Success", 
+    "eventType": "GetRetainedMessage", 
+    "protocol": "HTTP",
+    "topicName": "a/b/c",
+    "qos": "1",
+    "lastModifiedDate": "2017-08-07 18:47:56.664"
+}
+```
+
+In addition to the [Common CloudWatch Logs attributes](#cwl-common-attributes), `GetRetainedMessage` log entries contain the following attributes:
+
+lastModifiedDate  
+The Epoch date and time, in milliseconds, when the retained message was stored by AWS IoT\.
+
+protocol  
+The protocol used when making the request\. Valid value: `HTTP`\.
+
+qos  
+The Quality of Service \(QoS\) level used in the publish request\. Valid values are `0` or `1`\.
+
+topicName  
+The name of the subscribed topic\. 
+
+### ListRetainedMessage log entry<a name="log-mb-list-retain"></a>
+
+The AWS IoT message broker generates a log entry with an `eventType` of `ListRetainedMessage` when [/iot/latest/developerguide/API_iotdata_ListRetainedMessages.html](/iot/latest/developerguide/API_iotdata_ListRetainedMessages.html) is called\.
+
+#### ListRetainedMessage log entry example<a name="log-mb-list-retain-example"></a>
+
+```
+{
+    "timestamp": "2017-08-07 18:47:56.664", 
+    "logLevel": "INFO", 
+    "traceId": "1a60d02e-15b9-605b-7096-a9f584a6ad3f", 
+    "accountId": "123456789012", 
+    "status": "Success", 
+    "eventType": "ListRetainedMessage", 
+    "protocol": "HTTP"
+}
+```
+
+In addition to the [Common CloudWatch Logs attributes](#cwl-common-attributes), `ListRetainedMessage` log entries contains the following attribute:
+
+protocol  
+The protocol used when making the request\. Valid value: `HTTP`\.
 
 ### Publish\-In log entry<a name="log-mb-publish-in"></a>
 

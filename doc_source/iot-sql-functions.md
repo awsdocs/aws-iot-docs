@@ -576,7 +576,7 @@ Examples:
 
 `get({"a":"b"}, "a")` = "b"
 
-`get("abc", 1)` = "b"
+`get("abc", 1)` = "a"
 
 
 ****  

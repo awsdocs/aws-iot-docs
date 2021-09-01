@@ -125,17 +125,17 @@ For security, the temporary provisioning claim certificate that `CreateProvision
 
 1. The device uses the temporary provisioning claim certificate to connect to AWS IoT using the [AWS IoT Device SDKs, Mobile SDKs, and AWS IoT Device Client](iot-sdks.md)\.
 
-1. The device obtains a permanent certificate and private key by using one of these options\. The device will use the certificate and key for all future authentication with AWS IoT\.
+1. The device obtains a permanent certificate and private key by using one of these options within five minutes of connecting to AWS IoT with the temporary provisioning claim certificate\. The device will use the certificate and key these options return for all future authentication with AWS IoT\.
 
    1. Call [ `CreateKeysAndCertificate`](fleet-provision-api.md#create-keys-cert) to create a new certificate and private key using the AWS certificate authority\.
 
       Or
 
    1. Call [ `CreateCertificateFromCsr`](fleet-provision-api.md#create-cert-csr) to generate a certificate from a certificate signing request that keeps its private key secure\.
+**Note**  
+Remember [ `CreateKeysAndCertificate`](fleet-provision-api.md#create-keys-cert) or [ `CreateCertificateFromCsr`](fleet-provision-api.md#create-cert-csr) must return a valid certificate within five minutes of connecting to AWS IoT with the temporary provisioning claim certificate\.
 
 1. The device calls [`RegisterThing`](fleet-provision-api.md#register-thing) to register the device with AWS IoT and create cloud resources\. 
-**Note**  
-Remember `RegisterThing` must return a valid certificate within five minutes of connecting to AWS IoT with the temporary provisioning claim certificate\.
 
    The Fleet Provisioning service creates cloud resources such as IoT things, thing groups, and attributes, as defined in the provisioning template\.
 

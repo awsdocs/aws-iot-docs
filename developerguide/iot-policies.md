@@ -15,5 +15,5 @@ Changes made to a policy can take a few minutes to become effective because of h
 + [AWS IoT Core policy actions](iot-policy-actions.md)
 + [AWS IoT Core action resources](iot-action-resources.md)
 + [AWS IoT Core policy variables](iot-policy-variables.md)
-+ [Example AWS IoT policies](example-iot-policies.md)
++ [AWS IoT Core policy examples](example-iot-policies.md)
 + [Authorization with Amazon Cognito identities](cog-iot-policies.md)
