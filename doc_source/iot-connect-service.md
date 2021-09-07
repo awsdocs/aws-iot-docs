@@ -1,6 +1,6 @@
 # Connecting to AWS IoT Core service endpoints<a name="iot-connect-service"></a>
 
-You can access the features that the AWS IoT Core services provide by using the AWS CLI, the AWS SDK for your preferred language, or by calling the REST API directly\. We recommend using the AWS CLI or an AWS SDK to interact with AWS IoT Core because they incorporate the best practices for calling AWS services\. Calling the REST APIs directly is an option, but you must provide [the necessary security credentials](https://docs.aws.amazon.com/general/latest/gr/signing_aws_api_requests.html) that enable access to the API\.
+You can access the features of the **AWS IoT Core \- control plane** by using the AWS CLI, the AWS SDK for your preferred language, or by calling the REST API directly\. We recommend using the AWS CLI or an AWS SDK to interact with AWS IoT Core because they incorporate the best practices for calling AWS services\. Calling the REST APIs directly is an option, but you must provide [the necessary security credentials](https://docs.aws.amazon.com/general/latest/gr/signing_aws_api_requests.html) that enable access to the API\.
 
 **Note**  
 IoT devices should use [AWS IoT Device SDKs](iot-connect-devices.md#iot-connect-device-sdks)\. The Device SDKs are optimized for use on devices, support MQTT communication with AWS IoT, and support the AWS IoT APIs most used by devices\. For more information about the Device SDKs and the features they provide, see [AWS IoT Device SDKs](iot-connect-devices.md#iot-connect-device-sdks)\.  

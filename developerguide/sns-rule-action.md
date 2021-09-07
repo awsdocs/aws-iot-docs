@@ -13,7 +13,7 @@ This rule action has the following requirements:
 + An IAM role that AWS IoT can assume to perform the `sns:Publish` operation\. For more information, see [Granting AWS IoT the required access](iot-create-role.md)\.
 
   In the AWS IoT console, you can choose or create a role to allow AWS IoT to perform this rule action\.
-+ If you use an AWS Key Management Service \(AWS KMS\) customer managed key \(CMK\) to encrypt data at rest in Amazon SNS, the service must have permission to use the CMK on the caller's behalf\. For more information, see [Key management](https://docs.aws.amazon.com/sns/latest/dg/sns-key-management.html) in the *Amazon Simple Notification Service Developer Guide*\.
++ If you use an AWS Key Management Service \(AWS KMS\) customer\-managed AWS KMS key \(KMS key\) to encrypt data at rest in Amazon SNS, the service must have permission to use the AWS KMS key on the caller's behalf\. For more information, see [Key management](https://docs.aws.amazon.com/sns/latest/dg/sns-key-management.html) in the *Amazon Simple Notification Service Developer Guide*\.
 
 ## Parameters<a name="sns-rule-action-parameters"></a>
 

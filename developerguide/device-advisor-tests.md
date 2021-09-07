@@ -28,7 +28,7 @@ Validates if the device under test can complete TLS handshake to AWS IoT\. This 
 ```
 "tests":[
    {
-      "name":"my_tls_connect_test"
+      "name":"my_tls_connect_test",
       "configuration": {
          // optional:
          "EXECUTION_TIMEOUT":"300",  //in seconds
@@ -53,7 +53,7 @@ Validates that the cipher suites in the TLS Client Hello message from the device
 ```
 "tests":[
    {
-      "name":"my_tls_support_aws_iot_cipher_suites_test"
+      "name":"my_tls_support_aws_iot_cipher_suites_test",
       "configuration": {
          // optional:
          "EXECUTION_TIMEOUT":"300",  // in seconds
@@ -78,7 +78,7 @@ Validates that the device under test closes the connection if it's presented wit
 ```
 "tests":[
    {
-      "name":"my_tls_unsecure_server_cert_test"
+      "name":"my_tls_unsecure_server_cert_test",
       "configuration": {
          // optional:
          "EXECUTION_TIMEOUT":"300",  //in seconds
@@ -102,7 +102,7 @@ Validates that the device under test closes the connection if it's presented wit
 ```
 "tests":[
    {
-      "name":"my_tls_incorrect_subject_name_cert_test"
+      "name":"my_tls_incorrect_subject_name_cert_test",
       "configuration": {
          // optional:
          "EXECUTION_TIMEOUT":"300",   // in seconds
@@ -130,11 +130,11 @@ You use these tests to determine if the policies attached to your devices’ cer
 ```
 "tests":[
    {
-        "name":"my_security_device_policies"
+        "name":"my_security_device_policies",
         "configuration": {
             // optional:
             "EXECUTION_TIMEOUT":"60"    // in seconds
-        } 
+        },
         "test": {
             "id": "Security_Device_Policies",
             "version": "0.0.0"
@@ -153,35 +153,13 @@ Validates that the device under test sends a CONNECT request\.
 ```
 "tests":[
    {
-      "name":"my_mqtt_connect_test"
+      "name":"my_mqtt_connect_test",
       "configuration": {
          // optional:
          "EXECUTION_TIMEOUT":"300",   // in seconds
       },
       "test":{
          "id":"MQTT_Connect",
-         "version":"0.0.0"
-      }
-   }
-]
-```
-
-**"Device re\-connect with jitter backoff \- No CONNACK response"**  
-Validates that the device under test uses the proper jitter backoff when reconnecting with the broker for at least five times\. The broker logs the timestamp of the device under test's CONNECT request, performs packet validation, pauses without sending a CONNACK to the device under test, and waits for the device under test to resend the request\. The sixth connection attempt is allowed to pass through and CONNACK is allowed to flow back to the device under test\.  
-The above process is performed again\. In total, this test case requires the device to connect at least 12 times in total\. The collected timestamps are used to validate that jitter backoff is used by the device under test\. If the device under test has strictly exponential backoff delay, this test case will pass with warnings\.   
-*API test case definition:*  
-`EXECUTION_TIMEOUT` has a default value of 10 minutes\. We recommend a timeout value of 4 minutes\. 
-
-```
-"tests":[
-   {
-      "name":"my_mqtt_jitter_backoff_retries_test"
-      "configuration": {
-         // optional:
-         "EXECUTION_TIMEOUT":"300",    // in seconds
-      },
-      "test":{
-         "id":"MQTT_Connect_Jitter_Backoff_Retries",
          "version":"0.0.0"
       }
    }
@@ -196,13 +174,13 @@ This test case will check if device\(client\) can return PUBACK message if it re
 ```
 "tests":[
    {
-        "name":"my_mqtt_client_puback_qos1"
+        "name":"my_mqtt_client_puback_qos1",
         "configuration": {
             // optional:
             "TRIGGER_TOPIC": "myTopic",
             "EXECUTION_TIMEOUT":"300", // in seconds
             "PAYLOAD_FOR_PUBLISH_VALIDATION":"custom payload"
-        } 
+        },
         "test": {
             "id": "MQTT_Client_Puback_Qos1",
             "version": "0.0.0"
@@ -211,15 +189,39 @@ This test case will check if device\(client\) can return PUBACK message if it re
 ]
 ```
 
-**"Device re\-connect with exponential backoff \- No CONNACK response"**  
-Validates that the device under test uses the proper exponential backoff when reconnecting with the broker for at least five times\. The broker logs the timestamp of the device under test's CONNECT request, performs packet validation, pauses without sending a CONNACK to the client device, and waits for the device under test to resend the request\. The collected timestamps are used to validate that exponential backoff is used by the device under test\.   
+**"Device connect retries with jitter backoff \- No CONNACK response"**  
+Validates that the device under test uses the proper jitter backoff when reconnecting with the broker for at least five times\. The broker logs the timestamp of the device under test's CONNECT request, performs packet validation, pauses without sending a CONNACK to the device under test, and waits for the device under test to resend the request\. The sixth connection attempt is allowed to pass through and CONNACK is allowed to flow back to the device under test\.  
+The preceding process is performed again\. In total, this test case requires the device to connect at least 12 times in total\. The collected timestamps are used to validate that jitter backoff is used by the device under test\. If the device under test has strictly exponential backoff delay, this test case will pass with warnings\.   
+We recommend implementation of [Exponential Backoff And Jitter](http://aws.amazon.com/blogs/architecture/exponential-backoff-and-jitter/) mechanism on the device under test to pass this test case\.  
 *API test case definition:*  
-`EXECUTION_TIMEOUT` has a default value of 10 minutes\. We recommend a timeout value of 4 minutes\. 
+`EXECUTION_TIMEOUT` has a default value of 5 minutes\. We recommend a timeout value of 4 minutes\. 
 
 ```
 "tests":[
    {
-      "name":"my_mqtt_exponential_backoff_retries_test"
+      "name":"my_mqtt_jitter_backoff_retries_test",
+      "configuration": {
+         // optional:
+         "EXECUTION_TIMEOUT":"300",    // in seconds
+      },
+      "test":{
+         "id":"MQTT_Connect_Jitter_Backoff_Retries",
+         "version":"0.0.0"
+      }
+   }
+]
+```
+
+**"Device connect retries with exponential backoff \- No CONNACK response"**  
+Validates that the device under test uses the proper exponential backoff when reconnecting with the broker for at least five times\. The broker logs the timestamp of the device under test's CONNECT request, performs packet validation, pauses without sending a CONNACK to the client device, and waits for the device under test to resend the request\. The collected timestamps are used to validate that exponential backoff is used by the device under test\.   
+We recommend implementation of [Exponential Backoff And Jitter](http://aws.amazon.com/blogs/architecture/exponential-backoff-and-jitter/) mechanism on the device under test to pass this test case\.  
+*API test case definition:*  
+`EXECUTION_TIMEOUT` has a default value of 5 minutes\. We recommend a timeout value of 4 minutes\. 
+
+```
+"tests":[
+   {
+      "name":"my_mqtt_exponential_backoff_retries_test",
       "configuration": {
          // optional:
          "EXECUTION_TIMEOUT":"600",  // in seconds
@@ -230,7 +232,31 @@ Validates that the device under test uses the proper exponential backoff when re
       }
    }
 ]
-```Publish
+```
+
+**"Device re\-connect with jitter backoff \- After server disconnect"**  
+Validates if a device under test uses necessary jitter and backoff while reconnecting after it's been disconnected from the server\. Device Advisor disconnects the device from the server for at least five times and observes the device behavior for MQTT reconnection\. Device Advisor logs the timestamp of the CONNECT request for the device under test, performs packet validation, pauses without sending a CONNACK to the client device, and waits for the device under test to resend the request\. The collected timestamps are used to validate that the device under test uses jitter and backoff while reconnecting\. If the device under test has strictly exponential backoff or doesn't implement a proper jitter backoff mechanism, this test case will pass with warnings\. If the device under test has implemented either a linear backoff or constant backoff mechanism, the test will fail\.  
+To pass this test case, we recommend implementing the [Exponential Backoff And Jitter](http://aws.amazon.com/blogs/architecture/exponential-backoff-and-jitter/) mechanism on the device under test\.  
+*API test case definition:*  
+`EXECUTION_TIMEOUT` has a default value of 5 minutes\. We recommend a timeout value of 4 minutes\.
+
+```
+"tests":[
+   {
+      "name":"my_mqtt_reconnect_backoff_retries_on_server_disconnect",
+      "configuration":{
+         // optional:
+         "EXECUTION_TIMEOUT":"300",  // in seconds
+         "RECONNECTION_ATTEMPTS": 5
+      },
+      "test":{
+         "id":"MQTT_Reconnect_Backoff_Retries_On_Server_Disconnect",
+         "version":"0.0.0"
+      }
+   }
+]
+```
+Number of reconnection attempts to validate for backoff can be modified by specifying the `RECONNECTION_ATTEMPTS `\. The number must be 5\-10\. Default value is 5\.Publish
 
 **"QoS0 \(Happy Case\)"**  
 Validates that the device under test publishes a message with QoS0\. You can also validate the topic of the message by specifying this topic value in the test settings\.  
@@ -240,7 +266,8 @@ Validates that the device under test publishes a message with QoS0\. You can als
 ```
 "tests":[
    {
-      "name":"my_mqtt_publish_test":{
+      "name":"my_mqtt_publish_test",
+      "configuration":{
          // optional:
          "EXECUTION_TIMEOUT":"300",  // in seconds
          "TOPIC_FOR_PUBLISH_VALIDATION": "my_TOPIC_FOR_PUBLISH_VALIDATION",
@@ -262,7 +289,8 @@ Validates that the device under test republishes a message sent with QoS1, if th
 ```
 "tests":[
    {
-      "name":"my_mqtt_publish_retry_test":{
+      "name":"my_mqtt_publish_retry_test",
+      "configuration":{
          // optional:
          "EXECUTION_TIMEOUT":"300",  // in seconds
          "TOPIC_FOR_PUBLISH_VALIDATION": "my_TOPIC_FOR_PUBLISH_VALIDATION",
@@ -284,7 +312,8 @@ Validates that the device under test subscribes to MQTT topics\. You can also va
 ```
 "tests":[
    {
-      "name":"my_mqtt_subscribe_test":{
+      "name":"my_mqtt_subscribe_test",
+      "configuration":{
          // optional:
          "EXECUTION_TIMEOUT":"300",  // in seconds
          "TOPIC_LIST_FOR_SUBSCRIPTION_VALIDATION_ID":["my_TOPIC_FOR_PUBLISH_VALIDATION_a","my_TOPIC_FOR_PUBLISH_VALIDATION_b"]
@@ -305,7 +334,8 @@ Validates that the device under test retries a failed subscription to MQTT topic
 ```
 "tests":[
    {
-      "name":"my_mqtt_subscribe_retry_test":{
+      "name":"my_mqtt_subscribe_retry_test",
+      "configuration":{
          "EXECUTION_TIMEOUT":"300",  // in seconds
          // optional:
          "TOPIC_LIST_FOR_SUBSCRIPTION_VALIDATION_ID":["myTOPIC_FOR_PUBLISH_VALIDATION_a","my_TOPIC_FOR_PUBLISH_VALIDATION_b"]

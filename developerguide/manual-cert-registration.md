@@ -22,7 +22,7 @@ Before you perform this procedure, make sure that you have the client certificat
 1. On **Select a CA**:
    + 
 
-**if the client certificates are signed by a CA that is registered with AWS IoT**  
+**If the client certificates are signed by a CA that is registered with AWS IoT**  
 Choose that CA from the list, and then choose **Next**\.
    + 
 

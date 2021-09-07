@@ -131,7 +131,7 @@ For this procedure, you need the following resources\.
 
 For information about options for generating credentials for production devices at scale, see [Device provisioning](iot-provision.md)\.
 
-**To set up your device in the Alexa Voice Service developer console**
+**To set up your device in the Alexa Voice Service developerconsole**
 
 1. Navigate to the root folder and open the NXP Migration Guide\.
 

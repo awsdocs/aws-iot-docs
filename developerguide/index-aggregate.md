@@ -1,6 +1,6 @@
 # Querying for aggregate data<a name="index-aggregate"></a>
 
-AWS IoT provides three APIs \(`GetStatistics`, `GetCardinality`, and `GetPercentiles`\) that allow you to search your device fleet for aggregate data\. 
+AWS IoT provides four APIs \(`GetStatistics`, `GetCardinality`, `GetPercentiles`, and `GetBucketsAggregation`\) that allow you to search your device fleet for aggregate data\. 
 
 ## GetStatistics<a name="get-statistics"></a>
 
@@ -239,6 +239,52 @@ The version of the query to use\. The default value is `2017-09-30`\.
 
 `percents`  
 Optional\. You can use this parameter to specify custom percentile groupings\.
+
+## GetBucketsAggregation<a name="get-buckets"></a>
+
+The [GetBucketsAggregation](https://docs.aws.amazon.com/iot/latest/apireference/API_GetBucketsAggregation.html) API and the get\-buckets\-aggregation CLI command return a list of buckets and the total number of documents that fit the query string criteria for the specified aggregated field\.
+
+The following example shows how to call the get\-buckets\-aggregation CLI command\.
+
+```
+aws iot get-buckets-aggregation --query-string '*' --index-name AWS_Things --aggregation-field 'shadow.reported.batterylevelpercent' --buckets-aggregation-type 'termsAggregation={maxBuckets=5}'
+```
+
+This command returns the following:
+
+```
+{
+    "totalCount": 20,
+    "buckets": [
+        {
+            "keyValue": "100",
+            "count": 12
+        },
+        {
+            "keyValue": "90",
+            "count": 5
+        },
+        {
+            "keyValue": "75",
+            "count": 3
+        }
+    ]
+}
+```
+
+The get\-buckets\-aggregation CLI command takes the following parameters:
+
+`index-name`  
+The name of the index to search\. The default value is `AWS_Things`\.
+
+`query-string`  
+The query used to search the index\. You can specify `"*"` to get the count of all indexed things in your AWS account\.
+
+`aggregation-field`  
+The field to aggregate\.
+
+`buckets-aggregation-type`  
+The basic control of the response shape and the bucket aggregation type to perform\.
 
 ## Authorization<a name="index-aggregate-authorization"></a>
 

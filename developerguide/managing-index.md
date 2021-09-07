@@ -40,7 +40,7 @@ Thing connectivity data is indexed\.
 
 The `customFields` attribute is a list of field and data type pairs\. Aggregation queries can be performed over these fields based on the data type\. The indexing mode you choose \(REGISTRY or REGISTRY\_AND\_SHADOW\) affects what fields can be specified in `customFields`\. For example, if you specify the `REGISTRY` indexing mode, you cannot specify a field from a thing shadow\. Custom fields must be specified in `customFields` to be indexed\.
 
-If there is a type inconsistency between a custom field in your configuration and the value being indexed, the Fleet Indexing service ignores the inconsistent value for aggregation queries\. CloudWatch logs are helpful when troubleshooting aggregation query problems\. For more information, see [Troubleshooting aggregation queries for the fleet indexing service](aggregation-troubleshooting.md)\. 
+If there is a type inconsistency between a custom field in your configuration and the value being indexed, the Fleet Indexing service ignores the inconsistent value for aggregation queries\. CloudWatch logs are helpful when troubleshooting aggregation query problems\. For more information, see [Troubleshooting aggregation queries for the fleet indexing service](fleet-indexing-troubleshooting.md#aggregation-troubleshooting)\. 
 
 Managed fields contain data associated with IoT things, thing groups, and device shadows\. The data type of managed fields are defined by AWS IoT\. You specify the values of each managed field when you create an IoT thing\. For example thing names, thing groups, and thing descriptions are all managed fields\. The Fleet Indexing service indexes managed fields based on the indexing mode you specify:
 + Managed fields for the registry
@@ -352,7 +352,8 @@ aws iot search-index --index-name "AWS_Things" --query-string
          },
          "connectivity": { 
             "connected":false,
-            "timestamp":1556649874716
+            "timestamp":1556649874716,
+            "disconnectReason": "CONNECTION_LOST"
          }         
     },
     {  
@@ -414,12 +415,13 @@ aws iot search-index --index-name "AWS_Things" --query-string
 }
 ```
 
-In the JSON response, `"connectivity"` \(as enabled by the `thingConnectivityIndexingMode=STATUS` setting\) provides a Boolean value and a timestamp that indicates if the device is connected to AWS IoT Core\. The device `"mything1"` disconnected \(`false`\) at POSIX time `1556649874716`:
+In the JSON response, `"connectivity"` \(as enabled by the `thingConnectivityIndexingMode=STATUS` setting\) provides a Boolean value, a timestamp, and a disconnectReason that indicates if the device is connected to AWS IoT Core\. The device `"mything1"` disconnected \(`false`\) at POSIX time `1556649874716` due to `CONNECTION_LOST`\. For more information about disconnect reasons, read [Lifecycle events](life-cycle-events.md)\. 
 
 ```
 "connectivity": { 
     "connected":false,
-    "timestamp":1556649874716
+    "timestamp":1556649874716, 
+    "disconnectReason": "CONNECTION_LOST"
 }
 ```
 
@@ -432,10 +434,10 @@ The device `"mything2"` connected \(`true`\) at POSIX time `1556649855046`:
 }
 ```
 
-Timestamps are given in milliseconds since epoch, so `1556649855046` represents 6:44:15\.046 PM on Tuesday, April 30, 2019 \(GMT\)\.
+Timestamps are given in milliseconds since epoch, so `1556649855046` represents 6:44:15\.046 PM on Tuesday, April 30, 2019 \(UTC\)\.
 
 **Important**  
-If a device has been disconnected for approximately an hour, the `"timestamp"` value of the connectivity status might be missing\.
+If a device has been disconnected for approximately an hour, the `"timestamp"` value and the `"disconnectReason"` value of the connectivity status might be missing\.
 
 ## Restrictions and limitations<a name="index-limitations"></a>
 

@@ -20,3 +20,4 @@ For information about pricing this and other services, see the [AWS IoT Device M
 + [Query syntax](query-syntax.md)
 + [Example thing queries](example-queries.md)
 + [Example thing group queries](example-thinggroup-queries.md)
++ [Fleet metrics](iot-fleet-metrics.md)

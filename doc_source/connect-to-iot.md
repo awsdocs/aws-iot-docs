@@ -4,15 +4,15 @@
 
 ![\[Image showing how AWS IoT Core provides device endpoints to connect IoT devices to AWS IoT and service endpoints to connect apps and other services to AWS IoT Core.\]](http://docs.aws.amazon.com/iot/latest/developerguide/images/iot-endpoints.png)
 
-There are several ways to interact with AWS IoT\. Apps and services can use the [AWS IoT Core service endpoints](#iot-service-endpoint-intro) and devices can connect to AWS IoT Core by using the [AWS IoT device endpoints](#iot-device-endpoint-intro) or [AWS IoT Core for LoRaWAN gateways and devices](#iot-lorawan-endpoint-intro)\.
+There are several ways to interact with AWS IoT\. Apps and services can use the [AWS IoT Core \- control plane endpoints](#iot-service-endpoint-intro) and devices can connect to AWS IoT Core by using the [AWS IoT device endpoints](#iot-device-endpoint-intro) or [AWS IoT Core for LoRaWAN gateways and devices](#iot-lorawan-endpoint-intro)\.
 
-## AWS IoT Core service endpoints<a name="iot-service-endpoint-intro"></a>
+## AWS IoT Core \- control plane endpoints<a name="iot-service-endpoint-intro"></a>
 
-The AWS IoT Core service endpoints provide access to functions that control and manage your AWS IoT solution\.
+The **AWS IoT Core \- control plane** endpoints provide access to functions that control and manage your AWS IoT solution\.
 + 
 
 **Endpoints**  
-The AWS IoT Core service endpoints are Region specific and are listed in [AWS IoT Core Endpoints and Quotas](https://docs.aws.amazon.com/general/latest/gr/iot-core.html)\. The formats of the AWS IoT Core service endpoints are as follows\.    
+The **AWS IoT Core \- control plane** endpoints are Region specific and are listed in [AWS IoT Core Endpoints and Quotas](https://docs.aws.amazon.com/general/latest/gr/iot-core.html)\. The formats of the **AWS IoT Core \- control plane** endpoints are as follows\.    
 [\[See the AWS documentation website for more details\]](http://docs.aws.amazon.com/iot/latest/developerguide/connect-to-iot.html)
 + 
 
@@ -35,7 +35,8 @@ The AWS IoT device endpoints support communication between your IoT devices and 
 + 
 
 **Endpoints**  
-The device endpoints are specific to your account and you can see what they are by using the [describe\-endpoint](https://awscli.amazonaws.com/v2/documentation/api/latest/reference/iot/describe-endpoint.html) command\.
+The device endpoints support AWS IoT Core and AWS IoT Device Management functions\. They are specific to your AWS account and you can see what they are by using the [describe\-endpoint](https://awscli.amazonaws.com/v2/documentation/api/latest/reference/iot/describe-endpoint.html) command\.    
+[\[See the AWS documentation website for more details\]](http://docs.aws.amazon.com/iot/latest/developerguide/connect-to-iot.html)
 
   For more information about these endpoints and the functions that they support, see [AWS IoT device data and service endpoints](iot-connect-devices.md#iot-connect-device-endpoints)\.
 + 

@@ -2,61 +2,58 @@
 
 When the message payload should be handled as raw binary data, rather than a JSON object, use the \* operator to refer to it in a `SELECT` clause\. This works for non\-JSON payloads with some rule actions, such as the [S3 action](https://docs.aws.amazon.com/iot/latest/developerguide/iot-rule-actions.html#s3-rule)\.
 
-To use \* to refer to the message payload as raw binary data, follow these rules:
-
-1. The SQL statement and templates must not refer to JSON names other than \*\. 
-
-1. The `SELECT` statement must have \* as the only item, or must have only functions\. See the following example\.
-
-   ```
-   SELECT * FROM 'topic/subtopic'
-   ```
-
-   ```
-   SELECT encode(*, 'base64') AS data, timestamp() AS ts FROM 'topic/subtopic'
-   ```
-
-For rule actions that don't support binary payload input, such as [Lambda action](https://docs.aws.amazon.com/iot/latest/developerguide/iot-rule-actions.html#lambda-rule), you must decode binary payloads\. The Lambda rule action can receive binary data if it's base64 encoded and in a JSON payload\. You can do this by changing the rule to:
-
-```
-SELECT encode(*, 'base64') AS data FROM 'my_topic'
-```
-
 ## Binary payload examples<a name="binary-payloads-examples"></a>
 
-You can use the following `SELECT` clause with binary payloads because it doesn't refer to any JSON names\. 
+When you use \* to refer to the message payload as raw binary data, you can add data to the rule\. If you have an empty or a JSON payload, the resulting payload can have data added using the rule\. The following shows examples of supported `SELECT` clauses\.
++ You can use the following `SELECT` clauses with only a \* for binary payloads\.
+  + 
 
-```
-SELECT * FROM 'topic/subtopic'
-```
+    ```
+    SELECT * FROM 'topic/subtopic'
+    ```
+  + 
 
-You cannot use the following `SELECT` with binary payloads because it refers to `device_type` in the WHERE clause\.
+    ```
+    SELECT * FROM 'topic/subtopic' WHERE timestamp() % 12 = 0
+    ```
++ You can also add data and use the following `SELECT` clauses\.
+  + 
 
-```
-SELECT * FROM 'topic/subtopic' WHERE device_type = 'thermostat'
-```
+    ```
+    SELECT *, principal() as principal, timestamp() as time FROM 'topic/subtopic'
+    ```
+  + 
 
-You cannot use the following `SELECT` with binary payloads because it violates rule \#2\.
+    ```
+    SELECT encode(*, 'base64') AS data, timestamp() AS ts FROM 'topic/subtopic'
+    ```
++ You can also use these `SELECT` clauses with binary payloads\.
+  + The following refers to `device_type` in the WHERE clause\.
 
-```
-SELECT *, timestamp() AS timestamp FROM 'topic/subtopic'
-```
+    ```
+    SELECT * FROM 'topic/subtopic' WHERE device_type = 'thermostat'
+    ```
+  + The following is also supported\.
 
-You can use the following `SELECT` with binary payloads because it complies with rule \#1 or rule \#2\.
+    ```
+    {
+        "sql": "SELECT * FROM 'topic/subtopic'"
+        "actions": [{
+            "republish": {
+                "topic":"device/${device_id}"
+             }
+         }]
+    }
+    ```
 
-```
-SELECT * FROM 'topic/subtopic' WHERE timestamp() % 12 = 0
-```
+The following rule actions don't support binary payloads so you must decode them\.
++ Some rule actions don't support binary payload input, such as a [Lambda action](https://docs.aws.amazon.com/iot/latest/developerguide/iot-rule-actions.html#lambda-rule), so you must decode binary payloads\. The Lambda rule action can receive binary data, if it's base64 encoded and in a JSON payload\. You can do this by changing the rule to the following\.
 
-You cannot use the following AWS IoT rule with binary payloads because it violates rule \#1\.
+  ```
+  SELECT encode(*, 'base64') AS data FROM 'my_topic'
+  ```
++ The SQL statement doesn't support string as input\. To convert a string input to JSON, you can run the following command\.
 
-```
-{
-    "sql": "SELECT * FROM 'topic/subtopic'"
-    "actions": [{
-        "republish": {
-            "topic":"device/${device_id}"
-         }
-     }]
-}
-```
+  ```
+  SELECT decode(encode(*, 'base64'), 'base64') AS payload FROM 'topic'
+  ```

@@ -21,7 +21,7 @@ By limiting permissions to those services that are required for a device to perf
 
 Follow these steps to fix any noncompliant policies attached to things, thing groups, or other entities:
 
-1. Follow the steps in [Authorizing direct calls to AWS services using AWS IoT Core credential provider ](authorizing-direct-aws.md) to apply a more restrictive policy to your role alias\.
+1. Follow the steps in [Authorizing direct calls to AWS services using AWS IoT Core credential provider](authorizing-direct-aws.md) to apply a more restrictive policy to your role alias\.
 
 You can use mitigation actions to:
 + Apply the `PUBLISH_FINDINGS_TO_SNS` mitigation action if you want to implement a custom action in response to the Amazon SNS message\. 

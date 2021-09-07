@@ -43,7 +43,7 @@ POST /topics/topic?qos=qos&x-amz-customauthorizer-signature=${sign}&token-name=$
 GET /mqtt HTTP/1.1
  Host: your-endpoint 
 Upgrade: WebSocket 
-Connection: Upgrades 
+Connection: Upgrade 
 x-amz-customauthorizer-signature: token-signature
 token-key-name: some-token 
 sec-WebSocket-Key: any random base64 value 

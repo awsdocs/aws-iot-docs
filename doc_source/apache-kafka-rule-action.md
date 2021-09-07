@@ -58,15 +58,15 @@ This rule action has the following requirements:
       ]
   }
   ```
-+ You must create a virtual private cloud \(VPC\) destination\. \(You can run your Apache Kafka clusters inside Amazon Virtual Private Cloud\.\) The AWS IoT rules engine creates a network interface in each of the subnets listed in the VPC destination\. This allows the rules engine to route traffic directly to the VPC\. When you create a VPC destination, the AWS IoT rules engine automatically creates a VPC rule action\. For more information about VPC rule actions, see [VPC](vpc-rule-action.md)\.
-+ If you use a customer\-managed AWS Key Management Service \(AWS KMS\) customer master key \(CMK\) to encrypt data at rest, the service must have permission to use the CMK on the caller's behalf\. For more information, see [Amazon MSK encryption](https://docs.aws.amazon.com/msk/latest/developerguide/msk-encryption.html) in the *Amazon Managed Streaming for Apache Kafka Developer Guide*\.
++ You must create a virtual private cloud \(VPC\) destination\. \(You can run your Apache Kafka clusters inside Amazon Virtual Private Cloud\.\) The AWS IoT rules engine creates a network interface in each of the subnets listed in the VPC destination\. This allows the rules engine to route traffic directly to the VPC\. When you create a VPC destination, the AWS IoT rules engine automatically creates a VPC rule action\. For more information about VPC rule actions, see [Virtual private cloud \(VPC\) destinations](vpc-rule-action.md)\.
++ If you use a customer\-managed AWS KMS key \(KMS key\) to encrypt data at rest, the service must have permission to use the KMS key on the caller's behalf\. For more information, see [Amazon MSK encryption](https://docs.aws.amazon.com/msk/latest/developerguide/msk-encryption.html) in the *Amazon Managed Streaming for Apache Kafka Developer Guide*\.
 
 ## Parameters<a name="apache-kafka-rule-action-parameters"></a>
 
 When you create an AWS IoT rule with this action, you must specify the following information:
 
 destinationArn  
-The Amazon Resource Name \(ARN\) of the VPC destination\. For information about creating a VPC destination, see [VPC](vpc-rule-action.md)\.
+The Amazon Resource Name \(ARN\) of the VPC destination\. For information about creating a VPC destination, see [Virtual private cloud \(VPC\) destinations](vpc-rule-action.md)\.
 
 topic  
 The Kafka topic for messages to be sent to the Kafka broker\.  
@@ -102,19 +102,19 @@ Specifies how to turn value objects you provide with the `ProducerRecord` into b
 Valid value: `ByteBufferSerializer`\.  
 ssl\.truststore  
 The truststore file in base64 format or the location of the truststore file in [AWS Secrets Manager](https://docs.aws.amazon.com/secretsmanager/latest/userguide/)\. This value isn't required if your truststore is trusted by Amazon certificate authoriies \(CA\)\.  
-This field supports substitution templates\. If you use Secrets Manager to store the credentials required to connect to your Kafka broker, you can use the get\_secret SQL function to retrieve the value for this field\. For more information about substitution templates, see [Substitution templates](iot-substitution-templates.md)\. For more information about the get\_secret SQL function, see [get\_secret\(secretId, secretType, key, roleArn\) ](iot-sql-functions.md#iot-sql-function-get-secret)\. If the truststore is in the form of a file, use the `SecretBinary` parameter\. If the truststore is in the form of a string, use the `SecretString` parameter\.  
+This field supports substitution templates\. If you use Secrets Manager to store the credentials required to connect to your Kafka broker, you can use the get\_secret SQL function to retrieve the value for this field\. For more information about substitution templates, see [Substitution templates](iot-substitution-templates.md)\. For more information about the get\_secret SQL function, see [get\_secret\(secretId, secretType, key, roleArn\)](iot-sql-functions.md#iot-sql-function-get-secret)\. If the truststore is in the form of a file, use the `SecretBinary` parameter\. If the truststore is in the form of a string, use the `SecretString` parameter\.  
 The maximum size of this value is 65 KB\.  
 ssl\.truststore\.password  
 The password for the truststore\. This value is required only if you've created a password for the truststore\.  
 ssl\.keystore  
 The keystore file\. This value is required when you specify `SSL` as the value for `security.protocol`\.  
-This field supports substitution templates\. You must use Secrets Manager to store the credentials required to connect to your Kafka broker\. Use the get\_secret SQL function to retrieve the value for this field\. For more information about substitution templates, see [Substitution templates](iot-substitution-templates.md)\. For more information about the get\_secret SQL function, see [get\_secret\(secretId, secretType, key, roleArn\) ](iot-sql-functions.md#iot-sql-function-get-secret)\. Use the `SecretBinary` parameter\.  
+This field supports substitution templates\. You must use Secrets Manager to store the credentials required to connect to your Kafka broker\. Use the get\_secret SQL function to retrieve the value for this field\. For more information about substitution templates, see [Substitution templates](iot-substitution-templates.md)\. For more information about the get\_secret SQL function, see [get\_secret\(secretId, secretType, key, roleArn\)](iot-sql-functions.md#iot-sql-function-get-secret)\. Use the `SecretBinary` parameter\.  
 ssl\.keystore\.password  
 The store password for the keystore file\. This value is required if you specify a value for `ssl.keystore`\.  
-The value of this field can be plain text\. This field also supports substitution templates\. You must use Secrets Manager to store the credentials required to connect to your Kafka broker\. Use the get\_secret SQL function to retrieve the value for this field\. For more information about substitution templates, see [Substitution templates](iot-substitution-templates.md)\. For more information about the get\_secret SQL function, see [get\_secret\(secretId, secretType, key, roleArn\) ](iot-sql-functions.md#iot-sql-function-get-secret)\.Use the `SecretString` parameter\.  
+The value of this field can be plain text\. This field also supports substitution templates\. You must use Secrets Manager to store the credentials required to connect to your Kafka broker\. Use the get\_secret SQL function to retrieve the value for this field\. For more information about substitution templates, see [Substitution templates](iot-substitution-templates.md)\. For more information about the get\_secret SQL function, see [get\_secret\(secretId, secretType, key, roleArn\)](iot-sql-functions.md#iot-sql-function-get-secret)\. Use the `SecretString` parameter\.  
 ssl\.key\.password  
 The password of the private key in your keystore file\.  
-This field supports substitution templates\. You must use Secrets Manager to store the credentials required to connect to your Kafka broker\. Use the get\_secret SQL function to retrieve the value for this field\. For more information about substitution templates, see [Substitution templates](iot-substitution-templates.md)\. For more information about the get\_secret SQL function, see [get\_secret\(secretId, secretType, key, roleArn\) ](iot-sql-functions.md#iot-sql-function-get-secret)\. Use the `SecretString` parameter\.  
+This field supports substitution templates\. You must use Secrets Manager to store the credentials required to connect to your Kafka broker\. Use the get\_secret SQL function to retrieve the value for this field\. For more information about substitution templates, see [Substitution templates](iot-substitution-templates.md)\. For more information about the get\_secret SQL function, see [get\_secret\(secretId, secretType, key, roleArn\)](iot-sql-functions.md#iot-sql-function-get-secret)\. Use the `SecretString` parameter\.  
 sasl\.mechanism  
 The security mechanism used to connect to your Kafka broker\. This value is required when you specify `SASL_SSL` for `security.protocol`\.  
 Valid values: `PLAIN`, `SCRAM-SHA-512`, `GSSAPI`\.  
@@ -129,7 +129,7 @@ sasl\.scram\.password
 The password used to retrieve the secret string from Secrets Manager\. This value is required when you specify `SASL_SSL` for `security.protocol` and `SCRAM-SHA-512` for `sasl.mechanism`\.  
 sasl\.kerberos\.keytab  
 The keytab file for Kerberos authentication in Secrets Manager\. This value is required when you specify `SASL_SSL` for `security.protocol` and `GSSAPI` for `sasl.mechanism`\.  
-This field supports substitution templates\. You must use Secrets Manager to store the credentials required to connect to your Kafka broker\. Use the get\_secret SQL function to retrieve the value for this field\. For more information about substitution templates, see [Substitution templates](iot-substitution-templates.md)\. For more information about the get\_secret SQL function, see [get\_secret\(secretId, secretType, key, roleArn\) ](iot-sql-functions.md#iot-sql-function-get-secret)\.Use the `SecretBinary` parameter\.  
+This field supports substitution templates\. You must use Secrets Manager to store the credentials required to connect to your Kafka broker\. Use the get\_secret SQL function to retrieve the value for this field\. For more information about substitution templates, see [Substitution templates](iot-substitution-templates.md)\. For more information about the get\_secret SQL function, see [get\_secret\(secretId, secretType, key, roleArn\)](iot-sql-functions.md#iot-sql-function-get-secret)\. Use the `SecretBinary` parameter\.  
 sasl\.kerberos\.service\.name  
 The Kerberos principal name under which Apache Kafka runs\. This value is required when you specify `SASL_SSL` for `security.protocol` and `GSSAPI` for `sasl.mechanism`\.  
 sasl\.kerberos\.krb5\.kdc  

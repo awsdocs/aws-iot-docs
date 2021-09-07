@@ -31,10 +31,10 @@ A unique statement identifier\.
 `--action`  
 The Lambda action you want to allow in this statement\. To allow AWS IoT to invoke a Lambda function, specify `lambda:InvokeFunction`\.
 **Important**  
-If you add a permission for an AWS IoT principal without providing the source ARN, any AWS account that creates a rule with your Lambda action can trigger rules to invoke your Lambda function from AWS IoT\.
+If you add a permission for an AWS IoT principal without providing the `source-arn` or `source-account`, any AWS account that creates a rule with your Lambda action can trigger rules to invoke your Lambda function from AWS IoT\.
 
   For more information, see [AWS Lambda permissions](https://docs.aws.amazon.com/lambda/latest/dg/intro-permission-model.html)\.
-+ If you use an AWS Key Management Service \(AWS KMS\) customer managed key \(CMK\) to encrypt data at rest in Lambda, the service must have permission to use the CMK on the caller's behalf\. For more information, see [Encryption at rest](https://docs.aws.amazon.com/lambda/latest/dg/security-dataprotection.html#security-privacy-atrest) in the *AWS Lambda Developer Guide*\.
++ If you use an AWS Key Management Service \(AWS KMS\) customer\-managed AWS KMS key \(KMS key\) to encrypt data at rest in Lambda, the service must have permission to use the AWS KMS key on the caller's behalf\. For more information, see [Encryption at rest](https://docs.aws.amazon.com/lambda/latest/dg/security-dataprotection.html#security-privacy-atrest) in the *AWS Lambda Developer Guide*\.
 
 ## Parameters<a name="lambda-rule-action-parameters"></a>
 

@@ -8,7 +8,7 @@ This rule action has the following requirements:
 + An IAM role that AWS IoT can assume to perform the `kinesis:PutRecord` operation\. For more information, see [Granting AWS IoT the required access](iot-create-role.md)\.
 
   In the AWS IoT console, you can choose or create a role to allow AWS IoT to perform this rule action\.
-+ If you use an AWS Key Management Service \(AWS KMS\) customer managed key \(CMK\) to encrypt data at rest in Kinesis Data Streams, the service must have permission to use the CMK on the caller's behalf\. For more information, see [Permissions to use user\-generated KMS master keys ](https://docs.aws.amazon.com/streams/latest/dev/permissions-user-key-KMS.html) in the *Amazon Kinesis Data Streams Developer Guide*\.
++ If you use an AWS Key Management Service \(AWS KMS\) customer\-managed AWS KMS key \(KMS key\) to encrypt data at rest in Kinesis Data Streams, the service must have permission to use the AWS KMS key on the caller's behalf\. For more information, see [Permissions to use user\-generated AWS KMS keys](https://docs.aws.amazon.com/streams/latest/dev/permissions-user-key-KMS.html) in the *Amazon Kinesis Data Streams Developer Guide*\.
 
 ## Parameters<a name="kinesis-rule-action-parameters"></a>
 

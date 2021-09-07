@@ -16,7 +16,7 @@ This rule action has the following requirements:
 + An IAM role that AWS IoT can assume to perform the `timestream:DescribeEndpoints` and `timestream:WriteRecords` operations\. For more information, see [Granting AWS IoT the required access](iot-create-role.md)\.
 
   In the AWS IoT console, you can choose, update, or create a role to allow AWS IoT to perform this rule action\.
-+ If you use a customer\-managed AWS Key Management Service \(AWS KMS\) customer master key \(CMK\) to encrypt data at rest in Timestream, the service must have permission to use the CMK on the caller's behalf\. For more information, see [How AWS services use AWS KMS](https://docs.aws.amazon.com/kms/latest/developerguide/service-integration.html)\.
++ If you use a customer\-managed AWS Key Management Service \(AWS KMS\) to encrypt data at rest in Timestream, the service must have permission to use the AWS KMS key on the caller's behalf\. For more information, see [How AWS services use AWS KMS](https://docs.aws.amazon.com/kms/latest/developerguide/service-integration.html)\.
 
 ## Parameters<a name="timestream-rule-action-parameters"></a>
 

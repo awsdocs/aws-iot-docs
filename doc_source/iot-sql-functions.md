@@ -153,7 +153,7 @@ A unique statement identifier\.
 The Lambda action that you want to allow in this statement\. To allow AWS IoT to invoke a Lambda function, specify `lambda:InvokeFunction`\.
 
 **Important**  
-If you add a permission for an AWS IoT principal without providing the source ARN, any AWS account that creates a rule with your Lambda action can trigger rules to invoke your Lambda function from AWS IoT\. For more information, see [Lambda Permission Model](https://docs.aws.amazon.com/lambda/latest/dg/intro-permission-model.html)\.
+If you add a permission for an AWS IoT principal without providing the `source-arn` or `source-account`, any AWS account that creates a rule with your Lambda action can trigger rules to invoke your Lambda function from AWS IoT\. For more information, see [Lambda Permission Model](https://docs.aws.amazon.com/lambda/latest/dg/intro-permission-model.html)\.
 
 Given a JSON message payload like:
 
@@ -674,7 +674,7 @@ You can use the `get_secret` function in an authentication header in an HTTPS ru
 "API_KEY": "${get_secret('API_KEY', 'SecretString', 'API_KEY_VALUE', 'arn:aws:iam::12345678910:role/getsecret')}"
 ```
 
-For more information about the HTTPS rule action, see [HTTPS](https-rule-action.md)\.
+For more information about the HTTPS rule action, see [HTTP](https-rule-action.md)\.
 
 ## get\_thing\_shadow\(thingName, shadowName, roleARN\)<a name="iot-sql-function-get-thing-shadow"></a>
 

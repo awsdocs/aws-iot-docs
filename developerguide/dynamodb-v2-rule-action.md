@@ -9,7 +9,7 @@ This rule action has the following requirements:
 
   In the AWS IoT console, you can choose or create a role to allow AWS IoT to perform this rule action\.
 + The MQTT message payload must contain a root\-level key that matches the table's primary partition key and a root\-level key that matches the table's primary sort key, if one is defined\.
-+ If you use a customer\-managed AWS Key Management Service \(AWS KMS\) customer master key \(CMK\) to encrypt data at rest in DynamoDB, the service must have permission to use the CMK on the caller's behalf\. For more information, see [Customer Managed CMK](https://docs.aws.amazon.com/amazondynamodb/latest/developerguide/encryption.howitworks.html#managed-cmk-customer-managed) in the *Amazon DynamoDB Getting Started Guide*\.
++ If you use a customer\-managed AWS KMS key \(KMS key\) to encrypt data at rest in DynamoDB, the service must have permission to use the KMS key on the caller's behalf\. For more information, see [Customer Managed KMS key](https://docs.aws.amazon.com/amazondynamodb/latest/developerguide/encryption.howitworks.html#managed-cmk-customer-managed) in the *Amazon DynamoDB Getting Started Guide*\.
 
 ## Parameters<a name="dynamodb-v2-rule-action-parameters"></a>
 

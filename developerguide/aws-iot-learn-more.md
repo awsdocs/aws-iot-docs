@@ -88,8 +88,8 @@ Amazon Simple Notification Service \(Amazon SNS\) is a web service that enables 
 Amazon Simple Queue Service \(Amazon SQS\) is a message queuing service that decouples and scales microservices, distributed systems, and serverless applications\.
 + 
 
-**[Amazon Elasticsearch Service](https://docs.aws.amazon.com/elasticsearch-service/)**  
-Amazon Elasticsearch Service \(Amazon ES\) is a managed service that makes it easy to deploy, operate, and scale Elasticsearch, a popular open\-source search and analytics engine\.
+**[Amazon OpenSearch Service](https://docs.aws.amazon.com/elasticsearch-service/)**  
+Amazon OpenSearch Service \(OpenSearch Service\) is a managed service that makes it easy to deploy, operate, and scale OpenSearch, a popular open\-source search and analytics engine\.
 + 
 
 **[Amazon Machine Learning](https://docs.aws.amazon.com/machine-learning/)**  

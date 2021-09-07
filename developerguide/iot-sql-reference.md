@@ -37,3 +37,6 @@ If this message is published on the `'topic/subtopic'` topic, the rule is trigge
 ```
 
 This data is then forwarded to the rule's action, which sends the data for more processing\. For more information about rule actions, see [AWS IoT rule actions](iot-rule-actions.md)\.
+
+**Note**  
+Comments are not currently supported in AWS IoT SQL syntax\.

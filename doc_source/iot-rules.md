@@ -8,7 +8,7 @@ Rules give your devices the ability to interact with AWS services\. Rules are an
 + Publish data to an Amazon SQS queue\.
 + Invoke a Lambda function to extract data\.
 + Process messages from a large number of devices using Amazon Kinesis\.
-+ Send data to the Amazon Elasticsearch Service\.
++ Send data to the Amazon OpenSearch Service\.
 + Capture a CloudWatch metric\. 
 + Change a CloudWatch alarm\.
 + Send the data from an MQTT message to Amazon Machine Learning to make predictions based on an Amazon ML model\. 
@@ -33,7 +33,6 @@ Before AWS IoT can perform these actions, you must grant it permission to access
 + [Troubleshooting a rule](#iot-troubleshoot-rule)
 + [Accessing cross\-account resources using AWS IoT rules](accessing-cross-account-resources-using-rules.md)
 + [Error handling \(error action\)](rule-error-handling.md)
-+ [Working with topic rule destinations](rule-destination.md)
 + [Reducing messaging costs with basic ingest](iot-basic-ingest.md)
 + [AWS IoT SQL reference](iot-sql-reference.md)
 

@@ -114,7 +114,7 @@ Connect to the following AWS IoT services to manage the devices in your IoT solu
 Analyze the data from the devices in your IoT solution and take appropriate action by using the following AWS IoT services\.
 
 **AWS IoT Analytics**  
-[AWS IoT Analytics](https://docs.aws.amazon.com/iotanalytics/) lets you efficiently run and operationalize sophisticated analytics on massive volumes unstructured IoT data\. AWS IoT Analytics automates each difficult step that is required to analyze data from IoT devices\. AWS IoT Analytics filters, transforms, and enriches IoT data before storing it in a time\-series data store for analysis\. You can analyze your data by running one\-time or scheduled queries using the built\-in SQL query engine or machine learning\.
+[AWS IoT Analytics](https://docs.aws.amazon.com/iotanalytics/) lets you efficiently run and operationalize sophisticated analytics on massive volumes of unstructured IoT data\. AWS IoT Analytics automates each difficult step that is required to analyze data from IoT devices\. AWS IoT Analytics filters, transforms, and enriches IoT data before storing it in a time\-series data store for analysis\. You can analyze your data by running one\-time or scheduled queries using the built\-in SQL query engine or machine learning\.
 
 **AWS IoT SiteWise**  
 [AWS IoT SiteWise](https://docs.aws.amazon.com/iot-sitewise/) collects, stores, organizes, and monitors data passed from industrial equipment by MQTT messages or APIs at scale by providing software that runs on a gateway in your facilities\. The gateway securely connects to your on\-premises data servers and automates the process of collecting and organizing the data and sending it to the AWS Cloud\. 

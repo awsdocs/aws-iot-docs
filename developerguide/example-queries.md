@@ -29,3 +29,5 @@ Queries are specified in a query string using a query syntax and passed to the [
 |  connectivity\.connected:false AND connectivity\.timestamp : \[1557651600000 TO 1557867600000\]  | Queries for all disconnected devices with a disconnect timestamp >= 1557651600000 and <= 1557867600000\. Timestamps are given in milliseconds since epoch\. | 
 |  connectivity\.connected:true AND connectivity\.timestamp > 1557651600000  | Queries for all connected devices with a connect timestamp > 1557651600000\. Timestamps are given in milliseconds since epoch\. | 
 |  connectivity\.connected:\*  | Queries for all devices with connectivity information present\. | 
+|  connectivity\.disconnectReason:\*  | Queries for all devices with connectivity disconnectReason present\. | 
+|  connectivity\.disconnectReason:CLIENT\_INITIATED\_DISCONNECT  | Queries for all devices disconnected due to CLIENT\_INITIATED\_DISCONNECT\. | 

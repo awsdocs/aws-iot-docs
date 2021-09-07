@@ -73,7 +73,7 @@ The following is an example payload file with a rule that inserts all messages s
 }
 ```
 
-The following is an example payload file with a rule that pushes data to Amazon Elasticsearch Service:
+The following is an example payload file with a rule that pushes data to Amazon OpenSearch Service:
 
 ```
 {

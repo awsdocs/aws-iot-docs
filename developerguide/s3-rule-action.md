@@ -8,7 +8,7 @@ This rule action has the following requirements:
 + An IAM role that AWS IoT can assume to perform the `s3:PutObject` operation\. For more information, see [Granting AWS IoT the required access](iot-create-role.md)\.
 
   In the AWS IoT console, you can choose or create a role to allow AWS IoT to perform this rule action\.
-+ If you use an AWS Key Management Service \(AWS KMS\) customer managed key \(CMK\) to encrypt data at rest in Amazon S3, the service must have permission to use the CMK on the caller's behalf\. For more information, see [AWS managed CMKs and customer managed CMKs](https://docs.aws.amazon.com/AmazonS3/latest/dev/UsingKMSEncryption.html#aws-managed-customer-managed-cmks) in the *Amazon Simple Storage Service Developer Guide*\.
++ If you use an AWS Key Management Service \(AWS KMS\) customer\-managed AWS KMS key \(KMS key\) to encrypt data at rest in Amazon S3, the service must have permission to use the AWS KMS key on the caller's behalf\. For more information, see [AWS managed AWS KMS keys and customer managed AWS KMS keys](https://docs.aws.amazon.com/AmazonS3/latest/dev/UsingKMSEncryption.html#aws-managed-customer-managed-cmks) in the *Amazon Simple Storage Service Developer Guide*\.
 
 ## Parameters<a name="s3-rule-action-parameters"></a>
 

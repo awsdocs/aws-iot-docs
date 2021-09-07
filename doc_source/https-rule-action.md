@@ -1,11 +1,11 @@
-# HTTPS<a name="https-rule-action"></a>
+# HTTP<a name="https-rule-action"></a>
 
 The HTTPS \(`http`\) action sends data from an MQTT message to a web application or service\.
 
 ## Requirements<a name="https-rule-action-requirements"></a>
 
 This rule action has the following requirements:
-+ You must confirm and enable HTTPS endpoints before the rules engine can use them\. For more information, see [ Working with topic rule destinations](rule-destination.md)\.
++ You must confirm and enable HTTPS endpoints before the rules engine can use them\. For more information, see [Working with HTTP topic rule destinations](rule-destination.md)\.
 
 ## Parameters<a name="https-rule-action-parameters"></a>
 
@@ -16,7 +16,7 @@ The HTTPS endpoint where the message is sent using the HTTP POST method\. If you
 Supports [substitution templates](iot-substitution-templates.md): Yes
 
 `confirmationUrl`  
-\(Optional\) If specified, AWS IoT uses the confirmation URL to create a matching topic rule destination\. You must enable the topic rule destination before using it in an HTTPS action\. For more information, see [ Working with topic rule destinations](rule-destination.md)\. If you use substitution templates, you must manually create topic rule destinations before the `http` action can be used\. `confirmationUrl` must be a prefix of `url`\.  
+\(Optional\) If specified, AWS IoT uses the confirmation URL to create a matching topic rule destination\. You must enable the topic rule destination before using it in an HTTP action\. For more information, see [Working with HTTP topic rule destinations](rule-destination.md)\. If you use substitution templates, you must manually create topic rule destinations before the `http` action can be used\. `confirmationUrl` must be a prefix of `url`\.  
 The relationship between `url` and `confirmationUrl` is described by the following:  
 + If `url` is hardcoded and `confirmationUrl` is not provided, we implicitly treat the `url` field as the `confirmationUrl`\. AWS IoT creates a topic rule destination for `url`\.
 + If `url` and `confirmationUrl` are hardcoded, `url` must begin with `confirmationUrl`\. AWS IoT creates a topic rule destination for `confirmationUrl`\.
@@ -39,7 +39,7 @@ Supports [substitution templates](iot-substitution-templates.md): No
 
 ## Examples<a name="https-rule-action-examples"></a>
 
-The following JSON example defines an AWS IoT rule with an HTTPS action\.
+The following JSON example defines an AWS IoT rule with an HTTP action\.
 
 ```
 {
@@ -71,7 +71,7 @@ The following JSON example defines an AWS IoT rule with an HTTPS action\.
 
 ## HTTP action retry logic<a name="https-rule-action-retry-logic"></a>
 
-The AWS IoT rules engine retries the HTTPS action according to these rules:
+The AWS IoT rules engine retries the HTTP action according to these rules:
 + The rules engine tries to send a message at least once\.
 + The rules engine retries at most twice\. The maximum number of tries is three\.
 + The rules engine does not attempt a retry if:
@@ -84,5 +84,5 @@ The AWS IoT rules engine retries the HTTPS action according to these rules:
 [Standard data transfer costs](https://aws.amazon.com/ec2/pricing/on-demand/) apply to retries\.
 
 ## See also<a name="https-rule-action-see-also"></a>
-+ [ Working with topic rule destinations](rule-destination.md)
++ [Working with HTTP topic rule destinations](rule-destination.md)
 + [Route data directly from AWS IoT Core to your web services](http://aws.amazon.com/blogs/iot/route-data-directly-from-iot-core-to-your-web-services/) in the *Internet of Things on AWS* blog

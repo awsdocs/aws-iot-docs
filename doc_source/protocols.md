@@ -33,7 +33,7 @@ On port 8443 HTTPS and port 443 MQTT with ALPN x\-amzn\-mqtt\-ca, [custom authen
 Clients connect to their AWS account's device endpoints\. See [AWS IoT device data and service endpoints](iot-connect-devices.md#iot-connect-device-endpoints) for information about how to find your account's device endpoints\.
 
 **Note**  
-AWS SDKs do not require the entire URL and need only the endpoint hostname such as the [`pubsub.py` sample for AWS IoT Device SDK for Python on GitHub](https://github.com/aws/aws-iot-device-sdk-python-v2/samples/pubusb.py#L100)\. Passing the entire URL as provided in the following table can generate an error such as invalid hostname\.
+AWS SDKs don't require the entire URL\. They only require the endpoint hostname such as the [`pubsub.py` sample for AWS IoT Device SDK for Python on GitHub](https://github.com/aws/aws-iot-device-sdk-python-v2/samples/pubusb.py#L100)\. Passing the entire URL as provided in the following table can generate an error such as invalid hostname\.
 
 
 **Connecting to AWS IoT Core**  
@@ -55,7 +55,7 @@ For most IoT device communication through the device endpoints, you'll want to u
 | --- | --- | --- | 
 |  Publish/Subscribe support  |  Publish and subscribe  |  Publish only  | 
 |  SDK support  |  [AWS Device SDKs](iot-connect-devices.md#iot-connect-device-sdks) support MQTT and WSS protocols  |  No SDK support, but you can use language\-specific methods to make HTTPS requests  | 
-|  Quality of Service support  |  [MQTT QoS levels 0 and 1](mqtt.md#mqtt-qos)  | QoS is supported by passing a query string parameter ?qos=qos where the value can be 0 or 1\. You can add this query string to publish a message with the desired QoS value | 
+|  Quality of Service support  |  [MQTT QoS levels 0 and 1](mqtt.md#mqtt-qos)  | QoS is supported by passing a query string parameter ?qos=qos where the value can be 0 or 1\. You can add this query string to publish a message with the QoS value you want\. | 
 | Can receive messages be missed while device was offline | Yes | No | 
 |  `clientId` field support  |  Yes  |  No  | 
 |  Device disconnection detection  |  Yes  |  No  | 

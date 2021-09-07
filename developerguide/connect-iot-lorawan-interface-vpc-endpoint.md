@@ -15,9 +15,6 @@ The following diagram shows the privatelink architecture of AWS IoT Core for LoR
 
 **AWS IoT Core for LoRaWAN endpoints**  
 AWS IoT Core for LoRaWAN has three public endpoints\. Each public endpoint has a corresponding VPC interface endpoint\. The public endpoints can be classified into control plane and data plane endpoints\. For information about these endpoints, see [AWS IoT Core for LoRaWAN API endpoints](https://docs.aws.amazon.com/general/latest/gr/iot-core.html#iot-wireless_region)\.
-
-**Note**  
-AWS PrivateLink support for the endpoints is available only in US East \(N\. Virginia\) and Europe \(Ireland\)\.
 + 
 
 **Control plane API endpoints**  
