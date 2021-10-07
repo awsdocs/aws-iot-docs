@@ -1194,10 +1194,6 @@ Example:
 
 Must be a valid regex expression\. Non\-string types are converted to `String` using the standard conversion rules\. Depending on the type, the resultant string might not be a valid regular expression\. If the \(converted\) argument is not a valid regex expression, the result is `Undefined`\. 
 
-*Third argument:*
-
-Must be a valid regex replacement string\. \(Can reference capture groups\.\) Non\-string types are converted to `String` using the standard conversion rules\. If the argument is not a valid regex replacement string, the result is `Undefined`\. 
-
 ## remainder\(Decimal, Decimal\)<a name="iot-func-remainder"></a>
 
 Returns the remainder of the division of the first argument by the second argument\. Equivalent to [mod\(Decimal, Decimal\)](#iot-func-mod)\. You can also use "%" as an infix operator for the same modulo functionality\. Supported by SQL version 2015\-10\-08 and later\.
