@@ -82,7 +82,7 @@ The following lists describe the API actions that perform the tasks associated w
 For the complete list of the actions and data types available to create and manage AWS IoT Core for LoRaWAN resources, see the [AWS IoT Wireless API reference](https://docs.aws.amazon.com/iot-wireless/2020-11-22/apireference/welcome.html)\.
 
 **How to use the AWS CLI to add a gateway**  
-You can use the AWS CLI to create a wireless gateway by using the [create\-wireless\-gateway](cli/latest/reference/iotwireless/create-wireless-gateway.html) command\. The following example creates a wireless LoRaWAN device gateway\. You can also provide an `input.json` file that will contain additional details such as the gateway certificate and provisioning credentials\.
+You can use the AWS CLI to create a wireless gateway by using the [create\-wireless\-gateway](https://docs.aws.amazon.com/cli/latest/reference/iotwireless/create-wireless-gateway.html) command\. The following example creates a wireless LoRaWAN device gateway\. You can also provide an `input.json` file that will contain additional details such as the gateway certificate and provisioning credentials\.
 
 **Note**  
 You can also perform this procedure with the API by using the methods in the AWS API that correspond to the CLI commands shown here\. 
