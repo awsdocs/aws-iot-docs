@@ -1,8 +1,8 @@
-# Republish an MQTT message<a name="iot-repub-rule"></a>
+# Tutorial: Republishing an MQTT message<a name="iot-repub-rule"></a>
 
-This tutorial demonstrates how to create an AWS IoT rule that publishes an MQTT message when a specified MQTT message is received\. The incoming message payload can be modified by the rule before it's published, making it possible to create messages that are tailored to specific applications without the need to alter your device or its firmware\. You can also use the filtering aspect of a rule to publish messages only when a specific condition is met\.
+This tutorial demonstrates how to create an AWS IoT rule that publishes an MQTT message when a specified MQTT message is received\. The incoming message payload can be modified by the rule before it's published\. This makes it possible to create messages that are tailored to specific applications without the need to alter your device or its firmware\. You can also use the filtering aspect of a rule to publish messages only when a specific condition is met\.
 
-The messages republished by a rule act like messages sent by any other AWS IoT device or client\. Devices can subscribe to the republished messages just as they can subscribe to any other MQTT message topic\.
+The messages republished by a rule act like messages sent by any other AWS IoT device or client\. Devices can subscribe to the republished messages the same way they can subscribe to any other MQTT message topic\.
 
 **What you'll learn in this tutorial:**
 + How to use simple SQL queries and functions in a rule query statement
@@ -12,9 +12,9 @@ This tutorial takes about 30 minutes to complete\.
 
 **Topics**
 + [Review MQTT topics and AWS IoT rules](#iot-repub-rule-mqtt)
-+ [Create an AWS IoT rule to republish an MQTT message](#iot-repub-rule-define)
-+ [Test your new rule](#iot-repub-rule-test)
-+ [Review the results and next steps](#iot-repub-rule-review)
++ [Step 1: Create an AWS IoT rule to republish an MQTT message](#iot-repub-rule-define)
++ [Step 2: Test your new rule](#iot-repub-rule-test)
++ [Step 3: Review the results and next steps](#iot-repub-rule-review)
 
 **Before you start this tutorial, make sure that you have:**
 + 
@@ -28,7 +28,7 @@ Be sure you can use the MQTT client to subscribe and publish to a topic\. You'll
 
 ## Review MQTT topics and AWS IoT rules<a name="iot-repub-rule-mqtt"></a>
 
-Before talking about AWS IoT rules, it helps to understand the MQTT protocol\. In IoT solutions, the MQTT protocol offers some advantages over other network communication protocols, such as HTTP, which makes it a popular choice for use by IoT devices\. This section reviews the key aspects of MQTT as they apply to this tutorial\. For information about how MQTT compares to HTTP, see [Choosing a protocol for your device communication](protocols.md#protocol-selection)\.
+Before talking about AWS IoT rules, it helps to understand the MQTT protocol\. In IoT solutions, the MQTT protocol offers some advantages over other network communication protocols, such as HTTP, which makes it a popular choice for use by IoT devices\. This section reviews the key aspects of MQTT as they apply to this tutorial\. For information about how MQTT compares to HTTP, see [Choosing a protocol for your device communicationConnection duration limits](protocols.md#protocol-selection)\.
 
 **MQTT protocol**  
 The MQTT protocol uses a publish/subscribe communication model with its host\. To send data, devices publish messages that are identified by topics to the AWS IoT message broker\. To receive messages from the message broker, devices subscribe to the topics they will receive by sending topic filters in subscription requests to the message broker\. The AWS IoT rules engine receives MQTT messages from the message broker\.
@@ -44,11 +44,11 @@ The rule's query statement describes the MQTT topics to use, interprets the data
 **Rule action**  
 Each rule action in a rule acts on the data that results from the rule's query statement\. AWS IoT supports [many rule actions](iot-rule-actions.md)\. In this tutorial, however, you'll concentrate on the [Republish](republish-rule-action.md) rule action, which publishes the result of the query statement as an MQTT message with a specific topic\.
 
-## Create an AWS IoT rule to republish an MQTT message<a name="iot-repub-rule-define"></a>
+## Step 1: Create an AWS IoT rule to republish an MQTT message<a name="iot-repub-rule-define"></a>
 
 The AWS IoT rule that you'll create in this tutorial subscribes to the `device/device_id/data` MQTT topics where *device\_id* is the ID of the device that sent the message\. These topics are described by a [topic filter](topics.md#topicfilters) as `device/+/data`, where the `+` is a wildcard character that matches any string between the two forward slash characters\.
 
-When the rule receives a message from a matching topic, it takes out the `device_id` and `temperature` values and republishes them as a new MQTT message with the `device/data/temp` topic\. 
+When the rule receives a message from a matching topic, it republishes the `device_id` and `temperature` values as a new MQTT message with the `device/data/temp` topic\. 
 
 For example, the payload of an MQTT message with the `device/22/data` topic looks like this:
 
@@ -64,7 +64,7 @@ For example, the payload of an MQTT message with the `device/22/data` topic look
 }
 ```
 
-The rule takes the `temperature` value from the message payload and the `device_id` from the topic and republishes them as an MQTT message with the `device/data/temp` topic and a message payload that looks like this:
+The rule takes the `temperature` value from the message payload, and the `device_id` from the topic, and republishes them as an MQTT message with the `device/data/temp` topic and a message payload that looks like this:
 
 ```
 {
@@ -89,7 +89,7 @@ With this rule, devices that only need the device's ID and the temperature data 
 
    1.  In **Description**, describe the rule\. 
 
-      A meaningful description makes it easier to remember what this rule does and why you created it\. The description can be as long as needed, so be as detailed as possible\. 
+      A meaningful description helps you remember what this rule does and why you created it\. The description can be as long as needed, so be as detailed as possible\. 
 
 1. In **Rule query statement** of **Create a rule**:
 
@@ -140,7 +140,7 @@ With this rule, devices that only need the device's ID and the temperature data 
 
 1. In **Create a rule**, scroll down to the bottom and choose **Create rule** to create the rule and complete this step\.
 
-## Test your new rule<a name="iot-repub-rule-test"></a>
+## Step 2: Test your new rule<a name="iot-repub-rule-test"></a>
 
 To test your new rule, you'll use the MQTT client to publish and subscribe to the MQTT messages used by this rule\.
 
@@ -297,7 +297,7 @@ The rule action must have permission to receive the original topic and publish t
 
     If you suspect this is the problem, edit the Republish rule action and create a new role\. New roles created by the rule action receive the authorizations necessary to perform these actions\.
 
-## Review the results and next steps<a name="iot-repub-rule-review"></a>
+## Step 3: Review the results and next steps<a name="iot-repub-rule-review"></a>
 
 **In this tutorial**
 + You used a simple SQL query and a couple of functions in a rule query statement to produce a new MQTT message\.
@@ -308,6 +308,6 @@ The rule action must have permission to receive the original topic and publish t
 After you republish a few messages with this rule, try experimenting with it to see how changing some aspects of the tutorial affect the republished message\. Here are some ideas to get you started\.
 + Change the *device\_id* in the input message's topic and observe the effect in the republished message payload\.
 + Change the fields selected in the rule query statement and observe the effect in the republished message payload\.
-+ Try the next tutorial in this series and learn how to [Send an Amazon SNS notification](iot-sns-rule.md)\.
++ Try the next tutorial in this series and learn how to [Tutorial: Sending an Amazon SNS notification](iot-sns-rule.md)\.
 
 The Republish rule action used in this tutorial can also help you debug rule query statements\. For example, you can add this action to a rule to see how its rule query statement is formatting the data used by its rule actions\.

@@ -4,7 +4,7 @@ Whether you're new to IoT or you have years of experience, these resources prese
 + **Look** inside AWS IoT and its components in [How AWS IoT works](aws-iot-how-it-works.md)\.
 + [**Learn** more about AWS IoT](aws-iot-learn-more.md) from our collection of training materials and videos\. This topic also includes a list of services that AWS IoT can connect to, social media links, and links to communication protocol specifications\.
 + **[Connect your first device to AWS IoT Core](#aws-iot-get-started)**\.
-+ **Develop** your IoT solutions by [Connecting to AWS IoT Core](connect-to-iot.md) and exploring the [AWS IoT Tutorials](iot-tutorials.md)\.
++ **Develop** your IoT solutions by [Connecting to AWS IoT Core](connect-to-iot.md) and exploring the [AWS IoT tutorials](iot-tutorials.md)\.
 + **Test and validate** your IoT devices for secure and reliable communication by using the [Device Advisor](device-advisor.md)\.
 + **Manage** your solution by using AWS IoT Core management services such as [Fleet indexing service](iot-indexing.md), [Jobs](iot-jobs.md), and [AWS IoT Device Defender](device-defender.md)\.
 + **Analyze** the data from your devices by using the [AWS IoT data services](aws-iot-how-it-works.md#aws-iot-components-data)\.

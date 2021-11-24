@@ -1,9 +1,10 @@
 # Getting started with Alexa Voice Service \(AVS\) Integration for AWS IoT on an NXP device<a name="avs-integration-aws-iot-gs-nxp"></a>
 
- The NXP i\.MX 106A development kit enables you to preview Alexa Voice Service \(AVS\) Integration for AWS IoT using a preconfigured NXP account\. After you preview the functionality with the NXP account, you need to customize the firmware, application source code, and the NXP mobile application provided with the kit to use your own account\. This topic walks you through the steps to preview with the preconfigured account and to customize your device with your own account\. 
+ With the NXP i\.MX RT106A development kit, you can preview Alexa Voice Service \(AVS\) Integration for AWS IoT using a preconfigured NXP account\. After you preview the functionality with the NXP account, you customize the firmware \(application source code\) to use your own account\. This topic walks you through the steps to preview with the preconfigured account and to customize your device with your own account\. 
 
 **Topics**
 + [Preview Alexa Voice Service \(AVS\) Integration for AWS IoT with a preconfigured NXP account](#iot-mqtt-alexa-gs-nxp-preview)
++ [Interact with Alexa](#iot-mqtt-alexa-gs-nxp-alexa-interact)
 + [Use your AWS and Alexa Voice Service developer accounts to set up AVS for AWS IoT](#iot-mqtt-alexa-gs-nxp-configure)
 
 ## Preview Alexa Voice Service \(AVS\) Integration for AWS IoT with a preconfigured NXP account<a name="iot-mqtt-alexa-gs-nxp-preview"></a>
@@ -11,160 +12,137 @@
 ### Prerequisites<a name="iot-mqtt-alexa-gs-nxp-preview-prereqs"></a>
 
 To follow these steps, you need the following resources\.
-+ [NXP i\.MX 106A development kit](https://www.nxp.com/design/designs/mcu-based-solution-for-br-alexa-voice-service:MCU-VOICE-CONTROL-AVS)
-+ A Mac, Windows 7/10, or Linux computer
-+ A serial driver that works with your computer
++ [NXP i\.MX RT106A development kit](https://www.nxp.com/design/designs/mcu-based-solution-for-br-alexa-voice-service:MCU-VOICE-CONTROL-AVS)
+
+  This kit is preloaded with software that enables both [zero touch setup](#iot-mqtt-alexa-gs-nxp-zero-touch-setup) and [user\-guided setup](#iot-mqtt-alexa-gs-nxp-user-guided-setup)\.
++ A Mac, Windows 7 or 10, or Linux computer
 + An Android or iOS mobile device
-+ Android Debug Bridge \(ADB\)
++ The [Amazon Alexa app for iOS](https://apps.apple.com/us/app/amazon-alexa/id944011620) or the [Amazon Alexa app for Android](https://play.google.com/store/apps/details?id=com.amazon.dee.app&hl=en_US&gl=US)
 + An [Amazon Alexa account](https://alexa.amazon.com)
 
-### Install and boot the development kit<a name="iot-mqtt-alexa-gs-nxp-preview-devkit"></a>
+### Turn on the development kit<a name="iot-mqtt-alexa-gs-nxp-poweron-devkit"></a>
 
-1. Activate the device kit\. The kit comes with a Get Started Onboarding card\. This card contains instructions to activate the kit and acquire the necessary software package and the reference design files\. The software package contains the SDK source code and the companion Android application \(`VoiceCompanionApp.apk`\)\. If you're using an iOS device, you must request access to the TestFlight iOS application from your local NXP representative\.
+Verify that your development kit box contains a USB Type\-C to dual Type\-A cable\. Connect both of the USB\-A connections to your computer\. Connect the USB\-C connector to your kit\. Your configuration will look like the following image\.
 
-   After you download and extract the software package, you see the following file structure\.  
-![\[The software package contains folders named Amazon, DefaultBinaries, Drivers, MobileApplication, SDK, and Tools. It also contains the developer guide, the migration guide, and the user guide.\]](http://docs.aws.amazon.com/iot/latest/developerguide/images/iot-nxp-software-package.png)
+![\[Plug the two USB-A connections into your computer. Plug the single USB-A connection to your device kit.\]](http://docs.aws.amazon.com/iot/latest/developerguide/images/iot-nxp-power.png)
 
-    The `MobileApplication` folder contains the Android mobile application\.
-
-   The `Tools` folder contains scripts that you use to configure your device\.
-
-   You can also find the following documentation:
-   + `SLN-ALEXA-IOT-DG.pdf` in the *NXP Developer Guide*
-   + `SLN-ALEXA-IOT-MG.pdf` in the *NXP Migration Guide*
-   + `SLN-ALEXA-IOT-UG.pdf` in the *NXP User Guide*
-
-1. Boot the device kit\. The USB splitter cable that comes with the kit has power and data connections\. 
-
-   1. Connect both of the USB\-A connections to your computer\. 
-
-   1. Connect the USB\-C connector to your kit\. Your configuration might look the following image\.  
-![\[Plug the two USB-A connections into your computer. Plug the single USB-A connection to your device kit.\]](http://docs.aws.amazon.com/iot/latest/developerguide/images/iot-nxp-device-kit.png)
-
-   When the board has power, the D1 LED lights up and displays green\. The D2 LED \(closest to the speaker\) indicates the state of the device\. When the device turns on, this LED flashes multiple colors\. When the device runs the application code, the D2 LED blinks yellow\. When initialization of the device is complete, the D2 LED displays orange to indicate that it's waiting for Wi\-Fi credentials to be added to the device\.
-
-   The NXP User Guide contains a description of the device's physical controls\.  
-![\[The D2 LED displays orange to indicate that it's waiting for Wi-Fi credentials.\]](http://docs.aws.amazon.com/iot/latest/developerguide/images/iot-nxp-device-kit-powered.png)
-
-1. Use the terminal application to understand how the client application on the device works\. You can also use it to debug and make sure that the device is in the correct state\. 
-
-   Enter the following commands to get started with the application:
-   + `help` – Displays a list of the available commands\.
-   + `enable_usb_log` – Enables logging on the device\. This helps you understand what the application is doing\.
-   + `logs` – Displays the last few lines of the logs\. At this point, the logs should indicate that the device is waiting for Wi\-Fi credentials\.
-
-### Connect the device to AWS IoT and Amazon Alexa<a name="iot-mqtt-alexa-gs-nxp-preview-connect"></a>
-
-1. Install the appropriate mobile application\. If you're using an Android device, you can use ADB in the terminal to install the `VoiceCompanionApp.apk` file\. If you're using an iOS device, use the TestFlight application\.
-
-1. Provision the Wi\-Fi credentials\. You can provision the Wi\-Fi credentials by using either the companion mobile application or the terminal\.
-
-   1. Follow these steps to provision the Wi\-Fi credentials by using the mobile application\.
-
-      1. When the device boots up from its factory new state, it creates a Wi\-Fi access point\. Open the companion mobile application, and choose **WIFI PROVISION** to connect to this access point\.
-
-      1. Choose a network from the list\. 
-
-      1. Enter your password, and choose **Send** to transmit the credentials to the device kit\.
-
-   1. In the terminal application, enter the following command\.
-
-      ```
-      setup YourWiFiNetworkName YourWiFiNetworkPassword
-      ```
-
-   1. Choose **Enter**\.
-
-1. Authenticate the device kit and connect to AWS IoT and Amazon Alexa\. Make sure that your mobile device and the device kit are using the same Wi\-Fi network so that the two devices can communicate\. 
-
-   To do so, press the **Discover** button in the mobile application\. When discovery is complete, you see a list of serial numbers for the available device kits near you\. If more than one is available, you can confirm your kit's unique serial number by entering **serial\_number** in the terminal application\.
-
-1. Choose the device kit that to use\. The mobile application uses the Login with Amazon service to prompt you for your Amazon user credentials\. The device kit begins to register the device with AVS\. The D2 LED displays purple to indicate that device registration has started\.
 **Note**  
-If your mobile device already has the Amazon shopping application installed, the mobile companion application automatically uses the Amazon account that is logged into the shopping application\.
+If the box contains a quick start card, disregard it and refer to these instructions instead\.
 
-After you sign in to your Amazon account, the companion application performs the following steps:
+When the board has power, the status indicator LED lights up and displays various colors\. These are status indicators for the various stages of the boot process\. The colors and the blink rate indicate the status of the device\. Your device is ready for setup when the status indicator light turns solid blue, as shown in the following image\.
 
-1. The device kit receives the access token from the Login with Amazon service and begins to connect the device to AWS IoT and AVS\. The mobile application displays a completion percentage\. The D2 LED on the device displays orange\.
+![\[The status indicator light displays solid blue.\]](http://docs.aws.amazon.com/iot/latest/developerguide/images/iot-nxp-on.png)
 
-1. The D1 LED blinks green every 500 milliseconds until the device connects to AWS IoT\.
+The development kit supports the following setups, depending on your environment\.
++ [User\-guided setup](#iot-mqtt-alexa-gs-nxp-user-guided-setup): Use this setup when the device arrives in factory state and doesn't meet the conditions for zero touch setup \(ZTS\)\.
 
-1. When the device connects to AWS IoT, the device kit begins to connect the device to AVS\. The D1 LED blinks green every 250 milliseconds\.
+  You also use user\-guided setup when someone has already performed ZTS on the device\. ZTS can occur only once in the lifetime of a product\.
++  [Zero touch setup \(ZTS\)](#iot-mqtt-alexa-gs-nxp-zero-touch-setup): Use this setup when your environment meets the following conditions\.
+  + You purchased the kit from Amazon\.com\.
+  + You didn't purchase the kit or receive the kit as a gift\.
+  + You've already installed a provisioner device in the Wi\-Fi network that you're using with the kit\.
 
-1. When the device connects to AVS, the color of the device kit's serial number changes to yellow in the mobile application\. The mobile application displays a **Complete** message\. The D1 LED turns off, and the device plays a chime\. The device is now connected to NXP's AWS IoT account\.
+    A provisioner device is an Amazon device \(such as an Echo \(3rd Gen\)\) that is registered to an Amazon customer account\.
 
-You can try a few Alexa Voice commands, such as the following examples:
-+ "Alexa, what's the weather like?"
-+ "Alexa, play a news briefing\."
-+ "Alexa, play music\."
+    For a list of Amazon devices that qualify as provisioning devices, see [Testing Your Device](https://developer.amazon.com/docs/frustration-free-setup/understanding-ffs.html#testing-your-device) in [Understanding Frustration\-Free Setup](https://developer.amazon.com/docs/frustration-free-setup/understanding-ffs.html)\.
+  + Your kit is within the Bluetooth Low Energy \(BLE\) range of the provisioner device\.
+  + Your Wi\-Fi credentials are available in the Amazon Wi\-Fi locker\.
+  + You have an [Alexa skill](https://developer.amazon.com/en-US/alexa/alexa-skills-kit) linked to your Amazon account\.
+  + You have implemented [Login with Amazon](https://developer.amazon.com/apps-and-games/login-with-amazon)\.
+
+  For more information about this kind of setup, see [Zero Touch Setup](https://developer.amazon.com/docs/frustration-free-setup/understanding-ffs.html#zero-touch-setup)\.
+
+### User\-guided setup<a name="iot-mqtt-alexa-gs-nxp-user-guided-setup"></a>
+
+When a kit that doesn't meet the requirements for ZTS turns on, it waits for user\-guided setup to occur through the Amazon Alexa app on your phone\. Make sure that the Amazon Alexa app is installed on your phone and that the Bluetooth and location permissions are enabled for the app\.
+
+The following procedure describes how to perform user\-guided setup\.
+
+1. Open the Alexa App and log in to your Amazon Alexa account\. The app detects that a nearby device is waiting for user\-guided setup and displays the page in the following image\. Choose **Continue**\.  
+![\[The Amazon Alexa app displays a window that contains a Continue button.\]](http://docs.aws.amazon.com/iot/latest/developerguide/images/iot-nxp-alexa-app.png)
+
+   If you choose **Later** or if the app doesn't display this page, use the following steps to start user\-guided setup\.
+
+   1. Choose the **Devices** tab, and then select the plus sign \(**\+**\) in the window that appears\.
+
+   1. Choose **Add Device**\.
+
+   1. Choose **Development Device**\.
+
+   1. On the **What brand is your development device?** page, choose **NXP**, and then choose **Next**\.
+
+      The following images show how the prompts described in these steps appear in the app\.  
+![\[The Amazon Alexa app displays prompts that enable you to add an NXP device to your environment.\]](http://docs.aws.amazon.com/iot/latest/developerguide/images/iot-nxp-alexa-menu.png)
+
+   When the app connects to the device, the status indicator light blinks orange, as in the following images\.    
+[\[See the AWS documentation website for more details\]](http://docs.aws.amazon.com/iot/latest/developerguide/avs-integration-aws-iot-gs-nxp.html)
+**Note**  
+If user guided setup is interrupted \(for example, if you close the app\), the device returns to discovery mode, and the status indicator light displays solid blue\.
+
+1. The app asks the kit to scan the environment for Wi\-Fi networks and return a list of networks that it detects\. Choose the network to which the device should connect\. The following image shows how this list appears in the app\.  
+![\[The app displays a list of available Wi-Fi networks.\]](http://docs.aws.amazon.com/iot/latest/developerguide/images/iot-nxp-wifi.png)
+**Note**  
+If you've already saved the selected network selected in your Amazon account, you don't need to enter the Wi\-Fi password\.
+
+   When you select the Wi\-Fi network, the screen displays the following message as Wi\-Fi provisioning and communication with the setup servers takes place: **Connecting your NXP development device to *Wi\-Fi Network Name***\. The following image shows how this screen appears in the app\.  
+![\[The app displays a message indicating that it is connecting to the Wi-Fi network that you selected.\]](http://docs.aws.amazon.com/iot/latest/developerguide/images/iot-nxp-wifi-connect.png)
+
+   The status indicator light continues to blink orange until the kit's registration is complete\. When registration is complete, the device says, "Your Alexa device is ready\." The kit then reboots\.
+
+The following describes the steps that the kit takes after it reboots and reconnects to the Wi\-Fi network that you selected\.
+
+1. As it reboots, the kit again displays various colors and alternates between blinks and solid colors as it progresses through the boot process\.
+
+1. The device then tries to reconnect to the Wi\-Fi network that you selected\. As it does this, the status indicator light blinks yellow at 500 millisecond \(ms\) intervals\. After it connects to the Wi\-Fi network, it blinks yellow faster, at 250 ms intervals\. The following images show how this blinking appears in the kit\.    
+[\[See the AWS documentation website for more details\]](http://docs.aws.amazon.com/iot/latest/developerguide/avs-integration-aws-iot-gs-nxp.html)
+
+1. The kit connects to AWS IoT\. While it connects, the status indicator light blinks green at 500 ms intervals\. When the kit is done connecting, the status indicator light blinks green at 250 ms intervals\. The following images show how this blinking appears in the kit\.    
+[\[See the AWS documentation website for more details\]](http://docs.aws.amazon.com/iot/latest/developerguide/avs-integration-aws-iot-gs-nxp.html)
+
+1. The kit plays a chime sound that indicates that you can use it to interact with Alexa\.
+
+When the kit connects to AWS IoT, the screen in the following image appears in the app\.
+
+![\[When the kit connects to AWS IoT, the app displays a screen that contains the following message: NXP light connected.\]](http://docs.aws.amazon.com/iot/latest/developerguide/images/iot-nxp-wifi-done.png)
+
+The **NXP light connected** message appears in the app because the kit implements the smart home capabilities for an NXP light device\.
+
+### Zero touch setup \(ZTS\)<a name="iot-mqtt-alexa-gs-nxp-zero-touch-setup"></a>
+
+If your environment fulfills all of the prerequisites for ZTS, the provisioning device discovers your kit and starts ZTS setup when you turn the kit on\. The Amazon Alexa app is also a ZTS provisioner, so opening the Amazon Alexa app can also start ZTS setup\.
+
+As the provisioning process continues, the status indicator light state follows the same patterns as the ones described in the user\-guided setup section\. During provisioning, log messages are sent to the SLN\-ALEXA\-IOT console over its virtual COM port\. When provisioning is complete, the kit plays the chime sound that indicates that you can use it to interact with Alexa\.
+
+**Note**  
+ZTS setup can occur only once in the lifetime of a device, even if you return it to factory settings\.
+
+## Interact with Alexa<a name="iot-mqtt-alexa-gs-nxp-alexa-interact"></a>
+
+You can start using the kit to interact with Alexa by asking it a question\. Even a simple question, such as "Alexa, how is the weather?" goes through several states as Alexa processes and responds to it\.
+
+You see the first indication that the kit is listening when you speak the Alexa wake word\. When the kit detects this word, the kit starts listening and sending information from the microphone to AVS through AWS IoT\. The status indicator light displays solid cyan, as in the following image\.
+
+![\[When the kit detects the wake word, the status indicator light displays solid cyan.\]](http://docs.aws.amazon.com/iot/latest/developerguide/images/iot-nxp-cyan.png)
+
+When the device finishes sending information from the microphone to AVS through AWS IoT, the device stops listening and switches to a thinking state\. This state indicates that AVS is processing the question and is determining the best response\. While the kit is in this state, the status indicator LED blinks cyan and blue at 200 ms intervals\. The following images show how this blinking appears in the kit\.
+
+
+|  |  | 
+| --- |--- |
+|  ![\[The kit's status indicator light blinks cyan and blue as AVS processes the question.\]](http://docs.aws.amazon.com/iot/latest/developerguide/images/iot-nxp-blue-cyan-1.png)  |  ![\[The kit's status indicator light blinks cyan and blue as AVS processes the question.\]](http://docs.aws.amazon.com/iot/latest/developerguide/images/iot-nxp-blue-cyan-2.png)  | 
+
+When the device finishes thinking, it starts to respond\. Before the kit begins to speak, the status indicator light switches to a speaking state\. The kit blinks cyan and blue at 500 ms intervals\.
+
+The response from Alexa plays out of the kit's speaker while the status indicator light blinks cyan and blue, Alexa describes weather conditions based on the location of your Alexa consumer account\. When the response is complete, the status indicator light stops blinking and turns off\. This indicates that the kit it is in an idle state and waiting for the Alexa wake word\.
 
 ## Use your AWS and Alexa Voice Service developer accounts to set up AVS for AWS IoT<a name="iot-mqtt-alexa-gs-nxp-configure"></a>
 
-### Prerequisites<a name="iot-mqtt-alexa-gs-nxp-configure-prereqs"></a>
+The preconfigured NXP account is only for evaluating the kit\. When you use your own account, you get the following benefits\.
++ Full control of over the air \(OTA\) jobs and deployments, such as remote firmware updates\.
++ Control over AWS services\.
++ Customization of smart home skills\.
 
-For this procedure, you need the following resources\.
-+ [NXP i\.MX 106A development kit](https://www.nxp.com/design/designs/mcu-based-solution-for-br-alexa-voice-service:MCU-VOICE-CONTROL-AVS)
-+ MCUXPresso v10\.3\.1
-+ Segger J\-Link debug probe
-+ A Mac computer
-+ An Android mobile device
-+ Android Studio
-+ Android Debug Bridge
-+ An [Amazon Alexa account](https://alexa.amazon.com)
-+ An [AWS account](http://aws.amazon.com)
+To migrate from the preconfigured NXP account to your own account, download the **MCU Alexa Voice Solution Migration Guide** from the **Getting Started** section of the [EdgeReady MCU Based Solution for Alexa for IOT](https://www.nxp.com/design/designs/edgeready-mcu-based-solution-for-alexa-for-iot:MCU-VOICE-CONTROL-AVS?&&tid=vanmcu-avs) page\. Follow the steps in this guide\.
 
-### Configure your AWS IoT account and provision your device<a name="iot-mqtt-alexa-gs-nxp-configure-account"></a>
-
-1. Generate credentials to authenticate with AWS IoT\. All devices must have a device certificate, private key, and root CA certificate installed in their firmware to communicate with AWS IoT\. Follow the instructions in [Register a Device in the Registry](register-device.html) to register your device with AWS IoT\. For more information about X\.509 certificates, see [X\.509 client certificates](x509-client-certs.md)\.
-
-1. Navigate to the root folder and open the NXP Developer Guide\. Follow the instructions in "Section 9 \(Filesystem\)" to convert your client certificates and keys to a binary format that the NXP filesystem can read\. 
-
-   Use the following script and commands to convert the certificates and keys\. The `bin_dump.py` script is in the `Tools\Ivaldi.zip\Scripts\sln_alexa_iot_utils` folder\.
-
-   ```
-   python3 bin_dump.py CertificateName-certificate.pem.crt CertificateName-certificate.pem.crt.bin
-   ```
-
-   ```
-   python3 bin_dump.py CertificateName-private.pem.key CertificateName-private.pem.key.bin
-   ```
-
-For information about options for generating credentials for production devices at scale, see [Device provisioning](iot-provision.md)\.
-
-**To set up your device in the Alexa Voice Service developerconsole**
-
-1. Navigate to the root folder and open the NXP Migration Guide\.
-
-1. To get the MD5 and SHA256 signatures that you need to create an AVS API key, follow the instructions in "Section 2\. Creating a Keystore for Android AVS Companion Application" in the *NXP Migration Guide*\. \(This includes navigating to the [Alexa Voice Service Developer Console](https://developer.amazon.com/alexa/console/avs/home?)\.\)
-
-1. To create a [Login with Amazon](https://developer.amazon.com/apps-and-games/login-with-amazon) security profile and create an AVS product, follow the instructions in "Section 3" in the *NXP Migration Guide*\.
-
-**To rebuild the Android mobile app**
-
-1. Open the VoiceCompanionApp project in Android Studio\. The `VoiceCompanionApp.apk` file is included in the NXP software package\.
-
-1. In Android Studio, add the API key that you generated in the previous procedure to the `api_key.txt` file in the **assets** folder\. This synchronizes the companion mobile application with your AVS security profile\. The application uses the API key when you log in by using the Login with Amazon service\. When the application gets an authorization code from Amazon, it transfers the code to the device firmware\. The device then obtains access and refresh tokens from the Login with Amazon service to make calls to AVS\.
-
-1. In Android Studio, choose **Build Project** and **Generate a Signed Bundle/APK**\. For more information, see "Section 4\. Building and Generating the Mobile Application" in the *NXP Migration Guide*\. For more information about authorizing with Alexa in this way, see [Authorize from a Companion App \(Android/iOS\)](https://developer.amazon.com/docs/alexa-voice-service/authorize-companion-app.html)\.
-
-1. Install the updated mobile application to your mobile device\. Set up ADB on your Mac computer and install the updated Android APK file to your mobile phone by using the terminal console\. If you installed the mobile application to preview the AVS for AWS IoT service with the preconfigured NXP account, you must uninstall and then reinstall the application\.
-
-**To update the client application with your AWS credentials**
-
-1. Follow the instructions in Section 3 and Section 4 in the *NXP Developer Guide* to make the required Segger J\-Link driver modifications\. These instructions also explain how to import the `Bootloader`, `ais_demo`, and `bootstrap` projects by using the MCUXPresso IDE\.
-
-1. Follow the instructions for updating the source code and rebuilding the application in "Section 7\. RT106A Firmware Changes" in the *NXP Migration Guide*\. We recommend that you use MCUXPresso v10\.3\.1\.
-
-   These source code changes enable the device firmware to communicate with your AWS account and your AVS product instead of the default NXP account\.
-
-**To set up and connect your device to AWS IoT and Amazon Alexa**
-
-1. Reset the device to factory defaults\. If you previewed the AVS for AWS IoT service with the preconfigured NXP account, you must reset the device firmware before you log in again with the companion mobile application\. This ensures that the mobile application and the device use your security profile\. Make sure that the device is connected to your computer\. Push **SW1** for 10 seconds to initiate the factory reset\.
-
-   The *NXP User Guide* that is included in the NXP software package contains a description of the device's physical controls\.
-
-1. Reprogram the firmware to use the certificate and key that you generated for your device\. Add the key and certificate to the updated `Bootstrap` and `Ais_demo` binaries that you created in the previous procedure\. We also recommend reprogramming the firmware with the default `Intelligent toolbox`, `app_crt` and `CA_crt` binaries\.
-
-   For instructions, see "Section 5\. Building and Programming" in the *NXP Developer Guide*\.
-
-1. Follow the instructions in the previous [Connect the Device to AWS and Amazon Alexa](#iot-mqtt-alexa-gs-nxp-preview-connect) procedure\. This connects you to AVS for AWS IoT with your own security profile and credentials\.
+**Note**  
+To download this file, you need an NXP account\.

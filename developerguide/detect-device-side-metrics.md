@@ -10,7 +10,7 @@ Use this metric to specify the maximum or minimum amount of outbound traffic tha
 
 Compatible with: Rules Detect \| ML Detect
 
-Operators: less\-than \| less\-than\-equal \| greater\-than \| greater\-than\-equal 
+Operators: less\-than \| less\-than\-equals \| greater\-than \| greater\-than\-equals 
 
 Value: a non\-negative integer 
 
@@ -25,7 +25,7 @@ Duration: a non\-negative integer\. Valid values are 300, 600, 900, 1800, or 360
   "name": "TCP outbound traffic",
   "metric": "aws:all-bytes-out",
   "criteria": {
-    "comparisonOperator": "less-than-equal",
+    "comparisonOperator": "less-than-equals",
     "value": {
       "count": 4096
     },
@@ -44,7 +44,7 @@ Duration: a non\-negative integer\. Valid values are 300, 600, 900, 1800, or 360
   "name": "TCP outbound traffic",
   "metric": "aws:all-bytes-out",
   "criteria": {
-    "comparisonOperator": "less-than-equal",
+    "comparisonOperator": "less-than-equals",
     "statisticalThreshold": {
       "statistic": "p50"
     },
@@ -81,7 +81,7 @@ Use this metric to specify the maximum or minimum amount of inbound traffic that
 
 Compatible with: Rules Detect \| ML Detect
 
-Operators: less\-than \| less\-than\-equal \| greater\-than \| greater\-than\-equal 
+Operators: less\-than \| less\-than\-equals \| greater\-than \| greater\-than\-equals 
 
 Value: a non\-negative integer 
 
@@ -96,7 +96,7 @@ Duration: a non\-negative integer\. Valid values are 300, 600, 900, 1800, or 360
   "name": "TCP inbound traffic",
   "metric": "aws:all-bytes-in",
   "criteria": {
-    "comparisonOperator": "less-than-equal",
+    "comparisonOperator": "less-than-equals",
     "value": {
       "count": 4096
     },
@@ -115,7 +115,7 @@ Duration: a non\-negative integer\. Valid values are 300, 600, 900, 1800, or 360
   "name": "TCP inbound traffic",
   "metric": "aws:all-bytes-in",
   "criteria": {
-    "comparisonOperator": "less-than-equal",
+    "comparisonOperator": "less-than-equals",
     "statisticalThreshold": {
       "statistic": "p90"
     },
@@ -154,7 +154,7 @@ Compatible with: Rules Detect \| ML Detect
 
 Unit: failures 
 
-Operators: less\-than \| less\-than\-equal \| greater\-than \| greater\-than\-equal 
+Operators: less\-than \| less\-than\-equals \| greater\-than \| greater\-than\-equals 
 
 Value: a non\-negative integer 
 
@@ -169,7 +169,7 @@ Duration: a non\-negative integer\. Valid values are 300, 600, 900, 1800, or 360
   "name": "Max TCP Ports",
   "metric": "aws:num-listening-tcp-ports",
   "criteria": {
-    "comparisonOperator": "less-than-equal",
+    "comparisonOperator": "less-than-equals",
     "value": {
       "count": 5
     },
@@ -188,7 +188,7 @@ Duration: a non\-negative integer\. Valid values are 300, 600, 900, 1800, or 360
   "name": "Max TCP Ports",
   "metric": "aws:num-listening-tcp-ports",
   "criteria": {
-    "comparisonOperator": "less-than-equal",
+    "comparisonOperator": "less-than-equals",
     "statisticalThreshold": {
       "statistic": "p50"
     },
@@ -227,7 +227,7 @@ Compatible with: Rules Detect \| ML Detect
 
 Unit: failures 
 
-Operators: less\-than \| less\-than\-equal \| greater\-than \| greater\-than\-equal 
+Operators: less\-than \| less\-than\-equals \| greater\-than \| greater\-than\-equals 
 
 Value: a non\-negative integer 
 
@@ -242,7 +242,7 @@ Duration: a non\-negative integer\. Valid values are 300, 600, 900, 1800, or 360
   "name": "Max UDP Ports",
   "metric": "aws:num-listening-udp-ports",
   "criteria": {
-    "comparisonOperator": "less-than-equal",
+    "comparisonOperator": "less-than-equals",
     "value": {
       "count": 5
     },
@@ -261,7 +261,7 @@ Duration: a non\-negative integer\. Valid values are 300, 600, 900, 1800, or 360
   "name": "Max UDP Ports",
   "metric": "aws:num-listening-udp-ports",
   "criteria": {
-    "comparisonOperator": "less-than-equal",
+    "comparisonOperator": "less-than-equals",
     "statisticalThreshold": {
       "statistic": "p50"
     },
@@ -298,7 +298,7 @@ Use this metric to specify the maximum or minimum amount of total outbound traff
 
 Compatible with: Rules Detect \| ML Detect
 
-Operators: less\-than \| less\-than\-equal \| greater\-than \| greater\-than\-equal 
+Operators: less\-than \| less\-than\-equals \| greater\-than \| greater\-than\-equals 
 
 Value: a non\-negative integer 
 
@@ -313,7 +313,7 @@ Duration: a non\-negative integer\. Valid values are 300, 600, 900, 1800, or 360
   "name": "TCP outbound traffic",
   "metric": "aws:all-packets-out",
   "criteria": {
-    "comparisonOperator": "less-than-equal",
+    "comparisonOperator": "less-than-equals",
     "value": {
       "count": 100
     },
@@ -332,7 +332,7 @@ Duration: a non\-negative integer\. Valid values are 300, 600, 900, 1800, or 360
   "name": "TCP outbound traffic",
   "metric": "aws:all-packets-out",
   "criteria": {
-    "comparisonOperator": "less-than-equal",
+    "comparisonOperator": "less-than-equals",
     "statisticalThreshold": {
       "statistic": "p90"
     },
@@ -369,7 +369,7 @@ Use this metric to specify the maximum or minimum amount of total inbound traffi
 
 Compatible with: Rule Detect \| ML Detect
 
-Operators: less\-than \| less\-than\-equal \| greater\-than \| greater\-than\-equal 
+Operators: less\-than \| less\-than\-equals \| greater\-than \| greater\-than\-equals 
 
 Value: a non\-negative integer 
 
@@ -384,7 +384,7 @@ Duration: a non\-negative integer\. Valid values are 300, 600, 900, 1800 or 3600
   "name": "TCP inbound traffic",
   "metric": "aws:all-packets-in",
   "criteria": {
-    "comparisonOperator": "less-than-equal",
+    "comparisonOperator": "less-than-equals",
     "value": {
       "count": 100
     },
@@ -404,7 +404,7 @@ Example using a `statisticalThreshold`
   "name": "TCP inbound traffic",
   "metric": "aws:all-packets-in",
   "criteria": {
-    "comparisonOperator": "less-than-equal",
+    "comparisonOperator": "less-than-equals",
     "statisticalThreshold": {
       "statistic": "p90"
     },
@@ -530,7 +530,7 @@ Use this metric to specify the maximum or minimum number of active TCP connectio
 
 Compatible with: Rules Detect \| ML Detect
 
-Operators: less\-than \| less\-than\-equal \| greater\-than \| greater\-than\-equal
+Operators: less\-than \| less\-than\-equals \| greater\-than \| greater\-than\-equals
 
 Value: a non\-negative integer 
 
@@ -543,7 +543,7 @@ Units: connections
   "name": "TCP Connection Count",
   "metric": "aws:num-established-tcp-connections",
   "criteria": {
-    "comparisonOperator": "less-than-equal",
+    "comparisonOperator": "less-than-equals",
     "value": {
       "count": 3
     },
@@ -561,7 +561,7 @@ Units: connections
   "name": "TCP Connection Count",
   "metric": "aws:num-established-tcp-connections",
   "criteria": {
-    "comparisonOperator": "less-than-equal",
+    "comparisonOperator": "less-than-equals",
     "statisticalThreshold": {
       "statistic": "p90"
     },
@@ -617,7 +617,7 @@ Units: connections
 |  Long name  |  Short name  |  Parent element  |  Required  |  Type  |  Constraints  |  Notes  | 
 | --- | --- | --- | --- | --- | --- | --- | 
 |  tcp\_connections  |  tc  |  metrics  |  N  |  Object  |    |    | 
-|  established\_connections  |  ec  |  tcp\_connections  |  N  |  List<Connection>  |    |  Established TCP state  | 
+|  established\_connections  |  ec  |  tcp\_connections  |  N  |  Object  |    |  Established TCP state  | 
 |  connections  |  cs  |  established\_connections  |  N  |  List<Object>  |    |    | 
 |  remote\_addr  |  rad  |  connections  |  Y  |  Number  |  ip:port  |  IP can be IPv6 or IPv4  | 
 |  local\_port  |  lp  |  connections  |  N  |  Number  |  >= 0  |    | 
@@ -630,7 +630,7 @@ Units: connections
 |  Long name  |  Short name  |  Parent element  |  Required  |  Type  |  Constraints  |  Notes  | 
 | --- | --- | --- | --- | --- | --- | --- | 
 |  listening\_tcp\_ports  |  tp  |  metrics  |  N  |  Object  |    |    | 
-|  ports  |  pts  |  listening\_tcp\_ports  |  N  |  List<Port>  |  > 0  |    | 
+|  ports  |  pts  |  listening\_tcp\_ports  |  N  |  List<Object>  |  > 0  |    | 
 |  port  |  pt  |  ports  |  N  |  Number  |  > 0  |  ports should be numbers greater than 0  | 
 |  interface  |  if  |  ports  |  N  |  String  |    |  Interface name  | 
 |  total  |  t  |  listening\_tcp\_ports  |  N  |  Number  |  >= 0  |    | 

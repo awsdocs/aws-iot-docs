@@ -34,11 +34,11 @@ Every customer has an `iot:Data-ATS` and an `iot:Data` endpoint\. Each endpoint 
 |  AWS IoT Core \- data plane operations  |  `iot:Data-ATS`  |  Used to send and receive data to and from the message broker, [Device Shadow](iot-device-shadows.md), and [Rules Engine](iot-rules.md) components of AWS IoT\. `iot:Data-ATS` returns an ATS signed data endpoint\.  | 
 | AWS IoT Core \- data plane operations \(legacy\) |  `iot:Data`  | iot:Data returns a VeriSign signed data endpoint provided for backward compatibility\. | 
 |  AWS IoT Core credential access  |  `iot:CredentialProvider`  |  Used to exchange a device's built\-in X\.509 certificate for temporary credentials to connect directly with other AWS services\. For more information about connecting to other AWS services, see [Authorizing Direct Calls to AWS Services](authorizing-direct-aws.md)\.  | 
-|  AWS IoT Device Management \- jobs data operations  |  `iot:Jobs`  |  Used to enable devices to interact with the AWS IoT Jobs service using the [Jobs Device HTTPS APIs](jobs-mqtt-api.md)\.  | 
-|  AWS IoT Core Device Advisor operations \(preview\)  |  `iot:DeviceAdvisor`  |  A test endpoint type used for testing devices with Device Advisor\. For more information, see [Device Advisor](device-advisor.md)\.  | 
+|  AWS IoT Device Management \- jobs data operations  |  `iot:Jobs`  |  Used to enable devices to interact with the AWS IoT Jobs service using the [Jobs Device HTTPS APIs](jobs-api.md#jobs-mqtt-api)\.  | 
+|  AWS IoT operations \(preview\)  |  `iot:DeviceAdvisor`  |  A test endpoint type used for testing devices with Device Advisor\. For more information, see [Device Advisor](device-advisor.md)\.  | 
 |  AWS IoT Core data beta \(preview\)  |  `iot:Data-Beta`  |  An endpoint type reserved for beta releases\. For information about its current use, see [Configurable endpoints](iot-custom-endpoints-configurable.md)\.  | 
 
-You can also use your own fully\-qualified domain name \(FQDN\), such as *example\.com*, and the associated server certificate to connect devices to AWS IoT by using [Configurable endpoints](iot-custom-endpoints-configurable.md), which is currently in public beta\.
+You can also use your own fully\-qualified domain name \(FQDN\), such as *example\.com*, and the associated server certificate to connect devices to AWS IoT by using [Configurable endpoints](iot-custom-endpoints-configurable.md)\.
 
 ## AWS IoT Device SDKs<a name="iot-connect-device-sdks"></a>
 
@@ -101,9 +101,7 @@ The AWS IoT Device SDK for Java makes it possible for Java developers to access 
 **Important**  
 This SDK is intended for use by experienced embedded\-software developers\.
 
-The AWS IoT Device SDK for Embedded C \(C\-SDK\) is a collection of C source files under the MIT open source license that can be used in embedded applications to securely connect IoT devices to AWS IoT Core\. It includes an MQTT, JSON Parser, and AWS IoT Device Shadow library\. It is distributed in source form and intended to be built into customer firmware along with application code, other libraries and, optionally, an RTOS \(Real Time Operating System\)\. 
-
-For Fleet Provisioning, use the `v4_beta_deprecated` version of the AWS IoT Device SDK for Embedded C at [ https://github\.com/aws/aws\-iot\-device\-sdk\-embedded\-C/tree/v4\_beta\_deprecated](https://github.com/aws/aws-iot-device-sdk-embedded-C/tree/v4_beta_deprecated)\.
+The AWS IoT Device SDK for Embedded C \(C\-SDK\) is a collection of C source files under the MIT open source license that can be used in embedded applications to securely connect IoT devices to AWS IoT Core\. It includes MQTT, JSON Parser, and AWS IoT Device Shadow libraries and others\. It is distributed in source form and intended to be built into customer firmware along with application code, other libraries and, optionally, an RTOS \(Real Time Operating System\)\. 
 
 The AWS IoT Device SDK for Embedded C is generally targeted at resource constrained devices that require an optimized C language runtime\. You can use the SDK on any operating system and host it on any processor type \(for example, MCUs and MPUs\)\. If your device has sufficient memory and processing resources available, we recommend that you use one of the other AWS IoT Device and Mobile SDKs, such as the AWS IoT Device SDK for C\+\+, Java, JavaScript, or Python\.
 

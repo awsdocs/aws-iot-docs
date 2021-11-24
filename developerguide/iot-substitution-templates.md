@@ -22,6 +22,7 @@ The following rule actions support substitution templates\. Each action supports
 + [Kinesis Data Streams](kinesis-rule-action.md)
 + [Kinesis Data Firehose](kinesis-firehose-rule-action.md)
 + [Lambda](lambda-rule-action.md)
++ [OpenSearch](opensearch-rule-action.md)
 + [Republish](republish-rule-action.md)
 + [S3](s3-rule-action.md)
 + [SNS](sns-rule-action.md)

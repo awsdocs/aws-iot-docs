@@ -14,7 +14,7 @@ Make sure that you're using the `us-east-1` Region\. This tab doesn't appear in 
 
 1. Enter the Sidewalk Amazon ID\. You get this ID from the [Sidewalk Developer Service \(SDS\) console](http://developer.amazon.com/acs-devices/console/Sidewalk) when designing your Sidewalk product\. For more information, see [Design your Sidewalk product](https://developer.amazon.com/acs-devices/console/sidewalk/docs/group__qsg__step2.html)\.
 
-1. Upload the **AppServerPrivateKey**, which is the server key that your vendor provided\. The **AppServerPrivateKey** is the ED25519 private key \(the `app-server-ed25519-private.txt` file\), which is a 64\-digit hexadecimal value that you generate by using the Sidewalk certificate generation tool when designing your Sidewalk product\. For more information, see [Design your Sidewalk product](https://developer.amazon.com/acs-devices/console/sidewalk/docs/group__qsg__step2.html)\.
+1. Upload the **AppServerPrivateKey**, which is the server key that your vendor provided\. The **AppServerPrivateKey** is the ED25519 private key \(the `app-server-ed25519-private.txt` file\), which is a 64\-digit hexadecimal value\. You generated this key by using the Sidewalk certificate generation tool when you designed your Sidewalk product\. For more information, see [Design your Sidewalk product](https://developer.amazon.com/acs-devices/console/sidewalk/docs/group__qsg__step2.html)\.
 
 1. To add your Sidewalk credentials, choose **Add credential**\.
 

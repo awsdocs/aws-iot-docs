@@ -1,4 +1,4 @@
-# Interact with Device Shadow using the `shadow.py` sample app and MQTT test client<a name="interact-lights-device-shadows"></a>
+# Tutorial: Interacting with Device Shadow using the sample app and the MQTT test client<a name="interact-lights-device-shadows"></a>
 
 To interact with the `shadow.py` sample app, enter a value in the terminal for the `desired` value\. For example, you can specify colors that resemble the traffic lights and AWS IoT responds to the request and updates the reported values\.
 
@@ -8,19 +8,19 @@ To interact with the `shadow.py` sample app, enter a value in the terminal for t
 + Use the MQTT test client to subscribe to shadow topics and observe updates when you run the sample program\.
 
 **Before you run this tutorial, you must have:**  
-Set up your AWS account, configured your Raspberry Pi device, and created an AWS IoT thing and policy\. You must have also installed the required software, Device SDK, certificate files, and run the sample program in the terminal\. For more information, see the previous tutorials [Create AWS IoT resources and connect Raspberry Pi to run shadow application](create-resources-shadow.md) and [Run the shadow\.py sample app](lightbulb-shadow-application.md#run-sample-application-shadows)\. You must complete these tutorials if you haven't already\.
+Set up your AWS account, configured your Raspberry Pi device, and created an AWS IoT thing and policy\. You must have also installed the required software, Device SDK, certificate files, and run the sample program in the terminal\. For more information, see the previous tutorials [Tutorial: Preparing your Raspberry Pi to run the shadow application](create-resources-shadow.md) and [Step 1: Run the shadow\.py sample app](lightbulb-shadow-application.md#run-sample-application-shadows)\. You must complete these tutorials if you haven't already\.
 
 **Topics**
-+ [Update desired and reported values using `shadow.py` sample app](#update-desired-shadow-sample)
-+ [View messages from the `shadow.py` sample app in the MQTT test client](#shadow-sample-view-msg)
-+ [Troubleshoot errors with Device Shadow interactions](#shadow-observe-messages-troubleshoot)
-+ [Review the results and next steps](#sample-shadow-review)
++ [Step 1: Update desired and reported values using `shadow.py` sample app](#update-desired-shadow-sample)
++ [Step 2: View messages from the `shadow.py` sample app in the MQTT test client](#shadow-sample-view-msg)
++ [Step 3: Troubleshoot errors with Device Shadow interactions](#shadow-observe-messages-troubleshoot)
++ [Step 4: Review the results and next steps](#sample-shadow-review)
 
 This tutorial takes about 45 minutes to complete\.
 
-## Update desired and reported values using `shadow.py` sample app<a name="update-desired-shadow-sample"></a>
+## Step 1: Update desired and reported values using `shadow.py` sample app<a name="update-desired-shadow-sample"></a>
 
-In the previous tutorial [Run the shadow\.py sample app](lightbulb-shadow-application.md#run-sample-application-shadows), you learnt how to observe a message published to the Shadow document in the AWS IoT console when you enter a desired value as described in the section [Install the Device SDK and run the `shadow.py` sample application for Device Shadows](lightbulb-shadow-application.md)\.
+In the previous tutorial [Step 1: Run the shadow\.py sample app](lightbulb-shadow-application.md#run-sample-application-shadows), you learned how to observe a message published to the Shadow document in the AWS IoT console when you enter a desired value as described in the section [Tutorial: Installing the Device SDK and running the sample application for Device Shadows](lightbulb-shadow-application.md)\.
 
 In the previous example, we set the desired color to `yellow`\. After you enter each value, the terminal prompts you to enter another `desired` value\. If you again enter the same value \(`yellow`\), the app recognizes this and prompts you to enter a new `desired` value\.
 
@@ -64,14 +64,14 @@ The `shadow.py` sample app is also subscribed to `delta` events, and responds wh
 
 ```
 {
-  "desired": {
-    "welcome": "aws-iot",
-    "color": "red"
-  },
-  "reported": {
-    "welcome": "aws-iot",
-    "color": "green"
-  }
+"desired": {
+  "welcome": "aws-iot",
+  "color": "red"
+},
+"reported": {
+  "welcome": "aws-iot",
+  "color": "green"
+}
 }
 ```
 
@@ -80,7 +80,7 @@ After you save the new value, the `shadow.py` sample app responds to this change
 ```
 Enter desired value:
 Received shadow delta event.
-  Delta reports that desired value is 'red'. Changing local value...
+Delta reports that desired value is 'red'. Changing local value...
 Changed local shadow value to 'red'.
 Updating reported shadow value to 'red'...
 Finished updating reported shadow value to 'red'.
@@ -89,7 +89,7 @@ Update request published.
 Finished updating reported shadow value to 'red'.
 ```
 
-## View messages from the `shadow.py` sample app in the MQTT test client<a name="shadow-sample-view-msg"></a>
+## Step 2: View messages from the `shadow.py` sample app in the MQTT test client<a name="shadow-sample-view-msg"></a>
 
 You can use the **MQTT test client** in the **AWS IoT console** to monitor MQTT messages that are passed in your AWS account\. By subscribing to reserved MQTT topics used by the Device Shadow service, you can observe the messages received by the topics when running the sample app\.
 
@@ -113,7 +113,7 @@ If you haven't already used the MQTT test client, you can review [View MQTT mess
 
    1. Keep the default values for the additional configuration settings, and then choose **Subscribe**\.
 
-   By using the **\#** wildcard in the topic subscription, you can subscribe to multiple MQTT topics at the same time and observe all the messages that are exchanged between the device and it's Shadow in a single window\. For more information about the wildcard characters and their use, see [MQTT topics](topics.md)\.
+   By using the **\#** wildcard in the topic subscription, you can subscribe to multiple MQTT topics at the same time and observe all the messages that are exchanged between the device and its Shadow in a single window\. For more information about the wildcard characters and their use, see [MQTT topics](topics.md)\.
 
 1. 
 
@@ -139,7 +139,7 @@ If you haven't already used the MQTT test client, you can review [View MQTT mess
       Requesting current shadow state...
       Launching thread to read user input...
       Finished getting initial shadow state.
-        Shadow document lacks 'color' property. Setting defaults...
+      Shadow document lacks 'color' property. Setting defaults...
       Changed local shadow value to 'off'.
       Updating reported shadow value to 'off'...
       Update request published.
@@ -149,40 +149,40 @@ If you haven't already used the MQTT test client, you can review [View MQTT mess
 
       On the other hand, if the program was running and you restarted it, you'll see the latest color value reported in the terminal\. In the MQTT test client, you'll see an update to the topics **$aws/things/*thingname*/shadow/get** and **$aws/things/*thingname*/shadow/get/accepted**\.
 
-      Suppose the latest color reported was `green`\. Following shows the contents of the **$aws/things/*thingname*/shadow/get/accepted** JSON file\.
+      Suppose that the latest color reported was `green`\. Following shows the contents of the **$aws/things/*thingname*/shadow/get/accepted** JSON file\.
 
       ```
       {
-        "state": {
-          "desired": {
-            "welcome": "aws-iot",
-            "color": "green"
+      "state": {
+        "desired": {
+          "welcome": "aws-iot",
+          "color": "green"
+        },
+        "reported": {
+          "welcome": "aws-iot",
+          "color": "green"
+        }
+      },
+      "metadata": {
+        "desired": {
+          "welcome": {
+            "timestamp": 1620156892
           },
-          "reported": {
-            "welcome": "aws-iot",
-            "color": "green"
+          "color": {
+            "timestamp": 1620161643
           }
         },
-        "metadata": {
-          "desired": {
-            "welcome": {
-              "timestamp": 1620156892
-            },
-            "color": {
-              "timestamp": 1620161643
-            }
+        "reported": {
+          "welcome": {
+            "timestamp": 1620156892
           },
-          "reported": {
-            "welcome": {
-              "timestamp": 1620156892
-            },
-            "color": {
-              "timestamp": 1620161643
-            }
+          "color": {
+            "timestamp": 1620161643
           }
-        },
-        "version": 10,
-        "timestamp": 1620173908
+        }
+      },
+      "version": 10,
+      "timestamp": 1620173908
       }
       ```
 
@@ -206,69 +206,69 @@ If you haven't already used the MQTT test client, you can review [View MQTT mess
 
       ```
       {
-        "previous": {
-          "state": {
-            "desired": {
-              "welcome": "aws-iot",
-              "color": "green"
-            },
-            "reported": {
-              "welcome": "aws-iot",
-              "color": "green"
-            }
+      "previous": {
+        "state": {
+          "desired": {
+            "welcome": "aws-iot",
+            "color": "green"
           },
-          "metadata": {
-            "desired": {
-              "welcome": {
-                "timestamp": 1617297888
-              },
-              "color": {
-                "timestamp": 1617297898
-              }
-            },
-            "reported": {
-              "welcome": {
-                "timestamp": 1617297888
-              },
-              "color": {
-                "timestamp": 1617297898
-              }
-            }
-          },
-          "version": 10
+          "reported": {
+            "welcome": "aws-iot",
+            "color": "green"
+          }
         },
-        "current": {
-          "state": {
-            "desired": {
-              "welcome": "aws-iot",
-              "color": "yellow"
+        "metadata": {
+          "desired": {
+            "welcome": {
+              "timestamp": 1617297888
             },
-            "reported": {
-              "welcome": "aws-iot",
-              "color": "yellow"
+            "color": {
+              "timestamp": 1617297898
             }
           },
-          "metadata": {
-            "desired": {
-              "welcome": {
-                "timestamp": 1617297888
-              },
-              "color": {
-                "timestamp": 1617297904
-              }
+          "reported": {
+            "welcome": {
+              "timestamp": 1617297888
             },
-            "reported": {
-              "welcome": {
-                "timestamp": 1617297888
-              },
-              "color": {
-                "timestamp": 1617297904
-              }
+            "color": {
+              "timestamp": 1617297898
             }
-          },
-          "version": 11
+          }
         },
-        "timestamp": 1617297904
+        "version": 10
+      },
+      "current": {
+        "state": {
+          "desired": {
+            "welcome": "aws-iot",
+            "color": "yellow"
+          },
+          "reported": {
+            "welcome": "aws-iot",
+            "color": "yellow"
+          }
+        },
+        "metadata": {
+          "desired": {
+            "welcome": {
+              "timestamp": 1617297888
+            },
+            "color": {
+              "timestamp": 1617297904
+            }
+          },
+          "reported": {
+            "welcome": {
+              "timestamp": 1617297888
+            },
+            "color": {
+              "timestamp": 1617297904
+            }
+          }
+        },
+        "version": 11
+      },
+      "timestamp": 1617297904
       }
       ```
 
@@ -282,14 +282,14 @@ If you haven't already used the MQTT test client, you can review [View MQTT mess
 
    ```
    {
-     "desired": {
-       "welcome": "aws-iot",
-       "color": "red"
-     },
-     "reported": {
-       "welcome": "aws-iot",
-       "color": "green"
-     }
+   "desired": {
+     "welcome": "aws-iot",
+     "color": "red"
+   },
+   "reported": {
+     "welcome": "aws-iot",
+     "color": "green"
+   }
    }
    ```
 
@@ -299,20 +299,20 @@ If you haven't already used the MQTT test client, you can review [View MQTT mess
 
    ```
    {
-     "version": 13,
-     "timestamp": 1617318480,
-     "state": {
-       "color": "red"
-     },
-     "metadata": {
-       "color": {
-         "timestamp": 1617318480
-       }
+   "version": 13,
+   "timestamp": 1617318480,
+   "state": {
+     "color": "red"
+   },
+   "metadata": {
+     "color": {
+       "timestamp": 1617318480
      }
+   }
    }
    ```
 
-## Troubleshoot errors with Device Shadow interactions<a name="shadow-observe-messages-troubleshoot"></a>
+## Step 3: Troubleshoot errors with Device Shadow interactions<a name="shadow-observe-messages-troubleshoot"></a>
 
 When you run the Shadow sample app, you might encounter issues with observing interactions with the Device Shadow service\. 
 
@@ -330,7 +330,7 @@ If you don't see the messages appear in the MQTT test client, check whether the 
 
   As you enter the topic name, make sure that the *thingname* is the same as the name of the AWS IoT thing that you created earlier\. You can also subscribe to additional MQTT topics to see if an update has been successfully performed\. For example, you can subscribe to the topic **$aws/things/*thingname*/shadow/update/rejected** to receive a message whenever an update request failed so that you can debug connection issues\. For more information about the reserved topics, see [Shadow topics](reserved-topics.md#reserved-topics-shadow) and [Device Shadow MQTT topics](device-shadow-mqtt.md)\.
 
-## Review the results and next steps<a name="sample-shadow-review"></a>
+## Step 4: Review the results and next steps<a name="sample-shadow-review"></a>
 
 **In this tutorial, you learned how to:**
 + Use the `shadow.py` sample app to specify desired states and update the shadow's current state\.

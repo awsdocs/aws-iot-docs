@@ -1,5 +1,31 @@
 # Job rollout and abort configuration<a name="job-rollout-abort"></a>
 
+You can specify how quickly targets are notified of a pending job execution\. You can create a staged rollout to better manage updates, reboots, and other operations\.
+
+The following field can be added to the `CreateJob` request to specify the maximum number of job targets to inform per minute\. This example sets a static rollout rate\.
+
+```
+    "jobExecutionRolloutConfig": {
+        "maximumPerMinute": "integer"
+    }
+```
+
+You can also set a variable rollout rate with the `exponentialRate` field\. The following example creates a rollout that has an exponential rate\.
+
+```
+  "jobExecutionsRolloutConfig": { 
+      "exponentialRate": { 
+         "baseRatePerMinute": integer,
+         "incrementFactor": integer,
+         "rateIncreaseCriteria": { 
+            "numberOfNotifiedThings": integer, // Set one or the other
+            "numberOfSucceededThings": integer // of these two values.
+         },
+         "maximumPerMinute": integer
+    }
+}
+```
+
 AWS IoT jobs can be deployed using variable rollout rates as various criteria and thresholds are met\. Job rollouts can also be aborted if the number of failed jobs matches a set of criteria\. These rollout configurations give you more granular control over a job's blast radius\. Job rollout rate criteria are set at job creation through the [https://docs.aws.amazon.com/iot/latest/apireference/API_JobExecutionsRolloutConfig.html](https://docs.aws.amazon.com/iot/latest/apireference/API_JobExecutionsRolloutConfig.html) object\. Job abort criteria are set at job creation through the [https://docs.aws.amazon.com/iot/latest/apireference/API_AbortConfig.html](https://docs.aws.amazon.com/iot/latest/apireference/API_AbortConfig.html) object\.
 
 ## Using job rollout rates<a name="job-rollout-using"></a>

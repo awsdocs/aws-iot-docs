@@ -1,8 +1,8 @@
-# Format a notification by using an AWS Lambda function<a name="iot-lambda-rule"></a>
+# Tutorial: Formatting a notification by using an AWS Lambda function<a name="iot-lambda-rule"></a>
 
-This tutorial demonstrates how to send MQTT message data to an AWS Lambda action for formatting and sending to another AWS service\. In this tutorial, the AWS Lambda action uses the AWS SDK to send the formatted message to the Amazon SNS topic you created in the tutorial about how to [Send an Amazon SNS notification](iot-sns-rule.md)\.
+This tutorial demonstrates how to send MQTT message data to an AWS Lambda action for formatting and sending to another AWS service\. In this tutorial, the AWS Lambda action uses the AWS SDK to send the formatted message to the Amazon SNS topic you created in the tutorial about how to [Tutorial: Sending an Amazon SNS notification](iot-sns-rule.md)\.
 
-In the tutorial about how to [Send an Amazon SNS notification](iot-sns-rule.md), the JSON document that resulted from the rule's query statement was sent as the body of the text message\. The result was a text message that looked something like this example:
+In the tutorial about how to [Tutorial: Sending an Amazon SNS notification](iot-sns-rule.md), the JSON document that resulted from the rule's query statement was sent as the body of the text message\. The result was a text message that looked something like this example:
 
 ```
 {"device_id":"32","reported_temperature":38,"max_temperature":30}
@@ -25,10 +25,10 @@ The AWS Lambda function you'll create in this tutorial formats the message strin
 This tutorial takes about 45 minutes to complete\.
 
 **Topics**
-+ [Create an AWS Lambda function that sends a text message](#iot-lambda-rule-create-lambda)
-+ [Create an AWS IoT rule with an AWS Lambda rule action](#iot-lambda-rule-create-rule)
-+ [Test the AWS IoT rule and AWS Lambda rule action](#iot-lambda-rule-test-rule)
-+ [Review the results and next steps](#iot-lambda-rule-next-steps)
++ [Step 1: Create an AWS Lambda function that sends a text message](#iot-lambda-rule-create-lambda)
++ [Step 2: Create an AWS IoT rule with an AWS Lambda rule action](#iot-lambda-rule-create-rule)
++ [Step 3: Test the AWS IoT rule and AWS Lambda rule action](#iot-lambda-rule-test-rule)
++ [Step 4: Review the results and next steps](#iot-lambda-rule-next-steps)
 
 **Before you start this tutorial, make sure that you have:**
 + 
@@ -42,17 +42,17 @@ Be sure you can use the MQTT client to subscribe and publish to a topic\. You'll
 + 
 
 **Completed the other rules tutorials in this section**  
-This tutorial requires the SNS notification topic you created in the tutorial about how to [Send an Amazon SNS notification](iot-sns-rule.md)\. It also assumes that you've completed the other rules\-related tutorials in this section\.
+This tutorial requires the SNS notification topic you created in the tutorial about how to [Tutorial: Sending an Amazon SNS notification](iot-sns-rule.md)\. It also assumes that you've completed the other rules\-related tutorials in this section\.
 + 
 
 **Reviewed the [AWS Lambda](https://docs.aws.amazon.com/lambda/latest/dg/welcome.html) overview**  
 If you haven't used AWS Lambda before, review [AWS Lambda](https://docs.aws.amazon.com/lambda/latest/dg/welcome.html) and [Getting started with Lambda](https://docs.aws.amazon.com/lambda/latest/dg/getting-started.html) to learn its terms and concepts\.
 
-## Create an AWS Lambda function that sends a text message<a name="iot-lambda-rule-create-lambda"></a>
+## Step 1: Create an AWS Lambda function that sends a text message<a name="iot-lambda-rule-create-lambda"></a>
 
 The AWS Lambda function in this tutorial receives the result of the rule query statement, inserts the elements into a text string, and sends the resulting string to Amazon SNS as the message in a notification\.
 
-Unlike the tutorial about how to [Send an Amazon SNS notification](iot-sns-rule.md), which used an AWS IoT rule action to send the notification, this tutorial sends the notification from the Lambda function by using a function of the AWS SDK\. The actual Amazon SNS notification topic used in this tutorial, however, is the same one that you used in the tutorial about how to [Send an Amazon SNS notification](iot-sns-rule.md)\.
+Unlike the tutorial about how to [Tutorial: Sending an Amazon SNS notification](iot-sns-rule.md), which used an AWS IoT rule action to send the notification, this tutorial sends the notification from the Lambda function by using a function of the AWS SDK\. The actual Amazon SNS notification topic used in this tutorial, however, is the same one that you used in the tutorial about how to [Tutorial: Sending an Amazon SNS notification](iot-sns-rule.md)\.
 
 **To create an AWS Lambda function that sends a text message**
 
@@ -129,7 +129,7 @@ Unlike the tutorial about how to [Send an Amazon SNS notification](iot-sns-rule.
 
    1. Choose **Deploy**\.
 
-1. In a new window, look up the Amazon Resource Name \(ARN\) of your Amazon SNS topic from the tutorial about how to [Send an Amazon SNS notification](iot-sns-rule.md)\.
+1. In a new window, look up the Amazon Resource Name \(ARN\) of your Amazon SNS topic from the tutorial about how to [Tutorial: Sending an Amazon SNS notification](iot-sns-rule.md)\.
 
    1. In a new window, open the [Topics page of the Amazon SNS console](https://console.aws.amazon.com/sns/v3/home#/topics)\. 
 
@@ -174,7 +174,7 @@ If the function and the notification both worked, you will get a text message on
 
 If you didn't get a text message on the phone, check the result of the operation\. In the **Function code** panel, in the **Execution result** tab, review the response to find any errors that occurred\. Don't continue to the next step until your function can send the notification to your phone\.
 
-## Create an AWS IoT rule with an AWS Lambda rule action<a name="iot-lambda-rule-create-rule"></a>
+## Step 2: Create an AWS IoT rule with an AWS Lambda rule action<a name="iot-lambda-rule-create-rule"></a>
 
 In this step, you'll use the rule query statement to format the data from the imaginary weather sensor device to send to a Lambda function, which will format and send a text message\.
 
@@ -265,7 +265,7 @@ This contains all the information the Lambda function needs to format and send t
 
    1. To create the rule, at the bottom of **Create a rule**, choose **Create rule**\.
 
-## Test the AWS IoT rule and AWS Lambda rule action<a name="iot-lambda-rule-test-rule"></a>
+## Step 3: Test the AWS IoT rule and AWS Lambda rule action<a name="iot-lambda-rule-test-rule"></a>
 
 To test your new rule, you'll use the MQTT client to publish and subscribe to the MQTT messages used by this rule\.
 
@@ -415,11 +415,11 @@ For the rule to work, it must find the data field in the message payload that is
   + 
 
 **Check the Amazon SNS notification**  
-In [Create an Amazon SNS topic that sends an SMS text message](iot-sns-rule.md#iot-sns-rule-create-sns-topic), refer to step 3 that describes how to test the Amazon SNS notification and test the notification to make sure the notification works\.
+In [Step 1: Create an Amazon SNS topic that sends an SMS text message](iot-sns-rule.md#iot-sns-rule-create-sns-topic), refer to step 3 that describes how to test the Amazon SNS notification and test the notification to make sure the notification works\.
   + 
 
 **Check the Lambda function**  
-In [Create an AWS Lambda function that sends a text message](#iot-lambda-rule-create-lambda), refer to step 5 that describes how to test the Lambda function using test data and test the Lambda function\.
+In [Step 1: Create an AWS Lambda function that sends a text message](#iot-lambda-rule-create-lambda), refer to step 5 that describes how to test the Lambda function using test data and test the Lambda function\.
   + 
 
 **Check the role being used by the rule**  
@@ -429,7 +429,7 @@ The rule action must have permission to receive the original topic and publish t
 
     If you suspect this is the problem, edit the Republish rule action and create a new role\. New roles created by the rule action receive the authorizations necessary to perform these actions\.
 
-## Review the results and next steps<a name="iot-lambda-rule-next-steps"></a>
+## Step 4: Review the results and next steps<a name="iot-lambda-rule-next-steps"></a>
 
 **In this tutorial:**
 + You created an AWS IoT rule to call a Lambda function that sent an Amazon SNS notification that used your customized message payload\.

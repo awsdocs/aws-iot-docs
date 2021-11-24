@@ -1,4 +1,4 @@
-# Working with jobs in Fleet Hub for AWS IoT Device Management<a name="aws-iot-monitor-technician-job-templates"></a>
+# Working with jobs and job templates in Fleet Hub for AWS IoT Device Management<a name="aws-iot-monitor-technician-job-templates"></a>
 
 **Note**  
 The job templates feature is in preview and subject to change\.

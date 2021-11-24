@@ -2,7 +2,7 @@
 
 
 
-Insert your micro SD card into the Raspberry Pi, connect your monitor, keyboard, mouse, and, if you're not using Wi\-Fi, Ethernet cable\. Do not connect the power cable yet\.
+Insert your microSD card into the Raspberry Pi, connect your monitor, keyboard, mouse, and, if you're not using Wi\-Fi, Ethernet cable\. Do not connect the power cable yet\.
 
 Connect the JST jumper cable to the moisture sensor\. The other side of the jumper has four wires:
 + Green: I2C SCL
@@ -215,7 +215,7 @@ endpoint
 Your custom AWS IoT endpoint\. For more information, see [Device Shadow REST API](device-shadow-rest-api.md)\.
 
 rootCA  
-The full path the your AWS IoT root CA certificate\.
+The full path to your AWS IoT root CA certificate\.
 
 cert  
 The full path to your AWS IoT device certificate\.
@@ -235,4 +235,4 @@ The command line should look like this:
 
 Try touching the sensor, putting it in a planter, or putting it in a glass of water to see how the sensor responds to various levels of moisture\. If needed, you can change the threshold value in the `MoistureSensorRule`\. When the moisture sensor reading goes below the value specified in your rule's SQL query statement, AWS IoT publishes a message to the Amazon SNS topic\. You should receive an email message that contains the moisture and temperature data\.
 
-After you have verified receipt of email messages from Amazon SNS, press **CTRL\+C** to stop the Python program\. It is unlikely the Python program will send enough messages to incur charges, but it is a best practice to stop the program when you are done\.
+After you have verified receipt of email messages from Amazon SNS, press **CTRL\+C** to stop the Python program\. It is unlikely that the Python program will send enough messages to incur charges, but it is a best practice to stop the program when you are done\.

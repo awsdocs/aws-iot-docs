@@ -13,7 +13,7 @@ A Security Profile defines anomalous behaviors for a group of devices \(a [thing
 A behavior tells AWS IoT Device Defender Detect how to recognize when a device is doing something anomalous\. Any device action that doesn’t match a behavior triggers an alert\. A Rules Detect behavior consists of a metric and an absolute\-value or statistical threshold with an operator \(for example, less than or equal to, greater than or equal to\), which describe the expected device behavior\. An ML Detect behavior consists of a metric and an ML Detect configuration, which set an ML model to learn the normal behavior of devices\.
 
 **ML model**  
-An ML model is a machine learning model created to monitor each behavior a customer configures\. The model trains on metric data patterns from targeted device groups and generates three anomaly confidence thresholds \(high, medium, and low\) for the metric\-based behavior\. It inferences anomalies based on ingested metric data at the device level\. In the context of ML Detect, one ML model is created to evaluate one metric\-based behavior\. For more information, see [ML Detect](dd-detect-ml.md)
+An ML model is a machine learning model created to monitor each behavior a customer configures\. The model trains on metric data patterns from targeted device groups and generates three anomaly confidence thresholds \(high, medium, and low\) for the metric\-based behavior\. It inferences anomalies based on ingested metric data at the device level\. In the context of ML Detect, one ML model is created to evaluate one metric\-based behavior\. For more information, see [ML Detect](dd-detect-ml.md)\.
 
 **confidence level**  
 ML Detect supports three confidence levels: `High`, `Medium`, and `Low`\. `High` confidence means low sensitivity in anomalous behavior evaluation and frequently a lower number of alarms\. `Medium` confidence means medium sensitivity and `Low` confidence means high sensitivity and frequently a higher number of alarms\.
@@ -23,6 +23,9 @@ You can define a dimension to adjust the scope of a behavior\. For example, you 
 
 **alarm**  
 When an anomaly is detected, an alarm notification can be sent through a CloudWatch metric \(see [Using AWS IoT metrics](monitoring-cloudwatch.md#how_to_use_metrics)\) or an SNS notification\. An alarm notification is also displayed in the AWS IoT console along with information about the alarm, and a history of alarms for the device\. An alarm is also sent when a monitored device stops exhibiting anomalous behavior or when it had been causing an alarm but stops reporting for an extended period\.
+
+**alarm verification state**  
+After an alarm has been created, you can verify the alarm as True positive, Benign positive, False positive, or Unknown\. You can also add a description to your alarm verification state\. You can view, organize, and filter AWS IoT Device Defender alarms by using one of the four verification states\. You can use alarm verification states and related descriptions to inform members of your team\. This helps your team to take follow\-up actions, for example, performing mitigation actions on True positive alarms, skipping Benign positive alarms, or continuing investigation on Unknown alarms\. The default verification state for all alarms is Unknown\.
 
 **alarm suppression**  
 Manage Detect alarm SNS notifications by setting behavior notification to `on` or `suppressed`\. Suppressing alarms doesn't stop Detect from performing device behavior evaluations; Detect continues to flag anomalous behaviors as violation alarms\. However, suppressed alarms wouldn't be forwarded for SNS notification\. They can only be accessed through the AWS IoT console or API\.

@@ -1,14 +1,14 @@
 # Configurable endpoints<a name="iot-custom-endpoints-configurable"></a>
 
 **Note**  
-This feature is currently unavailable in the China and GovCloud regions\.
+This feature is not available in GovCloud AWS Regions\.
 
 With AWS IoT Core, you can configure and manage the behaviors of your data endpoints by using domain configurations\. You can generate multiple AWS IoT Core data endpoints, and also customize data endpoints with your own fully qualified domain names \(and associated server certificates\) and authorizers\. For more information about custom authorizers, see [Custom authentication](custom-authentication.md)\. 
 
 AWS IoT Core uses the server name indication \(SNI\) TLS extension to apply domain configurations\. Devices must use this extension when they connect\. They also must pass a server name that is identical to the domain name that you specify in the domain configuration\.\* To test this service, use the v2 version of the [AWS IoT Device SDKs](https://github.com/aws) in GitHub\. 
 
 **Note**  
-If you create multiple data endpoints in your account, they will share AWS IoT Core resources such as MQTT topics, device shadows, and rules\.
+If you create multiple data endpoints in your AWS account, they will share AWS IoT Core resources such as MQTT topics, device shadows, and rules\.
 
 You can use domain configurations to simplify tasks such as the following\.
 + Migrate devices to AWS IoT\.
@@ -19,6 +19,9 @@ You can configure a fully qualified domain name \(FQDN\) and the associated serv
 
 **Note**  
 AWS IoT uses the server name indication \(SNI\) TLS extension to apply domain configurations\. Devices must use this extension when connecting and pass a server name that is identical to the domain name that is specified in the domain configuration\. To test this service, use the v2 version of each [AWS IoT Device SDK in GitHub](https://github.com/aws)\.
+
+**Note**  
+ When you provide the server certificates for AWS IoT custom domain configuration, the certificates have a maximum of four domain names\. For more information, see [AWS IoT Core endpoints and quotas](https://docs.aws.amazon.com/general/latest/gr/iot-core.html#security-limits)\. 
 
 **Topics**
 + [Creating and configuring AWS\-managed domains](iot-custom-endpoints-configurable-aws.md)

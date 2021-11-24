@@ -5,7 +5,7 @@ In AWS IoT, a *stream* is a publicly addressable resource that is an abstraction
 + **A stream ID** that identifies your stream and is used \(and usually required\) in AWS Command Line Interface \(AWS CLI\) or SDK commands\.
 + **A stream description** that provides a description of the stream resource\.
 + **A stream version** that identifies a particular version of the stream\. Because stream data can be modified immediately before devices start the data transfer, the stream version can be used by the devices to enforce a consistency check\.
-+ **A list of files** that can be transferred to devices\. For each file in the list, the stream records a file ID, the file size, and the address information of the file which consists of, for example, the Amazon S3 bucket name, object key, and object version\.
++ **A list of files** that can be transferred to devices\. For each file in the list, the stream records a file ID, the file size, and the address information of the file, which consists of, for example, the Amazon S3 bucket name, object key, and object version\.
 + **An AWS Identity and Access Management \(IAM\) role** that grants AWS IoT MQTT\-based file delivery the permission to read stream files stored in data storage\.
 
 AWS IoT MQTT\-based file delivery provides the following functionality so that devices can transfer data from the AWS Cloud: 

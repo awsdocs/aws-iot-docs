@@ -5,6 +5,6 @@ This section contains information for users of Fleet Hub for AWS IoT Device Mana
 **Topics**
 + [Getting started](aws-iot-monitor-user-getting-started.md)
 + [Queries and filters](aws-iot-monitor-user-queries.md)
-+ [Working with jobs in Fleet Hub for AWS IoT Device Management](aws-iot-monitor-technician-job-templates.md)
++ [Working with jobs and job templates in Fleet Hub for AWS IoT Device Management](aws-iot-monitor-technician-job-templates.md)
 + [Alarms](aws-iot-monitor-user-alarms.md)
 + [Troubleshooting](aws-iot-monitor-user-troubleshoot.md)

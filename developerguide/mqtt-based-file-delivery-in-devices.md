@@ -102,7 +102,7 @@ A typical `GetStream` request in JSON looks like the following example\.
     "c": "1bb8aaa1-5c18-4d21-80c2-0b44fee10380",
     "s": 1,
     "f": 0,
-    "l": 4098,
+    "l": 4096,
     "o": 2,
     "n": 100,
     "b": "..."
@@ -130,6 +130,9 @@ A typical `GetStream` request in JSON looks like the following example\.
 
   Using a bitmap, your device can request non\-consecutive blocks, which makes handling retries following an error more convenient\. Refer to [Build a bitmap for a GetStream request](#mqtt-based-file-delivery-build-a-bitmap) for instructions on how to use the bitmap fields to specify which portion of the stream file will be returned in the `GetStream` response\. For this field, convert the bitmap to a string representing the bitmap's value in hexadecimal notation\. The bitmap must be less than 12,288 bytes\.
 
+**Important**  
+Either "`n`" or "`b`" should be specified\. If neither of them is specified, the `GetStream` request might not be valid when the file size is less than 131072 bytes \(128 KB\)\.
+
 ### GetStream response<a name="mqtt-based-file-delivery-getstream-response"></a>
 
 A `GetStream` response in JSON looks like this example for each data block that is requested\.
@@ -138,7 +141,7 @@ A `GetStream` response in JSON looks like this example for each data block that 
 {
     "c": "1bb8aaa1-5c18-4d21-80c2-0b44fee10380",
     "f": 0,
-    "l": 4098,
+    "l": 4096,
     "i": 2,
     "p": "..."
 }
@@ -147,11 +150,11 @@ A `GetStream` response in JSON looks like this example for each data block that 
 + "`f`" is the ID of the stream file to which the current data block payload belongs\.
 + "`l`" is the size of the data block payload in bytes\.
 + "`i`" is the ID of the data block contained in the payload\. Data blocks are numbered starting from 0\.
-+ "`p`" contains the data block payload\. This field is a string which represents the value of the data block in [Base64](https://en.wikipedia.org/wiki/Base64) encoding\.
++ "`p`" contains the data block payload\. This field is a string, which represents the value of the data block in [Base64](https://en.wikipedia.org/wiki/Base64) encoding\.
 
 ### Build a bitmap for a GetStream request<a name="mqtt-based-file-delivery-build-a-bitmap"></a>
 
-You can use the bitmap field \(`b`\) in a `GetStream` request to get non\-consecutive blocks from a stream file\. This helps devices with limited RAM capacity deal with network delivery issues\. A device can request only those blocks that were not received or not received correctly\. The bitmap determines which blocks of the stream file will be returned\. For each bit which is set to 1 in the bitmap, a corresponding block of the stream file will be returned\.
+You can use the bitmap field \(`b`\) in a `GetStream` request to get non\-consecutive blocks from a stream file\. This helps devices with limited RAM capacity deal with network delivery issues\. A device can request only those blocks that were not received or not received correctly\. The bitmap determines which blocks of the stream file will be returned\. For each bit, which is set to 1 in the bitmap, a corresponding block of the stream file will be returned\.
 
 Here's an example of how to specify a bitmap and its supporting fields in a `GetStream` request\. For example, you want to receive a stream file in chunks of 256 bytes \(the block size\)\. Think of each block of 256 bytes as having a number that specifies its position in the file, starting from 0\. So block 0 is the first block of 256 bytes in the file, block 1 is the second, and so on\. You want to request blocks 20, 21, 24 and 43 from the file\.
 

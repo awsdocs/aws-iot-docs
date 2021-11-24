@@ -60,7 +60,7 @@ To launch your EC2 instance:
 
 1. To review the instance details and launch your EC2 instance, choose **Review and Launch**\.
 
-For more information, see [Get started with Amazon EC2 Linux instances](https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/EC2_GetStarted.html)\.
+For more information, see [Get started with Amazon EC2 Linux instances](https://docs.aws.amazon.com/AWSEC2/latest/userguide/EC2_GetStarted.html)\.
 
 ## Create Amazon VPC interface endpoint<a name="connect-iot-lorawan-create-vpc-endpoint"></a>
 
@@ -80,7 +80,7 @@ The `iotwireless` service might not support all Availability Zones\.
    + For **Security group**, choose the security groups you want to associate with the endpoint network interfaces\.
    + Optionally, you can add or remove tags\. Tags are name\-value pairs that you use to associate with your endpoint\. 
 
-1. To create your VPC endpoint, choose **Create Endpoint**\.
+1. To create your VPC endpoint, choose **Create endpoint**\.
 
 ## Test your connection to the interface endpoint<a name="connect-iot-lorawan-connect-vpc-endpoint"></a>
 

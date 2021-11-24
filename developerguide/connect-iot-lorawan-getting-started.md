@@ -2,20 +2,6 @@
 
 AWS IoT Core for LoRaWAN helps you connect and manage wireless LoRaWAN \(low\-power long\-range Wide Area Network\) devices and replaces the need for you to develop and operate a LNS\. Long range WAN \(LoRaWAN\) devices and gateways can connect to AWS IoT Core by using AWS IoT Core for LoRaWAN\.
 
-## To get started using AWS IoT Core for LoRaWAN<a name="connect-iot-lorawan-get-started-resources"></a>
-+ 
-
-**Select the wireless devices and LoRaWAN gateways that you'll need**  
-The [AWS Partner Device Catalog](https://devices.amazonaws.com/search?page=1&sv=iotclorawan) contains gateways and developer kits that are qualified for use with AWS IoT Core for LoRaWAN\. For more information, see [Using qualified gateways from the AWS Partner Device Catalog](connect-iot-lorawan-manage-gateways.md#connect-iot-lorawan-qualified-gateways)\. 
-+ 
-
-**Add your wireless devices and LoRaWAN gateways to AWS IoT Core for LoRaWAN**  
-[Connecting gateways and devices to AWS IoT Core for LoRaWAN](#connect-iot-lorawan-getting-started) gives you information about how to describe your resources and add your wireless devices and LoRaWAN gateways to AWS IoT Core for LoRaWAN\. You'll also learn how to configure the other AWS IoT Core for LoRaWAN resources that you'll need to manage these devices and send their data to AWS services\.
-+ 
-
-**Complete your AWS IoT Core for LoRaWAN solution**  
-Start with [our sample AWS IoT Core for LoRaWAN solution](https://github.com/aws-samples/aws-iot-core-lorawan) and make it yours\.
-
 ## Naming conventions for your devices, gateways, profiles, and destinations<a name="connect-iot-lorawan-naming-convention"></a>
 
 Before you get started with AWS IoT Core for LoRaWAN and creating the resources, consider the naming convention of your devices, gateways, and destination\.
@@ -44,7 +30,6 @@ You can use the console interface or the API to add your LoRaWAN gateway and dev
 Much of the data that you enter when configuring AWS IoT Core for LoRaWAN resources is provided by the devices' vendors and is specific to the LoRaWAN specifications they support\. The following topics describe how you can describe your AWS IoT Core for LoRaWAN resources and use the console or the API to add your gateways and devices\.
 
 **Topics**
-+ [To get started using AWS IoT Core for LoRaWAN](#connect-iot-lorawan-get-started-resources)
 + [Naming conventions for your devices, gateways, profiles, and destinations](#connect-iot-lorawan-naming-convention)
 + [Mapping of device data to service data](#connect-iot-lorawan-service-device-data)
 + [Using the console to onboard your device and gateway to AWS IoT Core for LoRaWAN](#connect-iot-lorawan-console)

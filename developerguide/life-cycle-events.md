@@ -1,6 +1,8 @@
 # Lifecycle events<a name="life-cycle-events"></a>
 
-AWS IoT publishes lifecycle events on the MQTT topics discussed in the following sections\. These messages allow you to be notified of lifecycle events from the message broker\.
+AWS IoT can publish lifecycle events on the MQTT topics\. These events are not available by default\. For information about how to turn on these events, see [Enable events for AWS IoT](iot-events.md#iot-events-enable)\.
+
+ This section describes the AWS IoT lifecycle event messages\.
 
 **Note**  
 Lifecycle messages might be sent out of order\. You might receive duplicate messages\.

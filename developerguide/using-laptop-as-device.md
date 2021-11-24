@@ -163,43 +163,57 @@ To run the `pubsub.py` sample script, you need the following information:
 
 The *your\-iot\-endpoint* value has a format of: `endpoint_id-ats.iot.region.amazonaws.com`, for example, `a3qj468EXAMPLE-ats.iot.us-west-2.amazonaws.com`\. 
 
-Before running the script, make sure your thing's policy provides permissions for the sample script to connect, subscribe, publish, and receive\. The Policy JSON is displayed in the following example\. In the `"Resource"` element, you should replace the region and account word with your AWS account and Region `"arn:aws:iot:region:account.:topic/test/topic"` 
+Before running the script, make sure your thing's policy provides permissions for the sample script to connect, subscribe, publish, and receive\. 
 
-```
-{
-"Version": "2012-10-17",
-"Statement": [
-    {
-        "Effect": "Allow",
-        "Action": [
-            "iot:Publish",
-            "iot:Receive"
-        ],
-        "Resource": [
-            "arn:aws:iot:region:account:topic/test/topic"
-        ]
-    },
-    {
-        "Effect": "Allow",
-        "Action": [
-            "iot:Subscribe"
-        ],
-        "Resource": [
-            "arn:aws:iot:region:account:topicfilter/test/topic"
-        ]
-    },
-    {
-        "Effect": "Allow",
-        "Action": [
-            "iot:Connect"
-        ],
-        "Resource": [
-            "arn:aws:iot:region:account:client/test-*"
-        ]
-    }
-]
-}
-```
+**To find and review the policy document for a thing resource**
+
+1. In the [AWS console](https://console.aws.amazon.com/iot/home#/thinghub), in the **Things** list, find the thing resource that represents your device\.
+
+1. Choose the **Name** link of the thing resource that represents your device to open the **Thing details** page\.
+
+1. In the **Thing details** page, in the **Certificates** tab, choose the certificate that is attached to the thing resource\. There should only be one certificate in the list\. If there is more than one, choose the certificate whose files are installed on your device and that will be used to connect to AWS IoT\.
+
+1. In the **Certificate** details page, in the **Policies** tab, choose the policy that's attached to the certificate\. There should only be one\. If there is more than one, repeat the next step for each to make sure that at least one policy grants the required access\.
+
+1. In the **Policy** overview page, find the JSON editor and choose **Edit policy document** to review and edit the policy document as required\. 
+
+1. The policy JSON is displayed in the following example\. In the `"Resource"` element, replace `region:account` with your AWS Region and AWS account in each of the `Resource` values\.
+
+   ```
+   {
+       "Version": "2012-10-17",
+       "Statement": [
+           {
+               "Effect": "Allow",
+               "Action": [
+                   "iot:Publish",
+                   "iot:Receive"
+               ],
+               "Resource": [
+                   "arn:aws:iot:region:account:topic/test/topic"
+               ]
+           },
+           {
+               "Effect": "Allow",
+               "Action": [
+                   "iot:Subscribe"
+               ],
+               "Resource": [
+                   "arn:aws:iot:region:account:topicfilter/test/topic"
+               ]
+           },
+           {
+               "Effect": "Allow",
+               "Action": [
+                   "iot:Connect"
+               ],
+               "Resource": [
+                   "arn:aws:iot:region:account:client/test-*"
+               ]
+           }
+       ]
+   }
+   ```
 
 ------
 #### [ Linux/macOS ]

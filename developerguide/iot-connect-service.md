@@ -6,6 +6,8 @@ You can access the features of the **AWS IoT Core \- control plane** by using
 IoT devices should use [AWS IoT Device SDKs](iot-connect-devices.md#iot-connect-device-sdks)\. The Device SDKs are optimized for use on devices, support MQTT communication with AWS IoT, and support the AWS IoT APIs most used by devices\. For more information about the Device SDKs and the features they provide, see [AWS IoT Device SDKs](iot-connect-devices.md#iot-connect-device-sdks)\.  
 Mobile devices should use [AWS Mobile SDKs](#iot-connect-mobile-sdks)\. The Mobile SDKs provide support for AWS IoT APIs, MQTT device communications, and the APIs of other AWS services on mobile devices\. For more information about the Mobile SDKs and the features they provide, see [AWS Mobile SDKs](#iot-connect-mobile-sdks)\.
 
+You can use AWS Amplify tools and resources in web and mobile applications to connect more easily to AWS IoT Core\. For more information about connecting to AWS IoT Core by using Amplify, see [Pub Sub Getting Started](https://docs.amplify.aws/lib/pubsub/getting-started/) in the Amplify documentation\.
+
 The following sections describe the tools and SDKs that you can use to develop and interact with AWS IoT and other AWS services\. For the complete list of AWS tools and development kits that are available to build and manage apps on AWS, see [Tools to Build on AWS](https://aws.amazon.com/tools/)\.
 
 

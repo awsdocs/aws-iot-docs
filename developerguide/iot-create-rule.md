@@ -14,7 +14,7 @@ SQL statement
 A simplified SQL syntax to filter messages received on an MQTT topic and push the data elsewhere\. For more information, see [AWS IoT SQL reference](iot-sql-reference.md)\.
 
 SQL version  
-The version of the SQL rules engine to use when evaluating the rule\. Although this property is optional, we strongly recommend that you specify the SQL version\. If this property is not set, the default, `2015-10-08`, is used\. For more information, see [SQL versions](iot-rule-sql-version.md)\.
+The version of the SQL rules engine to use when evaluating the rule\. Although this property is optional, we strongly recommend that you specify the SQL version\. The AWS IoT Core console sets this property to `2016-03-23` by default\. If this property is not set, such as in an AWS CLI command or an AWS CloudFormation template, `2015-10-08` is used\. For more information, see [SQL versions](iot-rule-sql-version.md)\.
 
 One or more actions  
 The actions AWS IoT performs when executing the rule\. For example, you can insert data into a DynamoDB table, write data to an Amazon S3 bucket, publish to an Amazon SNS topic, or invoke a Lambda function\.

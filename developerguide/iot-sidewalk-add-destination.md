@@ -1,6 +1,6 @@
 # Add a destination for your Sidewalk device<a name="iot-sidewalk-add-destination"></a>
 
-Before you can add an AWS IoT Core for LoRaWAN destination and create a rule for routing the messages sent from your Sidewalk device, you must have created a wireless connectivity profile\. To create the profile, first register your Sidewalk device, and then add the credentials to your AWS account\. For more information, see [Add your Sidewalk account credentials](iot-sidewalk-add-credentials.md)\.
+Before you can add an AWS IoT Core for LoRaWAN destination and create a rule for routing the messages sent from your Sidewalk device, you must create a wireless connectivity profile\. To create the profile, first register your Sidewalk device, and then add the credentials to your AWS account\. For more information, see [Add your Sidewalk account credentials](iot-sidewalk-add-credentials.md)\.
 
 Creating a Sidewalk destination is similar to how you create a destination for your LoRaWAN devices\. The following shows how you can create a destination by using the AWS Management Console or the API\.
 
@@ -16,14 +16,14 @@ Enter a **Destination name** and an optional description for your destination\. 
 + 
 
 **Rule name**  
-The AWS IoT rule that is configured to process the device's data\. Your destination needs a rule to process the messages it receives\. Enter a rule name \(say **SidewalkRule**\) and then choose **Copy** to copy the rule name that you'll enter when creating the AWS IoT rule\. You can either choose **Create rule** to create the rule now or navigate to the [ Rules](https://console.aws.amazon.com/iot/home#/create/rule) Hub of the AWS IoT console and create a rule with the name you copied\.
+The AWS IoT rule that is configured to process the device's data\. Your destination needs a rule to process the messages it receives\. Enter a rule name \(say **SidewalkRule**\) and then choose **Copy** to copy the rule name that you'll enter when creating the AWS IoT rule\. You can either choose **Create rule** to create the rule now or navigate to the [Rules](https://console.aws.amazon.com/iot/home#/create/rule) Hub of the AWS IoT console and create a rule with the name you copied\.
 
   For more information about AWS IoT rules for destinations, see [Create rules to process LoRaWAN device messages](connect-iot-lorawan-destination-rules.md)\.
 + 
 
 **Role name**  
 The IAM role that gives the device's data permission to access the rule named in **Rule name**\. To create the IAM role, follow the steps described in [Create an IAM role for your destinations](connect-iot-lorawan-create-destinations.md#connect-iot-lorawan-create-destinations-roles)\. When creating the role:
-  + For **Select type of trusted entity**, choose **AWS service** and choose **IoT** as the service\.
+  + For **Select type of trusted entity**, choose **AWS service**, and then choose **IoT** as the service\.
   + Enter **SidewalkRole** for the **Role name**\.
   + Use the same policy document as described in [Create an IAM role for your destinations](connect-iot-lorawan-create-destinations.md#connect-iot-lorawan-create-destinations-roles)\.
 

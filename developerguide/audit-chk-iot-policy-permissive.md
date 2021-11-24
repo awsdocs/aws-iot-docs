@@ -124,7 +124,7 @@ MQTT messages are sent through the AWS IoT message broker and are used by device
   The same as the previous example, but using the \# wildcard\.
 
   ```
-  arn:aws:iot:region:account-id:topic/$aws/things/+/shadow/update
+  arn:aws:iot:region:account-id:topicfilter/$aws/things/+/shadow/update
   ```
 
   This allows the device to see shadow updates on any device \(\+ = all devices\)\.

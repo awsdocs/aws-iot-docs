@@ -2,6 +2,9 @@
 
 The Elasticsearch \(`elasticsearch`\) action writes data from MQTT messages to an Amazon OpenSearch Service domain\. You can then use tools like OpenSearch Dashboards to query and visualize data in OpenSearch Service\.
 
+**Warning**  
+The `Elasticsearch` action can only be used by existing rule actions\. To create a new rule action or to update an existing rule action, use the `OpenSearch` rule action instead\. For more information, see [OpenSearch](opensearch-rule-action.md)\. 
+
 ## Requirements<a name="elasticsearch-rule-action-requirements"></a>
 
 This rule action has the following requirements:
@@ -15,7 +18,7 @@ This rule action has the following requirements:
 When you create an AWS IoT rule with this action, you must specify the following information:
 
 `endpoint`  
-The endpoint of your Amazon OpenSearch Service domain\.  
+The endpoint of your service domain\.  
 Supports [substitution templates](iot-substitution-templates.md): API and AWS CLI only
 
 `index`  
@@ -31,7 +34,7 @@ The unique identifier for each document\.
 Supports [substitution templates](iot-substitution-templates.md): Yes
 
 `roleARN`  
-The IAM role that allows access to the OpenSearch domain\. For more information, see [Requirements](#elasticsearch-rule-action-requirements)\.  
+The IAM role that allows access to the OpenSearch Service domain\. For more information, see [Requirements](#elasticsearch-rule-action-requirements)\.  
 Supports [substitution templates](iot-substitution-templates.md): No
 
 ## Examples<a name="elasticsearch-rule-action-examples"></a>
@@ -83,5 +86,5 @@ The following JSON example defines an Elasticsearch action with substitution tem
 ```
 
 ## See also<a name="elasticsearch-rule-action-see-also"></a>
-
-[What is Amazon OpenSearch Service?](https://docs.aws.amazon.com/opensearch-service/latest/developerguide/) in the *Amazon OpenSearch Service Developer Guide*
++ [OpenSearch](opensearch-rule-action.md)
++ [What is Amazon OpenSearch Service?](https://docs.aws.amazon.com/opensearch-service/latest/developerguide/)

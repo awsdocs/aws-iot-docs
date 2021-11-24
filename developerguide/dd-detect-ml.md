@@ -9,6 +9,7 @@ For information about how to get started with ML Detect, see [ML Detect guide](d
 + [How ML Detect works](#dd-detect-ml-how-it-works)
 + [Minimum requirements](#dd-detect-ml-requirements)
 + [Limitations](#dd-detect-ml-limitations)
++ [Marking false positives and other verification states in alarms](#dd-detect-ml-mark-false-positives)
 + [Supported metrics](#dd-detect-ml-metrics)
 + [Service quotas](#dd-detect-ml-quotas)
 + [ML Detect CLI commands](#dd-detect-ml-cli-commands)
@@ -60,6 +61,12 @@ You can't currently use ML Detect with dimensions or with custom metrics\. The f
 + [Listening TCP ports \(`aws:listening-tcp-ports`\)](detect-device-side-metrics.md#detect-listening-tcp-ports)
 + [Listening UDP ports \(`aws:listening-udp-ports`\)](detect-device-side-metrics.md#detect-listening-udp-ports)
 
+## Marking false positives and other verification states in alarms<a name="dd-detect-ml-mark-false-positives"></a>
+
+ If you verify that an ML Detect alarm is a false positive through your investigation, you can set the verification state of the alarm to False positive\. This can help you and your team identify alarms you don't have to respond to\. You can also mark alarms as True positive, Benign positive, or Unknown\.
+
+You can mark alarms through the [AWS IoT Device Defender console](https://docs.aws.amazon.com/iot/latest/developerguide/detect-HowToHowTo.html) or by using the [PutVerificationStateOnViolation](https://docs.aws.amazon.com/) API action\.
+
 ## Supported metrics<a name="dd-detect-ml-metrics"></a>
 
 You can use the following cloud\-side metrics with ML Detect:
@@ -108,6 +115,9 @@ The following APIs can be used to create and manage ML Detect Security Profiles\
 + [GetBehaviorModelTrainingSummaries](https://docs.aws.amazon.com/iot/latest/apireference/API_GetBehaviorModelTrainingSummaries.html)
 + [ListActiveViolations](https://docs.aws.amazon.com/iot/latest/apireference/API_ListActiveViolations.html)
 + [ListViolationEvents](https://docs.aws.amazon.com/iot/latest/apireference/API_ListViolationEvents.html)
++ [PutVerificationStateOnViolation](https://docs.aws.amazon.com/)
+
+### <a name="w1043aac43c17c26c25b7"></a>
 
 ## Pause or delete an ML Detect Security Profile<a name="dd-detect-ml-disable-feature"></a>
 

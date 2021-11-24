@@ -1,6 +1,6 @@
 # Using AWS IoT Core with interface VPC endpoints<a name="IoTCore-VPC"></a>
 
-With AWS IoT Core you can create [IoT data endpoints](https://docs.aws.amazon.com/iot/latest/developerguide/iot-connect-devices.html) within your VPC by using [interface VPC endpoints](https://docs.aws.amazon.com/vpc/latest/userguide/vpce-interface.html#create-interface-endpoint)\. Interface VPC endpoints are powered by AWS PrivateLink, an AWS technology that you can use to access services running on AWS by using private IP addresses\. For more information, see [Amazon Virtual Private Cloud](https://docs.aws.amazon.com/AmazonVPC/latest/UserGuide/VPC_Introduction.html)\.
+With AWS IoT Core, you can create [IoT data endpoints](https://docs.aws.amazon.com/iot/latest/developerguide/iot-connect-devices.html) within your VPC by using [interface VPC endpoints](https://docs.aws.amazon.com/vpc/latest/userguide/vpce-interface.html#create-interface-endpoint)\. Interface VPC endpoints are powered by AWS PrivateLink, an AWS technology that you can use to access services running on AWS by using private IP addresses\. For more information, see [Amazon Virtual Private Cloud](https://docs.aws.amazon.com/AmazonVPC/latest/UserGuide/VPC_Introduction.html)\.
 
 In order to connect devices in the field on remote networks, such as a corporate network to your AWS VPC, refer to the various options listed in the [Network\-to\-Amazon VPC connectivity matrix](https://docs.aws.amazon.com/whitepapers/latest/aws-vpc-connectivity-options/network-to-amazon-vpc-connectivity-options.html)\.
 
@@ -24,9 +24,9 @@ aws ec2 describe-vpc-endpoint-services --service-name com.amazonaws.us-east-1.io
 ```
 
 **Note**  
-We recommend that you do not use the PrivateDNS option for your VPC endpoints with AWS IoT Core\. See [Limitations of VPC endpoints](#VPC-limitations)\.
+The VPC feature for automatically creating a DNS record is disabled because the IoT control and data endpoints are split\. To join these endpoints, you must manually create a Private DNS record\. For more information about Private VPC DNS records, see [Private DNS for interface endpoints](https://docs.aws.amazon.com/vpc/latest/privatelink/vpce-interface.html#vpce-private-dns)\. For more information about AWS IoT Core VPC limitations, see [Limitations of VPC endpoints](#VPC-limitations)\.
 
-For routing DNS queries from your devices to the VPC endpoint Interfaces correctly, you must create DNS records in a Private Hosted Zone that is attached to your VPC\. To get started, see [Creating A Private Hosted Zone](https://docs.aws.amazon.com/Route53/latest/DeveloperGuide/hosted-zone-private-creating.html)\. Within your Private Hosted Zone, you must create an alias record for each ENI IP for the VPC endpoint\. If you have multiple ENI IPs, for multiple VPC endpoints, then you should create weighted DNS records with equal weights across all the weighted records\. These IP addresses are available from the DescribeNetworkInterfaces API Call when filtered by the VPC endpoint ID in the description field\.
+To correctly route DNS queries from your devices to the VPC endpoint interfaces, you must manually create DNS records in a Private Hosted Zone that is attached to your VPC\. To get started, see [Creating A Private Hosted Zone](https://docs.aws.amazon.com/Route53/latest/DeveloperGuide/hosted-zone-private-creating.html)\. Within your Private Hosted Zone, create an alias record for each elastic network interface IP for the VPC endpoint\. If you have multiple network interface IPs for multiple VPC endpoints, create weighted DNS records with equal weights across all the weighted records\. These IP addresses are available from the [DescribeNetworkInterfaces](https://docs.aws.amazon.com/AWSEC2/latest/APIReference/API_DescribeNetworkInterfaces.html) API call when filtered by the VPC endpoint ID in the description field\.
 
 ## Controlling Access to AWS IoT Core over VPC endpoints<a name="Control-VPC-access"></a>
 

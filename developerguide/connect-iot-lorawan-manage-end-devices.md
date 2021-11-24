@@ -34,4 +34,4 @@ LoRaWAN devices can send uplink messages at any time\. Listening to downlink mes
 + Class B devices can receive messages in scheduled downlink slots\. These devices are mostly battery\-powered actuators\.
 + Class C devices never sleep and continuously listen to incoming messages and so there isn't much delay in receiving the messages\. These devices are mostly mains\-powered actuators\.
 
-For more information about these wireless device considerations, refer to the resources mentioned in [Learning resources for AWS IoT Core for LoRaWAN](connect-iot-lorawan.md#connect-iot-lorawan-training-learn-more)\.
+For more information about these wireless device considerations, refer to the resources mentioned in [Learn more about LoRaWAN](connect-iot-lorawan-what-is-lorawan.md#connect-iot-lorawan-lorawan-learn-more)\.

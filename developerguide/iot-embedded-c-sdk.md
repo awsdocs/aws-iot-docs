@@ -1,8 +1,13 @@
-# Using the AWS IoT Device SDK for Embedded C<a name="iot-embedded-c-sdk"></a>
+# Tutorial: Using the AWS IoT Device SDK for Embedded C<a name="iot-embedded-c-sdk"></a>
 
 This section describes how to run the AWS IoT Device SDK for Embedded C\.
 
-## Install the AWS IoT Device SDK for Embedded C<a name="install-embedded-c-sdk"></a>
+**Topics**
++ [Step1: Install the AWS IoT Device SDK for Embedded C](#install-embedded-c-sdk)
++ [Step 2: Configure the sample app](#iot-c-sdk-app-config)
++ [Step 3: Build and run the sample application](#iot-c-sdk-app-run)
+
+## Step1: Install the AWS IoT Device SDK for Embedded C<a name="install-embedded-c-sdk"></a>
 
 The AWS IoT Device SDK for Embedded C is generally targeted at resource constrained devices that require an optimized C language runtime\. You can use the SDK on any operating system and host it on any processor type \(for example, MCUs and MPUs\)\. If you have more memory and processing resources available, we recommend that you use one of the higher order AWS IoT Device and Mobile SDKs \(for example, C\+\+, Java, JavaScript, and Python\)\.
 
@@ -31,7 +36,7 @@ In general, the AWS IoT Device SDK for Embedded C is intended for systems that u
    sudo apt-get install libssl-dev
    ```
 
-## Sample app configuration<a name="iot-c-sdk-app-config"></a>
+## Step 2: Configure the sample app<a name="iot-c-sdk-app-config"></a>
 
 The AWS IoT Device SDK for Embedded C includes sample applications for you to try\. For simplicity, this tutorial uses the `mqtt_demo_mutual_auth` application, that illustrates how to connect to the AWS IoT Core message broker and subscribe and publish to MQTT topics\.
 
@@ -103,7 +108,7 @@ Your private key file name, for example `certificates/private.pem.key`\.
 
    Run the gcc \-\-version command again and confirm that the build tools have been installed and that you are ready to continue\.
 
-## Build and run the sample application<a name="iot-c-sdk-app-run"></a>
+## Step 3: Build and run the sample application<a name="iot-c-sdk-app-run"></a>
 
 **To run the AWS IoT Device SDK for Embedded C sample applications**
 

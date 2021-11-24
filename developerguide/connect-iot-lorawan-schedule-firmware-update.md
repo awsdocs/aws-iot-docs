@@ -27,7 +27,7 @@ To determine your gateway's eligibility for a firmware update, the CUPS server c
 
 You can use the AWS IoT Core for LoRaWAN API or AWS CLI to get the `CurrentVersion` for your gateway\. Following commands show how to get this information using the CLI\.
 
-1. If you've already provisioned a gateway, you can get information about the gateway using the [get\-wireless\-gateway](cli/latest/reference/iotwireless/get-wireless-gateway.html) command\.
+1. If you've already provisioned a gateway, you can get information about the gateway using the [get\-wireless\-gateway](https://docs.aws.amazon.com/cli/latest/reference/iotwireless/get-wireless-gateway.html) command\.
 
    ```
    aws iotwireless get-wireless-gateway \ 
@@ -50,7 +50,7 @@ You can use the AWS IoT Core for LoRaWAN API or AWS CLI to get the `CurrentVersi
    }
    ```
 
-1. Using the wireless gateway ID reported by the `get-wireless-gateway` command, you can use the [get\-wireless\-gateway\-firmware\-information](cli/latest/reference/iotwireless/get-wireless-gateway-firmware-information.html) command to get the `CurrentVersion`\. 
+1. Using the wireless gateway ID reported by the `get-wireless-gateway` command, you can use the [get\-wireless\-gateway\-firmware\-information](https://docs.aws.amazon.com/cli/latest/reference/iotwireless/get-wireless-gateway-firmware-information.html) command to get the `CurrentVersion`\. 
 
    ```
    aws iotwireless get-wireless-gateway-firmware-information \
@@ -124,7 +124,7 @@ Provide the `CurrentVersion` output that you obtained previously by running the 
      }
      ```
 
-1. Pass the `input.json` file to the [create\-wireless\-gateway\-task\-definition](cli/latest/reference/iotwireless/get-wireless-gateway-task-definition.html) command to create the task definition\. 
+1. Pass the `input.json` file to the [create\-wireless\-gateway\-task\-definition](https://docs.aws.amazon.com/cli/latest/reference/iotwireless/get-wireless-gateway-task-definition.html) command to create the task definition\. 
 
    ```
    aws iotwireless create-wireless-gateway-task-definition \ 
@@ -146,7 +146,7 @@ The gateway is ready to receive the firmware update and, once powered on, it con
 
 A task is a task definition in process\. As you specified automatic task creation by setting `AutoCreateTasks` to `True`, the firmware update task starts as soon as a matching gateway is found\.
 
-You can track the progress of the task by using the `GetWirelessGatewayTask` API\. When you run the [get\-wireless\-gateway\-task](cli/latest/reference/iotwireless/get-wireless-gateway-task.html) command the first time, it will show the task status as `IN_PROGRESS`\.
+You can track the progress of the task by using the `GetWirelessGatewayTask` API\. When you run the [get\-wireless\-gateway\-task](https://docs.aws.amazon.com/cli/latest/reference/iotwireless/get-wireless-gateway-task.html) command the first time, it will show the task status as `IN_PROGRESS`\.
 
 ```
 aws iotwireless get-wireless-gateway-task \ 
@@ -198,7 +198,7 @@ In this example, we showed you the firmware update using the Raspberry Pi based 
 
 If the firmware update fails, you see a status of `FIRST_RETRY` from the CUPS server, and the gateway sends the same request\. If the CUPS server is unable to connect to the gateway after a `SECOND_RETRY`, it will show a status of `FAILED`\.
 
-After the previous task was `COMPLETED` or `FAILED`, delete the old task by using the [delete\-wireless\-gateway\-task](cli/latest/reference/iotwireless/delete-wireless-gateway-task.html) command before starting a new one\.
+After the previous task was `COMPLETED` or `FAILED`, delete the old task by using the [delete\-wireless\-gateway\-task](https://docs.aws.amazon.com/cli/latest/reference/iotwireless/delete-wireless-gateway-task.html) command before starting a new one\.
 
 ```
 aws iotwireless delete-wireless-gateway-task \ 

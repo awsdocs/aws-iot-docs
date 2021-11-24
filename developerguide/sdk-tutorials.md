@@ -1,8 +1,8 @@
-# Connect a device to AWS IoT Core by using the AWS IoT Device SDK<a name="sdk-tutorials"></a>
+# Tutorial: Connecting a device to AWS IoT Core by using the AWS IoT Device SDK<a name="sdk-tutorials"></a>
 
 This tutorial demonstrates how to connect a device to AWS IoT Core so that it can send and receive data to and from AWS IoT\. After you complete this tutorial, your device will be configured to connect to AWS IoT Core and you'll understand how devices communicate with AWS IoT\.
 
-**In this tutorial, you’ll:**
+**In this tutorial, you will:**
 
 1. [Prepare your device for AWS IoT](#sdk-tutorials-prepare)
 
@@ -22,13 +22,13 @@ This tutorial takes about an hour to complete\.
 **Completed [Getting started with AWS IoT Core](iot-gs.md)**  
 In the section of that tutorial where you must [Configure your device](configure-device.md), select the [Connect a Raspberry Pi or another device](connecting-to-existing-device.md) option for your device and use the Python language options to configure your device\.
 
-  Be sure to keep open the terminal window you use in that tutorial because you'll also use it in this tutorial\.
+  Keep open the terminal window you use in that tutorial because you'll also use it in this tutorial\.
 + 
 
 **A device that can run the AWS IoT Device SDK v2 for Python\.**  
-This tutorial shows how to connect a device to AWS IoT Core by using Python code examples, which require a relatively powerful device, as IoT and embedded devices go\.
+This tutorial shows how to connect a device to AWS IoT Core by using Python code examples, which require a relatively powerful device\.
 
-  If you are working with resource\-constrained devices, these code examples might not work on them\. In that case, you might have more success by [Using the AWS IoT Device SDK for Embedded C](iot-embedded-c-sdk.md) tutorial\.
+  If you are working with resource\-constrained devices, these code examples might not work on them\. In that case, you might have more success by [Tutorial: Using the AWS IoT Device SDK for Embedded C](iot-embedded-c-sdk.md) tutorial\.
 
 ## Prepare your device for AWS IoT<a name="sdk-tutorials-prepare"></a>
 
@@ -56,10 +56,10 @@ For a device to connect to AWS IoT Core:
 
 ## Review the MQTT protocol<a name="sdk-tutorials-mqtt-review"></a>
 
-Before we talk about the sample app, it helps to understand the MQTT protocol\. The MQTT protocol offers some advantages over other network communication protocols, such as HTTP, which makes it a popular choice for IoT devices\. This section reviews the key aspects of MQTT that apply to this tutorial\. For information about how MQTT compares to HTTP, see [Choosing a protocol for your device communication](protocols.md#protocol-selection)\.
+Before we talk about the sample app, it helps to understand the MQTT protocol\. The MQTT protocol offers some advantages over other network communication protocols, such as HTTP, which makes it a popular choice for IoT devices\. This section reviews the key aspects of MQTT that apply to this tutorial\. For information about how MQTT compares to HTTP, see [Choosing a protocol for your device communicationConnection duration limits](protocols.md#protocol-selection)\.
 
 **MQTT uses a publish/subscribe communication model**  
-The MQTT protocol uses a publish/subscribe communication model with its host\. This model differs from the request/response model that HTTP uses\. With MQTT, devices establish a session with the host that is identified by a unique client ID\. To send data, devices publish messages identified by topics to a message broker in the host\. To receive messages from the message broker, devices subscribe to the topics they will receive by sending topic filters in subscription requests to the message broker\.
+The MQTT protocol uses a publish/subscribe communication model with its host\. This model differs from the request/response model that HTTP uses\. With MQTT, devices establish a session with the host that is identified by a unique client ID\. To send data, devices publish messages identified by topics to a message broker in the host\. To receive messages from the message broker, devices subscribe to topics by sending topic filters in subscription requests to the message broker\.
 
 **MQTT supports persistent sessions**  
 The message broker receives messages from devices and publishes messages to devices that have subscribed to them\. With [persistent sessions](mqtt.md#mqtt-persistent-sessions) —sessions that remain active even when the initiating device is disconnected—devices can retrieve messages that were published while they were disconnected\. On the device side, MQTT supports Quality of Service levels \([QoS](mqtt.md#mqtt-qos)\) that ensure the host receives messages sent by the device\.
@@ -117,7 +117,7 @@ In the sample app, this value is passed in from the command line\.
 
 `client_bootstrap`  
 The common runtime object that handles socket communication activities  
-In the sample app, this object is instantiated just prior to the call to `mqtt_connection_builder.mtls_from_path`\.
+In the sample app, this object is instantiated before the call to `mqtt_connection_builder.mtls_from_path`\.
 
 `on_connection_interrupted``on_connection_resumed`  
 The callback functions to call when the device’s connection is interrupted and resumed
@@ -130,7 +130,7 @@ In the sample app, this value is passed in from the command line\.
 Whether to start a new persistent session, or, if one is present, reconnect to an existing one
 
 `keep_alive_secs`  
-The keep alive value, in seconds, to send in the `CONNECT` request\. A ping will automatically be sent at this interval\. The server assumes the connection is lost if it doesn't receive a ping after 1\.5 times this value\.
+The keep alive value, in seconds, to send in the `CONNECT` request\. A ping will automatically be sent at this interval\. If the server doesn't receive a ping after 1\.5 times this value, it assumes that the connection is lost\.
 
 #### MQTT over WSS<a name="sdk-tutorials-explore-mqtt-wss"></a>
 
@@ -158,7 +158,7 @@ In the sample app, this value is passed in from the command line\.
 
 `client_bootstrap`  
 The common runtime object that handles socket communication activities  
-In the sample app, this object is instantiated just prior to the call to `mqtt_connection_builder.websockets_with_default_aws_signing`\.
+In the sample app, this object is instantiated before the call to `mqtt_connection_builder.websockets_with_default_aws_signing`\.
 
 `region`  
 The AWS signing Region used by Signature V4 authentication\. In `pubsub.py`, it passes the parameter entered in the command line\.  
@@ -166,11 +166,11 @@ In the sample app, this value is passed in from the command line\.
 
 `credentials_provider`  
 The AWS credentials provided to use for authentication  
-In the sample app, this object is instantiated just prior to the call to `mqtt_connection_builder.websockets_with_default_aws_signing`\.
+In the sample app, this object is instantiated before the call to `mqtt_connection_builder.websockets_with_default_aws_signing`\.
 
 `websocket_proxy_options`  
 HTTP proxy options, if using a proxy host  
-In the sample app, this value is initialized just prior to the call to `mqtt_connection_builder.websockets_with_default_aws_signing`\.
+In the sample app, this value is initialized before the call to `mqtt_connection_builder.websockets_with_default_aws_signing`\.
 
 `ca_filepath`  
 The path to the Root CA file\. Required only if the MQTT server uses a certificate that's not already in your trust store\.  
@@ -187,13 +187,13 @@ In the sample app, this value is passed in from the command line\.
 Whether to start a new persistent session, or, if one is present, reconnect to an existing one
 
 `keep_alive_secs`  
-The keep alive value, in seconds, to send in the `CONNECT` request\. A ping will automatically be sent at this interval\. The server assumes the connection is lost if it doesn't receive a ping after 1\.5 times this value\.
+The keep alive value, in seconds, to send in the `CONNECT` request\. A ping will automatically be sent at this interval\. If the server doesn't receive a ping after 1\.5 times this value, it assumes the connection is lost\.
 
 #### HTTPS<a name="sdk-tutorials-explore-https"></a>
 
 What about HTTPS? AWS IoT Core supports devices that publish HTTPS requests\. From a programming perspective, devices send HTTPS requests to AWS IoT Core as would any other application\. For an example of a Python program that sends an HTTP message from a device, see the [HTTPS code example](http.md#codeexample) using Python’s `requests` library\. This example sends a message to AWS IoT Core using HTTPS such that AWS IoT Core interprets it as an MQTT message\.
 
-While AWS IoT Core supports HTTPS requests from devices, be sure to review the information about [Choosing a protocol for your device communication](protocols.md#protocol-selection) so that you can make an informed decision on which protocol to use for your device communications\.
+While AWS IoT Core supports HTTPS requests from devices, be sure to review the information about [Choosing a protocol for your device communicationConnection duration limits](protocols.md#protocol-selection) so that you can make an informed decision on which protocol to use for your device communications\.
 
 ### Persistent sessions<a name="sdk-tutorials-explore-persistent"></a>
 
@@ -229,7 +229,7 @@ When a device subscribes to a message with QoS level 1, the message broker saves
 
 ### Message publish<a name="sdk-tutorials-explore-publish"></a>
 
-After successfully establishing a connection to AWS IoT Core, devices can publish messages\. The `pubsub.py` sample does this by calling the `publish` method of the `mqtt_connection` object\.
+After successfully establishing a connection to AWS IoT Core, devices can publish messages\. The `pubsub.py` sample does this by calling the `publish` operation of the `mqtt_connection` object\.
 
 ```
 mqtt_connection.publish(
@@ -275,7 +275,7 @@ A value of `mqtt.QoS.AT_LEAST_ONCE` \(QoS level 1\), requires a persistent sessi
 `callback`  
 The function to call to process the subscribed message\.
 
-The `mqtt_connection.subscribe` function returns a future and a packet ID\. If the subscription request was initiated successfully, the packet ID returned is greater than 0\. To make sure the subscription was received and registered by the message broker, you must wait for the result of the asynchronous operation to return, as shown in the code example\.
+The `mqtt_connection.subscribe` function returns a future and a packet ID\. If the subscription request was initiated successfully, the packet ID returned is greater than 0\. To make sure that the subscription was received and registered by the message broker, you must wait for the result of the asynchronous operation to return, as shown in the code example\.
 
 **The callback function**  
 The callback in the `pubsub.py` sample processes the subscribed messages as the device receives them\.
@@ -334,11 +334,11 @@ In this exercise, you’ll modify the command line used to call `pubsub.py` to s
 
 For this exercise, imagine that your device contains a temperature control and a light control\. It uses these topic names to identify the messages about them\.
 
-1. Before starting the exercise, try running this command from the [Getting started with AWS IoT Core](iot-gs.md) tutorials on your device to make sure everything is ready for the exercise\.
+1. Before starting the exercise, try running this command from the [Getting started with AWS IoT Core](iot-gs.md) tutorials on your device to make sure that everything is ready for the exercise\.
 
    ```
    cd ~/aws-iot-device-sdk-python-v2/samples
-   python3 pubsub.py --topic topic_1 --root-ca ~/certs/Amazon-root-CA-1.pem --cert ~/certs/device.pem.crt --key ~/certs/private.pem.key —endpoint your-iot-endpoint
+   python3 pubsub.py --topic topic_1 --root-ca ~/certs/Amazon-root-CA-1.pem --cert ~/certs/device.pem.crt --key ~/certs/private.pem.key --endpoint your-iot-endpoint
    ```
 
    You should see the same output as you saw in the [Getting started tutorial](connecting-to-existing-device.md#gs-device-node-app-run)\.
@@ -349,7 +349,7 @@ For this exercise, imagine that your device contains a temperature control and a
    Making these changes to the initial command line results in this command line\. Enter this command in the terminal window for your device\.
 
    ```
-   python3 pubsub.py --message "" --count 2 --topic device/+/details --root-ca ~/certs/Amazon-root-CA-1.pem --cert ~/certs/device.pem.crt --key ~/certs/private.pem.key —endpoint your-iot-endpoint
+   python3 pubsub.py --message "" --count 2 --topic device/+/details --root-ca ~/certs/Amazon-root-CA-1.pem --cert ~/certs/device.pem.crt --key ~/certs/private.pem.key --endpoint your-iot-endpoint
    ```
 
    The program should display something like this:
@@ -426,7 +426,7 @@ Building on the previous exercise, modify the `pubsub.py` sample app to evaluate
 1. Save your changes and run the modified program by using this command line\.
 
    ```
-   python3 pubsub2.py --message "" --count 2 --topic device/+/details --root-ca ~/certs/Amazon-root-CA-1.pem --cert ~/certs/device.pem.crt --key ~/certs/private.pem.key —endpoint your-iot-endpoint
+   python3 pubsub2.py --message "" --count 2 --topic device/+/details --root-ca ~/certs/Amazon-root-CA-1.pem --cert ~/certs/device.pem.crt --key ~/certs/private.pem.key --endpoint your-iot-endpoint
    ```
 
 1. In the AWS IoT console, open the [MQTT test client](https://console.aws.amazon.com/iot/home#/test)\.
@@ -467,7 +467,7 @@ Disconnected!
 
 In this exercise, you added code so the sample app would recognize and process multiple messages in the callback function\. With this, your device could receive messages and act on them\.
 
-Another way for your device to receive and process multiple messages would be to subscribe to different messages separately and assign each subscription to its own callback function\.
+Another way for your device to receive and process multiple messages is to subscribe to different messages separately and assign each subscription to its own callback function\.
 
 ### Publish messages from your device<a name="sdk-tutorials-experiment-publish"></a>
 
@@ -496,7 +496,7 @@ In this exercise, the following message will be sent with the `device/data` topi
 
 1. In the **Subscriptions** column of the MQTT test client, choose **device/data**\.
 
-1. Leave the MQTT test client window open to wait for messages from your device\.
+1. Keep the MQTT test client window open to wait for messages from your device\.
 
 **To send JSON documents with the pubsub\.py sample app**
 
@@ -528,7 +528,7 @@ In this exercise, the following message will be sent with the `device/data` topi
 By default, `pubsub3.py` also subscribes to the messages it sends\. You should see that it received the messages in the app’s output\. The terminal window should look something like this\.
 
 ```
-Connecting to a3qj468xinsffp-ats.iot.us-west-2.amazonaws.com with client ID 'test-5cff18ae-1e92-4c38-a9d4-7b9771afc52f'...
+Connecting to a3qEXAMPLEsffp-ats.iot.us-west-2.amazonaws.com with client ID 'test-5cff18ae-1e92-4c38-a9d4-7b9771afc52f'...
 Connected!
 Subscribing to topic 'device/data'...
 Subscribed with QoS.AT_LEAST_ONCE
@@ -551,6 +551,6 @@ With this, your device can generate messages to send to AWS IoT Core to test bas
 The examples in this tutorial gave you hands\-on experience with the basics of how devices can communicate with AWS IoT Core—a fundamental part of your AWS IoT solution\. When your devices are able to communicate with AWS IoT Core, they can pass messages to AWS services and other devices on which they can act\. Likewise, AWS services and other devices can process information that results in messages sent back to your devices\.
 
 When you are ready to explore AWS IoT Core further, try these tutorials:
-+ [Send an Amazon SNS notification](iot-sns-rule.md)
-+ [Store device data in a DynamoDB table](iot-ddb-rule.md)
-+ [Format a notification by using an AWS Lambda function](iot-lambda-rule.md)
++ [Tutorial: Sending an Amazon SNS notification](iot-sns-rule.md)
++ [Tutorial: Storing device data in a DynamoDB table](iot-ddb-rule.md)
++ [Tutorial: Formatting a notification by using an AWS Lambda function](iot-lambda-rule.md)

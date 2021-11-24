@@ -59,8 +59,8 @@ A device is a type of hardware that manages interfaces and communications\. Devi
 + Sensors
 
   Input components that measure or sense something in the outside world in a way that a device understands\. Examples include:
-  + Temperature sensor \(converts temperature to an analog voltage\)
-  + Humidity sensor \(converts relative humidity to an analog voltage\)
+  + Temperature sensor \(converts temperature to an analog or digital signal\)
+  + Humidity sensor \(converts relative humidity to an analog or digital signal\)
   + Analog to digital convertor \(converts an analog voltage to a numeric value\)
   + Ultrasonic distance measuring unit \(converts a distance to a numeric value\)
   + Optical sensor \(converts a light level to a numeric value\)

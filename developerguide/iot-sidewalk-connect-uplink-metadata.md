@@ -10,7 +10,7 @@ After you connect your device, you'll see your Sidewalk device in the [ Devices]
 
 ## View format of uplink messages<a name="iot-sidewalk-uplink-metadata"></a>
 
-After you've connected your device, you can subscribe to the topic \(for example, `project/sensor/observed`\) that you specified when creating the Sidewalk destination rule to observe uplink messages from the device\. To subscribe to the topic, go to the [MQTT test client](https://console.aws.amazon.com/iot/home#/test) on the **Test** page of the AWS IoT console, enter the topic name \(for example, `project/sensor/observed`\), and then choose **Subscribe**\.
+After you've connected your device, you can subscribe to the topic \(for example, `project/sensor/observed`\) that you specified when creating the Sidewalk destination rule, and observe uplink messages from the device\. To subscribe to the topic, go to the [MQTT test client](https://console.aws.amazon.com/iot/home#/test) on the **Test** page of the AWS IoT console, enter the topic name \(for example, `project/sensor/observed`\), and then choose **Subscribe**\.
 
 The following example shows the format of the uplink messages that are sent from Sidewalk devices to AWS IoT\. The `WirelessMetadata` contains metadata about the message request\.
 

@@ -39,7 +39,7 @@ The following lists describe the API actions that perform the tasks associated w
 For the complete list of the actions and data types available to create and manage AWS IoT Core for LoRaWAN resources, see the [AWS IoT Wireless API reference](https://docs.aws.amazon.com/iot-wireless/2020-11-22/apireference/welcome.html)\.
 
 **How to use the AWS CLI to create a wireless device**  
-You can use the AWS CLI to create a wireless device by using the [create\-wireless\-device](cli/latest/reference/iotwireless/create-device-profile.html) command\. The following example creates a wireless device by using an input\.json file to input the parameters\.
+You can use the AWS CLI to create a wireless device by using the [create\-wireless\-device](https://docs.aws.amazon.com/cli/latest/reference/iotwireless/create-device-profile.html) command\. The following example creates a wireless device by using an input\.json file to input the parameters\.
 
 **Note**  
 You can also perform this procedure with the API by using the methods in the AWS API that correspond to the CLI commands shown here\. 

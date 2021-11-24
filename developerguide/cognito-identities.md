@@ -8,6 +8,6 @@ Amazon Cognito Identity creates unauthenticated and authenticated identities\. U
 
 When you use authenticated identities, in addition to the IAM policy attached to the identity pool, you must attach an AWS IoT policy to an Amazon Cognito Identity by using the [ AttachPolicy](https://docs.aws.amazon.com/iot/latest/apireference/API_AttachPolicy.html) API and give permissions to an individual user of your AWS IoT application\. You can use the AWS IoT policy to assign fine\-grained permissions for specific customers and their devices\.
 
-Authenticated and unauthenticated users are different identity types\. If you don't attach an AWS IoT policy to the Amazon Cognito Identity, an authenticated user fails authorization in AWS IoT and doesn't have access to AWS IoT resources and actions\. For more information about creating policies for Amazon Cognito identities, see [Publish/Subscribe policy examples](pub-sub-policy.md)\.
+Authenticated and unauthenticated users are different identity types\. If you don't attach an AWS IoT policy to the Amazon Cognito Identity, an authenticated user fails authorization in AWS IoT and doesn't have access to AWS IoT resources and actions\. For more information about creating policies for Amazon Cognito identities, see [Publish/Subscribe policy examples](pub-sub-policy.md) and [Authorization with Amazon Cognito identities](cog-iot-policies.md)\.
 
 ![\[App accessing a device with Amazon Cognito Identity\]](http://docs.aws.amazon.com/iot/latest/developerguide/images/device-cognito.png)

@@ -1,4 +1,4 @@
-# Create an AWS IoT rule to send an email<a name="iot-moisture-create-rule"></a>
+# Step 4: Create an AWS IoT rule to send an email<a name="iot-moisture-create-rule"></a>
 
 An AWS IoT rule defines a query and one or more actions to take when a message is received from a device\. The AWS IoT rules engine listens for messages sent by devices and uses the data in the messages to determine if some action should be taken\. For more information, see [Rules for AWS IoT](iot-rules.md)\. 
 
@@ -31,7 +31,7 @@ You create a query that extracts the moisture and temperature data from the inco
 
    This statement triggers the rule action when the `moisture` reading is less than `400`\.
 **Note**  
-You might have to use a different value\. After you have the code running on your Raspberry Pi, you can see the values you get from your sensor by touching the sensor, placing it in water, or placing it in a planter\. 
+You might have to use a different value\. After you have the code running on your Raspberry Pi, you can see the values that you get from your sensor by touching the sensor, placing it in water, or placing it in a planter\. 
 
 1. Under **Set one or more actions**, choose **Add action**\.
 

@@ -887,7 +887,7 @@ Example:
 | Null | Undefined\. | 
 | Undefined | Undefined\. | 
 
-## machinelearning\_predict\(modelId\)<a name="iot-sql-function-machine-learning"></a>
+## machinelearning\_predict\(modelId, roleArn, record\)<a name="iot-sql-function-machine-learning"></a>
 
 Use the `machinelearning_predict` function to make predictions using the data from an MQTT message based on an Amazon Machine Learning \(Amazon ML\) model\. Supported by SQL version 2015\-10\-08 and later\. The arguments for the `machinelearning_predict` function are:
 

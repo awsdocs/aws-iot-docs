@@ -6,11 +6,11 @@ When you interact with AWS IoT, the service sends the following metrics and dime
 
 Metrics are grouped first by the service namespace, and then by the various dimension combinations within each namespace\.
 
-1. Open the CloudWatch console at [https://console\.aws\.amazon\.com/cloudwatch/](https://console.aws.amazon.com/cloudwatch/)\.
+1. Open the [CloudWatch console](https://console.aws.amazon.com/cloudwatch)\.
 
-1. In the navigation pane, choose **Metrics**\.
+1. In the navigation pane, choose **Metrics** and then choose **All metrics**\.
 
-1. In the **CloudWatch Metrics by Category** pane, under the metrics category for AWS IoT, choose a metrics category, and then in the upper pane, scroll down to view the full list of metrics\.
+1. In the **Browse** tab, search for AWS IoT to view the list of metrics\.
 
 **To view metrics \(CLI\)**
 + At a command prompt, use the following command:

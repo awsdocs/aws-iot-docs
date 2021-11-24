@@ -9,7 +9,8 @@ Creates a shadow if it doesn't exist, or updates the contents of an existing sha
 Retrieves a current shadow document that contains the complete state of the shadow, including metadata\.
 
 `DELETE`  <a name="delete"></a>
-Deletes the shadow and all of its content\. You can't restore a deleted shadow, but you can create a new shadow with the same name\. Note that deleting a shadow does not reset its version number to 0\.
+Deletes the device shadow and its content\.  
+You can't restore a deleted device shadow document, but you can create a new device shadow with the name of a deleted device shadow document\. If you create a device shadow document that has the same name as one that was deleted within the past 48 hours, the version number of the new device shadow document will follow that of the deleted one\. If a device shadow document has been deleted for more than 48 hours, the version number of a new device shadow document with the same name will be 0\.
 
 ## Protocol support<a name="protocol-support"></a>
 

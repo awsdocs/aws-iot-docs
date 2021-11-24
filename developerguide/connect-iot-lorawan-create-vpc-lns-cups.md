@@ -37,7 +37,7 @@ The `iotwireless` service might not support all Availability Zones\.
    + For **Security group**, choose the security groups you want to associate with the endpoint network interfaces\.
    + Optionally, you can add or remove tags\. Tags are name\-value pairs that you use to associate with your endpoint\. 
 
-1. To create your VPC endpoint, choose **Create Endpoint**\.
+1. To create your VPC endpoint, choose **Create endpoint**\.
 
 ## Configure private hosted zone<a name="connect-iot-lorawan-create-phz-lns"></a>
 
@@ -73,7 +73,7 @@ After you have created a private hosted zone, you can create a record that tells
 1. In the **Configure records** page, choose **Define simple record**\.
 
 1. In the **Define simple record** page:
-   + For **Record name**, enter the alias of your AWS account number\. You get this value when onboarding your gateway or by using the [GetServiceEndpoint](https://docs.aws.amazon.com/iot-wireless/2020-11-22/apireference/API_GetServiceEndpoint.html) REST API\.
+   + For **Record name**, enter the alias of your AWS account number\. You get this value when onboarding your gateway or by using the [https://docs.aws.amazon.com/iotwireless/latest/apireference/API_GetServiceEndpoint.html](https://docs.aws.amazon.com/iotwireless/latest/apireference/API_GetServiceEndpoint.html) REST API\.
    + For **Record type**, keep the value as `A - Routes traffic to an IPv4 address and some AWS resources`\.
    + For **Value/Route traffic to**, choose **Alias to VPC endpoint**\. Then choose your **Region** and then choose the endpoint that you created previously, as described in [Create an Amazon VPC interface endpoint](#connect-iot-lorawan-create-vpc-endpoint-lns) from the list of endpoints displayed\.
 

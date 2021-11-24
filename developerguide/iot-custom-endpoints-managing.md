@@ -8,7 +8,7 @@ You can manage the lifecycles of existing configurations by using the following 
 
 ## Viewing domain configurations<a name="iot-custom-endpoints-managing-view"></a>
 
-Use the [ListDomainConfigurations](https://docs.aws.amazon.com/iot/latest/apireference/API_ListDomainConfigurations.html) API to return a paginated list of all domain configurations in your account\. You can see the details of a particular domain configuration using the [DescribeDomainConfiguration](https://docs.aws.amazon.com/iot/latest/apireference/API_DescribeDomainConfiguration.html) API\. This API takes a single `domainConfigurationName` parameter and returns the details of the specified configuration\.
+Use the [ListDomainConfigurations](https://docs.aws.amazon.com/iot/latest/apireference/API_ListDomainConfigurations.html) API to return a paginated list of all domain configurations in your AWS account\. You can see the details of a particular domain configuration using the [DescribeDomainConfiguration](https://docs.aws.amazon.com/iot/latest/apireference/API_DescribeDomainConfiguration.html) API\. This API takes a single `domainConfigurationName` parameter and returns the details of the specified configuration\.
 
 ## Updating domain configurations<a name="iot-custom-endpoints-managing-update"></a>
 

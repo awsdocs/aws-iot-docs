@@ -1,6 +1,6 @@
 # Just\-in\-time provisioning<a name="jit-provisioning"></a>
 
-You can have your devices provisioned when they first attempt to connect to AWS IoT\. Just\-in\-time provisioning \(JITP\) settings are made on CA certificates\. To provision the device, you must enable automatic registration and associate a provisioning template with the CA certificate used to sign the device certificate\. Provisioning successes and errors are logged as [Device provisioning metrics](metrics_dimensions.md#provisioning-metrics) in Amazon CloudWatch\.
+You can have your devices provisioned when they first attempt to connect to AWS IoT with just\-in\-time provisioning \(JITP\)\. To provision the device, you must enable automatic registration and associate a provisioning template with the CA certificate used to sign the device certificate\. Provisioning successes and errors are logged as [Device provisioning metrics](metrics_dimensions.md#provisioning-metrics) in Amazon CloudWatch\.
 
 You can make these settings when you register a CA certificate with the [RegisterCACertificate](https://docs.aws.amazon.com/iot/latest/apireference/API_RegisterCACertificate.html) API or the `register-ca-certificate` CLI command:
 
@@ -18,7 +18,7 @@ aws iot update-ca-certificate --certificate-id caCertificateId --new-auto-regist
 ```
 
 **Note**  
-JITP calls other AWS IoT control plane APIs during the provisioning process\. These calls might exceed the [ AWS IoT Throttling Quotas](https://docs.aws.amazon.com/general/latest/gr/iot-core.html#throttling-limits) set for your account and result in throttled calls\. Contact [AWS Customer Support](https://console.aws.amazon.com/support/home) to raise your throttling quotas, if necessary\.
+Just\-in\-time provisioning JITP calls other AWS IoT control plane APIs during the provisioning process\. These calls might exceed the [ AWS IoT Throttling Quotas](https://docs.aws.amazon.com/general/latest/gr/iot-core.html#throttling-limits) set for your account and result in throttled calls\. Contact [AWS Customer Support](https://console.aws.amazon.com/support/home) to raise your throttling quotas, if necessary\.
 
 When a device attempts to connect to AWS IoT by using a certificate signed by a registered CA certificate, AWS IoT loads the template from the CA certificate and uses it to call [RegisterThing](fleet-provision-api.md#register-thing)\. The JITP workflow first registers a certificate with a status value of PENDING\_ACTIVATION\. When the device provisioning flow is complete, the status of the certificate is changed to ACTIVE\.
 
@@ -32,7 +32,10 @@ AWS IoT defines the following parameters that you can declare and reference in p
 + `AWS::IoT::Certificate::SerialNumber`
 + `AWS::IoT::Certificate::Id`
 
-The values for these provisioning template parameters are limited to what JITP can extract from the subject field of the certificate of the device being provisioned\. The certificate must contain values for all of the parameters in the template body\. The `AWS::IoT::Certificate::Id` parameter refers to an internally generated ID, not an ID that is contained in the certificate\. You can get the value of this ID using the `principal()` function inside an AWS IoT rule\.
+The values for these provisioning template parameters are limited to what JITP can extract from the subject field of the certificate of the device being provisioned\. The certificate must contain values for all of the parameters in the template body\. The `AWS::IoT::Certificate::Id` parameter refers to an internally generated ID, not an ID that is contained in the certificate\. You can get the value of this ID using the `principal()` function inside an AWS IoT rule\. 
+
+**Note**  
+You can provision devices using AWS IoT Core just\-in\-time provisioning \(JITP\) feature without having to send the entire trust chain on devices' first connection to AWS IoT Core\. Presenting the CA certificate is optional but the device is required to send the [Server Name Indication \(SNI\)](https://datatracker.ietf.org/doc/html/rfc3546#section-3.1) extension when they connect\.
 
 The following JSON file is an example of a complete JITP template\. The value of the `templateBody` field must be a JSON object specified as an escaped string and can use only the values in the preceding list\. You can use a variety of tools to create the required JSON output, such as `json.dumps` \(Python\) or `JSON.stringify` \(Node\)\. The value of the `roleARN` field must be the ARN of a role that has the `AWSIoTThingsRegistration` attached to it\. Also, your template can use an existing `PolicyName` instead of the inline `PolicyDocument` in the example\. \(The first example adds line breaks for readability, but you can copy and paste the template that appears directly below it\.\)
 

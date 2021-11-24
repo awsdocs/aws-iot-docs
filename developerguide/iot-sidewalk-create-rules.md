@@ -21,7 +21,7 @@ Navigate to the [ Rules](https://console.aws.amazon.com/iot/home#/create/rule) H
 1. You can choose an existing Lambda function or create a new one\. In this example, we'll create a Lambda function\. Choose **Create a new Lambda function**\.
 
 **Create your function using AWS Lambda**  
-Choosing **Create a new Lambda function** opens the  [Functions](https://console.aws.amazon.com/lambda/home#/create/function) page of the Lambda console\. Perform the following steps\.
+Choosing **Create a new Lambda function** opens the [Functions](https://console.aws.amazon.com/lambda/home#/create/function) page of the Lambda console\. Perform the following steps\.
 
 1. To create your function, choose **Author from scratch**\.
 
@@ -29,7 +29,7 @@ Choosing **Create a new Lambda function** opens the  [Functions](https://console
 
 1. Choose the **lambda\.py** function in the **Code source** section of the console\. 
 
-1. In the function body, delete any code inside the function body, and add a print statement for your Lambda function\. You can also base64 decode the `PayloadData` to receive the application data that your device sends to AWS IoT\. The following shows an example Lambda function\. 
+1. In the function body, delete any code inside the function body, and add a print statement for your Lambda function\. You can also use base64 to decode the `PayloadData` to receive the application data that your device sends to AWS IoT\. The following shows an example Lambda function\. 
 
    ```
    import json
@@ -47,10 +47,10 @@ Choosing **Create a new Lambda function** opens the  [Functions](https://console
 
 1. To deploy your function code, choose **deploy**\.
 
-1. Go back to the [ Rules](https://console.aws.amazon.com/iot/home#/create/rule) Hub of the console and refresh the page\. Choose the Lambda function that you created and choose **Add action**\.
+1. Go back to the [Rules](https://console.aws.amazon.com/iot/home#/create/rule) Hub of the console and refresh the page\. Choose the Lambda function that you created and choose **Add action**\.
 
 **Republish a message to an AWS IoT topic**  
-You can add a second action to republish a message to an AWS IoT topic from the [ Rules](https://console.aws.amazon.com/iot/home#/create/rule) Hub of the console\.
+You can add a second action to republish a message to an AWS IoT topic from the [Rules](https://console.aws.amazon.com/iot/home#/create/rule) Hub of the console\.
 
 1. Choose **Add action**\.
 

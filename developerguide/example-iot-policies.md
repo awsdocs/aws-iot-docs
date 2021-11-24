@@ -16,3 +16,4 @@ The examples in this section use these policy elements:
 + [Retained message policy examples](retained-message-policy-examples.md)
 + [Certificate policy examples](certificate-policy-examples.md)
 + [Thing policy examples](thing-policy-examples.md)
++ [Basic job policy example](basic-jobs-example.md)
