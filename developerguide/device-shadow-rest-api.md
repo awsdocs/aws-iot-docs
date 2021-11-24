@@ -31,6 +31,8 @@ The shadow REST API follows the same HTTPS protocols/port mappings as described 
 + [DeleteThingShadow](#API_DeleteThingShadow)
 + [ListNamedShadowsForThing](#API_ListNamedShadowsForThing)
 
+You can also use the API to create a named shadow by providing `name=shadowName` as part of the query parameter of the API\.
+
 ## GetThingShadow<a name="API_GetThingShadow"></a>
 
 Gets the shadow for the specified thing\.

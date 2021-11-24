@@ -65,7 +65,7 @@ SELECT WirelessDeviceId, WirelessMetadata.LoRaWAN.FPort as FPort,
 
 For more information on using the SELECT AND WHERE clauses, see [AWS IoT SQL reference](iot-sql-reference.md)
 
-For information about AWS IoT rules and how to create and use them, see [Rules for AWS IoT](iot-rules.md) and [AWS IoT rules tutorials](iot-rules-tutorial.md)\.
+For information about AWS IoT rules and how to create and use them, see [Rules for AWS IoT](iot-rules.md) and [Creating AWS IoT rules to route device data to other services](iot-rules-tutorial.md)\.
 
 For information about creating and using AWS IoT Core for LoRaWAN destinations, see [Add destinations to AWS IoT Core for LoRaWAN](connect-iot-lorawan-create-destinations.md)\.
 

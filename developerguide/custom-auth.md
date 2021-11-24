@@ -4,18 +4,20 @@
 
 ## HTTP<a name="custom-auth-http"></a>
 
- Devices sending data to AWS IoT Core by using the [HTTP Publish API](https://docs.aws.amazon.com/iot/latest/apireference/API_iotdata_Publish.html) can pass credentials either through request headers or query parameters in their HTTP POST requests\. Devices can specify an authorizer to invoke by using the `x-amz-customauthorizer-name` header or query parameter\. If you have token signing enabled in your authorizer, you must pass the `token-key-name` and `x-amz-customauthorizer-signature` in either request headers or query parameters\. The following example requests show how you pass these parameters in both request headers and query parameters\. 
+Devices sending data to AWS IoT Core by using the [HTTP Publish API](https://docs.aws.amazon.com/iot/latest/apireference/API_iotdata_Publish.html) can pass credentials either through request headers or query parameters in their HTTP POST requests\. Devices can specify an authorizer to invoke by using the `x-amz-customauthorizer-name` header or query parameter\. If you have token signing enabled in your authorizer, you must pass the `token-key-name` and `x-amz-customauthorizer-signature` in either request headers or query parameters\. The `token-signature` value must be URL\-encoded\.
+
+The following example requests show how you pass these parameters in both request headers and query parameters\. 
 
 ```
 //Passing credentials via headers
 POST /topics/topic?qos=qos HTTP/1.1
 Host: your-endpoint 
 x-amz-customauthorizer-signature: token-signature
-token-key-name: some-token 
-x-amz-customauthorizer-name: <authorizer-name>
+token-key-name: token-value 
+x-amz-customauthorizer-name: authorizer-name
 
 //Passing credentials via query parameters
-POST /topics/topic?qos=qos&x-amz-customauthorizer-signature=${sign}&token-name=${token-value} HTTP/1.1
+POST /topics/topic?qos=qos&x-amz-customauthorizer-signature=token-signature&token-key-name=token-value HTTP/1.1
 ```
 
 ## MQTT<a name="custom-auth-mqtt"></a>
@@ -27,7 +29,9 @@ POST /topics/topic?qos=qos&x-amz-customauthorizer-signature=${sign}&token-name=$
 
  The following example contains a `username` string that contains extra parameters that specify a token and signature\.  
 
- `username?x-amz-customauthorizer-name=${name}&x-amz-customauthorizer-signature=${sign}&token-name=${token-value}` 
+```
+username?x-amz-customauthorizer-name=authorizer-name&x-amz-customauthorizer-signature=token-signature&token-key-name=token-value
+```
 
  In order to invoke an authorizer, devices connecting to AWS IoT Core by using MQTT and custom authentication must connect on port 443\. They also must pass the Application Layer Protocol Negotiation \(ALPN\) TLS extension with a value of `mqtt` and the Server Name Indication \(SNI\) extension with the host name of their AWS IoT Core data endpoint\. For more information about these values, see [Device communication protocols](protocols.md)\.  The V2 [AWS IoT Device SDKs, Mobile SDKs, and AWS IoT Device Client](iot-sdks.md) can configure both of these extensions\.    
 
@@ -41,11 +45,11 @@ POST /topics/topic?qos=qos&x-amz-customauthorizer-signature=${sign}&token-name=$
 
 ```
 GET /mqtt HTTP/1.1
- Host: your-endpoint 
+Host: your-endpoint 
 Upgrade: WebSocket 
 Connection: Upgrade 
 x-amz-customauthorizer-signature: token-signature
-token-key-name: some-token 
+token-key-name: token-value 
 sec-WebSocket-Key: any random base64 value 
 sec-websocket-protocol: mqtt 
 sec-WebSocket-Version: websocket version

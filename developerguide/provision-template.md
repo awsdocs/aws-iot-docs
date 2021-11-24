@@ -111,7 +111,7 @@ Examples:
 ### Policy resources<a name="policy-resources"></a>
 
 Policy resources are declared using one of the following properties:
-+ `PolicyName`: Optional\. String\. Defaults to a hash of the policy document\. If you are using an existing AWS IoT policy, for the `PolicyName` property, enter the name of the policy\. Do not include the `PolicyDocument` property\.
++ `PolicyName`: Optional\. String\. Defaults to a hash of the policy document\. The `PolicyName` can only reference AWS IoT policies but not IAM policies\. If you are using an existing AWS IoT policy, for the `PolicyName` property, enter the name of the policy\. Do not include the `PolicyDocument` property\.
 + `PolicyDocument`: Optional\. A JSON object specified as an escaped string\. If `PolicyDocument` is not provided, the policy must already be created\.
 
 **Note**  

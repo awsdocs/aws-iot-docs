@@ -53,3 +53,6 @@ You can connect your own identity provider to AWS SSO\. For more information, se
 1. In the **Add Fleet Hub users** window, select the users from your organization that you want to have access to the application\. Choose **Add selected users**\.
 
 1. On the application details page, verify that you see the users you selected in the **Fleet Hub users** list\.
+
+**Note**  
+For more information, read [Troubleshooting](aws-iot-monitor-admin-troubleshoot.md) for possible solutions to help resolve issues as an administrator of Fleet Hub\.

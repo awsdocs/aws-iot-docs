@@ -91,7 +91,7 @@ The following is an example of how to use update\-indexing\-configuration to con
 ```
 aws iot update-indexing-configuration --thing-indexing-configuration
           'thingIndexingMode=REGISTRY_AND_SHADOW,customFields=[{name=attributes.version,type=Number},{name=attributes.color,
-          type=String},{name=shadow.desired.power, type=Boolean}}]
+          type=String},{name=shadow.desired.power, type=Boolean}]'
 ```
 
 This command enables indexing for registry and shadow data\. Aggregation queries work with the managed fields and the provided `customFields` based on the data type\.

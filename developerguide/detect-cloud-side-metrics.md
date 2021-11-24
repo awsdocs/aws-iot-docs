@@ -8,7 +8,7 @@ The number of bytes in a message\. Use this metric to specify the maximum or min
 
 Compatible with: Rules Detect \| ML Detect
 
-Operators: less\-than \| less\-than\-equal \| greater\-than \| greater\-than\-equal 
+Operators: less\-than \| less\-than\-equals \| greater\-than \| greater\-than\-equals 
 
 Value: a non\-negative integer 
 
@@ -21,7 +21,7 @@ Units: bytes
   "name": "Max Message Size",
   "metric": "aws:message-byte-size",
   "criteria": {
-    "comparisonOperator": "less-than-equal",
+    "comparisonOperator": "less-than-equals",
     "value": {
       "count": 1024
     },
@@ -40,7 +40,7 @@ Units: bytes
   "name": "Large Message Size",
   "metric": "aws:message-byte-size",
   "criteria": {
-    "comparisonOperator": "less-than-equal",
+    "comparisonOperator": "less-than-equals",
     "statisticalThreshold": {
       "statistic": "p90"
     },
@@ -79,7 +79,7 @@ Use this metric to specify the maximum or minimum number of messages that can be
 
 Compatible with: Rules Detect \| ML Detect
 
-Operators: less\-than \| less\-than\-equal \| greater\-than \| greater\-than\-equal 
+Operators: less\-than \| less\-than\-equals \| greater\-than \| greater\-than\-equals 
 
 Value: a non\-negative integer 
 
@@ -95,7 +95,7 @@ Duration: a non\-negative integer\. Valid values are 300, 600, 900, 1800, or 360
   "name": "Out bound message count",
   "metric": "aws:num-messages-sent",
   "criteria": {
-    "comparisonOperator": "less-than-equal",
+    "comparisonOperator": "less-than-equals",
     "value": {
       "count": 50
     },
@@ -115,7 +115,7 @@ Duration: a non\-negative integer\. Valid values are 300, 600, 900, 1800, or 360
   "name": "Out bound message rate",
   "metric": "aws:num-messages-sent",
   "criteria": {
-    "comparisonOperator": "less-than-equal",
+    "comparisonOperator": "less-than-equals",
     "statisticalThreshold": {
       "statistic": "p99"
     },
@@ -152,7 +152,7 @@ Use this metric to specify the maximum or minimum number of messages that can be
 
 Compatible with: Rules Detect \| ML Detect
 
-Operators: less\-than \| less\-than\-equal \| greater\-than \| greater\-than\-equal 
+Operators: less\-than \| less\-than\-equals \| greater\-than \| greater\-than\-equals 
 
 Value: a non\-negative integer 
 
@@ -167,7 +167,7 @@ Duration: a non\-negative integer\. Valid values are 300, 600, 900, 1800, or 360
   "name": "In bound message count",
   "metric": "aws:num-messages-received",
   "criteria": {
-    "comparisonOperator": "less-than-equal",
+    "comparisonOperator": "less-than-equals",
     "value": {
       "count": 50
     },
@@ -186,7 +186,7 @@ Duration: a non\-negative integer\. Valid values are 300, 600, 900, 1800, or 360
   "name": "In bound message rate",
   "metric": "aws:num-messages-received",
   "criteria": {
-    "comparisonOperator": "less-than-equal",
+    "comparisonOperator": "less-than-equals",
     "statisticalThreshold": {
       "statistic": "p99"
     },
@@ -223,7 +223,7 @@ Compatible with: Rules Detect \| ML Detect
 
 Unit: failures 
 
-Operators: less\-than \| less\-than\-equal \| greater\-than \| greater\-than\-equal 
+Operators: less\-than \| less\-than\-equals \| greater\-than \| greater\-than\-equals 
 
 Value: a non\-negative integer 
 
@@ -255,7 +255,7 @@ Duration: a non\-negative integer\. Valid values are 300, 600, 900, 1800, or 360
   "name": "Authorization Failures",
   "metric": "aws:num-authorization-failures",
   "criteria": {
-    "comparisonOperator": "less-than-equal",
+    "comparisonOperator": "less-than-equals",
     "statisticalThreshold": {
       "statistic": "p50"
     },
@@ -322,7 +322,7 @@ Use this metric to specify the maximum or minimum number of connection attempts 
 
 Compatible with: Rules Detect \| ML Detect
 
-Operators: less\-than \| less\-than\-equal \| greater\-than \| greater\-than\-equal 
+Operators: less\-than \| less\-than\-equals \| greater\-than \| greater\-than\-equals 
 
 Value: a non\-negative integer 
 
@@ -337,7 +337,7 @@ Duration: a non\-negative integer\. Valid values are 300, 600, 900, 1800, or 360
   "name": "Connection Attempts",
   "metric": "aws:num-connection-attempts",
   "criteria": {
-    "comparisonOperator": "less-than-equal",
+    "comparisonOperator": "less-than-equals",
     "value": {
       "count": 5
     },
@@ -356,7 +356,7 @@ Duration: a non\-negative integer\. Valid values are 300, 600, 900, 1800, or 360
   "name": "Connection Attempts",
   "metric": "aws:num-connection-attempts",
   "criteria": {
-    "comparisonOperator": "less-than-equal",
+    "comparisonOperator": "less-than-equals",
     "statisticalThreshold": {
       "statistic": "p10"
     },
@@ -393,7 +393,7 @@ Use this metric to specify the maximum or minimum number of times a device disco
 
 Compatible with: Rules Detect \| ML Detect
 
-Operators: less\-than \| less\-than\-equal \| greater\-than \| greater\-than\-equal 
+Operators: less\-than \| less\-than\-equals \| greater\-than \| greater\-than\-equals 
 
 Value: a non\-negative integer 
 
@@ -408,7 +408,7 @@ Duration: a non\-negative integer\. Valid values are 300, 600, 900, 1800, or 360
   "name": "Disconnections",
   "metric": "aws:num-disconnects",
   "criteria": {
-    "comparisonOperator": "less-than-equal",
+    "comparisonOperator": "less-than-equals",
     "value": {
       "count": 5
     },
@@ -427,7 +427,7 @@ Duration: a non\-negative integer\. Valid values are 300, 600, 900, 1800, or 360
   "name": "Disconnections",
   "metric": "aws:num-disconnects",
   "criteria": {
-    "comparisonOperator": "less-than-equal",
+    "comparisonOperator": "less-than-equals",
     "statisticalThreshold": {
       "statistic": "p10"
     },

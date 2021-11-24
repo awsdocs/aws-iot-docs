@@ -2,6 +2,9 @@
 
 AWS IoT provides four APIs \(`GetStatistics`, `GetCardinality`, `GetPercentiles`, and `GetBucketsAggregation`\) that allow you to search your device fleet for aggregate data\. 
 
+**Note**  
+ For issues with missing or unexpected values for the aggregation APIs, read [Fleet indexing troubleshooting guide](fleet-indexing-troubleshooting.md)\. 
+
 ## GetStatistics<a name="get-statistics"></a>
 
 The [GetStatistics](https://docs.aws.amazon.com/iot/latest/apireference/API_GetStatistics.html) API and the get\-statistics CLI command return the count, average, sum, minimum, maximum, sum of squares, variance, and standard deviation for the specified aggregated field\.
@@ -54,14 +57,14 @@ When you call `GetStatistics` with a boolean aggregation field:
   + If all the values for the aggregation field are `true`, MAXIMUM is 1\.
   + If the values for the aggregation field are a mixture of `false` and `true`, MAXIMUM is 1\.
 + SUM is the sum of the integer equivalent of the boolean values\.
-+ COUNT is the number of things that match the query\. 
++ COUNT is the count of things that match the query string criteria and contain a valid aggregation field value\.
 
 ### GetStatistics with numerical values<a name="numerical-aggregation"></a>
 
 When you call `GetStatistics` and specify an aggregation field of type `Number`, `GetStatistics` returns the following values:
 
 count  
-The number of devices that have a field that matches the query\.
+The count of things that match the query string criteria and contain a valid aggregation field value\.
 
 average  
 The average of the numerical values that match the query\.
@@ -242,7 +245,7 @@ Optional\. You can use this parameter to specify custom percentile groupings\.
 
 ## GetBucketsAggregation<a name="get-buckets"></a>
 
-The [GetBucketsAggregation](https://docs.aws.amazon.com/iot/latest/apireference/API_GetBucketsAggregation.html) API and the get\-buckets\-aggregation CLI command return a list of buckets and the total number of documents that fit the query string criteria for the specified aggregated field\.
+The [GetBucketsAggregation](https://docs.aws.amazon.com/iot/latest/apireference/API_GetBucketsAggregation.html) API and the get\-buckets\-aggregation CLI command return a list of buckets and the total number of things that fit the query string criteria\.
 
 The following example shows how to call the get\-buckets\-aggregation CLI command\.
 

@@ -19,6 +19,7 @@ For more information about ML Detect and its API and CLI commands, see [ML Detec
 + [Monitor your ML model status](#monitor-ml-models-console)
 + [Review your ML Detect alarms](#review-ml-alarms-console)
 + [Fine\-tune your ML alarms](#fine-tune-ml-models-console)
++ [Mark your alarm's verification state](#mark-your-alarms)
 + [Mitigate identified device issues](#mitigate-ml-issues-console)
 
 ### Enable ML Detect<a name="enable-ml-detect-console"></a>
@@ -112,6 +113,18 @@ After your ML models are built and ready for data evaluations, you can update yo
    + Your ML Detect notifications \(for example, **Not suppressed**, **Suppressed**\)  
 ![\[Image NOT FOUND\]](http://docs.aws.amazon.com/iot/latest/developerguide/images/dd-ml-update-config-2.png)
 
+### Mark your alarm's verification state<a name="mark-your-alarms"></a>
+
+Mark your alarms by setting the verification state and providing a description of that verification state\. This helps you and your team identify alarms that you don't have to respond to\.
+
+1. In the [AWS IoT console](https://console.aws.amazon.com/console.aws.amazon.com/iot), on the navigation pane, expand **Defend**, and then choose **Detect**, **Alarms**\. Select an alarm to mark its verification state\.  
+![\[Image NOT FOUND\]](http://docs.aws.amazon.com/iot/latest/developerguide/images/dd-ml-alarm-select.png)
+
+1. Choose **Mark verification state**\. The verification state modal opens\.
+
+1. Choose the appropriate verification state, enter a verification description \(optional\), and then choose **Mark**\. This action assigns a verification state and description to the chosen alarm\.  
+![\[Image NOT FOUND\]](http://docs.aws.amazon.com/iot/latest/developerguide/images/dd-ml-alarm-state-window.png)
+
 ### Mitigate identified device issues<a name="mitigate-ml-issues-console"></a>
 
 1. *\(Optional\)* Before setting up quarantine mitigation actions, let's set up a quarantine group where we'll move the device that's in violation to\. You can also use an existing group\.
@@ -170,6 +183,7 @@ The following shows you how to set up ML Detect using the CLI\.
 + [Monitor your ML model status](#monitor-ml-models-cli)
 + [Review your ML Detect alarms](#review-ml-alarms-cli)
 + [Fine\-tune your ML alarms](#fine-tune-ml-models-cli)
++ [Mark your alarm's verification state](#mark-verification-state-cli)
 + [Mitigate identified device issues](#mitigate-issues-cli)
 
 ### Enable ML Detect<a name="enable-ml-detect-cli"></a>
@@ -503,6 +517,19 @@ Once your ML models are built and ready for data evaluations, you can update you
       "lastModifiedDate": 1600800516.856
   }
   ```
+
+### Mark your alarm's verification state<a name="mark-verification-state-cli"></a>
+
+You can mark your alarms with verification states to help classify alarms and investigate anomalies\.
++ Mark your alarms with a verification state and a description of that state\. For example to set an alarm's verification state to False positive, use the following command:
+
+  ```
+  aws iot put-verification-state-on-violation --violation-id 12345  --verification-state FALSE_POSITIVE --verification-state-description "This is dummy description"  --endpoint https://us-east-1.iot.amazonaws.com --region us-east-1
+  ```
+
+  Output:
+
+  None\.
 
 ### Mitigate identified device issues<a name="mitigate-issues-cli"></a>
 

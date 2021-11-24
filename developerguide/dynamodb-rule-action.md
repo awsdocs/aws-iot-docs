@@ -2,7 +2,7 @@
 
 The DynamoDB \(`dynamoDB`\) action writes all or part of an MQTT message to an Amazon DynamoDB table\. 
 
-You can follow a tutorial that shows you how to create and test a rule with a DynamoDB action\. For more information, see [Store device data in a DynamoDB table](iot-ddb-rule.md)\.
+You can follow a tutorial that shows you how to create and test a rule with a DynamoDB action\. For more information, see [Tutorial: Storing device data in a DynamoDB table](iot-ddb-rule.md)\.
 
 **Note**  
 This rule writes non\-JSON data to DynamoDB as binary data\. The DynamoDB console displays the data as base64\-encoded text\.
@@ -90,4 +90,4 @@ The following JSON example defines a DynamoDB action in an AWS IoT rule\.
 ## See also<a name="dynamodb-rule-action-see-also"></a>
 + [What is Amazon DynamoDB?](https://docs.aws.amazon.com/amazondynamodb/latest/developerguide/) in the *Amazon DynamoDB Developer Guide*
 + [Getting started with DynamoDB](https://docs.aws.amazon.com/amazondynamodb/latest/developerguide/GettingStartedDynamoDB.html) in the *Amazon DynamoDB Developer Guide*
-+ [Store device data in a DynamoDB table](iot-ddb-rule.md)
++ [Tutorial: Storing device data in a DynamoDB table](iot-ddb-rule.md)

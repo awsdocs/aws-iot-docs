@@ -112,7 +112,7 @@ In this section, you'll install Git and Node\.js, on your Linux instance\.
 
 Your Amazon EC2 instance comes preloaded with the AWS CLI\. However, you must complete your AWS CLI profile\. For more information on how to configure your CLI, see [Configuring the AWS CLI](https://docs.aws.amazon.com/cli/latest/userguide/cli-chap-configure.html)\.
 
-1. The following example shows sample values\. Replace them with your own values\. You can find these values in your AWS console in your account info under **My Security Credentials**\.
+1. The following example shows sample values\. Replace them with your own values\. You can find these values in your [AWS console in your account info under **Security credentials**](https://console.aws.amazon.com/iam/home#/security_credentials)\.
 
    In your **Amazon EC2 Instance Connect** window, enter this command:
 

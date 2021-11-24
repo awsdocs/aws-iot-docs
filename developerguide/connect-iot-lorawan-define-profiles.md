@@ -30,7 +30,7 @@ The following lists describe the API actions that perform the tasks associated w
 For the complete list of the actions and data types available to create and manage AWS IoT Core for LoRaWAN resources, see the [AWS IoT Wireless API reference](https://docs.aws.amazon.com/iot-wireless/2020-11-22/apireference/welcome.html)\.
 
 **How to use the AWS CLI to create a device profile**  
-You can use the AWS CLI to create a device profile by using the [create\-device\-profile](cli/latest/reference/iotwireless/create-device-profile.html) command\. The following example creates a device profile\.
+You can use the AWS CLI to create a device profile by using the [create\-device\-profile](https://docs.aws.amazon.com/cli/latest/reference/iotwireless/create-device-profile.html) command\. The following example creates a device profile\.
 
 ```
 aws iotwireless create-device-profile
@@ -73,7 +73,7 @@ The following lists describe the API actions that perform the tasks associated w
 For the complete list of the actions and data types available to create and manage AWS IoT Core for LoRaWAN resources, see the [AWS IoT Wireless API reference](https://docs.aws.amazon.com/iot-wireless/2020-11-22/apireference/welcome.html)\.
 
 **How to use the AWS CLI to create a service profile**  
-You can use the AWS CLI to create a service by using the [create\-service\-profile](cli/latest/reference/iotwireless/create-service-profile.html) command\. The following example creates a service profile\.
+You can use the AWS CLI to create a service by using the [create\-service\-profile](https://docs.aws.amazon.com/cli/latest/reference/iotwireless/create-service-profile.html) command\. The following example creates a service profile\.
 
 ```
 aws iotwireless create-service-profile

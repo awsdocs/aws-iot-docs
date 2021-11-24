@@ -15,3 +15,4 @@ This documentation helps you understand how to apply the shared responsibility m
 + [Resilience in Fleet Hub for AWS IoT Device Management](disaster-recovery-resiliency.md)
 + [AWS managed policies for Fleet Hub for AWS IoT Device Management](security-iam-awsmanpol.md)
 + [Infrastructure security in Fleet Hub for AWS IoT Device Management](infrastructure-security.md)
++ [Cross\-service confused deputy prevention](cross-service-confused-deputy-prevention.md)

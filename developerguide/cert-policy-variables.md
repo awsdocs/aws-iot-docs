@@ -160,4 +160,4 @@ String length
 All string values are limited to 1024 characters\. If a certificate attribute contains a string longer than 1024 characters, the policy variable is not replaced by the certificate attribute value, leaving the `${policy-variable}` in the policy document\. This might cause authorization failure\.
 
 Special Characters  
-Any special character, such as `,`, `"`, `\`, `+`, `=`, `<`, `>` and `;` must be prefixed with a backslash \(`\`\) when used in a policy variable\. For example, `Amazon Web Services O=Amazon.com Inc. L=Seattle ST=Washington C=US` becomes `Amazon Web Services O\=Amazon.com Inc. L\=Seattle ST\=Washington C\=US`\.
+Any special character, such as `,`, `"`, `\`, `+`, `=`, `<`, `>` and `;` must be prefixed with a backslash \(`\`\) when used in a policy variable\. For example, `Amazon Web Services O=Amazon.com Inc. L=Seattle ST=Washington C=US` becomes `Amazon Web Service O\=Amazon.com Inc. L\=Seattle ST\=Washington C\=US`\.

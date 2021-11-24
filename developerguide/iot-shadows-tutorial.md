@@ -1,4 +1,4 @@
-# AWS IoT Device Shadow tutorials<a name="iot-shadows-tutorial"></a>
+# Retaining the device state while the device is offline<a name="iot-shadows-tutorial"></a>
 
 These tutorials show you how to use the AWS IoT Device Shadow service to store and update the state information of a device\. The Shadow document, which is a JSON document, shows the change in the device's state based on the messages published by a device, local app, or service\. In this tutorial, the Shadow document shows the change in the color of a light bulb\. These tutorials also show how the shadow stores this information even when the device is disconnected from the internet, and passes the latest state information back to the device when it comes back online and requests this information\.
 
@@ -7,18 +7,18 @@ We recommend that you try these tutorials in the order they're shown here, start
 **Tutorial scenario overview**  
 The scenario for these tutorials is a local app or service that changes the color of a light bulb and that publishes its data to reserved shadow topics\. These tutorials are similar to the Device Shadow functionality described in the [interactive getting started tutorial](interactive-demo.md) and are implemented on a Raspberry Pi device\. The tutorials in this section focus on a single, classic shadow while showing how you might accommodate named shadows or multiple devices\.
 
-The following tutorials in this section will help you learn how to use the AWS IoT Device Shadow service\.
+The following tutorials will help you learn how to use the AWS IoT Device Shadow service\.
 + 
 
-**[Create AWS IoT resources and connect Raspberry Pi to run shadow application](create-resources-shadow.md)**  
+**[Tutorial: Preparing your Raspberry Pi to run the shadow application](create-resources-shadow.md)**  
 This tutorial shows how to set up a Raspberry Pi device for connecting with AWS IoT\. You'll also create an AWS IoT policy document and a thing resource, download the certificates, and then attach the policy to that thing resource\. This tutorial takes about 30 minutes to complete\.
 + 
 
-**[Install the Device SDK and run the `shadow.py` sample application for Device Shadows](lightbulb-shadow-application.md)**  
+**[Tutorial: Installing the Device SDK and running the sample application for Device Shadows](lightbulb-shadow-application.md)**  
 This tutorial shows how to install the required tools, software, and the AWS IoT Device SDK for Python, and then run the sample shadow application\. This tutorial builds on concepts presented in [Connect a Raspberry Pi or another device](connecting-to-existing-device.md) and takes 20 minutes to complete\.
 + 
 
-**[Interact with Device Shadow using the `shadow.py` sample app and MQTT test client](interact-lights-device-shadows.md)**  
+**[Tutorial: Interacting with Device Shadow using the sample app and the MQTT test client](interact-lights-device-shadows.md)**  
 This tutorial shows how you use the `shadow.py` sample app and **AWS IoT console** to observe the interaction between AWS IoT Device Shadows and the state changes of the light bulb\. The tutorial also shows how to send MQTT messages to the Device Shadow's reserved topics\. This tutorial can take 45 minutes to complete\.
 
 **AWS IoT Device Shadow overview**  
@@ -47,7 +47,7 @@ Here is an example of a Shadow state document\.
 }
 ```
 
-To update a device's Shadow document, you can use the [reserved MQTT topics](reserved-topics.md#reserved-topics-shadow), the [Device Shadow REST APIs](device-shadow-rest-api.md) that support the `GET`, `UPDATE`, and `DELETE` methods with HTTP, and the [AWS IoT CLI](https://awscli.amazonaws.com/v2/documentation/api/latest/reference/iot-data/index.html)\.
+To update a device's Shadow document, you can use the [reserved MQTT topics](reserved-topics.md#reserved-topics-shadow), the [Device Shadow REST APIs](device-shadow-rest-api.md) that support the `GET`, `UPDATE`, and `DELETE` operations with HTTP, and the [AWS IoT CLI](https://awscli.amazonaws.com/v2/documentation/api/latest/reference/iot-data/index.html)\.
 
 In the previous example, say you want to change the `desired` color to `yellow`\. To do this, send a request to the [UpdateThingShadow](device-shadow-rest-api.md#API_UpdateThingShadow) API or publish a message to the [Update](device-shadow-mqtt.md#update-pub-sub-topic) topic, `$aws/things/THING_NAME/shadow/update`\.
 

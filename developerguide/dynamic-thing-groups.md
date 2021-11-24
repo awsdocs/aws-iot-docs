@@ -8,7 +8,7 @@ You can specify a dynamic thing group as a target for a job\. Only things that m
 
 For example, suppose that you want to update the firmware on your devices, but, to minimize the chance that the update is interrupted, you only want to update firmware on devices with battery life greater than 80%\. You can create a dynamic thing group that only includes devices with a reported battery life above 80%, and you can use that dynamic thing group as the target for your firmware update job\. Only devices that meet your battery life criteria receive the firmware update\. As devices reach the 80% battery life criteria, they are added to the dynamic thing group and receive the firmware update\.
 
-For more information about specifying thing groups as job targets, see [CreateJob](jobs-http-api.md#jobs-CreateJob)\.
+For more information about specifying thing groups as job targets, see [CreateJob](https://docs.aws.amazon.com/iot/latest/apireference/API_CreateJob.html)\.
 
 
 

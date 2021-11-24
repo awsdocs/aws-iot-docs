@@ -60,8 +60,36 @@ For most IoT device communication through the device endpoints, you'll want to u
 |  `clientId` field support  |  Yes  |  No  | 
 |  Device disconnection detection  |  Yes  |  No  | 
 |  Secure communications  |  Yes\. See [Protocols, port mappings, and authentication](#protocol-port-mapping)  |  Yes\. See [Protocols, port mappings, and authentication](#protocol-port-mapping)  | 
-| Duration of connection | Up to several weeks | Up to 24 hours | 
 |  Topic definitions  |  Application defined  |  Application defined  | 
 |  Message data format  |  Application defined  |  Application defined  | 
 | Protocol overhead | Lower | Higher | 
 | Power consumption | Lower | Higher | 
+
+## Connection duration limits<a name="connection-duration"></a>
+
+HTTPS connections aren't guaranteed to last any longer than the time it takes to receive and respond to requests\.
+
+MQTT connection duration depends on the authentication feature that you use\. The following table lists the maximum connection duration under ideal conditions for each feature\.
+
+
+**MQTT connection duration by authentication feature**  
+
+|  Feature  |  Maximum duration \*  | 
+| --- | --- | 
+|  X\.509 client certificate  |  1–2 weeks  | 
+|  Custom authentication  |  1–2 weeks  | 
+|  Signature Version 4  |  Up to 24 hours  | 
+
+\* Not guaranteed
+
+With X\.509 certificates and custom authentication, connection duration has no hard limit, but it can be as short as a few minutes\. Connection interruptions can occur for various reasons\. The following list contains some of the most common reasons\.
++ Wi\-Fi availability interruptions
++ Internet service provider \(ISP\) connection interruptions
++ Service patches
++ Service deployments
++ Service auto scaling
++ Unavailable service host
++ Load balancer issues and updates
++ Client\-side errors
+
+Your devices must implement strategies for detecting disconnections and reconnecting\. For information about disconnect events and guidance on how to handle them, see [Connect/Disconnect events](life-cycle-events.md#connect-disconnect) in [Lifecycle events](life-cycle-events.md)\.

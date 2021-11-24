@@ -393,7 +393,7 @@ To view examples of AWS IoT identity\-based policies, see [AWS IoT identity\-bas
 
 Resource\-based policies are JSON policy documents that specify what actions a specified principal can perform on the AWS IoT resource and under what conditions\.
 
-AWS IoT does not support IAM resource\-based policies\. It does, however, support AWS IoT resource\-based policies\. 
+AWS IoT does not support IAM resource\-based policies\. It does, however, support AWS IoT resource\-based policies\. For more information, see [AWS IoT Core policies](iot-policies.md)\.
 
 ## Authorization based on AWS IoT tags<a name="security_iam_service-with-iam-tags"></a>
 

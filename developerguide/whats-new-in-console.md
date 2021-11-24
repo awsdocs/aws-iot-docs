@@ -22,11 +22,11 @@ We're in the process of updating the user interface of the AWS IoT console to a 
 |  **Manage** \- Tunnels  |  Not available  |  Available  |    | 
 |  **Fleet Hub** \- Get started  |  Not available  |  Available  | Not available in all AWS Regions | 
 |  **Fleet Hub** \- Applications  |  Not available  |  Available  | Not available in all AWS Regions | 
-|  **Greengrass** \- Getting started  |  Not available  |  Available  |    | 
-|  **Greengrass** \- Core devices  |  Not available  |  Available  |    | 
-|  **Greengrass** \- Components  |  Not available  |  Available  |    | 
-|  **Greengrass** \- Deployments  |  Not available  |  Available  |    | 
-|  **Greengrass** \- Classic \(V1\)  |  Available  |  Not available  |    | 
+|  **Greengrass** \- Getting started  |  Not available  |  Available  | Not available in all AWS Regions | 
+|  **Greengrass** \- Core devices  |  Not available  |  Available  | Not available in all AWS Regions | 
+|  **Greengrass** \- Components  |  Not available  |  Available  | Not available in all AWS Regions | 
+|  **Greengrass** \- Deployments  |  Not available  |  Available  | Not available in all AWS Regions | 
+|  **Greengrass** \- Classic \(V1\)  |  Available  |  Not available  | Not available in all AWS Regions | 
 |  **Wireless connectivity** \- Intro  |  Not available  |  Available  |  Not available in all AWS Regions  | 
 |  **Wireless connectivity** \- Gateways  |  Not available  |  Available  |  Not available in all AWS Regions  | 
 |  **Wireless connectivity** \- Devices  |  Not available  |  Available  |  Not available in all AWS Regions  | 

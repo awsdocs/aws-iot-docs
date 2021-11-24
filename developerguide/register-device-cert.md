@@ -11,4 +11,4 @@ Clients that use the Transport Layer Security \(TLS\) protocol to connect to AWS
 
 **Topics**
 + [Register a client certificate manually](manual-cert-registration.md)
-+ [Register a client certificate when the client connects to AWS IoT \(just\-in\-time registration\)](auto-register-device-cert.md)
++ [Register a client certificate when the client connects to AWS IoT just\-in\-time registration \(JITR\)](auto-register-device-cert.md)

@@ -135,6 +135,7 @@ The following policy template shows the minimum permissions and IAM entity requi
                 "iot:DescribeThing",
                 "iot:DescribeCertificate",
                 "logs:CreateLogGroup",
+                "logs:DescribeLogGroups",
                 "logs:PutLogEvents",
                 "iot:DescribeEndpoint",
                 "execute-api:Invoke*",

@@ -1,8 +1,8 @@
-# Send an Amazon SNS notification<a name="iot-sns-rule"></a>
+# Tutorial: Sending an Amazon SNS notification<a name="iot-sns-rule"></a>
 
 This tutorial demonstrates how to create an AWS IoT rule that sends MQTT message data to an Amazon SNS topic so that it can be sent as an SMS text message\. 
 
-In this tutorial, you create a rule that sends message data from a weather sensor to all subscribers of an Amazon SNS topic, whenever the temperature exceeds the value set in the rule\. The rule detects when the reported temperature exceeds the value set by the rule and creates a new message payload that includes only the device ID, the reported temperature, and the temperature limit that was exceeded\. The rule sends the new message payload as a JSON document to an SNS topic, which notifies all subscribers to the SNS topic\.
+In this tutorial, you create a rule that sends message data from a weather sensor to all subscribers of an Amazon SNS topic, whenever the temperature exceeds the value set in the rule\. The rule detects when the reported temperature exceeds the value set by the rule, and then creates a new message payload that includes only the device ID, the reported temperature, and the temperature limit that was exceeded\. The rule sends the new message payload as a JSON document to an SNS topic, which notifies all subscribers to the SNS topic\.
 
 **What you'll learn in this tutorial:**
 + How to create and test an Amazon SNS notification
@@ -13,10 +13,10 @@ In this tutorial, you create a rule that sends message data from a weather senso
 This tutorial takes about 30 minutes to complete\.
 
 **Topics**
-+ [Create an Amazon SNS topic that sends an SMS text message](#iot-sns-rule-create-sns-topic)
-+ [Create an AWS IoT rule to send the text message](#iot-sns-rule-create-rule)
-+ [Test the AWS IoT rule and Amazon SNS notification](#iot-sns-rule-test-rule)
-+ [Review the results and next steps](#iot-sns-rule-review-results)
++ [Step 1: Create an Amazon SNS topic that sends an SMS text message](#iot-sns-rule-create-sns-topic)
++ [Step 2: Create an AWS IoT rule to send the text message](#iot-sns-rule-create-rule)
++ [Step 3: Test the AWS IoT rule and Amazon SNS notification](#iot-sns-rule-test-rule)
++ [Step 4: Review the results and next steps](#iot-sns-rule-review-results)
 
 **Before you start this tutorial, make sure that you have:**
 + 
@@ -32,7 +32,7 @@ Be sure you can use the MQTT client to subscribe and publish to a topic\. You'll
 **Reviewed the [Amazon Simple Notification Service](https://docs.aws.amazon.com/sns/latest/dg/welcome.html)**  
 If you haven't used Amazon SNS before, review [Setting up access for Amazon SNS](https://docs.aws.amazon.com/sns/latest/dg/sns-setting-up.html)\. If you've already completed other AWS IoT tutorials, your AWS account should already be configured correctly\.
 
-## Create an Amazon SNS topic that sends an SMS text message<a name="iot-sns-rule-create-sns-topic"></a>
+## Step 1: Create an Amazon SNS topic that sends an SMS text message<a name="iot-sns-rule-create-sns-topic"></a>
 
 **To create an Amazon SNS topic that sends an SMS text message**
 
@@ -76,13 +76,13 @@ The phone number that you use in this subscription might incur text messaging ch
 
    1. Scroll down to the bottom of the page and choose **Publish message**\.
 
-   1. On the phone with the number you used earlier when creating the subscription, confirm the message was received\.
+   1. On the phone with the number you used earlier when creating the subscription, confirm that the message was received\.
 
    If you did not receive the test message, double check the phone number and your phone's settings\.
 
    Make sure you can publish test messages from the [Amazon SNS console](https://console.aws.amazon.com/sns/home) before you continue the tutorial\.
 
-## Create an AWS IoT rule to send the text message<a name="iot-sns-rule-create-rule"></a>
+## Step 2: Create an AWS IoT rule to send the text message<a name="iot-sns-rule-create-rule"></a>
 
 The AWS IoT rule that you'll create in this tutorial subscribes to the `device/device_id/data` MQTT topics where `device_id` is the ID of the device that sent the message\. These topics are described in a topic filter as `device/+/data`, where the `+` is a wildcard character that matches any string between the two forward slash characters\. This rule also tests the value of the `temperature` field in the message payload\.
 
@@ -112,7 +112,7 @@ The rule's rule query statement takes the `temperature` value from the message p
 }
 ```
 
-**To create an AWS IoT rule to detect an over\-limit temperature value and create the data to send to the Amazon SNS topic:**
+**To create an AWS IoT rule to detect an over\-limit temperature value and create the data to send to the Amazon SNS topic**
 
 1. Open [the **Rules** hub of the AWS IoT console](https://console.aws.amazon.com/iot/home#/rulehub)\.
 
@@ -176,7 +176,7 @@ The rule's rule query statement takes the `temperature` value from the message p
 
 1. To create the rule and complete this step, in **Create a rule**, scroll down to the bottom and choose **Create rule**\.
 
-## Test the AWS IoT rule and Amazon SNS notification<a name="iot-sns-rule-test-rule"></a>
+## Step 3: Test the AWS IoT rule and Amazon SNS notification<a name="iot-sns-rule-test-rule"></a>
 
 To test your new rule, you'll use the MQTT client to publish and subscribe to the MQTT messages used by this rule\.
 
@@ -276,7 +276,7 @@ Open the [MQTT client in the AWS IoT console](https://console.aws.amazon.com/iot
 
    1. To send your MQTT message, choose **Publish to topic**\.
 
-   You should see the message that you sent in the **device/\+/data** subscription, however, because the temperature value is below the max temperature in the rule query statement, you shouldn't receive a text message\.
+   You should see the message that you sent in the **device/\+/data** subscription\. However, because the temperature value is below the max temperature in the rule query statement, you shouldn't receive a text message\.
 
    If you don't see the correct behavior, check the troubleshooting tips\.
 
@@ -346,7 +346,7 @@ The rule action must have permission to receive the original topic and publish t
 
     If you suspect this is the problem, edit the Republish rule action and create a new role\. New roles created by the rule action receive the authorizations necessary to perform these actions\.
 
-## Review the results and next steps<a name="iot-sns-rule-review-results"></a>
+## Step 4: Review the results and next steps<a name="iot-sns-rule-review-results"></a>
 
 **In this tutorial:**
 + You created and tested an Amazon SNS notification topic and subscription\.
@@ -360,4 +360,4 @@ After you send a few text messages with this rule, try experimenting with it to 
 + Change the fields selected in the rule query statement and observe the effect in the text message contents\.
 + Change the test in the rule query statement to test for a minimum temperature instead of a maximum temperature\. Remember to change the name of `max_temperature`\!
 + Add a republish rule action to send an MQTT message when an SNS notification is sent\.
-+ Try the next tutorial in this series and learn how to [Store device data in a DynamoDB table](iot-ddb-rule.md)\.
++ Try the next tutorial in this series and learn how to [Tutorial: Storing device data in a DynamoDB table](iot-ddb-rule.md)\.

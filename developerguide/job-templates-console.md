@@ -1,84 +1,108 @@
-# Creating and managing job templates \(console\)<a name="job-templates-console"></a>
-
-**Note**  
-The job templates feature is in preview and subject to change\.
+# Create custom job templates by using the AWS Management Console<a name="job-templates-console"></a>
 
 This topic explains how to create, delete, and view details about job templates by using the AWS IoT console\.
 
-## Create a job template from scratch<a name="job-templates-console-create-scratch"></a>
+## Create a custom job template<a name="job-templates-console-create"></a>
 
-1. Browse to the [AWS IoT console](https://console.aws.amazon.com/iot/)\.
+You can either create an original custom job template or create a job template from an existing job\. You can also create a custom job template from an existing job that was created using an AWS managed template\. For more information, see [Create custom job templates from managed templates](job-template-manage-console-create.md#job-template-manage-create-template)\.
 
-1. In the navigation pane, choose **Manage**, and then choose **Job templates**\.
+### Create an original job template<a name="job-templates-console-create-scratch"></a>
+
+1. 
+
+**Start creating your job template**
+
+   1. Go to the [Job templates hub of the AWS IoT console](https://console.aws.amazon.com/iot/home#/jobtemplatehub) and choose the **Custom templates** tab\.
+
+   1. Choose **Create job template**\.
 **Note**  
 You can also navigate to the **Job templates** page from the **Related services** page under **Fleet Hub**\.
 
-1. Choose **Create job template**\.
+1. 
 
-1. Enter an alphanumeric identifier for your job\.
+**Specify job template properties**
 
-1. Enter an alphanumeric description for your job\.
+   In the **Create job template** page, enter an alphanumeric identifier for your job name and an alphanumeric description to provide additional details about the template\.
 **Note**  
-We do not recommend using personally identifiable information in your job IDs or descriptions\.
+We don't recommend using personally identifiable information in your job IDs or descriptions\.
 
-1. Under **Job template document**, enter the S3 URL or choose **Browse S3**, and then navigate to your job document and select it\.
+1. 
+
+**Provide job document**
+
+   Provide a JSON job file that is either stored in an S3 bucket or as an inline job document that is specified within the job\. This job file will become the job document when you create a job using this template\.
+
+   If the job file is stored in an S3 bucket, enter the S3 URL or choose **Browse S3**, and then navigate to your job document and select it\.
 **Note**  
-Currently you can select only S3 buckets in your current region\.
+You can select only S3 buckets in your current Region\.
 
-1. Specify values for any advanced configurations, and then choose **Create job template**\. Your new job template appears on the **Job templates** page\.
+1. Continue to add any additional configurations for your job and then review and create your job\. For information about the additional configurations, see:
+   + [Job rollout and abort configuration](job-rollout-abort.md)
+   + [Job executions timeout configuration](job-timeout-retry.md)
 
-   For more information about rollout and abort configurations, see [Job rollout and abort configuration](job-rollout-abort.md)\. For more information about timeout configurations, see [timeouts](iot-jobs.md#timeout)\.
+### Create a job template from an existing job<a name="job-templates-console-create-exist-job"></a>
 
-## Create a job template from an existing job<a name="job-templates-console-create-exist-job"></a>
+1. 
 
-1. Browse to the [AWS IoT console](https://console.aws.amazon.com/iot/)\.
+**Choose your job**
 
-1. In the navigation pane, choose **Manage**, and then choose **Jobs**\.
+   1. Go to the [Job hub of the AWS IoT console](https://console.aws.amazon.com/iot/home#/jobhub) and choose the job that you want to use as the basis for your job template\.
 
-1. Select the job that you want to use as the basis of the job template and choose **Copy to job template**\.
+   1. Choose **Save as a job template**\.
+**Note**  
+Optionally, you can choose a different job document or edit the advanced configurations from the original job, and then choose **Create job template**\. Your new job template appears on the **Job templates** page\.
 
-1. Enter an alphanumeric identifier for your job\.
+1. 
 
-1. Enter an alphanumeric description for your job\.
+**Specify job template properties**
 
-1. Optionally select a different job document or edit the advanced configurations from the original job, and then choose **Create job template**\. Your new job template appears on the **Job templates** page\.
+   In the **Create job template** page, enter an alphanumeric identifier for your job name and an alphanumeric description to provide additional details about the template\.
+**Note**  
+The job document is the job file that you specified when creating the template\. If the job document is specified within the job instead of an S3 location, you can see the job document in the details page of this job\.
 
-## Create a job from a job template<a name="job-templates-console-create-job-from"></a>
+1. Continue to add any additional configurations for your job and then review and create your job\. For information about the additional configurations, see:
+   + [Job rollout and abort configuration](job-rollout-abort.md)
+   + [Job executions timeout configuration](job-timeout-retry.md)
 
-1. Browse to the [AWS IoT console](https://console.aws.amazon.com/iot/)\.
+## Create a job from a custom job template<a name="job-templates-console-create-job-from"></a>
 
-1. In the navigation pane, choose **Manage**, and then choose **Job templates**\.
+You can create a job from a custom job template by going to the details page of your job template as described in this topic\. You can also create a job or by choosing the job template you want to use when running the job creation workflow\. For more information, see [Create and manage jobs by using the AWS Management Console](manage-job-console.md)\.
 
-1. Find the job template you want to use and then navigate to its details page\. Choose **Create job with this template**\.
+This topic shows how to create a job from the details page of a custom job template\. You can also create a job from an AWS managed template\. For more information, see [Create a job using managed templates](job-template-manage-console-create.md#job-template-manage-create-job)\.
 
-1. Enter a unique alphanumeric name for the job\.
+1. 
 
-1. Enter an alphanumeric description for the job\.
+**Choose your custom job template**
 
-1. Optionally add tags to the job\. Choose **Next**\.
+   Go to the [Job templates hub of the AWS IoT console](https://console.aws.amazon.com/iot/home#/jobtemplatehub) and choose the **Custom templates** tab, and then choose your template\.
 
-1. On the **File configuration** page, under **Devices**, select the things and thing groups for the job to target\.
+1. 
 
-1. Under **File**, verify that the Amazon S3 URL is correct\. If you want to use a different job document, choose **Browse** and select a different bucket and document\. Choose **Next**\.
+**Create a job using your custom template**
 
-1. On the **Job configuration** page, select the job run type\. A job can either be a continuous or a snapshot job\. A snapshot job is complete when it finishes its run on the target devices and groups\. A continuous job applies to thing groups and runs on any device that you subsequently add to a specified target group\.
+   To create a job:
 
-1. Optionally edit the advanced configurations from the job template, and then choose **Next**\.
+   1. In the details page of your template, choose **Create job**\.
 
-1. On the **Review and create** page, review your job's properties and configurations\. Choose **Edit** for any set of properties and configurations that you want to change\.
+      The console switches to the **Custom job properties** step of the **Create job** workflow where your template configuration has been added\.
 
-1. Choose **Submit**\. Your new job appears on the **Jobs** page\.
+   1. Enter a unique alphanumeric job name, and optional description and tags, and then choose **Next**\.
+
+   1. Choose the things or thing groups as job targets that you want to run in this job\.
+
+      In the **Job document** section, your template is displayed with its configuration settings\. If you want to use a different job document, choose **Browse** and select a different bucket and document\. Choose **Next**\.
+
+   1. On the **Job configuration** page, choose the job type as continuous or a snapshot job\. A snapshot job is complete when it finishes its run on the target devices and groups\. A continuous job applies to thing groups and runs on any device that you add to a specified target group\.
+
+   1. Continue to add any additional configurations for your job and then review and create your job\. For information about the additional configurations, see:
+      + [Job rollout and abort configuration](job-rollout-abort.md)
+      + [Job executions timeout configuration](job-timeout-retry.md)
 
 You can also create jobs from job templates with Fleet Hub web applications\. For information about creating jobs in Fleet Hub, see [Working with job templates in Fleet Hub for AWS IoT Device Management](https://docs.aws.amazon.com/iot/latest/fleethubuserguide/aws-iot-monitor-technician-job-templates.html)\.
 
 ## Delete a job template<a name="job-templates-console-delete-job"></a>
 
-1. Browse to the [AWS IoT console](https://console.aws.amazon.com/iot/)\.
+To delete a job template, first go to the [Job templates hub of the AWS IoT console](https://console.aws.amazon.com/iot/home#/jobtemplatehub) and choose the **Custom templates** tab\. Then, choose the job template you want to delete and choose **Delete**\.
 
-1. In the navigation pane, choose **Manage**, and then choose **Job templates**\.
-
-1. Find and select the job template you want to delete\.
-
-1. Choose **Delete**\.
-
-1. The job template no longer appears on the **Job templates** page\.
+**Note**  
+A deletion is permanent and the job template no longer appears on the **Custom templates** tab\.

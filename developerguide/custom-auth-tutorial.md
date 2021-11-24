@@ -1,8 +1,8 @@
-# Create a custom authorizer for AWS IoT Core<a name="custom-auth-tutorial"></a>
+# Tutorial: Creating a custom authorizer for AWS IoT Core<a name="custom-auth-tutorial"></a>
 
 This tutorial demonstrates the steps to create, validate, and use Custom Authentication by using the AWS CLI\. Optionally, using this tutorial, you can use Postman to send data to AWS IoT Core by using the HTTP Publish API\.
 
-This tutorial show you how to create a sample Lambda function which implements the authorization and authentication logic and a custom authorizer using the create\-authorizer call with token signing enabled\. The authorizer is then validated using the test\-invoke\-authorizer, and finally you can send data to AWS IoT Core by using the HTTP Publish API to a test MQTT topic\. Sample request will specify the authorizer to invoke by using the `x-amz-customauthorizer-name` header and pass the token\-key\-name and `x-amz-customauthorizer-signature` in request headers\.
+This tutorial show you how to create a sample Lambda function that implements the authorization and authentication logic and a custom authorizer using the create\-authorizer call with token signing enabled\. The authorizer is then validated using the test\-invoke\-authorizer, and finally you can send data to AWS IoT Core by using the HTTP Publish API to a test MQTT topic\. Sample request will specify the authorizer to invoke by using the `x-amz-customauthorizer-name` header and pass the token\-key\-name and `x-amz-customauthorizer-signature` in request headers\.
 
 **What you'll learn in this tutorial:**
 + How to create a Lambda function to be a custom authorizer handler
@@ -13,14 +13,14 @@ This tutorial show you how to create a sample Lambda function which implements t
 This tutorial takes about 60 minutes to complete\.
 
 **Topics**
-+ [Create a Lambda function for your custom authorizer](#custom-auth-tutorial-define)
-+ [Create a public and private key pair for your custom authorizer](#custom-auth-tutorial-keys)
-+ [Create a customer authorizer resource and its authorization](#custom-auth-tutorial-authorizer)
-+ [Test the authorizer by calling test\-invoke\-authorizer](#custom-auth-tutorial-test)
-+ [Test publishing MQTT message using Postman](#custom-auth-tutorial-postman)
-+ [View messages in MQTT test client](#custom-auth-tutorial-testclient)
-+ [Review the results and next steps](#custom-auth-tutorial-review)
-+ [Clean up after running this tutorial](#custom-auth-tutorial-cleanup)
++ [Step 1: Create a Lambda function for your custom authorizer](#custom-auth-tutorial-define)
++ [Step 2: Create a public and private key pair for your custom authorizer](#custom-auth-tutorial-keys)
++ [Step 3: Create a customer authorizer resource and its authorization](#custom-auth-tutorial-authorizer)
++ [Step 4: Test the authorizer by calling test\-invoke\-authorizer](#custom-auth-tutorial-test)
++ [Step 5: Test publishing MQTT message using Postman](#custom-auth-tutorial-postman)
++ [Step 6: View messages in MQTT test client](#custom-auth-tutorial-testclient)
++ [Step 7: Review the results and next steps](#custom-auth-tutorial-review)
++ [Step 8: Clean up](#custom-auth-tutorial-cleanup)
 
 **Before you start this tutorial, make sure that you have:**
 + 
@@ -33,7 +33,7 @@ You'll need your AWS account and AWS IoT console to complete this tutorial\.
   + [https://console.aws.amazon.com/iam/home#/policies/arn:aws:iam::aws:policy/AWSIoTFullAccess$jsonEditor](https://console.aws.amazon.com/iam/home#/policies/arn:aws:iam::aws:policy/AWSIoTFullAccess$jsonEditor)
   + [https://console.aws.amazon.com/iam/home#/policies/arn:aws:iam::aws:policy/AWSLambda_FullAccess$jsonEditor](https://console.aws.amazon.com/iam/home#/policies/arn:aws:iam::aws:policy/AWSLambda_FullAccess$jsonEditor)
 **Important**  
-The IAM policies used in this tutorial are more permissive than you should follow in a production implementations\. In a production environment, make sure that your account and resource policies grant only the necessary permissions\.  
+The IAM policies used in this tutorial are more permissive than you should follow in a production implementation\. In a production environment, make sure that your account and resource policies grant only the necessary permissions\.  
 When you create IAM policies for production, determine what access users and roles need, and then design the policies that allow them to perform only those tasks\.  
 For more information, see [Security best practices in IAM](https://docs.aws.amazon.com/IAM/latest/UserGuide/best-practices.html)
 + 
@@ -55,9 +55,9 @@ For more information, see [Building requests](https://learning.postman.com/docs/
 + 
 
 **Removed custom authorizers from previous tutor**  
-Your AWS account can have only a limited number of custom authorizers configured at one time\. For information about how to remove a custom authorizer, see [Clean up after running this tutorial](#custom-auth-tutorial-cleanup)\.
+Your AWS account can have only a limited number of custom authorizers configured at one time\. For information about how to remove a custom authorizer, see [Step 8: Clean up](#custom-auth-tutorial-cleanup)\.
 
-## Create a Lambda function for your custom authorizer<a name="custom-auth-tutorial-define"></a>
+## Step 1: Create a Lambda function for your custom authorizer<a name="custom-auth-tutorial-define"></a>
 
 Custom authentication in AWS IoT Core uses [authorizer resources](https://docs.aws.amazon.com/iot/latest/apireference/API_AuthorizerDescription.html) that you create to authenticate and authorize clients\. The function you'll create in this section authenticates and authorizes clients as they connect to AWS IoT Core and access AWS IoT resources\.
 
@@ -65,7 +65,7 @@ The Lambda function does the following:
 + If a request comes from test\-invoke\-authorizer, it returns an IAM policy with a `Deny` action\.
 + If a request comes from Passport using HTTP and the `actionToken` parameter has a value of `allow`, it returns an IAM policy with an `Allow` action\. Otherwise, it returns an IAM policy with a `Deny` action\.
 
-**To create the Lambda function for your custom authorizer:**
+**To create the Lambda function for your custom authorizer**
 
 1. In the [Lambda](https://console.aws.amazon.com/lambda/home#) console, open [Functions](https://console.aws.amazon.com/lambda/home#/functions)\.
 
@@ -85,7 +85,7 @@ The Lambda function does the following:
 
 1. To see the function's code and configuration in the [AWS Cloud9 ](https://docs.aws.amazon.com/cloud9/latest/user-guide/welcome.html) editor, choose **custom\-auth\-function** in the designer window, and then choose **index\.js** in the navigation pane of the editor\.
 
-   For scripting languages such as Node\.js, Lambda includes a basic function that returns a success response\. You can use the [AWS Cloud9](https://docs.aws.amazon.com/cloud9/latest/user-guide/welcome.html) editor to edit your function as long as your source code doesn't exceed 3MB\.
+   For scripting languages such as Node\.js, Lambda includes a basic function that returns a success response\. You can use the [AWS Cloud9](https://docs.aws.amazon.com/cloud9/latest/user-guide/welcome.html) editor to edit your function as long as your source code doesn't exceed 3 MB\.
 
 1. Replace the **index\.js** code in the editor with the following code:
 
@@ -113,13 +113,18 @@ The Lambda function does the following:
        var ACCOUNT_ID = context.invokedFunctionArn.split(":")[4];
        console.log("ACCOUNT_ID---"+ACCOUNT_ID);
    
+       //Get the dynamic region from function's ARN to be used
+       // as full resource for IAM policy
+       var REGION = context.invokedFunctionArn.split(":")[3];
+       console.log("REGION---"+REGION);
+   
        //protocolData data will be undefined if testing is done via CLI.
        // This will help to test the set up.
        if (protocolData === undefined) {
    
            //If CLI testing, pass deny action as this is for testing purpose only.
            console.log('Using the test-invoke-authorizer cli for testing only');
-           callback(null, generateAuthResponse(DENY_ACTION,ACCOUNT_ID));
+           callback(null, generateAuthResponse(DENY_ACTION,ACCOUNT_ID,REGION));
    
        } else{
    
@@ -133,11 +138,11 @@ The Lambda function does the following:
    
            if(action!=null && action.toLowerCase() === 'allow'){
    
-               callback(null, generateAuthResponse(ALLOW_ACTION,ACCOUNT_ID));
+               callback(null, generateAuthResponse(ALLOW_ACTION,ACCOUNT_ID,REGION));
    
            }else{
    
-               callback(null, generateAuthResponse(DENY_ACTION,ACCOUNT_ID));
+               callback(null, generateAuthResponse(DENY_ACTION,ACCOUNT_ID,REGION));
    
            }
    
@@ -146,9 +151,10 @@ The Lambda function does the following:
    };
    
    // Helper function to generate the authorization IAM response.
-   var generateAuthResponse = function(effect,ACCOUNT_ID) {
+   var generateAuthResponse = function(effect,ACCOUNT_ID,REGION) {
    
-       var full_resource = "arn:aws:iot:us-west-2:"+ACCOUNT_ID+":*";
+       var full_resource = "arn:aws:iot:"+ REGION + ":" + ACCOUNT_ID + ":*";
+       console.log("full_resource---"+full_resource);
    
        var authResponse = {};
        authResponse.isAuthenticated = true;
@@ -192,11 +198,11 @@ The Lambda function does the following:
 
       If the test failed or you don't see a policy document, review the code to find and correct the errors\.
 
-## Create a public and private key pair for your custom authorizer<a name="custom-auth-tutorial-keys"></a>
+## Step 2: Create a public and private key pair for your custom authorizer<a name="custom-auth-tutorial-keys"></a>
 
-Your custom authorizer requires a public and private key to authenticate it\. The commands in this section use openssl tools to create this key pair\.
+Your custom authorizer requires a public and private key to authenticate it\. The commands in this section use OpenSSL tools to create this key pair\.
 
-**To create the public and private key pair for your custom authorizer:**
+**To create the public and private key pair for your custom authorizer**
 
 1. Create the private key file\.
 
@@ -226,7 +232,7 @@ Your custom authorizer requires a public and private key to authenticate it\. Th
 
    If the command doesn't display any errors, the public key file is valid\.
 
-## Create a customer authorizer resource and its authorization<a name="custom-auth-tutorial-authorizer"></a>
+## Step 3: Create a customer authorizer resource and its authorization<a name="custom-auth-tutorial-authorizer"></a>
 
 The AWS IoT custom authorizer is the resource that ties together all the elements created in the previous steps\. In this section, you'll create a custom authorizer resource and give it permission to run the Lambda function you created earlier\. You can create a custom authorizer resource by using the AWS IoT console, the AWS CLI, or the AWS API\. 
 
@@ -234,11 +240,11 @@ For this tutorial, you only need to create one custom authorizer\. This section 
 
 ### Create a customer authorizer resource<a name="custom-auth-tutorial-authorizer-resource"></a>
 
-**Choose one of these options to create your custom authorizer resource:**
+**Choose one of these options to create your custom authorizer resource**
 + [Create a custom authorizer by using the AWS IoT console](#create-custom-auth-in-console)
 + [Create a custom authorizer using the AWS CLI](#create-custom-auth-in-cli)
 
-**To create a custom authorizer by using the AWS IoT console:**
+**To create a custom authorizer \(console\)**
 
 1. Open the [Custom authorizer page of the AWS IoT console](https://console.aws.amazon.com/iot/home#/authorizerhub), and choose **Create**\.
 
@@ -256,7 +262,7 @@ For this tutorial, you only need to create one custom authorizer\. This section 
 
       1. In **Key name**, enter: **FirstKey**\.
 
-      1. In **Value**, enter the contents of the `public-key.pem` file\. Be sure to include the lines from the file with `-----BEGIN PUBLIC KEY-----` and `-----END PUBLIC KEY-----` and don't add or remove any line feeds, carriage returns or other characters from the file contents\. The string that you enter should look something like this example\.
+      1. In **Value**, enter the contents of the `public-key.pem` file\. Be sure to include the lines from the file with `-----BEGIN PUBLIC KEY-----` and `-----END PUBLIC KEY-----` and don't add or remove any line feeds, carriage returns, or other characters from the file contents\. The string that you enter should look something like this example\.
 
          ```
          -----BEGIN PUBLIC KEY-----
@@ -283,7 +289,7 @@ For this tutorial, you only need to create one custom authorizer\. This section 
 
    If you see an error, review the error and try to create your custom authorizer again and double\-check the entries\. Note that each custom authorizer resource must have a unique name\.
 
-**To create a custom authorizer using the AWS CLI:**
+**To create a custom authorizer \(AWS CLI\)**
 
 1. Substitute your values for `authorizer-function-arn` and `token-signing-public-keys`, and then run the following command:
 
@@ -293,7 +299,7 @@ For this tutorial, you only need to create one custom authorizer\. This section 
    --token-key-name "tokenKeyName" \
    --status ACTIVE \
    --no-signing-disabled \
-   --authorizer-function-arn "arn:aws:lambda:us-west-2:57EXAMPLE833:function:custom-auth-function" \
+   --authorizer-function-arn "arn:aws:lambda:Region:57EXAMPLE833:function:custom-auth-function" \
    --token-signing-public-keys FirstKey="-----BEGIN PUBLIC KEY-----
    MIICIjANBgkqhkiG9w0BAQEFAAOCAg8AMIICCgKCAgEAvEBzOk4vhN+3LgslvEWt
    sLCqNmt5Damas3bmiTRvq2gjRJ6KXGTGQChqArAJwL1a9dkS9+maaXC3vc6xzx9z
@@ -311,17 +317,17 @@ For this tutorial, you only need to create one custom authorizer\. This section 
    ```
 
 **Where:**
-   + The `authorizer-function-arn` value is the Amazon resource name \(ARN\) of the Lambda function you created for your custom authorizer\.
+   + The `authorizer-function-arn` value is the Amazon Resource Name \(ARN\) of the Lambda function you created for your custom authorizer\.
    + The `token-signing-public-keys` value includes the name of the key, **FirstKey**, and the contents of the `public-key.pem` file\. Be sure to include the lines from the file with `-----BEGIN PUBLIC KEY-----` and `-----END PUBLIC KEY-----` and don't add or remove any line feeds, carriage returns, or other characters from the file contents\. 
 
-     Note: be very careful entering the public key as any alteration to the public key value makes it unusable\.
+     Note: be careful entering the public key as any alteration to the public key value makes it unusable\.
 
 1. If the custom authorizer is created, the command returns the name and ARN of the new resource, such as the following\.
 
    ```
    {
        "authorizerName": "my-new-authorizer",
-       "authorizerArn": "arn:aws:iot:us-west-2:57EXAMPLE833:authorizer/my-new-authorizer"
+       "authorizerArn": "arn:aws:iot:Region:57EXAMPLE833:authorizer/my-new-authorizer"
    }
    ```
 
@@ -350,7 +356,7 @@ In this section, you'll grant permission the custom authorizer resource that you
 
    ```
    {
-       "Statement": "{\"Sid\":\"Id-1234\",\"Effect\":\"Allow\",\"Principal\":{\"Service\":\"iot.amazonaws.com\"},\"Action\":\"lambda:InvokeFunction\",\"Resource\":\"arn:aws:lambda:us-west-2:57EXAMPLE833:function:custom-auth-function\",\"Condition\":{\"ArnLike\":{\"AWS:SourceArn\":\"arn:aws:lambda:us-west-2:57EXAMPLE833:function:custom-auth-function\"}}}"
+       "Statement": "{\"Sid\":\"Id-1234\",\"Effect\":\"Allow\",\"Principal\":{\"Service\":\"iot.amazonaws.com\"},\"Action\":\"lambda:InvokeFunction\",\"Resource\":\"arn:aws:lambda:Region:57EXAMPLE833:function:custom-auth-function\",\"Condition\":{\"ArnLike\":{\"AWS:SourceArn\":\"arn:aws:lambda:Region:57EXAMPLE833:function:custom-auth-function\"}}}"
    }
    ```
 
@@ -358,16 +364,16 @@ In this section, you'll grant permission the custom authorizer resource that you
 
    ```
    An error occurred (AccessDeniedException) when calling the AddPermission operation: User: arn:aws:iam::57EXAMPLE833:user/EXAMPLE-1 is not authorized to perform: lambda:AddPer
-   mission on resource: arn:aws:lambda:us-west-2:57EXAMPLE833:function:custom-auth-function
+   mission on resource: arn:aws:lambda:Region:57EXAMPLE833:function:custom-auth-function
    ```
 
-## Test the authorizer by calling test\-invoke\-authorizer<a name="custom-auth-tutorial-test"></a>
+## Step 4: Test the authorizer by calling test\-invoke\-authorizer<a name="custom-auth-tutorial-test"></a>
 
 With all the resources defined, in this section, you'll call test\-invoke\-authorizer from the command line to test the authorization pass\.
 
 Note that when invoking the authorizer from the command line, `protocolData` is not defined, so the authorizer will always return a DENY document\. This test does, however, confirm that your custom authorizer and Lambda function are configured correctly\-\-even if it doesn't fully test the Lambda function\.
 
-**To test your custom authorizer and its Lambda function by using the AWS CLI:**
+**To test your custom authorizer and its Lambda function by using the AWS CLI**
 
 1. In the directory that has the `private-key.pem` file you created in a previous step, run the following command\.
 
@@ -406,7 +412,7 @@ Note that when invoking the authorizer from the command line, `protocolData` is 
        "isAuthenticated": true,
        "principalId": "principalId",
        "policyDocuments": [
-           "{\"Version\":\"2012-10-17\",\"Statement\":[{\"Action\":\"iot:*\",\"Effect\":\"Deny\",\"Resource\":\"arn:aws:iot:us-west-2:57EXAMPLE833:*\"}]}"
+           "{\"Version\":\"2012-10-17\",\"Statement\":[{\"Action\":\"iot:*\",\"Effect\":\"Deny\",\"Resource\":\"arn:aws:iot:Region:57EXAMPLE833:*\"}]}"
        ],
        "refreshAfterInSeconds": 600,
        "disconnectAfterInSeconds": 3600
@@ -415,7 +421,7 @@ Note that when invoking the authorizer from the command line, `protocolData` is 
 
    If the command returns an error, review the error and double\-check the commands you used in this section\.
 
-## Test publishing MQTT message using Postman<a name="custom-auth-tutorial-postman"></a>
+## Step 5: Test publishing MQTT message using Postman<a name="custom-auth-tutorial-postman"></a>
 
 1. To get your device data endpoint from the command line, call [describe\-endpoint](https://awscli.amazonaws.com/v2/documentation/api/latest/reference/iot/describe-endpoint.html) as shown here
 
@@ -431,7 +437,7 @@ Note that when invoking the authorizer from the command line, `protocolData` is 
 
    1. In Postman, in the **File** menu, choose **New\.\.\.**\.
 
-   1. In the **New** dialog, choose **Request**\.
+   1. In the **New** dialog box, choose **Request**\.
 
    1. In Save request,
 
@@ -495,11 +501,11 @@ Note that when invoking the authorizer from the command line, `protocolData` is 
 
 Keep this request in Postman for use in the next section\.
 
-## View messages in MQTT test client<a name="custom-auth-tutorial-testclient"></a>
+## Step 6: View messages in MQTT test client<a name="custom-auth-tutorial-testclient"></a>
 
 In the previous step, you sent simulated device messages to AWS IoT by using Postman\. The successful response indicated that your custom authorizer allowed the connection to AWS IoT and that the test message was delivered to broker in AWS IoT Core\. In this section, you'll use the MQTT test client in the AWS IoT console to see the message contents from that message as other devices and services might\.
 
-**To see the test messages authorized by your custom authorizer:**
+**To see the test messages authorized by your custom authorizer**
 
 1. In the AWS IoT console, open the [MQTT test client](https://console.aws.amazon.com/iot/home#/test)\.
 
@@ -520,7 +526,7 @@ In the previous step, you sent simulated device messages to AWS IoT by using Pos
    + Make sure the AWS account and AWS Region used to open the AWS IoT console are the same as you're using in the Postman URL\.
    + Make sure you've entered the topic correctly in the **MQTT test client**\. The topic filter is case\-sensitive\. If in doubt, you can also subscribe to the **\#** topic, which subscribes to all MQTT messages that pass through the message broker the AWS account and AWS Region used to open the AWS IoT console\.
 
-## Review the results and next steps<a name="custom-auth-tutorial-review"></a>
+## Step 7: Review the results and next steps<a name="custom-auth-tutorial-review"></a>
 
 **In this tutorial:**
 + You created a Lambda function to be a custom authorizer handler
@@ -530,7 +536,7 @@ In the previous step, you sent simulated device messages to AWS IoT by using Pos
 + You used the **MQTT test client** to view the messages sent from your Postman test
 
 **Next steps**  
-After you send some messages from Postman to verify the custom authorizer is working, try experimenting to see how changing different aspects of this tutorial affect the results\. Here are some examples to get you started\.
+After you send some messages from Postman to verify that the custom authorizer is working, try experimenting to see how changing different aspects of this tutorial affect the results\. Here are some examples to get you started\.
 + Change the signature string so that it's no longer valid to see how unauthorized connection attempts are handled\. You should get an error response, such as this one, and the message should not appear in the **MQTT test client**\. 
 
   ```
@@ -541,11 +547,11 @@ After you send some messages from Postman to verify the custom authorizer is wor
   ```
 + To learn more about how to find errors that might occur while you're developing and using AWS IoT rules, see [Monitoring AWS IoT](monitoring_overview.md)\.
 
-## Clean up after running this tutorial<a name="custom-auth-tutorial-cleanup"></a>
+## Step 8: Clean up<a name="custom-auth-tutorial-cleanup"></a>
 
-If you'd like repeat this tutorial you might need to remove some of your custom authorizers\. Your AWS account can have only a limited number of custom authorizers configured at one time and you can get a `LimitExceededException` when you try to add a new one without removing an existing custom authorizers\.
+If you'd like repeat this tutorial, you might need to remove some of your custom authorizers\. Your AWS account can have only a limited number of custom authorizers configured at one time and you can get a `LimitExceededException` when you try to add a new one without removing an existing custom authorizer\.
 
-**To remove a custom authorizer by using the [AWS IoT console](https://console.aws.amazon.com/iot/home#/authorizerhub)**
+**To remove a custom authorizer \(console\)**
 
 1. Open the [Custom authorizer page of the AWS IoT console](https://console.aws.amazon.com/iot/home#/authorizerhub), and in the list of custom authorizers, find the custom authorizer to remove\.
 
@@ -557,7 +563,7 @@ If you'd like repeat this tutorial you might need to remove some of your custom 
 
 1. From the Custom authorizer details page, open the **Actions** menu, and choose **Delete**\.
 
-**To remove a custom authorizer by using the AWS CLI**
+**To remove a custom authorizer \(AWS CLI\)**
 
 1. List the custom authorizers that you have installed and find the name of the custom authorizer you want to delete\.
 

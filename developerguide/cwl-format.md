@@ -233,7 +233,7 @@ When the message broker publishes an MQTT message, it generates a log entry with
 In addition to the [Common CloudWatch Logs attributes](#cwl-common-attributes), `Publish-Out` log entries contain the following attributes:
 
 clientId  
-The ID of the client making the request\.
+The ID of the subscribed client that receives messages on that MQTT topic\.
 
 principalId  
 The ID of the principal making the request\.
@@ -946,7 +946,7 @@ This example shows the log entry of an `AddThingToDynamicThingGroupsFailed` erro
  "timestamp": "2020-03-16 22:24:43.804",
  "logLevel": "ERROR",
  "traceId": "70b1f2f5-d95e-f897-9dcc-31e68c3e1a30",
- "accountId": "571032923833",
+ "accountId": "57EXAMPLE833",
  "status": "Failure",
  "eventType": "AddThingToDynamicThingGroupsFailed",
  "thingName": "TestThing",

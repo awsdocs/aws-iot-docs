@@ -1,13 +1,10 @@
-# Creating and managing job templates \(CLI\)<a name="job-templates-cli"></a>
-
-**Note**  
-The job templates feature is in preview and subject to change\.
+# Create custom job templates by using the AWS CLI<a name="job-templates-cli"></a>
 
 This topic explains how to create, delete, and retrieve details about job templates by using the AWS CLI\.
 
 ## Create a job template from scratch<a name="job-templates-cli-create-scratch"></a>
 
-The following AWS CLI command shows how to create a job using a job document \(*job\-document\.json*\) stored in an Amazon S3 bucket \(*jobBucket*\) and a role with permission to download files from Amazon S3 \(*S3DownloadRole*\)\.
+The following AWS CLI command shows how to create a job using a job document \(*job\-document\.json*\) stored in an S3 bucket and a role with permission to download files from Amazon S3 \(*S3DownloadRole*\)\.
 
 ```
 aws iot create-job-template  \
@@ -23,10 +20,10 @@ The optional `timeout-config` parameter specifies the amount of time each device
 
 The in\-progress timer can't be updated and applies to all job executions for the job\. Whenever a job execution remains in the `IN_PROGRESS` state for longer than this interval, the job execution fails and switches to the terminal `TIMED_OUT` status\. AWS IoT also publishes an MQTT notification\.
 
-For more information about creating configurations about job rollouts and aborts, see [Job Rollout and Abort Configuration](job-rollout-abort.html)\.
+For more information about creating configurations about job rollouts and aborts, see [Job rollout and abort configuration](job-rollout-abort.html)\.
 
 **Note**  
-Job documents that are specified as Amazon S3 files are retrieved at the time you create the job\. Changing the contents of the Amazon S3 file you used as the source of your job document after you have created the job doesn't change what is sent to the targets of the job\.
+Job documents that are specified as Amazon S3 files are retrieved at the time you create the job\. If you change the contents of the Amazon S3 file you used as the source of your job document after you create the job, what is sent to the targets of the job doesn't change\.
 
 ## Create a job template from an existing job<a name="job-templates-cli-create-from-job"></a>
 
@@ -112,7 +109,7 @@ The command displays the following output\.
 }
 ```
 
-Use the value of the `nextToken` field to retrieve additional pages of results\.
+To retrieve additional pages of results, use the value of the `nextToken` field\.
 
 ## Delete a job template<a name="job-templates-cli-delete"></a>
 

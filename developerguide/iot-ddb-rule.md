@@ -1,4 +1,4 @@
-# Store device data in a DynamoDB table<a name="iot-ddb-rule"></a>
+# Tutorial: Storing device data in a DynamoDB table<a name="iot-ddb-rule"></a>
 
 This tutorial demonstrates how to create an AWS IoT rule that sends message data to a DynamoDB table\.
 
@@ -14,10 +14,10 @@ In this tutorial, you create a rule that sends message data from an imaginary we
 This tutorial takes about 30 minutes to complete\.
 
 **Topics**
-+ [Create the DynamoDB table for this tutorial](#iot-ddb-rule-ddb-table)
-+ [Create an AWS IoT rule to send data to the DynamoDB table](#iot-ddb-rule-topic-rule)
-+ [Test the AWS IoT rule and DynamoDB table](#iot-ddb-rule-test)
-+ [Review the results and next steps](#iot-ddb-rule-review)
++ [Step 1: Create the DynamoDB table for this tutorial](#iot-ddb-rule-ddb-table)
++ [Step 2: Create an AWS IoT rule to send data to the DynamoDB table](#iot-ddb-rule-topic-rule)
++ [Step 3: Test the AWS IoT rule and DynamoDB table](#iot-ddb-rule-test)
++ [Step 4: Review the results and next steps](#iot-ddb-rule-review)
 
 **Before you start this tutorial, make sure that you have:**
 + 
@@ -33,7 +33,7 @@ Be sure you can use the MQTT client to subscribe and publish to a topic\. You'll
 **Reviewed the [Amazon DynamoDB](https://docs.aws.amazon.com/amazondynamodb/latest/developerguide/Introduction.html) overview**  
 If you've not used DynamoDB before, review [Getting Started with DynamoDB](https://docs.aws.amazon.com/amazondynamodb/latest/developerguide/GettingStartedDynamoDB.html) to become familiar with the basic concepts and operations of DynamoDB\.
 
-## Create the DynamoDB table for this tutorial<a name="iot-ddb-rule-ddb-table"></a>
+## Step 1: Create the DynamoDB table for this tutorial<a name="iot-ddb-rule-ddb-table"></a>
 
 In this tutorial, you'll create a DynamoDB table with these attributes to record the data from the imaginary weather sensor devices: 
 + `sample_time` is a primary key and describes the time the sample was recorded\.
@@ -58,11 +58,11 @@ In this tutorial, you'll create a DynamoDB table with these attributes to record
 
 You'll define `device_data` later, when you configure the DynamoDB rule action\.
 
-## Create an AWS IoT rule to send data to the DynamoDB table<a name="iot-ddb-rule-topic-rule"></a>
+## Step 2: Create an AWS IoT rule to send data to the DynamoDB table<a name="iot-ddb-rule-topic-rule"></a>
 
 In this step, you'll use the rule query statement to format the data from the imaginary weather sensor devices to write to the database table\.
 
-A sample message payload received from a weather sensor devices looks like this:
+A sample message payload received from a weather sensor device looks like this:
 
 ```
 {
@@ -160,7 +160,7 @@ In this rule, you'll also use a couple of [Substitution templates](iot-substitut
 
    1. To create the rule, at the bottom of **Create a rule**, choose **Create rule**\.
 
-## Test the AWS IoT rule and DynamoDB table<a name="iot-ddb-rule-test"></a>
+## Step 3: Test the AWS IoT rule and DynamoDB table<a name="iot-ddb-rule-test"></a>
 
 To test the new rule, you'll use the MQTT client to publish and subscribe to the MQTT messages used in this test\.
 
@@ -244,7 +244,7 @@ In the MQTT client, under **Subscriptions**, choose **device/\+/data**, check th
 + 
 
 **You don't see your data in the DynamoDB table**  
-The first thing to do is to manually refresh the display by choosing the refresh icon in the upper\-right corner of the table's header\. If that doesn't display the data you're looking for, check the following\.
+The first thing to do is to refresh the display by choosing the refresh icon in the upper\-right corner of the table's header\. If that doesn't display the data you're looking for, check the following\.
 
 **Things to check**
   + 
@@ -280,11 +280,11 @@ The rule action must have permission to receive the original topic and publish t
 
     If you suspect this is the problem, edit the rule action and create a new role\. New roles created by the rule action receive the authorizations necessary to perform these actions\.
 
-## Review the results and next steps<a name="iot-ddb-rule-review"></a>
+## Step 4: Review the results and next steps<a name="iot-ddb-rule-review"></a>
 
 After you send a few messages to the DynamoDB table with this rule, try experimenting with it to see how changing some aspects from the tutorial affect the data written to the table\. Here are some ideas to get you started\.
 + Change the *device\_id* in the input message's topic and observe the effect on the data\. You could use this to simulate receiving data from multiple weather sensors\.
 + Change the fields selected in the rule query statement and observe the effect on the data\. You could use this to filter the data stored in the table\.
 + Add a republish rule action to send an MQTT message for each row added to the table\. You could use this for debugging\.
 
-After you have completed this tutorial, check out the next one\!
+After you have completed this tutorial, check out [Tutorial: Formatting a notification by using an AWS Lambda function](iot-lambda-rule.md)\.

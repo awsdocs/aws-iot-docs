@@ -50,7 +50,7 @@ After you import your certificate to ACM, generate a public certificate for your
 You create a configurable endpoint on a custom domain by using the [CreateDomainConfiguration](https://docs.aws.amazon.com/iot/latest/apireference/API_CreateDomainConfiguration.html) API\. A domain configuration for a custom domain consists of the following:
 + `domainConfigurationName` – A user\-defined name that identifies the domain configuration\.
 **Note**  
-Domain configuration names starting with `IoT:` are reserved for default endpoints and can't be used\. Also, this value must be unique to your Region\.
+Domain configuration names starting with `IoT:` are reserved for default endpoints and can't be used\. Also, this value must be unique to your AWS Region\.
 + `domainName` – The FQDN that your devices use to connect to AWS IoT\.
 **Note**  
 AWS IoT leverages the server name indication \(SNI\) TLS extension to apply domain configurations\. Devices must use this extension when connecting and pass a server name that is identical to the domain name that is specified in the domain configuration\.
@@ -80,7 +80,7 @@ The following AWS CLI command shows how to get your endpoint\.
 aws iot describe-endpoint --endpoint-type iot:Data-ATS
 ```
 
-After you get your `iot:Data-ATS` endpoint, create a `CNAME` record from your custom domain to this AWS IoT endpoint\. If you create multiple custom domains in the same account, alias them to this same `iot:Data-ATS` endpoint\.
+After you get your `iot:Data-ATS` endpoint, create a `CNAME` record from your custom domain to this AWS IoT endpoint\. If you create multiple custom domains in the same AWS account, alias them to this same `iot:Data-ATS` endpoint\.
 
 ## Troubleshooting<a name="iot-custom-endpoints-configurable-troubleshoot"></a>
 

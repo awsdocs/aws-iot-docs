@@ -1,6 +1,10 @@
-# Monitoring and logging for AWS IoT Core for LoRaWAN<a name="connect-iot-lorawan-logging-monitoring"></a>
+# Monitoring and logging for AWS IoT Core for LoRaWAN using Amazon CloudWatch<a name="connect-iot-lorawan-logging-monitoring"></a>
 
-You can monitor your AWS IoT Core for LoRaWAN resources and applications that run in real time by using Amazon CloudWatch\. Use CloudWatch to collect and track metrics, which are variables that you can measure for your resources and applications\. For more information about the benefits of using monitoring, see [Monitoring AWS IoT](monitoring_overview.md)\.
+You can monitor your AWS IoT Core for LoRaWAN resources and applications that run in real time by using Amazon CloudWatch\. This section also contains information about how you can monitor the status of any Sidewalk devices that you've onboarded using Amazon CloudWatch\. For information about onboarding Amazon Sidewalk devices to AWS IoT Core, see [Getting started with Amazon Sidewalk Integration for AWS IoT Core](iot-sidewalk-getting-started.md)\. 
+
+Use CloudWatch to collect and track metrics, which are variables that you can measure for your resources and applications\. For more information about the benefits of using monitoring, see [Monitoring AWS IoT](monitoring_overview.md)\.
+
+If you want to obtain more real\-time log information from your devices, use the network analyzer\. For more information, see [Monitoring your wireless resource fleet in real time using network analyzer](connect-iot-lorawan-network-analyzer-overview.md)\./>
 
 **How to monitor your AWS IoT Core for LoRaWAN resources**  
 To log and monitor your wireless resources, perform the following steps\.

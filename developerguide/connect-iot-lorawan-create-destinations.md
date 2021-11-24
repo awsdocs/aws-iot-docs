@@ -21,7 +21,7 @@ Enter a **Destination name** and an optional description for your destination\.
 
 **Rule name**  
 The AWS IoT rule that is configured to evaluate messages sent by your device and process the device's data\. The rule name will be mapped to your destination\. The destination requires the rule to process the messages that it receives\. You can choose for the messages to be processed by either invoking an AWS IoT rule or by publishing to the AWS IoT message broker\.
-  + If you choose **Enter a rule name**, enter a name, and then choose **Copy** to copy the rule name that you'll enter when creating the AWS IoT rule\. You can either choose **Create rule** to create the rule now or navigate to the [Rules](https://console.aws.amazon.com/iot/home#/create/rule) Hub of the AWS IoT console and create a rule with that name\.
+  + If you choose **Enter a rule name**, enter a name, and then choose **Copy** to copy the rule name that you'll enter when creating the AWS IoT rule\. You can either choose **Create rule** to create the rule now or navigate to the [Rules](https://console.aws.amazon.com/https://console.aws.amazon.com/iot/home#/create/rule) Hub of the AWS IoT console and create a rule with that name\.
 
     You can also enter a rule and use the **Advanced** setting to specify a topic name\. The topic name is provided during rule invocation and is accessed by using the `topic` expression inside the rule\. For more information about AWS IoT rules, see [Rules for AWS IoT](iot-rules.md)\.
   + If you choose **Publish to AWS IoT message broker**, enter a topic name\. You can then copy the MQTT topic name and multiple subscribers can subscribe to this topic to receive messages published to that topic\. For more information, see [MQTT topics](topics.md)\.

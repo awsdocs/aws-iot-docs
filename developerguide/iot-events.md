@@ -35,7 +35,7 @@ The following is an example of the policy required for receiving lifecycle event
 
 Before subscribers to the reserved topics can receive messages, you must enable event messages from the AWS Management Console or by using the API or CLI\.
 + To enable event messages, go to the [Settings](console.aws.amazon.com/iot/home/settings/) tab of the AWS IoT console and then, in the **Event\-based messages** section, choose **Manage events**\. You can specify the events that you want to manage\.
-+ To control which event types are published by using the API or CLI, call the [UpdateResourceEventConfiguration](https://docs.aws.amazon.com/iot/latest/apireference/API_UpdateEventConfigurations.html) API or use the update\-resource\-event\-configurations CLI command\. For example:
++ To control which event types are published by using the API or CLI, call the [UpdateEventConfigurations](https://docs.aws.amazon.com/iot/latest/apireference/API_UpdateEventConfigurations.html) API or use the update\-event\-configurations CLI command\. For example:
 
   ```
   aws iot update-event-configurations --event-configurations "{\"THING\":{\"Enabled\": true}}"

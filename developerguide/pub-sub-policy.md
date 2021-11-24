@@ -673,14 +673,14 @@ To allow unauthenticated Amazon Cognito identities to publish MQTT messages over
         {
             "Effect": "Allow",
             "Action": [
-                "iot:Publish",
+                "iot:Publish"
             ],
             "Resource": ["arn:aws:iot:us-east-1:123456789012:topic/${cognito-identity.amazonaws.com:sub}"]
         },
         {
             "Effect": "Allow",
             "Action": [
-                "iot:Connect",
+                "iot:Connect"
             ],
             "Resource": ["arn:aws:iot:us-east-1:123456789012:client/${cognito-identity.amazonaws.com:sub}"]
         }

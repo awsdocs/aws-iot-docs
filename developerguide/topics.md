@@ -68,4 +68,4 @@ All topic filter ARNs \(Amazon Resource Names\) have the following form:
 arn:aws:iot:aws-region:AWS-account-ID:topicfilter/TopicFilter
 ```
 
-For example, `arn:aws:iot:us-west-2:123EXAMPLE456:topicfilter/application/topic/#/sensor` is an ARN for the topic filter` application/topic/#/sensor`\.
+For example, `arn:aws:iot:us-west-2:123EXAMPLE456:topicfilter/application/topic/+/sensor` is an ARN for the topic filter` application/topic/+/sensor`\.

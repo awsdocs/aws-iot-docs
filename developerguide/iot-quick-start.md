@@ -31,7 +31,7 @@ If possible, complete this procedure on your device; otherwise, be ready to tran
 
 ## Step 2\. Create a thing object<a name="iot-quick-start-configure"></a>
 
-1. On the **How are you connecting to AWS IoT?** page, choose the platform and the language of the AWS IoT Device SDK that you want to use\. This example uses the Linux/OSX platform and the Node\.js SDK\.
+1. On the **How are you connecting to AWS IoT?** page, choose the platform and the language of the AWS IoT Device SDK that you want to use\. This example uses the Linux/OSX platform and the Node\.js SDK\. If you choose the Python SDK, make sure that you have python3 and pip3 installed on your target device before you continue to the next step\.
 **Note**  
 Be sure to check the list of prerequisite software required by your chosen SDK at the bottom of the console page\.  
 You must have the required software installed on your target computer before you continue to the next step\.
@@ -74,12 +74,16 @@ This procedure is done in a terminal or command window on your device while foll
    If you're using a Windows PowerShell command window and the unzip command doesn't work, replace unzip with expand\-archive and try the command line again\.   
 ![\[AWS IoT console quick start install and run page\]](http://docs.aws.amazon.com/iot/latest/developerguide/images/aws-iot-learn-connect-thing-3.png)
 
-1. In the terminal or command window on your device, after you enter the command from **Step 3** in the console, you should see an output similar to this\. This output is from the messages the program is sending to and then receiving back from AWS IoT Core\. While the sample program is communicating with AWS IoT Core, you won't see any activity in the console\. To see activity in the console while you run the sample program, see **Step 4** of this procedure\. Sometimes, instead of `topic_1`, you might see a message from the terminal that shows it's received from the topic **sdk/test/*SDK\_programming\_language***, where the *SDK\_programming\_language* can be Python, JavaScript, or Java\.  
+1. In the terminal or command window on your device, after you enter the command from **Step 3** in the console, you should see an output similar to this\. This output is from the messages the program is sending to and then receiving back from AWS IoT Core\.
+
+   While the sample program is running, you can also see some messages in the AWS IoT console\. The messages from your device appear in the **Configure and test your device** page, below **Step 3**\.
+
+   To see more detailed message activity in the console while you run the sample program, see **Step 4** of this procedure\. Sometimes, instead of `topic_1`, you might see a message from the terminal that shows it's received from the topic **sdk/test/*SDK\_programming\_language***, where the *SDK\_programming\_language* can be Python, JavaScript, or Java\.  
 ![\[AWS IoT console quick start example program output\]](http://docs.aws.amazon.com/iot/latest/developerguide/images/aws-iot-learn-connect-console-output.png)
 
 1. You can repeat the commands from **Step 3/3** in the console of this procedure\), to run the sample program again\.
 
-1. \(Optional\) If you want to see the messages from your IoT client in the [AWS IoT console](https://console.aws.amazon.com/iot/home), open the [MQTT client](https://console.aws.amazon.com/iot/home#/test) on the **Test** page of the AWS IoT console\. In the **MQTT client**, subscribe to **sdk/test/*SDK\_programming\_language***\. The topic name depends on the programming language of the SDK you chose in **Step 1/1**\. The possible topic names are as follows and are case sensitive\.
+1. \(Optional\) If you want to see the messages from your IoT client in the [AWS IoT console](https://console.aws.amazon.com/iot/home), open the [MQTT test client](https://console.aws.amazon.com/iot/home#/test) on the **Test** page of the AWS IoT console\. In the **MQTT test client**, in **Topic filter**, enter **sdk/test/*SDK\_programming\_language*** to subscribe to the messages from your device\. The complete topic filter to enter depends on the programming language of the SDK you chose in **Step 1/1**\. The possible topic filters are shown here and are case sensitive\.
    + For the AWS IoT Device SDK, the topic is **sdk/test/javascript**\.
    + For the Python AWS IoT Device SDK, the topic is **sdk/test/Python**\.
    + For the Java AWS IoT Device SDK, the topic is **sdk/test/java**\.

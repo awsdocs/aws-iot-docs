@@ -11,7 +11,7 @@ AWS IoT rule actions specify what to do when a rule is triggered\. You can defin
 | [CloudWatch metrics](cloudwatch-metrics-rule-action.md) | Sends a message to a CloudWatch metric\. | cloudwatchMetric | 
 | [DynamoDB](dynamodb-rule-action.md) | Sends a message to a DynamoDB table\. | dynamoDB | 
 | [DynamoDBv2](dynamodb-v2-rule-action.md) | Sends message data to multiple columns in a DynamoDB table\. | dynamoDBv2 | 
-| [Elasticsearch](elasticsearch-rule-action.md) | Sends a message to an Amazon OpenSearch Service endpoint\. | elasticsearch | 
+| [Elasticsearch](elasticsearch-rule-action.md) | Sends a message to an Elasticsearch endpoint\. | elasticsearch | 
 | [HTTP](https-rule-action.md) | Posts a message to an HTTPS endpoint\. | http | 
 | [IoT Analytics](iotanalytics-rule-action.md) | Sends a message to an AWS IoT Analytics channel\. | iotAnalytics | 
 | [IoT Events](iotevents-rule-action.md) | Sends a message to an AWS IoT Events input\. | iotEvents | 
@@ -19,6 +19,7 @@ AWS IoT rule actions specify what to do when a rule is triggered\. You can defin
 | [Kinesis Data Firehose](kinesis-firehose-rule-action.md) | Sends a message to a Kinesis Data Firehose delivery stream\. | firehose | 
 | [Kinesis Data Streams](kinesis-rule-action.md) | Sends a message to a Kinesis data stream\. | kinesis | 
 | [Lambda](lambda-rule-action.md) | Invokes a Lambda function with message data as input\. | lambda | 
+| [OpenSearch](opensearch-rule-action.md) | Sends a message to an Amazon OpenSearch Service endpoint\. | OpenSearch | 
 | [Republish](republish-rule-action.md) | Republishes a message to another MQTT topic\. | republish | 
 | [S3](s3-rule-action.md) | Stores a message in an Amazon Simple Storage Service \(Amazon S3\) bucket\. | s3 | 
 | [Salesforce IoT](salesforce-iot-rule-action.md) | Sends a message to a Salesforce IoT input stream\. | salesforce | 

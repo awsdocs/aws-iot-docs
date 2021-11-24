@@ -20,7 +20,7 @@ If you don't require AWS IoT features such as device communications, [rules](iot
 
 ## How your devices and apps access AWS IoT<a name="aws-iot-interfaces"></a>
 
-AWS IoT provides the following interfaces for [AWS IoT Tutorials](iot-tutorials.md):
+AWS IoT provides the following interfaces for [AWS IoT tutorials](iot-tutorials.md):
 + **AWS IoT Device SDKs**—Build applications on your devices that send messages to and receive messages from AWS IoT\. For more information, see [AWS IoT Device SDKs, Mobile SDKs, and AWS IoT Device Client](iot-sdks.md)\.
 + **AWS IoT Core for LoRaWAN**—Connect and manage your long range WAN \(LoRaWAN\) devices and gateways by using [AWS IoT Core for LoRaWAN](connect-iot-lorawan.md)\.
 + **AWS Command Line Interface \(AWS CLI\)**—Run commands for AWS IoT on Windows, macOS, and Linux\. These commands allow you to create and manage thing objects, certificates, rules, jobs, and policies\. To get started, see the [AWS Command Line Interface User Guide](https://docs.aws.amazon.com/cli/latest/userguide/)\. For more information about the commands for AWS IoT, see [iot](https://docs.aws.amazon.com/cli/latest/reference/iot/index.html) in the *AWS CLI Command Reference*\.

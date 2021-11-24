@@ -37,16 +37,19 @@ Perform the following steps to make sure that your devices’ connection attempt
         "Id": "default",
         "Statement": [
           {
-            "Sid": "Id-123",
+            "Sid": "Id123",
             "Effect": "Allow",
             "Principal": {
               "Service": "iot.amazonaws.com"
             },
             "Action": "lambda:InvokeFunction",
-            "Resource": "arn:aws:lambda:Region:AccountID:function:FunctionName",
+            "Resource": "arn:aws:lambda:us-east-1:111111111111:function:FunctionName",
             "Condition": {
               "ArnLike": {
-                "AWS:SourceArn": "arn:aws:iot:Region:AccountID:authorizer/AuthorizerName"
+                "AWS:SourceArn": "arn:aws:iot:us-east-1:111111111111:authorizer/AuthorizerName"
+              },
+              "StringEquals": {
+                "AWS:SourceAccount": "111111111111"
               }
             }
           }

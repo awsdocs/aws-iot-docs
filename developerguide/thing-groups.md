@@ -353,6 +353,8 @@ We do not recommend using personally identifiable information in your policy nam
 
 The `--target` parameter can be a thing group ARN \(as above\), a certificate ARN, or an Amazon Cognito Identity\. For more information about policies, certificates and authentication, see [Authentication](authentication.md)\.
 
+For more information, see [AWS IoT Core policies](https://docs.aws.amazon.com/iot/latest/developerguide/iot-policies.html)\.
+
 ## Detach a policy from a static thing group<a name="group-detach-policy"></a>
 
 You can use the DetachPolicy command to detach a policy from a group and so, by extension, to all things in that group and things in any of its child groups:
@@ -436,7 +438,7 @@ The GetEffectivePolicies command returns a list of policies:
 
 ## Test authorization for MQTT actions<a name="group-test-authorization"></a>
 
-You can use the TestAuthorization command to test whether an MQTT action is allowed for a thing:
+You can use the TestAuthorization command to test whether an [MQTT](https://docs.aws.amazon.com/iot/latest/developerguide/mqtt.html) action \(`Publish`, `Subscribe`\) is allowed for a thing:
 
 ```
 aws iot test-authorization \

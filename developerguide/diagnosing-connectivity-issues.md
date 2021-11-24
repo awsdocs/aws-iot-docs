@@ -86,3 +86,9 @@ In the left menu of the certificate's detail page, choose **Policies** to see th
 Choose the desired policy to see its details page\.  
 In the policy's details page, review the policy's **Policy document** to see what it authorizes\.  
 Choose **Edit policy document** to make changes to the policy document\.
+
+## Security and identity<a name="troubleshooting-security-identity"></a>
+
+When you provide the server certificates for AWS IoT custom domain configuration, the certificates have a maximum of four domain names\. 
+
+For more information, see [AWS IoT Core endpoints and quotas](https://docs.aws.amazon.com/general/latest/gr/iot-core.html#security-limits)\. 

@@ -39,6 +39,7 @@ To run the following commands, your IAM user should have permissions to `iot:Cre
    {
    	"sql": "SELECT * FROM 'iot/test'",
    	"ruleDisabled": false,
+   	"awsIotSqlVersion": "2016-03-23",
    	"actions": [
    		{
    			"sqs": {
@@ -93,6 +94,7 @@ Scenario: Account A sends data from an MQTT message to an Amazon SNS topic of ac
    {
    	"sql": "SELECT * FROM 'iot/test'",
    	"ruleDisabled": false,
+   	"awsIotSqlVersion": "2016-03-23",
    	"actions": [
    		{
    			"sns": {
@@ -146,6 +148,7 @@ To run the following commands, your IAM user should have permissions to `iot:Cre
    {
    	"sql": "SELECT * FROM 'iot/test'",
    	"ruleDisabled": false,
+   	"awsIotSqlVersion": "2016-03-23",
    	"actions": [
    		{
    			"s3": {
@@ -225,6 +228,7 @@ Scenario: Account A invokes an AWS Lambda function of account B, passing in an M
    {
    	"sql": "SELECT * FROM 'iot/test'",
    	"ruleDisabled": false,
+   	"awsIotSqlVersion": "2016-03-23",
    	"actions": [
    		{
    			"lambda": {

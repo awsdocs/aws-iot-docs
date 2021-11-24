@@ -1,4 +1,4 @@
-# Register a client certificate when the client connects to AWS IoT \(just\-in\-time registration\)<a name="auto-register-device-cert"></a>
+# Register a client certificate when the client connects to AWS IoT just\-in\-time registration \(JITR\)<a name="auto-register-device-cert"></a>
 
 You can configure a CA certificate to enable client certificates it has signed to register with AWS IoT automatically the first time the client connects to AWS IoT\.
 
@@ -42,13 +42,12 @@ Use the [https://awscli.amazonaws.com/v2/documentation/api/latest/reference/iot/
 
 ## Configure the first connection by a client for automatic registration<a name="configure-auto-reg-first-connect"></a>
 
-When a client attempts to connect to AWS IoT for the first time, it must present a file that contains both your registered CA certificate and the client certificate signed by your CA certificate as part of the TLS handshake\. You can combine the two files using a command, such as the following:
+When a client attempts to connect to AWS IoT for the first time it must present a file that contains your client certificate signed by your CA certificate as part of the TLS handshake\. 
 
-```
-cat device_cert_filename ca_certificate_pem_filename > combined_filename
-```
+When the client connects to AWS IoT, use the *client\_certificate\_filename* file as the certificate file\. AWS IoT recognizes the CA certificate as a registered CA certificate, registers the client certificate and sets its status to `PENDING_ACTIVATION`\. This means that the client certificate was automatically registered and is awaiting activation\. The client certificate's state must be `ACTIVE` before it can be used to connect to AWS IoT\.
 
-When the client connects to AWS IoT, use the *combined\_filename* file as the certificate file\. AWS IoT recognizes the CA certificate as a registered CA certificate, registers the client certificate, and sets its status to `PENDING_ACTIVATION`\. This means that the client certificate was automatically registered and is awaiting activation\. The client certificate's state must be `ACTIVE` before it can be used to connect to AWS IoT\.
+**Note**  
+You can provision devices using AWS IoT Core just\-in\-time registration \(JITR\) feature without having to send the entire trust chain on devices' first connection to AWS IoT Core\. Presenting the CA certificate is optional but the device is required to send the [Server Name Indication \(SNI\)](https://datatracker.ietf.org/doc/html/rfc3546#section-3.1) extension when they connect\.
 
 When AWS IoT automatically registers a certificate or when a client presents a certificate in the `PENDING_ACTIVATION` status, AWS IoT publishes a message to the following MQTT topic:
 
@@ -69,6 +68,6 @@ The message published to this topic has the following structure:
 }
 ```
 
-You can create a rule that listens on this topic and performs some actions\. We recommend that you create a Lambda rule that verifies the client certificate is not on a certificate revocation list \(CRL\), activates the certificate, and creates and attaches a policy to the certificate\. The policy determines which resources the client can access\. For more information about how to create a Lambda rule that listens on the `$aws/events/certificates/registered/caCertificateID` topic and performs these actions, see [Just\-in\-Time Registration of Client Certificates on AWS IoT](https://aws.amazon.com/blogs/iot/just-in-time-registration-of-device-certificates-on-aws-iot/)\.
+You can create a rule that listens on this topic and performs some actions\. We recommend that you create a Lambda rule that verifies the client certificate is not on a certificate revocation list \(CRL\), activates the certificate, and creates and attaches a policy to the certificate\. The policy determines which resources the client can access\. For more information about how to create a Lambda rule that listens on the `$aws/events/certificates/registered/caCertificateID` topic and performs these actions, see [just\-in\-time registration of Client Certificates on AWS IoT](https://aws.amazon.com/blogs/iot/just-in-time-registration-of-device-certificates-on-aws-iot/)\.
 
 If any error or exception occurs during the auto\-registration of the client certificates, AWS IoT sends events or messages to your logs in CloudWatch Logs\. For more information about setting up the logs for your account, see the [Amazon CloudWatch documentation](https://docs.aws.amazon.com/AmazonCloudWatch/latest/DeveloperGuide/)\. 
