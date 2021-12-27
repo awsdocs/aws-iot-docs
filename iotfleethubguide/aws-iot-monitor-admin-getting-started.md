@@ -24,13 +24,13 @@ You can connect your own identity provider to AWS SSO\. For more information, se
 
    Choose **Next**\.
 
-1. On the **Index AWS IoT data** page, review the information in the **How the data flow works from AWS IoT to Fleet Hub** section\. This page links you to the pages in the AWS IoT Core console where you can activate and manage the AWS IoT Core fleet indexing service\. You can use this service to index, search, and aggregate your registry data, shadow data, and device connectivity data \(device lifecycle events\)\. You can also create custom fields in addition to the managed fields that AWS IoT Core fleet indexing indexes by default\.
+1. On the **Index AWS IoT data** page, the **Manage indexing** button links you to the **Manage fleet indexing** page in the AWS IoT Core console where you can activate and manage the AWS IoT Core fleet indexing\. You can use fleet indexing to index, search, and aggregate your registry data, shadow data, device connectivity data \(device lifecycle events\), and device violations data\. You can also create custom fields in addition to the managed fields that AWS IoT Core fleet indexing indexes by default\.
 
    If you have already activated fleet indexing, this page displays your fleet indexing settings and any custom fields that you have created\.
 
    In addition to activating fleet indexing, you also must activate thing connectivity and thing indexing to work with Fleet Hub\.
 
-   For more information about fleet indexing, see [Fleet indexing service](https://docs.aws.amazon.com/iot/latest/developerguide/iot-indexing.html)\.
+   For more information about how to mange fleet indexing in Fleet Hub, see [Managing fleet indexing](https://docs.aws.amazon.com/iot/latest/developerguide/managing-fleet-index.html)\.
 
    When you're done managing and reviewing your fleet indexing settings, choose **Next**\.
 

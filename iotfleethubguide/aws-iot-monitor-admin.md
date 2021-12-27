@@ -4,6 +4,6 @@ This section contains guidance for administrators on how to create and manage Fl
 
 **Topics**
 + [Getting started](aws-iot-monitor-admin-getting-started.md)
-+ [Working with Fleet Hub for AWS IoT Device Management applications](aws-iot-monitor-admin-work-with-apps.md)
-+ [AWS and AWS IoT Core services that interact with Fleet Hub for AWS IoT Device Management](aws-iot-monitor-admin-services-interact.md)
++ [Working with Fleet Hub applications](aws-iot-monitor-admin-work-with-apps.md)
++ [AWS and AWS IoT Core services that interact Fleet Hub for AWS IoT Device Management](aws-iot-monitor-admin-services-interact.md)
 + [Troubleshooting](aws-iot-monitor-admin-troubleshoot.md)

@@ -1,7 +1,8 @@
-# Working with Fleet Hub for AWS IoT Device Management applications<a name="aws-iot-monitor-admin-work-with-apps"></a>
+# Working with Fleet Hub applications<a name="aws-iot-monitor-admin-work-with-apps"></a>
 
 This section contains information about creating and maintaining Fleet Hub for AWS IoT Device Management web applications\.
 
 **Topics**
-+ [How to create Fleet Hub for AWS IoT Device Management applications](aws-iot-monitor-admin-work-with-apps-create.md)
-+ [How to add users to Fleet Hub for AWS IoT Device Management applications](aws-iot-monitor-admin-work-with-apps-add-users.md)
++ [Creating Fleet Hub applications](aws-iot-monitor-admin-work-with-apps-create.md)
++ [Managing fleet indexing for Fleet Hub applications](aws-iot-monitor-admin-fleet-indexing.md)
++ [Adding users to Fleet Hub applications](aws-iot-monitor-admin-work-with-apps-add-users.md)

@@ -5,7 +5,7 @@ This section provides troubleshooting information and possible solutions to help
 
 | Symptom | Solution | 
 | --- | --- | 
-| I can't add more filters or terms to my query\. | Make sure that you haven't reached the limit of three query terms and filters\. | 
+| I can't add more filters or terms to my query\. | Make sure that you haven't reached the limit of four query terms and filters\. | 
 | I can't find a custom metric\. | Ask your administrator to create the metric in the fleet indexing service\. | 
 | My alarm isn't showing any data\. | Alarm data takes a few minutes to load\. | 
 | I need to change the devices that my alarm targets\. | Go to your dashboard and change the query\. | 

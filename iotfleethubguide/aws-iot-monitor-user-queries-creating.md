@@ -2,7 +2,7 @@
 
 This topic explains how Fleet Hub for AWS IoT Device Management queries work and walks you through the steps required to create a query with filters\.
 
-You can control the number and types of devices that display on your dashboard summary and list views by using queries\. You filter queries by using AWS\-managed and custom fields from the AWS IoT fleet indexing service\. If you want a field, including a device shadow field, to appear in your dashboard, your administrator must create it as an aggregation field in the fleet indexing service\. For more information about the fleet indexing service, see [Fleet indexing service](https://docs.aws.amazon.com/iot/latest/developerguide/iot-indexing.html)\.
+You can control the number and types of devices that display on your dashboard summary and list views by using queries\. You filter queries by using AWS\-managed and custom fields from AWS IoT fleet indexing\. If you want a field, including a device shadow field, to appear in your dashboard, your administrator must create it as an aggregation field in the fleet indexing service\. For more information about the fleet indexing, see [Fleet indexing](https://docs.aws.amazon.com/iot/latest/developerguide/iot-indexing.html)\.
 
 You can also add keywords to your queries\. Keywords apply across all searchable fields\. They also count against the limit of three filters that you can apply in a single query\.
 

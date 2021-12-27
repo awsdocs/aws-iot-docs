@@ -1,4 +1,4 @@
-# How to create Fleet Hub for AWS IoT Device Management applications<a name="aws-iot-monitor-admin-work-with-apps-create"></a>
+# Creating Fleet Hub applications<a name="aws-iot-monitor-admin-work-with-apps-create"></a>
 
 The following steps describe how to create Fleet Hub for AWS IoT Device Management web applications\.
 
@@ -14,15 +14,15 @@ You can connect your own identity provider to AWS SSO\. For more information, se
 
    Choose **Next**\.
 
-1. On the **Index AWS IoT data** page, review the information in the **How the data flow works from AWS IoT to Fleet Hub** section\. This page links you to the pages in the AWS IoT Core console where you can activate and manage the AWS IoT Core fleet indexing service\. You can use this service to index, search, and aggregate your registry data, shadow data, and device connectivity data \(device lifecycle events\)\. You can also create custom fields in addition to the managed fields that AWS IoT Core fleet indexing indexes by default\.
+1. On the **Index AWS IoT data** page, review the information in the **How the data flow works from AWS IoT to Fleet Hub** section\. This page links you to the pages in the AWS IoT Core console where you can activate and manage AWS IoT Core fleet indexing\. You can use this service to index, search, and aggregate your registry data, shadow data, device connectivity data \(device lifecycle events\), and device violations data\. You can also create custom fields in addition to the managed fields that AWS IoT Core fleet indexing indexes by default\.
 
-   If you have already activated fleet indexing, this page displays your fleet indexing settings and any custom fields that you have created\. You must enable thing indexing and thing connectivity to use Fleet Hub\.
+   If you have already enabled fleet indexing, this page displays your fleet indexing settings and any custom fields that you have created\. You must enable thing indexing and thing connectivity to use Fleet Hub\.
 
-   In addition to activating fleet indexing, you also must activate thing connectivity and thing indexing to work with Fleet Hub\.
-
-   For more information about fleet indexing, see [Fleet indexing service](https://docs.aws.amazon.com/iot/latest/developerguide/iot-indexing.html)\.
+   In addition to activating fleet indexing, you also must enable thing connectivity and thing indexing to work with Fleet Hub\.
 
    When you're done managing and reviewing your fleet indexing settings, choose **Next**\.
+
+   For more information about how to enable fleet indexing for Fleet Hub applications, see [Managing fleet indexing for Fleet Hub applications](aws-iot-monitor-admin-fleet-indexing.md)\.
 
 1. On the **Configure application** page, in the **Application role** section, create a new service role or select an existing service role\. Your Fleet Hub web application assumes this role when it uses Fleet Hub resources\. Federated users have the same permissions as the role when they use the web application\.
 

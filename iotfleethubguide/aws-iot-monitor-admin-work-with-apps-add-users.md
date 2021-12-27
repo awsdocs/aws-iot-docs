@@ -1,4 +1,4 @@
-# How to add users to Fleet Hub for AWS IoT Device Management applications<a name="aws-iot-monitor-admin-work-with-apps-add-users"></a>
+# Adding users to Fleet Hub applications<a name="aws-iot-monitor-admin-work-with-apps-add-users"></a>
 
 Your Fleet Hub for AWS IoT Device Management web application doesn't contain any users when it's newly created\. You must add users before you and members of your organization can use the application\. The steps in this topic describe how to add users to your application\.
 
