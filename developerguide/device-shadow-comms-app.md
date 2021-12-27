@@ -61,13 +61,15 @@ MQTT LWT messages sent to AWS IoT reserved topics \(topics that begin with $\) a
        "ruleDisabled": false,
        "sql": "SELECT * FROM 'my/things/myLightBulb/update'",
        "description": "Turn my/things/ into $aws/things/",
-       "actions": [{
+       "actions": [
+           {
            "republish": {
                "topic": "$$aws/things/myLightBulb/shadow/update",
                "roleArn": "arn:aws:iam:123456789012:role/aws_iot_republish"
+               }
            }
-       }]
-       }
+        ]
+      }
    }
    ```
 

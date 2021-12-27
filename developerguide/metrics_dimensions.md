@@ -31,6 +31,7 @@ Metrics are grouped first by the service namespace, and then by the various dime
 + [Device Defender audit metrics](#device-defender-audit-metrics)
 + [Device Defender detect metrics](#device-defender-detect-metrics)
 + [Device provisioning metrics](#provisioning-metrics)
++ [Fleet indexing metrics](#fleet-indexing-metrics)
 + [Dimensions for metrics](#aws-iot-metricdimensions)
 
 ## AWS IoT metrics<a name="iot-metrics"></a>
@@ -192,6 +193,17 @@ The device shadow metrics are displayed in the CloudWatch console under **Protoc
 |  `ProvisionThing.ClientError`  |  The number of times a device failed to provision due to a client error\. For example, the policy specified in the template did not exist\.  | 
 | ProvisionThing\.ServerError |  The number of times a device failed to provision due to a server error\. Customers can retry to provision the device after waiting and they can contact AWS IoT if the issue remains the same\.  | 
 | ProvisionThing\.Success |  The number of times a device was successfully provisioned\.  | 
+
+## Fleet indexing metrics<a name="fleet-indexing-metrics"></a>
+
+
+**AWS IoT fleet indexing metrics**  
+
+| Metric | Description | 
+| --- | --- | 
+|  `DeviceDefenderThingViolationsEventSizeLimitExceeded`  | The total data size for a thing processed by fleet indexing is limited to 32 KB\. When this limit is breached for a thing due to a Device Defender violations event, the DeviceDefenderThingViolationsEventSizeLimitExceeded event type will be emitted\. | 
+|  `NamedShadowEventSizeLimitExceeded`  | The total data size for a thing processed by fleet indexing is limited to 32 KB\. When this limit is breached for a thing due to a named shadow event, the NamedShadowEventSizeLimitExceeded event type will be emitted\. | 
+|  `NamedShadowCountForDynamicGroupQueryLimitExceeded`  |  A maximum of 5 named shadows per thing are processed for query terms that are not data source specific in dynamic thing groups\. When this limit is breached for a thing, the `NamedShadowCountForDynamicGroupQueryLimitExceeded` event type will be emitted\.  | 
 
 ## Dimensions for metrics<a name="aws-iot-metricdimensions"></a>
 

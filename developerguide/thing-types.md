@@ -8,7 +8,7 @@ Although thing types are optional, their use makes it easier to discover things\
 + A thing can be associated with only one thing type\.
 + There is no limit on the number of thing types you can create in your account\.
 
-Thing types are immutable\. You cannot change a thing type name after it has been created\. You can deprecate a thing type at any time to prevent new things from being associated with it\. You can also delete thing types that have no things associated with them\. 
+Thing types are immutable\. You can't change a thing type name after it has been created\. You can deprecate a thing type at any time to prevent new things from being associated with it\. You can also delete thing types that have no things associated with them\. 
 
 ## Create a thing type<a name="create-thing-type"></a>
 
@@ -109,7 +109,7 @@ You can also use the UpdateThing command to disassociate a thing from a thing ty
 
 ## Deprecate a thing type<a name="deprecate-thing-type"></a>
 
-Thing types are immutable\. They cannot be changed after they are defined\. You can, however, deprecate a thing type to prevent users from associating any new things with it\. All existing things associated with the thing type are unchanged\.
+Thing types are immutable\. They can't be changed after they are defined\. You can, however, deprecate a thing type to prevent users from associating any new things with it\. All existing things associated with the thing type are unchanged\.
 
 To deprecate a thing type, use the DeprecateThingType command:
 

@@ -295,16 +295,24 @@ For all mitigation action types, use the following trust policy template:
 
 ```
 {
-      "Version": "2012-10-17",
-      "Statement": [
-            {
-                  "Sid": "",
-                  "Effect": "Allow",
-                  "Principal": {
-                        "Service": "iot.amazonaws.com"      
-            },
-                  "Action": "sts:AssumeRole"    
-        }  
-    ]
+  "Version": "2012-10-17",
+  "Statement": [
+    {
+      "Sid": "",
+      "Effect": "Allow",
+      "Principal": {
+        "Service": "iot.amazonaws.com"
+      },
+      "Action": "sts:AssumeRole",
+      "Condition": {
+        "ArnLike": {
+          "aws:SourceArn": "arn:aws:iot:*:111122223333::*"
+        },
+        "StringEquals": {
+          "aws:SourceAccount": "111122223333:"
+        }
+      }
+    }
+  ]
 }
 ```

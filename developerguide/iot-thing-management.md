@@ -19,6 +19,6 @@ AWS IoT provides a registry that helps you manage *things*\. A thing is a repres
 
 Things are identified by a name\. Things can also have attributes, which are name\-value pairs you can use to store information about the thing, such as its serial number or manufacturer\. 
 
-A typical device use case involves the use of the thing name as the default MQTT client ID\. Although we do not enforce a mapping between a thing's registry name and its use of MQTT client IDs, certificates, or shadow state, we recommend you choose a thing name and use it as the MQTT client ID for both the registry and the Device Shadow service\. This provides organization and convenience to your IoT fleet without removing the flexibility of the underlying device certificate model or shadows\.
+A typical device use case involves the use of the thing name as the default MQTT client ID\. Although we don't enforce a mapping between a thing's registry name and its use of MQTT client IDs, certificates, or shadow state, we recommend you choose a thing name and use it as the MQTT client ID for both the registry and the Device Shadow service\. This provides organization and convenience to your IoT fleet without removing the flexibility of the underlying device certificate model or shadows\.
 
-You do not need to create a thing in the registry to connect a device to AWS IoT\. Adding things to the registry allows you to manage and search for devices more easily\.
+You don't need to create a thing in the registry to connect a device to AWS IoT\. Adding things to the registry allows you to manage and search for devices more easily\.

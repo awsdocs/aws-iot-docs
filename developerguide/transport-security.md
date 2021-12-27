@@ -10,7 +10,7 @@ AWS IoT requires devices to send the [Server Name Indication \(SNI\) extension](
   or
 + The `domainName` returned by `aws iot [describe\-domain\-configuration](https://awscli.amazonaws.com/v2/documentation/api/latest/reference/iot/describe-domain-configuration.html) –-domain-configuration-name "domain_configuration_name"`
 
-Connections attempted by devices without the correct `host_name` value will be refused and logged in CloudWatch\.
+Connections attempted by devices without the correct `host_name` value will fail, and AWS IoT will log failures to CloudWatch if the authentication type is Custom Authentication\.
 
 AWS IoT does not support the SessionTicket TLS extension\.
 

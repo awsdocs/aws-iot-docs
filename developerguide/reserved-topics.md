@@ -134,7 +134,7 @@ For more information, see [Jobs device MQTT and HTTPS APIs](jobs-api.md#jobs-mqt
 
 | Topic | Client operations allowed | Description | 
 | --- | --- | --- | 
-|  $aws/rules/*ruleName*  |  Publish  |  A device or an application publishes to this topic to trigger rules directly\. For more information, see [Reducing messaging costs with basic ingest](iot-basic-ingest.md)\.   | 
+|  $aws/rules/*ruleName*  |  Publish  |  A device or an application publishes to this topic to trigger rules directly\. For more information, see [Reducing messaging costs with Basic Ingest](iot-basic-ingest.md)\.   | 
 
 ## Secure tunneling topics<a name="reserved-topics-secure"></a>
 

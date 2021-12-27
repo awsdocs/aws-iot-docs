@@ -3,11 +3,11 @@
 Before you use IAM to manage access to AWS IoT, you should understand which IAM features are available to use with AWS IoT\. To get a high\-level view of how AWS IoT and other AWS services work with IAM, see [AWS Services That Work with IAM](https://docs.aws.amazon.com/service-authorization/latest/reference/reference_aws-services-that-work-with-iam.html) in the *IAM User Guide*\.
 
 **Topics**
-+ [IAM policies](iam-policies.md)
 + [AWS IoT identity\-based policies](#security_iam_service-with-iam-id-based-policies)
 + [AWS IoT resource\-based policies](#security_iam_service-with-iam-resource-based-policies)
 + [Authorization based on AWS IoT tags](#security_iam_service-with-iam-tags)
 + [AWS IoT IAM roles](#security_iam_service-with-iam-roles)
++ [IAM managed policies](iam-policies.md)
 
 ## AWS IoT identity\-based policies<a name="security_iam_service-with-iam-id-based-policies"></a>
 

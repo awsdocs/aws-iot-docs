@@ -24,8 +24,8 @@ Here are some limitations of static thing groups:
 + 
 
   The number of groups to which a thing can belong is [limited](https://docs.aws.amazon.com/general/latest/gr/iot-core.html#thing-limits)\.
-+ You cannot add a thing to more than one group in the same hierarchy\. \(In other words, you cannot add a thing to two groups that share a common parent\.\)
-+ You cannot rename a group\.
++ You can't add a thing to more than one group in the same hierarchy\. \(In other words, you can't add a thing to two groups that share a common parent\.\)
++ You can't rename a group\.
 + Thing group names can't contain international characters, such as û, é and ñ\.
 + You should not use personally identifiable information in your thing group name\. The thing group name can appear in unencrypted communications and reports\. 
 +  You should not use a colon character \( : \) in a thing group name\. The colon character is used as a delimiter by other AWS IoT services and this can cause them to parse strings with thing group names incorrectly\. 
@@ -51,7 +51,7 @@ The CreateThingGroup command returns a response that contains the static thing g
 ```
 
 **Note**  
-We do not recommend using personally identifiable information in your thing group names\.
+We don't recommend using personally identifiable information in your thing group names\.
 
 Here is an example that specifies a parent of the static thing group when it is created:
 
@@ -128,7 +128,7 @@ $ aws iot add-thing-to-thing-group --thing-name MyLightBulb --thing-group-name R
 The AddThingToThingGroup command does not produce any output\.
 
 **Important**  
-You can add a thing to a maximum of 10 groups\. But you cannot add a thing to more than one group in the same hierarchy\. \(In other words, you cannot add a thing to two groups which share a common parent\.\)  
+You can add a thing to a maximum of 10 groups\. But you can't add a thing to more than one group in the same hierarchy\. \(In other words, you can't add a thing to two groups which share a common parent\.\)  
 If a thing belongs to as many thing groups as possible, and one or more of those groups is a dynamic thing group, you can use the [https://docs.aws.amazon.com/iot/latest/apireference/API_AddThingToThingGroup.html#iot-AddThingToThingGroup-request-overrideDynamicGroups](https://docs.aws.amazon.com/iot/latest/apireference/API_AddThingToThingGroup.html#iot-AddThingToThingGroup-request-overrideDynamicGroups) flag to make static groups take priority over dynamic groups\.
 
 ## Remove a thing from a static thing group<a name="remove-thing-from-group"></a>
@@ -349,7 +349,7 @@ The AttachPolicy command does not produce any output
 You can attach a maximum number of two policies to a group\.
 
 **Note**  
-We do not recommend using personally identifiable information in your policy names\.
+We don't recommend using personally identifiable information in your policy names\.
 
 The `--target` parameter can be a thing group ARN \(as above\), a certificate ARN, or an Amazon Cognito Identity\. For more information about policies, certificates and authentication, see [Authentication](authentication.md)\.
 

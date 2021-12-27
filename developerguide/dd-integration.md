@@ -15,4 +15,15 @@ To use AWS IoT Device Defender on a FreeRTOS device, your device must have the [
 + [Using MQTT agent to submit metrics to AWS IoT Device Defender](https://freertos.org/iot-device-defender/demo-with-mqtt-agent.html)
 + [Using the MQTT core library to submit metrics to AWS IoT Device Defender](https://docs.aws.amazon.com/freertos/latest/userguide/dd-demo.html)
 
-To use AWS IoT Device Defender on an embedded device without FreeRTOS, your device must have the [AWS IoT Embedded C SDK](https://docs.aws.amazon.com/iot/latest/developerguide/iot-embedded-c-sdk.html) or [ AWS IoT Device Defender library](https://docs.aws.amazon.com/embedded-csdk/latest/lib-ref/libraries/aws/device-defender-for-aws-iot-embedded-sdk/docs/doxygen/output/html/index.html)\. The AWS IoT Embedded C SDK includes the AWS IoT Device Defender library\. For information about how to integrate AWS IoT Device Defender with your embedded devices, see the following demos, [AWS IoT Device Defender for AWS IoT Embedded SDK standard and custom metrics demos](https://github.com/aws/aws-iot-device-sdk-embedded-C/blob/main/docs/doxygen/demos/defender_demo.dox)
+To use AWS IoT Device Defender on an embedded device without FreeRTOS, your device must have the [AWS IoT Embedded C SDK](https://docs.aws.amazon.com/iot/latest/developerguide/iot-embedded-c-sdk.html) or [ AWS IoT Device Defender library](https://docs.aws.amazon.com/embedded-csdk/latest/lib-ref/libraries/aws/device-defender-for-aws-iot-embedded-sdk/docs/doxygen/output/html/index.html)\. The AWS IoT Embedded C SDK includes the AWS IoT Device Defender library\. For information about how to integrate AWS IoT Device Defender with your embedded devices, see the following demos, [AWS IoT Device Defender for AWS IoT Embedded SDK standard and custom metrics demos](https://github.com/aws/aws-iot-device-sdk-embedded-C/blob/main/docs/doxygen/demos/defender_demo.dox)\.
+
+## Using AWS IoT Device Defender with AWS IoT Device Management<a name="dd-integration-device-management"></a>
+
+You can use AWS IoT Device Management fleet indexing to index, search, and aggregate your AWS IoT Device Defender detect violations\. After your Device Defender violations data is indexed in fleet indexing, you can access and query Device Defender violations data from Fleet Hub applications, create fleet alarms based on violations data to monitor anomalies across your fleet of devices, and view fleet alarms in Fleet Hub dashboards\. 
+
+**Note**  
+The fleet indexing feature to support indexing AWS IoT Device Defender violations data is in preview release for AWS IoT Device Management and is subject to change\.
++ [Managing fleet indexing](https://docs.aws.amazon.com/iot/latest/developerguide/managing-fleet-index.html)
++ [Query syntax](https://docs.aws.amazon.com/iot/latest/developerguide/query-syntax.html)
++ [Managing fleet indexing for Fleet Hub applications](https://docs.aws.amazon.com/iot/latest/fleethubuserguide/aws-iot-monitor-admin-fleet-indexing.html)
++ [Getting started](https://docs.aws.amazon.com/iot/latest/fleethubuserguide/aws-iot-monitor-user-getting-started.html)

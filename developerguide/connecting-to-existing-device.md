@@ -278,7 +278,7 @@ To run the sample app, you need the following information:
 
 |  Parameter  |  Where to find the value  | 
 | --- | --- | 
-| your\-iot\-endpoint |  In the [AWS IoT console](https://console.aws.amazon.com/iot/home), choose **Manage**, and then choose **Things**\. Choose the IoT thing you created for your device, **MyIotThing** was the name used earlier, and then choose **Interact**\. On the thing details page, your endpoint is displayed in the ** HTTPS** section\.  | 
+| your\-iot\-endpoint |  In the [AWS IoT console](https://console.aws.amazon.com/iot/home), choose **Manage**, and then choose **Things**\. Choose the IoT thing you created for your device, **MyIotThing** was the name used earlier, and then choose **Interact**\. On the thing details page, your endpoint is displayed in the ** HTTPS** section\.  If you use the new AWS IoT console, choose **Settings** from the AWS IoT menu\. Your endpoint is displayed in the **Device data endpoint** section\.  | 
 
 The *your\-iot\-endpoint* value has a format of: `endpoint_id-ats.iot.region.amazonaws.com`, for example, `a3qj468EXAMPLE-ats.iot.us-west-2.amazonaws.com`\. 
 

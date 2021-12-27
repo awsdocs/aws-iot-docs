@@ -33,7 +33,7 @@ Before AWS IoT can perform these actions, you must grant it permission to access
 + [Troubleshooting a rule](#iot-troubleshoot-rule)
 + [Accessing cross\-account resources using AWS IoT rules](accessing-cross-account-resources-using-rules.md)
 + [Error handling \(error action\)](rule-error-handling.md)
-+ [Reducing messaging costs with basic ingest](iot-basic-ingest.md)
++ [Reducing messaging costs with Basic Ingest](iot-basic-ingest.md)
 + [AWS IoT SQL reference](iot-sql-reference.md)
 
 ## Troubleshooting a rule<a name="iot-troubleshoot-rule"></a>

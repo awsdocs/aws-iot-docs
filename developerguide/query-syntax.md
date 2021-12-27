@@ -1,18 +1,22 @@
 # Query syntax<a name="query-syntax"></a>
 
-Queries are speciﬁed using a query syntax\.
+In fleet indexing, you use a query syntax to specify queries\. 
 
-The query syntax supports the following features\.
+## Supported features<a name="supported-query-syntax"></a>
+
+The query syntax supports the following features:
 + Terms and phrases
 + Searching fields
 + Prefix search
 + Range search
-+ Boolean operators `AND`, `OR`, `NOT` and `–`\. The hyphen is used to exclude something from search results \(for example, `thingName:(tv* AND -plasma)`\)\)\.
++ Boolean operators `AND`, `OR`, `NOT` and `–`\. The hyphen is used to exclude something from search results \(for example, `thingName:(tv* AND -plasma)`\)\.
 + Grouping
 + Field grouping
-+ Escaping special characters \(as with *\\*\)
++ Escaping special characters \(such as with *\\*\)
 
-The query syntax does not support the following features:
+## Unsupported features<a name="unsupported-query-syntax"></a>
+
+The query syntax doesn't support the following features:
 + Leading wildcard search \(such as "\*xyz"\), but searching for "\*" matches all things
 + Regular expressions
 + Boosting
@@ -22,11 +26,13 @@ The query syntax does not support the following features:
 + Sorting
 + Aggregation
 
+## Notes<a name="query-syntax-limitations"></a>
+
 A few things to note about the query language:
 + The default operator is AND\. A query for `"thingName:abc thingType:xyz"` is equivalent to `"thingName:abc AND thingType:xyz"`\.
-+ If a field isn't specified, AWS IoT searches for the term in all fields\.
++ If a field isn't specified, AWS IoT searches for the term in all the registry, Device Shadow, and Device Defender fields\.
 + All field names are case sensitive\.
-+ Search is case insensitive\. Words are separated by white space characters as defined by Java's `Character.isWhitespace(int)`\.
-+ Indexing of device shadow data includes reported, desired, delta, and metadata sections\.
-+ Device shadow and registry versions are not searchable, but are present in the response\.
-+ The maximum number of terms in a query is 5\.
++ Search is case insensitive\. Words are separated by white\-space characters as defined by Java's `Character.isWhitespace(int)`\.
++ Indexing of Device Shadow data \(unnamed shadows and named shadows\) includes reported, desired, delta, and metadata sections\.
++ Device shadow and registry versions aren't searchable, but are present in the response\.
++ The maximum number of terms in a query is seven\.

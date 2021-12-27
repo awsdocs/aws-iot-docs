@@ -33,8 +33,8 @@ The following is an example of the policy required for receiving lifecycle event
 
 ## Enable events for AWS IoT<a name="iot-events-enable"></a>
 
-Before subscribers to the reserved topics can receive messages, you must enable event messages from the AWS Management Console or by using the API or CLI\.
-+ To enable event messages, go to the [Settings](console.aws.amazon.com/iot/home/settings/) tab of the AWS IoT console and then, in the **Event\-based messages** section, choose **Manage events**\. You can specify the events that you want to manage\.
+Before subscribers to the reserved topics can receive messages, you must enable event messages from the AWS Management Console or by using the API or CLI\. For information about the event messages that the different options manage, see the [Table of AWS IoT event configuration settings](#iot-events-settings-table)\.
++ To enable event messages, go to the [Settings](https://console.aws.amazon.com/iot/home#/settings) tab of the AWS IoT console and then, in the **Event\-based messages** section, choose **Manage events**\. You can specify the events that you want to manage\.
 + To control which event types are published by using the API or CLI, call the [UpdateEventConfigurations](https://docs.aws.amazon.com/iot/latest/apireference/API_UpdateEventConfigurations.html) API or use the update\-event\-configurations CLI command\. For example:
 
   ```
@@ -48,4 +48,41 @@ You can get the current event configuration by calling the [DescribeEventConfigu
 
 ```
 aws iot describe-event-configurations
-```
+```<a name="iot-events-settings-table"></a>
+
+**Table of AWS IoT event configuration settings**
+
+
+|  Event category  \(AWS IoT Console: Settings: Event\-based messages\)  |  `eventConfigurations` key value \(AWS CLI/API\)  |    Event message topic  | 
+| --- | --- | --- | 
+|  *\(Can only be configured by using the AWS CLI/API\)*  |  `CA_CERTIFICATE`  |  `$aws/events/certificates/registered/caCertificateId`  | 
+|  *\(Can only be configured by using the AWS CLI/API\)*  |  `CERTIFICATE`  |  `$aws/events/presence/connected/clientId`  | 
+|  *\(Can only be configured by using the AWS CLI/API\)*  |  `CERTIFICATE`  |  `$aws/events/presence/disconnected/clientId`  | 
+|  *\(Can only be configured by using the AWS CLI/API\)*  |  `CERTIFICATE`  |  `$aws/events/subscriptions/subscribed/clientId`  | 
+|  *\(Can only be configured by using the AWS CLI/API\)*  |  `CERTIFICATE`  |  `$aws/events/subscriptions/unsubscribed/clientId`  | 
+|  Job completed, canceled  |  `JOB`  |  `$aws/events/job/jobID/canceled`  | 
+|  Job completed, canceled  |  `JOB`  |  `$aws/events/job/jobID/cancellation_in_progress`  | 
+|  Job completed, canceled  |  `JOB`  |  `$aws/events/job/jobID/completed`  | 
+|  Job completed, canceled  |  `JOB`  |  `$aws/events/job/jobID/deleted`  | 
+|  Job completed, canceled  |  `JOB`  |  `$aws/events/job/jobID/deletion_in_progress`  | 
+|  Job execution: success, failed, rejected, canceled, removed  |  `JOB_EXECUTION`  |  `$aws/events/jobExecution/jobID/canceled`  | 
+|  Job execution: success, failed, rejected, canceled, removed  |  `JOB_EXECUTION`  |  `$aws/events/jobExecution/jobID/deleted`  | 
+|  Job execution: success, failed, rejected, canceled, removed  |  `JOB_EXECUTION`  |  `$aws/events/jobExecution/jobID/failed`  | 
+|  Job execution: success, failed, rejected, canceled, removed  |  `JOB_EXECUTION`  |  `$aws/events/jobExecution/jobID/rejected`  | 
+|  Job execution: success, failed, rejected, canceled, removed  |  `JOB_EXECUTION`  |  `$aws/events/jobExecution/jobID/removed`  | 
+|  Job execution: success, failed, rejected, canceled, removed  |  `JOB_EXECUTION`  |  `$aws/events/jobExecution/jobID/succeeded`  | 
+|  Job execution: success, failed, rejected, canceled, removed  |  `JOB_EXECUTION`  |  `$aws/events/jobExecution/jobID/timed_out`  | 
+|  Thing: created, updated, deleted  |  `THING`  |  `$aws/events/thing/thingName/created`  | 
+|  Thing: created, updated, deleted  |  `THING`  |  `$aws/events/thing/thingName/updated`  | 
+|  Thing: created, updated, deleted  |  `THING`  |  `$aws/events/thing/thingName/deleted`  | 
+|  Thing group: added, removed  |  `THING_GROUP`  |  `$aws/events/thingGroup/thingGroupName/created`  | 
+|  Thing group: added, removed  |  `THING_GROUP`  |  `$aws/events/thingGroup/thingGroupName/updated`  | 
+|  Thing group: added, removed  |  `THING_GROUP`  |  `$aws/events/thingGroup/thingGroupName/deleted`  | 
+|  Thing group hierarchy: added, removed  |  `THING_GROUP_HIERARCHY`  |  `$aws/events/thingGroupHierarchy/thingGroup/parentThingGroupName/childThingGroup/childThingGroupName/added`  | 
+|  Thing group hierarchy: added, removed  |  `THING_GROUP_HIERARCHY`  |  `$aws/events/thingGroupHierarchy/thingGroup/parentThingGroupName/childThingGroup/childThingGroupName/removed`  | 
+|  Thing group membership: added, removed  |  `THING_GROUP_MEMBERSHIP`  |  `$aws/events/thingGroupMembership/thingGroup/thingGroupName/thing/thingName/added`  | 
+|  Thing group membership: added, removed  |  `THING_GROUP_MEMBERSHIP`  |  `$aws/events/thingGroupMembership/thingGroup/thingGroupName/thing/thingName/removed`  | 
+|  Thing type: created, updated, deleted  |  `THING_TYPE`  |  `$aws/events/thingType/thingTypeName/created`  | 
+|  Thing type: created, updated, deleted  |  `THING_TYPE`  |  `$aws/events/thingType/thingTypeName/updated`  | 
+|  Thing type: created, updated, deleted  |  `THING_TYPE`  |  `$aws/events/thingType/thingTypeName/deleted`  | 
+|  Thing type association: added, removed  |  `THING_TYPE_ASSOCIATION`  |  `$aws/events/thingTypeAssociation/thing/thingName/thingTypeName`  | 

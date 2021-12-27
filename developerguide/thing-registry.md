@@ -25,7 +25,7 @@ The CreateThing command displays the name and Amazon Resource Name \(ARN\) of yo
 ```
 
 **Note**  
-We do not recommend using personally identifiable information in your thing names\.
+We don't recommend using personally identifiable information in your thing names\.
 
 ## List things<a name="list-things"></a>
 
@@ -200,4 +200,4 @@ You can use the DetachThingPrincipal command to detach a certificate from a thin
 $ aws iot detach-thing-principal --thing-name "MyLightBulb" --principal "arn:aws:iot:us-east-1:123456789012:cert/a0c01f5835079de0a7514643d68ef8414ab739a1e94ee4162977b02b12842847"
 ```
 
-The DetachThingPrincipal command does not produce any output\.
+The DetachThingPrincipal command doesn't produce any output\.

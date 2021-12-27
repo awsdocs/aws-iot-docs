@@ -2,18 +2,7 @@
 
  The AWS IoT Device Shadow service adds shadows to AWS IoT thing objects\. Shadows can make a device’s state available to apps and other services whether the device is connected to AWS IoT or not\. AWS IoT thing objects can have multiple named shadows so that your IoT solution has more options for connecting your devices to other apps and services\. 
 
-AWS IoT thing objects do not have any named shadows until they are created explicitly; however, an unnamed, classic shadow is created for a thing when the thing is created\. Shadows can be created, updated, and deleted by using the AWS IoT console\. Devices, other web clients, and services can create, update, and delete shadows by using MQTT and the [reserved MQTT topics](reserved-topics.md#reserved-topics-shadow), HTTP using the [Device Shadow REST API](device-shadow-rest-api.md), and the [AWS CLI for AWS IoT](https://awscli.amazonaws.com/v2/documentation/api/latest/reference/iot-data/index.html)\. Because shadows are stored by AWS in the cloud, they can collect and report device state data from apps and other cloud services whether the device is connected or not\. 
-
-**Topics**
-+ [Using shadows](#device-shadow-using)
-+ [Using shadows in devices](device-shadow-comms-device.md)
-+ [Using shadows in apps and services](device-shadow-comms-app.md)
-+ [Simulating Device Shadow service communications](using-device-shadows.md)
-+ [Interacting with shadows](device-shadow-data-flow.md)
-+ [Device Shadow REST API](device-shadow-rest-api.md)
-+ [Device Shadow MQTT topics](device-shadow-mqtt.md)
-+ [Device Shadow service documents](device-shadow-document.md)
-+ [Device Shadow error messages](device-shadow-error-messages.md)
+AWS IoT thing objects don't have any named shadows until they are created explicitly; however, an unnamed, classic shadow is created for a thing when the thing is created\. Shadows can be created, updated, and deleted by using the AWS IoT console\. Devices, other web clients, and services can create, update, and delete shadows by using MQTT and the [reserved MQTT topics](reserved-topics.md#reserved-topics-shadow), HTTP using the [Device Shadow REST API](device-shadow-rest-api.md), and the [AWS CLI for AWS IoT](https://awscli.amazonaws.com/v2/documentation/api/latest/reference/iot-data/index.html)\. Because shadows are stored by AWS in the cloud, they can collect and report device state data from apps and other cloud services whether the device is connected or not\. 
 
 ## Using shadows<a name="device-shadow-using"></a>
 
@@ -27,9 +16,11 @@ When a device goes offline, an app can still communicate with AWS IoT and the de
 
 The Device Shadow service supports named and unnamed, classic shadows, as have been used in the past\. A thing object can have multiple named shadows, and no more than one unnamed, classic shadow\. A thing object can have both named and unnamed shadows at the same time; however, the API used to access each is slightly different, so it might be more efficient to decide which type of shadow would work best for your solution and use that type only\. For more information about the API to access the shadows, see [Shadow topics](reserved-topics.md#reserved-topics-shadow)\. 
 
-With named shadows, you can create different views of a thing object’s state\. For example, you could divide a thing object with many properties into shadows with logical groups of properties, each identified by its shadow name\. You could also limit access to properties by grouping them into different shadows and using policies to control access\. Named shadows, however, do not support [fleet indexing](iot-indexing.md)\.
+With named shadows, you can create different views of a thing object’s state\. For example, you could divide a thing object with many properties into shadows with logical groups of properties, each identified by its shadow name\. You could also limit access to properties by grouping them into different shadows and using policies to control access\. 
 
 The classic, unnamed shadows are simpler, but somewhat more limited than the named shadows\. Each AWS IoT thing object can have only one unnamed shadow\. If you expect your IoT solution to have a limited need for shadow data, this might be how you want to get started using shadows\. However, if you think you might want to add additional shadows in the future, consider using named shadows from the start\.
+
+Fleet indexing supports unnamed shadows and named shadows differently\. For more information, see [Fleet indexing](iot-indexing.md)\.
 
 ### Accessing shadows<a name="device-shadow-using-access"></a>
 
