@@ -32,22 +32,45 @@ This ARN should have a policy attached to it that looks like the following examp
 
 ```
 {
-"Version": "2012-10-17",
-"Statement": [
-{
-    "Effect": "Allow",
-    "Action": [
-        "ec2:CreateNetworkInterface",
-        "ec2:DescribeNetworkInterfaces",
-        "ec2:CreateNetworkInterfacePermission",
-        "ec2:DeleteNetworkInterface",
-        "ec2:DescribeSubnets",
-        "ec2:DescribeVpcs",
-        "ec2:DescribeVpcAttribute"
-        ],
-        "Resource": "*"
-    }
-]
+    "Version": "2012-10-17",
+    "Statement": [
+        {
+            "Effect": "Allow",
+            "Action": [
+                "ec2:CreateNetworkInterface",
+                "ec2:DescribeNetworkInterfaces",
+                "ec2:DescribeVpcs",
+                "ec2:DeleteNetworkInterface",
+                "ec2:DescribeSubnets",
+                "ec2:DescribeVpcAttribute",
+                "ec2:DescribeSecurityGroups"
+            ],
+            "Resource": "*"
+        },
+        {
+            "Effect": "Allow",
+            "Action": "ec2:CreateNetworkInterfacePermission",
+            "Resource": "*",
+            "Condition": {
+                "StringEquals": {
+                    "ec2:ResourceTag/VPCDestinationENI": "true"
+                }
+            }
+        },
+        {
+            "Effect": "Allow",
+            "Action": [
+                "ec2:CreateTags"
+            ],
+            "Resource": "*",
+            "Condition": {
+                "StringEquals": {
+                    "ec2:CreateAction": "CreateNetworkInterface",
+                    "aws:RequestTag/VPCDestinationENI": "true"
+                }
+            }
+        }
+    ]
 }
 ```
 
