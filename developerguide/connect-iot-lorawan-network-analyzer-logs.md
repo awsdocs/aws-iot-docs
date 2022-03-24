@@ -8,7 +8,7 @@ Before you can activate trace messaging by using network analyzer, you must have
 + Added the resources that you want to monitor to your default network analyzer configuration\. For more information, see [Add resources and update the network analyzer configuration](connect-iot-lorawan-network-analyzer-resources.md)\.
 + Generated a presigned request by using the `StartNetworkAnalyzerStream` request URL\. The request will be signed using the credentials for the AWS Identity and Access Management role that makes this request\. For more information, see [Create a presigned URL](connect-iot-lorawan-network-analyzer-generate-request.md#connect-iot-lorawan-network-analyzer-presigned-url)
 
-### Activate trace messaging by using the console<a name="connect-iot-lorawan-network-analyzer-activate-console"></a>
+## Activate trace messaging by using the console<a name="connect-iot-lorawan-network-analyzer-activate-console"></a>
 
 To activate trace messaging
 
@@ -20,7 +20,7 @@ To activate trace messaging
 **Note**  
 After the messaging session starts, receiving trace messages can incur additional costs until you deactivate the session or leave the trace session\. For more information about pricing, see [AWS IoT Core pricing](http://aws.amazon.com/iot-core/pricing/)\.
 
-### View and monitor trace messages<a name="connect-iot-lorawan-network-analyzer-view-trace"></a>
+## View and monitor trace messages<a name="connect-iot-lorawan-network-analyzer-view-trace"></a>
 
 After you activate trace messaging, the WebSocket connection is established and trace messages start appearing in real time, newest first\. You can customize the preferences to specify the number of trace messages to be displayed in each page and to display only the relevant fields for each message\. For example, you can customize the trace message log to show only logs for wireless gateway resources that have **Log level** set to `ERROR`, so that you can quickly identify and debug errors with your gateways\. The trace messages contain the following information\. 
 + **Message Number**: A unique number that shows the last message received first\.
@@ -33,7 +33,7 @@ After you activate trace messaging, the WebSocket connection is established and 
 + **Event**: The event for a log message for a wireless device, which can be **Join**, **Rejoin**, **Uplink\_Data**, **Downlink\_Data**, or **Registration**\.
 + **Log level**:Information about `INFO` or `ERROR` log streams for your device\.
 
-### Network analyzer JSON log message<a name="connect-iot-network-analyzer-trace-logs"></a>
+## Network analyzer JSON log message<a name="connect-iot-network-analyzer-trace-logs"></a>
 
 You can also choose one trace message at a time to view the JSON payload for that message\. Depending on the message that you select in the trace message logs, you'll see information in the JSON payload that indicates contains 2 parts: **CustomerLog** and **LoRaFrame**\.
 
@@ -75,7 +75,7 @@ export type TraceMessage = {
 };
 ```
 
-### Review and next steps<a name="connect-iot-lorawan-network-analyzer-review"></a>
+## Review and next steps<a name="connect-iot-lorawan-network-analyzer-review"></a>
 
 In this section, you've viewed trace messages and learned how you can use the information to debug errors\. After you've viewed all messages, you can:
 + 

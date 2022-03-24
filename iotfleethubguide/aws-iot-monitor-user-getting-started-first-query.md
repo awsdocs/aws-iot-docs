@@ -1,4 +1,4 @@
-# Create your first query<a name="aws-iot-monitor-user-getting-started-first-query"></a>
+# Creating your first query<a name="aws-iot-monitor-user-getting-started-first-query"></a>
 
 
 ****  
@@ -9,9 +9,11 @@
 
 This topic walks you through the steps to create a simple Fleet Hub for AWS IoT Device Management query\. The queries are specified using search query syntax\.
 
-**Prerequisites**
+## Prerequisites<a name="aws-iot-monitor-user-getting-started-first-query-prerequisites"></a>
 + A Fleet Hub application associated with an AWS IoT Core account that contains devices \(things\)\.
 + An account in your organization that has permissions to use the Fleet Hub application\.
+
+## Create your first Fleet Hub query<a name="aws-iot-monitor-user-getting-started-first-query-steps"></a>
 
 **Create your first Fleet Hub query**
 

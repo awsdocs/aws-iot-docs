@@ -1,10 +1,10 @@
 # Controlling access to tunnels<a name="tunnel-access"></a>
 
-The Secure Tunneling service provides the following service\-specific actions, resources, and condition context keys for use in IAM permission policies\.
+Secure tunneling provides the following service\-specific actions, resources, and condition context keys for use in IAM permission policies\.
 
 ## Tunnel access prerequisites<a name="tunnel-access-prereq"></a>
 + Learn how to secure AWS resources by using [IAM policies](https://docs.aws.amazon.com/IAM/latest/UserGuide/access_controlling.html)\.
-+ Learn how to create and evaluate [IAM conditions](https://docs.aws.amazon.com/IAM/latest/UserGuide/reference_policies_multi-value-conditions.html)\.
++ Learn how to create and evaluate [IAM conditions](      https://docs.aws.amazon.com/IAM/latest/UserGuide/reference_policies_multi-value-conditions.html)\.
 + Learn how to secure AWS resources using [resource tags](https://docs.aws.amazon.com/IAM/latest/UserGuide/access_tags.html)\.
 
 ## iot:OpenTunnel<a name="open-tunnel-action"></a>

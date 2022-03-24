@@ -26,7 +26,7 @@ In general, the AWS IoT Device SDK for Embedded C is intended for systems that u
 1. Navigate to that directory and checkout the latest release\. Please see [ github\.com/aws/aws\-iot\-device\-sdk\-embedded\-C/tags](https://github.com/aws/aws-iot-device-sdk-embedded-C/tags) for the latest release tag\.
 
    ```
-   cd aws-iot-device-sdk-embedded-C
+   cd aws-iot-device-sdk-embedded-c
    git checkout latest-release-tag
    ```
 

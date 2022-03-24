@@ -11,29 +11,18 @@ In this tutorial, you open a tunnel and use it to start an SSH session to a remo
 
 ## Open a tunnel<a name="open-tunnel"></a>
 
-If you configure the destination when calling `OpenTunnel`, the Secure Tunneling service delivers the destination client access token to the remote device over MQTT and the reserved MQTT topic \(`$aws/things/RemoteDeviceA/tunnels/notify`\)\. For more information, see [Reserved topics](reserved-topics.md)\. Upon receipt of the MQTT message, the IoT agent on the remote device starts the local proxy in destination mode\. You can omit the destination configuration if you want to deliver the destination client access token to the remote device through another method\. For more information, see [Configuring a remote device](configure-remote-device.md)\.
+If you configure the destination when calling `OpenTunnel`, the secure tunneling delivers the destination client access token to the remote device over MQTT and the reserved MQTT topic \(`$aws/things/RemoteDeviceA/tunnels/notify`\)\. For more information, see [Reserved topics](reserved-topics.md)\. Upon receipt of the MQTT message, the IoT agent on the remote device starts the local proxy in destination mode\. You can omit the destination configuration if you want to deliver the destination client access token to the remote device through another method\. For more information, see [Configuring a remote device](configure-remote-device.md)\.
 
 **To open a tunnel in the console**
 
-1. In the [AWS IoT console](https://console.aws.amazon.com/iot/), navigate to **Manage** and **Tunnels**\.  
+1. In the [AWS IoT console](https://console.aws.amazon.com/iot/), navigate to **Manage** and choose **Tunnels**\.  
 ![\[Image NOT FOUND\]](http://docs.aws.amazon.com/iot/latest/developerguide/images/tunnels-page.png)
 
-1. Select **Open New**\.
+1. Choose **Create tunnel**\.
 
-1. On the **Open a new secure tunnel** screen, enter the following:
+1. Enter a tunnel description, the thing name for which you want to open a tunnel, the service to be used such as SSH or FTP, a tunnel timeout duration, and resource tags as key\-value pairs to help you identify your resource\.
 
-   1. Description: a description for your tunnel\.
-
-   1. Thing Name: the thing you want to open a tunnel for\.
-
-   1. Service: a service to be used on the thing \(e\.g\. ssh, ftp etc\)\.
-
-   1. Tunnel timeout configuration: specify a timeout duration for your tunnel\.
-
-   1. Resource Tags: apply tags to your resources to help organize and identify them\. Consists of a case\-sensitive key\-value pair\.  
-![\[Image NOT FOUND\]](http://docs.aws.amazon.com/iot/latest/developerguide/images/open-tunnel.png)
-
-1. Download the client access tokens for the source and destination\.  
+1. Download the client access tokens for the source and destination\. The tokens will not be available to download after you choose **Done**\.  
 ![\[Image NOT FOUND\]](http://docs.aws.amazon.com/iot/latest/developerguide/images/tunnel-success.png)
 
 1. Select **Done**\.

@@ -1,5 +1,8 @@
 # Diagnosing connectivity issues<a name="diagnosing-connectivity-issues"></a>
 
+**Help us improve this topic**  
+ [Let us know what would help make it better](https://docs.aws.amazon.com/forms/aws-doc-feedback?hidden_service_name=IoT%20Docs&topic_url=http://docs.aws.amazon.com/en_us/iot/latest/diagnosing-connectivity-issues.html) 
+
 A successful connection to AWS IoT requires:
 + A valid connection
 + A valid and active certificate
@@ -15,6 +18,10 @@ How do I find the correct endpoint?
 
 How do I find the correct Server Name Indication \(SNI\) value?  
 The correct SNI value is the `endpointAddress` returned by the [describe\-endpoint](https://awscli.amazonaws.com/v2/documentation/api/latest/reference/iot/describe-endpoint.html) or [describe\-domain\-configuration](https://awscli.amazonaws.com/v2/documentation/api/latest/reference/iot/describe-domain-configuration.html) commands\. It's the same address as the endpoint in the previous step\.
+
+How do I solve a connectivity issue that persists?  
+You can use AWS Device Advisor to help troubleshoot\. Device Advisor's pre\-built tests help you validate your device software against best practices for usage of [TLS](https://docs.aws.amazon.com/iot/latest/developerguide/protocols.html), [MQTT](https://docs.aws.amazon.com/iot/latest/developerguide/protocols.html), [AWS IoT Device Shadow](https://docs.aws.amazon.com/iot/latest/developerguide/iot-device-shadows.html), and [AWS IoT Jobs](https://docs.aws.amazon.com/iot/latest/developerguide/iot-jobs.html)\.  
+ Here is a link to the existing [Device Advisor](https://docs.aws.amazon.com/iot/latest/developerguide/device-advisor.html) content\.
 
 ## Authentication<a name="troubleshooting-authentication"></a>
 

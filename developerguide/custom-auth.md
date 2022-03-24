@@ -4,7 +4,7 @@
 
 ## HTTP<a name="custom-auth-http"></a>
 
-Devices sending data to AWS IoT Core by using the [HTTP Publish API](https://docs.aws.amazon.com/iot/latest/apireference/API_iotdata_Publish.html) can pass credentials either through request headers or query parameters in their HTTP POST requests\. Devices can specify an authorizer to invoke by using the `x-amz-customauthorizer-name` header or query parameter\. If you have token signing enabled in your authorizer, you must pass the `token-key-name` and `x-amz-customauthorizer-signature` in either request headers or query parameters\. The `token-signature` value must be URL\-encoded\.
+Devices sending data to AWS IoT Core by using the [HTTP Publish API](https://docs.aws.amazon.com/iot/latest/apireference/API_iotdata_Publish.html) can pass credentials either through request headers or query parameters in their HTTP POST requests\. Devices can specify an authorizer to invoke by using the `x-amz-customauthorizer-name` header or query parameter\. If you have token signing enabled in your authorizer, you must pass the `token-key-name` and `x-amz-customauthorizer-signature` in either request headers or query parameters\. Note that the `token-signature` value must be URL\-encoded when using JavaScript from within the browser\.
 
 The following example requests show how you pass these parameters in both request headers and query parameters\. 
 

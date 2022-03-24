@@ -1,8 +1,8 @@
 # View MQTT messages with the AWS IoT MQTT client<a name="view-mqtt-messages"></a>
 
-This section describes how to use the AWS IoT MQTT client in the [AWS IoT console](https://console.aws.amazon.com/iot/home) to watch the MQTT messages sent and received by AWS IoT\. The example used in this section relates to the examples used in [Getting started with AWS IoT Core](iot-gs.md); however, you can replace the *topicName* used in the examples with any [topic name or topic filter](topics.md) used by your IoT solution\. 
+This section describes how to use the AWS IoT MQTT client in the [AWS IoT console](https://console.aws.amazon.com/iot/home) to watch the MQTT messages sent and received by AWS IoT\. The example used in this section relates to the examples used in [Getting started with AWS IoT Core](iot-gs.md); however, you can replace the *topicName* used in the examples with any [topic name or topic filter](topics.md) used by your IoT solution\.
 
-Devices publish MQTT messages that are identified by [topics](topics.md) to communicate their state to AWS IoT, and AWS IoT publishes MQTT messages to inform the devices and apps of changes and events\. You can use the MQTT client to subscribe to these topics and watch the messages as they occur\. You can also use the MQTT client to publish MQTT messages to subscribed devices and services in your AWS account\. 
+Devices publish MQTT messages that are identified by [topics](topics.md) to communicate their state to AWS IoT, and AWS IoT publishes MQTT messages to inform the devices and apps of changes and events\. You can use the MQTT client to subscribe to these topics and watch the messages as they occur\. You can also use the MQTT client to publish MQTT messages to subscribed devices and services in your AWS account\.
 
 ## Viewing MQTT messages in the MQTT client<a name="view-mqtt-subscribe"></a>
 
@@ -13,7 +13,7 @@ Devices publish MQTT messages that are identified by [topics](topics.md) to comm
 
 1. In the **Subscribe to a topic** tab, enter the *topicName* to subscribe to the topic on which your device publishes\. For the getting started sample app, subscribe to **\#**, which subscribes to all message topics\.
 
-   Continuing with the getting started example, on the **Subscribe to a topic** tab, in the **Topic filter** field, enter **\#**, and then choose **Subscribe**\.   
+   Continuing with the getting started example, on the **Subscribe to a topic** tab, in the **Topic filter** field, enter **\#**, and then choose **Subscribe**\.  
 ![\[Image NOT FOUND\]](http://docs.aws.amazon.com/iot/latest/developerguide/images/subscribe-button-topic.png)
 
    The topic message log page, **\#** opens and **\#** appears in the **Subscriptions** list\. If the device that you configured in [Configure your device](configure-device.md) is running the example program, you should see the messages it sends to AWS IoT in the **\#** message log\. The message log entries will appear below the **Publish** section when messages with the subscribed topic are received by AWS IoT\.  
@@ -26,13 +26,13 @@ Devices publish MQTT messages that are identified by [topics](topics.md) to comm
 ### Troubleshooting MQTT messages<a name="view-mqtt-trouble"></a>
 
 **Use the wild card topic filter**  
-If your messages are not showing up in the message log as you expect, try subscribing to a wild card topic filter as described in [Topic filters](topics.md#topicfilters)\. The MQTT multi\-level wild card topic filter is the hash or pound sign \( `#` \) and can be used as the topic filter in the **Subscription topic** field\. 
+If your messages are not showing up in the message log as you expect, try subscribing to a wild card topic filter as described in [Topic filters](topics.md#topicfilters)\. The MQTT multi\-level wild card topic filter is the hash or pound sign \( `#` \) and can be used as the topic filter in the **Subscription topic** field\.
 
-Subscribing to the `#` topic filter subscribes to every topic received by the message broker\. You can narrow the filter down by replacing elements of the topic filter path with a `#` multi\-level wild card character or the '\+' single\-level wild\-card character\. 
+Subscribing to the `#` topic filter subscribes to every topic received by the message broker\. You can narrow the filter down by replacing elements of the topic filter path with a `#` multi\-level wild card character or the '\+' single\-level wild\-card character\.
 
 **When using wild cards in a topic filter**
 + The multi\-level wild card character must be the last character in the topic filter\.
-+ The topic filter path can have only one single\-level wild card character per topic level\. 
++ The topic filter path can have only one single\-level wild card character per topic level\.
 
 For example:
 

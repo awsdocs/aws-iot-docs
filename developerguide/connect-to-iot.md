@@ -12,7 +12,7 @@ The **AWS IoT Core \- control plane** endpoints provide access to functions t
 + 
 
 **Endpoints**  
-The **AWS IoT Core \- control plane** endpoints are Region specific and are listed in [AWS IoT Core Endpoints and Quotas](https://docs.aws.amazon.com/general/latest/gr/iot-core.html)\. The formats of the **AWS IoT Core \- control plane** endpoints are as follows\.    
+The **AWS IoT Core \- control plane** and **AWS IoT Core Device Advisor control plane** endpoints are Region specific and are listed in [AWS IoT Core Endpoints and Quotas](https://docs.aws.amazon.com/general/latest/gr/iot-core.html)\. The formats of the endpoints are as follows\.    
 [\[See the AWS documentation website for more details\]](http://docs.aws.amazon.com/iot/latest/developerguide/connect-to-iot.html)
 + 
 

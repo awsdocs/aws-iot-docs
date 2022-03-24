@@ -30,7 +30,7 @@ Policies authorize actions in AWS IoT\. If the certificate used to connect to AW
 
 1. Find the certificate as described in the previous item and open its details page\.
 
-1. In the left menu of the certificate's details page, choose **Policies** to see the policies attached to the certificate
+1. In the left menu of the certificate's details page, choose **Policies** to see the policies attached to the certificate\.
 
 1. If there are no policies attached to the certificate, add one by choosing the **Actions** menu, and then choosing **Attach policy**\. 
 
@@ -48,11 +48,11 @@ Make sure you used the correct command line for your system\. The commands used 
 
 Review the command you entered and double\-check the endpoint address in your command to the one in your [AWS IoT console](https://console.aws.amazon.com/iot/home)\.
 
-## Check the filenames of the certificate files<a name="gs-device-ts-step-5"></a>
+## Check the file names of the certificate files<a name="gs-device-ts-step-5"></a>
 
-Compare the filenames in the command you entered to the filenames of the certificate files in the `certs` directory\.
+Compare the file names in the command you entered to the file names of the certificate files in the `certs` directory\.
 
-Some systems might require the filenames to be in quotes to work correctly\.
+Some systems might require the file names to be in quotes to work correctly\.
 
 ## Check the SDK installation<a name="gs-device-ts-step-6"></a>
 

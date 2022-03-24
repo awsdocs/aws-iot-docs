@@ -6,7 +6,7 @@ These tutorials can take more time to complete than those in the section on [Bui
 
 ## Start building solutions with the AWS IoT Device SDKs<a name="iot-sdk-tutorial-overview"></a>
 
-TODO: Add content for iot\-sdk\-tutorial\-overview here\.
+These tutorials walk you through different AWS IoT scenarios\. Where appropriate, the tutorials use the AWS IoT Device SDKs\.
 
 **Topics**
 + [Start building solutions with the AWS IoT Device SDKs](#iot-sdk-tutorial-overview)

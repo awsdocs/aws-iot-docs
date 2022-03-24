@@ -1,9 +1,11 @@
 # Pre\-provisioning hooks<a name="pre-provisioning-hook"></a>
 
-When using AWS IoT fleet provisioning, you can set up a Lambda function to validate parameters passed from the device before allowing the device to be provisioned\. This Lambda function must exist in your account before you provision a device because it's called every time a device sends a request through [RegisterThing](fleet-provision-api.md#register-thing)\. For devices to be provisioned, your Lambda function must accept the input object and return the output object described in this section\. The provisioning proceeds only if the Lambda function returns an object with `"allowProvisioning": True`\.
+AWS recommends using pre\-provisioning hook functions when creating provisioning templates to allow more control of which and how many devices your account onboards\. Pre\-provisioning hooks are Lambda functions that validate parameters passed from the device before allowing the device to be provisioned\. This Lambda function must exist in your account before you provision a device because it's called every time a device sends a request through [RegisterThing](fleet-provision-api.md#register-thing)\.
 
 **Important**  
-AWS recommends using pre\-provisioning hooks when creating provisioning templates to allow more control of which and how many devices your account onboards\.
+Be sure to include the `source-arn` or `source-account` in the global condition context keys of the policies attached to your Lambda action to prevent permission manipulation\. Fore more informataion about this, see [Cross\-service confused deputy prevention](cross-service-confused-deputy-prevention.md)\.
+
+For devices to be provisioned, your Lambda function must accept the input object and return the output object described in this section\. The provisioning proceeds only if the Lambda function returns an object with `"allowProvisioning": True`\.
 
 ## Pre\-provision hook input<a name="pre-provisioning-hook-input"></a>
 
@@ -44,7 +46,8 @@ The following is an example of a successful response from the pre\-provisioning 
 `"parameterOverrides"` values will be added to `"parameters"` parameter of the [RegisterThing](fleet-provision-api.md#register-thing) request payload\.
 
 **Note**  
-If the Lambda function fails or doesn't return the `"allowProvisioning"` parameter in the response, the provisioning request will fail and the error will be returned in the response\.
+If the Lambda function fails, the provisioning request fails with `ACCESS_DENIED` and an error is logged to CloudWatch Logs\.
+If the Lambda function doesn't return `"allowProvisioning": "true"` in the response, the provisioning request fails with `ACCESS_DENIED`\.
 The Lambda function must finish running and return within 5 seconds, otherwise the provisioning request fails\.
 
 ## Pre\-provisioning hook Lambda example<a name="pre-provisioning-example"></a>

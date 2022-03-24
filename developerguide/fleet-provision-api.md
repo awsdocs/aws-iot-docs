@@ -22,7 +22,7 @@ If you do not subscribe to the response topics *before* you publish a request, y
 Creates a certificate from a certificate signing request \(CSR\)\. AWS IoT provides client certificates that are signed by the Amazon Root certificate authority \(CA\)\. The new certificate has a `PENDING_ACTIVATION` status\. When you call `RegisterThing` to provision a thing with this certificate, the certificate status changes to `ACTIVE` or `INACTIVE` as described in the template\.
 
 **Note**  
-For security, the `certificateOwnershipToken` returned by [`CreateCertificateFromCsr`](#create-cert-csr) expires after one hour\. [`RegisterThing`](#register-thing) must be called before the `certificateOwnershipToken` expires\. If the token expires, the device can call [`CreateCertificateFromCsr`](#create-cert-csr) to generate a new certificate\.
+For security, the `certificateOwnershipToken` returned by `CreateCertificateFromCsr` expires after one hour\. `RegisterThing` must be called before the `certificateOwnershipToken` expires\. If the certificate created by `CreateCertificateFromCsr` has not been activated and has not been attached to a policy or a thing by the time the token expires, the certificate is deleted\. If the token expires, the device can call `CreateCertificateFromCsr` to generate a new certificate\.
 
 ### CreateCertificateFromCsr request<a name="create-cert-csr-request"></a>
 
@@ -99,7 +99,7 @@ The error message\.
 Creates new keys and a certificate\. AWS IoT provides client certificates that are signed by the Amazon Root certificate authority \(CA\)\. The new certificate has a `PENDING_ACTIVATION` status\. When you call `RegisterThing` to provision a thing with this certificate, the certificate status changes to `ACTIVE` or `INACTIVE` as described in the template\.
 
 **Note**  
-For security, the `certificateOwnershipToken` returned by [`CreateKeysAndCertificate`](#create-keys-cert) expires after one hour\. [`RegisterThing`](#register-thing) must be called before the `certificateOwnershipToken` expires\. If the token expires, the device can call [`CreateKeysAndCertificate`](#create-keys-cert) to generate a new certificate\.
+For security, the `certificateOwnershipToken` returned by `CreateKeysAndCertificate` expires after one hour\. `RegisterThing` must be called before the `certificateOwnershipToken` expires\. If the certificate created by `CreateKeysAndCertificate` has not been activated and has not been attached to a policy or a thing by the time the token expires, the certificate is deleted\. If the token expires, the device can call `CreateKeysAndCertificate` to generate a new certificate\.
 
 ### CreateKeysAndCertificate request<a name="create-keys-cert-request"></a>
 

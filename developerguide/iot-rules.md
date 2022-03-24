@@ -24,7 +24,7 @@ Your rules can use MQTT messages that pass through the publish/subscribe protoco
 Before AWS IoT can perform these actions, you must grant it permission to access your AWS resources on your behalf\. When the actions are performed, you incur the standard charges for the AWS services you use\.
 
 **Topics**
-+ [Granting AWS IoT the required access](iot-create-role.md)
++ [Granting an AWS IoT rule the access it requires](iot-create-role.md)
 + [Pass role permissions](pass-role.md)
 + [Creating an AWS IoT rule](iot-create-rule.md)
 + [Viewing your rules](iot-view-rules.md)

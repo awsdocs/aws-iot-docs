@@ -52,7 +52,7 @@ For a device to connect to AWS IoT Core:
 
    The device endpoints are described in [AWS IoT device data and service endpoints](iot-connect-devices.md#iot-connect-device-endpoints) and can be seen in the [settings page of the AWS IoT console](https://console.aws.amazon.com/iot/home#/settings)\. 
 
-1. **Communication software** such as the AWS IoT Device SDKs provide\. This tutorial uses the [ AWS IoT Device SDK v2 for Python](https://github.com/aws/aws-iot-device-sdk-python-v2#aws-iot-device-sdk-v2-for-python)\.
+1. **Communication software** such as the AWS IoT Device SDKs provide\. This tutorial uses the [AWS IoT Device SDK v2 for Python](https://github.com/aws/aws-iot-device-sdk-python-v2#aws-iot-device-sdk-v2-for-python)\.
 
 ## Review the MQTT protocol<a name="sdk-tutorials-mqtt-review"></a>
 

@@ -45,7 +45,7 @@ The following table lists the IAM IoT actions, the associated AWS IoT API, and t
 | iot:CreateJob | CreateJob |  `arn:aws:iot:region:account-id:job/job-id` `arn:aws:iot:region:account-id:thinggroup/thing-group-name` `arn:aws:iot:region:account-id:thing/thing-name` `arn:aws:iot:region:account-id:jobtemplate/job-template-id`  | 
 | iot:CreateJobTemplate | CreateJobTemplate |  `arn:aws:iot:region:account-id:job/job-id` `arn:aws:iot:region:account-id:jobtemplate/job-template-id`  | 
 | iot:CreateKeysAndCertificate | CreateKeysAndCertificate | \* | 
-| iot:CreatePolicy | CreatePolicy | \* | 
+| iot:CreatePolicy | CreatePolicy | `arn:aws:iot:region:account-id:policy/policy-name` | 
 | iot:CreatePolicyVersion | CreatePolicyVersion |  `arn:aws:iot:region:account-id:policy/policy-name`  This must be an AWS IoT policy, not an IAM policy\.   | 
 | iot:CreateRoleAlias | CreateRoleAlias |  \(parameter: roleAlias\) `arn:aws:iot:region:account-id:rolealias/role-alias-name`  | 
 | iot:CreateSecurityProfile | CreateSecurityProfile |  `arn:aws:iot:region:account-id:securityprofile/security-profile-name` `arn:aws:iot:region:account-id:dimension/dimension-name`  | 
@@ -232,7 +232,7 @@ For actions that don't support resource\-level permissions, such as listing oper
 | iot:CreateJob | CreateJob |  `arn:aws:iot:region:account-id:job/job-id` `arn:aws:iot:region:account-id:thinggroup/thing-group-name` `arn:aws:iot:region:account-id:thing/thing-name` `arn:aws:iot:region:account-id:jobtemplate/job-template-id`  | 
 | iot:CreateJobTemplate | CreateJobTemplate |  `arn:aws:iot:region:account-id:job/job-id` `arn:aws:iot:region:account-id:jobtemplate/job-template-id`  | 
 | iot:CreateKeysAndCertificate | CreateKeysAndCertificate | \* | 
-| iot:CreatePolicy | CreatePolicy | \* | 
+| iot:CreatePolicy | CreatePolicy | `arn:aws:iot:region:account-id:policy/policy-name` | 
 | CreatePolicyVersion | iot:CreatePolicyVersion |  `arn:aws:iot:region:account-id:policy/policy-name`  This must be an AWS IoT policy, not an IAM policy\.   | 
 | iot:CreateRoleAlias | CreateRoleAlias |  \(parameter: roleAlias\) `arn:aws:iot:region:account-id:rolealias/role-alias-name`  | 
 | iot:CreateThing | CreateThing |  `arn:aws:iot:region:account-id:thing/thing-name`  | 

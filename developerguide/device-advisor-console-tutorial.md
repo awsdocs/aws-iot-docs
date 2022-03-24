@@ -48,7 +48,7 @@ To complete this tutorial, you need to [ create a thing and certificate](https:/
    Choose **Done**\.
 
 1. Drag one of the available test cases from **Test cases** into the test group\.  
-![\[Image NOT FOUND\]](http://docs.aws.amazon.com/iot/latest/developerguide/images/da-drag-test-cases.png)
+![\[Image NOT FOUND\]](http://docs.aws.amazon.com/iot/latest/developerguide/images/da-configure-test-suite-step5.png)
 
 1. To modify the test case level configuration for the test case that you added to your test group, choose **Edit**\. Then, enter a **Name** to give the group a custom name\. 
 

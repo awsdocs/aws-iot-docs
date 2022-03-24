@@ -999,7 +999,7 @@ When this message is published to the topic 'A/B', the payload `{"ts": "1970.01.
 {
     "ruleArn": "arn:aws:iot:us-east-2:ACCOUNT_ID:rule/RULE_NAME",
     "topicRulePayload": {
-        "sql": "SELECT parse_time("yyyy.MM.dd G 'at' HH:mm:ss z", 100000000, "America/Belize" ) as ts FROM 'A/B'",
+        "sql": "SELECT parse_time(\"yyyy.MM.dd G 'at' HH:mm:ss z\", 100000000, 'America/Belize' ) as ts FROM 'A/B'",
 
         "ruleDisabled": false,
         "awsIotSqlVersion": "2016-03-23",
@@ -1023,7 +1023,7 @@ When this message is published to the topic 'A/B', a payload similar to `{"ts": 
 {
     "ruleArn": "arn:aws:iot:us-east-2:ACCOUNT_ID:rule/RULE_NAME",
     "topicRulePayload": {
-        "sql": "SELECT parse_time("yyyy.MM.dd G 'at' HH:mm:ss z", timestamp() ) as ts FROM 'A/B'",
+        "sql": "SELECT parse_time(\"yyyy.MM.dd G 'at' HH:mm:ss z\", timestamp() ) as ts FROM 'A/B'",
         "awsIotSqlVersion": "2016-03-23",
         "ruleDisabled": false,
         "actions": [
@@ -1049,15 +1049,13 @@ When this message is published to the topic 'A/B', a payload similar to `{"ts": 
         "sql": "SELECT * FROM 'A/B'",
         "awsIotSqlVersion": "2016-03-23",
         "ruleDisabled": false,
-        "actions": [
-            {
-                "s3": {
-                    "roleArn": "arn:aws:iam::ACCOUNT_ID:rule:role/ROLE_NAME",
-                    "bucketName": BUCKET_NAME,
-                    "key": "${parse_time("yyyy", timestamp(), "UTC")}"
-                }
+        "actions": [{
+            "s3": {
+                "roleArn": "arn:aws:iam::ACCOUNT_ID:rule:role/ROLE_NAME",
+                "bucketName": "BUCKET_NAME",
+                "key": "${parse_time('yyyy', timestamp(), 'UTC')}"
             }
-        ],
+        }],
         "ruleName": "RULE_NAME"
     }
 }

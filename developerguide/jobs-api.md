@@ -38,11 +38,11 @@ Use the following API operations or CLI commands:
 + [https://docs.aws.amazon.com/iot/latest/apireference/API_CreateJob.html](https://docs.aws.amazon.com/iot/latest/apireference/API_CreateJob.html) or [https://docs.aws.amazon.com/cli/latest/reference/iot/create-job.html](https://docs.aws.amazon.com/cli/latest/reference/iot/create-job.html) 
 + [https://docs.aws.amazon.com/iot/latest/apireference/API_DeleteJob.html](https://docs.aws.amazon.com/iot/latest/apireference/API_DeleteJob.html) or [https://docs.aws.amazon.com/cli/latest/reference/iot/delete-job.html](https://docs.aws.amazon.com/cli/latest/reference/iot/delete-job.html) 
 + [https://docs.aws.amazon.com/iot/latest/apireference/API_DeleteJobExecution.html](https://docs.aws.amazon.com/iot/latest/apireference/API_DeleteJobExecution.html) or [https://docs.aws.amazon.com/cli/latest/reference/iot/deete-job-execution.html](https://docs.aws.amazon.com/cli/latest/reference/iot/deete-job-execution.html) 
-+ [https://docs.aws.amazon.com/iot/latest/apireference/API_DeleteJobExecution.html](https://docs.aws.amazon.com/iot/latest/apireference/API_DeleteJobExecution.html) or [https://docs.aws.amazon.com/cli/latest/reference/iot/describe-job.html](https://docs.aws.amazon.com/cli/latest/reference/iot/describe-job.html) 
-+ [https://docs.aws.amazon.com/iot/latest/apireference/API_DeleteJobExecution.html](https://docs.aws.amazon.com/iot/latest/apireference/API_DeleteJobExecution.html) or [https://docs.aws.amazon.com/cli/latest/reference/iot/describe-job-execution.html](https://docs.aws.amazon.com/cli/latest/reference/iot/describe-job-execution.html) 
-+ [https://docs.aws.amazon.com/iot/latest/apireference/API_DeleteJobExecution.html](https://docs.aws.amazon.com/iot/latest/apireference/API_DeleteJobExecution.html) or [https://docs.aws.amazon.com/cli/latest/reference/iot/get-job-document.html](https://docs.aws.amazon.com/cli/latest/reference/iot/get-job-document.html) 
++ [https://docs.aws.amazon.com/iot/latest/apireference/API_DescribeJob.html](https://docs.aws.amazon.com/iot/latest/apireference/API_DescribeJob.html) or [https://docs.aws.amazon.com/cli/latest/reference/iot/describe-job.html](https://docs.aws.amazon.com/cli/latest/reference/iot/describe-job.html) 
++ [https://docs.aws.amazon.com/iot/latest/apireference/API_DescribeJobExecution.html](https://docs.aws.amazon.com/iot/latest/apireference/API_DescribeJobExecution.html) or [https://docs.aws.amazon.com/cli/latest/reference/iot/describe-job-execution.html](https://docs.aws.amazon.com/cli/latest/reference/iot/describe-job-execution.html) 
++ [https://docs.aws.amazon.com/iot/latest/apireference/API_GetJobDocument.html](https://docs.aws.amazon.com/iot/latest/apireference/API_GetJobDocument.html) or [https://docs.aws.amazon.com/cli/latest/reference/iot/get-job-document.html](https://docs.aws.amazon.com/cli/latest/reference/iot/get-job-document.html) 
 + [https://docs.aws.amazon.com/iot/latest/apireference/API_ListJobExecutionsForJob.html](https://docs.aws.amazon.com/iot/latest/apireference/API_ListJobExecutionsForJob.html) or [https://docs.aws.amazon.com/cli/latest/reference/iot/list-job-executions-for-job.html](https://docs.aws.amazon.com/cli/latest/reference/iot/list-job-executions-for-job.html) 
-+ [https://docs.aws.amazon.com/iot/latest/apireference/API_ListJobExecutionsForJob.html](https://docs.aws.amazon.com/iot/latest/apireference/API_ListJobExecutionsForJob.html) or [https://docs.aws.amazon.com/cli/latest/reference/iot/list-job-executions-for-thing.html](https://docs.aws.amazon.com/cli/latest/reference/iot/list-job-executions-for-thing.html) 
++ [https://docs.aws.amazon.com/iot/latest/apireference/API_ListJobExecutionsForThing.html](https://docs.aws.amazon.com/iot/latest/apireference/API_ListJobExecutionsForThing.html) or [https://docs.aws.amazon.com/cli/latest/reference/iot/list-job-executions-for-thing.html](https://docs.aws.amazon.com/cli/latest/reference/iot/list-job-executions-for-thing.html) 
 + [https://docs.aws.amazon.com/iot/latest/apireference/API_ListJobs.html](https://docs.aws.amazon.com/iot/latest/apireference/API_ListJobs.html) or [https://docs.aws.amazon.com/cli/latest/reference/iot/list-jobs.html](https://docs.aws.amazon.com/cli/latest/reference/iot/list-jobs.html) 
 + [https://docs.aws.amazon.com/iot/latest/apireference/API_UpdateJob.html](https://docs.aws.amazon.com/iot/latest/apireference/API_UpdateJob.html) or [https://docs.aws.amazon.com/cli/latest/reference/iot/update-job.html](https://docs.aws.amazon.com/cli/latest/reference/iot/update-job.html) 
 
@@ -85,7 +85,7 @@ Message payload:
 ```
 {
 "jobs" : {
-    "JobExecutionState": [ [ `DescribeJobExecution`](https://docs.aws.amazon.com/iot/latest/apireference/API_DeleteJobExecution.html) ... ]
+    "JobExecutionState": [ [https://docs.aws.amazon.com/iot/latest/apireference/API_JobExecutionSummary.html](https://docs.aws.amazon.com/iot/latest/apireference/API_JobExecutionSummary.html) ... ]
 },
 "timestamp": timestamp,
 }
@@ -93,7 +93,7 @@ Message payload:
 
 ### NextJobExecutionChanged<a name="mqtt-nextjobexecutionchanged"></a>
 
-Sent whenever there is a change to which job execution is next on the list of pending job executions for a thing, as defined for [ `DescribeJobExecution`](https://docs.aws.amazon.com/iot/latest/apireference/API_DeleteJobExecution.html) with jobId `$next`\. This message is not sent when the next job's execution details change, only when the next job that would be returned by `DescribeJobExecution` with jobId `$next` has changed\. Consider job executions J1 and J2 with state QUEUED\. J1 is next on the list of pending job executions\. If the state of J2 is changed to IN\_PROGRESS while the state of J1 remains unchanged, then this notification is sent and contains details of J2\.
+Sent whenever there is a change to which job execution is next on the list of pending job executions for a thing, as defined for [https://docs.aws.amazon.com/iot/latest/apireference/API_DeleteJobExecution.html](https://docs.aws.amazon.com/iot/latest/apireference/API_DeleteJobExecution.html) with jobId `$next`\. This message is not sent when the next job's execution details change, only when the next job that would be returned by `DescribeJobExecution` with jobId `$next` has changed\. Consider job executions J1 and J2 with state QUEUED\. J1 is next on the list of pending job executions\. If the state of J2 is changed to IN\_PROGRESS while the state of J1 remains unchanged, then this notification is sent and contains details of J2\.
 
 Use the topic:
 

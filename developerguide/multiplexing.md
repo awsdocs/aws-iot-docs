@@ -1,6 +1,6 @@
 # Multiplex data streams in a secure tunnel<a name="multiplexing"></a>
 
-You can use multiple data streams per tunnel by using the Secure Tunneling multiplexing feature\. With multiplexing, you can troubleshoot devices using multiple connections or ports \(for example, a web browser that requires sending multiple HTTP and SSH data streams\)\. You can also reduce your operational load by eliminating the need to build, deploy, and start multiple local proxies or open multiple tunnels to the same device\.
+You can use multiple data streams per tunnel by using the secure tunneling multiplexing feature\. With multiplexing, you can troubleshoot devices using multiple connections or ports \(for example, a web browser that requires sending multiple HTTP and SSH data streams\)\. You can also reduce your operational load by eliminating the need to build, deploy, and start multiple local proxies or open multiple tunnels to the same device\.
 
 ## Example use case<a name="multiplexing-multiple-streams"></a>
 
@@ -80,7 +80,7 @@ You can skip this step if you prefer to specify the port mapping through the CLI
       ./localproxy -r us-east-1 -m src -t source_client_access_token
       ```
 
-1. Application data from SSH and HTTP connection can now be transferred concurrently over the multiplexed tunnel\. As can be seen from the map below, the service identifier acts as a readable format to translate the port mapping between the source and destination device\. With this configuration, the secure tunneling service will:
+1. Application data from SSH and HTTP connection can now be transferred concurrently over the multiplexed tunnel\. As can be seen from the map below, the service identifier acts as a readable format to translate the port mapping between the source and destination device\. With this configuration, the secure tunneling will:
 
    1. Forward any incoming HTTP traffic from port 5555 on the source device to port 80 on the destination device\.
 

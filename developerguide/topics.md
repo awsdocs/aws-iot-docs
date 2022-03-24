@@ -23,7 +23,7 @@ Topic names must not contain personally identifiable information\.
 Topic names that begin with a $ are [reserved topics](reserved-topics.md) to be used only by AWS IoT Core\.
 AWS IoT Core can't send or receive messages between AWS accounts or Regions\.
 
-For more information on designing your topic names and namespace, see our whitepaper, [Designing MQTT Topics for AWS IoT Core](https://d1.awsstatic.com/whitepapers/Designing_MQTT_Topics_for_AWS_IoT_Core.pdf)\.
+For more information on designing your topic names and namespace, see our whitepaper, [Designing MQTT Topics for AWS IoT Core](https://docs.aws.amazon.com/whitepapers/latest/designing-mqtt-topics-aws-iot-core/designing-mqtt-topics-aws-iot-core.html)\.
 
 For examples of how apps can publish and subscribe to messages, start with [Getting started with AWS IoT Core](iot-gs.md) and [AWS IoT Device SDKs, Mobile SDKs, and AWS IoT Device Client](iot-sdks.md)\.
 

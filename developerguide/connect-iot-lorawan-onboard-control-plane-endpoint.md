@@ -49,7 +49,7 @@ To launch your EC2 instance:
 1. In the **Configure Instance Details** page:
    + For **Network**, choose the VPC that you created earlier \(for example, `VPC-A`\)\.
    + For **Subnet**, choose the subnet that you created earlier \(for example, **Private subnet**\)\.
-   + For **IAM role**, choose the role **AWSIoTWirelessFullAccess** to grant AWS IoT Core for LoRaWAN full access policy\. For more information, see [ `AWSIoTWirelessFullAccess` policy summary](https://console.aws.amazon.com/iam/home#/policies/arn:aws:iam::aws:policy/AWSIoTWirelessFullAccess$serviceLevelSummary)\.
+   + For **IAM role**, choose the role **AWSIoTWirelessFullAccess** to grant AWS IoT Core for LoRaWAN full access policy\. For more information, see [`AWSIoTWirelessFullAccess` policy summary](https://console.aws.amazon.com/iam/home#/policies/arn:aws:iam::aws:policy/AWSIoTWirelessFullAccess$serviceLevelSummary)\.
    + For **Assume Private IP**, use an IP address, for example, **10\.100\.0\.42**\.
 
 1. Choose **Next: Add Storage** and then choose **Next: Add Tags**\. You can optionally add any tags to associate with your EC2 instance\. Choose **Next: Configure Security Group**\.

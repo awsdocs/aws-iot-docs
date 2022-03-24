@@ -18,4 +18,4 @@ AWS IoT MQTT\-based file delivery provides the following functionality so that d
 + Amazon S3 as data storage for stream files\.
 + Support for data transfer log publishing from AWS IoT MQTT\-based file delivery to CloudWatch\.
 
-For MQTT\-based file delivery quotas, see [ AWS IoT Core Service Quotas](https://docs.aws.amazon.com/general/latest/gr/iot-core.html#limits_iot) in the *AWS General Reference*\.
+For MQTT\-based file delivery quotas, see [AWS IoT Core Service Quotas](https://docs.aws.amazon.com/general/latest/gr/iot-core.html#limits_iot) in the *AWS General Reference*\.

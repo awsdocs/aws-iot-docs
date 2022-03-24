@@ -8,7 +8,7 @@ The SQS action doesn't support [Amazon SQS FIFO \(First\-In\-First\-Out\) queues
 ## Requirements<a name="sqs-rule-action-requirements"></a>
 
 This rule action has the following requirements:
-+ An IAM role that AWS IoT can assume to perform the `sqs:SendMessage` operation\. For more information, see [Granting AWS IoT the required access](iot-create-role.md)\.
++ An IAM role that AWS IoT can assume to perform the `sqs:SendMessage` operation\. For more information, see [Granting an AWS IoT rule the access it requires](iot-create-role.md)\.
 
   In the AWS IoT console, you can choose or create a role to allow AWS IoT to perform this rule action\.
 + If you use an AWS Key Management Service \(AWS KMS\) customer\-managed AWS KMS key \(KMS key\) to encrypt data at rest in Amazon SQS, the service must have permission to use the AWS KMS key on the caller's behalf\. For more information, see [Key management](https://docs.aws.amazon.com/AWSSimpleQueueService/latest/SQSDeveloperGuide/sqs-key-management.html) in the *Amazon Simple Queue Service Developer Guide*\.

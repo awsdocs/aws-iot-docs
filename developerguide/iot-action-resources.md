@@ -27,3 +27,4 @@ The following table shows the resource to specify for each action type:
 | iot:Subscribe | `topicfilter` | A topic filter string | arn:aws:iot:us\-east\-1:123456789012:topicfilter/myTopicFilter | 
 | iot:UpdateJobExecution | thing |  The thing's name  |  `arn:aws:iot:us-east-1:123456789012:thing/thingOne`  | 
 | iot:UpdateThingShadow | thing |  The thing's name, and the shadow's name, if applicable  |  `arn:aws:iot:us-east-1:123456789012:thing/thingOne` `arn:aws:iot:us-east-1:123456789012:thing/thingOne/shadowOne`  | 
+| iot:AssumeRoleWithCertificate | rolealias |  A role alias that points to a role ARN  |  `arn:aws:iot:us-east-1:123456789012:rolealias/CredentialProviderRole_alias`  | 

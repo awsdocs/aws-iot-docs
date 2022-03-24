@@ -5,7 +5,7 @@ The CloudWatch Logs \(`cloudwatchLogs`\) action sends data to Amazon CloudWatch 
 ## Requirements<a name="cloudwatch-logs-rule-action-requirements"></a>
 
 This rule action has the following requirements:
-+ An IAM role that AWS IoT can assume to perform the `logs:CreateLogStream`, `logs:DescribeLogStreams`, and `logs:PutLogEvents` operations\. For more information, see [Granting AWS IoT the required access](iot-create-role.md)\.
++ An IAM role that AWS IoT can assume to perform the `logs:CreateLogStream`, `logs:DescribeLogStreams`, and `logs:PutLogEvents` operations\. For more information, see [Granting an AWS IoT rule the access it requires](iot-create-role.md)\.
 
   In the AWS IoT console, you can choose or create a role to allow AWS IoT to perform this rule action\.
 + If you use a customer\-managed AWS KMS key \(KMS key\) to encrypt log data in CloudWatch Logs, the service must have permission to use the KMS key on the caller's behalf\. For more information, see [Encrypt log data in CloudWatch Logs using AWS KMS](https://docs.aws.amazon.com/AmazonCloudWatch/latest/logs/encrypt-log-data-kms.html) in the *Amazon CloudWatch Logs User Guide*\.

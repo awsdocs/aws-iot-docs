@@ -53,7 +53,7 @@ MQTT LWT messages sent to AWS IoT reserved topics \(topics that begin with $\) a
 
 **To send the Device Shadow service an LWT message**
 
-1. Create a rule that republishes the MQTT LWT message on the reserved topic\. The following example is a rule that listens for a messages on the `my/things/myLightBulb/update` topic and republishes it to `$aws/things/myLightBulb/shadow/update`\.
+1. Create a rule that republishes the MQTT LWT message on the reserved topic\. The following example is a rule that listens for messages on the `my/things/myLightBulb/update` topic and republishes it to `$aws/things/myLightBulb/shadow/update`\.
 
    ```
    {

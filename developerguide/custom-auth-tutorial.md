@@ -83,7 +83,7 @@ The Lambda function does the following:
 
    Lambda creates a Node\.js function and an [execution role](https://docs.aws.amazon.com/lambda/latest/dg/lambda-intro-execution-role.html) that grants the function permission to upload logs\. The Lambda function assumes the execution role when you invoke your function and uses the execution role to create credentials for the AWS SDK and to read data from event sources\.
 
-1. To see the function's code and configuration in the [AWS Cloud9 ](https://docs.aws.amazon.com/cloud9/latest/user-guide/welcome.html) editor, choose **custom\-auth\-function** in the designer window, and then choose **index\.js** in the navigation pane of the editor\.
+1. To see the function's code and configuration in the [AWS Cloud9](https://docs.aws.amazon.com/cloud9/latest/user-guide/welcome.html) editor, choose **custom\-auth\-function** in the designer window, and then choose **index\.js** in the navigation pane of the editor\.
 
    For scripting languages such as Node\.js, Lambda includes a basic function that returns a success response\. You can use the [AWS Cloud9](https://docs.aws.amazon.com/cloud9/latest/user-guide/welcome.html) editor to edit your function as long as your source code doesn't exceed 3 MB\.
 

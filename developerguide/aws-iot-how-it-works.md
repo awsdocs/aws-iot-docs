@@ -85,13 +85,16 @@ AWS IoT provides this software to support your IoT devices\.
  [AWS IoT Greengrass](https://docs.aws.amazon.com/greengrass/) extends AWS IoT to edge devices so they can act locally on the data they generate and use the cloud for management, analytics, and durable storage\. With AWS IoT Greengrass, connected devices can run [AWS Lambda](https://docs.aws.amazon.com/lambda/) functions, Docker containers, or both, execute predictions based on machine learning models, keep device data in sync, and communicate with other devices securely – even when they are not connected to the Internet\.
 
 **AWS IoT Device Tester**  
-[AWS IoT Device Tester](https://docs.aws.amazon.com/freertos/latest/userguide/device-tester-for-freertos-ug.html) for FreeRTOS and AWS IoT Greengrass is a test automation tool for microcontrollers\. AWS IoT Device Tester, test your device to determine if it will run FreeRTOS or AWS IoT Greengrass and interoperate with AWS IoT services\.
+[AWS IoT Device Tester](https://docs.aws.amazon.com/freertos/latest/userguide/device-tester-for-freertos-ug.html) for FreeRTOS and AWS IoT Greengrass is a test automation tool for microcontrollers\. AWS IoT Device Tester tests your device to determine if it will run FreeRTOS or AWS IoT Greengrass and interoperate with AWS IoT services\.
 
 **AWS IoT Device SDKs**  
 The [AWS IoT Device and Mobile SDKs](iot-sdks.md) help you efficiently connect your devices to AWS IoT\. The AWS IoT Device and Mobile SDKs include open\-source libraries, developer guides with samples, and porting guides so that you can build innovative IoT products or solutions on your choice of hardware platforms\.
 
 **FreeRTOS**  
 [FreeRTOS](https://docs.aws.amazon.com/freertos/) is an open source, real\-time operating system for microcontrollers that lets you include small, low\-power edge devices in your IoT solution\. FreeRTOS includes a kernel and a growing set of software libraries that support many applications\. FreeRTOS systems can securely connect your small, low\-power devices to [AWS IoT](https://docs.aws.amazon.com/iot/) and support more powerful edge devices running [AWS IoT Greengrass](https://docs.aws.amazon.com/greengrass/)\.
+
+**AWS IoT Core Device Advisor**  
+[AWS IoT Core Device Advisor](https://docs.aws.amazon.com/iot/latest/developerguide/device-advisor.html) is a cloud\-based, fully managed test capability for validating IoT devices during device software development\. Device Advisor provides pre\-built tests that you can use to validate IoT devices for reliable and secure connectivity with AWS IoT Core, before deploying devices to production\.
 
 ### AWS IoT control services<a name="aws-iot-components-control"></a>
 
@@ -135,7 +138,7 @@ The next section describes each of the AWS IoT Core services shown in the illust
 The AWS IoT Core connectivity services provide secure communication with the IoT devices and manage the messages that pass between them and AWS IoT\.
 
 **Device gateway **  
-Enables devices to securely and efficiently communicate with AWS IoT\. Device communication is secured by secure protocols that use of X\.509 certificates\. 
+Enables devices to securely and efficiently communicate with AWS IoT\. Device communication is secured by secure protocols that use X\.509 certificates\. 
 
 **Message broker **  
 Provides a secure mechanism for devices and AWS IoT applications to publish and receive messages from each other\. You can use either the MQTT protocol directly or MQTT over WebSocket to publish and subscribe\. For more information about the protocols that AWS IoT supports, see [Device communication protocols](protocols.md)\. Devices and clients can also use the HTTP REST interface to publish data to the message broker\.  

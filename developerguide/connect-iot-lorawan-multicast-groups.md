@@ -1,6 +1,6 @@
 # Create multicast groups to send a downlink payload to multiple devices<a name="connect-iot-lorawan-multicast-groups"></a>
 
-To send a downlink payload to multiple devices, create a multicast group\. Using multicast, a source can send data to a single multicast address, which is then distributed to an entire group of recipient devices\. 
+To send a downlink payload to multiple devices, create a multicast group\. Using multicast, a source can send data to a single multicast address, which is then distributed to an entire group of recipient devices\.
 
 Devices in a multicast group share the same multicast address, session keys, and frame counter\. By using the same session keys, devices in a multicast group can decrypt the message when a downlink transmission is initiated\. A multicast group only supports downlink\. It doesn't confirm whether the downlink payload has been received by the devices\.
 

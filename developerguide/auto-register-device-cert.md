@@ -34,8 +34,8 @@ If you want to enable `autoRegistrationStatus` when you register the CA certific
 ```
 aws iot register-ca-certificate \
 --allow-auto-registration  \
---ca-certificate file://root_CA_pem_filename \
---verification-cert file://verification_cert_pem_filename
+--ca-certificate file://root_CA_cert_filename.pem \
+--verification-cert file://verification_cert_filename.pem
 ```
 
 Use the [https://awscli.amazonaws.com/v2/documentation/api/latest/reference/iot/describe-ca-certificate.html](https://awscli.amazonaws.com/v2/documentation/api/latest/reference/iot/describe-ca-certificate.html) command to see the status of the CA certificate\.

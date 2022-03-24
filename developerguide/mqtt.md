@@ -52,7 +52,7 @@ This SDK is intended for use by experienced embedded\-software developers\.
 
 ## MQTT Quality of Service \(QoS\) options<a name="mqtt-qos"></a>
 
-AWS IoT and the AWS IoT Device SDKs support the [MQTT Quality of Service \(QoS\) levels `0` and `1`](http://docs.oasis-open.org/mqtt/mqtt/v3.1.1/os/mqtt-v3.1.1-os.html#_Toc385349263)\. The MQTT protocol defines a third level of QoS, level `2`, but AWS IoT does not support it\. Only the MQTT protocol supports the QoS feature\. HTTPS does not support QoS\.
+AWS IoT and the AWS IoT Device SDKs support the [MQTT Quality of Service \(QoS\) levels `0` and `1`](http://docs.oasis-open.org/mqtt/mqtt/v3.1.1/os/mqtt-v3.1.1-os.html#_Toc385349263)\. The MQTT protocol defines a third level of QoS, level `2`, but AWS IoT does not support it\. Only the MQTT protocol supports the QoS feature\. HTTPS supports QoS by passing a query string parameter `?qos=qos` where the value can be 0 or 1\.
 
 This table describes how each QoS level affects messages published to and by the message broker\. 
 
@@ -93,7 +93,7 @@ If a client doesn't reconnect to its persistent session before it expires, the s
 **Persistent session message charges**  
 Messages are charged to your AWS account when the message broker sends a message to a client or an offline persistent session\. When an offline device with a persistent session reconnects and resumes its session, the stored messages are delivered to the device and charged to your account again\. For more information about message pricing, see [AWS IoT Core pricing \- Messaging](https://aws.amazon.com/iot-core/pricing/#Messaging)\.
 
-The default persistent session expiration time of one hour can be increased by using the standard limit increase process\. Note that increasing the session expiration time might increase your message charges because the additional time could allow for more messages to be stored for the offline device and those additional messages would be charged to your account at the standard messaging rate\. The session expiration time is approximate and a session could persist for up to 30 minutes longer than the account limit; however, a session will not be shorter than the account limit\. For more information about session limits, see [ AWS Service Quotas](https://docs.aws.amazon.com/general/latest/gr/iot-core.html#message-broker-limits)\.
+The default persistent session expiration time of one hour can be increased by using the standard limit increase process\. Note that increasing the session expiration time might increase your message charges because the additional time could allow for more messages to be stored for the offline device and those additional messages would be charged to your account at the standard messaging rate\. The session expiration time is approximate and a session could persist for up to 30 minutes longer than the account limit; however, a session will not be shorter than the account limit\. For more information about session limits, see [AWS Service Quotas](https://docs.aws.amazon.com/general/latest/gr/iot-core.html#message-broker-limits)\.
 
 ## Using MQTT retained messages<a name="mqtt-retain"></a>
 

@@ -7,7 +7,7 @@ You can follow a tutorial that shows you how to ingest data from AWS IoT things\
 ## Requirements<a name="iotsitewise-rule-action-requirements"></a>
 
 This rule action has the following requirements:
-+ An IAM role that AWS IoT can assume to perform the `iotsitewise:BatchPutAssetPropertyValue` operation\. For more information, see [Granting AWS IoT the required access](iot-create-role.md)\.
++ An IAM role that AWS IoT can assume to perform the `iotsitewise:BatchPutAssetPropertyValue` operation\. For more information, see [Granting an AWS IoT rule the access it requires](iot-create-role.md)\.
 
   You can attach the following example trust policy to the role\.
 

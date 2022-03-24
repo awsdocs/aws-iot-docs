@@ -39,4 +39,5 @@ If this message is published on the `'topic/subtopic'` topic, the rule is trigge
 This data is then forwarded to the rule's action, which sends the data for more processing\. For more information about rule actions, see [AWS IoT rule actions](iot-rule-actions.md)\.
 
 **Note**  
-Comments are not currently supported in AWS IoT SQL syntax\.
+Comments are not currently supported in AWS IoT SQL syntax\.  
+Attribute names with spaces in them can't be used as field names in the SQL statement\. While the incoming payload can have attribute names with spaces in them, such names can't be used in the SQL statement\. They will, however, be passed through to the outgoing payload if you use a wildcard \(\*\) field name specification\.

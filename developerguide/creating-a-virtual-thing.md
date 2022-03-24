@@ -2,7 +2,7 @@
 
 In this tutorial, you'll create an Amazon EC2 instance to serve as your virtual device in the cloud\.
 
-To complete this tutorial, you need an AWS account\. If you don't have one, complete the steps described in [Set up your AWS account](setting-up.md) before you continue\. 
+To complete this tutorial, you need an AWS account\. If you don't have one, complete the steps described in [Set up your AWS account](setting-up.md) before you continue\.
 
 **Topics**
 + [Set up an Amazon EC2 instance](#set-up-ec2)
@@ -15,6 +15,8 @@ To complete this tutorial, you need an AWS account\. If you don't have one, comp
 ## Set up an Amazon EC2 instance<a name="set-up-ec2"></a>
 
 The following steps show you how to create an Amazon EC2 instance that will act as your virtual device in place of a physical device\.
+
+If this is the first time you've created an Amazon EC2 instance, you might find the instructions in [Get started with Amazon EC2Linux instances](https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/EC2_GetStarted.html) to be more helpful\.
 
 **To launch an instance**
 
@@ -307,7 +309,7 @@ The [create\-keys\-and\-certificate](https://awscli.amazonaws.com/v2/documentati
 
    If successful, this command does not display any output\.
 
-At this point, you have created for your virtual device: 
+At this point, you have created for your virtual device:
 + A thing object to represent your virtual device in AWS IoT\.
 + A certificate to authenticate your virtual device\.
 + A policy document to authorize your virtual device to Connect to AWS IoT, and to Publish, Receive, and Subscribe to messages\.
@@ -408,11 +410,11 @@ The sample app:
 
 If you're having trouble running the sample app, review [Troubleshooting problems with the sample app](gs-device-troubleshoot.md)\.
 
-You can also add the `--verbosity Debug` parameter to the command line so the sample app displays detailed messages about what it’s doing\. That information might provide you the help you need to correct the problem\. 
+You can also add the `--verbosity Debug` parameter to the command line so the sample app displays detailed messages about what it’s doing\. That information might provide you the help you need to correct the problem\.
 
 ## View messages from the sample app in the AWS IoT console<a name="ec2-view-msg"></a>
 
-You can see the sample app's messages as they pass through the message broker by using the **MQTT client** in the **AWS IoT console**\. 
+You can see the sample app's messages as they pass through the message broker by using the **MQTT client** in the **AWS IoT console**\.
 
 **To view the MQTT messages published by the sample app**
 

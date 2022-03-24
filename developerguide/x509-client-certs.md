@@ -37,6 +37,9 @@ Multi\-account registration makes it possible to move devices between your AWS a
 **Note**  
 Certificates used for multi\-account registration are supported on the `iot:Data-ATS`, `iot:Data` \(legacy\), `iot:Jobs`, and `iot:CredentialProvider` endpoint types\. For more information about AWS IoT device endpoints, see [AWS IoT device data and service endpoints](iot-connect-devices.md#iot-connect-device-endpoints)\.
 
+**Note**  
+Multi\-account registration doesn't support just\-in\-time registration because a verification certificate is required for registering the CA, which is only generated for a specific account\. 
+
 Devices that use multi\-account registration must send the [Server Name Indication \(SNI\) extension](https://tools.ietf.org/html/rfc3546#section-3.1) to the Transport Layer Security \(TLS\) protocol and provide the complete endpoint address in the `host_name` field, when they connect to AWS IoT\. AWS IoT uses the endpoint address in `host_name` to route the connection to the correct AWS IoT account\. Existing devices that don't send a valid endpoint address in `host_name` will continue to work, but they will not be able to use the features that require this information\. For more information about the SNI extension and to learn how to identify the endpoint address for the `host_name` field, see [Transport security in AWS IoT](transport-security.md)\. 
 
 **To use multi\-account registration**

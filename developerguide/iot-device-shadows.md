@@ -12,11 +12,13 @@ While devices, apps, and other cloud services are connected to AWS IoT, they can
 
 When a device goes offline, an app can still communicate with AWS IoT and the device's shadows\. When the device reconnects, it receives the current state of its shadows so that it can update its state to match that of its shadows, and then publish a message with its updated state\. Likewise, when an app goes offline and the device state changes while it's offline, the device keeps the shadow updated so the app can query the shadows for its current state when it reconnects\.
 
+If your devices are frequently offline and you would like to configure your devices to receive delta messages after they reconnect, you can use the persistent session feature\. For more information about the persistent session expiry period, see [Persistent session expiry period](https://docs.aws.amazon.com/general/latest/gr/iot-core.html#message-broker-limits)\. 
+
 ### Choosing to use named or unnamed shadows<a name="iot-device-shadow-named"></a>
 
 The Device Shadow service supports named and unnamed, classic shadows, as have been used in the past\. A thing object can have multiple named shadows, and no more than one unnamed, classic shadow\. A thing object can have both named and unnamed shadows at the same time; however, the API used to access each is slightly different, so it might be more efficient to decide which type of shadow would work best for your solution and use that type only\. For more information about the API to access the shadows, see [Shadow topics](reserved-topics.md#reserved-topics-shadow)\. 
 
-With named shadows, you can create different views of a thing object’s state\. For example, you could divide a thing object with many properties into shadows with logical groups of properties, each identified by its shadow name\. You could also limit access to properties by grouping them into different shadows and using policies to control access\. 
+With named shadows, you can create different views of a thing object’s state\. For example, you could divide a thing object with many properties into shadows with logical groups of properties, each identified by its shadow name\. You could also limit access to properties by grouping them into different shadows and using policies to control access\. For more information about policies to use with device shadows, see [Actions, resources, and condition keys for AWS IoT](https://docs.aws.amazon.com/service-authorization/latest/reference/list_awsiot.html)\.
 
 The classic, unnamed shadows are simpler, but somewhat more limited than the named shadows\. Each AWS IoT thing object can have only one unnamed shadow\. If you expect your IoT solution to have a limited need for shadow data, this might be how you want to get started using shadows\. However, if you think you might want to add additional shadows in the future, consider using named shadows from the start\.
 

@@ -16,9 +16,9 @@ Devices can be manufactured with a provisioning claim certificate and private ke
 
    You can also create a fleet provisioning template in the AWS IoT console\. 
 
-   1. From the navigation pane, choose **Onboard**, then choose **Fleet provisioning templates**\.
+   1. From the navigation pane, choose **Connect**, then choose **Fleet provisioning templates**\.
 
-   1. Choose **Create** and follow the prompts\.
+   1. Choose **Create template** and follow the prompts\.
 
 1. Create certificates and associated private keys to be used as provisioning claim certificates\.
 
@@ -66,15 +66,15 @@ Provisioning claim private keys should be secured at all times, including on the
 
 1. The device uses the [AWS IoT Device SDKs, Mobile SDKs, and AWS IoT Device Client](iot-sdks.md) to connect to and authenticate with AWS IoT using the provisioning claim certificate that is installed on the device\.
 **Note**  
-For security, the `certificateOwnershipToken` returned by [`CreateCertificateFromCsr`](fleet-provision-api.md#create-cert-csr) and [`CreateKeysAndCertificate`](fleet-provision-api.md#create-keys-cert) expires after one hour\. [`RegisterThing`](fleet-provision-api.md#register-thing) must be called before the `certificateOwnershipToken` expires\. If the token expires, the device can call [`CreateCertificateFromCsr`](fleet-provision-api.md#create-cert-csr) or [`CreateKeysAndCertificate`](fleet-provision-api.md#create-keys-cert) again to generate a new certificate\.
+For security, the `certificateOwnershipToken` returned by `CreateCertificateFromCsr` and `CreateKeysAndCertificate` expires after one hour\. `RegisterThing` must be called before the `certificateOwnershipToken` expires\. If the certificate created by `CreateCertificateFromCsr` or `CreateKeysAndCertificate` has not been activated and has not been attached to a policy or a thing by the time the token expires, the certificate is deleted\. If the token expires, the device can call `CreateCertificateFromCsr` or `CreateKeysAndCertificate` again to generate a new certificate\.
 
 1. The device obtains a permanent certificate and private key by using one of these options\. The device will use the certificate and key for all future authentication with AWS IoT\.
 
-   1. Call [ `CreateKeysAndCertificate`](fleet-provision-api.md#create-keys-cert) to create a new certificate and private key using the AWS certificate authority\.
+   1. Call [`CreateKeysAndCertificate`](fleet-provision-api.md#create-keys-cert) to create a new certificate and private key using the AWS certificate authority\.
 
       Or
 
-   1. Call [ `CreateCertificateFromCsr`](fleet-provision-api.md#create-cert-csr) to generate a certificate from a certificate signing request that keeps its private key secure\.
+   1. Call [`CreateCertificateFromCsr`](fleet-provision-api.md#create-cert-csr) to generate a certificate from a certificate signing request that keeps its private key secure\.
 
 1. From the device, call [`RegisterThing`](fleet-provision-api.md#register-thing) to register the device with AWS IoT and create cloud resources\.
 
@@ -93,7 +93,7 @@ You must manage the trusted user's access and permission to perform this procedu
 
 **Before you deliver the device**
 
-1. Call [ `CreateProvisioningTemplate`](https://docs.aws.amazon.com/iot/latest/apireference/API_CreateProvisioningTemplate.html) to create a provisioning template and return its *templateArn* and *templateName*\.
+1. Call [https://docs.aws.amazon.com/iot/latest/apireference/API_CreateProvisioningTemplate.html](https://docs.aws.amazon.com/iot/latest/apireference/API_CreateProvisioningTemplate.html) to create a provisioning template and return its *templateArn* and *templateName*\.
 
 1. Create an IAM role that is used by a trusted user to initiate the provisioning process\. The provisioning template allows only that user to provision a device\. For example:
 
@@ -101,7 +101,7 @@ You must manage the trusted user's access and permission to perform this procedu
    {
        "Effect": "Allow",
        "Action": [
-           "iot:CreateProvisioningClaim",
+           "iot:CreateProvisioningClaim"
        ],
        "Resource": [
            "arn:aws:aws-region:aws-account-id:provisioningtemplate/templateName"
@@ -117,7 +117,7 @@ You must manage the trusted user's access and permission to perform this procedu
 
 1. A trusted user signs in to your provisioning mobile app or web service\.
 
-1. The mobile app or web application uses the IAM role and calls [ `CreateProvisioningClaim`](https://docs.aws.amazon.com/iot/latest/apireference/API_CreateProvisioningClaim.html) to obtain a temporary provisioning claim certificate from AWS IoT\.
+1. The mobile app or web application uses the IAM role and calls [https://docs.aws.amazon.com/iot/latest/apireference/API_CreateProvisioningClaim.html](https://docs.aws.amazon.com/iot/latest/apireference/API_CreateProvisioningClaim.html) to obtain a temporary provisioning claim certificate from AWS IoT\.
 **Note**  
 For security, the temporary provisioning claim certificate that `CreateProvisioningClaim` returns expires after five minutes\. The following steps must successfully return a valid certificate before the temporary provisioning claim certificate expires\. Temporary provisioning claim certificates do not appear in your account's list of certificates\.
 
@@ -127,13 +127,13 @@ For security, the temporary provisioning claim certificate that `CreateProvision
 
 1. The device obtains a permanent certificate and private key by using one of these options within five minutes of connecting to AWS IoT with the temporary provisioning claim certificate\. The device will use the certificate and key these options return for all future authentication with AWS IoT\.
 
-   1. Call [ `CreateKeysAndCertificate`](fleet-provision-api.md#create-keys-cert) to create a new certificate and private key using the AWS certificate authority\.
+   1. Call [`CreateKeysAndCertificate`](fleet-provision-api.md#create-keys-cert) to create a new certificate and private key using the AWS certificate authority\.
 
       Or
 
-   1. Call [ `CreateCertificateFromCsr`](fleet-provision-api.md#create-cert-csr) to generate a certificate from a certificate signing request that keeps its private key secure\.
+   1. Call [`CreateCertificateFromCsr`](fleet-provision-api.md#create-cert-csr) to generate a certificate from a certificate signing request that keeps its private key secure\.
 **Note**  
-Remember [ `CreateKeysAndCertificate`](fleet-provision-api.md#create-keys-cert) or [ `CreateCertificateFromCsr`](fleet-provision-api.md#create-cert-csr) must return a valid certificate within five minutes of connecting to AWS IoT with the temporary provisioning claim certificate\.
+Remember [`CreateKeysAndCertificate`](fleet-provision-api.md#create-keys-cert) or [`CreateCertificateFromCsr`](fleet-provision-api.md#create-cert-csr) must return a valid certificate within five minutes of connecting to AWS IoT with the temporary provisioning claim certificate\.
 
 1. The device calls [`RegisterThing`](fleet-provision-api.md#register-thing) to register the device with AWS IoT and create cloud resources\. 
 
@@ -164,6 +164,8 @@ The following procedure creates a provisioning template with pre\-provisioning h
    ```
 
 1. AWS IoT uses resource\-based policies to call Lambda, so you must give AWS IoT permission to call your Lambda function\.
+**Important**  
+Be sure to include the `source-arn` or `source-account` in the global condition context keys of the policies attached to your Lambda action to prevent permission manipulation\. Fore more informataion about this, see [Cross\-service confused deputy prevention](cross-service-confused-deputy-prevention.md)\.
 
    The following is an example using [add\-permission](https://docs.aws.amazon.com/cli/latest/reference/lambda/add-permission.html) give IoT permission to your Lambda\.
 
@@ -180,7 +182,7 @@ The following procedure creates a provisioning template with pre\-provisioning h
    The following CLI example uses the [create\-provisioning\-template](https://docs.aws.amazon.com/cli/latest/reference/iot/create-provisioning-template.html) to create a provisioning template that has pre\-provisioning hooks:
 
    ```
-   aws iot create-provisioning template \
+   aws iot create-provisioning-template \
        --template-name myTemplate \
        --provisioning-role-arn arn:aws:iam:us-east-1:1234564789012:role/myRole \
        --template-body file://template.json \

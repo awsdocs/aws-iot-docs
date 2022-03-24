@@ -121,7 +121,7 @@ var generateAuthResponse = function(token, effect) {
 }
 ```
 
- This Lambda function returns the following values when it receives the expected value of `test` in the MQTT Connect password field\. 
+ The preceding Lambda function returns the following JSON when it receives the expected password of `test` in the MQTT Connect message\. The values of the `password` and `principalId` properties will be the values from the MQTT Connect message\.
 
 ```
 {
@@ -162,10 +162,10 @@ var generateAuthResponse = function(token, effect) {
 
 ## Creating an authorizer<a name="custom-auth-create-authorizer"></a>
 
- You can create an authorizer by using the [CreateAuthorizer API](https://docs.aws.amazon.com/iot/latest/apireference/API_CreateAuthorizer.html)\. The following example shows how to do this\. 
+ You can create an authorizer by using the [CreateAuthorizer API](https://docs.aws.amazon.com/iot/latest/apireference/API_CreateAuthorizer.html)\. The following example describes the command\. 
 
 ```
- aws iot create-authorizer
+aws iot create-authorizer
 --authorizer-name MyAuthorizer
 --authorizer-function-arn arn:aws:lambda:us-west-2:<account_id>:function:MyAuthorizerFunction  //The ARN of the Lambda function.
 [--token-key-name MyAuthorizerToken //The key used to extract the token from headers.

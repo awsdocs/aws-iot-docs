@@ -860,7 +860,9 @@ AWS IoT Device Defender Detect can collect, aggregate, and monitor metrics data 
 
 You must securely deploy the AWS IoT SDK version two on your AWS IoT connected devices or device gateways to collect device\-side metrics\. See the full list of SDKs [here](https://docs.aws.amazon.com/iot/latest/developerguide/iot-sdks.html)\.
 
-You should use AWS IoT Device Client to publish metrics because it provides a single agent that covers the features present in both AWS IoT Device Defender and AWS IoT Device Management\. These features include jobs, secure tunneling, AWS IoT Device Defender metrics publishing, and more\.
+You can use AWS IoT Device Client to publish metrics as it provides a single agent that covers the features present in both AWS IoT Device Defender and AWS IoT Device Management\. These features include jobs, secure tunneling, AWS IoT Device Defender metrics publishing, and more\.
+
+You publish device\-side metrics to the [reserved topic](https://docs.aws.amazon.com/iot/latest/developerguide/reserved-topics.html#reserved-topics-device-defender) in AWS IoT for AWS IoT Device Defender to collect and evaluate\.
 
 ### Using the AWS IoT Device Client to publish metrics<a name="UsingAWSIoTDeviceClient"></a>
 

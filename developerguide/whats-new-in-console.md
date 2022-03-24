@@ -2,7 +2,7 @@
 
 We're in the process of updating the user interface of the AWS IoT console to a new experience\. We're updating the user interface in stages, so some pages in the console will have a new experience, some might have both the original and the new experience, and some might have only the original experience\. 
 
- This table displays the current state of individual areas of the AWS IoT console user interface\.
+ This table displays the state of individual areas of the AWS IoT console user interface as of January 27, 2022\.
 
 
 **AWS IoT console user interface status**  
@@ -11,14 +11,14 @@ We're in the process of updating the user interface of the AWS IoT console to a 
 | --- | --- | --- | --- | 
 |  **Monitor**  |  Not available  |  Available  |    | 
 |  **Activity**  |  Not available  |  Available  |    | 
-|  **Onboard** \- Get started  |  Available  |  Not available yet  |    | 
+|  **Onboard** \- Get started  |  Not available  |  Not available yet  |    | 
 |  **Onboard** \- Fleet provisioning templates  |  Available  |  Not available yet  |    | 
 |  **Manage** \- Things  |  Available  |  Available  |    | 
 |  **Manage** \- Types  |  Available  |  Available  |    | 
 |  **Manage** \- Thing groups  |  Available  |  Available  |    | 
 |  **Manage** \- Billing groups  |  Available  |  Available  |    | 
 |  **Manage** \- Jobs  |  Available  |  Available  |    | 
-|  **Manage** \- Job templates  |  Available  |  Available  |  The save a job as a job template and create a job with a job template features are not available in the original experience\.  | 
+|  **Manage** \- Job templates  |  Not available  |  Available  |    | 
 |  **Manage** \- Tunnels  |  Not available  |  Available  |    | 
 |  **Fleet Hub** \- Get started  |  Not available  |  Available  | Not available in all AWS Regions | 
 |  **Fleet Hub** \- Applications  |  Not available  |  Available  | Not available in all AWS Regions | 
@@ -32,11 +32,11 @@ We're in the process of updating the user interface of the AWS IoT console to a 
 |  **Wireless connectivity** \- Devices  |  Not available  |  Available  |  Not available in all AWS Regions  | 
 |  **Wireless connectivity** \- Profiles  |  Not available  |  Available  |  Not available in all AWS Regions  | 
 |  **Wireless connectivity** \- Destinations  |  Not available  |  Available  | Not available in all AWS Regions | 
-|  **Secure** \- Certificates  |  Available  |  Not available yet  |    | 
-|  **Secure** \- Policies  |  Available  |  Not available yet  |    | 
-|  **Secure** \- CAs  |  Available  |  Not available yet  |    | 
-|  **Secure** \- Role Aliases  |  Available  |  Not available yet  |    | 
-|  **Secure** \- Authorizers  |  Available  |  Not available yet  |    | 
+|  **Secure** \- Certificates  |  Available  |  Available  |    | 
+|  **Secure** \- Policies  |  Available  | Available |    | 
+|  **Secure** \- CAs  |  Available  | Available |    | 
+|  **Secure** \- Role Aliases  |  Available  |  Available  |    | 
+|  **Secure** \- Authorizers  |  Available  |  Available  |    | 
 |  **Defend** \- Intro  |  Available  |  Not available yet  |    | 
 |  **Defend** \- Audit  |  Available  |  Not available yet  |    | 
 |  **Defend** \- Detect  |  Available  |  Not available yet  |    | 
@@ -44,7 +44,7 @@ We're in the process of updating the user interface of the AWS IoT console to a 
 | Defend \- Settings |  Available  |  Not available yet  | Not available in all AWS Regions | 
 |  **Act** \- Rules  |  Available  |  Not available yet  |    | 
 |  **Act** \- Destinations  |  Available  |  Not available yet  |    | 
-|  **Test** \- Device Advisor  |  Available  |  Not available yet  |  Not available in all AWS Regions  | 
+|  **Test** \- Device Advisor  |  Available  |  Available  |  Not available in all AWS Regions  | 
 |  **Test** \- MQTT test client  |  Available  |  Available  |    | 
 |  **Software**  |  Available  |  Not available yet  |    | 
 |  **Settings**  |  Not available  |  Available  |    | 

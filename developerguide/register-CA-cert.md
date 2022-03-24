@@ -1,46 +1,18 @@
 # Register your CA certificate<a name="register-CA-cert"></a>
 
-You might need to register your certificate authority \(CA\) with AWS IoT if you are using client certificates signed by a CA that AWS IoT doesn't recognize\.
-
-If you want clients to automatically register their client certificates with AWS IoT when they first connect, the CA that signed the client certificates must be registered with AWS IoT\. Otherwise, you don't need to register the CA certificate that signed the client certificates\.
-
-**Note**  
-A CA certificate can be registered by only one account in a Region\.
+These procedures register a CA certificate with AWS IoT\. 
 
 ## Register a CA certificate \(console\)<a name="register-CA-cert-console"></a>
 
 **Note**  
-Make sure you have the root CA's certificate file and private key file before you begin\.  
-This procedure also requires using the command line interface to run OpenSSL v1\.1\.1i commands\.
-
-**To register a CA certificate using the AWS IoT console**
-
-1. Sign in to the AWS Management Console and open the [AWS IoT console](https://console.aws.amazon.com/iot/home)\.
-
-1. In the left navigation pane, choose **Secure**, choose **CAs**, and then **Register**\.
-
-1. In **Select a CA**, choose **Register CA**\.
-
-1. In **Register a CA certificate**, follow the steps displayed\.
-
-   Steps 1 \- 4 are performed in the command line interface\.
-
-   Steps 5 and 6 require the files created in Steps 3 and 4\.
-
-1. If you want to activate this certificate when you register it, check **Activate CA certificate**\.
-
-   The CA certificate must be active before you can register any client certificates that are signed by it\.
-
-1. If you want to enable this certificate to automatically register client certificates signed by this certificate, select **Enable auto\-registration of device certificates**\.
-
-1. Choose **Register CA certificate** to complete the registration\.
-
-The CA certificate appears in the list of certificate authorities with its current status\.
+To register a CA certificate in the console, start in the console at [Register CA certificate](https://console.aws.amazon.com/iot/home#/create/cacertificate)\. 
 
 ## Register a CA certificate \(CLI\)<a name="register-CA-cert-cli"></a>
 
-**Note**  
-Make sure you have the root CA's certificate file and private key file before you begin\.
+Make sure you have the following available on your computer before you continue:
++ The root CA's certificate file \(referenced below as `root_CA_cert_filename.pem`\)
++ The root CA certificate's private key file \(referenced below as `root_CA_key_filename.key`\)
++ [OpenSSL v1\.1\.1i](https://www.openssl.org/) or later
 
 **To register a CA certificate using the AWS CLI**
 
@@ -53,15 +25,15 @@ Make sure you have the root CA's certificate file and private key file before yo
 1. Generate a key pair for the private key verification certificate:
 
    ```
-   openssl genrsa -out verification_cert_key_filename 2048
+   openssl genrsa -out verification_cert_key_filename.key 2048
    ```
 
 1. Create a certificate signing request \(CSR\) for the private key verification certificate\. Set the `Common Name` field of the certificate to the `registrationCode` returned by get\-registration\-code\.
 
    ```
    openssl req -new \
-       -key verification_cert_key_filename \
-       -out verification_cert_csr_filename
+       -key verification_cert_key_filename.key \
+       -out verification_cert_csr_filename.csr
    ```
 
    You are prompted for some information, including the `Common Name` for the certificate\.
@@ -92,11 +64,11 @@ Make sure you have the root CA's certificate file and private key file before yo
 
    ```
    openssl x509 -req \
-       -in verification_cert_csr_filename \
-       -CA root_CA_pem_filename \
-       -CAkey root_CA_key_filename \
+       -in verification_cert_csr_filename.csr \
+       -CA root_CA_cert_filename.pem \
+       -CAkey root_CA_key_filename.key \
        -CAcreateserial \
-       -out verification_cert_pem_filename \
+       -out verification_cert_filename.pem \
        -days 500 -sha256
    ```
 
@@ -104,8 +76,8 @@ Make sure you have the root CA's certificate file and private key file before yo
 
    ```
    aws iot register-ca-certificate \
-       --ca-certificate file://root_CA_pem_filename \
-       --verification-cert file://verification_cert_pem_filename
+       --ca-certificate file://root_CA_cert_filename.pem \
+       --verification-cert file://verification_cert_filename.pem
    ```
 
    This command returns the *certificateId*, if successful\.

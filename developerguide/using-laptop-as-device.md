@@ -1,6 +1,6 @@
 # Use your Windows or Linux PC or Mac as an AWS IoT device<a name="using-laptop-as-device"></a>
 
-In this tutorial, you'll configure a personal computer for use with AWS IoT\. These instructions support Windows and Linux PCs and Macs\. To accomplish this, you need to install some software on your computer\. If you don't want to install software on your computer, you might try [Create a virtual device with Amazon EC2](creating-a-virtual-thing.md), which installs all software on a virtual machine\. 
+In this tutorial, you'll configure a personal computer for use with AWS IoT\. These instructions support Windows and Linux PCs and Macs\. To accomplish this, you need to install some software on your computer\. If you don't want to install software on your computer, you might try [Create a virtual device with Amazon EC2](creating-a-virtual-thing.md), which installs all software on a virtual machine\.
 
 **Topics**
 + [Set up your personal computer](#gs-pc-prereqs)
@@ -12,7 +12,7 @@ In this tutorial, you'll configure a personal computer for use with AWS IoT\. Th
 
 To complete this tutorial, you need a Windows or Linux PC or a Mac with a connection to the internet\.
 
-Before you continue to the next step, make sure you can open a command line window on your computer\. Use cmd\.exe on a Windows PC\. On a Linux PC or a Mac, use Terminal\. 
+Before you continue to the next step, make sure you can open a command line window on your computer\. Use cmd\.exe on a Windows PC\. On a Linux PC or a Mac, use Terminal\.
 
 ## Install Git, Python, and the AWS IoT Device SDK for Python<a name="gs-pc-sdk-node"></a>
 
@@ -40,13 +40,13 @@ In this section, you'll install Python, and the AWS IoT Device SDK for Python on
 **Note**  
 If this command gives an error: `Python was not found`, it might be because your operating system calls the Python v3\.x executable as `Python3`\. In that case, replace all instances of `python` with `python3` and continue the remainder of this tutorial\.
 
-   If the command displays the Python version, Python is already installed\. This tutorial requires Python v3\.5 or later\. 
+   If the command displays the Python version, Python is already installed\. This tutorial requires Python v3\.5 or later\.
 
 1. If Python is installed, you can skip the rest of the steps in this section\. If not, continue\.
 
 1. Open [https://www\.python\.org/downloads/](https://www.python.org/downloads/) and download the installer for your computer\.
 
-1. If the download didn't automatically start to install, run the downloaded program to install Python\. 
+1. If the download didn't automatically start to install, run the downloaded program to install Python\.
 
 1. Verify the installation of Python\.
 
@@ -93,7 +93,7 @@ If this command gives an error: `Python was not found`, it might be because your
 
 ------
 **Note**  
-If you're using Windows PowerShell as opposed to cmd\.exe, then use the following command\.   
+If you're using Windows PowerShell as opposed to cmd\.exe, then use the following command\.  
 
    ```
    echo $home
@@ -150,9 +150,9 @@ If you're using Windows PowerShell as opposed to cmd\.exe, then use the followin
 
 In this section, you'll set up your policy and run the `pubsub.py` sample script found in the `aws-iot-device-sdk-python-v2/samples` directory of the AWS IoT Device SDK for Python\. This script shows how your device uses the MQTT library to publish and subscribe to MQTT messages\.
 
-The `pubsub.py` sample app subscribes to a topic, `test/topic`, publishes 10 messages to that topic, and displays the messages as they're received from the message broker\. 
+The `pubsub.py` sample app subscribes to a topic, `test/topic`, publishes 10 messages to that topic, and displays the messages as they're received from the message broker\.
 
-To run the `pubsub.py` sample script, you need the following information: 
+To run the `pubsub.py` sample script, you need the following information:
 
 
 **Application parameter values**  
@@ -161,7 +161,7 @@ To run the `pubsub.py` sample script, you need the following information:
 | --- | --- | 
 | your\-iot\-endpoint |  [\[See the AWS documentation website for more details\]](http://docs.aws.amazon.com/iot/latest/developerguide/using-laptop-as-device.html)  | 
 
-The *your\-iot\-endpoint* value has a format of: `endpoint_id-ats.iot.region.amazonaws.com`, for example, `a3qj468EXAMPLE-ats.iot.us-west-2.amazonaws.com`\. 
+The *your\-iot\-endpoint* value has a format of: `endpoint_id-ats.iot.region.amazonaws.com`, for example, `a3qj468EXAMPLE-ats.iot.us-west-2.amazonaws.com`\.
 
 Before running the script, make sure your thing's policy provides permissions for the sample script to connect, subscribe, publish, and receive\. 
 
@@ -175,7 +175,7 @@ Before running the script, make sure your thing's policy provides permissions fo
 
 1. In the **Certificate** details page, in the **Policies** tab, choose the policy that's attached to the certificate\. There should only be one\. If there is more than one, repeat the next step for each to make sure that at least one policy grants the required access\.
 
-1. In the **Policy** overview page, find the JSON editor and choose **Edit policy document** to review and edit the policy document as required\. 
+1. In the **Policy** overview page, find the JSON editor and choose **Edit policy document** to review and edit the policy document as required\.
 
 1. The policy JSON is displayed in the following example\. In the `"Resource"` element, replace `region:account` with your AWS Region and AWS account in each of the `Resource` values\.
 
@@ -226,7 +226,7 @@ Before running the script, make sure your thing's policy provides permissions fo
    cd ~/aws-iot-device-sdk-python-v2/samples
    ```
 
-1. In your command line window, replace *your\-iot\-endpoint* as indicated and run this command\. 
+1. In your command line window, replace *your\-iot\-endpoint* as indicated and run this command\.
 
    ```
    python3 pubsub.py --endpoint your-iot-endpoint --root-ca ~/certs/Amazon-root-CA-1.pem --cert ~/certs/device.pem.crt --key ~/certs/private.pem.key
@@ -255,9 +255,9 @@ The sample script:
 
 1. Connects to the AWS IoT service for your account\.
 
-1. Subscribes to the message topic, **test/topic**, and displays the messages it receives on that topic\. 
+1. Subscribes to the message topic, **test/topic**, and displays the messages it receives on that topic\.
 
-1. Publishes 10 messages to the topic, **test/topic**\. 
+1. Publishes 10 messages to the topic, **test/topic**\.
 
 1. Displays output similar to the following:
 
@@ -286,11 +286,11 @@ Publish received on topic test/topic
 
 If you're having trouble running the sample app, review [Troubleshooting problems with the sample app](gs-device-troubleshoot.md)\.
 
-You can also add the `--verbosity Debug` parameter to the command line so the sample app displays detailed messages about what it’s doing\. That information might help you correct the problem\. 
+You can also add the `--verbosity Debug` parameter to the command line so the sample app displays detailed messages about what it’s doing\. That information might help you correct the problem\.
 
 ## View messages from the sample app in the AWS IoT console<a name="gs-pc-view-msg"></a>
 
-You can see the sample app's messages as they pass through the message broker by using the **MQTT client** in the **AWS IoT console**\. 
+You can see the sample app's messages as they pass through the message broker by using the **MQTT client** in the **AWS IoT console**\.
 
 **To view the MQTT messages published by the sample app**
 

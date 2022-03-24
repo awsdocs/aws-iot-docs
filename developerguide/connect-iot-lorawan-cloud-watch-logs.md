@@ -1,6 +1,6 @@
 # Monitor AWS IoT Core for LoRaWAN using CloudWatch Logs<a name="connect-iot-lorawan-cloud-watch-logs"></a>
 
-AWS IoT Core for LoRaWANhas more than 50 CloudWatch log entries that are enabled by default\. Each log entry describes the event type, log level, and the resource type\. For more information, see [AWS IoT Core for LoRaWAN resources and log levels](connect-iot-lorawan-configure-resource-logging.md#connect-iot-lorawan-log-levels-resources)\.
+AWS IoT Core for LoRaWAN has more than 50 CloudWatch log entries that are enabled by default\. Each log entry describes the event type, log level, and the resource type\. For more information, see [AWS IoT Core for LoRaWAN resources and log levels](connect-iot-lorawan-configure-resource-logging.md#connect-iot-lorawan-log-levels-resources)\.
 
 **How to monitor your AWS IoT Core for LoRaWAN resources**  
 When logging is enabled for AWS IoT Core for LoRaWAN, AWS IoT Core for LoRaWAN sends progress events about each message as it passes from your devices through AWS IoT and back\. By default, AWS IoT Core for LoRaWAN log entries have a default log level of error\. When you enable logging as described in [Create logging role and policy for AWS IoT Core for LoRaWAN](connect-iot-lorawan-create-logging-role-policy.md), you'll see messages in the CloudWatch console that have a default log level of `ERROR`\. By using this log level, the messages will show only error information for all wireless devices and gateway resources that you're using\.

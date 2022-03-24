@@ -48,8 +48,8 @@ HTTP/1.1 200
 Content-type: application/json
 
 {
-  “ConnectionStatus”: “Connected”,
-  “LastUplinkReceivedAt”: “2021-03-24T23:13:08.476015749Z”,
-  “WirelessGatewayId”: “30cbdcf3-86de-4291-bfab-5bfa2b12bad5"
+  "ConnectionStatus": "Connected",
+  "LastUplinkReceivedAt": "2021-03-24T23:13:08.476015749Z",
+  "WirelessGatewayId": "30cbdcf3-86de-4291-bfab-5bfa2b12bad5"
 }
 ```

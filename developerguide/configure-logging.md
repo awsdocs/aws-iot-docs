@@ -147,6 +147,8 @@ This section describes how to configure resource\-specific logging for AWS IoT b
 
 Thing groups can contain other thing groups to create a hierarchical relationship\. This procedure describes how to configure the logging of a single thing group\. You can apply this procedure to the parent thing group in a hierarchy to configure the logging for all thing groups in the hierarchy\. You can also apply this procedure to a child thing group to override the logging configuration of its parent\.
 
+In addition to thing groups, you can also log targets such as a device's client ID, source IP, and principal ID\. 
+
 **Note**  
 You need the Amazon Resource Name \(ARN\) of the role you want to use\. If you need to create a role to use for logging, see [Create a logging role](#create-logging-role) before continuing\.  
 The principal used to call the API must have [Pass role permissions](pass-role.md) for your logging role\. 
@@ -181,7 +183,7 @@ An optional parameter that disables all AWS IoT logging\. Use this parameter to 
                  --log-level log_level
    ```  
 \-\-log\-target  
-The type and name of the resource for which you are configuring logging\. The `target_type` value must be `THING_GROUP`\. The log\-target parameter value can be text, as shown in the preceding command example, or a JSON string, such as the following example\.  
+The type and name of the resource for which you are configuring logging\. The `target_type` value must be one of: `THING_GROUP` \| `CLIENT_ID` \| `SOURCE_IP` \| `PRINCIPAL_ID`\. The log\-target parameter value can be text, as shown in the preceding command example, or a JSON string, such as the following example\.  
 
    ```
    aws iot set-v2-logging-level \
@@ -201,11 +203,11 @@ The logging level used when generating logs for the specified resource\. Valid v
 
    ```
    aws iot delete-v2-logging-level \
-                 --targetType "THING_GROUP" \
-                 --targetName "thing_group_name"
+                 --target-type "THING_GROUP" \
+                 --target-name "thing_group_name"
    ```  
 \-\-targetType  
-The `target_type` value must be `THING_GROUP`  
+The `target_type` value must be one of: `THING_GROUP` \| `CLIENT_ID` \| `SOURCE_IP` \| `PRINCIPAL_ID`\.  
 \-\-targetName  
 The name of the thing group for which to remove the logging level\.
 

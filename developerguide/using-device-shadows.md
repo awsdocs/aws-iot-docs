@@ -26,7 +26,7 @@ You should have two windows open: one with the AWS IoT console on the **Test** p
 
 In this simulation, we'll be working with a thing object named, *mySimulatedThing*, and its shadow named, *simShadow1*\. 
 
-**Create thing object and its named shadow**  
+**Create thing object and its IoT policy**  
 To create a thing object, in the **AWS IoT Console**:
 
 1. Choose **Manage** and then choose **Things**\. 
@@ -39,14 +39,21 @@ To create a thing object, in the **AWS IoT Console**:
 
 1. You can attach the policy `My_IoT_Policy` that would give the device permission to publish and subscribe to the MQTT reserved topics\. For more detailed steps about how to create an AWS IoT thing and how to create this policy, see [Create a thing object](create-iot-resources.md#create-aws-thing)\.
 
-By default, every AWS IoT thing object has a single, classic shadow\. You can create a shadow by publishing an update request to the topic `$aws/things/mySimulatedThing/shadow/name/simShadow1/update` as described below, Alternatively, in the **AWS IoT Console**, choose your thing object in the list of things displayed and then choose **Shadows**\. Choose **Add a shadow**, enter the name `simShadow1`, and then choose **Create** to add the named shadow\.
+**Create named shadow for the thing object**  
+You can create a named shadow for a thing by publishing an update request to the topic `$aws/things/mySimulatedThing/shadow/name/simShadow1/update` as described below\.
+
+Alternatively, to create a named shadow:
+
+1. In the **AWS IoT Console**, choose your thing object in the list of things displayed and then choose **Shadows**\.
+
+1. Choose **Add a shadow**, enter the name `simShadow1`, and then choose **Create** to add the named shadow\.
 
 **Subscribe and publish to reserved MQTT topics**  
 In the console, subscribe to the reserved MQTT shadow topics\. These topics are the responses to the `get`, `update`, and `delete` actions so that your device will be ready to receive the responses after it publishes an action\. 
 
 **To subscribe to an MQTT topic in the **MQTT client****
 
-1. In the **MQTT client**, choose **Subscribe to topic**\.
+1. In the **MQTT client**, choose **Subscribe to a topic**\.
 
 1. Enter the `get`, `update`, and `delete` topics to subscribe to\. Copy one topic at a time from the following list, paste it in the **Topic filter** field, and then click **Subscribe**\. You should see the topics appear under **Subscriptions**\.
    + `$aws/things/mySimulatedThing/shadow/name/simShadow1/delete/accepted`

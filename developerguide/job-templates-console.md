@@ -37,8 +37,8 @@ We don't recommend using personally identifiable information in your job IDs or 
 You can select only S3 buckets in your current Region\.
 
 1. Continue to add any additional configurations for your job and then review and create your job\. For information about the additional configurations, see:
-   + [Job rollout and abort configuration](job-rollout-abort.md)
-   + [Job executions timeout configuration](job-timeout-retry.md)
+   + [Job rollout and abort configurations](jobs-configurations.md#job-rollout-abort)
+   + [Job execution timeout and retry configurations](jobs-configurations.md#job-timeout-retry)
 
 ### Create a job template from an existing job<a name="job-templates-console-create-exist-job"></a>
 
@@ -61,8 +61,8 @@ Optionally, you can choose a different job document or edit the advanced configu
 The job document is the job file that you specified when creating the template\. If the job document is specified within the job instead of an S3 location, you can see the job document in the details page of this job\.
 
 1. Continue to add any additional configurations for your job and then review and create your job\. For information about the additional configurations, see:
-   + [Job rollout and abort configuration](job-rollout-abort.md)
-   + [Job executions timeout configuration](job-timeout-retry.md)
+   + [Job rollout and abort configurations](jobs-configurations.md#job-rollout-abort)
+   + [Job execution timeout and retry configurations](jobs-configurations.md#job-timeout-retry)
 
 ## Create a job from a custom job template<a name="job-templates-console-create-job-from"></a>
 
@@ -95,8 +95,8 @@ This topic shows how to create a job from the details page of a custom job templ
    1. On the **Job configuration** page, choose the job type as continuous or a snapshot job\. A snapshot job is complete when it finishes its run on the target devices and groups\. A continuous job applies to thing groups and runs on any device that you add to a specified target group\.
 
    1. Continue to add any additional configurations for your job and then review and create your job\. For information about the additional configurations, see:
-      + [Job rollout and abort configuration](job-rollout-abort.md)
-      + [Job executions timeout configuration](job-timeout-retry.md)
+      + [Job rollout and abort configurations](jobs-configurations.md#job-rollout-abort)
+      + [Job execution timeout and retry configurations](jobs-configurations.md#job-timeout-retry)
 
 You can also create jobs from job templates with Fleet Hub web applications\. For information about creating jobs in Fleet Hub, see [Working with job templates in Fleet Hub for AWS IoT Device Management](https://docs.aws.amazon.com/iot/latest/fleethubuserguide/aws-iot-monitor-technician-job-templates.html)\.
 

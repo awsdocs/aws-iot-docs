@@ -23,6 +23,6 @@ You can search your devices for aggregate data and return statistics, percentile
 
 You can use fleet metrics to automatically send aggregate data to CloudWatch, analyzing trends and creating alarms to monitor the aggregate state of your fleet\. For more information about fleet metrics, see [Fleet metrics](iot-fleet-metrics.md)\. 
 
-To use fleet indexing, you must set up your fleet indexing configuration\. To set up fleet indexing configuration, you can use the [ AWS IoT console](https://console.aws.amazon.com/iot/home), or if you prefer programmatic access, you can use the AWS SDKs, or the AWS Command Line Interface \(AWS CLI\)\.
+To use fleet indexing, you must set up your fleet indexing configuration\. To set up fleet indexing configuration, you can use the [AWS IoT console](https://console.aws.amazon.com/iot/home), or if you prefer programmatic access, you can use the AWS SDKs, or the AWS Command Line Interface \(AWS CLI\)\.
 
 For information about pricing this and other services, see [AWS IoT Device Management Pricing](https://aws.amazon.com/iot-device-management/pricing)\.

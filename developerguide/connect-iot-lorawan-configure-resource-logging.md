@@ -138,7 +138,7 @@ The log level you want to use for individual resource types and events\. These l
    {
        "DefaultLogLevel":"DISABLED",
        "WirelessDeviceLogOptions": [],
-       "WireslessGatewayLogOptions":[]
+       "WirelessGatewayLogOptions":[]
    }
    ```
 

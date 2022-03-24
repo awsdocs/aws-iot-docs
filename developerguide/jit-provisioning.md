@@ -18,7 +18,7 @@ aws iot update-ca-certificate --certificate-id caCertificateId --new-auto-regist
 ```
 
 **Note**  
-Just\-in\-time provisioning JITP calls other AWS IoT control plane APIs during the provisioning process\. These calls might exceed the [ AWS IoT Throttling Quotas](https://docs.aws.amazon.com/general/latest/gr/iot-core.html#throttling-limits) set for your account and result in throttled calls\. Contact [AWS Customer Support](https://console.aws.amazon.com/support/home) to raise your throttling quotas, if necessary\.
+Just\-in\-time provisioning JITP calls other AWS IoT control plane APIs during the provisioning process\. These calls might exceed the [AWS IoT Throttling Quotas](https://docs.aws.amazon.com/general/latest/gr/iot-core.html#throttling-limits) set for your account and result in throttled calls\. Contact [AWS Customer Support](https://console.aws.amazon.com/support/home) to raise your throttling quotas, if necessary\.
 
 When a device attempts to connect to AWS IoT by using a certificate signed by a registered CA certificate, AWS IoT loads the template from the CA certificate and uses it to call [RegisterThing](fleet-provision-api.md#register-thing)\. The JITP workflow first registers a certificate with a status value of PENDING\_ACTIVATION\. When the device provisioning flow is complete, the status of the certificate is changed to ACTIVE\.
 

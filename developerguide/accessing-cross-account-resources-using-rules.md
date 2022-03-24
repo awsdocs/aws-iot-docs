@@ -4,6 +4,9 @@ You can configure AWS IoT rules for cross\-account access so that data ingested 
 
 Cross\-account rules can be configured using [resource\-based permissions](https://docs.aws.amazon.com/IAM/latest/UserGuide/access_controlling.html#TypesPermissions) on the destination resource\. Therefore, only destinations that support resource\-based permissions can be enabled for the cross\-account access with AWS IoT rules\. The supported destinations include Amazon SQS, Amazon SNS, Amazon S3, and AWS Lambda\. 
 
+**Note**  
+You must define the rule in the same AWS Region as another service's resource, so that the rule action can interact with that resource\. For more information about AWS IoT rule actions, see [AWS IoT rule actions](iot-rule-actions.md)\. 
+
 ## Prerequisites<a name="cross-account-prerequisites"></a>
 + Familiarity with [AWS IoT rules](https://docs.aws.amazon.com/iot/latest/developerguide/iot-rules.html)
 + An understanding of IAM [users](http://docs.aws.amazon.com/IAM/latest/UserGuide/introduction_identity-management.html), [roles](http://docs.aws.amazon.com/IAM/latest/UserGuide/id_roles.html), and [resource\-based permission](http://docs.aws.amazon.com/IAM/latest/UserGuide/access_permissions.html#TypesPermissions)

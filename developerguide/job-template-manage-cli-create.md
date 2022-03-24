@@ -1,4 +1,4 @@
-# Create AWS managed templates by using the AWS CLI<a name="job-template-manage-cli-create"></a>
+# Create a job from AWS managed templates by using the AWS CLI<a name="job-template-manage-cli-create"></a>
 
 Use the AWS CLI to get information about AWS managed templates and create a job by using these templates\. You can further save the job as a template and then create your own custom template\.
 

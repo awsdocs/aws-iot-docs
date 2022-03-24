@@ -69,7 +69,16 @@ The following example shows the format of the uplink message received from your 
 }
 ```
 
-For information about the different parameters in the uplink metadata, see [SendDataToWirelessDevice](https://docs.aws.amazon.com/iot-wireless/2020-11-22/apireference/API_SendDataToWirelessDevice.html)\. Note that the `SendDataToWirelessDevice` API is used for data that is sent from AWS IoT Core for LoRaWAN to your wireless device\. You can use the API parameters as a reference to learn about the different fields in your uplink message\.
+The following table shows a description of fields used in the uplink metadata:
+
+
+**LoRaWAN uplink message fields**  
+
+| Parameter | Description | Type | Required | 
+| --- | --- | --- | --- | 
+| WirelessDeviceID | ID of the wireless device sending the data\. | String | Yes | 
+| PayloadData | The binary message received from the device, encoded in base64\. | String | Yes | 
+| WirelessMetadata | Metadata about the LoRaWAN device and the message request\. This includes information such as the device identifiers, data and code rate, the message timestamp, whether ADR \(adaptive data rate\) is enabled, and the gateway metadata\. | Enumeration | No | 
 
 ### Exclude gateway metadata from uplink metadata<a name="connect-iot-lorawan-uplink-metadata-example2"></a>
 

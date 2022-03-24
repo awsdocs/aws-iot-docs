@@ -39,11 +39,11 @@ The AWS IoT Jobs service publishes success and failure messages on an MQTT topic
 Here, `request-name` is the name of a request such as `Get`\. If the request failed, 
 
 You can also use the following APIs:
-+ Update the status of a job execution by calling the [ `UpdateJobExecution`](https://docs.aws.amazon.com/iot/latest/apireference/API_iot-jobs-data_UpdateJobExecution.html) API\.
-+ Query the status of a job execution by calling the [ `DescribeJobExecution`](https://docs.aws.amazon.com/iot/latest/apireference/API_iot-jobs-data_DescribeJobExecution.html) API\.
-+ Retrieve a list of pending job executions by calling the [ `GetPendingJobExecutions`](https://docs.aws.amazon.com/iot/latest/apireference/API_iot-jobs-data_GetPendingJobExecutions.html) API\.
-+ Retrieve the next pending job execution by calling the [ `DescribeJobExecution`](https://docs.aws.amazon.com/iot/latest/apireference/API_iot-jobs-data_DescribeJobExecution.html) API with `jobId` as `$next`\.
-+ Get and start the next pending job execution by calling the [ `StartNextPendingJobExecution`](https://docs.aws.amazon.com/iot/latest/apireference/API_iot-jobs-data_StartNextPendingJobExecution.html) API\.
++ Update the status of a job execution by calling the [https://docs.aws.amazon.com/iot/latest/apireference/API_iot-jobs-data_UpdateJobExecution.html](https://docs.aws.amazon.com/iot/latest/apireference/API_iot-jobs-data_UpdateJobExecution.html) API\.
++ Query the status of a job execution by calling the [https://docs.aws.amazon.com/iot/latest/apireference/API_iot-jobs-data_DescribeJobExecution.html](https://docs.aws.amazon.com/iot/latest/apireference/API_iot-jobs-data_DescribeJobExecution.html) API\.
++ Retrieve a list of pending job executions by calling the [https://docs.aws.amazon.com/iot/latest/apireference/API_iot-jobs-data_GetPendingJobExecutions.html](https://docs.aws.amazon.com/iot/latest/apireference/API_iot-jobs-data_GetPendingJobExecutions.html) API\.
++ Retrieve the next pending job execution by calling the [https://docs.aws.amazon.com/iot/latest/apireference/API_iot-jobs-data_DescribeJobExecution.html](https://docs.aws.amazon.com/iot/latest/apireference/API_iot-jobs-data_DescribeJobExecution.html) API with `jobId` as `$next`\.
++ Get and start the next pending job execution by calling the [https://docs.aws.amazon.com/iot/latest/apireference/API_iot-jobs-data_StartNextPendingJobExecution.html](https://docs.aws.amazon.com/iot/latest/apireference/API_iot-jobs-data_StartNextPendingJobExecution.html) API\.
 
 ## Using HTTP Signature Version 4<a name="jobs-using-http-v4"></a>
 

@@ -1,6 +1,6 @@
 # Getting started with AWS IoT Core<a name="iot-gs"></a>
 
-Whether you're new to IoT or you have years of experience, these resources present the AWS IoT concepts and terms that will help you start using AWS IoT\. 
+Whether you're new to IoT or you have years of experience, these resources present the AWS IoT concepts and terms that will help you start using AWS IoT\.
 + **Look** inside AWS IoT and its components in [How AWS IoT works](aws-iot-how-it-works.md)\.
 + [**Learn** more about AWS IoT](aws-iot-learn-more.md) from our collection of training materials and videos\. This topic also includes a list of services that AWS IoT can connect to, social media links, and links to communication protocol specifications\.
 + **[Connect your first device to AWS IoT Core](#aws-iot-get-started)**\.
@@ -24,8 +24,8 @@ This section presents a tour of the AWS IoT Core to introduce its key services a
 Before you can use AWS IoT services, you must set up an AWS account\. If you already have an AWS account and an IAM user for yourself, you can use them and skip this step\.
 + 
 
-**[Try the interactive demo](interactive-demo.md)**  
-This demo is best if you want to see what a basic AWS IoT solution can do without connecting a device or downloading any software\. The interactive demo presents a simulated solution built on AWS IoT Core services that illustrates how they interact\.
+**[Try the interactive tutorial](interactive-demo.md)**  
+This demo is best if you want to see what a basic AWS IoT solution can do without connecting a device or downloading any software\. The interactive tutorial presents a simulated solution built on AWS IoT Core services that illustrates how they interact\.
 + 
 
 **[Try the quick connect tutorial](iot-quick-start.md)**  

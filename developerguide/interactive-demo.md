@@ -1,80 +1,55 @@
-# Try the AWS IoT Core interactive demo<a name="interactive-demo"></a>
+# Try the AWS IoT Core interactive tutorial<a name="interactive-demo"></a>
 
-The interactive demo shows the components of a simple IoT solution built on AWS IoT and how they interact with AWS IoT Core services\. It does not create any AWS IoT resources nor does it require that you download any software or do any coding\.
+The interactive tutorial shows the components of a simple IoT solution built on AWS IoT\. The tutorial's animations show how IoT devices interact with AWS IoT Core services\. This topic provides a preview of the AWS IoT Core interactive tutorial\. 
 
-You can expect to spend about 10 minutes with this demo\. The tile in the console says that it takes 5 minutes, and you can probably do it in 5 minutes, but 10 minutes will give you time to explore each of the different steps more thoroughly\.
+To run the demo, you must first [Set up your AWS account](setting-up.md)\. The tutorial, however, doesn't require any AWS IoT resources, additional software, or any coding\.
 
-**To run the AWS IoT Core interactive demo**
+Expect to spend about 5\-10 minutes on this demo\. Giving yourself 10 minutes will allow more time to consider each of the steps\.
 
-1. Open your [AWS IoT console](https://console.aws.amazon.com/iot/home) and from the left menu, choose **Learn**\.  
-![\[AWS IoT console home page\]](http://docs.aws.amazon.com/iot/latest/developerguide/images/aws-iot-home.png)
+**To run the AWS IoT Core interactive tutorial**
 
-1. On the **See how AWS IoT works** tile, choose **Start the tutorial**\.  
-![\[AWS IoT console Learn home page\]](http://docs.aws.amazon.com/iot/latest/developerguide/images/aws-iot-learn-home-demo.png)
+1. Open the [Learning hub](https://console.aws.amazon.com/iot/home#/learnHub) in the AWS IoT console\.
 
-1. On the **AWS IoT Interactive Tutorial** page, review the tutorial overview to get an idea of what you'll learn\.
+   On the **Welcome to the AWS IoT console** page, in the **See how AWS IoT works** tile, choose **Start the tutorial**\.  
+![\[AWS IoT console Learning hub\]](http://docs.aws.amazon.com/iot/latest/developerguide/images/aws-iot-learn-home-demo.png)
 
-   Choose **Start tutorial** when you're ready to continue\.
+1. In the **AWS IoT Interactive Tutorial** page, review the parts of the tutorial, and choose **Start tutorial** when you're ready to continue\.
 
-1. 
+**The following sections describe how the **AWS IoT Interactive Tutorial** presents these AWS IoT Core features:**
++ [Connecting IoT devices](#interactive-demo-part1)
++ [Saving offline device state](#interactive-demo-part2)
++ [Routing device data to services](#interactive-demo-part3)
 
-**Interactive demo step 1**
+## Connecting IoT devices<a name="interactive-demo-part1"></a>
 
-   Read the instructions in the right panel, which describe the IoT system components\.
+Learn how IoT devices communicate with AWS IoT Core\.
 
-   Choose the different buttons on the control unit and watch the effect on the connected light bulb\.  
-![\[AWS IoT interactive demo - Step 1\]](http://docs.aws.amazon.com/iot/latest/developerguide/images/aws-iot-learn-demo-step-1.png)
+![\[AWS IoT interactive tutorial - Step 1\]](http://docs.aws.amazon.com/iot/latest/developerguide/images/aws-iot-learn-demo-step-1.png)
 
-   Choose **Next** to continue\.
+The animation in this step shows how two devices, the control device on the left and a smart lamp in the house on the right, connect and communicate with AWS IoT Core in the cloud\. The animation shows the devices communicating with AWS IoT Core and reacting to the messages they receive\.
 
-1. 
+The image in the console includes animations that don't appear in this image\.
 
-**Interactive demo step 2**
+For more information about connecting devices to AWS IoT Core, see [Connecting to AWS IoT Core](connect-to-iot.md)\.
 
-   Read the instructions in the right panel, which describe the new components\.
+## Saving offline device state<a name="interactive-demo-part2"></a>
 
-   Choose the different buttons on the control unit and watch the effect on the connected light bulb\.
+Learn how AWS IoT Core saves device state for while a device or app is offline\.
 
-   Move the **Rule enable toggle switch** to disable the rule and choose different buttons on the control unit to see how the bulb behaves differently\.  
-![\[AWS IoT interactive demo - Step2\]](http://docs.aws.amazon.com/iot/latest/developerguide/images/aws-iot-learn-demo-step-2.png)
+![\[AWS IoT interactive tutorial - Step2\]](http://docs.aws.amazon.com/iot/latest/developerguide/images/aws-iot-learn-demo-step-2.png)
 
-   Choose **Next** to continue\.
+The animation in this step shows how the Device Shadow service in AWS IoT Core saves device state information for the control device and the smart lamp\. While the smart lamp is offline, the Device Shadow saves commands from the control device\.
 
-1. 
+When the smart lamp reconnects to AWS IoT Core, it retrieves those commands\. When the control device is offline, the Device Shadow saves state information from the smart lamp\. When the control device reconnects, it retrieves the current state of the smart lamp to update its display\.
 
-**Interactive demo step 3**
+For more information about Device Shadows, see [AWS IoT Device Shadow service](iot-device-shadows.md)\.
 
-   This step adds another rule\. Read the instructions in the right panel to understand the new rule, and then try the interactions described in the right panel\.
+## Routing device data to services<a name="interactive-demo-part3"></a>
 
-   Choose **Next** to continue\.
+Learn how AWS IoT Core sends device state to other AWS services\.
 
-1. 
+![\[AWS IoT interactive tutorial - Step3\]](http://docs.aws.amazon.com/iot/latest/developerguide/images/aws-iot-learn-demo-step-3.png)
 
-**Interactive demo step 4**
+The animation in this step shows how AWS IoT Core sends data from the devices to other AWS services by using AWS IoT rules\. AWS IoT rules subscribe to specific messages from the devices, interpret the data in those messages, and route the interpreted data to other services\. In this example, an AWS IoT rule interprets data from a motion sensor and sends commands to a Device Shadow, which then sends them to the smart bulb\. As in the previous example, the Device Shadow stores the device\-state info for the control device\.
 
-   This step adds a device shadow to AWS IoT and a power toggle to the connected bulb\.
-
-   Read the instructions in the right panel to understand how the new components will affect the system operation and then try the interactions described in the right panel\.
-
-   Choose **Next** to continue\.
-
-1. 
-
-**Interactive demo step 5**
-
-   This step adds a mobile device with an app at the bottom of the screen, which interacts with the IoT solution\.
-
-   Read the instructions in the right panel to understand how the new components work and then try the interactions described in the right panel\.  
-![\[AWS IoT interactive demo - Step 5\]](http://docs.aws.amazon.com/iot/latest/developerguide/images/aws-iot-learn-demo-step-5.png)
-
-   Choose **Next** to continue\.
-
-1. 
-
-**Interactive demo step 6**
-
-   This is the final step of the demo where you can review and explore how this IoT solution works\.
-
-   Choose **Get started** to continue\.
-
-1. On the **Register a thing** page, choose **Cancel** to exit the demo\.
+For more information about AWS IoT rules, see [Rules for AWS IoT](iot-rules.md)\.

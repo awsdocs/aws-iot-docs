@@ -1,4 +1,4 @@
-# Deploy common remote operations by using AWS managed templates<a name="job-templates-managed"></a>
+# Use AWS managed templates to deploy common remote operations<a name="job-templates-managed"></a>
 
 AWS managed templates are job templates provided by AWS for frequently performed remote actions such as rebooting, downloading a file, or installing an application on your devices\. These templates have a predefined job document for each remote action so you don't have to create your own job document\.
 
@@ -353,5 +353,5 @@ The following shows the job document and its latest version\. The template shows
 + [What do managed templates contain?](#job-template-managed-contains)
 + [Prerequisites](#job-template-managed-prereq)
 + [Managed template remote actions and job documents](#job-template-manage-actions)
-+ [Create AWS managed templates by using the AWS Management Console](job-template-manage-console-create.md)
-+ [Create AWS managed templates by using the AWS CLI](job-template-manage-cli-create.md)
++ [Create a job from AWS managed templates by using the AWS Management Console](job-template-manage-console-create.md)
++ [Create a job from AWS managed templates by using the AWS CLI](job-template-manage-cli-create.md)

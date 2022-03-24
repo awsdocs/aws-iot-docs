@@ -83,8 +83,8 @@ Use the [https://awscli.amazonaws.com/v2/documentation/api/latest/reference/iot/
 
 ```
 aws iot register-certificate \
-    --certificate-pem file://device_cert_pem_filename \
-    --ca-certificate-pem file://ca_cert_pem_filename
+    --certificate-pem file://device_cert_filename.pem \
+    --ca-certificate-pem file://ca_cert_filename.pem
 ```
 
 The client certificate is registered with AWS IoT, but it is not active yet\. See [Activate a client certificate \(CLI\)](activate-or-deactivate-device-cert.md#activate-device-cert-cli) for information on how to activate it later\.
@@ -94,8 +94,8 @@ You can also activate the client certificate when you register it by using this 
 ```
 aws iot register-certificate \
     --set-as-active \
-    --certificate-pem file://device_cert_pem_filename \
-    --ca-certificate-pem file://ca_cert_pem_filename
+    --certificate-pem file://device_cert_filename.pem \
+    --ca-certificate-pem file://ca_cert_filename.pem
 ```
 
 For more information about activating the certificate so that it can be used to connect to AWS IoT, see [Activate or deactivate a client certificate](activate-or-deactivate-device-cert.md)
@@ -109,7 +109,7 @@ Use the [https://awscli.amazonaws.com/v2/documentation/api/latest/reference/iot/
 
 ```
 aws iot register-certificate-without-ca \
-    --certificate-pem file://device_cert_pem_filename
+    --certificate-pem file://device_cert_filename.pem
 ```
 
 The client certificate is registered with AWS IoT, but it is not active yet\. See [Activate a client certificate \(CLI\)](activate-or-deactivate-device-cert.md#activate-device-cert-cli) for information on how to activate it later\.
@@ -119,7 +119,7 @@ You can also activate the client certificate when you register it by using this 
 ```
 aws iot register-certificate-without-ca \
     --status ACTIVE \
-    --certificate-pem file://device_cert_pem_filename
+    --certificate-pem file://device_cert_filename.pem
 ```
 
 For more information about activating the certificate so that it can be used to connect to AWS IoT, see [Activate or deactivate a client certificate](activate-or-deactivate-device-cert.md)\.

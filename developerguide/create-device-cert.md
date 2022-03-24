@@ -12,15 +12,15 @@ You can't perform this procedure in the AWS IoT console\.
 1. Generate a key pair\.
 
    ```
-   openssl genrsa -out device_cert_key_filename 2048
+   openssl genrsa -out device_cert_key_filename.key 2048
    ```
 
 1. Create a CSR for the client certificate\.
 
    ```
    openssl req -new \
-       -key device_cert_key_filename \
-       -out device_cert_csr_filename
+       -key device_cert_key_filename.key \
+       -out device_cert_csr_filename.csr
    ```
 
    You are prompted for some information, as shown here:
@@ -51,11 +51,11 @@ You can't perform this procedure in the AWS IoT console\.
 
    ```
    openssl x509 -req \
-       -in device_cert_csr_filename \
-       -CA root_CA_pem_filename \
-       -CAkey root_CA_key_filename \
+       -in device_cert_csr_filename.csr \
+       -CA root_CA_cert_filename.pem \
+       -CAkey root_CA_key_filename.key \
        -CAcreateserial \
-       -out device_cert_pem_filename \
+       -out device_cert_filename.pem \
        -days 500 -sha256
    ```
 

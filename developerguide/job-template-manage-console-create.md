@@ -1,4 +1,4 @@
-# Create AWS managed templates by using the AWS Management Console<a name="job-template-manage-console-create"></a>
+# Create a job from AWS managed templates by using the AWS Management Console<a name="job-template-manage-console-create"></a>
 
 Use the AWS Management Console to get information about AWS managed templates and create a job by using these templates\. You can then save the job you create as your own custom template\.
 
@@ -66,8 +66,8 @@ You can also start the job creation workflow and then choose the AWS managed tem
    1. On the **Job configuration** page, choose the job type as continuous or a snapshot job\. A snapshot job is complete when it finishes its run on the target devices and groups\. A continuous job applies to thing groups and runs on any device that you add to a specified target group\.
 
    1. Continue to add any additional configurations for your job and then review and create your job\. For information about the additional configurations, see:
-      + [Job rollout and abort configuration](job-rollout-abort.md)
-      + [Job executions timeout configuration](job-timeout-retry.md)
+      + [Job rollout and abort configurations](jobs-configurations.md#job-rollout-abort)
+      + [Job execution timeout and retry configurations](jobs-configurations.md#job-timeout-retry)
 
 ## Create custom job templates from managed templates<a name="job-template-manage-create-template"></a>
 

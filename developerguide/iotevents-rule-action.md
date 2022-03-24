@@ -5,7 +5,7 @@ The IoT Events \(`iotEvents`\) action sends data from an MQTT message to an AWS 
 ## Requirements<a name="iotevents-rule-action-requirements"></a>
 
 This rule action has the following requirements:
-+ An IAM role that AWS IoT can assume to perform the `iotevents:BatchPutMessage` operation\. For more information, see [Granting AWS IoT the required access](iot-create-role.md)\.
++ An IAM role that AWS IoT can assume to perform the `iotevents:BatchPutMessage` operation\. For more information, see [Granting an AWS IoT rule the access it requires](iot-create-role.md)\.
 
   In the AWS IoT console, you can choose or create a role to allow AWS IoT to perform this rule action\.
 

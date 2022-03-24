@@ -18,7 +18,7 @@ Your device needs to pass the following tests to qualify as per [AWS Device Qual
 
 ## TLS<a name="device-advisor-tests-tls"></a>
 
-You use these tests to determine if the transport layer security protocol \(TLS\) between your devices and AWS IoT is secure\.Cipher suites
+You use these tests to determine if the transport layer security protocol \(TLS\) between your devices and AWS IoT is secure\.Happy Path
 
 **"TLS Connect"**  
 Validates if the device under test can complete TLS handshake to AWS IoT\. This test doesn't validate the MQTT implementation of the client device\.  
@@ -45,6 +45,29 @@ Validates if the device under test can complete TLS handshake to AWS IoT\. This 
 + **Pass** — The device under test completed TLS handshake with AWS IoT\.
 + **Pass with warnings** — The device under test completed TLS handshake with AWS IoT, but there were TLS warning messages from the device or AWS IoT\.
 + **Fail** — The device under test failed to complete TLS handshake with AWS IoT due to handshake error\.
+
+**"TLS Receive Maximum Size Fragments"**  
+This test case helps you validate if your device can receive and process TLS maximum size fragments\. Your test device needs to subscribe to a pre\-configured topic with QoS 1 to receive a large payload\. You can customize the payload using the configuration $\{payload\}\.  
+*API test case definition:*  
+`EXECUTION_TIMEOUT` has a default value of 5 minutes\. For best results, we recommend a timeout value of 2 minutes\. 
+
+```
+"tests":[
+   {
+      "name":"TLS Receive Maximum Size Fragments",
+      "configuration": {
+         // optional:
+         "EXECUTION_TIMEOUT":"300",  //in seconds
+         "PAYLOAD_FORMAT":"{"message":"${payload}"}", // A string with a placeholder ${payload}, or leave it empty to receive a plain string.
+         "TRIGGER_TOPIC": "test_1" // A topic to which a device will subscribe, and to which a test case will publish a large payload.
+      },
+      "test":{
+         "id":"TLS_Receive_Maximum_Size_Fragments",
+         "version":"0.0.0"
+      }
+   }
+]
+```Cipher suites
 
 **"TLS Device Support for AWS IoT recommended Cipher Suites"**  
 Validates that the cipher suites in the TLS Client Hello message from the device under test contains [AWS IoT recommended cipher suites](transport-security.md)\. It provides additional insights into cipher suites supported by the device\.  
@@ -371,11 +394,37 @@ Validates that the device under test retries a failed subscription to MQTT topic
       }
    }
 ]
+```Persistent Session
+
+**"Persistent Session \(Happy Case\)"**  
+This test case validates the device behavior when disconnected from a persistent session\. The test case checks if the device can reconnect, re\-subscribe to its topic filters, receive the stored messages, and work as expected with a persistent session\. When this test case passes, it indicates that the client device is able to maintain a persistent session with the AWS IoT Core broker in an expected manner\. For more information on AWS IoT Persistent Sessions, see [ Using MQTT persistent sessions ](https://docs.aws.amazon.com/iot/latest/developerguide/mqtt.html#mqtt-persistent-sessions)\.   
+In this test case, the client device is expected to CONNECT with the AWS IoT Core in a clean session, and then subscribe to a topic filter \(topic trigger\)\. After a successful subscription, the device will be disconnected by AWS IoT Core Device Advisor\. While the device is in a disconnected state, a QoS 1 message payload will be stored in that topic\. Device Advisor will then allow the client device to re\-connect with the test endpoint\. At this point, the client device will resume its topic subscriptions and receive the QoS 1 message from the broker\. After re\-connecting, if the client device re\-subscribes to its topic trigger again and/or the client fails to receive the stored message from the trigger topic, the test case will fail\.   
+*API test case definition:*  
+`EXECUTION_TIMEOUT` has a default value of 5 minutes\. We recommend a timeout value of at least 4 minutes\. Client device needs to explicitly subscribe to a `TRIGGER_TOPIC` which was not subscribed before\. To pass the test case, client device must successfully subscribe to its topic filter with a QoS 1\. After re\-connecting, the client should accept the stored message sent by the trigger topic and return PUBACK for that specific message\. 
+
+```
+"tests":[
+   {
+      "name":"my_mqtt_persistent_session_happy_case",
+      "configuration":{
+         //required:
+         "TRIGGER_TOPIC": "myTrigger/topic",
+         // optional:
+         // if Payload not provided, a string will be stored in the trigger topic to be sent back to the client device
+         "PAYLOAD": "The message which should be received from AWS IoT Broker after re-connecting to a persistent session from the specified trigger topic.",            
+         "EXECUTION_TIMEOUT":"300", // in seconds
+      },
+      "test":{
+         "id":"MQTT_Persistent_Session_Happy_Case",
+         "version":"0.0.0"
+      }
+   }
+]
 ```
 
 ## Shadow<a name="device-advisor-tests-shadow"></a>
 
-Use these test to verify your devices under test use AWS IoT Device Shadow service correctly\. See [AWS IoT Device Shadow service](iot-device-shadows.md) for more information\. If these test cases are configured in your test suite, then providing a thing is required when starting the suite run\.Publish
+Use these tests to verify your devices under test use AWS IoT Device Shadow service correctly\. See [AWS IoT Device Shadow service](iot-device-shadows.md) for more information\. If these test cases are configured in your test suite, then providing a thing is required when starting the suite run\.Publish
 
 ***"Device publishes state after it connects \(Happy case\)"***  
 Validates if a device can publish its state after it connects to AWS IoT Core  
@@ -454,8 +503,8 @@ This test case helps you validate if your device is able to receive updates usin
                }
             }",
             
-            // Document_SOURCE is an S3 link to the job document
-            // Document and document are optional but can't be both null.
+            // JOB_DOCUMENT_SOURCE is an S3 link to the job document
+            // JOB_DOCUMENT and JOB_DOCUMENT_SOURCE are optional but can't be both null.
             "JOB_DOCUMENT_SOURCE": "https://s3.amazonaws.com/bucket-name/key",
             // optional:
             "EXECUTION_TIMEOUT": "300", // in seconds

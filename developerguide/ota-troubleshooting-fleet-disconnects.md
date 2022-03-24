@@ -1,10 +1,13 @@
 # Troubleshooting device fleet disconnects<a name="ota-troubleshooting-fleet-disconnects"></a>
 
+**Help us improve this topic**  
+ [Let us know what would help make it better](https://docs.aws.amazon.com/forms/aws-doc-feedback?hidden_service_name=IoT%20Docs&topic_url=http://docs.aws.amazon.com/en_us/iot/latest/developerguide/ota-troubleshooting-fleet-disconnects.html) 
+
 AWS IoT device fleet disconnects can happen for multiple reasons\. This article explains how to diagnose a disconnect reason and how to handle disconnects caused by regular maintenance of AWS IoT service or a throttling limit\.
 
 **To diagnose the disconnect reason**
 
-You can check the [AWSIotLogsV2](https://console.aws.amazon.com/cloudwatch/home?region=us-east-1#logsV2:log-groups/log-group/AWSIotLogsV2) log group in [CloudWatch](https://docs.aws.amazon.com/iot/latest/developerguide/cwl-format.html) to identify the disconnect reason in the `disconnectReason` field of the log entry\. 
+You can check the [AWSIotLogsV2](https://docs.aws.amazon.com/cloudwatch/home?region=us-east-1#logsV2:log-groups/log-group/AWSIotLogsV2) log group in [CloudWatch](https://docs.aws.amazon.com/iot/latest/developerguide/cwl-format.html) to identify the disconnect reason in the `disconnectReason` field of the log entry\. 
 
 You can also use AWS IoT's [lifecycle events](https://docs.aws.amazon.com/iot/latest/developerguide/life-cycle-events.html) feature to identify the disconnect reason\. If you’ve subscribed to [lifecycle's disconnect event](https://docs.aws.amazon.com/iot/latest/developerguide/life-cycle-events.html#connect-disconnect) \(`$aws/events/presence/disconnected/clientId`\), you’ll get a notification from AWS IoT when the disconnect happens\. You can identify the disconnect reason in the `disconnectReason` field of the notification\. 
 

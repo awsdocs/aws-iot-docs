@@ -37,13 +37,29 @@ After a device registers with AWS IoT, it should subscribe to these MQTT message
 |  `ShadowTopicPrefix/delete/accepted`  |  The `delete` request was accepted and AWS IoT deleted the shadow\.   |  The actions necessary to accommodate the deleted shadow, such as stop publishing updates\.  | 
 |  `ShadowTopicPrefix/delete/rejected`  |  The `delete` request was rejected by AWS IoT and the shadow was not deleted\. The message body contains the error information\.   |  Respond to the error message in the message body\.  | 
 |  `ShadowTopicPrefix/get/accepted`  |  The `get` request was accepted by AWS IoT, and the message body contains the current shadow document\.   |  The actions necessary to process the state document in the message body\.  | 
-|  `ShadowTopicPrefix/get/rejected`  |  The `get` request was rejected by AWS IoT, and the message body contains the error information\.   | Respond to the error message in the message body\. | 
+|  `ShadowTopicPrefix/get/rejected`  |  The `get` request was rejected by AWS IoT, and the message body contains the error information\.   |  Respond to the error message in the message body\.  | 
 |  `ShadowTopicPrefix/update/accepted`  |  The `update` request was accepted by AWS IoT, and the message body contains the current shadow document\.   |  Confirm the updated data in the message body matches the device state\.  | 
-|  `ShadowTopicPrefix/update/rejected`  |  The `update` request was rejected by AWS IoT, and the message body contains the error information\.   | Respond to the error message in the message body\. | 
+|  `ShadowTopicPrefix/update/rejected`  |  The `update` request was rejected by AWS IoT, and the message body contains the error information\.   |  Respond to the error message in the message body\.  | 
 |  `ShadowTopicPrefix/update/delta`  |  The shadow document was updated by a request to AWS IoT, and the message body contains the changes requested\.   |  Update the device's state to match the desired state in the message body\.  | 
 |  `ShadowTopicPrefix/update/documents`  |  An update to the shadow was recently completed, and the message body contains the current shadow document\.   |  Confirm the updated state in the message body matches the device's state\.  | 
 
 After subscribing to the messages in the preceding table for each shadow, the device should test to see if the shadows that it supports have already been created by publishing a `/get` topic to each shadow\. If a `/get/accepted` message is received, the message body contains the shadow document, which the device can use to initialize its state\. If a `/get/rejected` message is received, the shadow should be created by publishing an `/update` message with the current device state\.
+
+For example, suppose you have a thing `My_IoT_Thing` which doesn't have any classic or named shadows\. If you now publish a `/get` request on the reserved topic `$aws/things/My_IoT_Thing/shadow/get`, it returns an error on the `$aws/things/My_IoT_Thing/shadow/get/rejected` topic because the thing doesn't have any shadows\. To resolve this error, first publish an `/update` message by using the `$aws/things/My_IoT_Thing/shadow/update` topic with the current device state such as the following payload\.
+
+```
+ "state": {    
+    "reported": {
+      "welcome": "aws-iot",
+      "color": "yellow"
+    }
+  }
+}
+```
+
+A classic shadow is now created for the thing and the message is published to the `$aws/things/My_IoT_Thing/shadow/update/accepted` topic\. If you publish to the topic `$aws/things/My_IoT_Thing/shadow/get`, it returns a response to the `$aws/things/My_IoT_Thing/shadow/get/accepted` topic with the device state\.
+
+For named shadows, you must first create the named shadow or publish an update with the shadow name before using the get request\. For example, to create a named shadow `namedShadow1`, first publish the device state information to the topic `$aws/things/My_IoT_Thing/shadow/namedShadow1/update`\. To retrieve the state information, use the `/get` request for the named shadow, `$aws/things/My_IoT_Thing/shadow/namedShadow1/get`\.
 
 ## Processing messages while the device is connected to AWS IoT<a name="device-shadow-comms-device-while-connected"></a>
 
@@ -58,9 +74,9 @@ While a device is connected, it should publish these messages when indicated\.
 
 | Indication | Topic | Payload | 
 | --- | --- | --- | 
-| The device's state has changed\. |  `ShadowTopicPrefix/update`  | A shadow document with the `reported` property\. | 
-| The device might not be synchronized with the shadow\. | `ShadowTopicPrefix/get` | \(empty\) | 
-| An action on the device indicates that a shadow will no longer be supported by the device, such as when the device is being removed or replaced | `ShadowTopicPrefix/delete` | \(empty\) | 
+|  The device's state has changed\.  |  `ShadowTopicPrefix/update`  |  A shadow document with the `reported` property\.  | 
+| The device might not be synchronized with the shadow\. |  `ShadowTopicPrefix/get`  | \(empty\) | 
+|  An action on the device indicates that a shadow will no longer be supported by the device, such as when the device is being removed or replaced\.  |  `ShadowTopicPrefix/delete`  | \(empty\) | 
 
 ## Processing messages when the device reconnects to AWS IoT<a name="device-shadow-comms-device-reconnect"></a>
 

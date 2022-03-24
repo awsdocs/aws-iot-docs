@@ -164,7 +164,7 @@ When you use this command to retrieve a job document, placeholder URLs aren't re
 
 ## List jobs<a name="list-jobs"></a>
 
-To get a list of all jobs in your AWS account, use the ListJobs command\. Job data and job execution data are retained for a [limited time](https://docs.aws.amazon.com/general/latest/gr/iot-core.html#job-limits)\. Run the following command to list all jobs in your AWS account:
+To get a list of all jobs in your AWS account, use the ListJobs command\. Job data and job execution data are retained for a [limited time](https://docs.aws.amazon.com/general/latest/gr/iot_device_management.html#job-limits)\. Run the following command to list all jobs in your AWS account:
 
 ```
 aws iot list-jobs

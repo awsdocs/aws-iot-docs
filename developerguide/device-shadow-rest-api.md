@@ -25,6 +25,9 @@ identifier.iot.region.amazonaws.com
 
 The shadow REST API follows the same HTTPS protocols/port mappings as described in [Device communication protocols](protocols.md)\.
 
+**Note**  
+To use the APIs, you must use `iotdevicegateway` as the service name for authentication\. For more information, see [IoTDataPlane](https://docs.aws.amazon.com/AWSJavaScriptSDK/v3/latest/clients/client-iot-data-plane/classes/iotdataplane.html)\.
+
 **Topics**
 + [GetThingShadow](#API_GetThingShadow)
 + [UpdateThingShadow](#API_UpdateThingShadow)

@@ -52,4 +52,7 @@ Represents the permission to retrieve the list of jobs that are not in a termina
 Represents the permission to update a job execution\. The `iot:UpdateJobExecution` permission is checked every time a request is made to update the state of a job execution\.
 
 `iot:StartNextPendingJobExecution`  
-Represents the permission to get and start the next pending job execution for a thing\. \(That is, to update a job execution with status QUEUED to IN\_PROGRESS\.\) The `iot:StartNextPendingJobExecution` permission is checked every time a request is made to start the next pending job execution\.
+Represents the permission to get and start the next pending job execution for a thing\. \(That is, to update a job execution with status QUEUED to IN\_PROGRESS\.\) The `iot:StartNextPendingJobExecution` permission is checked every time a request is made to start the next pending job execution\.AWS IoT Core Credential Provider Policy Action
+
+`iot:AssumeRoleWithCertificate`  
+Represents the permission to call AWS IoT Core credential provider to assume an IAM role with certificate\-based authentication\. The `iot:AssumeRoleWithCertificate` permission is checked every time a request is made to AWS IoT Core credential provider to assume a role\.

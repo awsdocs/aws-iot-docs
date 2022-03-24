@@ -1,10 +1,13 @@
-# AWS IoT Device Defender troubleshooting guide<a name="device-defender-troubleshoot"></a>General
+# AWS IoT Device Defender troubleshooting guide<a name="device-defender-troubleshoot"></a>
+
+**Help us improve this topic**  
+ [Let us know what would help make it better](https://docs.aws.amazon.com/forms/aws-doc-feedback?hidden_service_name=IoT%20Docs&topic_url=http://docs.aws.amazon.com/en_us/iot/latest/developerguide/device-defender-troubleshoot.html) General
 
 Q: Are there any prerequisites for using AWS IoT Device Defender?   
 A: If you want to use device\-reported metrics, you must first deploy an agent on your AWS IoT connected devices or device gateways\. Devices must provide a consistent client identifier or thing name\.Audit
 
 Q: I enabled a check and my audit has been showing "In\-Progress" for a long time\. Is something wrong? When can I expect results?   
-A: When a check is enabled, data collection starts immediately\. However, if your account has a large amount of data to collect \(certificates, things, policies, and so on\), the results of the check might not be available for some time after you have enabled it\. Detect
+A: When a check is enabled, data collection starts immediately\. However, if your account has a large amount of data to collect \(for example, certificates, things, or policies\), the results of the check might not be available for some time after you have enabled it\. Detect
 
 Q: How do I know the thresholds to set in an AWS IoT Device Defender security profile behavior?   
 A: Start by creating a security profile behavior with low thresholds and attach it to a thing group that contains a representative set of devices\. You can use AWS IoT Device Defender to view the current metrics, and then fine\-tune the device behavior thresholds to match your use case\. 
@@ -39,8 +42,8 @@ A: Check that your metrics reports are being accepted by subscribing to the foll
 $aws/things/THING_NAME/defender/metrics/FORMAT/rejected
 $aws/things/THING_NAME/defender/metrics/FORMAT/accepted
 ```
-where `THING_NAME` is the name of the thing reporting the metric and `FORMAT` is either "json" or "cbor", depending on the format of the metrics report submitted by the thing\.  
-After you have subscribed, you should receive messages on these topics for each metric report submitted\. A `rejected` message indicates that there was a problem parsing the metric report\. An error message is included in the message payload to help you correct any errors in your metric report\. An `accepted` message indicates the metric report was parsed properly\. 
+`THING_NAME` is the name of the thing reporting the metric and `FORMAT` is either "JSON" or "CBOR," depending on the format of the metrics report submitted by the thing\.  
+After you have subscribed, you should receive messages on these topics for each metric report submitted\. A `rejected` message indicates that there was a problem parsing the metric report\. An error message is included in the message payload to help you correct any errors in your metric report\. An `accepted` message indicates that the metric report was parsed properly\. 
 
 Q: What happens if I send an empty metric in my metric report?  
 A: An empty list of ports or IP addresses is always considered in conformity with the corresponding behavior\. If the corresponding behavior was in violation, the violation is cleared\. 
@@ -49,7 +52,7 @@ Q: Why do my device metric reports contain messages for devices that aren't in t
 If you have one or more security profiles attached to all things or to all unregistered things, AWS IoT Device Defender includes metrics from unregistered things\. If you want to exclude metrics from unregistered things, you can attach the profiles to all registered devices instead of all devices\.
 
 Q: I'm not seeing messages from one or more unregistered devices even though I applied a security profile to all unregistered devices or all devices\. How can I fix it?  
-Verify that you are sending a well\-formed metrics report using one of the supported formats, For information, see [Device metrics document specification](detect-device-side-metrics.md#DetectMetricsMessagesSpec)\. Verify that the unregistered devices are using a consistent client identifier or thing name\. Messages reported by devices are rejected if the thing name contains control characters or if the thing name is longer than 128 bytes of UTF\-8 encoded characters\.
+Verify that you are sending a well\-formed metrics report using one of the supported formats\. For information, see [Device metrics document specification](detect-device-side-metrics.md#DetectMetricsMessagesSpec)\. Verify that the unregistered devices are using a consistent client identifier or thing name\. If the thing name contains control characters or is longer than 128 bytes of UTF\-8 encoded characters, messages reported by devices are rejected \.
 
 Q: What happens if an unregistered device is added to the registry or a registered device becomes unregistered?  
 A: If a device is added to or removed from the registry:  
@@ -96,7 +99,7 @@ A: A role that allows AWS IoT Device Defender to publish alerts on an alert targ
       ]
   }
   ```
-+ If the SNS topic used for publishing alerts is an encrypted topic, then along with the permission to publish to SNS topic, AWS IoT needs to be granted two more permissions\. For example:
++ If the SNS topic used for publishing alerts is an encrypted topic, then along with the permission to publish to SNS topic, AWS IoT must be granted two more permissions\. For example:
 
   ```
   {
@@ -114,3 +117,26 @@ A: A role that allows AWS IoT Device Defender to publish alerts on an alert targ
       ]
   }
   ```
+
+Q: My metric report submission with a custom metric type `number` fails with the error message `Malformed metrics report`\. What's wrong?   
+A: The type `number` only takes a single metric value as an input, but while submitting the metrics value in the DeviceMetrics report, it must be passed as an array with a single value\. Make sure you're submitting the metric value as an array\.   
+Error payload:  
+
+```
+{"header":{"report_id":12334567,"version":"1.0"},"metrics":{"network_stats":{"bytes_in":30680,"bytes_out":10652,"packets_in":113,"packets_out":118}},"custom_metrics":{"my_custom_metric":{"number":0}}}
+```
+Error message:  
+
+```
+{"thingName":"myThing","status":"REJECTED","statusDetails":{"ErrorCode":"InvalidPayload","ErrorMessage":"Malformed metrics report"},"timestamp":1635802047699}
+```
+No\-error payload:  
+
+```
+{"header":{"report_id":12334567,"version":"1.0"},"metrics":{"network_stats":{"bytes_in":30680,"bytes_out":10652,"packets_in":113,"packets_out":118}},"custom_metrics":{"my_custom_metric":[{"number":0}]}}
+```
+Response:  
+
+```
+{"thingName":"myThing","12334567":1635800375,"status":"ACCEPTED","timestamp":1635801636023}
+```

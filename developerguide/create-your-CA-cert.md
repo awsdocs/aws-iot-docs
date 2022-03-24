@@ -10,14 +10,14 @@ You can't perform this procedure in the AWS IoT console\.
 1. Generate a key pair\.
 
    ```
-   openssl genrsa -out root_CA_key_filename 2048
+   openssl genrsa -out root_CA_key_filename.key 2048
    ```
 
 1. Use the private key from the key pair to generate a CA certificate\.
 
    ```
    openssl req -x509 -new -nodes \
-       -key root_CA_key_filename \
+       -key root_CA_key_filename.key \
        -sha256 -days 1024 \
-       -out root_CA_pem_filename
+       -out root_CA_cert_filename.pem
    ```

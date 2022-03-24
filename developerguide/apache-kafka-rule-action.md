@@ -8,7 +8,7 @@ This topic assumes familiarity with the Apache Kafka platform and related concep
 ## Requirements<a name="apache-kafka-rule-action-requirements"></a>
 
 This rule action has the following requirements:
-+ An IAM role that AWS IoT can assume to perform the `ec2:CreateNetworkInterface`, `ec2:DescribeNetworkInterfaces`, `ec2:CreateNetworkInterfacePermission`, `ec2:DeleteNetworkInterface`, `ec2:DescribeSubnets`, `ec2:DescribeVpcs`, `ec2:DescribeVpcAttribute`, and `ec2:DescribeSecurityGroups` operations\. This role creates and manages elastic network interfaces to your Amazon Virtual Private Cloud to reach your Kafka broker\. For more information, see [Granting AWS IoT the required access](iot-create-role.md)\.
++ An IAM role that AWS IoT can assume to perform the `ec2:CreateNetworkInterface`, `ec2:DescribeNetworkInterfaces`, `ec2:CreateNetworkInterfacePermission`, `ec2:DeleteNetworkInterface`, `ec2:DescribeSubnets`, `ec2:DescribeVpcs`, `ec2:DescribeVpcAttribute`, and `ec2:DescribeSecurityGroups` operations\. This role creates and manages elastic network interfaces to your Amazon Virtual Private Cloud to reach your Kafka broker\. For more information, see [Granting an AWS IoT rule the access it requires](iot-create-role.md)\.
 
   In the AWS IoT console, you can choose or create a role to allow AWS IoT Core to perform this rule action\. 
 

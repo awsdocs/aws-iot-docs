@@ -1,5 +1,8 @@
 # Fleet indexing troubleshooting guide<a name="fleet-indexing-troubleshooting"></a>
 
+**Help us improve this topic**  
+ [Let us know what would help make it better](https://docs.aws.amazon.com/forms/aws-doc-feedback?hidden_service_name=IoT%20Docs&topic_url=http://docs.aws.amazon.com/en_us/iot/latest/developerguide/fleet-indexing-troubleshooting.html) 
+
 ## Troubleshooting aggregation queries for the fleet indexing service<a name="aggregation-troubleshooting"></a>
 
 If you are having type mismatch errors, you can use CloudWatch Logs to troubleshoot the problem\. CloudWatch Logs must be enabled before logs are written by the Fleet Indexing service\. For more information, see [Monitor AWS IoT using CloudWatch Logs](cloud-watch-logs.md)\.

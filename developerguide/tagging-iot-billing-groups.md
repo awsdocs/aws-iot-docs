@@ -22,7 +22,7 @@ The AWS IoT Wireless API provides these actions to associate wireless devices an
 
 ## Viewing cost allocation and usage data<a name="tagging-iot-billing-groups-costs"></a>
 
-You can use billing group tags to categorize and track your costs\. When you apply tags to billing groups \(and so to the things they include\), AWS generates a cost allocation report as a comma\-separated value \(CSV\) file with your usage and costs aggregated by your tags\. You can apply tags that represent business categories \(such as cost centers, application names, or owners\) to organize your costs across multiple services\. For more information about using tags for cost allocation, see [ Use Cost Allocation Tags](https://docs.aws.amazon.com/awsaccountbilling/latest/aboutv2/cost-alloc-tags.html) in the [ AWS Billing and Cost Management User Guide](https://docs.aws.amazon.com/awsaccountbilling/latest/aboutv2/)\.
+You can use billing group tags to categorize and track your costs\. When you apply tags to billing groups \(and so to the things they include\), AWS generates a cost allocation report as a comma\-separated value \(CSV\) file with your usage and costs aggregated by your tags\. You can apply tags that represent business categories \(such as cost centers, application names, or owners\) to organize your costs across multiple services\. For more information about using tags for cost allocation, see [ Use Cost Allocation Tags](https://docs.aws.amazon.com/awsaccountbilling/latest/aboutv2/cost-alloc-tags.html) in the [AWS Billing and Cost Management User Guide](https://docs.aws.amazon.com/awsaccountbilling/latest/aboutv2/)\.
 
 **Note**  
 To accurately associate usage and cost data with those things you have placed in billing groups, each device or application must:  

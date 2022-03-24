@@ -32,7 +32,7 @@ You can attach the `AWSIoTFleetHubFederationAccess` policy to your IAM identitie
 
 This policy grants Fleet Hub for AWS IoT Device Management federated users the permissions they need to take actions in AWS IoT and other AWS services from Fleet Hub web applications\.
 
-For more information about adding users to Fleet Hub web applications, see [Adding users to Fleet Hub applications](aws-iot-monitor-admin-work-with-apps-add-users.md)\.
+For more information about adding users to Fleet Hub web applications, see [Add users to Fleet Hub applications](aws-iot-monitor-admin-work-with-apps-add-users.md)\.
 
 View this policy in the [AWS console](https://console.aws.amazon.com/iam/home?#/policies/arn:aws:iam::aws:policy/service-role/AWSIoTFleetHubFederationAccess$jsonEditor)\.
 

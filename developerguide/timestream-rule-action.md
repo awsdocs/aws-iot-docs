@@ -13,7 +13,7 @@ With SQL V2 \(2016\-03\-23\), numeric values that are whole numbers, such as `10
 ## Requirements<a name="timestream-rule-action-requirements"></a>
 
 This rule action has the following requirements:
-+ An IAM role that AWS IoT can assume to perform the `timestream:DescribeEndpoints` and `timestream:WriteRecords` operations\. For more information, see [Granting AWS IoT the required access](iot-create-role.md)\.
++ An IAM role that AWS IoT can assume to perform the `timestream:DescribeEndpoints` and `timestream:WriteRecords` operations\. For more information, see [Granting an AWS IoT rule the access it requires](iot-create-role.md)\.
 
   In the AWS IoT console, you can choose, update, or create a role to allow AWS IoT to perform this rule action\.
 + If you use a customer\-managed AWS Key Management Service \(AWS KMS\) to encrypt data at rest in Timestream, the service must have permission to use the AWS KMS key on the caller's behalf\. For more information, see [How AWS services use AWS KMS](https://docs.aws.amazon.com/kms/latest/developerguide/service-integration.html)\.

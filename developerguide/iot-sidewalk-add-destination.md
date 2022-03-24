@@ -18,7 +18,7 @@ Enter a **Destination name** and an optional description for your destination\. 
 **Rule name**  
 The AWS IoT rule that is configured to process the device's data\. Your destination needs a rule to process the messages it receives\. Enter a rule name \(say **SidewalkRule**\) and then choose **Copy** to copy the rule name that you'll enter when creating the AWS IoT rule\. You can either choose **Create rule** to create the rule now or navigate to the [Rules](https://console.aws.amazon.com/iot/home#/create/rule) Hub of the AWS IoT console and create a rule with the name you copied\.
 
-  For more information about AWS IoT rules for destinations, see [Create rules to process LoRaWAN device messages](connect-iot-lorawan-destination-rules.md)\.
+  For more information about AWS IoT rules for destinations, see [ Create rules to process Sidewalk device messages](https://docs.aws.amazon.com/iot/latest/developerguide/iot-sidewalk-create-rules.html)\.
 + 
 
 **Role name**  
@@ -53,7 +53,7 @@ aws iotwireless create-destination \
     --role-arn arn:aws:iam::123456789012:role/SidewalkRole
 ```
 
-Running this command creates a destination with the specified destination name, rule name, and role name\. For information about rule and role names for destinations, see [Create rules to process LoRaWAN device messages](connect-iot-lorawan-destination-rules.md) and [Create an IAM role for your destinations](connect-iot-lorawan-create-destinations.md#connect-iot-lorawan-create-destinations-roles)\.
+Running this command creates a destination with the specified destination name, rule name, and role name\. For information about rule and role names for destinations, see [ Create rules to process Sidewalk device messages](https://docs.aws.amazon.com/iot/latest/developerguide/iot-sidewalk-create-rules.html)\.
 
 For information about the CLIs that you can use, see [AWS CLI reference](https://docs.aws.amazon.com/cli/latest/reference/iotwireless/index.html)\. 
 

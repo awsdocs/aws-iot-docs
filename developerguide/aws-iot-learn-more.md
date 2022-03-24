@@ -35,6 +35,10 @@ A PDF document that describes the best practices for designing MQTT topics in AW
 A PDF document that describes the different ways that AWS IoT provides to provision large fleets of devices\.
 + 
 
+**[AWS IoT Core Device Advisor](https://docs.aws.amazon.com/iot/latest/developerguide/device-advisor.html)**  
+AWS IoT Core Device Advisor provides pre\-built tests that you can use to validate IoT devices for reliable and secure connectivity best practices with AWS IoT Core, before deploying devices to production\.
++ 
+
 **[AWS IoT Resources](https://aws.amazon.com/iot/resources/)**  
 IoT\-specific resources, such as Technical Guides, Reference Architectures, eBooks, and curated blog posts, presented in a searchable index\.
 + 

@@ -14,5 +14,5 @@ Depending on the remote action that you want to perform, you can either create a
 
 **Topics**
 + [Custom and AWS managed templates](#job-templates-types)
-+ [Deploy common remote operations by using AWS managed templates](job-templates-managed.md)
++ [Use AWS managed templates to deploy common remote operations](job-templates-managed.md)
 + [Create custom job templates](job-templates-create.md)

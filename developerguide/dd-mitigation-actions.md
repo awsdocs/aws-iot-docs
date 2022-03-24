@@ -140,7 +140,7 @@ Each mitigation action that you define is a combination of a predefined action t
 
 **To use the AWS IoT console to view and modify mitigation actions**
 
-1. Open the [ AWS IoT console](https://console.aws.amazon.com/iot/home)\.
+1. Open the [AWS IoT console](https://console.aws.amazon.com/iot/home)\.
 
 1. In the left navigation pane, choose **Defend**, and then choose **Mitigation Actions**\.
 

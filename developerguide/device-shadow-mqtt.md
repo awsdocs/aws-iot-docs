@@ -369,7 +369,7 @@ The following is an example of the required policy:
 To delete a device's shadow, publish an empty message to the delete topic:
 
 ```
-ShadowTopicPrefix/shadow/delete
+ShadowTopicPrefix/delete
 ```
 
 The content of the message is ignored\.

@@ -13,14 +13,14 @@ This normally takes about 20 minutes, but it can take longer if you have many sy
 
 **Important**  
 Adapting these instructions to other devices and operating systems can be challenging\. You'll need to understand your device well enough to be able to interpret these instructions and apply them to your device\.  
-If you encounter difficulties while configuring your device for AWS IoT, we can't offer any assistance beyond the instructions in this section\. However, you might try one of the other device options as an alternative, such as [Create a virtual device with Amazon EC2](creating-a-virtual-thing.md) or [Use your Windows or Linux PC or Mac as an AWS IoT device](using-laptop-as-device.md)\. 
+If you encounter difficulties while configuring your device for AWS IoT, we can't offer any assistance beyond the instructions in this section\. However, you might try one of the other device options as an alternative, such as [Create a virtual device with Amazon EC2](creating-a-virtual-thing.md) or [Use your Windows or Linux PC or Mac as an AWS IoT device](using-laptop-as-device.md)\.
 
 ## Set up your device<a name="gs-device-prereqs"></a>
 
-The goal of this step is to collect what you'll need to configure your device such that it can start the operating system \(OS\), connect to the Internet, and allow you to interact with it at a command line interface\. 
+The goal of this step is to collect what you'll need to configure your device such that it can start the operating system \(OS\), connect to the Internet, and allow you to interact with it at a command line interface\.
 
 To complete this tutorial, you need the following:
-+ An AWS account\. If you don't have one, complete the steps described in [Set up your AWS account](setting-up.md) before you continue\. 
++ An AWS account\. If you don't have one, complete the steps described in [Set up your AWS account](setting-up.md) before you continue\.
 + A [Raspberry Pi 3 Model B](https://www.raspberrypi.org/products/) or more recent model\. This might work on earlier versions of the Raspberry Pi, but they have not been tested\.
 + [Raspberry Pi OS \(32\-bit\)](https://www.raspberrypi.org/downloads/raspberry-pi-os/) or later\. We recommend using the latest version of the Raspberry Pi OS\. Earlier versions of the OS might work, but they have not been tested\.
 
@@ -29,7 +29,7 @@ To complete this tutorial, you need the following:
 + Keyboard, mouse, monitor, cables, power supplies, and other hardware required by your device\.
 
 **Important**  
-Before you continue to the next step, your device must have its operating system installed, configured, and running\. The device must be connected to the Internet and you will need to be able to access the device by using its command line interface\. Command line access can be through a directly\-connected keyboard, mouse, and monitor, or by using an SSH terminal remote interface\. 
+Before you continue to the next step, your device must have its operating system installed, configured, and running\. The device must be connected to the Internet and you will need to be able to access the device by using its command line interface\. Command line access can be through a directly\-connected keyboard, mouse, and monitor, or by using an SSH terminal remote interface\.
 
  If you are running an operating system on your Raspberry Pi that has a graphical user interface \(GUI\), open a terminal window on the device and perform the following instructions in that window\. Otherwise, if you are connecting to your device by using a remote terminal, such as PuTTY, open a remote terminal to your device and use that\.
 
@@ -216,19 +216,6 @@ The AWS IoT Device SDK for JavaScript requires Node\.js and the npm package mana
 **Install the AWS IoT Device SDK for JavaScript**  
 Install the AWS IoT Device SDK for JavaScript on your Raspberry Pi\.
 
-   1. Install aws\-crt, the common runtime library\.
-
-      ```
-      cd ~
-      npm install aws-crt
-      ```
-
-   1. Install v2 of the AWS IoT Device SDK for JavaScript\.
-
-      ```
-      npm install aws-iot-device-sdk-v2
-      ```
-
    1. Clone the AWS IoT Device SDK for JavaScript repository into the `aws-iot-device-sdk-js-v2` directory of your *home* directory\. On the Raspberry Pi, the *home* directory is `~/`, which is used as the *home* directory in the following commands\. If your device uses a different path for the *home* directory, you must replace `~/` with the correct path for your device in the following commands\.
 
       These commands create the `~/aws-iot-device-sdk-js-v2` directory and copy the SDK code into it\.
@@ -238,7 +225,7 @@ Install the AWS IoT Device SDK for JavaScript on your Raspberry Pi\.
       git clone https://github.com/aws/aws-iot-device-sdk-js-v2.git
       ```
 
-   1. Change to the `aws-iot-device-sdk-js-v2` directory that you created in the preceding step and install the SDK\.
+   1. Change to the `aws-iot-device-sdk-js-v2` directory that you created in the preceding step and run `npm install` to install the SDK\. The command `npm install` will invoke the `aws-crt` library build that can take a few minutes to complete\.
 
       ```
       cd ~/aws-iot-device-sdk-js-v2
@@ -278,9 +265,9 @@ To run the sample app, you need the following information:
 
 |  Parameter  |  Where to find the value  | 
 | --- | --- | 
-| your\-iot\-endpoint |  In the [AWS IoT console](https://console.aws.amazon.com/iot/home), choose **Manage**, and then choose **Things**\. Choose the IoT thing you created for your device, **MyIotThing** was the name used earlier, and then choose **Interact**\. On the thing details page, your endpoint is displayed in the ** HTTPS** section\.  If you use the new AWS IoT console, choose **Settings** from the AWS IoT menu\. Your endpoint is displayed in the **Device data endpoint** section\.  | 
+| your\-iot\-endpoint |  In the [AWS IoT console](https://console.aws.amazon.com/iot/home), choose **Manage**, and then choose **Things**\. Choose the IoT thing you created for your device, **MyIotThing** was the name used earlier, and then choose **Interact**\. On the thing details page, your endpoint is displayed in the ** HTTPS** section\. If you use the new AWS IoT console, choose **Settings** from the AWS IoT menu\. Your endpoint is displayed in the **Device data endpoint** section\.  | 
 
-The *your\-iot\-endpoint* value has a format of: `endpoint_id-ats.iot.region.amazonaws.com`, for example, `a3qj468EXAMPLE-ats.iot.us-west-2.amazonaws.com`\. 
+The *your\-iot\-endpoint* value has a format of: `endpoint_id-ats.iot.region.amazonaws.com`, for example, `a3qj468EXAMPLE-ats.iot.us-west-2.amazonaws.com`\.
 
 ------
 #### [ Python ]
@@ -296,16 +283,16 @@ The *your\-iot\-endpoint* value has a format of: `endpoint_id-ats.iot.region.ama
 1. In the command line window, replace *your\-iot\-endpoint* as indicated and run this command\.
 
    ```
-   python3 pubsub.py --topic topic_1 --root-ca ~/certs/Amazon-root-CA-1.pem --cert ~/certs/device.pem.crt --key ~/certs/private.pem.key --endpoint your-iot-endpoint
+   python3 pubsub.py --topic topic_1 --root-ca ~/certs/Amazon-root-CA-1.pem --cert ~/certs/certificate.pem.crt --key ~/certs/private.pem.key --endpoint your-iot-endpoint
    ```
 
 1. Observe that the sample app:
 
    1. Connects to the AWS IoT service for your account\.
 
-   1. Subscribes to the message topic, **topic\_1**, and displays the messages it receives on that topic\. 
+   1. Subscribes to the message topic, **topic\_1**, and displays the messages it receives on that topic\.
 
-   1. Publishes 10 messages to the topic, **topic\_1**\. 
+   1. Publishes 10 messages to the topic, **topic\_1**\.
 
    1. Displays output similar to the following:
 
@@ -342,14 +329,14 @@ The *your\-iot\-endpoint* value has a format of: `endpoint_id-ats.iot.region.ama
 
    If you're having trouble running the sample app, review [Troubleshooting problems with the sample app](gs-device-troubleshoot.md)\.
 
-   You can also add the `--verbosity Debug` parameter to the command line so the sample app displays detailed messages about what it’s doing\. That information might provide you the help you need to correct the problem\. 
+   You can also add the `--verbosity Debug` parameter to the command line so the sample app displays detailed messages about what it’s doing\. That information might provide you the help you need to correct the problem\.
 
 ------
 #### [ JavaScript ]
 
 **To install and run the sample app**
 
-1. In your command line window, navigate to the `~/aws-iot-device-sdk-js-v2/samples/node/pub_sub` directory that the SDK created and install the sample app by using these commands\.
+1. In your command line window, navigate to the `~/aws-iot-device-sdk-js-v2/samples/node/pub_sub` directory that the SDK created and install the sample app by using these commands\. The command `npm install` will invoke the `aws-crt` library build that can take a few minutes to complete\.
 
    ```
    cd ~/aws-iot-device-sdk-js-v2/samples/node/pub_sub
@@ -359,16 +346,16 @@ The *your\-iot\-endpoint* value has a format of: `endpoint_id-ats.iot.region.ama
 1. In the command line window, replace *your\-iot\-endpoint* as indicated and run this command\.
 
    ```
-   node dist/index.js --topic topic_1 --root-ca ~/certs/Amazon-root-CA-1.pem --cert ~/certs/device.pem.crt --key ~/certs/private.pem.key --endpoint your-iot-endpoint
+   node dist/index.js --topic topic_1 --root-ca ~/certs/Amazon-root-CA-1.pem --cert ~/certs/certificate.pem.crt --key ~/certs/private.pem.key --endpoint your-iot-endpoint
    ```
 
 1. Observe that the sample app:
 
    1. Connects to the AWS IoT service for your account\.
 
-   1. Subscribes to the message topic, **topic\_1**, and displays the messages it receives on that topic\. 
+   1. Subscribes to the message topic, **topic\_1**, and displays the messages it receives on that topic\.
 
-   1. Publishes 10 messages to the topic, **topic\_1**\. 
+   1. Publishes 10 messages to the topic, **topic\_1**\.
 
    1. Displays output similar to the following:
 
@@ -397,13 +384,13 @@ The *your\-iot\-endpoint* value has a format of: `endpoint_id-ats.iot.region.ama
 
    If you're having trouble running the sample app, review [Troubleshooting problems with the sample app](gs-device-troubleshoot.md)\.
 
-   You can also add the `--verbosity Debug` parameter to the command line so the sample app displays detailed messages about what it’s doing\. That information might provide you the help you need to correct the problem\. 
+   You can also add the `--verbosity Debug` parameter to the command line so the sample app displays detailed messages about what it’s doing\. That information might provide you the help you need to correct the problem\.
 
 ------
 
 ## View messages from the sample app in the AWS IoT console<a name="gs-device-view-msg"></a>
 
-You can see the sample app's messages as they pass through the message broker by using the **MQTT client** in the **AWS IoT console**\. 
+You can see the sample app's messages as they pass through the message broker by using the **MQTT client** in the **AWS IoT console**\.
 
 **To view the MQTT messages published by the sample app**
 
@@ -420,7 +407,7 @@ You can see the sample app's messages as they pass through the message broker by
 
    ```
    cd ~/aws-iot-device-sdk-python-v2/samples
-   python3 pubsub.py --topic topic_1 --root-ca ~/certs/Amazon-root-CA-1.pem --cert ~/certs/device.pem.crt --key ~/certs/private.pem.key --endpoint your-iot-endpoint
+   python3 pubsub.py --topic topic_1 --root-ca ~/certs/Amazon-root-CA-1.pem --cert ~/certs/certificate.pem.crt --key ~/certs/private.pem.key --endpoint your-iot-endpoint
    ```
 
 ------
@@ -428,7 +415,7 @@ You can see the sample app's messages as they pass through the message broker by
 
    ```
    cd ~/aws-iot-device-sdk-js-v2/samples/node/pub_sub
-   node dist/index.js --topic topic_1 --root-ca ~/certs/Amazon-root-CA-1.pem --cert ~/certs/device.pem.crt --key ~/certs/private.pem.key --endpoint your-iot-endpoint
+   node dist/index.js --topic topic_1 --root-ca ~/certs/Amazon-root-CA-1.pem --cert ~/certs/certificate.pem.crt --key ~/certs/private.pem.key --endpoint your-iot-endpoint
    ```
 
 ------

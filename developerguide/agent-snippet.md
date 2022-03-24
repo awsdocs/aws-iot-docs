@@ -1,6 +1,6 @@
 # IoT agent snippet<a name="agent-snippet"></a>
 
-The IoT agent is used to receive the MQTT message that includes the client access token and start a local proxy on the remote device\. You must install and run the IoT agent on the remote device if you want the Secure Tunneling service to deliver the client access token\. The IoT agent must subscribe to the following reserved IoT MQTT topic:
+The IoT agent is used to receive the MQTT message that includes the client access token and start a local proxy on the remote device\. You must install and run the IoT agent on the remote device if you want secure tunneling to deliver the client access token\. The IoT agent must subscribe to the following reserved IoT MQTT topic:
 
 `$aws/things/thing-name/tunnels/notify`
 
@@ -19,7 +19,7 @@ The following is an example MQTT message payload:
 
 After it receives an MQTT message, the IoT agent must start a local proxy on the remote device with the appropriate parameters\.
 
-The following Java code demonstrates how to use the [AWS IoT Device SDK](https://github.com/aws/aws-iot-device-sdk-java) and [ProcessBuilder](https://docs.oracle.com/javase/8/docs/api/java/lang/ProcessBuilder.html) from the Java library to build a simple IoT agent to work with the Secure Tunneling service\.
+The following Java code demonstrates how to use the [AWS IoT Device SDK](https://github.com/aws/aws-iot-device-sdk-java) and [ProcessBuilder](https://docs.oracle.com/javase/8/docs/api/java/lang/ProcessBuilder.html) from the Java library to build a simple IoT agent to work with secure tunneling\.
 
 ```
 // Find the IoT device endpoint for your AWS account

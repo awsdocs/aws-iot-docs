@@ -5,7 +5,7 @@ The DynamoDBv2 \(`dynamoDBv2`\) action writes all or part of an MQTT message to 
 ## Requirements<a name="dynamodb-v2-rule-action-requirements"></a>
 
 This rule action has the following requirements:
-+ An IAM role that AWS IoT can assume to perform the `dynamodb:PutItem` operation\. For more information, see [Granting AWS IoT the required access](iot-create-role.md)\.
++ An IAM role that AWS IoT can assume to perform the `dynamodb:PutItem` operation\. For more information, see [Granting an AWS IoT rule the access it requires](iot-create-role.md)\.
 
   In the AWS IoT console, you can choose or create a role to allow AWS IoT to perform this rule action\.
 + The MQTT message payload must contain a root\-level key that matches the table's primary partition key and a root\-level key that matches the table's primary sort key, if one is defined\.
