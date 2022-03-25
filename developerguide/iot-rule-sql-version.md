@@ -19,9 +19,9 @@ The following JSON example shows you how to specify the SQL version using the `a
 ```
 
 AWS IoT currently supports the following SQL versions:
++ `2016-03-23` – The SQL version built on 2016\-03\-23 \(recommended\)\.
 + `2015-10-08` – The original SQL version built on 2015\-10\-08\.
-+ `2016-03-23` – The SQL version built on 2016\-03\-23\.
-+ `beta` – The most recent beta SQL version\. If you use this version, it might introduce breaking changes to your rules\.
++ `beta` – The most recent beta SQL version\. This version could introduce breaking changes to your rules\.
 
 ## What's new in the 2016\-03\-23 SQL rules engine version<a name="sql-2016-03-23-beta"></a>
 + Fixes for selecting nested JSON objects\.
