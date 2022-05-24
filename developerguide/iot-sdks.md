@@ -19,7 +19,7 @@ The AWS IoT C\+\+ Device SDK allows developers to build connected applications u
 + [AWS IoT Device SDK C\+\+ v2 on GitHub](https://github.com/aws/aws-iot-device-sdk-cpp-v2)
 + [AWS IoT Device SDK C\+\+ v2 Readme](https://github.com/aws/aws-iot-device-sdk-cpp-v2#aws-iot-device-sdk-for-c-v2)
 + [AWS IoT Device SDK C\+\+ v2 Samples](https://github.com/aws/aws-iot-device-sdk-cpp-v2/tree/main/samples#sample-apps-for-the-aws-iot-device-sdk-for-c-v2)
-+ [AWS IoT Device SDK C\+\+ v2 API documentation](https://aws.github.io/aws-iot-device-sdk-cpp-v2/html/index.html)
++ [AWS IoT Device SDK C\+\+ v2 API documentation](https://aws.github.io/aws-iot-device-sdk-cpp-v2/)
 
 ------
 #### [ Python ]
