@@ -2,12 +2,18 @@
 
 Use AWS IoT Jobs to define a set of remote operations that can be sent to and run on one or more devices connected to AWS IoT\. For example, you can define a job that instructs a set of devices to download and install applications, run firmware updates, reboot, rotate certificates, or perform remote troubleshooting operations\.
 
-To create jobs, first define a *job document* that contains a list of instructions describing operations that the device must perform remotely\. To perform these operations, specify a list of *targets*, which are individual things, [thing groups](thing-groups.md), or both\. The job document and targets together constitute a *deployment*\.
+## Accessing AWS IoT jobs<a name="iot-jobs-how-use"></a>
 
-Each deployment can have additional configurations:
-+ **Rollout**: This configuration defines how many devices receive the job document every minute\.
-+ **Abort**: If a certain number of devices don't receive the job notification, use this configuration to cancel the job and avoid sending a bad update to an entire fleet\.
-+ **Timeout**: If a response isn't received from your job targets within a certain duration, the job can fail\. You can keep track of the job that's running on these devices\.
-+ **Retry**: If a device reports failure or a job times out, you can use AWS IoT Jobs to automatically resend the job document to the device\.
+You can get started with AWS IoT Jobs by using the console or the AWS IoT Core API\.
 
-AWS IoT Jobs sends a message to inform the targets that a job is available\. The target starts the *execution* of the job by downloading the job document, performing the operations it specifies, and reporting its progress to AWS IoT\. You can track the progress of a job for a specific target and for all targets of the job by running commands that are provided by AWS IoT Jobs\. When a job has started, an *In progress* status is reported\. The devices then report incremental updates while displaying this status until the job has succeeded, failed, or timed out\.
+**Using the console**  
+Sign in to the AWS Management Console, and go to the AWS IoT console\. In the navigation pane, choose **Manage**, and then choose **Jobs**\. You can create and manage jobs from this section\. If you want to create and manage job templates, in the navigation pane, choose **Job templates**\. For more information, see [Create and manage jobs by using the AWS Management Console](manage-job-console.md)\.
+
+**Using the API or CLI**  
+You can get started by using the AWS IoT Core API operations\. For more information, see [AWS IoT API Reference](https://docs.aws.amazon.com/iot/latest/apireference/)\. The AWS IoT Core API that AWS IoT jobs is built on is supported by the AWS SDK\. For more information, see [AWS SDKs and Toolkits](https://aws.amazon.com/getting-started/tools-sdks/)\. 
+
+You can use the AWS CLI to run commands for creating and managing jobs and job templates\. For more information, see [AWS IoT CLI reference](https://docs.aws.amazon.com/cli/latest/reference/iot/index.html)\.
+
+## AWS IoT Jobs Regions and endpoints<a name="iot-jobs-endpoints"></a>
+
+AWS IoT Jobs supports control plane and data plane API endpoints that are specific to your AWS Region\. The data plane API endpoints are specific to your AWS account and AWS Region\. For more information about the AWS IoT Jobs endpoints, see [AWS IoT Device Management \- jobs data endpoints](https://docs.aws.amazon.com/general/latest/gr/iot_device_management.html#iot_device_management_region_jobs) in the *AWS General Reference*\.

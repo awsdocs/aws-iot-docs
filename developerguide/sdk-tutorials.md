@@ -89,7 +89,7 @@ mqtt_connection = mqtt_connection_builder.mtls_from_path(
     endpoint=args.endpoint,
     cert_filepath=args.cert,
     pri_key_filepath=args.key,
-    ca_filepath=args.root_ca,
+    ca_filepath=args.ca_file,
     client_bootstrap=client_bootstrap,
     on_connection_interrupted=on_connection_interrupted,
     on_connection_resumed=on_connection_resumed,
@@ -143,7 +143,7 @@ mqtt_connection = mqtt_connection_builder.websockets_with_default_aws_signing(
     region=args.signing_region,
     credentials_provider=credentials_provider,
     websocket_proxy_options=proxy_options,
-    ca_filepath=args.root_ca,
+    ca_filepath=args.ca_file,
     on_connection_interrupted=on_connection_interrupted,
     on_connection_resumed=on_connection_resumed,
     client_id=args.client_id,
@@ -338,7 +338,7 @@ For this exercise, imagine that your device contains a temperature control and a
 
    ```
    cd ~/aws-iot-device-sdk-python-v2/samples
-   python3 pubsub.py --topic topic_1 --root-ca ~/certs/Amazon-root-CA-1.pem --cert ~/certs/device.pem.crt --key ~/certs/private.pem.key --endpoint your-iot-endpoint
+   python3 pubsub.py --topic topic_1 --ca_file ~/certs/Amazon-root-CA-1.pem --cert ~/certs/device.pem.crt --key ~/certs/private.pem.key --endpoint your-iot-endpoint
    ```
 
    You should see the same output as you saw in the [Getting started tutorial](connecting-to-existing-device.md#gs-device-node-app-run)\.
@@ -349,7 +349,7 @@ For this exercise, imagine that your device contains a temperature control and a
    Making these changes to the initial command line results in this command line\. Enter this command in the terminal window for your device\.
 
    ```
-   python3 pubsub.py --message "" --count 2 --topic device/+/details --root-ca ~/certs/Amazon-root-CA-1.pem --cert ~/certs/device.pem.crt --key ~/certs/private.pem.key --endpoint your-iot-endpoint
+   python3 pubsub.py --message "" --count 2 --topic device/+/details --ca_file ~/certs/Amazon-root-CA-1.pem --cert ~/certs/device.pem.crt --key ~/certs/private.pem.key --endpoint your-iot-endpoint
    ```
 
    The program should display something like this:
@@ -426,7 +426,7 @@ Building on the previous exercise, modify the `pubsub.py` sample app to evaluate
 1. Save your changes and run the modified program by using this command line\.
 
    ```
-   python3 pubsub2.py --message "" --count 2 --topic device/+/details --root-ca ~/certs/Amazon-root-CA-1.pem --cert ~/certs/device.pem.crt --key ~/certs/private.pem.key --endpoint your-iot-endpoint
+   python3 pubsub2.py --message "" --count 2 --topic device/+/details --ca_file ~/certs/Amazon-root-CA-1.pem --cert ~/certs/device.pem.crt --key ~/certs/private.pem.key --endpoint your-iot-endpoint
    ```
 
 1. In the AWS IoT console, open the [MQTT test client](https://console.aws.amazon.com/iot/home#/test)\.
@@ -519,7 +519,7 @@ In this exercise, the following message will be sent with the `device/data` topi
 1. On your device, run this command to send the message two times\.
 
    ```
-   python3 pubsub3.py  --root-ca ~/certs/Amazon-root-CA-1.pem  --cert ~/certs/device.pem.crt  --key ~/certs/private.pem.key  --topic device/data  --count 2 --message '{"timestamp":1601048303,"sensorId":28,"sensorData":[{"sensorName":"Wind speed","sensorValue":34.2211224}]}'  --endpoint your-iot-endpoint
+   python3 pubsub3.py  --ca_file ~/certs/Amazon-root-CA-1.pem  --cert ~/certs/device.pem.crt  --key ~/certs/private.pem.key  --topic device/data  --count 2 --message '{"timestamp":1601048303,"sensorId":28,"sensorData":[{"sensorName":"Wind speed","sensorValue":34.2211224}]}'  --endpoint your-iot-endpoint
    ```
 
 1. In the MQTT test client, check to see that it has interpreted and formatted the JSON document in the message payload, such as this:  

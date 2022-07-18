@@ -2,12 +2,19 @@
 
 The Apache Kafka rule action routes data to an Apache Kafka cluster in an Amazon Virtual Private Cloud \(Amazon VPC\)\. The VPC configuration used by the Apache Kafka rule action is automatically enabled when you specify the VPC destination for your rule action\.
 
-**Note**  
-If a VPC topic rule destination doesn't receive any traffic for 30 days in a row, it will be disabled\.  
-If any resources used by the VPC destination change, the destination will be disabled and unable to be used\.  
-Some changes that can disable a VPC destination include: deleting the VPC, subnets, security groups, or the role used; modifying the role to no longer have the necessary permissions; and disabling the destination\.
-
 A VPC destination contains a list of subnets inside the VPC\. The rules engine creates an elastic network interface in each subnet that you specify in this list\. For more information about network interfaces, see [Elastic network interfaces](https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/using-eni.html) in the Amazon EC2 User Guide\.
+
+## Requirements and considerations<a name="vpc-action-considerations"></a>
++ If you're using a self\-managed Apache Kafka cluster that will be accessed using a public endpoint across the internet:
+  + You must create a NAT gateway for instances in your subnets\. The NAT gateway has a public IP address that can connect to the internet, which allows the rules engine to forward your messages to the public Kafka cluster\.
+  + As a less expensive alternative to NAT gateways, you can allocate an elastic IP address with the elastic network interfaces \(ENIs\) that are created by the VPC destination\. The security groups that you use must be configured to block incoming traffic\.
+**Note**  
+If the VPC destination is disabled and then re\-enabled, you must re\-associate the elastic IPs with the new ENIs\.
++ If a VPC topic rule destination doesn't receive any traffic for 30 days in a row, it will be disabled\.
++ If any resources used by the VPC destination change, the destination will be disabled and unable to be used\.
++ Some changes that can disable a VPC destination include: deleting the VPC, subnets, security groups, or the role used; modifying the role to no longer have the necessary permissions; and disabling the destination\.
+
+## Pricing<a name="vpc-action-pricing"></a>
 
 For pricing purposes, a VPC rule action is metered in addition to the action that sends a message to a resource when the resource is in your VPC\. For pricing information, see [AWS IoT Core pricing](https://aws.amazon.com/iot-core/pricing/)\.
 

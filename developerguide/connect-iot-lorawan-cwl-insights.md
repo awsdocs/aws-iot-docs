@@ -1,8 +1,8 @@
-# Use CloudWatch Insights to filter logs for AWS IoT Core for LoRaWAN<a name="connect-iot-lorawan-cwl-insights"></a>
+# Use CloudWatch Insights to filter logs for AWS IoT Wireless<a name="connect-iot-lorawan-cwl-insights"></a>
 
 While you can use CloudWatch Logs to create filter expressions, we recommend that you use CloudWatch insights to more effectively create and use filter expressions depending on your application\.
 
-We recommend that you first use CloudWatch **Log groups** to learn about the different types of resources, its event types, and log levels that you can use to view log entries in the console\. You can then use the examples of some filter expressions on this page as a reference to create your own filters for your AWS IoT Core for LoRaWAN resources\.
+We recommend that you first use CloudWatch **Log groups** to learn about the different types of resources, its event types, and log levels that you can use to view log entries in the console\. You can then use the examples of some filter expressions on this page as a reference to create your own filters for your AWS IoT Wireless resources\.
 
 ## Viewing AWS IoT logs in the CloudWatch Logs insights console<a name="connect-iot-lorawan-viewing-logs"></a>
 
@@ -14,11 +14,11 @@ Navigate to the [CloudWatch console](https://console.aws.amazon.com/cloudwatch) 
 
 1. In the **Filter** text box, enter **/aws/iotwireless** , and then choose the `/aws/iotwireless` Logs Insights\.
 
-1. To see a complete list of log groups, choose **Select log group\(s\)**\. To look at log groups for AWS IoT Core for LoRaWAN, choose `/aws/iotwireless`\.
+1. To see a complete list of log groups, choose **Select log group\(s\)**\. To look at log groups for AWS IoT Wireless, choose `/aws/iotwireless`\.
 
 You can now start entering queries to filter the log groups\. The following sections contain some useful queries that'll help you gain insights about your resource metrics\.
 
-## Create useful queries to filter and gain insights for AWS IoT Core for LoRaWAN<a name="connect-iot-lorawan-insights-resource-filter"></a>
+## Create useful queries to filter and gain insights for AWS IoT Wireless<a name="connect-iot-lorawan-insights-resource-filter"></a>
 
 You can use filter expressions to show additional helpful log information with CloudWatch Insights\. Following shows some sample queries:
 

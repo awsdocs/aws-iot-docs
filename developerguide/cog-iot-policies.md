@@ -17,8 +17,6 @@ Both examples perform the following steps\.
 1. When a user signs up for an account, the application creates an Amazon Cognito user pool and identity\.
 
 1. When a user authenticates, the application creates and attaches a policy to the identity\. This gives the user publish and subscribe permissions\.
-**Note**  
-The application gives the authorized user permission to perform all AWS IoT Core operations on all AWS IoT Core resources\. In your own applications, make sure to give only the permissions that authorized users need\.
 
 1. The user can use the application to publish and subscribe to MQTT topics\.
 

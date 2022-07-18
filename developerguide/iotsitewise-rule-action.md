@@ -62,7 +62,7 @@ Supports [substitution templates](iot-substitution-templates.md): Yes
 Supports [substitution templates](iot-substitution-templates.md): Yes  
 `propertyId`  
 \(Optional\) The ID of the asset's property\. You must specify either a `propertyAlias` or both an `assetId` and a `propertyId`\.  
-Supports [substitution templates](iot-substitution-templates.md): API and AWS CLI only  
+Supports [substitution templates](iot-substitution-templates.md): Yes  
 `entryId`  
 \(Optional\) A unique identifier for this entry\. You can define the `entryId` to better track which message caused an error in case of failure\. Defaults to a new UUID\.  
 Supports [substitution templates](iot-substitution-templates.md): Yes  

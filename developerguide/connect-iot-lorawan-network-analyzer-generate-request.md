@@ -1,6 +1,6 @@
 # Generate a presigned request with the WebSocket library<a name="connect-iot-lorawan-network-analyzer-generate-request"></a>
 
-The following shows how you to generate a presigned request so that you can use the WebSocket library to send requests to the service,\.
+The following shows how you to generate a presigned request so that you can use the WebSocket library to send requests to the service\.
 
 ## Add a policy for WebSocket requests to your IAM role<a name="connect-iot-lorawan-network-analyzer-iam"></a>
 
@@ -23,7 +23,21 @@ To use the WebSocket protocol to call network analyzer, attach the following pol
 
 Construct a URL for your WebSocket request that contains the information needed to set up communication between your application and the network analyzer\. To verify the identity of the request, WebSocket streaming uses the Amazon Signature Version 4 process for signing requests\. For more information about Signature Version 4, see [ Signing AWS API Requests](https://docs.aws.amazon.com/general/latest/gr/signing_aws_api_requests.html) in the *Amazon Web Services General Reference*\.
 
-To call network analyzer, use the `StartNetworkAnalyzerStream` request URL\. The request will be signed using the credentials for the IAM role mentioned previously\. The URL has the following format with line breaks added for readability\.
+To call network analyzer, use the `StartNetworkAnalyzerStream` request URL\. The request will be signed using the credentials for the IAM role mentioned previously\. The URL has the following format with line breaks added for readability\. You must add the configuration name below the line `&X-Amz-SignedHeaders=host`\. Any additional parameters should be added below this line sorted by alphabetical order\.
+
+The following example shows how to use this request URL with the configuration name, `NaConfig`:
+
+```
+wss://api.iotwireless.<region>.amazonaws.com/start-network-analyzer-stream?configuration-name=NaConfig
+    &X-Amz-Algorithm=AWS4-HMAC-SHA256
+    &X-Amz-Date=20220427T001057Z&X-Amz-SignedHeaders=host
+    &X-Amz-Expires=300
+    &X-Amz-Credential=credential_number/account/region/iotwireless/aws4_request
+    &X-Amz-Signature=c123456789098765a012c3a45d6789dd01234af5678bba9bbc0dbc112a3334d
+```
+
+**Note**  
+If your URL doesn't include the configuration name, AWS IoT Core for LoRaWAN will include the default name for the network analyzer configuration, `NetworkAnalyzerConfig_Default`\.
 
 ```
 GET wss://api.iotwireless.<region>.amazonaws.com/start-network-analyzer-stream?X-Amz-Algorithm=AWS4-HMAC-SHA256
@@ -112,7 +126,6 @@ Create a string that includes information from your request in a standardized fo
    canonical_querystring += "&X-Amz-Expires=300"
    canonical_querystring += "&X-Amz-Security-Token=" + token
    canonical_querystring += "&X-Amz-SignedHeaders=" + signed_headers
-   canonical_querystring += "&language-code=en-US&media-encoding=pcm&sample-rate=16000"
    ```
 
 1. Create a hash of the payload\. For a GET request, the payload is an empty string\.

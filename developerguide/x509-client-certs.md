@@ -32,23 +32,18 @@ The date and time when certificates signed by a CA certificate expire are set wh
 
 ## Using X\.509 client certificates in multiple AWS accounts with multi\-account registration<a name="multiple-account-cert"></a>
 
-Multi\-account registration makes it possible to move devices between your AWS accounts in the same Region or in different Regions\. With this, you can register, test, and configure a device in a pre\-production account, and then register and use the same device and device certificate in a production account\. You can also [register the client certificate on the device \(the device certificates\) without a CA](manual-cert-registration.md#manual-cert-registration-noca-cli) that is registered with AWS IoT\. 
+Multi\-account registration makes it possible to move devices between your AWS accounts in the same Region or in different Regions\. You can register, test, and configure a device in a pre\-production account, and then register and use the same device and device certificate in a production account\. You can also register the client certificate on the device or the device certificates without a CA that is registered with AWS IoT\. For more information, see [Register a client certificate signed by an unregistered CA \(CLI\)\.](manual-cert-registration.md#manual-cert-registration-noca-cli)
 
 **Note**  
 Certificates used for multi\-account registration are supported on the `iot:Data-ATS`, `iot:Data` \(legacy\), `iot:Jobs`, and `iot:CredentialProvider` endpoint types\. For more information about AWS IoT device endpoints, see [AWS IoT device data and service endpoints](iot-connect-devices.md#iot-connect-device-endpoints)\.
-
-**Note**  
-Multi\-account registration doesn't support just\-in\-time registration because a verification certificate is required for registering the CA, which is only generated for a specific account\. 
 
 Devices that use multi\-account registration must send the [Server Name Indication \(SNI\) extension](https://tools.ietf.org/html/rfc3546#section-3.1) to the Transport Layer Security \(TLS\) protocol and provide the complete endpoint address in the `host_name` field, when they connect to AWS IoT\. AWS IoT uses the endpoint address in `host_name` to route the connection to the correct AWS IoT account\. Existing devices that don't send a valid endpoint address in `host_name` will continue to work, but they will not be able to use the features that require this information\. For more information about the SNI extension and to learn how to identify the endpoint address for the `host_name` field, see [Transport security in AWS IoT](transport-security.md)\. 
 
 **To use multi\-account registration**
 
-1. Do not register the CA that signed the device certificates with AWS IoT\.
+1. You can register the device certificates with a CA\. You can register the signing CA in multiple accounts in `SNI_ONLY` mode and use that CA to register the same client certificate to multiple accounts\. For more information, see [Register a CA certificate in SNI\_ONLY mode \(CLI\)](register-CA-cert.md#register-CA-cert-SNI-cli)\.
 
-1. Register the device certificates without a CA\. See [Register a client certificate signed by an unregistered CA \(CLI\)](manual-cert-registration.md#manual-cert-registration-noca-cli)\.
-
-1. Use the correct `host_name` in the SNI extension to TLS when the device connects to AWS IoT\. See [Transport security in AWS IoT](transport-security.md)\.
+1. You can register the device certificates without a CA\. See [Register a client certificate signed by an unregistered CA \(CLI\)](manual-cert-registration.md#manual-cert-registration-noca-cli)\. Registering a CA is optional\. You're not required to register the CA that signed the device certificates with AWS IoT\.
 
 ## Certificate signing algorithms supported by AWS IoT<a name="x509-cert-algorithms"></a>
 

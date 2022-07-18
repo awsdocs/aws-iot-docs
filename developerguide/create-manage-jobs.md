@@ -1,6 +1,6 @@
 # Managing jobs<a name="create-manage-jobs"></a>
 
-Use jobs to notify devices of a software or firmware update\. You can use the [AWS IoT console](https://console.aws.amazon.com/iot/), the [Job management and control API](jobs-api.md#jobs-http-api), the [AWS Command Line Interface](https://docs.aws.amazon.com/cli/latest/reference/iot/index.html), or the [AWS SDKs](http://aws.amazon.com/tools/#sdk) to create and manage jobs\.
+Use jobs to notify devices of a software or firmware update\. You can use the [AWS IoT console](https://console.aws.amazon.com/iot/), the [Job management and control API operations](jobs-management-control-api.md#jobs-http-api), the [AWS Command Line Interface](https://docs.aws.amazon.com/cli/latest/reference/iot/index.html), or the [AWS SDKs](http://aws.amazon.com/tools/#sdk) to create and manage jobs\.
 
 ## Code signing for jobs<a name="create-manage-jobs-code-signing"></a>
 
@@ -53,6 +53,34 @@ You can specify an optional timeout for the presigned URL\. For more information
          "Action": "sts:AssumeRole"
        }
      ]
+   }
+   ```
+
+1. To protect against the confused deputy problem, add the global condition context keys [https://docs.aws.amazon.com/IAM/latest/UserGuide/reference_policies_condition-keys.html#condition-keys-sourcearn](https://docs.aws.amazon.com/IAM/latest/UserGuide/reference_policies_condition-keys.html#condition-keys-sourcearn) and [https://docs.aws.amazon.com/IAM/latest/UserGuide/reference_policies_condition-keys.html#condition-keys-sourceaccount](https://docs.aws.amazon.com/IAM/latest/UserGuide/reference_policies_condition-keys.html#condition-keys-sourceaccount) to the policy\.
+**Important**  
+Your `aws:SourceArn` must comply with the format: `arn:aws:iot:region:account-id:*`\. Make sure that *region* matches your AWS IoT Region and *account\-id* matches your customer account ID\. For more information, see [Cross\-service confused deputy prevention](cross-service-confused-deputy-prevention.md)\. 
+
+   ```
+   {
+     "Effect": "Allow",
+     "Statement": [
+       {
+         "Effect": "Allow",
+         "Principal": {
+           "Service": 
+             "iot.amazonaws.com"        
+          },
+         "Action": "sts:AssumeRole",
+         "Condition": {
+            "StringEquals": {
+               "aws:SourceAccount": "123456789012"
+            },
+            "ArnLike": {
+                 "aws:SourceArn": "arn:aws:iot:*:123456789012:job/*"
+            }
+          }
+        }
+      ]
    }
    ```
 

@@ -5,7 +5,7 @@ The following shows how secure tunneling establishes a connection between your s
 1. 
 
 **Open a tunnel**  
-To open a tunnel for initiating a session with your remote destination device, you can use the AWS Management Console, the [AWS CLI open\-tunnel](https://docs.aws.amazon.com/cli/latest/reference/iotsecuretunneling/open-tunnel.html) command, or the [OpenTunnel API](https://docs.aws.amazon.com/iot/latest/apireference/API_OpenTunnel)\.
+To open a tunnel for initiating a session with your remote destination device, you can use the AWS Management Console, the [AWS CLI open\-tunnel](https://docs.aws.amazon.com/cli/latest/reference/iotsecuretunneling/open-tunnel.html) command, or the [OpenTunnel API](https://docs.aws.amazon.com/iot/latest/apireference/API_iot-secure-tunneling_OpenTunnel)\.
 
 1. 
 

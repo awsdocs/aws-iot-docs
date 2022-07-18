@@ -122,9 +122,12 @@ aws iot delete-job-template \
 
 The command displays no output\.
 
-## Create a job from a job template<a name="job-templates-cli-create-job"></a>
+## Create a job from a custom job template<a name="job-templates-cli-create-job"></a>
 
-The following AWS CLI command creates a job from a job template\. It targets a device named `thingOne` and specifies the Amazon Resource Name \(ARN\) of the job template to use as the basis for the job\. You can override advanced configurations, such as timeout and cancel configurations, by passing the associated parameters of the `create-job` command\.
+The following AWS CLI command creates a job from a custom job template\. It targets a device named `thingOne` and specifies the Amazon Resource Name \(ARN\) of the job template to use as the basis for the job\. You can override advanced configurations, such as timeout and cancel configurations, by passing the associated parameters of the `create-job` command\.
+
+**Warning**  
+The `document-parameters` object must be used with the `create-job` command only when creating jobs from AWS managed templates\. This object must not be used with custom job templates\. For an example that shows how to create jobs using this parameter, see [Create a job by using managed templates](job-template-manage-cli-create.md#job-template-manage-cli-create-job)\.
 
 ```
 aws iot create-job \ 

@@ -41,7 +41,7 @@ However, you must first create the resource \(such as a client device or thing s
 
 1. After you've entered the information for your policy, choose **Create**\.
 
-For more information, see [IAM managed policies](iam-policies.md)\.
+For more information, see [How AWS IoT works with IAM](security_iam_service-with-iam.md)\.
 
 ## Create a thing object<a name="create-aws-thing"></a>
 

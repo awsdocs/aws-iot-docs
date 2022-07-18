@@ -32,9 +32,21 @@ If you want to test connectivity with the specific port that your devices will u
 
 1. In a terminal or command line window on your device, replace the sample device data endpoint \(*`a3qEXAMPLEsffp-ats.iot.eu-west-1.amazonaws.com`*\) with the device data endpoint for your account, and then enter this command\.
 
+------
+#### [ Linux ]
+
    ```
    ping -c 5 a3qEXAMPLEsffp-ats.iot.eu-west-1.amazonaws.com
    ```
+
+------
+#### [ Windows ]
+
+   ```
+   ping -n 5 a3qEXAMPLEsffp-ats.iot.eu-west-1.amazonaws.com
+   ```
+
+------
 
 1. If `ping` displays an output similar to the following, it connected to your device data endpoint successfully\. While it didn't communicate with AWS IoT directly, it did find the server and it's likely that AWS IoT is available through this endpoint\.
 

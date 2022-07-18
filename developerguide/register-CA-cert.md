@@ -1,6 +1,6 @@
 # Register your CA certificate<a name="register-CA-cert"></a>
 
-These procedures register a CA certificate with AWS IoT\. 
+These procedures describe how to register a CA certificate with AWS IoT\. 
 
 ## Register a CA certificate \(console\)<a name="register-CA-cert-console"></a>
 
@@ -9,14 +9,18 @@ To register a CA certificate in the console, start in the console at [Register C
 
 ## Register a CA certificate \(CLI\)<a name="register-CA-cert-cli"></a>
 
+ You can register a CA certificate in `DEFAULT` mode or `SNI_ONLY` mode\. For more information about CA certificate mode, see [certificateMode](https://docs.aws.amazon.com/iot/latest/apireference/API_CACertificateDescription.html#iot-Type-CACertificateDescription-certificateMode)\. 
+
+### Register a CA certificate in `DEFAULT` mode \(CLI\)<a name="register-CA-cert-default-cli"></a>
+
 Make sure you have the following available on your computer before you continue:
 + The root CA's certificate file \(referenced below as `root_CA_cert_filename.pem`\)
 + The root CA certificate's private key file \(referenced below as `root_CA_key_filename.key`\)
 + [OpenSSL v1\.1\.1i](https://www.openssl.org/) or later
 
-**To register a CA certificate using the AWS CLI**
+**To register a CA certificate in `DEFAULT` mode using the AWS CLI**
 
-1. Use [https://awscli.amazonaws.com/v2/documentation/api/latest/reference/iot/get-registration-code.html](https://awscli.amazonaws.com/v2/documentation/api/latest/reference/iot/get-registration-code.html) to get a registration code from AWS IoT\. Save the `registrationCode` returned to use as the `Common Name` of the private key verification certificate\.
+1. To get a registration code from AWS IoT use get\-registration\-code\. Save the returned `registrationCode` to use as the `Common Name` of the private key verification certificate\. For more information, see [get\-registration\-code](https://awscli.amazonaws.com/v2/documentation/api/latest/reference/iot/get-registration-code.html) in the *AWS CLI Command Reference*\.
 
    ```
    aws iot get-registration-code
@@ -72,7 +76,7 @@ Make sure you have the following available on your computer before you continue:
        -days 500 -sha256
    ```
 
-1. Register the CA certificate with AWS IoT\. Pass in the CA certificate filename and the private key verification certificate filename to the [https://awscli.amazonaws.com/v2/documentation/api/latest/reference/iot/register-ca-certificate.html](https://awscli.amazonaws.com/v2/documentation/api/latest/reference/iot/register-ca-certificate.html) command:
+1. Register the CA certificate with AWS IoT\. Pass in the CA certificate file name and the private key verification certificate file name to the register\-ca\-certificate command, as follows\. For more information, see [register\-ca\-certificate](https://awscli.amazonaws.com/v2/documentation/api/latest/reference/iot/register-ca-certificate.html) in the *AWS CLI Command Reference*\.
 
    ```
    aws iot register-ca-certificate \
@@ -82,11 +86,11 @@ Make sure you have the following available on your computer before you continue:
 
    This command returns the *certificateId*, if successful\.
 
-1. At this point, the CA certificate has been registered with AWS IoT, but is not active\. The CA certificate must be active before you can register any client certificates that are signed by it\.
+1. At this point, the CA certificate has been registered with AWS IoT but is not active\. The CA certificate must be active before you can register any client certificates it has signed\.
 
    This step activates the CA certificate\.
 
-   Use the [https://awscli.amazonaws.com/v2/documentation/api/latest/reference/iot/update-certificate.html](https://awscli.amazonaws.com/v2/documentation/api/latest/reference/iot/update-certificate.html) CLI command to activate the CA certificate:
+   To activate the CA certificate, use the update\-certificate command as follows\. For more information, see [update\-certificate](https://awscli.amazonaws.com/v2/documentation/api/latest/reference/iot/update-certificate.html) in the *AWS CLI Command Reference*\.
 
    ```
    aws iot update-ca-certificate \
@@ -94,4 +98,36 @@ Make sure you have the following available on your computer before you continue:
        --new-status ACTIVE
    ```
 
-Use the [https://awscli.amazonaws.com/v2/documentation/api/latest/reference/iot/describe-ca-certificate.html](https://awscli.amazonaws.com/v2/documentation/api/latest/reference/iot/describe-ca-certificate.html) command to see the status of the CA certificate\.
+To see the status of the CA certificate, use the describe\-ca\-certificate command\. For more information, see [describe\-ca\-certificate](https://awscli.amazonaws.com/v2/documentation/api/latest/reference/iot/describe-ca-certificate.html) in the *AWS CLI Command Reference*\.
+
+### Register a CA certificate in SNI\_ONLY mode \(CLI\)<a name="register-CA-cert-SNI-cli"></a>
+
+Make sure you have the following available on your computer before you continue:
++ The root CA's certificate file \(referenced below as `root_CA_cert_filename.pem`\)
++ [OpenSSL v1\.1\.1i](https://www.openssl.org/) or later
+
+**To register a CA certificate in `SNI_ONLY` mode using the AWS CLI**
+
+1. Register the CA certificate with AWS IoT\. Pass in the CA certificate file name to the register\-ca\-certificate command\. For more information, see [register\-ca\-certificate](https://awscli.amazonaws.com/v2/documentation/api/latest/reference/iot/register-ca-certificate.html) in the *AWS CLI Command Reference*\.
+
+   ```
+   aws iot register-ca-certificate \
+       --ca-certificate file://root_CA_cert_filename.pem \
+       --certificate-mode SNI_ONLY
+   ```
+
+   This command returns the *certificateId*, if successful\.
+
+1. At this point, the CA certificate has been registered with AWS IoT but is not active\. The CA certificate must be active before you can register any client certificates that it has signed\.
+
+   This step activates the CA certificate\.
+
+   To activate the CA certificate, use the update\-certificate command as follows\. For more information, see [update\-certificate](https://awscli.amazonaws.com/v2/documentation/api/latest/reference/iot/update-certificate.html) in the *AWS CLI Command Reference*\.
+
+   ```
+   aws iot update-ca-certificate \
+       --certificate-id certificateId \
+       --new-status ACTIVE
+   ```
+
+To see the status of the CA certificate, use the describe\-ca\-certificate command\. For more information, see [describe\-ca\-certificate](https://awscli.amazonaws.com/v2/documentation/api/latest/reference/iot/describe-ca-certificate.html) in the *AWS CLI Command Reference*\.

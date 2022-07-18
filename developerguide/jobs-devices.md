@@ -36,9 +36,9 @@ The AWS IoT Jobs service publishes success and failure messages on an MQTT topic
 + 
 
 **`$aws/things/thing-name/request-name/rejected`**  
-Here, `request-name` is the name of a request such as `Get`\. If the request failed, 
+Here, `request-name` is the name of a request such as `Get`\. If the request failed, AWS IoT Jobs publishes failure messages on the `$aws/things/myThing/jobs/get/rejected` topic\.
 
-You can also use the following APIs:
+You can also use the following HTTPS APIs:
 + Update the status of a job execution by calling the [https://docs.aws.amazon.com/iot/latest/apireference/API_iot-jobs-data_UpdateJobExecution.html](https://docs.aws.amazon.com/iot/latest/apireference/API_iot-jobs-data_UpdateJobExecution.html) API\.
 + Query the status of a job execution by calling the [https://docs.aws.amazon.com/iot/latest/apireference/API_iot-jobs-data_DescribeJobExecution.html](https://docs.aws.amazon.com/iot/latest/apireference/API_iot-jobs-data_DescribeJobExecution.html) API\.
 + Retrieve a list of pending job executions by calling the [https://docs.aws.amazon.com/iot/latest/apireference/API_iot-jobs-data_GetPendingJobExecutions.html](https://docs.aws.amazon.com/iot/latest/apireference/API_iot-jobs-data_GetPendingJobExecutions.html) API\.
@@ -77,5 +77,19 @@ The following commands are available using this method:
 + StartNextPendingJobExecution
 + UpdateJobExecution
 
+## Programming devices to work with jobs<a name="programming-devices"></a>
+
+The examples in this section use MQTT to illustrate how a device works with the AWS IoT Jobs service\. Alternatively, you could use the corresponding API or CLI commands\. For these examples, we assume a device called `MyThing` that subscribes to the following MQTT topics:
++ `$aws/things/MyThing/jobs/notify` \(or `$aws/things/MyThing/jobs/notify-next`\)
++ `$aws/things/MyThing/jobs/get/accepted`
++ `$aws/things/MyThing/jobs/get/rejected`
++ `$aws/things/MyThing/jobs/jobId/get/accepted`
++ `$aws/things/MyThing/jobs/jobId/get/rejected`
+
+ If you are using code signing for AWS IoT your device code must verify the signature of your code file\. The signature is in the job document in the `codesign` property\. For more information about verifying a code file signature, see [Device Agent Sample](https://github.com/aws/aws-iot-device-sdk-js#jobsAgent)\.
+
 **Topics**
-+ [Programming devices to work with jobs](programming-devices.md)
++ [Programming devices to work with jobs](#programming-devices)
++ [Device workflow](jobs-workflow-device-online.md)
++ [Jobs workflow](jobs-workflow-jobs-online.md)
++ [Jobs notifications](jobs-comm-notifications.md)

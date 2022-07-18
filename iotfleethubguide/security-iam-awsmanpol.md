@@ -64,6 +64,10 @@ This policy includes the following permissions:
                 "iot:DeleteFleetMetric",
                 "iot:DescribeFleetMetric",
                 "iot:UpdateFleetMetric",
+                "iot:DescribeCustomMetric",
+                "iot:ListCustomMetrics",
+                "iot:ListDimensions",
+                "iot:ListMetricValues",
                 "iot:ListThingGroups",
                 "iot:ListThingsInThingGroup",
                 "iot:ListJobTemplates",
@@ -80,8 +84,8 @@ This policy includes the following permissions:
                 "iot:ListActiveViolations",
                 "iot:GetThingShadow",
                 "iot:ListNamedShadowsForThing",
-                "iot:DescribeEndpoint",
                 "iot:CancelJobExecution",
+                "iot:DescribeEndpoint",
                 "iotfleethub:DescribeApplication",
                 "cloudwatch:DescribeAlarms",
                 "cloudwatch:GetMetricData",
@@ -129,6 +133,7 @@ View details about updates to AWS managed policies for Fleet Hub since this serv
 
 | Change | Description | Date | 
 | --- | --- | --- | 
+|   [AWSIoTFleetHubFederationAccess](#security-iam-awsmanpol-AWSIoTFleetHubFederationAccess) – Update to an existing policy  |  Fleet Hub added new permissions to allow app users to retrieve AWS IoT Device Defender metric data in Fleet Hub apps\.  | April 4, 2022 | 
 |   [AWSIoTFleetHubFederationAccess](#security-iam-awsmanpol-AWSIoTFleetHubFederationAccess) – Update to an existing policy  |  Fleet Hub added new permissions to allow app users to retrieve additional data sources for indexing\. A permission is also added to allow app users to cancel an AWS IoT job execution within the app\.  | November 15, 2021 | 
 |   [AWSIoTFleetHubFederationAccess](#security-iam-awsmanpol-AWSIoTFleetHubFederationAccess) – Update to an existing policy  |  Fleet Hub added new permissions for app users to retrieve Thing Group data and perform CRUD operations on AWS IoT jobs\.  | May 24, 2021 | 
 |   [AWSIoTFleetHubFederationAccess](#security-iam-awsmanpol-AWSIoTFleetHubFederationAccess) – Update to an existing policy  |  Fleet Hub removed permissions for unsupported Fleet Hub dashboard APIs\.  | April 12, 2021 | 

@@ -63,7 +63,7 @@ For more information, see [X\.509 Certificate overview](authentication.md#x509-c
 
 Certificate resources are declared using the following properties:
 + `CertificateSigningRequest`: String\.
-+ `CertificateID`: String\.
++ `CertificateId`: String\.
 + `CertificatePem`: String\.
 + `CACertificatePem`: String\.
 + `Status`: Optional\. String that can be `ACTIVE` or `INACTIVE`\. Defaults to ACTIVE\.

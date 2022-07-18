@@ -42,6 +42,7 @@ You can use the Detect commands in this section to configure ML Detect or Rules 
 | --- | 
 | [CreateSecurityProfile](https://docs.aws.amazon.com/iot/latest/apireference/API_CreateSecurityProfile.html)  | 
 | [AttachSecurityProfile](https://docs.aws.amazon.com/iot/latest/apireference/API_AttachSecurityProfile.html)  | 
+| [DetachSecurityProfile](https://docs.aws.amazon.com/iot/latest/apireference/API_DetachSecurityProfile.html) | 
 | [DeleteSecurityProfile](https://docs.aws.amazon.com/iot/latest/apireference/API_DeleteSecurityProfile.html)  | 
 | [DescribeSecurityProfile](https://docs.aws.amazon.com/iot/latest/apireference/API_DescribeSecurityProfile.html) | 
 | [ListTargetsForSecurityProfile](https://docs.aws.amazon.com/iot/latest/apireference/API_ListTargetsForSecurityProfile.html) | 
@@ -56,7 +57,7 @@ You can use the Detect commands in this section to configure ML Detect or Rules 
 | --- | 
 | [ListActiveViolations](https://docs.aws.amazon.com/iot/latest/apireference/API_ListActiveViolations.html)  | 
 | [ListViolationEvents](https://docs.aws.amazon.com/iot/latest/apireference/API_ListViolationEvents.html) | 
-| [DetachSecurityProfile](https://docs.aws.amazon.com/iot/latest/apireference/API_DetachSecurityProfile.html) | 
+| [PutVerificationStateOnViolation](https://docs.aws.amazon.com/iot/latest/apireference/API_PutVerificationStateOnViolation.html) | 
 
 
 **ML Detect action commands**  

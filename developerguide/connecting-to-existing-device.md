@@ -283,7 +283,7 @@ The *your\-iot\-endpoint* value has a format of: `endpoint_id-ats.iot.region.ama
 1. In the command line window, replace *your\-iot\-endpoint* as indicated and run this command\.
 
    ```
-   python3 pubsub.py --topic topic_1 --root-ca ~/certs/Amazon-root-CA-1.pem --cert ~/certs/certificate.pem.crt --key ~/certs/private.pem.key --endpoint your-iot-endpoint
+   python3 pubsub.py --topic topic_1 --ca_file ~/certs/Amazon-root-CA-1.pem --cert ~/certs/certificate.pem.crt --key ~/certs/private.pem.key --endpoint your-iot-endpoint
    ```
 
 1. Observe that the sample app:
@@ -346,7 +346,7 @@ The *your\-iot\-endpoint* value has a format of: `endpoint_id-ats.iot.region.ama
 1. In the command line window, replace *your\-iot\-endpoint* as indicated and run this command\.
 
    ```
-   node dist/index.js --topic topic_1 --root-ca ~/certs/Amazon-root-CA-1.pem --cert ~/certs/certificate.pem.crt --key ~/certs/private.pem.key --endpoint your-iot-endpoint
+   node dist/index.js --topic topic_1 --ca_file ~/certs/Amazon-root-CA-1.pem --cert ~/certs/certificate.pem.crt --key ~/certs/private.pem.key --endpoint your-iot-endpoint
    ```
 
 1. Observe that the sample app:
@@ -407,7 +407,7 @@ You can see the sample app's messages as they pass through the message broker by
 
    ```
    cd ~/aws-iot-device-sdk-python-v2/samples
-   python3 pubsub.py --topic topic_1 --root-ca ~/certs/Amazon-root-CA-1.pem --cert ~/certs/certificate.pem.crt --key ~/certs/private.pem.key --endpoint your-iot-endpoint
+   python3 pubsub.py --topic topic_1 --ca_file ~/certs/Amazon-root-CA-1.pem --cert ~/certs/certificate.pem.crt --key ~/certs/private.pem.key --endpoint your-iot-endpoint
    ```
 
 ------
@@ -415,7 +415,7 @@ You can see the sample app's messages as they pass through the message broker by
 
    ```
    cd ~/aws-iot-device-sdk-js-v2/samples/node/pub_sub
-   node dist/index.js --topic topic_1 --root-ca ~/certs/Amazon-root-CA-1.pem --cert ~/certs/certificate.pem.crt --key ~/certs/private.pem.key --endpoint your-iot-endpoint
+   node dist/index.js --topic topic_1 --ca_file ~/certs/Amazon-root-CA-1.pem --cert ~/certs/certificate.pem.crt --key ~/certs/private.pem.key --endpoint your-iot-endpoint
    ```
 
 ------

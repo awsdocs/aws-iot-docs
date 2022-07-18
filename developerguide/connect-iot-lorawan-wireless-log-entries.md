@@ -11,7 +11,7 @@ The log entries for your wireless gateway resource can be classified based on th
 
 **CUPS\_Request**  
 The LoRa Basics Station running on your gateway periodically sends a request to the Configuration and Update Server \(CUPS\) for updates\. For this event type, if you set log level to `INFO` when configuring the CLI for your wireless gateway resource, then in the logs:
-  + If the event is successful, you'll see log messages that have a `logLevel` of `INFO`\. The messages will include details about the CUPS response sent to your gateway and the gateway details\. Following shows an example of this log entry\. For more information about the `logLevel` and other fields in the log entry, see [AWS IoT Core for LoRaWAN resources and log levels](connect-iot-lorawan-configure-resource-logging.md#connect-iot-lorawan-log-levels-resources)\.
+  + If the event is successful, you'll see log messages that have a `logLevel` of `INFO`\. The messages will include details about the CUPS response sent to your gateway and the gateway details\. Following shows an example of this log entry\. For more information about the `logLevel` and other fields in the log entry, see [AWS IoT Wireless resources and log levels](connect-iot-lorawan-configure-resource-logging.md#connect-iot-lorawan-log-levels-resources)\.
 
     ```
     {
@@ -25,7 +25,7 @@ The LoRa Basics Station running on your gateway periodically sends a request to 
         "message": "Sending CUPS response of total length 3213 to GatewayEui: feffff00000000e2 with  TC Credentials,"
     }
     ```
-  + If there is an error, you'll see log entries that have a `logLevel` of `ERROR`, and the messages will include details about the error\. Examples of when an error can occur for the `CUPS_Request` event include: missing CUPS CRC, mismatch in the gateway's TC Uri with AWS IoT Core for LoRaWAN, missing `IoTWirelessGatewayCertManagerRole`, or not able to obtain wireless gateway record\. Following example shows a missing CRC log entry\. To resolve the error, check your gateway setup to verify that you've entered the correct CUPS CRC\.
+  + If there is an error, you'll see log entries that have a `logLevel` of `ERROR`, and the messages will include details about the error\. Examples of when an error can occur for the `CUPS_Request` event include: missing CUPS CRC, mismatch in the gateway's TC Uri with AWS IoT Wireless, missing `IoTWirelessGatewayCertManagerRole`, or not able to obtain wireless gateway record\. Following example shows a missing CRC log entry\. To resolve the error, check your gateway setup to verify that you've entered the correct CUPS CRC\.
 
     ```
     {
@@ -43,7 +43,7 @@ The LoRa Basics Station running on your gateway periodically sends a request to 
 
 **Certificate**  
 These log entries will help you check whether your wireless gateway presented the correct certificate for authenticating connection to AWS IoT\. For this event type, if you set log level to `INFO` when configuring the CLI for your wireless gateway resource, then in the logs:
-  + If the event is successful, you'll see log messages that have a `logLevel` of `INFO`\. The messages will include details about the Certificate ID and the Wireless gateway identifier\. Following shows an example of this log entry\. For more information about the `logLevel` and other fields in the log entry, see [AWS IoT Core for LoRaWAN resources and log levels](connect-iot-lorawan-configure-resource-logging.md#connect-iot-lorawan-log-levels-resources)\.
+  + If the event is successful, you'll see log messages that have a `logLevel` of `INFO`\. The messages will include details about the Certificate ID and the Wireless gateway identifier\. Following shows an example of this log entry\. For more information about the `logLevel` and other fields in the log entry, see [AWS IoT Wireless resources and log levels](connect-iot-lorawan-configure-resource-logging.md#connect-iot-lorawan-log-levels-resources)\.
 
     ```
     {
@@ -83,10 +83,10 @@ The log entries for your LoRaWAN wireless device can be classified based on the 
 + 
 
 **`Join` and `Rejoin`**  
-When you add a LoRaWAN device and connect it to AWS IoT Core for LoRaWAN, before your device can send uplink data, you must complete a process called `activation` or `join procedure`\. For more information, see [Add your wireless device to AWS IoT Core for LoRaWAN](connect-iot-lorawan-end-devices-add.md)\.
+When you add a LoRaWAN device and connect it to AWS IoT Wireless, before your device can send uplink data, you must complete a process called `activation` or `join procedure`\. For more information, see [Add your wireless device to AWS IoT Core for LoRaWAN](connect-iot-lorawan-end-devices-add.md)\.
 
   For this event type, if you set log level to `INFO` when configuring the CLI for your wireless gateway resource, then in the logs:
-  + If the event is successful, you'll see log messages that have a `logLevel` of `INFO`\. The messages will include details about the status of your join or rejoin request\. Following shows an example of this log entry\. For more information about the `logLevel` and other fields in the log entry, see [AWS IoT Core for LoRaWAN resources and log levels](connect-iot-lorawan-configure-resource-logging.md#connect-iot-lorawan-log-levels-resources)\.
+  + If the event is successful, you'll see log messages that have a `logLevel` of `INFO`\. The messages will include details about the status of your join or rejoin request\. Following shows an example of this log entry\. For more information about the `logLevel` and other fields in the log entry, see [AWS IoT Wireless resources and log levels](connect-iot-lorawan-configure-resource-logging.md#connect-iot-lorawan-log-levels-resources)\.
 
     ```
     {
@@ -117,12 +117,12 @@ When you add a LoRaWAN device and connect it to AWS IoT Core for LoRaWAN, before
 + 
 
 **Uplink\_Data and Downlink\_Data**  
-The event type `Uplink_Data` is used for messages that are generated by AWS IoT Core for LoRaWAN when the payload is sent from the wireless device to AWS IoT\. The event type `Downlink_Data` is used for messages that are related to downlink messages that are sent from AWS IoT to the wireless device\.
+The event type `Uplink_Data` is used for messages that are generated by AWS IoT Wireless when the payload is sent from the wireless device to AWS IoT\. The event type `Downlink_Data` is used for messages that are related to downlink messages that are sent from AWS IoT to the wireless device\.
 **Note**  
 Events `Uplink_Data` and `Downlink_Data` apply to both LoRaWAN and Sidewalk devices\.
 
   For this event type, if you set log level to `INFO` when configuring the CLI for your wireless devices, then in the logs, you'll see: 
-  + If the event is successful, you'll see log messages that have a `logLevel` of `INFO`\. The messages will include details about the status of the uplink or downlink message that was sent and the wireless device identifier\. Following shows an example of this log entry for a Sidewalk device\. For more information about the `logLevel` and other fields in the log entry, see [AWS IoT Core for LoRaWAN resources and log levels](connect-iot-lorawan-configure-resource-logging.md#connect-iot-lorawan-log-levels-resources)\.
+  + If the event is successful, you'll see log messages that have a `logLevel` of `INFO`\. The messages will include details about the status of the uplink or downlink message that was sent and the wireless device identifier\. Following shows an example of this log entry for a Sidewalk device\. For more information about the `logLevel` and other fields in the log entry, see [AWS IoT Wireless resources and log levels](connect-iot-lorawan-configure-resource-logging.md#connect-iot-lorawan-log-levels-resources)\.
 
     ```
     {
@@ -155,9 +155,9 @@ The log entries for your Sidewalk device can be classified based on the followin
 + 
 
 **`Registration`**  
-These log entries will help you monitor the status of any Sidewalk devices that you're registering with AWS IoT Core for LoRaWAN\. For this event type, if you set log level to `INFO` when configuring the CLI for your wireless device resource, then in the logs, you'll see log messages that have a `logLevel` of `INFO` and `ERROR`\. The messages will include details about the registration progress from start to completion\. `ERROR` log messages will contain information about how to troubleshoot issues with registering your device\.
+These log entries will help you monitor the status of any Sidewalk devices that you're registering with AWS IoT Wireless\. For this event type, if you set log level to `INFO` when configuring the CLI for your wireless device resource, then in the logs, you'll see log messages that have a `logLevel` of `INFO` and `ERROR`\. The messages will include details about the registration progress from start to completion\. `ERROR` log messages will contain information about how to troubleshoot issues with registering your device\.
 
-  Following shows an example for a log message with log level of `INFO`\. For more information about the `logLevel` and other fields in the log entry, see [AWS IoT Core for LoRaWAN resources and log levels](connect-iot-lorawan-configure-resource-logging.md#connect-iot-lorawan-log-levels-resources)\.
+  Following shows an example for a log message with log level of `INFO`\. For more information about the `logLevel` and other fields in the log entry, see [AWS IoT Wireless resources and log levels](connect-iot-lorawan-configure-resource-logging.md#connect-iot-lorawan-log-levels-resources)\.
 
   ```
   {
@@ -176,4 +176,4 @@ The event types `Uplink_Data` and `Downlink_Data` for Sidewalk devices are simil
 
 ### Next steps<a name="connect-iot-lorawan-cwl-format-next-steps"></a>
 
-You've learned how to view log entries for your resources and the different log entries that you can view in the CloudWatch console after enabling logging for AWS IoT Core for LoRaWAN\. While you can create filter streams using **Log groups**, we recommend that you use CloudWatch Insights to create and use filter streams\. For more information, see [Use CloudWatch Insights to filter logs for AWS IoT Core for LoRaWAN](connect-iot-lorawan-cwl-insights.md)\.
+You've learned how to view log entries for your resources and the different log entries that you can view in the CloudWatch console after enabling logging for AWS IoT Wireless\. While you can create filter streams using **Log groups**, we recommend that you use CloudWatch Insights to create and use filter streams\. For more information, see [Use CloudWatch Insights to filter logs for AWS IoT Wireless](connect-iot-lorawan-cwl-insights.md)\.

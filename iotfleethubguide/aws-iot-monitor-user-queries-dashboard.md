@@ -1,4 +1,4 @@
-# Viewing the dashboard<a name="aws-iot-monitor-user-queries-dashboard"></a>
+# View the dashboard<a name="aws-iot-monitor-user-queries-dashboard"></a>
 
 When you first log in to your Fleet Hub for AWS IoT Device Management web application, you see a dashboard that presents two views of data about the devices in your fleet\.
 

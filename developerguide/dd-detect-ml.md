@@ -65,7 +65,7 @@ You can't currently use ML Detect with dimensions or with custom metrics\. The f
 
  If you verify that an ML Detect alarm is a false positive through your investigation, you can set the verification state of the alarm to False positive\. This can help you and your team identify alarms you don't have to respond to\. You can also mark alarms as True positive, Benign positive, or Unknown\.
 
-You can mark alarms through the [AWS IoT Device Defender console](https://docs.aws.amazon.com/iot/latest/developerguide/detect-HowToHowTo.html) or by using the [PutVerificationStateOnViolation](https://docs.aws.amazon.com/) API action\.
+You can mark alarms through the [AWS IoT Device Defender console](https://docs.aws.amazon.com/iot/latest/developerguide/detect-HowToHowTo.html) or by using the [PutVerificationStateOnViolation](https://docs.aws.amazon.com/iot/latest/apireference/API_PutVerificationStateOnViolation.html) API action\.
 
 ## Supported metrics<a name="dd-detect-ml-metrics"></a>
 
@@ -117,7 +117,7 @@ The following APIs can be used to create and manage ML Detect Security Profiles\
 + [ListViolationEvents](https://docs.aws.amazon.com/iot/latest/apireference/API_ListViolationEvents.html)
 + [PutVerificationStateOnViolation](https://docs.aws.amazon.com/iot/latest/apireference/API_PutVerificationStateOnViolation.html)
 
-### <a name="w1185aac44c17c26c25b7"></a>
+### <a name="w1226aac43c17c26c25b7"></a>
 
 ## Pause or delete an ML Detect Security Profile<a name="dd-detect-ml-disable-feature"></a>
 

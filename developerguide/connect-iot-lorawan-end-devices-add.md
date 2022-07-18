@@ -4,6 +4,9 @@ If you're adding your wireless device for the first time, we recommend that you 
 
 Alternatively, you can also add wireless devices from the [ Devices](https://console.aws.amazon.com/iot/home#/wireless/devices) page of the AWS IoT console\.
 
+**Note**  
+If you add your devices from the **Devices** page, you can also specify optional position information for your device\. This information consists of the static position coordinates, any geolocation solvers that you want to use for computing the device position, and a destination that describes the AWS IoT rule which processes the device's position data for use by AWS IoT Core for LoRaWAN\. For more information, see [Configure position of wireless resources with AWS IoT Core for LoRaWAN](connect-iot-lorawan-configure-location.md)\.
+
 ## Add your wireless device specification to AWS IoT Core for LoRaWAN using the console<a name="connect-iot-lorawan-end-device-spec-console"></a>
 
 Choose a **Wireless device specification** based on your activation method and the LoRaWAN version\. Once selected, your data is encrypted with a key that AWS owns and manages for you\. 

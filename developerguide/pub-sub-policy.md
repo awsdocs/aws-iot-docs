@@ -4,7 +4,11 @@ The policy you use depends on how you're connecting to AWS IoT Core\. You can co
 
 ## Policies for MQTT clients<a name="pub-sub-policy-cert"></a>
 
-MQTT and AWS IoT Core policies have different wildcard characters and they should be used with careful consideration\. In MQTT, the wildcard characters `+` and `#` are used in [MQTT topic filters](https://docs.aws.amazon.com/iot/latest/developerguide/topics.html#topicfilters) to subscribe to multiple topic names\. AWS IoT Core policies follow the same conventions as [IAM policies](https://docs.aws.amazon.com/IAM/latest/UserGuide/reference_policies_grammar.html#policies-grammar-json) and use `*` as a wildcard character, and the MQTT wildcard characters `+` and `#` are treated as literal strings\. Therefore, to specify wildcard characters in topic names and topic filters in AWS IoT Core policies for MQTT clients, you must use `*`\.
+To describe multiple topic names and topic filters in the `resource` attribute of a policy, use the `*` and `?` wildcard characters in place of the MQTT wildcard characters\.
+
+MQTT and AWS IoT Core policies have different wildcard characters and they should be chosen after careful consideration\. In MQTT, the wildcard characters `+` and `#` are used in [MQTT topic filters](https://docs.aws.amazon.com/iot/latest/developerguide/topics.html#topicfilters) to subscribe to multiple topic names\. AWS IoT Core policies use `*` and `?` as wildcard characters and follow the conventions of [IAM policies](https://docs.aws.amazon.com/IAM/latest/UserGuide/reference_policies_grammar.html#policies-grammar-json)\. In a policy document, the `*` represents any combination of characters and a question mark `?` represents any single character\. In policy documents, the MQTT wildcard characters, `+` and `#` are treated as those characters with no special meaning\.
+
+When choosing wildcard characters to use in a policy document, consider that the `*` character is not confined to a single topic level as the `+` character is in an MQTT topic filter\. To help constrain a wildcard specification to a single MQTT topic filter level, consider using multiple `?` characters\. For more information about using wildcard characters in a policy resource and more examples of what they match, see [Using wildcards in resource ARNs](https://docs.aws.amazon.com/IAM/latest/UserGuide/reference_policies_elements_resource.html#reference_policies_elements_resource_wildcards)\.
 
 The table below shows the different wildcard characters used in MQTT and AWS IoT Core policies for MQTT clients\.
 
@@ -14,8 +18,9 @@ The table below shows the different wildcard characters used in MQTT and AWS IoT
 | \# | Yes | some/\# | No | N/A | 
 | \+ | Yes | some/\+/topic | No | N/A | 
 | \* | No | N/A | Yes | topicfilter/some/\*/topic  | 
+| ? | No | N/A | Yes |  `topic/some/?????/topic` `topicfilter/some/sensor???/topic`  | 
 
-To describe multiple topic names in the `resource` attribute of a policy, use the `*` wildcard character\. The following policy enables a device to publish to all subtopics that start with the same thing name\.
+The following policy enables a device to publish to all subtopics that start with the same thing name\.
 
 ------
 #### [ Registered devices \(5\) ]
@@ -169,7 +174,32 @@ For devices not registered as things in the AWS IoT Core registry, the following
 
 ------
 
-When you specify topic filters in AWS IoT Core policies for MQTT clients, MQTT wildcard characters `+` and `#` are treated as literal strings\. Their use might result in unexpected behavior\.
+When you specify topic filters in AWS IoT Core policies for MQTT clients, MQTT wildcard characters `+` and `#` are treated as literal strings\. Using these characters might result in unexpected behavior\. Because these characters are treated as literal strings at the time of enforcement, there is a possibility of unintentionally receiving data through a wildcard topic even if a Deny policy is present\. For example, if an application wants to allow a device to receive messages from all topics under `a/`except `a/restricted/...`, the following policy example will not work: 
+
+```
+{
+     "Effect": "Allow",
+     "Action": "iot:Subscribe",
+     "Resource": "arn:aws:iot:us-east-1:123456789012:topicfilter/a/*"
+ },
+{
+     "Effect": "Deny",
+     "Action": "iot:Subscribe",
+     "Resource": "arn:aws:iot:us-east-1:123456789012:topicfilter/a/restricted/*"
+}
+```
+
+Based on the MQTT protocol, subscribing to the topic filter `a/#` permits clients to receive topics that include those starting with `a/restricted/[any string]`\. 
+
+To allow a device to receive messages from all topics under `a/` except `a/restricted/...`, you can add another statement:
+
+```
+{
+   "Effect": "Allow",
+   "Action": "iot:Receive",
+   "NotResource": "arn:aws:iot:us-east-1:123456789012:topic/a/restricted/*"
+}
+```
 
 ------
 #### [ Registered devices \(4\) ]

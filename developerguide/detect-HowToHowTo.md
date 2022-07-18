@@ -40,7 +40,7 @@
 
    Use the [ListViolationEvents](https://docs.aws.amazon.com/iot/latest/apireference/API_ListViolationEvents.html) action to see which violations were detected during a specified time period\. You can filter these results by security profile, device, or alarm verification state\.
 
-1. You can verify, organize, and manage your alarms, by marking their verification state and providing a description of that verification state, by using the [PutVerificationStateOnViolation](https://docs.aws.amazon.com/) action\.
+1. You can verify, organize, and manage your alarms, by marking their verification state and providing a description of that verification state, by using the [PutVerificationStateOnViolation](https://docs.aws.amazon.com/iot/latest/apireference/API_PutVerificationStateOnViolation.html) action\.
 
 1. If your devices violate the defined behaviors too often, or not often enough, you should fine\-tune the behavior definitions\. 
 

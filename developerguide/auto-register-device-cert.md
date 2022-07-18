@@ -44,7 +44,7 @@ Use the [https://awscli.amazonaws.com/v2/documentation/api/latest/reference/iot/
 
 When a client attempts to connect to AWS IoT for the first time it must present a file that contains your client certificate signed by your CA certificate as part of the TLS handshake\. 
 
-When the client connects to AWS IoT, use the *client\_certificate\_filename* file as the certificate file\. AWS IoT recognizes the CA certificate as a registered CA certificate, registers the client certificate and sets its status to `PENDING_ACTIVATION`\. This means that the client certificate was automatically registered and is awaiting activation\. The client certificate's state must be `ACTIVE` before it can be used to connect to AWS IoT\.
+When the client connects to AWS IoT, use the `client_certificate_filename` file as the certificate file\. AWS IoT recognizes the CA certificate as a registered CA certificate, registers the client certificate and sets its status to `PENDING_ACTIVATION`\. This means that the client certificate was automatically registered and is awaiting activation\. The client certificate's state must be `ACTIVE` before it can be used to connect to AWS IoT\.
 
 **Note**  
 You can provision devices using AWS IoT Core just\-in\-time registration \(JITR\) feature without having to send the entire trust chain on devices' first connection to AWS IoT Core\. Presenting the CA certificate is optional but the device is required to send the [Server Name Indication \(SNI\)](https://datatracker.ietf.org/doc/html/rfc3546#section-3.1) extension when they connect\.

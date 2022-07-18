@@ -14,7 +14,7 @@ When considering how to configure your AWS IoT logging, the default logging conf
 Before you enable AWS IoT logging, make sure you understand the CloudWatch Logs access permissions\. Users with access to CloudWatch Logs can see debugging information from your devices\. For more information, see [Authentication and Access Control for Amazon CloudWatch Logs](https://docs.aws.amazon.com/AmazonCloudWatch/latest/monitoring/auth-and-access-control-cw.html)\.  
 If you expect high traffic patterns in AWS IoT Core due to load testing, consider turning off IoT logging to prevent throttling\. If high traffic is detected, our service may disable logging in your account\.
 
-Following shows how to create a logging role and policy for AWS IoT Core resources\. For information about how you can create an IAM logging role and policy for AWS IoT Core for LoRaWAN, see [Create logging role and policy for AWS IoT Core for LoRaWAN](connect-iot-lorawan-create-logging-role-policy.md)\.
+Following shows how to create a logging role and policy for AWS IoT Core resources\. For information about how you can create an IAM logging role and policy for AWS IoT Core for LoRaWAN, see [Create logging role and policy for AWS IoT Wireless](connect-iot-lorawan-create-logging-role-policy.md)\.
 
 ### Create a logging role<a name="create-logging-role"></a>
 
@@ -32,50 +32,50 @@ To create a logging role, open the [Roles hub of the IAM console](https://consol
 
 ### Logging role policy<a name="logging-role-policy"></a>
 
-The following policy documents provide the role policy and trust policy that allow AWS IoT to submit log entries to CloudWatch on your behalf\. If you also allowed AWS IoT Core for LoRaWAN to submit log entries, you'll see a policy document created for you that logs both activities\. For information about how to create an IAM logging role and policy for AWS IoT Core for LoRaWAN, see [Create logging role and policy for AWS IoT Core for LoRaWAN](connect-iot-lorawan-create-logging-role-policy.md)\. 
+The following policy documents provide the role policy and trust policy that allow AWS IoT to submit log entries to CloudWatch on your behalf\. If you also allowed AWS IoT Core for LoRaWAN to submit log entries, you'll see a policy document created for you that logs both activities\. For information about how to create an IAM logging role and policy for AWS IoT Core for LoRaWAN, see [Create logging role and policy for AWS IoT Wireless](connect-iot-lorawan-create-logging-role-policy.md)\. 
 
 **Note**  
-These documents were created for you when you created the logging role\.
+These documents were created for you when you created the logging role\. The documents have variables, `${partition}`, `${region}`, and `${accountId}`, that you must replace with your values\.
 
 Role policy:
 
 ```
 {
-        "Version": "2012-10-17",
-        "Statement": [
-            {
-                "Effect": "Allow",
-                "Action": [
-                    "logs:CreateLogGroup",
-                    "logs:CreateLogStream",
-                    "logs:PutLogEvents",
-                    "logs:PutMetricFilter",
-                    "logs:PutRetentionPolicy"
-                 ],
-                "Resource": [
-                    "*"
-                ]
-            }
-        ]
-    }
+	"Version": "2012-10-17",
+	"Statement": [
+		{
+			"Effect": "Allow",
+			"Action": [
+				"logs:CreateLogGroup",
+				"logs:CreateLogStream",
+				"logs:PutLogEvents",
+				"logs:PutMetricFilter",
+				"logs:PutRetentionPolicy"
+			],
+			"Resource": [
+				"arn:${partition}:logs:${region}:${accountId}:log-group:AWSIotLogsV2*"
+			]
+		}
+	]
+}
 ```
 
 Trust policy to log only AWS IoT Core activity:
 
 ```
 {
-     "Version": "2012-10-17",
-      "Statement": [
-        {
-          "Sid": "",
-          "Effect": "Allow",
-          "Principal": {
-            "Service": "iot.amazonaws.com"
-          },
-          "Action": "sts:AssumeRole"
-        }
-      ]
-    }
+	"Version": "2012-10-17",
+	"Statement": [
+		{
+			"Sid": "",
+			"Effect": "Allow",
+			"Principal": {
+				"Service": "iot.amazonaws.com"
+			},
+			"Action": "sts:AssumeRole"
+		}
+	]
+}
 ```
 
 ## Configure default logging in the AWS IoT \(console\)<a name="configure-logging-console"></a>
@@ -191,7 +191,13 @@ The type and name of the resource for which you are configuring logging\. The `t
                  --log-level log_level
    ```  
 \-\-log\-level  
-The logging level used when generating logs for the specified resource\. Valid values are: DEBUG, INFO, ERROR, WARN, and DISABLED 
+The logging level used when generating logs for the specified resource\. Valid values are: DEBUG, INFO, ERROR, WARN, and DISABLED   
+
+   ```
+   aws iot set-v2-logging-level \ 
+                 --log-target targetType=CLIENT_ID,targetName=ClientId1 \
+                 --log-level DEBUG
+   ```
 
 1. Use the [https://awscli.amazonaws.com/v2/documentation/api/latest/reference/iot/list-v2-logging-levels.html](https://awscli.amazonaws.com/v2/documentation/api/latest/reference/iot/list-v2-logging-levels.html) command to list the currently configured logging levels\.
 
@@ -199,12 +205,18 @@ The logging level used when generating logs for the specified resource\. Valid v
    aws iot list-v2-logging-levels
    ```
 
-1. Use the [https://awscli.amazonaws.com/v2/documentation/api/latest/reference/iot/delete-v2-logging-level.html](https://awscli.amazonaws.com/v2/documentation/api/latest/reference/iot/delete-v2-logging-level.html) command to delete a resource\-specific logging level\.
+1. Use the [https://awscli.amazonaws.com/v2/documentation/api/latest/reference/iot/delete-v2-logging-level.html](https://awscli.amazonaws.com/v2/documentation/api/latest/reference/iot/delete-v2-logging-level.html) command to delete a resource\-specific logging level, such as the following examples\.
 
    ```
    aws iot delete-v2-logging-level \
                  --target-type "THING_GROUP" \
                  --target-name "thing_group_name"
+   ```
+
+   ```
+   aws iot delete-v2-logging-level \
+                 --target-type=CLIENT_ID 
+                 --target-name=ClientId1
    ```  
 \-\-targetType  
 The `target_type` value must be one of: `THING_GROUP` \| `CLIENT_ID` \| `SOURCE_IP` \| `PRINCIPAL_ID`\.  

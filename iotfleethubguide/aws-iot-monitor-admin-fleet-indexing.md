@@ -5,9 +5,9 @@
 
 |  | 
 | --- |
-|  The fleet indexing feature that supports indexing named shadows and AWS IoT Device Defender violations data is in preview release for AWS IoT Device Management and is subject to change\. | 
+|  The fleet indexing feature that supports indexing named shadows and AWS IoT Device Defender violations data is in preview release for AWS IoT Device Management and is subject to change\.  | 
 
-You can use the following data sources to activate fleet indexing and configure what to index: [AWS IoT registry](https://docs.aws.amazon.com/iot/latest/developerguide/thing-registry.html) data, AWS IoT [Device Shadow](https://docs.aws.amazon.com/iot/latest/developerguide/iot-device-shadows.html) data, [AWS IoT connectivity](https://docs.aws.amazon.com/iot/latest/developerguide/life-cycle-events.html) data, and [AWS IoT Device Defender violations](https://docs.aws.amazon.com/iot/latest/developerguide/device-defender-detect.html) data\. The following steps describe how to activate fleet indexing for Fleet Hub for AWS IoT Device Management applications\. 
+You can use the AWS IoT Core console or the AWS CLI to activate fleet indexing and configure the following data sources to index: [AWS IoT registry](https://docs.aws.amazon.com/iot/latest/developerguide/thing-registry.html) data, AWS IoT [Device Shadow](https://docs.aws.amazon.com/iot/latest/developerguide/iot-device-shadows.html) data, [AWS IoT connectivity](https://docs.aws.amazon.com/iot/latest/developerguide/life-cycle-events.html) data, and [AWS IoT Device Defender violations](https://docs.aws.amazon.com/iot/latest/developerguide/device-defender-detect.html) data\. The following steps describe how to activate fleet indexing for Fleet Hub for AWS IoT Device Management applications in AWS IoT Core console\. To view the steps using AWS CLI, see [Managing thing indexing](https://docs.aws.amazon.com/iot/latest/developerguide/managing-index.html)\. 
 
 1. Navigate to the AWS IoT Core console \([https://console\.aws\.amazon\.com/iot/](https://console.aws.amazon.com/iot/)\), and in the left panel, choose **Settings**\.
 

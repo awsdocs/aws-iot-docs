@@ -34,7 +34,7 @@ Every customer has an `iot:Data-ATS` and an `iot:Data` endpoint\. Each endpoint 
 |  AWS IoT Core \- data plane operations  |  `iot:Data-ATS`  |  Used to send and receive data to and from the message broker, [Device Shadow](iot-device-shadows.md), and [Rules Engine](iot-rules.md) components of AWS IoT\. `iot:Data-ATS` returns an ATS signed data endpoint\.  | 
 | AWS IoT Core \- data plane operations \(legacy\) |  `iot:Data`  | iot:Data returns a VeriSign signed data endpoint provided for backward compatibility\. | 
 |  AWS IoT Core credential access  |  `iot:CredentialProvider`  |  Used to exchange a device's built\-in X\.509 certificate for temporary credentials to connect directly with other AWS services\. For more information about connecting to other AWS services, see [Authorizing Direct Calls to AWS Services](authorizing-direct-aws.md)\.  | 
-|  AWS IoT Device Management \- jobs data operations  |  `iot:Jobs`  |  Used to enable devices to interact with the AWS IoT Jobs service using the [Jobs Device HTTPS APIs](jobs-api.md#jobs-mqtt-api)\.  | 
+|  AWS IoT Device Management \- jobs data operations  |  `iot:Jobs`  |  Used to enable devices to interact with the AWS IoT Jobs service using the [Jobs Device HTTPS APIs](jobs-mqtt-api.md)\.  | 
 |  AWS IoT Device Advisor operations  |  `iot:DeviceAdvisor`  |  A test endpoint type used for testing devices with Device Advisor\. For more information, see [Device Advisor](device-advisor.md)\.  | 
 |  AWS IoT Core data beta \(preview\)  |  `iot:Data-Beta`  |  An endpoint type reserved for beta releases\. For information about its current use, see [Configurable endpoints](iot-custom-endpoints-configurable.md)\.  | 
 

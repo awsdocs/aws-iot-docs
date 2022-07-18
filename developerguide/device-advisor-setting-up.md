@@ -122,7 +122,7 @@ You can quickly create the device role using the Device Advisor console\. See [ 
 
 1. Choose **Create Policy**, then choose the **JSON** tab\. 
 
-1. Add the necessary permissions to use Device Advisor\. The policy document can be found n the topic [Security best practices](https://docs.aws.amazon.com/iot/latest/developerguide/security-best-practices.html#device-advisor-perms)\. 
+1. Add the necessary permissions to use Device Advisor\. The policy document can be found in the topic [Security best practices](https://docs.aws.amazon.com/iot/latest/developerguide/security-best-practices.html#device-advisor-perms)\. 
 
 1. Choose **Review Policy**\.
 

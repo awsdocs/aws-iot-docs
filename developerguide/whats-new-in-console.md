@@ -42,8 +42,8 @@ We're in the process of updating the user interface of the AWS IoT console to a 
 |  **Defend** \- Detect  |  Available  |  Not available yet  |    | 
 |  **Defend** \- Mitigation actions  |  Available  |  Not available yet  |    | 
 | Defend \- Settings |  Available  |  Not available yet  | Not available in all AWS Regions | 
-|  **Act** \- Rules  |  Available  |  Not available yet  |    | 
-|  **Act** \- Destinations  |  Available  |  Not available yet  |    | 
+|  **Act** \- Rules  |  Available  |  Available  |    | 
+|  **Act** \- Destinations  |  Available  |  Available  |    | 
 |  **Test** \- Device Advisor  |  Available  |  Available  |  Not available in all AWS Regions  | 
 |  **Test** \- MQTT test client  |  Available  |  Available  |    | 
 |  **Software**  |  Available  |  Not available yet  |    | 

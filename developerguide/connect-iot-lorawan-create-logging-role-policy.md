@@ -1,13 +1,13 @@
-# Create logging role and policy for AWS IoT Core for LoRaWAN<a name="connect-iot-lorawan-create-logging-role-policy"></a>
+# Create logging role and policy for AWS IoT Wireless<a name="connect-iot-lorawan-create-logging-role-policy"></a>
 
-The following shows how to create a logging role for only AWS IoT Core for LoRaWAN resources\. If you want to also create a logging role for AWS IoT Core, see [Create a logging role](configure-logging.md#create-logging-role)\.
+The following shows how to create a logging role for only AWS IoT Wireless resources\. If you want to also create a logging role for AWS IoT Core, see [Create a logging role](configure-logging.md#create-logging-role)\.
 
-## Create a logging role for AWS IoT Core for LoRaWAN<a name="connect-iot-lorawan-logging-role"></a>
+## Create a logging role for AWS IoT Wireless<a name="connect-iot-lorawan-logging-role"></a>
 
-Before you can enable logging, you must create an IAM role and a policy that gives AWS permission to monitor AWS IoT Core for LoRaWAN activity on your behalf\.
+Before you can enable logging, you must create an IAM role and a policy that gives AWS permission to monitor AWS IoT Wireless activity on your behalf\.
 
 **Create IAM role for logging**  
-To create a logging role for AWS IoT Core for LoRaWAN, open the [Roles hub of the IAM console](https://console.aws.amazon.com/iam/home#/roles) and choose **Create role**\.
+To create a logging role for AWS IoT Wireless, open the [Roles hub of the IAM console](https://console.aws.amazon.com/iam/home#/roles) and choose **Create role**\.
 
 1. Under **Select type of trusted entity**, choose **Another AWS account**\.
 
@@ -54,9 +54,9 @@ In the confirmation message displayed after you ran the previous step, choose th
 
 1. To save your changes and exit, choose **Update Trust Policy**\.
 
-## Logging policy for AWS IoT Core for LoRaWAN<a name="connect-iot-lorawan-logging-policy"></a>
+## Logging policy for AWS IoT Wireless<a name="connect-iot-lorawan-logging-policy"></a>
 
-The following policy document provides the role policy and trust policy that allows AWS IoT Core for LoRaWAN to submit log entries to CloudWatch on your behalf\.
+The following policy document provides the role policy and trust policy that allows AWS IoT Wireless to submit log entries to CloudWatch on your behalf\.
 
 **Note**  
 This AWS managed policy document was automatically created for you when you created the logging role, **IoTWirelessLogsRole**\.
@@ -83,8 +83,8 @@ The following shows the role policy document\.
 }
 ```
 
-**Trust policy to log only AWS IoT Core for LoRaWAN activity**  
-The following shows the trust policy for logging only AWS IoT Core for LoRaWAN activity\.
+**Trust policy to log only AWS IoT Wireless activity**  
+The following shows the trust policy for logging only AWS IoT Wireless activity\.
 
 ```
 {
@@ -108,6 +108,6 @@ If you created the IAM role to also log AWS IoT Core activity, then the policy d
 
 ## Next steps<a name="connect-iot-lorawan-logging-role-next-steps"></a>
 
-You've learned how to create a logging role to log your AWS IoT Core for LoRaWAN resources\. By default, logs have a log level of `ERROR`, so if you want to see only error information, go to [View CloudWatch AWS IoT Core for LoRaWAN log entries](connect-iot-lorawan-cwl-format.md) to monitor your wireless resources by viewing the log entries\.
+You've learned how to create a logging role to log your AWS IoT Wireless resources\. By default, logs have a log level of `ERROR`, so if you want to see only error information, go to [View CloudWatch AWS IoT Wireless log entries](connect-iot-lorawan-cwl-format.md) to monitor your wireless resources by viewing the log entries\.
 
-If you want more information in the log entries, you can configure the default log level for your resources or for different event types, such as setting the log level to `INFO`\. For information about configuring logging for your resources, see [Configure logging for AWS IoT Core for LoRaWAN resources](connect-iot-lorawan-configure-resource-logging.md)\.
+If you want more information in the log entries, you can configure the default log level for your resources or for different event types, such as setting the log level to `INFO`\. For information about configuring logging for your resources, see [Configure logging for AWS IoT Wireless resources](connect-iot-lorawan-configure-resource-logging.md)\.

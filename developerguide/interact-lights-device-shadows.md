@@ -125,7 +125,7 @@ If you haven't already used the MQTT test client, you can review [View MQTT mess
 
       ```
       cd ~/aws-iot-device-sdk-python-v2/samples
-      python3 shadow.py --root-ca ~/certs/Amazon-root-CA-1.pem --cert ~/certs/device.pem.crt --key ~/certs/private.pem.key --endpoint your-iot-endpoint --thing-name your-iot-thing-name
+      python3 shadow.py --ca_file ~/certs/Amazon-root-CA-1.pem --cert ~/certs/device.pem.crt --key ~/certs/private.pem.key --endpoint your-iot-endpoint --thing_name your-iot-thing-name
       ```
 
       The `shadow.py` sample app then runs and retrieves the current shadow state\. If you've deleted the shadow or cleared the current states, the program sets the current value to `off` and then prompts you to enter a `desired` value\.

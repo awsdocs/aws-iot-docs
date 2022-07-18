@@ -1,6 +1,6 @@
-# View CloudWatch AWS IoT Core for LoRaWAN log entries<a name="connect-iot-lorawan-cwl-format"></a>
+# View CloudWatch AWS IoT Wireless log entries<a name="connect-iot-lorawan-cwl-format"></a>
 
-After you've configured logging for AWS IoT Core for LoRaWAN as described in [Create logging role and policy for AWS IoT Core for LoRaWAN](connect-iot-lorawan-create-logging-role-policy.md) and written some log entries, you can view the log entries in the CloudWatch console by performing the following steps\.
+After you've configured logging for AWS IoT Wireless as described in [Create logging role and policy for AWS IoT Wireless](connect-iot-lorawan-create-logging-role-policy.md) and written some log entries, you can view the log entries in the CloudWatch console by performing the following steps\.
 
 ## Viewing AWS IoT logs in the CloudWatch Log groups console<a name="connect-iot-lorawan-viewing-logs"></a>
 
@@ -12,7 +12,7 @@ Navigate to the [CloudWatch console](https://console.aws.amazon.com/cloudwatch) 
 
 1. In the **Filter** text box, enter **/aws/iotwireless**, and then choose the `/aws/iotwireless` Log group\.
 
-1. To see a complete list of the AWS IoT Core for LoRaWAN logs generated for your account, choose **Search all**\. To look at an individual log stream, choose the expand icon\.
+1. To see a complete list of the AWS IoT Wireless logs generated for your account, choose **Search all**\. To look at an individual log stream, choose the expand icon\.
 
 1. To filter the log streams, you can also enter a query in the **Filter events** text box\. Here are some queries to try:
    + `{ $.logLevel = "ERROR" }` 

@@ -1,14 +1,14 @@
-# Configure logging for AWS IoT Core for LoRaWAN resources<a name="connect-iot-lorawan-configure-resource-logging"></a>
+# Configure logging for AWS IoT Wireless resources<a name="connect-iot-lorawan-configure-resource-logging"></a>
 
-To configure logging for AWS IoT Core for LoRaWAN resources, you can use either the API or the CLI\. When starting to monitor AWS IoT Core for LoRaWAN resources, you can use the default configuration\. To do this, you can skip this topic and proceed to [Monitor AWS IoT Core for LoRaWAN using CloudWatch Logs](connect-iot-lorawan-cloud-watch-logs.md) to monitor your logs\.
+To configure logging for AWS IoT Wireless resources, you can use either the API or the CLI\. When starting to monitor AWS IoT Wireless resources, you can use the default configuration\. To do this, you can skip this topic and proceed to [Monitor AWS IoT Wireless using CloudWatch Logs](connect-iot-lorawan-cloud-watch-logs.md) to monitor your logs\.
 
 After you start monitoring the logs, you can use the CLI to change the log levels to a more verbose option, such as providing `INFO` and `ERROR` information and enabling logging for more resources\.
 
-## AWS IoT Core for LoRaWAN resources and log levels<a name="connect-iot-lorawan-log-levels-resources"></a>
+## AWS IoT Wireless resources and log levels<a name="connect-iot-lorawan-log-levels-resources"></a>
 
 Before you use the API or CLI, use the following table to learn about the different log levels and the resources that you can configure logging for\. The table shows parameters that you see in the CloudWatch logs when you monitor the resources\. How you configure the logging for your resources will determine the logs you see in the console\.
 
-For information about what a sample CloudWatch logs looks like and how you can use these parameters to log useful information about the AWS IoT Core for LoRaWAN resources, see [View CloudWatch AWS IoT Core for LoRaWAN log entries](connect-iot-lorawan-cwl-format.md)\.
+For information about what a sample CloudWatch logs looks like and how you can use these parameters to log useful information about the AWS IoT Wireless resources, see [View CloudWatch AWS IoT Wireless log entries](connect-iot-lorawan-cwl-format.md)\.
 
 
 **Log levels and resources**  
@@ -21,7 +21,7 @@ For information about what a sample CloudWatch logs looks like and how you can u
 | wirelessDeviceType | LoRaWAN or Sidewalk | The type of the wireless device, when resource is WirelessDevice, which can be LoRaWAN or Sidewalk\. | 
 | wirelessGatewayId | \- | The identifier of the wireless gateway, when resource is WirelessGateway\. | 
 | wirelessDeviceId | \- | The identifier of the wireless device, when resource is WirelessDevice\. | 
-| event | Join, Rejoin, Registration, Uplink\_data, Downlink\_data, CUPS\_Request, and Certificate | The type of event being logged, which depends on whether the resource that you're logging is a wireless device or a wireless gateway\. For more information, see [View CloudWatch AWS IoT Core for LoRaWAN log entries](connect-iot-lorawan-cwl-format.md)\. | 
+| event | Join, Rejoin, Registration, Uplink\_data, Downlink\_data, CUPS\_Request, and Certificate | The type of event being logged, which depends on whether the resource that you're logging is a wireless device or a wireless gateway\. For more information, see [View CloudWatch AWS IoT Wireless log entries](connect-iot-lorawan-cwl-format.md)\. | 
 
 ## AWS IoT Wireless logging API<a name="connect-iot-lorawan-logging-api-roles"></a>
 
@@ -41,14 +41,14 @@ You can use the following API actions to configure logging of resources\. The ta
 
 ## Configure log levels of resources using the CLI<a name="connect-iot-lorawan-configure-logging-api"></a>
 
-This section describes how to configure log levels for AWS IoT Core for LoRaWAN resources by using the API or AWS CLI\.
+This section describes how to configure log levels for AWS IoT Wireless resources by using the API or AWS CLI\.
 
 **Before you use the CLI:**
 + Make sure you created the IAM policy for the API for which you want to run the CLI command, as described previously\.
-+ You need the Amazon Resource Name \(ARN\) of the role you want to use\. If you need to create a role to use for logging, see [Create logging role and policy for AWS IoT Core for LoRaWAN](connect-iot-lorawan-create-logging-role-policy.md)\.
++ You need the Amazon Resource Name \(ARN\) of the role you want to use\. If you need to create a role to use for logging, see [Create logging role and policy for AWS IoT Wireless](connect-iot-lorawan-create-logging-role-policy.md)\.
 
 **Why use the AWS CLI**  
-By default, if you create the IAM role, `IoTWirelessLogsRole`, as described in [Create logging role and policy for AWS IoT Core for LoRaWAN](connect-iot-lorawan-create-logging-role-policy.md), you'll see CloudWatch logs in the AWS Management Console that have a default log level of `ERROR`\. To change the default log level for all your resources or for specific resources, use the AWS IoT Wireless logging API or CLI\.
+By default, if you create the IAM role, `IoTWirelessLogsRole`, as described in [Create logging role and policy for AWS IoT Wireless](connect-iot-lorawan-create-logging-role-policy.md), you'll see CloudWatch logs in the AWS Management Console that have a default log level of `ERROR`\. To change the default log level for all your resources or for specific resources, use the AWS IoT Wireless logging API or CLI\.
 
 **How to use the AWS CLI**  
 The API actions can be categorized into the following types depending on whether you want to configure log levels for all resources or for specific resources:
@@ -93,7 +93,7 @@ You can also perform this procedure with the API by using the methods in the AWS
                }
              ]
            }
-         ]
+         ],
         "WirelessGatewayLogOptions": 
          [
            {
@@ -129,7 +129,7 @@ The log level you want to use for individual resource types and events\. These l
 
    ```
    aws iotwireless update-log-levels-by-resource-types \ 
-       --cli-input-json Input.json
+       --cli-input-json file://input.json
    ```
 
    If you want to remove the log options for both wireless devices and wireless gateways, run the following command\.
@@ -147,7 +147,7 @@ The log level you want to use for individual resource types and events\. These l
 The get\-log\-levels\-by\-resource\-types command can't directly retrieve the log levels in the CloudWatch console\. You can use the get\-log\-levels\-by\-resource\-types command to get the latest log\-level information that you've specified for your resources using the update\-log\-levels\-by\-resource\-types command\.
 
    ```
-   aws iotwireless get-log-levels-by-resource-types 
+   aws iotwireless get-log-levels-by-resource-types
    ```
 
    When you run the following command, it returns the latest logging information you specified with update\-log\-levels\-by\-resource\-types\. For example, if you remove the wireless device log options, then running the get\-log\-levels\-by\-resource\-types will return this value as `null`\. 
@@ -203,4 +203,4 @@ The get\-log\-levels\-by\-resource\-types command can't directly retrieve the lo
 
 ## Next Steps<a name="connect-iot-lorawan-configure-logging-next-steps"></a>
 
-You've learned how to create the logging role and use the AWS IoT Wireless API to configure logging for your AWS IoT Core for LoRaWANresources\. Next, to learn about monitoring your log entries, go to [Monitor AWS IoT Core for LoRaWAN using CloudWatch Logs](connect-iot-lorawan-cloud-watch-logs.md)\.
+You've learned how to create the logging role and use the AWS IoT Wireless API to configure logging for your AWS IoT Wirelessresources\. Next, to learn about monitoring your log entries, go to [Monitor AWS IoT Wireless using CloudWatch Logs](connect-iot-lorawan-cloud-watch-logs.md)\.

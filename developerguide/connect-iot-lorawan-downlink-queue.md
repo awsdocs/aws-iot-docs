@@ -98,7 +98,7 @@ Here are some things to check if you're not seeing the expected results:
 **Downlink messages don't appear in the AWS IoT console**  
 If you don't see your downlink message in the queue after adding it as described in [Perform downlink queue operations by using the console](#connect-iot-lorawan-downlink-queue-console), it might be because your device hasn't completed a process called *activation* or *join procedure*\. This procedure is completed when your device onboards with AWS IoT Core for LoRaWAN\. For more information, see [Add your wireless device specification to AWS IoT Core for LoRaWAN using the console](connect-iot-lorawan-end-devices-add.md#connect-iot-lorawan-end-device-spec-console)\.
 
-  After onboarding your device to AWS IoT Core for LoRaWAN, you can monitor your device to check whether join and rejoin succeeded by using the network analyzer or Amazon CloudWatch\. For more information, see [Monitoring and logging for AWS IoT Core for LoRaWAN using Amazon CloudWatch](connect-iot-lorawan-logging-monitoring.md)\.
+  After onboarding your device to AWS IoT Core for LoRaWAN, you can monitor your device to check whether join and rejoin succeeded by using the network analyzer or Amazon CloudWatch\. For more information, see [Monitoring and logging for AWS IoT Wireless using Amazon CloudWatch](connect-iot-lorawan-logging-monitoring.md)\.
 + 
 
 **Missing downlink message packets when using the API**  

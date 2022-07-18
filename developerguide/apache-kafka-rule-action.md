@@ -59,7 +59,7 @@ This rule action has the following requirements:
       ]
   }
   ```
-+ You must create a virtual private cloud \(VPC\) destination\. \(You can run your Apache Kafka clusters inside Amazon Virtual Private Cloud\.\) The AWS IoT rules engine creates a network interface in each of the subnets listed in the VPC destination\. This allows the rules engine to route traffic directly to the VPC\. When you create a VPC destination, the AWS IoT rules engine automatically creates a VPC rule action\. For more information about VPC rule actions, see [Virtual private cloud \(VPC\) destinations](vpc-rule-action.md)\.
++ You can run your Apache Kafka clusters inside Amazon Virtual Private Cloud\. You must create a virtual private cloud \(VPC\) destination and use a NAT gateway in your subnets to forward messages from AWS IoT to a public Kafka cluster\. The AWS IoT rules engine creates a network interface in each of the subnets listed in the VPC destination to route traffic directly to the VPC\. When you create a VPC destination, the AWS IoT rules engine automatically creates a VPC rule action\. For more information about VPC rule actions, see [Virtual private cloud \(VPC\) destinations](vpc-rule-action.md)\.
 + If you use a customer\-managed AWS KMS key \(KMS key\) to encrypt data at rest, the service must have permission to use the KMS key on the caller's behalf\. For more information, see [Amazon MSK encryption](https://docs.aws.amazon.com/msk/latest/developerguide/msk-encryption.html) in the *Amazon Managed Streaming for Apache Kafka Developer Guide*\.
 
 ## Parameters<a name="apache-kafka-rule-action-parameters"></a>

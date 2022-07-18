@@ -2,7 +2,7 @@
 
 You can use the [CreateJob](https://docs.aws.amazon.com/iot/latest/apireference/API_CreateJob.html) or the [CreateJobTemplate](https://docs.aws.amazon.com/iot/latest/apireference/API_CreateJobTemplate.html) API to specify the different job configurations\. The following shows how you add these configurations\. After you've added the configurations, you can use [JobExecutionSummary](https://docs.aws.amazon.com/iot/latest/apireference/API_JobExecutionSummary.html) and [JobExecutionSummaryForJob](https://docs.aws.amazon.com/iot/latest/apireference/API_JobExecutionSummaryForJob.html) to view their status\.
 
-For more information about the different configurations and how it works, see [What are the different configurations?](jobs-configurations.md#jobs-configurations-details)\.
+For more information about the different configurations and how it works, see [How job configurations work](jobs-configurations-details.md)\.
 
 ## Rollout configuration<a name="job-rollout-api"></a>
 
@@ -124,7 +124,7 @@ To use the timeout configuration
 ## Retry configuration<a name="job-retry-api"></a>
 
 **Note**  
-When you're creating a job, consider the appropriate number of retries to use for your configuration\. To avoid incurring excess costs because of potential retry failures, add an adbort configuration\. After a job has been created, the number of retries can't be updated\. You can only set the number of retries to 0 by using the [UpdateJob](https://docs.aws.amazon.com/iot/latest/apireference/API_UpdateJob.html) API operation\.
+When you're creating a job, consider the appropriate number of retries to use for your configuration\. To avoid incurring excess costs because of potential retry failures, add an abort configuration\. After a job has been created, the number of retries can't be updated\. You can only set the number of retries to 0 by using the [UpdateJob](https://docs.aws.amazon.com/iot/latest/apireference/API_UpdateJob.html) API operation\.
 
 To add this configuration by using the API, specify the [https://docs.aws.amazon.com/iot/latest/apireference/API_jobExecutionsRetryConfig.html](https://docs.aws.amazon.com/iot/latest/apireference/API_jobExecutionsRetryConfig.html) parameter when you run the [https://docs.aws.amazon.com/iot/latest/apireference/API_CreateJob.html](https://docs.aws.amazon.com/iot/latest/apireference/API_CreateJob.html) or the [https://docs.aws.amazon.com/iot/latest/apireference/API_CreateJobTemplate.html](https://docs.aws.amazon.com/iot/latest/apireference/API_CreateJobTemplate.html) API operation\.
 

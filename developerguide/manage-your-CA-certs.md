@@ -7,7 +7,7 @@ You might need to register your certificate authority \(CA\) with AWS IoT if you
 If you want clients to automatically register their client certificates with AWS IoT when they first connect, the CA that signed the client certificates must be registered with AWS IoT\. Otherwise, you don't need to register the CA certificate that signed the client certificates\.
 
 **Note**  
-A CA certificate can be registered by only one account in a Region\.
+A CA certificate can be registered in `DEFAULT` mode by only one account in a Region\. A CA certificate can be registered in `SNI_ONLY` mode by multiple accounts in a Region\.
 + 
 
 **[Create a CA certificate](create-your-CA-cert.md), if you need one\.**  

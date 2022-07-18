@@ -43,7 +43,7 @@ Before you run the `shadow.py` sample app, you'll need the following information
 1. In the command line window, replace *your\-iot\-endpoint* and *your\-iot\-thing\-name* as indicated and run this command\.
 
    ```
-   python3 shadow.py --root-ca ~/certs/Amazon-root-CA-1.pem --cert ~/certs/device.pem.crt --key ~/certs/private.pem.key --endpoint your-iot-endpoint --thing-name your-iot-thing-name
+   python3 shadow.py --ca_file ~/certs/Amazon-root-CA-1.pem --cert ~/certs/device.pem.crt --key ~/certs/private.pem.key --endpoint your-iot-endpoint --thing_name your-iot-thing-name
    ```
 
 1. Observe that the sample app:
@@ -151,7 +151,7 @@ mqtt_connection = mqtt_connection_builder.mtls_from_path(
   endpoint=args.endpoint,
   cert_filepath=args.cert,
   pri_key_filepath=args.key,
-  ca_filepath=args.root_ca,
+  ca_filepath=args.ca_file,
   client_bootstrap=client_bootstrap,
   on_connection_interrupted=on_connection_interrupted,
   on_connection_resumed=on_connection_resumed,

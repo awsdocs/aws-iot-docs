@@ -1,4 +1,4 @@
-# Creating queries with filters<a name="aws-iot-monitor-user-queries-creating"></a>
+# Create queries with filters<a name="aws-iot-monitor-user-queries-creating"></a>
 
 This topic explains how Fleet Hub for AWS IoT Device Management queries work and walks you through the steps required to create a query with filters\.
 

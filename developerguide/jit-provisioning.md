@@ -1,24 +1,33 @@
 # Just\-in\-time provisioning<a name="jit-provisioning"></a>
 
-You can have your devices provisioned when they first attempt to connect to AWS IoT with just\-in\-time provisioning \(JITP\)\. To provision the device, you must enable automatic registration and associate a provisioning template with the CA certificate used to sign the device certificate\. Provisioning successes and errors are logged as [Device provisioning metrics](metrics_dimensions.md#provisioning-metrics) in Amazon CloudWatch\.
+You can use just\-in\-time provisioning \(JITP\) to provision your devices when they first attempt to connect to AWS IoT\. To provision the device, you must enable automatic registration and associate a provisioning template with the CA certificate used to sign the device certificate\. Provisioning successes and errors are logged as [Device provisioning metrics](metrics_dimensions.md#provisioning-metrics) in Amazon CloudWatch\.
 
-You can make these settings when you register a CA certificate with the [RegisterCACertificate](https://docs.aws.amazon.com/iot/latest/apireference/API_RegisterCACertificate.html) API or the `register-ca-certificate` CLI command:
+You can create these settings when you register a CA certificate with the [RegisterCACertificate](https://docs.aws.amazon.com/iot/latest/apireference/API_RegisterCACertificate.html) API operation or the `register-ca-certificate` CLI command:
+
+The following shows an example of how to register a CA certificate in `DEFAULT` mode using the AWS CLI:
 
 ```
 aws iot register-ca-certificate --ca-certificate file://your-ca-cert --verification-cert 
                 file://your-verification-cert --set-as-active --allow-auto-registration --registration-config file://your-template
 ```
 
-For more information, see [Registering a CA Certificate](device-certs-your-own.html#register-CA-cert)\.
+The following shows an example of how to register a CA certificate in `SNI_ONLY` mode using the AWS CLI:
 
-You can also use the [UpdateCACertificate](https://docs.aws.amazon.com/iot/latest/apireference/API_UpdateCACertificate.html) API or the `update-ca-certificate` CLI command to update the settings for a CA certificate:
+```
+aws iot register-ca-certificate --ca-certificate file://your-ca-cert --certificate-mode SNI_ONLY
+                 --set-as-active --allow-auto-registration --registration-config file://your-template
+```
+
+For more information, see [Register your CA Certificates](https://docs.aws.amazon.com/iot/latest/developerguide/register-CA-cert.html)\.
+
+You can also use the [UpdateCACertificate](https://docs.aws.amazon.com/iot/latest/apireference/API_UpdateCACertificate.html) API operation or the `update-ca-certificate` CLI command to update the settings for a CA certificate:
 
 ```
 aws iot update-ca-certificate --certificate-id caCertificateId --new-auto-registration-status ENABLE --registration-config file://your-template
 ```
 
 **Note**  
-Just\-in\-time provisioning JITP calls other AWS IoT control plane APIs during the provisioning process\. These calls might exceed the [AWS IoT Throttling Quotas](https://docs.aws.amazon.com/general/latest/gr/iot-core.html#throttling-limits) set for your account and result in throttled calls\. Contact [AWS Customer Support](https://console.aws.amazon.com/support/home) to raise your throttling quotas, if necessary\.
+Just\-in\-time provisioning \(JITP\) calls other AWS IoT control plane API operations during the provisioning process\. These calls might exceed the [AWS IoT Throttling Quotas](https://docs.aws.amazon.com/general/latest/gr/iot-core.html#throttling-limits) set for your account and result in throttled calls\. Contact [AWS Customer Support](https://console.aws.amazon.com/support/home) to raise your throttling quotas if necessary\.
 
 When a device attempts to connect to AWS IoT by using a certificate signed by a registered CA certificate, AWS IoT loads the template from the CA certificate and uses it to call [RegisterThing](fleet-provision-api.md#register-thing)\. The JITP workflow first registers a certificate with a status value of PENDING\_ACTIVATION\. When the device provisioning flow is complete, the status of the certificate is changed to ACTIVE\.
 

@@ -8,6 +8,9 @@ A LoRaWAN device typically contains one or more sensors and actors\. The devices
 
 **Before onboarding your wireless device**  
 Before you onboard your wireless device to AWS IoT Core for LoRaWAN, you need to have the following information ready in advance:
+
+**Note**  
+Optionally, if you have the position information of your device available, you can specify this information when onboarding your device\. For more information, see [Configure position of wireless resources with AWS IoT Core for LoRaWAN](connect-iot-lorawan-configure-location.md)\.
 + 
 
 **LoRaWAN specification and wireless device configuration**  

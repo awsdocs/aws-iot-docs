@@ -17,7 +17,7 @@ Before you use IAM to manage access to Fleet Hub, learn what IAM features are av
 |  [Policy resources](#security_iam_service-with-iam-id-based-policies-resources)  |    Yes  | 
 |  [Policy condition keys](#security_iam_service-with-iam-id-based-policies-conditionkeys)  |    Yes  | 
 |  [ACLs](#security_iam_service-with-iam-acls)  |    No   | 
-|  [ABAC \(tags in policies\)](#security_iam_service-with-iam-tags)  |    Partial  | 
+|  [ABAC \(tags in policies\)](#security_iam_service-with-iam-tags)  |    Yes  | 
 |  [Temporary credentials](#security_iam_service-with-iam-roles-tempcreds)  |    Yes  | 
 |  [Principal permissions](#security_iam_service-with-iam-principal-permissions)  |    Yes  | 
 |  [Service roles](#security_iam_service-with-iam-roles-service)  |    Yes  | 
@@ -71,7 +71,7 @@ Include actions in a policy to grant permissions to perform the associated opera
 
 
 
-To see a list of Fleet Hub actions, see [Actions defined by Fleet Hub for AWS IoT Device Management](https://docs.aws.amazon.com/service-authorization/latest/reference/list_awskeymanagementservice.html#awskeymanagementservice-actions-as-permissions) in the *Service Authorization Reference*\.
+To see a list of Fleet Hub actions, see [Actions defined by Fleet Hub for AWS IoT Device Management](https://docs.aws.amazon.com/service-authorization/latest/reference/list_awsiotfleethubfordevicemanagement.html#awsiotfleethubfordevicemanagement-actions-as-permissions) in the *Service Authorization Reference*\.
 
 Policy actions in Fleet Hub use the following prefix before the action:
 
@@ -111,7 +111,7 @@ For actions that don't support resource\-level permissions, such as listing oper
 "Resource": "*"
 ```
 
-To see a list of Fleet Hub resource types and their ARNs, see [Resources defined by Fleet Hub for AWS IoT Device Management](https://docs.aws.amazon.com/service-authorization/latest/reference/list_awskeymanagementservice.html#awskeymanagementservice-resources-for-iam-policies) in the *Service Authorization Reference*\. To learn with which actions you can specify the ARN of each resource, see [Actions defined by Fleet Hub for AWS IoT Device Management](https://docs.aws.amazon.com/service-authorization/latest/reference/list_awskeymanagementservice.html#awskeymanagementservice-actions-as-permissions)\.
+To see a list of Fleet Hub resource types and their ARNs, see [Resources defined by Fleet Hub for AWS IoT Device Management](https://docs.aws.amazon.com/service-authorization/latest/reference/list_awsiotfleethubfordevicemanagement.html#awsiotfleethubfordevicemanagement-resources-for-iam-policies) in the *Service Authorization Reference*\. To learn with which actions you can specify the ARN of each resource, see [Actions defined by Fleet Hub for AWS IoT Device Management](https://docs.aws.amazon.com/service-authorization/latest/reference/list_awsiotfleethubfordevicemanagement.html#awsiotfleethubfordevicemanagement-actions-as-permissions)\.
 
 
 
@@ -124,7 +124,7 @@ To view examples of Fleet Hub identity\-based policies, see [Identity\-based pol
 
 |  |  | 
 | --- |--- |
-|  Supports policy condition keys  |    Yes  | 
+|  Supports service\-specific policy condition keys  |    Yes  | 
 
 Administrators can use AWS JSON policies to specify who has access to what\. That is, which **principal** can perform **actions** on what **resources**, and under what **conditions**\.
 
@@ -136,7 +136,7 @@ If you specify multiple `Condition` elements in a statement, or multiple keys in
 
 AWS supports global condition keys and service\-specific condition keys\. To see all AWS global condition keys, see [AWS global condition context keys](https://docs.aws.amazon.com/IAM/latest/UserGuide/reference_policies_condition-keys.html) in the *IAM User Guide*\.
 
-To see a list of Fleet Hub condition keys, see [Condition keys for Fleet Hub for AWS IoT Device Management](https://docs.aws.amazon.com/service-authorization/latest/reference/list_awskeymanagementservice.html#awskeymanagementservice-policy-keys) in the *Service Authorization Reference*\. To learn with which actions and resources you can use a condition key, see [Actions defined by Fleet Hub for AWS IoT Device Management](https://docs.aws.amazon.com/service-authorization/latest/reference/list_awskeymanagementservice.html#awskeymanagementservice-actions-as-permissions)\.
+To see a list of Fleet Hub condition keys, see [Condition keys for Fleet Hub for AWS IoT Device Management](https://docs.aws.amazon.com/service-authorization/latest/reference/list_awsiotfleethubfordevicemanagement.html#awsiotfleethubfordevicemanagement-policy-keys) in the *Service Authorization Reference*\. To learn with which actions and resources you can use a condition key, see [Actions defined by Fleet Hub for AWS IoT Device Management](https://docs.aws.amazon.com/service-authorization/latest/reference/list_awsiotfleethubfordevicemanagement.html#awsiotfleethubfordevicemanagement-actions-as-permissions)\.
 
 To view examples of Fleet Hub identity\-based policies, see [Identity\-based policy examples for Fleet Hub for AWS IoT Device Management](security_iam_id-based-policy-examples.md)\.
 
@@ -154,7 +154,7 @@ Access control lists \(ACLs\) control which principals \(account members, users,
 
 |  |  | 
 | --- |--- |
-|  Supports ABAC \(tags in policies\)  |    Partial  | 
+|  Supports ABAC \(tags in policies\)  |    Yes  | 
 
 Attribute\-based access control \(ABAC\) is an authorization strategy that defines permissions based on attributes\. In AWS, these attributes are called *tags*\. You can attach tags to IAM entities \(users or roles\) and to many AWS resources\. Tagging entities and resources is the first step of ABAC\. Then you design ABAC policies to allow operations when the principal's tag matches the tag on the resource that they are trying to access\.
 
@@ -184,7 +184,7 @@ You can manually create temporary credentials using the AWS CLI or AWS API\. You
 | --- |--- |
 |  Supports principal permissions  |    Yes  | 
 
-  When you use an IAM user or role to perform actions in AWS, you are considered a principal\. Policies grant permissions to a principal\. When you use some services, you might perform an action that then triggers another action in a different service\. In this case, you must have permissions to perform both actions\. To see whether an action requires additional dependent actions in a policy, see [Actions, resources, and condition keys for Fleet Hub for AWS IoT Device Management](https://docs.aws.amazon.com/service-authorization/latest/reference/list_awskeymanagementservice.html) in the *Service Authorization Reference*\. 
+  When you use an IAM user or role to perform actions in AWS, you are considered a principal\. Policies grant permissions to a principal\. When you use some services, you might perform an action that then triggers another action in a different service\. In this case, you must have permissions to perform both actions\. To see whether an action requires additional dependent actions in a policy, see [Actions, resources, and condition keys for Fleet Hub for AWS IoT Device Management](https://docs.aws.amazon.com/service-authorization/latest/reference/list_awsiotfleethubfordevicemanagement.html) in the *Service Authorization Reference*\. 
 
 ## Service roles for Fleet Hub<a name="security_iam_service-with-iam-roles-service"></a>
 

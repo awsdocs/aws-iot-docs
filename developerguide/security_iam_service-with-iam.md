@@ -7,7 +7,6 @@ Before you use IAM to manage access to AWS IoT, you should understand which IAM 
 + [AWS IoT resource\-based policies](#security_iam_service-with-iam-resource-based-policies)
 + [Authorization based on AWS IoT tags](#security_iam_service-with-iam-tags)
 + [AWS IoT IAM roles](#security_iam_service-with-iam-roles)
-+ [IAM managed policies](iam-policies.md)
 
 ## AWS IoT identity\-based policies<a name="security_iam_service-with-iam-id-based-policies"></a>
 

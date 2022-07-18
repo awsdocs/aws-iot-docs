@@ -45,6 +45,9 @@ The **LoRaFrame** part of the JSON has a **Message ID** and contains information
 
 The following shows the structure of the trace message\.
 
+**Note**  
+If your devices send an uplink message without a value for `Fport`, AWS IoT Core for LoRaWAN network analyzer will display an `fPort` value of 225 in the trace message received\.
+
 ```
 export type TraceMessage = {
   ResourceId: string;

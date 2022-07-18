@@ -10,7 +10,7 @@ LoRa is a wireless audio frequency technology that operates in a license\-free r
 
 ## Characteristics of LoRaWAN technology<a name="connect-iot-lorawan-lorawan-characteristics"></a>
 + Long range communication up to 10 miles in line of sight\.
-+ ong battery duration of up to 10 years\. For enhanced battery life, you can operate your devices in class A or class B mode, which requires increased downlink latency\.
++ Long battery duration of up to 10 years\. For enhanced battery life, you can operate your devices in class A or class B mode, which requires increased downlink latency\.
 + Low cost for devices and maintenance\.
 + License\-free radio spectrum but region\-specific regulations apply\.
 + Low power but has a limited payload size of 51 bytes to 241 bytes depending on the data rate\. The data rate can be 0,3 Kbit/s – 27 Kbit/s data rate with a 222 maximal payload size\.

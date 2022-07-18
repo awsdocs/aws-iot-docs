@@ -14,7 +14,7 @@ This section contains links to the AWS IoT Device SDKs and to the source code of
 #### [ C\+\+ ]
 
 **Using the AWS IoT C\+\+ Device SDK to connect devices**
-+  [Source code of a sample app that shows an MQTT connection example in C\+\+](https://github.com/aws/aws-iot-device-sdk-cpp-v2/blob/master/samples/mqtt/basic_pub_sub/main.cpp) 
++  [Source code of a sample app that shows an MQTT connection example in C\+\+](https://github.com/aws/aws-iot-device-sdk-cpp-v2/blob/main/samples/mqtt/basic_connect/main.cpp) 
 + [AWS IoT C\+\+ Device SDK v2 on GitHub](https://github.com/aws/aws-iot-device-sdk-cpp-v2)
 
 ------

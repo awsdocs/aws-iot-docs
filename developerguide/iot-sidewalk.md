@@ -2,7 +2,7 @@
 
 [Amazon Sidewalk](https://www.amazon.com/Amazon-Sidewalk/b?ie=UTF8&node=21328123011) is a shared network that helps devices like Amazon Echo, Ring security cams, outdoor lights, motion sensors, and tile trackers work better at home and beyond the front door\. When enabled, this network can support other Sidewalk devices in your community, and open the door to innovations such as locating items connected to Amazon Sidewalk\. Amazon Sidewalk helps your devices get connected and stay connected\. For example, if your device loses its Wi\-Fi connection, Sidewalk can simplify reconnecting to your router\. For more information, see [Amazon Sidewalk Quick Start Guide](https://developer.amazon.com/acs-devices/console/sidewalk/docs/group__quickstart__guide.html)\.
 
-The following sections show how to onboard your Sidewalk devices with AWS IoT and use event notifications to notify you of events such as when your Sidewalk device is registered\. For information about using Amazon CloudWatch to monitor your Sidewalk devices, see [Monitoring and logging for AWS IoT Core for LoRaWAN using Amazon CloudWatch](connect-iot-lorawan-logging-monitoring.md)\.
+The following sections show how to onboard your Sidewalk devices with AWS IoT and use event notifications to notify you of events such as when your Sidewalk device is registered\. For information about using Amazon CloudWatch to monitor your Sidewalk devices, see [Monitoring and logging for AWS IoT Wireless using Amazon CloudWatch](connect-iot-lorawan-logging-monitoring.md)\.
 
 ## How to onboard your Sidewalk device<a name="iot-sidewalk-how-use"></a>
 

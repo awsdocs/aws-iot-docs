@@ -30,6 +30,9 @@ When the wireless device starts sending uplink data, AWS IoT Core for LoRaWAN wr
 
 The following example shows the format of the uplink message received from your device\.
 
+**Note**  
+If your devices send an uplink message without a value for `Fport`, AWS IoT Core for LoRaWAN will add the value 225 to the `Fport` in the uplink message received\.
+
 ```
 {
     "WirelessDeviceId": "5b58245e-146c-4c30-9703-0ca942e3ff35", 

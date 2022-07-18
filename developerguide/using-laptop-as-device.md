@@ -229,7 +229,7 @@ Before running the script, make sure your thing's policy provides permissions fo
 1. In your command line window, replace *your\-iot\-endpoint* as indicated and run this command\.
 
    ```
-   python3 pubsub.py --endpoint your-iot-endpoint --root-ca ~/certs/Amazon-root-CA-1.pem --cert ~/certs/device.pem.crt --key ~/certs/private.pem.key
+   python3 pubsub.py --endpoint your-iot-endpoint --ca_file ~/certs/Amazon-root-CA-1.pem --cert ~/certs/device.pem.crt --key ~/certs/private.pem.key
    ```
 
 ------
@@ -246,7 +246,7 @@ Before running the script, make sure your thing's policy provides permissions fo
 1. In your command line window, replace *your\-iot\-endpoint* as indicated and run this command\.
 
    ```
-   python3 pubsub.py --endpoint your-iot-endpoint --root-ca %USERPROFILE%\certs\Amazon-root-CA-1.pem --cert %USERPROFILE%\certs\device.pem.crt --key %USERPROFILE%\certs\private.pem.key
+   python3 pubsub.py --endpoint your-iot-endpoint --ca_file %USERPROFILE%\certs\Amazon-root-CA-1.pem --cert %USERPROFILE%\certs\device.pem.crt --key %USERPROFILE%\certs\private.pem.key
    ```
 
 ------
@@ -307,7 +307,7 @@ You can see the sample app's messages as they pass through the message broker by
 
    ```
    cd ~/aws-iot-device-sdk-python-v2/samples
-   python3 pubsub.py --topic test/topic --root-ca ~/certs/Amazon-root-CA-1.pem --cert ~/certs/device.pem.crt --key ~/certs/private.pem.key --endpoint your-iot-endpoint
+   python3 pubsub.py --topic test/topic --ca_file ~/certs/Amazon-root-CA-1.pem --cert ~/certs/device.pem.crt --key ~/certs/private.pem.key --endpoint your-iot-endpoint
    ```
 
 ------
@@ -315,7 +315,7 @@ You can see the sample app's messages as they pass through the message broker by
 
    ```
    cd %USERPROFILE%\aws-iot-device-sdk-python-v2\samples
-   python3 pubsub.py --topic test/topic --root-ca %USERPROFILE%\certs\Amazon-root-CA-1.pem --cert %USERPROFILE%\certs\device.pem.crt --key %USERPROFILE%\certs\private.pem.key --endpoint your-iot-endpoint
+   python3 pubsub.py --topic test/topic --ca_file %USERPROFILE%\certs\Amazon-root-CA-1.pem --cert %USERPROFILE%\certs\device.pem.crt --key %USERPROFILE%\certs\private.pem.key --endpoint your-iot-endpoint
    ```
 
 ------

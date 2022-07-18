@@ -75,26 +75,26 @@ A device is a type of hardware that manages interfaces and communications\. Devi
 
 In the IoT universe, AWS IoT provides the services that support the devices that interact with the world and the data that passes between them and AWS IoT\. AWS IoT is made up of the services that are shown in this illustration to support your IoT solution\.
 
-![\[AWS IoT architecture\]](http://docs.aws.amazon.com/iot/latest/developerguide/images/aws-iot-architecture.png)
+![\[AWS IoT architecture\]](http://docs.aws.amazon.com/iot/latest/developerguide/images/architecture-diagram.png)
 
 ### AWS IoT device software<a name="aws-iot-components-device"></a>
 
 AWS IoT provides this software to support your IoT devices\.
 
-**AWS IoT Greengrass**  
- [AWS IoT Greengrass](https://docs.aws.amazon.com/greengrass/) extends AWS IoT to edge devices so they can act locally on the data they generate and use the cloud for management, analytics, and durable storage\. With AWS IoT Greengrass, connected devices can run [AWS Lambda](https://docs.aws.amazon.com/lambda/) functions, Docker containers, or both, execute predictions based on machine learning models, keep device data in sync, and communicate with other devices securely – even when they are not connected to the Internet\.
+**AWS IoT Device SDKs**  
+The [AWS IoT Device and Mobile SDKs](iot-sdks.md) help you efficiently connect your devices to AWS IoT\. The AWS IoT Device and Mobile SDKs include open\-source libraries, developer guides with samples, and porting guides so that you can build innovative IoT products or solutions on your choice of hardware platforms\.
 
 **AWS IoT Device Tester**  
 [AWS IoT Device Tester](https://docs.aws.amazon.com/freertos/latest/userguide/device-tester-for-freertos-ug.html) for FreeRTOS and AWS IoT Greengrass is a test automation tool for microcontrollers\. AWS IoT Device Tester tests your device to determine if it will run FreeRTOS or AWS IoT Greengrass and interoperate with AWS IoT services\.
 
-**AWS IoT Device SDKs**  
-The [AWS IoT Device and Mobile SDKs](iot-sdks.md) help you efficiently connect your devices to AWS IoT\. The AWS IoT Device and Mobile SDKs include open\-source libraries, developer guides with samples, and porting guides so that you can build innovative IoT products or solutions on your choice of hardware platforms\.
+**AWS IoT ExpressLink**  
+AWS IoT ExpressLink powers a range of hardware modules developed and offered by [AWS Partners](http://aws.amazon.com/iot-expresslink/partners/?nc=sn&loc=6)\. The connectivity modules include AWS\-validated software, making it faster and easier for you to securely connect devices to the cloud and seamlessly integrate with a range of AWS services\. For more information, visit the [AWS IoT ExpressLink](http://aws.amazon.com/iot-expresslink/) overview page or see the [AWS IoT ExpressLink Programmer's Guide](https://docs.aws.amazon.com/iot-expresslink/latest/programmersguide/elpg.html)\.
+
+**AWS IoT Greengrass**  
+ [AWS IoT Greengrass](https://docs.aws.amazon.com/greengrass/) extends AWS IoT to edge devices so they can act locally on the data they generate and use the cloud for management, analytics, and durable storage\. With AWS IoT Greengrass, connected devices can run [AWS Lambda](https://docs.aws.amazon.com/lambda/) functions, Docker containers, or both, execute predictions based on machine learning models, keep device data in sync, and communicate with other devices securely – even when they are not connected to the Internet\.
 
 **FreeRTOS**  
 [FreeRTOS](https://docs.aws.amazon.com/freertos/) is an open source, real\-time operating system for microcontrollers that lets you include small, low\-power edge devices in your IoT solution\. FreeRTOS includes a kernel and a growing set of software libraries that support many applications\. FreeRTOS systems can securely connect your small, low\-power devices to [AWS IoT](https://docs.aws.amazon.com/iot/) and support more powerful edge devices running [AWS IoT Greengrass](https://docs.aws.amazon.com/greengrass/)\.
-
-**AWS IoT Core Device Advisor**  
-[AWS IoT Core Device Advisor](https://docs.aws.amazon.com/iot/latest/developerguide/device-advisor.html) is a cloud\-based, fully managed test capability for validating IoT devices during device software development\. Device Advisor provides pre\-built tests that you can use to validate IoT devices for reliable and secure connectivity with AWS IoT Core, before deploying devices to production\.
 
 ### AWS IoT control services<a name="aws-iot-components-control"></a>
 
@@ -103,27 +103,39 @@ Connect to the following AWS IoT services to manage the devices in your IoT solu
 **AWS IoT Core**  
 [AWS IoT Core](https://docs.aws.amazon.com/iot/) is a managed cloud service that enables connected devices to securely interact with cloud applications and other devices\. AWS IoT Core can support many devices and messages, and it can process and route those messages to AWS IoT endpoints and other devices\. With AWS IoT Core, your applications can interact with all of your devices even when they aren’t connected\.
 
-**AWS IoT Device Management**  
-[AWS IoT Device Management](https://docs.aws.amazon.com/iot-device-management/) services help you track, monitor, and manage the plethora of connected devices that make up your devices fleets\. AWS IoT Device Management services help you ensure that your IoT devices work properly and securely after they have been deployed\. They also provide secure tunneling to access your devices, monitor their health, detect and remotely troubleshoot problems, as well as services to manage device software and firmware updates\.
+**AWS IoT Core Device Advisor**  
+[AWS IoT Core Device Advisor](https://docs.aws.amazon.com/iot/latest/developerguide/device-advisor.html) is a cloud\-based, fully managed test capability for validating IoT devices during device software development\. Device Advisor provides pre\-built tests that you can use to validate IoT devices for reliable and secure connectivity with AWS IoT Core, before deploying devices to production\.
 
 **AWS IoT Device Defender**  
 [AWS IoT Device Defender](https://docs.aws.amazon.com/iot-device-defender/) helps you secure your fleet of IoT devices\. AWS IoT Device Defender continuously audits your IoT configurations to make sure that they aren’t deviating from security best practices\. AWS IoT Device Defender sends an alert when it detects any gaps in your IoT configuration that might create a security risk, such as identity certificates being shared across multiple devices or a device with a revoked identity certificate trying to connect to [AWS IoT Core](https://aws.amazon.com/iot-core/)\.
 
-**AWS IoT Things Graph**  
-[AWS IoT Things Graph](https://docs.aws.amazon.com/thingsgraph/) is a service that lets you visually connect different devices and web services to build IoT applications\. AWS IoT Things Graph provides a visual drag\-and\-drop interface for connecting and coordinating interactions between devices and web services, so that you can build IoT applications efficiently\.
+**AWS IoT Device Management**  
+[AWS IoT Device Management](https://docs.aws.amazon.com/iot-device-management/) services help you track, monitor, and manage the plethora of connected devices that make up your device fleets\. AWS IoT Device Management services help you ensure that your IoT devices work properly and securely after they have been deployed\. They also provide secure tunneling to access your devices, monitor their health, detect and remotely troubleshoot problems, as well as services to manage device software and firmware updates\.
 
 ### AWS IoT data services<a name="aws-iot-components-data"></a>
 
 Analyze the data from the devices in your IoT solution and take appropriate action by using the following AWS IoT services\.
 
+**Amazon Kinesis Video Streams**  
+[Amazon Kinesis Video Streams](https://docs.aws.amazon.com/kinesisvideostreams/latest/dg/what-is-kinesis-video.html) allows you to stream live video from devices to the AWS Cloud, where it is durably stored, encrypted, and indexed, allowing you to access your data through easy\-to\-use APIs\. You can use Amazon Kinesis Video Streams to capture massive amounts of live video data from millions of sources, including smartphones, security cameras, webcams, cameras embedded in cars, drones, and other sources\. Amazon Kinesis Video Streams enables you to play back video for live and on\-demand viewing, and quickly build applications that take advantage of computer vision and video analytics through integration with Amazon Rekognition Video, and libraries for ML frameworks\. You can also send non\-video time\-serialized data such as audio data, thermal imagery, depth data, RADAR data, and more\. 
+
+**Amazon Kinesis Video Streams with WebRTC**  
+[Amazon Kinesis Video Streams with WebRTC](https://docs.aws.amazon.com/kinesisvideostreams-webrtc-dg/latest/devguide/what-is-kvswebrtc.html) provides a standards\-compliant WebRTC implementation as a fully managed capability\. You can use Amazon Kinesis Video Streams with WebRTC to securely live stream media or perform two\-way audio or video interaction between any camera IoT device and WebRTC\-compliant mobile or web players\. As a fully managed capability, you don't have to build, operate, or scale any WebRTC\-related cloud infrastructure, such as signaling or media relay servers to securely stream media across applications and devices\. Using Amazon Kinesis Video Streams with WebRTC, you can easily build applications for live peer\-to\-peer media streaming, or real\-time audio or video interactivity between camera IoT devices, web browsers, and mobile devices for a variety of use cases\. 
+
 **AWS IoT Analytics**  
 [AWS IoT Analytics](https://docs.aws.amazon.com/iotanalytics/) lets you efficiently run and operationalize sophisticated analytics on massive volumes of unstructured IoT data\. AWS IoT Analytics automates each difficult step that is required to analyze data from IoT devices\. AWS IoT Analytics filters, transforms, and enriches IoT data before storing it in a time\-series data store for analysis\. You can analyze your data by running one\-time or scheduled queries using the built\-in SQL query engine or machine learning\.
+
+**AWS IoT Events**  
+[AWS IoT Events](https://docs.aws.amazon.com/iotevents/) detects and responds to events from IoT sensors and applications\. Events are patterns of data that identify more complicated circumstances than expected, such as motion detectors using movement signals to activate lights and security cameras\. AWS IoT Events continuously monitors data from multiple IoT sensors and applications, and integrates with other services, such as AWS IoT Core, IoT SiteWise, DynamoDB, and others to enable early detection and unique insights\.
+
+**AWS IoT FleetWise**  
+[AWS IoT FleetWise](https://docs.aws.amazon.com/iot-fleetwise/latest/developerguide/what-is-iotfleetwise.html) is a managed service that you can use to collect and transfer vehicle data to the cloud in near\-real time\. With AWS IoT FleetWise, you can easily collect and organize data from vehicles that use different protocols and data formats\. AWS IoT FleetWise helps to transform low\-level messages into human\-readable values and standardize the data format in the cloud for data analyses\. You can also define data collection schemes to control what data to collect in vehicles and when to transfer it to the cloud\.
 
 **AWS IoT SiteWise**  
 [AWS IoT SiteWise](https://docs.aws.amazon.com/iot-sitewise/) collects, stores, organizes, and monitors data passed from industrial equipment by MQTT messages or APIs at scale by providing software that runs on a gateway in your facilities\. The gateway securely connects to your on\-premises data servers and automates the process of collecting and organizing the data and sending it to the AWS Cloud\. 
 
-**AWS IoT Events**  
-[AWS IoT Events](https://docs.aws.amazon.com/iotevents/) detects and responds to events from IoT sensors and applications\. Events are patterns of data that identify more complicated circumstances than expected, such as motion detectors using movement signals to activate lights and security cameras\. AWS IoT Events continuously monitors data from multiple IoT sensors and applications, and integrates with other services, such as AWS IoT Core, IoT SiteWise, DynamoDB, and others to enable early detection and unique insights\.
+**AWS IoT TwinMaker**  
+[AWS IoT TwinMaker](https://docs.aws.amazon.com/iot-twinmaker/) builds operational digital twins of physical and digital systems\. AWS IoT TwinMaker creates digital visualizations using measurements and analysis from a variety of real\-world sensors, cameras, and enterprise applications to help you keep track of your physical factory, building, or industrial plant\. You can use real\-world data to monitor operations, diagnose and correct errors, and optimize operations\.
 
 ## AWS IoT Core services<a name="aws-iot-core-services"></a>
 

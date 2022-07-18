@@ -6,8 +6,6 @@ You use IAM roles to control the AWS resources to which each rule has access\. B
 
 1. Save the following trust policy document, which grants AWS IoT permission to assume the role, to a file named `iot-role-trust.json`\.
 
-   This example includes a global condition context key to protect against the [*confused deputy problem*](cross-service-confused-deputy-prevention.md)\. For AWS IoT rules, your `aws:SourceArn` must comply with the format: `arn:aws:iot:region:account-id:*`\. Make sure that *region* matches your AWS IoT Region and *account\-id* matches your customer account ID\. 
-
    ```
    {
      "Version":"2012-10-17",
@@ -16,15 +14,7 @@ You use IAM roles to control the AWS resources to which each rule has access\. B
          "Principal": {
            "Service": "iot.amazonaws.com"
          },
-         "Action": "sts:AssumeRole",
-         "Condition": {
-           "StringEquals": {
-             "aws:SourceAccount": "123456789012"
-           },
-           "ArnLike": {
-             "aws:SourceArn": "arn:aws:iot:us-east-1:123456789012:*"
-           }
-         }
+         "Action": "sts:AssumeRole"
      }]
    }
    ```

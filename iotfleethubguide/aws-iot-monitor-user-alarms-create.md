@@ -8,7 +8,7 @@ The alarm that you create sends an Amazon Simple Notification Service \(Amazon S
 
 1. Navigate to your Fleet Hub application\.
 
-1. If you want to target a specific set of devices, create a query\. For instructions on how to create a simple query, see [Creating queries with filters](aws-iot-monitor-user-queries-creating.md)\. If you don't create a query, your alarm applies to all of the devices in your fleet\.
+1. If you want to target a specific set of devices, create a query\. For instructions on how to create a simple query, see [Create queries with filters](aws-iot-monitor-user-queries-creating.md)\. If you don't create a query, your alarm applies to all of the devices in your fleet\.
 
 1. On the default dashboard page, choose **Create alarm**\.
 

@@ -43,7 +43,7 @@ We recommend that you don't use personally identifiable information in your job 
 **Specify additional configurations \(optional\)**
 
    Continue to add any additional configurations for your job and then review and create your job\. For information about the additional configurations, see:
-   + [Job rollout and abort configurations](jobs-configurations.md#job-rollout-abort)
-   + [Job execution timeout and retry configurations](jobs-configurations.md#job-timeout-retry)
+   + [Job rollout and abort configurations](jobs-configurations-details.md#job-rollout-abort)
+   + [Job execution timeout and retry configurations](jobs-configurations-details.md#job-timeout-retry)
 
 After you create the job, the console generates a JSON signature and places it in your job document\. You can use the [AWS IoT console](https://console.aws.amazon.com/iot/) to view the status, cancel, or delete a job\. To manage jobs, go to the [Job hub of the console](https://console.aws.amazon.com/iot/home#/jobhub)\. 

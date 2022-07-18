@@ -36,7 +36,13 @@ The information in these optional fields comes from how you organize and describ
    + 
 
 **LoRaWAN configuration using subbands and filters**  
-Optionally, you can also specify LoRaWAN configuration data such as the subbands that you want to use and filters that can control the flow of traffic\. For this tutorial, you can skip these fields\. For more information, see [Configure your gateway's subbands and filtering capabilities](connect-iot-lorawan-subband-filter-configuration.md)\.
+Optionally, you can also specify LoRaWAN configuration data such as the subbands that you want to use and filters that can control the flow of traffic\. For this tutorial, you can skip these fields\. For more information, see [Configure position of wireless resources with AWS IoT Core for LoRaWAN](connect-iot-lorawan-configure-location.md)\.
+   + 
+
+**Position information and destination**  
+Optionally, you can also specify the position information and a destination that describes the AWS IoT rule which processes the device's position data for use by AWS IoT Core for LoRaWAN\. For more information, see [Configure position of wireless resources with AWS IoT Core for LoRaWAN](connect-iot-lorawan-configure-location.md)\.
+**Note**  
+The position information feature is in preview release for AWS IoT Core for LoRaWAN and is subject to change\.
 
 1. 
 

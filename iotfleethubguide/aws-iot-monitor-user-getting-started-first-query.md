@@ -1,11 +1,11 @@
-# Creating your first query<a name="aws-iot-monitor-user-getting-started-first-query"></a>
+# Create your first query<a name="aws-iot-monitor-user-getting-started-first-query"></a>
 
 
 ****  
 
 |  | 
 | --- |
-|  The fleet indexing feature to support indexing named shadows and AWS IoT Device Defender violations data is in preview release for AWS IoT Device Management and is subject to change\. | 
+|  The fleet indexing feature that supports indexing named shadows and AWS IoT Device Defender violations data is in preview release for AWS IoT Device Management and is subject to change\. | 
 
 This topic walks you through the steps to create a simple Fleet Hub for AWS IoT Device Management query\. The queries are specified using search query syntax\.
 

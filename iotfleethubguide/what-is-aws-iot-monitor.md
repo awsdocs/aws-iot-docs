@@ -6,3 +6,6 @@ Fleet Hub provides the following capabilities\.
 + Monitor device fleets in near\-real time\.
 + Set alerts to notify your technicians about unusual behavior\.
 + Running jobs\.
+
+**Note**  
+For Fleet Hub to index connectivity status data, your Things must connect to AWS IoT Core with client ID equal to Thing name\.

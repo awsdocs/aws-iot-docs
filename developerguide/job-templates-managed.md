@@ -40,9 +40,16 @@ Alternatively, you can write your own code for the devices by using the AWS IoT 
 
 ## Managed template remote actions and job documents<a name="job-template-manage-actions"></a>
 
-The following shows the different managed templates and the remote actions that can be performed on the devices\. For each remote action, you'll also find information about its job document and a description of the various parameters\. The device agent or the job handler in the Device Client uses the template name and input parameters to perform the remote operation, which is the device behavior\.
+The following section lists the different AWS managed templates for AWS IoT Jobs and describes the remote actions that can be performed on the devices\. In the section below, you'll find information about the job document and a description of the job document parameters for each remote action\. Your device\-side software uses the template name and the parameters to perform the remote action\.
 
-All templates, except for the `AWS-Reboot` template, require an input parameter such as a list of packages to install, or a URL to download files from\. You specify a value for these parameters when creating a job using the managed template\. All managed templates have the following two optional parameters in common\.
+AWS managed templates accept input parameters for which you specify a value when creating a job using the template\. All managed templates have two optional input parameters in common: `runAsUser` and `pathToHandler`\. Except for the `AWS-Reboot` template, the templates require additional input parameters for which you must specify a value when creating a job using the template\. These required input parameters vary depending on the template that you choose\. For example, if you choose the `AWS-Download-File` template, you must specify a list of packages to install, and a URL to download files from\.
+
+You specify a value for the input parameters when using the AWS IoT console or the AWS CLI to create a job that uses a managed template\. When using the CLI, you provide these values by using the `document-parameters` object\. For more information, see [ documentParameters](https://docs.aws.amazon.com/iot/latest/apireference/API_CreateJob.html#iot-CreateJob-request-documentParameters)\.
+
+**Note**  
+You must use `document-parameters` only when creating jobs from AWS managed templates\. This parameter can't be used with custom job templates or to create jobs from them\.
+
+The following shows a description of the common optional input parameters\. You'll see a description of other input parameters that each managed template requires in the section below\.
 
 `runAsUser`  
 This parameter specifies whether to run the job handler as another user\. If it's not specified during job creation, the job handler is run as the same user as the Device Client\. When you run the job handler as another user, specify a string value that's not longer than 256 characters\.

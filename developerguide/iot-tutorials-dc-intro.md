@@ -24,7 +24,7 @@ You can use your existing AWS account, if you have one, but you might need to ad
 + 
 
 **A Raspberry Pi or compatible IoT device**  
-The tutorials use a [Raspberry Pi](https://www.raspberrypi.org/) because it comes in different form factors, it's ubiquitous, and it's a relatively inexpensive demonstration device\. The tutorials have been tested on the [Raspberry Pi 3 Model B\+](https://www.raspberrypi.com/products/raspberry-pi-3-model-b-plus/), the [Raspberry Pi 4 Model B](https://www.raspberrypi.com/products/raspberry-pi-4-model-b/), and on an Amazon EC2 instance running Ubuntu Server 20\.04 LTS \(HVM\)\. 
+The tutorials use a [Raspberry Pi](https://www.raspberrypi.org/) because it comes in different form factors, it's ubiquitous, and it's a relatively inexpensive demonstration device\. The tutorials have been tested on the [Raspberry Pi 3 Model B\+](https://www.raspberrypi.com/products/raspberry-pi-3-model-b-plus/), the [Raspberry Pi 4 Model B](https://www.raspberrypi.com/products/raspberry-pi-4-model-b/), and on an Amazon EC2 instance running Ubuntu Server 20\.04 LTS \(HVM\)\. To use the AWS CLI and run the commands, We recommend that you use the the latest version of the Raspberry Pi OS \([Raspberry Pi OS \(64\-bit\)](https://www.raspberrypi.org/downloads/raspberry-pi-os/) or the OS Lite\)\. Earlier versions of the OS might work, but we haven't tested it\.
 **Note**  
 The tutorials explain the goals of each step to help you adapt them to IoT hardware that we haven't tried them on; however, they do not specifically describe how to adapt them to other devices\.
 + 

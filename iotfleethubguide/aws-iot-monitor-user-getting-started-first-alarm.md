@@ -1,4 +1,4 @@
-# Creating your first alarm<a name="aws-iot-monitor-user-getting-started-first-alarm"></a>
+# Create your first alarm<a name="aws-iot-monitor-user-getting-started-first-alarm"></a>
 
 This topic walks you through the steps to create a simple Fleet Hub for AWS IoT Device Management alarm\.
 
@@ -12,7 +12,7 @@ This topic walks you through the steps to create a simple Fleet Hub for AWS IoT 
 
 1. Navigate to your Fleet Hub application\.
 
-1. If you want to target a specific set of devices, create a query\. For instructions on how to create a simple query, see [Creating your first query](aws-iot-monitor-user-getting-started-first-query.md)\. If you don't create a query, your alarm will apply to all of the devices in your fleet\.
+1. If you want to target a specific set of devices, create a query\. For instructions on how to create a simple query, see [Create your first query](aws-iot-monitor-user-getting-started-first-query.md)\. If you don't create a query, your alarm will apply to all of the devices in your fleet\.
 
 1. On the default dashboard page, choose **Create alarm**\.
 

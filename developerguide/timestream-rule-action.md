@@ -10,6 +10,9 @@ The attributes that this rule stores in the Timestream database are those that r
 **Note**  
 With SQL V2 \(2016\-03\-23\), numeric values that are whole numbers, such as `10.0`, are converted their Integer representation \(`10`\)\. Explicitly casting them to a `Decimal` value, such as by using the [cast\(\)](iot-sql-functions.md#iot-sql-function-cast) function, does not prevent this behavior—the result is still an `Integer` value\. This can cause type mismatch errors that prevent data from being recorded in the Timestream database\. To reliably process whole number numeric values as `Decimal` values, use SQL V1 \(2015\-10\-08\) for the rule query statement\.
 
+**Note**  
+The maximum number of values that a Timestream rule action can write into an Amazon Timestream table is 100\. For more information, see [Amazon Timestream Quota's Reference](https://docs.aws.amazon.com/timestream/latest/developerguide/ts-limits.html#limits.default)\. 
+
 ## Requirements<a name="timestream-rule-action-requirements"></a>
 
 This rule action has the following requirements:

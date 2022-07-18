@@ -4,7 +4,7 @@ You can use local proxy on AWS IoT devices to communicate with AWS IoT secure tu
 
 The local proxy needs to connect directly to the internet to use AWS IoT secure tunneling\. For a long\-lived TCP connection with secure tunneling, the local proxy upgrades the HTTPS request to establish a WebSockets connection to one of the [secure tunneling device connection endpoints](https://docs.aws.amazon.com/general/latest/gr/iot_device_management.html)\.
 
-If your devices are in a network that use a web proxy, the web proxy can intercept the connections before forwarding them to the internet\. To establish a long\-lived connection to the secure tunneling device connection endpoints, configure your local proxy to use the web proxy as described in the [websocket specification](https://tools.ietf.org/html/rfc6455#section-4.1)\.
+If your devices are in a network that uses a web proxy, the web proxy can intercept the connections before forwarding them to the internet\. To establish a long\-lived connection to the secure tunneling device connection endpoints, configure your local proxy to use the web proxy as described in the [websocket specification](https://tools.ietf.org/html/rfc6455#section-4.1)\.
 
 **Note**  
 The [AWS IoT Device Client](iot-sdks.md#iot-sdk-device-client) doesn't support devices that use a web proxy\. To work with the web proxy, you'll need to use a local proxy and configure it to work with a web proxy as described below\.

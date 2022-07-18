@@ -97,18 +97,20 @@ In this section, you'll install Git and Node\.js, on your Linux instance\.
 1. In your **Amazon EC2 Instance Connect** window, use nvm to install the latest version of Node\.js by using this command\.
 
    ```
-   nvm install node
+   nvm install --lts
    ```
+**Note**  
+This installs the latest LTS release of Node\.js\.
 
    Installing Node\.js also installs the Node Package Manager \(npm\) so you can install additional modules as needed\.
 
 1. In your **Amazon EC2 Instance Connect** window, test that Node\.js is installed and running correctly by using this command\.
 
    ```
-   node -v
+   node -e "console.log('Running Node.js ' + process.version)"
    ```
 
-    This tutorial requires Node v10\.0 or later\.
+    This tutorial requires Node v10\.0 or later\. For more information, see [Tutorial: Setting Up Node\.js on an Amazon EC2 Instance](https://docs.aws.amazon.com/sdk-for-javascript/v2/developer-guide/setting-up-node-on-ec2-instance.html)\.
 
 **To configure AWS CLI**
 
@@ -372,7 +374,7 @@ In this section, you'll install and run the `pub-sub.js` sample app found in the
 1. In your **Amazon EC2 Instance Connect** window, insert *your\-iot\-endpoint* as indicated and run this command\.
 
    ```
-   node dist/index.js --topic topic_1 --root-ca ~/certs/Amazon-root-CA-1.pem --cert ~/certs/device.pem.crt --key ~/certs/private.pem.key --endpoint your-iot-endpoint
+   node dist/index.js --topic topic_1 --ca_file ~/certs/Amazon-root-CA-1.pem --cert ~/certs/device.pem.crt --key ~/certs/private.pem.key --endpoint your-iot-endpoint
    ```
 
 The sample app:
@@ -428,5 +430,5 @@ You can see the sample app's messages as they pass through the message broker by
 
    ```
    cd ~/aws-iot-device-sdk-js-v2/samples/node/pub_sub
-   node dist/index.js --topic topic_1 --root-ca ~/certs/Amazon-root-CA-1.pem --cert ~/certs/device.pem.crt --key ~/certs/private.pem.key --endpoint your-iot-endpoint
+   node dist/index.js --topic topic_1 --ca_file ~/certs/Amazon-root-CA-1.pem --cert ~/certs/device.pem.crt --key ~/certs/private.pem.key --endpoint your-iot-endpoint
    ```

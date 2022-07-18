@@ -61,13 +61,17 @@ You can also start the job creation workflow and then choose the AWS managed tem
 
    1. Choose the things or thing groups as job targets that you want to run in this job\.
 
-      In the **Job document** section, your template is displayed with its configuration settings\.
+   1. In the **Job document** section, your template is displayed with its configuration settings and input parameters\. Enter values for the input parameters of your chosen template\. For example, if you chose the **AWS\-Download\-File** template:
+      + For **downloadUrl**, enter the URL of the file to download, for example: `https://example.com/index.html`\.
+      + For **filePath**, enter the path on the device to store the downloaded file, for example: `path/to/file`\.
+
+      You can also optionally enter values for the parameters `runAsUser` and `pathToHandler`\. For more information about the input parameters of each template, see [Managed template remote actions and job documents](job-templates-managed.md#job-template-manage-actions)\.
 
    1. On the **Job configuration** page, choose the job type as continuous or a snapshot job\. A snapshot job is complete when it finishes its run on the target devices and groups\. A continuous job applies to thing groups and runs on any device that you add to a specified target group\.
 
    1. Continue to add any additional configurations for your job and then review and create your job\. For information about the additional configurations, see:
-      + [Job rollout and abort configurations](jobs-configurations.md#job-rollout-abort)
-      + [Job execution timeout and retry configurations](jobs-configurations.md#job-timeout-retry)
+      + [Job rollout and abort configurations](jobs-configurations-details.md#job-rollout-abort)
+      + [Job execution timeout and retry configurations](jobs-configurations-details.md#job-timeout-retry)
 
 ## Create custom job templates from managed templates<a name="job-template-manage-create-template"></a>
 

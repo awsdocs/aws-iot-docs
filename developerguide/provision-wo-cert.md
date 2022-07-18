@@ -104,7 +104,7 @@ You must manage the trusted user's access and permission to perform this procedu
            "iot:CreateProvisioningClaim"
        ],
        "Resource": [
-           "arn:aws:aws-service:aws-region:aws-account-id:provisioningtemplate/templateName"
+           "arn:aws:iot:aws-region:aws-account-id:provisioningtemplate/templateName"
        ]
    }
    ```

@@ -1,4 +1,4 @@
-# Getting started with Amazon Sidewalk Integration for AWS IoT Core<a name="iot-sidewalk-getting-started"></a>
+# Onboard Sidewalk devices with Amazon Sidewalk Integration for AWS IoT Core<a name="iot-sidewalk-getting-started"></a>
 
 With Amazon Sidewalk Integration for AWS IoT Core, you can add your Sidewalk device fleet to the AWS Cloud\. Use the following steps to get started\.
 
@@ -36,4 +36,3 @@ The following topics show how you can add Sidewalk devices and connect them to A
 + [Add your Sidewalk account credentials](iot-sidewalk-add-credentials.md)
 + [Add a destination for your Sidewalk device](iot-sidewalk-add-destination.md)
 + [Create rules to process Sidewalk device messages](iot-sidewalk-create-rules.md)
-+ [Connect your Sidewalk device and view uplink metadata format](iot-sidewalk-connect-uplink-metadata.md)
