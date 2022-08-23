@@ -140,7 +140,7 @@ var generateAuthResponse = function(token, effect) {
         {
           "Action": "iot:Publish",
           "Effect": "Allow",
-          "Resource": "arn:aws:region:accountId:topic/telemetry/${iot:ClientId}"
+          "Resource": "arn:aws:iot:region:accountId:topic/telemetry/${iot:ClientId}"
         },
         {
           "Action": "iot:Subscribe",
