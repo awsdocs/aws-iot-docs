@@ -77,6 +77,8 @@ Perform the following steps to make sure that your devices’ connection attempt
 
    1. Update your Lambda function to log the data that it's returning to AWS IoT Core and the event that triggers the function\. You can use these logs to inspect the policy that the function creates\.
 
+1. If you see invocations with no errors, but your devices are not able to connect \(or publish, subscribe, and receive messages\), another reason can be that your Lambda function exceeds the timeout limit\. The Lambda function timeout limit for custom authorizer is 5 seconds\. You can check the function duration in CloudWatch logs or metrics\. 
+
 ## Investigating device issues<a name="custom-auth-troubleshooting-investigate"></a>
 
 If you find no issues with invoking your Lambda function or with the policy that the function returns, look for problems with your devices' connection attempts\. Malformed connection requests can cause AWS IoT Core not to trigger your authorizer\. Connection problems can occur at both the TLS and application layers\.

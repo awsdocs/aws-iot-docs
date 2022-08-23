@@ -1,12 +1,5 @@
 # Dynamic thing groups<a name="dynamic-thing-groups"></a>
 
-
-****  
-
-|  | 
-| --- |
-|  The fleet indexing feature to support indexing named shadows and AWS IoT Device Defender violations data is in preview release for AWS IoT Device Management and is subject to change\. | 
-
 Dynamic thing groups update group membership through search queries\. Using dynamic thing groups, you can change the way you interact with things depending on their connectivity, registry, shadow, or Device Defender violations data\. Because dynamic thing groups are tied to your fleet index, you must enable fleet indexing to use them\. You can preview the things in a dynamic thing group before you create the group with a fleet indexing search query\. For more information, see [Fleet indexing](iot-indexing.md) and [Query syntax](query-syntax.md)\.
 
 You can specify a dynamic thing group as a target for a job\. Only things that meet the criteria that define the dynamic thing group perform the job\.

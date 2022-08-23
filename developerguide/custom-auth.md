@@ -2,7 +2,7 @@
 
  Devices can connect to AWS IoT Core by using custom authentication with any protocol that AWS IoT Core supports for device messaging\. For more information about supported communication protocols, see [Device communication protocols](protocols.md)\.  The connection data that you pass to your authorizer Lambda function depends on the protocol you use\. For more information about creating your authorizer Lambda function, see [Defining your Lambda function](config-custom-auth.md#custom-auth-lambda)\. The following sections explain how to connect to authenticate by using each supported protocol\. 
 
-## HTTP<a name="custom-auth-http"></a>
+## HTTPS<a name="custom-auth-http"></a>
 
 Devices sending data to AWS IoT Core by using the [HTTP Publish API](https://docs.aws.amazon.com/iot/latest/apireference/API_iotdata_Publish.html) can pass credentials either through request headers or query parameters in their HTTP POST requests\. Devices can specify an authorizer to invoke by using the `x-amz-customauthorizer-name` header or query parameter\. If you have token signing enabled in your authorizer, you must pass the `token-key-name` and `x-amz-customauthorizer-signature` in either request headers or query parameters\. Note that the `token-signature` value must be URL\-encoded when using JavaScript from within the browser\.
 

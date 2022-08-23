@@ -2,7 +2,7 @@
 
 You can register a client certificate manually by using the AWS IoT console and AWS CLI\.
 
-The registration procedure to use depends on whether the certificate will be shared by shared by AWS accounts and Regions\. The registration of a client certificate in one account or Region is not automatically recognized by another\.
+The registration procedure to use depends on whether the certificate will be shared by AWS accounts and Regions\. The registration of a client certificate in one account or Region is not automatically recognized by another\.
 
 The procedures in this topic must be performed in each account and Region in which you want to use the client certificate\. Client certificates can be shared by AWS accounts and Regions, but only if the client certificate is signed by a certificate authority \(CA\) that is NOT registered with AWS IoT\. 
 
@@ -15,37 +15,21 @@ Before you perform this procedure, make sure that you have the client certificat
 
 1. Sign in to the AWS Management Console and open the [AWS IoT console](https://console.aws.amazon.com/iot/home)\.
 
-1. In the left navigation pane, choose **Secure**, choose **Certificates**, and then choose **Create**\.
+1. In the navigation pane, under the **Manage** section, choose **Security**, and then choose **Certificates**\.
 
-1. On **Create a certificate**, locate the **Use my certificate** entry, and choose **Get started**\.
+1. On the **Certificates** page in the **Certificates** dialog box, choose **Add certificate**, and then choose **Register certificates**\.
 
-1. On **Select a CA**:
-   + 
+1. On the **Register certificate** page in the **Certificates to upload** dialog box, do the following:
+   + Choose **CA is registered with AWS IoT**\.
+   + From **Choose a CA certificate**, select your **Certification authority**\. 
+     + Choose **Register a new CA** to register a new **Certification authority** that's not registered with AWS IoT\.
+     + Leave **Choose a CA certificate** blank if **Amazon Root certificate authority** is your certification authority\.
+   + Select up to 10 certificates to upload and register with AWS IoT\.
+     + Use the certificate files you created in [Create AWS IoT client certificates](device-certs-create.md) and [Create a client certificate using your CA certificate](create-device-cert.md)\.
+   + Choose **Activate** or **Deactivate**\. If you choose **Deactive**, [Activate or deactivate a client certificate](activate-or-deactivate-device-cert.md) explains how to activate your certificate after certificate registration\.
+   + Choose **Regster**\.
 
-**If the client certificates are signed by a CA that is registered with AWS IoT**  
-Choose that CA from the list, and then choose **Next**\.
-   + 
-
-**If the client certificates are not signed by a CA that is registered with AWS IoT**  
-See [Register a client certificate signed by an unregistered CA \(console\)](#manual-cert-registration-console-noca)\. 
-   + 
-
-**If the client certificates are signed by Amazon's CA**  
-Don't select any CA, just choose **Next**\.
-
-   If the client certificates are not signed by a CA that is registered with AWS IoT, see [Register a client certificate signed by an unregistered CA \(console\)](#manual-cert-registration-console-noca)\. 
-
-1.  On **Register existing device certificates**, choose **Select certificates**, and select up to 10 certificate files to register\. 
-
-1.  After closing the file dialog box, select whether you want to activate or revoke the client certificates when you register them\.
-
-   If you don't activate a certificate when it is registered, [Activate a client certificate \(console\)](activate-or-deactivate-device-cert.md#activate-device-cert-console) describes how to activate it later\. 
-
-   If a certificate is revoked when it is registered, it can't be activated later\.
-
-   After you choose the certificate files to register, and select the actions to take after registration, select **Register certificates**\.
-
-The client certificates that are registered successfully appear in the list of certificates\.
+On the **Certificates** page in the **Certificates** dialog box, your registered certificates will now appear\.
 
 ## Register a client certificate signed by an unregistered CA \(console\)<a name="manual-cert-registration-console-noca"></a>
 

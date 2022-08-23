@@ -22,7 +22,7 @@ With named shadows, you can create different views of a thing object’s state\.
 
 The classic, unnamed shadows are simpler, but somewhat more limited than the named shadows\. Each AWS IoT thing object can have only one unnamed shadow\. If you expect your IoT solution to have a limited need for shadow data, this might be how you want to get started using shadows\. However, if you think you might want to add additional shadows in the future, consider using named shadows from the start\.
 
-Fleet indexing supports unnamed shadows and named shadows differently\. For more information, see [Fleet indexing](iot-indexing.md)\.
+Fleet indexing supports unnamed shadows and named shadows differently\. For more information, see [Manage fleet indexing](managing-fleet-index.md)\.
 
 ### Accessing shadows<a name="device-shadow-using-access"></a>
 

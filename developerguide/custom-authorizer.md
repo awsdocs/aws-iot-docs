@@ -30,3 +30,6 @@ The following list explains each step in the custom authentication and authoriza
 
 **Note**  
 If you leave signing enabled, you can prevent excessive triggering of your Lambda by unrecognized clients\. Consider this before you disable signing in your authorizer\.
+
+**Note**  
+The Lambda function timeout limit for custom authorizer is 5 seconds\.

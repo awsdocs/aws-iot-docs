@@ -57,7 +57,7 @@ The following table lists the wildcard characters that can be used in a topic fi
 | \+ | Any string in the level that contains the character\. |  Must be the only character in its level of the topic hierarchy\. Can be used in multiple levels of a topic filter\.  | 
 
 Using wildcards with the previous sensor topic name examples:
-+ A subscription to `sensor/#` receives messages published to `sensor/`, `sensor/temperature`, `sensor/temperature/room1`, but not messages published to `Sensor`\. 
++ A subscription to `sensor/#` receives messages published to `sensor/`, `sensor/temperature`, `sensor/temperature/room1`, but not messages published to `sensor`\. 
 + A subscription to `sensor/+/room1` receives messages published to `sensor/temperature/room1` and `sensor/humidity/room1`, but not messages sent to `sensor/temperature/room2` or `sensor/humidity/room2`\.
 
 ### Topic filter ARN<a name="topicfilters-arn"></a>

@@ -201,9 +201,7 @@ The device shadow metrics are displayed in the CloudWatch console under **Protoc
 
 | Metric | Description | 
 | --- | --- | 
-|  `DeviceDefenderThingViolationsEventSizeLimitExceeded`  | The total data size for a thing processed by fleet indexing is limited to 32 KB\. When this limit is breached for a thing due to a Device Defender violations event, the DeviceDefenderThingViolationsEventSizeLimitExceeded event type will be emitted\. | 
-|  `NamedShadowEventSizeLimitExceeded`  | The total data size for a thing processed by fleet indexing is limited to 32 KB\. When this limit is breached for a thing due to a named shadow event, the NamedShadowEventSizeLimitExceeded event type will be emitted\. | 
-|  `NamedShadowCountForDynamicGroupQueryLimitExceeded`  |  A maximum of 5 named shadows per thing are processed for query terms that are not data source specific in dynamic thing groups\. When this limit is breached for a thing, the `NamedShadowCountForDynamicGroupQueryLimitExceeded` event type will be emitted\.  | 
+|  `NamedShadowCountForDynamicGroupQueryLimitExceeded`  |  A maximum of 25 named shadows per thing are processed for query terms that are not data source specific in dynamic thing groups\. When this limit is breached for a thing, the `NamedShadowCountForDynamicGroupQueryLimitExceeded` event type will be emitted\.  | 
 
 ## Dimensions for metrics<a name="aws-iot-metricdimensions"></a>
 

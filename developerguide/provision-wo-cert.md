@@ -3,8 +3,8 @@
 By using AWS IoT fleet provisioning, AWS IoT can generate and securely deliver device certificates and private keys to your devices when they connect to AWS IoT for the first time\. AWS IoT provides client certificates that are signed by the Amazon Root certificate authority \(CA\)\.
 
 There are two ways to use fleet provisioning:
-+ By claim
-+ By trusted user
++ [Provisioning by claim](#claim-based)
++ [Provisioning by trusted user](#trusted-user)
 
 ## Provisioning by claim<a name="claim-based"></a>
 
@@ -60,7 +60,7 @@ Devices can be manufactured with a provisioning claim certificate and private ke
 The device is now ready to be delivered to where it will be installed for use\.
 
 **Important**  
-Provisioning claim private keys should be secured at all times, including on the device\. We recommend that you use AWS IoT CloudWatch metrics and logs to monitor for indications of misuse\. If you detect misuse, disable the provisioning claim certificate so it cannot be used for device provisioning\.
+Provisioning claim private keys should be secured at all times, including on the device\. We recommend that you use AWS IoT CloudWatch metrics and logs to monitor for indications of misuse\. If you detect misuse, turn off the provisioning claim certificate so it cannot be used for device provisioning\.
 
 **To initialize the device for use**
 
@@ -89,7 +89,7 @@ The device is now ready to communicate normally with AWS IoT\.
 In many cases, a device connects to AWS IoT for the first time when a trusted user, such as an end user or installation technician, uses a mobile app to configure the device in its deployed location\.
 
 **Important**  
-You must manage the trusted user's access and permission to perform this procedure\. One way to do this is to provide and maintain an account for the trusted user that authenticates them and grants them access to the AWS IoT features and APIs required to perform this procedure\. 
+You must manage the trusted user's access and permission to perform this procedure\. One way to do this is to provide and maintain an account for the trusted user that authenticates them and grants them access to the AWS IoT features and API operations required to perform this procedure\. 
 
 **Before you deliver the device**
 
@@ -111,7 +111,7 @@ You must manage the trusted user's access and permission to perform this procedu
 
 1. Give the AWS IoT service permission to create or update IoT resources, such as things and certificates in your account when provisioning devices\. You do this by attaching the `AWSIoTThingsRegistration` managed policy to an IAM role \(called the *provisioning role*\) that trusts the AWS IoT service principal\.
 
-1. Provide the means to identify your trusted users, such as by providing them with an account that can authenticate them and authorize their interactions with the AWS APIs necessary to register their devices\.
+1. Provide the means to identify your trusted users, such as by providing them with an account that can authenticate them and authorize their interactions with the AWS API operations necessary to register their devices\.
 
 **To initialize the device for use**
 
@@ -165,7 +165,7 @@ The following procedure creates a provisioning template with pre\-provisioning h
 
 1. AWS IoT uses resource\-based policies to call Lambda, so you must give AWS IoT permission to call your Lambda function\.
 **Important**  
-Be sure to include the `source-arn` or `source-account` in the global condition context keys of the policies attached to your Lambda action to prevent permission manipulation\. Fore more informataion about this, see [Cross\-service confused deputy prevention](cross-service-confused-deputy-prevention.md)\.
+Be sure to include the `source-arn` or `source-account` in the global condition context keys of the policies attached to your Lambda action to prevent permission manipulation\. For more information about this, see [Cross\-service confused deputy prevention](cross-service-confused-deputy-prevention.md)\.
 
    The following is an example using [add\-permission](https://docs.aws.amazon.com/cli/latest/reference/lambda/add-permission.html) give IoT permission to your Lambda\.
 

@@ -1,11 +1,4 @@
-# Managing thing indexing<a name="managing-index"></a>
-
-
-****  
-
-|  | 
-| --- |
-|  The fleet indexing feature to support indexing named shadows and AWS IoT Device Defender violations data is in preview release for AWS IoT Device Management and is subject to change\. | 
+# Manage thing indexing<a name="managing-index"></a>
 
 The index created for all of your things is `AWS_Things`\. You can control what to index from the following data sources: [AWS IoT registry](thing-registry.md) data, [AWS IoT Device Shadow ](iot-device-shadows.md)data, [AWS IoT connectivity](life-cycle-events.md) data, and [AWS IoT Device Defender](device-defender.md) violations data\. 
 
@@ -34,7 +27,10 @@ The `--thing-indexing-configuration` parameter takes a string with the following
       "type": "Number"|"String"|"Boolean" 
     },
     ...
-  ]
+  ],
+  "filter": {
+     "namedShadowNames": [ "string" ]
+  }
 }
 ```
 
@@ -59,6 +55,9 @@ The `namedShadowIndexingMode` attribute specifies if named shadow data is indexe
 
 [\[See the AWS documentation website for more details\]](http://docs.aws.amazon.com/iot/latest/developerguide/managing-index.html)
 
+**Note**  
+To select named shadows to add to your fleet indexing configuration, set `namedShadowIndexingMode` to be `ON` and specify your named shadow names in [https://docs.aws.amazon.com/iot/latest/apireference/API_IndexingFilter.html](https://docs.aws.amazon.com/iot/latest/apireference/API_IndexingFilter.html)\.
+
 ### Managed fields and custom fields<a name="managed-custom-field"></a>
 
 **Managed fields**
@@ -77,7 +76,7 @@ Short syntax:
 
 ```
 aws iot update-indexing-configuration --thing-indexing-configuration \
-'thingIndexingMode=REGISTRY_AND_SHADOW,deviceDefenderIndexingMode=VIOLATIONS,namedShadowIndexingMode=ON,thingConnectivityIndexingMode=STATUS,customFields=[{name=attributes.version,type=Number},{name= shadow.name.thing1shadow.desired.DefaultDesired, type=String},{name=shadow.desired.power, type=Boolean}, {name=deviceDefender.securityProfile1.NUMBER_VALUE_BEHAVIOR.lastViolationValue.number, type=Number}]'
+'thingIndexingMode=REGISTRY_AND_SHADOW,deviceDefenderIndexingMode=VIOLATIONS,namedShadowIndexingMode=ON,filter={namedShadowNames=[thing1shadow]},thingConnectivityIndexingMode=STATUS,customFields=[{name=attributes.version,type=Number},{name= shadow.name.thing1shadow.desired.DefaultDesired, type=String},{name=shadow.desired.power, type=Boolean}, {name=deviceDefender.securityProfile1.NUMBER_VALUE_BEHAVIOR.lastViolationValue.number, type=Number}]'
 ```
 
 JSON syntax:
@@ -88,10 +87,11 @@ aws iot update-indexing-configuration --cli-input-json \ '{
           "thingConnectivityIndexingMode": "STATUS", 
           "deviceDefenderIndexingMode": "VIOLATIONS",
           "namedShadowIndexingMode": "ON",
+          "filter": { "namedShadowNames": ["thing1shadow"]},
           "customFields": [ { "name": "shadow.desired.power", "type": "Boolean" }, 
           {"name": "attributes.version", "type": "Number"}, 
           {"name": "shadow.name.thing1shadow.desired.DefaultDesired", "type": "String"}, 
-          {"name": "deviceDefender.securityProfile1.NUMBER_VALUE_BEHAVIOR.lastViolationValue.number", "type": Number} ] } }
+          {"name": "deviceDefender.securityProfile1.NUMBER_VALUE_BEHAVIOR.lastViolationValue.number", "type": Number} ] } }'
 ```
 
 This command doesn't produce any output\. 
@@ -206,8 +206,13 @@ The output of the `get-indexing-configuration` command looks like the following:
                 "name": "attributes.version",
                 "type": "Number"
             }
-        ]
-    },
+        ], 
+        "filter": {
+              "namedShadowNames": [
+                  "thing1shadow"
+              ]
+          }
+      },
     "thingGroupIndexingConfiguration": {
         "thingGroupIndexingMode": "OFF"
     }
@@ -448,10 +453,7 @@ Null values aren't indexed\.
 
 **Maximum values**  
 The maximum number of custom fields for aggregation queries is 5\.  
-The maximum number of requested percentiles for aggregation queries is 100\.  
-The maximum total data size for a thing processed by fleet indexing is limited to 32 KB\. This data includes indexed data from registry, classic and named shadows, connectivity lifecycle events, and Device Defender violations data\.  
-The maximum number of named shadows per thing is 5\.  
-The maximum bandwidth that fleet indexing supports is 32 MBps\.
+The maximum number of requested percentiles for aggregation queries is 100\.
 
 ## Authorization<a name="query-auth"></a>
 

@@ -265,13 +265,13 @@ This operation is [eventually consistent](https://web.stanford.edu/class/cs345d-
 
 ## List groups for a thing<a name="list-thing-groups-for-thing"></a>
 
-You can use the ListThingGroupsForThing command to list the groups a thing belongs to, including any parent groups:
+You can use the ListThingGroupsForThing command to list the direct groups that a thing belongs to:
 
 ```
 $ aws iot list-thing-groups-for-thing --thing-name MyLightBulb
 ```
 
-The ListThingGroupsForThing command returns a list of the thing groups this thing belongs to, including any parent groups:
+The ListThingGroupsForThing command returns a list of the direct thing groups that this thing belongs to:
 
 ```
 {

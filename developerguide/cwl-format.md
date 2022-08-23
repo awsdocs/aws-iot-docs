@@ -981,56 +981,11 @@ The name of the thing that could not be added to a dynamic thing group\.
 AWS IoT fleet indexing generates log entries for the following events\.
 
 **Topics**
-+ [DeviceDefenderThingViolationsEventSizeLimitExceeded log entry](#log-dd-violation)
-+ [NamedShadowEventSizeLimitExceeded log entry](#log-named-shadow)
 + [NamedShadowCountForDynamicGroupQueryLimitExceeded log entry](#log-named-shadow-dynamic-group)
-
-### DeviceDefenderThingViolationsEventSizeLimitExceeded log entry<a name="log-dd-violation"></a>
-
-The total data size for a thing processed by fleet indexing is limited to 32 KB\. When this limit is breached for a thing due to a Device Defender violations event, the `DeviceDefenderThingViolationsEventSizeLimitExceeded` event type will be emitted\.
-
-#### DeviceDefenderThingViolationsEventSizeLimitExceeded log entry example<a name="log-dd-violation.example"></a>
-
-This example shows the log entry of a `DeviceDefenderThingViolationsEventSizeLimitExceeded` error\. In this example, the thing named `TestThing` has violations data that was being backfilled, but the indexing or dynamic group percolation of violation events was skipped, as described in the `reason` field\.
-
-```
-{
-"timestamp": "2020-03-16 22:24:43.804",
-"logLevel": "ERROR",
-"traceId": "70b1f2f5-d95e-f897-9dcc-31e68c3e1a30",
-"accountId": "571032923833",
-"status": "Failure",
-"eventType": "DeviceDefenderThingViolationsEventSizeLimitExceeded",
-"thingName": "TestThing",
-"reason": "Device Defender Thing Violations event skipped because 32 KB size limit was exceeded."
-}
-```
-
-### NamedShadowEventSizeLimitExceeded log entry<a name="log-named-shadow"></a>
-
-The total data size for a thing processed by fleet indexing is limited to 32 KB\. When this limit is breached for a thing due to a named shadow event, the `NamedShadowEventSizeLimitExceeded` event type will be emitted\.
-
-#### NamedShadowEventSizeLimitExceeded log entry example<a name="log-named-shadow.example"></a>
-
-This example shows the log entry of a `NamedShadowEventSizeLimitExceeded` error\. In this example, the named shadow \(`myTestNamedShadow`\) data of the thing \(`TestThing`\) was being backfilled, but the indexing or dynamic group percolation of `NamedShadow` event was skipped, as described in the `reason` field\.
-
-```
-{
-"timestamp": "2020-03-16 22:24:43.804",
-"logLevel": "ERROR",
-"traceId": "70b1f2f5-d95e-f897-9dcc-31e68c3e1a30",
-"accountId": "571032923833",
-"status": "Failure",
-"eventType": "NamedShadowEventSizeLimitExceeded",
-"thingName": "TestThing",
-"namedShadowName": "myTestNamedShadow",
-"reason": "Named shadow event skipped because 32 KB size limit was exceeded."
-}
-```
 
 ### NamedShadowCountForDynamicGroupQueryLimitExceeded log entry<a name="log-named-shadow-dynamic-group"></a>
 
-A maximum of 5 named shadows per thing are processed for query terms that are not data source specific in dynamic groups\. When this limit is breached for a thing, the `NamedShadowCountForDynamicGroupQueryLimitExceeded` event type will be emitted\.
+A maximum of 25 named shadows per thing are processed for query terms that are not data source specific in dynamic groups\. When this limit is breached for a thing, the `NamedShadowCountForDynamicGroupQueryLimitExceeded` event type will be emitted\.
 
 #### NamedShadowCountForDynamicGroupQueryLimitExceeded log entry example<a name="log-named-shadow-dynamic-group.example"></a>
 
@@ -1045,7 +1000,7 @@ This example shows the log entry of a `NamedShadowCountForDynamicGroupQueryLimit
 "status": "Failure",
 "eventType": "NamedShadowCountForDynamicGroupQueryLimitExceeded",
 "thingName": "TestThing",
-"reason": "A maximum of 5 named shadows per thing are processed for non-data source specific query terms in dynamic groups."
+"reason": "A maximum of 25 named shadows per thing are processed for non-data source specific query terms in dynamic groups."
 }
 ```
 

@@ -1,6 +1,6 @@
 # Device provisioning<a name="iot-provision"></a>
 
-AWS provides several different ways to provision a device and install unique client certificates on it\. This section describes each way and how to select the best one for your IoT solution\. These options are described in detail in the white paper titled, [Device Manufacturing and Provisioning with X\.509 Certificates in AWS IoT Core](https://d1.awsstatic.com/whitepapers/device-manufacturing-provisioning.pdf)\. 
+AWS provides several different ways to provision a device and install unique client certificates on it\. This section describes each way and how to select the best one for your IoT solution\. These options are described in detail in the whitepaper titled [Device Manufacturing and Provisioning with X\.509 Certificates in AWS IoT Core](https://d1.awsstatic.com/whitepapers/device-manufacturing-provisioning.pdf)\. 
 
 **Select the option that fits your situation best**
 + 
@@ -22,7 +22,7 @@ If you cannot securely install unique client certificates on your IoT device bef
 + 
 
 **End users CANNOT use an app to install certificates on their IoT devices**  
-If neither of the previous options will work in your IoT solution, the [provisioning by claim](provision-wo-cert.md#claim-based) process is an option\. With this process, your IoT devices have a claim certificate that is shared by other devices in the fleet\. The first time a device connects with a claim certificate, AWS IoT registers the device using its provisioning template and issues the device its unique client certificate for subsequent access to AWS IoT
+If neither of the previous options will work in your IoT solution, the [provisioning by claim](provision-wo-cert.md#claim-based) process is an option\. With this process, your IoT devices have a claim certificate that is shared by other devices in the fleet\. The first time a device connects with a claim certificate, AWS IoT registers the device using its provisioning template and issues the device its unique client certificate for subsequent access to AWS IoT\.
 
    This option enables automatic provisioning of a device when it connects to AWS IoT, but could present a larger risk in the event of a compromised claim certificate\. If a claim certificate becomes compromised, you can deactivate the certificate\. Deactivating the claim certificate prevents all devices with that claim certificate from being registered in the future\. However; deactivating the claim certificate does not block devices that have already been provisioned\.
 
@@ -43,7 +43,7 @@ For Fleet Hub to index your Thing's connectivity status data, provision your Thi
   Devices use X\.509 certificates to perform mutual authentication with AWS IoT\. You can register an existing certificate or have AWS IoT generate and register a new certificate for you\. You associate a certificate with a device by attaching it to the thing that represents the device\. You must also copy the certificate and associated private key onto the device\. Devices present the certificate when connecting to AWS IoT\. For more information, see [Authentication](authentication.md)\.
 + An IoT policy\.
 
-  IoT policies define the operations a device can perform in AWS IoT\. IoT policies are attached to device certificates\. When a device presents the certificate to AWS IoT, it is granted the permissions specified in the policy\. For more information, see [Authorization](iot-authorization.md)\. Each device needs a certificate to communicate with AWS IoT\.
+  IoT policies define the operations that a device can perform in AWS IoT\. IoT policies are attached to device certificates\. When a device presents the certificate to AWS IoT, it is granted the permissions specified in the policy\. For more information, see [Authorization](iot-authorization.md)\. Each device needs a certificate to communicate with AWS IoT\.
 
 AWS IoT supports automated fleet provisioning using provisioning templates\. Provisioning templates describe the resources AWS IoT requires to provision your device\. Templates contain variables that enable you to use one template to provision multiple devices\. When you provision a device, you specify values for the variables specific to the device using a dictionary or *map*\. To provision another device, specify new values in the dictionary\.
 
@@ -62,8 +62,8 @@ There are several categories of APIs used in fleet provisioning:
   + [ListProvisioningTemplates](https://docs.aws.amazon.com/iot/latest/apireference/API_ListProvisioningTemplates.html)
   + [ListProvisioningTemplateVersions](https://docs.aws.amazon.com/iot/latest/apireference/API_ListProvisioningTemplateVersions.html)
   + [UpdateProvisioningTemplate](https://docs.aws.amazon.com/iot/latest/apireference/API_UpdateProvisioningTemplate.html)
-+ Trusted users can use this control plane function to generate a temporary onboarding claim\. This temporary claim is passed to the device during Wi\-Fi config or similar method\.
-  + [CreateProvisioningClaim](https://docs.aws.amazon.com/iot/latest/apireference/API_CreateProvisioningClaim.html)\.
++ Trusted users can use this control plane function to generate a temporary onboarding claim\. This temporary claim is passed to the device during Wi\-Fi configuration or a similar method\.
+  + [CreateProvisioningClaim](https://docs.aws.amazon.com/iot/latest/apireference/API_CreateProvisioningClaim.html)
 + The MQTT API used during the provisioning process by devices with a provisioning claim certificate embedded in a device, or passed to it by a trusted user\.
   + [CreateCertificateFromCsr](fleet-provision-api.md#create-cert-csr)
   + [CreateKeysAndCertificate](fleet-provision-api.md#create-keys-cert)

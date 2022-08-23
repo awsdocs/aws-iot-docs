@@ -92,6 +92,36 @@ In the example, replace:
 }
 ```
 
+### IAM policy example for IP based authorization<a name="iam-control-plane-example1"></a>
+
+You can restrict *principals* from making API calls to your control plane endpoint from specific IP addresses\. To specify the IP addresses that can be allowed, in the Condition element of your IAM policy, use the [https://docs.aws.amazon.com/IAM/latest/UserGuide/reference_policies_condition-keys.html#condition-keys-sourceip](https://docs.aws.amazon.com/IAM/latest/UserGuide/reference_policies_condition-keys.html#condition-keys-sourceip) global condition key\. 
+
+Using this condition key can also deny access to other AWS services from making these API calls on your behalf, such as AWS CloudFormation\. To allow access to these services, use the [https://docs.aws.amazon.com/IAM/latest/UserGuide/reference_policies_condition-keys.html#condition-keys-viaawsservice](https://docs.aws.amazon.com/IAM/latest/UserGuide/reference_policies_condition-keys.html#condition-keys-viaawsservice) global condition key with the aws:SourceIp key\. This ensures that the source IP address access restriction applies only to requests that are made directly by a principal\. For more information, see [AWS: Denies access to AWS based on the source IP](https://docs.aws.amazon.com/IAM/latest/UserGuide/reference_policies_examples_aws_deny-ip.html)\.
+
+The following example shows how to allow only a specific IP address that can make API calls to the control plane endpoint\. The `aws:ViaAWSService` key is set to `true`, which allows other services to make API calls on your behalf\. 
+
+```
+{            
+   "Version": "2012-10-17",
+   "Statement": [
+       {
+            "Effect": "Allow",
+            "Action": [
+                "iot:CreateJobTemplate",
+                "iot:CreateJob"
+             ],
+            "Resource": ["*"],
+            "Condition": {
+                "IpAddress": {
+                    "aws:SourceIp": "123.45.167.89"
+                }
+            },            
+            "Bool": {"aws:ViaAWSService": "true"}
+        }
+    ],
+}
+```
+
 ## IAM policies on the data plane<a name="iam-jobs-data-plane"></a>
 
 IAM policies on the data plane use the `iotjobsdata:` prefix to authorize jobs API operations that users can perform\. On the data plane, you can grant a user permission to use the [https://docs.aws.amazon.com/iot/latest/apireference/API_iot-jobs-data_DescribeJobExecution.html](https://docs.aws.amazon.com/iot/latest/apireference/API_iot-jobs-data_DescribeJobExecution.html) API by using the `iotjobsdata:DescribeJobExecution` policy action\.
@@ -127,6 +157,57 @@ The following shows a sample IAM policy that authorizes this action:
         "Resource": "arn:aws:iot:region:account-id:thing/thing-name",
     }
    }
+```
+
+### IAM policy examples for IP based authorization<a name="iam-data-plane-example1"></a>
+
+You can restrict *principals* from making API calls to your data plane endpoint from specific IP addresses\. To specify the IP addresses that can be allowed, in the Condition element of your IAM policy, use the [https://docs.aws.amazon.com/IAM/latest/UserGuide/reference_policies_condition-keys.html#condition-keys-sourceip](https://docs.aws.amazon.com/IAM/latest/UserGuide/reference_policies_condition-keys.html#condition-keys-sourceip) global condition key\. 
+
+Using this condition key can also deny access to other AWS services from making these API calls on your behalf, such as AWS CloudFormation\. To allow access to these services, use the [https://docs.aws.amazon.com/IAM/latest/UserGuide/reference_policies_condition-keys.html#condition-keys-viaawsservice](https://docs.aws.amazon.com/IAM/latest/UserGuide/reference_policies_condition-keys.html#condition-keys-viaawsservice) global condition key with the `aws:SourceIp` condition key\. This ensures that the IP address access restriction only applies to requests that are directly made by the principal\. For more information, see [AWS: Denies access to AWS based on the source IP](https://docs.aws.amazon.com/IAM/latest/UserGuide/reference_policies_examples_aws_deny-ip.html)\.
+
+The following example shows how to allow only a specific IP address that can make API calls to the data plane endpoint\. 
+
+```
+{            
+   "Version": "2012-10-17",
+   "Statement": [
+       {
+            "Effect": "Allow",
+            "Action": ["iotjobsdata:*"],
+            "Resource": ["*"],
+            "Condition": {
+                "IpAddress": {
+                    "aws:SourceIp": "123.45.167.89"
+                }
+            },            
+            "Bool": {"aws:ViaAWSService": "false"}
+        }
+    ],
+}
+```
+
+The following example shows how to restrict specific IP addresses or address ranges from making API calls to the data plane endpoint\.
+
+```
+{            
+   "Version": "2012-10-17",
+   "Statement": [
+       {
+            "Effect": "Deny",
+            "Action": ["iotjobsdata:*"],
+            "Condition": {
+                "IpAddress": {
+                    "aws:SourceIp": [
+                        "123.45.167.89",
+                        "192.0.2.0/24", 
+                        "203.0.113.0/24"                        
+                    ]
+                }
+            },
+            "Resource": ["*"],
+        }
+    ],
+}
 ```
 
 ### IAM policy example for both control plane and data plane<a name="iam-data-plane-example2"></a>

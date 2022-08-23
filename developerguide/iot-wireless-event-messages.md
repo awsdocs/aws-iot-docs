@@ -34,9 +34,10 @@ The following is an example of the policy required for receiving notifications f
         ],
         "Resource":[
             "arn:aws:iotwireless:region:account:/$aws/iotwireless/events/join/*",
-            "arn:aws:iotwireless:region:account:/$aws/iotwireless/events/connection_status/*"
+            "arn:aws:iotwireless:region:account:/$aws/iotwireless/events/connection_status/*",
             "arn:aws:iotwireless:region:account:/$aws/iotwireless/events/device_registration_state/*", 
-            "arn:aws:iotwireless:region:account:/$aws/iotwireless/events/proximity/*"
+            "arn:aws:iotwireless:region:account:/$aws/iotwireless/events/proximity/*",
+            "arn:aws:iotwireless:region:account:/$aws/iotwireless/events/message_delivery_status/*"
         ]
     }]
 }
@@ -74,6 +75,7 @@ The following table shows examples of MQTT topics for the various events:
 | --- | --- | --- | 
 | Sidewalk device registration state |  [\[See the AWS documentation website for more details\]](http://docs.aws.amazon.com/iot/latest/developerguide/iot-wireless-event-messages.html)  | [\[See the AWS documentation website for more details\]](http://docs.aws.amazon.com/iot/latest/developerguide/iot-wireless-event-messages.html) | 
 | Sidewalk proximity |  [\[See the AWS documentation website for more details\]](http://docs.aws.amazon.com/iot/latest/developerguide/iot-wireless-event-messages.html)  | [\[See the AWS documentation website for more details\]](http://docs.aws.amazon.com/iot/latest/developerguide/iot-wireless-event-messages.html) | 
+| Sidewalk message delivery status |  [\[See the AWS documentation website for more details\]](http://docs.aws.amazon.com/iot/latest/developerguide/iot-wireless-event-messages.html)  |  [\[See the AWS documentation website for more details\]](http://docs.aws.amazon.com/iot/latest/developerguide/iot-wireless-event-messages.html)  | 
 | LoRaWAN join |  [\[See the AWS documentation website for more details\]](http://docs.aws.amazon.com/iot/latest/developerguide/iot-wireless-event-messages.html)  | [\[See the AWS documentation website for more details\]](http://docs.aws.amazon.com/iot/latest/developerguide/iot-wireless-event-messages.html) | 
 | LoRaWAN gateway connection status |  [\[See the AWS documentation website for more details\]](http://docs.aws.amazon.com/iot/latest/developerguide/iot-wireless-event-messages.html)  | [\[See the AWS documentation website for more details\]](http://docs.aws.amazon.com/iot/latest/developerguide/iot-wireless-event-messages.html) | 
 

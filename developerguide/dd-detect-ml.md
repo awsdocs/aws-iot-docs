@@ -117,7 +117,7 @@ The following APIs can be used to create and manage ML Detect Security Profiles\
 + [ListViolationEvents](https://docs.aws.amazon.com/iot/latest/apireference/API_ListViolationEvents.html)
 + [PutVerificationStateOnViolation](https://docs.aws.amazon.com/iot/latest/apireference/API_PutVerificationStateOnViolation.html)
 
-### <a name="w1226aac43c17c26c25b7"></a>
+### <a name="w1263aac43c17c26c25b7"></a>
 
 ## Pause or delete an ML Detect Security Profile<a name="dd-detect-ml-disable-feature"></a>
 

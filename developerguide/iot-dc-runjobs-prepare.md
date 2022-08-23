@@ -108,6 +108,8 @@ In the terminal window on your local host computer that's connected to your Rasp
    ```
 
    Because an AWS IoT thing resource is a *virtual* representation of your device in the cloud, we can create multiple thing resources in AWS IoT to use for different purposes\. They can all be used by the same physical IoT device to represent different aspects of the device\.
+**Note**  
+When you want to secure the policy for multiple devices, you can use `${iot:Thing.ThingName}` instead of the static thing name, `uniqueThingName`\.
 
    These tutorials will only use one thing resource at a time per device\. This way, in these tutorials, they represent the different demos so that after you create the AWS IoT resources for a demo, you can go back and repeat the demos using the resources you created specifically for each\.
 

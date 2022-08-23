@@ -1,6 +1,6 @@
 # Device provisioning MQTT API<a name="fleet-provision-api"></a><a name="provision-mqtt-api"></a>
 
-The Fleet Provisioning service supports these MQTT APIs:
+The Fleet Provisioning service supports these MQTT API operations:
 + `CreateCertificateFromCsr`
 + `CreateKeysAndCertificate`
 + `RegisterThing`

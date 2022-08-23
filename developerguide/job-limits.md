@@ -16,7 +16,11 @@ To determine whether a job is concurrent, you can use the `IsConcurrent` propert
 
 To view the active jobs and job concurrency limits and other AWS IoT Jobs quotas for your AWS account and to request a limit increase, see [AWS IoT Device Management endpoints and quotas](https://docs.aws.amazon.com/general/latest/gr/iot_device_management.html#job-limits) in the AWS General Reference\.
 
-The following table shows the limits that apply to active and concurrent jobs\.
+The following diagram shows how the job concurrency applies to in\-progress jobs and jobs that are being canceled\.
+
+![\[Image showing the different states of an AWS IoT job.\]](http://docs.aws.amazon.com/iot/latest/developerguide/images/job-states-concurrency.png)
+
+The following table shows the limits that apply to active and concurrent jobs and the concurrent and non\-concurrent phases of the job states\.
 
 
 **Active and concurrent job limits**  

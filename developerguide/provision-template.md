@@ -1,6 +1,13 @@
 # Provisioning templates<a name="provision-template"></a>
 
-A provisioning template is a JSON document that uses parameters to describe the resources your device must use to interact with AWS IoT\. A template contains two sections: `Parameters` and `Resources`\. There are two types of provisioning templates in AWS IoT\. One is used for just\-in\-time provisioning \(JITP\) and bulk registration and the second is used for fleet provisioning\.
+A provisioning template is a JSON document that uses parameters to describe the resources your device must use to interact with AWS IoT\. A provisioning template contains two sections: `Parameters` and `Resources`\. There are two types of provisioning templates in AWS IoT\. One is used for just\-in\-time provisioning \(JITP\) and bulk registration, and the second is used for fleet provisioning\.
+
+**Topics**
++ [Parameters section](#parameters-section)
++ [Resources section](#resources-section)
++ [Template example for bulk registration](#bulk-template-example)
++ [Template example for just\-in\-time provisioning \(JITP\)](#JITP-template-example)
++ [Fleet provisioning](#fleet-provision-template)
 
 ## Parameters section<a name="parameters-section"></a>
 
@@ -26,15 +33,15 @@ The `Parameters` section declares the parameters used in the `Resources` section
 }
 ```
 
-This template snippet declares four parameters: `ThingName`, `SerialNumber`, `Location`, and `CSR`\. All of these parameters are of type `String`\. The `Location` parameter declares a default value of `"WA"`\.
+This template body snippet declares four parameters: `ThingName`, `SerialNumber`, `Location`, and `CSR`\. All of these parameters are of type `String`\. The `Location` parameter declares a default value of `"WA"`\.
 
 ## Resources section<a name="resources-section"></a>
 
-The `Resources` section of the template declares the resources required for your device to communicate with AWS IoT: a thing, a certificate, and one or more IoT policies\. Each resource specifies a logical name, a type, and a set of properties\.
+The `Resources` section of the template body declares the resources required for your device to communicate with AWS IoT: a thing, a certificate, and one or more IoT policies\. Each resource specifies a logical name, a type, and a set of properties\.
 
 A logical name allows you to refer to a resource elsewhere in the template\.
 
-The type specifies the kind of resource you are declaring\. Valid types are:
+The type specifies the kind of resource that you are declaring\. Valid types are:
 + `AWS::IoT::Thing`
 + `AWS::IoT::Certificate`
 + `AWS::IoT::Policy`
@@ -201,7 +208,7 @@ The policy is declared with:
 + The type `AWS::IoT::Policy`\.
 + Either the name of an existing policy or a policy document\.
 
-## Template example for JITP and bulk registration<a name="bulk-template-example"></a>
+## Template example for bulk registration<a name="bulk-template-example"></a>
 
 The following JSON file is an example of a complete provisioning template that specifies the certificate with a CSR:
 
@@ -251,6 +258,8 @@ The following JSON file is an example of a complete provisioning template that s
 }
 ```
 
+## Template example for just\-in\-time provisioning \(JITP\)<a name="JITP-template-example"></a>
+
 The following JSON file is an example of a complete provisioning template that specifies an existing certificate with a certificate ID:
 
 ```
@@ -296,9 +305,16 @@ The following JSON file is an example of a complete provisioning template that s
 }
 ```
 
+**Important**  
+You must use `CertificateId` in a template that's used for JIT provisioning\.
+
+For more information about the type of a provisioning template, see [https://docs.aws.amazon.com/iot/latest/apireference/API_CreateProvisioningTemplate.html#iot-CreateProvisioningTemplate-request-type](https://docs.aws.amazon.com/iot/latest/apireference/API_CreateProvisioningTemplate.html#iot-CreateProvisioningTemplate-request-type) in the AWS API reference\.
+
+For more information about how to use this template for just\-in\-time provisioning, see: [Just\-in\-time provisioning](https://docs.aws.amazon.com/iot/latest/developerguide/jit-provisioning.html)\.
+
 ## Fleet provisioning<a name="fleet-provision-template"></a>
 
-Fleet provisioning templates are used by AWS IoT to set up cloud and device configuration\. These templates use the same parameters and resources as the JITP and bulk registration templates\. For more information, see [Provisioning templates](#provision-template)\. Fleet provisioning templates can contain a `Mapping` section and a `DeviceConfiguration` section\. You can use intrinsic functions inside a fleet provisioning template to generate device specific configuration\. Fleet provisioning templates are named resources and are identified by ARNs \(for example, `arn:aws:iot:us-west-2:1234568788:provisioningtemplate/templateName`\)\.
+Fleet provisioning templates are used by AWS IoT to set up cloud and device configuration\. These templates use the same parameters and resources as the JITP and bulk registration templates\. For more information, see [Provisioning templates](#provision-template)\. Fleet provisioning templates can contain a `Mapping` section and a `DeviceConfiguration` section\. You can use intrinsic functions inside a fleet provisioning template to generate a device\-specific configuration\. Fleet provisioning templates are named resources and are identified by ARNs \(for example, `arn:aws:iot:us-west-2:1234568788:provisioningtemplate/templateName`\)\.
 
 ### Mappings<a name="mappings"></a>
 
@@ -308,7 +324,7 @@ You cannot include parameters, pseudo parameters, or call intrinsic functions in
 
 ### Device configuration<a name="device-config"></a>
 
-The device configuration section contains arbitrary data you want to send to your devices when provisioning\. For example: 
+The device configuration section contains arbitrary data that you want to send to your devices when provisioning\. For example: 
 
 ```
 {
@@ -325,7 +341,7 @@ If you're sending messages to your devices by using the JavaScript Object Notati
 Intrinsic functions are used in any section of the provisioning template except the `Mappings` section\.
 
 `Fn::Join`  
-Appends a set of values into a single value, separated by the specified delimiter\. If a delimiter is the empty string, the set of values are concatenated with no delimiter\.
+Appends a set of values into a single value, separated by the specified delimiter\. If a delimiter is an empty string, the values are concatenated with no delimiter\.
 
 `Fn::Select`  
 Returns a single object from a list of objects by index\.  
@@ -335,13 +351,13 @@ Returns a single object from a list of objects by index\.
 Returns the value corresponding to keys in a two\-level map that is declared in the `Mappings` section\.
 
 `Fn::Split`  
-Splits a string into a list of string values so you can select an element from the list of strings\. You specify a delimiter that determine where the string is split \(for example, a comma\)\. After you split a string, use `Fn::Select` to select an element\.  
+Splits a string into a list of string values so you can select an element from the list of strings\. You specify a delimiter that determines where the string is split \(for example, a comma\)\. After you split a string, use `Fn::Select` to select an element\.  
 For example, if a comma\-delimited string of subnet IDs is imported to your stack template, you can split the string at each comma\. From the list of subnet IDs, use `Fn::Select` to specify a subnet ID for a resource\.
 
 `Fn::Sub`  
 Substitutes variables in an input string with values that you specify\. You can use this function to construct commands or outputs that include values that aren't available until you create or update a stack\.
 
-### Fleet provisioning template example<a name="fleet-provisioning-example"></a>
+### Template example for fleet provisioning<a name="fleet-provisioning-example"></a>
 
 ```
 {

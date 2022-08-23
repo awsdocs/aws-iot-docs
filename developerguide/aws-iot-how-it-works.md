@@ -15,10 +15,10 @@ In general, the Internet of Things \(IoT\) consists of the key components shown 
 ### Cloud services<a name="iot-universe-cloud"></a>
 
 Cloud services are distributed, large\-scale data storage and processing services that are connected to the internet\. Examples include: 
-+ IoT connection and management services\. 
++ IoT connection and management services 
 
   *AWS IoT is an example of an IoT connection and management service*\.
-+ Compute services, such as Amazon Elastic Compute Cloud and AWS Lambda\.
++ Compute services, such as Amazon Elastic Compute Cloud and AWS Lambda
 + Database services, such as Amazon DynamoDB
 
 ### Communications<a name="iot-universe-comms"></a>

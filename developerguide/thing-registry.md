@@ -128,6 +128,14 @@ $  aws iot list-things --attribute-name "wattage" --attribute-value "75"
 }
 ```
 
+A searchable attribute is metadata describing an aspect of your AWS IoT thing used for filtering a list of specific AWS IoT things\. A searchable attribute does not require [fleet indexing](iot-indexing.md) to be enabled\. An attribute is searchable when one of the following scenarios occurs:
++ An AWS IoT thing is associated with a AWS IoT thing type that contains one or more searchable attributes\. If your AWS IoT thing has an attribute applied directly to it, that attribute will be categorized as non\-searchable\.
+  + An AWS IoT thing type can contain up to 50 searchable attributes\. Refer to the [AWS IoT Core thing resource limits and quotas](https://docs.aws.amazon.com/general/latest/gr/iot_device_management.html#thing-group-limits.html) reference table for additional information\.
++ An AWS IoT thing contains one or more searchable attributes applied directly to it\.
+  + An AWS IoT thing can contain up to three searchable attributes\. Refer to the [AWS IoT Core thing resource limits and quotas](https://docs.aws.amazon.com/general/latest/gr/iot_device_management.html#thing-group-limits.html) reference table for additional information\.
+
+On your AWS IoT thing's details page in the **Attributes** tab, refer to the **Type** column to determine if an attribute is searchable or non\-searchable\.
+
 If [fleet indexing](iot-indexing.md) is enabled, you can use the [https://awscli.amazonaws.com/v2/documentation/api/latest/reference/iot/search-index.html](https://awscli.amazonaws.com/v2/documentation/api/latest/reference/iot/search-index.html) command to search on searchable and non\-searchable thing attributes, device shadow values, and connectivity values\. For more information about what you can query by using the search\-index command, see [Example thing queries](example-queries.md) and the CLI reference on the [https://awscli.amazonaws.com/v2/documentation/api/latest/reference/iot/search-index.html](https://awscli.amazonaws.com/v2/documentation/api/latest/reference/iot/search-index.html) command\.
 
 ## Describe things<a name="search-things"></a>

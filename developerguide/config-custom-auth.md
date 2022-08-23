@@ -12,6 +12,9 @@ Lambda charges you for the number of times your Lambda function runs and for the
 **Note**  
 If you leave signing enabled, you can prevent excessive triggering of your Lambda by unrecognized clients\. Consider this before you disable signing in your authorizer\.
 
+**Note**  
+The Lambda function timeout limit for custom authorizer is 5 seconds\.
+
 ## Defining your Lambda function<a name="custom-auth-lambda"></a>
 
  When AWS IoT Core invokes your authorizer, it triggers the associated Lambda associated with the authorizer with an event that contains the following JSON object\. The example JSON object contains all of the possible fields\. Any fields that aren't relevant to the connection request aren't included\. 

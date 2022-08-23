@@ -4,7 +4,7 @@ AWS IoT Core defines the following basic policy variables:
 + `iot:ClientId`: The client ID used to connect to the AWS IoT Core message broker\.
 + `aws:SourceIp`: The IP address of the client connected to the AWS IoT Core message broker\.
 
-The following AWS IoT Core policy shows a policy that uses policy variables:
+The following AWS IoT Core policy shows a policy that uses policy variables\. `aws:SourceIp` can be used in the Condition element of your policy to allow principals to make API requests only within a specific address range\. For examples, see [Authorizing users and cloud services to use AWS IoT Jobs](iam-policy-users-jobs.md)\.
 
 ```
 {
@@ -15,7 +15,7 @@ The following AWS IoT Core policy shows a policy that uses policy variables:
         "Action": ["iot:Connect"],
         "Resource": [
           "arn:aws:iot:us-east-1:123451234510:client/${iot:ClientId}"
-        ]
+        ]        
       },
       {
         "Effect": "Allow",

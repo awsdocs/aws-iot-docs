@@ -14,3 +14,4 @@ The following sections contain more information about the events for your Sidewa
 + [Event types for Sidewalk resources](#iot-sidewalk-event-types)
 + [Device registration state events](iot-sidewalk-device-events.md)
 + [Proximity events](iot-sidewalk-proximity-events.md)
++ [Message delivery status events](iot-sidewalk-message-delivery-events.md)

@@ -91,27 +91,6 @@ We recommend implementation of the [Exponential Backoff And Jitter](http://aws.a
 ]
 ```
 
-**"Device re\-connect with at least one second delay \- After server disconnect"**  
-Validates if a device under test waits for at least one second before reconnecting to the server when Device Advisor immediately disconnects the device after a successful connection\. If the device tries to reconnect in less than one second, the test will fail\.  
-*API test case definition:*  
-`EXECUTION_TIMEOUT` has a default value of 5 minutes\. We recommend a timeout value of 2 minutes\. 
-
-```
-"tests":[
-   {  
-      "name":"my_mqtt_reconnection_after_successful_connection",
-      "configuration":{
-        // optional:
-        "EXECUTION_TIMEOUT":"300"  //in seconds
-      },
-      "test":{
-         "id":"MQTT_ReconnectionAfterSuccessfulConnection",
-         "version":"0.0.0"
-      }
-   }
-]
-```
-
 **"Device re\-connect with jitter backoff \- After server disconnect"**  
 Validates if a device under test uses necessary jitter and backoff while reconnecting after it's been disconnected from the server\. Device Advisor disconnects the device from the server for at least five times and observes the device's behavior for MQTT reconnection\. Device Advisor logs the timestamp of the CONNECT request for the device under test, performs packet validation, pauses without sending a CONNACK to the client device, and waits for the device under test to resend the request\. The collected timestamps are used to validate that the device under test uses jitter and backoff while reconnecting\. If the device under test has a strictly exponential backoff or doesn't implement a proper jitter backoff mechanism, this test case will pass with warnings\. If the device under test has implemented either a linear backoff or a constant backoff mechanism, the test will fail\.  
 To pass this test case, we recommend implementing the [Exponential Backoff And Jitter](http://aws.amazon.com/blogs/architecture/exponential-backoff-and-jitter/) mechanism on the device under test\.  

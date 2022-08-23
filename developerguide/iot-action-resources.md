@@ -19,6 +19,7 @@ The following table shows the resource to specify for each action type:
 | iot:GetPendingJobExecutions | thing |  The thing's name  |  ``arn:aws:iot:us-east-1:123456789012:thing/thingOne``  | 
 | iot:GetRetainedMessage | topic |  A retained message topic\.  |  `arn:aws:iot:us-east-1:123456789012:topic/myTopicName`  | 
 | iot:GetThingShadow | thing |  The thing's name  |  `arn:aws:iot:us-east-1:123456789012:thing/thingOne`  | 
+| iot:ListNamedShadowsForThing | All | All |  `*`  | 
 | iot:ListRetainedMessages | All | All |  `*`  | 
 | iot:Publish | `topic` | A topic string | arn:aws:iot:us\-east\-1:123456789012:topic/myTopicName | 
 | iot:Receive |  `topic`  |  A topic string  | arn:aws:iot:us\-east\-1:123456789012:topic/myTopicName | 

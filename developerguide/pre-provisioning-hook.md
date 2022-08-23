@@ -3,7 +3,7 @@
 AWS recommends using pre\-provisioning hook functions when creating provisioning templates to allow more control of which and how many devices your account onboards\. Pre\-provisioning hooks are Lambda functions that validate parameters passed from the device before allowing the device to be provisioned\. This Lambda function must exist in your account before you provision a device because it's called every time a device sends a request through [RegisterThing](fleet-provision-api.md#register-thing)\.
 
 **Important**  
-Be sure to include the `source-arn` or `source-account` in the global condition context keys of the policies attached to your Lambda action to prevent permission manipulation\. Fore more informataion about this, see [Cross\-service confused deputy prevention](cross-service-confused-deputy-prevention.md)\.
+Be sure to include the `source-arn` or `source-account` in the global condition context keys of the policies attached to your Lambda action to prevent permission manipulation\. For more information about this, see [Cross\-service confused deputy prevention](cross-service-confused-deputy-prevention.md)\.
 
 For devices to be provisioned, your Lambda function must accept the input object and return the output object described in this section\. The provisioning proceeds only if the Lambda function returns an object with `"allowProvisioning": True`\.
 

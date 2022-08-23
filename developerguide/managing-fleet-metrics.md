@@ -26,9 +26,9 @@ If you haven't enabled fleet indexing, follow these instructions\.
      To turn on thing indexing, toggle **Thing indexing** on, and then select the data sources you want to index from\. 
 
      To turn on thing group indexing, toggle **Thing group indexing** on\.
-   + **Custom search fields \- *optional***
+   + **Custom fields for aggregation \- *optional***
 
-     Custom search fields are a list of field name and field type pairs\. 
+     Custom fields are a list of field name and field type pairs\. 
 
      To add a custom field pair, choose **Add new field**\. Enter a custom field name such as `attributes.temperature`, then select a field type from the **Field type** menu\. Note that a custom field name begins with `attributes.` and will be saved as an attribute to run [thing aggregations queries](https://docs.aws.amazon.com/iot/latest/developerguide/index-aggregate.html)\.
 

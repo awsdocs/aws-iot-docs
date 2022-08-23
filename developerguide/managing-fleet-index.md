@@ -1,21 +1,23 @@
 # Managing fleet indexing<a name="managing-fleet-index"></a>
 
-
-****  
-
-|  | 
-| --- |
-|  The fleet indexing feature to support indexing named shadows and AWS IoT Device Defender violations data is in preview release for AWS IoT Device Management and is subject to change\. | 
-
 Fleet indexing manages two types of indexes for you, thing indexing and thing group indexing\. 
 
 ## Thing indexing<a name="thing-index"></a>
 
-The index created for all of your things is `AWS_Things`\. Thing indexing supports the following data sources: [AWS IoT registry](thing-registry.md) data, [AWS IoT Device Shadow ](iot-device-shadows.md)data, [AWS IoT connectivity](life-cycle-events.md) data, and [AWS IoT Device Defender](device-defender.md) violations data\. 
+The index created for all of your things is `AWS_Things`\. Thing indexing supports the following data sources: [AWS IoT registry](thing-registry.md) data, [AWS IoT Device Shadow ](iot-device-shadows.md)data, [AWS IoT connectivity](life-cycle-events.md) data, and [AWS IoT Device Defender](device-defender.md) violations data\. By adding these data sources to your fleet indexing configuration, you can search for things, query for aggregate data, create dynamic thing groups and fleet metrics based on your search queries\.
 
-**Registry**\-AWS IoT provides a registry that helps you manage things\. With fleet indexing, you can add things to the registry and search for devices\. For more information about the registry, see [How to manage things with the registry](thing-registry.md)\.
+**Registry**\-AWS IoT provides a registry that helps you manage things\. You can add the registry data to your fleet indexing configuration to search for devices based on the thing names, descriptions, and other registry attributes\. For more information about the registry, see [How to manage things with the registry](thing-registry.md)\.
 
-**Shadow**\-The [AWS IoT Device Shadow service](iot-device-shadows.md) provides shadows that help you store your devices' state data\. Thing indexing supports both classic unnamed shadows and named shadows\. For more information about shadows, see [AWS IoT Device Shadow service](iot-device-shadows.md)\.
+**Shadow**\-The [AWS IoT Device Shadow service](iot-device-shadows.md) provides shadows that help you store your devices' state data\. Thing indexing supports both classic unnamed shadows and named shadows\. To index named shadows, activate your named shadow settings and specify your shadow names in thing indexing configuration\. By default, you can add up to 10 shadow names per AWS account\. To see how to increase the number of shadow names limit, see [AWS IoT Device Management Quotas](https://docs.aws.amazon.com/general/latest/gr/iot_device_management.html#fleet-indexing-limits) in the *AWS General Reference*\.
+
+To add named shadows for indexing:
++ If you use the [AWS IoT console](https://console.aws.amazon.com/iot/home), turn on **Thing indexing**, choose **Add named shadows**, and add your shadow names through **Named shadow selection**\. 
++ If you use the AWS Command Line Interface \(AWS CLI\) , set `namedShadowIndexingMode` to be `ON`, and specify shadow names in [https://docs.aws.amazon.com/iot/latest/apireference/API_IndexingFilter.html](https://docs.aws.amazon.com/iot/latest/apireference/API_IndexingFilter.html)\. To see example CLI commands, see [Manage thing indexing](managing-index.md#enable-index)\.
+
+**Important**  
+July 20th, 2022 is the General Availability release of AWS IoT Device Management fleet indexing's integration with AWS IoT Core named shadows and AWS IoT Device Defender detect violations\. With this GA release, you can index specific named shadows by specifying shadow names\. If you added your named shadows for indexing during this feature's public preview period from November 30, 2021 to July 19, 2022, we encourage you to reconfigure your fleet indexing settings and choose specific shadow names to reduce indexing cost and optimize performance\. 
+
+ For more information about shadows, see [AWS IoT Device Shadow service](iot-device-shadows.md)\.
 
 **Connectivity**\-Device connectivity data helps you identify your devices' connection status\. This connectivity data is driven by [lifecycle events](life-cycle-events.md)\. When a client connects or disconnects, AWS IoT publishes lifecycle events with messages to MQTT topics\. A connect or disconnect message can be a list of JSON elements that provide details of the connection status\. For more information about device connectivity, see [Lifecycle events](life-cycle-events.md)\.
 

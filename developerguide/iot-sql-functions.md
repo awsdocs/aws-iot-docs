@@ -983,7 +983,7 @@ Use the `parse_time` function to format a timestamp into a human\-readable date/
 The `parse_time` function expects the following arguments:
 
 pattern  
-\(String\) A date/time pattern that follows the [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) standard format\. Specifically, the function supports [Joda\-Time formats](http://www.joda.org/joda-time/apidocs/org/joda/time/format/DateTimeFormat.html)\. 
+\(String\) A date/time pattern that follows [Joda\-Time formats](http://www.joda.org/joda-time/apidocs/org/joda/time/format/DateTimeFormat.html)\. 
 
 timestamp  
 \(Long\) The time to be formatted in milliseconds since Unix epoch\. See function [timestamp\(\)](#iot-function-timestamp)\.
@@ -1482,7 +1482,7 @@ timestamp
 \(String\) The timestamp string to be converted to milliseconds since Unix epoch\. If the timestamp string doesn't specify a timezone, the function uses the UTC timezone\.
 
 pattern  
-\(String\) A date/time pattern that follows the [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) standard format\. Specifically, the function supports [JDK11 Time Formats](http://docs.oracle.com/en/java/javase/11/docs/api/java.base/java/time/format/DateTimeFormatter.html)\. 
+\(String\) A date/time pattern that follows [JDK11 Time Formats](http://docs.oracle.com/en/java/javase/11/docs/api/java.base/java/time/format/DateTimeFormatter.html)\.
 
 Examples:
 
