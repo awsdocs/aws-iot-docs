@@ -15,7 +15,7 @@ The application that runs on the destination device\. For example, the destinati
 The remote device you want to access\.
 
 **Device agent**  
-An IoT application that connects to the AWS IoT device gateway and listens for new tunnel notifications over MQTT\. For more information, see [IoT agent snippet](agent-snippet.md)\.
+An IoT application that connects to the AWS IoT device gateway and listens for new tunnel notifications over MQTT\. For more information, see [IoT agent snippet](configure-remote-device.md#agent-snippet)\.
 
 **Local proxy**  
 A software proxy that runs on the source and destination devices and relays a data stream between secure tunneling and the device application\. The local proxy can be run in source mode or destination mode\. For more information, see [Local proxy](local-proxy.md)\.

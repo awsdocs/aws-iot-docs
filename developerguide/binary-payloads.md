@@ -1,6 +1,6 @@
 # Working with binary payloads<a name="binary-payloads"></a>
 
-When the message payload should be handled as raw binary data, rather than a JSON object, use the \* operator to refer to it in a `SELECT` clause\. This works for non\-JSON payloads with some rule actions, such as the [S3 action](https://docs.aws.amazon.com/iot/latest/developerguide/iot-rule-actions.html#s3-rule)\.
+If you send a raw binary payload, AWS IoT Core routes it downstream to an Amazon S3 bucket through an [S3 action](https://docs.aws.amazon.com/iot/latest/developerguide/iot-rule-actions.html#s3-rule)\. The raw binary payload is then encoded as base64 and attached to JSON\. To handle your message payload as raw binary data \(rather than a JSON object\), you can use the \* operator to refer to it in a SELECT clause\. 
 
 ## Binary payload examples<a name="binary-payloads-examples"></a>
 

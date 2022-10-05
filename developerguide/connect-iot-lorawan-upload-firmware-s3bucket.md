@@ -37,7 +37,7 @@ You can now see your bucket in the list of Buckets displayed in the AWS Manageme
 
 1. Make sure all settings are set to their default\. Make sure that **Predefined ACLs** is set to **private** and choose **Upload** to upload your file\.
 
-1. Copy the S3 URI of the file you uploaded\. Choose your bucket and you'll see the file you uploaded displayed in the list of **Objects**\. Choose your file and then choose **Copy S3 URI**\. The URI will be something like: `s3://iotwirelessfwupdate/fwstation` if you named your bucket similar to the example described previously \(`fwstation`\)\. You'll use the S3 URI when creating the IAM role\.
+1. Copy the S3 URI of the file you uploaded\. Choose your bucket and you'll see the file you uploaded displayed in the list of **Objects**\. Choose your file and then choose **Copy S3 URI**\. The URI will be something like: `s3://iotwirelessfwupdate/fwstation` if you named your bucket similar to the example described previously \(`fwstation`\)\. You'll use the Amazon S3 URI when creating the IAM role\.
 
 ## Create an IAM role with permissions to read the S3 bucket<a name="connect-iot-lorawan-s3-iam-permissions"></a>
 

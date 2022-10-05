@@ -11,8 +11,8 @@ We're in the process of updating the user interface of the AWS IoT console to a 
 | --- | --- | --- | --- | 
 |  **Monitor**  |  Not available  |  Available  |    | 
 |  **Activity**  |  Not available  |  Available  |    | 
-|  **Onboard** \- Get started  |  Not available  |  Not available yet  |    | 
-|  **Onboard** \- Fleet provisioning templates  |  Available  |  Not available yet  |    | 
+|  **Onboard** \- Get started  |  Not available  |  Available  |  Not available in CN Regions  | 
+|  **Onboard** \- Fleet provisioning templates  |  Available  |  Available yet  |  Not available in CN Regions  | 
 |  **Manage** \- Things  |  Available  |  Available  |    | 
 |  **Manage** \- Types  |  Available  |  Available  |    | 
 |  **Manage** \- Thing groups  |  Available  |  Available  |    | 
@@ -26,7 +26,7 @@ We're in the process of updating the user interface of the AWS IoT console to a 
 |  **Greengrass** \- Core devices  |  Not available  |  Available  | Not available in all AWS Regions | 
 |  **Greengrass** \- Components  |  Not available  |  Available  | Not available in all AWS Regions | 
 |  **Greengrass** \- Deployments  |  Not available  |  Available  | Not available in all AWS Regions | 
-|  **Greengrass** \- Classic \(V1\)  |  Available  |  Not available  | Not available in all AWS Regions | 
+|  **Greengrass** \- Classic \(V1\)  |  Available  |  Available  |  | 
 |  **Wireless connectivity** \- Intro  |  Not available  |  Available  |  Not available in all AWS Regions  | 
 |  **Wireless connectivity** \- Gateways  |  Not available  |  Available  |  Not available in all AWS Regions  | 
 |  **Wireless connectivity** \- Devices  |  Not available  |  Available  |  Not available in all AWS Regions  | 
@@ -37,16 +37,16 @@ We're in the process of updating the user interface of the AWS IoT console to a 
 |  **Secure** \- CAs  |  Available  | Available |    | 
 |  **Secure** \- Role Aliases  |  Available  |  Available  |    | 
 |  **Secure** \- Authorizers  |  Available  |  Available  |    | 
-|  **Defend** \- Intro  |  Available  |  Not available yet  |    | 
-|  **Defend** \- Audit  |  Available  |  Not available yet  |    | 
-|  **Defend** \- Detect  |  Available  |  Not available yet  |    | 
-|  **Defend** \- Mitigation actions  |  Available  |  Not available yet  |    | 
-| Defend \- Settings |  Available  |  Not available yet  | Not available in all AWS Regions | 
+|  **Defend** \- Intro  |  Not available  |  Available  |    | 
+|  **Defend** \- Audit  |  Not available  |  Available  |    | 
+|  **Defend** \- Detect  |  Not available  |  Available  |    | 
+|  **Defend** \- Mitigation actions  |  Not available  |  Available  |    | 
+| Defend \- Settings |  Not available  |  Available  |  | 
 |  **Act** \- Rules  |  Available  |  Available  |    | 
 |  **Act** \- Destinations  |  Available  |  Available  |    | 
 |  **Test** \- Device Advisor  |  Available  |  Available  |  Not available in all AWS Regions  | 
 |  **Test** \- MQTT test client  |  Available  |  Available  |    | 
-|  **Software**  |  Available  |  Not available yet  |    | 
+|  **Software**  |  Available  |  Available  |    | 
 |  **Settings**  |  Not available  |  Available  |    | 
 |  **Learn**  |  Available  |  Not available yet  |    | 
 

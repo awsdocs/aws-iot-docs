@@ -1,8 +1,8 @@
-# Configure your gateway's subbands and filtering capabilities<a name="connect-iot-lorawan-subband-filter-configuration"></a>
+# Configuring your gateway's subbands and filtering capabilities<a name="connect-iot-lorawan-subband-filter-configuration"></a>
 
 LoRaWAN gateways run a [LoRa Basics Station](https://doc.sm.tc/station) software that enables the gateways to connect to AWS IoT Core for LoRaWAN\. To connect to AWS IoT Core for LoRaWAN, your LoRa gateway first queries the CUPS server for the LNS endpoint, and then establishes a WebSockets data connection with that endpoint\. After the connection is established, uplink and downlink frames can be exchanged through that connection\.
 
-## Filtering of LoRa data frames received by gateway<a name="connect-iot-lorawan-frequency-channels-subbands"></a>
+## Filtering of LoRa data frames received by gateway<a name="connect-iot-lorawan-filtering-frames"></a>
 
 After your LoRaWAN gateway establishes a connection to the endpoint, AWS IoT Core for LoRaWAN responds with a `router_config` message that specifies a set of parameters for the LoRa gateway's configuration, including filtering parameters `NetID` and `JoinEui`\. For more information about `router_config` and how a connection is established with the LoRaWAN Network Server \(LNS\), see [LNS protocol](https://doc.sm.tc/station/tcproto.html)\.
 
@@ -58,12 +58,11 @@ POST /wireless-gateways HTTP/1.1
 Content-type: application/json
 
 {
-"Arn": "arn:aws:iotwireless:us-east-1:400232685877aa:WirelessGateway/
-       a11e3d21-e44c-471c-afca-6716c228336a",
-"Description": "Using my first LoRaWAN gateway",
-   "LoRaWAN": { 
-      "GatewayEui": "a1b2c3d4567890ab",
-      "JoinEuiFilters": [
+    "Arn": "arn:aws:iotwireless:us-east-1:400232685877aa:WirelessGateway/a11e3d21-e44c-471c-afca-6716c228336a",
+    "Description": "Using my first LoRaWAN gateway",
+    "LoRaWAN": { 
+        "GatewayEui": "a1b2c3d4567890ab",
+        "JoinEuiFilters": [
         ["0000000000000001", "00000000000000ff"],
         ["000000000000ff00", "000000000000ffff"]
       ],

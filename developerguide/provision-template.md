@@ -55,6 +55,7 @@ Thing resources are declared using the following properties:
 + `AttributePayload`: Optional\. A list of name\-value pairs\.
 + `ThingTypeName`: Optional\. String for an associated thing type for the thing\.
 + `ThingGroups`: Optional\. A list of groups to which the thing belongs\.
++ `BillingGroup`: Optional\. String for an associated billing group name\.
 
 ### Certificate resources<a name="certificate-resources"></a>
 
@@ -264,44 +265,66 @@ The following JSON file is an example of a complete provisioning template that s
 
 ```
 {
-    "Parameters" : {
-        "ThingName" : {
-            "Type" : "String"
-        },
-        "SerialNumber" : {
-            "Type" : "String"
-        },
-        "Location" : {
-            "Type" : "String",
-            "Default" : "WA"
-        },
-        "CertificateId" : {
-            "Type" : "String"    
-        }
-    },
-    "Resources" : {
-        "thing" : {
-            "Type" : "AWS::IoT::Thing",
-            "Properties" : {
-                "ThingName" : {"Ref" : "ThingName"},
-                "AttributePayload" : { "version" : "v1", "serialNumber" :  {"Ref" : "SerialNumber"}}, 
-                "ThingTypeName" :  "lightBulb-versionA",
-                "ThingGroups" : ["v1-lightbulbs", {"Ref" : "Location"}]
-            }
-        },
-        "certificate" : {
-            "Type" : "AWS::IoT::Certificate",
-            "Properties" : {
-                "CertificateId": {"Ref" : "CertificateId"}
-            }
-        },
-        "policy" : {
-            "Type" : "AWS::IoT::Policy",
-            "Properties" : {
-                "PolicyDocument" : "{ \"Version\": \"2012-10-17\", \"Statement\": [{ \"Effect\": \"Allow\", \"Action\":[\"iot:Publish\"], \"Resource\": [\"arn:aws:iot:us-east-1:123456789012:topic/foo/bar\"] }] }"
-            }
-        }
-    }   
+   "Parameters":{
+      "AWS::IoT::Certificate::CommonName":{
+         "Type":"String"
+      },
+      "AWS::IoT::Certificate::SerialNumber":{
+         "Type":"String"
+      },
+      "AWS::IoT::Certificate::Country":{
+         "Type":"String"
+      },
+      "AWS::IoT::Certificate::Id":{
+         "Type":"String"
+      }
+   },
+   "Resources":{
+      "thing":{
+         "Type":"AWS::IoT::Thing",
+         "Properties":{
+            "ThingName":{
+               "Ref":"AWS::IoT::Certificate::CommonName"
+            },
+            "AttributePayload":{
+               "version":"v1",
+               "serialNumber":{
+                  "Ref":"AWS::IoT::Certificate::SerialNumber"
+               }
+            },
+            "ThingTypeName":"lightBulb-versionA",
+            "ThingGroups":[
+               "v1-lightbulbs",
+               {
+                  "Ref":"AWS::IoT::Certificate::Country"
+               }
+            ]
+         },
+         "OverrideSettings":{
+            "AttributePayload":"MERGE",
+            "ThingTypeName":"REPLACE",
+            "ThingGroups":"DO_NOTHING"
+         }
+      },
+      "certificate":{
+         "Type":"AWS::IoT::Certificate",
+         "Properties":{
+            "CertificateId":{
+               "Ref":"AWS::IoT::Certificate::Id"
+            },
+            "Status":"ACTIVE"
+         },
+         "OverrideSettings":{
+            "Status":"DO_NOTHING"
+         }
+      },
+      "policy":{
+         "Type":"AWS::IoT::Policy",
+         "Properties":{
+            "PolicyDocument":"{ \"Version\": \"2012-10-17\", \"Statement\": [{ \"Effect\": \"Allow\", \"Action\":[\"iot:Publish\"], \"Resource\": [\"arn:aws:iot:us-east-1:123456789012:topic/foo/bar\"] }] }"
+         }
+      }
+   }
 }
 ```
 

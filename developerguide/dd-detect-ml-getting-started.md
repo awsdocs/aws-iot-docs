@@ -91,7 +91,7 @@ After your ML models are built and ready for data inference, you can regularly v
 1. If you navigate to the **History** tab, you can also view details about your devices that are no longer in alarms\.  
 ![\[Image NOT FOUND\]](http://docs.aws.amazon.com/iot/latest/developerguide/images/dd-ml-history-alarm.png)
 
-   To get more information, under **Manage** choose **Things**, chose the thing you'd like to see more details for, and then navigate to **Defender metrics**\. You can access the **Defender metrics graph** and perform your investigation on anything in alarm from the **Active** tab\. In this case, the graph shows a spike in message size, which triggered the alarm\. You can see the alarm subsequently cleared\.  
+   To get more information, under **Manage** choose **Things**, chose the thing you'd like to see more details for, and then navigate to **Defender metrics**\. You can access the **Defender metrics graph** and perform your investigation on anything in alarm from the **Active** tab\. In this case, the graph shows a spike in message size, which initiated the alarm\. You can see the alarm subsequently cleared\.  
 ![\[Image NOT FOUND\]](http://docs.aws.amazon.com/iot/latest/developerguide/images/dd-ml-defender-metrics.png)
 
 ### Fine\-tune your ML alarms<a name="fine-tune-ml-models-console"></a>
@@ -107,7 +107,7 @@ After your ML models are built and ready for data evaluations, you can update yo
 ![\[Image NOT FOUND\]](http://docs.aws.amazon.com/iot/latest/developerguide/images/dd-ml-set-basic.png)
 
 1. You can update any of the following by navigating to **Edit metric behaviors**\.
-   + Your ML model datapoints required to trigger alarm
+   + Your ML model datapoints required to initiate alarm
    + Your ML model datapoints required to clear alarm
    + Your ML Detect confidence level
    + Your ML Detect notifications \(for example, **Not suppressed**, **Suppressed**\)  

@@ -88,7 +88,12 @@ The following lists describe the API actions that perform the tasks associated w
 For the complete list of the actions and data types available to create and manage AWS IoT Core for LoRaWAN resources, see the [AWS IoT Wireless API reference](https://docs.aws.amazon.com/iot-wireless/2020-11-22/apireference/welcome.html)\.
 
 **How to use the AWS CLI to add a gateway**  
-You can use the AWS CLI to create a wireless gateway by using the [create\-wireless\-gateway](https://docs.aws.amazon.com/cli/latest/reference/iotwireless/create-wireless-gateway.html) command\. The following example creates a wireless LoRaWAN device gateway\. You can also provide an `input.json` file that will contain additional details such as the gateway certificate and provisioning credentials\.
+You can use the AWS CLI to create a wireless gateway by using the [create\-wireless\-gateway](https://docs.aws.amazon.com/cli/latest/reference/iotwireless/create-wireless-gateway.html) command\.
+
+**Note**  
+If your gateway is communicating with class B LoRaWAN devices, you can also specify certain beaconing parameters when adding the gateway using the `CreateWirelessGateway` API or the `create-wireless-gateway` CLI command\. For more information, see [Configuring your gateways to send beacons to class B devices](connect-iot-lorawan-gateway-beaconing.md)\.
+
+The following example creates a wireless LoRaWAN device gateway\. You can also provide an `input.json` file that will contain additional details such as the gateway certificate and provisioning credentials\.
 
 **Note**  
 You can also perform this procedure with the API by using the methods in the AWS API that correspond to the CLI commands shown here\. 
@@ -98,7 +103,7 @@ aws iotwireless create-wireless-gateway \
     --lorawan GatewayEui="a1b2c3d4567890ab",RfRegion="US915" \
     --name "myFirstLoRaWANGateway" \
     --description "Using my first LoRaWAN gateway"
-    --cli-input-json input.json
+    --cli-input-json file://input.json
 ```
 
 For information about the CLIs that you can use, see [AWS CLI reference](https://docs.aws.amazon.com/cli/latest/reference/iotwireless/index.html) 

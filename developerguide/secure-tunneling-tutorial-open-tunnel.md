@@ -5,13 +5,13 @@ In this tutorial, you open a tunnel and use it to start an SSH session to a remo
 ## Prerequisites<a name="tunneling-tutorial-prerequisites"></a>
 + The firewalls the remote device is behind must allow outbound traffic on port 443\.
 + You have created an IoT thing named `RemoteDeviceA` in the AWS IoT registry\.
-+ You have an IoT device agent running on the remote device that connects to the AWS IoT device gateway and is configured with an MQTT topic subscription\. This tutorial includes a snippet that shows you how to implement an agent\. For more information, see [IoT agent snippet](agent-snippet.md)\.
++ You have an IoT device agent running on the remote device that connects to the AWS IoT device gateway and is configured with an MQTT topic subscription\. This tutorial includes a snippet that shows you how to implement an agent\. For more information, see [IoT agent snippet](configure-remote-device.md#agent-snippet)\.
 + You must have an SSH daemon running on the remote device\.
 + You have downloaded the local proxy source code from [GitHub](https://github.com/aws-samples/aws-iot-securetunneling-localproxy) and built it for the platform of your choice\. We'll refer to the built local proxy executable file as `localproxy` in this tutorial\.
 
 ## Open a tunnel<a name="open-tunnel"></a>
 
-If you configure the destination when calling `OpenTunnel`, the secure tunneling delivers the destination client access token to the remote device over MQTT and the reserved MQTT topic \(`$aws/things/RemoteDeviceA/tunnels/notify`\)\. For more information, see [Reserved topics](reserved-topics.md)\. Upon receipt of the MQTT message, the IoT agent on the remote device starts the local proxy in destination mode\. You can omit the destination configuration if you want to deliver the destination client access token to the remote device through another method\. For more information, see [Configuring a remote device](configure-remote-device.md)\.
+If you configure the destination when calling `OpenTunnel`, the secure tunneling delivers the destination client access token to the remote device over MQTT and the reserved MQTT topic \(`$aws/things/RemoteDeviceA/tunnels/notify`\)\. For more information, see [Reserved topics](reserved-topics.md)\. Upon receipt of the MQTT message, the IoT agent on the remote device starts the local proxy in destination mode\. You can omit the destination configuration if you want to deliver the destination client access token to the remote device through another method\. For more information, see [Configuring a remote device and using IoT agent](configure-remote-device.md)\.
 
 **To open a tunnel in the console**
 

@@ -17,7 +17,7 @@ After you've opened a tunnel, you can download the client access token \(CAT\) f
 **Start local proxy in destination mode**  
 The IoT agent that has been installed and is running on your destination device will be subscribed to the reserved MQTT topic `$aws/things/thing-name/tunnels/notify` and will receive the CAT\. Here, *thing\-name* is the name of the AWS IoT thing you create for your destination\. For more information, see [Secure tunneling topics](reserved-topics.md#reserved-topics-secure)\.
 
-   The IoT agent then uses the CAT to start the local proxy in destination mode and set up a connection on the destination side of the tunnel\. For more information, see [IoT agent snippet](agent-snippet.md)\.
+   The IoT agent then uses the CAT to start the local proxy in destination mode and set up a connection on the destination side of the tunnel\. For more information, see [IoT agent snippet](configure-remote-device.md#agent-snippet)\.
 
 1. 
 

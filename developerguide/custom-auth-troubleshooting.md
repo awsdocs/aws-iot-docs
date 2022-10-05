@@ -85,8 +85,8 @@ If you find no issues with invoking your Lambda function or with the policy that
 
 **Possible TLS layer issues:**
 + Customers must pass either a hostname header \(HTTP, MQTT over WebSockets\) or the Server Name Indication TLS extension \(HTTP, MQTT over WebSockets, MQTT\) in all custom authentication requests\. In both cases, the value passed must match one of your account’s AWS IoT Core data endpoints\. These are the endpoints that are returned when you perform the following CLI commands\.
-  + `aws iot describe-endpoint —endpoint type iot:data-ats`
-  + `aws iot describe-endpoint —endpoint type` \(for legacy VeriSign endpoints\)
+  + `aws iot describe-endpoint --endpoint-type iot:Data-ATS`
+  + `aws iot describe-endpoint --endpoint-type iot:Data` \(for legacy VeriSign endpoints\)
 + Devices that use custom authentication for MQTT connections must also pass the Application Layer Protocol Negotiation \(ALPN\) TLS extension with a value of `mqtt`\.
 + Custom authentication is currently available only on port 443\.
 

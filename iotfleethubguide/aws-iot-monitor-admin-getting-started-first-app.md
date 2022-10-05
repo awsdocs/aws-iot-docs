@@ -4,7 +4,7 @@
 
 The following list contains the resources you need to create a Fleet Hub web application\.
 + An [AWS account](https://aws.amazon.com)\.
-+ [AWS Single Sign\-On](https://aws.amazon.com/single-sign-on/) turned on for your account\. \(If you haven't already activated this service, the AWS IoT Core console \([https://console\.aws\.amazon\.com/iot/](https://console.aws.amazon.com/iot/)\) prompts you to do so\.\)
++ [AWS IAM Identity Center \(successor to AWS Single Sign\-On\)](https://aws.amazon.com/single-sign-on/) turned on for your account\. \(If you haven't already activated this service, the AWS IoT Core console \([https://console\.aws\.amazon\.com/iot/](https://console.aws.amazon.com/iot/)\) prompts you to do so\.\)
 
 ## Create your first Fleet Hub web application<a name="aws-iot-monitor-admin-getting-started-steps"></a>
 
@@ -16,11 +16,11 @@ The following steps describe how to create Fleet Hub for AWS IoT Device Manageme
 
 1. On the applications page, choose **Create application**\.
 
-1. On the **Set up Single Sign\-On** page, if you haven't activated AWS Single Sign\-On \(AWS SSO\), follow the steps to activate it\. AWS Organizations sends you an email\. Choose the link in the email to finish activating AWS SSO\.
+1. On the **Set up IAM Identity Center** page, if you haven't activated AWS IAM Identity Center \(successor to AWS Single Sign\-On\) \(IAM Identity Center\), follow the steps to activate it\. AWS Organizations sends you an email\. Choose the link in the email to finish activating IAM Identity Center\.
 **Note**  
-You can connect your own identity provider to AWS SSO\. For more information, see [What Is AWS Single Sign\-On?](https://docs.aws.amazon.com/singlesignon/latest/userguide/) and [ Connect to your external identity provider](https://docs.aws.amazon.com/singlesignon/latest/userguide/manage-your-identity-source-idp.html)\.
+You can connect your own identity provider to IAM Identity Center\. For more information, see [What Is AWS IAM Identity Center \(successor to AWS Single Sign\-On\)?](https://docs.aws.amazon.com/singlesignon/latest/userguide/) and [ Connect to your external identity provider](https://docs.aws.amazon.com/singlesignon/latest/userguide/manage-your-identity-source-idp.html)\.
 
-   The page tells you if you have already activated AWS SSO\.
+   The page tells you if you have already activated IAM Identity Center\.
 
    Choose **Next**\.
 

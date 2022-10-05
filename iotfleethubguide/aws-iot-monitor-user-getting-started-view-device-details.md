@@ -1,12 +1,5 @@
 # View device details<a name="aws-iot-monitor-user-getting-started-view-device-details"></a>
 
-
-****  
-
-|  | 
-| --- |
-|  The fleet indexing feature that supports indexing named shadows and AWS IoT Device Defender violations data is in preview release for AWS IoT Device Management and is subject to change\. | 
-
 This topic walks you through the steps to view details about your device groups and your devices\.
 
 ## Prerequisites<a name="aws-iot-monitor-user-getting-started-view-devices-prerequisites"></a>

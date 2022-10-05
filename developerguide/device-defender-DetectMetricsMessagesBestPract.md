@@ -8,7 +8,7 @@ The agent process should be granted only the minimum permissions required to per
 + Agent should run as a dedicated user, in its own group\.
 + User/groups should be granted read\-only permissions on the resources required to gather and transmit metrics\.
 + Example: read\-only on /proc /sys for the sample agent\.
-+ For an example of how to set up a process to run with reduced permissions, see the setup instructions that are included with the Python sample agent\.
++ For an example of how to set up a process to run with reduced permissions, see the setup instructions that are included with the [Python sample agent](https://github.com/aws-samples/aws-iot-device-defender-agent-sdk-python)\.
 There are a number of well\-known Linux mechanisms that can help you further restrict or isolate your agent process:  
 
 **Advanced mechanisms**

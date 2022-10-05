@@ -85,4 +85,4 @@ aws iot describe-event-configurations
 |  Thing type: created, updated, deleted  |  `THING_TYPE`  |  `$aws/events/thingType/thingTypeName/created`  | 
 |  Thing type: created, updated, deleted  |  `THING_TYPE`  |  `$aws/events/thingType/thingTypeName/updated`  | 
 |  Thing type: created, updated, deleted  |  `THING_TYPE`  |  `$aws/events/thingType/thingTypeName/deleted`  | 
-|  Thing type association: added, removed  |  `THING_TYPE_ASSOCIATION`  |  `$aws/events/thingTypeAssociation/thing/thingName/thingTypeName`  | 
+|  Thing type association: added, removed  |  `THING_TYPE_ASSOCIATION`  |  `$aws/events/thingTypeAssociation/thing/thingName/thingType/thingTypeName/added` `$aws/events/thingTypeAssociation/thing/thingName/thingType/thingTypeName/removed`  | 

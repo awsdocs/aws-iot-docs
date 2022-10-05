@@ -144,15 +144,16 @@ A description of the thing type\.
 ### Thing Type Associated or Disassociated with a Thing<a name="registry-events-thingtype-assoc"></a>
 
 The registry publishes the following event messages when a thing type is associated or disassociated with a thing\.
-+ `$aws/events/thingTypeAssociation/thing/thingName/typeName`
++ `$aws/events/thingTypeAssociation/thing/thingName/thingType/typeName/added`
++ `$aws/events/thingTypeAssociation/thing/thingName/thingType/typeName/removed`
 
-The messages contain the following example payload:
+The following is an example of an `added` payload\. Payloads for `removed` messages are similar\.
 
 ```
 {
     "eventId" : "87f8e095-531c-47b3-aab5-5171364d138d",
     "eventType" : "THING_TYPE_ASSOCIATION_EVENT",
-    "operation" : "CREATED|DELETED",
+    "operation" : "ADDED",
     "thingId" : "b604f69c-aa9a-4d4a-829e-c480e958a0b5",
     "thingName": "myThing",
     "thingTypeName" : "MyThingType",
@@ -170,8 +171,8 @@ Set to "THING\_TYPE\_ASSOCIATION\_EVENT"\.
 
 operation  
 The operation that triggered the event\. Valid values are:  
-+ CREATED
-+ DELETED
++ ADDED
++ REMOVED
 
 thingId  
 The ID of the thing whose type association was changed\.

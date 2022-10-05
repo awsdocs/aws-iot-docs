@@ -2,7 +2,7 @@
 
 Your Fleet Hub for AWS IoT Device Management web application doesn't contain any users when it's newly created\. You must add users before you and members of your organization can use the application\. The steps in this topic describe how to add users to your application\.
 
-You add users from your existing identity system by setting up AWS Single Sign\-On \(AWS SSO\) for your account\. You can connect your own identity provider to AWS SSO\. For more information, see [What Is AWS Single Sign\-On?](https://docs.aws.amazon.com/singlesignon/latest/userguide/)\.
+You add users from your existing identity system by setting up AWS IAM Identity Center \(successor to AWS Single Sign\-On\) \(IAM Identity Center\) for your account\. You can connect your own identity provider to IAM Identity Center\. For more information, see [What Is IAM Identity Center?](https://docs.aws.amazon.com/singlesignon/latest/userguide/)\.
 
 1. On the **Applications** page, choose your web application from the **Fleet Hub applications** list\. Choose **View details**\.
 

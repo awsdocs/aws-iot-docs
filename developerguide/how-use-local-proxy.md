@@ -42,9 +42,10 @@ When running the local proxy, follow these best practices:
 
 ## Example command and output<a name="example-cmd-output-localproxy"></a>
 
-The following shows an example of a command that you run on a Linux OS and the corresponding output\. The example shows a web proxy that's listening on an HTTP port and how the local proxy can be configured in both `source` and `destination` modes\. Before you can run these commands, you must have already opened a tunnel and obtained the client access tokens for the source and destination\. You must have also built the local proxy as described previously\.
+The following shows an example of a command that you run and the corresponding output\. The example shows how the local proxy can be configured in both `source` and `destination` modes\. The local proxy upgrades the HTTPS protocol to WebSockets to establish a long\-lived connection and then starts transmitting data through the connection to the secure tunneling device endpoints\.
 
-The local proxy upgrades the HTTPS protocol to WebSockets to establish a long\-lived connection and then starts transmitting data through the connection to the secure tunneling device endpoints\.
+**Before you run these commands:**  
+You must have opened a tunnel and obtained the client access tokens for the source and destination\. You must have also built the local proxy as described previously\. To build the local proxy, open the [ local proxy source code](https://github.com/aws-samples/aws-iot-securetunneling-localproxy) in the GitHub repository and follow the instructions for building and installing the local proxy\.
 
 **Note**  
 The following commands used in the examples use the `verbosity` flag to illustrate an overview of the different steps described previously after you run the local proxy\. We recommend that you use this flag only for testing purposes\.

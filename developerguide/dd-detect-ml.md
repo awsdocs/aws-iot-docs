@@ -2,6 +2,9 @@
 
 With machine learning Detect \(ML Detect\), you create Security Profiles that use machine learning to learn expected device behaviors by automatically creating models based on historical device data, and assign these profiles to a group of devices or all the devices in your fleet\. AWS IoT Device Defender then identifies anomalies and triggers alarms using the ML models\.
 
+**Note**  
+ML Detect now supports monitoring of operational health metrics that are unique to your fleet\. You can use device\-side [custom metrics](dd-detect-custom-metrics.md) and more granular monitoring of your fleet with the [dimensions feature](scoping-security-behavior.md)\. In addition to setting static alarms manually with Rules Detect, you can now use machine learning to automatically learn your fleet's expected behaviors on custom metrics\. You can also filter out cloud\-side metrics based on dimensions\.
+
 For information about how to get started with ML Detect, see [ML Detect guide](dd-detect-ml-getting-started.md)\.
 
 **Topics**
@@ -45,21 +48,29 @@ The minimum required datapoints to build an ML model is 25,000 datapoints per me
 + 7 devices at 5\-minute intervals\.
 
 **Device group targets**  
-In order for data collection to progress, you must have things in the target thing groups for the Security Profile\.
+To collect data, you must have things in the target thing groups for the Security Profile\.
 
 After the initial model is created, ML models refresh every day and require at least 25,000 datapoints for 14\-day trailing period\.
 
 ## Limitations<a name="dd-detect-ml-limitations"></a>
 
-You can't currently use ML Detect with dimensions or with custom metrics\. The following metrics are not supported with ML Detect\.
+You can use ML Detect with dimensions on the following cloud\-side metrics:
++ [Authorization failures \(aws:num\-authorization\-failures\)](detect-cloud-side-metrics.md#detect-auth-failures)
++ [Messages received \(aws:num\-messages\-received\)](detect-cloud-side-metrics.md#detect-messages-received)
++ [Messages sent \(aws:num\-messages\-sent\)](detect-cloud-side-metrics.md#detect-messages-sent)
++ [Message size \(aws:message\-byte\-size\)](detect-cloud-side-metrics.md#detect-message-size)
 
-**Cloud\-side metrics not supported with ML Detect:**  
+The following metrics are not supported with ML Detect\.
+
+**Cloud\-side metrics not supported with ML Detect:**
 + [Source IP \(aws:source\-ip\-address\)](detect-cloud-side-metrics.md#detect-ip-address)
 
-**Device\-side metrics not supported with ML Detect:**  
+**Device\-side metrics not supported with ML Detect:**
 + [Destination IPs \(`aws:destination-ip-addresses`\)](detect-device-side-metrics.md#detect-destination-ip-addresses)
 + [Listening TCP ports \(`aws:listening-tcp-ports`\)](detect-device-side-metrics.md#detect-listening-tcp-ports)
 + [Listening UDP ports \(`aws:listening-udp-ports`\)](detect-device-side-metrics.md#detect-listening-udp-ports)
+
+Custom metrics only support the **number** type\.
 
 ## Marking false positives and other verification states in alarms<a name="dd-detect-ml-mark-false-positives"></a>
 
@@ -117,7 +128,7 @@ The following APIs can be used to create and manage ML Detect Security Profiles\
 + [ListViolationEvents](https://docs.aws.amazon.com/iot/latest/apireference/API_ListViolationEvents.html)
 + [PutVerificationStateOnViolation](https://docs.aws.amazon.com/iot/latest/apireference/API_PutVerificationStateOnViolation.html)
 
-### <a name="w1263aac43c17c26c25b7"></a>
+### <a name="w1282aac43c17c26c27b7"></a>
 
 ## Pause or delete an ML Detect Security Profile<a name="dd-detect-ml-disable-feature"></a>
 

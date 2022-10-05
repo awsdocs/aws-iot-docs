@@ -73,7 +73,7 @@ You can use the AWS IoT Core for LoRaWAN API or AWS CLI to get the `CurrentVersi
 
 ## Create a wireless gateway task definition<a name="connect-iot-lorawan-create-task-definition"></a>
 
-When you create the task definition, we recommend that you specify automatic creation of tasks by using the AutoCreateTasks parameter\. `AutoCreateTasks` applies to any gateway that has a match for all three parameters mentioned previously\. If this parameter is disabled, the parameters have to be manually assigned to the gateway\.
+When you create the task definition, we recommend that you specify automatic creation of tasks by using the `AutoCreateTasks` parameter\. `AutoCreateTasks` applies to any gateway that has a match for all three parameters mentioned previously\. If this parameter is disabled, the parameters have to be manually assigned to the gateway\.
 
 You can create the wireless gateway task definition by using the AWS IoT Core for LoRaWAN API or AWS CLI\. Following commands show how to create the task definition using the CLI\.
 
@@ -172,7 +172,7 @@ aws iotwireless get-wireless-gateway-task \
     --id 1352172b-0602-4b40-896f-54da9ed16b57
 ```
 
-Following shows the output of the command\.
+The following shows the output of the command\.
 
 ```
 {

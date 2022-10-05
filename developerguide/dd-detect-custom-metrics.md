@@ -36,6 +36,8 @@ The following procedure shows you how to create a custom metric in the console\.
    1. Under **Display name \(optional\)**, you can enter a friendly name for your custom metric\. It doesn't have to be unique and it can be modified after creation\.
 
    1. Under **Type**, choose the type of metric you'd like to monitor\. Metric types include **string\-list**, **ip\-address\-list**, **number\-list**, and **number**\. The type can't be modified after creation\.
+**Note**  
+ML Detect only allows the **number** type\.
 
    1. Under **Tags**, you can select tags to be associated with the resource\.
 

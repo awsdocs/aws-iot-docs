@@ -141,7 +141,7 @@ For more information, see [Jobs device MQTT API](jobs-mqtt-api.md)\.
 
 | Topic | Client operations allowed | Description | 
 | --- | --- | --- | 
-|  $aws/things/*thing\-name*/tunnels/notify  |  Subscribe  |   AWS IoT publishes this message for an IoT agent to start a local proxy on the remote device\. For more information, see [IoT agent snippet](agent-snippet.md)\.   | 
+|  $aws/things/*thing\-name*/tunnels/notify  |  Subscribe  |   AWS IoT publishes this message for an IoT agent to start a local proxy on the remote device\. For more information, see [IoT agent snippet](configure-remote-device.md#agent-snippet)\.   | 
 
 ## Shadow topics<a name="reserved-topics-shadow"></a>
 

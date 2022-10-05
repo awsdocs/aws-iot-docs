@@ -25,18 +25,19 @@ Validates that the device under test sends a CONNECT request\.
 
 **"Device can return PUBACK to an arbitrary topic for QoS1"**  
 This test case will check if device \(client\) can return a PUBACK message if it received a publish message from the broker after subscribing to a topic with QoS1\.  
+The payload content and the payload size are configurable for this test case\. If the payload size is configured, Device Advisor will overwrite the value for the payload content, and send a predefined payload to the device with the desired size\. The payload size is a value between 0 to 128 and cannot exceed 128 KB\. AWS IoT Core rejects publish and connect requests larger than 128 KB, as seen in the [AWS IoT Core message broker and protocol limits and quotas](https://docs.aws.amazon.com/general/latest/gr/iot-core.html#message-broker-limits) page\.   
 *API test case definition:*  
-`EXECUTION_TIMEOUT` has a default value of 5 minutes\. We recommend a timeout value of 2 minutes\. 
+`EXECUTION_TIMEOUT` has a default value of 5 minutes\. We recommend a timeout value of 2 minutes\. `PAYLOAD_SIZE` can be configured to a value between 0 and 128 kilobytes\. Defining a payload size overrides the payload content as Device Advisor will be sending a pre\-defined payload with the given size back to the device\.
 
 ```
-"tests":[
-   {
+"tests":[                            
+{
         "name":"my_mqtt_client_puback_qos1",
         "configuration": {
-            // optional:
-            "TRIGGER_TOPIC": "myTopic",
+            // optional:"TRIGGER_TOPIC": "myTopic",
             "EXECUTION_TIMEOUT":"300", // in seconds
-            "PAYLOAD_FOR_PUBLISH_VALIDATION":"custom payload"
+            "PAYLOAD_FOR_PUBLISH_VALIDATION":"custom payload",
+            "PAYLOAD_SIZE":"100" // in kilobytes
         },
         "test": {
             "id": "MQTT_Client_Puback_Qos1",
@@ -95,7 +96,8 @@ We recommend implementation of the [Exponential Backoff And Jitter](http://aws.a
 Validates if a device under test uses necessary jitter and backoff while reconnecting after it's been disconnected from the server\. Device Advisor disconnects the device from the server for at least five times and observes the device's behavior for MQTT reconnection\. Device Advisor logs the timestamp of the CONNECT request for the device under test, performs packet validation, pauses without sending a CONNACK to the client device, and waits for the device under test to resend the request\. The collected timestamps are used to validate that the device under test uses jitter and backoff while reconnecting\. If the device under test has a strictly exponential backoff or doesn't implement a proper jitter backoff mechanism, this test case will pass with warnings\. If the device under test has implemented either a linear backoff or a constant backoff mechanism, the test will fail\.  
 To pass this test case, we recommend implementing the [Exponential Backoff And Jitter](http://aws.amazon.com/blogs/architecture/exponential-backoff-and-jitter/) mechanism on the device under test\.  
 *API test case definition:*  
-`EXECUTION_TIMEOUT` has a default value of 5 minutes\. We recommend a timeout value of 4 minutes\.
+`EXECUTION_TIMEOUT` has a default value of 5 minutes\. We recommend a timeout value of 4 minutes\.  
+The number of reconnection attempts to validate for backoff can be changed by specifying the `RECONNECTION_ATTEMPTS`\. The number must be between 5 and 10\. The default value is 5\.
 
 ```
 "tests":[
@@ -113,7 +115,30 @@ To pass this test case, we recommend implementing the [Exponential Backoff And J
    }
 ]
 ```
-The number of reconnection attempts to validate for backoff can be changed by specifying the `RECONNECTION_ATTEMPTS`\. The number must be between five and ten\. The default value is five\.
+
+**"Device re\-connect with jitter backoff \- On unstable connection"**  
+Validates if a device under test uses necessary jitter and backoff while reconnecting on an unstable connection\. Device Advisor disconnects the device from the server after five successful connections, and observes the device's behavior for MQTT reconnection\. Device Advisor logs the timestamp of the CONNECT request for the device under test, performs packet validation, sends back CONNACK, disconnects, log the timestamp of the disconnection, and waits for the device under test to resend the request\. The collected timestamps are used to validate that the device under test uses jitter and backoff while reconnecting after successful but unstable connections\. If the device under test has a strictly exponential backoff or doesn't implement a proper jitter backoff mechanism, this test case will pass with warnings\. If the device under test has implemented either a linear backoff or a constant backoff mechanism, the test will fail\.  
+To pass this test case, we recommend implementing the [Exponential Backoff And Jitter](http://aws.amazon.com/blogs/architecture/exponential-backoff-and-jitter/) mechanism on the device under test\.  
+*API test case definition:*  
+`EXECUTION_TIMEOUT` has a default value of 5 minutes\. We recommend a timeout value of 4 minutes\.  
+The number of reconnection attempts to validate for backoff can be changed by specifying the `RECONNECTION_ATTEMPTS`\. The number must be between 5 and 10\. The default value is 5\.
+
+```
+"tests":[
+   {
+      "name":"my_mqtt_reconnect_backoff_retries_on_unstable_connection",
+      "configuration":{
+         // optional:
+         "EXECUTION_TIMEOUT":"300",  // in seconds
+         "RECONNECTION_ATTEMPTS": 5
+      },
+      "test":{
+         "id":"MQTT_Reconnect_Backoff_Retries_On_Unstable_Connection",
+         "version":"0.0.0"
+      }
+   }
+]
+```
 
 ## Publish<a name="publish"></a>
 
@@ -141,7 +166,7 @@ Validates that the device under test publishes a message with QoS0\. You can als
 ```
 
 **"QoS1 publish retry \- No PUBACK"**  
-Validates that the device under test republishes a message sent with QoS1, if the broker doesn't send PUBACK\. You can also validate the topic of the message by specifying this topic in the test settings\. The client device must not disconnect before republishing the message\. This test also validates that the republished message has the same packet identifier as the original\.  
+Validates that the device under test republishes a message sent with QoS1, if the broker doesn't send PUBACK\. You can also validate the topic of the message by specifying this topic in the test settings\. The client device must not disconnect before republishing the message\. This test also validates that the republished message has the same packet identifier as the original\. During the test execution, if the device loses connection and reconnects, the test case will reset without failing and the device has to perform the test case steps again\.  
 *API test case definition:*  
 `EXECUTION_TIMEOUT` has a default value of 5 minutes\. It is recommended for at least 4 minutes\.
 
@@ -188,7 +213,7 @@ Validates that the device under test subscribes to MQTT topics\. You can also va
 ```
 
 **"Subscribe Retry \- No SUBACK"**  
-Validates that the device under test retries a failed subscription to MQTT topics\. The server then waits and doesn't send a SUBACK\. If the client device doesn't retry the subscription, the test fails\. The client device must retry the failed subscription with the same packet Id\. You can also validate the topic that the device under test subscribes to by specifying this topic in the test settings\.  
+Validates that the device under test retries a failed subscription to MQTT topics\. The server then waits and doesn't send a SUBACK\. If the client device doesn't retry the subscription, the test fails\. The client device must retry the failed subscription with the same packet Id\. You can also validate the topic that the device under test subscribes to by specifying this topic in the test settings\. During the test execution, if the device loses connection and reconnects, the test case will reset without failing and the device has to perform the test case steps again\.  
 *API test case definition:*  
 `EXECUTION_TIMEOUT` has a default value of 5 minutes\. We recommend a timeout value of 4 minutes\. 
 

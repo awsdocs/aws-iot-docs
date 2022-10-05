@@ -42,7 +42,7 @@ You can also enable notifications for individual resources in your AWS account t
       + **LoRaWAN resources**: You can enable **join** events for your LoRaWAN devices or **connection status** events for your LoRaWAN gateways\. 
       + **Sidewalk resources**: You can enable **device registration state** or **proximity** events or both for your Sidewalk partner accounts and Sidewalk devices\.
 **Note**  
-The Sidewalk message delivery status event configuration isn't available in the console\. It can only be enabled using the AWS IoT Wireless API or the AWS CLI\.
+The Sidewalk message delivery status event configuration isn't available in the console\. It can be enabled only using the AWS IoT Wireless API or the AWS CLI\.
 
 1. Depending on the resource type and events that you chose, select the wireless devices or gateways that you want to monitor\. You can select up to 250 resources for all resources combined\. 
 

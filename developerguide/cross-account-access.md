@@ -65,9 +65,9 @@ Next, follow the steps in [Creating a Role to Delegate Permissions to an IAM Use
         {
             "Effect": "Allow",
             "Principal": { 
-                "AWS": "arn:aws:iam:us-east-1:567890123456:user:MyUser" 
+                "AWS": "arn:aws:iam:us-east-1:567890123456:user/MyUser"
             },
-            "Action": "sts:AssumeRole",
+            "Action": "sts:AssumeRole"
         }
     ]
 }

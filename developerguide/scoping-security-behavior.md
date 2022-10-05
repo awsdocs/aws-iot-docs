@@ -8,7 +8,7 @@ Dimensions of type TOPIC\_FILTER are compatible with the following set of cloud\
 + Number of messages sent
 + Number of messages received
 + Message byte size
-+ Source IP address
++ Source IP address \(only available for Rules Detect\)
 + Number of authorization failures
 
 ## How to use dimensions in the console<a name="dimensions-console-instruc"></a>
@@ -19,7 +19,7 @@ Dimensions of type TOPIC\_FILTER are compatible with the following set of cloud\
 
 1. On the **Security profiles** page, choose **Create** to add a new security profile, or **Edit** to apply a dimension to an existing security profile\.
 
-1. On the **Expected behaviors** page, select one of the five cloud\-side metrics dimensions supports under **Metric**\. The **Dimension** and **Dimension operator** boxes display\. For information about supported cloud\-side metrics, see [Scoping metrics in security profiles using dimensions](#scoping-security-behavior)\.
+1. On the **Expected behaviors** page, select one of the five cloud\-side metrics dimensions supports under **Metric**\. The **Dimension** and **Dimension operator** boxes display\.
 
 1. For **Dimension**, choose **Add dimension**\.
 
@@ -122,6 +122,15 @@ Dimensions of type TOPIC\_FILTER are compatible with the following set of cloud\
        "name": "CellularBandwidth"
      }
    ]
+   ```
+
+   Or use [CreateSecurityProfile](https://docs.aws.amazon.com/iot/latest/apireference/API_CreateSecurityProfile.html) using dimension with ML like the following example:
+
+   ```
+   aws iot create-security-profile --security-profile-name ProfileForConnectedDeviceML \
+      --security-profile-description “Check to see if messages to TopicFilterForAuthMessages are abnormal”  \
+      --behaviors “[{\“name\“:\“test1\“,\“metric\“:\“aws:message-byte-size\“,\“metricDimension\“:{\“dimensionName\“: \“TopicFilterForAuthMessages\“,\“operator\“: \“IN\“},\“criteria\“:{\“mlDetectionConfig\“:{\“confidenceLevel\“:\“HIGH\“},\“consecutiveDatapointsToAlarm\“:1,\“consecutiveDatapointsToClear\“:1}}]” \
+      --region us-west-2
    ```
 
 **To view security profiles with a dimension**

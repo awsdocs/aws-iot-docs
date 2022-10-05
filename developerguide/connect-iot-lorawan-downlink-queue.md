@@ -60,6 +60,9 @@ You can use the AWS IoT Wireless API to queue downlink messages and clear indivi
 **Queue downlink messages**  
 To create a downlink message queue, use the [https://docs.aws.amazon.com/iot-wireless/2020-11-22/apireference/API_SendDataToWirelessDevice.html](https://docs.aws.amazon.com/iot-wireless/2020-11-22/apireference/API_SendDataToWirelessDevice.html) API operation or the [cli/latest/reference/iotwireless/send-data-to-wireless-device.html](cli/latest/reference/iotwireless/send-data-to-wireless-device.html) CLI command\.
 
+**Note**  
+When sending a downlink message using the `SendDataToWirelessDevice` API, you can choose the gateways that you want to use for the downlink data traffic\. For more information, see [Choosing gateways to receive the LoRaWAN downlink data traffic](connect-iot-lorawan-gateway-participate.md)\.
+
 ```
 aws iotwireless send-data-to-wireless-device \
     --id "11aa5eae-2f56-4b8e-a023-b28d98494e49" \

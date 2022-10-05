@@ -201,6 +201,28 @@ To allow a device to receive messages from all topics under `a/` except `a/restr
 }
 ```
 
+Authorization on a subscription happens when a `Subscribe` request is made\. After a subscription is made, messages can be received as long as the connection is open\. Every time a message is published to a device, AWS IoT Core performs an authorization check on the topic for the `Receive` action\. If you want to block devices from receiving the messages on existing subscriptions, you can update the policy by denying the permissions on `iot:Receive`\. 
+
+The following policy denies permissions for devices to receive on a topic `device/update` and gives permissions for the devices to subscribe\.
+
+```
+{
+   "Version":"2012-10-17",
+   "Statement":[
+      {
+         "Effect":"Allow",
+         "Action":"iot:Subscribe",
+         "Resource":"arn:aws:iot:us-east-1:123456789012:topicfilter/device/update"
+      },
+      {
+         "Effect":"Deny",
+         "Action":"iot:Receive",
+         "Resource":"arn:aws:iot:us-east-1:123456789012:topic/device/update"
+      }
+   ]
+}
+```
+
 ------
 #### [ Registered devices \(4\) ]
 
