@@ -15,7 +15,7 @@ A video overview of AWS IoT and its core services\.
 An advanced course that explores the concepts of AWS IoT authentication and authorization\. You will learn how to authenticate and authorize clients to access the AWS IoT control plane and data plane APIs\.
 + 
 
-**[Internet of Things Foundation Series](https://www.aws.training/LearningLibrary?filters=classification%3A25)**  
+**[Internet of Things Foundation Series](https://explore.skillbuilder.aws/learn/course/internal/view/elearning/402/internet-of-things-foundation-series)**  
 A learning path of IoT eLearning modules on different IoT technologies and features\.
 
 ## AWS IoT resources and guides<a name="aws-iot-learn-more-wp"></a>
@@ -27,7 +27,7 @@ These are in\-depth technical resources on specific aspects of AWS IoT\.
 A document that describes the best practices for architecting your IoT applications on AWS\.
 + 
 
-**[Designing MQTT Topics for AWS IoT Core](https://d1.awsstatic.com/whitepapers/Designing_MQTT_Topics_for_AWS_IoT_Core.pdf)**  
+**[Designing MQTT Topics for AWS IoT Core](https://docs.aws.amazon.com/whitepapers/latest/designing-mqtt-topics-aws-iot-core/designing-mqtt-topics-aws-iot-core.html)**  
 A PDF document that describes the best practices for designing MQTT topics in AWS IoT Core and leveraging AWS IoT Core features with MQTT\.
 + 
 
