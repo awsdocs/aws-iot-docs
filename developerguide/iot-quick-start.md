@@ -55,7 +55,7 @@ This page appears after AWS IoT has created the connection kit, which includes t
 + A policy resource to authorize your thing object to interact with AWS IoT
 + The script to download the AWS Device SDK and run the sample program on your device
 
-1. When you're ready to continue, choose the **Download connection kit for** button to download the connection kit for the platform that you chose earlier\.  
+1. When you're ready to continue, choose the **Download connection kit** button to download the connection kit for the platform that you chose earlier\.  
 ![\[AWS IoT console certificate file download page\]](http://docs.aws.amazon.com/iot/latest/developerguide/images/aws-iot-learn-download-connection-kit_1.png)
 
 1. If you're running this procedure on your device, save the connection kit file to a directory from which you can run command line commands\.
