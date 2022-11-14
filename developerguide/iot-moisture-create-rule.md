@@ -17,13 +17,15 @@ You create a query that extracts the moisture and temperature data from the inco
 
 **Create an Amazon SNS rule**
 
-1. In the [AWS IoT console](https://console.aws.amazon.com/iot/home), in the navigation pane, choose **Act**\. If a **You don't have any rules yet** dialog box appears, choose **Create a rule**\. Otherwise, choose **Create**\.
+1. In the [AWS IoT console](https://console.aws.amazon.com/iot/home), in the navigation pane under **Manage**, choose **Message RoutingAct**, and then **Rules**\. Choose **Create rule**\.
 
-1. In the **Create a rule** page, enter a name for your rule \(for example, **MoistureSensorRule**\)\.
+1. In the **Specify rule properties** page, enter a name for your rule \(for example, **MoistureSensorRule**\)\.
 
 1. For **Description**, provide a short description for this rule \(for example, **Sends an alert when soil moisture level readings are too low**\)\.
 
-1. Under **Rule query statement**, choose SQL version **2016\-03\-23**, and enter the following AWS IoT SQL query statement:
+1. Select **Next**\.
+
+1. Under **Configure SQL statement**, choose SQL version **2016\-03\-23**, and enter the following AWS IoT SQL query statement:
 
    ```
    SELECT * FROM '$aws/things/RaspberryPi/shadow/update/accepted' WHERE state.reported.moisture < 400
@@ -33,18 +35,16 @@ You create a query that extracts the moisture and temperature data from the inco
 **Note**  
 You might have to use a different value\. After you have the code running on your Raspberry Pi, you can see the values that you get from your sensor by touching the sensor, placing it in water, or placing it in a planter\. 
 
-1. Under **Set one or more actions**, choose **Add action**\.
+1. Select **Next**\.
 
-1. On the **Select an action** page, choose **Send a message as an SNS push notification**\.
+1. Select Simple Notification Service (SNS) in the dropdown under **Rule actions**\.
 
-1. Scroll to the bottom of the page, and then choose **Configure action**\.
-
-1. On the **Configure action** page, for **SNS target**, choose **Select**, and then choose **LowMoistureTopic**\. 
+1. For **SNS topic**, choose **MoistureSensorTopic** in the drop down list\. 
 
 1. For **Message format**, choose **RAW**\.
 
-1. Under **Choose or create a role to grant AWS IoT access to perform this action**, choose **Create role**\. Enter a name for the role \(for example, **LowMoistureTopicRole**\), and then choose **Create role**\.
+1. Under **IAM role**, choose **Create new role**\. Enter a name for the role \(for example, **MoistureSensorTopicRole**\), and then choose **Create**\.
 
-1. Choose **Add action**\.
+1. Select **Next**\.
 
-1. Choose **Create rule**\.
+1. Choose **Create**\.
