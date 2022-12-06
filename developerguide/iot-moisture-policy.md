@@ -2,13 +2,13 @@
 
 Create an AWS IoT policy that allows your Raspberry Pi to connect and send messages to AWS IoT\.
 
-1. In the [AWS IoT console](https://console.aws.amazon.com/iot), if a **Get started** button appears, choose it\. Otherwise, in the navigation pane, expand ** Secure**, and then choose **Policies**\.
+1. In the [AWS IoT console](https://console.aws.amazon.com/iot), if a **Get started** button appears, choose it\. Otherwise, in the navigation pane, under **Manage**, expand **Security**, and then choose **Policies**\.
 
-1. If a **You don't have any policies yet** dialog box appears, choose **Create a policy**\. Otherwise, choose **Create**\.
+1. Choose **Create policy**\.
 
 1. Enter a name for the AWS IoT policy \(for example, **MoistureSensorPolicy**\)\.
 
-1. In the **Add statements** section, replace the existing policy with the following JSON\. Replace *region* and *account* with your AWS Region and AWS account number\.
+1. In the **Policy statements** section, makes ure **JSON** is selected. Replace the existing policy with the following JSON\. Replace *region* and *account* with your AWS Region and AWS account number (example: us-east-1:987654321987)\.
 
    ```
    {
