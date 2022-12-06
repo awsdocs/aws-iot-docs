@@ -31,7 +31,7 @@ You create a query that extracts the moisture and temperature data from the inco
 
    This statement triggers the rule action when the `moisture` reading is less than `400`\.
 **Note**  
-You might have to use a different value\. After you have the code running on your Raspberry Pi, you can see the values that you get from your sensor by touching the sensor, placing it in water, or placing it in a planter\. 
+You might have to use a different value\.  If using the VH400, the value returned is percent moisture, so a value of 10 will be appropriate. After you have the code running on your Raspberry Pi, you can see the values that you get from your sensor by touching the sensor, placing it in water, or placing it in a planter\. 
 
 1. Under **Set one or more actions**, choose **Add action**\.
 
