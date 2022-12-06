@@ -4,6 +4,8 @@ Create an Amazon SNS topic and subscription\.
 
 1. From the [AWS SNS console](https://console.aws.amazon.com/sns/home), in the navigation pane, choose **Topics**, and then choose **Create topic**\.
 
+1. Select **Standard** for the queue type.
+
 1. Enter a name for the topic \(for example, **MoistureSensorTopic**\)\.
 
 1. Enter a display name for the topic \(for example, **Moisture Sensor Topic**\)\. This is the name displayed for your topic in the Amazon SNS console\.
