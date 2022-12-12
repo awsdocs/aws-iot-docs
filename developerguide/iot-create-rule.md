@@ -150,7 +150,7 @@ The following is an example payload file with a rule that pushes data to an Amaz
   "awsIotSqlVersion": "2016-03-23",
   "actions": [{
       "firehose": {
-          "roleArn": ""arn:aws:iam::123456789012:role/my-iot-role",
+          "roleArn": "arn:aws:iam::123456789012:role/my-iot-role",
           "deliveryStreamName": "my-stream-name"
       }
   }]
