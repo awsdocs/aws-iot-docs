@@ -149,17 +149,17 @@ The next section describes each of the AWS IoT Core services shown in the illust
 
 The AWS IoT Core connectivity services provide secure communication with the IoT devices and manage the messages that pass between them and AWS IoT\.
 
-**Device gateway **  
+**Device gateway**  
 Enables devices to securely and efficiently communicate with AWS IoT\. Device communication is secured by secure protocols that use X\.509 certificates\. 
 
-**Message broker **  
+**Message broker**  
 Provides a secure mechanism for devices and AWS IoT applications to publish and receive messages from each other\. You can use either the MQTT protocol directly or MQTT over WebSocket to publish and subscribe\. For more information about the protocols that AWS IoT supports, see [Device communication protocols](protocols.md)\. Devices and clients can also use the HTTP REST interface to publish data to the message broker\.  
 The message broker distributes device data to devices that have subscribed to it and to other AWS IoT Core services, such as the Device Shadow service and the rules engine\.
 
 **AWS IoT Core for LoRaWAN**  
 AWS IoT Core for LoRaWAN makes it possible to set up a private LoRaWAN network by connecting your LoRaWAN devices and gateways to AWS without the need to develop and operate a LoRaWAN Network Server \(LNS\)\. Messages received from LoRaWAN devices are sent to the rules engine where they can be formatted and sent to other AWS IoT services\.
 
-**Rules engine **  
+**Rules engine**  
 The Rules engine connects data from the message broker to other AWS IoT services for storage and additional processing\. For example, you can insert, update, or query a DynamoDB table or invoke a Lambda function based on an expression that you defined in the Rules engine\. You can use an SQL\-based language to select data from message payloads, and then process and send the data to other services, such as Amazon Simple Storage Service \(Amazon S3\), Amazon DynamoDB, and AWS Lambda\. You can also create rules that republish messages to the message broker and on to other subscribers\. For more information, see [Rules for AWS IoT](iot-rules.md)\.
 
 ### AWS IoT Core control services<a name="aws-iot-core-control"></a>
@@ -184,17 +184,17 @@ To create a job, you specify a description of the remote operations to be perfor
 **Registry**  
 Organizes the resources associated with each device in the AWS Cloud\. You register your devices and associate up to three custom attributes with each one\. You can also associate certificates and MQTT client IDs with each device to improve your ability to manage and troubleshoot them\. For more information, see [Managing devices with AWS IoT](iot-thing-management.md)\.
 
-**Security and Identity service **  
+**Security and Identity service**  
 Provides shared responsibility for security in the AWS Cloud\. Your devices must keep their credentials safe to securely send data to the message broker\. The message broker and rules engine use AWS security features to send data securely to devices or other AWS services\. For more information, see [Authentication](authentication.md)\.
 
 ### AWS IoT Core data services<a name="aws-iot-core-data"></a>
 
 The AWS IoT Core data services help your IoT solutions provide a reliable application experience even with devices that are not always connected\.
 
-**Device shadow **  
+**Device shadow**  
 A JSON document used to store and retrieve current state information for a device\.
 
-**Device Shadow service **  
+**Device Shadow service**  
 The Device Shadow service maintains a device's state so that applications can communicate with a device whether the device is online or not\. When a device is offline, the Device Shadow service manages its data for connected applications\. When the device reconnects, it synchronizes its state with that of its shadow in the Device Shadow service\. Your devices can also publish their current state to a shadow for use by applications or other devices that might not be connected all the time\. For more information, see [AWS IoT Device Shadow service](iot-device-shadows.md)\.
 
 ### AWS IoT Core support service<a name="aws-iot-core-integ"></a>
