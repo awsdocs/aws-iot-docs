@@ -11,8 +11,8 @@ Lifecycle messages might be sent out of order\. You might receive duplicate mess
 With AWS IoT Device Management fleet indexing, you can search for things, run aggregate queries, and create dynamic groups based on thing Connect/Disconnect events\. For more information, see [ Fleet indexing](https://docs.aws.amazon.com/iot/latest/developerguide/iot-indexing.html)\.
 
 AWS IoT publishes a message to the following MQTT topics when a client connects or disconnects:
-+ `$aws/events/presence/connected/clientId` – A client connected to the message broker\.
-+ `$aws/events/presence/disconnected/clientId` – A client disconnected from the message broker\.
++ `$aws/events/presence/connected/#` – A client connected to the message broker for specific or single id replace the # with the single ID\.
++ `$aws/events/presence/disconnected/#`  =A client connected to the message broker for specific or single id replace the # with the single ID\.
 
 The following is a list of JSON elements that are contained in the connection/disconnection messages published to the `$aws/events/presence/connected/clientId` topic\.
 
@@ -86,16 +86,16 @@ The best practice is to always have a wait state implemented for lifecycle event
 AWS IoT publishes a message to the following MQTT topic when a client subscribes or unsubscribes to an MQTT topic:
 
 ```
-$aws/events/subscriptions/subscribed/clientId
+$aws/events/subscriptions/subscribed/#
 ```
 
  or 
 
 ```
-$aws/events/subscriptions/unsubscribed/clientId
+$aws/events/subscriptions/unsubscribed/#
 ```
 
-Where `clientId` is the MQTT client ID that connects to the AWS IoT message broker\.
+Where `# allows you to receive from all clientId in your account in your region for specific and sigle clientId replace the # with clientId` is the MQTT client ID that connects to the AWS IoT message broker\.
 
 The message published to this topic has the following structure:
 
